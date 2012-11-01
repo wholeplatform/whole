@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://samples.lang.whole.org/sample" attributeFormDefault="unqualified" elementFormDefault="qualified"
+	xmlns:sm="http://samples.lang.whole.org/sample"
+	xmlns="http://www.w3.org/2001/XMLSchema">
+
+	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+ 
+	<complexType name="StringType">
+		<simpleContent>
+			<extension base="string">
+				<attribute name="id" type="ID"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+	<complexType name="LocalizedStringType">
+		<simpleContent>
+			<extension base="sm:StringType">
+				<!-- TODO attribute ref="xml:lang"/ -->
+				<attribute name="lang" type="string"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+
+    <complexType name="TokenType">
+        <simpleContent>
+            <restriction base="sm:StringType"/>
+        </simpleContent>
+    </complexType>
+
+    <complexType name="LocalizedTokenType">
+        <simpleContent>
+            <restriction base="sm:LocalizedStringType"/>
+        </simpleContent>
+    </complexType>
+
+    <complexType name="EnumType">
+        <simpleContent>
+            <restriction base="sm:StringType">
+                <enumeration value="VAL1"/>
+                <enumeration value="VAL2"/>
+                <enumeration value="VAL3"/>
+            </restriction>
+        </simpleContent>
+    </complexType>
+
+	<element name="sample">
+	    <complexType>
+	        <sequence>
+	            <element name="string" type="sm:StringType"/>
+	            <element name="localizedString" type="sm:LocalizedStringType"/>
+	            <element name="token" type="sm:TokenType"/>
+	            <element name="localizedToken" type="sm:LocalizedTokenType"/>
+	            <element name="enum" type="sm:EnumType"/>
+	        </sequence>
+	        <attribute use="optional" name="id" type="ID"/>
+	    </complexType>
+	</element>
+</schema>

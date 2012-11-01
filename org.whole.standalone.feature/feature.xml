@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.whole.standalone.feature"
+      label="%featureName"
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      plugin="org.whole.standalone">
+
+   <description url="http://whole.sourceforge.net">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
+      <discovery label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
+   </url>
+
+   <includes
+         id="org.whole.lang.feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.whole.langs.legacy"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.langs.legacy.op"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.langs.core"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.langs.core.op"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.langs.db"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.langs.db.op"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.standalone"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"/>
+
+</feature>

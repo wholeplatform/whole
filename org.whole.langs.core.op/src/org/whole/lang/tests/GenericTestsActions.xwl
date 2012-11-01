@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.tests:GenericTestsActions"/>
+    <actions:Namespace value="org.whole.lang.tests"/>
+    <actions:Name value="Generic Tests Actions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Apply filter"/>
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                    <queries:Path initialCapacity="3">
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <queries:Filter>
+                            <queries:AncestorOrSelfStep/>
+                            <queries:And initialCapacity="3">
+                                <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
+                                <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
+                            <queries:VariableTest value="fragment"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Path initialCapacity="4">
+                        <queries:VariableRefStep value="fragment"/>
+                        <queries:Filter>
+                            <queries:AncestorStep/>
+                            <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="http://lang.whole.org/Tests#filter"/>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Tests#name"/>
+                            <queries:VariableTest value="filterName"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="create filters map"/>
+                        <workflows:Variable value="filtersMap"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.tests.util.TestsHelpers"/>
+                        <workflows:StringLiteral value="createFilterRulesMap(org.whole.lang.tests.model.TestSuite)"/>
+                        <workflows:Expressions initialCapacity="1">
+                            <queries:Filter>
+                                <queries:RootStep/>
+                                <queries:TypeTest value="http://lang.whole.org/Tests#TestSuite"/>
+                            </queries:Filter>
+                        </workflows:Expressions>
+                    </workflows:InvokeJavaClassMethod>
+                    <queries:Path initialCapacity="2">
+                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="get filer from map"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:Variable value="filtersMap"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="java.util.Map"/>
+                            <workflows:StringLiteral value="get(java.lang.Object)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:Variable value="filterName"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaInstanceMethod>
+                        <queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Tests#body"/>
+                            <queries:VariableTest value="filter"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="fragment"/>
+                        <queries:Call>
+                            <queries:Name value="filter"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                    </queries:Path>
+                    <queries:VariableRefStep value="fragment"/>
+                </queries:Block>
+                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:AncestorOrSelfStep/>
+                                <queries:And initialCapacity="3">
+                                    <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:ExpressionTest>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Test apply filter"/>
+                <actions:ActionCall>
+                    <actions:Label value="whole:org.whole.lang.tests:GenericTestsActions#Apply filter"/>
+                    <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="primarySelectedEntity"/>
+                </actions:ActionCall>
+                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:AncestorOrSelfStep/>
+                                <queries:And initialCapacity="3">
+                                    <queries:AtTypeTest value="http://lang.whole.org/Tests#Expression"/>
+                                    <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:ExpressionTest>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

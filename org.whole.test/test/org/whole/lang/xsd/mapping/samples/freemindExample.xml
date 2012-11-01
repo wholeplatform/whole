@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="0.8.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="freemind.xsd">
+    <node CREATED="1257498349113" ID="id0qgi2jopj4nvn8r6ue6tjel5k5" MODIFIED="1257498349113" TEXT="Projects">
+        <node CREATED="1257498349113" ID="id7ujcft58vsiarrbsofjehjpgtf" MODIFIED="1257498349113" POSITION="right" TEXT="Whole">
+            <node CREATED="1257498349113" ID="id6ldvihr44s5svvojr56vfto0k5" MODIFIED="1257498349113" TEXT="Resource Management">
+                <node CREATED="1257498349113" ID="id2p827aq35f78715siujm87itq2" MODIFIED="1257498349113" TEXT="Eclipse Modeling Framework 2ed.pdf"/>
+            </node>
+            <node CREATED="1257498349113" ID="id4fi1aab3lgb394nrs89amsmfn2" MODIFIED="1257498349113" TEXT="Graph visualization">
+                <node CREATED="1257498349113" ID="id7fv7324ec37kdrbaivp49iorga" MODIFIED="1257498349113" TEXT="http://prefuse.org/doc/manual/"/>
+            </node>
+        </node>
+        <node CREATED="1257498349113" ID="id18ip7592e8t7splukoti8irfol" MODIFIED="1257498349113" POSITION="right" TEXT="Analisi delle Reti">
+            <node CREATED="1257498349113" ID="id30964aruvfsdihl8oo3602eo8v" MODIFIED="1257498349113" TEXT="Modellazione"/>
+            <node CREATED="1257498349113" ID="id0834s3iun3gr8qta310l57qsg5" MODIFIED="1257498349113" TEXT="Analisi UCINet">
+                <node CREATED="1257498349113" ID="id1acdc6gui9d685kebubd7vt6j3" MODIFIED="1257498349113" TEXT="tutorial">
+                    <node CREATED="1257498349113" ID="id2nt2esshcj82qvekori7djudlm" MODIFIED="1257498349113" TEXT="http://faculty.ucr.edu/~hanneman/nettext/C7_Connection.html"/>
+                </node>
+            </node>
+        </node>
+        <node CREATED="1257498349113" ID="id6el8anssucsisaejipt0nffu3q" MODIFIED="1257498349113" POSITION="right" TEXT="Hats">
+            <node CREATED="1257498349113" ID="id6mspaaag4njq7gn8dnq5fsir3k" MODIFIED="1257498349113" TEXT="Organisation Scheme.pdf"/>
+            <node CREATED="1257498349113" ID="id62aj21cbfujcqgrlc6tn1llfbg" MODIFIED="1257498349113" TEXT="Annex-I.pdf"/>
+            <node CREATED="1257498349113" ID="id4cv0u8mdfa9u8fbhblefgp50su" MODIFIED="1257498349113" TEXT="slides of meetings">
+                <node CREATED="1257498349113" ID="id4i5rv5e5ha6hogupeeairf49u5" MODIFIED="1257498349113" TEXT="FrankJvdLinden_SoftwareProductLines.pdf"/>
+            </node>
+            <node CREATED="1257498349113" FOLDED="true" ID="id0ro5s26et55v2rhc15uglm0reu" MODIFIED="1257498349113" TEXT="http://www.cse.chalmers.se/research/hats/">
+                <node CREATED="1257498349113" ID="id2ol0pcftevarp1vcbrig1avqhq" MODIFIED="1257498349113" TEXT="username: enduser&#10;password: lk+EJkl5Nme"/>
+            </node>
+        </node>
+        <node CREATED="1257498349113" ID="id3emmccgathive89p5h4gv6lp2i" MODIFIED="1257498349113" POSITION="left" TEXT="Research">
+            <node CREATED="1257498349113" ID="id4urc8bf9o3ludbttrfl0p95i9k" MODIFIED="1257498349113" TEXT="monads (see Giovanni)"/>
+            <node CREATED="1257498349113" ID="id0iejl6k1d8fhdkijeq2ug079ol" MODIFIED="1257498349113" TEXT="Mac OS and iphone development">
+                <node CREATED="1257498349113" ID="id00ut4jq6rg2i213kjeae7aec8k" MODIFIED="1257498349113" TEXT="java integration">
+                    <node CREATED="1257498349113" ID="id7bq90e39udp13hdd41apfs1da2" MODIFIED="1257498349113" TEXT="http://developer.apple.com/mac/library/technotes/tn2005/tn2147.html"/>
+                </node>
+            </node>
+            <node CREATED="1257498349113" ID="id2c04r6lfqajrmluth5it4metjl" MODIFIED="1257498349113" TEXT="http://blogs.zdnet.com/Hinchcliffe/?p=771"/>
+            <node CREATED="1257498349113" ID="id7si1sk9m3qurikeb37jodmd1c9" MODIFIED="1257498349113" TEXT="http://www.springerlink.com/content/88q318h1w661025x/"/>
+            <node CREATED="1257498349113" ID="id2k65dkkcsqfvklajjt7k7tpfdo" MODIFIED="1257498349113" TEXT="software evolution">
+                <node CREATED="1257498349113" ID="id0h4r14cb4bf7e22dftirgpgnb9" MODIFIED="1257498349113" TEXT="http://swerl.tudelft.nl/bin/view/MoDSE"/>
+                <node CREATED="1257498349113" ID="id4nfbtan0piklqg1hlj1i8tv25s" MODIFIED="1257498349113" TEXT="Software evolution">
+                    <icon BUILTIN="bookmark"/>
+                </node>
+            </node>
+            <node CREATED="1257498349113" ID="id67b2898epm66i0opku7il40rad" MODIFIED="1257498349113" STYLE="bubble" TEXT="Software Product Lines">
+                <font NAME="SansSerif" SIZE="12"/>
+                <node CREATED="1257498349113" ID="id5osf6s6ulmfjmgn70dqemqecsg" MODIFIED="1257498349113" TEXT="Software Product Lines in Action.pdf">
+                    <icon BUILTIN="bookmark"/>
+                </node>
+                <node CREATED="1257498349114" ID="id7re0aucn2ia42ca0nlql8h2mfj" MODIFIED="1257498349114" TEXT="Software Product Lines.pdf">
+                    <icon BUILTIN="bookmark"/>
+                </node>
+                <node CREATED="1257498349114" ID="id56019n7nigq4gci86qnp05i6t8" MODIFIED="1257498349114" TEXT="Software Product Line Engineering&#10;Foundations, Principles and Techniques">
+                    <icon BUILTIN="bookmark"/>
+                </node>
+                <node CREATED="1257498349114" ID="id5rhj0aallri4nptn7c5r93p6p7" MODIFIED="1257498349114" TEXT="http://www.sei.cmu.edu/productlines/tools/framework/"/>
+            </node>
+            <node CREATED="1257498349114" ID="id1pi8tgd45puqqodqi9ak67uu75" MODIFIED="1257498349114" TEXT="grammars and parsers">
+                <node CREATED="1257498349114" ID="id0grpc65no0m3kb1rcdp4m742pk" MODIFIED="1257498349114" TEXT="http://swerl.tudelft.nl/bin/view/MoDSE"/>
+            </node>
+            <node CREATED="1257498349114" ID="id2vek53p9vqa4gups7qugfm8cac" MODIFIED="1257498349114" TEXT="Psicologia Cognitiva">
+                <node CREATED="1257498349114" ID="id1ldpc7vq0uhughjsomm41roevl" MODIFIED="1257498349114" TEXT="http://it.wikipedia.org/wiki/Psicologia_cognitiva"/>
+            </node>
+            <node CREATED="1257498349114" ID="id0o56ah2c6a0973097pk2rjrngo" MODIFIED="1257498349114" TEXT="Context Oriented Programming"/>
+            <node CREATED="1257498349114" ID="id7gq61pacdnkbdgl0rm9mmeoqff" MODIFIED="1257498349114" TEXT="Formal Methods">
+                <node CREATED="1257498349114" ID="id13uul6i12ht87ve4kms29n6991" MODIFIED="1257498349114" TEXT="https://www.pps.jussieu.fr/~noam/"/>
+                <node CREATED="1257498349114" ID="id262uc1nnn1f35053jhnffkt9dg" MODIFIED="1257498349114" TEXT="http://polaro.blogspot.com/2009/01/defunctionalizing-proofs-and-how-to.html"/>
+                <node CREATED="1257498349114" ID="id3q3trhv5ns95u19kei0evpt95j" MODIFIED="1257498349114" TEXT="definitional_interpreters_for_higher_ord_64007.pdf"/>
+                <node CREATED="1257498349114" ID="id7n2us5ntppmba4qe4foulg90rr" MODIFIED="1257498349114" TEXT="rtcd.pdf"/>
+            </node>
+        </node>
+    </node>
+</map>

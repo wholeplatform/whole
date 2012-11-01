@@ -1,0 +1,26 @@
+Workspace {
+    metadata: 
+    projects: Projects [
+        Project {
+            name: [[ $projectName : Artifacts#ProjectName! ]]
+            natures: Natures [
+            ]
+            metadata: 
+            artifacts: Artifacts [
+                FolderArtifact {
+                    name: [[ $sourceFolderName : Artifacts#Name! ]]
+                    metadata: 
+                    artifacts: Artifacts [
+                        PackageArtifact {
+                            name: [[ $packageName : Artifacts#PackageName! ]]
+                            metadata: 
+                            artifacts: Artifacts [
+                            ]
+                        }
+                    ]
+                }
+            ]
+            locationURI: 
+        }
+    ]
+}

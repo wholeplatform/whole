@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Scheme Language Deployer"
+            class="org.whole.lang.scheme.reflect.SchemeLanguageDeployer"
+            id="org.whole.lang.scheme.reflect.SchemeLanguageDeployer">
+      </deployer>
+   </extension>
+   
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Flowchart Language Deployer"
+            class="org.whole.lang.flowchart.reflect.FlowchartLanguageDeployer"
+            id="org.whole.lang.flowchart.reflect.FlowchartLanguageDeployer">
+      </deployer>
+   </extension>
+   
+   <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="First Order Logic Language Deployer"
+            class="org.whole.lang.firstorderlogic.reflect.FirstOrderLogicLanguageDeployer"
+            id="org.whole.lang.firstorderlogic.reflect.FirstOrderLogicLanguageDeployer">
+      </deployer>
+   </extension>
+
+   <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Unified Lambda Delta Language Deployer"
+            class="org.whole.lang.unifiedlambdadelta.reflect.UnifiedLambdaDeltaLanguageDeployer"
+            id="org.whole.lang.unifiedlambdadelta.reflect.UnifiedLambdaDeltaLanguageDeployer">
+      </deployer>
+   </extension>
+</plugin>

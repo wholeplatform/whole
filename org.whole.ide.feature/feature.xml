@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.whole.ide.feature"
+      label="%featureName"
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      plugin="org.whole.ide">
+
+   <description url="http://whole.sourceforge.net">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
+      <discovery label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
+   </url>
+
+   <includes
+         id="org.whole.lang.gen.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.whole.rcp.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.eclipse.platform" version="3.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gef" version="3.2.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.whole.ide"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.lang.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

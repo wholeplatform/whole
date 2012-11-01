@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Core Languages UI Deployer"
+            class="org.whole.langs.core.ui.CoreUIDeployer"
+            id="org.whole.langs.core.ui.CoreUIDeployer">
+      </deployer>
+	</extension>
+     <extension
+           point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+        <propertyTabs contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
+           <propertyTab
+                 afterTab="org.whole.lang.ui.AdvancedTabs"
+                 category="info"
+                 id="MetadataTab"
+                 indented="false"
+                 label="Metadata"/>
+        </propertyTabs>
+     </extension>
+     <extension
+           point="org.eclipse.ui.views.properties.tabbed.propertySections">
+        <propertySections contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
+           <propertySection
+                 class="org.whole.lang.artifacts.ui.views.properties.tabbed.sections.MetadataPropertySection"
+                 enablesFor="1"
+                 filter="org.whole.lang.artifacts.ui.views.properties.tabbed.sections.MetadataArtifactsSelectionFilter"
+                 id="MetadataSection"
+                 tab="MetadataTab">
+                 <input type="org.whole.lang.ui.editparts.IEntityPart"/>
+           </propertySection>
+        </propertySections>
+    </extension>
+	<extension
+   	     point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			priority="high"
+		        name="ObjectiveC Source File (Whole)"
+		        id="org.whole.ui.contenttype.contentTypes.objectivecWhole"
+		        base-type="org.eclipse.core.runtime.text"
+		        file-extensions="h,m,c">
+		</content-type>
+		<content-type
+		        id="org.whole.ui.contenttype.contentTypes.mediawikiSource"
+		        name="Mediawiki Source File (Whole)" 
+			    base-type="org.eclipse.core.runtime.text"
+			    alias-for="org.eclipse.mylyn.wikitext.mediawiki"
+			    file-extensions="mediawiki">
+		</content-type>
+	</extension>
+		
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Grammar Based Persistence"
+            default="false"
+            extensions="text,txt,flf,csv"
+            icon="icons/editors/grammar.gif"
+            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            id="org.whole.lang.grammars.GrammarEditor">
+            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+      </editor>
+      <editor
+            name="Objective C Editor (Whole)"
+            default="false"
+            extensions="h,m,c"
+            icon="icons/editors/grammar.gif"
+            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            id="org.whole.lang.objectivec.ObjectiveCEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.objectivecWhole"/>
+      </editor>
+      <editor
+            name="MediaWiki Editor (Whole)"
+            default="false"
+            extensions="mediawiki"
+            icon="icons/editors/grammar.gif"
+            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            id="org.whole.lang.mediawiki.MediaWikiEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.mediawikiSource"/>
+      </editor>
+   </extension>
+     <extension
+           point="org.whole.lang.ui.resourceBindingsContributors">
+        <resourceBindingsContributor
+              class="org.whole.lang.grammars.ui.GrammarsResourceBindingsContributor"
+              id="GrammarsResourceBindingsContributor"/>
+     </extension>
+</plugin>

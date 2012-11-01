@@ -1,0 +1,1351 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="WorkflowsTestTemplateManager"/>
+    <templates:Templates initialCapacity="22">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="sequenceTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="3">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init x variable"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="x"/>
+                                    <workflows:IntLiteral value="1234"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init y variable"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="y"/>
+                                    <workflows:IntLiteral value="8766"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:AssignActivity>
+                            <workflows:Text value="check result"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="equals"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Equals>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="x"/>
+                                        <queries:VariableRefStep value="y"/>
+                                        </queries:Addition>
+                                        <queries:IntLiteral value="10000"/>
+                                        </queries:Equals>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="parallelTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:Parallel>
+                            <workflows:Text value="parallel"/>
+                            <workflows:FlowObjects initialCapacity="2">
+                                <workflows:AssignActivity>
+                                    <workflows:Text value="init y variable"/>
+                                    <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="y"/>
+                                        <workflows:IntLiteral value="8766"/>
+                                        </workflows:Assign>
+                                    </workflows:Assignments>
+                                </workflows:AssignActivity>
+                                <workflows:AssignActivity>
+                                    <workflows:Text value="init x variable"/>
+                                    <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="x"/>
+                                        <workflows:IntLiteral value="1234"/>
+                                        </workflows:Assign>
+                                    </workflows:Assignments>
+                                </workflows:AssignActivity>
+                            </workflows:FlowObjects>
+                        </workflows:Parallel>
+                        <workflows:AssignActivity>
+                            <workflows:Text value="check result"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="equals"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Equals>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="x"/>
+                                        <queries:VariableRefStep value="y"/>
+                                        </queries:Addition>
+                                        <queries:IntLiteral value="10000"/>
+                                        </queries:Equals>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="whileLoopTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init variables"/>
+                            <workflows:Assignments initialCapacity="2">
+                                <workflows:Assign>
+                                    <workflows:Variable value="len"/>
+                                    <workflows:IntLiteral value="5"/>
+                                </workflows:Assign>
+                                <workflows:Assign>
+                                    <workflows:Variable value="count"/>
+                                    <workflows:IntLiteral value="0"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:WhileLoop>
+                            <workflows:Text value="whileloop"/>
+                            <workflows:TestTime value="before"/>
+                            <commons:SameStageFragment>
+                                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                    <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:LessThan>
+                                        <queries:VariableRefStep value="count"/>
+                                        <queries:VariableRefStep value="len"/>
+                                        </queries:LessThan>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:GreaterOrEquals>
+                                        <queries:VariableRefStep value="len"/>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:GreaterOrEquals>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                    <queries:ExpressionTest>
+                                        <queries:BooleanLiteral value="false"/>
+                                    </queries:ExpressionTest>
+                                </queries:Or>
+                            </commons:SameStageFragment>
+                            <workflows:AssignActivity>
+                                <workflows:Text value="update counter"/>
+                                <workflows:Assignments initialCapacity="1">
+                                    <workflows:Assign>
+                                        <workflows:Variable value="count"/>
+                                        <commons:SameStageFragment>
+                                        <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="count"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        </commons:SameStageFragment>
+                                    </workflows:Assign>
+                                </workflows:Assignments>
+                            </workflows:AssignActivity>
+                        </workflows:WhileLoop>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="foreachLoopTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="3">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init variable"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="count"/>
+                                    <workflows:IntLiteral value="0"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:CreateModel>
+                            <workflows:Text value="create composite&#13;with elements"/>
+                            <workflows:Variable value="composite"/>
+                            <commons:StageUpFragment>
+                                <queries:Tuple xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                                    <queries:BooleanLiteral value="false"/>
+                                    <queries:DateLiteral value="2008-04-01T06:12:48.285Z"/>
+                                    <queries:StringLiteral value="stringLiteral"/>
+                                    <queries:IntLiteral value="99999"/>
+                                    <queries:DoubleLiteral value="3.14"/>
+                                </queries:Tuple>
+                            </commons:StageUpFragment>
+                            <commons:Resolver/>
+                        </workflows:CreateModel>
+                        <workflows:ForeachLoop>
+                            <workflows:Text value="whileloop"/>
+                            <workflows:Variable value="composite"/>
+                            <workflows:Variable value="element"/>
+                            <workflows:Variable value="index"/>
+                            <workflows:AssignActivity>
+                                <workflows:Text value="update counter"/>
+                                <workflows:Assignments initialCapacity="1">
+                                    <workflows:Assign>
+                                        <workflows:Variable value="count"/>
+                                        <commons:SameStageFragment>
+                                        <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="count"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        </commons:SameStageFragment>
+                                    </workflows:Assign>
+                                </workflows:Assignments>
+                            </workflows:AssignActivity>
+                        </workflows:ForeachLoop>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="switchControlTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="3">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init variable"/>
+                            <workflows:Assignments initialCapacity="2">
+                                <workflows:Assign>
+                                    <workflows:Variable value="value"/>
+                                    <workflows:IntLiteral value="11"/>
+                                </workflows:Assign>
+                                <workflows:Assign>
+                                    <workflows:Variable value="result"/>
+                                    <workflows:IntLiteral value="0"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:SwitchControl>
+                            <workflows:Text value="switchcontrol"/>
+                            <workflows:SwitchType value="exclusive"/>
+                            <workflows:ConditionalCases initialCapacity="3">
+                                <workflows:ConditionalCase>
+                                    <workflows:Text value="conditionalcase"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="value"/>
+                                        <queries:IntLiteral value="11"/>
+                                        </queries:Equals>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                    <workflows:AssignActivity>
+                                        <workflows:Text value="update"/>
+                                        <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="result"/>
+                                        <workflows:IntLiteral value="1234"/>
+                                        </workflows:Assign>
+                                        </workflows:Assignments>
+                                    </workflows:AssignActivity>
+                                </workflows:ConditionalCase>
+                                <workflows:ConditionalCase>
+                                    <workflows:Text value="conditionalcase"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="value"/>
+                                        <queries:IntLiteral value="12"/>
+                                        </queries:Equals>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                    <workflows:AssignActivity>
+                                        <workflows:Text value="update"/>
+                                        <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="result"/>
+                                        <workflows:IntLiteral value="4321"/>
+                                        </workflows:Assign>
+                                        </workflows:Assignments>
+                                    </workflows:AssignActivity>
+                                </workflows:ConditionalCase>
+                                <workflows:ConditionalCase>
+                                    <workflows:Text value="conditionalcase"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:LessThan>
+                                        <queries:VariableRefStep value="value"/>
+                                        <queries:IntLiteral value="13"/>
+                                        </queries:LessThan>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                    <workflows:AssignActivity>
+                                        <workflows:Text value="update"/>
+                                        <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="result"/>
+                                        <workflows:IntLiteral value="9999"/>
+                                        </workflows:Assign>
+                                        </workflows:Assignments>
+                                    </workflows:AssignActivity>
+                                </workflows:ConditionalCase>
+                            </workflows:ConditionalCases>
+                            <commons:Resolver/>
+                        </workflows:SwitchControl>
+                        <workflows:SwitchControl>
+                            <workflows:Text value="switchcontrol"/>
+                            <workflows:SwitchType value="inclusive"/>
+                            <workflows:ConditionalCases initialCapacity="2">
+                                <workflows:ConditionalCase>
+                                    <workflows:Text value="conditionalcase"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="result"/>
+                                        <queries:IntLiteral value="1234"/>
+                                        </queries:Equals>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                    <workflows:AssignActivity>
+                                        <workflows:Text value="increment"/>
+                                        <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="result"/>
+                                        <commons:SameStageFragment>
+                                        <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="result"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        </commons:SameStageFragment>
+                                        </workflows:Assign>
+                                        </workflows:Assignments>
+                                    </workflows:AssignActivity>
+                                </workflows:ConditionalCase>
+                                <workflows:ConditionalCase>
+                                    <workflows:Text value="conditionalcase"/>
+                                    <commons:SameStageFragment>
+                                        <queries:Singleton xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:GreaterThan>
+                                        <queries:VariableRefStep value="value"/>
+                                        <queries:IntLiteral value="4"/>
+                                        </queries:GreaterThan>
+                                        </queries:Singleton>
+                                    </commons:SameStageFragment>
+                                    <workflows:AssignActivity>
+                                        <workflows:Text value="increment"/>
+                                        <workflows:Assignments initialCapacity="1">
+                                        <workflows:Assign>
+                                        <workflows:Variable value="value"/>
+                                        <commons:SameStageFragment>
+                                        <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="value"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        </commons:SameStageFragment>
+                                        </workflows:Assign>
+                                        </workflows:Assignments>
+                                    </workflows:AssignActivity>
+                                </workflows:ConditionalCase>
+                            </workflows:ConditionalCases>
+                            <commons:Resolver/>
+                        </workflows:SwitchControl>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="loadModelTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="load a model using java builder persistence"/>
+                    <workflows:Variable value="model"/>
+                    <workflows:StringLiteral value="org.whole.lang.java.codebase.JavaBuilderPersistenceKit"/>
+                    <workflows:ResourceKind value="FILE_SYSTEM"/>
+                    <workflows:StringLiteral value="./test/org/whole/lang/workflows/visitors/SampleModel.java"/>
+                    <workflows:Assignments initialCapacity="1">
+                        <workflows:Assign>
+                            <workflows:Variable value="varName"/>
+                            <workflows:StringLiteral value="varValue"/>
+                        </workflows:Assign>
+                    </workflows:Assignments>
+                </workflows:LoadModel>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="saveModelTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:SaveModel>
+                            <workflows:Text value="save a model using xml builder persistence"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/SampleModel.xwl"/>
+                            <commons:Resolver/>
+                        </workflows:SaveModel>
+                        <workflows:LoadModel>
+                            <workflows:Text value="load a model using xml builder persistence"/>
+                            <workflows:Variable value="newModel"/>
+                            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/SampleModel.xwl"/>
+                            <commons:Resolver/>
+                        </workflows:LoadModel>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="loadAndSaveModelToStringTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:LoadModel>
+                            <workflows:Text value="load a model using text source persistence"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                            <workflows:ResourceKind value="VARIABLE"/>
+                            <workflows:Variable value="sourceString"/>
+                            <commons:Resolver/>
+                        </workflows:LoadModel>
+                        <workflows:SaveModel>
+                            <workflows:Text value="save back using text source persistence"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                            <workflows:ResourceKind value="VARIABLE"/>
+                            <workflows:Variable value="targetString"/>
+                            <commons:Resolver/>
+                        </workflows:SaveModel>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="loadJavaModelTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:LoadJavaModel xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="task test"/>
+                    <workflows:Variable value="model"/>
+                    <workflows:StringLiteral value="org.whole.lang.workflows.visitors.SampleModel"/>
+                    <workflows:ClassPath/>
+                </workflows:LoadJavaModel>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="shallowSaveArtifactsTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="7">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="assignactivity"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="artifacts"/>
+                                    <commons:StageUpFragment>
+                                        <artifacts:FolderArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <artifacts:Name value="artifacts"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="3">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="folder_1"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="2">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="sub_folder_1"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="folder_2"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="2">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="sub_folder_2"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                    </commons:StageUpFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:SaveArtifacts>
+                            <workflows:Text value="shallow save artifacts"/>
+                            <workflows:Variable value="artifacts"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="SHALLOW"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:SaveArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="shallow load artifacts"/>
+                            <workflows:Variable value="shallowResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="SHALLOW"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep file load artifacts"/>
+                            <workflows:Variable value="deepFileResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP_FILE"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep directory load artifacts"/>
+                            <workflows:Variable value="deepDirectoryResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP_DIRECTORY"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep load artifacts"/>
+                            <workflows:Variable value="deepResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <workflows:DeleteArtifacts>
+                            <workflows:Text value="deleteartifacts"/>
+                            <workflows:Variable value="deepResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                        </workflows:DeleteArtifacts>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="deepSaveArtifactsTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="7">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="assignactivity"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="artifacts"/>
+                                    <commons:StageUpFragment>
+                                        <artifacts:FolderArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <artifacts:Name value="artifacts"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="3">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="folder_1"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="2">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="sub_folder_1"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="folder_2"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="2">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="sub_folder_2"/>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="file"/>
+                                        <artifacts:Extension value="txt"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="Hello,"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="World!"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                    </commons:StageUpFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:SaveArtifacts>
+                            <workflows:Text value="shallow save artifacts"/>
+                            <workflows:Variable value="artifacts"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:SaveArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="shallow load artifacts"/>
+                            <workflows:Variable value="shallowResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="SHALLOW"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep file load artifacts"/>
+                            <workflows:Variable value="deepFileResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP_FILE"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep directory load artifacts"/>
+                            <workflows:Variable value="deepDirectoryResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP_DIRECTORY"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:LoadArtifacts>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="deep load artifacts"/>
+                            <workflows:Variable value="deepResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <workflows:DeleteArtifacts>
+                            <workflows:Text value="deleteartifacts"/>
+                            <workflows:Variable value="shallowResult"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="data/artifacts"/>
+                        </workflows:DeleteArtifacts>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="loadArtifactsTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="assignactivity"/>
+                            <workflows:Assignments initialCapacity="0"/>
+                        </workflows:AssignActivity>
+                        <workflows:LoadArtifacts>
+                            <workflows:Text value="loadartifacts"/>
+                            <workflows:Variable value="variable"/>
+                            <workflows:ResourceKind value="FILE_SYSTEM"/>
+                            <workflows:StringLiteral value="pathToResource"/>
+                            <workflows:ArtifactsTraversalStrategy value="SHALLOW"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="REMOVE_ADD_UPDATE"/>
+                            <commons:Resolver/>
+                        </workflows:LoadArtifacts>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="invokeOperationTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="invoke operations"/>
+                    <workflows:FlowObjects initialCapacity="8">
+                        <workflows:CreateModel>
+                            <workflows:Text value="create a models model"/>
+                            <workflows:Variable value="model"/>
+                            <commons:StageUpFragment>
+                                <models:Model xmlns:models="http://lang.whole.org/Models">
+                                    <models:SimpleName value="SampleM"/>
+                                    <models:TypeRelations initialCapacity="0"/>
+                                    <models:ModelDeclarations initialCapacity="2">
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Type"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="IType"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="1">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="DataStr"/>
+                                        <models:SimpleName value="data"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:DataEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="DataStr"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:DataType value="String"/>
+                                        </models:DataEntity>
+                                    </models:ModelDeclarations>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </models:Model>
+                            </commons:StageUpFragment>
+                            <commons:Resolver/>
+                        </workflows:CreateModel>
+                        <workflows:InvokeJavaClassMethod>
+                            <workflows:Text value="copy model"/>
+                            <workflows:Variable value="modelCopy"/>
+                            <commons:Resolver/>
+                            <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                            <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:Variable value="model"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaClassMethod>
+                        <workflows:CreateJavaClassInstance>
+                            <workflows:Text value="initialize current folder variable"/>
+                            <workflows:Variable value="folder"/>
+                            <commons:Resolver/>
+                            <workflows:StringLiteral value="java.io.File"/>
+                            <workflows:StringLiteral value="File(java.lang.String)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:StringLiteral value="data"/>
+                            </workflows:Expressions>
+                        </workflows:CreateJavaClassInstance>
+                        <workflows:InvokeOperation>
+                            <workflows:Text value="validate"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:Operation value="VALIDATOR"/>
+                            <commons:Resolver/>
+                        </workflows:InvokeOperation>
+                        <workflows:InvokeOperation>
+                            <workflows:Text value="normalize"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:Operation value="NORMALIZER"/>
+                            <commons:Resolver/>
+                        </workflows:InvokeOperation>
+                        <workflows:InvokeOperation>
+                            <workflows:Text value="pretty print"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:Operation value="PRETTY_PRINTER"/>
+                            <commons:Resolver/>
+                        </workflows:InvokeOperation>
+                        <workflows:InvokeOperation>
+                            <workflows:Text value="interpret"/>
+                            <workflows:Variable value="model"/>
+                            <workflows:Operation value="INTERPRETER"/>
+                            <commons:Resolver/>
+                        </workflows:InvokeOperation>
+                        <workflows:InvokeOperation>
+                            <workflows:Text value="generate"/>
+                            <workflows:Variable value="fileArtifact"/>
+                            <workflows:Operation value="ARTIFACTS_GENERATOR"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="fileArtifact"/>
+                                    <commons:StageUpFragment>
+                                        <artifacts:FileArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <artifacts:NameWithExtension>
+                                        <artifacts:Name value="SampleM"/>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:StageUpFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Model"/>
+                                        <commons:VarName value="model"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                    </commons:StageUpFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:InvokeOperation>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="invokeQueryTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeQuery xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="invoke a query defined through assignments"/>
+                    <workflows:Variable value="queryName"/>
+                    <workflows:Assignments initialCapacity="3">
+                        <workflows:Assign>
+                            <workflows:Variable value="queryName"/>
+                            <commons:StageUpFragment>
+                                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <java:Types initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="methodName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="methodCall"/>
+                                    </queries:Filter>
+                                    <queries:SelfStep/>
+                                    <commons:Resolver/>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                            </commons:StageUpFragment>
+                        </workflows:Assign>
+                        <workflows:Assign>
+                            <workflows:Variable value="methodName"/>
+                            <workflows:StringLiteral value="hashCode"/>
+                        </workflows:Assign>
+                        <workflows:Assign>
+                            <workflows:Variable value="self"/>
+                            <workflows:StringLiteral value="selfValue"/>
+                        </workflows:Assign>
+                    </workflows:Assignments>
+                </workflows:InvokeQuery>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="createEntityTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="2">
+                        <workflows:AssignActivity>
+                            <workflows:Text value="init variables"/>
+                            <workflows:Assignments initialCapacity="2">
+                                <workflows:Assign>
+                                    <workflows:Variable value="features"/>
+                                    <commons:StageUpFragment>
+                                        <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+                                        <models:Feature>
+                                        <commons:Resolver/>
+                                        <models:SimpleName value="FType"/>
+                                        <models:SimpleName value="fname"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                    </commons:StageUpFragment>
+                                </workflows:Assign>
+                                <workflows:Assign>
+                                    <workflows:Variable value="name"/>
+                                    <commons:StageUpFragment>
+                                        <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="EntityName"/>
+                                    </commons:StageUpFragment>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
+                        <workflows:CreateEntity>
+                            <workflows:Text value="create a simple entity"/>
+                            <workflows:Variable value="entity"/>
+                            <workflows:Registry value="DEFAULT"/>
+                            <workflows:StringLiteral value="http://lang.whole.org/Models#SimpleEntity"/>
+                            <workflows:Expressions initialCapacity="4">
+                                <commons:StageUpFragment>
+                                    <models:EntityModifiers xmlns:models="http://lang.whole.org/Models" initialCapacity="0"/>
+                                </commons:StageUpFragment>
+                                <workflows:Variable value="name"/>
+                                <commons:StageUpFragment>
+                                    <models:Types xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                    </models:Types>
+                                </commons:StageUpFragment>
+                                <workflows:Variable value="features"/>
+                            </workflows:Expressions>
+                        </workflows:CreateEntity>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="createModelTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="create a model"/>
+                    <workflows:Variable value="model"/>
+                    <commons:StageUpFragment>
+                        <models:SimpleEntity xmlns:models="http://lang.whole.org/Models">
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Models#EntityModifiers"/>
+                                <commons:VarName value="modifiers"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <models:SimpleName value="Entity1"/>
+                            <models:Types initialCapacity="1">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#Type"/>
+                                    <commons:VarName value="type"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                            </models:Types>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Models#Features"/>
+                                <commons:VarName value="features"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </models:SimpleEntity>
+                    </commons:StageUpFragment>
+                    <workflows:Assignments initialCapacity="2">
+                        <workflows:Assign>
+                            <workflows:Variable value="features"/>
+                            <commons:StageUpFragment>
+                                <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+                                    <models:Feature>
+                                        <commons:Resolver/>
+                                        <models:SimpleName value="FType"/>
+                                        <models:SimpleName value="fname"/>
+                                        <commons:Resolver/>
+                                    </models:Feature>
+                                </models:Features>
+                            </commons:StageUpFragment>
+                        </workflows:Assign>
+                        <workflows:Assign>
+                            <workflows:Variable value="modifiers"/>
+                            <commons:StageUpFragment>
+                                <models:EntityModifiers xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+                                    <models:EntityModifier value="abstract"/>
+                                </models:EntityModifiers>
+                            </commons:StageUpFragment>
+                        </workflows:Assign>
+                    </workflows:Assignments>
+                </workflows:CreateModel>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="createJavaClassInstanceTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="create java object"/>
+                    <workflows:Variable value="value"/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="java.math.BigDecimal"/>
+                    <workflows:StringLiteral value="BigDecimal(java.lang.String)"/>
+                    <workflows:Expressions initialCapacity="1">
+                        <workflows:StringLiteral value="1231.84587345"/>
+                    </workflows:Expressions>
+                </workflows:CreateJavaClassInstance>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="invokeJavaClassMethodTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="invoke java static method"/>
+                    <workflows:Variable value="value"/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="java.lang.Double"/>
+                    <workflows:StringLiteral value="parseDouble(java.lang.String)"/>
+                    <workflows:Expressions initialCapacity="1">
+                        <workflows:StringLiteral value="1231.84587345"/>
+                    </workflows:Expressions>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="invokeJavaInstanceMethodTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="sequence"/>
+                    <workflows:FlowObjects initialCapacity="3">
+                        <workflows:CreateEntity>
+                            <workflows:Text value="createentity"/>
+                            <workflows:Variable value="simpleEntity"/>
+                            <workflows:Registry value="DEFAULT"/>
+                            <workflows:StringLiteral value="http://lang.whole.org/Models#SimpleEntity"/>
+                            <commons:Resolver/>
+                        </workflows:CreateEntity>
+                        <workflows:CreateEntity>
+                            <workflows:Text value="createentity"/>
+                            <workflows:Variable value="compositeEntity"/>
+                            <workflows:Registry value="DEFAULT"/>
+                            <workflows:StringLiteral value="http://lang.whole.org/Models#CompositeEntity"/>
+                            <commons:Resolver/>
+                        </workflows:CreateEntity>
+                        <workflows:InvokeJavaInstanceMethod>
+                            <workflows:Text value="invoke java method"/>
+                            <workflows:Variable value="value"/>
+                            <workflows:Variable value="simpleEntity"/>
+                            <commons:Resolver/>
+                            <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                            <workflows:StringLiteral value="wEquals(org.whole.lang.model.IEntity)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:Variable value="compositeEntity"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaInstanceMethod>
+                    </workflows:FlowObjects>
+                </workflows:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="parseTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="parse model"/>
+                    <workflows:Variable value="model"/>
+                    <workflows:StringLiteral value="32 , enrico"/>
+                    <commons:StageUpFragment>
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="SampleGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://lang.whole.org/Sample"/>
+                                <grammars:Namespace value="org.whole.lang.sample"/>
+                                <grammars:Name value="Sample"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="StartSymbol"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="\p{javaWhitespace}*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=" "/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="0"/>
+                            <grammars:Productions initialCapacity="3">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="StartSymbol"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Age"/>
+                                        <grammars:Name value="number"/>
+                                        </grammars:As>
+                                        <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=","/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=","/>
+                                        </grammars:LiteralTerminal>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Age"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[-]?[0-9]+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[^,]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://lang.whole.org/SampleGrammar"/>
+                            <grammars:Namespace value="org.whole.lang.sample"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                    <commons:Resolver/>
+                </workflows:Parse>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="unparseTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Unparse xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="unparse model"/>
+                    <commons:StageUpFragment>
+                        <models:Types xmlns:models="http://lang.whole.org/Models" initialCapacity="3">
+                            <models:SimpleName value="Type1"/>
+                            <models:SimpleName value="Type2"/>
+                            <models:SimpleName value="Type3"/>
+                        </models:Types>
+                    </commons:StageUpFragment>
+                    <workflows:Variable value="text"/>
+                    <commons:StageUpFragment>
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="SampleGrammar"/>
+                            <grammars:URI value="http://lang.whole.org/Models"/>
+                            <grammars:NonTerminal value="Types"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="\p{javaWhitespace}*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=" "/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="0"/>
+                            <grammars:Productions initialCapacity="2">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Types"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=","/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=", "/>
+                                        </grammars:LiteralTerminal>
+                                        <grammars:NonTerminal value="Type"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Type"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[a-zA-Z]+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://lang.whole.org/SampleGrammar"/>
+                            <grammars:Namespace value="org.whole.lang.sample"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                    <commons:Resolver/>
+                </workflows:Unparse>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="taskTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Task xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="task test"/>
+                    <workflows:Text value="turn around your desk once and&#13;say hello to your co-workers!"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </workflows:Task>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

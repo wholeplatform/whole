@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<workspace xmlns="http://lang.whole.org/Artifacts" xsi:schemaLocation="http://lang.whole.org/Artifacts Artifacts.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metadata>
+		<copyright>© 2007-2009 Artifacts Inc.</copyright>
+		<license>MPL</license>
+		<author>Enrico Persiani</author>
+	</metadata>
+	
+	<projects>
+		<project>
+			<name>TestProject</name>
+			<natures>
+				<nature>org.eclipse.jdt.core.javabuilder</nature>
+			</natures>
+			<artifacts>
+				<folderArtifact>
+					<name>src</name>
+					<metadata>
+						<attributes>
+							<attribute>source</attribute>
+						</attributes>
+					</metadata>
+					<artifacts>
+						<packageArtifact>
+							<name>org.whole.lang.test</name>
+							<artifacts>
+								<fileArtifact>
+									<nameWithExtension>
+										<name>Example</name>
+										<extension>java</extension>
+									</nameWithExtension>
+									<metadata>
+										<persistenceKitId>org.whole.lang.java.codebase.JavaSourcePersistenceKit</persistenceKitId>
+									</metadata>
+								</fileArtifact>
+							</artifacts>
+						</packageArtifact>
+					</artifacts>
+				</folderArtifact>
+				<folderArtifact>
+					<name>bin</name>
+					<artifacts/>
+				</folderArtifact>
+			</artifacts>
+		</project>
+	</projects>
+</workspace>

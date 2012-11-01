@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://lang.whole.org/Artifacts" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://lang.whole.org/Artifacts" elementFormDefault="qualified">
+    <xsd:element name="workspace" type="Workspace"/>
+    <xsd:complexType name="Workspace">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="metadata"/>
+            <xsd:element ref="projects"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="projects" type="Projects"/>
+    <xsd:complexType name="Projects">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="project"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="project" type="Project"/>
+    <xsd:complexType name="Project">
+        <xsd:sequence>
+            <xsd:group ref="ProjectName"/>
+            <xsd:element ref="natures"/>
+            <xsd:element minOccurs="0" ref="metadata"/>
+            <xsd:element ref="artifacts"/>
+            <xsd:element minOccurs="0" ref="locationURI"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="artifacts" type="Artifacts"/>
+    <xsd:complexType name="Artifacts">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:group ref="Artifact"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="packageArtifact" type="PackageArtifact"/>
+    <xsd:complexType name="PackageArtifact">
+        <xsd:sequence>
+            <xsd:group ref="PackageName"/>
+            <xsd:element minOccurs="0" ref="metadata"/>
+            <xsd:element ref="artifacts"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="folderArtifact" type="FolderArtifact"/>
+    <xsd:complexType name="FolderArtifact">
+        <xsd:sequence>
+            <xsd:group ref="FolderName"/>
+            <xsd:element minOccurs="0" ref="metadata"/>
+            <xsd:element ref="artifacts"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="fileArtifact" type="FileArtifact"/>
+    <xsd:complexType name="FileArtifact">
+        <xsd:sequence>
+            <xsd:group ref="FileName"/>
+            <xsd:element minOccurs="0" ref="metadata"/>
+            <xsd:group ref="Content"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="natures" type="Natures"/>
+    <xsd:complexType name="Natures">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="nature"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="nature" type="Nature"/>
+    <xsd:simpleType name="Nature">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="locationURI" type="LocationURI"/>
+    <xsd:simpleType name="LocationURI">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="metadata" type="Metadata"/>
+    <xsd:complexType name="Metadata">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="copyright"/>
+            <xsd:element minOccurs="0" ref="license"/>
+            <xsd:element minOccurs="0" ref="author"/>
+            <xsd:element minOccurs="0" ref="attributes"/>
+            <xsd:element minOccurs="0" ref="persistenceKitId"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="name" type="Name"/>
+    <xsd:simpleType name="Name">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="nameWithExtension" type="NameWithExtension"/>
+    <xsd:complexType name="NameWithExtension">
+        <xsd:sequence>
+            <xsd:element ref="name"/>
+            <xsd:element ref="extension"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="copyright" type="Copyright"/>
+    <xsd:simpleType name="Copyright">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="license" type="License"/>
+    <xsd:simpleType name="License">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="author" type="Author"/>
+    <xsd:simpleType name="Author">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="extension" type="Extension"/>
+    <xsd:simpleType name="Extension">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="attributes" type="Attributes"/>
+    <xsd:complexType name="Attributes">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="attribute"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="attribute" type="Attribute"/>
+    <xsd:simpleType name="Attribute">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="derived"/>
+            <xsd:enumeration value="readonly"/>
+            <xsd:enumeration value="merge"/>
+            <xsd:enumeration value="source"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="persistenceKitId" type="PersistenceKitId"/>
+    <xsd:simpleType name="PersistenceKitId">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:group name="Content">
+        <xsd:choice/>
+    </xsd:group>
+    <xsd:group name="ProjectName">
+        <xsd:choice>
+            <xsd:element ref="name"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="Artifact">
+        <xsd:choice>
+            <xsd:element ref="packageArtifact"/>
+            <xsd:element ref="folderArtifact"/>
+            <xsd:element ref="fileArtifact"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="PackageName">
+        <xsd:choice>
+            <xsd:element ref="name"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="FileName">
+        <xsd:choice>
+            <xsd:element ref="name"/>
+            <xsd:element ref="nameWithExtension"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="FolderName">
+        <xsd:choice>
+            <xsd:element ref="name"/>
+        </xsd:choice>
+    </xsd:group>
+</xsd:schema>

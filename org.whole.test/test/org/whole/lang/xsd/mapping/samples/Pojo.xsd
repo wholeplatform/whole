@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://lang.whole.org/Pojo" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://lang.whole.org/Pojo" elementFormDefault="qualified">
+    <xsd:element name="library" type="Library"/>
+    <xsd:complexType name="Library">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:element ref="name"/>
+            <xsd:element ref="languageURI"/>
+            <xsd:element ref="declarations"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="declarations" type="Declarations"/>
+    <xsd:complexType name="Declarations">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:group ref="Declaration"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="dataTypeDeclaration" type="DataTypeDeclaration"/>
+    <xsd:complexType name="DataTypeDeclaration">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group minOccurs="0" ref="Template"/>
+            <xsd:group ref="Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="enumDeclaration" type="EnumDeclaration"/>
+    <xsd:complexType name="EnumDeclaration">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group minOccurs="0" ref="Template"/>
+            <xsd:element name="name" type="ReferenceType"/>
+            <xsd:element name="values" type="Names"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="annotationDeclaration" type="AnnotationDeclaration"/>
+    <xsd:complexType name="AnnotationDeclaration">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group minOccurs="0" ref="Template"/>
+            <xsd:element name="name" type="ReferenceType"/>
+            <xsd:element ref="properties"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="pojoDeclaration" type="PojoDeclaration"/>
+    <xsd:complexType name="PojoDeclaration">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group minOccurs="0" ref="Template"/>
+            <xsd:element name="name" type="ReferenceType"/>
+            <xsd:element name="types" type="ReferenceTypes"/>
+            <xsd:element ref="properties"/>
+            <xsd:element minOccurs="0" ref="constructors"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="factoryDeclaration" type="FactoryDeclaration"/>
+    <xsd:complexType name="FactoryDeclaration">
+        <xsd:sequence>
+            <xsd:element name="name" type="ReferenceType"/>
+            <xsd:element name="prefix" type="Name"/>
+            <xsd:element ref="factoryMethods"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="factoryMethods" type="FactoryMethods"/>
+    <xsd:complexType name="FactoryMethods">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="factoryMethod"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="factoryMethod" type="FactoryMethod"/>
+    <xsd:complexType name="FactoryMethod">
+        <xsd:sequence>
+            <xsd:element name="productType" type="ReferenceType"/>
+            <xsd:element name="productName" type="Name"/>
+            <xsd:element name="template" minOccurs="0" type="Name"/>
+            <xsd:element ref="parameters"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="constructors" type="Constructors"/>
+    <xsd:complexType name="Constructors">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="constructor"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="constructor" type="Constructor"/>
+    <xsd:complexType name="Constructor">
+        <xsd:sequence>
+            <xsd:element ref="parameters"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="parameters" type="Parameters"/>
+    <xsd:complexType name="Parameters">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="parameter"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="parameter" type="Parameter"/>
+    <xsd:complexType name="Parameter">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group minOccurs="0" ref="Type"/>
+            <xsd:element ref="name"/>
+            <xsd:element name="template" minOccurs="0" type="Name"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="properties" type="Properties"/>
+    <xsd:complexType name="Properties">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="property"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="property" type="Property"/>
+    <xsd:complexType name="Property">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" ref="annotations"/>
+            <xsd:group ref="Type"/>
+            <xsd:element ref="name"/>
+            <xsd:element name="template" minOccurs="0" type="Name"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="referenceTypes" type="ReferenceTypes"/>
+    <xsd:complexType name="ReferenceTypes">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="referenceType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="referenceType" type="ReferenceType"/>
+    <xsd:simpleType name="ReferenceType">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="primitiveType" type="PrimitiveType"/>
+    <xsd:simpleType name="PrimitiveType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="boolean"/>
+            <xsd:enumeration value="byte"/>
+            <xsd:enumeration value="char"/>
+            <xsd:enumeration value="double"/>
+            <xsd:enumeration value="float"/>
+            <xsd:enumeration value="int"/>
+            <xsd:enumeration value="long"/>
+            <xsd:enumeration value="short"/>
+            <xsd:enumeration value="String"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="arrayType" type="ArrayType"/>
+    <xsd:complexType name="ArrayType">
+        <xsd:sequence>
+            <xsd:group ref="Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="mapType" type="MapType"/>
+    <xsd:complexType name="MapType">
+        <xsd:sequence>
+            <xsd:group ref="Type"/>
+            <xsd:group ref="Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="collectionType" type="CollectionType"/>
+    <xsd:complexType name="CollectionType">
+        <xsd:sequence>
+            <xsd:element ref="collectionInterface"/>
+            <xsd:group ref="Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="collectionInterface" type="CollectionInterface"/>
+    <xsd:simpleType name="CollectionInterface">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Collection"/>
+            <xsd:enumeration value="List"/>
+            <xsd:enumeration value="Set"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="names" type="Names"/>
+    <xsd:complexType name="Names">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="name"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="name" type="Name"/>
+    <xsd:simpleType name="Name">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="languageURI" type="LanguageURI"/>
+    <xsd:simpleType name="LanguageURI">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:element name="annotations" type="Annotations"/>
+    <xsd:complexType name="Annotations">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:group ref="Annotation"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="modifier" type="Modifier"/>
+    <xsd:simpleType name="Modifier">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ABSTRACT"/>
+            <xsd:enumeration value="DATATYPE"/>
+            <xsd:enumeration value="FIELD_ONLY"/>
+            <xsd:enumeration value="READ_ONLY"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:element name="markerAnnotation" type="MarkerAnnotation"/>
+    <xsd:complexType name="MarkerAnnotation">
+        <xsd:sequence>
+            <xsd:element ref="name"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="singlePropertyAnnotation" type="SinglePropertyAnnotation"/>
+    <xsd:complexType name="SinglePropertyAnnotation">
+        <xsd:sequence>
+            <xsd:element ref="name"/>
+            <xsd:group ref="PropertyValue"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="multiplePropertiesAnnotation" type="MultiplePropertiesAnnotation"/>
+    <xsd:complexType name="MultiplePropertiesAnnotation">
+        <xsd:sequence>
+            <xsd:element ref="name"/>
+            <xsd:element ref="propertyValuePairs"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="propertyValuePairs" type="PropertyValuePairs"/>
+    <xsd:complexType name="PropertyValuePairs">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="constructors"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="propertyValuePair" type="PropertyValuePair"/>
+    <xsd:complexType name="PropertyValuePair">
+        <xsd:sequence>
+            <xsd:element ref="name"/>
+            <xsd:group ref="PropertyValue"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="arrayData" type="ArrayData"/>
+    <xsd:complexType name="ArrayData">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:group ref="PropertyValue"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="booleanData" type="BooleanData"/>
+    <xsd:simpleType name="BooleanData">
+        <xsd:restriction base="xsd:boolean"/>
+    </xsd:simpleType>
+    <xsd:element name="byteData" type="ByteData"/>
+    <xsd:simpleType name="ByteData">
+        <xsd:restriction base="xsd:byte"/>
+    </xsd:simpleType>
+    <xsd:element name="charData" type="CharData"/>
+    <xsd:simpleType name="CharData">
+        <xsd:restriction base="anySimpleType"/>
+    </xsd:simpleType>
+    <xsd:element name="doubleData" type="DoubleData"/>
+    <xsd:simpleType name="DoubleData">
+        <xsd:restriction base="xsd:double"/>
+    </xsd:simpleType>
+    <xsd:element name="floatData" type="FloatData"/>
+    <xsd:simpleType name="FloatData">
+        <xsd:restriction base="xsd:float"/>
+    </xsd:simpleType>
+    <xsd:element name="intData" type="IntData"/>
+    <xsd:simpleType name="IntData">
+        <xsd:restriction base="xsd:int"/>
+    </xsd:simpleType>
+    <xsd:element name="longData" type="LongData"/>
+    <xsd:simpleType name="LongData">
+        <xsd:restriction base="xsd:long"/>
+    </xsd:simpleType>
+    <xsd:element name="shortData" type="ShortData"/>
+    <xsd:simpleType name="ShortData">
+        <xsd:restriction base="xsd:short"/>
+    </xsd:simpleType>
+    <xsd:element name="stringData" type="StringData"/>
+    <xsd:simpleType name="StringData">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:group name="Declaration">
+        <xsd:choice>
+            <xsd:group ref="ProductDeclaration"/>
+            <xsd:element ref="factoryDeclaration"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="ProductDeclaration">
+        <xsd:choice>
+            <xsd:element ref="dataTypeDeclaration"/>
+            <xsd:element ref="enumDeclaration"/>
+            <xsd:element ref="annotationDeclaration"/>
+            <xsd:element ref="pojoDeclaration"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="Annotation">
+        <xsd:choice>
+            <xsd:element ref="modifier"/>
+            <xsd:group ref="NamedAnnotation"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="NamedAnnotation">
+        <xsd:choice>
+            <xsd:element ref="markerAnnotation"/>
+            <xsd:element ref="singlePropertyAnnotation"/>
+            <xsd:element ref="multiplePropertiesAnnotation"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="Template">
+        <xsd:choice>
+            <xsd:element ref="name"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="Type">
+        <xsd:choice>
+            <xsd:element ref="referenceType"/>
+            <xsd:element ref="primitiveType"/>
+            <xsd:element ref="arrayType"/>
+            <xsd:element ref="mapType"/>
+            <xsd:element ref="collectionType"/>
+        </xsd:choice>
+    </xsd:group>
+    <xsd:group name="PropertyValue">
+        <xsd:choice>
+            <xsd:group ref="NamedAnnotation"/>
+            <xsd:element ref="arrayData"/>
+            <xsd:element ref="booleanData"/>
+            <xsd:element ref="byteData"/>
+            <xsd:element ref="charData"/>
+            <xsd:element ref="doubleData"/>
+            <xsd:element ref="floatData"/>
+            <xsd:element ref="intData"/>
+            <xsd:element ref="longData"/>
+            <xsd:element ref="shortData"/>
+            <xsd:element ref="stringData"/>
+        </xsd:choice>
+    </xsd:group>
+</xsd:schema>

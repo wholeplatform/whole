@@ -1,0 +1,51 @@
+package org.whole.lang.dbcfg.model.impl;
+
+import org.whole.lang.model.AbstractDataEntity;
+import org.whole.lang.dbcfg.model.*;
+import org.whole.lang.dbcfg.visitors.IDBCFGVisitor;
+import org.whole.lang.dbcfg.reflect.DBCFGEntityDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
+
+/** 
+ * @generator Whole
+ */
+public class ClassNameImpl extends AbstractDataEntity implements ClassName {
+	private static final long serialVersionUID = 1;
+	private String value;
+
+	public String getValue() {
+		return notifyRequested(value);
+	}
+
+	public void setValue(String value) {
+		notifyChanged(this.value, this.value = value);
+	}
+
+	public void accept(IDBCFGVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	public int wGetEntityOrd() {
+		return DBCFGEntityDescriptorEnum.ClassName_ord;
+	}
+
+	public EntityDescriptor<ClassName> wGetEntityDescriptor() {
+		return DBCFGEntityDescriptorEnum.ClassName;
+	}
+
+	public Object wGetValue() {
+		return getValue();
+	}
+
+	public void wSetValue(Object value) {
+		setValue((String) value);
+	}
+
+	public String wStringValue() {
+		return getValue();
+	}
+
+	public void wSetValue(String value) {
+		setValue(value);
+	}
+}

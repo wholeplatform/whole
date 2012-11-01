@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	
+	<extension-point id="deployers" name="Whole Extensions"
+		schema="schema/deployers.exsd"/>
+
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Commons Language Deployer"
+            class="org.whole.lang.commons.reflect.CommonsLanguageDeployer"
+            id="org.whole.lang.commons.reflect.CommonsLanguageDeployer">
+      </deployer>
+	</extension>
+</plugin>

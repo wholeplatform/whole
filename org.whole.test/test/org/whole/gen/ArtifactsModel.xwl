@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<models:Models xmlns:models="http://lang.whole.org/models" initialCapacity="1">
+    <models:Model>
+        <models:SimpleName value="Artifacts"/>
+        <models:TypeRelations initialCapacity="1">
+            <models:SimpleName value="Content"/>
+        </models:TypeRelations>
+        <models:ModelDeclarations initialCapacity="21">
+            <models:SimpleEntity>
+                <models:EntityModifiers initialCapacity="1">
+                    <models:EntityModifier value="versionable"/>
+                </models:EntityModifiers>
+                <models:SimpleName value="Workspace"/>
+                <models:Types/>
+                <models:Features initialCapacity="2">
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Metadata"/>
+                        <models:SimpleName value="metadata"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Projects"/>
+                        <models:SimpleName value="projects"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Projects"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="ordered"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Project"/>
+            </models:CompositeEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers initialCapacity="1">
+                    <models:EntityModifier value="versionable"/>
+                </models:EntityModifiers>
+                <models:SimpleName value="Project"/>
+                <models:Types/>
+                <models:Features initialCapacity="4">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="ProjectName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Natures"/>
+                        <models:SimpleName value="natures"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Metadata"/>
+                        <models:SimpleName value="metadata"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Artifacts"/>
+                        <models:SimpleName value="artifacts"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Artifacts"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="ordered"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Artifact"/>
+            </models:CompositeEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="FolderArtifact"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Artifact"/>
+                </models:Types>
+                <models:Features initialCapacity="3">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="FolderName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Metadata"/>
+                        <models:SimpleName value="metadata"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Artifacts"/>
+                        <models:SimpleName value="artifacts"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="PackageArtifact"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Artifact"/>
+                </models:Types>
+                <models:Features initialCapacity="3">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="PackageName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Metadata"/>
+                        <models:SimpleName value="metadata"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Artifacts"/>
+                        <models:SimpleName value="artifacts"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers initialCapacity="1">
+                    <models:EntityModifier value="versionable"/>
+                </models:EntityModifiers>
+                <models:SimpleName value="FileArtifact"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Artifact"/>
+                </models:Types>
+                <models:Features initialCapacity="3">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="FileName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Metadata"/>
+                        <models:SimpleName value="metadata"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Content"/>
+                        <models:SimpleName value="content"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Natures"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="2">
+                    <models:ComponentModifier value="ordered"/>
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Nature"/>
+            </models:CompositeEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Nature"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Metadata"/>
+                <models:Types/>
+                <models:Features initialCapacity="5">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Copyright"/>
+                        <models:SimpleName value="copyright"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="License"/>
+                        <models:SimpleName value="license"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Author"/>
+                        <models:SimpleName value="author"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Location"/>
+                        <models:SimpleName value="location"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="optional"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Attributes"/>
+                        <models:SimpleName value="attributes"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Copyright"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="License"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Author"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Path"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Location"/>
+                </models:Types>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="PackageName"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Location"/>
+                </models:Types>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Name"/>
+                <models:Types initialCapacity="3">
+                    <models:SimpleName value="ProjectName"/>
+                    <models:SimpleName value="FolderName"/>
+                    <models:SimpleName value="FileName"/>
+                </models:Types>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="NameWithExtension"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="FileName"/>
+                </models:Types>
+                <models:Features initialCapacity="2">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Name"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Extension"/>
+                        <models:SimpleName value="extension"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Extension"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Attributes"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Attribute"/>
+            </models:CompositeEntity>
+            <models:EnumEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Attribute"/>
+                <models:Types/>
+                <models:EnumValues initialCapacity="4">
+                    <models:EnumValue value="derived"/>
+                    <models:EnumValue value="readonly"/>
+                    <models:EnumValue value="merge"/>
+                    <models:EnumValue value="source"/>
+                </models:EnumValues>
+            </models:EnumEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="TextContent"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Content"/>
+                </models:Types>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+        </models:ModelDeclarations>
+    </models:Model>
+</models:Models>

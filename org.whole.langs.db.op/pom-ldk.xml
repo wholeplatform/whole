@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.wholeplatform</groupId>
+		<artifactId>whole-ldk</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../org.whole.releng/pom-ldk.xml</relativePath>
+	</parent>
+
+	<artifactId>whole-langs-db-op</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Whole DB Languages Operations</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>whole-langs-db</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>whole-langs-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>whole-langs-legacy</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

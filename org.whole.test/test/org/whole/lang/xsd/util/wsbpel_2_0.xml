@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="pName" targetNamespace="tspace"
+	xsi:schemaLocation="http://schemas.xmlsoap.org/ws/2004/03/business-process/ wsbpel_2_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://schemas.xmlsoap.org/ws/2004/03/business-process/"
+	xmlns:print="http://www.eclipse.org/tptp/choreography/2004/engine/Print">
+
+	<!--Hello World - my first ever BPEL program -->
+
+	<import importType="http://schemas.xmlsoap.org/wsdl/" 
+		location="../../test_bucket/service_libraries/tptp_EnginePrinterPort.wsdl" 
+		namespace="http://www.eclipse.org/tptp/choreography/2004/engine/Print" />
+	
+	<partnerLinks>
+		<partnerLink 	name="printService" 
+				partnerLinkType="print:printLink" 
+				partnerRole="printService"/>
+	</partnerLinks>
+	
+	<variables>
+		<variable 	name="hello_world" 
+				messageType="print:PrintMessage" />
+	</variables>
+	
+	<assign>
+		<copy>
+			<from><literal>Hello World</literal></from>
+			<to>
+				$hello_world.value
+				<documentation source="myuri">blah</documentation>
+				testBlah
+			</to>
+		</copy>
+	</assign>
+
+</process>

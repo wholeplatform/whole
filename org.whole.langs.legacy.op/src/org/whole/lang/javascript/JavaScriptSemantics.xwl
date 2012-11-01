@@ -1,0 +1,1911 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.javascript:JavaScriptSemantics"/>
+    <semantics:Namespace value="org.whole.lang.javascript"/>
+    <semantics:Name value="JavaScriptSemantics"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="1">
+        <semantics:SemanticFunction>
+            <semantics:Name value="toText"/>
+            <semantics:FunctionType>
+                <semantics:LanguageType value="whole:org.whole.lang.javascript:JavaScript"/>
+                <semantics:LanguageType value="http://lang.whole.org/Text"/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="64">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Program"/>
+                    <semantics:FunctionApplication>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <semantics:Variable value="statements"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="6">
+                                <text:Text value="function "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="id"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="("/>
+                                <semantics:IfDefTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="params"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </text:Row>
+                                </semantics:IfDefTemplate>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#IfStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="9">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="if ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="test"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="consequent"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:ChooseTemplate initialCapacity="5">
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="} else {"/>
+                                    </text:Row>
+                                    <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="} else"/>
+                                    </text:Row>
+                                    <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="else {"/>
+                                    </text:Row>
+                                    <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="else"/>
+                                    </text:Row>
+                                    <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                    <queries:And xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="consequent"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="alternate"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </semantics:IfTemplate>
+                            </semantics:ChooseTemplate>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="alternate"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="alternate"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#WithStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="with ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="object"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#TryStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="7">
+                            <text:Row initialCapacity="1">
+                                <text:Text value="try {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="try"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfDefTemplate>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="handlers"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </semantics:IfDefTemplate>
+                            <semantics:IfDefTemplate>
+                                <text:Document initialCapacity="4">
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="} finally {"/>
+                                    </text:Row>
+                                    <text:Indent value="1"/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="finally"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <text:Indent value="-1"/>
+                                </text:Document>
+                            </semantics:IfDefTemplate>
+                            <text:Row initialCapacity="1">
+                                <text:Text value="}"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#CatchClause"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="} catch ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="param"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <semantics:IfDefTemplate>
+                                    <text:Row initialCapacity="2">
+                                        <text:Text value=" if "/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="guard"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </text:Row>
+                                </semantics:IfDefTemplate>
+                                <text:Text value=") {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#SwitchStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="3">
+                                <text:Text value="switch ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="expression"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=") {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="cases"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="1">
+                                <text:Text value="}"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#SwitchCase"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <semantics:ChooseTemplate initialCapacity="2">
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="4">
+                                        <text:TextSeparator value=""/>
+                                        <text:Text value="case "/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="test"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value=":"/>
+                                    </text:Row>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="test"/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                                <semantics:ElseTemplate>
+                                    <text:Row initialCapacity="2">
+                                        <text:TextSeparator value=""/>
+                                        <text:Text value="default:"/>
+                                    </text:Row>
+                                </semantics:ElseTemplate>
+                            </semantics:ChooseTemplate>
+                            <text:Indent value="1"/>
+                            <semantics:IfDefTemplate>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="statements"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </semantics:IfDefTemplate>
+                            <text:Indent value="-1"/>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ForStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="8">
+                                <text:Text value="for ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="init"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="; "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="test"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="; "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="update"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ForInStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="6">
+                                <text:Text value="for ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="iterator"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=" in "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="iterated"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ForEachStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="6">
+                                <text:Text value="for each ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="iterator"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=" in "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="iterated"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#WhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="while ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="test"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="body"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#DoWhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="1">
+                                <text:Text value="do {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="3">
+                                <text:Text value="} while ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="test"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=");"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#LetStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="let"/>
+                                <text:Text value="("/>
+                                <semantics:IfDefTemplate>
+                                    <text:Row initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="variables"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </text:Row>
+                                </semantics:IfDefTemplate>
+                                <text:Text value=") {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="body"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="1">
+                                <text:Text value="}"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:ChooseTemplate initialCapacity="2">
+                            <semantics:IfTemplate>
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                    <text:Row initialCapacity="4">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="kind"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value=" "/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="variables"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value=";"/>
+                                    </text:Row>
+                                </text:Document>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:ParentStep/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                            <semantics:ElseTemplate>
+                                <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="kind"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <text:Text value=" "/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="variables"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:ElseTemplate>
+                        </semantics:ChooseTemplate>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ExpressionStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="3">
+                                <text:TextSeparator value=""/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:Variable value="expression"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ReturnStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="return"/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value=" "/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="argument"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=";"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ThrowStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="throw "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="argument"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=";"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#BreakStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="break"/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value=" "/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="target"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=";"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ContinueStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="continue"/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value=" "/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="target"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=";"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#LabeledStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="labels"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="statement"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Labels"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Label"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="name"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=":"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Comment"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:ChooseTemplate initialCapacity="4">
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="2">
+                                        <text:Text value="//"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="contents"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </text:Row>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="line"/>
+                                    </queries:Equals>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="/*"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="contents"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value="*/"/>
+                                    </text:Row>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="block"/>
+                                    </queries:Equals>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="/**"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="contents"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value="*/"/>
+                                    </text:Row>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="jsdoc"/>
+                                    </queries:Equals>
+                                </semantics:IfTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="&lt;!--"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="contents"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Text value="--&gt;"/>
+                                    </text:Row>
+                                    <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="html"/>
+                                    </queries:Equals>
+                                </semantics:IfTemplate>
+                            </semantics:ChooseTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionExpression"/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="1">
+                            <queries:Name value="textFragment"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="2">
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                                        <text:Row initialCapacity="6">
+                                        <text:Text value="function "/>
+                                        <semantics:IfDefTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="id"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:IfDefTemplate>
+                                        <text:Text value="("/>
+                                        <semantics:IfDefTemplate>
+                                        <text:Row initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="params"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </text:Row>
+                                        </semantics:IfDefTemplate>
+                                        <text:Text value=")"/>
+                                        <semantics:IfTemplate>
+                                        <text:Text value=" {"/>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </semantics:IfTemplate>
+                                        </text:Row>
+                                        <text:Indent value="1"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="body"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <text:Indent value="-1"/>
+                                        <semantics:IfTemplate>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                        </queries:Filter>
+                                        </semantics:IfTemplate>
+                                    </text:Document>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="textFragment"/>
+                            </queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                    <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                                        <queries:Call>
+                                        <queries:Name value="textFragment"/>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </semantics:TypeCast>
+                                    </commons:StageDownFragment>
+                                </text:Row>
+                            </commons:StageUpFragment>
+                        </queries:Block>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableInitializer"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="id"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value=" = "/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="init"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#CallExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="callee"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="("/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="arguments"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NewExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="constructor"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="("/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="arguments"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#YieldExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="yield "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="argument"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#AssignmentExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="left"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="right"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#LetExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="let"/>
+                            <text:Text value="("/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="variables"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value=")"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="expression"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#InfixExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="left"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="right"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PrefixExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operand"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PostfixExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operand"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ParenthesizedExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="("/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="expression"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ConditionalExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="test"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" ? "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="consequent"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" : "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="alternate"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StaticMemberExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="object"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="."/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="property"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ComputedMemberExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="object"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="["/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="property"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="]"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ArrayComprehensionExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="8">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="["/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="expression"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="blocks"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" "/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="filter"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value="]"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ComprehensionBlocks"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ForInComprehensionBlock"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="for ("/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="iterator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" in "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="iterated"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ForEachComprehensionBlock"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="for each ("/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="iterator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" in "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="iterated"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StaticXmlRef"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:IfTemplate>
+                                <text:Text value="@"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="attribute"/>
+                                    <queries:BooleanLiteral value="true"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="namespace"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <text:Text value="::"/>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="property"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ComputedXmlRef"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:IfTemplate>
+                                <text:Text value="@"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="attribute"/>
+                                    <queries:BooleanLiteral value="true"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="2">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="namespace"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <text:Text value="::"/>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="expression"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlMemberGet"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="left"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operator"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="right"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlDotQuery"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="left"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=".("/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="right"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="fragments"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlFragments"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlString"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="xml"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="{"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="expression"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="}"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlAny"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Text xmlns:text="http://lang.whole.org/Text" value="*"/>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlDefaultNamespace"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="default xml namespace = "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="operand"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ObjectLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="{"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="properties"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="}"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ObjectProperty"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="key"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=" : "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="value"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ArrayLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="["/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="elements"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                            <text:Text value="]"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#RegExpLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="/"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="value"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="/"/>
+                            <semantics:IfDefTemplate>
+                                <text:Row initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:Variable value="flags"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </text:Row>
+                            </semantics:IfDefTemplate>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ThisLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="1">
+                                <text:Text value="this"/>
+                            </text:Row>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NullLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="1">
+                                <text:Text value="null"/>
+                            </text:Row>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#EmptyExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Text xmlns:text="http://lang.whole.org/Text" value=""/>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="2">
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#CatchClauses"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#SwitchCases"/>
+                    </semantics:UnionType>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:IfTemplate>
+                                <text:Document initialCapacity="2">
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="{"/>
+                                    </text:Row>
+                                    <text:Indent value="1"/>
+                                </text:Document>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:ParentStep/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:IfTemplate>
+                                <text:Document initialCapacity="2">
+                                    <text:Indent value="-1"/>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                </text:Document>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:ParentStep/>
+                                    <queries:TypeTest value="whole:org.whole.lang.javascript:JavaScript#Statements"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="4">
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableInitializers"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Expressions"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Patterns"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ObjectProperties"/>
+                    </semantics:UnionType>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=", "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="10">
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#AssignmentOperator"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#InfixOperator"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PrefixOperator"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PostfixOperator"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlMemberOperator"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableDeclarationKind"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Identifier"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StringData"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NumberLiteral"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#BooleanLiteral"/>
+                    </semantics:UnionType>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StringLiteral"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <commons:StageDownFragment>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                                    <semantics:Variable value="quote"/>
+                                </semantics:TypeCast>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="escapeString"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.StringUtils"/>
+                                        <workflows:StringLiteral value="escapeString(java.lang.String, boolean, boolean)"/>
+                                        <workflows:Expressions initialCapacity="3">
+                                        <workflows:Variable value="value"/>
+                                        <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="quote"/>
+                                        <queries:StringLiteral value="&quot;"/>
+                                        </queries:Equals>
+                                        <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="quote"/>
+                                        <queries:StringLiteral value="&apos;"/>
+                                        </queries:Equals>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                </semantics:TypeCast>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <semantics:TypeCast>
+                                    <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                                    <semantics:Variable value="quote"/>
+                                </semantics:TypeCast>
+                            </commons:StageDownFragment>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

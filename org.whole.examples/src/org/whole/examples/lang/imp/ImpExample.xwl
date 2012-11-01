@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<imp:FunctionDeclaration xmlns:imp="http://lang.examples.whole.org/Imp">
+    <imp:PrimitiveType value="void"/>
+    <imp:Name value="testFactorial"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <imp:BlockStatement initialCapacity="4">
+        <imp:FunctionDeclaration>
+            <imp:PrimitiveType value="int"/>
+            <imp:Name value="ifact"/>
+            <imp:Parameters initialCapacity="1">
+                <imp:Parameter>
+                    <imp:PrimitiveType value="int"/>
+                    <imp:Name value="n"/>
+                </imp:Parameter>
+            </imp:Parameters>
+            <imp:BlockStatement initialCapacity="3">
+                <imp:VariableDeclaration>
+                    <imp:PrimitiveType value="int"/>
+                    <imp:Name value="result"/>
+                    <imp:IntLiteral value="1"/>
+                </imp:VariableDeclaration>
+                <imp:WhileStatement>
+                    <imp:GreaterThan>
+                        <imp:NameExpression value="n"/>
+                        <imp:IntLiteral value="0"/>
+                    </imp:GreaterThan>
+                    <imp:BlockStatement initialCapacity="2">
+                        <imp:ExpressionStatement>
+                            <imp:AssignmentExpression>
+                                <imp:Name value="result"/>
+                                <imp:Multiplication>
+                                    <imp:NameExpression value="result"/>
+                                    <imp:NameExpression value="n"/>
+                                </imp:Multiplication>
+                            </imp:AssignmentExpression>
+                        </imp:ExpressionStatement>
+                        <imp:ExpressionStatement>
+                            <imp:AssignmentExpression>
+                                <imp:Name value="n"/>
+                                <imp:Subtraction>
+                                    <imp:NameExpression value="n"/>
+                                    <imp:IntLiteral value="1"/>
+                                </imp:Subtraction>
+                            </imp:AssignmentExpression>
+                        </imp:ExpressionStatement>
+                    </imp:BlockStatement>
+                </imp:WhileStatement>
+                <imp:ReturnStatement>
+                    <imp:NameExpression value="result"/>
+                </imp:ReturnStatement>
+            </imp:BlockStatement>
+        </imp:FunctionDeclaration>
+        <imp:FunctionDeclaration>
+            <imp:PrimitiveType value="int"/>
+            <imp:Name value="rfact"/>
+            <imp:Parameters initialCapacity="1">
+                <imp:Parameter>
+                    <imp:PrimitiveType value="int"/>
+                    <imp:Name value="n"/>
+                </imp:Parameter>
+            </imp:Parameters>
+            <imp:IfElseStatement>
+                <imp:LessOrEquals>
+                    <imp:NameExpression value="n"/>
+                    <imp:IntLiteral value="1"/>
+                </imp:LessOrEquals>
+                <imp:ReturnStatement>
+                    <imp:IntLiteral value="1"/>
+                </imp:ReturnStatement>
+                <imp:ReturnStatement>
+                    <imp:Multiplication>
+                        <imp:NameExpression value="n"/>
+                        <imp:FunctionInvocationExpression>
+                            <imp:NameExpression value="rfact"/>
+                            <imp:Arguments initialCapacity="1">
+                                <imp:Subtraction>
+                                    <imp:NameExpression value="n"/>
+                                    <imp:IntLiteral value="1"/>
+                                </imp:Subtraction>
+                            </imp:Arguments>
+                        </imp:FunctionInvocationExpression>
+                    </imp:Multiplication>
+                </imp:ReturnStatement>
+            </imp:IfElseStatement>
+        </imp:FunctionDeclaration>
+        <imp:PrintlnStatement>
+            <imp:FunctionInvocationExpression>
+                <imp:NameExpression value="ifact"/>
+                <imp:Arguments initialCapacity="1">
+                    <imp:IntLiteral value="4"/>
+                </imp:Arguments>
+            </imp:FunctionInvocationExpression>
+        </imp:PrintlnStatement>
+        <imp:PrintlnStatement>
+            <imp:FunctionInvocationExpression>
+                <imp:NameExpression value="rfact"/>
+                <imp:Arguments initialCapacity="1">
+                    <imp:IntLiteral value="3"/>
+                </imp:Arguments>
+            </imp:FunctionInvocationExpression>
+        </imp:PrintlnStatement>
+    </imp:BlockStatement>
+</imp:FunctionDeclaration>

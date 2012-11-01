@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xyz:schema xmlns:xyz="http://www.w3.org/2001/XMLSchema">
+    <xyz:simpleType name="Currency">
+        <xyz:restriction base="xyz:string">
+            <xyz:enumeration value="USD"/>
+            <xyz:enumeration value="YEN"/>
+            <xyz:enumeration value="EUR"/>
+        </xyz:restriction>
+    </xyz:simpleType>
+    <xyz:simpleType name="CurrencyX">
+        <xyz:restriction base="Currency">
+            <xyz:enumeration value="USD"/>
+            <xyz:enumeration value="EUR"/>
+        </xyz:restriction>
+    </xyz:simpleType>
+</xyz:schema>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dlt="http://schemas.mindjet.com/MindManager/Delta/2003" xmlns:cor="http://schemas.mindjet.com/MindManager/Core/2003" targetNamespace="http://schemas.mindjet.com/MindManager/Delta/2003" elementFormDefault="qualified" attributeFormDefault="unqualified" version="6.0.0.2-r">
+  <xsd:import namespace="http://schemas.mindjet.com/MindManager/Core/2003" schemaLocation="MindManagerCore.xsd"/>
+  <xsd:complexType name="Delta" abstract="true" final="restriction">
+    <xsd:attribute name="DeId" type="cor:UniqueId" use="required"/>
+    <xsd:attribute name="Foreign" type="xsd:boolean" use="optional" default="false"/>
+  </xsd:complexType>
+  <xsd:complexType name="AddObjectDelta" final="#all">
+    <xsd:complexContent>
+      <xsd:extension base="dlt:Delta">
+        <xsd:sequence>
+          <xsd:element name="ParentObjectReference" type="cor:ObjectReference"/>
+          <xsd:element name="ContainingPropertyReference" type="cor:PropertyReference"/>
+          <xsd:element name="ToAddObject" type="cor:Object"/>
+        </xsd:sequence>
+        <xsd:attribute name="IndexInProperty" type="xsd:unsignedInt" use="optional"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="RemoveObjectDelta" final="#all">
+    <xsd:complexContent>
+      <xsd:extension base="dlt:Delta">
+        <xsd:sequence>
+          <xsd:element name="ToRemoveObjectReference" type="cor:ObjectReference"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ChangePropertyDelta" final="#all">
+    <xsd:complexContent>
+      <xsd:extension base="dlt:Delta">
+        <xsd:sequence>
+          <xsd:element name="ChangedPropertyReference" type="cor:PropertyReference"/>
+          <xsd:element name="ChangedObjectReference" type="cor:ObjectReference"/>
+          <xsd:element name="BeforeChangeValue" type="cor:Value"/>
+          <xsd:element name="AfterChangeValue" type="cor:Value" minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="GroupDelta" final="#all">
+    <xsd:complexContent>
+      <xsd:extension base="dlt:Delta">
+        <xsd:sequence>
+          <xsd:element name="Delta" type="dlt:Delta" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="Description" type="xsd:string" use="optional"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="GroupDelta" type="dlt:GroupDelta"/>
+</xsd:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMIPackage xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/XMI file:/home/perx/Desktop/xmi20.xsd">
+	<xmi:XMI xmi:version="2.0">
+		<!-- add any content here -->
+	</xmi:XMI>
+	<xmi:Add xmi:id="addition">
+		<xmi:Extension xmi:id="hello">
+			<!-- add any content here -->
+		</xmi:Extension>
+	</xmi:Add>
+	<xmi:Documentation xmi:id="docid">
+		<exporter>hello world</exporter>
+	</xmi:Documentation>
+</xmi:XMIPackage>

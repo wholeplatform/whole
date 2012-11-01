@@ -1,0 +1,1689 @@
+<?xml version="1.0"?>
+<tests:TestSuite xmlns:tests="http://lang.whole.org/Tests">
+    <tests:PackageName value="org.whole.lang.mediawiki.tests"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <tests:Name value="MediawikiTestSuite"/>
+    <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+        <workflows:Text value="sequence"/>
+        <workflows:FlowObjects initialCapacity="2">
+            <workflows:LoadModel>
+                <workflows:Text value="load mediaWikiGrammar"/>
+                <workflows:Variable value="mediaWikiGrammar"/>
+                <workflows:StringLiteral value="org.whole.lang.java.codebase.JavaBuilderPersistenceKit"/>
+                <workflows:ResourceKind value="CLASSPATH"/>
+                <workflows:StringLiteral value="org/whole/lang/grammars/codebase/MediaWikiGrammar.class"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </workflows:LoadModel>
+            <workflows:InvokeOperation>
+                <workflows:Text value="interpret mediaWikiGrammar"/>
+                <workflows:Variable value="mediaWikiGrammar"/>
+                <workflows:Operation value="INTERPRETER"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </workflows:InvokeOperation>
+        </workflows:FlowObjects>
+    </workflows:Sequence>
+    <tests:FilterFamilies initialCapacity="0"/>
+    <tests:TestCases initialCapacity="1">
+        <tests:TestCase>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Name value="GrammarTest"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <tests:Aspects initialCapacity="1">
+                <tests:BeforeTestCase>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="bindGrammar"/>
+                    <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="assignactivity"/>
+                        <workflows:Assignments initialCapacity="1">
+                            <workflows:Assign>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="whole:org.whole.lang.mediawiki:MediaWikiGrammar"/>
+                            </workflows:Assign>
+                        </workflows:Assignments>
+                    </workflows:AssignActivity>
+                </tests:BeforeTestCase>
+            </tests:Aspects>
+            <tests:Tests initialCapacity="1">
+                <tests:Test>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <tests:Name value="testTable"/>
+                    <tests:TestStatements initialCapacity="16">
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;|Orange&#10;|Apple&#10;|-&#10;|Bread&#10;|Pie&#10;|-&#10;|Butter&#10;|Ice cream &#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;|Orange||Apple||more&#10;|-&#10;|Bread||Pie||more&#10;|-&#10;|Butter||Ice&lt;br /&gt;cream||and&lt;br /&gt;more&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="3">
+                                        <mediawiki:Text value="Ice"/>
+                                        <mediawiki:LineBreak/>
+                                        <mediawiki:Text value="cream"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="3">
+                                        <mediawiki:Text value="and"/>
+                                        <mediawiki:LineBreak/>
+                                        <mediawiki:Text value="more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;|  Orange    ||   Apple   ||   more&#10;|-&#10;|   Bread    ||   Pie     ||   more&#10;|-&#10;|   Butter   || Ice cream ||  and more&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange    "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple   "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread    "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie     "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter   "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="and more"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;|Lorem ipsum dolor sit amet,FIXME&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="1">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="1">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Lorem ipsum dolor sit amet,FIXME"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;! Item&#10;! Amount&#10;! Cost&#10;|-&#10;|Orange&#10;|10&#10;|7.00&#10;|-&#10;|Bread&#10;|4&#10;|3.00&#10;|-&#10;|Butter&#10;|1&#10;|5.00&#10;|-&#10;!Total&#10;|&#10;|15.00&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="5">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableHeader>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Item"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Amount"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Cost"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="10"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="7.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="4"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="3.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="1"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="5.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableHeader>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Total"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value=""/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="15.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|&#10;|+Food complements&#10;|-&#10;|Orange&#10;|Apple&#10;|-&#10;|Bread&#10;|Pie&#10;|-&#10;|Butter&#10;|Ice cream &#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <commons:Resolver/>
+                                        <mediawiki:TableCaption>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Food complements"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableCaption>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot; align=&quot;center&quot; style=&quot;text-align:center;&quot;&#10;|Orange&#10;|Apple&#10;|12,333.00&#10;|-&#10;|Bread&#10;|Pie&#10;|500.00&#10;|-&#10;|Butter&#10;|Ice cream&#10;|1.00&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="3">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="center"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:CSSStyle initialCapacity="1">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="text-align"/>
+                                        <mediawiki:Value value="center"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="12,333.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="500.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="1.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot;&#10;|Orange&#10;|Apple&#10;|align=&quot;right&quot; | 12,333.00&#10;|-&#10;|Bread&#10;|Pie&#10;|align=&quot;right&quot; | 500.00&#10;|-&#10;|Butter&#10;|Ice cream&#10;|align=&quot;right&quot; | 1.00&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="12,333.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="500.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="1.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot;&#10;| Orange || Apple     || align=&quot;right&quot; | 12,333.00&#10;|-&#10;| Bread  || Pie       || align=&quot;right&quot; | 500.00&#10;|-&#10;| Butter || Ice cream || align=&quot;right&quot; | 1.00&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple     "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="12,333.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread  "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie       "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="500.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="1.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot;&#10;|Orange&#10;|Apple&#10;|align=&quot;right&quot;|12,333.00&#10;|-&#10;|Bread&#10;|Pie&#10;|align=&quot;right&quot;|500.00&#10;|- style=&quot;font-style:italic; color:green;&quot;&#10;|Butter&#10;|Ice cream&#10;|align=&quot;right&quot;|1.00&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="12,333.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="500.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="font-style"/>
+                                        <mediawiki:Value value="italic"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="color"/>
+                                        <mediawiki:Value value="green"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="right"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="1.00"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|style=&quot;border-collapse: separate; border-spacing: 0; border-width: 1px; border-style: solid; border-color: #000; padding: 0&quot;&#10;|-&#10;!style=&quot;border-style: solid; border-width: 0 1px 1px 0&quot;| Orange&#10;!style=&quot;border-style: solid; border-width: 0 0 1px 0&quot;| Apple&#10;|-&#10;|style=&quot;border-style: solid; border-width: 0 1px 0 0&quot;| Bread&#10;|style=&quot;border-style: solid; border-width: 0&quot;| Pie&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="6">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-collapse"/>
+                                        <mediawiki:Value value="separate"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-spacing"/>
+                                        <mediawiki:Value value="0"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-color"/>
+                                        <mediawiki:Value value="#000"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="padding"/>
+                                        <mediawiki:Value value="0"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="2">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="0 1px 1px 0"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="0 0 1px 0"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="0 1px 0 0"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="0"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{|style=&quot;border-collapse: collapse; border-width: 1px; border-style: solid; border-color: #000&quot;&#10;|-&#10;!style=&quot;border-style: solid; border-width: 1px&quot;| Orange&#10;!style=&quot;border-style: solid; border-width: 1px&quot;| Apple&#10;|-&#10;|style=&quot;border-style: solid; border-width: 1px&quot;| Bread&#10;|style=&quot;border-style: solid; border-width: 1px&quot;| Pie&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="4">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-collapse"/>
+                                        <mediawiki:Value value="collapse"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-color"/>
+                                        <mediawiki:Value value="#000"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="2">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-style"/>
+                                        <mediawiki:Value value="solid"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="border-width"/>
+                                        <mediawiki:Value value="1px"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot;&#10;!colspan=&quot;6&quot;|Shopping List&#10;|-&#10;|rowspan=&quot;2&quot;|Bread &amp; Butter&#10;|Pie&#10;|Buns&#10;|Danish&#10;|colspan=&quot;2&quot;|Croissant&#10;|-&#10;|Cheese&#10;|colspan=&quot;2&quot;|Ice cream&#10;|Butter&#10;|Yoghurt&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="1">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="colspan"/>
+                                        <mediawiki:Value1 value="6"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Shopping List"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="5">
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="rowspan"/>
+                                        <mediawiki:Value1 value="2"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread &amp; Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Buns"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Danish"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="colspan"/>
+                                        <mediawiki:Value1 value="2"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Croissant"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="4">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Cheese"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="colspan"/>
+                                        <mediawiki:Value1 value="2"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Yoghurt"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| style=&quot;color:green; background-color:#ffffcc;&quot; cellpadding=&quot;10&quot; cellspacing=&quot;0&quot; border=&quot;1&quot;&#10;|Orange&#10;|Apple&#10;|-&#10;|Bread&#10;|Pie&#10;|-&#10;|Butter&#10;|Ice cream &#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="4">
+                                        <mediawiki:CSSStyle initialCapacity="2">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="color"/>
+                                        <mediawiki:Value value="green"/>
+                                        </mediawiki:CSSAttribute>
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="background-color"/>
+                                        <mediawiki:Value value="#ffffcc"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellpadding"/>
+                                        <mediawiki:Value1 value="10"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellspacing"/>
+                                        <mediawiki:Value1 value="0"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot; cellpadding=&quot;20&quot; cellspacing=&quot;0&quot;&#10;|+ align=&quot;bottom&quot; style=&quot;color:#e76700;&quot; |&apos;&apos;Food complements&apos;&apos;&#10;|-&#10;|Orange&#10;|Apple&#10;|-&#10;|Bread&#10;|Pie&#10;|-&#10;|Butter&#10;|Ice cream &#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="3">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellpadding"/>
+                                        <mediawiki:Value1 value="20"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellspacing"/>
+                                        <mediawiki:Value1 value="0"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:TableCaption>
+                                        <mediawiki:Attributes initialCapacity="2">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="align"/>
+                                        <mediawiki:Value1 value="bottom"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:CSSStyle initialCapacity="1">
+                                        <mediawiki:CSSAttribute>
+                                        <mediawiki:Name value="color"/>
+                                        <mediawiki:Value value="#e76700"/>
+                                        </mediawiki:CSSAttribute>
+                                        </mediawiki:CSSStyle>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Italics>
+                                        <mediawiki:Text value="Food complements"/>
+                                        </mediawiki:Italics>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableCaption>
+                                        <mediawiki:TableRows initialCapacity="3">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Orange"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Apple"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Pie"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Ice cream "/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                        <tests:AssertThat>
+                            <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="parse"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="{| border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;2&quot;&#10;|-&#10;!scope=&quot;col&quot;| Item&#10;!scope=&quot;col&quot;| Quantity&#10;!scope=&quot;col&quot;| Price&#10;|-&#10;!scope=&quot;row&quot;| Bread&#10;| 0.3 kg&#10;| $0.65&#10;|-&#10;!scope=&quot;row&quot;| Butter&#10;| 0.125 kg&#10;| $1.25&#10;|-&#10;!scope=&quot;row&quot; colspan=&quot;2&quot;| Total&#10;| $1.90&#10;|}&#10;"/>
+                                <workflows:Variable value="mediawikiGrammar"/>
+                                <workflows:StringLiteral value="Table"/>
+                            </workflows:Parse>
+                            <tests:Matches>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <mediawiki:Table xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki">
+                                        <mediawiki:Attributes initialCapacity="3">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="border"/>
+                                        <mediawiki:Value1 value="1"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellspacing"/>
+                                        <mediawiki:Value1 value="0"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="cellpadding"/>
+                                        <mediawiki:Value1 value="2"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableRows initialCapacity="4">
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="col"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Item"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="col"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Quantity"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="col"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Price"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="row"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Bread"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="0.3 kg"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="$0.65"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="3">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="1">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="row"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Butter"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="0.125 kg"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="$1.25"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        <mediawiki:TableRow>
+                                        <commons:Resolver/>
+                                        <mediawiki:TableColumns initialCapacity="2">
+                                        <mediawiki:TableHeader>
+                                        <mediawiki:Attributes initialCapacity="2">
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="scope"/>
+                                        <mediawiki:Value1 value="row"/>
+                                        </mediawiki:HtmlAttribute>
+                                        <mediawiki:HtmlAttribute>
+                                        <mediawiki:Name1 value="colspan"/>
+                                        <mediawiki:Value1 value="2"/>
+                                        </mediawiki:HtmlAttribute>
+                                        </mediawiki:Attributes>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="Total"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableHeader>
+                                        <mediawiki:TableData>
+                                        <commons:Resolver/>
+                                        <mediawiki:InlineText initialCapacity="1">
+                                        <mediawiki:Text value="$1.90"/>
+                                        </mediawiki:InlineText>
+                                        </mediawiki:TableData>
+                                        </mediawiki:TableColumns>
+                                        </mediawiki:TableRow>
+                                        </mediawiki:TableRows>
+                                    </mediawiki:Table>
+                                </commons:StageUpFragment>
+                            </tests:Matches>
+                        </tests:AssertThat>
+                    </tests:TestStatements>
+                </tests:Test>
+            </tests:Tests>
+        </tests:TestCase>
+    </tests:TestCases>
+</tests:TestSuite>

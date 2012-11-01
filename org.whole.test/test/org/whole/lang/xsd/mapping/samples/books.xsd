@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bks="urn:books" xmlns:mapping="urn:xxx:yyy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" targetNamespace="urn:books">
+    <xsd:include schemaLocation="book-types.xsd"/>
+    <xsd:element name="books" type="bks:BooksForm">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <mapping:MappingStrategy>
+                    <mapping:URI value="http://lang.whole.org/Commonsxxx"/>
+                    <mapping:URI value="Commons.xsd"/>
+                    <mapping:BooleanType value="true"/>
+                    <mapping:BooleanType value="true"/>
+                    <mapping:BooleanType value="false"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commonsxxx"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commonsxxx"/>
+                </mapping:MappingStrategy>
+                <hfp:hasFacet name="whiteSpace"/>
+                <hfp:hasProperty name="ordered" value="false"/>
+                <hfp:hasProperty name="bounded" value="false"/>
+                <hfp:hasProperty name="cardinality" value="countably infinite"/>
+                <hfp:hasProperty name="numeric" value="false"/>
+            </xsd:appinfo>
+            <xsd:documentation source="http://www.w3.org/TR/xmlschema-2/#string"/>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:group name="G1">
+        <xsd:sequence>
+            <xsd:element name="book" maxOccurs="1" type="bks:AbstractBookForm"/>
+        </xsd:sequence>
+    </xsd:group>
+    <xsd:complexType name="BooksForm">
+        <xsd:sequence>
+            <xsd:element name="book" minOccurs="0" maxOccurs="unbounded" type="bks:AbstractBookForm"/>
+        </xsd:sequence>
+        <xsd:attribute name="name"/>
+    </xsd:complexType>
+    <xsd:complexType name="AbstractBookForm" abstract="true"/>
+    <xsd:complexType name="BookForm">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <mapping:MappingStrategy>
+                    <mapping:URI value="http://lang.whole.org/Commonsxxx"/>
+                    <mapping:URI value="Commons.xsd"/>
+                    <mapping:BooleanType value="true"/>
+                    <mapping:BooleanType value="true"/>
+                    <mapping:BooleanType value="false"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commonsxxx"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commonsxxx"/>
+                </mapping:MappingStrategy>
+                <hfp:hasFacet name="whiteSpace"/>
+                <hfp:hasProperty name="ordered" value="false"/>
+                <hfp:hasProperty name="bounded" value="false"/>
+                <hfp:hasProperty name="cardinality" value="countably infinite"/>
+                <hfp:hasProperty name="numeric" value="false"/>
+            </xsd:appinfo>
+            <xsd:documentation source="http://www.w3.org/TR/xmlschema-2/#string"/>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="bks:AbstractBookForm">
+                <xsd:sequence>
+                    <xsd:element name="author" type="xsd:string"/>
+                    <xsd:element name="title" type="xsd:string"/>
+                    <xsd:element name="genre" type="xsd:string"/>
+                    <xsd:element name="price" type="xsd:float"/>
+                    <xsd:element name="currency" minOccurs="0" type="bks:Currency"/>
+                    <xsd:element name="boh" minOccurs="0" maxOccurs="0" type="bks:Currency"/>
+                    <xsd:element name="pub_date" minOccurs="0" type="xsd:date"/>
+                    <xsd:element name="review" type="xsd:string"/>
+                </xsd:sequence>
+                <xsd:attribute name="id" type="xsd:string"/>
+                <xsd:attribute name="ID" type="xsd:string" use="optional"/>
+                <xsd:attribute name="edition" use="optional">
+                    <xsd:simpleType>
+                        <xsd:union memberTypes="xsd:int ">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:enumeration value="first"/>
+                                    <xsd:enumeration value="second"/>
+                                    <xsd:enumeration value="third"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:union>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="TestSimpleExtension">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="ID" type="xsd:string" use="optional"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="TestSimpleRestriction">
+        <xsd:simpleContent>
+            <xsd:restriction base="bks:TestSimpleExtension">
+                <xsd:enumeration value="aaaa"/>
+                <xsd:enumeration value="bbbb"/>
+                <xsd:enumeration value="cccc"/>
+                <xsd:attribute name="ID" type="xsd:string"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="SimpleBookForm">
+        <xsd:complexContent>
+            <xsd:extension base="bks:AbstractBookForm">
+                <xsd:sequence>
+                    <xsd:element name="author" type="xsd:string"/>
+                    <xsd:element name="title" type="xsd:string"/>
+                </xsd:sequence>
+                <xsd:attribute name="id" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

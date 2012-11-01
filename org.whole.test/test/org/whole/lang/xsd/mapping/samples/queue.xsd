@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="queue-entries" type="queue-entries-Type"/>
+
+  <xs:complexType name="queue-entries-Type">
+    <xs:sequence>
+      <xs:element type="queue-Type" name="queue" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="queue-Type">
+    <xs:all>
+      <xs:element type="name-Type" name="name"/>
+      <xs:element type="rate-Type" name="rate"/>
+      <xs:element type="xs:nonNegativeInteger" name="bucket-size" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:simpleType name="name-Type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z\d\-]{1,100}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rate-Type">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="0"/>
+      <xs:pattern value="([0-9]+(\.[0-9]*)?)/([smhd])"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

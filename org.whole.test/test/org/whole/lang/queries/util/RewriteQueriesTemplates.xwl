@@ -1,0 +1,473 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="RewriteQueriesTemplateManager"/>
+    <templates:Templates initialCapacity="15">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="delete1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Delete xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:Delete>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="delete2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Delete xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:TypeTest value="As"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                </queries:Delete>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="delete3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Delete xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:DescendantStep/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:TypeTest value="As"/>
+                                <queries:FeatureStep value="name"/>
+                            </queries:If>
+                            <queries:If>
+                                <queries:TypeTest value="Production"/>
+                                <queries:FeatureStep value="template"/>
+                            </queries:If>
+                        </queries:Choose>
+                    </queries:Path>
+                </queries:Delete>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Sequence initialCapacity="2">
+                        <queries:FeatureStep value="name"/>
+                        <queries:Path initialCapacity="3">
+                            <queries:FeatureStep value="declarations"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:TypeTest value="DataEntity"/>
+                            </queries:Filter>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:FeatureStep value="name"/>
+                                <queries:FeatureStep value="dataType"/>
+                            </queries:Sequence>
+                        </queries:Path>
+                    </queries:Sequence>
+                    <queries:Sequence initialCapacity="4">
+                        <commons:StageUpFragment>
+                            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MyModelName"/>
+                        </commons:StageUpFragment>
+                        <commons:StageUpFragment>
+                            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MyFirstName"/>
+                        </commons:StageUpFragment>
+                        <commons:StageUpFragment>
+                            <models:DataType xmlns:models="http://lang.whole.org/Models" value="MyFirstDataType"/>
+                        </commons:StageUpFragment>
+                        <commons:StageUpFragment>
+                            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MySecondName"/>
+                        </commons:StageUpFragment>
+                    </queries:Sequence>
+                </queries:PointwiseUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:TypeTest value="DataEntity"/>
+                    </queries:Filter>
+                    <queries:Sequence initialCapacity="1">
+                        <queries:PointwiseUpdate>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:FeatureStep value="name"/>
+                                <queries:FeatureStep value="dataType"/>
+                            </queries:Sequence>
+                            <queries:Sequence initialCapacity="2">
+                                <commons:StageUpFragment>
+                                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MyDataEntityName"/>
+                                </commons:StageUpFragment>
+                                <commons:StageUpFragment>
+                                    <models:DataType xmlns:models="http://lang.whole.org/Models" value="MyDataType"/>
+                                </commons:StageUpFragment>
+                            </queries:Sequence>
+                        </queries:PointwiseUpdate>
+                    </queries:Sequence>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                </queries:PointwiseUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update4"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <queries:Delete>
+                        <queries:Path initialCapacity="3">
+                            <queries:FeatureStep value="declarations"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:TypeTest value="DataEntity"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                        </queries:Path>
+                    </queries:Delete>
+                </queries:PointwiseUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update5"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <queries:PointwiseUpdate>
+                        <queries:Path initialCapacity="3">
+                            <queries:FeatureStep value="declarations"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:TypeTest value="CompositeEntity"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                        </queries:Path>
+                        <queries:Path initialCapacity="3">
+                            <queries:FeatureStep value="declarations"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:TypeTest value="DataEntity"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                        </queries:Path>
+                    </queries:PointwiseUpdate>
+                </queries:PointwiseUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update6"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <commons:StageUpFragment>
+                        <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="DataEntityName"/>
+                    </commons:StageUpFragment>
+                </queries:CartesianUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update7"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <queries:StringLiteral value="DataEntityName"/>
+                </queries:CartesianUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update8"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Select>
+                        <commons:StageUpFragment>
+                            <models:DataEntity xmlns:models="http://lang.whole.org/Models">
+                                <models:EntityModifiers initialCapacity="0"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="newName"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#Types"/>
+                                    <commons:VarName value="types"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <models:DataType value="Object"/>
+                            </models:DataEntity>
+                        </commons:StageUpFragment>
+                        <queries:Path initialCapacity="2">
+                            <queries:FeatureStep value="declarations"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="DataEntity"/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="oldName"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="types"/>
+                                        <queries:VariableTest value="types"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:Filter>
+                            <commons:SameStageFragment>
+                                <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                    <java:StringLiteral value="My"/>
+                                    <java:InfixOperator value="+"/>
+                                    <java:SimpleName value="oldName"/>
+                                    <commons:Resolver/>
+                                </java:InfixExpression>
+                            </commons:SameStageFragment>
+                            <queries:VariableTest value="newName"/>
+                        </queries:Filter>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:PointwiseUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update9"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:For xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:PointwiseUpdate>
+                        <queries:SelfStep/>
+                        <queries:Select>
+                            <commons:StageUpFragment>
+                                <models:DataEntity xmlns:models="http://lang.whole.org/Models">
+                                    <models:EntityModifiers initialCapacity="0"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="newName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Types"/>
+                                        <commons:VarName value="types"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <models:DataType value="Object"/>
+                                </models:DataEntity>
+                            </commons:StageUpFragment>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="oldName"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="types"/>
+                                        <queries:VariableTest value="types"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <commons:SameStageFragment>
+                                    <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                        <java:StringLiteral value="My"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="oldName"/>
+                                        <commons:Resolver/>
+                                    </java:InfixExpression>
+                                </commons:SameStageFragment>
+                                <queries:VariableTest value="newName"/>
+                            </queries:Filter>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:PointwiseUpdate>
+                </queries:For>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update10"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <commons:SameStageFragment>
+                        <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                            <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                            <commons:Resolver/>
+                            <java:SimpleName value="toLowerCap"/>
+                            <java:Arguments initialCapacity="1">
+                                <java:SimpleName value="self"/>
+                            </java:Arguments>
+                        </java:MethodInvocation>
+                    </commons:SameStageFragment>
+                </queries:CartesianUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="update11"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="DataEntity"/>
+                        </queries:Filter>
+                        <queries:Sequence initialCapacity="2">
+                            <queries:FeatureStep value="name"/>
+                            <queries:FeatureStep value="dataType"/>
+                        </queries:Sequence>
+                    </queries:Path>
+                    <queries:Choose initialCapacity="2">
+                        <queries:If>
+                            <queries:TypeTest value="SimpleName"/>
+                            <commons:SameStageFragment>
+                                <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                    <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                    <commons:Resolver/>
+                                    <java:SimpleName value="toLowerCap"/>
+                                    <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="self"/>
+                                    </java:Arguments>
+                                </java:MethodInvocation>
+                            </commons:SameStageFragment>
+                        </queries:If>
+                        <queries:Do>
+                            <queries:StringLiteral value="MyDataType"/>
+                        </queries:Do>
+                    </queries:Choose>
+                </queries:CartesianUpdate>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="insert1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianInsert xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Placement value="INTO"/>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                        <queries:FeatureStep value="features"/>
+                    </queries:Path>
+                    <queries:Sequence initialCapacity="2">
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <models:FeatureModifiers initialCapacity="0"/>
+                                <models:SimpleName value="T1"/>
+                                <models:SimpleName value="n1"/>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <models:FeatureModifiers initialCapacity="0"/>
+                                <models:SimpleName value="T2"/>
+                                <models:SimpleName value="n2"/>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                    </queries:Sequence>
+                </queries:CartesianInsert>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="Sample"/>
+    <models:TypeRelations initialCapacity="0"/>
+    <models:ModelDeclarations initialCapacity="3">
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DataList"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="0"/>
+            <models:SimpleName value="DataType"/>
+        </models:CompositeEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StringType"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="IntType"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="int"/>
+        </models:DataEntity>
+    </models:ModelDeclarations>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+</models:Model>

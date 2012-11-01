@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sample xmlns="http://samples.lang.whole.org/sample" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://samples.lang.whole.org/sample simpleContent.xsd">
+    <string  id="id0">VAL4</string>
+    <localizedString id="id1" lang="it">false</localizedString>
+    <token id="id2">127</token>
+	<localizedToken id="id3" lang="it">P5Y</localizedToken>
+	<enum id="id4">VAL2</enum>
+</sample>

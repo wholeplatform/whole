@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:ns1="http://test.whole.org/SumReceive:process" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" name="SumReceive" targetNamespace="http://test.whole.org/SumReceiveSchemaNamespace">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/asyncSum/SumReceive.wsdl" namespace="http://test.whole.org/SumReceive:process"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="SumReceivePL" partnerLinkType="ns1:SumReceivePLT" myRole="SumReceiveProvider"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable name="sumReceived" type="xsd:int"/>
+        <bpws:variable name="generalID" type="xsd:any"/>
+    </bpws:variables>
+    <bpws:sequence name="sumReceiveSequence">
+        <bpws:receive name="receiveSum" createInstance="yes" operation="Sum" partnerLink="SumReceivePL">
+            <bpws:fromPart part="GENE_ID" toVariable="generalID"/>
+            <bpws:fromPart part="sumReceivePart" toVariable="sumReceived"/>
+        </bpws:receive>
+    </bpws:sequence>
+</bpws:process>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns1="http://test.whole.org/sumservice" name="Sum" targetNamespace="http://test.whole.org/Sum">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/syncProcess/SumService.wsdl" namespace="http://test.whole.org/sumservice"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="SumPL" partnerLinkType="ns1:SumPLT" myRole="adder"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable name="op1" type="xsd:int"/>
+        <bpws:variable name="op2" type="xsd:int"/>
+        <bpws:variable name="result" type="xsd:int"/>
+    </bpws:variables>
+    <bpws:sequence name="sequence1">
+        <bpws:receive name="receive1" createInstance="yes" operation="sum" partnerLink="SumPL">
+            <bpws:fromPart part="op1" toVariable="op1"/>
+            <bpws:fromPart part="op2" toVariable="op2"/>
+        </bpws:receive>
+        <bpws:assign name="assign1">
+            <bpws:copy>
+                <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$op1 + $op2]]></bpws:from>
+                <bpws:to variable="result"/>
+            </bpws:copy>
+        </bpws:assign>
+        <bpws:reply name="reply1" partnerLink="SumPL" operation="sum">
+            <bpws:toPart fromVariable="result" part="result"/>
+        </bpws:reply>
+    </bpws:sequence>
+</bpws:process>

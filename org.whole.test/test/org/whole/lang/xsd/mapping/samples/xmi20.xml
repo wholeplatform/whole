@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMIPackage xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/XMI xmi20.xsd">
+	<xmi:XMI xmi:version="2.0">
+		<!-- add any content here -->
+		<xmi:Extension  xmi:id="docid0" />
+		<xmi:Extension  xmi:id="docid1" />
+		<xmi:Extension  xmi:id="docid2" />
+		<xmi:Extension  xmi:id="docid3" />
+	</xmi:XMI>
+	<xmi:Add xmi:id="addition">
+		<xmi:Extension xmi:id="hello">
+			<!-- add any content here -->
+		</xmi:Extension>
+	</xmi:Add>
+	<xmi:Documentation xmi:id="docid">
+		<xmi:Extension  xmi:id="docid44" />
+	</xmi:Documentation>
+</xmi:XMIPackage>

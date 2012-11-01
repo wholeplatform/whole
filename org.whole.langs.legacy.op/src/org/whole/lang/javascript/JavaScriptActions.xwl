@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.javascript:JavaScriptActions"/>
+    <actions:Namespace value="org.whole.lang.javascript"/>
+    <actions:Name value="JavaScriptActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="whole:org.whole.lang.javascript:JavaScript"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="prettyPrint"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:Filter>
+                    <queries:VariableRefStep value="printWriter"/>
+                    <queries:VariableTest value="ppw"/>
+                </queries:Filter>
+                <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="prettyPrint"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="whole:org.whole.lang.javascript:JavaScriptSemantics#toText"/>
+                            <queries:SelfStep/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </semantics:FunctionApplication>
+                    </commons:SameStageFragment>
+                    <workflows:Operation value="PRETTY_PRINTER"/>
+                    <workflows:Assignments initialCapacity="1">
+                        <workflows:Assign>
+                            <workflows:Variable value="printWriter"/>
+                            <workflows:Variable value="ppw"/>
+                        </workflows:Assign>
+                    </workflows:Assignments>
+                </workflows:InvokeOperation>
+            </queries:Block>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="translate to Text"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.javascript:JavaScriptSemantics#toText"/>
+                    <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

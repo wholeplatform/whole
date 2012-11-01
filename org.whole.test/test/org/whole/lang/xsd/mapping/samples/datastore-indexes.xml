@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="datastore-indexes.xsd">
+    <datastore-index kind="Employee" ancestor="false">
+        <property name="lastName" direction="asc" />
+        <property name="hireDate" direction="desc" />
+    </datastore-index>
+
+    <datastore-index kind="Project" ancestor="false">
+        <property name="dueDate" direction="asc" />
+    </datastore-index>
+</datastore-indexes>

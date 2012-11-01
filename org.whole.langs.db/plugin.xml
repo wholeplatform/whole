@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.whole.lang.deployers">
+		<deployer desc="Whole DB Languages Deployer"
+			class="org.whole.langs.db.DBLanguagesDeployer"
+			id="org.whole.langs.db.DBLanguagesDeployer">
+		</deployer>
+		<deployer desc="Whole DB Meta Models Deployer"
+			class="org.whole.langs.db.DBMetaModelsDeployer"
+			id="org.whole.langs.db.DBMetaModelsDeployer">
+		</deployer>
+	</extension>
+</plugin>

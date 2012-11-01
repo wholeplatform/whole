@@ -1,0 +1,2325 @@
+<?xml version="1.0"?>
+<workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+    <workflows:Text value="sequence"/>
+    <workflows:FlowObjects initialCapacity="11">
+        <workflows:AssignActivity>
+            <workflows:Text value="init grammars variables"/>
+            <workflows:Assignments initialCapacity="9">
+                <workflows:Assign>
+                    <workflows:Variable value="dataTypesGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="DataTypesGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://tests.lang.whole.org/DataTypes"/>
+                                <grammars:Namespace value="org.whole.tests.datatypesgrammar"/>
+                                <grammars:Name value="DataTypes"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="DataTypes"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="\p{javaWhitespace}*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=""/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="15">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="BOOLEAN"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[tT]rue|[fF]alse"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%b"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="INT"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="([+-]?([0-9]+))"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%d"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DECIMAL"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="([+-]?([0-9]++[\.,][0-9]*+)|([\.,][0-9]++))"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%f"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ISO_DATETIME"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{4}-[01][0-9]-[0-3][0-9]T[0-5][0-9]:[0-2][0-9]:[0-5][0-9]\.[0-9]{3}Z"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <commons:SameStageFragment>
+                                        <workflows:InvokeJavaClassMethod>
+                                        <workflows:Text value="to extended iso date time"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.StringUtils"/>
+                                        <workflows:StringLiteral value="toExtendedISO8601DateTime(java.util.Date)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </commons:SameStageFragment>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DATE"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-3][0-9]/[01][0-9]/[0-9]{4}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%1$td/%1$tm/%1$tY"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="STRING"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[^&quot;]*+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{\E"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="{"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=";"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=";"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="x"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="x"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="one"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="one"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN4"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="two"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="two"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN5"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="three"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="three"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN6"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="&quot;"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="\&quot;"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN7"/>
+                                    <grammars:Empty>
+                                        <commons:SameStageFragment>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="BooleanLiteral"/>
+                                        <queries:StringLiteral value="&#10;&#10;&#10;"/>
+                                        </queries:If>
+                                        <queries:StringLiteral value=""/>
+                                        </queries:Choose>
+                                        </commons:SameStageFragment>
+                                    </grammars:Empty>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN8"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="\n}"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="9">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DataTypes"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NewLine/>
+                                        <grammars:Indent/>
+                                        <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:Concatenate initialCapacity="2">
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        </grammars:Concatenate>
+                                        <grammars:Concatenate initialCapacity="2">
+                                        <grammars:NonTerminal value="DataType"/>
+                                        <grammars:NonTerminal value="TOKEN7"/>
+                                        </grammars:Concatenate>
+                                        </grammars:Repeat>
+                                        <grammars:NonTerminal value="TOKEN8"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="EnumType"/>
+                                    <grammars:Choose initialCapacity="3">
+                                        <grammars:As>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        </grammars:Concatenate>
+                                        <grammars:Name value="ONE"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="TOKEN4"/>
+                                        <grammars:Name value="TWO"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="TOKEN5"/>
+                                        <grammars:Name value="THREE"/>
+                                        </grammars:As>
+                                    </grammars:Choose>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="BooleanLiteral"/>
+                                    <grammars:NonTerminal value="BOOLEAN"/>
+                                    <grammars:DataType value="BOOLEAN"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DecimalLiteral"/>
+                                    <grammars:NonTerminal value="DECIMAL"/>
+                                    <grammars:CustomDataType value="java.math.BigDecimal"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DateTimeLiteral"/>
+                                    <grammars:NonTerminal value="ISO_DATETIME"/>
+                                    <grammars:DataType value="DATE"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DateLiteral"/>
+                                    <grammars:NonTerminal value="DATE"/>
+                                    <grammars:DataType value="DATE"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="IntLiteral"/>
+                                    <grammars:NonTerminal value="INT"/>
+                                    <grammars:DataType value="LONG"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="StringLiteral"/>
+                                    <grammars:NonTerminal value="STRING"/>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DataType"/>
+                                    <grammars:Choose initialCapacity="7">
+                                        <grammars:NonTerminal value="EnumType"/>
+                                        <grammars:NonTerminal value="BooleanLiteral"/>
+                                        <grammars:NonTerminal value="DecimalLiteral"/>
+                                        <grammars:NonTerminal value="DateTimeLiteral"/>
+                                        <grammars:NonTerminal value="DateLiteral"/>
+                                        <grammars:NonTerminal value="IntLiteral"/>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN6"/>
+                                        <grammars:NonTerminal value="StringLiteral"/>
+                                        <grammars:NonTerminal value="TOKEN6"/>
+                                        </grammars:Concatenate>
+                                    </grammars:Choose>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://tests.whole.org/DataTypesGrammar"/>
+                            <grammars:Namespace value="org.whole.tests.datatypesgrammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="messagesGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="MessagesGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://test.lang.whole.org/Messages"/>
+                                <grammars:Namespace value="org.whole.tests.messagesgrammar"/>
+                                <grammars:Name value="Messages"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="Messages"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="\p{javaWhitespace}+"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=" "/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="6">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="hd:"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="hd:"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="b"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="b"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\|\|"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="||"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="!!"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="!!\n"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN4"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\d.*"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="num"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN5"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\D.*"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="non_num"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="7">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Messages"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="1"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Message"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Message"/>
+                                    <grammars:Concatenate initialCapacity="4">
+                                        <grammars:When>
+                                        <grammars:Or>
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:Not>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        </grammars:Not>
+                                        </grammars:Or>
+                                        <grammars:Concatenate initialCapacity="2">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Header"/>
+                                        <grammars:Name value="header"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                        </grammars:When>
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Body"/>
+                                        <grammars:Name value="body"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Body"/>
+                                    <grammars:Choose initialCapacity="3">
+                                        <grammars:When>
+                                        <grammars:NonTerminal value="TOKEN4"/>
+                                        <grammars:NonTerminal value="NumericBody"/>
+                                        </grammars:When>
+                                        <grammars:When>
+                                        <grammars:NonTerminal value="TOKEN5"/>
+                                        <grammars:NonTerminal value="NonNumericBody"/>
+                                        </grammars:When>
+                                        <grammars:NonTerminal value="OtherBody"/>
+                                    </grammars:Choose>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="NumericBody"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="\d+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="NonNumericBody"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="OtherBody"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Header"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://tests.whole.org/MessagesGrammar"/>
+                            <grammars:Namespace value="org.whole.tests.messagesgrammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="stateMachineGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="StateMachineGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://tests.lang.whole.org/StateMachine"/>
+                                <grammars:Namespace value="org.whole.tests.statemachinegrammar"/>
+                                <grammars:Name value="StateMachine"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="StateMachine"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="[ \n\r\t]*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=""/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="9">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="events"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="events"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="end"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="end"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="resetEvents"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="resetEvents"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="commands"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="commands"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN4"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="state"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="state"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN5"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="actions"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="actions"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN6"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{\E"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="{"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN7"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="}"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN8"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="=&gt;"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="=&gt;"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="12">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="StateMachine"/>
+                                    <grammars:Concatenate initialCapacity="10">
+                                        <grammars:Split>
+                                        <grammars:ByDelimiter>
+                                        <grammars:RegExp value="end"/>
+                                        </grammars:ByDelimiter>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Events"/>
+                                        <grammars:Name value="events"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                        </grammars:Split>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:Split>
+                                        <grammars:ByDelimiter>
+                                        <grammars:RegExp value="end"/>
+                                        </grammars:ByDelimiter>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ResetEvents"/>
+                                        <grammars:Name value="resetEvents"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                        </grammars:Split>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:Split>
+                                        <grammars:ByDelimiter>
+                                        <grammars:RegExp value="end"/>
+                                        </grammars:ByDelimiter>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Commands"/>
+                                        <grammars:Name value="commands"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                        </grammars:Split>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="States"/>
+                                        <grammars:Name value="states"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="State"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:Split>
+                                        <grammars:ByDelimiter>
+                                        <grammars:RegExp value="end"/>
+                                        </grammars:ByDelimiter>
+                                        <grammars:Concatenate initialCapacity="6">
+                                        <grammars:NonTerminal value="TOKEN4"/>
+                                        <grammars:Space/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                        <grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Actions"/>
+                                        <grammars:Name value="actions"/>
+                                        </grammars:As>
+                                        </grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Transitions"/>
+                                        <grammars:Name value="transitions"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                        </grammars:Split>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Transition"/>
+                                    <grammars:Concatenate initialCapacity="7">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="event"/>
+                                        </grammars:As>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="TOKEN8"/>
+                                        <grammars:Space/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="state"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ID"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[a-zA-Z][a-zA-Z0-9]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Event"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="code"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Events"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Event"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ResetEvents"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:Indent/>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:NewLine/>
+                                        </grammars:Concatenate>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Command"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="code"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Commands"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Command"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="States"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="State"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Actions"/>
+                                    <grammars:Concatenate initialCapacity="7">
+                                        <grammars:Indent/>
+                                        <grammars:NonTerminal value="TOKEN5"/>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="TOKEN6"/>
+                                        <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="ID"/>
+                                        </grammars:Repeat>
+                                        <grammars:NonTerminal value="TOKEN7"/>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Transitions"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Transition"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://tests.lang.whole.org/StateMachineGrammar"/>
+                            <grammars:Namespace value="org.whole.tests.statemachinegrammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="stateMachine2Grammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="StateMachineGramar2"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://tests.lang.whole.org/StateMachine2"/>
+                                <grammars:Namespace value="org.whole.tests.statemachine2grammar"/>
+                                <grammars:Name value="StateMachine2"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="StateMachine"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="[ \n\r\t]*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=""/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="9">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="events"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="events"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="end"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="end"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="resetEvents"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="resetEvents"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="commands"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="commands"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN4"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="state"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="state"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN5"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="actions"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="actions"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN6"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{\E"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="{"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN7"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="}"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN8"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="=&gt;"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="=&gt;"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="12">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="StateMachine"/>
+                                    <grammars:Concatenate initialCapacity="16">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Events"/>
+                                        <grammars:Name value="events"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ResetEvents"/>
+                                        <grammars:Name value="resetEvents"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Commands"/>
+                                        <grammars:Name value="commands"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="States"/>
+                                        <grammars:Name value="states"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="State"/>
+                                    <grammars:Concatenate initialCapacity="8">
+                                        <grammars:NonTerminal value="TOKEN4"/>
+                                        <grammars:Space/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                        <grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Actions"/>
+                                        <grammars:Name value="actions"/>
+                                        </grammars:As>
+                                        </grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Transitions"/>
+                                        <grammars:Name value="transitions"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Transition"/>
+                                    <grammars:Concatenate initialCapacity="7">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="event"/>
+                                        </grammars:As>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="TOKEN8"/>
+                                        <grammars:Space/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="state"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ID"/>
+                                    <grammars:When>
+                                        <grammars:Not>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        </grammars:Not>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[a-zA-Z][a-zA-Z0-9]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:When>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Event"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="code"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Events"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Event"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ResetEvents"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:Concatenate initialCapacity="3">
+                                        <grammars:Indent/>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:NewLine/>
+                                        </grammars:Concatenate>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Command"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:Indent/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ID"/>
+                                        <grammars:Name value="code"/>
+                                        </grammars:As>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Commands"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Command"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="States"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="State"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Actions"/>
+                                    <grammars:Concatenate initialCapacity="7">
+                                        <grammars:Indent/>
+                                        <grammars:NonTerminal value="TOKEN5"/>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="TOKEN6"/>
+                                        <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:Space/>
+                                        <grammars:NonTerminal value="ID"/>
+                                        </grammars:Repeat>
+                                        <grammars:NonTerminal value="TOKEN7"/>
+                                        <grammars:NewLine/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Transitions"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Transition"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://tests.lang.whole.org/StateMachine2Grammar"/>
+                            <grammars:Namespace value="org.whole.tests.statemachine2grammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <grammars:Literal value="\t"/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="familyGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="FamilyGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://oslo.examples.whole.org/Family"/>
+                                <grammars:Namespace value="org.whole.examples.familygrammar"/>
+                                <grammars:Name value="Family"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="Persons"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="[ \n\r\t]*"/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=" "/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="5">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[a-zA-Z]+"/>
+                                        <grammars:Category value="SEPARATOR"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=","/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=", "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{\E"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="{"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="}"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=";"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=";"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="4">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Persons"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NonTerminal value="Person"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="First"/>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Last"/>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Person"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="First"/>
+                                        <grammars:Name value="first"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Last"/>
+                                        <grammars:Name value="last"/>
+                                        </grammars:As>
+                                        <grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:Concatenate initialCapacity="4">
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:NonTerminal value="Persons"/>
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        </grammars:Concatenate>
+                                        <grammars:Name value="children"/>
+                                        </grammars:As>
+                                        </grammars:Optional>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://examples.whole.org/FamilyGrammar"/>
+                            <grammars:Namespace value="org.whole.examples.familygrammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="mt3Grammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="MT3Grammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://test.whole.org/MT3"/>
+                                <grammars:Namespace value="org.whole.examples.mt3grammar"/>
+                                <grammars:Name value="MT3"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="Message"/>
+                            <commons:Resolver/>
+                            <grammars:Productions initialCapacity="6">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="LINE_SEPARATOR"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\r\n|[\n\r\u2028\u2029\u0085]"/>
+                                        <grammars:Category value="SEPARATOR"/>
+                                        <grammars:Literal value="\n"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="MSG_SEPARATOR"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=",(\r\n|[\n\r\u2028\u2029\u0085])"/>
+                                        <grammars:Category value="SEPARATOR"/>
+                                        <grammars:Literal value=",\n"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{\E"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Literal value="{"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Literal value="}"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{20:\E"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Literal value="{20:"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="\Q{30:\E"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Literal value="{30:"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="13">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Message"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Header"/>
+                                        <grammars:Name value="header"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="LINE_SEPARATOR"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Body"/>
+                                        <grammars:Name value="body"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="LINE_SEPARATOR"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Trailer"/>
+                                        <grammars:Name value="trailer"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Header"/>
+                                    <grammars:Concatenate initialCapacity="4">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Date"/>
+                                        <grammars:Name value="date"/>
+                                        </grammars:As>
+                                        <grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Decimal18"/>
+                                        <grammars:Name value="totAmount"/>
+                                        </grammars:As>
+                                        </grammars:Optional>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Body"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:NonTerminal value="MSG_SEPARATOR"/>
+                                        <grammars:NonTerminal value="BodyElement"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="BodyElement"/>
+                                    <grammars:Choose initialCapacity="2">
+                                        <grammars:NonTerminal value="Msg1"/>
+                                        <grammars:NonTerminal value="Msg2"/>
+                                    </grammars:Choose>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Msg1"/>
+                                    <grammars:Concatenate initialCapacity="4">
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Bic"/>
+                                        <grammars:Name value="bic"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Decimal18"/>
+                                        <grammars:Name value="amount"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Msg2"/>
+                                    <grammars:Concatenate initialCapacity="5">
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="DateOfBidth"/>
+                                        <grammars:Name value="dateOfBidth"/>
+                                        </grammars:As>
+                                        <grammars:Optional>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Decimal18"/>
+                                        <grammars:Name value="amount"/>
+                                        </grammars:As>
+                                        </grammars:Optional>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Trailer"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="NofMsg"/>
+                                        <grammars:Name value="nofMsg"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Decimal18"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="18"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[ 0-9,.]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%18s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="DOUBLE"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Date"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="6"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Bic"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="11"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9A-Z]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="20"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value=".*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%-20s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DateOfBidth"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="6"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="NofMsg"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="2"/>
+                                        <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                        </grammars:DataTerminal>
+                                    </grammars:Split>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://examples.whole.org/MT3Grammar"/>
+                            <grammars:Namespace value="org.whole.examples.mt3grammar"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="motoGPCSVGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="MotoGP_TeamsCSVGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://dataintegration.examples.whole.org/MotoGP"/>
+                                <grammars:Namespace value="org.whole.examples.motogpteams"/>
+                                <grammars:Name value="MotoGP_Teams"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="Teams"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value="(\r\n|[\n\r\u2028\u2029\u0085])*"/>
+                                <commons:Resolver/>
+                                <grammars:Literal value=""/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="1">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="SEP"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=";"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=";"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="5">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Teams"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="2"/>
+                                        <grammars:Unbounded/>
+                                        <grammars:NewLine/>
+                                        <grammars:NonTerminal value="Team"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Rider"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="SEP"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Number"/>
+                                        <grammars:Name value="number"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[a-zA-Z0-9 ]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Number"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Team"/>
+                                    <grammars:Concatenate initialCapacity="7">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="SEP"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="manufacturer"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="SEP"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Rider"/>
+                                        <grammars:Name value="rider1"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="SEP"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Rider"/>
+                                        <grammars:Name value="rider2"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://examples.whole.org/MotoGPTeamsCSVGrammar"/>
+                            <grammars:Namespace value="org.whole.examples.motogpteams"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="motoGPFLFGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="MotoGP_TeamsFLFGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://dataintegration.examples.whole.org/MotoGP"/>
+                                <grammars:Namespace value="org.whole.examples.motogpteams"/>
+                                <grammars:Name value="MotoGP_Teams"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="Teams"/>
+                            <commons:Resolver/>
+                            <grammars:Productions initialCapacity="0"/>
+                            <grammars:Productions initialCapacity="5">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Teams"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="2"/>
+                                        <grammars:Unbounded/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="Team"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Rider"/>
+                                    <grammars:Concatenate initialCapacity="2">
+                                        <grammars:Split>
+                                        <grammars:BySize value="28"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        </grammars:Split>
+                                        <grammars:Split>
+                                        <grammars:BySize value="2"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Number"/>
+                                        <grammars:Name value="number"/>
+                                        </grammars:As>
+                                        </grammars:Split>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Name"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="(([ ]?[a-zA-Z0-9]+)*)[ ]*"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Number"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]+"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%02d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Team"/>
+                                    <grammars:Split>
+                                        <grammars:BySize value="100"/>
+                                        <grammars:Concatenate initialCapacity="4">
+                                        <grammars:Split>
+                                        <grammars:BySize value="30"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="name"/>
+                                        </grammars:As>
+                                        </grammars:Split>
+                                        <grammars:Split>
+                                        <grammars:BySize value="10"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Name"/>
+                                        <grammars:Name value="manufacturer"/>
+                                        </grammars:As>
+                                        </grammars:Split>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Rider"/>
+                                        <grammars:Name value="rider1"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Rider"/>
+                                        <grammars:Name value="rider2"/>
+                                        </grammars:As>
+                                        </grammars:Concatenate>
+                                    </grammars:Split>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://examples.whole.org/MotoGPTeamsFLFGrammar"/>
+                            <grammars:Namespace value="org.whole.examples.motogpteams"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+                <workflows:Assign>
+                    <workflows:Variable value="dtausGrammar"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <grammars:Grammar xmlns:grammars="http://lang.whole.org/Grammars">
+                            <grammars:Name value="DTAUSGrammar"/>
+                            <grammars:LanguageDescriptor>
+                                <grammars:URI value="http://xsd.dataintegration.examples.whole.org/DTAUS"/>
+                                <grammars:Namespace value="org.whole.examples.dtaus"/>
+                                <grammars:Name value="DTAUS"/>
+                                <commons:Resolver/>
+                            </grammars:LanguageDescriptor>
+                            <grammars:NonTerminal value="DTAUS"/>
+                            <grammars:LiteralTerminal>
+                                <grammars:RegExp value=""/>
+                                <grammars:Category value="SEPARATOR"/>
+                                <grammars:Literal value=""/>
+                            </grammars:LiteralTerminal>
+                            <grammars:Productions initialCapacity="16">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="0128"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="0128"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN1"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="A"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="A"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN2"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="00000000"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="00000000"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN3"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="    "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="    "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN4"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="               "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="               "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN5"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="                        "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="                        "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN6"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="C"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="C"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN7"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value=" "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value=" "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN8"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="   "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="   "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN9"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="        "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="        "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN10"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="  "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="  "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN11"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="           "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="           "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN12"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="            "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="            "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN13"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="E"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="E"/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN14"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="     "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="     "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TOKEN15"/>
+                                    <grammars:LiteralTerminal>
+                                        <grammars:RegExp value="                                                   "/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Literal value="                                                   "/>
+                                    </grammars:LiteralTerminal>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:Productions initialCapacity="24">
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="DTAUS"/>
+                                    <grammars:Concatenate initialCapacity="3">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ARecord"/>
+                                        <grammars:Name value="header"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="CRecords"/>
+                                        <grammars:Name value="body"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ERecord"/>
+                                        <grammars:Name value="footer"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ARecord"/>
+                                    <grammars:Concatenate initialCapacity="14">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NonTerminal value="TOKEN1"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="TransactionKind"/>
+                                        <grammars:Name value="transactionKind"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="SNumber"/>
+                                        <grammars:Name value="bankID"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN2"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="customerName"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="SDate"/>
+                                        <grammars:Name value="currentDate"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN3"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="LNumber"/>
+                                        <grammars:Name value="accountNo"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="RefType"/>
+                                        <grammars:Name value="refNo"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN4"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="FDate"/>
+                                        <grammars:Name value="executionDate"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN5"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Currency"/>
+                                        <grammars:Name value="currency"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="CRecords"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="1"/>
+                                        <grammars:Size value="9999999"/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="CRecord"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="CRecord"/>
+                                    <grammars:Concatenate initialCapacity="26">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Size"/>
+                                        <grammars:Name value="recSize"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN6"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="SNumber"/>
+                                        <grammars:Name value="contractingBankID"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="SNumber"/>
+                                        <grammars:Name value="targetBankID"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="LNumber"/>
+                                        <grammars:Name value="targetAccountNo"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="InternalID"/>
+                                        <grammars:Name value="internalCustomerID"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="TransactionType"/>
+                                        <grammars:Name value="transactionType"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN7"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="AMNumber"/>
+                                        <grammars:Name value="dmAmount"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="SNumber"/>
+                                        <grammars:Name value="bankID"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="LNumber"/>
+                                        <grammars:Name value="accountNo"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="AMNumber"/>
+                                        <grammars:Name value="euroAmount"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN8"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="targetCustomerName"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN9"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="customerName"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="purpose"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Currency"/>
+                                        <grammars:Name value="currency"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN10"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="VSNumber"/>
+                                        <grammars:Name value="expansionRecNo"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType1"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion1"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType2"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion2"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN11"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionRecords"/>
+                                        <grammars:Name value="expansionRecords"/>
+                                        </grammars:As>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ExpansionRecords"/>
+                                    <grammars:Repeat>
+                                        <grammars:Size value="0"/>
+                                        <grammars:Size value="99"/>
+                                        <commons:Resolver/>
+                                        <grammars:NonTerminal value="ExpansionRecord"/>
+                                    </grammars:Repeat>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ExpansionRecord"/>
+                                    <grammars:Concatenate initialCapacity="9">
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType1"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion1"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType2"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion2"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType3"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion3"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="ExpansionType"/>
+                                        <grammars:Name value="expansionType4"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="Chars"/>
+                                        <grammars:Name value="expansion4"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN12"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ERecord"/>
+                                    <grammars:Concatenate initialCapacity="9">
+                                        <grammars:NonTerminal value="TOKEN"/>
+                                        <grammars:NonTerminal value="TOKEN13"/>
+                                        <grammars:NonTerminal value="TOKEN14"/>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="RecordNumber"/>
+                                        <grammars:Name value="bodyLength"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="STotal"/>
+                                        <grammars:Name value="dmTotal"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="LTotal"/>
+                                        <grammars:Name value="accountTotal"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="LTotal"/>
+                                        <grammars:Name value="bankTotal"/>
+                                        </grammars:As>
+                                        <grammars:As>
+                                        <grammars:NonTerminal value="STotal"/>
+                                        <grammars:Name value="euroTotal"/>
+                                        </grammars:As>
+                                        <grammars:NonTerminal value="TOKEN15"/>
+                                    </grammars:Concatenate>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TransactionKind"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[GL][BK]"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="SNumber"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{8}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%08d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Chars"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".{27}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="SDate"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{6}"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="LNumber"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{10}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%010d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="LONG"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="RefType"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".{10}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="FDate"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="(([0-9]{8})|([ ]{8}))"/>
+                                        <grammars:Category value="DELIMITER"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Currency"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[ 1]"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="Size"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{4}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%04d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="SHORT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="InternalID"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value=".{13}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="TransactionType"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="((04000)|(05000)|(05005)|(05006)|(05015)|(51000)|(53000)|(54[0-9][0-9]J)|(56000))"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="AMNumber"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{11}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%011d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="LONG"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="VSNumber"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{2}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%02d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="ExpansionType"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="((  )|(01)|(02)|(03))"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%s"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="STRING"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="RecordNumber"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{7}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%07d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="INT"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="STotal"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{13}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%013d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="LONG"/>
+                                </grammars:Production>
+                                <grammars:Production>
+                                    <grammars:NonTerminal value="LTotal"/>
+                                    <grammars:DataTerminal>
+                                        <grammars:RegExp value="[0-9]{17}"/>
+                                        <grammars:Category value="LITERAL"/>
+                                        <grammars:Format value="%017d"/>
+                                    </grammars:DataTerminal>
+                                    <grammars:DataType value="LONG"/>
+                                </grammars:Production>
+                            </grammars:Productions>
+                            <grammars:URI value="http://examples.whole.org/DTAUSGrammar"/>
+                            <grammars:Namespace value="org.whole.examples.dtaus"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </grammars:Grammar>
+                    </commons:StageUpFragment>
+                </workflows:Assign>
+            </workflows:Assignments>
+        </workflows:AssignActivity>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret dataTypesGrammar"/>
+            <workflows:Variable value="dataTypesGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeJavaClassMethod>
+            <workflows:Text value="deploy DataTypesGrammarsDataTypeParser"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <workflows:StringLiteral value="org.whole.lang.grammars.util.tests.DataTypesGrammarsDataTypeParser"/>
+            <workflows:StringLiteral value="deploy(java.lang.String)"/>
+            <workflows:Expressions initialCapacity="1">
+                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                        <queries:VariableRefStep value="dataTypesGrammar"/>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                </commons:SameStageFragment>
+            </workflows:Expressions>
+        </workflows:InvokeJavaClassMethod>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret messagesGrammar"/>
+            <workflows:Variable value="messagesGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret stateMachineGrammar"/>
+            <workflows:Variable value="stateMachineGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret stateMachine2Grammar"/>
+            <workflows:Variable value="stateMachine2Grammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret familyGrammar"/>
+            <workflows:Variable value="familyGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret mt3Grammar"/>
+            <workflows:Variable value="mt3Grammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret motoGPCSVGrammar"/>
+            <workflows:Variable value="motoGPCSVGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret motoGPFLFGrammar"/>
+            <workflows:Variable value="motoGPFLFGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+        <workflows:InvokeOperation>
+            <workflows:Text value="interpret dtausGrammar"/>
+            <workflows:Variable value="dtausGrammar"/>
+            <workflows:Operation value="INTERPRETER"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </workflows:InvokeOperation>
+    </workflows:FlowObjects>
+</workflows:Sequence>

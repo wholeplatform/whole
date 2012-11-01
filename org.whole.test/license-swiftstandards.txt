@@ -1,0 +1,42 @@
+SWIFTStandards IPR Policy
+End-User License Agreement
+September 2005
+
+1. Definitions
+“SWIFT” means Society for Worldwide Interbank Financial Telecommunication SCRL.
+
+“SWIFTStandards” means any message-based standard or component thereof, developed by or for SWIFT, including the related business model, messages, message flows and documentation, whether in draft or final form.
+
+“IP Rights” means all copyright, proprietary know-how, patent rights (including patent applications) or other intellectual or industrial property rights.
+
+2. License
+SWIFT hereby grants you a world-wide, royalty-free, non-exclusive license to use or promote SWIFTStandards (i) for information transmission purposes in or outside the context of SWIFT messaging services and/or (ii) to develop software, products or services which support transmission of information in accordance with SWIFTStandards.
+
+3. Limitations
+You may not directly or indirectly sell SWIFTStandards. You may not modify SWIFTStandards while maintaining “SWIFTStandards” as a reference for the modified standard. This License Agreement does not grant you a license to use any of SWIFT’s trademarks, except the trademark “SWIFTStandards” for the use as defined in Section 2.
+
+4. Sub-licensing
+You may grant sub-licenses on a royalty free basis only and provided that any such sub-license remains within the scope of your rights under this License Agreement.
+
+5. Ownership of SWIFTStandards
+All IP Rights, worldwide ownership of and rights, title and interest in and to SWIFTStandards, and all copies and portions thereof, are and shall remain exclusively in SWIFT and its licensors.
+
+6. Termination
+This license will terminate immediately without notice if you fail to comply with any material provision of this License Agreement.
+
+7. Disclosure of IP Rights
+During the thirty (30) days period immediately following the date that SWIFTStandards are provided to you, you may disclose that the publication of, use of or compliance with SWIFTStandards as presented, in whole or in part, would infringe any of your IP Rights. Upon timely disclosure and considering the non-commercial nature of SWIFTStandards, you agree to license any such IP Right to SWIFT (including the right to grant sub-licenses) on royalty-free or otherwise reasonable and non-discriminatory terms and solely for the purpose of developing, implementing, promoting and using SWIFTStandards.
+
+8. Non-Enforcement of IP Rights
+Any non-disclosure of your IP Rights pursuant to Section 7 of this License Agreement, shall be considered as a final and irrevocable waiver to assert or enforce any such IP Right that you may own or control, against SWIFT or any other third party that may use SWIFTStandards, if the allegedly infringing activity is caused solely by the use of SWIFTStandards in accordance with this License Agreement.
+
+9. Disclaimer
+SWIFTStandards are provided "as is". SWIFT makes no express or implied representations, including but not limited to, warranties of merchantability or fitness for any particular purpose nor any warranty that the use of SWIFTStandards will not infringe any third party IP Rights.
+
+10. Limitation of liability
+Since SWIFTStandards result from industry consultation and are adopted by consensus amongst relevant industry participants, SWIFT will not be liable for any direct, indirect, special or consequential damages arising out of any use of SWIFTStandards even if SWIFT is expressly advised of the possibility of such damages.
+
+11. Choice of Law - Arbitration
+This License Agreement shall be governed by Belgian law.
+
+Any dispute concerning this License Agreement, that cannot be amicably resolved, shall be finally settled under the Rules of Conciliation and Arbitration of the International Chamber of Commerce (ICC) by three arbitrators appointed in accordance with these rules. The arbitration proceedings shall take place in Brussels, Belgium and shall be conducted in the English language.

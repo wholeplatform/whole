@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:ns2="http://test.whole.org/SumReceive:process" xmlns:ns1="http://test.whole.org/ReceiveAndSum:init" xmlns:ns3="http://test.whole.org/SimpleService:init" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" name="ReceiveTwoOperandForSum" targetNamespace="http://test.whole.org/ReceiveTwoOperandsForSum">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/asyncSum/ReceiveAndSum.wsdl" namespace="http://test.whole.org/ReceiveAndSum:init"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/asyncSum/SumReceive.wsdl" namespace="http://test.whole.org/SumReceive:process"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/asyncSum/SimpleService.wsdl" namespace="http://test.whole.org/SimpleService:init"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="FirstOperandPL" partnerLinkType="ns1:FirstOperandPLT" myRole="FirstOperandProvider"/>
+        <bpws:partnerLink name="SecondOperandPL" partnerLinkType="ns1:SecondOperandPLT" myRole="SecondOperandProvider"/>
+        <bpws:partnerLink name="SumReceivePL" partnerLinkType="ns2:SumReceivePLT" partnerRole="SumReceiveProvider"/>
+        <bpws:partnerLink name="simpleService" partnerLinkType="ns3:SimpleServicePLT" partnerRole="SimpleServiceProvide"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable name="firstOp" type="xsd:int"/>
+        <bpws:variable name="secondOp" type="xsd:int"/>
+        <bpws:variable name="sumResult" type="xsd:int"/>
+        <bpws:variable name="generalId" type="xsd:any"/>
+        <bpws:variable name="inputVar" type="xsd:int"/>
+        <bpws:variable name="outputVar" type="xsd:int"/>
+    </bpws:variables>
+    <bpws:sequence name="twoOperandReceive">
+        <bpws:receive name="getFirstOperand" createInstance="yes" operation="FirstOperandReceive" partnerLink="FirstOperandPL">
+            <bpws:fromPart part="firstOperand" toVariable="firstOp"/>
+        </bpws:receive>
+        <bpws:assign name="getGeneralId">
+            <bpws:copy>
+                <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[wfm:getGeneralId()]]></bpws:from>
+                <bpws:to variable="generalId"/>
+            </bpws:copy>
+        </bpws:assign>
+        <bpws:invoke name="sendGeneralId" operation="Sum" partnerLink="SumReceivePL">
+            <bpws:toPart fromVariable="firstOp" part="sumReceivePart"/>
+            <bpws:toPart fromVariable="generalId" part="GENE_ID"/>
+        </bpws:invoke>
+        <bpws:receive name="getSecondOperand" operation="SecondOperandReceive" partnerLink="SecondOperandPL">
+            <bpws:fromPart part="secondOperand" toVariable="secondOp"/>
+            <bpws:fromPart part="GENE_ID" toVariable="generalId"/>
+        </bpws:receive>
+        <bpws:assign name="sumOperand">
+            <bpws:copy>
+                <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$firstOp + $secondOp]]></bpws:from>
+                <bpws:to variable="sumResult"/>
+            </bpws:copy>
+        </bpws:assign>
+        <bpws:invoke name="sendSum" operation="Sum" partnerLink="SumReceivePL">
+            <bpws:toPart fromVariable="sumResult" part="sumReceivePart"/>
+            <bpws:toPart fromVariable="generalId" part="GENE_ID"/>
+        </bpws:invoke>
+    </bpws:sequence>
+</bpws:process>

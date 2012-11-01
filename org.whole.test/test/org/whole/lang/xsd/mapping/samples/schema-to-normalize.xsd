@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema	xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://whole.sourceforge.net/testnamespace">
+	<element name="judgments"  type="whl:judgment" xmlns:whl="http://whole.sourceforge.net/testnamespace"/>
+	<simpleType name="options">
+		<restriction base="string">
+			<enumeration value="optimal"/>
+			<enumeration value="good"/>
+			<enumeration value="bad"/>
+		</restriction>
+	</simpleType>
+	<complexType name="judgment">
+		<sequence>
+			<element name="subject" type="string"/>
+			<element name="value" type="whl:options" minOccurs="0" xmlns:whl="http://whole.sourceforge.net/testnamespace"/>
+		</sequence>
+	</complexType>
+</schema>

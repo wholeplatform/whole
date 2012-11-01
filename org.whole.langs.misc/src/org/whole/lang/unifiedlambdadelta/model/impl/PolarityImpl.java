@@ -1,0 +1,62 @@
+package org.whole.lang.unifiedlambdadelta.model.impl;
+
+import org.whole.lang.model.AbstractDataEntity;
+import org.whole.lang.unifiedlambdadelta.model.*;
+import org.whole.lang.unifiedlambdadelta.visitors.IUnifiedLambdaDeltaVisitor;
+import org.whole.lang.unifiedlambdadelta.reflect.UnifiedLambdaDeltaEntityDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
+
+/** 
+ * @generator Whole
+ */
+public class PolarityImpl extends AbstractDataEntity implements Polarity {
+	private static final long serialVersionUID = 1;
+	private boolean value;
+
+	public boolean isValue() {
+		return notifyRequested(value);
+	}
+
+	public void setValue(boolean value) {
+		notifyChanged(this.value, this.value = value);
+	}
+
+	public void accept(IUnifiedLambdaDeltaVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	public int wGetEntityOrd() {
+		return UnifiedLambdaDeltaEntityDescriptorEnum.Polarity_ord;
+	}
+
+	public EntityDescriptor<Polarity> wGetEntityDescriptor() {
+		return UnifiedLambdaDeltaEntityDescriptorEnum.Polarity;
+	}
+
+	public Object wGetValue() {
+		return new Boolean(isValue());
+	}
+
+	public void wSetValue(Object value) {
+		setValue(((Boolean) value).booleanValue());
+	}
+
+	public String wStringValue() {
+		return toString();
+	}
+
+	public void wSetValue(String value) {
+		try {
+			setValue(Boolean.valueOf(value).booleanValue());
+		} catch (NumberFormatException e) {
+		}
+	}
+
+	public boolean wBooleanValue() {
+		return isValue();
+	}
+
+	public void wSetValue(boolean value) {
+		setValue(value);
+	}
+}

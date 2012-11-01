@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:ns1="urn:test.whole.org:choreographer:services:yava" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns2="http://test.whole.org/StringMessageReceive" xmlns:ns3="http://test.whole.org/GatewayReceive:init" name="ReceiveMessageFromApplication" targetNamespace="http://test.whole.org/ReceiveMessageFromApplication">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../wsdls/ReceiveMessageFromApplication.wsdl" namespace="http://test.whole.org/ReceiveMessageFromApplication"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../../../YAVASequences/src/main/wsdl/YAVASequences.wsdl" namespace="urn:test.whole.org:choreographer:services:yava"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../wsdls/StringMessageReceive.wsdl" namespace="http://test.whole.org/StringMessageReceive"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="YavaSequencesProvider" partnerLinkType="ns1:J3PLT" initializePartnerRole="yes" partnerRole="J3Role"/>
+        <bpws:partnerLink name="StringMessageReceivePL" partnerLinkType="ns2:StringMessageReceivePLT" initializePartnerRole="yes" partnerRole="Provider"/>
+        <bpws:partnerLink name="ReceiveMessageFromApplicationPL" partnerLinkType="ns3:GatewayReceivePLT" myRole="Provider"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable name="queueName" type="xsd:string"/>
+        <bpws:variable name="message" type="xsd:any"/>
+        <bpws:variable name="generalId" type="xsd:any"/>
+        <bpws:variable name="applicationChannelType" type="xsd:string"/>
+        <bpws:variable name="dataQueue" type="xsd:string"/>
+        <bpws:variable name="file" type="xsd:any"/>
+        <bpws:variable name="gariHeader" type="xsd:string"/>
+        <bpws:variable messageType="ns3:receiveRequestMessage" name="MQMessage"/>
+    </bpws:variables>
+    <bpws:sequence name="S_ReceiveMFA">
+        <bpws:receive name="getMessage" createInstance="yes" operation="Receive" partnerLink="ReceiveMessageFromApplicationPL" variable="MQMessage"/>
+        <bpws:assign name="setInitialValue">
+            <bpws:copy>
+                <bpws:from variable="MQMessage" part="SYS_INPUT_ID"/>
+                <bpws:to variable="queueName"/>
+            </bpws:copy>
+            <bpws:copy>
+                <bpws:from variable="MQMessage" part="SYS_YBUFFER"/>
+                <bpws:to variable="message"/>
+            </bpws:copy>
+            <bpws:copy>
+                <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[wfm:getGeneralId()]]></bpws:from>
+                <bpws:to variable="generalId"/>
+            </bpws:copy>
+        </bpws:assign>
+        <bpws:invoke name="getApplicationChannelType" operation="getConfigurationByQueueNameInReceive" partnerLink="YavaSequencesProvider">
+            <bpws:toPart fromVariable="queueName" part="QueueName"/>
+            <bpws:fromPart part="ApplicationChannelType" toVariable="applicationChannelType"/>
+            <bpws:fromPart part="DataQueue" toVariable="dataQueue"/>
+        </bpws:invoke>
+        <bpws:invoke name="StringMessageReceive" operation="StringMessageReceiveOper" partnerLink="StringMessageReceivePL">
+            <bpws:toPart fromVariable="generalId" part="GENE_ID"/>
+            <bpws:toPart fromVariable="queueName" part="StringMessage"/>
+        </bpws:invoke>
+    </bpws:sequence>
+</bpws:process>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:whl="http://whole.sourceforge.net/testnamespace" targetNamespace="http://whole.sourceforge.net/testnamespace" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+    <element name="judgments" type="whl:judgment"/>
+    <simpleType name="options">
+        <restriction base="string">
+            <enumeration value="optimal"/>
+            <enumeration value="good"/>
+            <enumeration value="bad"/>
+        </restriction>
+    </simpleType>
+    <complexType name="judgment" abstract="false">
+        <sequence minOccurs="1" maxOccurs="1">
+            <element name="subject" minOccurs="1" maxOccurs="1" type="string"/>
+            <element name="value" minOccurs="0" maxOccurs="1" type="whl:options"/>
+        </sequence>
+    </complexType>
+</schema>

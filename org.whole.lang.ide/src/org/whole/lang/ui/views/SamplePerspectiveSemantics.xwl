@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics"/>
+    <semantics:Namespace value="org.whole.lang.ui.views"/>
+    <semantics:Name value="SampleView"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="4">
+        <semantics:SemanticFunction>
+            <semantics:Name value="supportsSampleView"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="BOOLEAN"/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="2">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="16">
+                        <semantics:EntityType value="http://lang.whole.org/Actions#SimpleAction"/>
+                        <semantics:EntityType value="http://lang.whole.org/Actions#GuardedAction"/>
+                        <semantics:EntityType value="http://lang.whole.org/Commons#SameStageFragment"/>
+                        <semantics:EntityType value="http://lang.whole.org/Commons#StageDownFragment"/>
+                        <semantics:EntityType value="http://lang.whole.org/Commons#StageUpFragment"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Java"/>
+                        <semantics:LanguageType value="whole:org.whole.lang.javascript:JavaScript"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Math"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Properties"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Queries"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Scripts"/>
+                        <semantics:EntityType value="http://lang.whole.org/Semantics#FunctionApplication"/>
+                        <semantics:EntityType value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                        <semantics:LanguageType value="http://lang.whole.org/SQL"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Text"/>
+                        <semantics:LanguageType value="http://lang.whole.org/Workflows"/>
+                    </semantics:UnionType>
+                    <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:AnyType/>
+                    <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="false"/>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="SampleViewBehaviorLabel"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="6">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:Text value="Semantic Function:"/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                <commons:VarName value="name"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Queries#QueryDeclaration"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:Text value="Query Declaration:"/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                <commons:VarName value="name"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Actions#SimpleAction"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:Text value="Simple Action:"/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                <commons:VarName value="name"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Actions#GuardedAction"/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:Text value="Guarded Action:"/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                <commons:VarName value="name"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="3">
+                        <semantics:EntityType value="http://lang.whole.org/Java#MethodDeclaration"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionDeclaration"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionExpression"/>
+                    </semantics:UnionType>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Text value="Function"/>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:AnyType/>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Text value="Snippet"/>
+                        </text:Row>
+                    </commons:SameStageFragment>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="SampleViewBehavior"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="5">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="semanticFunctionIndex"/>
+                            <queries:Name value="clonedModel"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="4">
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:IndexVariableTest value="semanticFunctionIndex"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="cloneSelf"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                    <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
+                                        </queries:Filter>
+                                        <queries:SelfStep/>
+                                        </queries:Choose>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                                <queries:VariableTest value="clonedModel"/>
+                            </queries:Filter>
+                            <workflows:InvokeOperation xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="invoke Normalizer"/>
+                                <workflows:Variable value="clonedModel"/>
+                                <workflows:Operation value="NORMALIZER"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:InvokeOperation>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="clonedModel"/>
+                                <actions:ActionCall xmlns:actions="http://lang.whole.org/Actions">
+                                    <actions:Label value="whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query"/>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#functions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexVariableTest value="semanticFunctionIndex"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </actions:ActionCall>
+                            </queries:Path>
+                        </queries:Block>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.whole.org/Queries#QueryDeclaration"/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="1">
+                            <queries:Name value="arg"/>
+                        </queries:Names>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <semantics:WhereTemplate>
+                                <queries:Block initialCapacity="2">
+                                    <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                    </commons:StageDownFragment>
+                                    <queries:Call>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Name"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <queries:Expressions initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#VariableRefStep"/>
+                                        <commons:VarName value="arg"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </queries:Expressions>
+                                    </queries:Call>
+                                </queries:Block>
+                                <semantics:InputBindings initialCapacity="1">
+                                    <semantics:InputBinding>
+                                        <semantics:Variable value="arg"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="parameters"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#Name"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </semantics:InputBinding>
+                                </semantics:InputBindings>
+                            </semantics:WhereTemplate>
+                        </commons:StageUpFragment>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="2">
+                        <semantics:EntityType value="http://lang.whole.org/Actions#SimpleAction"/>
+                        <semantics:EntityType value="http://lang.whole.org/Actions#GuardedAction"/>
+                    </semantics:UnionType>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                            <queries:Names initialCapacity="2">
+                                <queries:Name value="primarySelectedEntity"/>
+                                <queries:Name value="selectedEntities"/>
+                            </queries:Names>
+                            <queries:Block initialCapacity="3">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:VariableTest value="primarySelectedEntity"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:Tuple initialCapacity="1">
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                    </queries:Tuple>
+                                    <queries:VariableTest value="selectedEntities"/>
+                                </queries:Filter>
+                                <commons:StageDownFragment>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="http://lang.whole.org/Actions#transformation"/>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createSameStageFragment"/>
+                                        <commons:Resolver/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <workflows:StringLiteral value="http://lang.whole.org/Commons#SameStageFragment"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:SelfStep/>
+                                        </workflows:Expressions>
+                                        </workflows:CreateEntity>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                    </queries:Path>
+                                </commons:StageDownFragment>
+                            </queries:Block>
+                        </queries:Scope>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="3">
+                        <semantics:EntityType value="http://lang.whole.org/Java#MethodDeclaration"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionDeclaration"/>
+                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionExpression"/>
+                    </semantics:UnionType>
+                    <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:AnyType/>
+                    <queries:SelfStep xmlns:queries="http://lang.whole.org/Queries"/>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="ContextViewModel"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:Assignments xmlns:workflows="http://lang.whole.org/Workflows" initialCapacity="1">
+                    <workflows:Assign>
+                        <workflows:Variable value="ws"/>
+                        <commons:StageUpFragment>
+                            <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                <commons:Resolver/>
+                                <commons:StageDownFragment>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <commons:StageUpFragment>
+                                        <artifacts:Projects initialCapacity="1">
+                                        <artifacts:Project>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#ProjectName"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Natures initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="sourceFolderName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#PackageName"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment>
+                                        <artifacts:Artifacts initialCapacity="0"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="packageArtifactsPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="packagesPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        </artifacts:FolderArtifact>
+                                        </artifacts:Artifacts>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="projectArtifactsPoint"/>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </artifacts:Project>
+                                        </artifacts:Projects>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="projectsPoint"/>
+                                    </queries:Filter>
+                                </commons:StageDownFragment>
+                            </artifacts:Workspace>
+                        </commons:StageUpFragment>
+                    </workflows:Assign>
+                </workflows:Assignments>
+            </commons:StageUpFragment>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="PojoTemplateManager"/>
+    <templates:Templates initialCapacity="13">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllProductDeclarationsWithTemplateName"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="template"/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Name"/>
+                                        <queries:KindTest value="IMPL"/>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="name"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllProductDeclarationsWithEmptyTemplate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="template"/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="name"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllPropertiesWithoutTemplate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:VariableTest value="pojo"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="template"/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="name"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllParametersWithoutType"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:VariableTest value="pojo"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:FeatureStep value="constructors"/>
+                    <queries:ChildStep/>
+                    <queries:FeatureStep value="parameters"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="type"/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="name"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllParametersWithoutTemlate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="PojoDeclaration"/>
+                            <queries:VariableTest value="pojo"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:FeatureStep value="constructors"/>
+                    <queries:ChildStep/>
+                    <queries:FeatureStep value="parameters"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="template"/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="name"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findPropertyType"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="name"/>
+                                <queries:VariableTest value="name"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="type"/>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findPropertyTemplate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="name"/>
+                                <queries:VariableTest value="name"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="template"/>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findProductDeclarationByName"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="name"/>
+                                <queries:VariableTest value="name"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findProductDeclarationByTemplateName"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="template"/>
+                                <queries:VariableTest value="templateName"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllPropertyTypes"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                    <queries:FeatureStep value="declarations"/>
+                    <queries:ChildStep/>
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:VariableTest value="property"/>
+                    </queries:Filter>
+                    <queries:FeatureStep value="type"/>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findPropertyByTemplate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="template"/>
+                                <queries:VariableTest value="template"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllReadOnlyFields"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="properties"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="annotations"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:ExpressionTest>
+                                        <commons:StageUpFragment>
+                                        <pojo:Modifier xmlns:pojo="http://lang.whole.org/Pojo" value="READ_ONLY"/>
+                                        </commons:StageUpFragment>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:FeatureStep value="template"/>
+                        <queries:VariableTest value="template"/>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findParameterByTemplate"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="parameters"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="template"/>
+                                <queries:VariableTest value="template"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

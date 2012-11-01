@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.whole.langs.db.ui; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: org.whole.lang.rdb.ui,
+ org.whole.lang.sql.ui,
+ org.whole.langs.db.ui
+Require-Bundle: org.whole.lang,
+ org.whole.lang.ui,
+ org.whole.langs.db,
+ org.whole.lang.ui.notations,
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.gef,
+ org.eclipse.jface,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Eclipse-RegisterBuddy: org.whole.lang
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

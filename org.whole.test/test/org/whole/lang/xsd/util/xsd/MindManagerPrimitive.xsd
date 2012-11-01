@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:pri="http://schemas.mindjet.com/MindManager/Primitive/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.mindjet.com/MindManager/Primitive/2003" elementFormDefault="qualified" attributeFormDefault="unqualified" version="6.0.0.33-r">
+  <xsd:simpleType name="Color">
+    <xsd:restriction base="xsd:hexBinary">
+      <xsd:length value="4" fixed="false"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Unit">
+    <xsd:restriction base="xsd:float"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="Offset">
+    <xsd:restriction base="pri:Unit"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="Size">
+    <xsd:restriction base="pri:Unit">
+      <xsd:minInclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ZoomFactor">
+    <xsd:restriction base="xsd:float">
+      <xsd:minExclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SpacingStretchFactor">
+    <xsd:restriction base="xsd:float">
+      <xsd:minExclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Level">
+    <xsd:restriction base="xsd:unsignedInt"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="TextAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Left"/>
+      <xsd:enumeration value="urn:mindjet:Right"/>
+      <xsd:enumeration value="urn:mindjet:Center"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CellBorderType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:CellBorderTypeNone"/>
+      <xsd:enumeration value="urn:mindjet:CellBorderTypeSingleLine"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TextCapitalization">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:SentenceStyle"/>
+      <xsd:enumeration value="urn:mindjet:BookTitleStyle"/>
+      <xsd:enumeration value="urn:mindjet:AllUpperCase"/>
+      <xsd:enumeration value="urn:mindjet:AllLowerCase"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="VerticalTextAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Top"/>
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:Bottom"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Line"/>
+      <xsd:enumeration value="urn:mindjet:Rectangle"/>
+      <xsd:enumeration value="urn:mindjet:RoundedRectangle"/>
+      <xsd:enumeration value="urn:mindjet:Hexagon"/>
+      <xsd:enumeration value="urn:mindjet:Octagon"/>
+      <xsd:enumeration value="urn:mindjet:Circle"/>
+      <xsd:enumeration value="urn:mindjet:Oval"/>
+      <xsd:enumeration value="urn:mindjet:Image"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CalloutFloatingTopicShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:CalloutLine"/>
+      <xsd:enumeration value="urn:mindjet:RectangleBalloon"/>
+      <xsd:enumeration value="urn:mindjet:RoundedRectangleBalloon"/>
+      <xsd:enumeration value="urn:mindjet:OvalBalloon"/>
+      <xsd:enumeration value="urn:mindjet:ThoughtBubble"/>
+      <xsd:enumeration value="urn:mindjet:Highlight"/>
+      <xsd:enumeration value="urn:mindjet:Image"/>
+      <xsd:enumeration value="urn:mindjet:Rectangle"/>
+      <xsd:enumeration value="urn:mindjet:Hexagon"/>
+      <xsd:enumeration value="urn:mindjet:Octagon"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LabelFloatingTopicShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Rectangle"/>
+      <xsd:enumeration value="urn:mindjet:RoundedRectangle"/>
+      <xsd:enumeration value="urn:mindjet:Oval"/>
+      <xsd:enumeration value="urn:mindjet:Highlight"/>
+      <xsd:enumeration value="urn:mindjet:Image"/>
+      <xsd:enumeration value="urn:mindjet:Hexagon"/>
+      <xsd:enumeration value="urn:mindjet:Octagon"/>
+      <xsd:enumeration value="urn:mindjet:Circle"/>
+      <xsd:enumeration value="urn:mindjet:Line"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="BoundaryShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Lines"/>
+      <xsd:enumeration value="urn:mindjet:Zigzag"/>
+      <xsd:enumeration value="urn:mindjet:Scallops"/>
+      <xsd:enumeration value="urn:mindjet:Waves"/>
+      <xsd:enumeration value="urn:mindjet:CurvedLine"/>
+      <xsd:enumeration value="urn:mindjet:Rectangle"/>
+      <xsd:enumeration value="urn:mindjet:CurvedRectangle"/>
+      <xsd:enumeration value="urn:mindjet:SummaryShearedElbow"/>
+      <xsd:enumeration value="urn:mindjet:SummaryElbow"/>
+      <xsd:enumeration value="urn:mindjet:SummaryArc"/>
+      <xsd:enumeration value="urn:mindjet:SummaryCurve"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Top"/>
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:Bottom"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Vertical"/>
+      <xsd:enumeration value="urn:mindjet:ConvexEllipse"/>
+      <xsd:enumeration value="urn:mindjet:ConcaveEllipse"/>
+      <xsd:enumeration value="urn:mindjet:ConvexCorner"/>
+      <xsd:enumeration value="urn:mindjet:ConcaveCorner"/>
+      <xsd:enumeration value="urn:mindjet:Inclined"/>
+      <xsd:enumeration value="urn:mindjet:Declined"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsShapeWidthFactor">
+    <xsd:restriction base="xsd:float">
+      <xsd:minInclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ConnectionShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:NoArrow"/>
+      <xsd:enumeration value="urn:mindjet:Arrow"/>
+      <xsd:enumeration value="urn:mindjet:OpenArrow"/>
+      <xsd:enumeration value="urn:mindjet:StealthArrow"/>
+      <xsd:enumeration value="urn:mindjet:DiamondArrow"/>
+      <xsd:enumeration value="urn:mindjet:OvalArrow"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LineDashStyle">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Solid"/>
+      <xsd:enumeration value="urn:mindjet:RoundDot"/>
+      <xsd:enumeration value="urn:mindjet:SquareDot"/>
+      <xsd:enumeration value="urn:mindjet:Dash"/>
+      <xsd:enumeration value="urn:mindjet:DashDot"/>
+      <xsd:enumeration value="urn:mindjet:LongDash"/>
+      <xsd:enumeration value="urn:mindjet:LongDashDot"/>
+      <xsd:enumeration value="urn:mindjet:LongDashDotDot"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="LineShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Bezier"/>
+      <xsd:enumeration value="urn:mindjet:Straight"/>
+      <xsd:enumeration value="urn:mindjet:Angled"/>
+      <xsd:enumeration value="urn:mindjet:Curved"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TaskPriority">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Prio1"/>
+      <xsd:enumeration value="urn:mindjet:Prio2"/>
+      <xsd:enumeration value="urn:mindjet:Prio3"/>
+      <xsd:enumeration value="urn:mindjet:Prio4"/>
+      <xsd:enumeration value="urn:mindjet:Prio5"/>
+      <xsd:enumeration value="urn:mindjet:Prio6"/>
+      <xsd:enumeration value="urn:mindjet:Prio7"/>
+      <xsd:enumeration value="urn:mindjet:Prio8"/>
+      <xsd:enumeration value="urn:mindjet:Prio9"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TaskPercentage">
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="100"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ImageType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PngImage"/>
+      <xsd:enumeration value="urn:mindjet:MetafileImage"/>
+      <xsd:enumeration value="urn:mindjet:IconImage"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TopicWidthControl">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:FixedWidth"/>
+      <xsd:enumeration value="urn:mindjet:AutoWidth"/>
+      <xsd:enumeration value="urn:mindjet:NoWrap"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TopicTextAndImagePosition">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:TextLeftImageRight"/>
+      <xsd:enumeration value="urn:mindjet:TextRightImageLeft"/>
+      <xsd:enumeration value="urn:mindjet:TextTopImageBottom"/>
+      <xsd:enumeration value="urn:mindjet:TextBottomImageTop"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsConnectionPoint">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:Outside"/>
+      <xsd:enumeration value="urn:mindjet:Spread"/>
+      <xsd:enumeration value="urn:mindjet:Inside"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsConnectionStyle">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Straight"/>
+      <xsd:enumeration value="urn:mindjet:Arc"/>
+      <xsd:enumeration value="urn:mindjet:Curve"/>
+      <xsd:enumeration value="urn:mindjet:Elbow"/>
+      <xsd:enumeration value="urn:mindjet:RoundedElbow"/>
+      <xsd:enumeration value="urn:mindjet:ShearedElbow"/>
+      <xsd:enumeration value="urn:mindjet:Angle"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TopicLayoutVerticalAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Top"/>
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:Bottom"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TopicLayoutHorizontalAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Left"/>
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:Right"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="StructureGrowthDirection">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Left"/>
+      <xsd:enumeration value="urn:mindjet:Right"/>
+      <xsd:enumeration value="urn:mindjet:LeftAndRight"/>
+      <xsd:enumeration value="urn:mindjet:Automatic"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="IconSignature">
+    <xsd:restriction base="xsd:base64Binary">
+      <xsd:length value="16"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="IconType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Unknown"/>
+      <xsd:enumeration value="urn:mindjet:SmileyHappy"/>
+      <xsd:enumeration value="urn:mindjet:SmileyNeutral"/>
+      <xsd:enumeration value="urn:mindjet:SmileySad"/>
+      <xsd:enumeration value="urn:mindjet:SmileyAngry"/>
+      <xsd:enumeration value="urn:mindjet:SmileyScreaming"/>
+      <xsd:enumeration value="urn:mindjet:Clock"/>
+      <xsd:enumeration value="urn:mindjet:Calendar"/>
+      <xsd:enumeration value="urn:mindjet:Letter"/>
+      <xsd:enumeration value="urn:mindjet:Email"/>
+      <xsd:enumeration value="urn:mindjet:Mailbox"/>
+      <xsd:enumeration value="urn:mindjet:Megaphone"/>
+      <xsd:enumeration value="urn:mindjet:House"/>
+      <xsd:enumeration value="urn:mindjet:Rolodex"/>
+      <xsd:enumeration value="urn:mindjet:Dollar"/>
+      <xsd:enumeration value="urn:mindjet:Euro"/>
+      <xsd:enumeration value="urn:mindjet:FlagRed"/>
+      <xsd:enumeration value="urn:mindjet:FlagBlue"/>
+      <xsd:enumeration value="urn:mindjet:FlagGreen"/>
+      <xsd:enumeration value="urn:mindjet:FlagBlack"/>
+      <xsd:enumeration value="urn:mindjet:FlagOrange"/>
+      <xsd:enumeration value="urn:mindjet:FlagYellow"/>
+      <xsd:enumeration value="urn:mindjet:FlagPurple"/>
+      <xsd:enumeration value="urn:mindjet:TrafficLightsRed"/>
+      <xsd:enumeration value="urn:mindjet:Marker1"/>
+      <xsd:enumeration value="urn:mindjet:Marker2"/>
+      <xsd:enumeration value="urn:mindjet:Marker3"/>
+      <xsd:enumeration value="urn:mindjet:Marker4"/>
+      <xsd:enumeration value="urn:mindjet:Marker5"/>
+      <xsd:enumeration value="urn:mindjet:Marker6"/>
+      <xsd:enumeration value="urn:mindjet:Marker7"/>
+      <xsd:enumeration value="urn:mindjet:Resource1"/>
+      <xsd:enumeration value="urn:mindjet:Resource2"/>
+      <xsd:enumeration value="urn:mindjet:PadlockLocked"/>
+      <xsd:enumeration value="urn:mindjet:PadlockUnlocked"/>
+      <xsd:enumeration value="urn:mindjet:ArrowUp"/>
+      <xsd:enumeration value="urn:mindjet:ArrowRight"/>
+      <xsd:enumeration value="urn:mindjet:TwoEndArrow"/>
+      <xsd:enumeration value="urn:mindjet:Phone"/>
+      <xsd:enumeration value="urn:mindjet:Cellphone"/>
+      <xsd:enumeration value="urn:mindjet:Camera"/>
+      <xsd:enumeration value="urn:mindjet:Fax"/>
+      <xsd:enumeration value="urn:mindjet:Stop"/>
+      <xsd:enumeration value="urn:mindjet:ExclamationMark"/>
+      <xsd:enumeration value="urn:mindjet:QuestionMark"/>
+      <xsd:enumeration value="urn:mindjet:ThumbsUp"/>
+      <xsd:enumeration value="urn:mindjet:OnHold"/>
+      <xsd:enumeration value="urn:mindjet:Hourglass"/>
+      <xsd:enumeration value="urn:mindjet:Emergency"/>
+      <xsd:enumeration value="urn:mindjet:NoEntry"/>
+      <xsd:enumeration value="urn:mindjet:Bomb"/>
+      <xsd:enumeration value="urn:mindjet:Key"/>
+      <xsd:enumeration value="urn:mindjet:Glasses"/>
+      <xsd:enumeration value="urn:mindjet:JudgeHammer"/>
+      <xsd:enumeration value="urn:mindjet:Rocket"/>
+      <xsd:enumeration value="urn:mindjet:Scales"/>
+      <xsd:enumeration value="urn:mindjet:Redo"/>
+      <xsd:enumeration value="urn:mindjet:Lightbulb"/>
+      <xsd:enumeration value="urn:mindjet:CoffeeCup"/>
+      <xsd:enumeration value="urn:mindjet:TwoFeet"/>
+      <xsd:enumeration value="urn:mindjet:Meeting"/>
+      <xsd:enumeration value="urn:mindjet:Check"/>
+      <xsd:enumeration value="urn:mindjet:Note"/>
+      <xsd:enumeration value="urn:mindjet:ThumbsDown"/>
+      <xsd:enumeration value="urn:mindjet:ArrowLeft"/>
+      <xsd:enumeration value="urn:mindjet:ArrowDown"/>
+      <xsd:enumeration value="urn:mindjet:Book"/>
+      <xsd:enumeration value="urn:mindjet:MagnifyingGlass"/>
+      <xsd:enumeration value="urn:mindjet:BrokenConnection"/>
+      <xsd:enumeration value="urn:mindjet:Information"/>
+      <xsd:enumeration value="urn:mindjet:Folder"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="Transparency">
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="100"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="DurationUnit">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Hour"/>
+      <xsd:enumeration value="urn:mindjet:Day"/>
+      <xsd:enumeration value="urn:mindjet:Week"/>
+      <xsd:enumeration value="urn:mindjet:Month"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="HyperlinkSourceHandling">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:CopySource"/>
+      <xsd:enumeration value="urn:mindjet:LinkToSource"/>
+      <xsd:enumeration value="urn:mindjet:KeepLink"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="HyperlinkType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Unknown"/>
+      <xsd:enumeration value="urn:mindjet:DocumentHyperlink"/>
+      <xsd:enumeration value="urn:mindjet:WebHyperlink"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PageOrientation">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Automatic"/>
+      <xsd:enumeration value="urn:mindjet:Portrait"/>
+      <xsd:enumeration value="urn:mindjet:Landscape"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="OffsetPriority">
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="InkScaleFactor">
+    <xsd:restriction base="xsd:float">
+      <xsd:minExclusive value="0"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ImageTileOption">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Center"/>
+      <xsd:enumeration value="urn:mindjet:StretchFit"/>
+      <xsd:enumeration value="urn:mindjet:NoFlip"/>
+      <xsd:enumeration value="urn:mindjet:FlipX"/>
+      <xsd:enumeration value="urn:mindjet:FlipY"/>
+      <xsd:enumeration value="urn:mindjet:FlipXY"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsGrowth">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Horizontal"/>
+      <xsd:enumeration value="urn:mindjet:Vertical"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsGrowthDirection">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:AutomaticHorizontal"/>
+      <xsd:enumeration value="urn:mindjet:Left"/>
+      <xsd:enumeration value="urn:mindjet:Right"/>
+      <xsd:enumeration value="urn:mindjet:LeftAndRight"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsVerticalGrowthDirection">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:AutomaticVertical"/>
+      <xsd:enumeration value="urn:mindjet:Up"/>
+      <xsd:enumeration value="urn:mindjet:Down"/>
+      <xsd:enumeration value="urn:mindjet:UpAndDown"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SubTopicsVerticalAlignment">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Left"/>
+      <xsd:enumeration value="urn:mindjet:Middle"/>
+      <xsd:enumeration value="urn:mindjet:Right"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="BusinessDataType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Custom"/>
+      <xsd:enumeration value="urn:mindjet:CustomProperties"/>
+      <xsd:enumeration value="urn:mindjet:Table"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TableDataValueFormat">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:General"/>
+      <xsd:enumeration value="urn:mindjet:Number"/>
+      <xsd:enumeration value="urn:mindjet:Currency"/>
+      <xsd:enumeration value="urn:mindjet:Percentage"/>
+      <xsd:enumeration value="urn:mindjet:Text"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomPropertyDataValueFormat">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Currency"/>
+      <xsd:enumeration value="urn:mindjet:Percentage"/>
+      <xsd:enumeration value="urn:mindjet:Text"/>
+      <xsd:enumeration value="urn:mindjet:Color"/>
+      <xsd:enumeration value="urn:mindjet:Date"/>
+      <xsd:enumeration value="urn:mindjet:Time"/>
+      <xsd:enumeration value="urn:mindjet:DateAndTime"/>
+      <xsd:enumeration value="urn:mindjet:MaskedField"/>
+      <xsd:enumeration value="urn:mindjet:MultiLineText"/>
+      <xsd:enumeration value="urn:mindjet:Boolean"/>
+      <xsd:enumeration value="urn:mindjet:Integer"/>
+      <xsd:enumeration value="urn:mindjet:FileLink"/>
+      <xsd:enumeration value="urn:mindjet:List"/>
+      <xsd:enumeration value="urn:mindjet:Real"/>
+      <xsd:enumeration value="urn:mindjet:Custom"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TableDataValueType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Text"/>
+      <xsd:enumeration value="urn:mindjet:Number"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomPropertyDataValueType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Text"/>
+      <xsd:enumeration value="urn:mindjet:Number"/>
+      <xsd:enumeration value="urn:mindjet:Color"/>
+      <xsd:enumeration value="urn:mindjet:DateTime"/>
+      <xsd:enumeration value="urn:mindjet:Integer"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="NegativeNumberRepresentation">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:AlwaysNegative"/>
+      <xsd:enumeration value="urn:mindjet:RedNoNegative"/>
+      <xsd:enumeration value="urn:mindjet:BlackParenthesis"/>
+      <xsd:enumeration value="urn:mindjet:RedParenthesis"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ChartStackedType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:SideBySide"/>
+      <xsd:enumeration value="urn:mindjet:Stacked"/>
+      <xsd:enumeration value="urn:mindjet:Stacked100Percent"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="AxesStyleType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:ThreeDimensional"/>
+      <xsd:enumeration value="urn:mindjet:Math"/>
+      <xsd:enumeration value="urn:mindjet:Flat"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TickMarkType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Outside"/>
+      <xsd:enumeration value="urn:mindjet:Inside"/>
+      <xsd:enumeration value="urn:mindjet:Cross"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="AxesTitleFormat">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Number"/>
+      <xsd:enumeration value="urn:mindjet:Currency"/>
+      <xsd:enumeration value="urn:mindjet:Scientific"/>
+      <xsd:enumeration value="urn:mindjet:Percentage"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="SeriesStyle">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Line"/>
+      <xsd:enumeration value="urn:mindjet:Area"/>
+      <xsd:enumeration value="urn:mindjet:Curve"/>
+      <xsd:enumeration value="urn:mindjet:Area-Curve"/>
+      <xsd:enumeration value="urn:mindjet:Scatter"/>
+      <xsd:enumeration value="urn:mindjet:Bar"/>
+      <xsd:enumeration value="urn:mindjet:Gantt"/>
+      <xsd:enumeration value="urn:mindjet:Cube"/>
+      <xsd:enumeration value="urn:mindjet:Pie"/>
+      <xsd:enumeration value="urn:mindjet:Doughnut"/>
+      <xsd:enumeration value="urn:mindjet:Pyramid"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="BarStyle">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Square"/>
+      <xsd:enumeration value="urn:mindjet:Cylinder"/>
+      <xsd:enumeration value="urn:mindjet:Cone"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PointShape">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:Square"/>
+      <xsd:enumeration value="urn:mindjet:CircleOne"/>
+      <xsd:enumeration value="urn:mindjet:Triangle"/>
+      <xsd:enumeration value="urn:mindjet:Diamond"/>
+      <xsd:enumeration value="urn:mindjet:CircleTwo"/>
+      <xsd:enumeration value="urn:mindjet:HorizontalLine"/>
+      <xsd:enumeration value="urn:mindjet:VerticalLine"/>
+      <xsd:enumeration value="urn:mindjet:Cross"/>
+      <xsd:enumeration value="urn:mindjet:TriangleDown"/>
+      <xsd:enumeration value="urn:mindjet:Cascade"/>
+      <xsd:enumeration value="urn:mindjet:ThreeShapes"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="GroupBy">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Rows"/>
+      <xsd:enumeration value="urn:mindjet:Columns"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PositiveCurrencyRepresentation">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:SymbolNumber"/>
+      <xsd:enumeration value="urn:mindjet:NumberSymbol"/>
+      <xsd:enumeration value="urn:mindjet:SymbolSpaceNumber"/>
+      <xsd:enumeration value="urn:mindjet:NumberSpaceSymbol"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="NegativeCurrencyRepresentation">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:ParenthesisSymbolNumber"/>
+      <xsd:enumeration value="urn:mindjet:SignSymbolNumber"/>
+      <xsd:enumeration value="urn:mindjet:SymbolSignNumber"/>
+      <xsd:enumeration value="urn:mindjet:SymbolNumberSign"/>
+      <xsd:enumeration value="urn:mindjet:ParenthesisNumberSymbol"/>
+      <xsd:enumeration value="urn:mindjet:SignNumberSymbol"/>
+      <xsd:enumeration value="urn:mindjet:NumberSignSymbol"/>
+      <xsd:enumeration value="urn:mindjet:NumberSymbolSign"/>
+      <xsd:enumeration value="urn:mindjet:SignNumberSpaceSymbol"/>
+      <xsd:enumeration value="urn:mindjet:SignSymbolSpaceNumber"/>
+      <xsd:enumeration value="urn:mindjet:NumberSpaceSymbolSign"/>
+      <xsd:enumeration value="urn:mindjet:SymbolSpaceNumberSign"/>
+      <xsd:enumeration value="urn:mindjet:SymbolSpaceSignNumber"/>
+      <xsd:enumeration value="urn:mindjet:NumberSignSpaceSymbol"/>
+      <xsd:enumeration value="urn:mindjet:ParenthesisSymbolSpaceNumber"/>
+      <xsd:enumeration value="urn:mindjet:ParenthesisNumberSpaceSymbol"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PaletteType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PaletteDefault"/>
+      <xsd:enumeration value="urn:mindjet:Aquamarine"/>
+      <xsd:enumeration value="urn:mindjet:DarkPastels"/>
+      <xsd:enumeration value="urn:mindjet:ElectricFire"/>
+      <xsd:enumeration value="urn:mindjet:Excel"/>
+      <xsd:enumeration value="urn:mindjet:Fall"/>
+      <xsd:enumeration value="urn:mindjet:GrayScale"/>
+      <xsd:enumeration value="urn:mindjet:LightPastels"/>
+      <xsd:enumeration value="urn:mindjet:Nature"/>
+      <xsd:enumeration value="urn:mindjet:Sephia"/>
+      <xsd:enumeration value="urn:mindjet:Spring"/>
+      <xsd:enumeration value="urn:mindjet:Sunset"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfVersion">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfVersion1_3"/>
+      <xsd:enumeration value="urn:mindjet:PdfVersion1_4"/>
+      <xsd:enumeration value="urn:mindjet:PdfVersion1_5"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfUnits">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfUnitsInches"/>
+      <xsd:enumeration value="urn:mindjet:PdfUnitsMilimeter"/>
+      <xsd:enumeration value="urn:mindjet:PdfUnitsPoints"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfResolution">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfResolution72"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution96"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution100"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution150"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution200"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution300"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution400"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution600"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution1200"/>
+      <xsd:enumeration value="urn:mindjet:PdfResolution2400"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfPagePerSheet">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet1"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet2"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet4"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet6"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet8"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet9"/>
+      <xsd:enumeration value="urn:mindjet:PdfPagePerSheet16"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfPageOrder">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderNone"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderLeftToRight"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderRightToLeft"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderAcrossFromLeft"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderDownFromLeft"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderAcrossFromRight"/>
+      <xsd:enumeration value="urn:mindjet:PdfPageOrderDownFromRight"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfEncryptionLevel">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:PdfEncryptionLevel40Bit"/>
+      <xsd:enumeration value="urn:mindjet:PdfEncryptionLevel128Bit"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfChangesAllowed">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:None"/>
+      <xsd:enumeration value="urn:mindjet:OnlyDocumentAssembly"/>
+      <xsd:enumeration value="urn:mindjet:OnlyFormField"/>
+      <xsd:enumeration value="urn:mindjet:CommentAuthoring"/>
+      <xsd:enumeration value="urn:mindjet:GeneralEditing"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="PdfPrintingDocument">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:NotAllowed"/>
+      <xsd:enumeration value="urn:mindjet:LowResolution"/>
+      <xsd:enumeration value="urn:mindjet:FullyAllowed"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="CustomFormatOption">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:Inline"/>
+      <xsd:enumeration value="urn:mindjet:Dropdown"/>
+      <xsd:enumeration value="urn:mindjet:PopupDialog"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="AttachmentType">
+    <xsd:restriction base="xsd:anyURI">
+      <xsd:enumeration value="urn:mindjet:File"/>
+      <xsd:enumeration value="urn:mindjet:Folder"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

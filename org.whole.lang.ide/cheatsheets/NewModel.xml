@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<cheatsheet title="Creating a model">
+	<intro 
+		href="/org.eclipse.platform.doc.user/reference/ref-cheatsheets.htm">
+		<description>
+			Welcome to the tutorial for creating a Model in Whole.
+			It will help you build a simple Model and try it out.
+			You will create a Whole project, and a Whole Model
+			for a simple domain.
+			Let's get started!
+		</description>
+	</intro>
+
+	<item
+		href="/org.eclipse.platform.doc.user/concepts/concepts-4.htm"
+		title="Open the Java Perspective">
+		<action
+			pluginId="org.eclipse.ui.cheatsheets"
+			class="org.eclipse.ui.internal.cheatsheets.actions.OpenPerspective"
+			param1="org.eclipse.jdt.ui.JavaPerspective"/>
+		<description>
+			Select Window-&gt;Open Perspective-&gt;Java in the menubar at
+			the top of the workbench.
+			This step changes the perspective to set up the Eclipse
+			workbench for Java development.
+			You can click the "Click to Perform" button to have the "Java"
+			perspective opened automatically.
+		</description>
+	</item>
+
+	<item
+		title="Creating a Whole Project"
+		skip="true">
+		<action
+			pluginId="org.whole.lang"
+			class="org.whole.lang.ui.wizards.OpenWholeProjectWizardAction"/>
+		<description>
+			The first thing you will need is a Whole Project.
+			If you already have a Whole project in your workspace that you
+			would like to use, you may skip this step by clicking the
+			"Click to Skip" button.
+			If not, select File-&gt;New-&gt;Project...
+			and choose Whole-&gt;Whole Project in the list.
+			Complete the subsequent pages as required.
+			The "New Whole Project" wizard is automatically
+			displayed when you click the "Click to Perform" button.
+		</description>
+	</item>
+
+	<item
+		title="Create your simple model">
+		<action
+			pluginId="org.whole.lang"
+			class="org.whole.lang.ui.wizards.OpenWholeModelWizardAction"/>
+		<description>
+			You should now have a Whole Project in your workspace.
+			The next step in building your model is to create your
+			HelloWorld model.
+			You may do this by either clicking the "Click to Perform" button below
+		    to launch the New Java Class wizard, or you may use the Eclipse tools to
+			do it, by using the File-&gt;New-&gt;Whole Model action. When you
+			use the wizard, make sure that you specify the Language of your choice.
+		</description>
+	</item>
+</cheatsheet>

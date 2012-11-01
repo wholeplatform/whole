@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %bundleName
+Bundle-SymbolicName: org.h2
+Bundle-Version: 1.2.147
+Bundle-ClassPath: lib/h2-1.2.147.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: org.h2,
+ org.h2.jdbc
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-BundleShape: dir

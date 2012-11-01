@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.wholeplatform</groupId>
+	<artifactId>whole-ldk</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+
+	<name>Whole Platform</name>
+	<description>The Whole Platform is a technology for engineering the production of software</description>
+	<url>http://wholeplatform.com</url>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- libraries -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.beanshell</groupId>
+				<artifactId>bsh</artifactId>
+				<version>${bsh-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>asm</groupId>
+				<artifactId>asm-all</artifactId>
+				<version>${asm-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>${joda-time-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mozilla</groupId>
+				<artifactId>rhino</artifactId>
+				<version>${rhino-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit-version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk-version>1.6</jdk-version>
+
+		<compiler-version>2.4</compiler-version>
+		<wagon-ssh-version>2.2</wagon-ssh-version>
+		<resources-version>2.5</resources-version>
+
+		<h2-version>1.2.147</h2-version>
+		<bsh-version>2.0b4</bsh-version>
+		<asm-version>3.2</asm-version>
+		<joda-time-version>1.6.2</joda-time-version>
+		<rhino-version>1.7R3</rhino-version>
+		<junit-version>4.8.2</junit-version>
+	</properties>
+
+	<build>
+		<sourceDirectory>${basedir}/src</sourceDirectory>
+		<testSourceDirectory>${basedir}/test</testSourceDirectory>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>${wagon-ssh-version}</version>
+			</extension>
+		</extensions>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${resources-version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${jdk-version}</source>
+					<target>${jdk-version}</target>
+					<fork>true</fork>
+					<meminitial>128m</meminitial>
+					<maxmem>512m</maxmem>
+					<excludes>
+						<exclude>**/DeployerExtensions.java</exclude>
+						<exclude>**/WholePlugin.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>${basedir}/src</directory>
+				<includes>
+					<include>**/*.xsd</include>
+					<include>**/*.xwl</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<modules>
+		<module>../org.whole.lang/pom-ldk.xml</module>
+		<module>../org.whole.langs.core/pom-ldk.xml</module>
+		<module>../org.whole.langs.legacy/pom-ldk.xml</module>
+		<module>../org.whole.langs.db/pom-ldk.xml</module>
+		<module>../org.whole.langs.core.op/pom-ldk.xml</module>
+		<module>../org.whole.langs.legacy.op/pom-ldk.xml</module>
+		<module>../org.whole.langs.db.op/pom-ldk.xml</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>WholeRepository</id>
+			<name>Whole Repository</name>
+			<url>http://whole.sourceforge.net/maven</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>WholeRepositoryServer</id>
+			<url>sftp://web.sourceforge.net/home/project-web/whole/htdocs/maven</url>
+		</repository>
+	</distributionManagement>
+</project>

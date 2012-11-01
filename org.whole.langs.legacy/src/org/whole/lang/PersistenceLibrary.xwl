@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang:PersistenceLibrary"/>
+    <semantics:Namespace value="org.whole.lang"/>
+    <semantics:Name value="Persistence"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="6">
+        <semantics:SemanticFunction>
+            <semantics:Name value="toJavaBuilderCompilationUnit"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="toJavaBuilderBlock"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Java#Block"/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="fromJavaBuilderModel"/>
+            <semantics:FunctionType>
+                <semantics:UnionType initialCapacity="2">
+                    <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+                    <semantics:EntityType value="http://lang.whole.org/Java#Block"/>
+                </semantics:UnionType>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="toXmlBuilderDocument"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Xml#Document"/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="toXmlBuilderContent"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Xml#Content"/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="fromXmlBuilderModel"/>
+            <semantics:FunctionType>
+                <semantics:UnionType initialCapacity="2">
+                    <semantics:EntityType value="http://lang.whole.org/Xml#Document"/>
+                    <semantics:EntityType value="http://lang.whole.org/Xml#Content"/>
+                </semantics:UnionType>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

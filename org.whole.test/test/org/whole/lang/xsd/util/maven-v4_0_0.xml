@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.wholeplatform</groupId>
+	<artifactId>whole-platform</artifactId>
+	<version>1.0.0-v20070424-1857</version>
+
+	<packaging>pom</packaging>
+
+	<name>Whole Platform</name>
+	<url>http://whole.sourceforge.net</url>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<outputDirectory>bin</outputDirectory>
+	
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.1</version>
+	
+				<!--configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration-->
+			</plugin>	
+		</plugins>
+	</build>
+
+	<modules>
+		<module>whole-lang</module>
+		<module>whole-langs-core</module>
+		<module>whole-langs-core-op</module>
+		<module>whole-langs-legacy</module>
+		<module>whole-langs-legacy-op</module>
+		<module>whole-langs-pm</module>
+		<module>whole-langs</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>WholeRepository</id>
+			<name>Whole Repository</name>
+			<url>http://whole.sourceforge.net/maven</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>WholeRepositoryServer</id>
+			<url>scp://shell.sourceforge.net/home/groups/w/wh/whole/htdocs/maven</url>
+		</repository>
+	</distributionManagement>
+</project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:dt="http://samples.lang.whole.org/datatypes" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://samples.lang.whole.org/datatypes" attributeFormDefault="unqualified" elementFormDefault="qualified">
+    <element name="eboolean" type="boolean"/>
+    <element name="ebyte" type="byte"/>
+    <element name="eshort" type="short"/>
+    <element name="eint" type="int"/>
+    <element name="elong" type="long"/>
+    <element name="edouble" type="double"/>
+    <element name="efloat" type="float"/>
+    <element name="estring" type="string"/>
+    <element name="edate" type="date"/>
+    <element name="edateTime" type="dateTime"/>
+    <element name="etime" type="time"/>
+    <element name="eyearMonth" type="gYearMonth"/>
+    <element name="eduration" type="duration"/>
+    <element name="edecimal" type="decimal"/>
+    <element name="einteger" type="integer"/>
+    <element name="eanyValue" type="anySimpleType"/>
+    <element name="eenum" type="dt:myEnumeration"/>
+
+    <simpleType name="myEnumeration">
+        <restriction base="decimal">
+            <enumeration value="1234"/>
+            <enumeration value="5678"/>
+            <enumeration value="1000"/>
+        </restriction>
+    </simpleType>
+
+<!-- TODO complete support for simple types
+    <element name="elist" type="dt:listType"/>
+    <simpleType name="listType">
+        <list itemType="int"/>
+    </simpleType>
+
+    <simpleType name="fromListType">
+        <restriction base="dt:listType">
+            <pattern value="123 (\d+\s)*456"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="unionType">
+        <union memberTypes="int dt:fromListType "/>
+    </simpleType>
+    <element name="eunion" type="dt:unionType"/>
+-->
+    <group name="dataType">
+        <choice>
+            <element ref="dt:eboolean"/>
+            <group   ref="dt:intDataType"/>
+            <element ref="dt:edouble"/>
+            <element ref="dt:efloat"/>
+            <element ref="dt:estring"/>
+            <element ref="dt:edate"/>
+            <element ref="dt:edateTime"/>
+            <element ref="dt:etime"/>
+            <element ref="dt:eyearMonth"/>
+            <element ref="dt:eduration"/>
+            <element ref="dt:edecimal"/>
+            <element ref="dt:einteger"/>
+            <element ref="dt:eanyValue"/>
+            <element ref="dt:eenum"/>
+<!-- TODO complete support for union types
+            <element ref="dt:elist"/>
+            <element ref="dt:eunion"/>
+-->
+        </choice>
+    </group>
+    <group name="intDataType">
+        <choice>
+            <element ref="dt:ebyte"/>
+            <element ref="dt:eshort"/>
+            <sequence >
+            	<element minOccurs="0" name="test1" type="string"/>
+            	<element name="test2" type="string"/>
+            </sequence>
+            <element ref="dt:eint"/>
+            <element ref="dt:elong"/>
+        </choice>
+    </group>
+    <complexType name="dataTypes">
+        <group minOccurs="0" maxOccurs="unbounded" ref="dt:dataType"/>
+    </complexType>
+    <element name="dataTypes" type="dt:dataTypes"/>
+</schema>

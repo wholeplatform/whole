@@ -1,0 +1,51 @@
+package org.whole.lang.scheme.model.adapters;
+
+import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.scheme.model.*;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.scheme.visitors.ISchemeVisitor;
+import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.scheme.reflect.SchemeEntityDescriptorEnum;
+import org.whole.lang.scheme.reflect.SchemeFeatureDescriptorEnum;
+
+/** 
+ * @generator Whole
+ */
+public class LambdaExpressionAdapter extends AbstractEntityAdapter implements
+		LambdaExpression {
+	private static final long serialVersionUID = 1;
+
+	public LambdaExpressionAdapter(IEntity implementor) {
+		super(implementor);
+	}
+
+	public LambdaExpressionAdapter() {
+	}
+
+	public void accept(ISchemeVisitor visitor) {
+		if (visitor.visitAdapter(this))
+			visitor.visit(this);
+	}
+
+	public EntityDescriptor<LambdaExpression> wGetEntityDescriptor() {
+		return SchemeEntityDescriptorEnum.LambdaExpression;
+	}
+
+	public Names getArgs() {
+		return wGet(SchemeFeatureDescriptorEnum.args).wGetAdapter(
+				SchemeEntityDescriptorEnum.Names);
+	}
+
+	public void setArgs(Names args) {
+		wSet(SchemeFeatureDescriptorEnum.args, args);
+	}
+
+	public SchemeExpression getBody() {
+		return wGet(SchemeFeatureDescriptorEnum.body).wGetAdapter(
+				SchemeEntityDescriptorEnum.SchemeExpression);
+	}
+
+	public void setBody(SchemeExpression body) {
+		wSet(SchemeFeatureDescriptorEnum.body, body);
+	}
+}

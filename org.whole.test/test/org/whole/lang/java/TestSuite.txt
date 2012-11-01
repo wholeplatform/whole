@@ -1,0 +1,46 @@
+/**
+ * PackageJavadoc
+ */
+package org.whole.lang.java;
+
+public class TestSuite {
+
+    /**
+     * MethodJavadoc
+     */
+    public static void test() {
+        int i = 0;
+        /*****
+         * a
+         * c1
+         * b
+         *****/
+        if (0 != 1) { // c2
+            // c3
+
+        	
+        	// c4
+
+            i++;      /*  c5  */
+            i += 2; /*
+                        c5bis
+             */
+            // c6
+        } else        // c7
+            // c8
+ 
+        	
+        	// c9
+            i = 0;
+
+        // c10
+
+
+        /**
+         * c11
+         */
+
+        
+        // c12
+    }
+}

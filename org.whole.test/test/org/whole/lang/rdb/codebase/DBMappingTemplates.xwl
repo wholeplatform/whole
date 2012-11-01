@@ -1,0 +1,659 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="DBMappingTemplateManager"/>
+    <templates:Templates initialCapacity="9">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="populateDB"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <sql:SQLStatements xmlns:sql="http://lang.whole.org/SQL" initialCapacity="4">
+                    <sql:Insert>
+                        <sql:TableName value="AUTHOR"/>
+                        <sql:ColumnNames initialCapacity="3">
+                            <sql:ColumnName value="AUTHOR_ID"/>
+                            <sql:ColumnName value="FIRST_NAME"/>
+                            <sql:ColumnName value="LAST_NAME"/>
+                        </sql:ColumnNames>
+                        <sql:Values initialCapacity="1">
+                            <sql:SQLExpressions initialCapacity="3">
+                                <sql:IntValue value="1"/>
+                                <sql:StringValue value="Enrico"/>
+                                <sql:StringValue value="Persiani"/>
+                            </sql:SQLExpressions>
+                        </sql:Values>
+                    </sql:Insert>
+                    <sql:Insert>
+                        <sql:TableName value="AUTHOR"/>
+                        <sql:ColumnNames initialCapacity="3">
+                            <sql:ColumnName value="AUTHOR_ID"/>
+                            <sql:ColumnName value="FIRST_NAME"/>
+                            <sql:ColumnName value="LAST_NAME"/>
+                        </sql:ColumnNames>
+                        <sql:Values initialCapacity="1">
+                            <sql:SQLExpressions initialCapacity="3">
+                                <sql:IntValue value="0"/>
+                                <sql:StringValue value="Riccardo"/>
+                                <sql:StringValue value="Solmi"/>
+                            </sql:SQLExpressions>
+                        </sql:Values>
+                    </sql:Insert>
+                    <sql:Insert>
+                        <sql:TableName value="PUBLISHER"/>
+                        <sql:ColumnNames initialCapacity="3">
+                            <sql:ColumnName value="PUBLISHER_ID"/>
+                            <sql:ColumnName value="PUBSECOND_ID"/>
+                            <sql:ColumnName value="NAME"/>
+                        </sql:ColumnNames>
+                        <sql:Values initialCapacity="1">
+                            <sql:SQLExpressions initialCapacity="3">
+                                <sql:IntValue value="0"/>
+                                <sql:IntValue value="0"/>
+                                <sql:StringValue value="Publisher"/>
+                            </sql:SQLExpressions>
+                        </sql:Values>
+                    </sql:Insert>
+                    <sql:Insert>
+                        <sql:TableName value="BOOK"/>
+                        <sql:ColumnNames initialCapacity="6">
+                            <sql:ColumnName value="BOOK_ID"/>
+                            <sql:ColumnName value="TITLE"/>
+                            <sql:ColumnName value="ISBN"/>
+                            <sql:ColumnName value="MYPUBLISHER_ID"/>
+                            <sql:ColumnName value="MYPUBSECOND_ID"/>
+                            <sql:ColumnName value="AUTHOR_ID"/>
+                        </sql:ColumnNames>
+                        <sql:Values initialCapacity="1">
+                            <sql:SQLExpressions initialCapacity="6">
+                                <sql:IntValue value="0"/>
+                                <sql:StringValue value="Whole Platform Examples"/>
+                                <sql:StringValue value="ISBN_CODE"/>
+                                <sql:IntValue value="0"/>
+                                <sql:IntValue value="0"/>
+                                <sql:IntValue value="1"/>
+                            </sql:SQLExpressions>
+                        </sql:Values>
+                    </sql:Insert>
+                </sql:SQLStatements>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="mapAuthorsResults"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <commons:StageUpFragment>
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="author"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <wxml:Value value="Riccardo"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <wxml:Value value="Solmi"/>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <commons:Resolver/>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="author"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <wxml:Value value="Enrico"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <wxml:Value value="Persiani"/>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <commons:Resolver/>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                </queries:Sequence>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="mapAuthorsQuery"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="author"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="lname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <commons:Resolver/>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                    <commons:SameStageFragment>
+                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                            <commons:Resolver/>
+                            <sql:ColumnExpressions initialCapacity="2">
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="FIRST_NAME"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                            </sql:ColumnExpressions>
+                            <sql:FromClauses initialCapacity="1">
+                                <sql:SimpleFromClause value="AUTHOR"/>
+                            </sql:FromClauses>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <sql:OrderByColumnExpressions initialCapacity="1">
+                                <sql:OrderByColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <sql:OrderType value="DESC"/>
+                                </sql:OrderByColumnExpression>
+                            </sql:OrderByColumnExpressions>
+                        </sql:Select>
+                    </commons:SameStageFragment>
+                    <queries:Sequence initialCapacity="2">
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                                <queries:VariableTest value="fname"/>
+                            </queries:And>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="1"/>
+                                </queries:IndexTest>
+                                <queries:VariableTest value="lname"/>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Sequence>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="mapAuthorsQuery2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="author"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </commons:StageDownFragment>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <commons:Resolver/>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                    <commons:SameStageFragment>
+                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                            <commons:Resolver/>
+                            <sql:ColumnExpressions initialCapacity="2">
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="FIRST_NAME"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                            </sql:ColumnExpressions>
+                            <sql:FromClauses initialCapacity="1">
+                                <sql:SimpleFromClause value="AUTHOR"/>
+                            </sql:FromClauses>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <sql:OrderByColumnExpressions initialCapacity="1">
+                                <sql:OrderByColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <sql:OrderType value="DESC"/>
+                                </sql:OrderByColumnExpression>
+                            </sql:OrderByColumnExpressions>
+                        </sql:Select>
+                    </commons:SameStageFragment>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="mapAuthorsQuery3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="author"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="LAST_NAME"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <commons:Resolver/>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                    <commons:SameStageFragment>
+                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                            <commons:Resolver/>
+                            <sql:ColumnExpressions initialCapacity="2">
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="FIRST_NAME"/>
+                                    <sql:Alias value="fname"/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                            </sql:ColumnExpressions>
+                            <sql:FromClauses initialCapacity="1">
+                                <sql:SimpleFromClause value="AUTHOR"/>
+                            </sql:FromClauses>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <sql:OrderByColumnExpressions initialCapacity="1">
+                                <sql:OrderByColumnExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <sql:OrderType value="DESC"/>
+                                </sql:OrderByColumnExpression>
+                            </sql:OrderByColumnExpressions>
+                        </sql:Select>
+                    </commons:SameStageFragment>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="mapAuthorsQueryWithNestedVar"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:StringLiteral value="Solmi"/>
+                        <queries:VariableTest value="lastName"/>
+                    </queries:Filter>
+                    <queries:Select>
+                        <commons:StageUpFragment>
+                            <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                                <wxml:Prolog>
+                                    <wxml:XMLDecl>
+                                        <wxml:Version value="1.0"/>
+                                        <wxml:Encoding value="UTF-8"/>
+                                        <wxml:Standalone value="false"/>
+                                    </wxml:XMLDecl>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </wxml:Prolog>
+                                <wxml:Element>
+                                    <wxml:Name value="author"/>
+                                    <wxml:Attributes initialCapacity="2">
+                                        <wxml:Attribute>
+                                        <wxml:Name value="first_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </wxml:Attribute>
+                                        <wxml:Attribute>
+                                        <wxml:Name value="last_name"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Xml#Value"/>
+                                        <commons:VarName value="lname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </wxml:Attribute>
+                                    </wxml:Attributes>
+                                    <commons:Resolver/>
+                                </wxml:Element>
+                            </wxml:Document>
+                        </commons:StageUpFragment>
+                        <commons:SameStageFragment>
+                            <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                                <commons:Resolver/>
+                                <sql:ColumnExpressions initialCapacity="2">
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="FIRST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                </sql:ColumnExpressions>
+                                <sql:FromClauses initialCapacity="1">
+                                    <sql:SimpleFromClause value="AUTHOR"/>
+                                </sql:FromClauses>
+                                <sql:BooleanBinaryExpression>
+                                    <sql:ColumnName value="LAST_NAME"/>
+                                    <sql:BooleanOperator value="="/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/SQL#StringValue"/>
+                                        <commons:VarName value="lastName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </sql:BooleanBinaryExpression>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <sql:OrderByColumnExpressions initialCapacity="1">
+                                    <sql:OrderByColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <sql:OrderType value="DESC"/>
+                                    </sql:OrderByColumnExpression>
+                                </sql:OrderByColumnExpressions>
+                            </sql:Select>
+                        </commons:SameStageFragment>
+                        <queries:Sequence initialCapacity="2">
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                    </queries:IndexTest>
+                                    <queries:VariableTest value="fname"/>
+                                </queries:And>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                    </queries:IndexTest>
+                                    <queries:VariableTest value="lname"/>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:Sequence>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:Block>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="populateDatatypesDB"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <sql:Insert xmlns:sql="http://lang.whole.org/SQL">
+                    <sql:TableName value="DATATABLE"/>
+                    <sql:ColumnNames initialCapacity="14">
+                        <sql:ColumnName value="ARRAY_COL"/>
+                        <sql:ColumnName value="BOOLEAN_COL"/>
+                        <sql:ColumnName value="TINYINT_COL"/>
+                        <sql:ColumnName value="SMALLINT_COL"/>
+                        <sql:ColumnName value="INT_COL"/>
+                        <sql:ColumnName value="BIGINT_COL"/>
+                        <sql:ColumnName value="DOUBLE_COL"/>
+                        <sql:ColumnName value="REAL_COL"/>
+                        <sql:ColumnName value="DECIMAL_COL"/>
+                        <sql:ColumnName value="STRING_COL"/>
+                        <sql:ColumnName value="BINARY_COL"/>
+                        <sql:ColumnName value="DATE_COL"/>
+                        <sql:ColumnName value="TIME_COL"/>
+                        <sql:ColumnName value="TIMESTAMP_COL"/>
+                    </sql:ColumnNames>
+                    <sql:Values initialCapacity="1">
+                        <sql:SQLExpressions initialCapacity="14">
+                            <sql:ArrayValue value="1, 2, 3"/>
+                            <sql:BooleanValue value="false"/>
+                            <sql:TinyIntValue value="4"/>
+                            <sql:SmallIntValue value="234"/>
+                            <sql:IntValue value="4334"/>
+                            <sql:BigIntValue value="453445"/>
+                            <sql:DoubleValue value="23440.3434"/>
+                            <sql:RealValue value="3242.37"/>
+                            <sql:DecimalValue value="48738927493393729"/>
+                            <sql:StringValue value="fdopjfsdaopuhfndsfa9734jndf"/>
+                            <sql:BinaryValue value="3454f140"/>
+                            <sql:DateValue value="2008-07-03"/>
+                            <sql:TimeValue value="19:12:38"/>
+                            <sql:TimestampValue value="2008-07-03 19:12:47.375"/>
+                        </sql:SQLExpressions>
+                    </sql:Values>
+                </sql:Insert>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectDatatypesDBResults"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Tuple xmlns:queries="http://lang.whole.org/Queries" initialCapacity="14">
+                    <commons:StageUpFragment>
+                        <sql:ArrayValue xmlns:sql="http://lang.whole.org/SQL" value="1, 2, 3"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:BooleanValue xmlns:sql="http://lang.whole.org/SQL" value="false"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:TinyIntValue xmlns:sql="http://lang.whole.org/SQL" value="4"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:SmallIntValue xmlns:sql="http://lang.whole.org/SQL" value="234"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:IntValue xmlns:sql="http://lang.whole.org/SQL" value="4334"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:BigIntValue xmlns:sql="http://lang.whole.org/SQL" value="453445"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:DoubleValue xmlns:sql="http://lang.whole.org/SQL" value="23440.3434"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:RealValue xmlns:sql="http://lang.whole.org/SQL" value="3242.37"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:DecimalValue xmlns:sql="http://lang.whole.org/SQL" value="48738927493393729"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:StringValue xmlns:sql="http://lang.whole.org/SQL" value="fdopjfsdaopuhfndsfa9734jndf"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:BinaryValue xmlns:sql="http://lang.whole.org/SQL" value="3454f140"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:DateValue xmlns:sql="http://lang.whole.org/SQL" value="2008-07-03"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:TimeValue xmlns:sql="http://lang.whole.org/SQL" value="19:12:38"/>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <sql:TimestampValue xmlns:sql="http://lang.whole.org/SQL" value="2008-07-03 19:12:47.375"/>
+                    </commons:StageUpFragment>
+                </queries:Tuple>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectDatatypesDB"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="1">
+                    <commons:SameStageFragment>
+                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                            <commons:Resolver/>
+                            <sql:ColumnExpressions initialCapacity="14">
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="ARRAY_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="BOOLEAN_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="TINYINT_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="SMALLINT_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="INT_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="BIGINT_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="DOUBLE_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="REAL_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="DECIMAL_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="STRING_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="BINARY_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="DATE_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="TIME_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                                <sql:ColumnExpression>
+                                    <sql:ColumnName value="TIMESTAMP_COL"/>
+                                    <commons:Resolver/>
+                                </sql:ColumnExpression>
+                            </sql:ColumnExpressions>
+                            <sql:FromClauses initialCapacity="1">
+                                <sql:SimpleFromClause value="DATATABLE"/>
+                            </sql:FromClauses>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </sql:Select>
+                    </commons:SameStageFragment>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

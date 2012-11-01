@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Whole Core Languages Deployer"
+            class="org.whole.langs.core.CoreLanguagesDeployer"
+            id="org.whole.langs.core.CoreLanguagesDeployer">
+      </deployer>
+
+      <deployer
+            desc="Whole Core Dynamic Languages Deployer"
+            class="org.whole.langs.core.CoreDynamicLanguagesDeployer"
+            id="org.whole.langs.core.CoreDynamicLanguagesDeployer">
+      </deployer>
+
+      <deployer
+            desc="Whole Core Meta Models Deployer"
+            class="org.whole.langs.core.CoreMetaModelsDeployer"
+            id="org.whole.langs.core.CoreMetaModelsDeployer">
+      </deployer>
+   </extension>
+</plugin>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+     <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Workflows Interpreter Deployer"
+            class="org.whole.langs.core.op.WorkflowsInterpreterDeployer"
+            id="org.whole.langs.core.op.WorkflowsInterpreterDeployer">
+      </deployer>
+      <deployer
+            desc="Core Languages Operations Deployer"
+            class="org.whole.langs.core.op.CoreOperationsDeployer"
+            id="org.whole.langs.core.op.CoreOperationsDeployer">
+      </deployer>
+      <deployer
+            desc="Core Languages Contributions Deployer"
+            class="org.whole.langs.core.op.CoreContributionsDeployer"
+            id="org.whole.langs.core.op.CoreContributionsDeployer">
+      </deployer>
+	</extension>
+</plugin>

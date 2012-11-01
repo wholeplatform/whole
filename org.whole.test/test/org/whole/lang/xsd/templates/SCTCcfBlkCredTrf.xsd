@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:S2SCTCcf="urn:S2SCTCcf:xsd:$SCTCcfBlkCredTrf" xmlns:sw5="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.02S2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:S2SCTCcf:xsd:$SCTCcfBlkCredTrf" elementFormDefault="qualified">
+    <xs:import namespace="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.02S2" schemaLocation="pacs.002.001.02S2.xsd"/>
+    <xs:element name="SCTCcfBlkCredTrf">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SndgInst" type="sw5:BICIdentifier"/>
+                <xs:element name="RcvgInst" type="sw5:BICIdentifier"/>
+                <xs:element name="SrvcId" type="S2SCTCcf:SrvcID"/>
+                <xs:element name="TstCode" type="S2SCTCcf:TestCodeType"/>
+                <xs:element name="FType" type="S2SCTCcf:FTpType"/>
+                <xs:element name="FileRef" type="sw5:Max16Text"/>
+                <xs:element name="FileBusDt" type="sw5:ISODate"/>
+                <xs:element name="FileCycleNo" type="S2SCTCcf:Max2NumericText"/>
+                <xs:element name="pacs.002.001.02S2" minOccurs="0" maxOccurs="unbounded" type="sw5:pacs.002.001.02S2"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="Max32Text">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="32"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FTpType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CCF"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TestCodeType">
+        <xs:restriction base="xs:string">
+            <xs:length value="1"/>
+            <xs:enumeration value="T"/>
+            <xs:enumeration value="P"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SrvcID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SCT"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Max8NumericText">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{1,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Max2NumericText">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{2,2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

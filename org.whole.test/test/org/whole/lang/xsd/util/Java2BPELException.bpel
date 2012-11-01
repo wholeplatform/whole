@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:ns3="http://test.whole.org/JavaWatchdog" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns4="http://test.whole.org/StringMessageReceive" xmlns:ns1="http://test.whole.org/GatewayReceive:init" xmlns:ns2="http://test.whole.org/Rollback" name="Java2BPELException" targetNamespace="http://test.whole.org/Java2BPELException">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/javaThrow/StringMessageReceive.wsdl" namespace="http://test.whole.org/StringMessageReceive"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/RollbackService.wsdl" namespace="http://test.whole.org/Rollback"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/javaThrow/JavaWatchdog.wsdl" namespace="http://test.whole.org/JavaWatchdog"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="MyImpl" partnerLinkType="ns1:GatewayReceivePLT" myRole="Provider"/>
+        <bpws:partnerLink name="RollbackPL" partnerLinkType="ns2:RollbackServicePartnerLinkType" partnerRole="RollbackServiceProvider"/>
+        <bpws:partnerLink name="ThrowsExceptionPL" partnerLinkType="ns3:JavaWatchdogPLT" partnerRole="JavaWatchdogProvider"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable name="message" type="xsd:any"/>
+        <bpws:variable name="strMessage" type="xsd:string"/>
+        <bpws:variable name="externalMessage" type="xsd:string"/>
+    </bpws:variables>
+    <bpws:scope name="scope1">
+        <bpws:variables>
+            <bpws:variable messageType="ns4:FaultMessage" name="faultMsg"/>
+        </bpws:variables>
+        <bpws:faultHandlers>
+            <bpws:catch faultVariable="infos" faultMessageType="ns4:FaultMessage" faultName="BPELGeneralError">
+                <bpws:sequence name="sequence2">
+                    <bpws:invoke name="Rollback" operation="rollback" partnerLink="RollbackPL"/>
+                    <bpws:assign name="assign4">
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("empty")]]></bpws:from>
+                            <bpws:to variable="faultMsg" part="part1"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("empty")]]></bpws:from>
+                            <bpws:to variable="faultMsg" part="part2"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("empty")]]></bpws:from>
+                            <bpws:to variable="strMessage"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("empty")]]></bpws:from>
+                            <bpws:to variable="externalMessage"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from variable="infos" part="part2"/>
+                            <bpws:to variable="strMessage"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from variable="infos" part="part1"/>
+                            <bpws:to variable="externalMessage"/>
+                        </bpws:copy>
+                    </bpws:assign>
+                </bpws:sequence>
+            </bpws:catch>
+        </bpws:faultHandlers>
+        <bpws:sequence name="sequence1">
+            <bpws:receive name="receive" createInstance="yes" operation="Receive" partnerLink="MyImpl">
+                <bpws:fromPart part="SYS_YBUFFER" toVariable="message"/>
+            </bpws:receive>
+            <bpws:assign name="assign1">
+                <bpws:copy>
+                    <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string($message)]]></bpws:from>
+                    <bpws:to variable="strMessage"/>
+                </bpws:copy>
+                <bpws:copy>
+                    <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[concat("Ricevuto: ", $strMessage)]]></bpws:from>
+                    <bpws:to variable="strMessage"/>
+                </bpws:copy>
+                <bpws:copy>
+                    <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("stringa Non passata")]]></bpws:from>
+                    <bpws:to variable="externalMessage"/>
+                </bpws:copy>
+            </bpws:assign>
+            <bpws:scope name="scope2">
+                <bpws:faultHandlers>
+                    <bpws:catch faultName="it.nch.fwk.eai.wfm.WatchdogException">
+                        <bpws:sequence name="sequence3">
+                            <bpws:assign name="assign2">
+                                <bpws:copy>
+                                <bpws:from variable="strMessage"/>
+                                <bpws:to variable="faultMsg" part="part1"/>
+                                </bpws:copy>
+                                <bpws:copy>
+                                <bpws:from variable="externalMessage"/>
+                                <bpws:to variable="faultMsg" part="part2"/>
+                                </bpws:copy>
+                            </bpws:assign>
+                            <bpws:throw name="throw1" faultName="BPELGeneralError" faultVariable="faultMsg"/>
+                        </bpws:sequence>
+                    </bpws:catch>
+                </bpws:faultHandlers>
+                <bpws:sequence name="sequence4">
+                    <bpws:invoke name="ThrowsException" operation="watch" partnerLink="ThrowsExceptionPL">
+                        <bpws:toPart fromVariable="strMessage" part="what"/>
+                    </bpws:invoke>
+                    <bpws:assign name="cambioStrMessage">
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[string("Passato l'invoke!")]]></bpws:from>
+                            <bpws:to variable="strMessage"/>
+                        </bpws:copy>
+                    </bpws:assign>
+                </bpws:sequence>
+            </bpws:scope>
+        </bpws:sequence>
+    </bpws:scope>
+</bpws:process>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<redblacktree:RBNode xmlns:redblacktree="http://datatypes.examples.whole.org/RedBlackTree">
+    <redblacktree:Value value="13"/>
+    <redblacktree:Color value="BLACK"/>
+    <redblacktree:RBNode>
+        <redblacktree:Value value="8"/>
+        <redblacktree:Color value="RED"/>
+        <redblacktree:RBNode>
+            <redblacktree:Value value="1"/>
+            <redblacktree:Color value="BLACK"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <redblacktree:RBNode>
+                <redblacktree:Value value="6"/>
+                <redblacktree:Color value="RED"/>
+                <commons0:Resolver xmlns:commons0="http://lang.whole.org/Commons"/>
+                <commons1:Resolver xmlns:commons1="http://lang.whole.org/Commons"/>
+            </redblacktree:RBNode>
+        </redblacktree:RBNode>
+        <redblacktree:RBNode>
+            <redblacktree:Value value="11"/>
+            <redblacktree:Color value="BLACK"/>
+            <commons2:Resolver xmlns:commons2="http://lang.whole.org/Commons"/>
+            <commons3:Resolver xmlns:commons3="http://lang.whole.org/Commons"/>
+        </redblacktree:RBNode>
+    </redblacktree:RBNode>
+    <redblacktree:RBNode>
+        <redblacktree:Value value="17"/>
+        <redblacktree:Color value="RED"/>
+        <redblacktree:RBNode>
+            <redblacktree:Value value="15"/>
+            <redblacktree:Color value="BLACK"/>
+            <commons4:Resolver xmlns:commons4="http://lang.whole.org/Commons"/>
+            <commons5:Resolver xmlns:commons5="http://lang.whole.org/Commons"/>
+        </redblacktree:RBNode>
+        <redblacktree:RBNode>
+            <redblacktree:Value value="25"/>
+            <redblacktree:Color value="BLACK"/>
+            <redblacktree:RBNode>
+                <redblacktree:Value value="22"/>
+                <redblacktree:Color value="RED"/>
+                <commons6:Resolver xmlns:commons6="http://lang.whole.org/Commons"/>
+                <commons7:Resolver xmlns:commons7="http://lang.whole.org/Commons"/>
+            </redblacktree:RBNode>
+            <redblacktree:RBNode>
+                <redblacktree:Value value="27"/>
+                <redblacktree:Color value="RED"/>
+                <commons8:Resolver xmlns:commons8="http://lang.whole.org/Commons"/>
+                <commons9:Resolver xmlns:commons9="http://lang.whole.org/Commons"/>
+            </redblacktree:RBNode>
+        </redblacktree:RBNode>
+    </redblacktree:RBNode>
+</redblacktree:RBNode>

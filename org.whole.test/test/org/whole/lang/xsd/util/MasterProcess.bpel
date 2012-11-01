@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated BPEL file -->
+<bpws:process xmlns:ns4="http://test.whole.org/JavaWatchdog" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/" xmlns:ns5="http://test.whole.org/StringMessageReceive" xmlns:ns1="http://test.whole.org/SlaveProcessInterface" xmlns:ns2="http://test.whole.org/GatewayReceive:init" xmlns:ns3="http://test.whole.org/Rollback" name="MasterProcess" targetNamespace="http://test.whole.org/MasterProcess">
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/javaThrowOnResume/MasterProcessService.wsdl" namespace="http://test.whole.org/MasterProcessService"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/RollbackService.wsdl" namespace="http://test.whole.org/Rollback"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/javaThrow/JavaWatchdog.wsdl" namespace="http://test.whole.org/JavaWatchdog"/>
+    <bpws:import importType="http://schemas.xmlsoap.org/wsdl/" location="../../wsdls/StringMessageReceive.wsdl" namespace="http://test.whole.org/StringMessageReceive"/>
+    <bpws:partnerLinks>
+        <bpws:partnerLink name="SlavePL" partnerLinkType="ns1:SlavePartnerLinkType" partnerRole="Provider"/>
+        <bpws:partnerLink name="FromSlavePL" partnerLinkType="ns1:SlavePartnerLinkType" myRole="Provider"/>
+        <bpws:partnerLink name="FirstReceivePL" partnerLinkType="ns2:GatewayReceivePLT" myRole="Provider"/>
+        <bpws:partnerLink name="RollbackPL" partnerLinkType="ns3:RollbackServicePartnerLinkType" partnerRole="RollbackServiceProvider"/>
+        <bpws:partnerLink name="ThrowsExceptionPL" partnerLinkType="ns4:JavaWatchdogPLT" partnerRole="JavaWatchdogProvider"/>
+        <bpws:partnerLink name="OutputResultPL" partnerLinkType="ns5:StringMessageReceivePLT" partnerRole="Provider"/>
+    </bpws:partnerLinks>
+    <bpws:variables>
+        <bpws:variable messageType="ns1:SlaveMessage" name="message"/>
+        <bpws:variable name="receivedPar" type="xsd:any"/>
+        <bpws:variable name="theNumber" type="xsd:int"/>
+        <bpws:variable messageType="ns1:SlaveMessage" name="afterMessage"/>
+        <bpws:variable name="dummystr" type="xsd:string"/>
+        <bpws:variable messageType="ns5:StringMessageReceiveInput" name="outputResult"/>
+    </bpws:variables>
+    <bpws:scope name="scope3">
+        <bpws:faultHandlers>
+            <bpws:catch faultName="it.nch.fwk.eai.wfm.WatchdogException">
+                <bpws:sequence name="sequence6">
+                    <bpws:invoke name="Rollback" operation="rollback" partnerLink="RollbackPL"/>
+                    <bpws:assign name="multiply">
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$theNumber * 2]]></bpws:from>
+                            <bpws:to variable="theNumber"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[number($theNumber)]]></bpws:from>
+                            <bpws:to variable="outputResult" part="StringMessage"/>
+                        </bpws:copy>
+                        <bpws:copy>
+                            <bpws:from variable="afterMessage" part="GENE_ID"/>
+                            <bpws:to variable="outputResult" part="GENE_ID"/>
+                        </bpws:copy>
+                    </bpws:assign>
+                    <bpws:invoke name="JustToReturnAResult" inputVariable="outputResult" operation="StringMessageReceiveOper" partnerLink="OutputResultPL"/>
+                </bpws:sequence>
+            </bpws:catch>
+        </bpws:faultHandlers>
+        <bpws:sequence name="sequence7">
+            <bpws:receive name="receive" createInstance="yes" operation="Receive" partnerLink="FirstReceivePL">
+                <bpws:fromPart part="SYS_YBUFFER" toVariable="receivedPar"/>
+            </bpws:receive>
+            <bpws:assign name="convertToNumber">
+                <bpws:copy>
+                    <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[number($receivedPar)]]></bpws:from>
+                    <bpws:to variable="message" part="intData"/>
+                </bpws:copy>
+                <bpws:copy>
+                    <bpws:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[wfm:getGeneralId()]]></bpws:from>
+                    <bpws:to variable="message" part="GENE_ID"/>
+                </bpws:copy>
+                <bpws:copy>
+                    <bpws:from variable="message" part="intData"/>
+                    <bpws:to variable="theNumber"/>
+                </bpws:copy>
+            </bpws:assign>
+            <bpws:invoke name="ToSlaveProcess" inputVariable="message" operation="execute" partnerLink="SlavePL"/>
+            <bpws:receive name="receive4" operation="execute" partnerLink="FromSlavePL" variable="afterMessage"/>
+            <bpws:assign name="updateTheNumber">
+                <bpws:copy>
+                    <bpws:from variable="afterMessage" part="intData"/>
+                    <bpws:to variable="theNumber"/>
+                </bpws:copy>
+            </bpws:assign>
+            <bpws:invoke name="ThrowException" operation="watch" partnerLink="ThrowsExceptionPL">
+                <bpws:toPart fromVariable="dummystr" part="what"/>
+            </bpws:invoke>
+        </bpws:sequence>
+    </bpws:scope>
+</bpws:process>

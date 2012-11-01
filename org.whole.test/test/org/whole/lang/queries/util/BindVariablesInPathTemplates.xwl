@@ -1,0 +1,463 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="BindVariablesInPathTemplateManager"/>
+    <templates:Templates initialCapacity="5">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findClassDeclarationsBAD2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="MethodDeclaration"/>
+                            <queries:VariableTest value="methodDeclaration"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:ExpressionTest>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="modifiers"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:ExpressionTest>
+                                        <commons:StageUpFragment>
+                                        <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
+                                        </commons:StageUpFragment>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findClassDeclarationsOK1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="MethodDeclaration"/>
+                            <queries:VariableTest value="methodDeclaration"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:ExpressionTest>
+                            <queries:Path initialCapacity="1">
+                                <queries:Filter>
+                                    <queries:FeatureStep value="modifiers"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment>
+                                        <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findClassDeclarationsBAD1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="MethodDeclaration"/>
+                            <queries:VariableTest value="methodDeclaration"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:FeatureStep value="modifiers"/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:ExpressionTest>
+                                    <commons:StageUpFragment>
+                                        <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
+                                    </commons:StageUpFragment>
+                                </queries:ExpressionTest>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findClassDeclarationsOK2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="MethodDeclaration"/>
+                            <queries:VariableTest value="methodDeclaration"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:ExpressionTest>
+                            <commons:StageUpFragment>
+                                <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
+                            </commons:StageUpFragment>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="compilationUnit"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <java:CompilationUnit xmlns:java="http://lang.whole.org/Java">
+                    <java:PackageDeclaration>
+                        <commons:Resolver/>
+                        <commons:Resolver/>
+                        <java:QualifiedName value="org.whole.lang"/>
+                    </java:PackageDeclaration>
+                    <java:ImportDeclarations initialCapacity="6">
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.bindings.BindingManagerFactory"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.bindings.IBindingManager"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.model.IEntity"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.visitors.GenericIdentityVisitor"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.visitors.GenericTraversalFactory"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                        <java:ImportDeclaration>
+                            <java:QualifiedName value="org.whole.lang.visitors.VisitException"/>
+                            <java:ImportModifier value="false"/>
+                            <java:ImportModifier value="false"/>
+                        </java:ImportDeclaration>
+                    </java:ImportDeclarations>
+                    <java:TypeDeclarations initialCapacity="1">
+                        <java:ClassDeclaration>
+                            <commons:Resolver/>
+                            <java:ExtendedModifiers initialCapacity="1">
+                                <java:Modifier value="public"/>
+                            </java:ExtendedModifiers>
+                            <java:SimpleName value="CheckPaternityVisitor"/>
+                            <commons:Resolver/>
+                            <java:SimpleType value="GenericIdentityVisitor"/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="4">
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:SimpleType value="IBindingManager"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="bm"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                                <java:ConstructorDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Resolver/>
+                                    <java:SimpleName value="CheckPaternityVisitor"/>
+                                    <java:Parameters initialCapacity="0"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <java:Block initialCapacity="1">
+                                        <java:ExpressionStatement>
+                                        <java:Assignment>
+                                        <java:SimpleName value="bm"/>
+                                        <java:AssignmentOperator value="="/>
+                                        <java:MethodInvocation>
+                                        <java:QualifiedName value="BindingManagerFactory.instance"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="createBindingManager"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:Assignment>
+                                        </java:ExpressionStatement>
+                                    </java:Block>
+                                </java:ConstructorDeclaration>
+                                <java:MethodDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="2">
+                                        <java:MarkerAnnotation>
+                                        <java:SimpleName value="Override"/>
+                                        </java:MarkerAnnotation>
+                                        <java:Modifier value="public"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Resolver/>
+                                    <java:PrimitiveType value="void"/>
+                                    <java:SimpleName value="visit"/>
+                                    <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="IEntity"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="entity"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                    </java:Parameters>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="bm"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wDef"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:StringLiteral value="parent"/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="entity"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wGetParent"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:MethodInvocation>
+                                        <java:QualifiedName value="GenericTraversalFactory.instance"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="downUp"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="GenericIdentityVisitor"/>
+                                        <commons:Resolver/>
+                                        <java:AnonymousClassDeclaration initialCapacity="1">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="visit"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="IEntity"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="entity"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="bm"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wEnterScope"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="bm"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wDef"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:StringLiteral value="parent"/>
+                                        <java:SimpleName value="entity"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        </java:AnonymousClassDeclaration>
+                                        </java:ClassInstanceCreation>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="GenericIdentityVisitor"/>
+                                        <commons:Resolver/>
+                                        <java:AnonymousClassDeclaration initialCapacity="1">
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="visit"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="IEntity"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="entity"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="bm"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wExitScope"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <java:IfStatement>
+                                        <java:InfixExpression>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="bm"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wGet"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:StringLiteral value="parent"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:InfixOperator value="!="/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="entity"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="wGetParent"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        <java:Expressions initialCapacity="0"/>
+                                        </java:InfixExpression>
+                                        <java:ThrowStatement>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="VisitException"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        </java:ThrowStatement>
+                                        <commons:Resolver/>
+                                        </java:IfStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        </java:AnonymousClassDeclaration>
+                                        </java:ClassInstanceCreation>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="visit"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="entity"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                    </java:Block>
+                                </java:MethodDeclaration>
+                                <java:MethodDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="2">
+                                        <java:Modifier value="public"/>
+                                        <java:Modifier value="static"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Resolver/>
+                                    <java:PrimitiveType value="boolean"/>
+                                    <java:SimpleName value="check"/>
+                                    <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="IEntity"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="entity"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                    </java:Parameters>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <java:Block initialCapacity="1">
+                                        <java:TryStatement>
+                                        <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:ClassInstanceCreation>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="CheckPaternityVisitor"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:ClassInstanceCreation>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="visit"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="entity"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        <java:ReturnStatement>
+                                        <java:BooleanLiteral value="true"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        <java:CatchClauses initialCapacity="1">
+                                        <java:CatchClause>
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="VisitException"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="e"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:BooleanLiteral value="false"/>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:CatchClause>
+                                        </java:CatchClauses>
+                                        <java:Block initialCapacity="0"/>
+                                        </java:TryStatement>
+                                    </java:Block>
+                                </java:MethodDeclaration>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </java:TypeDeclarations>
+                </java:CompilationUnit>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

@@ -1,0 +1,104 @@
+package org.whole.lang.xml.codebase;
+
+import org.whole.lang.builders.IBuilderOperation;
+import org.whole.lang.templates.AbstractTemplateFactory;
+import org.whole.lang.xml.builders.IXmlBuilder;
+import org.whole.lang.xml.model.Document;
+import org.whole.lang.xml.reflect.XmlLanguageKit;
+
+/**
+ * @generator Whole
+ */
+public class HibernateMapping extends AbstractTemplateFactory<Document> {
+	public void apply(IBuilderOperation op) {
+		IXmlBuilder b0 = (IXmlBuilder) op.wGetBuilder(XmlLanguageKit.URI);
+		b0.Document_();
+		b0.Prolog_();
+		b0.XMLDecl_();
+		b0.Version("1.0");
+		b0.Encoding("UTF-8");
+		b0._XMLDecl();
+		b0.DocTypeDecl_();
+		b0.Name("hibernate-mapping");
+		b0.PublicId_();
+		b0.PubidLiteral("-//Hibernate/Hibernate Mapping DTD 3.0//EN");
+		b0.SystemLiteral("http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd");
+		b0._PublicId();
+		b0._DocTypeDecl();
+		b0.Misc_(1);
+		b0.Comment_();
+		b0.CommentText("@generator whole");
+		b0._Comment();
+		b0._Misc();
+		b0._Prolog();
+		b0.Element_();
+		b0.Name("hibernate-mapping");
+		b0.Attributes_(1);
+		b0.Attribute_();
+		b0.Name("package");
+		b0.wDefault();
+		b0._Attribute();
+		b0._Attributes();
+		b0.Content_(1);
+		b0.Element_();
+		b0.Name("class");
+		b0.Attributes_(2);
+		b0.Attribute_();
+		b0.Name("name");
+		b0.wDefault();
+		b0._Attribute();
+		b0.Attribute_();
+		b0.Name("table");
+		b0.wDefault();
+		b0._Attribute();
+		b0._Attributes();
+		b0.Content_(2);
+		b0.Element_();
+		b0.Name("id");
+		b0.Attributes_(1);
+		b0.Attribute_();
+		b0.Name("name");
+		b0.Value("id");
+		b0._Attribute();
+		b0._Attributes();
+		b0.Content_(1);
+		b0.Element_();
+		b0.Name("generator");
+		b0.Attributes_(1);
+		b0.Attribute_();
+		b0.Name("class");
+		b0.Value("native");
+		b0._Attribute();
+		b0._Attributes();
+		b0.wDefault();
+		b0._Element();
+		b0._Content();
+		b0._Element();
+		b0.Element_();
+		b0.Name("property");
+		b0.Attributes_(1);
+		b0.Attribute_();
+		b0.Name("name");
+		b0.wDefault();
+		b0._Attribute();
+		b0._Attributes();
+		b0.Content_(1);
+		b0.Element_();
+		b0.Name("column");
+		b0.Attributes_(1);
+		b0.Attribute_();
+		b0.Name("name");
+		b0.wDefault();
+		b0._Attribute();
+		b0._Attributes();
+		b0.wDefault();
+		b0._Element();
+		b0._Content();
+		b0._Element();
+		b0._Content();
+		b0._Element();
+		b0._Content();
+		b0._Element();
+		b0._Document();
+	}
+}

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="xml"></models:SimpleName>
+    <models:TypeRelations initialCapacity="1">
+        <models:SimpleName value="IContent"></models:SimpleName>
+    </models:TypeRelations>
+    <models:ModelDeclarations initialCapacity="27">
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Document"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="Prolog"></models:SimpleName>
+                    <models:SimpleName value="prolog"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="Element"></models:SimpleName>
+                    <models:SimpleName value="element"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Prolog"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="XMLDecl"></models:SimpleName>
+                    <models:SimpleName value="xmlDecl"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DocTypeDecl"></models:SimpleName>
+                    <models:SimpleName value="docTypeDecl"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Misc"></models:SimpleName>
+                    <models:SimpleName value="misc"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="XMLDecl"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="Version"></models:SimpleName>
+                    <models:SimpleName value="version"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Encoding"></models:SimpleName>
+                    <models:SimpleName value="encoding"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Standalone"></models:SimpleName>
+                    <models:SimpleName value="standalone"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Version"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Encoding"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Standalone"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="boolean"></models:DataType>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="DocTypeDecl"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="IName"></models:SimpleName>
+                    <models:SimpleName value="name"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IExternalId"></models:SimpleName>
+                    <models:SimpleName value="externalId"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="SystemId"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IExternalId"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="SystemLiteral"></models:SimpleName>
+                    <models:SimpleName value="systemLiteral"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="SystemLiteral"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="PublicId"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IExternalId"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="PubidLiteral"></models:SimpleName>
+                    <models:SimpleName value="pubidLiteral"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="SystemLiteral"></models:SimpleName>
+                    <models:SimpleName value="systemLiteral"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="PubidLiteral"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Misc"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"></models:ComponentModifier>
+            </models:ComponentModifiers>
+            <models:SimpleName value="IMisc"></models:SimpleName>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="PI"></models:SimpleName>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="IMisc"></models:SimpleName>
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="IName"></models:SimpleName>
+                    <models:SimpleName value="name"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="Instruction"></models:SimpleName>
+                    <models:SimpleName value="instruction"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Instruction"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Comment"></models:SimpleName>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="IMisc"></models:SimpleName>
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="CommentText"></models:SimpleName>
+                    <models:SimpleName value="text"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="CommentText"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Element"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="IName"></models:SimpleName>
+                    <models:SimpleName value="tag"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Attributes"></models:SimpleName>
+                    <models:SimpleName value="attributes"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="IContent"></models:SimpleName>
+                    <models:SimpleName value="content"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Attributes"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:ComponentModifiers initialCapacity="2">
+                <models:ComponentModifier value="unique"></models:ComponentModifier>
+                <models:ComponentModifier value="ordered"></models:ComponentModifier>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Attribute"></models:SimpleName>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Attribute"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="id"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IName"></models:SimpleName>
+                    <models:SimpleName value="name"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers></models:FeatureModifiers>
+                    <models:SimpleName value="Value"></models:SimpleName>
+                    <models:SimpleName value="value"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Name"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IName"></models:SimpleName>
+            </models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="QualifiedName"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IName"></models:SimpleName>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="id"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="NameSpace"></models:SimpleName>
+                    <models:SimpleName value="nameSpace"></models:SimpleName>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="id"></models:FeatureModifier>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Name"></models:SimpleName>
+                    <models:SimpleName value="name"></models:SimpleName>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="NameSpace"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Value"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="Content"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"></models:ComponentModifier>
+            </models:ComponentModifiers>
+            <models:SimpleName value="IContent"></models:SimpleName>
+        </models:CompositeEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="CharData"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="CDataSect"></models:SimpleName>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IContent"></models:SimpleName>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"></models:ComponentModifier>
+            </models:ComponentModifiers>
+            <models:SimpleName value="CDataSectData"></models:SimpleName>
+        </models:CompositeEntity>
+        <models:DataEntity>
+            <models:EntityModifiers></models:EntityModifiers>
+            <models:SimpleName value="CDataSectData"></models:SimpleName>
+            <models:Types></models:Types>
+            <models:DataType value="String"></models:DataType>
+        </models:DataEntity>
+    </models:ModelDeclarations>
+</models:Model>

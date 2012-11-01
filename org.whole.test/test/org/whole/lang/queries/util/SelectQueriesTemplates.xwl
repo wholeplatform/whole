@@ -1,0 +1,2063 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="SelectQueriesTemplateManager"/>
+    <templates:Templates initialCapacity="25">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectPath1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:FeatureStep value="name"/>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectPath2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="production"/>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="Production"/>
+                                <queries:VariableTest value="production"/>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectNonTerminalSet"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:SelfStep/>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="NonTerminal"/>
+                            <queries:DistinctTest>
+                                <commons:Resolver/>
+                            </queries:DistinctTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTuple1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="4">
+                        <queries:FeatureStep value="name"/>
+                        <queries:FeatureStep value="rule"/>
+                        <queries:SelfStep/>
+                        <queries:Path initialCapacity="2">
+                            <queries:Filter>
+                                <queries:AncestorStep/>
+                                <queries:TypeTest value="Grammar"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                        </queries:Path>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplate1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <models:FeatureModifiers initialCapacity="0"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="ftype"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="fname"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:DescendantOrSelfStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="As"/>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTupleWithTemplates"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="3">
+                        <commons:StageUpFragment>
+                            <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                                <commons:Resolver/>
+                                <java:ExtendedModifiers initialCapacity="1">
+                                    <java:Modifier value="private"/>
+                                </java:ExtendedModifiers>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                    <commons:VarName value="ftype"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <java:VariableDeclarationFragments initialCapacity="1">
+                                    <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </java:VariableDeclarationFragment>
+                                </java:VariableDeclarationFragments>
+                            </java:FieldDeclaration>
+                        </commons:StageUpFragment>
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <models:FeatureModifiers initialCapacity="0"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="ftype"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="fname"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:DescendantOrSelfStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="As"/>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithNestedQuery"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                <commons:VarName value="ename"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="3">
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="aField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="entity"/>
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="anotherField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="SimpleEntity"/>
+                                    <queries:VariableTest value="entity"/>
+                                </queries:And>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="ename"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithNestedRelativeQuery"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                <commons:VarName value="ename"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="3">
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="aField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="anotherField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="SimpleEntity"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="ename"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithNestedEmptyQuery"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                <commons:VarName value="ename"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="3">
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="aField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="999"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                                <java:FieldDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <java:PrimitiveType value="int"/>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="anotherField"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="SimpleEntity"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="ename"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithJavaHelpers"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:StageDownFragment>
+                                <java:InfixExpression>
+                                    <java:MethodInvocation>
+                                        <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="toUpperCap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="ename"/>
+                                        </java:Arguments>
+                                    </java:MethodInvocation>
+                                    <java:InfixOperator value="+"/>
+                                    <java:StringLiteral value="Impl"/>
+                                    <commons:Resolver/>
+                                </java:InfixExpression>
+                            </commons:StageDownFragment>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="1">
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:StageDownFragment>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="toUpperCap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="ftype"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </commons:StageDownFragment>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:StageDownFragment>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="toLowerCap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="fname"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="SimpleEntity"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="ename"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithFreeVariable"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                <commons:VarName value="freeVariable"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="1">
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ftype"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="fname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:RemoveNames>
+                        <queries:TemplateNames/>
+                        <queries:Names initialCapacity="1">
+                            <queries:Name value="freeVariable"/>
+                        </queries:Names>
+                    </queries:RemoveNames>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithTwoNestedSimpleQueries"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <models:Feature xmlns:models="http://lang.whole.org/Models">
+                            <models:FeatureModifiers initialCapacity="0"/>
+                            <commons:StageDownFragment>
+                                <queries:FeatureStep value="rule"/>
+                            </commons:StageDownFragment>
+                            <commons:StageDownFragment>
+                                <queries:FeatureStep value="name"/>
+                            </commons:StageDownFragment>
+                            <commons:Resolver/>
+                        </models:Feature>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:DescendantOrSelfStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="As"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:TypeTest value="NonTerminal"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateWithTwoNestedSelectQueries"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:SimpleName value="MyClass"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="2">
+                                <commons:StageDownFragment>
+                                    <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:FieldDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                        <commons:VarName value="type"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="type"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="name"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </commons:StageDownFragment>
+                                <java:MethodDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Resolver/>
+                                    <java:PrimitiveType value="void"/>
+                                    <java:SimpleName value="execute"/>
+                                    <java:Parameters initialCapacity="0"/>
+                                    <commons:Resolver/>
+                                    <java:Names initialCapacity="0"/>
+                                    <java:Block initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:Select>
+                                        <commons:StageUpFragment>
+                                        <java:VariableDeclarationStatement>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="type"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:VariableDeclarationStatement>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="features"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Feature"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="type"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="name"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </commons:StageDownFragment>
+                                    </java:Block>
+                                </java:MethodDeclaration>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="declarations"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="SimpleEntity"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectHelperResultAs"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <queries:Filter>
+                            <commons:SameStageFragment>
+                                <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                    <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                    <commons:Resolver/>
+                                    <java:SimpleName value="toUpperCap"/>
+                                    <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="entityName"/>
+                                    </java:Arguments>
+                                </java:MethodInvocation>
+                            </commons:SameStageFragment>
+                            <queries:VariableTest value="className"/>
+                        </queries:Filter>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="1">
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="SimpleEntity"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="entityName"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateFromPattern"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Expression"/>
+                                <commons:VarName value="exp"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                <commons:VarName value="falseBody"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                <commons:VarName value="trueBody"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </java:IfStatement>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Expression"/>
+                                <commons:VarName value="exp"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                <commons:VarName value="trueBody"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                <commons:VarName value="falseBody"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                        </java:IfStatement>
+                    </commons:StageUpFragment>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateFromPathWithPattern"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <java:ExtendedModifiers initialCapacity="1">
+                                <java:Modifier value="private"/>
+                            </java:ExtendedModifiers>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                <commons:VarName value="ftype"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <java:VariableDeclarationFragments initialCapacity="1">
+                                <java:VariableDeclarationFragment>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </java:VariableDeclarationFragment>
+                            </java:VariableDeclarationFragments>
+                        </java:FieldDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:DescendantOrSelfStep/>
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
+                                    <commons:VarName value="_"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="ftype"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="fname"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateFromPatternWithWhere"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <java:ExtendedModifiers initialCapacity="1">
+                                <java:Modifier value="private"/>
+                            </java:ExtendedModifiers>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleType"/>
+                                <commons:VarName value="jtype"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <java:VariableDeclarationFragments initialCapacity="1">
+                                <java:VariableDeclarationFragment>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </java:VariableDeclarationFragment>
+                            </java:VariableDeclarationFragments>
+                        </java:FieldDeclaration>
+                    </commons:StageUpFragment>
+                    <commons:StageUpFragment>
+                        <models:Feature xmlns:models="http://lang.whole.org/Models">
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
+                                <commons:VarName value="_"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                <commons:VarName value="ftype"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                <commons:VarName value="fname"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                        </models:Feature>
+                    </commons:StageUpFragment>
+                    <queries:Filter>
+                        <commons:SameStageFragment>
+                            <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                <commons:Resolver/>
+                                <java:SimpleName value="toUpperCap"/>
+                                <java:Arguments initialCapacity="1">
+                                    <java:SimpleName value="ftype"/>
+                                </java:Arguments>
+                            </java:MethodInvocation>
+                        </commons:SameStageFragment>
+                        <queries:VariableTest value="jtype"/>
+                    </queries:Filter>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateAs"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <queries:Filter>
+                            <commons:StageUpFragment>
+                                <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="ptype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="field"/>
+                        </queries:Filter>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="1">
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="Feature"/>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ptype"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTupleOfTemplatesAs"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="4">
+                        <queries:Filter>
+                            <commons:StageUpFragment>
+                                <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="ptype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:FieldDeclaration>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="field"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:StageUpFragment>
+                                <java:SingleVariableDeclaration xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Resolver/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="ptype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <java:Varargs value="false"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <java:ExtraDimensions value="0"/>
+                                    <commons:Resolver/>
+                                </java:SingleVariableDeclaration>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="param"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:StageUpFragment>
+                                <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                                    <java:Assignment>
+                                        <java:FieldAccess>
+                                        <java:ThisExpression>
+                                        <commons:Resolver/>
+                                        </java:ThisExpression>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:FieldAccess>
+                                        <java:AssignmentOperator value="="/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </java:Assignment>
+                                </java:ExpressionStatement>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="init"/>
+                        </queries:Filter>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Path initialCapacity="1">
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="Feature"/>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ptype"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Path>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectTemplateFromWhere"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <java:ExtendedModifiers initialCapacity="1">
+                                <java:Modifier value="public"/>
+                            </java:ExtendedModifiers>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                <commons:VarName value="className"/>
+                                <commons:Quantifier value="!"/>
+                            </commons:Variable>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="2">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#FieldDeclaration"/>
+                                    <commons:VarName value="field"/>
+                                    <commons:Quantifier value="*"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#MethodDeclaration"/>
+                                    <commons:VarName value="getter"/>
+                                    <commons:Quantifier value="*"/>
+                                </commons:Variable>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="SimpleEntity"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="entityName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Sequence initialCapacity="2">
+                        <queries:Filter>
+                            <commons:SameStageFragment>
+                                <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                    <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                    <commons:Resolver/>
+                                    <java:SimpleName value="toUpperCap"/>
+                                    <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="entityName"/>
+                                    </java:Arguments>
+                                </java:MethodInvocation>
+                            </commons:SameStageFragment>
+                            <queries:VariableTest value="className"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="2">
+                                <queries:Filter>
+                                    <commons:StageUpFragment>
+                                        <java:FieldDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="private"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="ptype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:FieldDeclaration>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="field"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <commons:StageUpFragment>
+                                        <java:MethodDeclaration xmlns:java="http://lang.whole.org/Java">
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="1">
+                                        <java:Modifier value="public"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Type"/>
+                                        <commons:VarName value="ptype"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:StageDownFragment>
+                                        <java:InfixExpression>
+                                        <java:StringLiteral value="get"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                                        <commons:Resolver/>
+                                        <java:SimpleName value="toUpperCap"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="pname"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                        </commons:StageDownFragment>
+                                        <java:Parameters initialCapacity="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#SimpleName"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="getter"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="features"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="type"/>
+                                        <queries:VariableTest value="ptype"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                            <commons:Resolver/>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Sequence>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectVariableScopes"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <commons:StageUpFragment>
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="oneTime:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="fromName"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="oneTime:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="oneTime"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="featuresTimes:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="featuresTimes"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="featuresTimesInline:"/>
+                                    <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="featuresTimesInline"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:InlineVariable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="siblingTimes:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="siblingTimes"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="SimpleEntity"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="fromName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Sequence initialCapacity="4">
+                        <queries:Filter>
+                            <commons:StageUpFragment>
+                                <text:Text xmlns:text="http://lang.whole.org/Text" value="oneTimeInWhere"/>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="oneTime"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment>
+                                    <text:Text xmlns:text="http://lang.whole.org/Text" value="f"/>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="featuresTimes"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="features"/>
+                                <queries:ChildStep/>
+                            </queries:Path>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </queries:Select>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment>
+                                    <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="fTimes"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                    </text:Row>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="featuresTimesInline"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="1">
+                                <queries:SelfStep/>
+                            </queries:Path>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment>
+                                        <text:Text xmlns:text="http://lang.whole.org/Text" value="f"/>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="fTimes"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="features"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </queries:Select>
+                            <commons:Resolver/>
+                        </queries:Select>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment>
+                                    <text:Text xmlns:text="http://lang.whole.org/Text" value="s"/>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="siblingTimes"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="1">
+                                <queries:FollowingSiblingStep/>
+                            </queries:Path>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </queries:Select>
+                    </queries:Sequence>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectBindingScopes"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <commons:StageUpFragment>
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="7">
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="from:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="fromName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where1Name:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where1Name"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where2Name:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where2Name"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where3aName:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where3aName"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where3b:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where3b"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where3c:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where3c"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="3">
+                                    <text:Text value="out of scope:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where4Name"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="featureName"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:Variable>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="selectName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:Filter>
+                    </queries:Tuple>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="SimpleEntity"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="fromName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Sequence initialCapacity="3">
+                        <queries:Filter>
+                            <commons:SameStageFragment>
+                                <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                    <java:SimpleName value="fromName"/>
+                                    <java:InfixOperator value="+"/>
+                                    <java:SimpleName value="selectName"/>
+                                    <commons:Resolver/>
+                                </java:InfixExpression>
+                            </commons:SameStageFragment>
+                            <queries:VariableTest value="where1Name"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:SameStageFragment>
+                                <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                    <java:InfixExpression>
+                                        <java:SimpleName value="fromName"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="selectName"/>
+                                        <commons:Resolver/>
+                                    </java:InfixExpression>
+                                    <java:InfixOperator value="+"/>
+                                    <java:SimpleName value="where1Name"/>
+                                    <commons:Resolver/>
+                                </java:InfixExpression>
+                            </commons:SameStageFragment>
+                            <queries:VariableTest value="where2Name"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="3">
+                                <queries:Filter>
+                                    <commons:SameStageFragment>
+                                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="fromName"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="selectName"/>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                        <java:InfixOperator value="+"/>
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="where1Name"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="where2Name"/>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                    </commons:SameStageFragment>
+                                    <queries:VariableTest value="where3aName"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <commons:SameStageFragment>
+                                        <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                        <java:SimpleName value="bindingsTester"/>
+                                        <commons:Resolver/>
+                                        <java:SimpleName value="assertDef"/>
+                                        <java:Arguments initialCapacity="4">
+                                        <java:StringLiteral value="fromName"/>
+                                        <java:StringLiteral value="selectName"/>
+                                        <java:StringLiteral value="where1Name"/>
+                                        <java:StringLiteral value="where2Name"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                    </commons:SameStageFragment>
+                                    <queries:VariableTest value="where3b"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <commons:SameStageFragment>
+                                        <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                        <java:SimpleName value="bindingsTester"/>
+                                        <commons:Resolver/>
+                                        <java:SimpleName value="assertUndef"/>
+                                        <java:Arguments initialCapacity="4">
+                                        <java:StringLiteral value="where3aName"/>
+                                        <java:StringLiteral value="where3b"/>
+                                        <java:StringLiteral value="where3c"/>
+                                        <java:StringLiteral value="where4Name"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                    </commons:SameStageFragment>
+                                    <queries:VariableTest value="where3c"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="features"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="featureName"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:Filter>
+                                <commons:SameStageFragment>
+                                    <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="fromName"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="selectName"/>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                        <java:InfixOperator value="+"/>
+                                        <java:InfixExpression>
+                                        <java:SimpleName value="where1Name"/>
+                                        <java:InfixOperator value="+"/>
+                                        <java:SimpleName value="where2Name"/>
+                                        <commons:Resolver/>
+                                        </java:InfixExpression>
+                                        <commons:Resolver/>
+                                    </java:InfixExpression>
+                                </commons:SameStageFragment>
+                                <queries:VariableTest value="where4Name"/>
+                            </queries:Filter>
+                            <commons:Resolver/>
+                        </queries:Select>
+                    </queries:Sequence>
+                    <queries:RemoveNames>
+                        <queries:TemplateNames/>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="where4Name"/>
+                            <queries:Name value="featureName"/>
+                        </queries:Names>
+                    </queries:RemoveNames>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectBindingScopes2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="2">
+                        <commons:StageUpFragment>
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                <text:Row initialCapacity="3">
+                                    <text:Text value="from:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="fromName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:StageDownFragment>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="selectName"/>
+                                        </queries:Filter>
+                                    </commons:StageDownFragment>
+                                </text:Row>
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="where1Name:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="where1Name"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                    </queries:Tuple>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="SimpleEntity"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="fromName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <commons:SameStageFragment>
+                            <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                                <java:SimpleName value="fromName"/>
+                                <java:InfixOperator value="+"/>
+                                <java:SimpleName value="selectName"/>
+                                <commons:Resolver/>
+                            </java:InfixExpression>
+                        </commons:SameStageFragment>
+                        <queries:VariableTest value="where1Name"/>
+                    </queries:Filter>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectBindingScopes3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Tuple initialCapacity="4">
+                        <commons:StageUpFragment>
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="from:"/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="fromName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:VariableRefStep value="fromName"/>
+                        <queries:Filter>
+                            <queries:VariableRefStep value="fromName"/>
+                            <queries:VariableTest value="entityName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:VariableRefStep value="fromName"/>
+                            <queries:VariableTest value="fromName"/>
+                        </queries:Filter>
+                    </queries:Tuple>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="SimpleEntity"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="fromName"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <commons:Resolver/>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="selectDeclaredNamesBinding"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:StageUpFragment>
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                <commons:VarName value="removeAsVariableTest"/>
+                                <commons:Quantifier value="?"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                <commons:VarName value="removeAsIndexVariableTest"/>
+                                <commons:Quantifier value="?"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                <commons:VarName value="removeAsQueryDeclaration"/>
+                                <commons:Quantifier value="?"/>
+                            </commons:Variable>
+                            <commons:Variable>
+                                <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                <commons:VarName value="removeAsPatternMatching"/>
+                                <commons:Quantifier value="?"/>
+                            </commons:Variable>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                    <queries:StringLiteral value=""/>
+                    <queries:If>
+                        <queries:ExpressionTest>
+                            <queries:BooleanLiteral value="false"/>
+                        </queries:ExpressionTest>
+                        <queries:Sequence initialCapacity="4">
+                            <queries:Filter>
+                                <queries:VoidLiteral/>
+                                <queries:VariableTest value="removeAsVariableTest"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:VoidLiteral/>
+                                <queries:IndexVariableTest value="removeAsIndexVariableTest"/>
+                            </queries:Filter>
+                            <queries:QueryDeclaration>
+                                <queries:Name value="removeAsQueryDeclaration"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </queries:QueryDeclaration>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:ExpressionTest>
+                                    <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Row initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="removeAsPatternMatching"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </text:Row>
+                                        </text:Document>
+                                    </commons:StageUpFragment>
+                                </queries:ExpressionTest>
+                            </queries:Filter>
+                        </queries:Sequence>
+                    </queries:If>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

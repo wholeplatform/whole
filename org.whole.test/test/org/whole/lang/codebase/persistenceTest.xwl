@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models" initialCapacity="1">
+        <models:SimpleName value="Models"/>
+        <models:TypeRelations/>
+        <models:ModelDeclarations initialCapacity="24">
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Models"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Model"/>
+            </models:CompositeEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="SimpleName"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Type"/>
+                </models:Types>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="QualifiedName"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="Type"/>
+                </models:Types>
+                <models:Features initialCapacity="2">
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="qualifier"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Types"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Type"/>
+            </models:CompositeEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="TypeRelations"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Type"/>
+            </models:CompositeEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Model"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="3">
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="TypeRelations"/>
+                        <models:SimpleName value="typeRelations"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="ModelDeclarations"/>
+                        <models:SimpleName value="declarations"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="ModelDeclarations"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="ordered"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="ModelDeclaration"/>
+            </models:CompositeEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="SimpleEntity"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="4">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EntityModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Features"/>
+                        <models:SimpleName value="features"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="EntityModifiers"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="EntityModifier"/>
+            </models:CompositeEntity>
+            <models:EnumEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="EntityModifier"/>
+                <models:Types/>
+                <models:EnumValues initialCapacity="1">
+                    <models:EnumValue value="versionable"/>
+                </models:EnumValues>
+            </models:EnumEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Features"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="ordered"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="Feature"/>
+            </models:CompositeEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="Feature"/>
+                <models:Types/>
+                <models:Features initialCapacity="3">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="FeatureModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="type"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="FeatureModifiers"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="FeatureModifier"/>
+            </models:CompositeEntity>
+            <models:EnumEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="FeatureModifier"/>
+                <models:Types/>
+                <models:EnumValues initialCapacity="7">
+                    <models:EnumValue value="id"/>
+                    <models:EnumValue value="shared"/>
+                    <models:EnumValue value="optional"/>
+                    <models:EnumValue value="transient"/>
+                    <models:EnumValue value="reference"/>
+                    <models:EnumValue value="final"/>
+                    <models:EnumValue value="derived"/>
+                </models:EnumValues>
+            </models:EnumEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="CompositeEntity"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="5">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EntityModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="ComponentModifiers"/>
+                        <models:SimpleName value="componentModifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="componentType"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="ComponentModifiers"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="1">
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="ComponentModifier"/>
+            </models:CompositeEntity>
+            <models:EnumEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="ComponentModifier"/>
+                <models:Types/>
+                <models:EnumValues initialCapacity="6">
+                    <models:EnumValue value="sorted"/>
+                    <models:EnumValue value="ordered"/>
+                    <models:EnumValue value="unique"/>
+                    <models:EnumValue value="shared"/>
+                    <models:EnumValue value="transient"/>
+                    <models:EnumValue value="reference"/>
+                </models:EnumValues>
+            </models:EnumEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="MapEntity"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="5">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EntityModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="keyType"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="valueType"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="DataEntity"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="4">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EntityModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="DataType"/>
+                        <models:SimpleName value="dataType"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="DataType"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="EnumEntity"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="4">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EntityModifiers"/>
+                        <models:SimpleName value="modifiers"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers initialCapacity="1">
+                            <models:FeatureModifier value="id"/>
+                        </models:FeatureModifiers>
+                        <models:SimpleName value="SimpleName"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="EnumValues"/>
+                        <models:SimpleName value="values"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+            <models:CompositeEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="EnumValues"/>
+                <models:Types/>
+                <models:ComponentModifiers initialCapacity="2">
+                    <models:ComponentModifier value="ordered"/>
+                    <models:ComponentModifier value="unique"/>
+                </models:ComponentModifiers>
+                <models:SimpleName value="EnumValue"/>
+            </models:CompositeEntity>
+            <models:DataEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="EnumValue"/>
+                <models:Types/>
+                <models:DataType value="String"/>
+            </models:DataEntity>
+            <models:SimpleEntity>
+                <models:EntityModifiers/>
+                <models:SimpleName value="AliasType"/>
+                <models:Types initialCapacity="1">
+                    <models:SimpleName value="ModelDeclaration"/>
+                </models:Types>
+                <models:Features initialCapacity="2">
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Type"/>
+                        <models:SimpleName value="name"/>
+                    </models:Feature>
+                    <models:Feature>
+                        <models:FeatureModifiers/>
+                        <models:SimpleName value="Types"/>
+                        <models:SimpleName value="types"/>
+                    </models:Feature>
+                </models:Features>
+            </models:SimpleEntity>
+        </models:ModelDeclarations>
+</models:Model>

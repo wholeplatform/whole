@@ -1,0 +1,2495 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.examples.lang.imp:ImpSemantics"/>
+    <semantics:Namespace value="org.whole.examples.lang.imp"/>
+    <semantics:Name value="Imp Semantics"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="3">
+        <semantics:SemanticFunction>
+            <semantics:Name value="interpret"/>
+            <semantics:FunctionType>
+                <semantics:ProductType initialCapacity="2">
+                    <semantics:TypedVariable>
+                        <semantics:Variable value="e"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <semantics:UnionType initialCapacity="1">
+                            <semantics:LanguageType value="http://lang.examples.whole.org/Imp"/>
+                        </semantics:UnionType>
+                    </semantics:TypedVariable>
+                    <semantics:TypedVariable>
+                        <semantics:Variable value="state"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <semantics:EnvironmentType value="State"/>
+                    </semantics:TypedVariable>
+                </semantics:ProductType>
+                <semantics:EnvironmentType value="State"/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="3">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionDeclaration"/>
+                    <semantics:BindingsScope>
+                        <semantics:StructuredVariable>
+                            <semantics:Variable value="state"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:StructuredVariable>
+                        <semantics:LocalBindings initialCapacity="1">
+                            <semantics:LocalBinding>
+                                <semantics:BindingOp value=" "/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:StructuredVariable>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="e"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:StructuredVariable>
+                            </semantics:LocalBinding>
+                        </semantics:LocalBindings>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:BindingsScope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionInvocationExpression"/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="4">
+                            <queries:Name value="function"/>
+                            <queries:Name value="paramName"/>
+                            <queries:Name value="paramValue"/>
+                            <queries:Name value="result"/>
+                        </queries:Names>
+                        <queries:Sequence initialCapacity="6">
+                            <queries:Filter>
+                                <semantics:EnvironmentVariable>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="state"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:StructuredVariable>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:StructuredVariable>
+                                </semantics:EnvironmentVariable>
+                                <queries:VariableTest value="function"/>
+                            </queries:Filter>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="enterScope"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="state"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.bindings.IBindingManager"/>
+                                <workflows:StringLiteral value="wEnterScope()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:For>
+                                <queries:PointwiseProduct initialCapacity="2">
+                                    <queries:Path initialCapacity="4">
+                                        <queries:VariableRefStep value="function"/>
+                                        <queries:FeatureStep value="http://lang.examples.whole.org/Imp#parameters"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.examples.whole.org/Imp#name"/>
+                                        <queries:VariableTest value="paramName"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="arguments"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="paramValue"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:PointwiseProduct>
+                                <semantics:BindingsScope>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="state"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:StructuredVariable>
+                                    <semantics:LocalBindings initialCapacity="1">
+                                        <semantics:LocalBinding>
+                                        <semantics:BindingOp value=" "/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="paramName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:StructuredVariable>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="paramValue"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:StructuredVariable>
+                                        </semantics:LocalBinding>
+                                    </semantics:LocalBindings>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:BindingsScope>
+                            </queries:For>
+                            <queries:Path initialCapacity="3">
+                                <queries:VariableRefStep value="function"/>
+                                <queries:FeatureStep value="http://lang.examples.whole.org/Imp#body"/>
+                                <queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableTest value="result"/>
+                                </queries:Filter>
+                            </queries:Path>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="exitScope"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="state"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.bindings.IBindingManager"/>
+                                <workflows:StringLiteral value="wExitScope()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:VariableRefStep value="result"/>
+                        </queries:Sequence>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                    <semantics:FunctionApplication>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="translateToJava"/>
+            <semantics:FunctionType>
+                <semantics:LanguageType value="http://lang.examples.whole.org/Imp"/>
+                <semantics:LanguageType value="http://lang.whole.org/Java"/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="38">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ClassDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <java:ExtendedModifiers initialCapacity="2">
+                                <java:Modifier value="public"/>
+                                <semantics:IfTemplate>
+                                    <java:Modifier value="static"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </java:ExtendedModifiers>
+                            <commons:StageDownFragment>
+                                <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <queries:StringLiteral value="Class"/>
+                                </queries:Addition>
+                            </commons:StageDownFragment>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <java:BodyDeclarations initialCapacity="3">
+                                <semantics:IfTemplate>
+                                    <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="2">
+                                        <java:Modifier value="public"/>
+                                        <java:Modifier value="static"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:PrimitiveType value="void"/>
+                                        <java:SimpleName value="main"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ArrayType>
+                                        <java:SimpleType value="String"/>
+                                        </java:ArrayType>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="args"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
+                                        </java:Block>
+                                    </java:MethodDeclaration>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:ParentStep/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                                <java:MethodDeclaration>
+                                    <commons:Resolver/>
+                                    <java:ExtendedModifiers initialCapacity="2">
+                                        <java:Modifier value="public"/>
+                                        <java:Modifier value="static"/>
+                                    </java:ExtendedModifiers>
+                                    <commons:Resolver/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="type"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <semantics:IfDefTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="parameters"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </semantics:IfDefTemplate>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <semantics:ChooseTemplate initialCapacity="2">
+                                        <semantics:IfTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="body"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                        </queries:Filter>
+                                        </semantics:IfTemplate>
+                                        <semantics:ElseTemplate>
+                                        <java:Block initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="body"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </java:Block>
+                                        </semantics:ElseTemplate>
+                                    </semantics:ChooseTemplate>
+                                </java:MethodDeclaration>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:VariableRefStep value="body"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#FunctionDeclaration"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </java:BodyDeclarations>
+                        </java:ClassDeclaration>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Parameters"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:Parameters xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:Parameters>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Parameter"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:SingleVariableDeclaration xmlns:java="http://lang.whole.org/Java">
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="type"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </java:SingleVariableDeclaration>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#VariableDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:ChooseTemplate initialCapacity="2">
+                            <semantics:IfTemplate>
+                                <java:VariableDeclarationExpression xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Resolver/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="type"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <java:ExtraDimensions value="0"/>
+                                        <semantics:IfDefTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="initializer"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:IfDefTemplate>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:VariableDeclarationExpression>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:ParentStep/>
+                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#ForStatement"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                            <semantics:ElseTemplate>
+                                <java:VariableDeclarationStatement xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Resolver/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="type"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        <java:ExtraDimensions value="0"/>
+                                        <semantics:IfDefTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="initializer"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </semantics:IfDefTemplate>
+                                        </java:VariableDeclarationFragment>
+                                    </java:VariableDeclarationFragments>
+                                </java:VariableDeclarationStatement>
+                            </semantics:ElseTemplate>
+                        </semantics:ChooseTemplate>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#EmptyStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:EmptyStatement xmlns:java="http://lang.whole.org/Java"/>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrintStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                            <java:MethodInvocation>
+                                <java:QualifiedName value="System.out"/>
+                                <java:Types initialCapacity="0"/>
+                                <java:SimpleName value="print"/>
+                                <java:Arguments initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </java:Arguments>
+                            </java:MethodInvocation>
+                        </java:ExpressionStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrintlnStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                            <java:MethodInvocation>
+                                <java:QualifiedName value="System.out"/>
+                                <java:Types initialCapacity="0"/>
+                                <java:SimpleName value="println"/>
+                                <java:Arguments initialCapacity="1">
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </java:Arguments>
+                            </java:MethodInvocation>
+                        </java:ExpressionStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ReturnStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ReturnStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:IfDefTemplate>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </semantics:IfDefTemplate>
+                        </java:ReturnStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#IfStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="condition"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:IfStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#IfElseStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="condition"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="falseBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:IfStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#WhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:WhileStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="condition"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:WhileStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#DoWhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:DoStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="condition"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:DoStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ForStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ForStatement xmlns:java="http://lang.whole.org/Java">
+                            <java:Expressions initialCapacity="1">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="initializer"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </java:Expressions>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="condition"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:Expressions initialCapacity="1">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="updater"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                            </java:Expressions>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:ForStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:ChildStep/>
+                                    <queries:Not>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#FunctionDeclaration"/>
+                                    </queries:Not>
+                                </queries:Filter>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:Block>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ExpressionStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:ExpressionStatement xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:ExpressionStatement>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionInvocationExpression"/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="1">
+                            <queries:Name value="className"/>
+                        </queries:Names>
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                                    <java:SimpleName value="ImpSemantics"/>
+                                    <commons:Resolver/>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                    <semantics:IfDefTemplate>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="arguments"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </semantics:IfDefTemplate>
+                                </java:MethodInvocation>
+                            </commons:StageUpFragment>
+                            <queries:SelfStep/>
+                            <queries:Filter>
+                                <queries:Addition>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:StringLiteral value="Class"/>
+                                </queries:Addition>
+                                <queries:VariableTest value="className"/>
+                            </queries:Filter>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Arguments"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:Arguments xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:Arguments>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#AssignmentExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:Assignment xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:AssignmentOperator value="="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:Assignment>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Addition"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="+"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Subtraction"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="-"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Multiplication"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="*"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Division"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="/"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Remainder"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="%"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#And"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="&amp;&amp;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Or"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="||"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Not"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:PrefixExpression xmlns:java="http://lang.whole.org/Java">
+                            <java:PrefixOperator value="!"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </java:PrefixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Equals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="=="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#NotEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="!="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#LessThan"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="&lt;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#LessOrEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="&lt;="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#GreaterThan"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="&gt;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#GreaterOrEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <java:InfixExpression xmlns:java="http://lang.whole.org/Java">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <java:InfixOperator value="&gt;="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </java:InfixExpression>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrimitiveType"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:ChooseTemplate initialCapacity="4">
+                            <semantics:IfTemplate>
+                                <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="boolean"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="boolean"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="int"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="int"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <java:SimpleType xmlns:java="http://lang.whole.org/Java" value="String"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="string"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <java:PrimitiveType xmlns:java="http://lang.whole.org/Java" value="void"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="void"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                        </semantics:ChooseTemplate>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#NameExpression"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Java#SimpleName"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Name"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Java#SimpleName"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#BooleanLiteral"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Java#BooleanLiteral"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#IntLiteral"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Java#IntLiteral"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#StringLiteral"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Java#StringLiteral"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="translateToText"/>
+            <semantics:FunctionType>
+                <semantics:LanguageType value="http://lang.examples.whole.org/Imp"/>
+                <semantics:LanguageType value="http://lang.whole.org/Text"/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="34">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                            <text:TextSeparator value=""/>
+                            <text:Row initialCapacity="7">
+                                <text:Text value="function "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="type"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=" "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="("/>
+                                <semantics:IfDefTemplate>
+                                    <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="parameters"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:FunctionApplication>
+                                </semantics:IfDefTemplate>
+                                <text:Text value=") {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="body"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="1">
+                                <text:Text value="}"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Parameters"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=","/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Parameter"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=" "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="type"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#VariableDeclaration"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="5">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="type"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=" "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="name"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <semantics:IfDefTemplate>
+                                    <text:Row initialCapacity="2">
+                                        <text:Text value=" = "/>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <semantics:StructuredVariable>
+                                        <semantics:Variable value="initializer"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                    </text:Row>
+                                </semantics:IfDefTemplate>
+                                <semantics:IfTemplate>
+                                    <text:Text value=";"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:ParentStep/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#ForStatement"/>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#EmptyStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="1">
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrintStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="3">
+                                <text:Text value="print "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrintlnStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="3">
+                                <text:Text value="println "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ReturnStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="3">
+                                <text:Text value="return "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#IfStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="if ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="condition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="trueBody"/>
+                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#IfElseStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="9">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="if ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="condition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="3">
+                                <semantics:IfTemplate>
+                                    <text:Text value="}"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                                <text:Text value="else"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="falseBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="falseBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="falseBody"/>
+                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#WhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="4">
+                                <text:Text value="while ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="condition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="trueBody"/>
+                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#DoWhileStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="1">
+                                <text:Text value="do {"/>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <text:Row initialCapacity="3">
+                                <text:Text value="} while ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="condition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=");"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ForStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:Row initialCapacity="8">
+                                <text:Text value="for ("/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="initializer"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="; "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="condition"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value="; "/>
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="updater"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=")"/>
+                                <semantics:IfTemplate>
+                                    <text:Text value=" {"/>
+                                    <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                        <queries:VariableRefStep value="trueBody"/>
+                                        <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                    </queries:Filter>
+                                </semantics:IfTemplate>
+                            </text:Row>
+                            <text:Indent value="1"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="trueBody"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Indent value="-1"/>
+                            <semantics:IfTemplate>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="trueBody"/>
+                                    <queries:TypeTest value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                                </queries:Filter>
+                            </semantics:IfTemplate>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#BlockStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#ExpressionStatement"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <text:Row initialCapacity="2">
+                                <semantics:FunctionApplication>
+                                    <commons:Resolver/>
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="exp"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:FunctionApplication>
+                                <text:Text value=";"/>
+                            </text:Row>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionInvocationExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="("/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="arguments"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value=")"/>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Arguments"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=","/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#AssignmentExpression"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="name"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Addition"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="+"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Subtraction"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="-"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Multiplication"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="*"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Division"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="/"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Remainder"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="%"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#And"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="&amp;&amp;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Or"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="||"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Not"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                            <text:TextSeparator value=""/>
+                            <text:Text value="!"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#Equals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="=="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#NotEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="!="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#LessThan"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="&lt;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#LessOrEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="&lt;="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#GreaterThan"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="&gt;"/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#GreaterOrEquals"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="4">
+                            <text:TextSeparator value=""/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp1"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <text:Text value="&gt;="/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="exp2"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="http://lang.examples.whole.org/Imp#PrimitiveType"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <semantics:ChooseTemplate initialCapacity="4">
+                            <semantics:IfTemplate>
+                                <text:Text xmlns:text="http://lang.whole.org/Text" value="boolean"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="boolean"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <text:Text xmlns:text="http://lang.whole.org/Text" value="int"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="int"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <text:Text xmlns:text="http://lang.whole.org/Text" value="string"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="string"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                            <semantics:IfTemplate>
+                                <text:Text xmlns:text="http://lang.whole.org/Text" value="void"/>
+                                <queries:Equals xmlns:queries="http://lang.whole.org/Queries">
+                                    <queries:VariableRefStep value="self"/>
+                                    <queries:StringLiteral value="void"/>
+                                </queries:Equals>
+                            </semantics:IfTemplate>
+                        </semantics:ChooseTemplate>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:UnionType initialCapacity="5">
+                        <semantics:EntityType value="http://lang.examples.whole.org/Imp#NameExpression"/>
+                        <semantics:EntityType value="http://lang.examples.whole.org/Imp#Name"/>
+                        <semantics:EntityType value="http://lang.examples.whole.org/Imp#BooleanLiteral"/>
+                        <semantics:EntityType value="http://lang.examples.whole.org/Imp#IntLiteral"/>
+                        <semantics:EntityType value="http://lang.examples.whole.org/Imp#StringLiteral"/>
+                    </semantics:UnionType>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="datatypes"/>
+    <models:TypeRelations initialCapacity="0"/>
+    <models:ModelDeclarations initialCapacity="21">
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="MyEnumeration"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="3">
+                <models:EnumValue value="_1234"/>
+                <models:EnumValue value="_5678"/>
+                <models:EnumValue value="_1000"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="DataType"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="IntDataTypeList"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IntDataType"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="XSString"/>
+                    <models:SimpleName value="test1"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="XSString"/>
+                    <models:SimpleName value="test2"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="IntDataType"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DataTypes"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="DataType"/>
+        </models:CompositeEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSBoolean"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="boolean"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSByte"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IntDataType"/>
+            </models:Types>
+            <models:DataType value="byte"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSShort"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IntDataType"/>
+            </models:Types>
+            <models:DataType value="short"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSInt"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IntDataType"/>
+            </models:Types>
+            <models:DataType value="int"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSLong"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="IntDataType"/>
+            </models:Types>
+            <models:DataType value="long"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSDouble"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="double"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSFloat"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="float"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSString"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSDate"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.lang.Object"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSDateTime"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.lang.Object"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSTime"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.lang.Object"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSGYearMonth"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.lang.Object"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSDuration"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.lang.Object"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSDecimal"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.math.BigDecimal"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSInteger"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="java.math.BigInteger"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="XSAnySimpleType"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="DataType"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+    </models:ModelDeclarations>
+</models:Model>

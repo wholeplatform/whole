@@ -1,0 +1,502 @@
+<?xml version="1.0"?>
+<S2SCTScf:SCTScfBlkCredTrf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:S2SCTScf="urn:S2SCTScf:xsd:$SCTScfBlkCredTrf" xsi:schemaLocation="urn:S2SCTScf:xsd:$SCTScfBlkCredTrf SepaSct.xsd">
+  <S2SCTScf:SndgInst>EBAPFRPA</S2SCTScf:SndgInst>
+  <S2SCTScf:RcvgInst>ABNANL2A</S2SCTScf:RcvgInst>
+  <S2SCTScf:SrvcId>SCT</S2SCTScf:SrvcId>
+  <S2SCTScf:TstCode>T</S2SCTScf:TstCode>
+  <S2SCTScf:FType>SCF</S2SCTScf:FType>
+  <S2SCTScf:FileRef>NSCT081021000003</S2SCTScf:FileRef>
+  <S2SCTScf:RoutingInd>DIR</S2SCTScf:RoutingInd>
+  <S2SCTScf:FileBusDt>2008-10-21</S2SCTScf:FileBusDt>
+  <S2SCTScf:FileCycleNo>02</S2SCTScf:FileCycleNo>
+  <S2SCTScf:pacs.008.001.01 xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.01">
+    <GrpHdr>
+      <MsgId>NSCT0810210000000000000000000000003</MsgId>
+      <CreDtTm>2008-10-21T14:08:02</CreDtTm>
+      <NbOfTxs>10</NbOfTxs>
+      <TtlIntrBkSttlmAmt Ccy="EUR">5432.1</TtlIntrBkSttlmAmt>
+      <IntrBkSttlmDt>2008-10-21</IntrBkSttlmDt>
+      <SttlmInf>
+        <SttlmMtd>CLRG</SttlmMtd>
+        <ClrSys>
+          <Prtry>ST2</Prtry>
+        </ClrSys>
+      </SttlmInf>
+      <InstdAgt>
+        <FinInstnId>
+          <BIC>ABNANL2A</BIC>
+        </FinInstnId>
+      </InstdAgt>
+    </GrpHdr>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000001</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Name</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Name</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000001</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000001</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000001</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000005</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000006</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000007</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000008</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000009</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+    <CdtTrfTxInf>
+      <PmtId>
+        <EndToEndId>NOT PROVIDED</EndToEndId>
+        <TxId>0000810210000010</TxId>
+      </PmtId>
+      <PmtTpInf>
+        <SvcLvl>
+          <Cd>SEPA</Cd>
+        </SvcLvl>
+      </PmtTpInf>
+      <IntrBkSttlmAmt Ccy="EUR">543.21</IntrBkSttlmAmt>
+      <ChrgBr>SLEV</ChrgBr>
+      <Dbtr>
+        <Nm>Debitor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>GB41ABNA40503069004056</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BIC>ABNAGB20XXX</BIC>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtrAgt>
+        <FinInstnId>
+          <BIC>ABNAITMMXXX</BIC>
+        </FinInstnId>
+      </CdtrAgt>
+      <Cdtr>
+        <Nm>Creditor Address</Nm>
+        <PstlAdr>
+          <AdrLine>Address - Address - Address - Address - Address - Address</AdrLine>
+          <Ctry>IT</Ctry>
+        </PstlAdr>
+      </Cdtr>
+      <CdtrAcct>
+        <Id>
+          <IBAN>BE76720540152895</IBAN>
+        </Id>
+      </CdtrAcct>
+    </CdtTrfTxInf>
+  </S2SCTScf:pacs.008.001.01>
+</S2SCTScf:SCTScfBlkCredTrf>

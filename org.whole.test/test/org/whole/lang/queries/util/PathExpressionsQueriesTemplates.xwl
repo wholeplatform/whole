@@ -1,0 +1,834 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="PathExpressionsQueriesTemplateManager"/>
+    <templates:Templates initialCapacity="31">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="name"/>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path1a"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="2"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path1b"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:IndexTest>
+                                <queries:IntLiteral value="2"/>
+                            </queries:IndexTest>
+                            <queries:TypeTest value="Production"/>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path1c"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:FollowingSiblingStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="2"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path1d"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:FollowingSiblingStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:IndexTest>
+                                <queries:IntLiteral value="2"/>
+                            </queries:IndexTest>
+                            <queries:TypeTest value="Production"/>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:Or initialCapacity="2">
+                            <queries:KindTest value="SIMPLE"/>
+                            <queries:KindTest value="DATA"/>
+                        </queries:Or>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:IndexTest>
+                            <queries:IntLiteral value="0"/>
+                        </queries:IndexTest>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:Not>
+                            <queries:KindTest value="COMPOSITE"/>
+                        </queries:Not>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path4"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:SubtypeTest value="Production"/>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:SubtypeTest value="Production"/>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path5"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Sequence initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:FeatureStep value="lexicalStructure"/>
+                    </queries:Sequence>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:SubtypeTest value="Production"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="rule"/>
+                                    <queries:TypeTest value="Choose"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path6"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:ExpressionTest>
+                                <queries:GreaterOrEquals>
+                                    <queries:VariableRefStep value="index"/>
+                                    <queries:IntLiteral value="2"/>
+                                </queries:GreaterOrEquals>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path7"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:SubtypeTest value="Production"/>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:ExpressionTest>
+                            <commons:StageUpFragment>
+                                <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                    <grammars:NonTerminal value="IName"/>
+                                    <grammars:Name value="tag"/>
+                                </grammars:As>
+                            </commons:StageUpFragment>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="path8"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:SubtypeTest value="Production"/>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:ExpressionTest>
+                            <commons:StageUpFragment>
+                                <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#NonTerminal"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <grammars:NonTerminal value="STRING"/>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </commons:StageUpFragment>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="pathWithTuple"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Filter>
+                        <queries:StringLiteral value="a"/>
+                        <queries:VariableTest value="exp1"/>
+                    </queries:Filter>
+                    <queries:Tuple initialCapacity="2">
+                        <queries:VariableRefStep value="exp1"/>
+                        <queries:StringLiteral value="b"/>
+                    </queries:Tuple>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="testProduct1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianProduct xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:VariableTest value="pp"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="lexicalStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:VariableTest value="lp"/>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:CartesianProduct>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="testProduct2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:VariableTest value="prod"/>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:CartesianProduct initialCapacity="2">
+                        <queries:FeatureStep value="name"/>
+                        <queries:FeatureStep value="rule"/>
+                    </queries:CartesianProduct>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="testProduct3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:CartesianProduct xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                            <queries:VariableTest value="name1"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                            <queries:VariableTest value="name2"/>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:CartesianProduct>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="testProduct4"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:PointwiseProduct xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                            <queries:VariableTest value="name"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:TypeTest value="Production"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:FeatureStep value="rule"/>
+                            <queries:VariableTest value="rule"/>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:PointwiseProduct>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findProduction"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:Sequence initialCapacity="2">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:FeatureStep value="lexicalStructure"/>
+                    </queries:Sequence>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="pname"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="nonTerminalSet"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:DescendantOrSelfStep/>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="NonTerminal"/>
+                        <queries:DistinctTest>
+                            <commons:Resolver/>
+                        </queries:DistinctTest>
+                    </queries:And>
+                </queries:Filter>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findNonTerminalOccurrences"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:TypeTest value="Production"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:TypeTest value="NonTerminal"/>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="bindNonTerminalOccurrences"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:TypeTest value="Production"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:DescendantStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="NonTerminal"/>
+                            <queries:VariableTest value="nt"/>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="findAllNonTerminalsUsed"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="4">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:VariableTest value="pname"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                    <queries:FeatureStep value="rule"/>
+                    <queries:Filter>
+                        <queries:DescendantOrSelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="NonTerminal"/>
+                            <queries:DistinctTest>
+                                <commons:Resolver/>
+                            </queries:DistinctTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction1"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <commons:StageUpFragment>
+                                <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#NonTerminal"/>
+                                        <commons:VarName value="pname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:StageDownFragment>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </commons:StageDownFragment>
+                                    <commons:Resolver/>
+                                </grammars:Production>
+                            </commons:StageUpFragment>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction2"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:And initialCapacity="2">
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:ExpressionTest>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction3"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:ExpressionTest>
+                                <queries:CartesianProduct initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:CartesianProduct>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction4"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:Some>
+                                <queries:CartesianProduct initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="nt"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:CartesianProduct>
+                                <queries:ExpressionTest>
+                                    <queries:PointwiseEquals>
+                                        <queries:VariableRefStep value="pname"/>
+                                        <queries:VariableRefStep value="nt"/>
+                                    </queries:PointwiseEquals>
+                                </queries:ExpressionTest>
+                            </queries:Some>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction5"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="Production"/>
+                                <queries:VariableTest value="prod"/>
+                            </queries:And>
+                            <queries:Some>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="rule"/>
+                                    <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="nt"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:ExpressionTest>
+                                    <queries:PointwiseEquals>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="prod"/>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:Path>
+                                        <queries:VariableRefStep value="nt"/>
+                                    </queries:PointwiseEquals>
+                                </queries:ExpressionTest>
+                            </queries:Some>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="recursiveProduction6"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:Some>
+                                <queries:CartesianProduct initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="nt"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:CartesianProduct>
+                                <queries:ExpressionTest>
+                                    <queries:Equals>
+                                        <queries:VariableRefStep value="pname"/>
+                                        <queries:VariableRefStep value="nt"/>
+                                    </queries:Equals>
+                                </queries:ExpressionTest>
+                            </queries:Some>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="unusedProduction"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:Every>
+                                <queries:CartesianProduct initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="4">
+                                        <queries:ParentStep/>
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="nt"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:CartesianProduct>
+                                <queries:ExpressionTest>
+                                    <queries:NotEquals>
+                                        <queries:VariableRefStep value="pname"/>
+                                        <queries:VariableRefStep value="nt"/>
+                                    </queries:NotEquals>
+                                </queries:ExpressionTest>
+                            </queries:Every>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="exactlyOneDefUse"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <queries:FeatureStep value="phraseStructure"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Production"/>
+                            <queries:One>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="rule"/>
+                                    <queries:CartesianProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Production"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="pname"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:VariableTest value="nt"/>
+                                        </queries:And>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="Production"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:CartesianProduct>
+                                </queries:Path>
+                                <queries:ExpressionTest>
+                                    <queries:Equals>
+                                        <queries:VariableRefStep value="pname"/>
+                                        <queries:VariableRefStep value="nt"/>
+                                    </queries:Equals>
+                                </queries:ExpressionTest>
+                            </queries:One>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:Path>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="helperResultAs"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                    <commons:SameStageFragment>
+                        <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
+                            <java:SimpleName value="org.whole.lang.util.StringUtils"/>
+                            <commons:Resolver/>
+                            <java:SimpleName value="toUpperCap"/>
+                            <java:Arguments initialCapacity="1">
+                                <java:SimpleName value="ftype"/>
+                            </java:Arguments>
+                        </java:MethodInvocation>
+                    </commons:SameStageFragment>
+                    <queries:VariableTest value="jtype"/>
+                </queries:Filter>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

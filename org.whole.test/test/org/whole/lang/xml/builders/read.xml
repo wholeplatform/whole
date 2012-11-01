@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+
+        <xsd:element name="messaggio" type="messaggioType" />
+
+
+        <xsd:complexType name="messaggioType">
+                <!--  da mappare in un elemento di tipo contenitore del dizionario in memoria -->
+                <xsd:sequence>
+                        <xsd:element name="codice-messaggio" type="xsd:string" />
+                        <xsd:element name="versione" type="xsd:string" />
+                        <xsd:element name="codice-descrizione" type="xsd:string" />
+                        <xsd:element name="famiglia" type="xsd:string" />
+                        <xsd:element name="abilitazione">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="S" />
+                                                <xsd:enumeration value="N" />
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="tipo-data-entry">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="V" /><!-- Solo visibile non modificabile -->
+                                                <xsd:enumeration value="M" /><!-- Visibile e modificabile -->
+                                                <xsd:enumeration value="N" /><!-- Non visibile e non modificabile -->
+                                                <xsd:enumeration value="S" /><!-- S ??? -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="codice-exit" type="xsd:string" />
+                        <xsd:element name="dati-associati" type="xsd:string" minOccurs="0" /> <!-- SM 2005/10/24: keep compatibility with non-XML dictionaries -->
+<!--  SM 2005/07/11: added XML -->
+                        <xsd:element name="xml-doctype-decl" type="xmlDoctypeType" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="xml-namespace-decl" type="xmlNamespaceType" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                <xsd:element name="alternativa" type="alternativaType" />
+                                <xsd:element name="contenitore" type="contenitoreType" />
+                                <xsd:element name="elemento" type="elementoType" />
+                                <xsd:element name="costante" type="costanteType" />
+                        </xsd:choice>
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+        <xsd:complexType name="contenitoreType">
+                <xsd:sequence>
+                        <xsd:element name="codice-contenitore" type="xsd:string" />
+                        <xsd:element name="codice-descrizione" type="xsd:string" />
+                        <xsd:element name="descrizione-estesa" type="xsd:string" />
+                        <xsd:element name="tipo-data-entry">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="V" /><!-- Solo visibile non modificabile -->
+                                                <xsd:enumeration value="M" /><!-- Visibile e modificabile -->
+                                                <xsd:enumeration value="N" /><!-- Non visibile e non modificabile -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="tipo-inib">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="I" /><!-- Inibito in input -->
+                                                <xsd:enumeration value="O" /><!-- Inibito in output -->
+                                                <xsd:enumeration value="E" /><!-- Inibito -->
+                                                <xsd:enumeration value="N" /><!-- Non inibito-->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <!-- elemento associato contenitore esterno è stato rimosso l'elemento associato al contenitore diventa un figlio -->
+                        <xsd:element name="exit-associata" type="xsd:string" />
+                        <xsd:element name="dati-associati" type="xsd:string" minOccurs="0" /> <!-- SM 2005/10/24: keep compatibility with non-XML dictionaries -->
+                        <xsd:element name="occorrenze-minime" type="xsd:integer" />
+                        <!-- 0=facoltativo -->
+                        <xsd:element name="occorrenze-massime" type="xsd:integer" />
+                        <xsd:element name="flag-contenitore">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="C" /><!-- Nasce da un contenitore del dizionario del messaggio esteso di YS -->
+                                                <xsd:enumeration value="E" /><!-- Nasce da un elemento del dizionario del messaggio esteso di YS -->
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+<!--  SM 2005/07/11: added XML -->
+                        <xsd:element name="xml-namespace-decl" type="xmlNamespaceType" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:element name="xml-tag-name" type="xmlTagNameType" minOccurs="0" />
+                        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                <xsd:element name="alternativa" type="alternativaType" />
+                                <xsd:element name="contenitore" type="contenitoreType" />
+                                <xsd:element name="elemento" type="elementoType" />
+                                <xsd:element name="costante" type="costanteType" />
+                        </xsd:choice>
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+        <xsd:complexType name="alternativaType">
+                <xsd:sequence>
+                        <xsd:element name="codice-alternativa" type="xsd:string" />
+                        <xsd:element name="codice-descrizione-alternativa"
+                                type="xsd:string" />
+                        <xsd:element name="obbligatorio">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="O" /><!-- obbligatorio -->
+                                                <xsd:enumeration value="F" /><!-- facoltativo -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="scelta" minOccurs="2"
+                                maxOccurs="unbounded" type="sceltaType" />
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+        <xsd:complexType name="sceltaType">
+                <xsd:sequence>
+                        <xsd:element name="codice-scelta" type="xsd:string" />
+                        <xsd:choice>
+                                <xsd:element name="contenitore" type="contenitoreType" />
+                                <xsd:element name="elemento" type="elementoType" />
+                                <xsd:element name="costante" type="costanteType" />
+                        </xsd:choice>
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+        <xsd:complexType name="elementoType">
+                <xsd:sequence>
+                        <xsd:element name="codice-elemento" type="xsd:string"
+                                minOccurs="1" />
+                        <xsd:element name="codice-descrizione-elemento"
+                                type="xsd:string" />
+                        <xsd:element name="tipo">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="A" /><!-- alfabetico -->
+                                                <xsd:enumeration value="B" /><!-- alfanumerico -->
+                                                <xsd:enumeration value="X" /><!-- tutti tranne : e / -->
+                                                <xsd:enumeration value="Y" /><!-- tutti tranne : -->
+                                                <xsd:enumeration value="E" /><!-- E(HEX) 0-9, A-F -->
+                                                <xsd:enumeration value="F" /><!-- X Charset SWIFT -->
+                                                <xsd:enumeration value="Q" /><!-- Y Charset SWIFT -->
+                                                <xsd:enumeration value="R" /><!-- Z Charset SWIFT -->
+                                                <xsd:enumeration value="W" /><!-- W idc di tipo buffer -->
+                                                <xsd:enumeration value="N" /><!-- numerico -->
+                                                <xsd:enumeration value="Z" /><!-- numerico anche zero -->
+                                                <xsd:enumeration value="P" /><!-- numerico packed -->
+                                                <xsd:enumeration value="I" /><!-- numerico intero -->
+                                                <xsd:enumeration value="V" /><!-- numeri con virgola -->
+                                                <xsd:enumeration value="C" /><!-- Ora HHMMSSCC -->
+                                                <xsd:enumeration value="O" /><!-- Ora HHMMSS -->
+                                                <xsd:enumeration value="H" /><!-- Ora HHMM -->
+                                                <xsd:enumeration value="1" /><!-- Data AAMMGG -->
+                                                <xsd:enumeration value="2" /><!-- Data AAAAMMGG -->
+                                                <xsd:enumeration value="3" /><!-- Data AAMM -->
+                                                <xsd:enumeration value="5" /><!-- Data AAJJJ -->
+                                                <xsd:enumeration value="6" /><!-- Data GGMMAA -->
+                                                <xsd:enumeration value="7" /><!-- Data AAAAJJ -->
+                                                <xsd:enumeration value="8" /><!-- Data GGMMAAAA -->
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="lunghezza-minima" type="xsd:integer" />
+                        <xsd:element name="lunghezza-massima" type="xsd:integer" />
+                        <xsd:element name="decimali">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="0" />
+                                                <xsd:enumeration value="1" />
+                                                <xsd:enumeration value="2" />
+                                                <xsd:enumeration value="3" />
+                                                <xsd:enumeration value="4" />
+                                                <xsd:enumeration value="5" />
+                                                <xsd:enumeration value="6" />
+                                                <xsd:enumeration value="7" />
+                                                <xsd:enumeration value="8" />
+                                                <xsd:enumeration value="9" />
+                                                <xsd:enumeration value="R" /><!-- Calcolati da regola -->
+                                                <xsd:enumeration value="E" /><!-- Calcolati da exit-->
+                                                <xsd:enumeration value="N" /><!-- N ??? -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+
+
+                        <xsd:element name="tipo-editazione">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="E" /><!-- Editato -->
+                                                <xsd:enumeration value="S" /><!-- Editazione semplice senza separatori -->
+                                                <xsd:enumeration value="N" /><!-- Nessuna editazione -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="occorrenze-minime" type="xsd:integer" />
+                        <!-- 0=facoltativo -->
+                        <xsd:element name="occorrenze-massime" type="xsd:integer" />
+                        <xsd:element name="separatore" type="xsd:string" />
+                        <xsd:element name="condizione-esistenza" type="xsd:string" />
+                        <xsd:element name="tipo-data-entry">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="V" /><!-- Solo visibile non modificabile -->
+                                                <xsd:enumeration value="M" /><!-- Visibile e modificabile -->
+                                                <xsd:enumeration value="N" /><!-- Non visibile e non modificabile -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="mask" type="xsd:string" />
+                        <xsd:element name="codice-exit-associata" type="xsd:string" />
+                        <xsd:element name="dati-associati" type="xsd:string" minOccurs="0" /> <!-- SM 2005/10/24: keep compatibility with non-XML dictionaries -->
+<!--  SM 2005/07/11: added XML -->
+                        <xsd:element name="xml-namespace-decl" type="xmlNamespaceType" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:element name="xml-tag-name" type="xmlTagNameType" minOccurs="0" />
+                        <!-- La lista di dati possibili è un elenco di costanti che vengono specificate dentro questo tag. Quando il servizio fornisce al modulo DE l specificati tutti i valori possibili -->
+                        <xsd:choice minOccurs="0">
+                                <xsd:element name="dominio-valori-interno" minOccurs="1"
+                                        maxOccurs="1">
+                                        <xsd:complexType>
+                                                <xsd:sequence maxOccurs="unbounded">
+                                                        <xsd:element name="codice" type="xsd:string"
+                                                                minOccurs="1" maxOccurs="1" />
+                                                        <xsd:element name="descr" type="xsd:string"
+                                                                minOccurs="1" maxOccurs="1" />
+                                                </xsd:sequence>
+                                        </xsd:complexType>
+                                </xsd:element>
+                                <!-- L’elemento puo’ contenere (ma non è obbligatorio) i valori consigliati da questo tag  -->
+                                <xsd:element name="dominio-valori-facoltativo"
+                                        minOccurs="1" maxOccurs="1">
+                                        <xsd:complexType>
+                                                <xsd:sequence maxOccurs="unbounded">
+                                                        <xsd:element name="codice" type="xsd:string"
+                                                                minOccurs="1" maxOccurs="1" />
+                                                        <xsd:element name="descr" type="xsd:string"
+                                                                minOccurs="1" maxOccurs="1" />
+                                                </xsd:sequence>
+                                        </xsd:complexType>
+                                </xsd:element>
+                                <!-- La lista di dati possibili è molto corposa e viene richiesta al momento dell’utilizzo al servizio interessato (lista codici ABI, lista codici BIC, lista Divise) -->
+                                <xsd:element name="dominio-valori-esterno" minOccurs="1"
+                                        maxOccurs="1">
+                                        <xsd:complexType>
+                                                <xsd:sequence>
+                                                        <xsd:element name="nome-servizio"
+                                                                type="xsd:string" minOccurs="1" maxOccurs="1" />
+                                                        <xsd:element name="nome-funzione"
+                                                                type="xsd:string" minOccurs="1" maxOccurs="1" />
+                                                </xsd:sequence>
+                                        </xsd:complexType>
+                                </xsd:element>
+                        </xsd:choice>
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+        <xsd:complexType name="costanteType">
+                <xsd:sequence>
+                        <xsd:element name="codice-costante" type="xsd:string"
+                                minOccurs="1" />
+                        <xsd:element name="codice-descrizione-costante"
+                                type="xsd:string" />
+                        <xsd:element name="tipo">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="A" /><!-- alfabetico -->
+                                                <xsd:enumeration value="B" /><!-- alfanumerico -->
+                                                <xsd:enumeration value="X" /><!-- tutti tranne : e / -->
+                                                <xsd:enumeration value="Y" /><!-- tutti tranne : -->
+                                                <xsd:enumeration value="E" /><!-- E(HEX) 0-9, A-F -->
+                                                <xsd:enumeration value="F" /><!-- X Charset SWIFT -->
+                                                <xsd:enumeration value="Q" /><!-- Y Charset SWIFT -->
+                                                <xsd:enumeration value="R" /><!-- Z Charset SWIFT -->
+                                                <xsd:enumeration value="W" /><!-- W idc di tipo buffer -->
+                                                <xsd:enumeration value="N" /><!-- numerico -->
+                                                <xsd:enumeration value="Z" /><!-- numerico anche zero -->
+                                                <xsd:enumeration value="P" /><!-- numerico packed -->
+                                                <xsd:enumeration value="I" /><!-- numerico intero -->
+                                                <xsd:enumeration value="V" /><!-- numeri con virgola -->
+                                                <xsd:enumeration value="C" /><!-- Ora HHMMSSCC -->
+                                                <xsd:enumeration value="O" /><!-- Ora HHMMSS -->
+                                                <xsd:enumeration value="H" /><!-- Ora HHMM -->
+                                                <xsd:enumeration value="1" /><!-- Data AAMMGG -->
+                                                <xsd:enumeration value="2" /><!-- Data AAAAMMGG -->
+                                                <xsd:enumeration value="3" /><!-- Data AAMM -->
+                                                <xsd:enumeration value="5" /><!-- Data AAJJJ -->
+                                                <xsd:enumeration value="6" /><!-- Data GGMMAA -->
+                                                <xsd:enumeration value="7" /><!-- Data AAAAJJ -->
+                                                <xsd:enumeration value="8" /><!-- Data GGMMAAAA -->
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="decimali">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="0" />
+                                                <xsd:enumeration value="1" />
+                                                <xsd:enumeration value="2" />
+                                                <xsd:enumeration value="3" />
+                                                <xsd:enumeration value="4" />
+                                                <xsd:enumeration value="5" />
+                                                <xsd:enumeration value="6" />
+                                                <xsd:enumeration value="7" />
+                                                <xsd:enumeration value="8" />
+                                                <xsd:enumeration value="9" />
+                                                <xsd:enumeration value="R" /><!-- Calcolati da regola -->
+                                                <xsd:enumeration value="E" /><!-- Calcolati da exit-->
+                                                <xsd:enumeration value="N" /><!-- N ??? -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+
+
+                        <xsd:element name="tipo-editazione">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="E" /><!-- Editato -->
+                                                <xsd:enumeration value="S" /><!-- Editazione semplice senza separatori -->
+                                                <xsd:enumeration value="N" /><!-- Nessuna editazione -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="valore-costante" type="xsd:string" />
+                        <xsd:element name="separatore" type="xsd:string" />
+                        <xsd:element name="condizione-esistenza" type="xsd:string" />
+                        <xsd:element name="tipo-data-entry">
+                                <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="V" /><!-- Solo visibile non modificabile -->
+                                                <xsd:enumeration value="M" /><!-- Visibile e modificabile -->
+                                                <xsd:enumeration value="N" /><!-- Non visibile e non modificabile -->
+                                                <xsd:enumeration value="" />
+                                        </xsd:restriction>
+                                </xsd:simpleType>
+                        </xsd:element>
+                        <!-- La lista di dati possibili è un elenco di costanti che vengono specificate dentro questo tag. Quando il servizio fornisce al modulo specificati tutti i valori possibili -->
+                        <xsd:element name="codice-exit-associata" type="xsd:string" />
+                        <xsd:element name="dati-associati" type="xsd:string" minOccurs="0" /> <!-- SM 2005/10/24: keep compatibility with non-XML dictionaries -->
+<!--  SM 2005/07/11: added XML -->
+                        <xsd:element name="xml-namespace-decl" type="xmlNamespaceType" minOccurs="0" maxOccurs="unbounded" />
+                        <xsd:element name="xml-tag-name" type="xmlTagNameType" minOccurs="0" />
+                </xsd:sequence>
+        </xsd:complexType>
+
+
+<!--  SM 2005/11/28: added XML -->
+<!--  La gestione dell'alternativa tra systemURI o publicURI deve essere migliorata. Per
+          ora tutto � amesso -->
+        <xsd:complexType name="xmlDoctypeType">
+                <xsd:attribute name="doctype" type="xsd:string" use="required"/>
+                <xsd:attribute name="systemURI" type="xsd:anyURI" use="optional" />
+                <xsd:attribute name="publicID" type="xsd:string" use="optional" />
+                <xsd:attribute name="publicURI" type="xsd:anyURI" use="optional" />
+        </xsd:complexType>
+
+
+<!--  SM 2005/07/11: added XML -->
+        <xsd:complexType name="xmlNamespaceType">
+                <xsd:attribute name="ns-uri" type="xsd:anyURI" />
+                <xsd:attribute name="ns-prefix" type="xsd:string" use="optional"/>
+        </xsd:complexType>
+
+
+<!--  SM 2005/07/11: added XML -->
+        <xsd:complexType name="xmlTagNameType">
+                <xsd:attribute name="local-name" type="xsd:string" use="optional"/>
+                <xsd:attribute name="namespace" type="xsd:anyURI" use="optional"/>
+                <xsd:attribute name="tag-type" use="optional">
+                        <xsd:simpleType>
+                                <xsd:restriction base="xsd:string">
+                                        <xsd:enumeration value="A" /><!-- Attributo di un elemento XML   -->
+                                        <xsd:enumeration value="C" /><!-- Contenuto di un elemento XML   -->
+                                        <xsd:enumeration value="" /> <!-- Distinzione non applicabile  -->
+                                </xsd:restriction>
+                        </xsd:simpleType>
+                </xsd:attribute>
+        </xsd:complexType>
+
+</xsd:schema> 

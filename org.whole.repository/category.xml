@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://whole.sourceforge.net/updates">
+      Installing the Whole Platform features, Eclipse becomes a Language Workbench
+      with model driven editing and metaprogramming support.
+   </description>
+   <feature url="features/org.whole.lang.feature_1.0.0.qualifier.jar" id="org.whole.lang.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.standalone.feature_1.0.0.qualifier.jar" id="org.whole.standalone.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.lang.gen.feature_1.0.0.qualifier.jar" id="org.whole.lang.gen.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.rcp.feature_1.0.0.qualifier.jar" id="org.whole.rcp.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.ide.feature_1.0.0.qualifier.jar" id="org.whole.ide.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.sdk.feature_1.0.0.qualifier.jar" id="org.whole.sdk.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform SDK 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.langs.legacy.scripting.feature_1.0.0.qualifier.jar" id="org.whole.langs.legacy.scripting.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.langs.misc.feature_1.0.0.qualifier.jar" id="org.whole.langs.misc.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.examples.feature_1.0.0.qualifier.jar" id="org.whole.examples.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.test.feature_1.0.0.qualifier.jar" id="org.whole.test.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.examples.db.feature_1.0.0.qualifier.jar" id="org.whole.examples.db.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.whole.extras.feature_1.0.0.qualifier.jar" id="org.whole.extras.feature" version="1.0.0.qualifier">
+      <category name="Whole Platform Extras 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/net.sourceforge.jodatime.feature_1.6.2.jar" id="net.sourceforge.jodatime.feature" version="1.6.2">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.beanshell.bsh.feature_2.0.0.b4.jar" id="org.beanshell.bsh.feature" version="2.0.0.b4">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.h2.feature_1.2.147.jar" id="org.h2.feature" version="1.2.147">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
+   <feature url="features/org.mozilla.rhino.feature_1.7.0.R3.jar" id="org.mozilla.rhino.feature" version="1.7.0.R3">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
+   <category-def name="Whole Platform SDK 1.0.0.qualifier" label="Whole Platform SDK 1.0.0.qualifier">
+      <description>
+         Whole Platform features including portions of the Platform ranging from the Language Framework to the full Language Workbench with sources.
+      </description>
+   </category-def>
+   <category-def name="Whole Platform Extras 1.0.0.qualifier" label="Whole Platform Extras 1.0.0.qualifier">
+      <description>
+         Whole Platform optional features: languages, operations, examples and tests.
+      </description>
+   </category-def>
+   <category-def name="Whole Platform Enabling Features 1.0.0.qualifier" label="Whole Platform Enabling Features 1.0.0.qualifier">
+      <description>
+         Provide functionalities required by one or more of the Whole features.
+      </description>
+   </category-def>
+</site>

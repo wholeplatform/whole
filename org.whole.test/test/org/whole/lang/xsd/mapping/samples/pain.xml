@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:Document xmlns:ns0="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.02 pain.xsd">
+    <ns0:pain.001.001.02>
+        <ns0:GrpHdr>
+            <ns0:MsgId>MSG001273763060269</ns0:MsgId>
+            <ns0:CreDtTm>2008-01-07T00:00:00.000+01:00</ns0:CreDtTm>
+            <ns0:NbOfTxs>0000001</ns0:NbOfTxs>
+            <ns0:CtrlSum>10100.44</ns0:CtrlSum>
+            <ns0:Grpg>GRPD</ns0:Grpg>
+            <ns0:InitgPty>
+                <ns0:Nm>MUSTERMANN                 </ns0:Nm>
+            </ns0:InitgPty>
+        </ns0:GrpHdr>
+        <ns0:PmtInf>
+            <ns0:PmtMtd>TRF</ns0:PmtMtd>
+            <ns0:ReqdExctnDt>2008-01-21</ns0:ReqdExctnDt>
+            <ns0:Dbtr>
+                <ns0:Nm>MUSTERMANN                 </ns0:Nm>
+            </ns0:Dbtr>
+            <ns0:DbtrAcct>
+                <ns0:Id>
+                    <ns0:IBAN>DE13500999001234567890</ns0:IBAN>
+                </ns0:Id>
+            </ns0:DbtrAcct>
+            <ns0:DbtrAgt>
+                <ns0:FinInstnId>
+                    <ns0:BIC>GENODE51RGG</ns0:BIC>
+                </ns0:FinInstnId>
+            </ns0:DbtrAgt>
+            <ns0:CdtTrfTxInf>
+                <ns0:PmtId>
+                    <ns0:EndToEndId>REF03267205</ns0:EndToEndId>
+                </ns0:PmtId>
+                <ns0:Amt>
+                    <ns0:InstdAmt Ccy="EUR">10100.44</ns0:InstdAmt>
+                </ns0:Amt>
+                <ns0:CdtrAgt>
+                    <ns0:FinInstnId>
+                        <ns0:BIC>GENODEF1DCA</ns0:BIC>
+                    </ns0:FinInstnId>
+                </ns0:CdtrAgt>
+                <ns0:Cdtr>
+                    <ns0:Nm>MALEREI PINSEL UND KLECKS GMBH</ns0:Nm>
+                </ns0:Cdtr>
+                <ns0:CdtrAcct>
+                    <ns0:Id>
+                        <ns0:IBAN>DE28700999009876543210</ns0:IBAN>
+                    </ns0:Id>
+                </ns0:CdtrAcct>
+                <ns0:RmtInf>
+                    <ns0:Ustrd>RECHNUNG 1111 VOM 13.1.2008 RECHNUNG 1112 VOM 14.1.2008 RECHNUNG 1113 VOM 15.1.2008</ns0:Ustrd>
+                </ns0:RmtInf>
+            </ns0:CdtTrfTxInf>
+        </ns0:PmtInf>
+    </ns0:pain.001.001.02>
+</ns0:Document>

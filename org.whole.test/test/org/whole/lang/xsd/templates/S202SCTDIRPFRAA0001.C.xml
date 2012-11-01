@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:SCTCcfBlkCredTrf xmlns:ns0="urn:S2SCTCcf:xsd:$SCTCcfBlkCredTrf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:S2SCTCcf:xsd:$SCTCcfBlkCredTrf SCTCcfBlkCredTrf.xsd">
+    <ns0:SndgInst>EBAPFRP0</ns0:SndgInst>
+    <ns0:RcvgInst>DIRPFRAA</ns0:RcvgInst>
+    <ns0:SrvcId>SCT</ns0:SrvcId>
+    <ns0:TstCode>T</ns0:TstCode>
+    <ns0:FType>CCF</ns0:FType>
+    <ns0:FileRef>CSCT011100000001</ns0:FileRef>
+    <ns0:FileBusDt>2008-01-04</ns0:FileBusDt>
+    <ns0:FileCycleNo>01</ns0:FileCycleNo>
+    <ns0:pacs.002.001.02S2>
+        <ns1:GrpHdr xmlns:ns1="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.02S2">
+            <ns1:MsgId>CCFSCT08010700000000000000000000001</ns1:MsgId>
+            <ns1:CreDtTm>2008-01-02T08:30:47.000Z</ns1:CreDtTm>
+            <ns1:InstgAgt>
+                <ns1:FinInstnId>
+                    <ns1:BIC>DIRPFRAA</ns1:BIC>
+                </ns1:FinInstnId>
+            </ns1:InstgAgt>
+        </ns1:GrpHdr>
+        <ns2:OrgnlGrpInfAndSts xmlns:ns2="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.02S2">
+            <ns2:OrgnlMsgId>BULK0000000000000000000000000000002</ns2:OrgnlMsgId>
+            <ns2:OrgnlMsgNmId>pacs.008</ns2:OrgnlMsgNmId>
+            <ns2:OrgnlNbOfTxs>2</ns2:OrgnlNbOfTxs>
+            <ns2:OrgnlCtrlSum>35.00</ns2:OrgnlCtrlSum>
+            <ns2:GrpSts>RJCT</ns2:GrpSts>
+            <ns2:StsRsnInf>
+                <ns2:StsOrgtr>
+                    <ns2:Id>
+                        <ns2:OrgId>
+                            <ns2:BIC>EBAPFRP0</ns2:BIC>
+                        </ns2:OrgId>
+                    </ns2:Id>
+                </ns2:StsOrgtr>
+                <ns2:StsRsn>
+                    <ns2:Cd>ED05</ns2:Cd>
+                </ns2:StsRsn>
+            </ns2:StsRsnInf>
+            <ns2:NbOfTxsPerSts>
+                <ns2:DtldNbOfTxs>2</ns2:DtldNbOfTxs>
+                <ns2:DtldSts>ACSC</ns2:DtldSts>
+                <ns2:DtldCtrlSum>15.00</ns2:DtldCtrlSum>
+            </ns2:NbOfTxsPerSts>
+            <ns2:NbOfTxsPerSts>
+                <ns2:DtldNbOfTxs>1</ns2:DtldNbOfTxs>
+                <ns2:DtldSts>RJCT</ns2:DtldSts>
+                <ns2:DtldCtrlSum>20.00</ns2:DtldCtrlSum>
+            </ns2:NbOfTxsPerSts>
+        </ns2:OrgnlGrpInfAndSts>
+        <ns3:TxInfAndSts xmlns:ns3="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.02S2">
+            <ns3:StsId>TRXID000000000000000000000000000008</ns3:StsId>
+            <ns3:OrgnlEndToEndId>NOTPROVIDED</ns3:OrgnlEndToEndId>
+            <ns3:OrgnlTxId>TRXID000000000000000000000000000005</ns3:OrgnlTxId>
+            <ns3:TxSts>RJCT</ns3:TxSts>
+            <ns3:StsRsnInf>
+                <ns3:StsOrgtr>
+                    <ns3:Id>
+                        <ns3:OrgId>
+                            <ns3:BIC>EBAPFRP0</ns3:BIC>
+                        </ns3:OrgId>
+                    </ns3:Id>
+                </ns3:StsOrgtr>
+                <ns3:StsRsn>
+                    <ns3:Cd>ED05</ns3:Cd>
+                </ns3:StsRsn>
+            </ns3:StsRsnInf>
+            <ns3:InstdAgt>
+                <ns3:FinInstnId>
+                    <ns3:BIC>DIRPDECC</ns3:BIC>
+                </ns3:FinInstnId>
+            </ns3:InstdAgt>
+            <ns3:OrgnlTxRef>
+                <ns3:IntrBkSttlmAmt Ccy="EUR">20.00</ns3:IntrBkSttlmAmt>
+                <ns3:IntrBkSttlmDt>2008-01-04</ns3:IntrBkSttlmDt>
+                <ns3:DbtrAgt>
+                    <ns3:FinInstnId>
+                        <ns3:BIC>DIRPFRAA</ns3:BIC>
+                    </ns3:FinInstnId>
+                </ns3:DbtrAgt>
+            </ns3:OrgnlTxRef>
+        </ns3:TxInfAndSts>
+    </ns0:pacs.002.001.02S2>
+</ns0:SCTCcfBlkCredTrf>

@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.whole.lang">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.whole.lang" id="deployers" name="Whole Extensions"/>
+      </appInfo>
+      <documentation>
+         This extension point allows clients to extend the family of Whole Languages.
+Each deployer can contribute complete languages (model, notation, semantics) or
+language extensions.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="deployer" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="deployer">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a unique name that will be used to reference this deployer.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="desc" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a translatable short description that will be used for presenting this deployer in the UI.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a fully qualified name of the Java class that implements &lt;samp&gt;org.whole.lang.reflect.IDeployer&lt;/samp&gt; interface.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.whole.lang.reflect.IDeployer"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         The following is an example of the extension point usage:
+&lt;p&gt;
+&lt;pre&gt;
+ &lt;extension point=&quot;org.whole.lang.deployers&quot;&gt;
+  &lt;deployer
+   desc=&quot;WholeLanguages deployer&quot;
+   id=&quot;org.whole.langs.test.WholeLanguagesDeployer&quot;
+   class=&quot;org.whole.langs.test.WholeLanguagesDeployer&quot;&gt;
+  &lt;/deployer&gt;
+ &lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         Plug-ins that want to extend this extension point must
+implement &lt;samp&gt;org.whole.lang.reflect.IDeployer&lt;/samp&gt; interface.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         The org.whole.lang Plug-in provides an abstract implementation of the deployer.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+Copyright 2004-2012 Riccardo Solmi. All rights reserved.
+This file is part of the Whole Platform.
+
+The Whole Platform is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+The Whole Platform is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with the Whole Platform. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+      </documentation>
+   </annotation>
+
+</schema>
