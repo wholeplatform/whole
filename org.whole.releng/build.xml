@@ -95,29 +95,29 @@
 	<target name="backup_dist" depends="init_backup" description="Backups the source distribution repos">
 		<zip destfile="${backup.dir}/whole-${version}.zip">
 			<zipfileset prefix="whole" dir="${repos.dir}/whole"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-examples-${version}.zip">
 			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 	</target>
 	<target name="backup" depends="backup_dist" description="Backups all repos">
 		<zip destfile="${backup.dir}/whole-apps-${version}.zip">
 			<zipfileset prefix="whole-apps" dir="${repos.dir}/whole-apps"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-incubator-${version}.zip">
 			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-incubator-runtime-${version}.zip">
 			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator-runtime"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-spl-${version}.zip">
 			<zipfileset prefix="whole-spl" dir="${repos.dir}/whole-spl"
-				excludes=".metadata/**, */bin/**, */target/**"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
 		</zip>
 	</target>
 	<target name="build_lw" depends="init_backup, package_lw" unless="failure">
