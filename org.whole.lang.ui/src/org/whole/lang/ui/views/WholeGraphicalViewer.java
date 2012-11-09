@@ -104,6 +104,11 @@ public class WholeGraphicalViewer extends ScrollingGraphicalViewer implements IR
 	private WholeActionFactory actionFactory;
 	private List<String> selectionActionIds;
 
+	//FIXME migrating to e4
+	public static WholeGraphicalViewer create(Composite parent) {
+		return new WholeGraphicalViewer(parent, (IWorkbenchPart) null);
+	}
+
 	public WholeGraphicalViewer(Composite parent) {
 		this(parent, new WholeEditDomain(new ActiveEditorPart()));
 		WholeEditDomain editDomain = getEditDomain();
@@ -214,10 +219,12 @@ public class WholeGraphicalViewer extends ScrollingGraphicalViewer implements IR
 		setActionFactory(createWholeActionFactory(actionRegistry));
 		setContextMenu(createContextMenuProvider(actionFactory));
 
-		WholeKeyHandler wholeKeyHandler = new WholeKeyHandler(this, part, getActionRegistry());
-		setKeyHandler(wholeKeyHandler.setParent(new KeyHandler()));
-
-		createActions(part);
+		//FIXME migrating to e4
+		if (part != null) {
+			WholeKeyHandler wholeKeyHandler = new WholeKeyHandler(this, part, getActionRegistry());
+			setKeyHandler(wholeKeyHandler.setParent(new KeyHandler()));
+			createActions(part);
+		}
 
 		addDragSourceListener(new EditPartTransferDragSourceListener(this));
 		addDropTargetListener(new EditPartTransferDropTargetListener(this));
@@ -444,8 +451,11 @@ public class WholeGraphicalViewer extends ScrollingGraphicalViewer implements IR
 		super.setFocus(part);
 
 		SelectionAction pasteAction = ((SelectionAction) getActionRegistry().getAction(ActionFactory.PASTE.getId()));
-		pasteAction.setSelectionProvider(this);
-		pasteAction.update();
+		//FIXME migrating to e4
+		if (pasteAction != null) {
+			pasteAction.setSelectionProvider(this);
+			pasteAction.update();
+		}
 	}
 	@Override
 	public WholeEditDomain getEditDomain() {
