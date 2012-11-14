@@ -70,6 +70,7 @@ import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.util.BehaviorUtils;
@@ -487,7 +488,9 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			arguments.accept(this);
 			for (int i = 0; i < arguments.wSize(); i++) {
 				String name = ((Assignments) arguments).get(i).getName().getValue();
-				getBindings().wSet(name, EntityUtils.convert(getBindings().wGet(name), ed.getEntityDescriptor(i)));
+				FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
+				if (fd != null)
+					getBindings().wSet(name, EntityUtils.convert(getBindings().wGet(name), ed.getEntityDescriptor(fd)));
 			}
 			model = ef.create(ed, getBindings());
 
