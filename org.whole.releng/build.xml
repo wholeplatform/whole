@@ -184,8 +184,7 @@
 	</target>
 
 	<target name="release_sourceforge" depends="init_release" description="Release the Whole Platform">
-		<property name="_rfs.dir" value="/home/frs/project/whole"/>
-		<property name="rfs.dir" value="/home/project-web/whole/test"/>
+		<property name="frs.dir" value="/home/frs/project/whole"/>
 
 		<unzip src="${backup.dir}/whole-${version}.zip" dest="${backup.dir}">
 			<patternset>
@@ -194,18 +193,18 @@
 			<flattenmapper/>
 		</unzip>
 		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir}/readme.txt riccardo_solmi@frs.sourceforge.net:${rfs.dir}"/>
+			<arg line="-ave ssh ${backup.dir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frs.dir}"/>
 		</exec>
 		<delete file="${backup.dir}/readme.txt"/>
 
 		<delete file="${backup.dir}/.DS_Store" quiet="true"/>
 		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir} riccardo_solmi@frs.sourceforge.net:${rfs.dir}/builds"/>
+			<arg line="-ave ssh ${backup.dir} riccardo_solmi@frs.sourceforge.net:${frs.dir}/builds"/>
 		</exec>
 
 		<unzip src="${backup.dir}/whole-updatesite-${version}.zip" dest="${backup.dir}/${version}"/>
 		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir}/${version} riccardo_solmi@frs.sourceforge.net:${rfs.dir}/updates"/>
+			<arg line="-ave ssh ${backup.dir}/${version} riccardo_solmi@frs.sourceforge.net:${frs.dir}/updates"/>
 		</exec>
 		<delete dir="${backup.dir}/${version}"/>
 	</target>
