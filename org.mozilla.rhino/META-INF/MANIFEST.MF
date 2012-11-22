@@ -8,5 +8,5 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.mozilla.javascript,
  org.mozilla.javascript.ast
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Eclipse-BundleShape: dir

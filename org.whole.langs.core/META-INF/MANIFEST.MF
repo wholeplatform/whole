@@ -116,4 +116,4 @@ Export-Package: org.whole.lang.actions.builders,
 Require-Bundle: org.whole.lang
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
