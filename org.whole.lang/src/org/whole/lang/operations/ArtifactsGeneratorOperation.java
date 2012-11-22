@@ -49,7 +49,7 @@ public class ArtifactsGeneratorOperation extends AbstractOperation {
 
 	public IEntity getResult() {
 		IBindingManager bm = getArtifactsEnvironment();
-		if (bm.wGet("packageArtifactsPoint").wIsEmpty() &&
+		if (bm.wIsSet("packageArtifactsPoint") && bm.wGet("packageArtifactsPoint").wIsEmpty() &&
 				bm.wGet("packagesPoint").wSize() == 1 &&
 				bm.wGet("projectArtifactsPoint").wSize() == 1)
 			bm.wGet("projectsPoint").wRemove(bm.wGet("projectArtifactsPoint").wGetParent());
