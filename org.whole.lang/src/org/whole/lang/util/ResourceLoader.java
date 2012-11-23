@@ -17,7 +17,6 @@
  */
 package org.whole.lang.util;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -44,18 +43,18 @@ public class ResourceLoader {
 
 	private ResourceLoader(String packageName) {
 		cl = Thread.currentThread().getContextClassLoader();
-		packagePath = StringUtils.packagePath(packageName);
+		packagePath = StringUtils.packageURIPath(packageName);
 	}
 
 	public URL getResource(String name) {
-		return cl.getResource(packagePath+File.separator+name);
+		return cl.getResource(packagePath+"/"+name);
 	}
 	public InputStream getResourceAsStream(String name) {
 		try {
 			URI uri = new URI(name);
 			return uri.toURL().openStream();
 		} catch (Exception e) {
-			return cl.getResourceAsStream(packagePath+File.separator+name);
+			return cl.getResourceAsStream(packagePath+"/"+name);
 		}
 	}
 }

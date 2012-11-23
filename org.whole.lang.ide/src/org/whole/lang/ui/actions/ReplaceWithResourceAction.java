@@ -117,8 +117,7 @@ public abstract class ReplaceWithResourceAction extends ReplaceChildAction  impl
 		FileDialog dialog = new FileDialog(shell, style);
 		dialog.setText(SELECT_RESOURCE_MSG);
 
-		File file = isURL ?
-				URLToFile(path) : new File(path);
+		File file = isURL ? URLToFile(path) : new File(path);
 
 		if (file.exists() && file.isFile()) {
 			dialog.setFilterPath(file.getParent());
@@ -177,7 +176,7 @@ public abstract class ReplaceWithResourceAction extends ReplaceChildAction  impl
 		if (bm.wStringValue("fileExtension").equals(StringUtils.JAVA_FILE_EXTENSION))
 			path = StringUtils.toResourceClasspath(bm.wStringValue("compilationUnitName"));
 		else
-			path = StringUtils.packagePath(bm.wStringValue("packageName"))+'/'+
+			path = StringUtils.packagePath(bm.wStringValue("packageName"))+File.separator+
 					bm.wStringValue("fileNameWithExtension");
 		return true;
 	}

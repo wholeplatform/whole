@@ -188,7 +188,8 @@ public class ResourceArtifactsGeneratorVisitor extends AbstractArtifactsGenerato
 		env().wDefValue("fileName", StringUtils.stripFileExtension(fileNameWithExtension));
 		env().wDefValue("fileExtension", StringUtils.getFileExtension(fileNameWithExtension));
 
-		if (fileNameWithExtension.indexOf(File.separatorChar) != -1)
+		if (fileNameWithExtension.indexOf(File.separatorChar) != -1
+				|| fileNameWithExtension.indexOf('/') != -1)
 			throw new VisitException("Invalid File name");
 
 		entity.getMetadata().accept(this);

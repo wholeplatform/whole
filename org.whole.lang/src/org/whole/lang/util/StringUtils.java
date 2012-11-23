@@ -515,6 +515,9 @@ public class StringUtils {
 	public static String packagePath(String packageName) {
 		return packageName.replace('.', File.separatorChar);
 	}
+	public static String packageURIPath(String packageName) {
+		return packageName.replace('.', '/');
+	}
 	public static String packageName(String packagePath) {
 		return packagePath.replace(File.separatorChar, '.');
 	}

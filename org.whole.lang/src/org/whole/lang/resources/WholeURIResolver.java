@@ -50,7 +50,7 @@ public class WholeURIResolver extends AbstractURIResolver {
 			sb.append("/");
 		} else
 			sb.append("classpath:/");
-		sb.append(StringUtils.packagePath(part[1]));
+		sb.append(StringUtils.packageURIPath(part[1]));
 		sb.append('/');
 		sb.append(part[2]);
 		//TODO append version derived suffix
