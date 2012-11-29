@@ -95,29 +95,29 @@
 	<target name="backup_dist" depends="init_backup" description="Backups the source distribution repos">
 		<zip destfile="${backup.dir}/whole-${version}.zip">
 			<zipfileset prefix="whole" dir="${repos.dir}/whole"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-examples-${version}.zip">
 			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 	</target>
 	<target name="backup" depends="backup_dist" description="Backups all repos">
 		<zip destfile="${backup.dir}/whole-apps-${version}.zip">
 			<zipfileset prefix="whole-apps" dir="${repos.dir}/whole-apps"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-incubator-${version}.zip">
 			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-incubator-runtime-${version}.zip">
 			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator-runtime"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 		<zip destfile="${backup.dir}/whole-spl-${version}.zip">
 			<zipfileset prefix="whole-spl" dir="${repos.dir}/whole-spl"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store"/>
+				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
 		</zip>
 	</target>
 	<target name="build_lw" depends="init_backup, package_lw" unless="failure">
@@ -145,7 +145,7 @@
 				</chainedmapper>
 			</mappedresources>
 		</zip>
-		
+
 		<antcall target="clean_ldk"/>
 	</target>
 	<target name="build"
@@ -155,6 +155,7 @@
 
 	<target name="clean_lw">
 		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="clean"/>
+		<delete dir="workspace"/>
 	</target>
 	<target name="clean_ldk">
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="clean"/>
