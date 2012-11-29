@@ -135,16 +135,15 @@
 		<antcall target="clean_lw"/>
 	</target>
 	<target name="build_ldk" depends="init_backup, package_ldk" unless="failure">
-		<property name="ldk.file" value="${backup.dir}/whole-ldk-${version}.zip"/>
-		<zip destfile="${ldk.file}">
+		<!--zip destfile="${backup.dir}/whole-ldk-${version}.zip">
 			<mappedresources>
-				<fileset dir="${workspace.dir}/" includes="*/target/*-ldk.jar"/>
+				<fileset dir="${workspace.dir}/" includes="*/target/whole-*.jar"/>
 				<chainedmapper>
 					<flattenmapper/>
 					<regexpmapper from="(.*)" to="lib/\1"/>
 				</chainedmapper>
 			</mappedresources>
-		</zip>
+		</zip-->
 
 		<antcall target="clean_ldk"/>
 	</target>
@@ -176,15 +175,7 @@
 	</target>
 	<target name="package" depends="clean, package_lw, package_ldk"/>
 
-	<target name="release_ldk_local" depends="clean">
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install"/>
-	</target>
-
-	<target name="release_maven" depends="clean" description="Release the Whole ldk">
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy"/>
-	</target>
-
-	<target name="release_sourceforge" depends="init_release" description="Release the Whole Platform">
+	<target name="release_lw" depends="init_release" description="Release the Whole Language Workbench">
 		<property name="frs.dir" value="/home/frs/project/whole"/>
 
 		<unzip src="${backup.dir}/whole-${version}.zip" dest="${backup.dir}">
@@ -208,5 +199,19 @@
 			<arg line="-ave ssh ${backup.dir}/${version} riccardo_solmi@frs.sourceforge.net:${frs.dir}/updates"/>
 		</exec>
 		<delete dir="${backup.dir}/${version}"/>
+	</target>
+
+	<target name="release_ldk" depends="clean" description="Release the Whole Language Development Kit">
+		<property name="version.fixed" value="true"/>
+		<antcall target="set_build_version"/>
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy"/>
+		<antcall target="set_meta_version"/>
+	</target>
+
+	<target name="release_ldk_local" depends="clean">
+		<property name="version.fixed" value="true"/>
+		<antcall target="set_build_version"/>
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install"/>
+		<antcall target="set_meta_version"/>
 	</target>
 </project>
