@@ -140,11 +140,11 @@ public class ResourceTemplateTest extends TestCase {
 		cb.Resolver();
 		ab.Artifacts_(3);
 
-//		ab.FolderArtifact_();
-//		ab.Name("empty.folder");
-//		cb.Resolver();
-//		ab.Artifacts();
-//		ab._FolderArtifact();
+		ab.FolderArtifact_();
+		ab.Name("empty.folder");
+		cb.Resolver();
+		ab.Artifacts();
+		ab._FolderArtifact();
 
 		ab.FolderArtifact_();
 		ab.Name("subfolder");
