@@ -57,7 +57,6 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		new File("data/SampleModel.xml").deleteOnExit();
 		new File("data/SampleM.xml").deleteOnExit();
 	}
-
 	
 	public void testSequence() {
 		IEntity sequenceTest = WorkflowsTestTemplateManager.instance().create("sequenceTest");
