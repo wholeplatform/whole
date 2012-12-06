@@ -55,6 +55,8 @@ public class ResourceTemplateTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		ReflectionFactory.deployWholePlatform();
+		
+		new File("data/testfolder/empty.folder").mkdir();
 	}
 
 	public void testReadArtifacts() {
