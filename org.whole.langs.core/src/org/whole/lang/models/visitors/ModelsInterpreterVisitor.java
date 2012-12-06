@@ -85,7 +85,9 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 
 		if (bm.wIsSet("languageKit")) {
 			languageKit = (DynamicLanguageKit) bm.wGetValue("languageKit");
+			languageKit.setEntity(entity);
 			configureLanguageKit(languageKit, entity);
+			ReflectionFactory.updatePersistenceAndEditorKits(languageKit);
 		} else {
 			Model model = EntityUtils.clone(entity);		
 	

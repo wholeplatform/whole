@@ -118,7 +118,12 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 				if (pp.exists()) {
 					resource = (T) getResourceFactoryRegistry().createResource(uri);
 					resource.setResourcePersistenceProvider(pp);
-					if (resource.getEntity() != null)
+
+					uriResourceMap.put(uri, resource);
+					final boolean isSetResourceEntity = resource.getEntity() != null;
+					uriResourceMap.remove(uri);
+
+					if (isSetResourceEntity)
 						addResource(resource, false);
 					else
 						resource = null;

@@ -70,13 +70,17 @@ public class DynamicLanguageKit extends AbstractLanguageKit {
 
 	@Override
 	public void setEntity(IEntity entity) {
-		super.setEntity(entity);
-
-		IBindingManager bm = BindingManagerFactory.instance.createArguments();
-		bm.wDefValue("languageKit", this);
-		InterpreterOperation.interpret(entity, bm);
-		
-		ReflectionFactory.updatePersistenceAndEditorKits(this);
+		if (this.entity == entity)
+			;
+		else if (this.entity != null && !this.entity.wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Models#Model"))
+			super.setEntity(entity);
+		else {
+			super.setEntity(entity);
+	
+			IBindingManager bm = BindingManagerFactory.instance.createArguments();
+			bm.wDefValue("languageKit", this);
+			InterpreterOperation.interpret(entity, bm);
+		}
 	}
 
 	public boolean isDynamic() {
