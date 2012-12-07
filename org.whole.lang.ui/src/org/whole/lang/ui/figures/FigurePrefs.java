@@ -81,7 +81,8 @@ public class FigurePrefs extends PreferenceConstants {
 	public static Color contentLighterColor;
 	public static Font contentLighterFont;
 
-	public static void initializeValues(final IPreferenceStore store) {
+	static {
+		final IPreferenceStore store = WholeUIPlugin.getDefault().getPreferenceStore();
 		store.addPropertyChangeListener(new IPropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent event) {
 				final String prop = event.getProperty();

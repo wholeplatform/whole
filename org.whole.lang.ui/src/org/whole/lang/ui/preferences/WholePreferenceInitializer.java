@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.figures.FigurePrefs;
 
 /**
  * @author Riccardo Solmi
@@ -39,7 +38,6 @@ public class WholePreferenceInitializer extends AbstractPreferenceInitializer {
 		PreferenceConstants.initializeDefaultValues(store,
 				WholeUIPlugin.getDefault().getColorRegistry(),
 				WholeUIPlugin.getDefault().getFontRegistry());
-		FigurePrefs.initializeValues(store);
 	}
 
 }
