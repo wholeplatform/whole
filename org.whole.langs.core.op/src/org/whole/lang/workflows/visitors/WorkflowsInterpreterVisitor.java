@@ -603,6 +603,8 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			getBindings().wSet(variableName, result);
 		} else
 			getBindings().wDef(variableName, result);
+		
+		setResult(result);
 	}
 
 	@Override

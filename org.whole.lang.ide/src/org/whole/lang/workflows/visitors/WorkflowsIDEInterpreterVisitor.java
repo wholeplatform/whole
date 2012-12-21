@@ -196,7 +196,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 
 	@Override
 	protected IBindingManager createArtifactsBindings(String resource, ResourceKind resourceKind) {
-		if (!ResourceKindEnum.WORKSPACE.equals(resourceKind))
+		if (!ResourceKindEnum.WORKSPACE.equals(resourceKind.getValue()))
 			return super.createArtifactsBindings(resource, resourceKind);
 
 		try {

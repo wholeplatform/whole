@@ -17,6 +17,7 @@
  */
 package org.whole.lang.workflows.util;
 
+import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.ArtifactsActivity;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CreateEntity;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CreateJavaClassInstance;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.InvokeJavaClassMethod;
@@ -28,12 +29,14 @@ import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.en
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.method;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.persistence;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.resource;
+import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.rootResource;
 
 import org.whole.lang.java.util.JavaReflectUtils.JavaSignature;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.workflows.model.ArtifactsActivity;
 import org.whole.lang.workflows.model.PersistenceActivity;
 
 /**
@@ -58,10 +61,10 @@ public class WorkflowsUtils {
 	public static boolean isPersistenceInPersistenceActivity(IEntity entity) {
 		return isFeatureInActivity(entity, persistence, PersistenceActivity);
 	}
-//	public static boolean isResourceInArtifactsActivity(IEntity entity) {
-//		return isFeatureInActivity(entity, resource, ArtifactsActivity) &&
-//				EntityUtils.isImpl(((ArtifactsActivity) entity.wGetParent()).getRootResourceKind());
-//	}
+	public static boolean isResourceInArtifactsActivity(IEntity entity) {
+		return isFeatureInActivity(entity, rootResource, ArtifactsActivity) &&
+				EntityUtils.isImpl(((ArtifactsActivity) entity.wGetParent()).getRootResourceKind());
+	}
 	public static boolean isResourceInPersistenceActivity(IEntity entity) {
 		return isFeatureInActivity(entity, resource, PersistenceActivity) &&
 				EntityUtils.isNotResolver(((PersistenceActivity) entity.wGetParent()).getResourceKind());

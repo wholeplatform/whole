@@ -27,6 +27,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.ReplaceWithClassNameAction;
+import org.whole.lang.ui.actions.ReplaceWithResourceAction;
 import org.whole.lang.ui.actions.ReplaceWithResourceAndPersistenceAction;
 import org.whole.lang.ui.commands.ReplaceChildCommand;
 import org.whole.lang.util.EntityUtils;
@@ -100,11 +101,29 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 					return replacePersistence;
 				}
 			};
-//		} else if (WorkflowsUtils.isResourceInArtifactsActivity(entity)) {
-//			customAction = new ReplaceWithResource(
-//					WorkflowsEntityDescriptorEnum.StringLiteral,
-//					entity.wStringValue(),
-//					"Select resource...");
+		} else if (WorkflowsUtils.isResourceInArtifactsActivity(entity)) {
+			customAction = new ReplaceWithResourceAction(
+					WorkflowsEntityDescriptorEnum.StringLiteral,
+					entity.wStringValue(),
+					"Select resource...") {
+				protected boolean isLoading(IEntity entity) {
+					return Matcher.match(WorkflowsEntityDescriptorEnum.LoadArtifacts, entity.wGetParent());
+				}
+
+				protected ResourceKind getResourceKind(IEntity selectedEntity) {
+					switch (selectedEntity.wGetParent().wGet(WorkflowsFeatureDescriptorEnum.rootResourceKind).wEnumValue().getOrdinal()) {
+					default:
+					case ResourceKindEnum.WORKSPACE_ord:
+						return ResourceKind.WORKSPACE;
+					case ResourceKindEnum.FILE_SYSTEM_ord:
+						return ResourceKind.FILE_SYSTEM;
+					case ResourceKindEnum.CLASSPATH_ord:
+						return ResourceKind.CLASSPATH;
+					case ResourceKindEnum.URL_ord:
+						return ResourceKind.URL;
+					}
+				}				
+			};
 		} else
 			return false;
 
