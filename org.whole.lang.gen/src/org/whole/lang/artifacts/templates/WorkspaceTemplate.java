@@ -26,7 +26,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -69,7 +68,7 @@ public class WorkspaceTemplate extends ResourceTemplate {
 			boolean isSourceFolder = false;
 			try {
 				IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-				IContainer[] containers = workspaceRoot.findContainersForLocation(new Path(file.getPath()));
+				IContainer[] containers = workspaceRoot.findContainersForLocationURI(file.toURI());
 				if (containers.length == 1)
 				for (IClasspathEntry entry : project.getRawClasspath())
 					if (entry.getPath().equals(containers[0].getFullPath())) {
