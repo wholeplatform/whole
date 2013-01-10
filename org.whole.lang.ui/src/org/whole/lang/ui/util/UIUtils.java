@@ -96,7 +96,10 @@ public class UIUtils {
 	}
 
 	public static IEditorInput getActiveEditorInput(IEvaluationContext context) {
-		IWorkbenchPart activePart = (IWorkbenchPart) context.getVariable(ISources.ACTIVE_PART_NAME);
+		Object part = context.getVariable(ISources.ACTIVE_PART_NAME);
+		if (!(part instanceof IWorkbenchPart))
+			return null;
+		IWorkbenchPart activePart = (IWorkbenchPart) part;
 		Object activeEditor = context.getVariable(ISources.ACTIVE_EDITOR_NAME);
 		return activePart == activeEditor && activeEditor instanceof IEditorPart ? ((IEditorPart) activeEditor).getEditorInput() : null;
 	}
@@ -162,7 +165,10 @@ public class UIUtils {
 	}
 
 	public static SelectionKind calculateSelectionKind(IEvaluationContext context) {
-		ISelection selection = (ISelection) context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+		Object activeSelection = context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
+		if (!(activeSelection instanceof ISelection))
+			return SelectionKind.OTHER;
+		ISelection selection = (ISelection) activeSelection;
 
 		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
 			return ResourceUtils.isAdaptableToFile(UIUtils.getActiveEditorInput(context)) ?
