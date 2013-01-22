@@ -900,7 +900,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     }
     @Override
     public void visit(SupertypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSupertypeOfMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.isLanguageSupertypeOfMatcher(entity.getValue()));
     }
     @Override
     public void visit(ExtendedSubtypeTest entity) {

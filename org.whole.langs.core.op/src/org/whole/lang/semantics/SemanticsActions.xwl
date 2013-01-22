@@ -2709,8 +2709,8 @@
                             </actions:Actions>
                         </commons:StageUpFragment>
                         <queries:Or initialCapacity="2">
-                            <queries:SupertypeTest value="http://lang.whole.org/Semantics#LanguageType"/>
-                            <queries:SupertypeTest value="http://lang.whole.org/Semantics#EntityType"/>
+                            <queries:ExtendedSupertypeTest value="http://lang.whole.org/Semantics#LanguageType"/>
+                            <queries:ExtendedSupertypeTest value="http://lang.whole.org/Semantics#EntityType"/>
                         </queries:Or>
                         <queries:Select>
                             <queries:Tuple initialCapacity="2">
