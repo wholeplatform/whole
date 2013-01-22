@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Reflect"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="16">
+    <semantics:SemanticFunctions initialCapacity="18">
         <semantics:SemanticFunction>
             <semantics:Name value="languages"/>
             <semantics:FunctionType>
@@ -165,6 +165,25 @@
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
+            <semantics:Name value="subtypes"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:SequenceType>
+                    <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                </semantics:SequenceType>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="subtypesIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="subtypesIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
             <semantics:Name value="supertypes"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
@@ -179,6 +198,25 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
                     <workflows:StringLiteral value="supertypesIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="extendedConcreteSubtypes"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:SequenceType>
+                    <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                </semantics:SequenceType>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="extendedConcreteSubtypesIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="extendedConcreteSubtypesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>

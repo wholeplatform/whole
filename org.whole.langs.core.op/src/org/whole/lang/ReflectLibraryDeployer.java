@@ -59,7 +59,9 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("kind", kindIterator());
 		putFunctionCode("type", typeIterator());
 		putFunctionCode("formalType", formalTypeIterator());
+		putFunctionCode("subtypes", subtypesIterator());
 		putFunctionCode("supertypes", supertypesIterator());
+		putFunctionCode("extendedConcreteSubtypes", extendedConcreteSubtypesIterator());
 		putFunctionCode("features", featuresIterator());
 		putFunctionCode("size", sizeIterator());
 		putFunctionCode("adjacentSize", adjacentSizeIterator());
@@ -69,10 +71,6 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("resourceFragmentName", resourceFragmentNameIterator());
 	}
 
-
-	public static enum TypeSystemScope {
-		Language, ExtendedLanguage, Platform
-	}
 
 	public static IEntityIterator<IEntity> languagesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
@@ -217,17 +215,50 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> supertypesIterator() {
+	public static IEntityIterator<IEntity> subtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor(), null, 
-						TYPE_ED));
+				bm.setResultIterator(subtypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> supertypesIterator(EntityDescriptor<?> ed, TypeSystemScope ts, String entityTypeUri) {
+	public static IEntityIterator<IEntity> subtypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
+		return IteratorFactory.collectionIterator(
+				ed.languageSubtypesIterable(), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
+					@Override
+					public <E extends IEntity> E createEntity(Object value) {
+						return super.createEntity(((Descriptor) value).getURI());
+					}
+				});
+	}
+
+	public static IEntityIterator<IEntity> supertypesIterator() {
+		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> supertypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
 		return IteratorFactory.collectionIterator(
 				ed.languageSupertypesIterable(), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
+					@Override
+					public <E extends IEntity> E createEntity(Object value) {
+						return super.createEntity(((Descriptor) value).getURI());
+					}
+				});
+	}
+
+	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator() {
+		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResultIterator(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
+		return IteratorFactory.collectionIterator(
+				ed.getEntityDescriptorEnum().getExtendedLanguageConcreteSubtypesOf(ed), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
 					@Override
 					public <E extends IEntity> E createEntity(Object value) {
 						return super.createEntity(((Descriptor) value).getURI());
