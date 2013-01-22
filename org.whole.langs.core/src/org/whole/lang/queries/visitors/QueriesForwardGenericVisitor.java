@@ -238,6 +238,14 @@ public class QueriesForwardGenericVisitor extends
 		wGetVisitor1().visit(entity);
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		wGetVisitor1().visit(entity);
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		wGetVisitor1().visit(entity);
+	}
+
 	public void visit(AtTypeTest entity) {
 		wGetVisitor1().visit(entity);
 	}

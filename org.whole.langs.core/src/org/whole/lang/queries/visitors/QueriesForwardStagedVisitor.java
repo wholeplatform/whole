@@ -226,6 +226,14 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
 		stagedVisit(entity);
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		stagedVisit(entity);
+	}
+
 	public void visit(AtTypeTest entity) {
 		stagedVisit(entity);
 	}

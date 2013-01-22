@@ -27,7 +27,7 @@ import org.whole.lang.ui.figures.TypeRelationBorder;
 public class SupertypeTestPart extends EntityTypePart {
 	public IFigure createFigure() {
 		IFigure f = super.createFigure();
-		f.setBorder(new TypeRelationBorder(false, false));
+		f.setBorder(new TypeRelationBorder(false, true));
 		return f;
 	}
 }

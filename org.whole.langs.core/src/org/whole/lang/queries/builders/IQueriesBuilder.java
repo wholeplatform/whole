@@ -395,6 +395,14 @@ public interface IQueriesBuilder extends IBuilder {
 
 	public void SupertypeTest(String value);
 
+	public void ExtendedSubtypeTest();
+
+	public void ExtendedSubtypeTest(String value);
+
+	public void ExtendedSupertypeTest();
+
+	public void ExtendedSupertypeTest(String value);
+
 	public void AtTypeTest();
 
 	public void AtTypeTest(String value);

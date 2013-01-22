@@ -242,6 +242,14 @@ public class QueriesForwardStrategyVisitor extends
 		wGetStrategy().visit(entity);
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		wGetStrategy().visit(entity);
+	}
+
 	public void visit(AtTypeTest entity) {
 		wGetStrategy().visit(entity);
 	}

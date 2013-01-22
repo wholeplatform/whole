@@ -792,6 +792,22 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext
 		wEntity(QueriesEntityDescriptorEnum.SupertypeTest, value);
 	}
 
+	public void ExtendedSubtypeTest() {
+		wEntity(QueriesEntityDescriptorEnum.ExtendedSubtypeTest);
+	}
+
+	public void ExtendedSubtypeTest(String value) {
+		wEntity(QueriesEntityDescriptorEnum.ExtendedSubtypeTest, value);
+	}
+
+	public void ExtendedSupertypeTest() {
+		wEntity(QueriesEntityDescriptorEnum.ExtendedSupertypeTest);
+	}
+
+	public void ExtendedSupertypeTest(String value) {
+		wEntity(QueriesEntityDescriptorEnum.ExtendedSupertypeTest, value);
+	}
+
 	public void AtTypeTest() {
 		wEntity(QueriesEntityDescriptorEnum.AtTypeTest);
 	}

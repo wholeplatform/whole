@@ -321,6 +321,16 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
 		visit((Predicate) entity);
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		visit((IQueriesEntity) entity);
+		visit((Predicate) entity);
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		visit((IQueriesEntity) entity);
+		visit((Predicate) entity);
+	}
+
 	public void visit(AtTypeTest entity) {
 		visit((IQueriesEntity) entity);
 		visit((Predicate) entity);

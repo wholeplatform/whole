@@ -24,7 +24,7 @@ import org.whole.lang.ui.figures.TypeRelationBorder;
 /**
  * @author Riccardo Solmi
  */
-public class LanguageSubtypeTestPart extends EntityTypePart {
+public class SubtypeTestPart extends EntityTypePart {
 	public IFigure createFigure() {
 		IFigure f = super.createFigure();
 		f.setBorder(new TypeRelationBorder(true, true));

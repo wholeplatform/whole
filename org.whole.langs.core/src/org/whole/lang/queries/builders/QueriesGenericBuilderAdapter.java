@@ -924,6 +924,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
 		case QueriesEntityDescriptorEnum.SupertypeTest_ord:
 			specificBuilder.SupertypeTest(value);
 			break;
+		case QueriesEntityDescriptorEnum.ExtendedSubtypeTest_ord:
+			specificBuilder.ExtendedSubtypeTest(value);
+			break;
+		case QueriesEntityDescriptorEnum.ExtendedSupertypeTest_ord:
+			specificBuilder.ExtendedSupertypeTest(value);
+			break;
 		case QueriesEntityDescriptorEnum.AtTypeTest_ord:
 			specificBuilder.AtTypeTest(value);
 			break;

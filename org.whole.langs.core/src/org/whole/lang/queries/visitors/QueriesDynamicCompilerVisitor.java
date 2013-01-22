@@ -902,6 +902,14 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     public void visit(SupertypeTest entity) {
     	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSupertypeOfMatcher(entity.getValue()));
     }
+    @Override
+    public void visit(ExtendedSubtypeTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSubtypeOfMatcher(entity.getValue()));
+    }
+    @Override
+    public void visit(ExtendedSupertypeTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSupertypeOfMatcher(entity.getValue()));
+    }
 
     @Override
     public void visit(ExpressionTest entity) {

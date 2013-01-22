@@ -67,6 +67,8 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
 		put(new TypeTestImpl());
 		put(new SubtypeTestImpl());
 		put(new SupertypeTestImpl());
+		put(new ExtendedSubtypeTestImpl());
+		put(new ExtendedSupertypeTestImpl());
 		put(new AtTypeTestImpl());
 		put(new AtFeatureTestImpl());
 		put(new AtIndexTestImpl());

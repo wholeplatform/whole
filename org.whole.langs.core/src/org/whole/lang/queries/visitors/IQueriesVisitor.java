@@ -117,6 +117,10 @@ public interface IQueriesVisitor extends IVisitor {
 
 	public void visit(SupertypeTest entity);
 
+	public void visit(ExtendedSubtypeTest entity);
+
+	public void visit(ExtendedSupertypeTest entity);
+
 	public void visit(AtTypeTest entity);
 
 	public void visit(AtFeatureTest entity);

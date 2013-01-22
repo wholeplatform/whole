@@ -187,6 +187,12 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor> extends
 	public void visit(SupertypeTest entity) {
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+	}
+
 	public void visit(AtTypeTest entity) {
 	}
 

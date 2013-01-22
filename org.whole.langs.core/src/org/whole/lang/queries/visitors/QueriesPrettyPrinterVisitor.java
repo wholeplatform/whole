@@ -390,6 +390,18 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     	out.printRaw("]");
     }
     @Override
+    public void visit(ExtendedSubtypeTest entity) {
+    	out.printRaw("[type() <<: ");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
+    public void visit(ExtendedSupertypeTest entity) {
+    	out.printRaw("[type() :>> ");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
     public void visit(AtTypeTest entity) {
     	out.printRaw("[at ");
     	out.printRaw(entity.getValue());

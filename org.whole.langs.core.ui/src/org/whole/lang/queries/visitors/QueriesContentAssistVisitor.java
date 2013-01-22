@@ -27,6 +27,8 @@ import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Binding
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityCall_ord;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityTemplate_ord;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.EntityType;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.ExtendedSubtypeTest;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.ExtendedSupertypeTest;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.FeatureStep;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.LanguageTest;
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.SubtypeTest;
@@ -59,6 +61,8 @@ import org.whole.lang.queries.model.AtTypeTest;
 import org.whole.lang.queries.model.EntityCall;
 import org.whole.lang.queries.model.EntityTemplate;
 import org.whole.lang.queries.model.EntityType;
+import org.whole.lang.queries.model.ExtendedSubtypeTest;
+import org.whole.lang.queries.model.ExtendedSupertypeTest;
 import org.whole.lang.queries.model.FeatureStep;
 import org.whole.lang.queries.model.LanguageTest;
 import org.whole.lang.queries.model.Name;
@@ -116,6 +120,8 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 		allEntityTypes(entity, TypeTest);
 		allEntityTypes(entity, SubtypeTest);
 		allEntityTypes(entity, SupertypeTest);
+		allEntityTypes(entity, ExtendedSubtypeTest);
+		allEntityTypes(entity, ExtendedSupertypeTest);
 		return false;
 	}
 
@@ -198,6 +204,16 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 	}
 
 	@Override
+	public void visit(ExtendedSubtypeTest entity) {
+		allEntityTypes(entity, ExtendedSubtypeTest);
+	}
+
+	@Override
+	public void visit(ExtendedSupertypeTest entity) {
+		allEntityTypes(entity, ExtendedSupertypeTest);
+	}
+
+	@Override
 	public void visit(LanguageTest entity) {
 		String actualLanguageURI = entity.getValue();
 
@@ -231,10 +247,12 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 
 		EntityDescriptor<?> featureED = entity.wGetParent().wGetEntityDescriptor(entity);
 		if (!featureED.isPlatformSupertypeOf(EntityType) && !featureED.isPlatformSupertypeOf(TypeTest) &&
-				!featureED.isPlatformSupertypeOf(SubtypeTest) && !featureED.isPlatformSupertypeOf(SupertypeTest))
+				!featureED.isPlatformSupertypeOf(SubtypeTest) && !featureED.isPlatformSupertypeOf(SupertypeTest) &&
+				!featureED.isPlatformSupertypeOf(ExtendedSubtypeTest) && !featureED.isPlatformSupertypeOf(ExtendedSupertypeTest))
 			return false;
 
-		boolean alltypesTest = (type == SubtypeTest || type == SupertypeTest || type == AtTypeTest);
+		boolean alltypesTest = (type == SubtypeTest || type == SupertypeTest ||
+				type == ExtendedSubtypeTest || type == ExtendedSupertypeTest || type == AtTypeTest);
 
 		ActionsUIEntityFactory aef = ActionsUIEntityFactory.instance;
 		GroupAction languagesGroup = aef.createGroupAction();

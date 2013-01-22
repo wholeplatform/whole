@@ -388,12 +388,22 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(SubtypeTest entity) {
-		part = new LanguageSubtypeTestPart();
+		part = new SubtypeTestPart();
 	}
 
 	@Override
 	public void visit(SupertypeTest entity) {
 		part = new SupertypeTestPart();
+	}
+
+	@Override
+	public void visit(ExtendedSubtypeTest entity) {
+		part = new ExtendedSubtypeTestPart();
+	}
+
+	@Override
+	public void visit(ExtendedSupertypeTest entity) {
+		part = new ExtendedSupertypeTestPart();
 	}
 
 	@Override

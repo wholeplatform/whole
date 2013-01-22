@@ -502,6 +502,22 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 		return create(QueriesEntityDescriptorEnum.SupertypeTest, value);
 	}
 
+	public ExtendedSubtypeTest createExtendedSubtypeTest() {
+		return create(QueriesEntityDescriptorEnum.ExtendedSubtypeTest);
+	}
+
+	public ExtendedSubtypeTest createExtendedSubtypeTest(String value) {
+		return create(QueriesEntityDescriptorEnum.ExtendedSubtypeTest, value);
+	}
+
+	public ExtendedSupertypeTest createExtendedSupertypeTest() {
+		return create(QueriesEntityDescriptorEnum.ExtendedSupertypeTest);
+	}
+
+	public ExtendedSupertypeTest createExtendedSupertypeTest(String value) {
+		return create(QueriesEntityDescriptorEnum.ExtendedSupertypeTest, value);
+	}
+
 	public AtTypeTest createAtTypeTest() {
 		return create(QueriesEntityDescriptorEnum.AtTypeTest);
 	}

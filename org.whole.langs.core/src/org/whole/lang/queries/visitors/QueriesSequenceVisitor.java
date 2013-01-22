@@ -295,6 +295,16 @@ public class QueriesSequenceVisitor extends
 		wGetVisitor2().visit(entity);
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
 	public void visit(AtTypeTest entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);

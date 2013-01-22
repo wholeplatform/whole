@@ -177,6 +177,12 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor
 		case QueriesEntityDescriptorEnum.SupertypeTest_ord:
 			visit((SupertypeTest) entity);
 			break;
+		case QueriesEntityDescriptorEnum.ExtendedSubtypeTest_ord:
+			visit((ExtendedSubtypeTest) entity);
+			break;
+		case QueriesEntityDescriptorEnum.ExtendedSupertypeTest_ord:
+			visit((ExtendedSupertypeTest) entity);
+			break;
 		case QueriesEntityDescriptorEnum.AtTypeTest_ord:
 			visit((AtTypeTest) entity);
 			break;

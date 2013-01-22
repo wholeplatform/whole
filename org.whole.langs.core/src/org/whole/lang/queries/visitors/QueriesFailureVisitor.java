@@ -232,6 +232,14 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
 		throw new VisitException();
 	}
 
+	public void visit(ExtendedSubtypeTest entity) {
+		throw new VisitException();
+	}
+
+	public void visit(ExtendedSupertypeTest entity) {
+		throw new VisitException();
+	}
+
 	public void visit(AtTypeTest entity) {
 		throw new VisitException();
 	}

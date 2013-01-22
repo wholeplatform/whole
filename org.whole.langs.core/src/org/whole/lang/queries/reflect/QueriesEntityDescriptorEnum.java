@@ -74,66 +74,68 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 	public static final int TypeTest_ord = 62;
 	public static final int SubtypeTest_ord = 63;
 	public static final int SupertypeTest_ord = 64;
-	public static final int AtTypeTest_ord = 65;
-	public static final int AtFeatureTest_ord = 66;
-	public static final int AtIndexTest_ord = 67;
-	public static final int IndexTest_ord = 68;
-	public static final int IndexRangeTest_ord = 69;
-	public static final int VisitorTest_ord = 70;
-	public static final int ExpressionTest_ord = 71;
-	public static final int DistinctTest_ord = 72;
-	public static final int And_ord = 73;
-	public static final int Or_ord = 74;
-	public static final int Not_ord = 75;
-	public static final int QuantifiedPredicate_ord = 76;
-	public static final int One_ord = 77;
-	public static final int Some_ord = 78;
-	public static final int Every_ord = 79;
-	public static final int ParenthesizedPredicate_ord = 80;
-	public static final int EntityType_ord = 81;
-	public static final int NamesExpression_ord = 82;
-	public static final int TemplateNames_ord = 83;
-	public static final int AllNames_ord = 84;
-	public static final int AddNames_ord = 85;
-	public static final int RemoveNames_ord = 86;
-	public static final int Names_ord = 87;
-	public static final int Name_ord = 88;
-	public static final int Expression_ord = 89;
-	public static final int CollectByExpression_ord = 90;
-	public static final int Comparator_ord = 91;
-	public static final int IdentityComparator_ord = 92;
-	public static final int UnionAll_ord = 93;
-	public static final int Union_ord = 94;
-	public static final int Intersect_ord = 95;
-	public static final int Except_ord = 96;
-	public static final int VariableRefStep_ord = 97;
-	public static final int Singleton_ord = 98;
-	public static final int PointwiseEquals_ord = 99;
-	public static final int Tuple_ord = 100;
-	public static final int Addition_ord = 101;
-	public static final int Subtraction_ord = 102;
-	public static final int Multiplication_ord = 103;
-	public static final int Division_ord = 104;
-	public static final int Remainder_ord = 105;
-	public static final int Equals_ord = 106;
-	public static final int NotEquals_ord = 107;
-	public static final int LessThan_ord = 108;
-	public static final int LessOrEquals_ord = 109;
-	public static final int GreaterThan_ord = 110;
-	public static final int GreaterOrEquals_ord = 111;
-	public static final int Literal_ord = 112;
-	public static final int VoidLiteral_ord = 113;
-	public static final int BooleanLiteral_ord = 114;
-	public static final int ByteLiteral_ord = 115;
-	public static final int CharLiteral_ord = 116;
-	public static final int DoubleLiteral_ord = 117;
-	public static final int FloatLiteral_ord = 118;
-	public static final int IntLiteral_ord = 119;
-	public static final int LongLiteral_ord = 120;
-	public static final int ShortLiteral_ord = 121;
-	public static final int DateLiteral_ord = 122;
-	public static final int StringLiteral_ord = 123;
-	public static final int Placement_ord = 124;
+	public static final int ExtendedSubtypeTest_ord = 65;
+	public static final int ExtendedSupertypeTest_ord = 66;
+	public static final int AtTypeTest_ord = 67;
+	public static final int AtFeatureTest_ord = 68;
+	public static final int AtIndexTest_ord = 69;
+	public static final int IndexTest_ord = 70;
+	public static final int IndexRangeTest_ord = 71;
+	public static final int VisitorTest_ord = 72;
+	public static final int ExpressionTest_ord = 73;
+	public static final int DistinctTest_ord = 74;
+	public static final int And_ord = 75;
+	public static final int Or_ord = 76;
+	public static final int Not_ord = 77;
+	public static final int QuantifiedPredicate_ord = 78;
+	public static final int One_ord = 79;
+	public static final int Some_ord = 80;
+	public static final int Every_ord = 81;
+	public static final int ParenthesizedPredicate_ord = 82;
+	public static final int EntityType_ord = 83;
+	public static final int NamesExpression_ord = 84;
+	public static final int TemplateNames_ord = 85;
+	public static final int AllNames_ord = 86;
+	public static final int AddNames_ord = 87;
+	public static final int RemoveNames_ord = 88;
+	public static final int Names_ord = 89;
+	public static final int Name_ord = 90;
+	public static final int Expression_ord = 91;
+	public static final int CollectByExpression_ord = 92;
+	public static final int Comparator_ord = 93;
+	public static final int IdentityComparator_ord = 94;
+	public static final int UnionAll_ord = 95;
+	public static final int Union_ord = 96;
+	public static final int Intersect_ord = 97;
+	public static final int Except_ord = 98;
+	public static final int VariableRefStep_ord = 99;
+	public static final int Singleton_ord = 100;
+	public static final int PointwiseEquals_ord = 101;
+	public static final int Tuple_ord = 102;
+	public static final int Addition_ord = 103;
+	public static final int Subtraction_ord = 104;
+	public static final int Multiplication_ord = 105;
+	public static final int Division_ord = 106;
+	public static final int Remainder_ord = 107;
+	public static final int Equals_ord = 108;
+	public static final int NotEquals_ord = 109;
+	public static final int LessThan_ord = 110;
+	public static final int LessOrEquals_ord = 111;
+	public static final int GreaterThan_ord = 112;
+	public static final int GreaterOrEquals_ord = 113;
+	public static final int Literal_ord = 114;
+	public static final int VoidLiteral_ord = 115;
+	public static final int BooleanLiteral_ord = 116;
+	public static final int ByteLiteral_ord = 117;
+	public static final int CharLiteral_ord = 118;
+	public static final int DoubleLiteral_ord = 119;
+	public static final int FloatLiteral_ord = 120;
+	public static final int IntLiteral_ord = 121;
+	public static final int LongLiteral_ord = 122;
+	public static final int ShortLiteral_ord = 123;
+	public static final int DateLiteral_ord = 124;
+	public static final int StringLiteral_ord = 125;
+	public static final int Placement_ord = 126;
 	public static final QueriesEntityDescriptorEnum instance = new QueriesEntityDescriptorEnum();
 	public static final EntityDescriptor<PathExpressionOrPredicate> PathExpressionOrPredicate = (EntityDescriptor<PathExpressionOrPredicate>) instance
 			.valueOf(PathExpressionOrPredicate_ord);
@@ -265,6 +267,10 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(SubtypeTest_ord);
 	public static final EntityDescriptor<SupertypeTest> SupertypeTest = (EntityDescriptor<SupertypeTest>) instance
 			.valueOf(SupertypeTest_ord);
+	public static final EntityDescriptor<ExtendedSubtypeTest> ExtendedSubtypeTest = (EntityDescriptor<ExtendedSubtypeTest>) instance
+			.valueOf(ExtendedSubtypeTest_ord);
+	public static final EntityDescriptor<ExtendedSupertypeTest> ExtendedSupertypeTest = (EntityDescriptor<ExtendedSupertypeTest>) instance
+			.valueOf(ExtendedSupertypeTest_ord);
 	public static final EntityDescriptor<AtTypeTest> AtTypeTest = (EntityDescriptor<AtTypeTest>) instance
 			.valueOf(AtTypeTest_ord);
 	public static final EntityDescriptor<AtFeatureTest> AtFeatureTest = (EntityDescriptor<AtFeatureTest>) instance
@@ -397,16 +403,16 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 				true, Some_ord, PrecedingSiblingStep_ord, ExpressionTest_ord,
 				DescendantStep_ord, LessThan_ord, FloatLiteral_ord,
 				FollowingStep_ord, Singleton_ord, Path_ord, RootStep_ord,
-				AtFeatureTest_ord, Except_ord, TypeTest_ord,
-				CollectByExpression_ord, CharLiteral_ord, Union_ord,
-				AtTypeTest_ord, Every_ord, Do_ord, Filter_ord,
+				AtFeatureTest_ord, Except_ord, ExtendedSupertypeTest_ord,
+				TypeTest_ord, CollectByExpression_ord, CharLiteral_ord,
+				Union_ord, AtTypeTest_ord, Every_ord, Do_ord, Filter_ord,
 				LanguageTest_ord, CartesianUpdate_ord,
 				DescendantOrSelfStep_ord, AtIndexTest_ord, StepExpression_ord,
-				ReachableOrSelfStep_ord, InverseAdjacentStep_ord,
-				InverseReachableOrSelfStep_ord, VoidLiteral_ord,
+				VoidLiteral_ord, ReachableOrSelfStep_ord,
+				InverseAdjacentStep_ord, InverseReachableOrSelfStep_ord,
 				DirectStep_ord, Choose_ord, InverseStep_ord, Remainder_ord,
-				KindTest_ord, UnionAll_ord, EntityTemplate_ord,
-				DistinctTest_ord, PointwiseProduct_ord, CartesianProduct_ord,
+				KindTest_ord, UnionAll_ord, DistinctTest_ord,
+				EntityTemplate_ord, PointwiseProduct_ord, CartesianProduct_ord,
 				EntityCall_ord, SupertypeTest_ord, Expression_ord, One_ord,
 				Block_ord, Scope_ord, Multiplication_ord, ReverseStep_ord,
 				IndexVariableTest_ord, ReachableStep_ord, VisitorTest_ord,
@@ -426,8 +432,8 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 				AncestorStep_ord, For_ord, Addition_ord, StringLiteral_ord,
 				PointwiseInsert_ord, SubtypeTest_ord, AspectStep_ord, Not_ord,
 				ByteLiteral_ord, IndexTest_ord, Division_ord,
-				IndexRangeTest_ord, StageVariableTest_ord,
-				InverseReachableStep_ord);
+				ExtendedSubtypeTest_ord, IndexRangeTest_ord,
+				StageVariableTest_ord, InverseReachableStep_ord);
 		putSimpleEntity(PathExpression_ord, "PathExpression",
 				PathExpression.class, true, PrecedingSiblingStep_ord,
 				DescendantStep_ord, AdjacentStep_ord, LessThan_ord,
@@ -628,25 +634,26 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 				PrecedingStep.class, false);
 		putSimpleEntity(PruneOrPredicate_ord, "PruneOrPredicate",
 				PruneOrPredicate.class, true, Some_ord, ExpressionTest_ord,
-				VariableTest_ord, KindTest_ord, AtFeatureTest_ord,
-				DistinctTest_ord, SupertypeTest_ord, One_ord, Prune_ord,
-				IndexVariableTest_ord, TypeTest_ord, VisitorTest_ord,
-				StageTest_ord, SubtypeTest_ord, Every_ord, AtTypeTest_ord,
-				Not_ord, QuantifiedPredicate_ord, LanguageTest_ord,
-				ParenthesizedPredicate_ord, IndexTest_ord, Or_ord,
-				Predicate_ord, AtIndexTest_ord, IndexRangeTest_ord,
-				StageVariableTest_ord, And_ord);
+				VariableTest_ord, KindTest_ord, DistinctTest_ord,
+				AtFeatureTest_ord, SupertypeTest_ord, One_ord,
+				ExtendedSupertypeTest_ord, Prune_ord, IndexVariableTest_ord,
+				TypeTest_ord, VisitorTest_ord, StageTest_ord, SubtypeTest_ord,
+				Every_ord, AtTypeTest_ord, Not_ord, QuantifiedPredicate_ord,
+				LanguageTest_ord, ParenthesizedPredicate_ord, IndexTest_ord,
+				Or_ord, ExtendedSubtypeTest_ord, Predicate_ord,
+				AtIndexTest_ord, IndexRangeTest_ord, StageVariableTest_ord,
+				And_ord);
 		putSimpleEntity(Prune_ord, "Prune", Prune.class, false).withFeature(
 				QueriesFeatureDescriptorEnum.predicate, Predicate_ord);
 		putSimpleEntity(Predicate_ord, "Predicate", Predicate.class, true,
 				Some_ord, ExpressionTest_ord, VariableTest_ord, KindTest_ord,
-				AtFeatureTest_ord, DistinctTest_ord, SupertypeTest_ord,
-				One_ord, IndexVariableTest_ord, TypeTest_ord, VisitorTest_ord,
-				StageTest_ord, SubtypeTest_ord, Every_ord, AtTypeTest_ord,
-				Not_ord, QuantifiedPredicate_ord, LanguageTest_ord,
-				ParenthesizedPredicate_ord, IndexTest_ord, Or_ord,
-				AtIndexTest_ord, IndexRangeTest_ord, StageVariableTest_ord,
-				And_ord);
+				DistinctTest_ord, AtFeatureTest_ord, SupertypeTest_ord,
+				One_ord, ExtendedSupertypeTest_ord, IndexVariableTest_ord,
+				TypeTest_ord, VisitorTest_ord, StageTest_ord, SubtypeTest_ord,
+				Every_ord, AtTypeTest_ord, Not_ord, QuantifiedPredicate_ord,
+				LanguageTest_ord, ParenthesizedPredicate_ord, IndexTest_ord,
+				Or_ord, ExtendedSubtypeTest_ord, IndexRangeTest_ord,
+				AtIndexTest_ord, StageVariableTest_ord, And_ord);
 		putDataEntity(VariableTest_ord, "VariableTest", VariableTest.class,
 				false, String.class);
 		putDataEntity(IndexVariableTest_ord, "IndexVariableTest",
@@ -665,6 +672,10 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
 				String.class);
 		putDataEntity(SupertypeTest_ord, "SupertypeTest", SupertypeTest.class,
 				false, String.class);
+		putDataEntity(ExtendedSubtypeTest_ord, "ExtendedSubtypeTest",
+				ExtendedSubtypeTest.class, false, String.class);
+		putDataEntity(ExtendedSupertypeTest_ord, "ExtendedSupertypeTest",
+				ExtendedSupertypeTest.class, false, String.class);
 		putDataEntity(AtTypeTest_ord, "AtTypeTest", AtTypeTest.class, false,
 				String.class);
 		putDataEntity(AtFeatureTest_ord, "AtFeatureTest", AtFeatureTest.class,
