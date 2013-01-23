@@ -90,7 +90,8 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 			nextEntity = super.lookahead();
 
 		getBindings().wExitScope();
-		lookaheadScope().wAddAll(super.lookaheadScope());
+		if (nextEntity != null)
+			lookaheadScope().wAddAll(super.lookaheadScope());
 
 		if (isFirstValue && forEntity != null && nextEntity == null)
 			nextEntity = (E) BindingManagerFactory.instance.createVoid();
