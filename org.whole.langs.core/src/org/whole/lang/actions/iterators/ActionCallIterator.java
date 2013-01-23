@@ -21,7 +21,6 @@ import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.IDelegatingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.iterators.AbstractCloneableIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -130,6 +129,7 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 	public void reset(IEntity entity) {
 		resetEntity = entity;
 		functionIterator = null;
+//		lookaheadScope = null;
 		nextEntity = null;
 	}
 
@@ -142,11 +142,11 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 		return bindings;
 	}
 
-	private IDelegatingScope lookaheadScope;
+//	private IDelegatingScope lookaheadScope;
 	public IBindingScope lookaheadScope() {
-		if (lookaheadScope != null)
-			return lookaheadScope.wWithTargetScope(functionIterator().lookaheadScope());
-		else
+//		if (lookaheadScope != null)
+//			return lookaheadScope.wWithTargetScope(functionIterator().lookaheadScope());
+//		else
 			return functionIterator != null ? functionIterator().lookaheadScope() : NullScope.instance;
 	}
 

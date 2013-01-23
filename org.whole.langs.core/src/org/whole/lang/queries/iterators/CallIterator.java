@@ -179,8 +179,10 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		resetEntity = entity;
 		nextEntity = null;
 
-		if (queryIterator != null && queryBody != getBindings().wGet(queryName)) //TODO || any change to queryBody
+		if (queryIterator != null && queryBody != getBindings().wGet(queryName)) { //TODO || any change to queryBody
 			queryIterator = null;
+			lookaheadScope = null;
+		}
 	}
 
     public void setBindings(IBindingManager bindings) {
