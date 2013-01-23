@@ -18,6 +18,7 @@
 package org.whole.lang.iterators;
 
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -61,7 +62,7 @@ public class ChooseByOrderIterator<E extends IEntity> extends AbstractLazyClonea
 	}
 
 	public IBindingScope lookaheadScope() {
-		return chosenIterator().lookaheadScope();
+		return iteratorIndex == -1 ? NullScope.instance : chosenIterator().lookaheadScope();
 	}
 
 	public boolean hasNext() {
