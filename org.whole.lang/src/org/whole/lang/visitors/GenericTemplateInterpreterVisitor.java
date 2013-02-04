@@ -60,29 +60,37 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 	        	setResult(null);
 	        	IEntity oldSelfEntity = getBindings().wGet("self");
-	//TODO for testing
+//TODO for testing
 //	        	if (oldSelfEntity == null)
 //	        		oldSelfEntity = null;
-
-	        	stagedVisit(adaptee.wGetRoot(), -1);
+	        	final int stageShift0 = -1;
+	        	stagedVisit(adaptee.wGetRoot(), stageShift0);
 
 	        	if (getBindings().wGet("self") != oldSelfEntity)
 	        		getBindings().wDef("self", oldSelfEntity);
 
+	        	//TODO test only
+//	        	if (isResultIterator())
+//	        		result = BehaviorUtils.evaluateResult(getBindings());
+
 	        	result = getResult();
-	        	if (getStage()>1 && result!=null)
+	        	if (getStage()+stageShift0>0 && result!=null)
 	        		setResult(GenericEntityFactory.instance.create(
 		       				CommonsEntityDescriptorEnum.StageDownFragment,
 		       				//CommonsEntityFactory.instance.createStageDownFragment(
-	        				EntityUtils.cloneIfParented(result)));
+	        				EntityUtils.cloneIfParented(result)
+	        				/*, stageShift0*/));
 	        	return;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-				stagedVisit(adaptee.wGetRoot(), +1);
+				final int stageShift = +1;
+				stagedVisit(adaptee.wGetRoot(), stageShift);
+
 				if (getStage()>0) {
 					setResult(GenericEntityFactory.instance.create(
 		       				CommonsEntityDescriptorEnum.StageUpFragment,
 		       				//CommonsEntityFactory.instance.createStageUpFragment(
-							EntityUtils.cloneIfParented(BehaviorUtils.evaluateResult(getBindings()))));
+							EntityUtils.cloneIfParented(BehaviorUtils.evaluateResult(getBindings()))
+							/*, stageShift*/));
 				}
 				return;
 			case CommonsEntityDescriptorEnum.Variable_ord:
@@ -145,7 +153,10 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 //    		oldSelfEntity2 = null;
 
     	for (int i=0; i<result.wSize(); i++) {
+    		int resultSize = result.wSize();
 			visit(result.wGet(i));
+			int nextResultSize = result.wSize();
+			i += (nextResultSize - resultSize);
 
 			if (isResultIterator()) {
 				IEntityIterator<?> iterator = getResultIterator();
@@ -160,9 +171,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     				if (iterator.hasNext()) {
     					ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
     					getBindings().wEnterScope(resettableScope);
-    					int resultSize = result.wSize();
+    					resultSize = result.wSize();
 	    				for (IEntity e : iterator) {
-	    					int nextResultSize = result.wSize();
+	    					nextResultSize = result.wSize();
 	    					i += (nextResultSize - resultSize);
 	    					if (BindingManagerFactory.instance.isVoid(e))
 	    						resultSize = nextResultSize;
@@ -177,13 +188,13 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     				}
 				} else {
 					IEntity e = null;
-					int resultSize = result.wSize();
+					resultSize = result.wSize();
 					for (IEntity r : iterator)
     					if (!BindingManagerFactory.instance.isVoid(r)) {
     						e = r;
     						break;
     					}
-					int nextResultSize = result.wSize();
+					nextResultSize = result.wSize();
 					i += (nextResultSize - resultSize);
 					if (e != null)
 						result.wSet(i, EntityUtils.convert(e, resultChildDescriptor));
