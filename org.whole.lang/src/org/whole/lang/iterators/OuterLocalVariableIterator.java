@@ -18,26 +18,31 @@
 package org.whole.lang.iterators;
 
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class VariableIterator<E extends IEntity> extends AbstractVariableIterator<E> {
-	protected VariableIterator(String varName) {
+public class OuterLocalVariableIterator<E extends IEntity> extends AbstractVariableIterator<E> {
+	protected OuterLocalVariableIterator(String varName) {
 		super(varName);
 	}
 
 	protected boolean isSetVariable() {
-		return BindingUtils.wIsSet(getBindings(), varName);
+		return getBindings().wEnclosingScope().wIsSet(varName);
 	}
 
 	@SuppressWarnings("unchecked")
 	protected E getVariable() {
-		return (E) BindingUtils.wGet(getBindings(), varName);
+		return (E) getBindings().wEnclosingScope().wGet(varName);
 	}
 	
 	protected void setVariable(E entity) {
-		BindingUtils.wSet(getBindings(), varName, entity);
+		getBindings().wEnclosingScope().wSet(varName, entity);
+	}
+	
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append("^");
+		super.toString(sb);
 	}
 }

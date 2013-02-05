@@ -42,6 +42,9 @@ public class IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> variableIterator(String varName) {
 		return BindingUtils.hasEnvironmentPart(varName) ? new VariableIterator<E>(varName) : new LocalVariableIterator<E>(varName);
 	}
+	public static <E extends IEntity> IEntityIterator<E> outerVariableIterator(String varName) {
+		return BindingUtils.hasEnvironmentPart(varName) ? new OuterVariableIterator<E>(varName) : new OuterLocalVariableIterator<E>(varName);
+	}
 
 	public static <E extends IEntity> IEntityIterator<E> constantIterator(E constant, boolean useClone) {
 		return new ConstantIterator<E>(constant, useClone);

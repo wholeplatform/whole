@@ -23,21 +23,27 @@ import org.whole.lang.util.BindingUtils;
 /**
  * @author Riccardo Solmi
  */
-public class VariableIterator<E extends IEntity> extends AbstractVariableIterator<E> {
-	protected VariableIterator(String varName) {
+public class OuterVariableIterator<E extends IEntity> extends AbstractVariableIterator<E> {
+	protected OuterVariableIterator(String varName) {
 		super(varName);
 	}
 
 	protected boolean isSetVariable() {
-		return BindingUtils.wIsSet(getBindings(), varName);
+		return BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wIsSet(BindingUtils.getVariableName(varName));
 	}
 
 	@SuppressWarnings("unchecked")
 	protected E getVariable() {
-		return (E) BindingUtils.wGet(getBindings(), varName);
+		return (E) BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wGet(BindingUtils.getVariableName(varName));
+	}
+
+	protected void setVariable(E entity) {
+		BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wSet(BindingUtils.getVariableName(varName), entity);
 	}
 	
-	protected void setVariable(E entity) {
-		BindingUtils.wSet(getBindings(), varName, entity);
+	@Override
+	public void toString(StringBuilder sb) {
+		sb.append("^");
+		super.toString(sb);
 	}
 }

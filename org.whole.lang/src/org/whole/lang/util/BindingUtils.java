@@ -77,6 +77,15 @@ public class BindingUtils {
 		}
 		return bm.wGet(variable);
 	}
+	public static void wSet(IBindingManager bm, String variable, IEntity value) {
+		if (hasEnvironmentPart(variable)) {
+			int index = variable.indexOf('#');
+			bm = bm.wGetEnvironmentManager().getEnvironment(
+					variable.substring(ENVIRONMENT_URI_PREFIX.length(), index));
+			variable = variable.substring(index+1);
+		}
+		bm.wSet(variable, value);
+	}
 	public static void wDef(IBindingManager bm, String variable, IEntity value) {
 		if (hasEnvironmentPart(variable)) {
 			int index = variable.indexOf('#');

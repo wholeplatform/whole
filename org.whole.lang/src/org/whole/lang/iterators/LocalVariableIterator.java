@@ -17,74 +17,26 @@
  */
 package org.whole.lang.iterators;
 
-import java.util.NoSuchElementException;
-
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.visitors.MissingVariableException;
 
 /**
  * @author Riccardo Solmi
  */
-public class LocalVariableIterator<E extends IEntity> extends SelfIterator<E> {
-	private IBindingManager bindings;
-	protected String varName;
-	protected boolean useVar = true;
-
+public class LocalVariableIterator<E extends IEntity> extends AbstractVariableIterator<E> {
 	protected LocalVariableIterator(String varName) {
-		this.varName = varName;
+		super(varName);
 	}
 
-	@Override
-	public boolean hasNext() {
-		return useVar && getBindings().wIsSet(varName);
+	protected boolean isSetVariable() {
+		return getBindings().wIsSet(varName);
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public E lookahead() {
-		return hasNext() ? (E) getBindings().wGet(varName) : null;
+	protected E getVariable() {
+		return (E) getBindings().wGet(varName);
 	}
-	@Override
-	public E next() {
-		try {
-			E result = super.next();
-			useVar = false;
-			return result;
-		} catch (NoSuchElementException e) {
-			e.initCause(new MissingVariableException(varName));
-			throw e;
-		}
-	}
-
-	@Override
-	public void reset(IEntity entity) {
-		super.reset(entity);
-		useVar = true;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-			super.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
-		return bindings;
-	}
-
-	@Override
-	public void set(E entity) {
-		super.set(entity);
+	
+	protected void setVariable(E entity) {
 		getBindings().wSet(varName, entity);
-	}
-
-	@Override
-	public void toString(StringBuilder sb) {
-		sb.append("$");
-		sb.append(varName);
 	}
 }
