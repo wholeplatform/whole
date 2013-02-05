@@ -213,7 +213,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		
 		entity.getExpression().accept(this);
 		
-		setResultIterator(QueriesIteratorFactory.scopeIterator(getResultIterator(), localNames));
+		setResultIterator(QueriesIteratorFactory.scopeIterator(getResultIterator(), null, localNames));
 	}
 
     @Override

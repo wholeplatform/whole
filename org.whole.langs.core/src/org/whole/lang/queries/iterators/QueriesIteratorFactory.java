@@ -50,8 +50,8 @@ public class QueriesIteratorFactory extends IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
     	return new CallIterator<E>(name, argsIterators);
     }
-	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, Set<String> localNames) {
-    	return new ScopeIterator<E>(scopeIterator, localNames);
+	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames) {
+    	return new LocalScopeIterator<E>(scopeIterator, localNames);
     }
 
 	public static <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {
