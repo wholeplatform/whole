@@ -43,6 +43,10 @@ public class JavaBeanScope implements IBindingScope {
 		propertyMap = ReflectiveUtils.getBeanPropertyMap(bean.getClass());
 	}
 
+	public Kind getKind() {
+		return Kind.SCOPE;
+	}
+
 	public void wClear() {
 		for (String propertyName : propertyMap.keySet())
 			wUnset(propertyName);

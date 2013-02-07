@@ -28,9 +28,17 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IBindingScope {
+	public static enum Kind { SCOPE, OUTER_GROUP_ADAPTER, OUTER_SCOPE_ADAPTER, INNER_SCOPE_ADAPTER };
+	
+	public Kind getKind();
+
 	public IBindingScope wClone();
 
 	public IBindingScope wEnclosingScope();
+
+	//public IBindingScope wOuterScope();
+	//public IBindingScope wWithOuterScope(IBindingScope scope);
+
 
 	/**
 	 * Unbind all local names.

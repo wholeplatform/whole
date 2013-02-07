@@ -18,6 +18,7 @@
 package org.whole.lang.iterators;
 
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
@@ -28,16 +29,16 @@ public class OuterLocalVariableIterator<E extends IEntity> extends AbstractVaria
 	}
 
 	protected boolean isSetVariable() {
-		return getBindings().wEnclosingScope().wIsSet(varName);
+		return BindingUtils.wOuterScope(getBindings(), false).wIsSet(varName);
 	}
 
 	@SuppressWarnings("unchecked")
 	protected E getVariable() {
-		return (E) getBindings().wEnclosingScope().wGet(varName);
+		return (E) BindingUtils.wOuterScope(getBindings(), false).wGet(varName);
 	}
 	
 	protected void setVariable(E entity) {
-		getBindings().wEnclosingScope().wSet(varName, entity);
+		BindingUtils.wOuterScope(getBindings(), false).wSet(varName, entity);
 	}
 	
 	@Override

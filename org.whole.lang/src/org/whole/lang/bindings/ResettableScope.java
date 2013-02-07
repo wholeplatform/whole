@@ -20,10 +20,10 @@ package org.whole.lang.bindings;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.Map.Entry;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
@@ -51,6 +51,10 @@ public class ResettableScope extends AbstractDelegatingScope {
 	public IDelegatingScope wClone() {
 		return new ResettableScope(new HashMap<String, IEntity>(map))
 				.wWithTargetScope(wTargetScope().wClone());
+	}
+
+	public Kind getKind() {
+		return Kind.OUTER_SCOPE_ADAPTER;
 	}
 
 	public ResettableScope wWithTargetScope(IBindingScope scope) {

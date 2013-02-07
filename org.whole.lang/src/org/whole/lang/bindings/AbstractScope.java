@@ -30,6 +30,10 @@ import org.whole.lang.util.DataTypeUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractScope implements IBindingScope {
+	public Kind getKind() {
+		return Kind.SCOPE;
+	}
+
 	public Set<String> wNames() {
 		Set<String> nameSet = wEnclosingScope().wNames();
 		nameSet.addAll(wLocalNames());

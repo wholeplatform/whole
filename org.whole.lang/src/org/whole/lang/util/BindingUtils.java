@@ -18,6 +18,8 @@
 package org.whole.lang.util;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.bindings.IDelegatingScope;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -94,5 +96,28 @@ public class BindingUtils {
 			variable = variable.substring(index+1);
 		}
 		bm.wDef(variable, value);
+	}
+
+	public static IBindingScope wOuterScope(IBindingScope scope, boolean preceding) {
+		IBindingScope precedingScope = scope;
+		switch (scope.getKind()) {
+		case OUTER_GROUP_ADAPTER:
+		case OUTER_SCOPE_ADAPTER:
+			do {
+				precedingScope = scope;
+				//FIXME workaround should be: scope = scope.wEnclosingScope();
+				scope = ((IDelegatingScope) scope).wTargetScope();
+			} while (scope.getKind().equals(IBindingScope.Kind.OUTER_SCOPE_ADAPTER) ||
+					scope.getKind().equals(IBindingScope.Kind.OUTER_GROUP_ADAPTER));
+		case SCOPE:
+		case INNER_SCOPE_ADAPTER:
+			do {
+				precedingScope = scope;
+				scope = scope.wEnclosingScope();
+			} while (scope.getKind().equals(IBindingScope.Kind.INNER_SCOPE_ADAPTER));
+			break;
+		}
+
+		return preceding ? precedingScope : scope;
 	}
 }

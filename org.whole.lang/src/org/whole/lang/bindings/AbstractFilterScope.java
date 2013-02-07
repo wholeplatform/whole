@@ -41,6 +41,10 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope {
 		this.filterNames = filterNames;
 	}
 
+	public Kind getKind() {
+		return Kind.INNER_SCOPE_ADAPTER;
+	}
+
 	@Override
 	public AbstractFilterScope wWithTargetScope(IBindingScope scope) {
 		super.wWithTargetScope(scope);

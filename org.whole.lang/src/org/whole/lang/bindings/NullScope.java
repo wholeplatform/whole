@@ -34,6 +34,10 @@ public class NullScope implements IBindingScope {
 	protected NullScope() {
 	}
 
+	public Kind getKind() {
+		return Kind.SCOPE;
+	}
+
 	public void wClear() {
 	}
 

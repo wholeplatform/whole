@@ -36,7 +36,7 @@ public class EnvironmentManager implements IEnvironmentManager {
 	protected FreshNameGenerator freshNameGenerator = new FreshNameGenerator();
 
 	protected EnvironmentManager() {
-		//FIXEM test only
+		//FIXME test only
 //		currentOperation = new AnonymousOperation(this);
 	}
 	protected EnvironmentManager(IEnvironmentManager env) {

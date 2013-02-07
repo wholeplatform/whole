@@ -35,12 +35,14 @@ import org.whole.lang.operations.ICloneContext;
 public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
 	private IBindingManager bindings;
 	private IBindingManager queryBindings;
+	private String environmentName;
 	private Set<String> localNames;
 	private IEntityIterator<E> scopeIterator;
 	private E nextEntity = null;
 
-	protected ScopeIterator(IEntityIterator<E> scopeIterator, Set<String> localNames) {
+	protected ScopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames) {
 		this.scopeIterator = scopeIterator;
+		this.environmentName = environmentName;
 		this.localNames = localNames;
 	}
 
@@ -61,7 +63,7 @@ public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<
 
 	public E next() {
 		E result = scopeIterator().next();
-		getBindings().wAddAll(lookaheadScope());
+		// getBindings().wAddAll(lookaheadScope());
 
 		nextEntity = null;
 		return result;
@@ -70,9 +72,9 @@ public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<
 		if (nextEntity != null)
 			return nextEntity;
 
-		IBindingScope laScope = lookaheadScope();
-		for (String name : laScope.wLocalNames())
-			getBindings().wUnset(name);
+//		IBindingScope laScope = lookaheadScope();
+//		for (String name : laScope.wLocalNames())
+//			getBindings().wUnset(name);
 
 		return nextEntity = scopeIterator().lookahead();
 	}

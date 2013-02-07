@@ -17,6 +17,7 @@
  */
 package org.whole.lang.bindings;
 
+
 /**
  * @author Riccardo Solmi
  */
@@ -32,6 +33,10 @@ public class NestedStaticScope extends AbstractDelegatingScope {
 		return new NestedStaticScope(
 				wEnclosingScope().wClone(),
 				wTargetScope().wClone());
+	}
+
+	public Kind getKind() {
+		return Kind.SCOPE;
 	}
 
 	public IBindingScope wEnclosingScope() {

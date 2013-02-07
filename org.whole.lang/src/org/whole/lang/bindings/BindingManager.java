@@ -17,6 +17,7 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.bindings.IBindingScope.Kind;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -31,6 +32,10 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 
 	public IBindingManager wClone() {
 		return new BindingManager(environmentManager, wTargetScope().wClone());
+	}
+
+	public Kind getKind() {
+		return Kind.OUTER_GROUP_ADAPTER;
 	}
 
     public IEnvironmentManager wGetEnvironmentManager() {

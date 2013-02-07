@@ -29,16 +29,16 @@ public class OuterVariableIterator<E extends IEntity> extends AbstractVariableIt
 	}
 
 	protected boolean isSetVariable() {
-		return BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wIsSet(BindingUtils.getVariableName(varName));
+		return BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wIsSet(BindingUtils.getVariableName(varName));
 	}
 
 	@SuppressWarnings("unchecked")
 	protected E getVariable() {
-		return (E) BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wGet(BindingUtils.getVariableName(varName));
+		return (E) BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wGet(BindingUtils.getVariableName(varName));
 	}
 
 	protected void setVariable(E entity) {
-		BindingUtils.getEnvironment(getBindings(), varName).wEnclosingScope().wSet(BindingUtils.getVariableName(varName), entity);
+		BindingUtils.wOuterScope(BindingUtils.getEnvironment(getBindings(), varName), false).wSet(BindingUtils.getVariableName(varName), entity);
 	}
 	
 	@Override

@@ -43,6 +43,10 @@ public class EntityScope implements IBindingScope {
 		features = entity.wGetLanguageKit().getFeatureDescriptorEnum();
 	}
 
+	public Kind getKind() {
+		return Kind.SCOPE;
+	}
+
 	public void wClear() {
 		for (int i = 0; i < entity.wSize(); i++)
 			entity.wUnset(i);
