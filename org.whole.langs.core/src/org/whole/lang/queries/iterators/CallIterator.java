@@ -23,7 +23,7 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.IDelegatingScope;
+import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.iterators.AbstractCloneableIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -96,7 +96,7 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 
 				queryBindings = BindingManagerFactory.instance.createBindingManager(
 						freshNames.isEmpty() ? getBindings() :
-						BindingManagerFactory.instance.createExcludeFilterScope(getBindings(), freshNames),
+						BindingManagerFactory.instance.createExcludeFilterScope(freshNames).wWithEnclosingScope(getBindings()),
 						getBindings().wGetEnvironmentManager());
 				queryBindings.wEnterScope();
 
@@ -198,10 +198,10 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		return bindings;
 	}
 
-	private IDelegatingScope lookaheadScope;
+	private INestableScope lookaheadScope;
 	public IBindingScope lookaheadScope() {
 		if (lookaheadScope != null)
-			return lookaheadScope.wWithTargetScope(queryIterator().lookaheadScope());
+			return lookaheadScope.wWithEnclosingScope(queryIterator().lookaheadScope());
 		else
 			return queryIterator != null ? queryIterator().lookaheadScope() : NullScope.instance;
 	}

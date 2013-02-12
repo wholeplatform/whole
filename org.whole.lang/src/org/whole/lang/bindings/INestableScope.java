@@ -20,7 +20,6 @@ package org.whole.lang.bindings;
 /**
  * @author Riccardo Solmi
  */
-public interface IDelegatingScope extends IBindingScope {
-	public IBindingScope wTargetScope();
-	public IDelegatingScope wWithTargetScope(IBindingScope scope);
+public interface INestableScope extends IBindingScope {
+	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope);
 }

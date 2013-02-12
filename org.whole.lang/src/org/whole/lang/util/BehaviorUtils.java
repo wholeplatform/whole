@@ -90,7 +90,7 @@ public class BehaviorUtils {
 	}
 
 	public static final IEntity evaluateResult(IBindingManager bm) {
-		if (bm.isResultIterator()) {
+		if (bm.hasResultIterator()) {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
 			bm.setResultIterator(null);
 			IEntity selfEntity = bm.wGet("self");
@@ -115,7 +115,7 @@ public class BehaviorUtils {
 	}
 	public static final IEntity evaluateSingletonResult(IBindingManager bm) {
 		IEntity result = null;
-		if (bm.isResultIterator()) {
+		if (bm.hasResultIterator()) {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
 			bm.setResultIterator(null);
 			IEntity selfEntity = bm.wGet("self");

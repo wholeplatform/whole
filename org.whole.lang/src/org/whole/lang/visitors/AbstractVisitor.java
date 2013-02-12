@@ -70,7 +70,7 @@ public abstract class AbstractVisitor implements IVisitor {
 	}
 
 	public boolean isResultIterator() {
-		return getBindings().isResultIterator();
+		return getBindings().hasResultIterator();
 	}
 	public IEntityIterator<?> getResultIterator() {
 		return getBindings().getResultIterator();

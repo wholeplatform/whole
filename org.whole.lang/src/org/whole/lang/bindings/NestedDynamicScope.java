@@ -26,72 +26,75 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class NestedDynamicScope extends AbstractScope {
-	private IBindingScope currentScope;
-	private IBindingScope enclosingScope;
+public class NestedDynamicScope extends AbstractScope implements INestableScope {
+	private IBindingScope targetScope;
+	private IBindingScope enclosingScope = NullScope.instance;
 
-	protected NestedDynamicScope(IBindingScope enclosingScope, IBindingScope nestedScope) {
-		this.enclosingScope = enclosingScope;
-		this.currentScope = nestedScope;
+	protected NestedDynamicScope(IBindingScope targetScope) {
+		this.targetScope = targetScope;
 	}
 
-	public IBindingScope wClone() {
-		return new NestedDynamicScope(wEnclosingScope().wClone(), wCurrentScope().wClone());
+	public INestableScope wClone() {
+		return new NestedDynamicScope(wTargetScope().wClone()).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
-	public IBindingScope wCurrentScope() {
-		return currentScope;
+	public IBindingScope wTargetScope() {
+		return targetScope;
 	}
 	public IBindingScope wEnclosingScope() {
 		return enclosingScope;
 	}
+	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		this.enclosingScope = enclosingScope;
+		return this;
+	}
 
 	public void wClear() {
-		wCurrentScope().wClear();
+		wTargetScope().wClear();
 	}
 
 	public Set<String> wLocalNames() {
-		return wCurrentScope().wLocalNames();
+		return wTargetScope().wLocalNames();
 	}
 
 	public Set<String> wNames() {
 		Set<String> nameSet = wEnclosingScope().wNames();
-		nameSet.addAll(wCurrentScope().wNames());
+		nameSet.addAll(wTargetScope().wNames());
 		return nameSet;
 	}
 
 	public boolean wIsSet(String name) {
-		return wCurrentScope().wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
+		return wTargetScope().wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
 	}
 	public IEntity wGet(String name) {
-		IEntity value = wCurrentScope().wGet(name);
+		IEntity value = wTargetScope().wGet(name);
 		return (value != null) ? value : wEnclosingScope().wGet(name);
 	}
 	public void wSet(String name, IEntity value) {
-		if (wCurrentScope().wIsSet(name))
-			wCurrentScope().wSet(name, value);
+		if (wTargetScope().wIsSet(name))
+			wTargetScope().wSet(name, value);
 		else
 			wEnclosingScope().wSet(name, value);
 	}
 	public void wAdd(String name, IEntity value) {
-		if (wCurrentScope().wIsSet(name))
-			wCurrentScope().wAdd(name, value);
+		if (wTargetScope().wIsSet(name))
+			wTargetScope().wAdd(name, value);
 		else
 			wEnclosingScope().wAdd(name, value);		
 	}
 	public void wDef(String name, IEntity value) {
-		wCurrentScope().wDef(name, value);
+		wTargetScope().wDef(name, value);
 	}
 
 	public void wUnset(String name) {
-		if (wCurrentScope().wIsSet(name))
-			wCurrentScope().wUnset(name);
+		if (wTargetScope().wIsSet(name))
+			wTargetScope().wUnset(name);
 		else
 			wEnclosingScope().wUnset(name);
 	}
 
-	public boolean isResultIterator() {
-		return wEnclosingScope().isResultIterator();
+	public boolean hasResultIterator() {
+		return wEnclosingScope().hasResultIterator();
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
 		return wEnclosingScope().getResultIterator();
@@ -109,8 +112,8 @@ public class NestedDynamicScope extends AbstractScope {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("--- begin dynamic scope ---\n");
-		Set<String> localNames = currentScope.wLocalNames();
-		toString(sb, currentScope, new TreeSet<String>(localNames));
+		Set<String> localNames = targetScope.wLocalNames();
+		toString(sb, targetScope, new TreeSet<String>(localNames));
 		sb.append("--- enclosing scope(s) ----\n");
 		Set<String> enclosingNames = new TreeSet<String>(enclosingScope.wNames());
 		enclosingNames.removeAll(localNames);

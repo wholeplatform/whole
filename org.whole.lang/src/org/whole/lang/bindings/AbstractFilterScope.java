@@ -28,15 +28,12 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractFilterScope extends AbstractDelegatingScope {
+public abstract class AbstractFilterScope extends AbstractDelegatingScope implements INestableScope {
 	private Set<String> filterNames;
 	private boolean filterEnabled = true;
 
 	protected AbstractFilterScope(Set<String> filterNames) {
-		this(NullScope.instance, filterNames);
-	}
-	protected AbstractFilterScope(IBindingScope bindings, Set<String> filterNames) {
-		super(bindings);
+		super(NullScope.instance);
 
 		this.filterNames = filterNames;
 	}
@@ -45,9 +42,14 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope {
 		return Kind.INNER_SCOPE_ADAPTER;
 	}
 
-	@Override
-	public AbstractFilterScope wWithTargetScope(IBindingScope scope) {
-		super.wWithTargetScope(scope);
+	public IBindingScope wTargetScope() {
+		return this;
+	}
+	public final IBindingScope wEnclosingScope() {
+		return wDelegateScope();
+	}
+	public final AbstractFilterScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		wSetDelegateScope(enclosingScope);
 		return this;
 	}
 
@@ -69,11 +71,6 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope {
 		return isFilterEnabled() && isHidden(name, forReading);
 	}
 	protected abstract boolean isHidden(String name, boolean forReading);
-
-	@Override
-	public IBindingScope wEnclosingScope() {
-		return wTargetScope();
-	}
 
 	public void wClear() {
 		for (String name : wNames())

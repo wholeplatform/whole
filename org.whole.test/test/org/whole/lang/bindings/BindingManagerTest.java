@@ -341,7 +341,7 @@ public class BindingManagerTest extends TestCase {
 		bm.wDefValue("initialA", "a");
 		bm.wDefValue("nestedB", "B");
 		rs.mark();
-		
+
 		bm.wDefValue("nestedC", "C");
 		bm.wSetValue("initialA", "ax");
 		bm.wSetValue("nestedB", "bx");

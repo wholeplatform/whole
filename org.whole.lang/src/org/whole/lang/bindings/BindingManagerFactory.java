@@ -81,12 +81,12 @@ public class BindingManagerFactory {
 		return new SimpleScope();
 	}
 
-	public IBindingScope createNestedScope(final IBindingScope enclosingScope, IBindingScope nestedScope, boolean dynamic) {
-		return dynamic ? new NestedDynamicScope(enclosingScope, nestedScope) : new NestedStaticScope(enclosingScope, nestedScope);
+	public INestableScope createNestedScope(IBindingScope scope, boolean dynamic) {
+		return dynamic ? new NestedDynamicScope(scope) : new NestedStaticScope(scope);
 	}
 	//Same behavior of createNestedScope(createSimpleScope(), true)
-	public IBindingScope createNestedDynamicSimpleScope(IBindingScope enclosingScope) {
-		return new NestedDynamicSimpleScope(enclosingScope);
+	public INestableScope createNestedDynamicSimpleScope() {
+		return new NestedDynamicSimpleScope();
 	}
 
 	public AbstractFilterScope createIncludeFilterScope(Set<String> names) {
@@ -98,11 +98,8 @@ public class BindingManagerFactory {
 	public AbstractFilterScope createExcludeFilterScope(Set<String> names) {
 		return new ExcludeFilterScope(names);
 	}
-	public AbstractFilterScope createExcludeFilterScope(IBindingScope bindings, Set<String> names) {
-		return new ExcludeFilterScope(bindings, names);
-	}
 	public AbstractFilterScope createExcludeFilterSimpleScope() {
-		return createExcludeFilterScope(createSimpleScope(), new HashSet<String>());
+		return createExcludeFilterScope(new HashSet<String>()).wWithEnclosingScope(createSimpleScope());
 	}
 
 	public ResettableScope createResettableScope() {
@@ -120,11 +117,11 @@ public class BindingManagerFactory {
 	@SuppressWarnings("unchecked")
 	public IBindingScope createJavaBeanScope(Object bean) {
 //workaround for Android compatibility
-//was		return new JavaBeanScope(NullScope.instance, bean);
+//was		return new JavaBeanScope(bean);
 		try {
 			Class<IBindingScope> clazz = (Class<IBindingScope>) Class.forName("org.whole.lang.bindings.JavaBeanScope", true, ReflectionFactory.getPlatformClassLoader());
-			Constructor<IBindingScope> constructor = clazz.getConstructor(IBindingScope.class, Object.class);
-			return constructor.newInstance(NullScope.instance, bean);
+			Constructor<IBindingScope> constructor = clazz.getConstructor(Object.class);
+			return constructor.newInstance(bean);
 		} catch (Exception e) {
 			throw new IllegalStateException("cannot istantiate a JavaBeanScope", e);
 		}

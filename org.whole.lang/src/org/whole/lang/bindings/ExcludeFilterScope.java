@@ -26,14 +26,11 @@ import java.util.Set;
  */
 public class ExcludeFilterScope extends AbstractFilterScope {
 	protected ExcludeFilterScope(Set<String> names) {
-		this(NullScope.instance, names);
-	}
-	protected ExcludeFilterScope(IBindingScope bindings, Set<String> names) {
-		super(bindings, names);
+		super(names);
 	}
 
-	public IBindingScope wClone() {
-		return new ExcludeFilterScope(wTargetScope().wClone(), getFilterNames());
+	public INestableScope wClone() {
+		return new ExcludeFilterScope(getFilterNames()).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	protected boolean isHidden(String name, boolean forReading) {

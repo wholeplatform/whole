@@ -33,18 +33,27 @@ import org.whole.lang.util.ReflectiveUtils;
  * @author Riccardo Solmi
  */
 public class JavaBeanScope implements IBindingScope {
-	private IBindingScope enclosingScope; //TODO remove
 	private Object bean;
 	private Map<String, PropertyDescriptor> propertyMap;
 
-	public JavaBeanScope(IBindingScope enclosingScope, Object bean) {
-		this.enclosingScope = enclosingScope;
+	public JavaBeanScope(Object bean) {
 		this.bean = bean;
 		propertyMap = ReflectiveUtils.getBeanPropertyMap(bean.getClass());
 	}
 
+	public IBindingScope wClone() {
+		return new JavaBeanScope(ReflectiveUtils.reflectiveClone(bean));
+	}
+
 	public Kind getKind() {
 		return Kind.SCOPE;
+	}
+
+	public IBindingScope wTargetScope() {
+		return this;
+	}
+	public IBindingScope wEnclosingScope() {
+		return NullScope.instance;
 	}
 
 	public void wClear() {
@@ -70,25 +79,13 @@ public class JavaBeanScope implements IBindingScope {
 		return Collections.unmodifiableSet(propertyMap.keySet());
 	}
 
-	public IBindingScope wClone() {
-		return new JavaBeanScope(
-				enclosingScope.wClone(),
-				ReflectiveUtils.reflectiveClone(bean));
-	}
-
-	public IBindingScope wEnclosingScope() {
-		return enclosingScope;
-	}
-
 	public IEntity wGet(String name) {
-		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name))
 			try {
 				return (IEntity) ReflectiveUtils.getProperty(propertyMap, bean, name);
 			} catch (Exception e) {
-				return null;
 			}
-		}
-		return enclosingScope.wGet(name);
+		return null;
 	}
 
 	public void wAdd(String name, IEntity value) {
@@ -97,7 +94,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 
 	public void wDef(String name, IEntity value) {
@@ -107,14 +104,14 @@ public class JavaBeanScope implements IBindingScope {
 		if (ReflectiveUtils.hasProperty(propertyMap, name))
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wSet(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public boolean wIsSet(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name))
 			return ReflectiveUtils.hasPrimitiveProperty(propertyMap, name) ? 
 					true : ReflectiveUtils.getProperty(propertyMap, bean, name) != null;
 		else
-			return enclosingScope.wIsSet(name);
+			return false;
 	}
 	public void wUnset(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -122,8 +119,6 @@ public class JavaBeanScope implements IBindingScope {
 			if (ReflectiveUtils.hasReferenceProperty(propertyMap, name)) {
 				ReflectiveUtils.setProperty(propertyMap, bean, name, null);
 			}
-		} else {
-			enclosingScope.wUnset(name);
 		}
 	}
 
@@ -133,7 +128,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, byte value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -141,7 +136,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, char value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -149,7 +144,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, double value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -157,7 +152,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, float value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -165,7 +160,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, int value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -173,7 +168,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, long value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -181,7 +176,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, short value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -189,7 +184,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, String value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -197,7 +192,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, Date value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -205,7 +200,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, EnumValue value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -213,7 +208,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public void wAddValue(String name, Object value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
@@ -221,7 +216,7 @@ public class JavaBeanScope implements IBindingScope {
 		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
 			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
 		else
-			enclosingScope.wAddValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 
 	public void wDefValue(String name, boolean value) {
@@ -269,7 +264,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wBooleanValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public byte wByteValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -279,7 +274,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wByteValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public char wCharValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -289,7 +284,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wCharValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public Date wDateValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -299,7 +294,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wDateValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public double wDoubleValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -309,7 +304,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wDoubleValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public EnumValue wEnumValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -319,7 +314,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wEnumValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public float wFloatValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -329,7 +324,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wFloatValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public Object wGetValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -339,7 +334,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wGetValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public int wIntValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -349,7 +344,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wIntValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public long wLongValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -359,7 +354,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wLongValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public short wShortValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -369,7 +364,7 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wShortValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 	public String wStringValue(String name) {
 		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
@@ -379,95 +374,95 @@ public class JavaBeanScope implements IBindingScope {
 				throw new IllegalArgumentException(e);
 			}
 		}
-		return enclosingScope.wStringValue(name);
+		throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 
 	public void wSetValue(String name, boolean value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, byte value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, char value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, double value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, float value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, int value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, long value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, short value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, String value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, Date value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, EnumValue value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 	public void wSetValue(String name, Object value) {
-		if(ReflectiveUtils.hasProperty(propertyMap, name)) {
+		if (ReflectiveUtils.hasProperty(propertyMap, name)) {
 			ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 		} else {
-			enclosingScope.wSetValue(name, value);
+			throw BindingManagerFactory.instance.createNoBindingException(name);
 		}
 	}
 
-	public boolean isResultIterator() {
+	public boolean hasResultIterator() {
 		return false;		
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {

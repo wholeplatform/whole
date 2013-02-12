@@ -27,38 +27,30 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDelegatingScope implements IDelegatingScope {
-	private IBindingScope targetScope;
+public abstract class AbstractDelegatingScope implements IBindingScope {
+	private IBindingScope delegateScope;
 	
-	protected AbstractDelegatingScope(IBindingScope targetScope) {
-		this.targetScope = targetScope;
+	protected AbstractDelegatingScope(IBindingScope scope) {
+		this.delegateScope = scope;
 	}
 
-	public IBindingScope wTargetScope() {
-		return targetScope;
+	protected IBindingScope wDelegateScope() {
+		return delegateScope;
 	}
-	public void wSetTargetScope(IBindingScope scope) {
-		targetScope = scope;
-	}
-	public IDelegatingScope wWithTargetScope(IBindingScope scope) {
-		wSetTargetScope(scope);
-		return this;
-	}
-
-	public IBindingScope wEnclosingScope() {
-		return targetScope.wEnclosingScope();
+	protected void wSetDelegateScope(IBindingScope scope) {
+		delegateScope = scope;
 	}
 
 	public void wClear() {
-		targetScope.wClear();
+		delegateScope.wClear();
 	}
 
 	public Set<String> wNames() {
-		return targetScope.wNames();
+		return delegateScope.wNames();
 	}
 
 	public Set<String> wLocalNames() {
-		return targetScope.wLocalNames();
+		return delegateScope.wLocalNames();
 	}
 
 	public void wAddAll(IBindingScope scope) {
@@ -66,195 +58,195 @@ public abstract class AbstractDelegatingScope implements IDelegatingScope {
 			return;
 		if (scope.wEnclosingScope() == this) {
 			for (String name : scope.wLocalNames())
-				targetScope.wDef(name, scope.wGet(name));
+				delegateScope.wDef(name, scope.wGet(name));
 		} else
-			targetScope.wAddAll(scope);
+			delegateScope.wAddAll(scope);
 	}
 
 	public IEntity wGet(String name) {
-		return targetScope.wGet(name);
+		return delegateScope.wGet(name);
 	}
 	public void wAdd(String name, IEntity value) {
-		targetScope.wAdd(name, value);
+		delegateScope.wAdd(name, value);
 	}
 	public void wSet(String name, IEntity value) {
-		targetScope.wSet(name, value);
+		delegateScope.wSet(name, value);
 	}
 	public void wDef(String name, IEntity value) {
-		targetScope.wDef(name, value);
+		delegateScope.wDef(name, value);
 	}
 	public boolean wIsSet(String name) {
-		return targetScope.wIsSet(name);
+		return delegateScope.wIsSet(name);
 	}
 	public void wUnset(String name) {
-		targetScope.wUnset(name);
+		delegateScope.wUnset(name);
 	}
 
 	public boolean wBooleanValue(String name) {
-		return targetScope.wBooleanValue(name);
+		return delegateScope.wBooleanValue(name);
 	}
 	public byte wByteValue(String name) {
-		return targetScope.wByteValue(name);
+		return delegateScope.wByteValue(name);
 	}
 	public char wCharValue(String name) {
-		return targetScope.wCharValue(name);
+		return delegateScope.wCharValue(name);
 	}
 	public Date wDateValue(String name) {
-		return targetScope.wDateValue(name);
+		return delegateScope.wDateValue(name);
 	}
 	public double wDoubleValue(String name) {
-		return targetScope.wDoubleValue(name);
+		return delegateScope.wDoubleValue(name);
 	}
 	public EnumValue wEnumValue(String name) {
-		return targetScope.wEnumValue(name);
+		return delegateScope.wEnumValue(name);
 	}
 	public float wFloatValue(String name) {
-		return targetScope.wFloatValue(name);
+		return delegateScope.wFloatValue(name);
 	}
 	public Object wGetValue(String name) {
-		return targetScope.wGetValue(name);
+		return delegateScope.wGetValue(name);
 	}
 	public int wIntValue(String name) {
-		return targetScope.wIntValue(name);
+		return delegateScope.wIntValue(name);
 	}
 	public long wLongValue(String name) {
-		return targetScope.wLongValue(name);
+		return delegateScope.wLongValue(name);
 	}
 	public short wShortValue(String name) {
-		return targetScope.wShortValue(name);
+		return delegateScope.wShortValue(name);
 	}
 	public String wStringValue(String name) {
-		return targetScope.wStringValue(name);
+		return delegateScope.wStringValue(name);
 	}
 
 	public void wSetValue(String name, boolean value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, byte value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, char value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, Date value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, double value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, EnumValue value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, float value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, int value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, long value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, Object value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, short value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 	public void wSetValue(String name, String value) {
-		targetScope.wSetValue(name, value);
+		delegateScope.wSetValue(name, value);
 	}
 
 	public void wAddValue(String name, boolean value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, byte value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, char value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, Date value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, double value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, EnumValue value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, float value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, int value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, long value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, Object value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, short value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 	public void wAddValue(String name, String value) {
-		targetScope.wAddValue(name, value);
+		delegateScope.wAddValue(name, value);
 	}
 
 	public void wDefValue(String name, boolean value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, byte value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, char value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, Date value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, double value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, EnumValue value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, float value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, int value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, long value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, Object value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, short value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 	public void wDefValue(String name, String value) {
-		targetScope.wDefValue(name, value);
+		delegateScope.wDefValue(name, value);
 	}
 
-	public boolean isResultIterator() {
-		return targetScope.isResultIterator();
+	public boolean hasResultIterator() {
+		return delegateScope.hasResultIterator();
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return targetScope.getResultIterator();
+		return delegateScope.getResultIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		targetScope.setResultIterator(resultIterator);
+		delegateScope.setResultIterator(resultIterator);
 	}
 	public IEntity getResult() {
-		return targetScope.getResult();
+		return delegateScope.getResult();
 	}
 	public void setResult(IEntity value) {
-		targetScope.setResult(value);
+		delegateScope.setResult(value);
 	}
 
 	public String toString() {
-		return targetScope.toString();
+		return delegateScope.toString();
 	}
 }

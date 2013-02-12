@@ -32,7 +32,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ResettableScope extends AbstractDelegatingScope {
+public class ResettableScope extends AbstractDelegatingScope implements INestableScope {
 	private static final IEntity UNDEF_VALUE = BindingManagerFactory.instance.createValue((Object) null);
 	protected Map<String, IEntity> map;
 	public static enum CachedResult { NONE, VALUE, ITERATOR };
@@ -48,17 +48,22 @@ public class ResettableScope extends AbstractDelegatingScope {
 		this.map = map;
 	}
 
-	public IDelegatingScope wClone() {
-		return new ResettableScope(new HashMap<String, IEntity>(map))
-				.wWithTargetScope(wTargetScope().wClone());
+	public INestableScope wClone() {
+		return new ResettableScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	public Kind getKind() {
 		return Kind.OUTER_SCOPE_ADAPTER;
 	}
 
-	public ResettableScope wWithTargetScope(IBindingScope scope) {
-		super.wWithTargetScope(scope);
+	public IBindingScope wTargetScope() {
+		return this;
+	}
+	public final IBindingScope wEnclosingScope() {
+		return wDelegateScope();
+	}
+	public final ResettableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		wSetDelegateScope(enclosingScope);
 		return this;
 	}
 
@@ -93,11 +98,6 @@ public class ResettableScope extends AbstractDelegatingScope {
 			IEntity value = super.wGet(name);
 			map.put(name, value != null ? value : UNDEF_VALUE);
 		}
-	}
-
-	@Override
-	public IBindingScope wEnclosingScope() {
-		return wTargetScope();
 	}
 
 	@Override

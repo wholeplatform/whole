@@ -105,7 +105,7 @@ public class TestsHelpers {
 		bm.wDef("self", subject);
 		IBindingScope bs = InterpreterOperation.interpret(EntityUtils.isFragment(filter) ? filter.wGetRoot() : filter, bm);
 
-		if (bs.isResultIterator()) {
+		if (bs.hasResultIterator()) {
 			IEntityIterator<?> iterator = bs.getResultIterator();
 			bs.setResultIterator(null);
 			iterator.reset(subject);

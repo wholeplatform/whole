@@ -23,7 +23,7 @@ import java.util.Set;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.IDelegatingScope;
+import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.iterators.AbstractCloneableIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
@@ -105,8 +105,7 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 
 			queryBindings = BindingManagerFactory.instance.createBindingManager(
 					localNames.isEmpty() ? getBindings() :
-					BindingManagerFactory.instance.createExcludeFilterScope(
-							getBindings(), localNames),
+					BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(getBindings()),
 						getBindings().wGetEnvironmentManager());
 			queryBindings.wEnterScope();
 
@@ -119,10 +118,10 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 		return bindings;
 	}
 
-	private IDelegatingScope lookaheadScope;
+	private INestableScope lookaheadScope;
 	public IBindingScope lookaheadScope() {
 		if (lookaheadScope != null)
-			return lookaheadScope.wWithTargetScope(scopeIterator().lookaheadScope());
+			return lookaheadScope.wWithEnclosingScope(scopeIterator().lookaheadScope());
 		else
 			return scopeIterator().lookaheadScope();
 	}

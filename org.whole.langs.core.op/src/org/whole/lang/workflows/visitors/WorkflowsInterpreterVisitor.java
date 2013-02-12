@@ -425,8 +425,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 		Set<String> filterNames = getOperation().getResultsScope().wNames();
 		IBindingManager args = BindingManagerFactory.instance.createBindingManager(
-				BindingManagerFactory.instance.createExcludeFilterScope(
-						getBindings(), filterNames),
+				BindingManagerFactory.instance.createExcludeFilterScope(filterNames).wWithEnclosingScope(getBindings()),
 						getBindings().wGetEnvironmentManager());
 
 		if (!EntityUtils.isNotResolver(arguments)) {

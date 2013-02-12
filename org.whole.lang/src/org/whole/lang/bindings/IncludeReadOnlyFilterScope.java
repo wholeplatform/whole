@@ -27,6 +27,10 @@ public class IncludeReadOnlyFilterScope extends IncludeFilterScope {
 		super(names);
 	}
 
+	public INestableScope wClone() {
+		return new IncludeReadOnlyFilterScope(getFilterNames()).wWithEnclosingScope(wEnclosingScope().wClone());
+	}
+
 	@Override
 	protected boolean isHidden(String name, boolean forReading) {
 		return forReading || super.isHidden(name, forReading);

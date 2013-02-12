@@ -29,9 +29,8 @@ public class IncludeFilterScope extends AbstractFilterScope {
 		super(names);
 	}
 
-	public IDelegatingScope wClone() {
-		return new IncludeFilterScope(getFilterNames())
-				.wWithTargetScope(wTargetScope().wClone());
+	public INestableScope wClone() {
+		return new IncludeFilterScope(getFilterNames()).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	protected boolean isHidden(String name, boolean forReading) {

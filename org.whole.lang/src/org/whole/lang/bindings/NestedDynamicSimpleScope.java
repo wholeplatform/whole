@@ -30,23 +30,26 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class NestedDynamicSimpleScope extends SimpleScope {
-	private IBindingScope enclosingScope;
+public class NestedDynamicSimpleScope extends SimpleScope implements INestableScope {
+	private IBindingScope enclosingScope = NullScope.instance;
 
-	protected NestedDynamicSimpleScope(IBindingScope enclosingScope) {
-		this(enclosingScope, new HashMap<String, IEntity>());
+	protected NestedDynamicSimpleScope() {
+		this(new HashMap<String, IEntity>());
 	}
-	protected NestedDynamicSimpleScope(IBindingScope enclosingScope, Map<String, IEntity> map) {
+	protected NestedDynamicSimpleScope(Map<String, IEntity> map) {
 		super(map);
-		this.enclosingScope = enclosingScope;
 	}
 
-	public IBindingScope wClone() {
-		return new NestedDynamicSimpleScope(wEnclosingScope().wClone(), cloneMap());
+	public INestableScope wClone() {
+		return new NestedDynamicSimpleScope(cloneMap()).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	public IBindingScope wEnclosingScope() {
 		return enclosingScope;
+	}
+	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		this.enclosingScope = enclosingScope;
+		return this;
 	}
 
 	public boolean wIsSet(String name) {
@@ -75,8 +78,8 @@ public class NestedDynamicSimpleScope extends SimpleScope {
 			wEnclosingScope().wUnset(name);
 	}
 
-	public boolean isResultIterator() {
-		return wEnclosingScope().isResultIterator();
+	public boolean hasResultIterator() {
+		return wEnclosingScope().hasResultIterator();
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
 		return wEnclosingScope().getResultIterator();

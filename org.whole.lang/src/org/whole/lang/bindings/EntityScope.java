@@ -43,8 +43,19 @@ public class EntityScope implements IBindingScope {
 		features = entity.wGetLanguageKit().getFeatureDescriptorEnum();
 	}
 
+	public IBindingScope wClone() {
+		return new EntityScope(EntityUtils.clone(entity));
+	}
+
 	public Kind getKind() {
 		return Kind.SCOPE;
+	}
+
+	public IBindingScope wTargetScope() {
+		return this;
+	}
+	public IBindingScope wEnclosingScope() {
+		return NullScope.instance;
 	}
 
 	public void wClear() {
@@ -81,14 +92,6 @@ public class EntityScope implements IBindingScope {
 		if (feature == null)
 			;//FIXME entity.wAdd(feature);
 		return feature;
-	}
-
-	public IBindingScope wClone() {
-		return new EntityScope(EntityUtils.clone(entity));
-	}
-
-	public IBindingScope wEnclosingScope() {
-		return NullScope.instance;
 	}
 
 	public IEntity wGet(String name) {
@@ -468,7 +471,7 @@ public class EntityScope implements IBindingScope {
 		}
 	}
 
-	public boolean isResultIterator() {
+	public boolean hasResultIterator() {
 		return false;		
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {

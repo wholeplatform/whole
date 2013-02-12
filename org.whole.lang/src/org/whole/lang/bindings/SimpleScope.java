@@ -45,14 +45,6 @@ public class SimpleScope extends AbstractScope {
 		this.map = map;
 	}
 
-	public void wClear() {
-		map.clear();
-	}
-
-	public Set<String> wLocalNames() {
-		return Collections.unmodifiableSet(map.keySet());
-	}
-
 	public IBindingScope wClone() {
 		SimpleScope copy = new SimpleScope(cloneMap());
 		copy.result = result;
@@ -67,8 +59,20 @@ public class SimpleScope extends AbstractScope {
 		}
 		return copy_map;
 	}
+
+	public IBindingScope wTargetScope() {
+		return this;
+	}
 	public IBindingScope wEnclosingScope() {
 		return NullScope.instance;
+	}
+
+	public void wClear() {
+		map.clear();
+	}
+
+	public Set<String> wLocalNames() {
+		return Collections.unmodifiableSet(map.keySet());
 	}
 
 	public IEntity wGet(String name) {
@@ -101,7 +105,7 @@ public class SimpleScope extends AbstractScope {
 		map.remove(name);
 	}
 
-	public boolean isResultIterator() {
+	public boolean hasResultIterator() {
 		return resultIterator != null;
 	}
 	@SuppressWarnings("unchecked")

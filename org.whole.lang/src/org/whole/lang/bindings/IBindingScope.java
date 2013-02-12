@@ -34,10 +34,8 @@ public interface IBindingScope {
 
 	public IBindingScope wClone();
 
+	public IBindingScope wTargetScope();
 	public IBindingScope wEnclosingScope();
-
-	//public IBindingScope wOuterScope();
-	//public IBindingScope wWithOuterScope(IBindingScope scope);
 
 
 	/**
@@ -145,7 +143,7 @@ public interface IBindingScope {
 	public void wDefValue(String name, EnumValue value);
 	public void wDefValue(String name, Object value);
 
-	public boolean isResultIterator();
+	public boolean hasResultIterator();
 	public <E extends IEntity> IEntityIterator<E> getResultIterator();
 	public void setResultIterator(IEntityIterator<?> resultIterator);
 	public IEntity getResult();

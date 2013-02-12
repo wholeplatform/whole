@@ -31,6 +31,10 @@ public class VoidScope extends NullScope {
 	protected VoidScope() {
 	}
 
+	public IBindingScope wClone() {
+		return instance;
+	}
+
 	public IEnvironmentManager wGetEnvironmentManager() {
 		throw new IllegalStateException("VoidScope");		
 	}
@@ -162,7 +166,7 @@ public class VoidScope extends NullScope {
 	public void wDefValue(String name, Object value) {
 	}
 
-	public boolean isResultIterator() {
+	public boolean hasResultIterator() {
 		return false;		
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {

@@ -17,7 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import org.whole.lang.bindings.IBindingScope.Kind;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -38,20 +37,35 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		return Kind.OUTER_GROUP_ADAPTER;
 	}
 
+	public IBindingScope wTargetScope() {
+		return wDelegateScope();
+	}
+	public void wSetTargetScope(IBindingScope scope) {
+		wSetDelegateScope(scope);
+	}
+
+	public IBindingScope wEnclosingScope() {
+		return wTargetScope().wEnclosingScope();
+	}
+
     public IEnvironmentManager wGetEnvironmentManager() {
 		return environmentManager;
 	}
 
 	public void wEnterScope() {
-		wSetTargetScope(BindingManagerFactory.instance.createNestedDynamicSimpleScope(
-				wTargetScope()));
+		wEnterScope(BindingManagerFactory.instance.createNestedDynamicSimpleScope());
 	}
-	public void wEnterScope(IDelegatingScope scope) {
-		wSetTargetScope(scope.wWithTargetScope(wTargetScope()));
+	public void wEnterScope(INestableScope scope) {
+//		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
+//		if (outerScope instanceof INestableScope) {
+//			((INestableScope) outerScope).wWithEnclosingScope(wTargetScope());
+//			wSetTargetScope(scope);
+//		} else
+
+		wSetTargetScope(scope.wWithEnclosingScope(wTargetScope()));
 	}
 	public void wEnterScope(IBindingScope scope, boolean dynamic) {
-		wSetTargetScope(BindingManagerFactory.instance.createNestedScope(
-				wTargetScope(), scope, dynamic));
+		wEnterScope(BindingManagerFactory.instance.createNestedScope(scope, dynamic));
 	}
 	public void wEnterScope(String name, boolean dynamic) {
 		wEnterScope(wGet(name), dynamic);
@@ -65,9 +79,13 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 	}
 	public void wExitScope(boolean merge) {
 		IBindingScope scope = wTargetScope();
-		wSetTargetScope(wTargetScope().wEnclosingScope());
+		wSetTargetScope(scope.wEnclosingScope());
 		if (wTargetScope() == NullScope.instance)
-			throw new IllegalStateException("exitScope from top level");		
+			throw new IllegalStateException("exitScope from top level");
+		//FIXME results no longer available
+//		if (scope instanceof INestableScope) {
+//			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
+//		}
 		if (merge)
 			wTargetScope().wAddAll(scope);
 	}

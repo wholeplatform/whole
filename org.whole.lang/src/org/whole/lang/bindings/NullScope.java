@@ -34,8 +34,19 @@ public class NullScope implements IBindingScope {
 	protected NullScope() {
 	}
 
+	public IBindingScope wClone() {
+		return instance;
+	}
+
 	public Kind getKind() {
 		return Kind.SCOPE;
+	}
+
+	public IBindingScope wTargetScope() {
+		return this;
+	}
+	public IBindingScope wEnclosingScope() {
+		throw new IllegalStateException("NullBindingManager");
 	}
 
 	public void wClear() {
@@ -47,13 +58,6 @@ public class NullScope implements IBindingScope {
 
 	public Set<String> wLocalNames() {
 		return Collections.<String>emptySet();
-	}
-
-	public IBindingScope wClone() {
-		return instance;
-	}
-	public IBindingScope wEnclosingScope() {
-		throw new IllegalStateException("NullBindingManager");
 	}
 
 	public void wAddAll(IBindingScope scope) {
@@ -226,7 +230,7 @@ public class NullScope implements IBindingScope {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 
-	public boolean isResultIterator() {
+	public boolean hasResultIterator() {
 		return false;		
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {

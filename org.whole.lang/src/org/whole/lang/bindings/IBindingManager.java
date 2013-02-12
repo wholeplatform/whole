@@ -21,13 +21,13 @@ package org.whole.lang.bindings;
 /**
  * @author Riccardo Solmi
  */
-public interface IBindingManager extends IDelegatingScope {
+public interface IBindingManager extends IBindingScope {
 	public IBindingManager wClone();
 
 	public IEnvironmentManager wGetEnvironmentManager();
 
 	public void wEnterScope();
-	public void wEnterScope(IDelegatingScope scope);
+	public void wEnterScope(INestableScope scope);
 	public void wEnterScope(IBindingScope scope, boolean dynamic);
 	public void wExitScope();
 	public void wExitScope(boolean merge);

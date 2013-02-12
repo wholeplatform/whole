@@ -57,7 +57,7 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 				run(selfEntity, bm, evaluateArguments(selfEntity, bm));
 
 				resultIterator = bm.getResultIterator();
-				if (bm.isResultIterator()) {
+				if (bm.hasResultIterator()) {
 					bm.setResultIterator(null);
 					resultIterator.reset(selfEntity);
 				}

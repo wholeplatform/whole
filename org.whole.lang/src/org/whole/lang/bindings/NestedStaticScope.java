@@ -21,25 +21,29 @@ package org.whole.lang.bindings;
 /**
  * @author Riccardo Solmi
  */
-public class NestedStaticScope extends AbstractDelegatingScope {
-	private IBindingScope enclosingScope;
+public class NestedStaticScope extends AbstractDelegatingScope implements INestableScope {
+	private IBindingScope enclosingScope = NullScope.instance;
 
-	protected NestedStaticScope(IBindingScope enclosingScope, IBindingScope nestedScope) {
-		super(nestedScope);
-		this.enclosingScope = enclosingScope;
+	protected NestedStaticScope(IBindingScope targetScope) {
+		super(targetScope);
 	}
 
-	public IBindingScope wClone() {
-		return new NestedStaticScope(
-				wEnclosingScope().wClone(),
-				wTargetScope().wClone());
+	public INestableScope wClone() {
+		return new NestedStaticScope(wTargetScope().wClone()).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	public Kind getKind() {
 		return Kind.SCOPE;
 	}
 
+	public IBindingScope wTargetScope() {
+		return wDelegateScope();
+	}
 	public IBindingScope wEnclosingScope() {
 		return enclosingScope;
+	}
+	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+		this.enclosingScope = enclosingScope;
+		return this;
 	}
 }
