@@ -52,6 +52,10 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 		return this;
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return super.wIsSet(name) ? this : wEnclosingScope().wFindScope(name);
+	}
+
 	public boolean wIsSet(String name) {
 		return super.wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
 	}

@@ -105,6 +105,11 @@ public class SimpleScope extends AbstractScope {
 		map.remove(name);
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return wIsSet(name) ? this : VoidScope.instance;
+	}
+	
+
 	public boolean hasResultIterator() {
 		return resultIterator != null;
 	}

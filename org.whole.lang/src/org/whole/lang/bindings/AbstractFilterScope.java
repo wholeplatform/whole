@@ -77,6 +77,10 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 			super.wUnset(name);
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return wEnclosingScope().wFindScope(name);
+	}
+
 	public boolean wBooleanValue(String name) {
 		if (isFiltered(name, true))
 			throw new IllegalArgumentException("FilterBindingManager");

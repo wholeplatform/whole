@@ -90,6 +90,11 @@ public interface IBindingScope {
 	 * Unbind the value associated to the name (local or in scope).
 	 */
 	public void wUnset(String name);
+
+	/**
+	 * Returns the scope where the name is defined (local or in scope) or the VoidScope.
+	 */
+	public IBindingScope wFindScope(String name);
 	
 	public boolean wBooleanValue(String name);
 	public byte wByteValue(String name);

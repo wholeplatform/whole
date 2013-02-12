@@ -63,6 +63,11 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 		return nameSet;
 	}
 
+	public IBindingScope wFindScope(String name) {
+		IBindingScope scope = wTargetScope().wFindScope(name);
+		return scope != VoidScope.instance ? scope : wEnclosingScope().wFindScope(name);
+	}
+
 	public boolean wIsSet(String name) {
 		return wTargetScope().wIsSet(name) ? true : wEnclosingScope().wIsSet(name);
 	}

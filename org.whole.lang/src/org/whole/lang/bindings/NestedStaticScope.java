@@ -46,4 +46,8 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 		this.enclosingScope = enclosingScope;
 		return this;
 	}
+
+	public IBindingScope wFindScope(String name) {
+		return wTargetScope().wFindScope(name);
+	}
 }

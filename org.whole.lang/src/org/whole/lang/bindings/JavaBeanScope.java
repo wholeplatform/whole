@@ -122,6 +122,10 @@ public class JavaBeanScope implements IBindingScope {
 		}
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return wIsSet(name) ? this : VoidScope.instance;
+	}
+
 	public void wAddValue(String name, boolean value) {
 		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
 			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);

@@ -52,15 +52,17 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		return environmentManager;
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return wTargetScope().wFindScope(name);
+	}
+
 	public void wEnterScope() {
 		wEnterScope(BindingManagerFactory.instance.createNestedDynamicSimpleScope());
 	}
 	public void wEnterScope(INestableScope scope) {
+//FIX result scope first
 //		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
-//		if (outerScope instanceof INestableScope) {
-//			((INestableScope) outerScope).wWithEnclosingScope(wTargetScope());
-//			wSetTargetScope(scope);
-//		} else
+//		wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
 
 		wSetTargetScope(scope.wWithEnclosingScope(wTargetScope()));
 	}

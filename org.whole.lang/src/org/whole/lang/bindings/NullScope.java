@@ -82,6 +82,10 @@ public class NullScope implements IBindingScope {
 	public void wUnset(String name) {
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return VoidScope.instance;
+	}
+
 	public boolean wBooleanValue(String name) {
 		throw new IllegalStateException("NullBindingManager");		
 	}

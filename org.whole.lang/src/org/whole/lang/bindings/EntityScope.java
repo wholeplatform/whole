@@ -131,6 +131,11 @@ public class EntityScope implements IBindingScope {
 			entity.wUnset(feature);
 	}
 
+	public IBindingScope wFindScope(String name) {
+		return wIsSet(name) ? this : VoidScope.instance;
+	}
+
+
 	public boolean wBooleanValue(String name) {
 		try {
 			return wGet(name).wBooleanValue();
