@@ -65,9 +65,8 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
-import org.whole.lang.commons.model.Any;
 import org.whole.lang.commons.model.RootFragment;
-import org.whole.lang.commons.model.impl.RootFragmentImpl;
+import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.ContentAssistAction;
@@ -94,7 +93,6 @@ import org.whole.lang.ui.resources.IColorRegistry;
 import org.whole.lang.ui.resources.IFontRegistry;
 import org.whole.lang.ui.resources.IResourceManager;
 import org.whole.lang.ui.tools.Tools;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -326,26 +324,6 @@ public class WholeGraphicalViewer extends ScrollingGraphicalViewer implements IR
 			entityFigure.setInteractiveEdit(edit);
 			entityFigure.setInteractiveBrowse(browse);
 			entityFigure.setInteractiveInherited(inherited);
-		}
-	}
-
-	public static class LazyContainmentRootFragmentImpl extends RootFragmentImpl {
-		private static final long serialVersionUID = 1L;
-
-		public LazyContainmentRootFragmentImpl(IEntity fragment) {
-			super(fragment);
-		}
-
-		boolean isContainment = false;
-		@Override
-		public boolean isContainment() {
-			return isContainment;
-		}
-
-		@Override
-		public void setRootEntity(Any entity) {
-			isContainment = !EntityUtils.hasParent(entity);
-			super.setRootEntity(entity);
 		}
 	}
 
