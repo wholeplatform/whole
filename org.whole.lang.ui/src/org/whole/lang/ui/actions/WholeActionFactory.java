@@ -65,7 +65,7 @@ import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
-import org.whole.lang.ui.menu.IFillMenuStrategy;
+import org.whole.lang.ui.menu.IE3FillMenuStrategy;
 import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
@@ -128,9 +128,9 @@ public class WholeActionFactory {
 
 	private PerformAction importAction;
 
-	private IFillMenuStrategy fillEntityAssistMenuStrategy = HierarchicalFillMenuStrategy.instance();
+	private IE3FillMenuStrategy fillEntityAssistMenuStrategy = HierarchicalFillMenuStrategy.instance();
 
-	private IFillMenuStrategy fillLanguageMenuStrategy = HierarchicalFillMenuStrategy.instance(FullMenuNameStrategy.instance());
+	private IE3FillMenuStrategy fillLanguageMenuStrategy = HierarchicalFillMenuStrategy.instance(FullMenuNameStrategy.instance());
 	private EntityAssistMenuListener entityAssistMenuListener = new EntityAssistMenuListener();
 
 	protected SelectionAction getAddAction(IEditorKit editorKit, EntityDescriptor<?> ed) {

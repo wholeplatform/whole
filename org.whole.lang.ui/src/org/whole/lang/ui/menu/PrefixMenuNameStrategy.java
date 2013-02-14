@@ -24,9 +24,9 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PrefixMenuNameStrategy implements IMenuNameStrategy {
-	private static final IMenuNameStrategy instance = new PrefixMenuNameStrategy();
-	public static IMenuNameStrategy instance() {
+public class PrefixMenuNameStrategy implements IE3MenuNameStrategy {
+	private static final IE3MenuNameStrategy instance = new PrefixMenuNameStrategy();
+	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
 	protected PrefixMenuNameStrategy() {}

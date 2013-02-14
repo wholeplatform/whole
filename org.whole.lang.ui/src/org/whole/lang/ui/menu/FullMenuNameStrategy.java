@@ -23,9 +23,9 @@ import org.eclipse.jface.action.MenuManager;
 /**
  * @author Riccardo Solmi
  */
-public class FullMenuNameStrategy implements IMenuNameStrategy {
-	private static final IMenuNameStrategy instance = new FullMenuNameStrategy();
-	public static IMenuNameStrategy instance() {
+public class FullMenuNameStrategy implements IE3MenuNameStrategy {
+	private static final IE3MenuNameStrategy instance = new FullMenuNameStrategy();
+	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
 	protected FullMenuNameStrategy() {}

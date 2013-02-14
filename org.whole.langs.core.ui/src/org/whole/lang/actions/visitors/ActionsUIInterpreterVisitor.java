@@ -68,8 +68,8 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.menu.FlatFillMenuStrategy;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
-import org.whole.lang.ui.menu.IFillMenuStrategy;
-import org.whole.lang.ui.menu.IMenuNameStrategy;
+import org.whole.lang.ui.menu.IE3FillMenuStrategy;
+import org.whole.lang.ui.menu.IE3MenuNameStrategy;
 import org.whole.lang.ui.menu.PrefixMenuNameStrategy;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -105,7 +105,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 	public void visit(Actions entity) {
 		IMenuManager manager = (IMenuManager) 
 				getBindings().wGetValue("menuManager");
-		IFillMenuStrategy strategy = (IFillMenuStrategy)
+		IE3FillMenuStrategy strategy = (IE3FillMenuStrategy)
 				getBindings().wGetValue("fillMenuStrategy");
 		ISelectionProvider provider = (ISelectionProvider)
 				getBindings().wGetValue("selectionProvider");
@@ -163,7 +163,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		entity.getText().accept(this);
 		String groupName = getResult().wStringValue();
 
-		IFillMenuStrategy strategy;
+		IE3FillMenuStrategy strategy;
 		FillStrategy fillStrategy = entity.getFillStrategy();
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createHierarchicalFillMenuStrategy((Hierarchical) fillStrategy, groupName);
@@ -193,7 +193,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		entity.getText().accept(this);
 		String groupName = getResult().wStringValue();
 		
-		IFillMenuStrategy strategy;
+		IE3FillMenuStrategy strategy;
 		FillStrategy fillStrategy = entity.getFillStrategy();
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createHierarchicalFillMenuStrategy((Hierarchical) fillStrategy);
@@ -289,11 +289,11 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		setResult(entity);
 	}
 
-	private IFillMenuStrategy createHierarchicalFillMenuStrategy(Hierarchical hierarchicalStrategy) {
+	private IE3FillMenuStrategy createHierarchicalFillMenuStrategy(Hierarchical hierarchicalStrategy) {
 		return createHierarchicalFillMenuStrategy(hierarchicalStrategy, null);
 	}
-	private IFillMenuStrategy createHierarchicalFillMenuStrategy(Hierarchical hierarchicalStrategy, String groupName) {
-		IMenuNameStrategy nameStrategy = Matcher.match(DistinctPrefix,
+	private IE3FillMenuStrategy createHierarchicalFillMenuStrategy(Hierarchical hierarchicalStrategy, String groupName) {
+		IE3MenuNameStrategy nameStrategy = Matcher.match(DistinctPrefix,
 				hierarchicalStrategy.getNamingStrategy()) ? 
 						PrefixMenuNameStrategy.instance() : FullMenuNameStrategy.instance();
 

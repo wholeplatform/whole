@@ -18,13 +18,12 @@
 package org.whole.lang.ui.menu;
 
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IFillMenuStrategy {
-	public void fillMenu(IMenuManager menu, IAction[] actions, int beginIndex, int endIndex);
-	public void fillMenu(IMenuManager menu, MenuManager[] menus, int beginIndex, int endIndex);
+public interface IE3MenuNameStrategy {
+	public String menuName(IAction[] actions, int beginIndex, int endIndex);
+	public String menuName(MenuManager[] menus, int beginIndex, int endIndex);
 }

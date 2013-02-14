@@ -24,14 +24,14 @@ import org.eclipse.jface.action.MenuManager;
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public class FlatFillMenuStrategy implements IFillMenuStrategy {
+public class FlatFillMenuStrategy implements IE3FillMenuStrategy {
 	private static class SingletonHolder {
-		private static final IFillMenuStrategy instance = new FlatFillMenuStrategy(null);
+		private static final IE3FillMenuStrategy instance = new FlatFillMenuStrategy(null);
 	}
-	public static IFillMenuStrategy instance() {
+	public static IE3FillMenuStrategy instance() {
 		return SingletonHolder.instance;
 	}
-	public static IFillMenuStrategy instance(String groupName) {
+	public static IE3FillMenuStrategy instance(String groupName) {
 		return new FlatFillMenuStrategy(groupName);
 	}
 
