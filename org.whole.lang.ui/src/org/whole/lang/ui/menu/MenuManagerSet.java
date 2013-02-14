@@ -15,29 +15,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.ui.dialogs;
+package org.whole.lang.ui.menu;
 
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
  */
-public interface IImportAsModelDialog {
-	public Object[] getSelection();
-	public void setSelection(Object[] selection);
+public class MenuManagerSet implements IItemSet<MenuManager, ImageDescriptor> {
+	protected MenuManager[] menus;
+	protected MenuManagerSet(MenuManager[] actions) {
+		this.menus = actions;
+	}
 	
-	public IPersistenceKit getPersistenceKit();
-	public void setPersistenceKit(IPersistenceKit persistenceKit);
+	public static MenuManagerSet create(MenuManager[] menus) {
+		return new MenuManagerSet(menus);
+	}
 
-	public EntityDescriptor<?> getStage();
-	public void setStage(EntityDescriptor<?> stage);
-
-	public boolean isForceAdding();
-	public void setForceAdding(boolean adding);
-
-	public void setTitle(String title);
-	public void setMessage(String message);
-	public boolean show();
-	public void validate();
+	public int size() {
+		return menus.length;
+	}
+	public MenuManager get(int index) {
+		return menus[index];
+	}
+	public String getLabel(int index) {
+		return get(index).getMenuText();
+	}
+	public ImageDescriptor getIcon(int index) {
+		return get(index).getImageDescriptor();
+	}
 }

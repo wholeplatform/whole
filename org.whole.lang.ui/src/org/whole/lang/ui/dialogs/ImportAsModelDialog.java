@@ -37,13 +37,17 @@ import org.whole.lang.ui.WholeUIPlugin;
  */
 public class ImportAsModelDialog extends OpenAsModelDialog implements IImportAsModelDialog {
 	protected EntityDescriptor<?> stage;
+	protected boolean enableForceAdding;
+	protected boolean forceAdding;
 
-	public ImportAsModelDialog(Shell parent, String title) {
-		this(parent, title, "Choose resources to be imported");
+	public ImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
+		this(parent, title, "Choose resources to be imported", enableForceAdding);
 	}
-	public ImportAsModelDialog(Shell parent, String title, String message) {
+	public ImportAsModelDialog(Shell parent, String title, String message, boolean enableForceAdding) {
 		super(parent, ReflectionFactory.getDefaultPersistenceKit(), title, message);
+		this.enableForceAdding = enableForceAdding;
 		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
+		this.forceAdding = false;
 		setValidator(new SelectionValidator());
 	}
 
@@ -51,6 +55,8 @@ public class ImportAsModelDialog extends OpenAsModelDialog implements IImportAsM
 	protected void addControls(Composite group) {
 		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Import As:");
 		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
+		if (enableForceAdding)
+			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
 	}
 
 	@Override
@@ -69,6 +75,13 @@ public class ImportAsModelDialog extends OpenAsModelDialog implements IImportAsM
 	}
 	public void setStage(EntityDescriptor<?> stage) {
 		this.stage = stage;
+	}
+
+	public boolean isForceAdding() {
+		return forceAdding;
+	}
+	public void setForceAdding(boolean forceAdding) {
+		this.forceAdding = forceAdding;
 	}
 
 	public Object[] getSelection() {

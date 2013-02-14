@@ -35,24 +35,21 @@ public class E3FlatFillMenuStrategy implements IE3FillMenuStrategy {
 		return new E3FlatFillMenuStrategy(groupName);
 	}
 
-	private String groupName;
+	protected FlatFillMenuStrategy fillMenuStrategy;
 	protected E3FlatFillMenuStrategy(String groupName) {
-		this.groupName = groupName;
+		this.fillMenuStrategy = new FlatFillMenuStrategy(groupName);
 	}
 
 	public void fillMenu(IMenuManager menu, IAction[] actions, int beginIndex, int endIndex) {
-			for (int i=beginIndex; i<endIndex; i++)
-				if (groupName != null)
-					menu.appendToGroup(groupName, actions[i]);
-				else
-					menu.add(actions[i]);
+		fillMenu(ActionContainer.create(menu), ActionSet.create(actions), beginIndex, endIndex);
 	}
 
 	public void fillMenu(IMenuManager menu, MenuManager[] menus, int beginIndex, int endIndex) {
-		for (int i=beginIndex; i<endIndex; i++)
-			if (groupName != null)
-				menu.appendToGroup(groupName, menus[i]);
-			else
-				menu.add(menus[i]);
+		fillMenu(MenuManagerContainer.create(menu), MenuManagerSet.create(menus), beginIndex, endIndex);
+	}
+
+	@Override
+	public <I, F>  void fillMenu(IItemContainer<I, F>  container, IItemSet<I, F>  itemSet, int beginIndex, int endIndex) {
+		fillMenuStrategy.fillMenu(container, itemSet, beginIndex, endIndex);
 	}
 }

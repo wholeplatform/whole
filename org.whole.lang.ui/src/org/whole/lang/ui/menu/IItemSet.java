@@ -15,29 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.ui.dialogs;
-
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.reflect.EntityDescriptor;
+package org.whole.lang.ui.menu;
 
 /**
  * @author Enrico Persiani
  */
-public interface IImportAsModelDialog {
-	public Object[] getSelection();
-	public void setSelection(Object[] selection);
-	
-	public IPersistenceKit getPersistenceKit();
-	public void setPersistenceKit(IPersistenceKit persistenceKit);
-
-	public EntityDescriptor<?> getStage();
-	public void setStage(EntityDescriptor<?> stage);
-
-	public boolean isForceAdding();
-	public void setForceAdding(boolean adding);
-
-	public void setTitle(String title);
-	public void setMessage(String message);
-	public boolean show();
-	public void validate();
+public interface IItemSet<I, F> {
+	int size();
+	I get(int index);
+	String getLabel(int index);
+	F getIcon(int index);
 }

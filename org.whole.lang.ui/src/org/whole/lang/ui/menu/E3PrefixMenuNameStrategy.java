@@ -19,7 +19,6 @@ package org.whole.lang.ui.menu;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
-import org.whole.lang.util.StringUtils;
 
 /**
  * @author Riccardo Solmi
@@ -29,45 +28,19 @@ public class E3PrefixMenuNameStrategy implements IE3MenuNameStrategy {
 	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
-	protected E3PrefixMenuNameStrategy() {}
+	protected IMenuNameStrategy menuNameStrategy;
+	protected E3PrefixMenuNameStrategy() {
+		this.menuNameStrategy = new PrefixMenuNameStrategy();
+	}
 	
 	public String menuName(IAction[] actions, int beginIndex, int endIndex) {
-		String firstName = actions[beginIndex].getText();
-		String lastName = actions[endIndex-1].getText();
-		int commonPrefixSize = StringUtils.commonPrefix(firstName, lastName);
-		
-		int firstPrefixSize = commonPrefixSize;
-		if (beginIndex > 0) {
-			String prevName = actions[beginIndex-1].getText();
-			firstPrefixSize = Math.max(commonPrefixSize, StringUtils.commonPrefix(prevName, firstName));	
-		}
-
-		int lastPrefixSize = commonPrefixSize;
-		if (endIndex < actions.length && actions[endIndex] != null) {
-			String succName = actions[endIndex].getText();
-			lastPrefixSize = Math.max(commonPrefixSize, StringUtils.commonPrefix(lastName, succName));	
-		}
-		
-		return StringUtils.camelPrefix(firstName, firstPrefixSize)+" \u2013 "+StringUtils.camelPrefix(lastName, lastPrefixSize);
+		return menuName(ActionSet.create(actions), beginIndex, endIndex);
+	}
+	public String menuName(MenuManager[] menus, int beginIndex, int endIndex) {
+		return menuName(MenuManagerSet.create(menus), beginIndex, endIndex);
 	}
 
-	public String menuName(MenuManager[] menus, int beginIndex, int endIndex) {
-		String firstName = menus[beginIndex].getMenuText();
-		String lastName = menus[endIndex-1].getMenuText();
-		int commonPrefixSize = StringUtils.commonPrefix(firstName, lastName);
-		
-		int firstPrefixSize = commonPrefixSize;
-		if (beginIndex > 0) {
-			String prevName = menus[beginIndex-1].getMenuText();
-			firstPrefixSize = Math.max(commonPrefixSize, StringUtils.commonPrefix(prevName, firstName));	
-		}
-
-		int lastPrefixSize = commonPrefixSize;
-		if (endIndex < menus.length && menus[endIndex] != null) {
-			String succName = menus[endIndex].getMenuText();
-			lastPrefixSize = Math.max(commonPrefixSize, StringUtils.commonPrefix(lastName, succName));	
-		}
-		
-		return StringUtils.camelPrefix(firstName, firstPrefixSize)+" \u2013 "+StringUtils.camelPrefix(lastName, lastPrefixSize);
+	public <I, F>  String menuName(IItemSet<I, F>  itemSet, int beginIndex, int endIndex) {
+		return menuNameStrategy.menuName(itemSet, beginIndex, endIndex);
 	}
 }

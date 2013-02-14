@@ -24,7 +24,7 @@ import org.eclipse.jface.action.MenuManager;
 /**
  * @author Riccardo Solmi
  */
-public interface IE3FillMenuStrategy {
+public interface IE3FillMenuStrategy extends IFillMenuStrategy {
 	public void fillMenu(IMenuManager menu, IAction[] actions, int beginIndex, int endIndex);
 	public void fillMenu(IMenuManager menu, MenuManager[] menus, int beginIndex, int endIndex);
 }

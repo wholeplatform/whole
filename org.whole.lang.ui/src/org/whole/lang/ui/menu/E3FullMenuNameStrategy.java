@@ -28,17 +28,20 @@ public class E3FullMenuNameStrategy implements IE3MenuNameStrategy {
 	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
-	protected E3FullMenuNameStrategy() {}
+	protected FullMenuNameStrategy menuNameStrategy;
+	protected E3FullMenuNameStrategy() {
+		this.menuNameStrategy = new FullMenuNameStrategy();
+	}
 	
 	public String menuName(IAction[] actions, int beginIndex, int endIndex) {
-		return menuName(actions[beginIndex].getText(), actions[endIndex-1].getText());
+		return menuName(ActionSet.create(actions), beginIndex, endIndex);
 	}
 
 	public String menuName(MenuManager[] menus, int beginIndex, int endIndex) {
-		return menuName(menus[beginIndex].getMenuText(), menus[endIndex-1].getMenuText());
+		return menuName(MenuManagerSet.create(menus), beginIndex, endIndex);
 	}
 
-	protected String menuName(String firstName, String lastName) {
-		return firstName+" - "+lastName;
+	public <I, F>  String menuName(IItemSet<I, F>  itemSet, int beginIndex, int endIndex) {
+		return menuNameStrategy.menuName(itemSet, beginIndex, endIndex);
 	}
 }

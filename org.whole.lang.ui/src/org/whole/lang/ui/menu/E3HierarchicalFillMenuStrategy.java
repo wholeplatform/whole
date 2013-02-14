@@ -37,70 +37,22 @@ public class E3HierarchicalFillMenuStrategy implements IE3FillMenuStrategy {
 		return new E3HierarchicalFillMenuStrategy(menuNameStrategy, MENU_MAX_SIZE);
 	}
 
-	private int submenuMaxSize;
-	private IE3MenuNameStrategy menuNameStrategy;
-	private String groupName;
-
+	protected HierarchicalFillMenuStrategy fillMenuStrategy;
+	public E3HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize, String groupName) {
+		this.fillMenuStrategy = new HierarchicalFillMenuStrategy(menuNameStrategy, submenuMaxSize);
+	}
 	public E3HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize) {
 		this(menuNameStrategy, submenuMaxSize, null);
 	}
-	public E3HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize, String groupName) {
-		this.menuNameStrategy = menuNameStrategy;
-		this.submenuMaxSize = submenuMaxSize;
-		this.groupName = groupName;
-	}
 
 	public void fillMenu(IMenuManager menu, IAction[] actions, int beginIndex, int endIndex) {
-		fillMenu(menu, actions, beginIndex, endIndex, false);
+		fillMenu(ActionContainer.create(menu), ActionSet.create(actions), beginIndex, endIndex);
 	}
-	protected void fillMenu(IMenuManager menu, IAction[] actions, int beginIndex, int endIndex, boolean isNested) {
-		final double size = endIndex - beginIndex;
-		if (size <= submenuMaxSize)
-			for (int i=beginIndex; i<endIndex; i++)
-				menu.add(actions[i]);
-		else {
-			final double menus = Math.ceil(size / submenuMaxSize);
-			final int subSize = (int) Math.ceil(size / Math.min(menus, submenuMaxSize)); 
-
-			for (int j=beginIndex; j<endIndex; j+= subSize) {
-				final int beginIndex1 = j;
-				final int endIndex1 = Math.min(j + subSize, endIndex);
-				final MenuManager subMenu = new MenuManager(
-						menuNameStrategy.menuName(actions, beginIndex1, endIndex1),
-						actions[j].getImageDescriptor(), null);
-				fillMenu(subMenu, actions, beginIndex1, endIndex1, true);
-				if (!isNested && groupName != null)
-					menu.appendToGroup(groupName, subMenu);
-				else
-					menu.add(subMenu);
-			}
-		}
-	}
-
 	public void fillMenu(IMenuManager menu, MenuManager[] menus, int beginIndex, int endIndex) {
-		fillMenu(menu, menus, beginIndex, endIndex, false);
+		fillMenu(MenuManagerContainer.create(menu), MenuManagerSet.create(menus), beginIndex, endIndex);
 	}
-	protected void fillMenu(IMenuManager menu, MenuManager[] menus, int beginIndex, int endIndex, boolean isNested) {
-		final double size = endIndex - beginIndex;
-		if (size <= submenuMaxSize)
-			for (int i=beginIndex; i<endIndex; i++)
-				menu.add(menus[i]);
-		else {
-			final double menusSize = Math.ceil(size / submenuMaxSize);
-			final int subSize = (int) Math.ceil(size / Math.min(menusSize, submenuMaxSize)); 
 
-			for (int j=beginIndex; j<endIndex; j+= subSize) {
-				final int beginIndex1 = j;
-				final int endIndex1 = Math.min(j + subSize, endIndex);
-				final MenuManager subMenu = new MenuManager(
-						menuNameStrategy.menuName(menus, beginIndex1, endIndex1),
-						menus[j].getImageDescriptor(), null);
-				fillMenu(subMenu, menus, beginIndex1, endIndex1, true);
-				if (!isNested && groupName != null)
-					menu.appendToGroup(groupName, subMenu);
-				else
-					menu.add(subMenu);
-			}
-		}
+	public <I, F>  void fillMenu(IItemContainer<I, F>  container, IItemSet<I, F>  itemSet, int beginIndex, int endIndex) {
+		fillMenuStrategy.fillMenu(container, itemSet, beginIndex, endIndex);
 	}
 }

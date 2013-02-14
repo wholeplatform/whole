@@ -63,7 +63,7 @@ public class JavaActionFactory extends ActionFactory {
 		}
 	}
 
-	private static class MethodDeclatartionCopyTransformer extends DefaultCopyTransformer {
+	private static class MethodDeclarationCopyTransformer extends DefaultCopyTransformer {
 		@Override
 		public void transform(IEntity oldEntity, IEntity newEntity) {
 			super.transform(oldEntity, newEntity);
@@ -91,7 +91,7 @@ public class JavaActionFactory extends ActionFactory {
 			return super.createReplaceAction(workbenchPart, replaceEntityDescriptor);
 		else {
 			IEnablerPredicate identityPredicate = EnablerPredicateFactory.instance.alwaysTrue();
-			return new ReplaceChildAction(workbenchPart, identityPredicate, replaceEntityDescriptor, replaceEntityDescriptor.getName(), new MethodDeclatartionCopyTransformer());
+			return new ReplaceChildAction(workbenchPart, identityPredicate, replaceEntityDescriptor, replaceEntityDescriptor.getName(), new MethodDeclarationCopyTransformer());
 		}
 	}
 }

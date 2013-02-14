@@ -15,29 +15,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.ui.dialogs;
+package org.whole.lang.ui.menu;
 
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
  */
-public interface IImportAsModelDialog {
-	public Object[] getSelection();
-	public void setSelection(Object[] selection);
+public class ActionSet implements IItemSet<IAction, ImageDescriptor> {
+	protected IAction[] actions;
+	protected ActionSet(IAction[] actions) {
+		this.actions = actions;
+	}
 	
-	public IPersistenceKit getPersistenceKit();
-	public void setPersistenceKit(IPersistenceKit persistenceKit);
+	public static ActionSet create(IAction[] actions) {
+		return new ActionSet(actions);
+	}
 
-	public EntityDescriptor<?> getStage();
-	public void setStage(EntityDescriptor<?> stage);
-
-	public boolean isForceAdding();
-	public void setForceAdding(boolean adding);
-
-	public void setTitle(String title);
-	public void setMessage(String message);
-	public boolean show();
-	public void validate();
+	public int size() {
+		return actions.length;
+	}
+	public IAction get(int index) {
+		return actions[index];
+	}
+	public String getLabel(int index) {
+		return get(index).getText();
+	}
+	public ImageDescriptor getIcon(int index) {
+		return get(index).getImageDescriptor();
+	}
 }

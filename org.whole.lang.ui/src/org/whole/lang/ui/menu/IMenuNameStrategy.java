@@ -17,13 +17,9 @@
  */
 package org.whole.lang.ui.menu;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.MenuManager;
-
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public interface IE3MenuNameStrategy extends IMenuNameStrategy {
-	public String menuName(IAction[] actions, int beginIndex, int endIndex);
-	public String menuName(MenuManager[] menus, int beginIndex, int endIndex);
+public interface IMenuNameStrategy {
+	public <I, F>  String menuName(IItemSet<I, F>  itemSet, int beginIndex, int endIndex);
 }

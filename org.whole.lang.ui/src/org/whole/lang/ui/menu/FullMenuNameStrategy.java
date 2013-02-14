@@ -17,13 +17,17 @@
  */
 package org.whole.lang.ui.menu;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.MenuManager;
-
 /**
  * @author Riccardo Solmi
  */
-public interface IE3MenuNameStrategy extends IMenuNameStrategy {
-	public String menuName(IAction[] actions, int beginIndex, int endIndex);
-	public String menuName(MenuManager[] menus, int beginIndex, int endIndex);
+public class FullMenuNameStrategy implements IMenuNameStrategy {
+	private static final IMenuNameStrategy instance = new FullMenuNameStrategy();
+	public static IMenuNameStrategy instance() {
+		return instance;
+	}
+	protected FullMenuNameStrategy() {}
+	
+	public <I, F>  String menuName(IItemSet<I, F>  itemSet, int beginIndex, int endIndex) {
+		return itemSet.getLabel(beginIndex)+" - "+itemSet.getLabel(endIndex-1);
+	}
 }

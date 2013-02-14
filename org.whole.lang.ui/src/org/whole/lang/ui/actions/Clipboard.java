@@ -18,6 +18,7 @@
 package org.whole.lang.ui.actions;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.dnd.SimpleObjectTransfer;
@@ -28,6 +29,8 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
@@ -119,7 +122,9 @@ public class Clipboard {
 	}
 	protected File[] xmlBuilderFiles;
 	public void setEntityContents(IEntity... entities) {
-		IEntity tuple = BindingManagerFactory.instance.createTuple(true, entities);
+		setEntitiesContents(BindingManagerFactory.instance.createTuple(true, entities));
+	}
+	public void setEntitiesContents(IEntity tuple) {
 		String contents = null;
 
 		try {
@@ -131,13 +136,21 @@ public class Clipboard {
 					file.delete();
 				xmlBuilderFiles = null;
 			}
-			xmlBuilderFiles = new File[entities.length];
-			for (int i=0; i<entities.length; i++) {
-				xmlBuilderFiles[i] = ClipboardUtils.createTempXmlBuilderFile(entities[i]);
-
-				// ensure file deletion on exit
-				xmlBuilderFiles[i].deleteOnExit();
+//			xmlBuilderFiles = new File[entities.length];
+//			for (int i=0; i<entities.length; i++) {
+//				xmlBuilderFiles[i] = ClipboardUtils.createTempXmlBuilderFile(entities[i]);
+//
+//				// ensure file deletion on exit
+//				xmlBuilderFiles[i].deleteOnExit();
+//			}
+			List<File> files = new ArrayList<File>();
+			IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
+			iterator.set(tuple);
+			for (IEntity entity : iterator) {
+				File file = ClipboardUtils.createTempXmlBuilderFile(entity);
+				file.deleteOnExit();
 			}
+			xmlBuilderFiles = files.toArray(new File[files.size()]);			
 
 		} catch (Exception e) {
 		}

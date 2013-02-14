@@ -38,17 +38,21 @@ import org.whole.lang.reflect.ReflectionFactory;
 public class ElementListImportAsModelDialog extends ElementListSelectionDialog implements IImportAsModelDialog {
 	protected IPersistenceKit persistenceKit;
 	protected EntityDescriptor<?> stage;
+	protected boolean enableForceAdding;
+	protected boolean forceAdding;
 
-	public ElementListImportAsModelDialog(Shell parent, String title, String message) {
+	public ElementListImportAsModelDialog(Shell parent, String title, String message, boolean enableForceAdding) {
 		super(parent, new LabelProvider());
 		setTitle(title); 
-		setMessage(message); 
+		setMessage(message);
+		this.enableForceAdding = enableForceAdding;
 		this.persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
 		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
+		this.forceAdding = false;
 	}
 
-	public ElementListImportAsModelDialog(Shell parent, String title) {
-		this(parent, title, "Resources to drop");
+	public ElementListImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
+		this(parent, title, "Resources to drop", enableForceAdding);
 	}
 
 	@Override
@@ -78,6 +82,8 @@ public class ElementListImportAsModelDialog extends ElementListSelectionDialog i
 	protected void addControls(Composite group) {
 		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Import As:");
 		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
+		if (enableForceAdding)
+			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
 	}
 
 	@Override
@@ -99,6 +105,13 @@ public class ElementListImportAsModelDialog extends ElementListSelectionDialog i
 	}
 	public void setStage(EntityDescriptor<?> stage) {
 		this.stage = stage;
+	}
+
+	public boolean isForceAdding() {
+		return forceAdding;
+	}
+	public void setForceAdding(boolean forceAdding) {
+		this.forceAdding = forceAdding;
 	}
 
 	public Object[] getSelection() {

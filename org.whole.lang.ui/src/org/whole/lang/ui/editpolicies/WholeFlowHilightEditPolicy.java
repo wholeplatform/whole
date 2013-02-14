@@ -26,7 +26,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.layout.IEntityLayout;
 
 public class WholeFlowHilightEditPolicy extends WholeHilightEditPolicy {
-	private void clearHilightPosition(Request request) {
+	private void clearHilightPosition() {
 		if (getHost() instanceof IHilightable)
 			((IHilightable) getHost()).setHilightPosition(-1);
 	}
@@ -105,14 +105,14 @@ public class WholeFlowHilightEditPolicy extends WholeHilightEditPolicy {
 			removeFeedback(feedbackFigure);
 			feedbackFigure = null;
 		}
-
-		clearHilightPosition(request);
 	}
 	
 	@Override
 	public void deactivate() {
 		if (feedbackFigure != null)
 			removeFeedback(feedbackFigure);
+		
+		clearHilightPosition();
 		super.deactivate();
 	}
 }

@@ -40,13 +40,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
@@ -66,6 +70,32 @@ public class ClipboardUtils {
 
 	public static IEntity parseEntity(String text) throws Exception {
 		return ReflectionFactory.getDefaultPersistenceKit().readModel(new StringPersistenceProvider(text));
+	}
+	public static IEntity parseClipboardContents(IPersistenceKit persistenceKit, IBindingManager bm) {
+		IEntity parsedEntity = null;
+		IEntity entity = Clipboard.instance().getEntityContents();
+		if (entity != null && ReflectionFactory.getDefaultPersistenceKit().equals(persistenceKit)) {
+			parsedEntity = entity;
+			if (EntityUtils.isTuple(parsedEntity))
+				bm.wDef("syntheticRoot", parsedEntity);
+		} else {
+			String text;
+			if (entity != null) {
+				StringBuilder sb = new StringBuilder(1024);
+				for (int i=0; i<entity.wSize(); i++)
+					sb.append(PrettyPrinterOperation.toPrettyPrintString(entity.wGet(i)));
+				text = sb.toString();
+			} else
+				text = Clipboard.instance().getTextContents();
+
+			bm.wDefValue("parseFragments", true);
+			try {
+				if (text != null)
+					parsedEntity = persistenceKit.readModel(new StringPersistenceProvider(text, bm));
+			} catch (Exception e) {
+			}
+		}
+		return parsedEntity;
 	}
 
 	public static File createTempImageFile(ImageData imageData) throws IOException, FileNotFoundException {

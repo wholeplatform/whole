@@ -244,7 +244,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 //TODO!	entity.getConfiguration()
 
 		entity.getTransformation().accept(this);
-		AbstractLazySelectionAction action = createAction(kind, predicate, null, getResult(), text);
+		IAction action = createAction(kind, predicate, null, getResult(), text);
 
 		Icon icon = entity.getIcon();
 		if (DataTypeUtils.getDataKind(icon).isObject())
@@ -274,7 +274,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 
 		//TODO use custom IEntityTransformer if available
 		entity.getTransformation().accept(this);
-		AbstractLazySelectionAction action = createAction(kind, predicate, null, getResult(), text);
+		IAction action = createAction(kind, predicate, null, getResult(), text);
 
 
 		Icon icon = entity.getIcon();
@@ -303,7 +303,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 						return new E3HierarchicalFillMenuStrategy(nameStrategy, splitSize, groupName);
 	}
 
-	private AbstractLazySelectionAction createAction(ActionKindEnum.Value kind, 
+	protected IAction createAction(ActionKindEnum.Value kind, 
 			IEnablerPredicate predicate, IEntityTransformer transformer,
 			IEntity prototype, String text) {
 

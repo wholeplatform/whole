@@ -29,6 +29,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -82,13 +83,22 @@ public class ImportAsModelDialogFactory {
 	}
 
 	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title) {
-		return configureDialog(new ImportAsModelDialog(shell, title));
+		return createImportAsModelDialog(shell, title, false);
+	}
+	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
+		return configureDialog(new ImportAsModelDialog(shell, title, enableForceAdding));
 	}
 	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title) {
-		return configureDialog(new ElementListImportAsModelDialog(shell, title));
+		return createElementListImportAsModelDialog(shell, title, false);
+	}
+	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
+		return configureDialog(new ElementListImportAsModelDialog(shell, title, enableForceAdding));
 	}
 	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title) {
-		return configureDialog(new ImplicitElementImportAsModelDialog(shell, title));
+		return createImplicitElementImportAsModelDialog(shell, title, false);
+	}
+	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
+		return configureDialog(new ImplicitElementImportAsModelDialog(shell, title, enableForceAdding));
 	}
 
 	public static Combo addStageCombo(final IImportAsModelDialog dialog, Composite group, String label) {
@@ -131,5 +141,19 @@ public class ImportAsModelDialogFactory {
 			}
 		});
 		return persistenceCombo;
+	}
+
+	public static Button addForceAdditionButton(final IImportAsModelDialog dialog, Composite group, String label) {
+		final Button operationTypeButton = new Button(group, SWT.CHECK);
+		operationTypeButton.setText(label);
+		operationTypeButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		operationTypeButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				dialog.setForceAdding(operationTypeButton.getSelection());
+				dialog.validate();
+			}
+		});
+		return operationTypeButton;
 	}
 }

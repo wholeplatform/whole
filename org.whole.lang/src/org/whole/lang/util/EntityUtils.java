@@ -32,7 +32,6 @@ import org.whole.lang.operations.CloneOperation;
 import org.whole.lang.operations.RemoveOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityDescriptorEnum;
-import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -243,10 +242,28 @@ public class EntityUtils {
 	}
 
 	public static boolean isReplaceable(IEntity oldEntity, IEntity newEntity) {
-		return getFormalEntityDescriptor(oldEntity).isPlatformSupertypeOf(newEntity.wGetEntityDescriptor());
+		return isReplaceable(oldEntity, newEntity.wGetEntityDescriptor());
 	}
 	public static boolean isReplaceableAsIs(IEntity oldEntity, IEntity newEntity) {
-		return getFormalEntityDescriptor(oldEntity).isLanguageSupertypeOf(newEntity.wGetEntityDescriptor());
+		return isReplaceableAsIs(oldEntity, newEntity.wGetEntityDescriptor());
+	}
+	public static boolean isReplaceable(IEntity oldEntity, EntityDescriptor<?> ed) {
+		return getFormalEntityDescriptor(oldEntity).isPlatformSupertypeOf(ed);
+	}
+	public static boolean isReplaceableAsIs(IEntity oldEntity, EntityDescriptor<?> ed) {
+		return getFormalEntityDescriptor(oldEntity).isLanguageSupertypeOf(ed);
+	}
+	public static boolean isAddable(IEntity compositeEntity, IEntity newEntity) {
+		return isAddable(compositeEntity, newEntity.wGetEntityDescriptor());
+	}
+	public static boolean isAddableAsIs(IEntity compositeEntity, IEntity newEntity) {
+		return isAddableAsIs(compositeEntity, newEntity.wGetEntityDescriptor());
+	}
+	public static boolean isAddable(IEntity entity, EntityDescriptor<?> ed) {
+		return isComposite(entity) && entity.wGetEntityDescriptor(0).isPlatformSupertypeOf(ed);
+	}
+	public static boolean isAddableAsIs(IEntity entity, EntityDescriptor<?> ed) {
+		return isComposite(entity) && entity.wGetEntityDescriptor(0).isLanguageSupertypeOf(ed);
 	}
 
 	public static final IEntity convert(IEntity value, EntityDescriptor<?> toType) {

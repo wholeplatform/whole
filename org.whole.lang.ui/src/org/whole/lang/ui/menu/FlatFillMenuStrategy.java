@@ -17,13 +17,30 @@
  */
 package org.whole.lang.ui.menu;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.MenuManager;
-
 /**
- * @author Riccardo Solmi
+ * @author Riccardo Solmi, Enrico Persiani
  */
-public interface IE3MenuNameStrategy extends IMenuNameStrategy {
-	public String menuName(IAction[] actions, int beginIndex, int endIndex);
-	public String menuName(MenuManager[] menus, int beginIndex, int endIndex);
+public class FlatFillMenuStrategy implements IFillMenuStrategy {
+	private static class SingletonHolder {
+		private static final IFillMenuStrategy instance = new E3FlatFillMenuStrategy(null);
+	}
+	public static IFillMenuStrategy instance() {
+		return SingletonHolder.instance;
+	}
+	public static IFillMenuStrategy instance(String groupName) {
+		return new E3FlatFillMenuStrategy(groupName);
+	}
+
+	private String groupName;
+	protected FlatFillMenuStrategy(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public <I, F> void fillMenu(IItemContainer<I, F> container, IItemSet<I, F> itemSet, int beginIndex, int endIndex) {
+		for (int i=beginIndex; i<endIndex; i++)
+			if (groupName != null)
+				container.appendToGroup(groupName, itemSet.get(i));
+			else
+				container.add(itemSet.get(i));
+	}
 }

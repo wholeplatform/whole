@@ -36,12 +36,16 @@ import org.whole.lang.reflect.ReflectionFactory;
 public class ImplicitElementImportAsModelDialog extends SelectionStatusDialog implements IImportAsModelDialog {
 	protected IPersistenceKit persistenceKit;
 	protected EntityDescriptor<?> stage;
+	protected boolean enableForceAdding;
+	protected boolean forceAdding;
 
-	public ImplicitElementImportAsModelDialog(Shell parent, String title) {
+	public ImplicitElementImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
 		super(parent);
-		setTitle(title); 
+		setTitle(title);
+		this.enableForceAdding = enableForceAdding; 
 		this.persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
 		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
+		this.forceAdding = false;
 	}
 	
 	@Override
@@ -68,6 +72,8 @@ public class ImplicitElementImportAsModelDialog extends SelectionStatusDialog im
 	protected void addControls(Composite group) {
 		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Paste As:");
 		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
+		if (enableForceAdding)
+			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
 	}
 
 	@Override
@@ -89,6 +95,13 @@ public class ImplicitElementImportAsModelDialog extends SelectionStatusDialog im
 	}
 	public void setStage(EntityDescriptor<?> stage) {
 		this.stage = stage;
+	}
+
+	public boolean isForceAdding() {
+		return forceAdding;
+	}
+	public void setForceAdding(boolean forceAdding) {
+		this.forceAdding = forceAdding;
 	}
 
 	public Object[] getSelection() {
