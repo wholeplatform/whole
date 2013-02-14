@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.whole.lang.deployers">
+      <deployer
+            desc="Actions E4 Deployer"
+            class="org.whole.lang.e4.actions.ActionsE4Deployer"
+            id="org.whole.lang.e4.actions.ActionsE4Deployer">
+      </deployer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.compatibility.WholeE4ViewPart"
+            class="org.whole.lang.e4.ui.compatibility.E3xViewPart"
+            icon="icons/views/whole.gif"
+            name="Whole E4 View"
+            restorable="true">
+      </view>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="XML Builder Persistence E4"
+            extensions="xwl,xml"
+            icon="icons/editors/xml_builder.gif"
+            default="false"
+            class="org.whole.lang.e4.ui.compatibility.E3xEditorPart"
+            id="org.whole.lang.xml.E4XmlBuilderEditor">
+            <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
+      </editor>
+	</extension>
+</plugin>

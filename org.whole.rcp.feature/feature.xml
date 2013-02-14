@@ -40,6 +40,20 @@
          unpack="false"/>
 
    <plugin
+         id="org.whole.lang.e4.ui"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.whole.lang.e4.ui.compatibility"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+   <plugin
          id="org.whole.lang.ui.notations"
          download-size="0"
          install-size="0"
