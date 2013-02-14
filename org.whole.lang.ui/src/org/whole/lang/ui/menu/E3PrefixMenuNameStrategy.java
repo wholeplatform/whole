@@ -24,12 +24,12 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PrefixMenuNameStrategy implements IE3MenuNameStrategy {
-	private static final IE3MenuNameStrategy instance = new PrefixMenuNameStrategy();
+public class E3PrefixMenuNameStrategy implements IE3MenuNameStrategy {
+	private static final IE3MenuNameStrategy instance = new E3PrefixMenuNameStrategy();
 	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
-	protected PrefixMenuNameStrategy() {}
+	protected E3PrefixMenuNameStrategy() {}
 	
 	public String menuName(IAction[] actions, int beginIndex, int endIndex) {
 		String firstName = actions[beginIndex].getText();

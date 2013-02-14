@@ -23,12 +23,12 @@ import org.eclipse.jface.action.MenuManager;
 /**
  * @author Riccardo Solmi
  */
-public class FullMenuNameStrategy implements IE3MenuNameStrategy {
-	private static final IE3MenuNameStrategy instance = new FullMenuNameStrategy();
+public class E3FullMenuNameStrategy implements IE3MenuNameStrategy {
+	private static final IE3MenuNameStrategy instance = new E3FullMenuNameStrategy();
 	public static IE3MenuNameStrategy instance() {
 		return instance;
 	}
-	protected FullMenuNameStrategy() {}
+	protected E3FullMenuNameStrategy() {}
 	
 	public String menuName(IAction[] actions, int beginIndex, int endIndex) {
 		return menuName(actions[beginIndex].getText(), actions[endIndex-1].getText());

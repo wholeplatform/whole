@@ -51,8 +51,8 @@ import org.whole.lang.ui.actions.ReplaceChildAction;
 import org.whole.lang.ui.actions.TextualAction;
 import org.whole.lang.ui.actions.WrapChildAction;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.menu.FlatFillMenuStrategy;
-import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
+import org.whole.lang.ui.menu.E3FlatFillMenuStrategy;
+import org.whole.lang.ui.menu.E3HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.DefaultCopyTransformer;
@@ -235,7 +235,7 @@ public class ActionFactory implements IActionFactory {
 			IBindingManager bm = BindingManagerFactory.instance.createArguments();
 			bm.wDefValue("workbenchPart", workbenchPart);
 			bm.wDefValue("menuManager", contextMenu);
-			bm.wDefValue("fillMenuStrategy", FlatFillMenuStrategy.instance());
+			bm.wDefValue("fillMenuStrategy", E3FlatFillMenuStrategy.instance());
 			bm.wDefValue("selectionProvider", provider);
 			InterpreterOperation.interpret(values[0], bm);
 		} else if (values.length > 0)
@@ -251,7 +251,7 @@ public class ActionFactory implements IActionFactory {
 			if (action != null && action.isEnabled())
 				actions[actionsSize++] = action;
 		}
-		HierarchicalFillMenuStrategy.instance().fillMenu(contextMenu, actions, 0, actionsSize);
+		E3HierarchicalFillMenuStrategy.instance().fillMenu(contextMenu, actions, 0, actionsSize);
 	}
 	protected IAction getAction(IWorkbenchPart workbenchPart, IEntity selectedEntity,
 			ISelectionProvider provider, IEntity value) {

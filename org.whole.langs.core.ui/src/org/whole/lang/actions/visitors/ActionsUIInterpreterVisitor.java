@@ -65,12 +65,12 @@ import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.actions.ReplaceChildAction;
 import org.whole.lang.ui.actions.WrapChildAction;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.menu.FlatFillMenuStrategy;
-import org.whole.lang.ui.menu.FullMenuNameStrategy;
-import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
+import org.whole.lang.ui.menu.E3FlatFillMenuStrategy;
+import org.whole.lang.ui.menu.E3FullMenuNameStrategy;
+import org.whole.lang.ui.menu.E3HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.menu.IE3FillMenuStrategy;
 import org.whole.lang.ui.menu.IE3MenuNameStrategy;
-import org.whole.lang.ui.menu.PrefixMenuNameStrategy;
+import org.whole.lang.ui.menu.E3PrefixMenuNameStrategy;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.DefaultWrapInTransformer;
@@ -118,7 +118,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 			if (Matcher.isAssignableAsIsFrom(GroupAction, action)) {
 
 				//FIXME, add a boolean modifier to GroupAction and SubGroupAction
-				if (strategy instanceof HierarchicalFillMenuStrategy)
+				if (strategy instanceof E3HierarchicalFillMenuStrategy)
 					Collections.sort(contributions, ActionsComparator.instance());
 
 				IAction[] actions = contributions.toArray(new IAction[contributions.size()]);
@@ -143,7 +143,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		}
 
 		//FIXME, add a sort boolean feature to GroupAction and SubGroupAction
-		if (strategy instanceof HierarchicalFillMenuStrategy)
+		if (strategy instanceof E3HierarchicalFillMenuStrategy)
 			Collections.sort(contributions, ActionsComparator.instance());
 
 		IAction[] actions = contributions.toArray(new IAction[contributions.size()]);
@@ -168,7 +168,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createHierarchicalFillMenuStrategy((Hierarchical) fillStrategy, groupName);
 		else
-			strategy = FlatFillMenuStrategy.instance(groupName);
+			strategy = E3FlatFillMenuStrategy.instance(groupName);
 
 		IContributionItem groupMarker = EntityUtils.hasParent(entity) && 
 		Matcher.match(SeparatedAction, entity.wGetParent()) ?
@@ -198,7 +198,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createHierarchicalFillMenuStrategy((Hierarchical) fillStrategy);
 		else
-			strategy = FlatFillMenuStrategy.instance();
+			strategy = E3FlatFillMenuStrategy.instance();
 
 		IMenuManager subMenuManager = new MenuManager(groupName);
 		menuManager.add(subMenuManager);
@@ -295,12 +295,12 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 	private IE3FillMenuStrategy createHierarchicalFillMenuStrategy(Hierarchical hierarchicalStrategy, String groupName) {
 		IE3MenuNameStrategy nameStrategy = Matcher.match(DistinctPrefix,
 				hierarchicalStrategy.getNamingStrategy()) ? 
-						PrefixMenuNameStrategy.instance() : FullMenuNameStrategy.instance();
+						E3PrefixMenuNameStrategy.instance() : E3FullMenuNameStrategy.instance();
 
 						hierarchicalStrategy.getSplitSize().accept(this);
 						int splitSize = getResult().wIntValue();
 
-						return new HierarchicalFillMenuStrategy(nameStrategy, splitSize, groupName);
+						return new E3HierarchicalFillMenuStrategy(nameStrategy, splitSize, groupName);
 	}
 
 	private AbstractLazySelectionAction createAction(ActionKindEnum.Value kind, 

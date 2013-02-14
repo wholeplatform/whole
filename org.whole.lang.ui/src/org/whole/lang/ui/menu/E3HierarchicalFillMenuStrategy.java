@@ -24,27 +24,27 @@ import org.eclipse.jface.action.MenuManager;
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public class HierarchicalFillMenuStrategy implements IE3FillMenuStrategy {
+public class E3HierarchicalFillMenuStrategy implements IE3FillMenuStrategy {
 	public static final int MENU_MAX_SIZE = 20;
 
 	private static class SingletonHolder {
-		private static final IE3FillMenuStrategy instance = new HierarchicalFillMenuStrategy(PrefixMenuNameStrategy.instance(), MENU_MAX_SIZE);
+		private static final IE3FillMenuStrategy instance = new E3HierarchicalFillMenuStrategy(E3PrefixMenuNameStrategy.instance(), MENU_MAX_SIZE);
 	}
 	public static IE3FillMenuStrategy instance() {
 		return SingletonHolder.instance;
 	}
 	public static IE3FillMenuStrategy instance(IE3MenuNameStrategy menuNameStrategy) {
-		return new HierarchicalFillMenuStrategy(menuNameStrategy, MENU_MAX_SIZE);
+		return new E3HierarchicalFillMenuStrategy(menuNameStrategy, MENU_MAX_SIZE);
 	}
 
 	private int submenuMaxSize;
 	private IE3MenuNameStrategy menuNameStrategy;
 	private String groupName;
 
-	public HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize) {
+	public E3HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize) {
 		this(menuNameStrategy, submenuMaxSize, null);
 	}
-	public HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize, String groupName) {
+	public E3HierarchicalFillMenuStrategy(IE3MenuNameStrategy menuNameStrategy, int submenuMaxSize, String groupName) {
 		this.menuNameStrategy = menuNameStrategy;
 		this.submenuMaxSize = submenuMaxSize;
 		this.groupName = groupName;
