@@ -38,7 +38,7 @@ import org.whole.lang.reflect.LanguageRequestHandlerTest;
 import org.whole.lang.reflect.ReflectiveAPITest;
 
 /**
- * Runs: 134
+ * Runs: 132
  * Errors: 2
  * Failures: 8 (+2 ReflectionFactoryTest works only alone)
  *

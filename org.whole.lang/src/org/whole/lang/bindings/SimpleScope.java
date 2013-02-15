@@ -84,17 +84,6 @@ public class SimpleScope extends AbstractScope {
 		else
 			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
-	public void wAdd(String name, IEntity value) {
-		IEntity composite = wGet(name);
-		if (composite != null) {
-			if (!EntityUtils.isComposite(composite)) {
-				//FIXME wrap in a composite
-				//map.put(name, composite);
-			}
-			composite.wAdd(value);
-		} else
-			throw BindingManagerFactory.instance.createNoBindingException(name);		
-	}
 	public void wDef(String name, IEntity value) {
 		map.put(name, value);
 	}

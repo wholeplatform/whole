@@ -66,9 +66,6 @@ public abstract class AbstractDelegatingScope implements IBindingScope {
 	public IEntity wGet(String name) {
 		return delegateScope.wGet(name);
 	}
-	public void wAdd(String name, IEntity value) {
-		delegateScope.wAdd(name, value);
-	}
 	public void wSet(String name, IEntity value) {
 		delegateScope.wSet(name, value);
 	}
@@ -154,43 +151,6 @@ public abstract class AbstractDelegatingScope implements IBindingScope {
 	}
 	public void wSetValue(String name, String value) {
 		delegateScope.wSetValue(name, value);
-	}
-
-	public void wAddValue(String name, boolean value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, byte value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, char value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, Date value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, double value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, EnumValue value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, float value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, int value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, long value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, Object value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, short value) {
-		delegateScope.wAddValue(name, value);
-	}
-	public void wAddValue(String name, String value) {
-		delegateScope.wAddValue(name, value);
 	}
 
 	public void wDefValue(String name, boolean value) {

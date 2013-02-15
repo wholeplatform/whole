@@ -88,15 +88,6 @@ public class JavaBeanScope implements IBindingScope {
 		return null;
 	}
 
-	public void wAdd(String name, IEntity value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-
 	public void wDef(String name, IEntity value) {
 		ReflectiveUtils.setProperty(propertyMap, bean, name, value);
 	}
@@ -124,103 +115,6 @@ public class JavaBeanScope implements IBindingScope {
 
 	public IBindingScope wFindScope(String name) {
 		return wIsSet(name) ? this : VoidScope.instance;
-	}
-
-	public void wAddValue(String name, boolean value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, byte value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, char value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, double value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, float value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, int value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, long value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, short value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, String value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, Date value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, EnumValue value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
-	public void wAddValue(String name, Object value) {
-		if (ReflectiveUtils.hasIndexedProperty(propertyMap, name)) 
-			ReflectiveUtils.addIndexedProperty(propertyMap, bean, name, value);
-		else if(ReflectiveUtils.hasCollectionProperty(propertyMap, name))
-			ReflectiveUtils.addCollectionProperty(propertyMap, bean, name, value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
 
 	public void wDefValue(String name, boolean value) {
@@ -467,16 +361,16 @@ public class JavaBeanScope implements IBindingScope {
 	}
 
 	public boolean hasResultIterator() {
-		return false;		
+		return false;
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return IteratorFactory.emptyIterator();		
+		return IteratorFactory.emptyIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
 		throw new IllegalStateException("JavaBeanBindingManager");		
 	}
 	public IEntity getResult() {
-		throw new IllegalStateException("JavaBeanBindingManager");		
+		return null;//was throw new IllegalStateException("JavaBeanBindingManager");		
 	}
 	public void setResult(IEntity value) {
 		throw new IllegalStateException("JavaBeanBindingManager");		

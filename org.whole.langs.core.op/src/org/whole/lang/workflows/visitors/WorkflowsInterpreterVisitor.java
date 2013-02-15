@@ -363,11 +363,12 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			if (iterator.hasNext()) {
 				IEntity first = iterator.next();
 				if (iterator.hasNext()) {
-					bm.wDef(name, BindingManagerFactory.instance.createTuple());
-					bm.wAdd(name, first);
+					final IEntity values = BindingManagerFactory.instance.createTuple();
+					values.wAdd(first);
 					do {
-						bm.wAdd(name, iterator.next());
+						values.wAdd(iterator.next());
 					} while (iterator.hasNext());
+					bm.wDef(name, values);
 				} else
 					bm.wDef(name, first);
 			}

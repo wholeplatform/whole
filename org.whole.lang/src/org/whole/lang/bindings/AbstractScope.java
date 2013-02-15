@@ -176,43 +176,6 @@ public abstract class AbstractScope implements IBindingScope {
 		wSet(name, BindingManagerFactory.instance.createValue(value));
 	}
 	
-	public void wAddValue(String name, boolean value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, byte value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, char value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, double value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, float value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, int value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, long value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, short value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, String value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, Date value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, EnumValue value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	public void wAddValue(String name, Object value) {
-		wAdd(name, BindingManagerFactory.instance.createValue(value));
-	}
-	
 	public void wDefValue(String name, boolean value) {
 		wDef(name, BindingManagerFactory.instance.createValue(value));
 	}

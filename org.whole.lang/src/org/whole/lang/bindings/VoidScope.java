@@ -45,9 +45,6 @@ public class VoidScope extends NullScope {
 	public void wSet(String name, IEntity value) {
 	}
 
-	public void wAdd(String name, IEntity value) {
-	}
-
 	public void wDef(String name, IEntity value) {
 	}
 
@@ -92,42 +89,6 @@ public class VoidScope extends NullScope {
 	}
 
 	public void wSetValue(String name, Object value) {
-	}
-
-	public void wAddValue(String name, boolean value) {
-	}
-
-	public void wAddValue(String name, byte value) {
-	}
-
-	public void wAddValue(String name, char value) {
-	}
-
-	public void wAddValue(String name, double value) {
-	}
-
-	public void wAddValue(String name, float value) {
-	}
-
-	public void wAddValue(String name, int value) {
-	}
-
-	public void wAddValue(String name, long value) {
-	}
-
-	public void wAddValue(String name, short value) {
-	}
-
-	public void wAddValue(String name, String value) {
-	}
-
-	public void wAddValue(String name, Date value) {
-	}
-
-	public void wAddValue(String name, EnumValue value) {
-	}
-
-	public void wAddValue(String name, Object value) {
 	}
 
 	public void wDefValue(String name, boolean value) {

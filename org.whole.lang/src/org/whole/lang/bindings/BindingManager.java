@@ -17,7 +17,9 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
@@ -61,9 +63,10 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 	}
 	public void wEnterScope(INestableScope scope) {
 //FIX result scope first
-//		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
-//		wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
-
+		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
+		if (outerScope == scope)
+		wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
+		else
 		wSetTargetScope(scope.wWithEnclosingScope(wTargetScope()));
 	}
 	public void wEnterScope(IBindingScope scope, boolean dynamic) {
@@ -84,10 +87,27 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		wSetTargetScope(scope.wEnclosingScope());
 		if (wTargetScope() == NullScope.instance)
 			throw new IllegalStateException("exitScope from top level");
-		//FIXME results no longer available
-//		if (scope instanceof INestableScope) {
-//			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
-//		}
+		
+		//TODO test
+		if (scope instanceof INestableScope) {
+			IEntity result = null;
+			IEntityIterator<IEntity> resultIterator = null;
+			if (scope.hasResultIterator())
+				resultIterator = scope.getResultIterator();
+			else
+				result = scope.getResult();
+
+			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
+
+			if (scope instanceof NestedDynamicScope ||
+					scope instanceof NestedDynamicSimpleScope) {
+				if (resultIterator != null)
+					scope.wTargetScope().setResultIterator(resultIterator);
+				else
+					scope.wTargetScope().setResult(result);
+			}
+		}
+
 		if (merge)
 			wTargetScope().wAddAll(scope);
 	}

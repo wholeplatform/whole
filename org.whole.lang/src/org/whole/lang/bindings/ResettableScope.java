@@ -99,6 +99,9 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	
 	private void updateMap(String name) {
 		if (!map.containsKey(name)) {
+//TODO
+//			IBindingScope scope = wFindScope(name);
+//			IEntity value = scope.wGet(name);
 			IEntity value = super.wGet(name);
 			map.put(name, value != null ? value : UNDEF_VALUE);
 		}
@@ -130,11 +133,6 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	public void wSet(String name, IEntity value) {
 		updateMap(name);
 		super.wSet(name, value);
-	}
-
-	public void wAdd(String name, IEntity value) {
-		updateMap(name);
-		super.wAdd(name, value);
 	}
 
 	public void wDef(String name, IEntity value) {
@@ -200,66 +198,6 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	public void wSetValue(String name, String value) {
 		updateMap(name);
 		super.wSetValue(name, value);
-	}
-
-	public void wAddValue(String name, boolean value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, byte value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, char value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, Date value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, double value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, EnumValue value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, float value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, int value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, long value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, Object value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, short value) {
-		updateMap(name);
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, String value) {
-		updateMap(name);
-		super.wAddValue(name, value);
 	}
 
 	public void wDefValue(String name, boolean value) {

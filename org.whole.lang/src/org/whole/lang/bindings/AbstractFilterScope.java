@@ -159,12 +159,6 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 		super.wSet(name, value);
 	}
 
-	public void wAdd(String name, IEntity value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAdd(name, value);
-	}
-
 	public void wDef(String name, IEntity value) {
 		if (isFiltered(name, false))
 			throw new IllegalArgumentException("FilterBindingManager");
@@ -241,78 +235,6 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 		if (isFiltered(name, false))
 			throw new IllegalArgumentException("FilterBindingManager");
 		super.wSetValue(name, value);
-	}
-
-	public void wAddValue(String name, boolean value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, byte value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, char value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, Date value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, double value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, EnumValue value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, float value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, int value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, long value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, Object value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, short value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
-	}
-
-	public void wAddValue(String name, String value) {
-		if (isFiltered(name, false))
-			throw new IllegalArgumentException("FilterBindingManager");
-		super.wAddValue(name, value);
 	}
 
 	public void wDefValue(String name, boolean value) {

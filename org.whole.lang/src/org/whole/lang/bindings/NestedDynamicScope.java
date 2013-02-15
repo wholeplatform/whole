@@ -81,12 +81,6 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 		else
 			wEnclosingScope().wSet(name, value);
 	}
-	public void wAdd(String name, IEntity value) {
-		if (wTargetScope().wIsSet(name))
-			wTargetScope().wAdd(name, value);
-		else
-			wEnclosingScope().wAdd(name, value);		
-	}
 	public void wDef(String name, IEntity value) {
 		wTargetScope().wDef(name, value);
 	}
@@ -99,18 +93,42 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	}
 
 	public boolean hasResultIterator() {
+		//TODO test
+		if (wEnclosingScope() == NullScope.instance)
+			return wTargetScope().hasResultIterator();
+
 		return wEnclosingScope().hasResultIterator();
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
+		//TODO test
+		if (wEnclosingScope() == NullScope.instance)
+			return wTargetScope().getResultIterator();
+
 		return wEnclosingScope().getResultIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
+		//TODO test
+		if (wEnclosingScope() == NullScope.instance) {
+			wTargetScope().setResultIterator(resultIterator);
+			return;
+		}
+
 		wEnclosingScope().setResultIterator(resultIterator);
 	}
 	public IEntity getResult() {
+		//TODO test
+		if (wEnclosingScope() == NullScope.instance)
+			return wTargetScope().getResult();
+
 		return wEnclosingScope().getResult();
 	}
 	public void setResult(IEntity result) {
+		//TODO test
+		if (wEnclosingScope() == NullScope.instance) {
+			wTargetScope().setResult(result);
+			return;
+		}
+
 		wEnclosingScope().setResult(result);
 	}
 

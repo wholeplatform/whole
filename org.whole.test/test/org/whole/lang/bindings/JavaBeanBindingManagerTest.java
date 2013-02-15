@@ -17,11 +17,7 @@
  */
 package org.whole.lang.bindings;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -222,53 +218,6 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		 Object o = new Object();
 		 bm.wDefValue("objectF", o);
 		 assertSame(o, bm.wGetValue("objectF"));
-	}
-
-	public void testBindDataCollection() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(1);
-		list.add(2);
-		list.add(3);
-		list.add(4);
-		list.add(5);
-		int size = list.size();
-		bm.wDefValue("intlist", list);
-		assertSame(list, bm.wGetValue("intlist"));
-		bm.wAddValue("intlist", 18);
-		
-		List<?> intList = (List<?>) bm.wGetValue("intlist");
-		assertEquals(intList.size(), size + 1);
-		assertEquals(intList.get(size), 18);
-		
-		Set<SampleJavaBean> beanSet = new HashSet<SampleJavaBean>();
-		beanSet.add(bean);
-		size = beanSet.size();
-		bm.wDefValue("beanSet", beanSet);
-		assertSame(beanSet, bm.wGetValue("beanSet"));
-		SampleJavaBean myNewBean = new SampleJavaBean();
-		bm.wAddValue("beanSet", myNewBean);
-
-		Set<?> myBeanSet = (Set<?>) bm.wGetValue("beanSet");
-		assertEquals(myBeanSet.size(), size + 1);
-		assertTrue(myBeanSet.contains(bean));
-		assertTrue(myBeanSet.contains(myNewBean));
-	}
-
-	public void testBindDataIndexed() {
-		int[] ints = new int[] {1, 2, 3, 4};
-		bm.wDefValue("ints", ints);
-		assertSame(ints, bm.wGetValue("ints"));
-		bm.wAddValue("ints", 25);
-		int[] newInts = (int[])bm.wGetValue("ints");
-		assertEquals(newInts[ints.length], 25);
-
-		Date[] dates = new Date[] {new Date(0l), new Date(1l)};
-		bm.wDefValue("dates", dates);
-		assertSame(dates, bm.wGetValue("dates"));
-		Date myDate = new Date(2l);
-		bm.wAddValue("dates", myDate);
-		Date[] newDates = (Date[])bm.wGetValue("dates");
-		assertEquals(newDates[dates.length], myDate);
 	}
 
 	public void testBindDataErrors() {

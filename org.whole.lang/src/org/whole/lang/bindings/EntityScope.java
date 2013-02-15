@@ -108,13 +108,6 @@ public class EntityScope implements IBindingScope {
 		else
 			throw BindingManagerFactory.instance.createNoBindingException(name);
 	}
-	public void wAdd(String name, IEntity value) {
-		FeatureDescriptor feature = getFeature(name);
-		if (feature != null)
-			entity.wGet(feature).wAdd(value);
-		else
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-	}
 	public void wDef(String name, IEntity value) {
 		entity.wSet(defFeature(name), value);
 	}
@@ -306,91 +299,6 @@ public class EntityScope implements IBindingScope {
 		}
 	}
 
-	public void wAddValue(String name, boolean value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, byte value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, char value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, double value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, float value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, int value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, long value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, short value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, String value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, Date value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, EnumValue value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-	public void wAddValue(String name, Object value) {
-		try {
-			wGet(name).wSetValue(value);
-		} catch (NullPointerException e) {
-			throw BindingManagerFactory.instance.createNoBindingException(name);
-		}
-	}
-
 	public void wDefValue(String name, boolean value) {
 		try {
 			entity.wGet(defFeature(name)).wSetValue(value);
@@ -477,7 +385,7 @@ public class EntityScope implements IBindingScope {
 	}
 
 	public boolean hasResultIterator() {
-		return false;		
+		return false;
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
 		return IteratorFactory.emptyIterator();		
@@ -486,7 +394,7 @@ public class EntityScope implements IBindingScope {
 		throw new IllegalStateException("EntityBindingManager");		
 	}
 	public IEntity getResult() {
-		throw new IllegalStateException("EntityBindingManager");		
+		return null;//was throw new IllegalStateException("EntityBindingManager");		
 	}
 	public void setResult(IEntity value) {
 		throw new IllegalStateException("EntityBindingManager");		

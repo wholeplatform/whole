@@ -70,9 +70,6 @@ public class NullScope implements IBindingScope {
 	public void wSet(String name, IEntity value) {
 		throw BindingManagerFactory.instance.createNoBindingException(name);		
 	}		
-	public void wAdd(String name, IEntity value) {
-		throw BindingManagerFactory.instance.createNoBindingException(name);		
-	}		
 	public void wDef(String name, IEntity value) {
 		throw new IllegalStateException("NullBindingManager");		
 	}		
@@ -120,43 +117,6 @@ public class NullScope implements IBindingScope {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 	public String wStringValue(String name) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-
-	public void wAddValue(String name, boolean value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, byte value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, char value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, Date value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, double value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, EnumValue value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, float value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, int value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, long value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, Object value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, short value) {
-		throw new IllegalStateException("NullBindingManager");		
-	}
-	public void wAddValue(String name, String value) {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 
@@ -235,7 +195,7 @@ public class NullScope implements IBindingScope {
 	}
 
 	public boolean hasResultIterator() {
-		return false;		
+		return false;
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
 		throw new IllegalStateException("NullBindingManager");		
