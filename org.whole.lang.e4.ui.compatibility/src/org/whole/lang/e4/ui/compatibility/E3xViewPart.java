@@ -17,10 +17,13 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
+
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
@@ -50,6 +53,11 @@ public class E3xViewPart extends DIViewPart<E4Part> {
 		redoAction = new RedoAction(getContext().getParent(), REDO_LABEL);
 		redoAction.update();
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+	}
+
+	@Override
+	public void saveState(IMemento memento) {
+		getComponent().saveState();
 	}
 
 	@Override

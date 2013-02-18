@@ -17,7 +17,8 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
 
 import java.lang.reflect.Field;
 import java.util.EventObject;
@@ -27,6 +28,8 @@ import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPersistableEditor;
 import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
@@ -36,7 +39,7 @@ import org.whole.lang.e4.ui.parts.E4Part;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E3xEditorPart extends DIEditorPart<E4Part> {
+public class E3xEditorPart extends DIEditorPart<E4Part> implements IPersistableEditor {
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
@@ -76,6 +79,15 @@ public class E3xEditorPart extends DIEditorPart<E4Part> {
 		} catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	@Override
+	public void saveState(IMemento memento) {
+		getComponent().saveState();
+	}
+
+	@Override
+	public void restoreState(IMemento memento) {
 	}
 
 	@Override

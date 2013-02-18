@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.CONTEXT_MENU_ID;
 
 import java.lang.reflect.Field;
 
@@ -30,6 +30,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
+import org.eclipse.e4.ui.di.PersistState;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
@@ -185,6 +186,11 @@ public class E4Part {
 			} catch (Exception e) {
 			}
 		}
+	}
+
+	@PersistState
+	public void saveState() {
+		part.getMenus().clear();
 	}
 
 	protected MPopupMenu createContextMenu() {
