@@ -38,7 +38,7 @@ updates/<version>                  Eclipse Update site
 Legal Notes
 -----------
 
-The Whole Platform is Copyright 2004-2012 Riccardo Solmi.
+The Whole Platform is Copyright 2004-2013 Riccardo Solmi.
 All rights reserved.
 The Whole Platform is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published

@@ -16,7 +16,7 @@ public class WholeLanguage extends AbstractTemplateFactory<Misc> {
         b2.PackageArtifact_();
         b2.Name("org.whole.lang");
         b2.Metadata_();
-        b2.Copyright("Copyright 2004-2012 _name_.");
+        b2.Copyright("Copyright 2004-2013 _name_.");
         b2.License("* All rights reserved. This program and the accompanying materials\n* are made available under the terms of the GNU Lesser General Public License\n* which accompanies this distribution, and is available at\n* http://www.gnu.org/copyleft/lesser.html");
         b2.Author("_name_");
         b1.Resolver();

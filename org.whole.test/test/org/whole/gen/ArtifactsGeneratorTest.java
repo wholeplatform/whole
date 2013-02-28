@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2012 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2013 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -85,7 +85,7 @@ public class ArtifactsGeneratorTest extends TestCase {
         b0.FolderArtifact_();
         b0.Name("src/org.whole.lang");
         b0.Metadata_();
-        b0.Copyright("Copyright 2004-2012 _name_.");
+        b0.Copyright("Copyright 2004-2013 _name_.");
         b0.License("* All rights reserved. This program and the accompanying materials\n* are made available under the terms of the GNU Lesser General Public License\n* which accompanies this distribution, and is available at\n* http://www.gnu.org/copyleft/lesser.html");
         b0.Author("_name_");
         b0.Attributes_(1);
