@@ -129,6 +129,9 @@ public interface IBindingScope {
 	public void wDefValue(String name, EnumValue value);
 	public void wDefValue(String name, Object value);
 
+	public IBindingScope wResultScope();
+	public void wSetResultScope(IBindingScope scope);
+
 	public boolean hasResultIterator();
 	public <E extends IEntity> IEntityIterator<E> getResultIterator();
 	public void setResultIterator(IEntityIterator<?> resultIterator);

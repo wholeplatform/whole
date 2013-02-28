@@ -1,11 +1,10 @@
 package org.whole.lang.grammars.util.tests;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.whole.lang.tests.junit.EntityMatchers.*;
-import org.junit.*;
+import static org.junit.Assert.assertThat;
+import static org.whole.lang.tests.junit.EntityMatchers.matches;
+
+import org.junit.Test;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
 
 public class Grammars2ModelsVisitorTest extends TestCase {

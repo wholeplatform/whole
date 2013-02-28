@@ -17,8 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BindingUtils;
 
 /**
@@ -26,6 +24,7 @@ import org.whole.lang.util.BindingUtils;
  */
 public class BindingManager extends AbstractDelegatingScope implements IBindingManager {
 	private IEnvironmentManager environmentManager;
+
 	protected BindingManager(IEnvironmentManager environmentManager, IBindingScope currentScope) {
 		super(currentScope);
 		this.environmentManager = environmentManager;
@@ -62,7 +61,7 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		wEnterScope(BindingManagerFactory.instance.createNestedDynamicSimpleScope());
 	}
 	public void wEnterScope(INestableScope scope) {
-//FIX result scope first
+//TODO test
 		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
 		if (outerScope == scope)
 		wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
@@ -71,12 +70,6 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 	}
 	public void wEnterScope(IBindingScope scope, boolean dynamic) {
 		wEnterScope(BindingManagerFactory.instance.createNestedScope(scope, dynamic));
-	}
-	public void wEnterScope(String name, boolean dynamic) {
-		wEnterScope(wGet(name), dynamic);
-	}
-	public void wEnterScope(IEntity entity, boolean dynamic) {
-		wEnterScope(BindingManagerFactory.instance.createEntityScope(entity), dynamic);
 	}
 
 	public void wExitScope() {
@@ -87,25 +80,13 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		wSetTargetScope(scope.wEnclosingScope());
 		if (wTargetScope() == NullScope.instance)
 			throw new IllegalStateException("exitScope from top level");
-		
+
 		//TODO test
-		if (scope instanceof INestableScope) {
-			IEntity result = null;
-			IEntityIterator<IEntity> resultIterator = null;
-			if (scope.hasResultIterator())
-				resultIterator = scope.getResultIterator();
-			else
-				result = scope.getResult();
+		if (scope instanceof NestedDynamicScope ||
+				scope instanceof NestedDynamicSimpleScope ||
+				scope instanceof NestedStaticScope) {
 
 			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
-
-			if (scope instanceof NestedDynamicScope ||
-					scope instanceof NestedDynamicSimpleScope) {
-				if (resultIterator != null)
-					scope.wTargetScope().setResultIterator(resultIterator);
-				else
-					scope.wTargetScope().setResult(result);
-			}
 		}
 
 		if (merge)

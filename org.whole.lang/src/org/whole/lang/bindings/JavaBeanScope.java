@@ -360,6 +360,12 @@ public class JavaBeanScope implements IBindingScope {
 		}
 	}
 
+	public IBindingScope wResultScope() {
+		return null;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+	}
+
 	public boolean hasResultIterator() {
 		return false;
 	}
@@ -367,12 +373,10 @@ public class JavaBeanScope implements IBindingScope {
 		return IteratorFactory.emptyIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		throw new IllegalStateException("JavaBeanBindingManager");		
 	}
 	public IEntity getResult() {
-		return null;//was throw new IllegalStateException("JavaBeanBindingManager");		
+		return null;
 	}
 	public void setResult(IEntity value) {
-		throw new IllegalStateException("JavaBeanBindingManager");		
 	}
 }

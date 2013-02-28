@@ -190,6 +190,13 @@ public abstract class AbstractDelegatingScope implements IBindingScope {
 		delegateScope.wDefValue(name, value);
 	}
 
+	public IBindingScope wResultScope() {
+		return delegateScope.wResultScope();
+	}
+	public void wSetResultScope(IBindingScope scope) {
+		delegateScope.wSetResultScope(scope);
+	}
+
 	public boolean hasResultIterator() {
 		return delegateScope.hasResultIterator();
 	}

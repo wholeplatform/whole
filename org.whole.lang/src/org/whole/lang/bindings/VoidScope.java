@@ -20,6 +20,7 @@ package org.whole.lang.bindings;
 import java.util.Date;
 
 import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 
@@ -131,12 +132,12 @@ public class VoidScope extends NullScope {
 		return false;		
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		throw new IllegalStateException("VoidScope");		
+		return IteratorFactory.emptyIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
 	}
 	public IEntity getResult() {
-		throw new IllegalStateException("VoidScope");		
+		return null;
 	}
 	public void setResult(IEntity value) {
 	}

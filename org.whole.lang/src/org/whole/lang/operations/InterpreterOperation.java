@@ -56,7 +56,7 @@ public class InterpreterOperation extends AbstractOperation {
 	    return interpret(program, args, resultsInArgs, 0);
 	}
 	public static IBindingScope interpret(IEntity program, IBindingManager args, boolean resultsInArgs, int relativeStage) {
-		InterpreterOperation op = new InterpreterOperation(args, resultsInArgs);
+		InterpreterOperation op = !resultsInArgs ? new InterpreterOperation(args, resultsInArgs) : new InterpreterOperation(args, null);//TODO test
 	    op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
 	}
@@ -74,7 +74,7 @@ public class InterpreterOperation extends AbstractOperation {
 	    if (!args.wIsSet("printWriter"))
 	    	newIONames.add("printWriter");
 
-		final InterpreterOperation op = new InterpreterOperation(args, false);
+		final InterpreterOperation op = new InterpreterOperation(args, null);
 
 		if (in != null)
 			args.wDefValue("reader", op.reader = in);
@@ -126,6 +126,9 @@ public class InterpreterOperation extends AbstractOperation {
 
 	protected InterpreterOperation(IBindingManager args, boolean resultsInArgs) {
 		super(ID, args, resultsInArgs);
+	}
+	protected InterpreterOperation(IBindingManager args, IBindingScope resultsScope) {
+		super(ID, args, null);
 	}
 
 	protected IVisitor createDefaultVisitor(IEntity entity, int normalizedStage) {

@@ -41,7 +41,10 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	}
 
 	public INestableScope wClone() {
-		return new NestedDynamicSimpleScope(cloneMap()).wWithEnclosingScope(wEnclosingScope().wClone());
+		NestedDynamicSimpleScope copy = new NestedDynamicSimpleScope(cloneMap());
+		copy.wWithEnclosingScope(wEnclosingScope().wClone());
+//FIXME		copy.resultScope
+		return copy;
 	}
 
 	public IBindingScope wEnclosingScope() {
@@ -49,6 +52,7 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	}
 	public INestableScope wWithEnclosingScope(IBindingScope enclosingScope) {
 		this.enclosingScope = enclosingScope;
+		resultScope = null;
 		return this;
 	}
 
@@ -76,44 +80,50 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 			wEnclosingScope().wUnset(name);
 	}
 
-	public boolean hasResultIterator() {
-		//TODO test
-		if (wEnclosingScope() == NullScope.instance)
-			return super.hasResultIterator();
+	private IBindingScope resultScope;
+	public IBindingScope wResultScope() {
+		if (resultScope == null)
+			resultScope = wEnclosingScope().wResultScope();
+		return resultScope != null ? resultScope : this;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+		if (scope != this)
+			wEnclosingScope().wSetResultScope(scope);
+		//FIXME workaround for nested operations not honoring outer resultsInArgs
+		if (resultScope != null && resultScope != scope)
+			return;
+		resultScope = scope;
+	}
 
-		return wEnclosingScope().hasResultIterator();
+	public boolean hasResultIterator() {
+		if (wResultScope() != this)
+			return wEnclosingScope().hasResultIterator();
+		else
+			return super.hasResultIterator();
 	}
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		//TODO test
-		if (wEnclosingScope() == NullScope.instance)
+		if (wResultScope() != this)
+			return wEnclosingScope().getResultIterator();
+		else
 			return super.getResultIterator();
-
-		return wEnclosingScope().getResultIterator();
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		//TODO test
-		if (wEnclosingScope() == NullScope.instance) {
+		if (wResultScope() != this)
+			wEnclosingScope().setResultIterator(resultIterator);
+		else
 			super.setResultIterator(resultIterator);
-			return;
-		}
-
-		wEnclosingScope().setResultIterator(resultIterator);
 	}
 	public IEntity getResult() {
-		//TODO test
-		if (wEnclosingScope() == NullScope.instance)
+		if (wResultScope() != this)
+			return wEnclosingScope().getResult();
+		else
 			return super.getResult();
-
-		return wEnclosingScope().getResult();
 	}
 	public void setResult(IEntity result) {
-		//TODO test
-		if (wEnclosingScope() == NullScope.instance) {
+		if (wResultScope() != this)
+			wEnclosingScope().setResult(result);
+		else
 			super.setResult(result);
-			return;
-		}
-
-		wEnclosingScope().setResult(result);
 	}
 
 	public String toString() {

@@ -52,7 +52,7 @@ public class DynamicCompilerOperation extends AbstractOperation {
 	}
 
 	protected DynamicCompilerOperation(IBindingManager bm) {
-		super(ID, bm, false);
+		super(ID, bm, null);
 	}
 
 	protected IVisitor createDefaultVisitor(IEntity entity, int normalizedStage) {

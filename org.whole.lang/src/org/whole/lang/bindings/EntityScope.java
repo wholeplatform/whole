@@ -384,6 +384,12 @@ public class EntityScope implements IBindingScope {
 		}
 	}
 
+	public IBindingScope wResultScope() {
+		return null;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+	}
+
 	public boolean hasResultIterator() {
 		return false;
 	}
@@ -391,12 +397,10 @@ public class EntityScope implements IBindingScope {
 		return IteratorFactory.emptyIterator();		
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		throw new IllegalStateException("EntityBindingManager");		
 	}
 	public IEntity getResult() {
-		return null;//was throw new IllegalStateException("EntityBindingManager");		
+		return null;		
 	}
 	public void setResult(IEntity value) {
-		throw new IllegalStateException("EntityBindingManager");		
 	}
 }

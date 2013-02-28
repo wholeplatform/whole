@@ -98,6 +98,11 @@ public class SimpleScope extends AbstractScope {
 		return wIsSet(name) ? this : VoidScope.instance;
 	}
 	
+	public IBindingScope wResultScope() {
+		return null;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+	}
 
 	public boolean hasResultIterator() {
 		return resultIterator != null;

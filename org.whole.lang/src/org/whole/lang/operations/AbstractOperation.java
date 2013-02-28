@@ -46,6 +46,9 @@ public abstract class AbstractOperation implements IOperation {
 	private IOperationProgressMonitor operationProgressMonitor = null;
 
 	public AbstractOperation(String name, IBindingManager args, boolean resultsInArgs) {
+		this(name, args, resultsInArgs ? args.wTargetScope() : args.wEnclosingScope());
+	}
+	public AbstractOperation(String name, IBindingManager args, IBindingScope optResultsScope) {
 		operationId = name;
 	    stagedVisitorsMap = initStagedVisitors();
 
@@ -54,7 +57,11 @@ public abstract class AbstractOperation implements IOperation {
 
 		operationEnvironment = args;
 		argumentsScope = args.wTargetScope();
-		resultsScope = resultsInArgs ? argumentsScope : argumentsScope.wEnclosingScope();
+
+		if (optResultsScope != null)
+			args.wSetResultScope(optResultsScope);
+		resultsScope = args.wResultScope();
+		
 		if (resultsScope == NullScope.instance)
 			throw new IllegalStateException("ResultsScope is a NullScope");
 	}

@@ -38,7 +38,7 @@ public class NormalizerOperation extends AbstractOperation {
 	}
 
 	protected NormalizerOperation(IBindingManager args) {
-		super(ID, args, false);
+		super(ID, args, null);
 	}
 	
 	@Override

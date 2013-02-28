@@ -17,6 +17,9 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.model.IEntity;
+
 
 /**
  * @author Riccardo Solmi
@@ -29,7 +32,10 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	}
 
 	public INestableScope wClone() {
-		return new NestedStaticScope(wTargetScope().wClone()).wWithEnclosingScope(wEnclosingScope().wClone());
+		NestedStaticScope copy = new NestedStaticScope(wTargetScope().wClone());
+		copy.wWithEnclosingScope(wEnclosingScope().wClone());
+//FIXME		copy.resultScope
+		return copy;
 	}
 
 	public Kind getKind() {
@@ -49,5 +55,39 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 
 	public IBindingScope wFindScope(String name) {
 		return wTargetScope().wFindScope(name);
+	}
+
+	private IBindingScope resultScope;
+	public IBindingScope wResultScope() {
+		if (resultScope == null)
+			resultScope = wEnclosingScope().wResultScope();
+		return resultScope != null ? resultScope : this;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+		if (scope != this)
+			wEnclosingScope().wSetResultScope(scope);
+		//FIXME workaround for nested operations not honoring outer resultsInArgs
+		if (resultScope != null && resultScope != scope)
+			return;
+		resultScope = scope;
+	}
+
+	protected final IBindingScope resultScopeDelegate() {
+		return wResultScope() != this ? wEnclosingScope() : wTargetScope();
+	}
+	public boolean hasResultIterator() {
+		return resultScopeDelegate().hasResultIterator();
+	}
+	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
+		return resultScopeDelegate().getResultIterator();
+	}
+	public void setResultIterator(IEntityIterator<?> resultIterator) {
+		resultScopeDelegate().setResultIterator(resultIterator);
+	}
+	public IEntity getResult() {
+		return resultScopeDelegate().getResult();
+	}
+	public void setResult(IEntity result) {
+		resultScopeDelegate().setResult(result);
 	}
 }

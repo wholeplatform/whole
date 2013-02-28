@@ -32,7 +32,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class ResettableScope extends AbstractDelegatingScope implements INestableScope {
+public class TransactionScope extends AbstractDelegatingScope implements INestableScope {
 	private static final IEntity UNDEF_VALUE = BindingManagerFactory.instance.createValue((Object) null);
 	protected Map<String, IEntity> map;
 	public static enum CachedResult { NONE, VALUE, ITERATOR };
@@ -40,16 +40,16 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	protected IEntity result = null;
 	protected IEntityIterator<?> resultIterator = null;
 
-	protected ResettableScope() {
+	protected TransactionScope() {
 		this(new HashMap<String, IEntity>());
 	}
-	protected ResettableScope(Map<String, IEntity> map) {
+	protected TransactionScope(Map<String, IEntity> map) {
 		super(NullScope.instance);
 		this.map = map;
 	}
 
 	public INestableScope wClone() {
-		return new ResettableScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
+		return new TransactionScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	public Kind getKind() {
@@ -62,7 +62,7 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	public final IBindingScope wEnclosingScope() {
 		return wDelegateScope();
 	}
-	public final ResettableScope wWithEnclosingScope(IBindingScope enclosingScope) {
+	public final TransactionScope wWithEnclosingScope(IBindingScope enclosingScope) {
 		wSetDelegateScope(enclosingScope);
 		return this;
 	}
@@ -99,9 +99,6 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	
 	private void updateMap(String name) {
 		if (!map.containsKey(name)) {
-//TODO
-//			IBindingScope scope = wFindScope(name);
-//			IEntity value = scope.wGet(name);
 			IEntity value = super.wGet(name);
 			map.put(name, value != null ? value : UNDEF_VALUE);
 		}
@@ -258,11 +255,6 @@ public class ResettableScope extends AbstractDelegatingScope implements INestabl
 	public void wDefValue(String name, String value) {
 		updateMap(name);
 		super.wDefValue(name, value);
-	}
-
-	@Override
-	public void wSetResultScope(IBindingScope scope) {
-		super.wSetResultScope(scope != this ? scope : scope.wEnclosingScope());
 	}
 
 	public void setResultIterator(IEntityIterator<?> resultIterator) {

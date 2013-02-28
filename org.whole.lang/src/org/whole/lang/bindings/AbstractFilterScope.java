@@ -327,6 +327,11 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 		super.wUnset(name);
 	}
 
+	@Override
+	public void wSetResultScope(IBindingScope scope) {
+		super.wSetResultScope(scope != this ? scope : scope.wEnclosingScope());
+	}
+
 	public String toString() {
 		SortedSet<String> treeSet = new TreeSet<String>(getFilterNames());
 		StringBuilder sb = new StringBuilder();

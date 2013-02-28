@@ -194,6 +194,12 @@ public class NullScope implements IBindingScope {
 		throw new IllegalStateException("NullBindingManager");		
 	}
 
+	public IBindingScope wResultScope() {
+		return null;
+	}
+	public void wSetResultScope(IBindingScope scope) {
+	}
+
 	public boolean hasResultIterator() {
 		return false;
 	}
