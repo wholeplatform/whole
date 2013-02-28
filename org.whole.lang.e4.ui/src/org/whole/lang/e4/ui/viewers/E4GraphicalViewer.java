@@ -172,6 +172,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	public void setContents(Object contents) {
 		IEntity root = (IEntity) contents;
 		super.setContents(wrapContents(root));
+//TODO test to remove e4 menu rerender workaround
+//		select(getEditPartRegistry().get(root));
 		updateModelObserver(root);
 	}
 

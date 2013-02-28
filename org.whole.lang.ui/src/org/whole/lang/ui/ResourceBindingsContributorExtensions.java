@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +32,6 @@ import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.IRegistryChangeListener;
 import org.eclipse.core.runtime.Platform;
 import org.whole.lang.ui.util.IResourceBindingsContributor;
-import org.whole.lang.ui.util.ResourceUtils;
 
 public class ResourceBindingsContributorExtensions implements IRegistryChangeListener {
 	private static final String EXTENSION_POINT_ID = "org.whole.lang.ui.resourceBindingsContributors";
@@ -71,6 +72,9 @@ public class ResourceBindingsContributorExtensions implements IRegistryChangeLis
 	private IResourceBindingsContributor removeContributor(String id) {
 		return contributors.remove(id);
 	}
+	public Collection<IResourceBindingsContributor> getContributors() {
+		return Collections.unmodifiableCollection(contributors.values());
+	}
 
 	private void addResourceBindingsContributor(IExtension extension) {
 		IConfigurationElement[] elements = extension.getConfigurationElements();
@@ -80,7 +84,6 @@ public class ResourceBindingsContributorExtensions implements IRegistryChangeLis
 			try {
 				contributor = (IResourceBindingsContributor) element.createExecutableExtension("class");
 				addContributor(element.getAttribute("id"), contributor);
-				ResourceUtils.addResourceBindingsContributor(contributor);
 			} catch (CoreException e) {
 				WholeUIPlugin.log(e);
 			}
@@ -91,6 +94,6 @@ public class ResourceBindingsContributorExtensions implements IRegistryChangeLis
 		IConfigurationElement[] elements = extension.getConfigurationElements();
 
 		for (IConfigurationElement element : elements)
-			ResourceUtils.removeResourceBindingsContributor(removeContributor(element.getAttribute("id")));
+			removeContributor(element.getAttribute("id"));
 	}
 }

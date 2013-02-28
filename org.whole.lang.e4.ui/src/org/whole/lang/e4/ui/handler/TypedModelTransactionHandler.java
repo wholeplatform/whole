@@ -28,8 +28,6 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 
 /**
@@ -37,17 +35,15 @@ import org.whole.lang.ui.commands.ModelTransactionCommand;
  */
 @SuppressWarnings("restriction")
 public abstract class TypedModelTransactionHandler {
-
 	@CanExecute
 	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		bm.wDefValue("entityDescriptor", CommonsDataTypePersistenceParser.parseEntityDescriptor(edUri));
+		defineBindings(edUri, bm);
 		return isEnabled(bm);
 	}
 
 	@Execute
 	public void execute(@Named(ED_URI_PARAMETER_ID) String edUri, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		EntityDescriptor<? extends IEntity> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(edUri);
-		bm.wDefValue("entityDescriptor", ed);
+		defineBindings(edUri, bm);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {
@@ -60,6 +56,10 @@ public abstract class TypedModelTransactionHandler {
 			mtc.rollback();
 			throw e;
 		}
+	}
+
+	protected void defineBindings(String edUri, IBindingManager bm) {
+		bm.wDefValue("entityDescriptor", CommonsDataTypePersistenceParser.parseEntityDescriptor(edUri));
 	}
 
 	public abstract boolean isEnabled(IBindingManager bm);

@@ -15,21 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.e4.ui.expressions;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
-public class ReplaceFragmentHandler extends FragmentModelTransactionHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canReplaceFragment(bm);
-	}
-	public void run(IBindingManager bm) {
-		HandlersBehavior.replaceFragment(bm);
-	}
-	public String getLabel(IBindingManager bm) {
-		return "replace with fragment";
+public class FeatureAssistVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
+	@Override
+	public boolean isVisible(IBindingManager bm) {
+		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
+			return false;
+
+		return EntityUtils.isSimple(bm.wGet("primarySelectedEntity"));
 	}
 }

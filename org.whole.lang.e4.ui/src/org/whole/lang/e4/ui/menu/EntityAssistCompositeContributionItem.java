@@ -19,10 +19,10 @@ package org.whole.lang.e4.ui.menu;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -30,7 +30,6 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
@@ -55,57 +54,54 @@ import org.whole.lang.util.ResourceUtils;
  */
 @SuppressWarnings("restriction")
 public class EntityAssistCompositeContributionItem extends AbstractCompositeContributionItem {
-	protected ESelectionService selectionService;
-	protected ActionRegistry actionRegistry;
-	protected Comparator<IAction> comparator;
+	protected ImageDescriptor languageIcon;
 
 	public EntityAssistCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.selectionService = context.get(ESelectionService.class);
-		this.actionRegistry = actionRegistry;
-		this.comparator = new Comparator<IAction>() {
-			public int compare(IAction left, IAction right) {
-				return left.getText().compareTo(right.getText());
-			}
-		};
+		super(context, actionRegistry);
+		try {
+			this.languageIcon = ImageDescriptor.createFromURL(new URL(SELECT_LANGUAGE_ICON_URI));
+		} catch (MalformedURLException e) {
+		}
 	}
 
 	protected IContributionItem[] getItems() {
 		List<IContributionItem> items = new ArrayList<IContributionItem>();
 		
-		Object selection = selectionService.getSelection();
+		Object selection = context.get(ESelectionService.class).getSelection();
 		if (!(selection instanceof IBindingManager))
 			return new IContributionItem[0];
+		else {
+			fillItems(MenuManagerListContainer.create(items), ActionListContainer.create(items), (IBindingManager) selection);
+			return items.toArray(new IContributionItem[items.size()]);
+		}
+	}
 
-		IBindingManager bm = (IBindingManager) selection;
+	protected boolean fillItems(IItemContainer<MenuManager, ImageDescriptor> menuContainer, IItemContainer<IAction, ImageDescriptor> actionContainer, IBindingManager bm) {
 		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		ILanguageKit selectedLanguageKit = selectedEntity.wGetLanguageKit();
+		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, selectedEntity);
 
+		if (hasExtendedActions);
+			actionContainer.addSeparator(true);
+
+		boolean hasActions = fillEntityAssistMenu(actionContainer, selectedEntity, selectedEntity.wGetLanguageKit());
 		
+		return hasExtendedActions || hasActions;
+	}
+
+	protected boolean fillExtendedEntityAssistMenu(IItemContainer<MenuManager, ImageDescriptor> container, IEntity selectedEntity) {
 		List<MenuManager> menus = new ArrayList<MenuManager>();
 		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();
 		for (ILanguageKit languageKit : registry.getResources(false, ResourceUtils.SIMPLE_COMPARATOR)) {
-			try {
-				ImageDescriptor icon = ImageDescriptor.createFromURL(new URL(SELECT_LANGUAGE_ICON_URI));
-				String label = ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit);
-				MenuManager languageMenu = new MenuManager(label, icon, null);
-				if (fillEntityAssistMenu(ActionContainer.create(languageMenu), selectedEntity, languageKit))
-					menus.add(languageMenu);
-			} catch (Exception e) {
-			}
+			String label = ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit);
+			MenuManager languageMenu = new MenuManager(label, languageIcon, null);
+			if (fillEntityAssistMenu(ActionContainer.create(languageMenu), selectedEntity, languageKit))
+				menus.add(languageMenu);
 		}
 		HierarchicalFillMenuStrategy.instance(FullMenuNameStrategy.instance())
-				.fillMenu(MenuManagerListContainer.create(items),
+				.fillMenu(container,
 						MenuManagerSet.create(menus.toArray(new MenuManager[menus.size()])), 0, menus.size());
 
-		if (menus.size() > 0)
-			items.add(new Separator());
-		
-		if (!fillEntityAssistMenu(ActionListContainer.create(items), selectedEntity, selectedLanguageKit))
-			items.remove(items.size()-1);
-
-		//TODO add text actions
-
-		return items.toArray(new IContributionItem[items.size()]);
+		return menus.size() > 0;
 	}
 
 	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity selectedEntity, ILanguageKit lk) {
@@ -134,14 +130,14 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		replaceElementNumber = replaceElements.size();
 		if (addElementNumber > 0 && replaceElementNumber > 0)
-			container.addSeparator();
+			container.addSeparator(false);
 		Collections.sort(replaceElements, comparator);
 		HierarchicalFillMenuStrategy.instance().fillMenu(
 				container, ActionSet.create(replaceElements.toArray(new IAction[0])), 0, replaceElementNumber);
 	
 		hasActions |= replaceElementNumber > 0;
 
-		//TODO add wrap actions
+		//TODO add text/wrap actions
 
 		return hasActions;
 	}

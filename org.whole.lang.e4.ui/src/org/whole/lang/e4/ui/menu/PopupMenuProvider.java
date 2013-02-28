@@ -25,22 +25,22 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  * @author Enrico Persiani
  */
-public class PopupMenuProvider<T> implements IUIProvider<T> {
-	private IUIBuilder<T> uiBuilder;
+public class PopupMenuProvider<I, C extends I> implements IUIProvider<C> {
+	private IUIBuilder<I, C> uiBuilder;
 
-	public PopupMenuProvider(IUIBuilder<T> uiBuilder) {
+	public PopupMenuProvider(IUIBuilder<I, C> uiBuilder) {
 		this.uiBuilder = uiBuilder;
 	}
 
 	@Override
-	public void populate(T menu) {
+	public void populate(C menu) {
 		uiBuilder.setContainer(menu);
 		uiBuilder.before();
 
 		uiBuilder.addOpenDialog();
 
-		uiBuilder.addReplaceWithEntityItem(QueriesEntityDescriptorEnum.ChildStep);
-		uiBuilder.addReplaceWithEntityItem(QueriesEntityDescriptorEnum.ParentStep);
+		uiBuilder.addReplaceEntityItem(QueriesEntityDescriptorEnum.ChildStep);
+		uiBuilder.addReplaceEntityItem(QueriesEntityDescriptorEnum.ParentStep);
 		uiBuilder.addAddEntityItem(ArtifactsEntityDescriptorEnum.PackageArtifact);
 
 		uiBuilder.addSeparator();
@@ -59,13 +59,22 @@ public class PopupMenuProvider<T> implements IUIProvider<T> {
 
 		uiBuilder.addSeparator();
 
-		uiBuilder.addDeleteItem();
+		uiBuilder.addRemoveItem();
 		uiBuilder.addSelectAllItem();
 
 		uiBuilder.addSeparator();
 
 		uiBuilder.addContentAssistItem();
 		uiBuilder.addEntityAssistItem();
+		uiBuilder.addFeatureAssistItem();
+
+		uiBuilder.addSeparator();
+
+		uiBuilder.addSourceItem();
+		uiBuilder.addRefactorItem();
+		uiBuilder.addTranslateItem();
+		uiBuilder.addAnalyzeItem();
+		uiBuilder.addMigrateItem();
 
 		uiBuilder.addSeparator();
 

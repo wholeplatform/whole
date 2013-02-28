@@ -35,7 +35,7 @@ public class ReplaceEntityVisibleWhen extends AbstractSelectionConstrainedVisibl
 	}
 
 	@Override
-	protected boolean isVisible(IBindingManager bm) {
+	public boolean isVisible(IBindingManager bm) {
 		IEntity entity = bm.wGet("primarySelectedEntity");
 		if (entity == null)
 			return false;

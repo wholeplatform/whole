@@ -22,14 +22,14 @@ import org.whole.lang.bindings.IBindingManager;
 /**
  * @author Enrico Persiani
  */
-public class ReplaceFragmentHandler extends FragmentModelTransactionHandler {
+public class WrapFragmentHandler extends FragmentModelTransactionHandler {
 	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canReplaceFragment(bm);
+		return HandlersBehavior.canWrapFragment(bm);
 	}
 	public void run(IBindingManager bm) {
-		HandlersBehavior.replaceFragment(bm);
+		HandlersBehavior.wrapFragment(bm);
 	}
 	public String getLabel(IBindingManager bm) {
-		return "replace with fragment";
+		return "wrap with fragment";
 	}
 }

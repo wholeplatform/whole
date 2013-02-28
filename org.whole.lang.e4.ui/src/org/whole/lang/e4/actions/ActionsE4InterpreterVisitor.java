@@ -41,14 +41,13 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.ui.actions.ActionsComparator;
-//import org.whole.lang.ui.actions.CompositeAddAction;
-import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.actions.IEnablerPredicate;
-//import org.whole.lang.ui.actions.ReplaceChildAction;
-//import org.whole.lang.ui.actions.WrapChildAction;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.E3FlatFillMenuStrategy;
+import org.whole.lang.ui.menu.FlatFillMenuStrategy;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.menu.IFillMenuStrategy;
@@ -131,13 +130,13 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createFillMenuStrategy((Hierarchical) fillStrategy, groupName);
 		else
-			strategy = E3FlatFillMenuStrategy.instance(groupName);
+			strategy = FlatFillMenuStrategy.instance(groupName);
 
 		if (EntityUtils.hasParent(entity) && 
 				Matcher.match(SeparatedAction, entity.wGetParent()))
-			container.addSeparator(groupName);
+			container.addSeparator(groupName, false);
 		else
-			container.addGroupMarker(groupName);
+			container.addGroupMarker(groupName, false);
 				
 		getBindings().wEnterScope();
 		getBindings().wDefValue("fillMenuStrategy", strategy);
@@ -183,44 +182,54 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 		setResult(null);
 	}
 
+	private static class OpaqueEnablerPredicate implements IEnablerPredicate {
+		private final IEntity value;
+		public OpaqueEnablerPredicate(IEntity value) {
+			this.value = value;
+		}
+
+		@Override
+		public boolean evaluate(IEntityPart selectedPart, Object userdata) {
+			throw new UnsupportedOperationException("cannot evaluate expression");
+		}
+	}
+	@Override
+	public IEnablerPredicate createEnablerPredicate(IEntity predicate) {
+		if (getBindings().wIsSet("selectionProvider"))
+			return super.createEnablerPredicate(predicate);
+
+		return new OpaqueEnablerPredicate(predicate);
+	}
+
 	@Override
 	protected IAction createAction(Value kind,
-			IEnablerPredicate predicate, IEntityTransformer transformer,
+			IEnablerPredicate enablerPredicate, IEntityTransformer transformer,
 			IEntity prototype, String text) {
 		if (getBindings().wIsSet("selectionProvider"))
-			return super.createAction(kind, predicate, transformer, prototype, text);
+			return super.createAction(kind, enablerPredicate, transformer, prototype, text);
 
+		//FIXME transformer always passed as null
 		IEclipseContext context = (IEclipseContext) getBindings().wGetValue("context");
 		ActionRegistry actionRegistry = new ActionRegistry(context);
-		EnablerPredicateFactory epf = EnablerPredicateFactory.instance; 
+
+		IEntity predicate = enablerPredicate instanceof OpaqueEnablerPredicate ?
+				((OpaqueEnablerPredicate) enablerPredicate).value :
+					QueriesEntityFactory.instance.createBooleanLiteral(true);
 
 		switch (kind.getOrdinal()) {
 		case ActionKindEnum.REPLACE_ord:
-			//FIXME add  transformer and predicate
-			return actionRegistry.createReplaceFragmentAction(text, prototype);
-//					new ReplaceChildAction(workbenchPart,
-//						predicate, //epf.and(epf.replaceMode(), predicate), 
-//					prototype, text, transformer != null ? transformer : IDENTITY_TRANSFORMER);
+			return actionRegistry.createReplaceFragmentAction(text, prototype, predicate);
 
 		case ActionKindEnum.INSERT_ord:
-			//FIXME add  transformer and predicate
-			return actionRegistry.createAddFragmentAction(text, prototype);
-//					new CompositeAddAction(workbenchPart, predicate, 
-//					prototype, text);
+			return actionRegistry.createAddFragmentAction(text, prototype, predicate);
 
 		case ActionKindEnum.WRAP_ord:
-			//FIXME replace with wrap action ad add transformer and predicate
-			return actionRegistry.createReplaceFragmentAction(text, prototype);
-//					new WrapChildAction(workbenchPart,
-//						epf.and(epf.replaceFeatureType(), predicate),
-//					transformer != null ? transformer :
-//						DefaultWrapInTransformer.instance, prototype, text);
+			return actionRegistry.createWrapFragmentAction(text, prototype, predicate);
 
 		case ActionKindEnum.PERFORM_ord:
 		default:
 			throw new IllegalArgumentException("not implemented yet");
 		}
-
 	}
 
 	private IFillMenuStrategy createFillMenuStrategy(Hierarchical hierarchicalStrategy) {

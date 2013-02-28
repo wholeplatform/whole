@@ -34,6 +34,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.CellEditorActionHandler;
 import org.whole.lang.ui.figures.ITextFigure;
+import org.whole.lang.ui.views.WholeGraphicalViewer;
 
 /**
  * @author Riccardo Solmi
@@ -90,15 +91,19 @@ public class WholeTextDirectEditManager extends DirectEditManager {
 	protected void initCellEditor() {
 		initCellEditor((Text) getCellEditor().getControl());
 
-		// Hook the cell editor's copy/paste actions to the actionBars so that
-		// they can be invoked via keyboard shortcuts.
-		actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActiveEditor().getEditorSite()
-				.getActionBars();
-		saveCurrentActions(actionBars);
-		actionHandler = new CellEditorActionHandler(actionBars);
-		actionHandler.addCellEditor(getCellEditor());
-		actionBars.updateActionBars();
+		//TODO remove when migration to E4 api is completed
+		if (getEditPart().getViewer() instanceof WholeGraphicalViewer) {
+			// Hook the cell editor's copy/paste actions to the actionBars so that
+			// they can be invoked via keyboard shortcuts.
+			actionBars = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+					.getActivePage().getActiveEditor().getEditorSite()
+					.getActionBars();
+			saveCurrentActions(actionBars);
+			actionHandler = new CellEditorActionHandler(actionBars);
+			actionHandler.addCellEditor(getCellEditor());
+			actionBars.updateActionBars();
+		} else
+			actionBars = null;
 	}
 	protected void initCellEditor(Text text) {
 		ITextFigure textFigure = (ITextFigure) getEditPart().getFigure();

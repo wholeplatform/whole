@@ -17,9 +17,7 @@
  */
 package org.whole.lang.ui.util;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -38,20 +36,13 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.operations.IOperationProgressMonitor;
+import org.whole.lang.ui.ResourceBindingsContributorExtensions;
 import org.whole.lang.util.StringUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class ResourceUtils {
-	private static List<IResourceBindingsContributor> resourceBindingsContributor = new ArrayList<IResourceBindingsContributor>();
-	public static boolean addResourceBindingsContributor(IResourceBindingsContributor contributor) {
-		return resourceBindingsContributor.add(contributor);
-	}
-	public static boolean removeResourceBindingsContributor(IResourceBindingsContributor contributor) {
-		return resourceBindingsContributor.remove(contributor);
-	}
-
 	public static void defineResourceBindings(IBindingManager bm, IFile file) {
 		IProject project = file.getProject();
 		bm.wDefValue("project", project);
@@ -78,7 +69,7 @@ public class ResourceUtils {
 
 		bm.wDefValue("breakpointsDisabled", false);
 
-		for (IResourceBindingsContributor contributor : resourceBindingsContributor)
+		for (IResourceBindingsContributor contributor : ResourceBindingsContributorExtensions.instance().getContributors())
 			try {
 				contributor.addResourceBindings(bm);
 			} catch (Exception e) {

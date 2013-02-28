@@ -35,7 +35,7 @@ public class AddEntityVisibleWhen extends AbstractSelectionConstrainedVisibleWhe
 	}
 
 	@Override
-	protected boolean isVisible(IBindingManager bm) {
+	public boolean isVisible(IBindingManager bm) {
 		IEntity entity = bm.wGet("primarySelectedEntity");
 		if (entity == null)
 			return false;

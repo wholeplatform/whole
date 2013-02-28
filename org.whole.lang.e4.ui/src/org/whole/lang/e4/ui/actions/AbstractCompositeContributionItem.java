@@ -18,7 +18,11 @@
 package org.whole.lang.e4.ui.actions;
 
 
+import java.util.Comparator;
+
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.ContributionItem;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuListener;
@@ -28,11 +32,22 @@ import org.eclipse.swt.widgets.Menu;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public abstract class AbstractCompositeContributionItem extends ContributionItem {
+	protected IEclipseContext context;
+	protected ActionRegistry actionRegistry;
+	protected Comparator<IAction> comparator;
 	protected IContributionItem[] items;
 	protected IMenuListener listener;
 
-	public AbstractCompositeContributionItem() {
+	public AbstractCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
+		this.context = context;
+		this.actionRegistry = actionRegistry;
+		this.comparator = new Comparator<IAction>() {
+			public int compare(IAction left, IAction right) {
+				return left.getText().compareTo(right.getText());
+			}
+		};
 		this.items = null;
 		this.listener = new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {

@@ -78,7 +78,8 @@ public class E4ActionAdapter extends Action implements IUpdatableAction {
 		this.parameters = parameters;
 
 		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(iconURI)));
+			if (iconURI !=  null)
+				setImageDescriptor(ImageDescriptor.createFromURL(new URL(iconURI)));
 		} catch (Exception e) {
 		}
 	}
@@ -91,7 +92,10 @@ public class E4ActionAdapter extends Action implements IUpdatableAction {
 	}
 
 	public void update() {
-		setEnabled(context.get(EHandlerService.class).canExecute(getCommand()));
+		ParameterizedCommand command = getCommand();
+		if (command == null)
+			System.out.println("CommandId: " + commandId);
+		setEnabled(context.get(EHandlerService.class).canExecute(command));
 	}
 
 	@Override

@@ -19,10 +19,8 @@ package org.whole.lang.e4.ui.menu;
 
 import java.util.List;
 
-import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.ui.menu.MenuManagerContainer;
 
@@ -39,28 +37,22 @@ public class MenuManagerListContainer extends AbstractListContainer<MenuManager,
 	}
 
 	public void appendToGroup(String groupName, MenuManager menuManager) {
+		addPendingSeparator();
 		getList().add(calculateGroupIndex(groupName), menuManager);
 	}
 	public void add(MenuManager menuManager) {
+		addPendingSeparator();
 		getList().add(menuManager);
 	}
 
-	public void addSeparator() {
-		getList().add(new Separator());
-	}
-	public void addSeparator(String groupName) {
-		getList().add(new Separator(groupName));
-	}
-	public void addGroupMarker(String groupName) {
-		getList().add(new GroupMarker(groupName));
-	}
-
 	public MenuManagerContainer appendToGroupIntoSubContainer(String groupName, String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		MenuManagerContainer container = MenuManagerContainer.create(name, icon);
 		getList().add(calculateGroupIndex(groupName), container.getMenuManager());
 		return container;
 	}
 	public MenuManagerContainer addIntoSubContainer(String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		MenuManagerContainer container = MenuManagerContainer.create(name, icon);
 		getList().add(container.getMenuManager());
 		return container;

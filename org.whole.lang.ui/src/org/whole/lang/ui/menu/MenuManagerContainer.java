@@ -17,22 +17,16 @@
  */
 package org.whole.lang.ui.menu;
 
-import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
  */
-public class MenuManagerContainer implements IItemContainer<MenuManager, ImageDescriptor> {
-	protected IMenuManager menuManager;
+public class MenuManagerContainer extends AbstractMenuManagerContainer<MenuManager, ImageDescriptor> {
 	protected MenuManagerContainer(IMenuManager menuManager) {
-		this.menuManager = menuManager;
-	}
-	public IMenuManager getMenuManager() {
-		return menuManager;
+		super(menuManager);
 	}
 
 	public static MenuManagerContainer create(IMenuManager menuManager) {
@@ -43,28 +37,22 @@ public class MenuManagerContainer implements IItemContainer<MenuManager, ImageDe
 	}
 
 	public void appendToGroup(String groupName, MenuManager item) {
+		addPendingSeparator();
 		getMenuManager().appendToGroup(groupName, item);
 	}
 	public void add(MenuManager item) {
+		addPendingSeparator();
 		getMenuManager().add(item);
 	}
 
-	public void addSeparator() {
-		getMenuManager().add(new Separator());
-	}
-	public void addSeparator(String groupName) {
-		getMenuManager().add(new Separator(groupName));
-	}
-	public void addGroupMarker(String groupName) {
-		getMenuManager().add(new GroupMarker(groupName));
-	}
-
 	public MenuManagerContainer appendToGroupIntoSubContainer(String groupName, String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		MenuManagerContainer menuManagerContainer = create(name, icon);
 		getMenuManager().appendToGroup(groupName, menuManagerContainer.getMenuManager());
 		return menuManagerContainer;
 	}
 	public MenuManagerContainer addIntoSubContainer(String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		MenuManagerContainer menuManagerContainer = create(name, icon);
 		getMenuManager().add(menuManagerContainer.getMenuManager());
 		return menuManagerContainer;

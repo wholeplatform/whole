@@ -43,5 +43,5 @@ public abstract class AbstractSelectionConstrainedVisibleWhen extends Expression
 		return EvaluationResult.FALSE;
 	}
 
-	protected abstract boolean isVisible(IBindingManager bm);
+	public abstract boolean isVisible(IBindingManager bm);
 }

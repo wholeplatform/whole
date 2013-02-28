@@ -23,12 +23,12 @@ import org.osgi.framework.BundleContext;
 /**
  * @author Enrico Persiani
  */
-public class E3xPlugin extends AbstractUIPlugin {
+public class E3Plugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.whole.lang.e4.ui.compatibility";
 
-	private static E3xPlugin plugin;
+	private static E3Plugin plugin;
 	
-	public E3xPlugin() {
+	public E3Plugin() {
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -40,7 +40,7 @@ public class E3xPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	public static E3xPlugin getDefault() {
+	public static E3Plugin getDefault() {
 		return plugin;
 	}
 }

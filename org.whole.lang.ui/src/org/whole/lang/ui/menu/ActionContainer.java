@@ -17,23 +17,17 @@
  */
 package org.whole.lang.ui.menu;
 
-import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
  */
-public class ActionContainer implements IItemContainer<IAction, ImageDescriptor> {
-	protected IMenuManager menuManager;
+public class ActionContainer extends AbstractMenuManagerContainer<IAction, ImageDescriptor> {
 	protected ActionContainer(IMenuManager menuManager) {
-		this.menuManager = menuManager;
-	}
-	public IMenuManager getMenuManager() {
-		return menuManager;
+		super(menuManager);
 	}
 
 	public static ActionContainer create(IMenuManager menuManager) {
@@ -44,28 +38,22 @@ public class ActionContainer implements IItemContainer<IAction, ImageDescriptor>
 	}
 
 	public void appendToGroup(String groupName, IAction item) {
+		addPendingSeparator();
 		getMenuManager().appendToGroup(groupName, item);
 	}
 	public void add(IAction item) {
+		addPendingSeparator();
 		getMenuManager().add(item);
 	}
 
-	public void addSeparator() {
-		getMenuManager().add(new Separator());
-	}
-	public void addSeparator(String groupName) {
-		getMenuManager().add(new Separator(groupName));
-	}
-	public void addGroupMarker(String groupName) {
-		getMenuManager().add(new GroupMarker(groupName));
-	}
-
 	public ActionContainer appendToGroupIntoSubContainer(String groupName, String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		ActionContainer menuManagerContainer = create(name, icon);
 		getMenuManager().appendToGroup(groupName, menuManagerContainer.getMenuManager());
 		return menuManagerContainer;
 	}
 	public ActionContainer addIntoSubContainer(String name, ImageDescriptor icon) {
+		addPendingSeparator();
 		ActionContainer menuManagerContainer = create(name, icon);
 		getMenuManager().add(menuManagerContainer.getMenuManager());
 		return menuManagerContainer;

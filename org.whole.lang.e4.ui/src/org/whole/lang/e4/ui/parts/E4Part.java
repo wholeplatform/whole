@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.CONTEXT_MENU_ID;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.lang.reflect.Field;
 
@@ -34,6 +34,7 @@ import org.eclipse.e4.ui.di.PersistState;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -160,7 +161,7 @@ public class E4Part {
 		menuService.registerContextMenu(viewer.getControl(), CONTEXT_MENU_ID);
 
 		actionRegistry = createActionRegistry();
-		contextMenuProvider = new PopupMenuProvider<MMenu>(new E4MenuBuilder(context, actionRegistry));
+		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(context, actionRegistry));
 		contextMenuProvider.populate(contextMenu);
 
 		viewer.getControl().addMouseListener(new MouseAdapter() {
@@ -169,9 +170,15 @@ public class E4Part {
 				if (event.button == 3) {
 					//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
 					E4Utils.forceRender(context, contextMenu);
+					viewer.getControl().removeMouseListener(this);
 				}
 			}
 		});
+	}
+
+	@PersistState
+	public void saveState() {
+		part.getMenus().clear();
 	}
 
 	@Persist
@@ -186,11 +193,6 @@ public class E4Part {
 			} catch (Exception e) {
 			}
 		}
-	}
-
-	@PersistState
-	public void saveState() {
-		part.getMenus().clear();
 	}
 
 	protected MPopupMenu createContextMenu() {

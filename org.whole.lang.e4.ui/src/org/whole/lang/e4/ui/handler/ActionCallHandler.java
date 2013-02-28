@@ -21,57 +21,55 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import javax.inject.Named;
 
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.jobs.ActionCallRunnable;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.commands.ModelTransactionCommand;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public abstract class FragmentModelTransactionHandler {
+public class ActionCallHandler {
 
 	@CanExecute
-	public boolean canExecute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
+	public boolean canExecute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
+			@Optional @Named(ANALYSING_PARAMETER_ID) String analysing,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		defineBindings(fragmentXwl, predicateXwl, bm);
-		return isEnabled(bm);
+		defineBindings(functionUri, predicateXwl, analysing, bm);
+		return HandlersBehavior.canCallAction(bm);
 	}
 
 	@Execute
-	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String prototypeXwl,
+	public void execute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		defineBindings(prototypeXwl, predicateXwl, bm);
-		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
-		try {
-			mtc.begin();
-			run(bm);
-			mtc.commit();
-			if (mtc.canUndo())
-				commandStack.execute(mtc);
-		} catch (RuntimeException e) {
-			mtc.rollback();
-			throw e;
-		}
+			@Optional @Named(ANALYSING_PARAMETER_ID) String analysing,
+			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
+			IEclipseContext context) throws Exception {
+		defineBindings(functionUri, predicateXwl, analysing, bm);
+
+		IRunnableWithProgress actionRunnable = new ActionCallRunnable(context, bm, label, true);
+		final RunnableJob job = new RunnableJob("Executing "+label+" action...", actionRunnable);
+		job.setUser(true);
+		job.setPriority(Job.INTERACTIVE);
+		job.schedule();
 	}
 
-	protected void defineBindings(String fragmentXwl, String predicateXwl, IBindingManager bm) throws Exception {
+	protected void defineBindings(String functionUri, String predicateXwl, String analysing, IBindingManager bm) throws Exception {
 		IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
-		bm.wDef("fragmentEntity", persistenceKit.readModel(new StringPersistenceProvider(fragmentXwl)));
+		bm.wDefValue("analysing", Boolean.parseBoolean(analysing));
+		bm.wDefValue("functionUri", functionUri);
 		bm.wDef("predicateEntity", persistenceKit.readModel(new StringPersistenceProvider(predicateXwl)));
 	}
-	
-	public abstract boolean isEnabled(IBindingManager bm);
-	public abstract void run(IBindingManager bm);
-	public abstract String getLabel(IBindingManager bm);
 }

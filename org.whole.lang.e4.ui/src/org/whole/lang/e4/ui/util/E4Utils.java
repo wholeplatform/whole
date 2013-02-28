@@ -26,6 +26,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MBindingTable;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
@@ -57,8 +58,11 @@ import org.whole.lang.e4.ui.handler.PasteAsHandler;
 import org.whole.lang.e4.ui.handler.PasteHandler;
 import org.whole.lang.e4.ui.handler.ReplaceEntityHandler;
 import org.whole.lang.e4.ui.handler.ReplaceFragmentHandler;
+import org.whole.lang.e4.ui.handler.ReplaceWithDefaultHandler;
 import org.whole.lang.e4.ui.handler.SelectAllHandler;
 import org.whole.lang.e4.ui.handler.SelectNotationHandler;
+import org.whole.lang.e4.ui.handler.ActionCallHandler;
+import org.whole.lang.e4.ui.handler.WrapFragmentHandler;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
@@ -67,7 +71,11 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
+import org.whole.lang.ui.views.ResultsView;
+import org.whole.lang.util.DataTypeUtils;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -154,18 +162,33 @@ public class E4Utils {
 		for (IEntityPart selectedEntityPart : selectedEntityParts)
 			selectedEntities.wAdd(selectedEntityPart.getModelEntity());
 
-		bm.wDefValue("viewer", viewer);
+		if (viewer != null) {
+			bm.wDef("self", EntityUtils.getCompoundRoot(viewer.getEntityContents()));
+			bm.wDefValue("viewer", viewer);
+		}
 		bm.wDef("selectedEntities", selectedEntities);
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
 		iterator.reset(selectedEntities);
 		if (iterator.hasNext()) {
 			bm.wDef("primarySelectedEntity", iterator.next());
-			if (!selectedEntityParts.isEmpty() && selectedEntityParts.get(0) instanceof IHilightable) {
-				final IHilightable hilightable = (IHilightable) selectedEntityParts.get(0);
+			IEntityPart primarySelectedEntityPart = selectedEntityParts.get(0);
+			if (/* !selectedEntityParts.isEmpty() && */ primarySelectedEntityPart instanceof IHilightable) {
+				final IHilightable hilightable = (IHilightable) primarySelectedEntityPart;
 				bm.wDefValue("hilightPosition", -1);
 				bm.wGet("hilightPosition").wAddRequestEventHandler(new IdentityRequestEventHandler() {
 					public int notifyRequested(IEntity source, FeatureDescriptor feature, int value) {
 						return hilightable.getHilightPosition();
+					}
+				});
+			}
+			if (primarySelectedEntityPart instanceof ITextualEntityPart) {
+				final ITextualEntityPart textualEntityPart = (ITextualEntityPart) primarySelectedEntityPart;
+				bm.wDefValue("selectedText", "");
+				bm.wGet("selectedText").wAddRequestEventHandler(new IdentityRequestEventHandler() {
+					public String notifyRequested(IEntity source, FeatureDescriptor feature, String value) {
+						return textualEntityPart.hasSelectionRange() ?
+								DataTypeUtils.getAsPresentationString(textualEntityPart.getModelEntity())
+										.substring(textualEntityPart.getSelectionStart(), textualEntityPart.getSelectionEnd()) : "";
 					}
 				});
 			}
@@ -174,8 +197,10 @@ public class E4Utils {
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
 		try {
-			Class<?> resourceUtilsClass = Class.forName("org.whole.lang.ui.util.ResourceUtils",
-					true, ReflectionFactory.getPlatformClassLoader());
+			// NOTE: we must use the platform class loader
+			// because bm doesn't includes the classLoader variable, yet
+			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+			Class<?> resourceUtilsClass = Class.forName("org.whole.lang.ui.util.ResourceUtils", true, cl);
 			Method defineResourceBindingsMethod = resourceUtilsClass.getMethod("defineResourceBindings", new Class[] {IBindingManager.class, IFile.class});
 			defineResourceBindingsMethod.invoke(null, bm, modelInput.getFile());
 		} catch (Exception e) {
@@ -183,6 +208,53 @@ public class E4Utils {
 		}
 	}
 
+
+	@SuppressWarnings("unchecked")
+	protected static class RevealViewRunnable<T> implements Runnable {
+		protected IBindingManager bm;
+		protected String viewId;
+		protected String secondaryId;
+		protected T result;
+
+		public RevealViewRunnable(IBindingManager bm, String viewId, String secondaryId) {
+			this.bm = bm;
+			this.viewId = viewId;
+			this.secondaryId = secondaryId;
+		}
+		public T getResult() {
+			return result;
+		}
+		public void run() {
+			try {
+				// we must use the platform class loader
+				// because bm doesn't includes the variable "classLoader"
+				ClassLoader cl = ReflectionFactory.getClassLoader(bm);
+				Class<?> pluginClass = Class.forName("org.whole.lang.ui.WholeUIPlugin", true, cl);
+				Method revealViewMethod = pluginClass.getMethod("revealView", new Class[] {String.class, String.class});
+				result = (T) revealViewMethod.invoke(null, viewId, secondaryId);
+			} catch (Exception e) {
+				throw new IllegalStateException(e);
+			}
+		}
+	};
+	public static <T> T revealLegacyView(IEclipseContext context, IBindingManager bm, String viewId, String secondaryId) {
+		RevealViewRunnable<T> runnable = new RevealViewRunnable<T>(bm, viewId, secondaryId);
+		context.get(UISynchronize.class).syncExec(runnable);
+		return runnable.getResult();
+	}
+	public static <T> T  revealLegacyView(IEclipseContext context, IBindingManager bm, Class<T> clazz) {
+		return revealLegacyView(context, bm, clazz.getName(), null);
+	}
+	public static void revealResultsView(IEclipseContext context, IBindingManager bm, final IEntity results) {
+		RevealViewRunnable<ResultsView> runnable = new RevealViewRunnable<ResultsView>(bm, ResultsView.class.getName(), null) {
+			public void run() {
+				super.run();
+				getResult().setContents(results);
+			}
+		};
+		context.get(UISynchronize.class).syncExec(runnable);
+	}
+	
 	public static void registerCommands(EHandlerService handlerService,
 			MApplication application, ICommandFactory commandFactory) {
 		// register platform services
@@ -208,10 +280,16 @@ public class E4Utils {
 		handlerService.activateHandler(REPLACE_FRAGMENT_COMMAND_ID, new ReplaceFragmentHandler());
 		application.getCommands().add(commandFactory.createAddFragmentCommand());
 		handlerService.activateHandler(ADD_FRAGMENT_COMMAND_ID, new AddFragmentHandler());
+		application.getCommands().add(commandFactory.createWrapFragmentCommand());
+		handlerService.activateHandler(WRAP_FRAGMENT_COMMAND_ID, new WrapFragmentHandler());
 
+		application.getCommands().add(commandFactory.createReplaceWithDefaultCommand());
+		handlerService.activateHandler(REPLACE_WITH_DEFAULT_COMMAND_ID, new ReplaceWithDefaultHandler());
 		application.getCommands().add(commandFactory.createImportCommand());
 		handlerService.activateHandler(IMPORT_COMMAND_ID, new ImportHandler());
 		application.getCommands().add(commandFactory.createSelectNotationCommand());
 		handlerService.activateHandler(SELECT_NOTATION_COMMAND_ID, new SelectNotationHandler());
+		application.getCommands().add(commandFactory.createActionCallCommand());
+		handlerService.activateHandler(ACTION_CALL_COMMAND_ID, new ActionCallHandler());
 	}
 }

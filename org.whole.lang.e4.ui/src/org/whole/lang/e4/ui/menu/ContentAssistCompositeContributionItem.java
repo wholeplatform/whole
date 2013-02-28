@@ -18,7 +18,6 @@
 package org.whole.lang.e4.ui.menu;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -29,13 +28,14 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.FlatFillMenuStrategy;
-import org.whole.lang.ui.menu.E3HierarchicalFillMenuStrategy;
+import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 
@@ -44,18 +44,8 @@ import org.whole.lang.util.EntityUtils;
  */
 @SuppressWarnings("restriction")
 public class ContentAssistCompositeContributionItem extends AbstractCompositeContributionItem {
-	protected IEclipseContext context;
-	protected ActionRegistry actionRegistry;
-	protected Comparator<IAction> comparator;
-
 	public ContentAssistCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.context = context;
-		this.actionRegistry = actionRegistry;
-		this.comparator = new Comparator<IAction>() {
-			public int compare(IAction left, IAction right) {
-				return left.getText().compareTo(right.getText());
-			}
-		};
+		super(context, actionRegistry);
 	}
 
 	public ContentAssistCompositeContributionItem(IEclipseContext context) {
@@ -88,12 +78,12 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 			for (int i=0; i<values.length; i++) {
 				IEntity value = values[i];
 				if (!Matcher.match(value, selectedEntity)) {
-					IAction action = actionRegistry.createReplaceFragmentAction(DataTypeUtils.getAsPresentationString(value), value);
+					IUpdatableAction action = actionRegistry.createReplaceFragmentAction(DataTypeUtils.getAsPresentationString(value), value, BindingManagerFactory.instance.createSpecificValue(true));
 					if (action.isEnabled())
 						actions[actionsSize++] = action;
 				}	
 			}
-			E3HierarchicalFillMenuStrategy.instance().fillMenu(container, ActionSet.create(actions), 0, actionsSize);
+			HierarchicalFillMenuStrategy.instance().fillMenu(container, ActionSet.create(actions), 0, actionsSize);
 		}
 		return items.toArray(new IContributionItem[items.size()]);
 	}

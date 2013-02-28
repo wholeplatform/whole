@@ -17,27 +17,49 @@
  */
 package org.whole.lang.e4.ui.expressions;
 
+import static  org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
+
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.matchers.GenericMatcherFactory;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ContentAssistOperation;
+import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.util.EntityUtils;
+import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Enrico Persiani
  */
 public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
-
 	@Override
-	protected boolean isVisible(IBindingManager bm) {
-		IBindingManager env = BindingManagerFactory.instance.createArguments();
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-
+	public boolean isVisible(IBindingManager bm) {
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
 			return false;
 
-		IEntity[] values = ContentAssistOperation.getContentAssist(selectedEntity, env);
+		IBindingManager env = BindingManagerFactory.instance.createArguments();
+		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("primarySelectedEntity"), env);
+		if (values.length == 1 && !EntityUtils.isData(values[0])) {
+			IEntity value = Matcher.find(new IsConcreteAction(Action), values[0], false);
+			return value != null;
+		} else
+			return values.length > 0;
+	}
 
-		return values.length > 0;
+	protected static final class IsConcreteAction extends GenericMatcherFactory.IsLanguageSubtypeOfMatcher {
+		private IsConcreteAction(EntityDescriptor<?> ed) {
+			super(ed);
+		}
+
+		@Override
+		public void visit(IEntity entity) {
+			super.visit(entity);
+			EntityDescriptor<?> entityDescriptor = entity.wGetEntityDescriptor();
+			if (entityDescriptor.isLanguageSubtypeOf(GroupAction) ||
+					entityDescriptor.equals(SeparatedAction))
+				throw new VisitException();
+		}
 	}
 }

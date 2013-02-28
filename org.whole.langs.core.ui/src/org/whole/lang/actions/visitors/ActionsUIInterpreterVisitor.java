@@ -17,10 +17,7 @@
  */
 package org.whole.lang.actions.visitors;
 
-import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.DistinctPrefix;
-import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.GroupAction;
-import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Hierarchical;
-import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.SeparatedAction;
+import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +54,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.actions.AbstractLazySelectionAction;
 import org.whole.lang.ui.actions.ActionsComparator;
 import org.whole.lang.ui.actions.CompositeAddAction;
 import org.whole.lang.ui.actions.EnablerPredicateFactory;

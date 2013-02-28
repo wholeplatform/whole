@@ -19,7 +19,6 @@ package org.whole.lang.e4.ui.command;
 
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandParameter;
-import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
@@ -35,11 +34,14 @@ public interface ICommandFactory {
 	
 	public MCommand createReplaceEntityCommand();
 	public MCommand createAddEntityCommand();
-	public MCommand createTransformCommand(IEntity behavior);
 
 	public MCommand createAddFragmentCommand();
 	public MCommand createReplaceFragmentCommand();
+	public MCommand createWrapFragmentCommand();
 
+	public MCommand createReplaceWithDefaultCommand();
 	public MCommand createSelectNotationCommand();
 	public MCommand createImportCommand();
+
+	public MCommand createActionCallCommand();
 }

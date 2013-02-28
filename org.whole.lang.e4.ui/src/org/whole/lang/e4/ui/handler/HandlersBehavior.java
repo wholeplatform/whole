@@ -27,6 +27,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
+import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -38,7 +39,9 @@ import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
+import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.Clipboard;
@@ -47,7 +50,9 @@ import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DefaultCopyTransformer;
+import org.whole.lang.util.DefaultWrapInTransformer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -81,7 +86,11 @@ public class HandlersBehavior {
 		return isValidEntityPartSelection(bm, false);
 	}
 	public static void copy(IBindingManager bm) {
-		Clipboard.instance().setEntitiesContents(bm.wGet("selectedEntities"));
+		String selectedText;
+		if (bm.wIsSet("selectedText") && !(selectedText = bm.wStringValue("selectedText")).isEmpty())
+			Clipboard.instance().setTextContents(selectedText);
+		else
+			Clipboard.instance().setEntitiesContents(bm.wGet("selectedEntities"));
 	}
 	public static boolean canCopyEntityPath(IBindingManager bm) {
 		return isValidEntityPartSelection(bm, true);
@@ -90,7 +99,7 @@ public class HandlersBehavior {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		try {
 			Class<?> queryUtilsClass = Class.forName("org.whole.lang.queries.util.QueriesUtils",
-					true, ReflectionFactory.getPlatformClassLoader());
+					true, ReflectionFactory.getClassLoader(bm));
 			Method createRootPathMethod = queryUtilsClass.getMethod("createRootPath", new Class[] {IEntity.class});
 			IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, primarySelectedEntity);
 			Clipboard.instance().setEntityContents(entityPath);
@@ -265,6 +274,16 @@ public class HandlersBehavior {
 		}
 	}
 
+	public static boolean canReplaceWithDefault(IBindingManager bm) {
+		return isValidEntityPartSelection(bm, true);
+	}
+	public static void replaceWithDefault(IBindingManager bm) {
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity parent = primarySelectedEntity.wGetParent();
+		IEntity defaultEntity = GenericEntityFactory.instance.create(primarySelectedEntity.wGetEntityDescriptor());
+		parent.wSet(primarySelectedEntity, defaultEntity);
+	}
+
 	public static boolean canImportEntity(IBindingManager bm) {
 		return isValidEntityPartSelection(bm, true);
 	}
@@ -346,15 +365,23 @@ public class HandlersBehavior {
 			return false;
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-		return EntityUtils.isReplaceable(primarySelectedEntity, fragmentEntity);
+		IEntity predicateEntity = bm.wGet("predicateEntity");
+
+		bm.wEnterScope();
+		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
+		bm.wDefValue("self", primarySelectedEntity);
+		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		bm.wExitScope();
+
+		if (!predicateResult)
+			return false;
+
+		return EntityUtils.isReplaceable(primarySelectedEntity, bm.wGet("fragmentEntity"));
 	}
 
 	public static void replaceFragment(IBindingManager bm) {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-//TODO enable entity transformer?
-//		DefaultCopyTransformer.instance.transform(primarySelectedEntity, fragmentEntity);
 		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, fragmentEntity);
 	}
 
@@ -363,8 +390,18 @@ public class HandlersBehavior {
 			return false;
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-		return EntityUtils.isAddable(primarySelectedEntity, fragmentEntity);
+		IEntity predicateEntity = bm.wGet("predicateEntity");
+
+		bm.wEnterScope();
+		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
+		bm.wDefValue("self", primarySelectedEntity);
+		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		bm.wExitScope();
+
+		if (!predicateResult)
+			return false;
+
+		return EntityUtils.isAddable(primarySelectedEntity, bm.wGet("fragmentEntity"));
 	}
 
 	public static void addFragment(IBindingManager bm) {
@@ -374,5 +411,63 @@ public class HandlersBehavior {
 			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), fragmentEntity);
 		else
 			primarySelectedEntity.wAdd(fragmentEntity);
+	}
+
+	public static boolean canWrapFragment(IBindingManager bm) {
+		if (!isValidEntityPartSelection(bm, true))
+			return false;
+
+		if (!BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm))
+			return false;
+
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity fragmentEntity = bm.wGet("fragmentEntity");
+		return EntityUtils.isReplaceable(primarySelectedEntity, fragmentEntity);
+	}
+
+	public static void wrapFragment(IBindingManager bm) {
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity fragmentEntity = bm.wGet("fragmentEntity");
+		DefaultWrapInTransformer.instance.transform(primarySelectedEntity, fragmentEntity);
+		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, fragmentEntity);
+	}
+
+	public static boolean canCallAction(IBindingManager bm) {
+		return BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm);
+	}
+	public static void actionCall(IBindingManager bm) {
+		IEntity model = bm.wGet("self");
+		boolean analising = bm.wBooleanValue("analysing");
+		if (analising) {
+			// clone model if is analysing
+			model = EntityUtils.clone(model);
+			CommonsEntityFactory.instance.createRootFragment(
+					model.wGetAdapter(CommonsEntityDescriptorEnum.Any));
+			ReflectionFactory.getHistoryManager(model).setHistoryEnabled(true);
+
+			// map selected entities if analysing
+			IEntity tuple = bm.wGet("selectedEntities");
+			int size = tuple.wSize();
+			for (int i = 0; i < size; i++)
+				tuple.wSet(i, EntityUtils.mapEntity(tuple.wGet(i), model));
+			bm.wSet("primarySelectedEntity", EntityUtils.mapEntity(bm.wGet("primarySelectedEntity"), model));
+		}
+
+		IEntityIterator<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"), null);
+		iterator.setBindings(bm);
+		iterator.reset(model);
+
+		IEntity results = MiscEntityFactory.instance.createMisc();
+		for (IEntity result : iterator) {
+			if (analising)
+				results.wAdd(GenericEntityFactory.instance.create(
+						CommonsEntityDescriptorEnum.StageUpFragment,
+						//CommonsEntityFactory.instance.createStageUpFragment(
+						EntityUtils.clone(result)));//TODO substitute with a no containment fragment
+
+			((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
+			result.wIsAdapter();
+		}
+		bm.setResult(results);
 	}
 }

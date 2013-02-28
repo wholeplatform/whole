@@ -22,9 +22,9 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  * @author Enrico Persiani
  */
-public interface IUIBuilder<T> {
-	public T getContainer();
-	public void setContainer(T container);
+public interface IUIBuilder<I, C extends I> {
+	public C getContainer();
+	public C setContainer(C container);
 
 	public void before();
 	public void after();
@@ -43,18 +43,26 @@ public interface IUIBuilder<T> {
 	public void addPasteItem();
 	public void addPasteAsItem();
 
-	public void addDeleteItem();
 	public void addSelectAllItem();
 	
 	public void addContentAssistItem();
 	public void addEntityAssistItem();
+	public void addFeatureAssistItem();
+
+	public void addSourceItem();
+	public void addRefactorItem();
+	public void addTranslateItem();
+	public void addAnalyzeItem();
+	public void addMigrateItem();
 
 	public void addNotationsItem();
 	public void addImportItem();
 
+	public void addDefaultItem();
+	public void addDeleteItem();
 	public void addRemoveItem();
 
-	public void addReplaceWithEntityItem(EntityDescriptor<?> ed);
+	public void addReplaceEntityItem(EntityDescriptor<?> ed);
 	public void addAddEntityItem(EntityDescriptor<?> ed);
 
 	//TODO remove

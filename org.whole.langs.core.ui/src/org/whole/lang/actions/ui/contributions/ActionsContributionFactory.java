@@ -50,7 +50,7 @@ import org.whole.lang.actions.model.MenuActions;
 import org.whole.lang.actions.model.URI;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.resources.IResource;
@@ -108,7 +108,7 @@ public class ActionsContributionFactory extends AbstractContributionFactory {
 				continue;
 
 			redefineHandlers(serviceLocator, actionsModule);
-			AbstractPatternFilterIterator<GuardedAction> i = IteratorFactory.<GuardedAction>childMatcherIterator()
+			IEntityIterator<GuardedAction> i = IteratorFactory.<GuardedAction>childMatcherIterator()
 					.withPattern(ActionsEntityDescriptorEnum.GuardedAction);
 			i.reset(getActions(actionsModule));
 			for (GuardedAction action : i) {
@@ -160,7 +160,7 @@ public class ActionsContributionFactory extends AbstractContributionFactory {
 			category.define("Whole Dynamic Generators", null);
 
 		final List<IHandlerActivation> activationList = new ArrayList<IHandlerActivation>();
-		AbstractPatternFilterIterator<GuardedAction> i = IteratorFactory.<GuardedAction>childMatcherIterator()
+		IEntityIterator<GuardedAction> i = IteratorFactory.<GuardedAction>childMatcherIterator()
 				.withPattern(ActionsEntityDescriptorEnum.GuardedAction);
 		i.reset(getActions(actionsModule));
 		for (GuardedAction action : i) {

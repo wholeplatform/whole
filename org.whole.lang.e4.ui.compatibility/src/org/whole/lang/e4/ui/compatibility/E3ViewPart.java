@@ -20,16 +20,10 @@ package org.whole.lang.e4.ui.compatibility;
 import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
 import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
 
-import java.lang.reflect.Field;
-import java.util.EventObject;
-
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.tools.compat.parts.DIEditorPart;
-import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
-import org.eclipse.ui.IPersistableEditor;
 import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
@@ -39,46 +33,26 @@ import org.whole.lang.e4.ui.parts.E4Part;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E3xEditorPart extends DIEditorPart<E4Part> implements IPersistableEditor {
-	protected CommandStackListener listener;
+public class E3ViewPart extends DIViewPart<E4Part> {
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
-	public E3xEditorPart() {
-		super(E4Part.class, CUT | COPY | PASTE);
+	public E3ViewPart() {
+		super(E4Part.class);
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-
-		setPartName(getEditorInput().getName());
-
-		getComponent().getViewer().getCommandStack().addCommandStackListener(listener = new CommandStackListener() {
-			public void commandStackChanged(EventObject event) {
-				setDirtyState(getComponent().getViewer().isDirty());
-			}
-		});
-
-		IActionBars actionBars = getEditorSite().getActionBars();
-		undoAction = new UndoAction(getContext(), UNDO_LABEL);
+		
+		IActionBars actionBars = getViewSite().getActionBars();
+		undoAction = new UndoAction(getContext().getParent(), UNDO_LABEL);
 		undoAction.update();
 		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
 
-		redoAction = new RedoAction(getContext(), REDO_LABEL);
+		redoAction = new RedoAction(getContext().getParent(), REDO_LABEL);
 		redoAction.update();
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
-	}
-
-	//FIXME remove when implemented in DIEditorPart
-	private IEclipseContext getContext() {
-		try {
-			Field contextField = DIEditorPart.class.getDeclaredField("context");
-			contextField.setAccessible(true);
-			return ((IEclipseContext) contextField.get(this)).getParent();
-		} catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
 	}
 
 	@Override
@@ -87,13 +61,7 @@ public class E3xEditorPart extends DIEditorPart<E4Part> implements IPersistableE
 	}
 
 	@Override
-	public void restoreState(IMemento memento) {
-	}
-
-	@Override
 	public void dispose() {
-		if (listener != null)
-			getComponent().getViewer().getCommandStack().removeCommandStackListener(listener);
 		if (undoAction != null)
 			undoAction.dispose();
 		if (redoAction != null)

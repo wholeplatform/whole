@@ -104,22 +104,59 @@ public class ActionRegistry {
 		}
 		return action;
 	}
-	public IUpdatableAction createReplaceFragmentAction(String label, IEntity fragment) {
+	public IUpdatableAction createReplaceFragmentAction(String label, IEntity fragment, IEntity predicate) {
 		try {
+			Map<String, String> parameters = new HashMap<String, String>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
-			Map<String, String> parameters = Collections.singletonMap(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			spp = new StringPersistenceProvider();
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
+			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
 			return createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_FRAGMENT_COMMAND_ID, parameters);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
-	public IUpdatableAction createAddFragmentAction(String label, IEntity fragment) {
+	public IUpdatableAction createAddFragmentAction(String label, IEntity fragment, IEntity predicate) {
 		try {
+			Map<String, String> parameters = new HashMap<String, String>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
-			Map<String, String> parameters = Collections.singletonMap(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			spp = new StringPersistenceProvider();
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
+			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
 			return createE4ActionAdapter(label, ADD_ICON_URI, ADD_FRAGMENT_COMMAND_ID, parameters);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	public IUpdatableAction createWrapFragmentAction(String label, IEntity fragment, IEntity predicate) {
+		try {
+			Map<String, String> parameters = new HashMap<String, String>();
+			StringPersistenceProvider spp = new StringPersistenceProvider();
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
+			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			spp = new StringPersistenceProvider();
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
+			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
+			return createE4ActionAdapter(label, WRAP_ICON_URI, WRAP_FRAGMENT_COMMAND_ID, parameters);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public IUpdatableAction createActionCallAction(String label, String functionUri, IEntity predicate, boolean analysing) {
+		try {
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put(FUNCTION_URI_PARAMETER_ID, functionUri);
+			StringPersistenceProvider spp = new StringPersistenceProvider();
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
+			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
+			parameters.put(DESCRIPTION_PARAMETER_ID, label);
+			parameters.put(ANALYSING_PARAMETER_ID, Boolean.TRUE.toString());
+			return createE4ActionAdapter(label, null, ACTION_CALL_COMMAND_ID, parameters);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
@@ -139,6 +176,7 @@ public class ActionRegistry {
 		registerAction(createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
 
 		shell.addDisposeListener(new DisposeListener() {

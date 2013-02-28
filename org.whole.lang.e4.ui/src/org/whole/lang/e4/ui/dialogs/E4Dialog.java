@@ -35,6 +35,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.dialogs.Dialog;
@@ -140,7 +141,7 @@ public class E4Dialog extends Dialog {
 		actionRegistry = createActionRegistry();
 		E4Utils.registerCommands(handlerService, application, commandFactory = new CommandFactory());
 
-		contextMenuProvider = new PopupMenuProvider<IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

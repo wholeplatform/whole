@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.action.IContributionItem;
-import org.whole.lang.ui.menu.IItemContainer;
+import org.whole.lang.ui.menu.AbstractContainer;
 
 /**
  * @author Enrico Persiani
  */
-public abstract class AbstractListContainer<I, F> implements IItemContainer<I, F> {
+public abstract class AbstractListContainer<I, F> extends AbstractContainer<I, F> {
 	protected List<IContributionItem> list;
 	protected AbstractListContainer(List<IContributionItem> list) {
 		this.list = list;
@@ -53,5 +53,9 @@ public abstract class AbstractListContainer<I, F> implements IItemContainer<I, F
 		if (groupIndex == -1)
 			throw new IllegalArgumentException("unknown group name "+groupName);
 		return groupIndex;
+	}
+
+	protected void addContributionItem(IContributionItem item) {
+		getList().add(item);
 	}
 }

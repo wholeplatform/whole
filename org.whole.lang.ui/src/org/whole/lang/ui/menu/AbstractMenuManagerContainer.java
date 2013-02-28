@@ -15,21 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.ui.menu;
 
-import org.whole.lang.bindings.IBindingManager;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
 
 /**
  * @author Enrico Persiani
  */
-public class ReplaceFragmentHandler extends FragmentModelTransactionHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canReplaceFragment(bm);
+public abstract class AbstractMenuManagerContainer<I, F> extends AbstractContainer<I, F> {
+	protected IMenuManager menuManager;
+	protected AbstractMenuManagerContainer(IMenuManager menuManager) {
+		this.menuManager = menuManager;
 	}
-	public void run(IBindingManager bm) {
-		HandlersBehavior.replaceFragment(bm);
+	public IMenuManager getMenuManager() {
+		return menuManager;
 	}
-	public String getLabel(IBindingManager bm) {
-		return "replace with fragment";
+
+	protected void addContributionItem(IContributionItem item) {
+		getMenuManager().add(item);
 	}
 }

@@ -17,58 +17,40 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.CONTENT_ASSIST_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.COPY_AS_IMAGE_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.COPY_ENTITY_PATH_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_COPY;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_CUT;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_PASTE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_REDO;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_SELECT_ALL;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_UNDO;
-import static org.whole.lang.e4.ui.api.IUIConstants.ENTITY_ASSIST_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.IMPORT_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.NOTATION_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.PASTE_AS_COMMAND_ID;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.IUpdatableAction;
-import org.whole.lang.e4.ui.api.IUIBuilder;
+import org.whole.lang.e4.ui.api.AbstractUIBuilder;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
-import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
-	protected IEclipseContext context;
-	protected ActionRegistry actionRegistry;
+public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenuManager> {
 	protected Set<IUpdatableAction> actionsToUpdate;
 	protected IMenuManager menuManager;
 
 	public JFaceMenuBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.context = context;
-		this.actionRegistry = actionRegistry;
+		super(context, actionRegistry);
 		this.actionsToUpdate = new HashSet<IUpdatableAction>();
 		this.menuManager = null;
 	}
@@ -76,8 +58,10 @@ public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
 	public IMenuManager getContainer() {
 		return menuManager;
 	}
-	public void setContainer(IMenuManager menuManager) {
+	public IMenuManager setContainer(IMenuManager menuManager) {
+		IMenuManager previous = this.menuManager;
 		this.menuManager = menuManager;
+		return previous;
 	}
 
 	public void before() {
@@ -89,57 +73,54 @@ public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
 	}
 
 	public void addSeparator() {
-		menuManager.add(new Separator());
+		addItem(new Separator());
 	}
 	public void addSeparator(String groupName) {
-		menuManager.add(new Separator(groupName));
+		addItem(new Separator(groupName));
 	}
 	public void addGroupMarker(String groupName) {
-		menuManager.add(new GroupMarker(groupName));
+		addItem(new GroupMarker(groupName));
 	}
 
 	public void addUndoItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_UNDO));
+		addItem(actionRegistry.getAction(EDIT_UNDO));
 	}
 	public void addRedoItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_REDO));
+		addItem(actionRegistry.getAction(EDIT_REDO));
 	}
 
 	public void addCutItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_CUT));
+		addItem(actionRegistry.getAction(EDIT_CUT));
 	}
 	public void addCopyItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_COPY));
+		addItem(actionRegistry.getAction(EDIT_COPY));
 	}
 	public void addCopyEntityPathItem() {
-		menuManager.add(actionRegistry.getAction(COPY_ENTITY_PATH_COMMAND_ID));
+		addItem(actionRegistry.getAction(COPY_ENTITY_PATH_COMMAND_ID));
 	}
 	public void addCopyAsImageItem() {
-		menuManager.add(actionRegistry.getAction(COPY_AS_IMAGE_COMMAND_ID));
+		addItem(actionRegistry.getAction(COPY_AS_IMAGE_COMMAND_ID));
 	}
 	public void addPasteAsItem() {
-		menuManager.add(actionRegistry.getAction(PASTE_AS_COMMAND_ID));
+		addItem(actionRegistry.getAction(PASTE_AS_COMMAND_ID));
 	}
 	public void addPasteItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_PASTE));
+		addItem(actionRegistry.getAction(EDIT_PASTE));
 	}
 
 	public void addDeleteItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_DELETE));
+		addItem(actionRegistry.getAction(EDIT_DELETE));
 	}
 	public void addSelectAllItem() {
-		menuManager.add(actionRegistry.getAction(EDIT_SELECT_ALL));
+		addItem(actionRegistry.getAction(EDIT_SELECT_ALL));
 	}
 
 	@Override
 	public void addContentAssistItem() {
 		IBindingManager bm = getBindings();
-		IBindingManager env = BindingManagerFactory.instance.createArguments();
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		MenuManager menu = new MenuManager(CONTENT_ASSIST_LABEL);
-		menu.setVisible(HandlersBehavior.isValidEntityPartSelection(bm, true) &&
-				ContentAssistOperation.getContentAssist(selectedEntity, env).length > 0);
-		menuManager.add(menu);
+		IMenuManager menu = createMenu(CONTENT_ASSIST_LABEL);
+		menu.setVisible(contentAssistVisibleWhen.isVisible(bm));
+		addItem(menu);
 
 		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
 		menu.add(ici);
@@ -147,8 +128,8 @@ public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
 
 	@Override
 	public void addEntityAssistItem() {
-		MenuManager menu = new MenuManager(ENTITY_ASSIST_LABEL);
-		menuManager.add(menu);
+		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL);
+		addItem(menu);
 
 		if (!HandlersBehavior.isValidEntityPartSelection(getBindings(), true))
 			return;
@@ -156,12 +137,33 @@ public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
 		IContributionItem ici = new EntityAssistCompositeContributionItem(context, actionRegistry);
 		menu.add(ici);
 	}
+	@Override
+	public void addFeatureAssistItem() {
+		IBindingManager bm = getBindings();
+		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
+		IMenuManager menu = createMenu(FEATURE_ASSIST_LABEL);
+		menu.setVisible(HandlersBehavior.isValidEntityPartSelection(bm, true) &&
+				EntityUtils.isSimple(selectedEntity));
+		addItem(menu);
+
+		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
+		menu.add(ici);
+	}
+
+	protected void addActionsItem(String menuLabel, FeatureDescriptor menuFD) {
+		IMenuManager menu = createMenu(menuLabel);
+		menu.setVisible(getContentAssistVisibleWhen().isVisible(getBindings()));
+		addItem(menu);
+
+		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menuFD);
+		menu.add(ici);
+	}
 
 	public void addNotationsItem() {
 		IBindingManager bm = getBindings();
 
-		MenuManager menu = new MenuManager(NOTATION_LABEL);
-		menuManager.add(menu);
+		IMenuManager menu = createMenu(NOTATION_LABEL);
+		addItem(menu);
 
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
 			return;
@@ -174,33 +176,48 @@ public class JFaceMenuBuilder implements IUIBuilder<IMenuManager> {
 			menu.add(action);
 		}
 	}
+
 	public void addImportItem() {
-		menuManager.add(actionRegistry.getAction(IMPORT_COMMAND_ID));
+		addItem(actionRegistry.getAction(IMPORT_COMMAND_ID));
 	}
 
 	public void addRemoveItem() {
-		//TODO
+		IMenuManager menu = createMenu(REMOVE_LABEL);
+		IMenuManager previous = setContainer(menu);
+
+		addDeleteItem();
+		addDefaultItem();
+
+		setContainer(previous);
+		addItem(menu);
+	}
+	@Override
+	public void addDefaultItem() {
+		addItem(actionRegistry.getAction(REPLACE_WITH_DEFAULT_COMMAND_ID));
 	}
 
-	public void addReplaceWithEntityItem(EntityDescriptor<?> ed) {
+	public void addReplaceEntityItem(EntityDescriptor<?> ed) {
 		IUpdatableAction action = actionRegistry.getReplaceEntityAction(ed);
 		actionsToUpdate.add(action);
-		menuManager.add(action);
+		addItem(action);
 	}
 
 	public void addAddEntityItem(EntityDescriptor<?> ed) {
 		IUpdatableAction action = actionRegistry.getAddEntityAction(ed);
 		actionsToUpdate.add(action);
-		menuManager.add(action);
-	}
-
-	private final IBindingManager emptyBindings = E4Utils.createSelectionBindings(Collections.<IEntityPart>emptyList(), null);
-	protected IBindingManager getBindings() {
-		ESelectionService selectionService = context.get(ESelectionService.class);
-		return selectionService.getSelection() instanceof IBindingManager ?
-				(IBindingManager) selectionService.getSelection() : emptyBindings;
+		addItem(action);
 	}
 
 	public void addOpenDialog() {
+	}
+
+	protected IMenuManager createMenu(String name) {
+		return new MenuManager(name);
+	}
+	protected void addItem(IAction action) {
+		addItem(new ActionContributionItem(action));
+	}
+	protected void addItem(IContributionItem menu) {
+		menuManager.add(menu);
 	}
 }

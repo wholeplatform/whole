@@ -14,7 +14,7 @@
       <view
             category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.compatibility.WholeE4ViewPart"
-            class="org.whole.lang.e4.ui.compatibility.E3xViewPart"
+            class="org.whole.lang.e4.ui.compatibility.E3ViewPart"
             icon="icons/views/whole.gif"
             name="Whole E4 View"
             restorable="true">
@@ -28,7 +28,7 @@
             extensions="xwl,xml"
             icon="icons/editors/xml_builder.gif"
             default="false"
-            class="org.whole.lang.e4.ui.compatibility.E3xEditorPart"
+            class="org.whole.lang.e4.ui.compatibility.E3EditorPart"
             id="org.whole.lang.xml.E4XmlBuilderEditor">
             <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
       </editor>

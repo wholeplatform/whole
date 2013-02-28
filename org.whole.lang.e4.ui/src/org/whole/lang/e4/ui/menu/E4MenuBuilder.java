@@ -35,20 +35,22 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuSeparator;
 import org.eclipse.e4.ui.model.application.ui.menu.MOpaqueMenuItem;
-import org.eclipse.e4.ui.model.application.ui.menu.MRenderedMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.action.IContributionItem;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
-import org.whole.lang.e4.ui.api.IUIBuilder;
+import org.whole.lang.e4.ui.api.AbstractUIBuilder;
+import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.AddEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
+import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ReplaceEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.SelectNotationVisibleWhen;
 import org.whole.lang.e4.ui.handler.OpenDialogHandler;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.StringUtils;
@@ -58,19 +60,16 @@ import org.whole.lang.util.UniqueIdGenerator;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E4MenuBuilder implements IUIBuilder<MMenu> {
-	protected IEclipseContext context;
-	protected ActionRegistry actionRegistry;
+public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	protected EModelService modelService;
 	protected MApplication application;
-	
+
 	public E4MenuBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.context = context;
-		this.actionRegistry = actionRegistry;
+		super(context, actionRegistry);
 		this.modelService = context.get(EModelService.class);
 		this.application = context.get(MApplication.class);
 	}
-	
+
 	protected UniqueIdGenerator idGen;
 	public UniqueIdGenerator getIdGen() {
 		if (idGen == null)
@@ -82,8 +81,10 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 	public MMenu getContainer() {
 		return menu;
 	}
-	public void setContainer(MMenu menu) {
+	public MMenu setContainer(MMenu menu) {
+		MMenu previous = this.menu;
 		this.menu = menu;
+		return previous;
 	}
 
 	public void before() {
@@ -108,8 +109,16 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 	}
 
 	@Override
-	public void addRemoveItem() {
-		// TODO Auto-generated method stub
+	public void addDeleteItem() {
+		MHandledMenuItem deleteMenu =  E4Utils.findMenu(DELETE_MENU_ID, modelService, application, MHandledMenuItem.class);
+		deleteMenu = (MHandledMenuItem) modelService.cloneElement(deleteMenu, null);
+		addItem(deleteMenu);
+	}
+	@Override
+	public void addDefaultItem() {
+		MCommand command = E4Utils.findCommand(REPLACE_WITH_DEFAULT_COMMAND_ID, application);
+		MHandledMenuItem menuItem = createHandledItem(REPLACE_ICON_URI, DEFAULT_LABEL, command);
+		addItem(menuItem);
 	}
 
 	@Override
@@ -123,19 +132,44 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 		addItem(menu);
 
 		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
-		menu.getChildren().add(createRenderedMenuItem(ici));
+		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
-
 	@Override
 	public void addEntityAssistItem() {
 		MMenu menu = createMenu(ENTITY_ASSIST_LABEL);
 		addItem(menu);
 
 		IContributionItem ici = new EntityAssistCompositeContributionItem(context, actionRegistry);
-		menu.getChildren().add(createRenderedMenuItem(ici));
+		menu.getChildren().add(createOpaqueMenuItem(ici));
+	}
+	@Override
+	public void addFeatureAssistItem() {
+		MMenu menu = createMenu(FEATURE_ASSIST_LABEL);
+
+		MCoreExpression expression = MUiFactory.INSTANCE.createCoreExpression();
+		expression.setCoreExpression(new FeatureAssistVisibleWhen());
+		menu.setVisibleWhen(expression);
+
+		addItem(menu);
+
+		IContributionItem ici = new FeatureAssistCompositeContributionItem(context, actionRegistry);
+		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 
-	protected MHandledMenuItem createReplaceWithEntityItem(EntityDescriptor<?> ed, boolean sameLanguage) {
+	protected void addActionsItem(String menuLabel, FeatureDescriptor menuFD) {
+		MMenu menu = createMenu(menuLabel);
+
+		MCoreExpression expression = MUiFactory.INSTANCE.createCoreExpression();
+		expression.setCoreExpression(new ActionsVisibleWhen(menuFD));
+		menu.setVisibleWhen(expression);
+
+		addItem(menu);
+
+		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menuFD);
+		menu.getChildren().add(createOpaqueMenuItem(ici));
+	}
+
+	protected MHandledMenuItem createReplaceEntityItem(EntityDescriptor<?> ed, boolean sameLanguage) {
 		String label = StringUtils.camelCaseToSpacedWords(ed.getName());
 		MCommand command = E4Utils.findCommand(REPLACE_COMMAND_ID, application);
 		MParameter parameter = createEDUriParameter(ed);
@@ -145,7 +179,7 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 		menuItem.setVisibleWhen(expression);
 		return menuItem;
 	}
-	public MHandledMenuItem createAddEntityItem(EntityDescriptor<?> ed, boolean sameLanguage) {
+	protected MHandledMenuItem createAddEntityItem(EntityDescriptor<?> ed, boolean sameLanguage) {
 		String label = StringUtils.camelCaseToSpacedWords(ed.getName());
 		MCommand command = E4Utils.findCommand(ADD_COMMAND_ID, application);
 		MParameter parameter = createEDUriParameter(ed);
@@ -157,8 +191,8 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 	}
 
 	@Override
-	public void addReplaceWithEntityItem(EntityDescriptor<?> ed) {
-		addItem(createReplaceWithEntityItem(ed, true));
+	public void addReplaceEntityItem(EntityDescriptor<?> ed) {
+		addItem(createReplaceEntityItem(ed, true));
 	}
 	@Override
 	public void addAddEntityItem(EntityDescriptor<?> ed) {
@@ -235,12 +269,6 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 	}
 
 	@Override
-	public void addDeleteItem() {
-		MHandledMenuItem deleteMenu =  E4Utils.findMenu(DELETE_MENU_ID, modelService, application, MHandledMenuItem.class);
-		deleteMenu = (MHandledMenuItem) modelService.cloneElement(deleteMenu, null);
-		addItem(deleteMenu);
-	}
-	@Override
 	public void addNotationsItem() {
 		MMenu menu = createMenu(NOTATION_LABEL);
 		addItem(menu);
@@ -290,12 +318,12 @@ public class E4MenuBuilder implements IUIBuilder<MMenu> {
 		menu.setElementId(getIdGen().next());
 		return menu;
 	}
-	protected MRenderedMenuItem createRenderedMenuItem(IContributionItem ici) {
-		MRenderedMenuItem renderedMenuItem = MenuFactoryImpl.eINSTANCE.createRenderedMenuItem();
-		renderedMenuItem.setVisible(true);
-		renderedMenuItem.setContributionItem(ici);
-		renderedMenuItem.setElementId(getIdGen().next());
-		return renderedMenuItem;
+	protected MOpaqueMenuItem createOpaqueMenuItem(IContributionItem ici) {
+		MOpaqueMenuItem opaqueMenuItem = MenuFactoryImpl.eINSTANCE.createOpaqueMenuItem();
+		opaqueMenuItem.setVisible(true);
+		opaqueMenuItem.setOpaqueItem(ici);
+		opaqueMenuItem.setElementId(getIdGen().next());
+		return opaqueMenuItem;
 	}
 	protected MHandledMenuItem createHandledItem(String iconURI, String label, MCommand command, MParameter... parameters) {
 		MHandledMenuItem menuItem = MenuFactoryImpl.eINSTANCE.createHandledMenuItem();

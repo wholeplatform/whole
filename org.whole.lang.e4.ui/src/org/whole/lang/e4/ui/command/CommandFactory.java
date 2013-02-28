@@ -22,7 +22,6 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandParameter;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
-import org.whole.lang.model.IEntity;
 /**
  * @author Enrico Persiani
  */
@@ -67,34 +66,41 @@ public class CommandFactory implements ICommandFactory {
 
 	@Override
 	public MCommand createReplaceEntityCommand() {
-		MCommandParameter parameter = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for replacement", false);
-		return createMCommand(REPLACE_COMMAND_ID, "Replace with Entity", parameter);
+		MCommandParameter edUri = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for replacement", false);
+		return createMCommand(REPLACE_COMMAND_ID, "Replace with Entity", edUri);
 	}
 
 	@Override
 	public MCommand createAddEntityCommand() {
-		MCommandParameter parameter = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for addition", false);
-		return createMCommand(ADD_COMMAND_ID, "Add child Entity",  parameter);
-	}
-
-	@Override
-	public MCommand createTransformCommand(IEntity behavior) {
-		//TODO
-		return null;
+		MCommandParameter edUri = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for addition", false);
+		return createMCommand(ADD_COMMAND_ID, "Add child Entity",  edUri);
 	}
 
 	@Override
 	public MCommand createReplaceFragmentCommand() {
-		MCommandParameter parameter = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for replacement", false);
-		return createMCommand(REPLACE_FRAGMENT_COMMAND_ID, "Replace with Fragment", parameter);
+		MCommandParameter fragment = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for replacement", false);
+		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
+		return createMCommand(REPLACE_FRAGMENT_COMMAND_ID, "Replace with Fragment", fragment, predicate);
 	}
 
 	@Override
 	public MCommand createAddFragmentCommand() {
-		MCommandParameter parameter = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for addition", false);
-		return createMCommand(ADD_FRAGMENT_COMMAND_ID, "Add child Fragment",  parameter);
+		MCommandParameter fragment = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for addition", false);
+		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
+		return createMCommand(ADD_FRAGMENT_COMMAND_ID, "Add child Fragment",  fragment, predicate);
 	}
 
+	@Override
+	public MCommand createWrapFragmentCommand() {
+		MCommandParameter fragment = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for wrapping", false);
+		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
+		return createMCommand(WRAP_FRAGMENT_COMMAND_ID, "Wrap with Fragment", fragment, predicate);
+	}
+
+	@Override
+	public MCommand createReplaceWithDefaultCommand() {
+		return createMCommand(REPLACE_WITH_DEFAULT_COMMAND_ID, "replace with default");
+	}
 	@Override
 	public MCommand createSelectNotationCommand() {
 		MCommandParameter parameter = createMCommandParameter(EDITORKIT_ID_PARAMETER_ID, "editorKit id of the notation to be selected", false);
@@ -103,5 +109,14 @@ public class CommandFactory implements ICommandFactory {
 	@Override
 	public MCommand createImportCommand() {
 		return createMCommand(IMPORT_COMMAND_ID, "import fragments into a model");
+	}
+	
+	@Override
+	public MCommand createActionCallCommand() {
+		MCommandParameter functionUri = createMCommandParameter(FUNCTION_URI_PARAMETER_ID, "function uri to unparse to apply transformation", false);
+		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
+		MCommandParameter analysing = createMCommandParameter(ANALYSING_PARAMETER_ID, "enables results view update", true);
+		MCommandParameter description = createMCommandParameter(DESCRIPTION_PARAMETER_ID, "action description", true);
+		return createMCommand(ACTION_CALL_COMMAND_ID, "action call", functionUri, predicate, analysing, description);
 	}
 }
