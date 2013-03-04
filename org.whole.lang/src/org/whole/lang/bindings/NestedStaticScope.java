@@ -34,7 +34,7 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	public INestableScope wClone() {
 		NestedStaticScope copy = new NestedStaticScope(wTargetScope().wClone());
 		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-//FIXME		copy.resultScope
+		copy.resultScope = resultScope == this ? copy : null;
 		return copy;
 	}
 
@@ -66,9 +66,7 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 	public void wSetResultScope(IBindingScope scope) {
 		if (scope != this)
 			wEnclosingScope().wSetResultScope(scope);
-		//FIXME workaround for nested operations not honoring outer resultsInArgs
-		if (resultScope != null && resultScope != scope)
-			return;
+		//assert resultScope == null || resultScope == scope;
 		resultScope = scope;
 	}
 

@@ -46,9 +46,10 @@ public class SimpleScope extends AbstractScope {
 	}
 
 	public IBindingScope wClone() {
-		SimpleScope copy = new SimpleScope(cloneMap());
+		final SimpleScope copy = new SimpleScope(cloneMap());
 		copy.result = result;
 		copy.resultIterator = resultIterator;
+		copy.resultScope = resultScope == this ? copy : null;
 		return copy;
 	}
 	@SuppressWarnings("unchecked")
@@ -98,10 +99,14 @@ public class SimpleScope extends AbstractScope {
 		return wIsSet(name) ? this : VoidScope.instance;
 	}
 	
+	protected IBindingScope resultScope;
 	public IBindingScope wResultScope() {
-		return null;
+		return resultScope;
 	}
 	public void wSetResultScope(IBindingScope scope) {
+		//assert scope == this;
+		//assert resultScope == null || resultScope == scope;
+		resultScope = scope;	
 	}
 
 	public boolean hasResultIterator() {

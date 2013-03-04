@@ -74,7 +74,7 @@ public class PrettyPrinterOperation extends AbstractOperation {
 	}
 
     protected PrettyPrinterOperation(IBindingManager args) {
-    	super(ID, args, false);
+    	super(ID, args, null);
 
     	if (!args.wIsSet("printWriter"))
     		throw new IllegalArgumentException("printWriter is not defined");

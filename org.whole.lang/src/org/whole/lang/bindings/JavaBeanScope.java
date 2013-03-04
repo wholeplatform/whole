@@ -42,7 +42,9 @@ public class JavaBeanScope implements IBindingScope {
 	}
 
 	public IBindingScope wClone() {
-		return new JavaBeanScope(ReflectiveUtils.reflectiveClone(bean));
+		final JavaBeanScope copy = new JavaBeanScope(ReflectiveUtils.reflectiveClone(bean));
+		copy.resultScope = resultScope == this ? copy : null;
+		return copy;
 	}
 
 	public Kind getKind() {
@@ -360,10 +362,12 @@ public class JavaBeanScope implements IBindingScope {
 		}
 	}
 
+	private IBindingScope resultScope;
 	public IBindingScope wResultScope() {
-		return null;
+		return resultScope;
 	}
 	public void wSetResultScope(IBindingScope scope) {
+		resultScope = scope;	
 	}
 
 	public boolean hasResultIterator() {

@@ -44,7 +44,9 @@ public class EntityScope implements IBindingScope {
 	}
 
 	public IBindingScope wClone() {
-		return new EntityScope(EntityUtils.clone(entity));
+		final EntityScope copy = new EntityScope(EntityUtils.clone(entity));
+		copy.resultScope = resultScope == this ? copy : null;
+		return copy;
 	}
 
 	public Kind getKind() {
@@ -384,10 +386,12 @@ public class EntityScope implements IBindingScope {
 		}
 	}
 
+	private IBindingScope resultScope;
 	public IBindingScope wResultScope() {
-		return null;
+		return resultScope;
 	}
 	public void wSetResultScope(IBindingScope scope) {
+		resultScope = scope;	
 	}
 
 	public boolean hasResultIterator() {

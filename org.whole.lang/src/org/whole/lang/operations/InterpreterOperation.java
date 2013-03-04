@@ -53,10 +53,12 @@ public class InterpreterOperation extends AbstractOperation {
 		return interpret(program, args, false);
 	}
 	public static IBindingScope interpret(IEntity program, IBindingManager args, boolean resultsInArgs) {
-	    return interpret(program, args, resultsInArgs, 0);
+		InterpreterOperation op = new InterpreterOperation(args, resultsInArgs);
+	    op.stagedVisit(program, 0);
+	    return op.getResultsScope();
 	}
-	public static IBindingScope interpret(IEntity program, IBindingManager args, boolean resultsInArgs, int relativeStage) {
-		InterpreterOperation op = !resultsInArgs ? new InterpreterOperation(args, resultsInArgs) : new InterpreterOperation(args, null);//TODO test
+	public static IBindingScope interpret(IEntity program, IBindingManager args, int relativeStage) {
+		InterpreterOperation op = new InterpreterOperation(args, null);
 	    op.stagedVisit(program, relativeStage);
 	    return op.getResultsScope();
 	}

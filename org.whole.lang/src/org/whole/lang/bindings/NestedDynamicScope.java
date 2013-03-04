@@ -37,7 +37,7 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	public INestableScope wClone() {
 		NestedDynamicScope copy = new NestedDynamicScope(wTargetScope().wClone());
 		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-//FIXME		copy.resultScope
+		copy.resultScope = resultScope == this ? copy : null;
 		return copy;
 	}
 
@@ -105,9 +105,7 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 	public void wSetResultScope(IBindingScope scope) {
 		if (scope != this)
 			wEnclosingScope().wSetResultScope(scope);
-		//FIXME workaround for nested operations not honoring outer resultsInArgs
-		if (resultScope != null && resultScope != scope)
-			return;
+		//assert resultScope == null || resultScope == scope;
 		resultScope = scope;
 	}
 

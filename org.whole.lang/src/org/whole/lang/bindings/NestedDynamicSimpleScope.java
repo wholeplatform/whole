@@ -43,7 +43,6 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	public INestableScope wClone() {
 		NestedDynamicSimpleScope copy = new NestedDynamicSimpleScope(cloneMap());
 		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-//FIXME		copy.resultScope
 		return copy;
 	}
 
@@ -80,7 +79,6 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 			wEnclosingScope().wUnset(name);
 	}
 
-	private IBindingScope resultScope;
 	public IBindingScope wResultScope() {
 		if (resultScope == null)
 			resultScope = wEnclosingScope().wResultScope();
@@ -89,9 +87,7 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	public void wSetResultScope(IBindingScope scope) {
 		if (scope != this)
 			wEnclosingScope().wSetResultScope(scope);
-		//FIXME workaround for nested operations not honoring outer resultsInArgs
-		if (resultScope != null && resultScope != scope)
-			return;
+		//assert resultScope == null || resultScope == scope;
 		resultScope = scope;
 	}
 

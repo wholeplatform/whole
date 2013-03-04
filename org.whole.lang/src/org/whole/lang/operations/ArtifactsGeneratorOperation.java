@@ -36,7 +36,7 @@ public class ArtifactsGeneratorOperation extends AbstractOperation {
 	}
 
 	protected ArtifactsGeneratorOperation(IBindingManager args) {
-		super(ID, args, false);
+		super(ID, args, null);
 
 		if (!args.wIsSet("workspace")) {
 			IEntity ws = ReflectionFactory.getLanguageKit("http://lang.whole.org/Artifacts", false, null).getTemplateManager().create("workspace template");

@@ -60,6 +60,9 @@ public abstract class AbstractOperation implements IOperation {
 
 		if (optResultsScope != null)
 			args.wSetResultScope(optResultsScope);
+		if (args.wResultScope() == null)
+			args.wSetResultScope(argumentsScope);
+
 		resultsScope = args.wResultScope();
 		
 		if (resultsScope == NullScope.instance)

@@ -51,7 +51,7 @@ public class ValidatorOperation extends AbstractOperation {
 	}
 
 	protected ValidatorOperation(IBindingManager args) {
-		super(ID, args, false);
+		super(ID, args, null);
 	}
 
 	public IDecorationManager getDecorationManager() {
