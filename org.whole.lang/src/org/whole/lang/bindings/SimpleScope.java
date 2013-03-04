@@ -23,12 +23,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -46,20 +44,20 @@ public class SimpleScope extends AbstractScope {
 	}
 
 	public IBindingScope wClone() {
-		final SimpleScope copy = new SimpleScope(cloneMap());
+		final SimpleScope copy = new SimpleScope(new HashMap<String, IEntity>(map));
 		copy.result = result;
 		copy.resultIterator = resultIterator;
 		copy.resultScope = resultScope == this ? copy : null;
 		return copy;
 	}
-	@SuppressWarnings("unchecked")
-	protected Map<String, IEntity> cloneMap() {
-		Map<String, IEntity> copy_map = (Map<String, IEntity>) ((HashMap<String, IEntity>) map).clone();
-		for (Entry<String, IEntity> entry : copy_map.entrySet()) {
-			entry.setValue(EntityUtils.clone(entry.getValue()));
-		}
-		return copy_map;
-	}
+//	@SuppressWarnings("unchecked")
+//	protected Map<String, IEntity> deepCloneMap() {
+//		Map<String, IEntity> copy_map = (Map<String, IEntity>) ((HashMap<String, IEntity>) map).clone();
+//		for (Entry<String, IEntity> entry : copy_map.entrySet()) {
+//			entry.setValue(EntityUtils.clone(entry.getValue()));
+//		}
+//		return copy_map;
+//	}
 
 	public IBindingScope wTargetScope() {
 		return this;

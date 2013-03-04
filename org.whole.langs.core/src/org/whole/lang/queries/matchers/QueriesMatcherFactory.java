@@ -105,7 +105,7 @@ public class QueriesMatcherFactory {
 				if (laScope != null)
 					throw new VisitException();
 				else {
-					laScope = fromClause.lookaheadScope().wClone();//FIXME should be shallow (same values)
+					laScope = fromClause.lookaheadScope().wClone();
 				}
 			}
 

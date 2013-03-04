@@ -41,7 +41,7 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 	}
 
 	public INestableScope wClone() {
-		NestedDynamicSimpleScope copy = new NestedDynamicSimpleScope(cloneMap());
+		NestedDynamicSimpleScope copy = new NestedDynamicSimpleScope(new HashMap<String, IEntity>(map));
 		copy.wWithEnclosingScope(wEnclosingScope().wClone());
 		return copy;
 	}
