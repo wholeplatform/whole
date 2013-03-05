@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.whole.lang.operations.AnonymousOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.util.FreshNameGenerator;
 

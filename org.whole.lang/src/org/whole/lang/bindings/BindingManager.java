@@ -17,7 +17,6 @@
  */
 package org.whole.lang.bindings;
 
-import org.whole.lang.util.BindingUtils;
 
 /**
  * @author Riccardo Solmi
@@ -61,11 +60,11 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		wEnterScope(BindingManagerFactory.instance.createNestedDynamicSimpleScope());
 	}
 	public void wEnterScope(INestableScope scope) {
-//TODO test
-		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
-		if (outerScope == scope)
-		wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
-		else
+//TODO test outer scope granularity
+//		final IBindingScope outerScope = BindingUtils.wOuterScope(scope, true);
+//		if (outerScope == scope)
+//			wSetTargetScope(((INestableScope) outerScope).wWithEnclosingScope(wTargetScope()));
+//		else
 		wSetTargetScope(scope.wWithEnclosingScope(wTargetScope()));
 	}
 	public void wEnterScope(IBindingScope scope, boolean dynamic) {
@@ -81,13 +80,13 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		if (wTargetScope() == NullScope.instance)
 			throw new IllegalStateException("exitScope from top level");
 
-		//TODO test
-		if (scope instanceof NestedDynamicScope ||
-				scope instanceof NestedDynamicSimpleScope ||
-				scope instanceof NestedStaticScope) {
-
-			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
-		}
+//TODO test outer scope granularity
+//		if (scope instanceof NestedDynamicScope ||
+//				scope instanceof NestedDynamicSimpleScope ||
+//				scope instanceof NestedStaticScope) {
+//
+//			((INestableScope) scope).wWithEnclosingScope(NullScope.instance);
+//		}
 
 		if (merge)
 			wTargetScope().wAddAll(scope);
