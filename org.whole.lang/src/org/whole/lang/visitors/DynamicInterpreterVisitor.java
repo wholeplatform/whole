@@ -19,7 +19,7 @@ package org.whole.lang.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperation;
@@ -45,13 +45,13 @@ public class DynamicInterpreterVisitor extends AbstractDynamicVisitor {
 
 	protected void apply(IEntityIterator<?> iterator) {
 		IBindingManager bm = getBindings();
-		ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(resettableScope);
 		for (IEntity e : iterator) {
 			bm.setResult(e);
-			resettableScope.mark();
+			resettableScope.commit();
 		}
-		resettableScope.reset();
+		resettableScope.rollback();
 		bm.wExitScope();
 	}
 }

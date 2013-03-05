@@ -102,8 +102,8 @@ public class BindingManagerFactory {
 		return createExcludeFilterScope(new HashSet<String>()).wWithEnclosingScope(createSimpleScope());
 	}
 
-	public ResettableScope createResettableScope() {
-		return new ResettableScope();
+	public ITransactionScope createTransactionScope() {
+		return new EarlyTransactionScope();
 	}
 
 	public IBindingScope createVoidScope() {

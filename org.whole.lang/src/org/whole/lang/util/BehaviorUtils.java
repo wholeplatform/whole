@@ -19,7 +19,7 @@ package org.whole.lang.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -75,15 +75,15 @@ public class BehaviorUtils {
 		iterator.reset(self);
 	
 		IEntity result = null;
-		ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(resettableScope);
 		try {
 			while (iterator.hasNext()) {
 				bm.setResult(result = iterator.next());
-				resettableScope.mark();
+				resettableScope.commit();
 			}
 		} finally {
-			resettableScope.reset();
+			resettableScope.rollback();
 			bm.wExitScope();
 		}
 		return result;
@@ -98,15 +98,15 @@ public class BehaviorUtils {
 				resultIterator.reset(selfEntity);
 	
 			IEntity result = null;
-			ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 			bm.wEnterScope(resettableScope);
 			try {
 				while (resultIterator.hasNext()) {
 					bm.setResult(result = resultIterator.next());
-					resettableScope.mark();
+					resettableScope.commit();
 				}
 			} finally {
-				resettableScope.reset();
+				resettableScope.rollback();
 				bm.wExitScope();
 			}
 			return result;
@@ -122,18 +122,18 @@ public class BehaviorUtils {
 			if (selfEntity != null)
 				resultIterator.reset(selfEntity);
 	
-			ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 			bm.wEnterScope(resettableScope);	
 			try {
 				if (resultIterator.hasNext()) {
 					bm.setResult(result = resultIterator.next());
-					resettableScope.mark();
+					resettableScope.commit();
 				}
 
 				if (result == null || resultIterator.hasNext())
 					throw new IllegalArgumentException("The result is not a singleton");
 			} finally {
-				resettableScope.reset();
+				resettableScope.rollback();
 				bm.wExitScope();
 			}
 		} else {

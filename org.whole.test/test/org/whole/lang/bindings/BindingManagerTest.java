@@ -335,18 +335,18 @@ public class BindingManagerTest extends TestCase {
 		
 		bm.wDefValue("initialA", "A");
 
-		ResettableScope rs = BindingManagerFactory.instance.createResettableScope();
+		ITransactionScope rs = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(rs);
 
 		bm.wDefValue("initialA", "a");
 		bm.wDefValue("nestedB", "B");
-		rs.mark();
+		rs.commit();
 
 		bm.wDefValue("nestedC", "C");
 		bm.wSetValue("initialA", "ax");
 		bm.wSetValue("nestedB", "bx");
 
-		rs.reset();
+		rs.rollback();
 		bm.wExitScope();
 
 		assertEquals("a", bm.wGetValue("initialA"));
@@ -360,7 +360,7 @@ public class BindingManagerTest extends TestCase {
 		bm.wDefValue("freshName", "value");
 		
 		bm.wExitScope(true);
-		rs.reset();
+		rs.rollback();
 		bm.wExitScope();
 
 		assertFalse(bm.wIsSet("freshName"));

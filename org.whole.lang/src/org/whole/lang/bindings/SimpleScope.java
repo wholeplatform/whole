@@ -33,8 +33,8 @@ import org.whole.lang.model.IEntity;
  */
 public class SimpleScope extends AbstractScope {
 	protected Map<String, IEntity> map;
-    private IEntity result;
-    private IEntityIterator<?> resultIterator;
+    protected IEntity result;
+    protected IEntityIterator<?> resultIterator;
 
 	protected SimpleScope() {
 		this(new HashMap<String, IEntity>());

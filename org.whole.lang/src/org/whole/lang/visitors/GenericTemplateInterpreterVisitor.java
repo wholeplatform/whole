@@ -18,7 +18,7 @@
 package org.whole.lang.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -169,7 +169,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 				if (EntityUtils.isComposite(result)) {
     				result.wRemove(i--);
     				if (iterator.hasNext()) {
-    					ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+    					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
     					getBindings().wEnterScope(resettableScope);
     					resultSize = result.wSize();
 	    				for (IEntity e : iterator) {
@@ -181,9 +181,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 		    					result.wAdd(++i, EntityUtils.convert(e, resultChildDescriptor));
 		    					resultSize = result.wSize();
 	    					}
-	    					resettableScope.mark();
+	    					resettableScope.commit();
 	    				}
-    					resettableScope.reset();
+    					resettableScope.rollback();
 	    				getBindings().wExitScope();
     				}
 				} else {

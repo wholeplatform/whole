@@ -38,7 +38,7 @@ import org.whole.lang.artifacts.visitors.ArtifactsSynchronizerVisitor.Traverse;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -482,7 +482,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 		Arguments arguments = entity.getArguments();
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Assignments, arguments)) {
-			ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 			getBindings().wEnterScope(resettableScope);
 
 			arguments.accept(this);
@@ -494,7 +494,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			}
 			model = ef.create(ed, getBindings());
 
-			resettableScope.reset();
+			resettableScope.rollback();
 			getBindings().wExitScope();
 		} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 			if (ed.getEntityKind().isData()) {
@@ -515,7 +515,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 	@Override
 	public void visit(CreateModel entity) {
-		ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 		getBindings().wEnterScope(resettableScope);
 
 		entity.getBindings().accept(this);
@@ -530,7 +530,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			model = tii.next();
 		}
 
-		resettableScope.reset();
+		resettableScope.rollback();
 		getBindings().wExitScope();
 
 		setResult(entity.getModel(), model);

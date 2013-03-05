@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -183,11 +183,11 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 	@Override
 	public void visit(Test entity) {
-		ResettableScope bindingsRS;
+		ITransactionScope bindingsRS;
 
 		Set<String> bindingsNames = new HashSet<String>(getBindings().wNames());
 
-		getBindings().wEnterScope(bindingsRS = BindingManagerFactory.instance.createResettableScope());
+		getBindings().wEnterScope(bindingsRS = BindingManagerFactory.instance.createTransactionScope());
 
 		String name = entity.getName().getValue();
 		boolean testSuccess = false;
@@ -219,7 +219,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(statement));
 		}
 
-		bindingsRS.reset();
+		bindingsRS.rollback();
 		getBindings().wExitScope();
 
 		//FIXME workaround for fresh variables not being reset by ResettableScope

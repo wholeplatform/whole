@@ -32,7 +32,7 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Riccardo Solmi
  */
-public class TransactionScope extends AbstractDelegatingScope implements INestableScope {
+public class EarlyTransactionScope extends AbstractDelegatingScope implements ITransactionScope {
 	private static final IEntity UNDEF_VALUE = BindingManagerFactory.instance.createValue((Object) null);
 	protected Map<String, IEntity> map;
 	public static enum CachedResult { NONE, VALUE, ITERATOR };
@@ -40,16 +40,16 @@ public class TransactionScope extends AbstractDelegatingScope implements INestab
 	protected IEntity result = null;
 	protected IEntityIterator<?> resultIterator = null;
 
-	protected TransactionScope() {
+	protected EarlyTransactionScope() {
 		this(new HashMap<String, IEntity>());
 	}
-	protected TransactionScope(Map<String, IEntity> map) {
+	protected EarlyTransactionScope(Map<String, IEntity> map) {
 		super(NullScope.instance);
 		this.map = map;
 	}
 
 	public INestableScope wClone() {
-		return new TransactionScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
+		return new EarlyTransactionScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
 	}
 
 	public Kind getKind() {
@@ -62,7 +62,7 @@ public class TransactionScope extends AbstractDelegatingScope implements INestab
 	public final IBindingScope wEnclosingScope() {
 		return wDelegateScope();
 	}
-	public final TransactionScope wWithEnclosingScope(IBindingScope enclosingScope) {
+	public final ITransactionScope wWithEnclosingScope(IBindingScope enclosingScope) {
 		wSetDelegateScope(enclosingScope);
 		return this;
 	}
@@ -71,24 +71,26 @@ public class TransactionScope extends AbstractDelegatingScope implements INestab
 		return wEnclosingScope().wFindScope(name);
 	}
 
-	public void mark() {
+	public boolean isChanged() {
+		return !map.isEmpty() || cachedResult != CachedResult.NONE;
+	}
+	public void commit() {
 		map.clear();
+
 		cachedResult = CachedResult.NONE;
 		result = null;
 		resultIterator = null;
 	}
-	public boolean isChanged() {
-		return !map.isEmpty();
-	}
-	public void reset() {
+	public void rollback() {
 		for (Entry<String, IEntity> entry : map.entrySet()) {
-			IEntity value = entry.getValue();
+			final String name = entry.getKey();
+			final IEntity value = entry.getValue();
 			if (value == UNDEF_VALUE)
-				super.wUnset(entry.getKey());
-			else if (super.wIsSet(entry.getKey()))
-				super.wSet(entry.getKey(), value);
+				super.wUnset(name);
+			else if (super.wIsSet(name))
+				super.wSet(name, value);
 			else
-				super.wDef(entry.getKey(), value);
+				super.wDef(name, value);
 		}
 
 		if (cachedResult == CachedResult.VALUE)
@@ -99,6 +101,9 @@ public class TransactionScope extends AbstractDelegatingScope implements INestab
 	
 	private void updateMap(String name) {
 		if (!map.containsKey(name)) {
+//TODO
+//			IBindingScope scope = wFindScope(name);
+//			IEntity value = scope.wGet(name);
 			IEntity value = super.wGet(name);
 			map.put(name, value != null ? value : UNDEF_VALUE);
 		}
@@ -255,6 +260,11 @@ public class TransactionScope extends AbstractDelegatingScope implements INestab
 	public void wDefValue(String name, String value) {
 		updateMap(name);
 		super.wDefValue(name, value);
+	}
+
+	@Override
+	public void wSetResultScope(IBindingScope scope) {
+		super.wSetResultScope(scope != this ? scope : scope.wEnclosingScope());
 	}
 
 	public void setResultIterator(IEntityIterator<?> resultIterator) {

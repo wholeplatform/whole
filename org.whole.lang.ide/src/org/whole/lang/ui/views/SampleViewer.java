@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ResettableScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -123,18 +123,18 @@ public class SampleViewer extends AbstractDerivedGraphicalViewer {
 			} else if (iterator.hasNext()) {
 				derivedModel = MiscEntityFactory.instance.createMisc(0);
 	
-				ResettableScope resettableScope = BindingManagerFactory.instance.createResettableScope();
+				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 				bm.wEnterScope(resettableScope);
 				try {
 					for (IEntity result : iterator) {
-						resettableScope.mark();
+						resettableScope.commit();
 						derivedModel.wAdd(GenericEntityFactory.instance.create(
 								CommonsEntityDescriptorEnum.SameStageFragment,
 								//CommonsEntityFactory.instance.createSameStageFragment(
 								EntityUtils.clone(result)));//TODO substitute with a no containment fragment
 					}
 				} finally {
-					resettableScope.reset();
+					resettableScope.rollback();
 					bm.wExitScope();
 				}
 			}
