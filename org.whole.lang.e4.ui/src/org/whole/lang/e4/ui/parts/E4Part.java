@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.CONTEXT_MENU_ID;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -113,9 +113,14 @@ public class E4Part {
 				context.remove(E4GraphicalViewer.class);
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent e) {
 				context.set(E4GraphicalViewer.class, viewer);
+				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
+				if (modelInput != null)
+					E4Utils.defineResourceBindings(bm, modelInput);
+				selectionService.setSelection(bm);
 			}
 		});
 		viewer.setKeyHandler(new E4KeyHandler());

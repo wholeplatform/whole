@@ -17,7 +17,9 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_REDO;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_UNDO;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -46,6 +48,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.api.IUIProvider;
@@ -105,9 +108,12 @@ public class E4Dialog extends Dialog {
 			public void focusLost(FocusEvent e) {
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent e) {
 				context.set(E4GraphicalViewer.class, viewer);
+				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
+				selectionService.setSelection(bm);
 			}
 		});
 
