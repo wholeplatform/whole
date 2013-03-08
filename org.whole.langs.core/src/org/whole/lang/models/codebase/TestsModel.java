@@ -11,9 +11,10 @@ public class TestsModel extends AbstractTemplateFactory<org.whole.lang.models.mo
         b0.SimpleName("Tests");
         b0.TypeRelations_(1);
         b0.SupertypesOf_();
-        b0.Types_(2);
+        b0.Types_(3);
         b0.SimpleName("Expression");
         b0.SimpleName("Statement");
+        b0.SimpleName("Description");
         b0._Types();
         b0.AnyType();
         b0._SupertypesOf();

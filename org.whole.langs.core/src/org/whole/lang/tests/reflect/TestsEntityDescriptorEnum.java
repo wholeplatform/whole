@@ -375,6 +375,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 	}
 
 	protected void initForeignTypeRelations() {
-		setAssignableFromAll(true, Expression_ord, Statement_ord);
+		setAssignableFromAll(true, Expression_ord, Statement_ord,
+				Description_ord);
 	}
 }
