@@ -183,6 +183,7 @@ public class E4Part {
 	@Persist
 	public void save() {
 		if (modelInput != null) {
+			workspace.removeResourceChangeListener(resourceListener);
 			IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
 			try {
 				RootFragment rootFragment = (RootFragment) viewer.getContents().getModel();
@@ -190,6 +191,8 @@ public class E4Part {
 				viewer.getCommandStack().markSaveLocation();
 				part.setDirty(false);
 			} catch (Exception e) {
+			} finally {
+				workspace.addResourceChangeListener(resourceListener);
 			}
 		}
 	}

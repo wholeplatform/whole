@@ -118,10 +118,11 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity selectedEntity, ILanguageKit lk) {
 		boolean hasActions = false;
 
-		if (EntityUtils.isComposite(selectedEntity)) {
+		final IEntity targetEntity = getTargetEntity(selectedEntity).wGetAdaptee(false);
+		if (EntityUtils.isComposite(targetEntity)) {
 			List<IAction> addActions = new ArrayList<IAction>();
-	
-			EntityDescriptor<?> componentEntityDescriptor = getSelectedComponentEntityDescriptor(selectedEntity);
+
+			EntityDescriptor<?> componentEntityDescriptor = targetEntity.wGetEntityDescriptor(0);
 			for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum()
 					.getExtendedLanguageConcreteSubtypesOf(componentEntityDescriptor))
 				addActions.add(getAddEntityAction(ed));
@@ -135,10 +136,10 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		List<IAction> replaceElements = new ArrayList<IAction>();
 
-		EntityDescriptor<?> formalEntityDescriptor = getSelectedFormalEntityDescriptor(selectedEntity);
+		EntityDescriptor<?> formalEntityDescriptor = EntityUtils.getFormalEntityDescriptor(targetEntity);
 		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum()
 				.getExtendedLanguageConcreteSubtypesOf(formalEntityDescriptor))
-			if (!ed.equals(formalEntityDescriptor))
+			if (!ed.equals(targetEntity.wGetEntityDescriptor()))
 				replaceElements.add(getReplaceEntityAction(ed));
 
 		if (hasActions && replaceElements.size() > 0)
@@ -151,11 +152,11 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		List<IAction> wrapElements = new ArrayList<IAction>();
 
-		if (selectedEntity.wGetLanguageKit().equals(lk)) {
-			IGEFEditorKit editorKit = (IGEFEditorKit) ReflectionFactory.getEditorKit(selectedEntity);
+		if (targetEntity.wGetLanguageKit().equals(lk)) {
+			IGEFEditorKit editorKit = (IGEFEditorKit) ReflectionFactory.getEditorKit(targetEntity);
 			for (Object[] wrapAction : editorKit.getActionFactory().wrapActions()) {
 				EntityDescriptor<?> ed = (EntityDescriptor<?>) wrapAction[1];
-				if (isWrappable(selectedEntity, ed, (IEnablerPredicate) wrapAction[0])) {
+				if (isWrappable(targetEntity, ed, (IEnablerPredicate) wrapAction[0])) {
 					String label = (String) wrapAction[2];
 					IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
 					wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
@@ -177,12 +178,10 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		return hasActions;
 	}
 
-	protected EntityDescriptor<?> getSelectedComponentEntityDescriptor(IEntity selectedEntity) {
-		return selectedEntity.wGetEntityDescriptor(0);
+	protected IEntity getTargetEntity(IEntity selectedEntity) {
+		return selectedEntity;
 	}
-	protected EntityDescriptor<?> getSelectedFormalEntityDescriptor(IEntity selectedEntity) {
-		return EntityUtils.getFormalEntityDescriptor(selectedEntity);
-	}
+
 	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
 		return (predicate == EnablerPredicateFactory.instance.alwaysTrue() ||
 				((AssignableToPredicate) predicate).getEntityDescriptor()

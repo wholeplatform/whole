@@ -376,7 +376,7 @@ public class HandlersBehavior {
 		if (bm.wIsSet("featureDescriptor"))
 			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		IEntity replacement = GenericEntityFactory.instance.create(ed);
-		DefaultCopyTransformer.instance.transform(primarySelectedEntity, replacement);
+		DefaultCopyTransformer.instance.transform(primarySelectedEntity.wGetAdaptee(false), replacement);
 		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
 	}
 

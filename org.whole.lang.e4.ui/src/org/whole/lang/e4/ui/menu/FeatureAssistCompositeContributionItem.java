@@ -70,16 +70,8 @@ public class FeatureAssistCompositeContributionItem extends EntityAssistComposit
 	}
 
 	@Override
-	protected EntityDescriptor<?> getSelectedComponentEntityDescriptor(IEntity selectedEntity) {
-		return super.getSelectedComponentEntityDescriptor(selectedEntity.wGet(fd));
-	}
-	@Override
-	protected EntityDescriptor<?> getSelectedFormalEntityDescriptor(IEntity selectedEntity) {
-		return super.getSelectedFormalEntityDescriptor(selectedEntity.wGet(fd));
-	}
-	@Override
-	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
-		return super.isWrappable(selectedEntity.wGet(fd), ed, predicate);
+	protected IEntity getTargetEntity(IEntity selectedEntity) {
+		return selectedEntity.wGet(fd);
 	}
 
 	@Override

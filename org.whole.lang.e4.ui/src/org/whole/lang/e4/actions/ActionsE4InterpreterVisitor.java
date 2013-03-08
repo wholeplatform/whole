@@ -158,9 +158,9 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 			return;
 		}
 
-		IMenuManager menuManager = (IMenuManager) 
-				getBindings().wGetValue("menuManager");
-
+		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
+				getBindings().wGetValue("itemContainer");
+		
 		entity.getText().accept(this);
 		String groupName = getResult().wStringValue();
 		
@@ -169,13 +169,12 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 		if (Matcher.match(Hierarchical, fillStrategy))
 			strategy = createFillMenuStrategy((Hierarchical) fillStrategy);
 		else
-			strategy = E3FlatFillMenuStrategy.instance();
+			strategy = FlatFillMenuStrategy.instance();
 
-		IMenuManager subMenuManager = new MenuManager(groupName);
-		menuManager.add(subMenuManager);
+		IItemContainer<IAction, ImageDescriptor> subContainer = container.addIntoSubContainer(groupName, null);
 
 		getBindings().wEnterScope();
-		getBindings().wDefValue("menuManager", subMenuManager);
+		getBindings().wDefValue("itemContainer", subContainer);
 		getBindings().wDefValue("fillMenuStrategy", strategy);
 
 		entity.getActions().accept(this);
