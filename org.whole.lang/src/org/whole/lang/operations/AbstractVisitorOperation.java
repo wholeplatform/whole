@@ -18,6 +18,7 @@
 package org.whole.lang.operations;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -29,8 +30,8 @@ import org.whole.lang.visitors.IVisitor;
 public abstract class AbstractVisitorOperation extends AbstractOperation implements IVisitor {
 	private IBindingManager bindings;
 
-	public AbstractVisitorOperation(String name, IBindingManager args) {
-		super(name, args, false);
+	public AbstractVisitorOperation(String name, IBindingManager args, IBindingScope optResultsScope) {
+		super(name, args, optResultsScope);
 	}
 
 	public IVisitor clone() {

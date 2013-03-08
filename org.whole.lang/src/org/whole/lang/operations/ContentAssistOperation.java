@@ -53,7 +53,7 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 	}
 
 	protected ContentAssistOperation(IBindingManager args) {
-		super(ID, args);
+		super(ID, args, null);
 	}
 
 	private IEntity selectedEntity;

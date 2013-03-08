@@ -26,7 +26,7 @@ import org.whole.lang.model.IEntity;
  */
 public class FindDeclarationsOperation extends AbstractVisitorOperation {
 	public static final String ID = "findDeclarations";
-	
+
 	public static IEntity findDeclarations(IEntity model) {
 		return findDeclarations(model, BindingManagerFactory.instance.createArguments());
 	}
@@ -37,6 +37,6 @@ public class FindDeclarationsOperation extends AbstractVisitorOperation {
 	}
 
 	protected FindDeclarationsOperation(IBindingManager args) {
-		super(ID, args);
+		super(ID, args, null);
 	}
 }

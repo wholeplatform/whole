@@ -37,6 +37,6 @@ public class FindDeclarationOperation extends AbstractVisitorOperation {
 	}
 
 	protected FindDeclarationOperation(IBindingManager args) {
-		super(ID, args);
+		super(ID, args, null);
 	}
 }
