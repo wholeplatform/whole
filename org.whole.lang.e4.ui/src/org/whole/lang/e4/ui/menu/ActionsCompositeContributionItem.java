@@ -32,6 +32,7 @@ import org.whole.lang.actions.model.GuardedAction;
 import org.whole.lang.actions.model.LanguageActionFactory;
 import org.whole.lang.actions.model.URI;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
+import org.whole.lang.actions.reflect.ActionsFeatureDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
@@ -100,7 +101,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 			String actionName = guardedAction.getName().getValue();
 			String functionUri = actionsMap.get(guardedAction);
 			IUpdatableAction action = actionRegistry.createActionCallAction(
-					actionName, functionUri, guardedAction.getEnablerPredicate(), false);
+					actionName, isAnalyze(), guardedAction.getEnablerPredicate(), functionUri);
 			action.update();
 			actions.add(action);
 		}
@@ -115,5 +116,9 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 
 	protected IEntity getActions(LanguageActionFactory actionsModule) {
 		return actionsModule.getContextMenuActions().wGet(menu);
+	}
+	
+	protected boolean isAnalyze() {
+		return ActionsFeatureDescriptorEnum.analyzeMenuActions.equals(menu);
 	}
 }

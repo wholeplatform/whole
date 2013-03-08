@@ -35,11 +35,11 @@ public class WorkflowsActionFactory extends ActionFactory {
 	private WorkflowsActionFactory() {
 	}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
-				{ pf.assignableTo(WorkflowsEntityDescriptorEnum.FlowObject), WorkflowsEntityDescriptorEnum.Parallel, "Parallel", wrapWithin(WorkflowsFeatureDescriptorEnum.flowObjects, false, true) },
-				{ pf.assignableTo(WorkflowsEntityDescriptorEnum.FlowObject), WorkflowsEntityDescriptorEnum.Sequence, "Sequence", wrapWithin(WorkflowsFeatureDescriptorEnum.flowObjects, false, true) }				
+				{ pf.assignableTo(WorkflowsEntityDescriptorEnum.FlowObject), WorkflowsEntityDescriptorEnum.Parallel, "Parallel", wrapWithin(WorkflowsFeatureDescriptorEnum.flowObjects) },
+				{ pf.assignableTo(WorkflowsEntityDescriptorEnum.FlowObject), WorkflowsEntityDescriptorEnum.Sequence, "Sequence", wrapWithin(WorkflowsFeatureDescriptorEnum.flowObjects) }			
 		};
 	};
 }

@@ -44,21 +44,22 @@ public class ActionCallHandler {
 	@CanExecute
 	public boolean canExecute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Optional @Named(ANALYSING_PARAMETER_ID) String analysing,
+			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		defineBindings(functionUri, predicateXwl, analysing, bm);
+		defineBindings(functionUri, predicateXwl, analyzing, bm);
 		return HandlersBehavior.canCallAction(bm);
 	}
 
 	@Execute
 	public void execute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Optional @Named(ANALYSING_PARAMETER_ID) String analysing,
+			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
-		defineBindings(functionUri, predicateXwl, analysing, bm);
+		defineBindings(functionUri, predicateXwl, analyzing, bm);
 
+		
 		IRunnableWithProgress actionRunnable = new ActionCallRunnable(context, bm, label, true);
 		final RunnableJob job = new RunnableJob("Executing "+label+" action...", actionRunnable);
 		job.setUser(true);
@@ -66,9 +67,9 @@ public class ActionCallHandler {
 		job.schedule();
 	}
 
-	protected void defineBindings(String functionUri, String predicateXwl, String analysing, IBindingManager bm) throws Exception {
+	protected void defineBindings(String functionUri, String predicateXwl, String analyzing, IBindingManager bm) throws Exception {
 		IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
-		bm.wDefValue("analysing", Boolean.parseBoolean(analysing));
+		bm.wDefValue("analyzing", Boolean.parseBoolean(analyzing));
 		bm.wDefValue("functionUri", functionUri);
 		bm.wDef("predicateEntity", persistenceKit.readModel(new StringPersistenceProvider(predicateXwl)));
 	}

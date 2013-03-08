@@ -41,7 +41,7 @@ public class TextActionFactory extends ActionFactory {
 	private TextActionFactory() {
 	}
 
-	protected Object[][] textActions() {
+	public Object[][] textActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Split on caret", SplitTextualAction.class },

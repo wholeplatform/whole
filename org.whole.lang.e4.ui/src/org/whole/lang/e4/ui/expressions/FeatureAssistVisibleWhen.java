@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.expressions;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -30,6 +31,7 @@ public class FeatureAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
 			return false;
 
-		return EntityUtils.isSimple(bm.wGet("primarySelectedEntity"));
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		return EntityUtils.isSimple(primarySelectedEntity) && !primarySelectedEntity.wIsEmpty();
 	}
 }

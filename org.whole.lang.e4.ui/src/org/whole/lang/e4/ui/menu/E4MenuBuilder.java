@@ -41,16 +41,15 @@ import org.eclipse.jface.action.IContributionItem;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
-import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.AddEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ReplaceEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.SelectNotationVisibleWhen;
+import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.OpenDialogHandler;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.StringUtils;
@@ -156,16 +155,15 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 
-	protected void addActionsItem(String menuLabel, FeatureDescriptor menuFD) {
+	protected void addActionsItem(String menuLabel, VisibilityExpression expression, IContributionItem ici) {
 		MMenu menu = createMenu(menuLabel);
 
-		MCoreExpression expression = MUiFactory.INSTANCE.createCoreExpression();
-		expression.setCoreExpression(new ActionsVisibleWhen(menuFD));
-		menu.setVisibleWhen(expression);
+		MCoreExpression coreExpression = MUiFactory.INSTANCE.createCoreExpression();
+		coreExpression.setCoreExpression(expression);
+		menu.setVisibleWhen(coreExpression);
 
 		addItem(menu);
 
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menuFD);
 		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 

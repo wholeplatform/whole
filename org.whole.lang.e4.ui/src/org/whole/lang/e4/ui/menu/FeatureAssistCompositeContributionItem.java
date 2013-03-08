@@ -26,20 +26,26 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.actions.IUpdatableAction;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.menu.ActionContainer;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.menu.IItemContainer;
 import org.whole.lang.ui.menu.MenuManagerContainer;
 import org.whole.lang.ui.menu.MenuManagerSet;
+import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
 public class FeatureAssistCompositeContributionItem extends EntityAssistCompositeContributionItem {
+	protected FeatureDescriptor fd;
 
 	public FeatureAssistCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
 		super(context, actionRegistry);
@@ -51,7 +57,7 @@ public class FeatureAssistCompositeContributionItem extends EntityAssistComposit
 		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
 
 		for (int i = 0; i < selectedEntity.wSize(); i++) {
-			FeatureDescriptor fd = selectedEntity.wGetFeatureDescriptor(i);
+			fd = selectedEntity.wGetFeatureDescriptor(i);
 			MenuManager featureMenu = new MenuManager(fd.getName(), null, null);
 			if (super.fillItems(MenuManagerContainer.create(featureMenu), ActionContainer.create(featureMenu), bm))
 				menus.add(featureMenu);
@@ -61,5 +67,31 @@ public class FeatureAssistCompositeContributionItem extends EntityAssistComposit
 						MenuManagerSet.create(menus.toArray(new MenuManager[menus.size()])), 0, menus.size());
 		
 		return menus.size() > 0;
+	}
+
+	@Override
+	protected boolean isAddable(IEntity selectedEntity, EntityDescriptor<?> ed) {
+		return super.isAddable(selectedEntity.wGet(fd), ed);
+	}
+	@Override
+	protected boolean isReplaceable(IEntity selectedEntity, EntityDescriptor<?> ed) {
+		return super.isReplaceable(selectedEntity.wGet(fd), ed);
+	}
+	@Override
+	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
+		return super.isWrappable(selectedEntity.wGet(fd), ed, predicate);
+	}
+
+	@Override
+	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
+		return actionRegistry.getAddEntityAction(ed, fd);
+	}
+	@Override
+	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
+		return actionRegistry.getReplaceEntityAction(ed, fd);
+	}
+	@Override
+	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {
+		return E4Utils.wrapToBehavior(ed, fd, transformer);
 	}
 }

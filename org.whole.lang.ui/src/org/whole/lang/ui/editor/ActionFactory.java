@@ -86,7 +86,6 @@ public class ActionFactory implements IActionFactory {
 	};
 	protected final IEntityTransformer copy = DefaultCopyTransformer.instance;
 	protected final IEntityTransformer wrapIn0 = DefaultWrapInTransformer.instance;
-	protected final IEntityTransformer wrapWithin = DefaultWrapWithinTransformer.instance;
 	protected final IEntityTransformer wrapIn(FeatureDescriptor featureDescriptor) {
 		return new DefaultWrapInTransformer(featureDescriptor);
 	}
@@ -95,12 +94,6 @@ public class ActionFactory implements IActionFactory {
 	}
 	protected final IEntityTransformer wrapWithin(FeatureDescriptor featureDescriptor) {
 		return new DefaultWrapWithinTransformer(featureDescriptor);
-	}
-	protected final IEntityTransformer wrapWithin(FeatureDescriptor featureDescriptor, boolean append) {
-		return new DefaultWrapWithinTransformer(featureDescriptor, append);
-	}
-	protected final IEntityTransformer wrapWithin(FeatureDescriptor featureDescriptor, boolean append, boolean replace) {
-		return new DefaultWrapWithinTransformer(featureDescriptor, append, replace);
 	}
 
 	public void initActions(IWorkbenchPart workbenchPart) { }
@@ -217,8 +210,8 @@ public class ActionFactory implements IActionFactory {
 
 	protected Object[][] addActions() { return new Object[0][0]; }
 	protected Object[][] replaceActions() { return new Object[0][0]; }
-	protected Object[][] wrapActions() { return new Object[0][0]; }
-	protected Object[][] textActions() { return new Object[0][0]; }
+	public Object[][] wrapActions() { return new Object[0][0]; }
+	public Object[][] textActions() { return new Object[0][0]; }
 
 	public void fillValueMenu(IWorkbenchPart workbenchPart, IMenuManager contextMenu, ISelectionProvider provider) {
 		final ISelection selection = provider != null ? provider.getSelection() : workbenchPart.getSite().getSelectionProvider().getSelection();

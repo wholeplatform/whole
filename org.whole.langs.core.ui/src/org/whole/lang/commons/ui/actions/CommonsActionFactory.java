@@ -43,7 +43,7 @@ public class CommonsActionFactory extends ActionFactory {
 	}
 	protected CommonsActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.alwaysTrue(), CommonsEntityDescriptorEnum.SameStageFragment, "SameStageFragment", wrapIn0},

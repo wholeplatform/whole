@@ -218,12 +218,15 @@ public class WorkflowsUIContentAssistVisitor extends WorkflowsIdentityVisitor {
 		String actualLanguageURI = "";
 		String actualEntityName = "";
 		EntityDescriptor<?> actualED = null;
-		if (Matcher.matchImpl(StringLiteral, entity)) {
-			StringLiteral literal = (StringLiteral) entity;
-			actualED = CommonsDataTypePersistenceParser.parseEntityDescriptor(
-					literal.getValue());
-			actualLanguageURI = actualED.getLanguageKit().getURI();
-			actualEntityName = actualED.getName();
+		try {
+			if (Matcher.matchImpl(StringLiteral, entity)) {
+				StringLiteral literal = (StringLiteral) entity;
+				actualED = CommonsDataTypePersistenceParser.parseEntityDescriptor(
+						literal.getValue());
+				actualLanguageURI = actualED.getLanguageKit().getURI();
+				actualEntityName = actualED.getName();
+			}
+		} catch (Exception e) {
 		}
 
 		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();

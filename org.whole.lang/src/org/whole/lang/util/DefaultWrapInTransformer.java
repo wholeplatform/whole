@@ -45,6 +45,13 @@ public class DefaultWrapInTransformer implements IEntityTransformer {
 		this.index = index;
 	}
 
+	public FeatureDescriptor getFeatureDescriptor() {
+		return featureDescriptor;
+	}
+	public int getIndex() {
+		return index;
+	}
+
 	public void transform(IEntity oldEntity, IEntity newEntity) {
 		EntityKinds newKind = newEntity.wGetEntityKind();
 		if (newKind.isData())

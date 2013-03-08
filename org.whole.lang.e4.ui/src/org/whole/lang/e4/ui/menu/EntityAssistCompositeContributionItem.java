@@ -34,12 +34,19 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.actions.IUpdatableAction;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
+import org.whole.lang.ui.actions.AssignableToPredicate;
+import org.whole.lang.ui.actions.EnablerPredicateFactory;
+import org.whole.lang.ui.actions.IEnablerPredicate;
+import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.menu.ActionContainer;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
@@ -47,6 +54,7 @@ import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.menu.IItemContainer;
 import org.whole.lang.ui.menu.MenuManagerSet;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.IEntityTransformer;
 import org.whole.lang.util.ResourceUtils;
 
 /**
@@ -107,38 +115,79 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity selectedEntity, ILanguageKit lk) {
 		boolean hasActions = false;
 
-		int addElementNumber = 0;
 		List<IAction> addActions = new ArrayList<IAction>();
 
 		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
-			if (!ed.isAbstract() && EntityUtils.isAddable(selectedEntity, ed))
-				addActions.add(actionRegistry.getAddEntityAction(ed));
+			if (!ed.isAbstract() && isAddable(selectedEntity, ed))
+				addActions.add(getAddEntityAction(ed));
 
-		addElementNumber = addActions.size();
 		Collections.sort(addActions, comparator);
 		HierarchicalFillMenuStrategy.instance().fillMenu(
-				container, ActionSet.create(addActions.toArray(new IAction[0])), 0, addElementNumber);
+				container, ActionSet.create(addActions.toArray(new IAction[0])), 0, addActions.size());
 
-		hasActions |= addElementNumber > 0;
+		hasActions |= addActions.size() > 0;
 
-		int replaceElementNumber = 0;
 		List<IAction> replaceElements = new ArrayList<IAction>();
 
 		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
-			if (!ed.isAbstract() && !Matcher.match(ed, selectedEntity) && EntityUtils.isReplaceable(selectedEntity, ed))
-				replaceElements.add(actionRegistry.getReplaceEntityAction(ed));
+			if (!ed.isAbstract() && isReplaceable(selectedEntity, ed))
+				replaceElements.add(getReplaceEntityAction(ed));
 
-		replaceElementNumber = replaceElements.size();
-		if (addElementNumber > 0 && replaceElementNumber > 0)
+		if (hasActions && replaceElements.size() > 0)
 			container.addSeparator(false);
 		Collections.sort(replaceElements, comparator);
 		HierarchicalFillMenuStrategy.instance().fillMenu(
-				container, ActionSet.create(replaceElements.toArray(new IAction[0])), 0, replaceElementNumber);
+				container, ActionSet.create(replaceElements.toArray(new IAction[0])), 0, replaceElements.size());
 	
-		hasActions |= replaceElementNumber > 0;
+		hasActions |= replaceElements.size() > 0;
 
-		//TODO add text/wrap actions
+		List<IAction> wrapElements = new ArrayList<IAction>();
+
+		if (selectedEntity.wGetLanguageKit().equals(lk)) {
+			IGEFEditorKit editorKit = (IGEFEditorKit) ReflectionFactory.getEditorKit(selectedEntity);
+			for (Object[] wrapAction : editorKit.getActionFactory().wrapActions()) {
+				EntityDescriptor<?> ed = (EntityDescriptor<?>) wrapAction[1];
+				if (isWrappable(selectedEntity, ed, (IEnablerPredicate) wrapAction[0])) {
+					String label = (String) wrapAction[2];
+					IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
+					wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
+							QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, transformer)));
+				}
+			}
+	
+			if (hasActions && wrapElements.size() > 0)
+				container.addSeparator(false);
+			Collections.sort(wrapElements, comparator);
+			HierarchicalFillMenuStrategy.instance().fillMenu(
+					container, ActionSet.create(wrapElements.toArray(new IAction[0])), 0, wrapElements.size());
+
+			hasActions |= wrapElements.size() > 0;
+		}
+		
+		//TODO add text actions
 
 		return hasActions;
+	}
+
+	protected boolean isAddable(IEntity selectedEntity, EntityDescriptor<?> ed) {
+		return EntityUtils.isAddable(selectedEntity, ed);
+	}
+	protected boolean isReplaceable(IEntity selectedEntity, EntityDescriptor<?> ed) {
+		return !Matcher.match(ed, selectedEntity) && EntityUtils.isReplaceable(selectedEntity, ed);
+	}
+	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
+		return (predicate == EnablerPredicateFactory.instance.alwaysTrue() ||
+				((AssignableToPredicate) predicate).getEntityDescriptor()
+						.isPlatformSupertypeOf(selectedEntity.wGetEntityDescriptor())) && EntityUtils.isReplaceable(selectedEntity, ed);
+	}
+
+	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
+		return actionRegistry.getAddEntityAction(ed);
+	}
+	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
+		return actionRegistry.getReplaceEntityAction(ed);
+	}
+	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {
+		return E4Utils.wrapToBehavior(ed, transformer);
 	}
 }

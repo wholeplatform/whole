@@ -23,6 +23,8 @@ import java.lang.reflect.Field;
 import java.util.EventObject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.swt.widgets.Composite;
@@ -30,15 +32,17 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableEditor;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.ide.IGotoMarker;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.E4Part;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
-public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEditor {
+public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEditor, IGotoMarker {
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
@@ -78,6 +82,20 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 		} catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	public void gotoMarker(IMarker marker) {
+		try {
+			//FIXME MarkerUtils.MARKER_TYPE
+			if (!marker.isSubtypeOf("org.whole.lang.ui.wholemarker"))
+				return;
+		} catch (CoreException e) {
+			return;
+		}
+		String locationPath = marker.getAttribute("uri", "/");
+		IEntity entity = EntityUtils.getEntity(getComponent().getViewer().getEntityContents(), locationPath);
+		if (entity != null)
+			getComponent().getViewer().selectAndReveal(entity);
 	}
 
 	@Override

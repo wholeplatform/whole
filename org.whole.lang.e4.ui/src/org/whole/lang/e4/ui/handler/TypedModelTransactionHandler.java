@@ -23,6 +23,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
@@ -36,14 +37,19 @@ import org.whole.lang.ui.commands.ModelTransactionCommand;
 @SuppressWarnings("restriction")
 public abstract class TypedModelTransactionHandler {
 	@CanExecute
-	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		defineBindings(edUri, bm);
+	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri,
+			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		defineBindings(edUri, fdUri, bm);
 		return isEnabled(bm);
 	}
 
 	@Execute
-	public void execute(@Named(ED_URI_PARAMETER_ID) String edUri, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		defineBindings(edUri, bm);
+	public void execute(@Named(ED_URI_PARAMETER_ID) String edUri,
+			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
+			E4GraphicalViewer viewer) throws Exception {
+		defineBindings(edUri, fdUri, bm);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {
@@ -58,8 +64,10 @@ public abstract class TypedModelTransactionHandler {
 		}
 	}
 
-	protected void defineBindings(String edUri, IBindingManager bm) {
+	protected void defineBindings(String edUri, String fdUri, IBindingManager bm) {
 		bm.wDefValue("entityDescriptor", CommonsDataTypePersistenceParser.parseEntityDescriptor(edUri));
+		if (fdUri != null)
+			bm.wDefValue("featureDescriptor", CommonsDataTypePersistenceParser.parseFeatureDescriptor(fdUri));
 	}
 
 	public abstract boolean isEnabled(IBindingManager bm);

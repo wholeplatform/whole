@@ -67,13 +67,15 @@ public class CommandFactory implements ICommandFactory {
 	@Override
 	public MCommand createReplaceEntityCommand() {
 		MCommandParameter edUri = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for replacement", false);
-		return createMCommand(REPLACE_COMMAND_ID, "Replace with Entity", edUri);
+		MCommandParameter fdUri = createMCommandParameter(FD_URI_PARAMETER_ID, "feature to replace with", true);
+		return createMCommand(REPLACE_COMMAND_ID, "Replace with Entity", edUri, fdUri);
 	}
 
 	@Override
 	public MCommand createAddEntityCommand() {
 		MCommandParameter edUri = createMCommandParameter(ED_URI_PARAMETER_ID, "type to instantiate for addition", false);
-		return createMCommand(ADD_COMMAND_ID, "Add child Entity",  edUri);
+		MCommandParameter fdUri = createMCommandParameter(FD_URI_PARAMETER_ID, "feature to insert into", true);
+		return createMCommand(ADD_COMMAND_ID, "Add child Entity",  edUri, fdUri);
 	}
 
 	@Override
@@ -91,10 +93,11 @@ public class CommandFactory implements ICommandFactory {
 	}
 
 	@Override
-	public MCommand createWrapFragmentCommand() {
-		MCommandParameter fragment = createMCommandParameter(FRAGMENT_XWL_PARAMETER_ID, "xwl fragment to unparse for wrapping", false);
+	public MCommand createPerformCommand() {
+		MCommandParameter behavior = createMCommandParameter(BEHAVIOR_XWL_PARAMETER_ID, "xwl fragment to unparse for executing behavior", false);
 		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
-		return createMCommand(WRAP_FRAGMENT_COMMAND_ID, "Wrap with Fragment", fragment, predicate);
+		MCommandParameter description = createMCommandParameter(DESCRIPTION_PARAMETER_ID, "behavior description", true);
+		return createMCommand(PERFORM_COMMAND_ID, "Perform", behavior, predicate, description);
 	}
 
 	@Override
@@ -115,8 +118,50 @@ public class CommandFactory implements ICommandFactory {
 	public MCommand createActionCallCommand() {
 		MCommandParameter functionUri = createMCommandParameter(FUNCTION_URI_PARAMETER_ID, "function uri to unparse to apply transformation", false);
 		MCommandParameter predicate = createMCommandParameter(PREDICATE_XWL_PARAMETER_ID, "xwl fragment to unparse for predicate", false);
-		MCommandParameter analysing = createMCommandParameter(ANALYSING_PARAMETER_ID, "enables results view update", true);
+		MCommandParameter analyzing = createMCommandParameter(ANALYSING_PARAMETER_ID, "enables results view update", true);
 		MCommandParameter description = createMCommandParameter(DESCRIPTION_PARAMETER_ID, "action description", true);
-		return createMCommand(ACTION_CALL_COMMAND_ID, "action call", functionUri, predicate, analysing, description);
+		return createMCommand(ACTION_CALL_COMMAND_ID, "action call", functionUri, predicate, analyzing, description);
+	}
+
+	@Override
+	public MCommand createZoomCommand() {
+		MCommandParameter description = createMCommandParameter(PERCENTAGE_PARAMETER_ID, "zoom percentage", false);
+		return createMCommand(ZOOM_COMMAND_ID, "zoom", description);
+	}
+
+	@Override
+	public MCommand createAlignCommand() {
+		MCommandParameter description = createMCommandParameter(DIRECTION_PARAMETER_ID, "align direction", false);
+		return createMCommand(ALIGN_COMMAND_ID, "zoom", description);
+	}
+
+	@Override
+	public MCommand createValidateModelCommand() {
+		return createMCommand(VALIDATE_MODEL_COMMAND_ID, "validate model");
+	}
+
+	@Override
+	public MCommand createNormalizeModelCommand() {
+		return createMCommand(NORMALIZE_MODEL_COMMAND_ID, "normalize model");
+	}
+
+	@Override
+	public MCommand createPretyPrintModelCommand() {
+		return createMCommand(PRETTYPRINT_MODEL_COMMAND_ID, "pretty print model");
+	}
+
+	@Override
+	public MCommand createInterpretModelCommand() {
+		return createMCommand(INTERPRET_MODEL_COMMAND_ID, "interpret model");
+	}
+
+	@Override
+	public MCommand createGenerateArtifactsModelCommand() {
+		return createMCommand(GENERATEARTIFACTS_COMMAND_ID, "generate artifacts model");
+	}
+
+	@Override
+	public MCommand createGenerateJavaModelCommand() {
+		return createMCommand(GENERATEJAVA_COMMAND_ID, "generate java model");
 	}
 }

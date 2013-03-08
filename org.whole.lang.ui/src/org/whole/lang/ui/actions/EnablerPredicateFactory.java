@@ -112,14 +112,7 @@ public class EnablerPredicateFactory {
 	}
 
 	public final IEnablerPredicate assignableTo(final EntityDescriptor<?> ed) {
-		return new IEnablerPredicate() {
-			public boolean evaluate(IEntityPart selectedPart, Object userdata) {
-				return ed.isPlatformSupertypeOf(selectedPart.getModelEntity().wGetEntityDescriptor());
-			}
-			public String toString() {
-				return "selectedEntity assignableTo "+ed.getName();
-			}
-		};
+		return new AssignableToPredicate(ed);
 	}
 	public final IEnablerPredicate parent_assignableTo(final EntityDescriptor<?> ed) {
 		return new IEnablerPredicate() {

@@ -17,14 +17,14 @@
  */
 package org.whole.lang.e4.ui.util;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
-
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -44,38 +44,29 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.command.ICommandFactory;
-import org.whole.lang.e4.ui.handler.AddEntityHandler;
-import org.whole.lang.e4.ui.handler.AddFragmentHandler;
-import org.whole.lang.e4.ui.handler.CopyAsImageHandler;
-import org.whole.lang.e4.ui.handler.CopyEntityPathHandler;
-import org.whole.lang.e4.ui.handler.CopyHandler;
-import org.whole.lang.e4.ui.handler.CutHandler;
-import org.whole.lang.e4.ui.handler.DeleteHandler;
-import org.whole.lang.e4.ui.handler.ImportHandler;
-import org.whole.lang.e4.ui.handler.PasteAsHandler;
-import org.whole.lang.e4.ui.handler.PasteHandler;
-import org.whole.lang.e4.ui.handler.ReplaceEntityHandler;
-import org.whole.lang.e4.ui.handler.ReplaceFragmentHandler;
-import org.whole.lang.e4.ui.handler.ReplaceWithDefaultHandler;
-import org.whole.lang.e4.ui.handler.SelectAllHandler;
-import org.whole.lang.e4.ui.handler.SelectNotationHandler;
-import org.whole.lang.e4.ui.handler.ActionCallHandler;
-import org.whole.lang.e4.ui.handler.WrapFragmentHandler;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.operations.PrettyPrinterOperation;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.views.ResultsView;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
+import org.whole.lang.util.DefaultWrapInTransformer;
+import org.whole.lang.util.DefaultWrapWithinTransformer;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
@@ -172,7 +163,7 @@ public class E4Utils {
 		if (iterator.hasNext()) {
 			bm.wDef("primarySelectedEntity", iterator.next());
 			IEntityPart primarySelectedEntityPart = selectedEntityParts.get(0);
-			if (/* !selectedEntityParts.isEmpty() && */ primarySelectedEntityPart instanceof IHilightable) {
+			if (primarySelectedEntityPart instanceof IHilightable) {
 				final IHilightable hilightable = (IHilightable) primarySelectedEntityPart;
 				bm.wDefValue("hilightPosition", -1);
 				bm.wGet("hilightPosition").wAddRequestEventHandler(new IdentityRequestEventHandler() {
@@ -203,11 +194,48 @@ public class E4Utils {
 			Class<?> resourceUtilsClass = Class.forName("org.whole.lang.ui.util.ResourceUtils", true, cl);
 			Method defineResourceBindingsMethod = resourceUtilsClass.getMethod("defineResourceBindings", new Class[] {IBindingManager.class, IFile.class});
 			defineResourceBindingsMethod.invoke(null, bm, modelInput.getFile());
+			bm.wDefValue("modelInput", modelInput);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
+		
+	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, IEntityTransformer entityTransformer) {
+		return wrapToBehavior(ed, null, entityTransformer);
+	}
+	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, FeatureDescriptor intoFD, IEntityTransformer entityTransformer) {
+		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		if (intoFD != null)
+			bm.wDefValue("intoFDUri", CommonsDataTypePersistenceParser.unparseFeatureDescriptor(intoFD));
+
+		if (entityTransformer instanceof DefaultWrapInTransformer) {
+			FeatureDescriptor fd = ((DefaultWrapInTransformer) entityTransformer).getFeatureDescriptor();
+
+			bm.wDefValue("edUri", CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed));
+			if (fd != null)
+				bm.wDefValue("fdUri", CommonsDataTypePersistenceParser.unparseFeatureDescriptor(fd));
+			else
+				bm.wDefValue("fdIndex", ((DefaultWrapInTransformer) entityTransformer).getIndex());
+
+			IEntity wrapInBehavior = WrapActionsTemplateManager.instance().create(fd != null ? "WrapIn" : "WrapInIndex");
+			wrapInBehavior = BehaviorUtils.evaluate(wrapInBehavior, 1, bm);
+			Matcher.removeVars(wrapInBehavior, false);
+			return wrapInBehavior;
+	
+		} else if (entityTransformer instanceof DefaultWrapWithinTransformer) {
+			FeatureDescriptor fd = ((DefaultWrapWithinTransformer) entityTransformer).getFeatureDescriptor();
+
+			bm.wDefValue("edUri", CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed));
+			bm.wDefValue("fdUri", CommonsDataTypePersistenceParser.unparseFeatureDescriptor(fd));
+
+			IEntity wrapWithinBehavior = WrapActionsTemplateManager.instance().create("WrapWithin");
+			wrapWithinBehavior = BehaviorUtils.evaluate(wrapWithinBehavior, 1, bm);
+			Matcher.removeVars(wrapWithinBehavior, false);
+			return wrapWithinBehavior;
+		} else
+			throw new IllegalArgumentException("unsupported entity transformer");
+	}
 
 	@SuppressWarnings("unchecked")
 	protected static class RevealViewRunnable<T> implements Runnable {
@@ -237,59 +265,49 @@ public class E4Utils {
 			}
 		}
 	};
-	public static <T> T revealLegacyView(IEclipseContext context, IBindingManager bm, String viewId, String secondaryId) {
+	public static <T> T revealLegacyView(UISynchronize uiSynchronize, IBindingManager bm, String viewId, String secondaryId) {
 		RevealViewRunnable<T> runnable = new RevealViewRunnable<T>(bm, viewId, secondaryId);
-		context.get(UISynchronize.class).syncExec(runnable);
+		uiSynchronize.syncExec(runnable);
 		return runnable.getResult();
 	}
-	public static <T> T  revealLegacyView(IEclipseContext context, IBindingManager bm, Class<T> clazz) {
-		return revealLegacyView(context, bm, clazz.getName(), null);
+	public static <T> T  revealLegacyView(UISynchronize uiSynchronize, IBindingManager bm, Class<T> clazz) {
+		return revealLegacyView(uiSynchronize, bm, clazz.getName(), null);
 	}
-	public static void revealResultsView(IEclipseContext context, IBindingManager bm, final IEntity results) {
+	public static void revealResultsView(UISynchronize uiSynchronize, IBindingManager bm, final IEntity results) {
 		RevealViewRunnable<ResultsView> runnable = new RevealViewRunnable<ResultsView>(bm, ResultsView.class.getName(), null) {
 			public void run() {
 				super.run();
 				getResult().setContents(results);
 			}
 		};
-		context.get(UISynchronize.class).syncExec(runnable);
+		uiSynchronize.syncExec(runnable);
 	}
-	
-	public static void registerCommands(EHandlerService handlerService,
-			MApplication application, ICommandFactory commandFactory) {
-		// register platform services
-		handlerService.activateHandler(EDIT_CUT, new CutHandler());
-		handlerService.activateHandler(EDIT_COPY, new CopyHandler());
-		handlerService.activateHandler(EDIT_PASTE, new PasteHandler());
-		handlerService.activateHandler(EDIT_DELETE, new DeleteHandler());
-		handlerService.activateHandler(EDIT_SELECT_ALL, new SelectAllHandler());
-
-		application.getCommands().add(commandFactory.createCopyEntityPathCommand());
-		handlerService.activateHandler(COPY_ENTITY_PATH_COMMAND_ID, new CopyEntityPathHandler());
-		application.getCommands().add(commandFactory.createCopyAsImageCommand());
-		handlerService.activateHandler(COPY_AS_IMAGE_COMMAND_ID, new CopyAsImageHandler());
-		application.getCommands().add(commandFactory.createPasteAsCommand());
-		handlerService.activateHandler(PASTE_AS_COMMAND_ID, new PasteAsHandler());
-
-		application.getCommands().add(commandFactory.createReplaceEntityCommand());
-		handlerService.activateHandler(REPLACE_COMMAND_ID, new ReplaceEntityHandler());
-		application.getCommands().add(commandFactory.createAddEntityCommand());
-		handlerService.activateHandler(ADD_COMMAND_ID, new AddEntityHandler());
-
-		application.getCommands().add(commandFactory.createReplaceFragmentCommand());
-		handlerService.activateHandler(REPLACE_FRAGMENT_COMMAND_ID, new ReplaceFragmentHandler());
-		application.getCommands().add(commandFactory.createAddFragmentCommand());
-		handlerService.activateHandler(ADD_FRAGMENT_COMMAND_ID, new AddFragmentHandler());
-		application.getCommands().add(commandFactory.createWrapFragmentCommand());
-		handlerService.activateHandler(WRAP_FRAGMENT_COMMAND_ID, new WrapFragmentHandler());
-
-		application.getCommands().add(commandFactory.createReplaceWithDefaultCommand());
-		handlerService.activateHandler(REPLACE_WITH_DEFAULT_COMMAND_ID, new ReplaceWithDefaultHandler());
-		application.getCommands().add(commandFactory.createImportCommand());
-		handlerService.activateHandler(IMPORT_COMMAND_ID, new ImportHandler());
-		application.getCommands().add(commandFactory.createSelectNotationCommand());
-		handlerService.activateHandler(SELECT_NOTATION_COMMAND_ID, new SelectNotationHandler());
-		application.getCommands().add(commandFactory.createActionCallCommand());
-		handlerService.activateHandler(ACTION_CALL_COMMAND_ID, new ActionCallHandler());
+	public static void invokeInterpreter(IBindingManager bm) {
+		try {
+			ClassLoader cl = ReflectionFactory.getClassLoader(bm);
+			Class<?> consoleFactoryClass = Class.forName("org.whole.lang.ui.console.WholeConsoleFactory", true, cl);
+			Object ioConsole = consoleFactoryClass.getMethod("getIOConsole").invoke(null);
+			Class<?> consoleClass = Class.forName("org.eclipse.ui.console.IOConsole", true, cl);
+			InputStream is = (InputStream) consoleClass.getMethod("getInputStream").invoke(ioConsole);
+			OutputStream os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
+			InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public static void invokePrettyPrinter(IBindingManager bm) {
+		try {
+			ClassLoader cl = ReflectionFactory.getClassLoader(bm);
+			Class<?> consoleFactoryClass = Class.forName("org.whole.lang.ui.console.WholeConsoleFactory", true, cl);
+			Object ioConsole = consoleFactoryClass.getMethod("getIOConsole").invoke(null);
+			Class<?> consoleClass = Class.forName("org.eclipse.ui.console.IOConsole", true, cl);
+			OutputStream os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
+			bm.wEnterScope();
+			bm.wDefValue("printWriter", new PrintWriter(os));
+			PrettyPrinterOperation.prettyPrint(bm.wGet("self"), bm);
+			bm.wExitScope();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

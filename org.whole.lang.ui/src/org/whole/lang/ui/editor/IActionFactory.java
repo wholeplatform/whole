@@ -42,6 +42,8 @@ public interface IActionFactory {
 
 	// called at context menu configuration time
 	public void fillValueMenu(IWorkbenchPart workbenchPart, IMenuManager contextMenu, ISelectionProvider provider);
+	public Object[][] wrapActions();
+	public Object[][] textActions();
 
 	// called at context menu configuration time once per entity descriptor (they are cached)
 	public SelectionAction createAddAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> addEntityDescriptor);

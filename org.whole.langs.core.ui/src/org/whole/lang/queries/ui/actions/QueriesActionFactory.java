@@ -33,7 +33,7 @@ public class QueriesActionFactory extends ActionFactory {
 	}
 	private QueriesActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Scope, "Scope", wrapIn(1)},

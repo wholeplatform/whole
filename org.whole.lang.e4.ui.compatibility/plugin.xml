@@ -33,4 +33,61 @@
             <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
       </editor>
 	</extension>
+
+   <extension
+         point="org.eclipse.ui.menus">
+
+		<menuContribution
+		          locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+			<toolbar
+					id="org.whole.lang.e4.ui.compatibility.toolbar"
+					label="Whole Toolbar">
+			<command
+					commandId="org.whole.lang.e4.ui.command::validateModel"
+					icon="icons/actions/validate.gif"
+					label="Validate Model"
+					style="push"
+					tooltip="Validates the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::normalizeModel"
+					icon="icons/actions/normalize.gif"
+					label="Normalize Model"
+					style="push"
+					tooltip="Normalizes the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::prettyPrintModel"
+					icon="icons/actions/pretty_print.gif"
+					label="Pretty Print Model"
+					style="push"
+					tooltip="Pretty Prints the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::interpretModel"
+					icon="icons/actions/interpret.gif"
+					label="Interpret Model"
+					style="push"
+					tooltip="Interprets the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::generateArtifacts"
+					icon="icons/actions/generate_artifacts.gif"
+					label="Generate Artifacts"
+					style="push"
+					tooltip="Generates Artifacts for the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::generateJava"
+					icon="icons/actions/generate_java.gif"
+					label="Generates Java Classes"
+					style="push"
+					tooltip="Generates Java Classes for the active model"/>
+			</toolbar>
+		</menuContribution>
+	</extension>
+
+	<extension
+			id="commandContributions"
+			point="org.eclipse.e4.workbench.model">
+		<processor
+				beforefragment="false"
+				class="org.whole.lang.e4.ui.addon.CommandProcessor">
+		</processor>
+	</extension>
 </plugin>

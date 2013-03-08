@@ -18,6 +18,7 @@
 package org.whole.lang.e4.actions;
 
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.WRAP_ICON_URI;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,11 +38,13 @@ import org.whole.lang.actions.model.GroupAction;
 import org.whole.lang.actions.model.Hierarchical;
 import org.whole.lang.actions.model.SubgroupAction;
 import org.whole.lang.actions.visitors.ActionsUIInterpreterVisitor;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.ui.actions.ActionsComparator;
 import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -212,19 +215,23 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 		IEclipseContext context = (IEclipseContext) getBindings().wGetValue("context");
 		ActionRegistry actionRegistry = new ActionRegistry(context);
 
+		QueriesEntityFactory qf = QueriesEntityFactory.instance;
 		IEntity predicate = enablerPredicate instanceof OpaqueEnablerPredicate ?
 				((OpaqueEnablerPredicate) enablerPredicate).value :
-					QueriesEntityFactory.instance.createBooleanLiteral(true);
+					qf.createBooleanLiteral(true);
+		
+		IEntity behavior = qf.createPointwiseUpdate(qf.createVariableRefStep("primarySelectedEntity"),
+				CommonsEntityAdapterFactory.createStageUpFragment(QueriesEntityDescriptorEnum.PathExpression, prototype));
 
 		switch (kind.getOrdinal()) {
 		case ActionKindEnum.REPLACE_ord:
-			return actionRegistry.createReplaceFragmentAction(text, prototype, predicate);
+			return actionRegistry.createReplaceFragmentAction(text, predicate, prototype);
 
 		case ActionKindEnum.INSERT_ord:
-			return actionRegistry.createAddFragmentAction(text, prototype, predicate);
+			return actionRegistry.createAddFragmentAction(text, predicate, prototype);
 
 		case ActionKindEnum.WRAP_ord:
-			return actionRegistry.createWrapFragmentAction(text, prototype, predicate);
+			return actionRegistry.createPerformAction(text, WRAP_ICON_URI, predicate, behavior);
 
 		case ActionKindEnum.PERFORM_ord:
 		default:

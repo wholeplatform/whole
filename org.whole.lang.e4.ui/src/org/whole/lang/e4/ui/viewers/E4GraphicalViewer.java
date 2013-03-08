@@ -31,9 +31,11 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.editparts.RootEditPart;
 import org.whole.lang.e4.ui.handler.CopyHandler;
@@ -43,6 +45,7 @@ import org.whole.lang.e4.ui.handler.SelectAllHandler;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.dnd.EditPartTransferDragSourceListener;
 import org.whole.lang.ui.dnd.EditPartTransferDropTargetListener;
 import org.whole.lang.ui.dnd.FileTransferDropTargetListener;
@@ -165,6 +168,20 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return getCommandStack().isDirty();
 	}
 
+	public void setContents(IModelInput modelInput, IEntity defaultContents) {
+		IEntity entity = defaultContents;
+		try {
+			IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
+			entity = modelInput.getPersistenceKit().readModel(pp);
+		} catch (Exception e) {
+		}
+		setContents(entity);
+		setInteractive(entity, true, true, true);
+		flush();
+		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		getCommandStack().flush();
+	}
+
 	protected RootFragment wrapContents(IEntity entity) {
 		return entity instanceof RootFragment ? (RootFragment) entity :
 			new LazyContainmentRootFragmentImpl(entity);
@@ -178,7 +195,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	public IEntity getEntityContents() {
-		return ((IEntityPart) getContents()).getModelEntity();
+		RootFragment modelEntity = ((IEntityPart) getContents()).getModelEntity();
+		return modelEntity.getRootEntity().wGetAdaptee(false);
 	}
 	public void setEntityContents(IEntity entity) {
 		setContents(entity);
@@ -263,5 +281,14 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		if (fontRegistry == null)
 			fontRegistry = new FontRegistry(getResourceManager());
 		return fontRegistry;
+	}
+
+	public void selectAndReveal(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+
+		if (entityPart != null) {
+			reveal(entityPart);
+			select(entityPart);
+		}
 	}
 }

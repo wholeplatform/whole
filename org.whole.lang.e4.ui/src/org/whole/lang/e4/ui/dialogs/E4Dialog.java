@@ -19,8 +19,6 @@ package org.whole.lang.e4.ui.dialogs;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import java.lang.reflect.Field;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -51,8 +49,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.api.IUIProvider;
-import org.whole.lang.e4.ui.command.CommandFactory;
-import org.whole.lang.e4.ui.command.ICommandFactory;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
@@ -67,7 +64,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 @SuppressWarnings("restriction")
 public class E4Dialog extends Dialog {
 	protected E4GraphicalViewer viewer;
-	protected ICommandFactory commandFactory;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 
@@ -84,30 +80,15 @@ public class E4Dialog extends Dialog {
 	@Inject MApplication application;
 	@Inject EBindingService bindingService;
 
-	private void fixService(Class<?> serviceClass, Object service) {
-		try {
-			Field contextField = serviceClass.getDeclaredField("context");
-			contextField.setAccessible(true);
-			contextField.set(service, context);
-		} catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	private void fixInjections() {
-		context = context.getParent();
-
-		fixService(selectionService.getClass(), selectionService);
-		fixService(handlerService.getClass(), handlerService);
-		fixService(bindingService.getClass(), bindingService);
-	}
-
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		//FIXME workaround due to an eclipse compatibility layer bug
 		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=386329
 		// safely delete the following line of code as soon as the compatibility layer is removed 
-		fixInjections();
+		context = context.getParent();
+		selectionService = context.get(ESelectionService.class);
+		handlerService = context.get(EHandlerService.class);
+		bindingService = context.get(EBindingService.class);
 
 		IEntity entity = QueriesTemplateManager.instance().create("FileArtifact generator");
 
@@ -139,7 +120,7 @@ public class E4Dialog extends Dialog {
 		context.set(E4GraphicalViewer.class, viewer);
 
 		actionRegistry = createActionRegistry();
-		E4Utils.registerCommands(handlerService, application, commandFactory = new CommandFactory());
+		HandlersBehavior.registerHandlers(handlerService);
 
 		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
 

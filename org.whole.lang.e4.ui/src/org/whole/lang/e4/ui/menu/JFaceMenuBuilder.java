@@ -34,10 +34,10 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
+import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.util.EntityUtils;
 
@@ -146,16 +146,14 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 				EntityUtils.isSimple(selectedEntity));
 		addItem(menu);
 
-		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
+		IContributionItem ici = new FeatureAssistCompositeContributionItem(context, actionRegistry);
 		menu.add(ici);
 	}
 
-	protected void addActionsItem(String menuLabel, FeatureDescriptor menuFD) {
+	protected void addActionsItem(String menuLabel, VisibilityExpression expression, IContributionItem ici) {
 		IMenuManager menu = createMenu(menuLabel);
-		menu.setVisible(getContentAssistVisibleWhen().isVisible(getBindings()));
+		menu.setVisible(expression.isVisible(getBindings()));
 		addItem(menu);
-
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menuFD);
 		menu.add(ici);
 	}
 

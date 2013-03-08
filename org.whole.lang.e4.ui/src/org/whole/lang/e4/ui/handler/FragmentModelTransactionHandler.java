@@ -47,10 +47,10 @@ public abstract class FragmentModelTransactionHandler {
 	}
 
 	@Execute
-	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String prototypeXwl,
+	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		defineBindings(prototypeXwl, predicateXwl, bm);
+		defineBindings(fragmentXwl, predicateXwl, bm);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {

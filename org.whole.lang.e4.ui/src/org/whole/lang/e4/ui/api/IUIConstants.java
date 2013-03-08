@@ -25,7 +25,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 public interface IUIConstants {
 	// bundle id
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
-	
+
 	// context menu id
 	public static final String CONTEXT_MENU_ID = BUNDLE_ID+".context.menu";
 
@@ -41,20 +41,36 @@ public interface IUIConstants {
 	public static final String ADD_COMMAND_ID = COMMAND_NS+"add";
 	public static final String REPLACE_FRAGMENT_COMMAND_ID = COMMAND_NS+"replaceFragment";
 	public static final String ADD_FRAGMENT_COMMAND_ID = COMMAND_NS+"addFragment";
-	public static final String WRAP_FRAGMENT_COMMAND_ID = COMMAND_NS+"wrapFragment";
 
 	public static final String REPLACE_WITH_DEFAULT_COMMAND_ID = COMMAND_NS+"replaceWithDefault";
 	public static final String SELECT_NOTATION_COMMAND_ID = COMMAND_NS+"selectNotation";
 	public static final String IMPORT_COMMAND_ID = COMMAND_NS+"import";
 	public static final String ACTION_CALL_COMMAND_ID = COMMAND_NS+"actionCall";
+	public static final String PERFORM_COMMAND_ID = COMMAND_NS+"perform";
 
+	public static final String ZOOM_COMMAND_ID = COMMAND_NS+"zoom";
+	public static final String ALIGN_COMMAND_ID = COMMAND_NS+"align";
+
+	public static final String VALIDATE_MODEL_COMMAND_ID = COMMAND_NS+"validateModel";
+	public static final String NORMALIZE_MODEL_COMMAND_ID = COMMAND_NS+"normalizeModel";
+	public static final String PRETTYPRINT_MODEL_COMMAND_ID = COMMAND_NS+"prettyPrintModel";
+	public static final String INTERPRET_MODEL_COMMAND_ID = COMMAND_NS+"interpretModel";
+	public static final String GENERATEARTIFACTS_COMMAND_ID = COMMAND_NS+"generateArtifacts";
+	public static final String GENERATEJAVA_COMMAND_ID = COMMAND_NS+"generateJava";
+
+	
 	public static final String ED_URI_PARAMETER_ID = PARAMETER_NS+"entityDescriptor";
+	public static final String FD_URI_PARAMETER_ID = PARAMETER_NS+"featureDescriptor";
 	public static final String FRAGMENT_XWL_PARAMETER_ID = PARAMETER_NS+"fragmentEntity";
 	public static final String FUNCTION_URI_PARAMETER_ID = PARAMETER_NS+"functionUri";
 	public static final String PREDICATE_XWL_PARAMETER_ID = PARAMETER_NS+"predicateEntity";
+	public static final String BEHAVIOR_XWL_PARAMETER_ID = PARAMETER_NS+"behaviorEntity";
 	public static final String EDITORKIT_ID_PARAMETER_ID = PARAMETER_NS+"editorKitId";
-	public static final String ANALYSING_PARAMETER_ID = PARAMETER_NS+"analysing";
+	public static final String ANALYSING_PARAMETER_ID = PARAMETER_NS+"analyzing";
 	public static final String DESCRIPTION_PARAMETER_ID = PARAMETER_NS+"description";
+	
+	public static final String PERCENTAGE_PARAMETER_ID = PARAMETER_NS+"percentage";
+	public static final String DIRECTION_PARAMETER_ID = PARAMETER_NS+"direction";
 
 	// workbench command id
 	//IWorkbenchCommandConstants provides all the workbench default commands
@@ -65,7 +81,8 @@ public interface IUIConstants {
 	public static final String EDIT_PASTE = "org.eclipse.ui.edit.paste";
 	public static final String EDIT_DELETE = "org.eclipse.ui.edit.delete";
 	public static final String EDIT_SELECT_ALL = "org.eclipse.ui.edit.selectAll";
-
+	public static final String FILE_REVERT = "org.eclipse.ui.file.revert";
+	
 	// menu item id
 	public static final String UNDO_MENU_ID = "undo";
 	public static final String REDO_MENU_ID = "redo";

@@ -229,7 +229,7 @@ public class WholeOutlinePage extends ContentOutlinePage implements IAdaptable {
 		super.dispose();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class type) {
 		if (type == ZoomManager.class)
 			return graphicalViewer.getProperty(ZoomManager.class.toString());

@@ -19,11 +19,15 @@ package org.whole.lang.e4.ui.parts;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import java.lang.reflect.Field;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -55,27 +59,22 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
-import org.whole.lang.e4.ui.command.CommandFactory;
-import org.whole.lang.e4.ui.command.ICommandFactory;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.E4MenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.reflect.QueriesTemplateManager;
-import org.whole.lang.reflect.ReflectionFactory;
 
 @SuppressWarnings("restriction")
 public class E4Part {
 	protected E4GraphicalViewer viewer;
-	protected ICommandFactory commandFactory;
 	protected MPopupMenu contextMenu;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<MMenu> contextMenuProvider;
-
-	public E4Part() {
-	}
-
+	protected IResourceChangeListener resourceListener;
+	
 	@Inject IEclipseContext context;
 	@Inject ESelectionService selectionService;
 	@Inject EHandlerService handlerService;
@@ -85,45 +84,17 @@ public class E4Part {
 	@Inject MApplication application;
 	@Inject MPart part;
 	@Optional @Inject IModelInput modelInput;
-
-	private void fixService(Class<?> serviceClass, Object service) {
-		try {
-			Field contextField = serviceClass.getDeclaredField("context");
-			contextField.setAccessible(true);
-			contextField.set(service, context);
-		} catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	private void fixInjections() {
-		context = context.getParent();
-
-		fixService(selectionService.getClass(), selectionService);
-		fixService(handlerService.getClass(), handlerService);
-	}
-
-	public E4GraphicalViewer getViewer() {
-		return viewer;
-	}
+	@Inject IWorkspace workspace;
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		//FIXME workaround due to an eclipse compatibility layer bug
 		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=386329
 		// safely delete the following line of code as soon as the compatibility layer is removed 
-		fixInjections();
+		context = context.getParent();
+		selectionService = context.get(ESelectionService.class);
+		handlerService = context.get(EHandlerService.class);
 
-		IEntity entity = QueriesTemplateManager.instance().create("FileArtifact generator");
-
-		// use model input if has been injected
-		if (modelInput != null) {
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
-			try {
-				entity = modelInput.getPersistenceKit().readModel(pp);
-			} catch (Exception e) {
-			}
-		}
 
 		parent.setLayout(new FillLayout());
 		viewer = new E4GraphicalViewer(parent);
@@ -148,14 +119,11 @@ public class E4Part {
 			}
 		});
 		viewer.setKeyHandler(new E4KeyHandler());
-		viewer.setContents(entity);
-		viewer.setInteractive(entity, true, true, true);
-		viewer.flush();
 
-		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		viewer.setContents(modelInput, createDefaultContents());
+
 		context.set(E4GraphicalViewer.class, viewer);
-
-		E4Utils.registerCommands(handlerService, application, commandFactory = new CommandFactory());
+		HandlersBehavior.registerHandlers(handlerService);
 
 		part.getMenus().add(contextMenu = createContextMenu());
 		menuService.registerContextMenu(viewer.getControl(), CONTEXT_MENU_ID);
@@ -174,6 +142,32 @@ public class E4Part {
 				}
 			}
 		});
+
+		if (modelInput != null) {
+			workspace.addResourceChangeListener(resourceListener = new IResourceChangeListener() {
+				public void resourceChanged(IResourceChangeEvent event) {
+					if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+						try {
+							event.getDelta().accept(new IResourceDeltaVisitor() {
+								public boolean visit(IResourceDelta delta) throws CoreException {
+									if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
+											delta.getMarkerDeltas().length == 0) {
+										viewer.setContents(modelInput, createDefaultContents());
+										return false;
+									} else
+										return true;
+								}
+							});
+						} catch (CoreException e) {
+						}
+					}
+				}
+			});
+		}
+	}
+
+	protected IEntity createDefaultContents() {
+		return QueriesTemplateManager.instance().create("FileArtifact generator");
 	}
 
 	@PersistState
@@ -195,6 +189,15 @@ public class E4Part {
 		}
 	}
 
+	@Focus
+	public void setFocus() {
+		viewer.getControl().setFocus();
+	}
+
+	public E4GraphicalViewer getViewer() {
+		return viewer;
+	}
+
 	protected MPopupMenu createContextMenu() {
 		MPopupMenu contextMenu = MenuFactoryImpl.eINSTANCE.createPopupMenu();
 		contextMenu.setElementId(CONTEXT_MENU_ID);
@@ -203,10 +206,5 @@ public class E4Part {
 
 	protected ActionRegistry createActionRegistry() {
 		return new ActionRegistry(context);
-	}
-	
-	@Focus
-	public void setFocus() {
-		viewer.getControl().setFocus();
 	}
 }

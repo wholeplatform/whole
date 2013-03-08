@@ -17,19 +17,23 @@
  */
 package org.whole.lang.e4.ui.handler;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.jobs.GenerateJavaRunnable;
 
 /**
  * @author Enrico Persiani
  */
-public class WrapFragmentHandler extends FragmentModelTransactionHandler {
+@SuppressWarnings("restriction")
+public class GenerateJavaHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canWrapFragment(bm);
+		return HandlersBehavior.canGenerateArtifacts(bm);
 	}
-	public void run(IBindingManager bm) {
-		HandlersBehavior.wrapFragment(bm);
+	protected IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context) {
+		return new GenerateJavaRunnable(context, bm, getLabel(bm));
 	}
 	public String getLabel(IBindingManager bm) {
-		return "wrap with fragment";
+		return "generate java";
 	}
 }

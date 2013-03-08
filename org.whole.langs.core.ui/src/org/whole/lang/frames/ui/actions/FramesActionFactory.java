@@ -34,15 +34,15 @@ public class FramesActionFactory extends ActionFactory {
 	}
 	private FramesActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(FramesEntityDescriptorEnum.URI), FramesEntityDescriptorEnum.Resource, "Resource", wrapIn0},
-				{ pf.assignableTo(FramesEntityDescriptorEnum.Subfeature), FramesEntityDescriptorEnum.Feature, "Feature", wrapWithin(FramesFeatureDescriptorEnum.features, false, true)},
+				{ pf.assignableTo(FramesEntityDescriptorEnum.Subfeature), FramesEntityDescriptorEnum.Feature, "Feature", wrapWithin(FramesFeatureDescriptorEnum.features)},
 				{ pf.assignableTo(FramesEntityDescriptorEnum.SolitaryFeature), FramesEntityDescriptorEnum.VariableFeature, "Variable Feature", wrapIn(FramesFeatureDescriptorEnum.feature)},
 				{ pf.assignableTo(FramesEntityDescriptorEnum.FeatureName), FramesEntityDescriptorEnum.FeatureRename, "Feature Rename", wrapIn(FramesFeatureDescriptorEnum.name)},
-				{ pf.assignableTo(FramesEntityDescriptorEnum.SolitaryFeature), FramesEntityDescriptorEnum.CloneGroup, "Clone Group", wrapWithin(FramesFeatureDescriptorEnum.features, false, true)},
-				{ pf.assignableTo(FramesEntityDescriptorEnum.VariableFeature), FramesEntityDescriptorEnum.SubsetGroup, "Subset Group", wrapWithin(FramesFeatureDescriptorEnum.features, false, true)},
+				{ pf.assignableTo(FramesEntityDescriptorEnum.SolitaryFeature), FramesEntityDescriptorEnum.CloneGroup, "Clone Group", wrapWithin(FramesFeatureDescriptorEnum.features)},
+				{ pf.assignableTo(FramesEntityDescriptorEnum.VariableFeature), FramesEntityDescriptorEnum.SubsetGroup, "Subset Group", wrapWithin(FramesFeatureDescriptorEnum.features)},
 		};
 	};
 }

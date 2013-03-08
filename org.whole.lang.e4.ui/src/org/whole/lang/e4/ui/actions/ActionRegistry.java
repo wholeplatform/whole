@@ -37,6 +37,7 @@ import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.StringUtils;
@@ -51,8 +52,8 @@ public class ActionRegistry {
 	protected RedoAction redoAction;
 	protected Map<String, IUpdatableAction> baseActions = new HashMap<String, IUpdatableAction>();
 	protected Map<String, IUpdatableAction> selectNotationActions = new HashMap<String, IUpdatableAction>();
-	protected Map<String, IUpdatableAction> replaceActions = new HashMap<String, IUpdatableAction>();
-	protected Map<String, IUpdatableAction> addActions = new HashMap<String, IUpdatableAction>();
+	protected Map<String, Map<String, IUpdatableAction>> replaceActions = new HashMap<String, Map<String, IUpdatableAction>>();
+	protected Map<String, Map<String, IUpdatableAction>> addActions = new HashMap<String, Map<String, IUpdatableAction>>();
 
 	public ActionRegistry(IEclipseContext context) {
 		this.context = context;
@@ -85,26 +86,49 @@ public class ActionRegistry {
 		return action;
 	}
 	public IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
+		return getReplaceEntityAction(ed, null);
+	}
+	public IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed, FeatureDescriptor fd) {
 		String edUri = CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed);
-		IUpdatableAction action = replaceActions.get(edUri);
+		String fdUri = fd != null ? CommonsDataTypePersistenceParser.unparseFeatureDescriptor(fd) : null;
+
+		Map<String, IUpdatableAction> actionMap = replaceActions.get(edUri);
+		if (actionMap == null)
+			replaceActions.put(edUri, actionMap = new HashMap<String, IUpdatableAction>());
+
+		IUpdatableAction action = actionMap.get(fdUri);
 		if (action == null) {
 			String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-			Map<String, String> parameters = Collections.singletonMap(ED_URI_PARAMETER_ID, edUri);
-			replaceActions.put(edUri, action = createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_COMMAND_ID, parameters));
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put(ED_URI_PARAMETER_ID, edUri);
+			parameters.put(FD_URI_PARAMETER_ID, fdUri);
+			actionMap.put(edUri, action = createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_COMMAND_ID, parameters));
 		}
 		return action;
 	}
 	public IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
+		return getAddEntityAction(ed, null);
+	}
+	public IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed, FeatureDescriptor fd) {
 		String edUri = CommonsDataTypePersistenceParser.unparseEntityDescriptor(ed);
-		IUpdatableAction action = addActions.get(edUri);
+		String fdUri = fd != null ? CommonsDataTypePersistenceParser.unparseFeatureDescriptor(fd) : null;
+
+		Map<String, IUpdatableAction> actionMap = addActions.get(edUri);
+		if (actionMap == null)
+			addActions.put(edUri, actionMap = new HashMap<String, IUpdatableAction>());
+
+		IUpdatableAction action = actionMap.get(fdUri);
 		if (action == null) {
 			String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-			Map<String, String> parameters = Collections.singletonMap(ED_URI_PARAMETER_ID, edUri);
-			addActions.put(edUri, action = createE4ActionAdapter(label, ADD_ICON_URI, ADD_COMMAND_ID, parameters));
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put(ED_URI_PARAMETER_ID, edUri);
+			parameters.put(FD_URI_PARAMETER_ID, fdUri);
+			actionMap.put(edUri, action = createE4ActionAdapter(label, ADD_ICON_URI, ADD_COMMAND_ID, parameters));
 		}
 		return action;
 	}
-	public IUpdatableAction createReplaceFragmentAction(String label, IEntity fragment, IEntity predicate) {
+
+	public IUpdatableAction createReplaceFragmentAction(String label, IEntity predicate, IEntity fragment) {
 		try {
 			Map<String, String> parameters = new HashMap<String, String>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
@@ -118,7 +142,7 @@ public class ActionRegistry {
 			throw new IllegalStateException(e);
 		}
 	}
-	public IUpdatableAction createAddFragmentAction(String label, IEntity fragment, IEntity predicate) {
+	public IUpdatableAction createAddFragmentAction(String label, IEntity predicate, IEntity fragment) {
 		try {
 			Map<String, String> parameters = new HashMap<String, String>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
@@ -132,22 +156,23 @@ public class ActionRegistry {
 			throw new IllegalStateException(e);
 		}
 	}
-	public IUpdatableAction createWrapFragmentAction(String label, IEntity fragment, IEntity predicate) {
+	public IUpdatableAction createPerformAction(String label, String iconUri, IEntity predicate, IEntity behavior) {
 		try {
 			Map<String, String> parameters = new HashMap<String, String>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
-			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
+			ReflectionFactory.getDefaultPersistenceKit().writeModel(behavior, spp);
+			parameters.put(BEHAVIOR_XWL_PARAMETER_ID, spp.getStore());
 			spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
 			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
-			return createE4ActionAdapter(label, WRAP_ICON_URI, WRAP_FRAGMENT_COMMAND_ID, parameters);
+			parameters.put(DESCRIPTION_PARAMETER_ID, label);
+			return createE4ActionAdapter(label, iconUri, PERFORM_COMMAND_ID, parameters);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
-	public IUpdatableAction createActionCallAction(String label, String functionUri, IEntity predicate, boolean analysing) {
+	public IUpdatableAction createActionCallAction(String label, boolean analyzing, IEntity predicate, String functionUri) {
 		try {
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(FUNCTION_URI_PARAMETER_ID, functionUri);
@@ -155,7 +180,7 @@ public class ActionRegistry {
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
 			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
 			parameters.put(DESCRIPTION_PARAMETER_ID, label);
-			parameters.put(ANALYSING_PARAMETER_ID, Boolean.TRUE.toString());
+			parameters.put(ANALYSING_PARAMETER_ID, Boolean.valueOf(analyzing).toString());
 			return createE4ActionAdapter(label, null, ACTION_CALL_COMMAND_ID, parameters);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

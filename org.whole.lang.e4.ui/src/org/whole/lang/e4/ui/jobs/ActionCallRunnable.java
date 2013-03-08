@@ -19,55 +19,41 @@ package org.whole.lang.e4.ui.jobs;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
-import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
-import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.util.EntityUtils;
 
 @SuppressWarnings("restriction")
-public class ActionCallRunnable implements IRunnableWithProgress {
-	protected IEclipseContext context;
-	protected IBindingManager bm;
-	protected String label;
-	protected boolean delayUpdates;
+public class ActionCallRunnable extends AbstractRunnableWithProgress {
 
 	public ActionCallRunnable(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
-		this.context = context;
-		this.bm = bm;
-		this.label = label;
-		this.delayUpdates = delayUpdates;
+		super(context, bm, label, delayUpdates);
 	}
 
 	@Override
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		final IOperationProgressMonitor pm = new OperationProgressMonitorAdapter(monitor);
-		bm.wDefValue("progressMonitor", pm);
-
+	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		IEntity model = bm.wGet("self");
-		boolean analysing = bm.wBooleanValue("analysing");
-		if (analysing) {
-			// clone model if is analysing
+		boolean analyzing = bm.wBooleanValue("analyzing");
+		if (analyzing) {
+			// clone model if is analyzing
 			model = EntityUtils.clone(model);
 			CommonsEntityFactory.instance.createRootFragment(
 					model.wGetAdapter(CommonsEntityDescriptorEnum.Any));
 			ReflectionFactory.getHistoryManager(model).setHistoryEnabled(true);
 
-			// map selected entities if analysing
+			// map selected entities if analyzing
 			IEntity tuple = bm.wGet("selectedEntities");
 			int size = tuple.wSize();
 			for (int i = 0; i < size; i++)
@@ -79,15 +65,13 @@ public class ActionCallRunnable implements IRunnableWithProgress {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(model, label);
 
-		boolean enableAnimation = AnimableRunnable.enableAnimation(false);
-		boolean oldDelayUpdates = delayUpdates(viewer, delayUpdates);
 		pm.beginTask("executing action", 90, IOperationProgressMonitor.TOTAL_WORK);
 		try {
 			mtc.begin();
 			HandlersBehavior.actionCall(bm);
 			mtc.commit();
-			if (analysing) {
-				E4Utils.revealResultsView(context, bm, bm.getResult());
+			if (analyzing) {
+				E4Utils.revealResultsView(context.get(UISynchronize.class), bm, bm.getResult());
 			} else if (mtc.canUndo())
 				commandStack.execute(mtc);
 		} catch (OperationCanceledException e) {
@@ -97,14 +81,6 @@ public class ActionCallRunnable implements IRunnableWithProgress {
 			throw e;
 		} finally {
 			pm.endTask();
-			delayUpdates(viewer, oldDelayUpdates);
-			AnimableRunnable.enableAnimation(enableAnimation);
 		}
-	}
-
-	protected boolean delayUpdates(E4GraphicalViewer viewer, boolean enable) {
-		Boolean oldDelayUpdates = (Boolean) viewer.getProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES);
-		viewer.setProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES, enable);
-		return oldDelayUpdates != null && oldDelayUpdates;
 	}
 }

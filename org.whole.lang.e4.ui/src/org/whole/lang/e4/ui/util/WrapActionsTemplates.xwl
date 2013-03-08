@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<templates:TemplateManager xmlns:templates="http://lang.whole.org/Templates">
+    <templates:SimpleName value="WrapActionsTemplateManager"/>
+    <templates:Templates initialCapacity="3">
+        <templates:TemplateFactory>
+            <templates:SimpleName value="WrapIn"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="newEntity"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create replacement entity"/>
+                                        <commons:Resolver/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <commons:VarName value="edUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                    </workflows:CreateEntity>
+                                    <queries:VariableTest value="newEntity"/>
+                                </queries:Filter>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="fdUri"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                            </queries:Path>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="clone entity"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <commons:VarName value="intoFDUri"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </queries:Path>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                        </queries:PointwiseUpdate>
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                            </queries:Path>
+                            <queries:VariableRefStep value="newEntity"/>
+                        </queries:PointwiseUpdate>
+                    </queries:Block>
+                </queries:Scope>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="WrapInIndex"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="newEntity"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create replacement entity"/>
+                                        <commons:Resolver/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <commons:VarName value="edUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                    </workflows:CreateEntity>
+                                    <queries:VariableTest value="newEntity"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:IndexTest>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#IntLiteral"/>
+                                        <commons:VarName value="fdIndex"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </queries:IndexTest>
+                                </queries:Filter>
+                            </queries:Path>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="clone entity"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <commons:VarName value="intoFDUri"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </queries:Path>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                        </queries:PointwiseUpdate>
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                            </queries:Path>
+                            <queries:VariableRefStep value="newEntity"/>
+                        </queries:PointwiseUpdate>
+                    </queries:Block>
+                </queries:Scope>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+        <templates:TemplateFactory>
+            <templates:SimpleName value="WrapWithin"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="newEntity"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="3">
+                                <queries:Filter>
+                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create replacement entity"/>
+                                        <commons:Resolver/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                        <commons:VarName value="edUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                    </workflows:CreateEntity>
+                                    <queries:VariableTest value="newEntity"/>
+                                </queries:Filter>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="fdUri"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                    </queries:IndexTest>
+                                </queries:Filter>
+                            </queries:Path>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="clone entity"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <commons:VarName value="intoFDUri"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                    </queries:Path>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                        </queries:PointwiseUpdate>
+                        <queries:PointwiseUpdate>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                    <commons:VarName value="intoFDUri"/>
+                                    <commons:Quantifier value="?"/>
+                                </commons:Variable>
+                            </queries:Path>
+                            <queries:VariableRefStep value="newEntity"/>
+                        </queries:PointwiseUpdate>
+                    </queries:Block>
+                </queries:Scope>
+            </commons:StageUpFragment>
+        </templates:TemplateFactory>
+    </templates:Templates>
+</templates:TemplateManager>

@@ -17,18 +17,10 @@
  */
 package org.whole.lang.tests.ui.actions;
 
-import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.EntityKinds;
-import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.tests.reflect.TestsEntityDescriptorEnum;
 import org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum;
 import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.editor.ActionFactory;
-import org.whole.lang.util.DefaultWrapInTransformer;
-import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
@@ -43,32 +35,12 @@ public class TestsActionFactory extends ActionFactory {
 	private TestsActionFactory() {
 	}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(TestsEntityDescriptorEnum.SubjectStatement), TestsEntityDescriptorEnum.UsingFilter, "UsingFilter", wrapIn(TestsFeatureDescriptorEnum.subjectStatement) },
 				{ pf.assignableTo(TestsEntityDescriptorEnum.Constraint), TestsEntityDescriptorEnum.Not, "Not", wrapIn(TestsFeatureDescriptorEnum.constraint) },
-				{ pf.alwaysTrue(), TestsEntityDescriptorEnum.Comment, "Comment", wrapInWithStageUpFragment(TestsFeatureDescriptorEnum.description) }
+				{ pf.alwaysTrue(), TestsEntityDescriptorEnum.Comment, "Comment", wrapIn(TestsFeatureDescriptorEnum.description) }
 		};
 	};
-
-	protected final IEntityTransformer wrapInWithStageUpFragment(FeatureDescriptor featureDescriptor) {
-		return new DefaultWrapInTransformer(featureDescriptor) {
-			@Override
-			public void transform(IEntity oldEntity, IEntity newEntity) {
-				EntityKinds newKind = newEntity.wGetEntityKind();
-				if (newKind.isData())
-					return;
-
-				oldEntity = EntityUtils.clone(oldEntity);
-				if (featureDescriptor != null) {
-					EntityDescriptor<?> ed = newEntity.wGetEntityDescriptor().getEntityDescriptor(featureDescriptor);
-					newEntity.wSet(featureDescriptor, CommonsEntityAdapterFactory.createStageUpFragment(ed, oldEntity));
-				} else {
-					EntityDescriptor<?> ed = newEntity.wGetEntityDescriptor().getEntityDescriptor(index);
-					newEntity.wSet(index, CommonsEntityAdapterFactory.createStageUpFragment(ed, oldEntity));
-				}
-			}
-		};
-	}
 }

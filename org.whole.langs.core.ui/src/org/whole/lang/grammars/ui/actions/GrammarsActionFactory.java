@@ -34,7 +34,7 @@ public class GrammarsActionFactory extends ActionFactory {
 	}
 	protected GrammarsActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(GrammarsEntityDescriptorEnum.Rule), GrammarsEntityDescriptorEnum.Optional, "Optional", wrapIn(GrammarsFeatureDescriptorEnum.rule)},

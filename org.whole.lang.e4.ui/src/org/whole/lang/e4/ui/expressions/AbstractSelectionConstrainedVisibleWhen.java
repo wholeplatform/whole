@@ -18,7 +18,6 @@
 package org.whole.lang.e4.ui.expressions;
 
 import org.eclipse.core.expressions.EvaluationResult;
-import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -28,7 +27,7 @@ import org.whole.lang.bindings.IBindingManager;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public abstract class AbstractSelectionConstrainedVisibleWhen extends Expression {
+public abstract class AbstractSelectionConstrainedVisibleWhen extends VisibilityExpression {
 	public AbstractSelectionConstrainedVisibleWhen() {
 	}
 
@@ -42,6 +41,4 @@ public abstract class AbstractSelectionConstrainedVisibleWhen extends Expression
 		}
 		return EvaluationResult.FALSE;
 	}
-
-	public abstract boolean isVisible(IBindingManager bm);
 }

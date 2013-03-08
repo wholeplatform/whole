@@ -8,6 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.whole.lang.e4.ui.editparts,
  org.whole.lang.e4.actions,
+ org.whole.lang.e4.ui.addon,
  org.whole.lang.e4.ui.api,
  org.whole.lang.e4.ui.actions,
  org.whole.lang.e4.ui.parts,

@@ -26,25 +26,14 @@ import org.whole.lang.reflect.FeatureDescriptor;
  * @author Riccardo Solmi
  */
 public class DefaultWrapWithinTransformer implements IEntityTransformer {
-	public static final DefaultWrapWithinTransformer instance = new DefaultWrapWithinTransformer();
-	
 	private final FeatureDescriptor featureDescriptor;
-	private final boolean append;
-	private final boolean replace;
 
-	public DefaultWrapWithinTransformer() {
-		this(null, true);
-	}
 	public DefaultWrapWithinTransformer(FeatureDescriptor featureDescriptor) {
-		this(featureDescriptor, true);
-	}
-	public DefaultWrapWithinTransformer(FeatureDescriptor featureDescriptor, boolean append) {
-		this(featureDescriptor, append, false);
-	}
-	public DefaultWrapWithinTransformer(FeatureDescriptor featureDescriptor, boolean append, boolean replace) {
 		this.featureDescriptor = featureDescriptor;
-		this.append = append;
-		this.replace = replace;
+	}
+
+	public FeatureDescriptor getFeatureDescriptor() {
+		return featureDescriptor;
 	}
 
 	public void transform(IEntity oldEntity, IEntity newEntity) {
@@ -63,17 +52,7 @@ public class DefaultWrapWithinTransformer implements IEntityTransformer {
 
 		if (containerEntity.wGetEntityDescriptor(0).isPlatformSupertypeOf(oldEntity.wGetEntityDescriptor())) {
 			IEntity clone = EntityUtils.clone(oldEntity);
-			if (replace) {
-				if (append && containerEntity.wSize()>0)
-					containerEntity.wSet(containerEntity.wSize()-1, clone);
-				else
-					containerEntity.wSet(0, clone);
-			} else {
-				if (append)
-					containerEntity.wAdd(clone);
-				else
-					containerEntity.wAdd(0, clone);
-			}
+			containerEntity.wSet(0, clone);
 		}
 	}
 }

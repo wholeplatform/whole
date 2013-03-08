@@ -213,7 +213,7 @@ public class ImpActionFactory extends ActionFactory {
 				};
 	}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(ImpEntityDescriptorEnum.Expression), ImpEntityDescriptorEnum.Addition, "Addition 1", wrapIn0},

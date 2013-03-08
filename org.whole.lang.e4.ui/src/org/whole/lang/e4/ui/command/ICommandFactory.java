@@ -37,11 +37,21 @@ public interface ICommandFactory {
 
 	public MCommand createAddFragmentCommand();
 	public MCommand createReplaceFragmentCommand();
-	public MCommand createWrapFragmentCommand();
+	public MCommand createPerformCommand();
 
 	public MCommand createReplaceWithDefaultCommand();
 	public MCommand createSelectNotationCommand();
 	public MCommand createImportCommand();
 
 	public MCommand createActionCallCommand();
+
+	public MCommand createZoomCommand();
+	public MCommand createAlignCommand();
+
+	public MCommand createValidateModelCommand();
+	public MCommand createNormalizeModelCommand();
+	public MCommand createPretyPrintModelCommand();
+	public MCommand createInterpretModelCommand();
+	public MCommand createGenerateArtifactsModelCommand();
+	public MCommand createGenerateJavaModelCommand();	
 }

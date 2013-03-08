@@ -34,7 +34,7 @@ public class SQLActionFactory extends ActionFactory {
 	}
 	private SQLActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(SQLEntityDescriptorEnum.SQLExpression), SQLEntityDescriptorEnum.ParenthesizedExpression, "Parenthesized Expression", wrapIn0},

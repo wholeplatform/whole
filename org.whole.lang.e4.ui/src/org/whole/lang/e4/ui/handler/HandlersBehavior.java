@@ -17,13 +17,14 @@
  */
 package org.whole.lang.e4.ui.handler;
 
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.gef.EditPart;
+import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
@@ -34,6 +35,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
@@ -41,8 +43,13 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.operations.IOperationProgressMonitor;
+import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.operations.NormalizerOperation;
+import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
@@ -58,7 +65,41 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction") 
 public class HandlersBehavior {
+
+	public static void registerHandlers(EHandlerService handlerService) {
+		handlerService.activateHandler(EDIT_CUT, new CutHandler());
+		handlerService.activateHandler(EDIT_COPY, new CopyHandler());
+		handlerService.activateHandler(EDIT_PASTE, new PasteHandler());
+		handlerService.activateHandler(EDIT_DELETE, new DeleteHandler());
+		handlerService.activateHandler(EDIT_SELECT_ALL, new SelectAllHandler());
+		handlerService.activateHandler(FILE_REVERT, new RevertHandler());
+
+		handlerService.activateHandler(COPY_ENTITY_PATH_COMMAND_ID, new CopyEntityPathHandler());
+		handlerService.activateHandler(COPY_AS_IMAGE_COMMAND_ID, new CopyAsImageHandler());
+		handlerService.activateHandler(PASTE_AS_COMMAND_ID, new PasteAsHandler());
+
+		handlerService.activateHandler(REPLACE_COMMAND_ID, new ReplaceEntityHandler());
+		handlerService.activateHandler(ADD_COMMAND_ID, new AddEntityHandler());
+
+		handlerService.activateHandler(REPLACE_FRAGMENT_COMMAND_ID, new ReplaceFragmentHandler());
+		handlerService.activateHandler(ADD_FRAGMENT_COMMAND_ID, new AddFragmentHandler());
+
+		handlerService.activateHandler(REPLACE_WITH_DEFAULT_COMMAND_ID, new ReplaceWithDefaultHandler());
+		handlerService.activateHandler(IMPORT_COMMAND_ID, new ImportHandler());
+		handlerService.activateHandler(SELECT_NOTATION_COMMAND_ID, new SelectNotationHandler());
+		handlerService.activateHandler(ACTION_CALL_COMMAND_ID, new ActionCallHandler());
+		handlerService.activateHandler(PERFORM_COMMAND_ID, new PerformHandler());
+
+		handlerService.activateHandler(VALIDATE_MODEL_COMMAND_ID, new ValidateModelHandler());
+		handlerService.activateHandler(NORMALIZE_MODEL_COMMAND_ID, new NormalizeModelHandler());
+		handlerService.activateHandler(PRETTYPRINT_MODEL_COMMAND_ID, new PrettyPrintModelHandler());
+		handlerService.activateHandler(INTERPRET_MODEL_COMMAND_ID, new InterpretModelHandler());
+		handlerService.activateHandler(GENERATEARTIFACTS_COMMAND_ID, new GenerateArtifactslHandler());
+		handlerService.activateHandler(GENERATEJAVA_COMMAND_ID, new GenerateJavaHandler());
+	}
+
 	public static boolean isValidEntityPartSelection(IBindingManager bm, boolean single) {
 		IEntity selectionTuple = bm.wGet("selectedEntities");
 		if (selectionTuple.wSize() == 0 || (single && selectionTuple.wSize() > 1))
@@ -261,17 +302,9 @@ public class HandlersBehavior {
 	}
 	public static void selectAll(IBindingManager bm) {
 		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-		List<EditPart> allSelectableParts = new LinkedList<EditPart>();
-		collectAllSelectableParts(viewer.getContents(), allSelectableParts);
-		viewer.setSelection(new StructuredSelection(allSelectableParts));
-	}
-	@SuppressWarnings("unchecked")
-	private static void collectAllSelectableParts(EditPart rootPart, List<EditPart> allSelectableParts) {
-		for (EditPart child : (List<EditPart>) rootPart.getChildren()) {
-			if (child.isSelectable())
-				allSelectableParts.add(child);
-			collectAllSelectableParts(child, allSelectableParts);
-		}
+		IEntity entityContents = viewer.getEntityContents();
+		IEntityPart contents = viewer.getEditPartRegistry().get(entityContents);
+		viewer.setSelection(new StructuredSelection(contents));
 	}
 
 	public static boolean canReplaceWithDefault(IBindingManager bm) {
@@ -333,11 +366,15 @@ public class HandlersBehavior {
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
+		if (bm.wIsSet("featureDescriptor"))
+			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		return EntityUtils.isReplaceable(primarySelectedEntity, ed);
 	}
 	public static void replaceEntity(IBindingManager bm) {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
+		if (bm.wIsSet("featureDescriptor"))
+			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		IEntity replacement = GenericEntityFactory.instance.create(ed);
 		DefaultCopyTransformer.instance.transform(primarySelectedEntity, replacement);
 		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
@@ -349,11 +386,15 @@ public class HandlersBehavior {
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
+		if (bm.wIsSet("featureDescriptor"))
+			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		return EntityUtils.isAddable(primarySelectedEntity, ed);
 	}
 	public static void addEntity(IBindingManager bm) {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
+		if (bm.wIsSet("featureDescriptor"))
+			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		if (bm.wIsSet("hilightPosition"))
 			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), GenericEntityFactory.instance.create(ed));
 		else
@@ -437,15 +478,15 @@ public class HandlersBehavior {
 	}
 	public static void actionCall(IBindingManager bm) {
 		IEntity model = bm.wGet("self");
-		boolean analising = bm.wBooleanValue("analysing");
-		if (analising) {
-			// clone model if is analysing
+		boolean analyzing = bm.wBooleanValue("analyzing");
+		if (analyzing) {
+			// clone model if is analyzing
 			model = EntityUtils.clone(model);
 			CommonsEntityFactory.instance.createRootFragment(
 					model.wGetAdapter(CommonsEntityDescriptorEnum.Any));
 			ReflectionFactory.getHistoryManager(model).setHistoryEnabled(true);
 
-			// map selected entities if analysing
+			// map selected entities if analyzing
 			IEntity tuple = bm.wGet("selectedEntities");
 			int size = tuple.wSize();
 			for (int i = 0; i < size; i++)
@@ -459,7 +500,7 @@ public class HandlersBehavior {
 
 		IEntity results = MiscEntityFactory.instance.createMisc();
 		for (IEntity result : iterator) {
-			if (analising)
+			if (analyzing)
 				results.wAdd(GenericEntityFactory.instance.create(
 						CommonsEntityDescriptorEnum.StageUpFragment,
 						//CommonsEntityFactory.instance.createStageUpFragment(
@@ -469,5 +510,66 @@ public class HandlersBehavior {
 			result.wIsAdapter();
 		}
 		bm.setResult(results);
+	}
+
+	public static boolean canPerform(IBindingManager bm) {
+		return BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm);
+	}
+
+	public static void perform(IBindingManager bm) {
+		BehaviorUtils.evaluate(bm.wGet("behaviorEntity"), 0, bm);
+	}
+
+	public static boolean canValidateModel(IBindingManager bm) {
+		return bm.wIsSet("file") && bm.wIsSet("self") &&
+				bm.wGet("self").wGetLanguageKit().hasVisitor(ValidatorOperation.ID);
+	}
+
+	public static void validateModel(IBindingManager bm) {
+		ValidatorOperation.validate(bm.wGet("self"), bm);
+	}
+
+	public static boolean canNormalizeModel(IBindingManager bm) {
+		return bm.wIsSet("self") &&
+				bm.wGet("self").wGetLanguageKit().hasVisitor(NormalizerOperation.ID);
+	}
+
+	public static void normalizeModel(IBindingManager bm) {
+		NormalizerOperation.normalize(bm.wGet("self"), bm);
+	}
+
+	public static boolean canPrettyPrintModel(IBindingManager bm) {
+		return bm.wIsSet("self");
+	}
+
+	public static void prettyPrintModel(IBindingManager bm) {
+		E4Utils.invokePrettyPrinter(bm);
+	}
+	public static boolean canInterpretModel(IBindingManager bm) {
+		return bm.wIsSet("self") &&
+				bm.wGet("self").wGetLanguageKit().hasVisitor(InterpreterOperation.ID);
+	}
+
+	public static void interpretModel(IBindingManager bm) {
+		E4Utils.invokeInterpreter(bm);
+	}
+
+	public static boolean canGenerateArtifacts(IBindingManager bm) {
+		return bm.wIsSet("self") &&
+				bm.wGet("self").wGetLanguageKit().hasVisitor(ArtifactsGeneratorOperation.ID);
+	}
+
+	public static void generateArtifacts(IBindingManager bm) {
+		ArtifactsGeneratorOperation.generate(bm.wGet("self"), bm);
+	}
+	public static boolean canGenerateJava(IBindingManager bm) {
+		return bm.wIsSet("self") &&
+				//FIXME use JavaCompilerOperation.ID
+				bm.wGet("self").wGetLanguageKit().hasVisitor("toJavaModel");
+	}
+
+	public static void generateJava(IBindingManager bm) {
+		// TODO Auto-generated method stub
+		
 	}
 }

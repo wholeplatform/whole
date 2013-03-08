@@ -33,7 +33,7 @@ public class SemanticsActionFactory extends ActionFactory {
 	}
 	private SemanticsActionFactory() {}
 
-	protected Object[][] wrapActions() {
+	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(SemanticsEntityDescriptorEnum.EntityType), SemanticsEntityDescriptorEnum.SubtypeType, "Subtype Type", wrapIn0},
