@@ -62,8 +62,7 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 		IBindingManager bm = (IBindingManager) selection;
 
 		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		IBindingManager env = BindingManagerFactory.instance.createArguments();
-		IEntity[] values = ContentAssistOperation.getContentAssist(selectedEntity, env);
+		IEntity[] values = ContentAssistOperation.getContentAssist(selectedEntity, bm);
 
 		ActionListContainer container = ActionListContainer.create(items);
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {

@@ -17,9 +17,10 @@
  */
 package org.whole.lang.e4.ui.expressions;
 
-import static  org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
+import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Action;
+import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.GroupAction;
+import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.SeparatedAction;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.matchers.GenericMatcherFactory;
@@ -39,8 +40,7 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
 			return false;
 
-		IBindingManager env = BindingManagerFactory.instance.createArguments();
-		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("primarySelectedEntity"), env);
+		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("primarySelectedEntity"), bm);
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {
 			IEntity value = Matcher.find(new IsConcreteAction(Action), values[0], false);
 			return value != null;

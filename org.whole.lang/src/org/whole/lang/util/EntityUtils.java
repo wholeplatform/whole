@@ -248,7 +248,7 @@ public class EntityUtils {
 		return isReplaceableAsIs(oldEntity, newEntity.wGetEntityDescriptor());
 	}
 	public static boolean isReplaceable(IEntity oldEntity, EntityDescriptor<?> ed) {
-		return getFormalEntityDescriptor(oldEntity).isPlatformSupertypeOf(ed);
+		return getFormalEntityDescriptor(oldEntity).isExtendedLanguageSupertypeOf(ed);
 	}
 	public static boolean isReplaceableAsIs(IEntity oldEntity, EntityDescriptor<?> ed) {
 		return getFormalEntityDescriptor(oldEntity).isLanguageSupertypeOf(ed);
@@ -260,7 +260,7 @@ public class EntityUtils {
 		return isAddableAsIs(compositeEntity, newEntity.wGetEntityDescriptor());
 	}
 	public static boolean isAddable(IEntity entity, EntityDescriptor<?> ed) {
-		return isComposite(entity) && entity.wGetEntityDescriptor(0).isPlatformSupertypeOf(ed);
+		return isComposite(entity) && entity.wGetEntityDescriptor(0).isExtendedLanguageSupertypeOf(ed);
 	}
 	public static boolean isAddableAsIs(IEntity entity, EntityDescriptor<?> ed) {
 		return isComposite(entity) && entity.wGetEntityDescriptor(0).isLanguageSupertypeOf(ed);
