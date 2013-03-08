@@ -97,9 +97,12 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	}
 
 	protected boolean fillExtendedEntityAssistMenu(IItemContainer<MenuManager, ImageDescriptor> container, IEntity selectedEntity) {
+		ILanguageKit selectedEntityLanguageKit = selectedEntity.wGetLanguageKit();
 		List<MenuManager> menus = new ArrayList<MenuManager>();
 		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();
 		for (ILanguageKit languageKit : registry.getResources(false, ResourceUtils.SIMPLE_COMPARATOR)) {
+			if (languageKit.equals(selectedEntityLanguageKit))
+				continue;
 			String label = ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit);
 			MenuManager languageMenu = new MenuManager(label, languageIcon, null);
 			if (fillEntityAssistMenu(ActionContainer.create(languageMenu), selectedEntity, languageKit))
@@ -115,22 +118,27 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity selectedEntity, ILanguageKit lk) {
 		boolean hasActions = false;
 
-		List<IAction> addActions = new ArrayList<IAction>();
-
-		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
-			if (!ed.isAbstract() && isAddable(selectedEntity, ed))
+		if (EntityUtils.isComposite(selectedEntity)) {
+			List<IAction> addActions = new ArrayList<IAction>();
+	
+			EntityDescriptor<?> componentEntityDescriptor = getSelectedComponentEntityDescriptor(selectedEntity);
+			for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum()
+					.getExtendedLanguageConcreteSubtypesOf(componentEntityDescriptor))
 				addActions.add(getAddEntityAction(ed));
-
-		Collections.sort(addActions, comparator);
-		HierarchicalFillMenuStrategy.instance().fillMenu(
-				container, ActionSet.create(addActions.toArray(new IAction[0])), 0, addActions.size());
-
-		hasActions |= addActions.size() > 0;
+	
+			Collections.sort(addActions, comparator);
+			HierarchicalFillMenuStrategy.instance().fillMenu(
+					container, ActionSet.create(addActions.toArray(new IAction[0])), 0, addActions.size());
+	
+			hasActions |= addActions.size() > 0;
+		}
 
 		List<IAction> replaceElements = new ArrayList<IAction>();
 
-		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
-			if (!ed.isAbstract() && isReplaceable(selectedEntity, ed))
+		EntityDescriptor<?> formalEntityDescriptor = getSelectedFormalEntityDescriptor(selectedEntity);
+		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum()
+				.getExtendedLanguageConcreteSubtypesOf(formalEntityDescriptor))
+			if (!ed.equals(formalEntityDescriptor))
 				replaceElements.add(getReplaceEntityAction(ed));
 
 		if (hasActions && replaceElements.size() > 0)
@@ -169,11 +177,11 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		return hasActions;
 	}
 
-	protected boolean isAddable(IEntity selectedEntity, EntityDescriptor<?> ed) {
-		return EntityUtils.isAddable(selectedEntity, ed);
+	protected EntityDescriptor<?> getSelectedComponentEntityDescriptor(IEntity selectedEntity) {
+		return selectedEntity.wGetEntityDescriptor(0);
 	}
-	protected boolean isReplaceable(IEntity selectedEntity, EntityDescriptor<?> ed) {
-		return !Matcher.match(ed, selectedEntity) && EntityUtils.isReplaceable(selectedEntity, ed);
+	protected EntityDescriptor<?> getSelectedFormalEntityDescriptor(IEntity selectedEntity) {
+		return EntityUtils.getFormalEntityDescriptor(selectedEntity);
 	}
 	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
 		return (predicate == EnablerPredicateFactory.instance.alwaysTrue() ||
