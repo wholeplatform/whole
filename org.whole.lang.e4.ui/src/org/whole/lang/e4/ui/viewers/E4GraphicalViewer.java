@@ -17,6 +17,8 @@
  */
 package org.whole.lang.e4.ui.viewers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -69,11 +71,11 @@ import org.whole.lang.ui.tools.Tools;
  */
 public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager {
 	private ModelObserver modelObserver;
+	private List<IPartFocusListener> partFocusListeners;
 
-	public E4GraphicalViewer(Composite parent) {
-		this(parent, new E4EditDomain());
-	}
 	public E4GraphicalViewer(Composite parent, E4EditDomain domain) {
+		partFocusListeners = new ArrayList<IPartFocusListener>();
+
 		createControl2(parent);
 		domain.addViewer(this);
 
@@ -90,6 +92,20 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		addDropTargetListener(new TextTransferDropTargetListener(this));
 
 		Tools.PANNING.ensureActive(domain);
+	}
+	public E4GraphicalViewer(Composite parent) {
+		this(parent, new E4EditDomain());
+	}
+
+	protected void firePartFocusChanged(IEntityPart oldPart, IEntityPart newPart) {
+		for (IPartFocusListener listener : partFocusListeners)
+			listener.focusChanged(oldPart, newPart);
+	}
+	public void addPartFocusListener(IPartFocusListener listener) {
+		partFocusListeners.add(listener);
+	}
+	public void removePartFocusListener(IPartFocusListener listener) {
+		partFocusListeners.remove(listener);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -169,11 +185,16 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	public void setContents(IModelInput modelInput, IEntity defaultContents) {
-		IEntity entity = defaultContents;
-		try {
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
-			entity = modelInput.getPersistenceKit().readModel(pp);
-		} catch (Exception e) {
+		IEntity entity;
+		if (modelInput == null) {
+			entity = defaultContents;
+		} else {
+			try {
+				IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
+				entity = modelInput.getPersistenceKit().readModel(pp);
+			} catch (Exception e) {
+				throw new IllegalStateException(e);
+			}
 		}
 		setContents(entity);
 		setInteractive(entity, true, true, true);
@@ -202,6 +223,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		setContents(entity);
 	}
 
+	public IEntityPart getFocusEntityPart() {
+		return (IEntityPart) getFocusEditPart();
+	}
+
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited) {
 		Map<?, ?> mapping = getEditPartRegistry();
 		GraphicalEditPart entityPart = (GraphicalEditPart) mapping.get(entity);
@@ -228,7 +253,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	@Override
 	public void setFocus(EditPart part) {
+		IEntityPart oldPart = getFocusEntityPart();
 		super.setFocus(part);
+		if (oldPart != part)
+			firePartFocusChanged(oldPart, (IEntityPart) part);
 	}
 
 	@Override

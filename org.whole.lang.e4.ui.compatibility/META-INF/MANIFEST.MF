@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.tools.compat,
  org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.di,
- org.eclipse.gef,
+ org.whole.lang.ui,
  org.whole.lang.e4.ui,
  org.whole.langs.core,
  org.whole.lang

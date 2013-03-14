@@ -23,7 +23,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
@@ -36,7 +38,6 @@ import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -53,9 +54,11 @@ import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
 import org.whole.lang.ui.menu.IItemContainer;
 import org.whole.lang.ui.menu.MenuManagerSet;
+import org.whole.lang.util.DefaultWrapInTransformer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IEntityTransformer;
 import org.whole.lang.util.ResourceUtils;
+import org.whole.lang.util.StringUtils;
 
 /**
  * @author Enrico Persiani
@@ -88,8 +91,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
 		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, selectedEntity);
 
-		if (hasExtendedActions);
-			actionContainer.addSeparator(true);
+		actionContainer.addSeparator(true);
 
 		boolean hasActions = fillEntityAssistMenu(actionContainer, selectedEntity, selectedEntity.wGetLanguageKit());
 		
@@ -142,8 +144,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (!ed.equals(targetEntity.wGetEntityDescriptor()))
 				replaceElements.add(getReplaceEntityAction(ed));
 
-		if (hasActions && replaceElements.size() > 0)
-			container.addSeparator(false);
+		container.addSeparator(true);
 		Collections.sort(replaceElements, comparator);
 		HierarchicalFillMenuStrategy.instance().fillMenu(
 				container, ActionSet.create(replaceElements.toArray(new IAction[0])), 0, replaceElements.size());
@@ -152,8 +153,12 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		List<IAction> wrapElements = new ArrayList<IAction>();
 
-		if (targetEntity.wGetLanguageKit().equals(lk)) {
-			IGEFEditorKit editorKit = (IGEFEditorKit) ReflectionFactory.getEditorKit(targetEntity);
+		Set<EntityDescriptor<?>> wrapTypes = new HashSet<EntityDescriptor<?>>();
+		if (targetEntity.wGetLanguageKit().equals(lk) || EntityUtils.isResolver(targetEntity)) {
+
+			IGEFEditorKit editorKit = (IGEFEditorKit) (targetEntity.wGetLanguageKit().equals(lk) ?
+					ReflectionFactory.getEditorKit(targetEntity) : lk.getDefaultEditorKit());
+
 			for (Object[] wrapAction : editorKit.getActionFactory().wrapActions()) {
 				EntityDescriptor<?> ed = (EntityDescriptor<?>) wrapAction[1];
 				if (isWrappable(targetEntity, ed, (IEnablerPredicate) wrapAction[0])) {
@@ -161,17 +166,25 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 					IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
 					wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
 							QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, transformer)));
+					wrapTypes.add(ed);
 				}
 			}
-	
-			if (hasActions && wrapElements.size() > 0)
-				container.addSeparator(false);
-			Collections.sort(wrapElements, comparator);
-			HierarchicalFillMenuStrategy.instance().fillMenu(
-					container, ActionSet.create(wrapElements.toArray(new IAction[0])), 0, wrapElements.size());
-
-			hasActions |= wrapElements.size() > 0;
 		}
+
+		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
+			if (EntityUtils.isComposite(ed) && !wrapTypes.contains(ed) &&
+					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.alwaysTrue())) {
+				String label = StringUtils.camelCaseToSpacedWords(ed.getName());
+				wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
+						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, DefaultWrapInTransformer.instance)));
+			}
+
+		container.addSeparator(true);
+		Collections.sort(wrapElements, comparator);
+		HierarchicalFillMenuStrategy.instance().fillMenu(
+				container, ActionSet.create(wrapElements.toArray(new IAction[0])), 0, wrapElements.size());
+
+		hasActions |= wrapElements.size() > 0;
 		
 		//TODO add text actions
 

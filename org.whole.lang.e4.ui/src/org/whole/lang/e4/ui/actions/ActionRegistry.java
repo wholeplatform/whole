@@ -29,6 +29,9 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.bindings.keys.KeySequence;
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Shell;
@@ -40,6 +43,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -185,6 +189,28 @@ public class ActionRegistry {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	public IUpdatableAction createClearTextSelection(int direction) {
+		return new ClearTextSelectionAction(context, direction);
+	}
+	public IUpdatableAction createActivateToolAction(Tools tool) {
+		return new ActivateToolAction(context, tool);
+	}
+	public IUpdatableAction createDirectEditAction() {
+		return new DirectEditAction(context);
+	}
+
+	public void registerKeyActions(E4KeyHandler keyHandler) {
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, createDirectEditAction());
+
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_LEFT)), true, createClearTextSelection(SWT.LEFT));
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_RIGHT)), true, createClearTextSelection(SWT.RIGHT));
+
+		IUpdatableAction activatePanningToolAction = createActivateToolAction(Tools.PANNING);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
 	}
 
 	protected void registerBaseActions(Shell shell) {

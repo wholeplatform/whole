@@ -35,7 +35,12 @@ public abstract class ModelTransactionHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		return isEnabled(bm);
+		try {
+			bm.wEnterScope();
+			return isEnabled(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute
@@ -44,6 +49,7 @@ public abstract class ModelTransactionHandler {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {
+			bm.wEnterScope();
 			mtc.begin();
 			run(bm);
 			mtc.commit();
@@ -52,6 +58,8 @@ public abstract class ModelTransactionHandler {
 		} catch (RuntimeException e) {
 			mtc.rollback();
 			throw e;
+		} finally {
+			bm.wExitScope();
 		}
 	}
 

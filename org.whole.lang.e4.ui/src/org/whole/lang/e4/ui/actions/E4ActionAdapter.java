@@ -29,7 +29,6 @@ import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.bindings.TriggerSequence;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -39,13 +38,12 @@ import org.whole.lang.e4.ui.util.E4Utils;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E4ActionAdapter extends Action implements IUpdatableAction {
-	protected IEclipseContext context;
+public class E4ActionAdapter extends AbstractE4Action {
 	protected String commandId;
 	protected Map<String, String> parameters;
 
 	public E4ActionAdapter(IEclipseContext context, String handledMenuId) {
-		this.context = context;
+		super(context);
 		this.parameters = Collections.emptyMap();
 		
 		MHandledMenuItem menu =  E4Utils.findMenu(handledMenuId, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class);
@@ -64,16 +62,15 @@ public class E4ActionAdapter extends Action implements IUpdatableAction {
 		}
 	}
 	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, String> parameters, int style) {
-		super(label, style);
-		initialize(context, iconURI, commandId, parameters);
+		super(context, label, style);
+		initialize(iconURI, commandId, parameters);
 	}
 	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, String> parameters) {
-		super(label);
-		initialize(context, iconURI, commandId, parameters);
+		super(context, label);
+		initialize(iconURI, commandId, parameters);
 	}
 
-	protected void initialize(IEclipseContext context, String iconURI, String commandId, Map<String, String> parameters) {
-		this.context = context;
+	protected void initialize(String iconURI, String commandId, Map<String, String> parameters) {
 		setId(this.commandId = commandId);
 		this.parameters = parameters;
 
@@ -85,17 +82,14 @@ public class E4ActionAdapter extends Action implements IUpdatableAction {
 	}
 
 	protected TriggerSequence getTriggerSequence() {
-		return context.get(EBindingService.class).getBestSequenceFor(getCommand());
+		return getContext().get(EBindingService.class).getBestSequenceFor(getCommand());
 	}
 	protected ParameterizedCommand getCommand() {
-		return context.get(ECommandService.class).createCommand(commandId, parameters);
+		return getContext().get(ECommandService.class).createCommand(commandId, parameters);
 	}
 
 	public void update() {
-		ParameterizedCommand command = getCommand();
-		if (command == null)
-			System.out.println("CommandId: " + commandId);
-		setEnabled(context.get(EHandlerService.class).canExecute(command));
+		setEnabled(getContext().get(EHandlerService.class).canExecute(getCommand()));
 	}
 
 	@Override
@@ -104,6 +98,6 @@ public class E4ActionAdapter extends Action implements IUpdatableAction {
 		if ((style == IAction.AS_CHECK_BOX || style == IAction.AS_RADIO_BUTTON) && !isChecked())
 			return;
 
-		context.get(EHandlerService.class).executeHandler(getCommand());
+		getContext().get(EHandlerService.class).executeHandler(getCommand());
 	}
 }

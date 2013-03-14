@@ -41,11 +41,15 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 
 	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
 		this.context = context;
-		this.bm = bm;
+		this.bm = bm.wClone();
 		this.label = label;
 		this.delayUpdates = delayUpdates;
 	}
 	
+	public IBindingManager getBindings() {
+		return bm;
+	}
+
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");

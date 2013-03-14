@@ -21,6 +21,8 @@ import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
 import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
 
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
+import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
@@ -53,6 +55,18 @@ public class E3ViewPart extends DIViewPart<E4Part> {
 		redoAction = new RedoAction(getContext().getParent(), REDO_LABEL);
 		redoAction.update();
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+	}
+
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if (adapter == GraphicalViewer.class)
+			return getComponent().getViewer();
+		else if (adapter == ZoomManager.class)
+			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+		else
+			return super.getAdapter(adapter);
 	}
 
 	@Override

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.CONTEXT_MENU_ID;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -64,8 +64,10 @@ import org.whole.lang.e4.ui.menu.E4MenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.reflect.QueriesTemplateManager;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
 public class E4Part {
@@ -113,17 +115,21 @@ public class E4Part {
 				context.remove(E4GraphicalViewer.class);
 			}
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent e) {
 				context.set(E4GraphicalViewer.class, viewer);
+			}
+		});
+		viewer.addPartFocusListener(new IPartFocusListener() {
+			@SuppressWarnings("unchecked")
+			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
 				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
 				if (modelInput != null)
 					E4Utils.defineResourceBindings(bm, modelInput);
 				selectionService.setSelection(bm);
 			}
 		});
-		viewer.setKeyHandler(new E4KeyHandler());
+		viewer.setKeyHandler(new E4KeyHandler(context));
 
 		viewer.setContents(modelInput, createDefaultContents());
 
@@ -134,6 +140,8 @@ public class E4Part {
 		menuService.registerContextMenu(viewer.getControl(), CONTEXT_MENU_ID);
 
 		actionRegistry = createActionRegistry();
+		actionRegistry.registerKeyActions(viewer.getKeyHandler());
+
 		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(context, actionRegistry));
 		contextMenuProvider.populate(contextMenu);
 

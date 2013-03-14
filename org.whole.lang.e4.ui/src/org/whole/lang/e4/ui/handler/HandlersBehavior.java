@@ -23,7 +23,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -47,6 +49,7 @@ import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -74,6 +77,7 @@ public class HandlersBehavior {
 		handlerService.activateHandler(EDIT_PASTE, new PasteHandler());
 		handlerService.activateHandler(EDIT_DELETE, new DeleteHandler());
 		handlerService.activateHandler(EDIT_SELECT_ALL, new SelectAllHandler());
+		handlerService.activateHandler(EDIT_FIND_AND_REPLACE, new FindReplaceHandler());
 		handlerService.activateHandler(FILE_REVERT, new RevertHandler());
 
 		handlerService.activateHandler(COPY_ENTITY_PATH_COMMAND_ID, new CopyEntityPathHandler());
@@ -165,19 +169,16 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canPaste(IBindingManager bm) {
+
 		if (!isValidEntityPartSelection(bm, true))
 			return false;
-		
+
 		IEntity clipboardTuple = Clipboard.instance().getInternalOrNativeEntityContents();
-		if (clipboardTuple == null)
-			return false;
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
 		iterator.reset(clipboardTuple);
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		if (primarySelectedEntity == null)
-			return false;
-		if (iterator.hasNext()) {
+		if (primarySelectedEntity != null && iterator.hasNext()) {
 			IEntity clipboardEntity = iterator.next();
 			boolean addable = EntityUtils.isAddable(primarySelectedEntity, clipboardEntity);
 			if (!addable && !iterator.hasNext())
@@ -187,28 +188,31 @@ public class HandlersBehavior {
 					addable = EntityUtils.isAddable(primarySelectedEntity, iterator.next());
 				return addable;
 			}
-		} else
-			return false;
+		}
+		return false;
 	}
 	public static void paste(IBindingManager bm) {
-		IEntityIterator<IEntity> iterator = IteratorFactory.childReverseIterator();
-		iterator.reset(Clipboard.instance().getInternalOrNativeEntityContents());
-
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		while (iterator.hasNext()) {
-			IEntity clipboardEntity = EntityUtils.clone(iterator.next());
-			boolean addable = EntityUtils.isAddable(primarySelectedEntity, clipboardEntity);
-			if (!addable && !iterator.hasNext()) {
-				IEntity parent = primarySelectedEntity.wGetParent();
-				parent.wSet(primarySelectedEntity, clipboardEntity);
-				break;
-			} else
-				if (bm.wIsSet("hilightPosition"))
-					primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
-				else
-					primarySelectedEntity.wAdd(clipboardEntity);
+		if (Clipboard.instance().getInternalOrNativeEntityContents() != null) {
+			IEntityIterator<IEntity> iterator = IteratorFactory.childReverseIterator();
+			iterator.reset(Clipboard.instance().getInternalOrNativeEntityContents());
+	
+			IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+			while (iterator.hasNext()) {
+				IEntity clipboardEntity = EntityUtils.clone(iterator.next());
+				boolean addable = EntityUtils.isAddable(primarySelectedEntity, clipboardEntity);
+				if (!addable && !iterator.hasNext()) {
+					IEntity parent = primarySelectedEntity.wGetParent();
+					parent.wSet(primarySelectedEntity, clipboardEntity);
+					break;
+				} else
+					if (bm.wIsSet("hilightPosition"))
+						primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
+					else
+						primarySelectedEntity.wAdd(clipboardEntity);
+			}
 		}
 	}
+
 	public static boolean canPasteAs(IBindingManager bm) {
 		return isValidEntityPartSelection(bm, true) &&
 				(Clipboard.instance().getEntityContents() != null ||
@@ -569,7 +573,19 @@ public class HandlersBehavior {
 	}
 
 	public static void generateJava(IBindingManager bm) {
-		// TODO Auto-generated method stub
-		
+		ClassLoader cl = ReflectionFactory.getClassLoader(bm);
+		try {
+			Class<?> generatorClass = Class.forName("org.whole.lang.ui.actions.JavaModelGeneratorAction", true, cl);
+			Method generateMethod = generatorClass.getMethod("generate", IProgressMonitor.class, IEntity.class, IBindingManager.class);
+			final IOperationProgressMonitor operationProgressMonitor = (IOperationProgressMonitor) bm.wGetValue("progressMonitor");
+			bm.wEnterScope();
+			generateMethod.invoke(null, operationProgressMonitor.getAdapter(IProgressMonitor.class), bm.wGet("self"), bm);
+		} catch (OperationCanceledException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 }

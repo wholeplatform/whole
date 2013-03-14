@@ -66,11 +66,15 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 
 		ActionListContainer container = ActionListContainer.create(items);
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {
-			IBindingManager args = BindingManagerFactory.instance.createArguments();
-			args.wDefValue("context", context);
-			args.wDefValue("itemContainer", container);
-			args.wDefValue("fillMenuStrategy", FlatFillMenuStrategy.instance());
-			InterpreterOperation.interpret(values[0], args);
+			try {
+				bm.wEnterScope();
+				bm.wDefValue("context", context);
+				bm.wDefValue("itemContainer", container);
+				bm.wDefValue("fillMenuStrategy", FlatFillMenuStrategy.instance());
+				InterpreterOperation.interpret(values[0], bm);
+			} finally {
+				bm.wExitScope();
+			}
 		} else if (values.length > 0) {
 			IAction[] actions = new IAction[values.length];
 			int actionsSize = 0;

@@ -26,8 +26,6 @@ import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.actions.model.Action;
 import org.whole.lang.actions.model.ActionKindEnum;
@@ -49,7 +47,6 @@ import org.whole.lang.ui.actions.ActionsComparator;
 import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.menu.ActionSet;
-import org.whole.lang.ui.menu.E3FlatFillMenuStrategy;
 import org.whole.lang.ui.menu.FlatFillMenuStrategy;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;
@@ -137,9 +134,9 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 		if (EntityUtils.hasParent(entity) && 
 				Matcher.match(SeparatedAction, entity.wGetParent()))
-			container.addSeparator(groupName, false);
+			container.addSeparator(groupName, true);
 		else
-			container.addGroupMarker(groupName, false);
+			container.addGroupMarker(groupName, true);
 				
 		getBindings().wEnterScope();
 		getBindings().wDefValue("fillMenuStrategy", strategy);

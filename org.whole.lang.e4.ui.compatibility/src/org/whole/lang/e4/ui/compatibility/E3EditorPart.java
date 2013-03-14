@@ -26,7 +26,9 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
@@ -96,6 +98,17 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 		IEntity entity = EntityUtils.getEntity(getComponent().getViewer().getEntityContents(), locationPath);
 		if (entity != null)
 			getComponent().getViewer().selectAndReveal(entity);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class adapter) {
+		if (adapter == GraphicalViewer.class)
+			return getComponent().getViewer();
+		else if (adapter == ZoomManager.class)
+			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+		else
+			return super.getAdapter(adapter);
 	}
 
 	@Override

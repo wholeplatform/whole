@@ -42,18 +42,25 @@ public abstract class FragmentModelTransactionHandler {
 	public boolean canExecute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		defineBindings(fragmentXwl, predicateXwl, bm);
-		return isEnabled(bm);
+		try {
+			bm.wEnterScope();
+			defineBindings(fragmentXwl, predicateXwl, bm);
+			return isEnabled(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute
 	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		defineBindings(fragmentXwl, predicateXwl, bm);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {
+			bm.wEnterScope();
+			defineBindings(fragmentXwl, predicateXwl, bm);
+
 			mtc.begin();
 			run(bm);
 			mtc.commit();
@@ -62,6 +69,8 @@ public abstract class FragmentModelTransactionHandler {
 		} catch (RuntimeException e) {
 			mtc.rollback();
 			throw e;
+		} finally {
+			bm.wExitScope();
 		}
 	}
 

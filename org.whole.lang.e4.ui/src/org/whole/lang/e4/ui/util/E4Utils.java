@@ -156,6 +156,7 @@ public class E4Utils {
 		if (viewer != null) {
 			bm.wDef("self", EntityUtils.getCompoundRoot(viewer.getEntityContents()));
 			bm.wDefValue("viewer", viewer);
+			bm.wDef("focusEntity", viewer.getFocusEntityPart().getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();

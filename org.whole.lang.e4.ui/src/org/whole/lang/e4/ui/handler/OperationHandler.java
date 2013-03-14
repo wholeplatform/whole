@@ -36,7 +36,12 @@ public abstract class OperationHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		return isEnabled(bm);
+		try {
+			bm.wEnterScope();
+			return isEnabled(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute

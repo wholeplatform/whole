@@ -15,25 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.jobs.GenerateJavaRunnable;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class GenerateJavaHandler extends OperationHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canGenerateJava(bm);
+public abstract class AbstractE4Action extends Action implements IUpdatableAction {
+	private IEclipseContext context;
+	
+	public IEclipseContext getContext() {
+		return context;
 	}
-	protected IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context) {
-		return new GenerateJavaRunnable(context, bm, getLabel(bm));
+	
+	public AbstractE4Action(IEclipseContext context) {
+		this.context = context;
 	}
-	public String getLabel(IBindingManager bm) {
-		return "generate java";
+	public AbstractE4Action(IEclipseContext context, String text, int style) {
+		super(text, style);
+		this.context = context;
+	}
+	public AbstractE4Action(IEclipseContext context, String text, ImageDescriptor image) {
+		super(text, image);
+		this.context = context;
+	}
+	public AbstractE4Action(IEclipseContext context, String text) {
+		super(text);
+		this.context = context;
 	}
 }

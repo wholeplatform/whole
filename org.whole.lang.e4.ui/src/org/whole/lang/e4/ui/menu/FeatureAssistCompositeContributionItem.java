@@ -31,7 +31,6 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
-import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.menu.ActionContainer;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
 import org.whole.lang.ui.menu.HierarchicalFillMenuStrategy;

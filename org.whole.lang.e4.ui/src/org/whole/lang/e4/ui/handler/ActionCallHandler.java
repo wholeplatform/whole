@@ -27,7 +27,6 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
@@ -46,8 +45,14 @@ public class ActionCallHandler {
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		defineBindings(functionUri, predicateXwl, analyzing, bm);
-		return HandlersBehavior.canCallAction(bm);
+
+		try {
+			bm.wEnterScope();
+			defineBindings(functionUri, predicateXwl, analyzing, bm);
+			return HandlersBehavior.canCallAction(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute
@@ -57,10 +62,9 @@ public class ActionCallHandler {
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
-		defineBindings(functionUri, predicateXwl, analyzing, bm);
 
-		
-		IRunnableWithProgress actionRunnable = new ActionCallRunnable(context, bm, label, true);
+		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, true);
+		defineBindings(functionUri, predicateXwl, analyzing, actionRunnable.getBindings());
 		final RunnableJob job = new RunnableJob("Executing "+label+" action...", actionRunnable);
 		job.setUser(true);
 		job.setPriority(Job.INTERACTIVE);

@@ -360,6 +360,8 @@ public class TextualSelectionTool extends SelectionTool implements PositionConst
 		if (keyHandler instanceof WholeKeyHandler)
 			((WholeKeyHandler) keyHandler).keyPressed(getEditorKit(), event, new ImmutableSelectionProvider(
 					new StructuredSelection(viewer.getFocusEditPart())));
+		else
+			keyHandler.keyPressed(event);
 	}
 
 	protected void handleModelKeyReleased(KeyEvent event) {
@@ -368,6 +370,8 @@ public class TextualSelectionTool extends SelectionTool implements PositionConst
 		if (keyHandler instanceof WholeKeyHandler)
 			((WholeKeyHandler) keyHandler).keyReleased(getEditorKit(), event, new ImmutableSelectionProvider(
 					new StructuredSelection(viewer.getFocusEditPart())));
+		else
+			keyHandler.keyReleased(event);
 	}
 
 	protected boolean handleBackspace() {

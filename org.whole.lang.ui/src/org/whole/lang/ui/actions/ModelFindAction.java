@@ -30,7 +30,7 @@ import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 
 public class ModelFindAction extends AbstractLazySelectionAction {
-	private static FindReplaceDialog findReplaceDialogInstance = null;
+	public static final FindReplaceDialog findReplaceDialogInstance = new FindReplaceDialog();
     
 	public ModelFindAction(IWorkbenchPart part) {
 		super(part);
@@ -49,8 +49,6 @@ public class ModelFindAction extends AbstractLazySelectionAction {
 	public void run() {
 		IEntityPart selectedPart = (IEntityPart) getSelectedObjects().get(0);
 		IEntity selectedEntity = selectedPart.getModelEntity();
-		if(findReplaceDialogInstance == null)
-			findReplaceDialogInstance = new FindReplaceDialog(getActiveEditorShell());
 		findReplaceDialogInstance.setSelectedEntity(EntityUtils.clone(selectedEntity));
 		findReplaceDialogInstance.close();
 		findReplaceDialogInstance.setParentShell(getActiveEditorShell());

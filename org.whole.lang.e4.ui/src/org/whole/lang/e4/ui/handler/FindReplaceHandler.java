@@ -17,23 +17,32 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
+import javax.inject.Named;
+
+import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.jobs.GenerateJavaRunnable;
+import org.whole.lang.ui.actions.ModelFindAction;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class GenerateJavaHandler extends OperationHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canGenerateJava(bm);
+public class FindReplaceHandler {
+
+	@CanExecute
+	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		return HandlersBehavior.isValidEntityPartSelection(bm, false);
 	}
-	protected IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context) {
-		return new GenerateJavaRunnable(context, bm, getLabel(bm));
-	}
-	public String getLabel(IBindingManager bm) {
-		return "generate java";
+
+	@Execute
+	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, @Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
+		ModelFindAction.findReplaceDialogInstance.setSelectedEntity(EntityUtils.clone(bm.wGet("primarySelectedEntity")));
+		ModelFindAction.findReplaceDialogInstance.close();
+		ModelFindAction.findReplaceDialogInstance.setParentShell(shell);
+		ModelFindAction.findReplaceDialogInstance.open();
 	}
 }

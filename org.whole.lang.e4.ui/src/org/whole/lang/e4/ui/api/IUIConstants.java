@@ -81,8 +81,9 @@ public interface IUIConstants {
 	public static final String EDIT_PASTE = "org.eclipse.ui.edit.paste";
 	public static final String EDIT_DELETE = "org.eclipse.ui.edit.delete";
 	public static final String EDIT_SELECT_ALL = "org.eclipse.ui.edit.selectAll";
+	public static final String EDIT_FIND_AND_REPLACE = "org.eclipse.ui.edit.findReplace";
 	public static final String FILE_REVERT = "org.eclipse.ui.file.revert";
-	
+
 	// menu item id
 	public static final String UNDO_MENU_ID = "undo";
 	public static final String REDO_MENU_ID = "redo";

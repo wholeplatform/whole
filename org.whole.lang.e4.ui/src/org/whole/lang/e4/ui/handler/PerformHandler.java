@@ -43,8 +43,13 @@ public class PerformHandler  {
 	public boolean canExecute(@Named(BEHAVIOR_XWL_PARAMETER_ID) String behaviorXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
-		defineBindings(behaviorXwl, predicateXwl, bm);
-		return HandlersBehavior.canPerform(bm);
+		try {
+			bm.wEnterScope();
+			defineBindings(behaviorXwl, predicateXwl, bm);
+			return HandlersBehavior.canPerform(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute
@@ -52,10 +57,12 @@ public class PerformHandler  {
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
-		defineBindings(behaviorXwl, predicateXwl, bm);
-		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), label);
+		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		try {
+			bm.wEnterScope();
+			defineBindings(behaviorXwl, predicateXwl, bm);
+
 			mtc.begin();
 			HandlersBehavior.perform(bm);
 			mtc.commit();
@@ -64,6 +71,8 @@ public class PerformHandler  {
 		} catch (RuntimeException e) {
 			mtc.rollback();
 			throw e;
+		} finally {
+			bm.wExitScope();
 		}
 	}
 

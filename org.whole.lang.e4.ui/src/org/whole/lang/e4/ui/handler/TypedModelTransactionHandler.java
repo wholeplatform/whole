@@ -40,8 +40,13 @@ public abstract class TypedModelTransactionHandler {
 	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri,
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		defineBindings(edUri, fdUri, bm);
-		return isEnabled(bm);
+		try {
+			bm.wEnterScope();
+			defineBindings(edUri, fdUri, bm);
+			return isEnabled(bm);
+		} finally {
+			bm.wExitScope();
+		}
 	}
 
 	@Execute
@@ -49,10 +54,12 @@ public abstract class TypedModelTransactionHandler {
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			E4GraphicalViewer viewer) throws Exception {
-		defineBindings(edUri, fdUri, bm);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
 		try {
+			bm.wEnterScope();
+			defineBindings(edUri, fdUri, bm);
+
 			mtc.begin();
 			run(bm);
 			mtc.commit();
@@ -61,6 +68,8 @@ public abstract class TypedModelTransactionHandler {
 		} catch (RuntimeException e) {
 			mtc.rollback();
 			throw e;
+		} finally {
+			bm.wExitScope();
 		}
 	}
 

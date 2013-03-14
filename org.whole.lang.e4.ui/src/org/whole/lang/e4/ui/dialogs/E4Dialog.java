@@ -17,9 +17,7 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_REDO;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_UNDO;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,7 +32,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.bindings.keys.KeySequence;
@@ -51,6 +48,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -117,7 +115,7 @@ public class E4Dialog extends Dialog {
 			}
 		});
 
-		viewer.setKeyHandler(new E4KeyHandler());
+		viewer.setKeyHandler(new E4KeyHandler(context));
 		viewer.setContents(entity);
 		viewer.setInteractive(entity, true, true, true);
 		viewer.flush();
@@ -142,15 +140,15 @@ public class E4Dialog extends Dialog {
 	protected ActionRegistry createActionRegistry() {
 		ActionRegistry actionRegistry = new ActionRegistry(context, getShell());
 
-		IAction undoAction = actionRegistry.getAction(EDIT_UNDO);
+		IUpdatableAction undoAction = actionRegistry.getAction(EDIT_UNDO);
 		ParameterizedCommand command = commandService.createCommand(EDIT_UNDO, null);
 		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, undoAction);
 
-		IAction redoAction = actionRegistry.getAction(EDIT_REDO);
+		IUpdatableAction redoAction = actionRegistry.getAction(EDIT_REDO);
 		command = commandService.createCommand(EDIT_REDO, null);
 		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, redoAction);
 
-		IAction deleteAction = actionRegistry.getAction(EDIT_DELETE);
+		IUpdatableAction deleteAction = actionRegistry.getAction(EDIT_DELETE);
 		command = commandService.createCommand(EDIT_DELETE, null);
 		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, deleteAction);
 

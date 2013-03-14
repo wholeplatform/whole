@@ -15,25 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.e4.ui.viewers;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.jobs.GenerateJavaRunnable;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
-public class GenerateJavaHandler extends OperationHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canGenerateJava(bm);
-	}
-	protected IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context) {
-		return new GenerateJavaRunnable(context, bm, getLabel(bm));
-	}
-	public String getLabel(IBindingManager bm) {
-		return "generate java";
-	}
+public interface IPartFocusListener {
+	public void focusChanged(IEntityPart oldPart, IEntityPart newPart);
 }

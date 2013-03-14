@@ -17,12 +17,53 @@
  */
 package org.whole.lang.e4.ui.handler;
 
+import javax.inject.Named;
+
+import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.requests.TextualRequest;
+import org.whole.lang.ui.util.ClipboardUtils;
 
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class CutHandler extends ModelTransactionHandler {
+	@Override
+	@CanExecute
+	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
+			return true;
+		} else
+			return super.canExecute(bm);
+	}
+
+	@Override
+	@Execute
+	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
+			HandlersBehavior.copy(bm);
+
+			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+			IEntity focusEntity = bm.wGet("focusEntity");
+			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
+			
+			Command command = focusPart.getCommand(TextualRequest.createDeleteRequest());
+			command.setLabel(getLabel(bm)+" text");
+
+			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+			commandStack.execute(command);
+		} else
+			super.execute(bm);
+	}
+
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canCut(bm);
 	}

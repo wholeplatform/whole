@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IWorkbenchPage;
@@ -62,7 +61,7 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.controls.ResourceLabelProvider;
 import org.whole.lang.ui.controls.ResourceRegistryContentProvider;
-import org.whole.lang.ui.editors.WholeGraphicalEditor;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.views.WholeGraphicalViewer;
 import org.whole.lang.util.EntityUtils;
 
@@ -83,7 +82,7 @@ public class FindReplaceDialog extends TrayDialog {
 	private ComboViewer findLanguage;
 	private ShellListener activationListener;
 	private IPartListener partServiceListener;
-	private WholeGraphicalEditor lastEditorPart;
+	private IWorkbenchPart lastWorkbenchPart;
 	private MatcherIterator<IEntity> matchIterator;
 	private IEntity currentMatchingEntity;
 	private ISelectionChangedListener editorSelectionListener;
@@ -91,8 +90,8 @@ public class FindReplaceDialog extends TrayDialog {
 	private Label statusLabel;
 	private EditPartListener editPartListener;
 
-	public FindReplaceDialog(Shell shell) {
-		super(shell);
+	public FindReplaceDialog() {
+		super((Shell) null);
 		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.RESIZE | SWT.TITLE);
 		setBlockOnOpen(false);
 		editorSelectionListener = new FindReplaceSelectionChangedListener();
@@ -108,15 +107,15 @@ public class FindReplaceDialog extends TrayDialog {
 			activationListener = new FindReplaceActivationListener();
 		shell.addShellListener(activationListener);
 		// add part service listener
-		IEditorPart activeEditor = getActiveEditor();
-		if (activeEditor != null) {
+		IWorkbenchPart activePart = getActivePart();
+		if (activePart != null) {
 			// lazy creation
 			if (partServiceListener == null) {
 				partServiceListener = new FindReplacePartListener();
 			}
-			partService = activeEditor.getSite().getWorkbenchWindow().getPartService();
+			partService = activePart.getSite().getWorkbenchWindow().getPartService();
 			partService.addPartListener(partServiceListener);
-			GraphicalViewer viewer = (GraphicalViewer) activeEditor.getAdapter(GraphicalViewer.class);
+			GraphicalViewer viewer = (GraphicalViewer) activePart.getAdapter(GraphicalViewer.class);
 			viewer.setSelection(StructuredSelection.EMPTY);
 		}
 	}
@@ -129,9 +128,9 @@ public class FindReplaceDialog extends TrayDialog {
 			if (activationListener != null) {
 				shell.removeShellListener(activationListener);
 			}
-			if (lastEditorPart != null) {
-				detachEditorListeners(lastEditorPart);
-				lastEditorPart = null;
+			if (lastWorkbenchPart != null) {
+				detachEditorListeners(lastWorkbenchPart);
+				lastWorkbenchPart = null;
 			}
 			// remove part service listener
 			if (partService != null) {
@@ -266,9 +265,9 @@ public class FindReplaceDialog extends TrayDialog {
 	protected void buttonPressed(int buttonId) {
 		setStatusMessage(EMPTY_MESSAGE);
 
-		if (getActiveEditor() instanceof WholeGraphicalEditor) {
+		if (isValidPart(getActivePart())) {
 			// collect active editor root editpart and entity
-			WholeGraphicalEditor editor = (WholeGraphicalEditor) getActiveEditor();
+			IWorkbenchPart editor = getActivePart();
 			GraphicalViewer viewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
 			EditPart rootPart = viewer.getContents();
 			IEntity rootModel = (IEntity) rootPart.getModel();
@@ -293,7 +292,7 @@ public class FindReplaceDialog extends TrayDialog {
 							matchIterator.set(replaceEntity);
 							mtc.commit();
 							if (mtc.canUndo()) {
-								CommandStack commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
+								CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 								commandStack.execute(mtc);
 							}
 						} catch (Exception e) {
@@ -366,7 +365,7 @@ public class FindReplaceDialog extends TrayDialog {
 
 					mtc.commit();
 					if (mtc.canUndo()) {
-						CommandStack commandStack = (CommandStack) editor.getAdapter(CommandStack.class);
+						CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 						commandStack.execute(mtc);
 						if (replacedPart != null)
 							viewer.reveal(replacedPart);
@@ -431,8 +430,14 @@ public class FindReplaceDialog extends TrayDialog {
 		return lastSelectedEntity;
 	}
 
+	private boolean isValidPart(IWorkbenchPart part) {
+		GraphicalViewer viewer = (GraphicalViewer) part.getAdapter(GraphicalViewer.class);
+		return viewer != null && viewer.getContents() instanceof IEntityPart;
+	}
+
 	private void updateEnabledControls() {
-		boolean enabled = getActiveEditor() instanceof WholeGraphicalEditor;
+		IWorkbenchPart activePart = getActivePart();
+		boolean enabled = isValidPart(activePart);
 		boolean hasMatch = matchIterator != null && currentMatchingEntity == selectedEntity;
 		boolean hasNextMatch = hasMatch ? matchIterator.hasNext(): true;
 
@@ -450,34 +455,38 @@ public class FindReplaceDialog extends TrayDialog {
 
 	private void updateEditorListeners() {
 		// remove old listener if needed
-		if(lastEditorPart != null) {
+		if(lastWorkbenchPart != null) {
 			// remove editor listeners
-			detachEditorListeners(lastEditorPart);
-			lastEditorPart = null;
+			detachEditorListeners(lastWorkbenchPart);
+			lastWorkbenchPart = null;
 		}
 		// setup new part listener
-		if(getActiveEditor() instanceof WholeGraphicalEditor) {
-			lastEditorPart = (WholeGraphicalEditor) getActiveEditor();
+		if(isValidPart(getActivePart())) {
+			lastWorkbenchPart = getActivePart();
 			// add editor listeners
-			attachEditorListeners(lastEditorPart);
+			attachEditorListeners(lastWorkbenchPart);
+			if (matchIterator != null) {
+				GraphicalViewer viewer = (GraphicalViewer) getActivePart().getAdapter(GraphicalViewer.class);
+				matchIterator.reset((IEntity) viewer.getContents().getModel());
+			}
 		}
 	}
 
-	private void detachEditorListeners(WholeGraphicalEditor lastEditorPart) {
+	private void detachEditorListeners(IWorkbenchPart lastEditorPart) {
 		// remove selection change listener
-		WholeGraphicalEditor editor = lastEditorPart;
+		IWorkbenchPart editor = lastEditorPart;
 		GraphicalViewer viewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
 		viewer.removeSelectionChangedListener(editorSelectionListener);
 	}
 
-	private void attachEditorListeners(WholeGraphicalEditor lastEditorPart) {
+	private void attachEditorListeners(IWorkbenchPart lastEditorPart) {
 		// add selection change listener
-		WholeGraphicalEditor editor = lastEditorPart;
+		IWorkbenchPart editor = lastEditorPart;
 		GraphicalViewer viewer = (GraphicalViewer) editor.getAdapter(GraphicalViewer.class);
 		viewer.addSelectionChangedListener(editorSelectionListener);
 	}
 
-	private IEditorPart getActiveEditor() {
+	private IWorkbenchPart getActivePart() {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if(window == null)
 			return null;
@@ -486,7 +495,7 @@ public class FindReplaceDialog extends TrayDialog {
 		if(page == null)
 			return null;
 		
-		return page.getActiveEditor();
+		return page.getActivePart();
 	}
 
 	private final class FindReplaceEditPartListener implements EditPartListener {
