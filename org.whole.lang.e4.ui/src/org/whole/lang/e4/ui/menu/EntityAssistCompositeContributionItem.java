@@ -173,7 +173,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		for (EntityDescriptor<?> ed : lk.getEntityDescriptorEnum())
 			if (EntityUtils.isComposite(ed) && !wrapTypes.contains(ed) &&
-					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.alwaysTrue())) {
+					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.assignableTo(ed.getEntityDescriptor(0)))) {
 				String label = StringUtils.camelCaseToSpacedWords(ed.getName());
 				wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, DefaultWrapInTransformer.instance)));
