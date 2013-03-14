@@ -96,6 +96,8 @@ public class TablePartFactory implements IEditPartFactory {
 				EntityUtils.isSimple(eed);// && eed.featuresDescriptors().length > 1;
 	}
 	protected boolean isEmbedded(IEntity entity) {
-		return EntityUtils.hasParent(entity) && EntityUtils.isSimple(entity) && embedChildren(entity.wGetParent());
+		return EntityUtils.hasParent(entity) && EntityUtils.isSimple(entity) &&
+				entity.wGetLanguageKit().equals(entity.wGetParent().wGetLanguageKit()) &&
+				embedChildren(entity.wGetParent());
 	}
 }

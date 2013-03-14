@@ -68,7 +68,7 @@ import org.whole.lang.ui.editparts.LiteralTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
-import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
+import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -89,7 +89,11 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 	}
 
 	public void visit(IModelsEntity entity) {
-		part = DefaultTextualPartFactory.instance().createEditPart(context, entity);
+		part = TablePartFactory.instance().createEditPart(context, entity);
+	}
+
+	protected boolean parentHasDifferentLanguage(IEntity entity) {
+		return !EntityUtils.hasParent(entity) || !entity.wGetLanguageKit().equals(entity.wGetParent().wGetLanguageKit());
 	}
 
 	public void visit(DataType entity) {
@@ -168,7 +172,10 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(SimpleEntity entity) {
-		part = new SimpleEntityTablePart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new SimpleEntityTablePart();
 	}
 	@Override
 	public void visit(Features entity) {
@@ -176,7 +183,10 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 	}
 	@Override
 	public void visit(Feature entity) {
-		part = new FeatureRowPart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new FeatureRowPart();
 	}
 	@Override
 	public void visit(FeatureModifiers entity) {
@@ -185,7 +195,10 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(CompositeEntity entity) {
-		part = new CompositeEntityTablePart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new CompositeEntityTablePart();
 	}
 	@Override
 	public void visit(ComponentModifiers entity) {
@@ -194,17 +207,26 @@ public class ModelsTabularPartFactoryVisitor extends ModelsIdentityDefaultVisito
 
 	@Override
 	public void visit(MapEntity entity) {
-		part = new MapEntityTablePart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new MapEntityTablePart();
 	}
 
 	@Override
 	public void visit(DataEntity entity) {
-		part = new DataEntityTablePart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new DataEntityTablePart();
 	}
 
 	@Override
 	public void visit(EnumEntity entity) {
-		part = new EnumEntityTablePart();
+		if (parentHasDifferentLanguage(entity))
+			super.visit(entity);
+		else
+			part = new EnumEntityTablePart();
 	}
 
 	public void visit(SimpleName entity) {
