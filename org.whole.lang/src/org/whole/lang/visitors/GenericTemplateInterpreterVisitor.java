@@ -188,14 +188,17 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
     				}
 				} else {
 					IEntity e = null;
-					resultSize = result.wSize();
-					for (IEntity r : iterator)
-    					if (!BindingManagerFactory.instance.isVoid(r)) {
-    						e = r;
-    						break;
-    					}
-					nextResultSize = result.wSize();
-					i += (nextResultSize - resultSize);
+    				if (iterator.hasNext()) {
+    					ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+    					getBindings().wEnterScope(resettableScope);
+	    				for (IEntity r : iterator) {
+	    					if (!BindingManagerFactory.instance.isVoid(r))
+		    					e = r;
+	    					resettableScope.commit();
+	    				}
+    					resettableScope.rollback();
+	    				getBindings().wExitScope();
+    				}
 					if (e != null)
 						result.wSet(i, EntityUtils.convert(e, resultChildDescriptor));
 					else
