@@ -21,9 +21,11 @@ import org.eclipse.gef.EditPart;
 import org.whole.lang.environment.model.ContainmentTuple;
 import org.whole.lang.environment.model.IEnvironmentEntity;
 import org.whole.lang.environment.model.Tuple;
+import org.whole.lang.environment.model.Void;
 import org.whole.lang.environment.visitors.EnvironmentIdentityDefaultVisitor;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.queries.ui.editparts.TuplePart;
+import org.whole.lang.queries.ui.editparts.VoidLiteralPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
@@ -59,5 +61,10 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 	@Override
 	public void visit(Tuple entity) {
 		part = new TuplePart();
+	}
+
+	@Override
+	public void visit(Void entity) {
+		part = new VoidLiteralPart();
 	}
 }
