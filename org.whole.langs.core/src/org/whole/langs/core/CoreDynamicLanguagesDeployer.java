@@ -18,6 +18,7 @@
 package org.whole.langs.core;
 
 import org.whole.lang.models.codebase.GrammarBasedModel;
+import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractDynamicLanguageDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -28,5 +29,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 public class CoreDynamicLanguagesDeployer extends AbstractDynamicLanguageDeployer {
 	public void deploy(ReflectionFactory platform) {
 		InterpreterOperation.interpret(new GrammarBasedModel().create());
+		InterpreterOperation.interpret(new StatusModel().create());
 	}
 }

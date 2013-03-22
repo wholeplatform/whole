@@ -39,6 +39,9 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 
 		try {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsActions.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/semantics/SemanticsActions.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(

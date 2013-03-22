@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -285,6 +286,74 @@ public class EntityUtils {
 			}
 		else
 			return cloneIfParented(value).wGetAdapter(toType);
+	}
+
+	public static final IEntity merge(IEntity merger, IEntity mergee, IEntityComparator<IEntity> comparator) {
+		IEntity initialMerger = merger;
+		IEntity initialMergee = mergee;
+
+		merger = merger.wGetAdaptee(false);
+		mergee = mergee.wGetAdaptee(false);
+
+		EntityDescriptor<?> mergerED = merger.wGetEntityDescriptor();
+		if (!mergerED.equals(mergee.wGetEntityDescriptor())) {
+			IEntity parent = initialMerger.wGetParent();
+			if (!EntityUtils.isNull(parent)) {
+				int index = parent.wIndexOf(initialMerger);
+				if (parent.wGetEntityDescriptor(index).isLanguageSupertypeOf(mergee.wGetEntityDescriptor()))
+					parent.wSet(index, cloneIfParented(mergee));
+				return parent.wGet(index);
+			} else
+				return initialMergee;
+		}
+
+		switch (mergerED.getEntityKind()) {
+		case SIMPLE:
+			for (FeatureDescriptor fd : mergerED.getEntityFeatureDescriptors()) {
+				IEntity mergerFeature = merger.wGet(fd).wGetAdaptee(false);
+				IEntity mergeeFeature = mergee.wGet(fd).wGetAdaptee(false);
+				if (mergerFeature.wGetEntityDescriptor().equals(mergeeFeature.wGetEntityDescriptor()))
+					merge(mergerFeature, mergeeFeature, comparator);
+				else
+					merger.wSet(fd, cloneIfParented(mergeeFeature));
+			}
+			break;
+
+		case COMPOSITE:
+			if (mergerED.getCompositeKind().isOrdered()) {
+				int i=0, j=0;
+				while (i<merger.wSize() && j<mergee.wSize()) {
+					IEntity mergerChild = merger.wGet(i).wGetAdaptee(false);
+					while (j<mergee.wSize()) {
+						IEntity mergeeChild = mergee.wGet(j++).wGetAdaptee(false);
+						if (comparator.equals(mergerChild, mergeeChild))
+							merger.wSet(i, cloneIfParented(merge(mergerChild, mergeeChild, comparator)));
+						else {
+							merger.wAdd(++i, cloneIfParented(mergeeChild));
+							break;
+						}
+					}
+					i++;
+				}
+				while (j<mergee.wSize())
+					merger.wAdd(cloneIfParented(mergee.wGet(j++).wGetAdaptee(false)));
+			} else {
+				IEntityIterator<IEntity> mergeeIterator = IteratorFactory.childIterator();
+				mergeeIterator.reset(mergee);
+				while (mergeeIterator.hasNext()) {
+					IEntity mergeeChild = mergeeIterator.next();
+					merger.wAdd(cloneIfParented(comparator.contains(merger, mergeeChild) ?
+							merge(comparator.get(merger, mergeeChild), mergeeChild, comparator) : mergeeChild));
+				}
+			}
+			break;
+
+		default:
+		case DATA:
+			// do not merge data entities
+			break;
+		}
+		return initialMerger;
 	}
 
 	public static IEntity getCompoundRoot(IEntity entity) {

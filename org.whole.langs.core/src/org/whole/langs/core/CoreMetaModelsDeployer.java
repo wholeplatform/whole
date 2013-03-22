@@ -40,6 +40,7 @@ import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.codebase.PojoModel;
 import org.whole.lang.models.codebase.QueriesModel;
 import org.whole.lang.models.codebase.SemanticsModel;
+import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestsModel;
 import org.whole.lang.models.codebase.TypesModel;
@@ -60,6 +61,7 @@ import org.whole.lang.workflows.reflect.WorkflowsLanguageKit;
  */
 public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 	public static final String GRAMMAR_BASED_URI = "http://lang.whole.org/GrammarBased";
+	public static final String STATUS_URI = "http://lang.whole.org/GrammarBased";
 
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(CommonsLanguageKit.URI, new CommonsModel());
@@ -76,6 +78,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(PojoLanguageKit.URI, new PojoModel());
 		platform.setMetaModelTemplate(QueriesLanguageKit.URI, new QueriesModel());
 		platform.setMetaModelTemplate(SemanticsLanguageKit.URI, new SemanticsModel());
+		platform.setMetaModelTemplate(STATUS_URI, new StatusModel());
 		platform.setMetaModelTemplate(TestsLanguageKit.URI, new TestsModel());
 		platform.setMetaModelTemplate(TemplatesLanguageKit.URI, new TemplatesModel());
 		platform.setMetaModelTemplate(TypesLanguageKit.URI, new TypesModel());
@@ -97,6 +100,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.unsetMetaModelTemplate(PojoLanguageKit.URI);
 		platform.unsetMetaModelTemplate(QueriesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(SemanticsLanguageKit.URI);
+		platform.unsetMetaModelTemplate(STATUS_URI);
 		platform.unsetMetaModelTemplate(TestsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TemplatesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TypesLanguageKit.URI);

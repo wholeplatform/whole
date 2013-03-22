@@ -47,6 +47,7 @@ import org.whole.lang.models.codebase.SQLModel;
 import org.whole.lang.models.codebase.SchemeModel;
 import org.whole.lang.models.codebase.ScriptsModel;
 import org.whole.lang.models.codebase.SemanticsModel;
+import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestEntities;
 import org.whole.lang.models.codebase.TestEvents;
@@ -156,6 +157,7 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Grammar Based Notation model", new GrammarBasedModel());
 		put("Data model", new DataModel());
 		put("MediaWiki model", new MediaWikiModel());
+		put("Status model", new StatusModel());
 
 		put("Math model", new MathPresentationModel());
 		put("Scheme model", new SchemeModel());

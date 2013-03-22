@@ -17,29 +17,57 @@
  */
 package org.whole.lang.artifacts.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.whole.lang.artifacts.factories.ArtifactsEntityFactory;
+import org.whole.lang.artifacts.model.Content;
 import org.whole.lang.artifacts.model.FileArtifact;
+import org.whole.lang.artifacts.model.FileName;
 import org.whole.lang.artifacts.model.FolderArtifact;
 import org.whole.lang.artifacts.model.IArtifactsEntity;
+import org.whole.lang.artifacts.model.NameWithExtension;
+import org.whole.lang.artifacts.model.PackageArtifact;
 import org.whole.lang.artifacts.model.Project;
+import org.whole.lang.artifacts.model.Workspace;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
+import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.artifacts.visitors.LoadContentsVisitor;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.IFilePersistenceProvider;
+import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.iterators.CollectionIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.model.NullEntity;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.StringUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -70,7 +98,7 @@ public class ArtifactsWorkspaceUtils {
 				!Matcher.match(ArtifactsEntityDescriptorEnum.Project, artifact))
 			throw new IllegalArgumentException("Wrong path ending with: "+artifact.toString());
 
-		IEntityIterator<IEntity> pathIterator = IteratorFactory.ancestorOrSelfReverseIterator();
+		IEntityIterator<IEntity> pathIterator = new AncestorOrSelfInFragmentReverseIterator();
 		pathIterator.reset(artifact);
 
 		if (!pathIterator.hasNext())
@@ -92,6 +120,9 @@ public class ArtifactsWorkspaceUtils {
 					break;
 				case ArtifactsEntityDescriptorEnum.FolderArtifact_ord:
 					bindFolder((FolderArtifact) pathFragment, bindings, force);
+					break;
+				case ArtifactsEntityDescriptorEnum.PackageArtifact_ord:
+					bindPackage((PackageArtifact) pathFragment, bindings, force);
 					break;
 				case ArtifactsEntityDescriptorEnum.FileArtifact_ord:
 					bindFile((FileArtifact) pathFragment, bindings, force);
@@ -147,12 +178,39 @@ public class ArtifactsWorkspaceUtils {
 		bindings.wExitScope(true);
 	}
 
+	private static void bindPackage(PackageArtifact packageEntity, IBindingManager bindings, boolean force) {
+		bindings.wEnterScope();
+		if (!Matcher.matchImplAndBind(ArtifactsEntityDescriptorEnum.Name, packageEntity.getName(), bindings, "packageName"))
+			throw new IllegalArgumentException("No Folder name");
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IFolder folder = workspaceRoot.getFolder(getParentPath(bindings).append(StringUtils.packagePath(bindings.wStringValue("packageName"))));
+		bindings.wDefValue("folder", folder);
+		if (!folder.exists()) {
+			if(!force)
+				throw new IllegalArgumentException("Missing Package: "+bindings.wStringValue("packageName"));
+			else {
+				try {
+					folder.create(true, true, (IProgressMonitor) bindings.wGetValue("progressMonitor"));
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Cannot create Package: "+bindings.wStringValue("packageName"));
+				}
+			}
+		}
+		bindings.wExitScope(true);
+	}
+
 	private static void bindFile(FileArtifact fileEntity, IBindingManager bindings, boolean force) {
 		bindings.wEnterScope();
-		if (!Matcher.matchImplAndBind(ArtifactsEntityDescriptorEnum.Name, fileEntity.getName(), bindings, "fileName"))
-			throw new IllegalArgumentException("No File name");
+		if (!Matcher.matchImplAndBind(ArtifactsEntityDescriptorEnum.Name, fileEntity.getName(), bindings, "fileName")) {
+			NameWithExtension name = (NameWithExtension) fileEntity.getName();
+			if (!Matcher.matchImplAndBind(ArtifactsEntityDescriptorEnum.Name, name.getName(), bindings, "fileName"))
+				throw new IllegalArgumentException("No File name");
+			if (!Matcher.matchImplAndBind(ArtifactsEntityDescriptorEnum.Extension, name.getExtension(), bindings, "extension"))
+				throw new IllegalArgumentException("No File name");
+		}
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IFile file = workspaceRoot.getFile(getParentPath(bindings).append(bindings.wStringValue("fileName")));
+		IFile file = workspaceRoot.getFile(getParentPath(bindings).append(bindings.wIsSet("extension") ?
+				bindings.wStringValue("fileName")+'.'+bindings.wStringValue("extension") : bindings.wStringValue("fileName")));
 		bindings.wDefValue("file", file);
 		if (!file.exists() && !force)
 			throw new IllegalArgumentException("Missing File: "+bindings.wStringValue("fileName"));
@@ -171,6 +229,153 @@ public class ArtifactsWorkspaceUtils {
 		return parentPath;
 	}
 
+	public static IEntity toArtifactsPath(IResource fromResource, IResource toResource) {
+		return toArtifactsPath(fromResource, toResource, NullEntity.instance);
+	}
+	public static IEntity toArtifactsPath(IResource fromResource, IResource toResource, IEntity child) {
+		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance(RegistryConfigurations.RESOLVER);
+
+		IEntity entity;
+		String name = toResource.getName();
+		switch (toResource.getType()) {
+		case IResource.FILE:
+			FileArtifact fileArtifact = aef.createFileArtifact();
+			fileArtifact.setName(createFileName(name));
+			entity = fileArtifact;
+			break;
+		case IResource.FOLDER:
+			FolderArtifact folderArtifact = aef.createFolderArtifact();
+			folderArtifact.setName(aef.createName(name));
+			folderArtifact.setArtifacts(aef.createArtifacts(0));
+			entity = folderArtifact;
+			break;
+		case IResource.PROJECT:
+			Project project = aef.createProject();
+			project.setName(aef.createName(name));
+			project.setArtifacts(aef.createArtifacts(0));
+			entity = project;
+			break;
+		default:
+		case IResource.ROOT:
+			Workspace workspace = aef.createWorkspace();
+			workspace.setProjects(aef.createProjects(0));
+			entity = workspace;
+			break;
+		}
+		boolean isWorkspace = Matcher.match(ArtifactsEntityDescriptorEnum.Workspace, entity);
+		if (!EntityUtils.isNull(child))
+			entity.wGet(isWorkspace ? ArtifactsFeatureDescriptorEnum.projects :
+				ArtifactsFeatureDescriptorEnum.artifacts).wAdd(child);
+
+		return fromResource.equals(toResource) ? entity : toArtifactsPath(fromResource, toResource.getParent(), entity);
+	}
+
+	public static IEntity getArtifacts(IArtifactsEntity artifact) {
+		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance(RegistryConfigurations.RESOLVER);
+		IEntity children = BindingManagerFactory.instance.createTuple();
+		
+		if (Matcher.match(ArtifactsEntityDescriptorEnum.Workspace, artifact)) {
+			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+			for (IProject project : workspaceRoot.getProjects()) {
+				Project projectArtifact = aef.createProject();
+				projectArtifact.setName(aef.createName(project.getName()));
+				projectArtifact.setArtifacts(aef.createArtifacts(0));
+				children.wAdd(projectArtifact);
+			}
+		} else {
+			try {
+				IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
+				bindPath(artifact, bindings, false);
+				IContainer container = (IContainer) (bindings.wIsSet("folder") ?
+						bindings.wGetValue("folder") : bindings.wGetValue("project"));
+				IJavaElement javaContainer = JavaCore.create(container);
+				if (javaContainer == null || javaContainer.getElementType() == IJavaElement.JAVA_PROJECT) {
+					for (IResource resource : container.members()) {
+						if (resource.getType() == IResource.FILE) {
+							appendFileArtifact(((IFile) resource).getName(), children);
+						} else {
+							FolderArtifact folderArtifact = aef.createFolderArtifact();
+							folderArtifact.setName(aef.createName(StringUtils.getFileName(resource.getName())));
+							folderArtifact.setArtifacts(aef.createArtifacts(0));
+							children.wAdd(folderArtifact);
+						}
+					}					
+				} else {
+					if (javaContainer.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+						IPackageFragmentRoot fragmentRoot = (IPackageFragmentRoot) javaContainer;
+						if (fragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
+							for (IJavaElement element : fragmentRoot.getChildren()) {
+								if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
+									if (element.getElementName() == IPackageFragment.DEFAULT_PACKAGE_NAME) {
+										appendPackageFragmentChildren((IPackageFragment) element, children);
+									} else {
+										PackageArtifact packageArtifact = aef.createPackageArtifact();
+										packageArtifact.setName(aef.createName(StringUtils.getFileName(element.getElementName())));
+										packageArtifact.setArtifacts(aef.createArtifacts(0));
+										children.wAdd(packageArtifact);
+									}
+								}
+							}
+						}
+					} else // IJavaElement.PACKAGE_FRAGMENT
+						appendPackageFragmentChildren((IPackageFragment) javaContainer, children);
+
+				}
+			} catch (Exception e) {
+			}
+		}
+
+		return children;
+	}
+	
+	protected static void appendPackageFragmentChildren(IPackageFragment packageFragment, IEntity children) throws Exception {
+		for (ICompilationUnit cu : packageFragment.getCompilationUnits())
+			appendFileArtifact(cu.getElementName(), children);
+		
+		for (Object resource : packageFragment.getNonJavaResources())
+			if (resource instanceof IFile)
+				appendFileArtifact(((IFile) resource).getName(), children);
+	}
+
+	protected static void appendFileArtifact(String nameWithExtension, IEntity children) {
+		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance(RegistryConfigurations.RESOLVER);
+
+		FileArtifact fileArtifact = aef.createFileArtifact();
+		fileArtifact.setName(createFileName(nameWithExtension));
+		children.wAdd(fileArtifact);
+	}
+
+	protected static FileName createFileName(String nameWithExtension) {
+		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance(RegistryConfigurations.RESOLVER);
+
+		String fileName = StringUtils.stripFileExtension(nameWithExtension);
+		String extension = StringUtils.getFileExtension(nameWithExtension);
+		if (fileName.length() > 0)
+			return aef.createNameWithExtension(
+					aef.createName(fileName),
+					aef.createExtension(extension));
+		else
+			return aef.createName('.'+extension);
+	}
+
+	public static IEntity getContents(FileArtifact fileArtifact) {
+		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
+		bindPath(fileArtifact, bindings, false);
+		IFile file = (IFile) bindings.wGetValue("file");
+		
+		final IPersistenceProvider pp = new IFilePersistenceProvider(file);
+		final Resolver resolver = CommonsEntityFactory.instance.createResolver();
+		final Content fragment = CommonsEntityAdapterFactory.createStageUpFragment(
+				ArtifactsEntityDescriptorEnum.Content, resolver);
+
+		IPersistenceKit pk = ReflectionFactory.getPersistenceKit("org.whole.lang.java.codebase.JavaSourcePersistenceKit");
+		try {
+			fragment.wSet(0, pk.readModel(pp));
+		} catch (Exception e) {
+		}
+		return fragment;
+	}
+
 	//TODO markSourceFolder(FolderArtifact)
 	// topDown replace FolderArtifact with PackageArtifact
 
@@ -185,4 +390,26 @@ public class ArtifactsWorkspaceUtils {
 		LoadContentsVisitor visitor = new LoadContentsVisitor(bindings);
 		visitor.visit(rootArtifact);
 	}
+
+	public static class AncestorOrSelfInFragmentReverseIterator extends CollectionIterator<IEntity> {
+		@Override
+		protected Iterable<?> getCollectionIterable(IEntity entity) {
+			IEntity fragmentRoot = EntityUtils.getFragmentRoot(entity);
+			List<IEntity> ancestors = new ArrayList<IEntity>();
+			ancestors.add(entity);
+
+			if (fragmentRoot != entity) {
+		        IEntityIterator<IEntity> i = IteratorFactory.ancestorIterator();
+		        i.reset(entity);
+				for (IEntity parent : i) {
+		        	ancestors.add(parent);
+		        	if (parent == fragmentRoot)
+		        		break;
+				}
+				Collections.reverse(ancestors);
+			}
+			return ancestors;
+		}
+	}
 }
+
