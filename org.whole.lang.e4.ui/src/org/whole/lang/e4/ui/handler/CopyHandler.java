@@ -18,11 +18,12 @@
 package org.whole.lang.e4.ui.handler;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.ui.actions.IActionRedirection;
 
 /**
  * @author Enrico Persiani
  */
-public class CopyHandler extends ModelTransactionHandler {
+public class CopyHandler extends RedirectableModelTransactionHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canCopy(bm);
 	}
@@ -31,5 +32,8 @@ public class CopyHandler extends ModelTransactionHandler {
 	}
 	public String getLabel(IBindingManager bm) {
 		return "copy";
+	}
+	protected void performActionRedirection(IActionRedirection actionRedirection) {
+		actionRedirection.performCopy();
 	}
 }

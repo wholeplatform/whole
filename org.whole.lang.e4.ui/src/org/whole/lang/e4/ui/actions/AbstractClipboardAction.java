@@ -18,11 +18,17 @@
 package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.Disposable;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.jface.action.Action;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.ui.actions.IActionRedirection;
+import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.actions.NullActionRedirection;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 /**
  * @author Enrico Persiani
@@ -35,6 +41,7 @@ public abstract class AbstractClipboardAction extends Action implements Disposab
 	protected String label;
 
 	public AbstractClipboardAction(IEclipseContext context, String label) {
+		this.context = context;
 		this.viewer = context.get(E4GraphicalViewer.class);
 		viewer.getCommandStack().addCommandStackEventListener(listener = new CommandStackEventListener() {
 			public void stackChanged(CommandStackEvent event) {
@@ -58,6 +65,21 @@ public abstract class AbstractClipboardAction extends Action implements Disposab
 	public void update() {
 		setEnabled(calculateEnabled(viewer));
 		setText(calculateLabel(viewer));
+	}
+
+	protected IActionRedirection getActionRedirection() {
+		Object selection = context.get(IServiceConstants.ACTIVE_SELECTION);
+		if (!(selection instanceof IBindingManager))
+			return NullActionRedirection.instance();
+
+		IBindingManager bm = (IBindingManager) selection;
+		if (!bm.wIsSet("primarySelectedEntity"))
+			return NullActionRedirection.instance();
+
+		E4GraphicalViewer viewer = (E4GraphicalViewer) ((IBindingManager) selection).wGetValue("viewer");
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(((IBindingManager) selection).wGet("primarySelectedEntity"));
+		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
+		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
 	}
 
 	protected abstract void doRun(E4GraphicalViewer viewer);

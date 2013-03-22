@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -37,6 +36,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -64,6 +64,7 @@ import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DefaultCopyTransformer;
 import org.whole.lang.util.DefaultWrapInTransformer;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
@@ -135,7 +136,7 @@ public class HandlersBehavior {
 		if (bm.wIsSet("selectedText") && !(selectedText = bm.wStringValue("selectedText")).isEmpty())
 			Clipboard.instance().setTextContents(selectedText);
 		else
-			Clipboard.instance().setEntitiesContents(bm.wGet("selectedEntities"));
+			Clipboard.instance().setEntitiesContents(EntityUtils.clone(bm.wGet("selectedEntities")));
 	}
 	public static boolean canCopyEntityPath(IBindingManager bm) {
 		return isValidEntityPartSelection(bm, true);
@@ -374,13 +375,27 @@ public class HandlersBehavior {
 			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		return EntityUtils.isReplaceable(primarySelectedEntity, ed);
 	}
+
+	//FIXME make configurable
+	private static final IEntityTransformer transformer = new DefaultCopyTransformer() {
+		public void transform(IEntity oldEntity, IEntity newEntity) {
+			if (CommonsEntityDescriptorEnum.Variable.isLanguageSupertypeOf(newEntity.wGetEntityDescriptor()) &&
+					!CommonsEntityDescriptorEnum.Variable.isLanguageSupertypeOf(oldEntity.wGetEntityDescriptor())) {
+				newEntity.wGet(CommonsFeatureDescriptorEnum.varName).wSetValue(oldEntity.wGetParent().wGetFeatureDescriptor(oldEntity).getName());
+				newEntity.wGet(CommonsFeatureDescriptorEnum.varType).wSetValue(
+						EntityUtils.isResolver(oldEntity) ? oldEntity.wGetParent().wGetEntityDescriptor(oldEntity) : //TODO workaround for resolver container descriptor
+							oldEntity.wGetEntityDescriptor());
+			} else
+				super.transform(oldEntity, newEntity); 
+		}
+	};
 	public static void replaceEntity(IBindingManager bm) {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
 			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		IEntity replacement = GenericEntityFactory.instance.create(ed);
-		DefaultCopyTransformer.instance.transform(primarySelectedEntity.wGetAdaptee(false), replacement);
+		transformer.transform(primarySelectedEntity.wGetAdaptee(false), replacement);
 		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
 	}
 
@@ -399,10 +414,16 @@ public class HandlersBehavior {
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
 			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
+		IEntity child = GenericEntityFactory.instance.create(ed);
+
+		//FIXME make configurable
+		if (CommonsEntityDescriptorEnum.Variable.isLanguageSupertypeOf(ed))
+			child.wGet(CommonsFeatureDescriptorEnum.varType).wSetValue(primarySelectedEntity.wGetEntityDescriptor(0));
+
 		if (bm.wIsSet("hilightPosition"))
-			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), GenericEntityFactory.instance.create(ed));
+			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), child);
 		else
-			primarySelectedEntity.wAdd(GenericEntityFactory.instance.create(ed));
+			primarySelectedEntity.wAdd(child);
 	}
 
 	public static boolean canReplaceFragment(IBindingManager bm) {

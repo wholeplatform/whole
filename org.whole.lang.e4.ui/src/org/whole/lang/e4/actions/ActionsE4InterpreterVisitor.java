@@ -25,8 +25,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.whole.lang.actions.model.Action;
 import org.whole.lang.actions.model.ActionKindEnum;
 import org.whole.lang.actions.model.ActionKindEnum.Value;
@@ -38,13 +40,13 @@ import org.whole.lang.actions.model.SubgroupAction;
 import org.whole.lang.actions.visitors.ActionsUIInterpreterVisitor;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
-import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.ui.actions.ActionsComparator;
 import org.whole.lang.ui.actions.IEnablerPredicate;
+import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.FlatFillMenuStrategy;
@@ -98,6 +100,10 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 				continue;
 
 			IUpdatableAction updatableAction = (IUpdatableAction) result.wGetValue();
+			//FIXME workaround for old and deprecated SelectionAction
+			if (updatableAction instanceof SelectionAction) {
+				((SelectionAction) updatableAction).setSelectionProvider((ISelectionProvider) getBindings().wGetValue("viewer"));
+			}
 			updatableAction.update();
 
 			if (updatableAction.isEnabled())
@@ -134,9 +140,9 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 		if (EntityUtils.hasParent(entity) && 
 				Matcher.match(SeparatedAction, entity.wGetParent()))
-			container.addSeparator(groupName, true);
+			container.addSeparator(groupName);
 		else
-			container.addGroupMarker(groupName, true);
+			container.addGroupMarker(groupName);
 				
 		getBindings().wEnterScope();
 		getBindings().wDefValue("fillMenuStrategy", strategy);
@@ -216,9 +222,6 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 				((OpaqueEnablerPredicate) enablerPredicate).value :
 					qf.createBooleanLiteral(true);
 		
-		IEntity behavior = qf.createPointwiseUpdate(qf.createVariableRefStep("primarySelectedEntity"),
-				CommonsEntityAdapterFactory.createStageUpFragment(QueriesEntityDescriptorEnum.PathExpression, prototype));
-
 		switch (kind.getOrdinal()) {
 		case ActionKindEnum.REPLACE_ord:
 			return actionRegistry.createReplaceFragmentAction(text, predicate, prototype);
@@ -227,9 +230,13 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 			return actionRegistry.createAddFragmentAction(text, predicate, prototype);
 
 		case ActionKindEnum.WRAP_ord:
+			IEntity behavior = qf.createPointwiseUpdate(qf.createVariableRefStep("primarySelectedEntity"),
+					CommonsEntityAdapterFactory.createStageUpFragment(QueriesEntityDescriptorEnum.PathExpression, prototype));
 			return actionRegistry.createPerformAction(text, WRAP_ICON_URI, predicate, behavior);
 
 		case ActionKindEnum.PERFORM_ord:
+			return actionRegistry.createPerformAction(text, WRAP_ICON_URI, predicate, prototype);
+
 		default:
 			throw new IllegalArgumentException("not implemented yet");
 		}

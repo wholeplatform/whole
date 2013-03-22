@@ -30,7 +30,7 @@ import org.whole.lang.ui.editparts.WholeViewportAutoexposeHelper;
 /**
  * @author Enrico Persiani
  */
-public class RootEditPart extends ScalableRootEditPart {
+public class RootEditPart extends ScalableRootEditPart implements IScalableRootEditPart {
 	@Override
 	protected Viewport createViewport() {
 		Viewport viewport = super.createViewport();

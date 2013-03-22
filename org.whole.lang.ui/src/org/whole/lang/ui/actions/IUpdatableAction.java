@@ -15,26 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.ui.actions;
 
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.ui.actions.IActionRedirection;
+import org.eclipse.gef.ui.actions.UpdateAction;
+import org.eclipse.jface.action.IAction;
 
 /**
  * @author Enrico Persiani
  */
-public class SelectAllHandler extends RedirectableModelTransactionHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canSelectAll(bm);
-	}
+public interface IUpdatableAction extends IAction, UpdateAction {
 
-	public void run(IBindingManager bm) {
-		HandlersBehavior.selectAll(bm);
-	}
-	public String getLabel(IBindingManager bm) {
-		return "select all";
-	}
-	protected void performActionRedirection(IActionRedirection actionRedirection) {
-		actionRedirection.performSelectAll();
-	}
 }

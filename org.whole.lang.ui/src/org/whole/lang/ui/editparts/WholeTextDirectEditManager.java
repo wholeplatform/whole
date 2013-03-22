@@ -17,81 +17,47 @@
  */
 package org.whole.lang.ui.editparts;
 
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.tools.CellEditorLocator;
-import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.CellEditorActionHandler;
-import org.whole.lang.ui.figures.ITextFigure;
 import org.whole.lang.ui.views.WholeGraphicalViewer;
 
 /**
  * @author Riccardo Solmi
  */
-public class WholeTextDirectEditManager extends DirectEditManager {
+//TODO remove from hierarchy when migration to E4 api is completed
+public class WholeTextDirectEditManager extends TextDirectEditManager {
 
 	private IActionBars actionBars;
 	private CellEditorActionHandler actionHandler;
 	private IAction copy, cut, paste, undo, redo, find, selectAll, delete;
-	protected Font scaledFont;
 
 	protected WholeTextDirectEditManager(IGraphicalEntityPart source, Class<?> editorType, CellEditorLocator locator) {
 		super(source, editorType, locator);
 	}
 
-	@Override
-	protected IGraphicalEntityPart getEditPart() {
-		return (IGraphicalEntityPart) super.getEditPart();
-	}
-
 	protected void bringDown() {
-		if (actionHandler != null) {
-			actionHandler.dispose();
-			actionHandler = null;
+		if (getEditPart().getViewer() instanceof WholeGraphicalViewer) {
+			if (actionHandler != null) {
+				actionHandler.removeCellEditor(getCellEditor());
+				actionHandler.dispose();
+				actionHandler = null;
+			}
+			if (actionBars != null) {
+				restoreSavedActions(actionBars);
+				actionBars.updateActionBars();
+				actionBars = null;
+			}
 		}
-		if (actionBars != null) {
-			restoreSavedActions(actionBars);
-			actionBars.updateActionBars();
-			actionBars = null;
-		}
-
-		Font disposeFont = scaledFont;
-		scaledFont = null;
 		super.bringDown();
-		if (disposeFont != null)
-			disposeFont.dispose();
-	}
-
-	public void showFeedback() {
-		showDefaultFeedback();
-		//getEditPart().showSourceFeedback(getDirectEditRequest());
-	}
-	protected void showDefaultFeedback() {
-		super.showFeedback();
-	}
-
-	protected CellEditor createCellEditorOn(Composite composite) {
-		return new TextCellEditor(composite, SWT.MULTI | SWT.WRAP);
-	}
-	protected CellEditor createDefaultCellEditorOn(Composite composite) {
-		return super.createCellEditorOn(composite);
 	}
 
 	protected void initCellEditor() {
-		initCellEditor((Text) getCellEditor().getControl());
+		super.initCellEditor();
 
-		//TODO remove when migration to E4 api is completed
 		if (getEditPart().getViewer() instanceof WholeGraphicalViewer) {
 			// Hook the cell editor's copy/paste actions to the actionBars so that
 			// they can be invoked via keyboard shortcuts.
@@ -102,24 +68,7 @@ public class WholeTextDirectEditManager extends DirectEditManager {
 			actionHandler = new CellEditorActionHandler(actionBars);
 			actionHandler.addCellEditor(getCellEditor());
 			actionBars.updateActionBars();
-		} else
-			actionBars = null;
-	}
-	protected void initCellEditor(Text text) {
-		ITextFigure textFigure = (ITextFigure) getEditPart().getFigure();
-		String initialLabelText = textFigure.getText();
-
-		getCellEditor().setValue(initialLabelText);
-		IFigure figure = getEditPart().getFigure();
-		scaledFont = figure.getFont();
-		
-		FontData data = scaledFont.getFontData()[0];
-		Dimension fontSize = new Dimension(0, data.getHeight());
-		textFigure.translateToAbsolute(fontSize);
-		data.setHeight(fontSize.height);
-		scaledFont = new Font(null, data);
-		text.setFont(scaledFont);
-//		text.selectAll();
+		}
 	}
 
 	private void restoreSavedActions(IActionBars actionBars) {

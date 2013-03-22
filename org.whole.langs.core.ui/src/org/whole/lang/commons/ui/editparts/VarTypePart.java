@@ -25,6 +25,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.whole.lang.commons.ui.editpolicies.VarTypeDirectEditPolicy;
+import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.editparts.AbstractPart;
 import org.whole.lang.ui.editparts.LabelCellEditorLocator;
 import org.whole.lang.ui.editparts.LabelDirectEditManager;
@@ -63,5 +64,13 @@ public class VarTypePart extends AbstractPart {
 					new LabelCellEditorLocator(label), label);
 		}
 		manager.show();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class key) {
+		if (key == IActionRedirection.class)
+			return manager;
+		return super.getAdapter(key);
 	}
 }

@@ -15,14 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.actions;
-
-import org.eclipse.gef.ui.actions.UpdateAction;
-import org.eclipse.jface.action.IAction;
+package org.whole.lang.ui.actions;
 
 /**
  * @author Enrico Persiani
  */
-public interface IUpdatableAction extends IAction, UpdateAction {
+public interface IActionRedirection {
+	public boolean isActive();
 
+	public void performCut();
+	public void performCopy();
+	public void performPaste();
+
+	public void performSelectAll();
 }

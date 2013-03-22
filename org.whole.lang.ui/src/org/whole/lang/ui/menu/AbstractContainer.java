@@ -44,21 +44,16 @@ public abstract class AbstractContainer<I, F> implements IItemContainer<I, F> {
 		}
 	}
 
-	public void addSeparator(boolean conditional) {
-		addContributionItem(new Separator(), conditional);
+	public void addSeparator() {
+		setPendingSeparator(new Separator());
 	}
-	public void addSeparator(String groupName, boolean conditional) {
-		addContributionItem(new Separator(groupName), conditional);
+	public void addSeparator(String groupName) {
+		setPendingSeparator(hasContributions() ? new Separator(groupName) : new GroupMarker(groupName));
 	}
-	public void addGroupMarker(String groupName, boolean conditional) {
-		addContributionItem(new GroupMarker(groupName), conditional);
+	public void addGroupMarker(String groupName) {
+		setPendingSeparator(new GroupMarker(groupName));
 	}
 
-	protected void addContributionItem(IContributionItem item, boolean conditional) {
-		if (conditional)
-			setPendingSeparator(item);
-		else
-			addContributionItem(item);
-	}
 	protected abstract void addContributionItem(IContributionItem item);
+	protected abstract boolean hasContributions();
 }

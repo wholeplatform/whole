@@ -38,8 +38,7 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Enrico Persiani
  */
-public class ReplaceWithClassNameAction extends ReplaceChildAction 
-		implements IEntityTransformer {
+public class ReplaceWithClassNameAction extends ReplaceChildAction implements IEntityTransformer {
 	
 	private static final ImageDescriptor SELECT_CLASS_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_class.png");
 
@@ -47,7 +46,7 @@ public class ReplaceWithClassNameAction extends ReplaceChildAction
 
 	public ReplaceWithClassNameAction(EntityDescriptor<?> type,
 			String className, String text) {
-		super(UIUtils.getActiveEditor(), 
+		super(UIUtils.getActivePart(), 
 			EnablerPredicateFactory.instance.alwaysTrue(), type, text, null);
 		setImageDescriptor(SELECT_CLASS_ICON);
 		this.transformer = this;

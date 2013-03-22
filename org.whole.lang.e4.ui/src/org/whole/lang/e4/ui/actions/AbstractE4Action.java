@@ -20,6 +20,7 @@ package org.whole.lang.e4.ui.actions;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
  * @author Enrico Persiani

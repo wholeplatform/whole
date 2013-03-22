@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.swt.widgets.Composite;
@@ -107,6 +108,8 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 			return getComponent().getViewer();
 		else if (adapter == ZoomManager.class)
 			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+		else if (adapter == CommandStack.class)
+			return getComponent().getViewer().getCommandStack();
 		else
 			return super.getAdapter(adapter);
 	}

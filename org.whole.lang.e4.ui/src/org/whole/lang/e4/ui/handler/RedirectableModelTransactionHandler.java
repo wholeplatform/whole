@@ -22,61 +22,43 @@ import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IActionRedirection;
-import org.whole.lang.ui.editparts.ITextualEntityPart;
-import org.whole.lang.ui.requests.TextualRequest;
-import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.ui.actions.NullActionRedirection;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class CutHandler extends RedirectableModelTransactionHandler {
+public abstract class RedirectableModelTransactionHandler extends ModelTransactionHandler {
+
 	@Override
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
-			return true;
-		}
-		return super.canExecute(bm);
+		return getActionRedirection(bm).isActive() ? true : super.canExecute(bm);
 	}
 
 	@Override
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
-			HandlersBehavior.copy(bm);
-
-			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-			IEntity focusEntity = bm.wGet("focusEntity");
-			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
-			
-			Command command = focusPart.getCommand(TextualRequest.createDeleteRequest());
-			command.setLabel(getLabel(bm)+" text");
-
-			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-			commandStack.execute(command);
-
-			return;
-		}
-		super.execute(bm);
+		IActionRedirection actionRedirection = getActionRedirection(bm);
+		if (actionRedirection.isActive())
+			performActionRedirection(actionRedirection);
+		else
+			super.execute(bm);
 	}
 
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canCut(bm);
+	protected IActionRedirection getActionRedirection(IBindingManager bm) {
+		if (!bm.wIsSet("primarySelectedEntity"))
+			return NullActionRedirection.instance();
+
+		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("primarySelectedEntity"));
+		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
+		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
 	}
-	public void run(IBindingManager bm) {
-		HandlersBehavior.cut(bm);
-	}
-	public String getLabel(IBindingManager bm) {
-		return "cut";
-	}
-	protected void performActionRedirection(IActionRedirection actionRedirection) {
-		actionRedirection.performCut();
-	}
+
+	protected abstract void performActionRedirection(IActionRedirection actionRedirection);
 }

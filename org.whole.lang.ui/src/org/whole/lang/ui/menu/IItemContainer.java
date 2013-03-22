@@ -24,9 +24,9 @@ public interface IItemContainer<I, F> {
 	public void appendToGroup(String groupName, I item);
 	public void add(I item);
 
-	public void addSeparator(boolean conditional);
-	public void addSeparator(String groupName, boolean conditional);
-	public void addGroupMarker(String groupName, boolean conditional);
+	public void addSeparator();
+	public void addSeparator(String groupName);
+	public void addGroupMarker(String groupName);
 
 	public IItemContainer<I, F> appendToGroupIntoSubContainer(String groupName, String name, F icon);
 	public IItemContainer<I, F> addIntoSubContainer(String name, F icon);

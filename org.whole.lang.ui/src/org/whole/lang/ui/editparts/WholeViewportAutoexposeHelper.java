@@ -57,7 +57,7 @@ public class WholeViewportAutoexposeHelper extends ViewportAutoexposeHelper {
 		port.translateToParent(rect);
 		port.translateToAbsolute(rect);
 		if (!rect.contains(where)
-				|| rect.crop(threshold).contains(where))
+				|| rect.shrink(threshold).contains(where))
 			return false;
 
 		// set scroll offset (speed factor)
@@ -77,7 +77,7 @@ public class WholeViewportAutoexposeHelper extends ViewportAutoexposeHelper {
 		if (scrollOffset == 0)
 			return true;
 
-		rect.crop(threshold);
+		rect.shrink(threshold);
 
 		int region = rect.getPosition(where);
 

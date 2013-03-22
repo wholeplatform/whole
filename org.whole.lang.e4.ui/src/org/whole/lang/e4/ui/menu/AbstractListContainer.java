@@ -58,4 +58,7 @@ public abstract class AbstractListContainer<I, F> extends AbstractContainer<I, F
 	protected void addContributionItem(IContributionItem item) {
 		getList().add(item);
 	}
+	protected boolean hasContributions() {
+		return !getList().isEmpty();
+	}
 }

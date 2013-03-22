@@ -15,26 +15,44 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.ui.actions;
 
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.ui.actions.IActionRedirection;
 
 /**
  * @author Enrico Persiani
  */
-public class SelectAllHandler extends RedirectableModelTransactionHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canSelectAll(bm);
+public final class NullActionRedirection implements IActionRedirection {
+
+	private static class SingletonHolder {
+		private static final NullActionRedirection instance = new NullActionRedirection();
+	}
+	public static NullActionRedirection instance() {
+		return SingletonHolder.instance;
 	}
 
-	public void run(IBindingManager bm) {
-		HandlersBehavior.selectAll(bm);
+	private NullActionRedirection() {
 	}
-	public String getLabel(IBindingManager bm) {
-		return "select all";
+
+	@Override
+	public boolean isActive() {
+		return false;
 	}
-	protected void performActionRedirection(IActionRedirection actionRedirection) {
-		actionRedirection.performSelectAll();
+
+	@Override
+	public void performCut() {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public void performCopy() {
+		throw new UnsupportedOperationException();
+	}
+	@Override
+	public void performPaste() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void performSelectAll() {
+		throw new UnsupportedOperationException();
 	}
 }

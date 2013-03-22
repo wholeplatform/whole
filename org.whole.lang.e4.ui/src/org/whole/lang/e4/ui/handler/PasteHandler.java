@@ -28,6 +28,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.Clipboard;
+import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.commands.ITextCommand;
 import org.whole.lang.ui.commands.TextTransactionCommand;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
@@ -38,15 +39,16 @@ import org.whole.lang.ui.util.ClipboardUtils;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class PasteHandler extends ModelTransactionHandler {
+public class PasteHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
 			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-			return ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer);
-		} else
-			return super.canExecute(bm);
+			if (ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer))
+				return true;
+		}
+		return super.canExecute(bm);
 	}
 
 	@Override
@@ -54,25 +56,28 @@ public class PasteHandler extends ModelTransactionHandler {
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
 			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-			IEntity focusEntity = bm.wGet("focusEntity");
-			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
-	
-			String textContents = Clipboard.instance().getTextContents();
-			Command command = focusPart.getCommand(TextualRequest.createInsertRequest(textContents));
-	
-			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-			if (command instanceof ITextCommand) {
-				TextTransactionCommand transactionCommand = new TextTransactionCommand();
-				transactionCommand.setModel(focusEntity);
-				transactionCommand.merge((ITextCommand) command);
-				transactionCommand.setLabel(getLabel(bm));
-				commandStack.execute(transactionCommand);
-			} else {
-				command.setLabel(getLabel(bm)+" text");
-				commandStack.execute(command);
+			if (ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer)) {
+				IEntity focusEntity = bm.wGet("focusEntity");
+				ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
+		
+				String textContents = Clipboard.instance().getTextContents();
+				Command command = focusPart.getCommand(TextualRequest.createInsertRequest(textContents));
+		
+				CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+				if (command instanceof ITextCommand) {
+					TextTransactionCommand transactionCommand = new TextTransactionCommand();
+					transactionCommand.setModel(focusEntity);
+					transactionCommand.merge((ITextCommand) command);
+					transactionCommand.setLabel(getLabel(bm));
+					commandStack.execute(transactionCommand);
+				} else {
+					command.setLabel(getLabel(bm)+" text");
+					commandStack.execute(command);
+				}
+				return;
 			}
-		} else
-			super.execute(bm);
+		}
+		super.execute(bm);
 	}
 
 	public boolean isEnabled(IBindingManager bm) {
@@ -84,5 +89,8 @@ public class PasteHandler extends ModelTransactionHandler {
 	}
 	public String getLabel(IBindingManager bm) {
 		return "paste";
+	}
+	protected void performActionRedirection(IActionRedirection actionRedirection) {
+		actionRedirection.performPaste();
 	}
 }

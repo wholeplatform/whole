@@ -35,10 +35,11 @@ import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.pojo.ui.PojoUIDeployer;
 import org.whole.lang.queries.ui.QueriesUIDeployer;
+import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.semantics.ui.SemanticsUIDeployer;
+import org.whole.lang.status.ui.StatusUIDeployer;
 import org.whole.lang.templates.ui.TemplatesUIDeployer;
 import org.whole.lang.tests.ui.TestsEditorDeployer;
 import org.whole.lang.types.ui.TypesUIDeployer;
@@ -73,6 +74,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 			PojoUIDeployer.class,
 			QueriesUIDeployer.class,
 			SemanticsUIDeployer.class,
+			StatusUIDeployer.class,
 			TemplatesUIDeployer.class,
 			TestsEditorDeployer.class,
 			TypesUIDeployer.class,

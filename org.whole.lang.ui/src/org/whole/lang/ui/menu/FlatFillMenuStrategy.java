@@ -22,7 +22,7 @@ package org.whole.lang.ui.menu;
  */
 public class FlatFillMenuStrategy implements IFillMenuStrategy {
 	private static class SingletonHolder {
-		private static final IFillMenuStrategy instance = new E3FlatFillMenuStrategy(null);
+		private static final IFillMenuStrategy instance = new FlatFillMenuStrategy(null);
 	}
 	public static IFillMenuStrategy instance() {
 		return SingletonHolder.instance;

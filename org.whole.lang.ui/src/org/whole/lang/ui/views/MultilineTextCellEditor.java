@@ -17,6 +17,7 @@
  */
 package org.whole.lang.ui.views;
 
+
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -37,7 +38,7 @@ public class MultilineTextCellEditor extends TextCellEditor {
 	public MultilineTextCellEditor(Composite parent, int style) {
 		super(parent, style);
 	}
-	
+
 	@Override
 	protected void keyReleaseOccured(KeyEvent keyEvent) {
         if (keyEvent.character == '\r') {

@@ -112,6 +112,13 @@ public class UIUtils {
 			return ActiveEditorHelper.findActiveEditor();
 		}
 	}
+	public static IWorkbenchPart getActivePart() {
+		try {
+			return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+		} catch (Throwable e) {
+			return ActiveEditorHelper.findActiveEditor();
+		}
+	}
 
 	public static void selectAndReveal(EditPartViewer viewer, IEntity entity) {
 		IEntityPart linkPart = (IEntityPart) viewer.getEditPartRegistry().get(entity);

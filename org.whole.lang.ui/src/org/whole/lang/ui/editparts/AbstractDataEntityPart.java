@@ -28,6 +28,7 @@ import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.editpolicies.DataEntityDirectEditPolicy;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.views.MultilineTextCellEditor;
@@ -84,5 +85,13 @@ public abstract class AbstractDataEntityPart extends AbstractPart {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
 				directEditPolicy = new DataEntityDirectEditPolicy());
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Object getAdapter(Class key) {
+		if (key == IActionRedirection.class)
+			return manager;
+		return super.getAdapter(key);
 	}
 }

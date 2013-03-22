@@ -43,6 +43,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.util.StringUtils;
 

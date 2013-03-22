@@ -39,7 +39,7 @@ import org.whole.lang.ui.menu.IContextMenuRequest;
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public abstract class AbstractLazySelectionAction extends SelectionAction implements Comparable<IAction> {
+public abstract class AbstractLazySelectionAction extends SelectionAction implements Comparable<IAction>, IUpdatableAction {
 	public static final ImageDescriptor INSERT_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/insert.gif"); 
 	public static final ImageDescriptor REPLACE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/replace.gif"); 
 	public static final ImageDescriptor WRAP_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/wrap.gif"); 

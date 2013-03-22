@@ -26,6 +26,7 @@ import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.events.DisposeEvent;
@@ -39,6 +40,7 @@ import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
+import org.whole.lang.e4.ui.editparts.IScalableRootEditPart;
 import org.whole.lang.e4.ui.editparts.RootEditPart;
 import org.whole.lang.e4.ui.handler.CopyHandler;
 import org.whole.lang.e4.ui.handler.CutHandler;
@@ -73,6 +75,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
 
+	public E4GraphicalViewer(Composite parent) {
+		this(parent, new E4EditDomain());
+	}
 	public E4GraphicalViewer(Composite parent, E4EditDomain domain) {
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 
@@ -80,8 +85,12 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		domain.addViewer(this);
 
 		setEditPartFactory(new WholeEditPartFactory());
-		setRootEditPart(new RootEditPart());
+		setRootEditPart(createRootEditPart());
 
+		configureViewer(domain);
+	}
+
+	protected void configureViewer(E4EditDomain domain) {
 		addDragSourceListener(new EditPartTransferDragSourceListener(this));
 		addDropTargetListener(new EditPartTransferDropTargetListener(this));
 
@@ -91,10 +100,26 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		addDragSourceListener(new TextTransferDragSourceListener(this));
 		addDropTargetListener(new TextTransferDropTargetListener(this));
 
+		getControl().addGestureListener(new E4ZoomGestureListener(getScalableRootEditPart().getZoomManager()));
+
 		Tools.PANNING.ensureActive(domain);
 	}
-	public E4GraphicalViewer(Composite parent) {
-		this(parent, new E4EditDomain());
+
+	protected RootEditPart createRootEditPart() {
+		RootEditPart rootEditPart = new RootEditPart();
+		
+		List<String> levels = new ArrayList<String>(3);
+		levels.add(ZoomManager.FIT_ALL);
+		levels.add(ZoomManager.FIT_WIDTH);
+		levels.add(ZoomManager.FIT_HEIGHT);
+		ZoomManager zoomManager = rootEditPart.getZoomManager();
+		zoomManager.setZoomLevelContributions(levels);
+		zoomManager.setZoomAnimationStyle(ZoomManager.ANIMATE_ZOOM_IN_OUT);
+		return rootEditPart;
+	}
+
+	public IScalableRootEditPart getScalableRootEditPart() {
+		return (IScalableRootEditPart) super.getRootEditPart();
 	}
 
 	protected void firePartFocusChanged(IEntityPart oldPart, IEntityPart newPart) {
@@ -196,11 +221,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 				throw new IllegalStateException(e);
 			}
 		}
-		setContents(entity);
-		setInteractive(entity, true, true, true);
-		flush();
-		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
-		getCommandStack().flush();
+		setEntityContents(entity);
 	}
 
 	protected RootFragment wrapContents(IEntity entity) {
@@ -210,8 +231,6 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	public void setContents(Object contents) {
 		IEntity root = (IEntity) contents;
 		super.setContents(wrapContents(root));
-//TODO test to remove e4 menu rerender workaround
-//		select(getEditPartRegistry().get(root));
 		updateModelObserver(root);
 	}
 
@@ -221,6 +240,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	public void setEntityContents(IEntity entity) {
 		setContents(entity);
+		flush();
+		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		getCommandStack().flush();
 	}
 
 	public IEntityPart getFocusEntityPart() {

@@ -62,7 +62,7 @@ public abstract class ReplaceWithResourceAction extends ReplaceChildAction  impl
 	protected String path;
 
 	public ReplaceWithResourceAction(EntityDescriptor<?> type, String path, String text) {
-		super(UIUtils.getActiveEditor(), TRUE, type, text, null);
+		super(UIUtils.getActivePart(), TRUE, type, text, null);
 		this.transformer = this;
 		this.path = path;
 		setImageDescriptor(SELECT_RESOURCE_ICON);

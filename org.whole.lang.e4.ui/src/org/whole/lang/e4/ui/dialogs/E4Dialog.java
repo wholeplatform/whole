@@ -48,7 +48,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -56,8 +55,8 @@ import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
-import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.status.codebase.StatusTemplate;
+import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
  * @author Enrico Persiani
@@ -91,8 +90,6 @@ public class E4Dialog extends Dialog {
 		handlerService = context.get(EHandlerService.class);
 		bindingService = context.get(EBindingService.class);
 
-		IEntity entity = QueriesTemplateManager.instance().create("FileArtifact generator");
-
 		viewer = new E4GraphicalViewer(parent);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -116,11 +113,8 @@ public class E4Dialog extends Dialog {
 		});
 
 		viewer.setKeyHandler(new E4KeyHandler(context));
-		viewer.setContents(entity);
-		viewer.setInteractive(entity, true, true, true);
-		viewer.flush();
+		viewer.setEntityContents(createDefaultContents());
 
-		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
 		context.set(E4GraphicalViewer.class, viewer);
 
 		actionRegistry = createActionRegistry();
@@ -135,6 +129,10 @@ public class E4Dialog extends Dialog {
 			}
 		});
 		return parent;
+	}
+
+	protected IEntity createDefaultContents() {
+		return new StatusTemplate().create();
 	}
 
 	protected ActionRegistry createActionRegistry() {

@@ -42,7 +42,7 @@
 			<toolbar
 					id="org.whole.lang.e4.ui.compatibility.toolbar"
 					label="Whole Toolbar">
-				<!--control class="org.whole.lang.e4.ui.compatibility.ZoomControlContribution" /-->
+				<control class="org.whole.lang.e4.ui.compatibility.ZoomControlContribution" />
 				<command
 						commandId="org.whole.lang.e4.ui.command::validateModel"
 						icon="icons/actions/validate.gif"

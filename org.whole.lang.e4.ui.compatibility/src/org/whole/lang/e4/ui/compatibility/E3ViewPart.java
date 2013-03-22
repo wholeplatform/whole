@@ -22,6 +22,7 @@ import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
 
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
@@ -65,6 +66,8 @@ public class E3ViewPart extends DIViewPart<E4Part> {
 			return getComponent().getViewer();
 		else if (adapter == ZoomManager.class)
 			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+		else if (adapter == CommandStack.class)
+			return getComponent().getViewer().getCommandStack();
 		else
 			return super.getAdapter(adapter);
 	}

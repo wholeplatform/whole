@@ -47,9 +47,10 @@ public abstract class ModelTransactionHandler {
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), getLabel(bm));
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
 		try {
 			bm.wEnterScope();
+			mtc.setLabel(getLabel(bm));
 			mtc.begin();
 			run(bm);
 			mtc.commit();

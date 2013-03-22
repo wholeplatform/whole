@@ -31,6 +31,7 @@ import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.swt.events.KeyEvent;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.IEditorKit;
+import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
  * @author Enrico Persiani

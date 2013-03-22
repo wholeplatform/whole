@@ -66,7 +66,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
+import org.whole.lang.status.codebase.StatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
@@ -180,7 +180,7 @@ public class E4Part {
 	}
 
 	protected IEntity createDefaultContents() {
-		return QueriesTemplateManager.instance().create("FileArtifact generator");
+		return new StatusTemplate().create();
 	}
 
 	@PersistState

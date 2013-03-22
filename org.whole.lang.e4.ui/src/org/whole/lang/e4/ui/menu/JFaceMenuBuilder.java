@@ -32,13 +32,13 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
-import org.whole.lang.e4.ui.actions.IUpdatableAction;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.IEditorKit;
+import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.util.EntityUtils;
 
 /**

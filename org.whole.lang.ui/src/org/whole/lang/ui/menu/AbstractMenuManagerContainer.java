@@ -35,4 +35,7 @@ public abstract class AbstractMenuManagerContainer<I, F> extends AbstractContain
 	protected void addContributionItem(IContributionItem item) {
 		getMenuManager().add(item);
 	}
+	protected boolean hasContributions() {
+		return !menuManager.isEmpty();
+	}
 }
