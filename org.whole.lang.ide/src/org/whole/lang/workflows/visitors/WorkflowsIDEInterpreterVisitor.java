@@ -22,6 +22,8 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Cur
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.JavaProject_ord;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 import org.eclipse.core.resources.IContainer;
@@ -71,6 +73,7 @@ import org.whole.lang.workflows.model.Task;
 import org.whole.lang.workflows.model.Variable;
 import org.whole.lang.workflows.model.Variables;
 import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
+import org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum;
 import org.whole.lang.workflows.ui.dialogs.AssignmentsDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ConfirmationDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ITaskDialogFactory;
@@ -126,26 +129,42 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
 		Assignments assignments = ef.createAssignments(0);
 		Variables variables = entity.getShowVariables();
+		Set<Integer> voidVars = new HashSet<Integer>();
+		IEntity expression;
+		int index = 0;
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables))
-			for (int i=0, size=variables.size(); i<size; i++) {
-				String name = variables.get(i).getValue();
-				assignments.add(ef.createAssign(
-						ef.createVariable(name),
-						debugEnv.wIsSet(name) ?
-							CommonsEntityFactory.instance.createStageDownFragment(ef.createVariable(name)
-									.wGetAdapter(CommonsEntityDescriptorEnum.Any)).wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)
-							: CommonsEntityFactory.instance.createResolver()
-									.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));										
+			for (int size=variables.size(); index<size; index++) {
+				String name = variables.get(index).getValue();
+				if (debugEnv.wIsSet(name)) {
+					if (BindingManagerFactory.instance.isVoid(debugEnv.wGet(name)))
+						voidVars.add(index);
+
+					expression = CommonsEntityFactory.instance.createStageDownFragment(
+							ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
+				} else
+					expression = CommonsEntityFactory.instance.createResolver();
+				
+				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
 			}
 		else
-			for (String name : new TreeSet<String>(debugEnv.wNames()))
-				assignments.add(ef.createAssign(
-						ef.createVariable(name),
-						CommonsEntityFactory.instance.createStageDownFragment(
-								ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any)).wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));			
+			for (String name : new TreeSet<String>(debugEnv.wNames())) {
+				if (BindingManagerFactory.instance.isVoid(debugEnv.wGet(name)))
+					voidVars.add(index);
 
-		stagedVisit(assignments, 1);
+				expression = CommonsEntityFactory.instance.createStageDownFragment(
+						ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
+
+				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
+				index++;
+			}
+
+		stagedVisit(assignments, 1);	
 		final IEntity variablesModel = getResult();
+
+		//FIXME add workaround for missing GenericTemplateInterpreter strategy preserving Voids
+		for (int i : voidVars)
+			variablesModel.wGet(i).wSet(WorkflowsFeatureDescriptorEnum.expression, BindingManagerFactory.instance.createVoid().wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
+
 		final IEntity breakpointEntity = entity;
 		final IEntity debugModel = EntityUtils.safeGetRootEntity(entity);//TODO add variable
 
@@ -209,16 +228,18 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			bindings.wDefValue("rootResource", rootResource);
 
 			IContainer container = rootResource.getParent();
-			int type = container.getType();
-			switch (type) {
-			case IResource.PROJECT:
-				bindings.wDefValue("project", container);
-				break;
-			case IResource.FOLDER:
-				bindings.wDefValue("folder", container);
-				break;
-			default:
-				break;
+			if (container != null) {
+				int type = container.getType();
+				switch (type) {
+				case IResource.PROJECT:
+					bindings.wDefValue("project", container);
+					break;
+				case IResource.FOLDER:
+					bindings.wDefValue("folder", container);
+					break;
+				default:
+					break;
+				}
 			}
 			return bindings;
 		} catch (Exception e) {
