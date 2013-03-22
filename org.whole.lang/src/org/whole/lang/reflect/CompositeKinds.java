@@ -21,5 +21,12 @@ package org.whole.lang.reflect;
  * @author Riccardo Solmi
  */
 public enum CompositeKinds {
-	LIST, UNIQUE_LIST, SET, BAG, NOT_A_COMPOSITE
+	LIST, UNIQUE_LIST, SET, BAG, NOT_A_COMPOSITE;
+
+	public boolean isOrdered() {
+		return equals(LIST) || equals(UNIQUE_LIST);
+	}
+	public boolean isUnique() {
+		return equals(SET) || equals(UNIQUE_LIST);
+	}
 }

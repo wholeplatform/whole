@@ -151,11 +151,8 @@ public abstract class AbstractEntityDescriptor<E extends IEntity> extends EnumVa
     	return declaredSubtypesUpto(ed, new HashSet<EntityDescriptor<?>>()) || ed.declaredSupertypesUpto(this, new HashSet<EntityDescriptor<?>>());
     }
     public boolean isExtendedLanguageSupertypeOf(EntityDescriptor<?> ed) {
-    	if (EntityUtils.isResolver(ed))
-    		return ed.isExtendedLanguageSupertypeOf(this);
-    	else
-	    	return getLanguageKit().equals(ed.getLanguageKit()) ?
-	    			isLanguageSupertypeOf(ed) : isPlatformSupertypeOf(ed);
+		return getLanguageKit().equals(ed.getLanguageKit()) ?
+				isLanguageSupertypeOf(ed) : isPlatformSupertypeOf(ed);
     }
 
     public void setLanguageSubtypes(boolean enable, int... edOrdinals) {

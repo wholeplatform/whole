@@ -22,7 +22,6 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
-import org.whole.lang.reflect.CompositeKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.EntityUtils;
@@ -122,7 +121,7 @@ public class GenericEntityFactory implements IEntityFactory {
 		E entity = values.length == ed.getEntityFeatureDescriptors().size() ? shallowClone(ed) : create(ed);
 		if (ed.getEntityKind().isComposite()) {
 			int length = values.length;
-			if (CompositeKinds.SET.equals(ed.getCompositeKind()) || CompositeKinds.BAG.equals(ed.getCompositeKind()))
+			if (!ed.getCompositeKind().isOrdered())
 				length = 0; // unordered composites forward wSet by index to wAdd
 			for (int i=entity.wSize()-1; i>=length; i--)
 				entity.wRemove(i);
