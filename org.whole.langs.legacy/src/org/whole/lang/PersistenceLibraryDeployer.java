@@ -29,6 +29,7 @@ import org.whole.lang.java.util.JavaStoreProducerBuilderOperation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.AbstractFunctionLibraryDeployer;
+import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
 import org.whole.lang.util.IRunnable;
@@ -45,6 +46,11 @@ import bsh.Interpreter;
  */
 public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static final String URI = "whole:org.whole.lang:PersistenceLibrary";
+
+	@Override
+	public int getDeployLevel() {
+		return IDeployer.LEVEL_LANGUAGE_EXTENSION-1;//FIXME workaround
+	}
 
 	public void deploy(ReflectionFactory platform) {
 		putFunctionLibrary(URI);

@@ -53,9 +53,9 @@ public class LegacyLanguagesDeployer extends AbstractSuiteDeployer {
 			DefaultPersistenceDeployer.class
 		);
 	}
-	
+
 	public void deploy(ReflectionFactory platform) {
 		super.deploy(platform);
-		new PersistenceLibraryDeployer().deploy(platform);
+//		new PersistenceLibraryDeployer().deploy(platform);
 	}
 }

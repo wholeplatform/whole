@@ -13,5 +13,10 @@
             class="org.whole.langs.legacy.LegacyMetaModelsDeployer"
             id="org.whole.langs.legacy.LegacyMetaModelsDeployer">
       </deployer>
+      <deployer
+            desc="Persistence Library Deployer"
+            class="org.whole.lang.PersistenceLibraryDeployer"
+            id="org.whole.lang.PersistenceLibraryDeployer">
+      </deployer>
    </extension>
 </plugin>

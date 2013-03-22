@@ -22,8 +22,8 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Cur
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.JavaProject_ord;
 
 import java.io.ByteArrayInputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 import org.eclipse.core.resources.IContainer;
@@ -129,7 +129,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
 		Assignments assignments = ef.createAssignments(0);
 		Variables variables = entity.getShowVariables();
-		Set<Integer> voidVars = new HashSet<Integer>();
+		List<Integer> voidVars = new ArrayList<Integer>();
 		IEntity expression;
 		int index = 0;
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables))
