@@ -178,7 +178,7 @@ public class TransformationHandler extends AbstractHandler implements IRunnableW
 					resultsModel.wAdd(GenericEntityFactory.instance.create(
 							CommonsEntityDescriptorEnum.StageUpFragment,
 							//CommonsEntityFactory.instance.createStageUpFragment(
-							EntityUtils.clone(result)));//TODO substitute with a no containment fragment
+							EntityUtils.cloneIfParented(result)));//TODO substitute with a no containment fragment
 				operationProgressMonitor.worked(1);
 			}
 			transformCommand.commit();
