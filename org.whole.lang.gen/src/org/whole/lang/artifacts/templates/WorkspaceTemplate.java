@@ -48,16 +48,14 @@ public class WorkspaceTemplate extends ResourceTemplate {
 	}
 
 	private void buildNatures(IProject project) {
-		try {
-			if (project.hasNature(JavaCore.NATURE_ID)) { 
-				getBindings().wDefValue("javaProject", JavaCore.create(project));
+			IJavaProject javaProject = JavaCore.create(project);
+			if (javaProject != null) { 
+				getBindings().wDefValue("javaProject", javaProject);
 				ab.Natures_(1);
 				ab.Nature(JavaCore.NATURE_ID);
 				ab._Natures();
-			}
-		} catch (CoreException e) {
-			ab.Natures();
-		}
+			} else
+				ab.Natures();
 	}
 
 	protected void buildMetadata(String... attributes) {

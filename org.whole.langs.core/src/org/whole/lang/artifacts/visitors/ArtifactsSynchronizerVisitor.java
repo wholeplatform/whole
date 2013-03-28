@@ -66,7 +66,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		this.firstPass = !traverse.isDirectoryStructure();
 	}
 
-	private IEntity createFilesystemModel(IEntity basePath, boolean append) {
+	private IEntity createFilesystemModel(IArtifactsEntity model, IEntity basePath, boolean append) {
 		T parentContext = getResource();
 		IEntity artifact = basePath;
 
@@ -76,7 +76,7 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 			if (getArtifactsOperations().getChild(parentContext, basePath) == null)
 				throw new IllegalArgumentException("invalid root resource");
 	
-			while (artifact != null && EntityUtils.isNotResolver(artifact)) {
+			while (artifact != null && EntityUtils.isNotResolver(artifact) && !EntityUtils.isVariable(artifact)) {
 				parentContext = getArtifactsOperations().getChild(parentContext, artifact);
 				if (parentContext == null)
 					break;
@@ -119,6 +119,8 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 									GenericMatcherFactory.instance.isFragmentMatcher(),
 									GenericMatcherFactory.instance.hasKindMatcher(EntityKinds.COMPOSITE)));
 
+		iterator.reset(entity);
+
 		// build the ancestors path
 		IEntity patternPath = null;
 		if (iterator.hasNext()) {
@@ -137,11 +139,11 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 		if (isLoading) {
 			if (entity == null) {
 				// build from scratch
-				model = createFilesystemModel(null, false);
+				model = createFilesystemModel(entity, null, false);
 				this.compareToEntityStack.push(cloneArtifact(model));
 			} else {
 				IEntity basePath = createBasePath(entity);
-				model = createFilesystemModel(basePath, false);
+				model = createFilesystemModel(entity, basePath, false);
 				this.compareToEntityStack.push(EntityUtils.clone(entity));
 			}
 		} else {
@@ -158,9 +160,9 @@ public class ArtifactsSynchronizerVisitor<T> extends ArtifactsResourceVisitor<T>
 				Matcher.removeVars(model, true);
 			} else
 				model = EntityUtils.clone(entity);
-	
+
 			// initialize the synchronization model
-			IEntity filesystemModel = createFilesystemModel(basePath, true);
+			IEntity filesystemModel = createFilesystemModel(entity, basePath, true);
 			this.compareToEntityStack.push(filesystemModel);
 	
 		}

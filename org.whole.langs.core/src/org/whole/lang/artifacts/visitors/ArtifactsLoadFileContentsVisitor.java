@@ -72,7 +72,7 @@ public class ArtifactsLoadFileContentsVisitor<T> extends ArtifactsResourceVisito
 						.createStageUpFragment(
 								ArtifactsEntityDescriptorEnum.Content, model));
 			} catch (Exception e) {
-				throw new IllegalStateException(e);
+//TODO parameterize 	throw new IllegalStateException(e);
 			}
 		}
 	}
