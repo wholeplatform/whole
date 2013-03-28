@@ -18,6 +18,7 @@
 package org.whole.lang.ui.editparts;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -31,6 +32,7 @@ import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.figures.INodeFigure;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -62,18 +64,23 @@ public abstract class AbstractNodePart extends AbstractContentPanePart implement
 	protected List<IEntity> getModelTargetConnections() {
 		return getModelConnections(targetFeatures);
 	}
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "unchecked" })
 	protected List<IEntity> getModelConnections(FeatureDescriptor[] features) {
 		IEntity e = getModelEntity(); 
 		List<IEntity> result = new ArrayList<IEntity>(features.length);
 		for (int i=0; i<features.length; i++) {
 			IEntity c = e.wGet(features[i]);
+			if (EntityUtils.isResolver(c))
+				continue;
 			switch (c.wGetEntityKind()) {
 			case COMPOSITE:
-				result.addAll(c.wFeatures());
+				result.addAll((Collection<? extends IEntity>) c);
 				break;
 			case SIMPLE:
 				result.add(c);
+				break;
+			case DATA:
+				throw new IllegalStateException("unsupported entity kind");
 			}
 		}
 		return result;
@@ -92,6 +99,9 @@ public abstract class AbstractNodePart extends AbstractContentPanePart implement
 			case SIMPLE:
 				if (ec == c)
 					return getNodeFigure().getSourceAnchor(i);
+				break;
+			case DATA:
+				throw new IllegalStateException("unsupported entity kind");
 			}
 		}
 		return null;
@@ -109,6 +119,9 @@ public abstract class AbstractNodePart extends AbstractContentPanePart implement
 			case SIMPLE:
 				if (ec == c)
 					return getNodeFigure().getTargetAnchor(i);
+				break;
+			case DATA:
+				throw new IllegalStateException("unsupported entity kind");
 			}
 		}
 		return null;

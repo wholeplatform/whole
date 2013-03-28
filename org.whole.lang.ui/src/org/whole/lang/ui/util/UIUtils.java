@@ -91,7 +91,7 @@ public class UIUtils {
 	}
 	public static void defSelectedEntities(IBindingManager bm, IEntity entities) {
 		bm.wDef("selectedEntities", entities);
-		if (!entities.wIsEmpty())
+		if (entities.wSize() > 0)
 			bm.wDef("primarySelectedEntity", entities.wGet(0));
 	}
 
