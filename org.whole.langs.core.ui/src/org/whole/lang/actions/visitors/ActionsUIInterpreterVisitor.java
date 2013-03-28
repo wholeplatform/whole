@@ -58,6 +58,7 @@ import org.whole.lang.ui.actions.ActionsComparator;
 import org.whole.lang.ui.actions.CompositeAddAction;
 import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.actions.IEnablerPredicate;
+import org.whole.lang.ui.actions.PerformCustomAction;
 import org.whole.lang.ui.actions.ReplaceChildAction;
 import org.whole.lang.ui.actions.WrapChildAction;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -325,7 +326,7 @@ public class ActionsUIInterpreterVisitor extends ActionsInterpreterVisitor {
 
 		case ActionKindEnum.PERFORM_ord:
 		default:
-			throw new IllegalArgumentException("not implemented yet");
+			return new PerformCustomAction(workbenchPart, prototype, text);
 		}
 	}
 
