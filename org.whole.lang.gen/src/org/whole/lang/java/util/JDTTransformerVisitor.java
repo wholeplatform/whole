@@ -257,7 +257,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 
 	public boolean visit(CompilationUnit node) {
 		cu = lf.createCompilationUnit(
-				lf.create(JavaEntityDescriptorEnum.PackageDeclaration),
+				createResolver(JavaEntityDescriptorEnum.PackageDeclaration),
 				lf.create(JavaEntityDescriptorEnum.ImportDeclarations),
 				lf.create(JavaEntityDescriptorEnum.TypeDeclarations));
 
