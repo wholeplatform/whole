@@ -48,16 +48,20 @@ public class E3ViewPart extends DIViewPart<E4Part> {
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		
-		IActionBars actionBars = getViewSite().getActionBars();
 		undoAction = new UndoAction(getContext().getParent(), UNDO_LABEL);
 		undoAction.update();
-		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
 
 		redoAction = new RedoAction(getContext().getParent(), REDO_LABEL);
 		redoAction.update();
-		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
 	}
 
+	@Override
+	public void setFocus() {
+		IActionBars actionBars = getViewSite().getActionBars();
+		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
+		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+		super.setFocus();
+	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
