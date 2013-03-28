@@ -17,10 +17,8 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.api.IUIBuilder;
 import org.whole.lang.e4.ui.api.IUIProvider;
-import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
 /**
  * @author Enrico Persiani
@@ -38,10 +36,6 @@ public class PopupMenuProvider<I, C extends I> implements IUIProvider<C> {
 		uiBuilder.before();
 
 		uiBuilder.addOpenDialog();
-
-		uiBuilder.addReplaceEntityItem(QueriesEntityDescriptorEnum.ChildStep);
-		uiBuilder.addReplaceEntityItem(QueriesEntityDescriptorEnum.ParentStep);
-		uiBuilder.addAddEntityItem(ArtifactsEntityDescriptorEnum.PackageArtifact);
 
 		uiBuilder.addSeparator();
 

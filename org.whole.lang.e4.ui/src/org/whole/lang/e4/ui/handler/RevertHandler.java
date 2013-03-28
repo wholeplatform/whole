@@ -25,7 +25,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
 
 /**
  * @author Enrico Persiani
@@ -35,15 +34,17 @@ public class RevertHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-		return viewer.getCommandStack().isDirty() && bm.wIsSet("modelInput");
+		try {
+			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+			return viewer.getCommandStack().isDirty() && bm.wIsSet("modelInput");
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-		viewer.setContents((IModelInput) bm.wGetValue("modelInput"),
-				//FIXME move default model creation strategy
-				QueriesTemplateManager.instance().create("FileArtifact generator"));
+		viewer.setContents((IModelInput) bm.wGetValue("modelInput"), null);
 	}
 }

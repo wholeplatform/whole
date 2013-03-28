@@ -44,7 +44,11 @@ public class SelectNotationHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		return HandlersBehavior.isValidEntityPartSelection(bm, true);
+		try {
+			return HandlersBehavior.isValidEntityPartSelection(bm, true);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Execute

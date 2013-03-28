@@ -24,7 +24,6 @@ import java.util.Map;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -34,7 +33,6 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
@@ -49,7 +47,10 @@ import org.whole.lang.e4.ui.handler.SelectAllHandler;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.FeatureDescriptorEnum;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.dnd.EditPartTransferDragSourceListener;
 import org.whole.lang.ui.dnd.EditPartTransferDropTargetListener;
 import org.whole.lang.ui.dnd.FileTransferDropTargetListener;
@@ -58,6 +59,7 @@ import org.whole.lang.ui.dnd.TextTransferDropTargetListener;
 import org.whole.lang.ui.dnd.XmlBuilderFileTransferDragSourceListener;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.WholeEditPartFactory;
 import org.whole.lang.ui.figures.IEntityFigure;
@@ -67,6 +69,7 @@ import org.whole.lang.ui.resources.IColorRegistry;
 import org.whole.lang.ui.resources.IFontRegistry;
 import org.whole.lang.ui.resources.IResourceManager;
 import org.whole.lang.ui.tools.Tools;
+import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
  * @author Enrico Persiani
@@ -210,18 +213,21 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	public void setContents(IModelInput modelInput, IEntity defaultContents) {
-		IEntity entity;
-		if (modelInput == null) {
-			entity = defaultContents;
-		} else {
+		if (modelInput != null) {
 			try {
-				IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
-				entity = modelInput.getPersistenceKit().readModel(pp);
+				setEntityContents(modelInput.readModel());
 			} catch (Exception e) {
-				throw new IllegalStateException(e);
+				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
+				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
+				IEntity statusModel = new ErrorStatusTemplate().create();
+				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
+						modelInput.getFile().getName(), modelInput.getPersistenceKit().getDescription());
+				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);
+				statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(e.getLocalizedMessage());
+				setEntityContents(statusModel);
 			}
-		}
-		setEntityContents(entity);
+		} else
+			setEntityContents(defaultContents);
 	}
 
 	protected RootFragment wrapContents(IEntity entity) {
@@ -251,7 +257,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited) {
 		Map<?, ?> mapping = getEditPartRegistry();
-		GraphicalEditPart entityPart = (GraphicalEditPart) mapping.get(entity);
+		IGraphicalEntityPart entityPart = (IGraphicalEntityPart) mapping.get(entity);
 		if (entityPart != null) {
 			IEntityFigure entityFigure = (IEntityFigure) entityPart.getFigure();
 			entityFigure.setInteractiveEdit(edit);

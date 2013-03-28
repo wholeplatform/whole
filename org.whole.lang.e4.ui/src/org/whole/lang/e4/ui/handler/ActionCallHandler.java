@@ -50,6 +50,8 @@ public class ActionCallHandler {
 			bm.wEnterScope();
 			defineBindings(functionUri, predicateXwl, analyzing, bm);
 			return HandlersBehavior.canCallAction(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

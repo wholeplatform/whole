@@ -37,7 +37,11 @@ public abstract class RedirectableModelTransactionHandler extends ModelTransacti
 	@Override
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		return getActionRedirection(bm).isActive() ? true : super.canExecute(bm);
+		try {
+			return getActionRedirection(bm).isActive() ? true : super.canExecute(bm);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override

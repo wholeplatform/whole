@@ -32,8 +32,12 @@ import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 public class RedoHandler {
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-		return viewer.getEditDomain().getCommandStack().canRedo();
+		try {
+			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+			return viewer.getEditDomain().getCommandStack().canRedo();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Execute

@@ -35,7 +35,11 @@ public class FindReplaceHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		return HandlersBehavior.isValidEntityPartSelection(bm, false);
+		try {
+			return HandlersBehavior.isValidEntityPartSelection(bm, false);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Execute

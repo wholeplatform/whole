@@ -20,14 +20,18 @@ package org.whole.lang.e4.ui.parts;
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -48,8 +52,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
@@ -66,7 +68,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.status.codebase.StatusTemplate;
+import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
@@ -96,17 +98,17 @@ public class E4Part {
 		context = context.getParent();
 		selectionService = context.get(ESelectionService.class);
 		handlerService = context.get(EHandlerService.class);
-
+		
+		restoreState();
 
 		parent.setLayout(new FillLayout());
 		viewer = new E4GraphicalViewer(parent);
+		viewer.setKeyHandler(new E4KeyHandler(context));
+
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				IBindingManager bm = E4Utils.createSelectionBindings(event);
-				if (modelInput != null)
-					E4Utils.defineResourceBindings(bm, modelInput);
-				selectionService.setSelection(bm);
+				setSelection(E4Utils.createSelectionBindings(event));
 			}
 		});
 		viewer.getControl().addFocusListener(new FocusListener() {
@@ -116,23 +118,21 @@ public class E4Part {
 			}
 
 			@Override
+			@SuppressWarnings("unchecked")
 			public void focusGained(FocusEvent e) {
 				context.set(E4GraphicalViewer.class, viewer);
+				setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
-				if (modelInput != null)
-					E4Utils.defineResourceBindings(bm, modelInput);
-				selectionService.setSelection(bm);
+				setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
-		viewer.setKeyHandler(new E4KeyHandler(context));
 
 		viewer.setContents(modelInput, createDefaultContents());
-
+		
 		context.set(E4GraphicalViewer.class, viewer);
 		HandlersBehavior.registerHandlers(handlerService);
 
@@ -145,17 +145,19 @@ public class E4Part {
 		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(context, actionRegistry));
 		contextMenuProvider.populate(contextMenu);
 
-		viewer.getControl().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent event) {
-				if (event.button == 3) {
-					//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
-					E4Utils.forceRender(context, contextMenu);
-					viewer.getControl().removeMouseListener(this);
-				}
-			}
-		});
+		//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
+		E4Utils.forceRender(context, contextMenu);
+}
 
+	protected void setSelection(IBindingManager bm) {
+		if (modelInput != null)
+			E4Utils.defineResourceBindings(bm, modelInput);
+		selectionService.setSelection(bm);
+	}
+
+	@Inject
+	public void setModelInput(final IModelInput modelInput, IWorkspace workspace) {
+		clearListeners();
 		if (modelInput != null) {
 			workspace.addResourceChangeListener(resourceListener = new IResourceChangeListener() {
 				public void resourceChanged(IResourceChangeEvent event) {
@@ -165,7 +167,7 @@ public class E4Part {
 								public boolean visit(IResourceDelta delta) throws CoreException {
 									if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
 											delta.getMarkerDeltas().length == 0) {
-										viewer.setContents(modelInput, createDefaultContents());
+										viewer.setContents(modelInput, null);
 										return false;
 									} else
 										return true;
@@ -179,13 +181,31 @@ public class E4Part {
 		}
 	}
 
+	@PreDestroy
+	public void clearListeners() {
+		if (resourceListener != null && this.workspace != null)
+			this.workspace.removeResourceChangeListener(resourceListener);
+	}
+
 	protected IEntity createDefaultContents() {
-		return new StatusTemplate().create();
+		return new EmptyStatusTemplate().create();
 	}
 
 	@PersistState
 	public void saveState() {
 		part.getMenus().clear();
+		if (modelInput != null) {
+			part.getPersistedState().put("basePersistenceKitId", modelInput.getBasePersistenceKit().getId());
+			part.getPersistedState().put("filePath", modelInput.getFile().getFullPath().toPortableString());
+		}
+	}
+	
+	protected void restoreState() {
+		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
+			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(part.getPersistedState().get("filePath")));
+			context.set(IModelInput.class, modelInput = new ModelInput(file, basePersistenceKitId));
+		}
 	}
 
 	@Persist
@@ -205,9 +225,11 @@ public class E4Part {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Focus
 	public void setFocus() {
 		viewer.getControl().setFocus();
+		setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 	}
 
 	public E4GraphicalViewer getViewer() {

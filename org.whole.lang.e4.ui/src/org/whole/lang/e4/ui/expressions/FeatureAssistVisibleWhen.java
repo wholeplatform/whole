@@ -18,17 +18,16 @@
 package org.whole.lang.e4.ui.expressions;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
-public class FeatureAssistVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
+public class FeatureAssistVisibleWhen extends ValidSingleSelectionVisibleWhen {
 	@Override
 	public boolean isVisible(IBindingManager bm) {
-		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
+		if (!super.isVisible(bm))
 			return false;
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");

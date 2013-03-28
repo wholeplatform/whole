@@ -15,34 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.e4.ui.expressions;
 
-import javax.inject.Named;
-
-import org.eclipse.e4.core.di.annotations.CanExecute;
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
 
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
-public class UndoHandler {
-	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		try {
-			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-			return viewer.getEditDomain().getCommandStack().canUndo();
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-		viewer.getEditDomain().getCommandStack().undo();
+public class ValidSingleSelectionVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
+	@Override
+	public boolean isVisible(IBindingManager bm) {
+		return HandlersBehavior.isValidEntityPartSelection(bm, true);
 	}
 }

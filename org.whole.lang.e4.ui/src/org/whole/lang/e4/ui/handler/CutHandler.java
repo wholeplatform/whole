@@ -40,10 +40,14 @@ public class CutHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
-			return true;
+		try {			
+			if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
+				return true;
+			}
+			return super.canExecute(bm);
+		} catch (Exception e) {
+			return false;
 		}
-		return super.canExecute(bm);
 	}
 
 	@Override

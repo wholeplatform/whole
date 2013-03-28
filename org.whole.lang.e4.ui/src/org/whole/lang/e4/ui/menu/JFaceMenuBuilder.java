@@ -39,7 +39,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.ui.actions.IUpdatableAction;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -117,9 +116,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 
 	@Override
 	public void addContentAssistItem() {
-		IBindingManager bm = getBindings();
-		IMenuManager menu = createMenu(CONTENT_ASSIST_LABEL);
-		menu.setVisible(contentAssistVisibleWhen.isVisible(bm));
+		IMenuManager menu = createMenu(CONTENT_ASSIST_LABEL, getContentAssistVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
@@ -128,22 +125,15 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 
 	@Override
 	public void addEntityAssistItem() {
-		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL);
+		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
-
-		if (!HandlersBehavior.isValidEntityPartSelection(getBindings(), true))
-			return;
 
 		IContributionItem ici = new EntityAssistCompositeContributionItem(context, actionRegistry);
 		menu.add(ici);
 	}
 	@Override
 	public void addFeatureAssistItem() {
-		IBindingManager bm = getBindings();
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		IMenuManager menu = createMenu(FEATURE_ASSIST_LABEL);
-		menu.setVisible(HandlersBehavior.isValidEntityPartSelection(bm, true) &&
-				EntityUtils.isSimple(selectedEntity));
+		IMenuManager menu = createMenu(FEATURE_ASSIST_LABEL, getFeatureAssistVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new FeatureAssistCompositeContributionItem(context, actionRegistry);
@@ -151,8 +141,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	}
 
 	protected void addActionsItem(String menuLabel, VisibilityExpression expression, IContributionItem ici) {
-		IMenuManager menu = createMenu(menuLabel);
-		menu.setVisible(expression.isVisible(getBindings()));
+		IMenuManager menu = createMenu(menuLabel, expression);
 		addItem(menu);
 		menu.add(ici);
 	}
@@ -160,7 +149,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	public void addNotationsItem() {
 		IBindingManager bm = getBindings();
 
-		IMenuManager menu = createMenu(NOTATION_LABEL);
+		IMenuManager menu = createMenu(NOTATION_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
 
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
@@ -209,6 +198,11 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	public void addOpenDialog() {
 	}
 
+	protected IMenuManager createMenu(String name, VisibilityExpression expression) {
+		IMenuManager menu = createMenu(name);
+		menu.setVisible(expression.isVisible(getBindings()));
+		return menu;
+	}
 	protected IMenuManager createMenu(String name) {
 		return new MenuManager(name);
 	}

@@ -55,7 +55,7 @@ import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.status.codebase.StatusTemplate;
+import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
@@ -132,7 +132,7 @@ public class E4Dialog extends Dialog {
 	}
 
 	protected IEntity createDefaultContents() {
-		return new StatusTemplate().create();
+		return new ErrorStatusTemplate().create();
 	}
 
 	protected ActionRegistry createActionRegistry() {

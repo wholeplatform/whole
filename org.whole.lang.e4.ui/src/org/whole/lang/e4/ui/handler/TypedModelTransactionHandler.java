@@ -44,6 +44,8 @@ public abstract class TypedModelTransactionHandler {
 			bm.wEnterScope();
 			defineBindings(edUri, fdUri, bm);
 			return isEnabled(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

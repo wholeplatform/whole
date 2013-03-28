@@ -30,6 +30,7 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
+import org.whole.lang.e4.ui.expressions.ValidSingleSelectionVisibleWhen;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.menu.ActionsCompositeContributionItem;
 import org.whole.lang.e4.ui.util.E4Utils;
@@ -51,19 +52,38 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 
 	protected final IEclipseContext context;
 	protected final ActionRegistry actionRegistry;
-	protected final ContentAssistVisibleWhen contentAssistVisibleWhen;
-	protected final FeatureAssistVisibleWhen featuretAssistVisibleWhen;
+	private final ContentAssistVisibleWhen contentAssistVisibleWhen;
+	private final ValidSingleSelectionVisibleWhen validSingleSelectionVisibleWhen;
+	private final FeatureAssistVisibleWhen featureAssistVisibleWhen;
 
 	public AbstractUIBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
 		this.context = context;
 		this.actionRegistry = actionRegistry;
 		this.contentAssistVisibleWhen = new ContentAssistVisibleWhen();
-		this.featuretAssistVisibleWhen = new FeatureAssistVisibleWhen();
+		this.validSingleSelectionVisibleWhen = new ValidSingleSelectionVisibleWhen();
+		this.featureAssistVisibleWhen = new FeatureAssistVisibleWhen();
+	}
+
+	private final IBindingManager emptyBindings = E4Utils.createSelectionBindings(Collections.<IEntityPart>emptyList(), null);
+	protected IBindingManager getBindings() {
+		ESelectionService selectionService = context.get(ESelectionService.class);
+		return selectionService.getSelection() instanceof IBindingManager ?
+				(IBindingManager) selectionService.getSelection() : emptyBindings;
+	}
+
+	protected ContentAssistVisibleWhen getContentAssistVisibleWhen() {
+		return contentAssistVisibleWhen;
+	}
+	protected ValidSingleSelectionVisibleWhen getValidSingleSelectionVisibleWhen() {
+		return validSingleSelectionVisibleWhen;
+	}
+	protected FeatureAssistVisibleWhen getFeatureAssistVisibleWhen() {
+		return featureAssistVisibleWhen;
 	}
 
 	@Override
 	public void addRemoveItem() {
-		C menu = createMenu(REMOVE_LABEL);
+		C menu = createMenu(REMOVE_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
 		C previous = setContainer(menu);
 
@@ -109,18 +129,7 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 		addActionsItem(MIGRATE_LABEL, expression, ici);
 	}
 
-	private final IBindingManager emptyBindings = E4Utils.createSelectionBindings(Collections.<IEntityPart>emptyList(), null);
-	protected IBindingManager getBindings() {
-		ESelectionService selectionService = context.get(ESelectionService.class);
-		return selectionService.getSelection() instanceof IBindingManager ?
-				(IBindingManager) selectionService.getSelection() : emptyBindings;
-	}
-	
-	public ContentAssistVisibleWhen getContentAssistVisibleWhen() {
-		return contentAssistVisibleWhen;
-	}
-
-	protected abstract C createMenu(String label);
+	protected abstract C createMenu(String label, VisibilityExpression expression);
 	protected abstract void addItem(I item);
 	protected abstract void addActionsItem(String menuLabel, VisibilityExpression expression, IContributionItem ici);
 }

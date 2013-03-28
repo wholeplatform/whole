@@ -38,6 +38,8 @@ public abstract class ModelTransactionHandler {
 		try {
 			bm.wEnterScope();
 			return isEnabled(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

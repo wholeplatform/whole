@@ -18,8 +18,10 @@
 package org.whole.lang.e4.ui.parts;
 
 import org.eclipse.core.resources.IFile;
+import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.e4.ui.api.IModelInput;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 
 /**
@@ -29,6 +31,7 @@ public class ModelInput implements IModelInput {
 	protected final IFile file;
 	protected final String basePersistenceKitId;
 	protected String overridePersistenceKitId;
+	protected Boolean readable;
 
 	public ModelInput(IFile file, String basePersistenceKitId) {
 		if (file == null || basePersistenceKitId == null)
@@ -36,6 +39,7 @@ public class ModelInput implements IModelInput {
 		this.file = file;
 		this.basePersistenceKitId = basePersistenceKitId;
 		this.overridePersistenceKitId = null;
+		this.readable = null;
 	}
 
 	@Override
@@ -57,5 +61,33 @@ public class ModelInput implements IModelInput {
 	@Override
 	public void setOverridePersistenceKitId(String overridePersistenceKitId) {
 		this.overridePersistenceKitId = overridePersistenceKitId;
+		this.readable = null;
+	}
+
+	@Override
+	public IEntity readModel() throws Exception {
+		try {
+			IFilePersistenceProvider pp = new IFilePersistenceProvider(getFile());
+			IEntity readModel = getPersistenceKit().readModel(pp);
+			this.readable = true;
+			return readModel;
+		} catch (Exception e) {
+			this.readable = false;
+			throw e;
+		}
+	}
+
+	@Override
+	public boolean isReadable() {
+		if (this.readable != null)
+			return this.readable;
+
+		try {
+			IFilePersistenceProvider pp = new IFilePersistenceProvider(getFile());
+			getPersistenceKit().readModel(pp);
+			return this.readable = true;
+		} catch (Exception e) {
+			return this.readable = false;
+		}
 	}
 }

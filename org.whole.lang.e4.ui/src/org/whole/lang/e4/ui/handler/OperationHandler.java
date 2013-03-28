@@ -39,6 +39,8 @@ public abstract class OperationHandler {
 		try {
 			bm.wEnterScope();
 			return isEnabled(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

@@ -59,6 +59,7 @@ import org.whole.lang.ui.dialogs.IImportAsModelDialog;
 import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.util.ClipboardUtils;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DefaultCopyTransformer;
@@ -303,7 +304,10 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canSelectAll(IBindingManager bm) {
-		return true;
+		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntity entityContents = viewer.getEntityContents();
+		IGraphicalEntityPart contents = (IGraphicalEntityPart) viewer.getEditPartRegistry().get(entityContents);
+		return ((IEntityFigure) contents.getFigure()).isInteractiveEdit();
 	}
 	public static void selectAll(IBindingManager bm) {
 		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
@@ -529,7 +533,7 @@ public class HandlersBehavior {
 				results.wAdd(GenericEntityFactory.instance.create(
 						CommonsEntityDescriptorEnum.StageUpFragment,
 						//CommonsEntityFactory.instance.createStageUpFragment(
-						EntityUtils.clone(result)));//TODO substitute with a no containment fragment
+						EntityUtils.cloneIfParented(result)));//TODO substitute with a no containment fragment
 
 			((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
 			result.wIsAdapter();

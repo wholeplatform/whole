@@ -43,12 +43,16 @@ public class PasteHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
-			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
-			if (ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer))
-				return true;
+		try {
+			if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
+				E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+				if (ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer))
+					return true;
+			}
+			return super.canExecute(bm);
+		} catch (Exception e) {
+			return false;
 		}
-		return super.canExecute(bm);
 	}
 
 	@Override

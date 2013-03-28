@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.api;
 
 import org.eclipse.core.resources.IFile;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
@@ -27,5 +28,7 @@ public interface IModelInput {
 	IFile getFile();
 	IPersistenceKit getPersistenceKit();
 	IPersistenceKit getBasePersistenceKit();
-	void setOverridePersistenceKitId(String persistenceKitId);	
+	void setOverridePersistenceKitId(String persistenceKitId);
+	IEntity readModel() throws Exception;
+	boolean isReadable();
 }

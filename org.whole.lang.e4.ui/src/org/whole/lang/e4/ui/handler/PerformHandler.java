@@ -47,6 +47,8 @@ public class PerformHandler  {
 			bm.wEnterScope();
 			defineBindings(behaviorXwl, predicateXwl, bm);
 			return HandlersBehavior.canPerform(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

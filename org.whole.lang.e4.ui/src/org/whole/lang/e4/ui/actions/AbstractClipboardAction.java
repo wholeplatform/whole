@@ -22,11 +22,9 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.Disposable;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
-import org.eclipse.jface.action.Action;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.ui.actions.IActionRedirection;
-import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.actions.NullActionRedirection;
 import org.whole.lang.ui.editparts.IEntityPart;
 
@@ -34,14 +32,14 @@ import org.whole.lang.ui.editparts.IEntityPart;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public abstract class AbstractClipboardAction extends Action implements Disposable, IUpdatableAction {
-	protected IEclipseContext context;
+public abstract class AbstractClipboardAction extends AbstractE4Action implements Disposable {
 	protected E4GraphicalViewer viewer;
 	protected CommandStackEventListener listener;
 	protected String label;
 
 	public AbstractClipboardAction(IEclipseContext context, String label) {
-		this.context = context;
+		super(context, label);
+		this.label = label;
 		this.viewer = context.get(E4GraphicalViewer.class);
 		viewer.getCommandStack().addCommandStackEventListener(listener = new CommandStackEventListener() {
 			public void stackChanged(CommandStackEvent event) {
@@ -49,7 +47,6 @@ public abstract class AbstractClipboardAction extends Action implements Disposab
 					update();
 			}
 		});
-		setText(this.label = label);
 	}
 
 	public void dispose() {
@@ -68,7 +65,7 @@ public abstract class AbstractClipboardAction extends Action implements Disposab
 	}
 
 	protected IActionRedirection getActionRedirection() {
-		Object selection = context.get(IServiceConstants.ACTIVE_SELECTION);
+		Object selection = getContext().get(IServiceConstants.ACTIVE_SELECTION);
 		if (!(selection instanceof IBindingManager))
 			return NullActionRedirection.instance();
 

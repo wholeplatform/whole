@@ -46,6 +46,8 @@ public abstract class FragmentModelTransactionHandler {
 			bm.wEnterScope();
 			defineBindings(fragmentXwl, predicateXwl, bm);
 			return isEnabled(bm);
+		} catch (Exception e) {
+			return false;
 		} finally {
 			bm.wExitScope();
 		}

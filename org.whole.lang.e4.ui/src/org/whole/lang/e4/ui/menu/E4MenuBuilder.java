@@ -42,8 +42,6 @@ import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
 import org.whole.lang.e4.ui.expressions.AddEntityVisibleWhen;
-import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
-import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ReplaceEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.SelectNotationVisibleWhen;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
@@ -122,12 +120,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 
 	@Override
 	public void addContentAssistItem() {
-		MMenu menu = createMenu(CONTENT_ASSIST_LABEL);
-
-		MCoreExpression expression = MUiFactory.INSTANCE.createCoreExpression();
-		expression.setCoreExpression(new ContentAssistVisibleWhen());
-		menu.setVisibleWhen(expression);
-
+		MMenu menu = createMenu(CONTENT_ASSIST_LABEL, getContentAssistVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
@@ -135,7 +128,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	}
 	@Override
 	public void addEntityAssistItem() {
-		MMenu menu = createMenu(ENTITY_ASSIST_LABEL);
+		MMenu menu = createMenu(ENTITY_ASSIST_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new EntityAssistCompositeContributionItem(context, actionRegistry);
@@ -143,12 +136,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	}
 	@Override
 	public void addFeatureAssistItem() {
-		MMenu menu = createMenu(FEATURE_ASSIST_LABEL);
-
-		MCoreExpression expression = MUiFactory.INSTANCE.createCoreExpression();
-		expression.setCoreExpression(new FeatureAssistVisibleWhen());
-		menu.setVisibleWhen(expression);
-
+		MMenu menu = createMenu(FEATURE_ASSIST_LABEL, getFeatureAssistVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new FeatureAssistCompositeContributionItem(context, actionRegistry);
@@ -156,12 +144,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	}
 
 	protected void addActionsItem(String menuLabel, VisibilityExpression expression, IContributionItem ici) {
-		MMenu menu = createMenu(menuLabel);
-
-		MCoreExpression coreExpression = MUiFactory.INSTANCE.createCoreExpression();
-		coreExpression.setCoreExpression(expression);
-		menu.setVisibleWhen(coreExpression);
-
+		MMenu menu = createMenu(menuLabel, expression);
 		addItem(menu);
 
 		menu.getChildren().add(createOpaqueMenuItem(ici));
@@ -268,7 +251,8 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 
 	@Override
 	public void addNotationsItem() {
-		MMenu menu = createMenu(NOTATION_LABEL);
+		MMenu menu = createMenu(NOTATION_LABEL, getValidSingleSelectionVisibleWhen());
+
 		addItem(menu);
 		
 		MCommand command = E4Utils.findCommand(SELECT_NOTATION_COMMAND_ID, application);
@@ -308,6 +292,13 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 
 	protected void addItem(MMenuElement menuElement) {
 		menu.getChildren().add(menuElement);
+	}
+	protected MMenu createMenu(String label, VisibilityExpression expression) {
+		MMenu menu = createMenu(label);
+		MCoreExpression coreExpression = MUiFactory.INSTANCE.createCoreExpression();
+		coreExpression.setCoreExpression(expression);
+		menu.setVisibleWhen(coreExpression);
+		return menu;
 	}
 	protected MMenu createMenu(String label) {
 		MMenu menu = MenuFactoryImpl.eINSTANCE.createMenu();
