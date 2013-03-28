@@ -61,7 +61,7 @@ import org.whole.lang.workflows.reflect.WorkflowsLanguageKit;
  */
 public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 	public static final String GRAMMAR_BASED_URI = "http://lang.whole.org/GrammarBased";
-	public static final String STATUS_URI = "http://lang.whole.org/GrammarBased";
+	public static final String STATUS_URI = "whole:org.whole.lang.status:Status";
 
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(CommonsLanguageKit.URI, new CommonsModel());

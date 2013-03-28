@@ -47,19 +47,12 @@ public class StatusPartFactory implements IEditPartFactory {
 	}
 
 	protected IEntityPart createEntityPart(IEntity entity) {
-		IEntityPart entityPart = null;
-
-		switch (entity.wGetEntityKind()) {
-		case COMPOSITE:
-			break;
-
-		case SIMPLE:
-			break;
-
-		case DATA:
-			break;
-		}
-
-		return entityPart;
+		String typeName = entity.wGetEntityDescriptor().getName();
+		if (typeName.equals("ErrorStatus")) {
+			return new ErrorStatusPart();
+		} if (typeName.equals("EmptyStatus")) {
+			return new EmptyStatusPart();
+		} else
+			return null;
 	}
 }
