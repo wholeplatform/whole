@@ -288,7 +288,7 @@ public class EntityUtils {
 			return cloneIfParented(value).wGetAdapter(toType);
 	}
 
-	public static final IEntity merge(IEntity merger, IEntity mergee, IEntityComparator<IEntity> comparator) {
+	public static final IEntity merge(IEntity merger, IEntity mergee, IEntityComparator<IEntity> comparator, boolean orderAware) {
 		IEntity initialMerger = merger;
 		IEntity initialMergee = mergee;
 
@@ -313,21 +313,21 @@ public class EntityUtils {
 				IEntity mergerFeature = merger.wGet(fd).wGetAdaptee(false);
 				IEntity mergeeFeature = mergee.wGet(fd).wGetAdaptee(false);
 				if (mergerFeature.wGetEntityDescriptor().equals(mergeeFeature.wGetEntityDescriptor()))
-					merge(mergerFeature, mergeeFeature, comparator);
+					merge(mergerFeature, mergeeFeature, comparator, orderAware);
 				else
 					merger.wSet(fd, cloneIfParented(mergeeFeature));
 			}
 			break;
 
 		case COMPOSITE:
-			if (mergerED.getCompositeKind().isOrdered()) {
+			if (mergerED.getCompositeKind().isOrdered() && orderAware) {
 				int i=0, j=0;
 				while (i<merger.wSize() && j<mergee.wSize()) {
 					IEntity mergerChild = merger.wGet(i).wGetAdaptee(false);
 					while (j<mergee.wSize()) {
 						IEntity mergeeChild = mergee.wGet(j++).wGetAdaptee(false);
 						if (comparator.equals(mergerChild, mergeeChild))
-							merger.wSet(i, cloneIfParented(merge(mergerChild, mergeeChild, comparator)));
+							merger.wSet(i, cloneIfParented(merge(mergerChild, mergeeChild, comparator, orderAware)));
 						else {
 							merger.wAdd(++i, cloneIfParented(mergeeChild));
 							break;
@@ -342,8 +342,12 @@ public class EntityUtils {
 				mergeeIterator.reset(mergee);
 				while (mergeeIterator.hasNext()) {
 					IEntity mergeeChild = mergeeIterator.next();
-					merger.wAdd(cloneIfParented(comparator.contains(merger, mergeeChild) ?
-							merge(comparator.get(merger, mergeeChild), mergeeChild, comparator) : mergeeChild));
+					if (comparator.contains(merger, mergeeChild)) {
+						IEntity mergerChild = comparator.get(merger, mergeeChild);
+						merger.wSet(mergeeChild, merge(mergerChild, mergeeChild, comparator, orderAware));
+					} else {
+						merger.wAdd(cloneIfParented(mergeeChild));
+					}
 				}
 			}
 			break;

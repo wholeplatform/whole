@@ -17,12 +17,23 @@
  */
 package org.whole.lang.ui.actions;
 
+import java.util.List;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jdt.ui.StandardJavaElementContentProvider;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -32,7 +43,6 @@ import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.artifacts.util.ArtifactsWorkspaceUtils;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -41,14 +51,14 @@ import org.whole.lang.model.NullEntity;
 import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.util.DefaultCopyTransformer;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
  */
-public class MergeResourcesAction extends ReplaceChildAction  implements IEntityTransformer {
+public class MergeResourcesAction extends AbstractLazySelectionAction  implements IEntityTransformer {
 	protected static final String SELECT_RESOURCE_MSG = "Select a resource";
 	protected static final ImageDescriptor SELECT_RESOURCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
 	protected static final IEnablerPredicate TRUE = EnablerPredicateFactory.instance.alwaysTrue();
@@ -56,8 +66,15 @@ public class MergeResourcesAction extends ReplaceChildAction  implements IEntity
 	protected IArtifactsEntity entity;
 
 	public MergeResourcesAction() {
-		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart(), TRUE, CommonsEntityDescriptorEnum.Any, "Add Artifacts...", DefaultCopyTransformer.instance);
+		super(UIUtils.getActivePart());
+		setText("Add Artifacts...");
 		setImageDescriptor(SELECT_RESOURCE_ICON);
+	}
+
+	@Override
+	protected boolean calculateEnabled() {
+		List<?> selectedObjects = getSelectedObjects();
+		return selectedObjects.size() == 1 && selectedObjects.get(0) instanceof IEntityPart;
 	}
 
 	@Override
@@ -72,7 +89,7 @@ public class MergeResourcesAction extends ReplaceChildAction  implements IEntity
 			try {
 				mtc.setLabel("add Artifacts");
 				mtc.begin();
-				EntityUtils.merge(selectedEntity, result, createEntityComparator());
+				EntityUtils.merge(selectedEntity, result, createEntityComparator(), false);
 				mtc.commit();
 				if (mtc.canUndo())
 					execute(mtc);
@@ -85,26 +102,47 @@ public class MergeResourcesAction extends ReplaceChildAction  implements IEntity
 	}
 
 	protected IEntity performWorkspaceResourceSelection(Shell shell, IEntity entity) {
-		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, new WorkbenchLabelProvider(), new WorkbenchContentProvider());
 		IResource input;
-		if (Matcher.matchImpl(ArtifactsEntityDescriptorEnum.Projects, entity))
+		if (Matcher.matchImpl(ArtifactsEntityDescriptorEnum.Workspace, entity.wGetParent()))
 			input = ResourcesPlugin.getWorkspace().getRoot();
 		else {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-			ArtifactsWorkspaceUtils.bindPath((IArtifactsEntity) entity.wGetParent(), bm, false);
+			ArtifactsWorkspaceUtils.bindPath(entity.wGetParent(), bm, false);
 			input = (IResource) (bm.wIsSet("folder") ? bm.wGetValue("folder") : bm.wGetValue("project"));
 		}
-		dialog.setInput(input);
+		IJavaElement javaInput = JavaCore.create(input);
+
+
+		LabelProvider labelProvider = javaInput != null ? new JavaElementLabelProvider() : new WorkbenchLabelProvider();
+		ITreeContentProvider contentProvider = javaInput != null ? new StandardJavaElementContentProvider() : new WorkbenchContentProvider();
+
+		ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, labelProvider, contentProvider);
+		dialog.setInput(javaInput != null ? javaInput : input);
 		dialog.setTitle(SELECT_RESOURCE_MSG);
 		dialog.setMessage("Choose a resource");
+
+		if (javaInput != null)
+			dialog.addFilter(new ViewerFilter() {
+				public boolean select(Viewer viewer, Object parentElement, Object element) {
+					try {
+						return !(element instanceof IPackageFragmentRoot) ||
+								((IPackageFragmentRoot) element).getKind() == IPackageFragmentRoot.K_SOURCE;
+					} catch (Exception e) {
+						return false;
+					}
+				}
+			});
 
 		if (dialog.open() != IDialogConstants.OK_ID)
 			return NullEntity.instance;
 
 		IEntity result = null;
 		for (Object resource : dialog.getResult()) {
-			IEntity artifactsPath = ArtifactsWorkspaceUtils.toArtifactsPath(input, (IResource) resource);
-			result = result == null ? artifactsPath : EntityUtils.merge(result, artifactsPath, createEntityComparator()); 
+			IEntity artifactsPath = resource instanceof IJavaElement ?
+					ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, (IJavaElement) resource) :
+					javaInput == null ? ArtifactsWorkspaceUtils.toArtifactsPath(input, (IResource) resource) :
+							ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, (IFile) resource);
+			result = result == null ? artifactsPath : EntityUtils.merge(result, artifactsPath, createEntityComparator(), false); 
 		}
 		int index = Matcher.match(ArtifactsEntityDescriptorEnum.Workspace, result) ?
 				result.wIndexOf(ArtifactsFeatureDescriptorEnum.projects) : result.wIndexOf(ArtifactsFeatureDescriptorEnum.artifacts);
