@@ -144,7 +144,7 @@ public class ResourceTemplate implements ITemplate {
 				Arrays.sort(artifacts, new Comparator<File>() {
 					public int compare(File first, File second) {
 						boolean isFirstDirectory = first.isDirectory();
-						boolean isSecondDirectory = first.isDirectory();
+						boolean isSecondDirectory = second.isDirectory();
 						if (isFirstDirectory && !isSecondDirectory)
 							return 1;
 						else if (!isFirstDirectory && isSecondDirectory)
@@ -154,7 +154,7 @@ public class ResourceTemplate implements ITemplate {
 					}
 				});
 				ab.Artifacts_(artifacts.length);
-				for(File artifact : directory.listFiles())
+				for (File artifact : artifacts)
 					buildArtifact(artifact);
 				ab._Artifacts();
 			} else

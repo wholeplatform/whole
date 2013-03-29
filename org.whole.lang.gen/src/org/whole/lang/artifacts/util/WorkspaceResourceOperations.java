@@ -23,6 +23,10 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.templates.WorkspaceTemplate;
 import org.whole.lang.builders.ModelBuilderOperation;
@@ -34,30 +38,39 @@ import org.whole.lang.model.IEntity;
 public class WorkspaceResourceOperations extends AbstractArtifactsOperations<IResource> {
 	private IResource getChildResource(IResource resource, IEntity child) {
 		String name = ArtifactsUtils.getName(child);
-		IResource member = ((IContainer) resource).findMember(name);
-		// ensure artifact type
-		if (member != null) {
-			int ensureType;
-			switch (child.wGetEntityDescriptor().getOrdinal()) {
-			case ArtifactsEntityDescriptorEnum.FileArtifact_ord:
-				ensureType = IResource.FILE;
-				break;
-			case ArtifactsEntityDescriptorEnum.FolderArtifact_ord:
-				ensureType = IResource.FOLDER;
-				break;
-			case ArtifactsEntityDescriptorEnum.Project_ord:
-				ensureType = IResource.PROJECT;
-				break;
-			case ArtifactsEntityDescriptorEnum.Workspace_ord:
-				ensureType = IResource.ROOT;
-				break;
-			default:
-				throw new IllegalArgumentException("unsupported artifact type");
+		if (child.wGetEntityDescriptor().getOrdinal() == ArtifactsEntityDescriptorEnum.PackageArtifact_ord) {
+			IJavaElement javaElement = JavaCore.create(resource);
+			try {
+				return ((IPackageFragmentRoot) javaElement).getPackageFragment(name).getCorrespondingResource();
+			} catch (JavaModelException e) {
+				throw new IllegalStateException(e);
 			}
-			if (ensureType != member.getType())
-				member = null;
+		} else {
+			IResource member = ((IContainer) resource).findMember(name);
+			// ensure artifact type
+			if (member != null) {
+				int ensureType;
+				switch (child.wGetEntityDescriptor().getOrdinal()) {
+				case ArtifactsEntityDescriptorEnum.FileArtifact_ord:
+					ensureType = IResource.FILE;
+					break;
+				case ArtifactsEntityDescriptorEnum.FolderArtifact_ord:
+					ensureType = IResource.FOLDER;
+					break;
+				case ArtifactsEntityDescriptorEnum.Project_ord:
+					ensureType = IResource.PROJECT;
+					break;
+				case ArtifactsEntityDescriptorEnum.Workspace_ord:
+					ensureType = IResource.ROOT;
+					break;
+				default:
+					throw new IllegalArgumentException("unsupported artifact type");
+				}
+				if (ensureType != member.getType())
+					member = null;
+			}
+			return member;
 		}
-		return member;
 	}
 	public IResource getParent(IResource resource) {
 		return resource.getParent();

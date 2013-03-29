@@ -18,16 +18,22 @@
 package org.whole.lang.artifacts.templates;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Stack;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.whole.lang.util.CompositeUtils;
@@ -36,6 +42,33 @@ import org.whole.lang.util.CompositeUtils;
  * @author Enrico Persiani
  */
 public class WorkspaceTemplate extends ResourceTemplate {
+	public static class ResourceComparator implements Comparator<IResource> {
+		public int compare(IResource first, IResource second) {
+			boolean isFirstDirectory = first.getType() == IResource.FOLDER;
+			boolean isSecondDirectory = second.getType() == IResource.FOLDER;
+			if (isFirstDirectory && !isSecondDirectory)
+				return 1;
+			else if (!isFirstDirectory && isSecondDirectory)
+				return -1;
+			else
+				return first.getName().compareTo(second.getName());
+		}
+	}
+
+	public static class JavaElementComparator implements
+			Comparator<IJavaElement> {
+		public int compare(IJavaElement first, IJavaElement second) {
+			boolean isFirstDirectory = first.getElementType() == IJavaElement.PACKAGE_FRAGMENT;
+			boolean isSecondDirectory = second.getElementType() == IJavaElement.PACKAGE_FRAGMENT;
+			if (isFirstDirectory && !isSecondDirectory)
+				return 1;
+			else if (!isFirstDirectory && isSecondDirectory)
+				return -1;
+			else
+				return first.getElementName().compareTo(second.getElementName());
+		}
+	}
+
 	protected IResource rootResource;
 	protected boolean bindReversePath;
 
@@ -82,6 +115,98 @@ public class WorkspaceTemplate extends ResourceTemplate {
 		super.buildMetadata(attributes);
 	}
 
+	protected void buildPackage(IPackageFragment packageFragment) {
+		try {
+			if (!packageFragment.hasChildren() && packageFragment.getNonJavaResources().length == 0)
+				return;
+		} catch (JavaModelException e1) {
+		}
+
+		getBindings().wEnterScope();
+		ab.PackageArtifact_();
+		String directoryName = packageFragment.getElementName();
+		ab.Name(directoryName);
+		super.buildMetadata();
+		if (!testAndClearPurge()) {
+			IResource[] artifacts = null;
+			try {
+				artifacts = ((IFolder) packageFragment.getCorrespondingResource()).members();
+			} catch (CoreException e) {
+			}
+			if (artifacts != null && artifacts.length > 0) {
+				Arrays.sort(artifacts, new ResourceComparator());
+				ab.Artifacts_(artifacts.length);
+				for (IResource artifact : artifacts)
+					if (artifact.getType() == IResource.FILE)
+						buildArtifact(artifact);
+				ab._Artifacts();
+			} else
+				ab.Artifacts();
+		} else
+			ab.Artifacts();
+		ab._PackageArtifact();
+		getBindings().wExitScope();
+	}
+
+	protected void buildDirectory(IFolder directory) {
+		getBindings().wEnterScope();
+		ab.FolderArtifact_();
+		String directoryName = directory.getName();
+		ab.Name(directoryName);
+		getBindings().wDefValue("file", directory.getLocation().toFile());
+		getBindings().wDefValue("fileName", directoryName);
+		if (directory.getResourceAttributes().isReadOnly())
+			buildMetadata("readonly");
+		else
+			buildMetadata();
+		if (!testAndClearPurge()) {
+			IJavaElement javaElement = JavaCore.create(directory);
+			if (javaElement != null && javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT_ROOT) {
+				IJavaElement[] children = null;
+				try {
+					children = ((IPackageFragmentRoot) javaElement).getChildren();
+				} catch (JavaModelException e) {
+				}
+				if (children != null && children.length > 0) {
+					Arrays.sort(children, new JavaElementComparator());
+					ab.Artifacts_(children.length);
+					for (IJavaElement artifact : children)
+						buildPackage((IPackageFragment) artifact);
+					ab._Artifacts();
+				} else
+					ab.Artifacts();
+
+			} else {
+				IResource[] artifacts = null;
+				try {
+					artifacts = directory.members();
+				} catch (CoreException e) {
+				}
+				if (artifacts != null && artifacts.length > 0) {
+					Arrays.sort(artifacts, new ResourceComparator());
+					ab.Artifacts_(artifacts.length);
+					for (IResource artifact : artifacts)
+						buildArtifact(artifact);
+					ab._Artifacts();
+				} else
+					ab.Artifacts();
+			}
+		} else
+			ab.Artifacts();
+		ab._FolderArtifact();
+		getBindings().wExitScope();
+	}
+
+	protected void buildArtifact(IResource resource) {
+		IJavaElement javaElement = JavaCore.create(resource);
+		if (javaElement != null && javaElement.getElementType() == IJavaElement.PACKAGE_FRAGMENT)
+			buildPackage((IPackageFragment) javaElement);
+		else if (resource.getType() == IResource.FOLDER) {
+			buildDirectory((IFolder) resource);
+		} else
+			buildFile(resource.getLocation().toFile());
+	}
+
 	protected void buildProject(IProject project) {
 		if (!project.isAccessible())
 			return;
@@ -101,7 +226,7 @@ public class WorkspaceTemplate extends ResourceTemplate {
 				IResource[] members = project.members();
 				ab.Artifacts_(members.length);
 				for (IResource member : members)
-					buildArtifact(member.getLocation().toFile());
+					buildArtifact(member);
 				ab._Artifacts();
 			}
 		} catch (CoreException e) {
