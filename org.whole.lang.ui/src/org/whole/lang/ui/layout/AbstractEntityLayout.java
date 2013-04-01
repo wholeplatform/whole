@@ -157,15 +157,16 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	private SizeKey preferredSizeKey = new SizeKey(null, -1, -1);
 	private Map<SizeKey, BaselinedDimension> preferredCache = new WeakHashMap<AbstractEntityLayout.SizeKey, BaselinedDimension>();
 	protected BaselinedDimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
-		BaselinedDimension dimension = preferredCache.get(preferredSizeKey.setProperties(container, wHint, hHint));
-		if (dimension == null)
-			preferredCache.put(preferredSizeKey, dimension = calculateSize(container, wHint, hHint, true));
-//TODO result diff
-//		else if (!dimension.equals(calculateSize(container, wHint, hHint, true)))
-//			return dimension;
-		return dimension;
-//TODO delete old code
-//		return calculateSize(container, wHint, hHint, true);
+//FIXME faster code with minor problems
+//		BaselinedDimension dimension = preferredCache.get(preferredSizeKey.setProperties(container, wHint, hHint));
+//		if (dimension == null)
+//			preferredCache.put(preferredSizeKey, dimension = calculateSize(container, wHint, hHint, true));
+////TODO result diff
+////		else if (!dimension.equals(calculateSize(container, wHint, hHint, true)))
+////			return dimension;
+//		return dimension;
+//TODO safe code
+		return calculateSize(container, wHint, hHint, true);
 	}
 	protected BaselinedDimension calculateSize(IFigure container, int wHint, int hHint, boolean preferred) {
 		childFigure = getChildren(container);
