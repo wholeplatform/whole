@@ -128,9 +128,13 @@ public class ModelPasteAsAction extends AbstractClipboardAction {
 			boolean needsCompositeTarget = false;
 			if (hasSyntheticRoot) {
 				IEntity syntheticRoot = bm.wGet("syntheticRoot");
-				iterator = IteratorFactory.childIterator();
-				iterator.reset(syntheticRoot);
 				needsCompositeTarget = syntheticRoot.wSize() > 1;
+				if (needsCompositeTarget && !EntityUtils.isComposite(selectedEntity)) {
+					needsCompositeTarget = false;
+					iterator = IteratorFactory.selfIterator();
+				} else
+					iterator = IteratorFactory.childIterator();
+				iterator.reset(syntheticRoot);
 			} else {
 				iterator = IteratorFactory.selfIterator();
 				iterator.reset(entity);
