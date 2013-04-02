@@ -21,16 +21,15 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.util.IResourceBindingsContributor;
-import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -79,6 +78,15 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 					IPath sourceLocationPath = correspondingResource.getLocation();
 					if (!sourceLocationPath.isEmpty())
 						bm.wDefValue("sourceLocationName", sourceLocationPath.toString());
+				} else {
+					for (IPackageFragmentRoot packageFragmentRoot : javaProject.getAllPackageFragmentRoots()) {
+						if (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
+							String sourceFolderName = packageFragmentRoot.getElementName();
+							bm.wDefValue("sourceFolderName", sourceFolderName);
+							bm.wDefValue("contextURI", bm.wStringValue("contextURI")+"/"+sourceFolderName);
+							break;
+						}
+					}
 				}
 			}
 		} catch (CoreException e) {
