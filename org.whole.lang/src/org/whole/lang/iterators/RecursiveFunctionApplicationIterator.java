@@ -17,60 +17,74 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.NoSuchElementException;
+
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
 public class RecursiveFunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
 	private IBindingManager bindings;
-	private IEntity nextEntity = null;
-	private IEntity resetEntity = null;
+	protected IEntity resetEntity = null;
+	protected IEntityIterator<IEntity> nextEntityIterator;
 
-	protected IEntity currentOperationStagedVisit() {
-		if (resetEntity != null) {
-			bindings.wGetEnvironmentManager().getCurrentOperation().stagedVisit(resetEntity, 0);
-			resetEntity = null;
-		}
-		return bindings.getResult();
+	public IEntityIterator<IEntity> clone(ICloneContext cc) {
+		RecursiveFunctionApplicationIterator iterator = (RecursiveFunctionApplicationIterator) super.clone(cc);
+		iterator.nextEntityIterator = cc.clone(nextEntityIterator);
+		return iterator;
 	}
 
 	public boolean hasNext() {
-		return resetEntity != null && bindings != null;
-	}
-
-	public IEntity next() {
-		IEntity result = lookahead();
-		nextEntity = null;
-		return result;
+		return lookahead() != null;
 	}
 	public IEntity lookahead() {
-		if (nextEntity != null)
-			return nextEntity;
+		if (nextEntityIterator != null)
+			return nextEntityIterator.lookahead();
 
-		if (resetEntity == null)
-			return null;
+		clearLookaheadScope();
+		getBindings().wEnterScope(lookaheadScope(), true);
+		IEntity selfEntity = getBindings().wGet("self");
+		if (selfEntity != resetEntity)
+			getBindings().wDef("self", resetEntity);
 
-		return nextEntity = currentOperationStagedVisit();
-	}
+		if (resetEntity != null) {
+			getBindings().wGetEnvironmentManager().getCurrentOperation().stagedVisit(resetEntity, 0);
+			resetEntity = null;
+		}
 
-	public void set(IEntity entity) {
-		throw new UnsupportedOperationException();
+		getBindings().wExitScope();
+
+		nextEntityIterator = getBindings().getResultIterator();
+		if (getBindings().hasResultIterator()) {
+			getBindings().setResultIterator(null);
+			selfEntity = getBindings().wGet("self");
+			if (selfEntity != resetEntity)
+				getBindings().wDef("self", resetEntity);
+			nextEntityIterator.reset(resetEntity);
+			lookaheadScope = null;
+		}
+		return nextEntityIterator.lookahead();
 	}
-	public void add(IEntity entity) {
-		throw new UnsupportedOperationException();
-	}
-	public void remove() {
-		throw new UnsupportedOperationException();
+	public IEntity next() {
+		IEntity result = lookahead();
+    	if (result == null)
+        	throw new NoSuchElementException();
+
+    	if (lookaheadScope != null)
+    		getBindings().wAddAll(lookaheadScope());
+
+		nextEntityIterator.next();
+		return result;
 	}
 
 	public void reset(IEntity entity) {
 		resetEntity = entity;
-		nextEntity = null;
+		nextEntityIterator = null;
 	}
 
     public void setBindings(IBindingManager bindings) {
@@ -82,11 +96,38 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 		return bindings;
 	}
 
+	private IBindingScope lookaheadScope;
 	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
+		if (lookaheadScope != null)
+			return lookaheadScope;
+		if (nextEntityIterator != null)
+			return nextEntityIterator.lookaheadScope();
+		else
+			return lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
+	}
+	protected void clearLookaheadScope() {
+		if (lookaheadScope != null) {
+			for (String name : lookaheadScope.wLocalNames())
+				getBindings().wUnset(name);
+			lookaheadScope.wClear();
+		}
 	}
 
-	public void prune() {
+    public void prune() {
+    	if (nextEntityIterator != null)
+    		nextEntityIterator.prune();
+    }
+	public void set(IEntity entity) {
+    	if (nextEntityIterator != null)
+    		nextEntityIterator.set(entity);
+	}
+	public void add(IEntity entity) {
+    	if (nextEntityIterator != null)
+    		nextEntityIterator.add(entity);
+	}
+	public void remove() {
+    	if (nextEntityIterator != null)
+    		nextEntityIterator.remove();
 	}
 
     @Override
