@@ -10,6 +10,7 @@ import org.whole.lang.environment.builders.EnvironmentSpecificBuilderAdapter;
 import org.whole.lang.environment.builders.IEnvironmentBuilder;
 import org.whole.lang.environment.visitors.EnvironmentPrettyPrinterVisitor;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -45,6 +46,20 @@ public class EnvironmentLanguageDeployer extends AbstractLanguageDeployer {
 
 		platform.addOperationFactory(EnvironmentLanguageKit.URI,
 				InterpreterOperation.ID, new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				if (stage != 0)
+					return null;
+
+				return new AbstractVisitor() {
+					public void visit(IEntity entity) {
+						setResult(EntityUtils.clone(entity));
+					}
+				};
+			}
+		});
+	
+		platform.addOperationFactory(EnvironmentLanguageKit.URI,
+				ArtifactsGeneratorOperation.ID, new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
 				if (stage != 0)
 					return null;
