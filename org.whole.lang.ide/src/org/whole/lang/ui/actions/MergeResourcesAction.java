@@ -19,7 +19,6 @@ package org.whole.lang.ui.actions;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaElement;
@@ -112,7 +111,6 @@ public class MergeResourcesAction extends AbstractLazySelectionAction  implement
 		}
 		IJavaElement javaInput = JavaCore.create(input);
 
-
 		LabelProvider labelProvider = javaInput != null ? new JavaElementLabelProvider() : new WorkbenchLabelProvider();
 		ITreeContentProvider contentProvider = javaInput != null ? new StandardJavaElementContentProvider() : new WorkbenchContentProvider();
 
@@ -138,15 +136,23 @@ public class MergeResourcesAction extends AbstractLazySelectionAction  implement
 
 		IEntity result = null;
 		for (Object resource : dialog.getResult()) {
-			IEntity artifactsPath = resource instanceof IJavaElement ?
-					ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, (IJavaElement) resource) :
-					javaInput == null ? ArtifactsWorkspaceUtils.toArtifactsPath(input, (IResource) resource) :
-							ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, (IFile) resource);
+			IEntity artifactsPath;
+			if (resource instanceof IJavaElement) {
+				IJavaElement toJavaElement = (IJavaElement) resource;
+				artifactsPath = ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, toJavaElement);
+			} else {
+				IResource toResource = (IResource) resource;
+				IJavaElement parentJavaElement = JavaCore.create(toResource.getParent());
+				if (javaInput == null || parentJavaElement == null)
+					artifactsPath = ArtifactsWorkspaceUtils.toArtifactsPath(input, toResource);
+				else
+					artifactsPath = ArtifactsWorkspaceUtils.toArtifactsPath(javaInput, toResource);
+			}
 			result = result == null ? artifactsPath : EntityUtils.merge(result, artifactsPath, createEntityComparator(), false); 
 		}
 		int index = Matcher.match(ArtifactsEntityDescriptorEnum.Workspace, result) ?
 				result.wIndexOf(ArtifactsFeatureDescriptorEnum.projects) : result.wIndexOf(ArtifactsFeatureDescriptorEnum.artifacts);
-		
+
 		IEntity tree = result.wGet(index);
 		result.wRemove(index);
 		return tree;

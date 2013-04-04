@@ -37,6 +37,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.whole.lang.artifacts.factories.ArtifactsEntityFactory;
+import org.whole.lang.artifacts.model.Artifact;
 import org.whole.lang.artifacts.model.AttributeEnum;
 import org.whole.lang.artifacts.model.Content;
 import org.whole.lang.artifacts.model.FileArtifact;
@@ -339,15 +340,21 @@ public class ArtifactsWorkspaceUtils {
 
 		return fromJavaElement.equals(toJavaElement) ? entity : toArtifactsPath(fromJavaElement, toJavaElement.getParent(), entity);
 	}
-	public static IEntity toArtifactsPath(IJavaElement fromJavaElement, IFile toFile) {
+	public static IEntity toArtifactsPath(IJavaElement fromJavaElement, IResource toResource) {
 		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance(RegistryConfigurations.RESOLVER);
 
-		FileArtifact fileArtifact = aef.createFileArtifact();
-		fileArtifact.setName(createFileName(toFile.getName()));
+		Artifact child;
+		if (toResource.getType() == IResource.FILE) {
+			FileArtifact fileArtifact = aef.createFileArtifact();
+			fileArtifact.setName(createFileName(toResource.getName()));
+			child = fileArtifact;
+		} else {
+			FolderArtifact folderArtifact = aef.createFolderArtifact();
+			folderArtifact.setName(aef.createName(toResource.getName()));
+			child = folderArtifact;
+		}
 
-		IJavaElement toJavaElement = JavaCore.create(toFile.getParent());
-		return toJavaElement != null ?
-				toArtifactsPath(fromJavaElement, toJavaElement, fileArtifact) : fileArtifact;
+		return toArtifactsPath(fromJavaElement, JavaCore.create(toResource.getParent()), child);
 	}
 
 	public static IEntity getArtifacts(IEntity artifact) {
