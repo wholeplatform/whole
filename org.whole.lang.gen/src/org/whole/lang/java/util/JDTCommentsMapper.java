@@ -44,7 +44,7 @@ public class JDTCommentsMapper {
 		this.orphanComments = BindingManagerFactory.instance.createTuple();
 	}
 	public void setComments(List<Comment> comments) {
-		this.comments = new ArrayList<Comment>(comments);
+		this.comments = comments != null ? new ArrayList<Comment>(comments) : Collections.<Comment>emptyList();
 	}
 	public boolean removeJavadoc(Javadoc comment) {
 		return comments.remove(comment);
@@ -61,6 +61,9 @@ public class JDTCommentsMapper {
 		orphanComments.wAdd(comment);
 	}
 
+	protected String sourceSubString(int beginIndex, int endIndex) {
+		return source != null ? source.substring(beginIndex, endIndex) : "";
+	}
 	protected boolean isAdjacentTo(ASTNode node, ASTNode toNode, boolean newLinesAllowed) {
 		int nodeEnd = node.getStartPosition()+node.getLength();
 		int toNodeStart = toNode.getStartPosition();
@@ -69,7 +72,7 @@ public class JDTCommentsMapper {
 	protected boolean isAdjacentTo(int from, int to, boolean newLinesAllowed) {
 		if (from > to)
 			return false;
-		String betweenText = source.substring(from, to);
+		String betweenText = sourceSubString(from, to);
 		for (char c : betweenText.toCharArray())
 			if (!Character.isWhitespace(c) || (!newLinesAllowed && StringUtils.isNewLineChar(c)))
 				return false;
@@ -131,12 +134,12 @@ public class JDTCommentsMapper {
 		int start = comment.getStartPosition();
 		switch (comment.getNodeType()) {
 		case ASTNode.LINE_COMMENT:
-			return source.substring(start+2, start+comment.getLength());
+			return sourceSubString(start+2, start+comment.getLength());
 		case ASTNode.BLOCK_COMMENT:
-			return source.substring(start+2, start+comment.getLength()-2);
+			return sourceSubString(start+2, start+comment.getLength()-2);
 		case ASTNode.JAVADOC:
 		default:
-			return source.substring(start+3, start+comment.getLength()-2);
+			return sourceSubString(start+3, start+comment.getLength()-2);
 		}
 	}
 	public static boolean containsNewLineChar(String s) {
@@ -150,7 +153,7 @@ public class JDTCommentsMapper {
 		if (comments.isEmpty() || (comment = comments.get(0)).getNodeType() != ASTNode.JAVADOC)
 			return null;
 
-		String text = source.substring(0, comment.getStartPosition());
+		String text = sourceSubString(0, comment.getStartPosition());
 		return text.matches("\\p{javaWhitespace}*") ? 
 				(Javadoc) comment : null;
 	}

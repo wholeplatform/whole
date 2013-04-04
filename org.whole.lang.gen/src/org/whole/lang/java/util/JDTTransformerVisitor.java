@@ -171,6 +171,10 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		commentsMapper = new JDTCommentsMapper(source);
 	}
 
+	public static <T extends IJavaEntity> T transform(ASTNode model) {
+		return transform(null, model);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <T extends IJavaEntity> T transform(String source, ASTNode model) {
 		JDTTransformerVisitor transformer = new JDTTransformerVisitor(source);
