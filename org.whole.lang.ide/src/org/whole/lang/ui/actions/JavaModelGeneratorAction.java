@@ -57,14 +57,14 @@ public class JavaModelGeneratorAction extends AbstractVisitorOperationAction {
 		}
 	}
 
-	public static  void generate(IProgressMonitor monitor, final IEntity program,
+	public static void generate(IProgressMonitor monitor, final IEntity program,
 			final IBindingManager params) throws InvocationTargetException,
 			InterruptedException {
 		final IPackageFragmentRoot packageFragmentRoot;
-		if (params.wIsSet("sourceLocationName")) {
-			packageFragmentRoot = JDTUtils.getPackageFragmentRoot(
-					params.wStringValue("sourceLocationName"));	
-		} else
+		if (params.wIsSet("sourceLocationName"))
+			//TODO ? create if doesn't exists
+			packageFragmentRoot = JDTUtils.getPackageFragmentRoot(params.wStringValue("sourceLocationName"));	
+		else
 			packageFragmentRoot = IDEUtils.getPackageFragmentRoot(new Shell());
 
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {

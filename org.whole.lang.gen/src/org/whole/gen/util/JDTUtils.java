@@ -17,6 +17,8 @@
  */
 package org.whole.gen.util;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -36,6 +38,15 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.java.factories.JavaEntityFactory;
+import org.whole.lang.java.model.JavaSystemSoftware;
+import org.whole.lang.java.util.JDTTransformerVisitor;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.JavaCompilerOperation;
+import org.whole.lang.util.IRunnable;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -68,7 +79,7 @@ public class JDTUtils {
 		return (CompilationUnit) parseAs(source, JAVA_FRAGMENT.COMPILATION_UNIT);
 	}
 	public static ASTNode parseAs(String source, JAVA_FRAGMENT f) {
-		ASTParser parser = ASTParser.newParser(AST.JLS3);
+		ASTParser parser = ASTParser.newParser(AST.JLS4);
 		parser.setKind(f.kind);
 		parser.setSource(source.toCharArray());
 		ASTNode astNode = parser.createAST(null);
@@ -83,6 +94,19 @@ public class JDTUtils {
 			!(astNode instanceof Block && ((Block) astNode).statements().isEmpty());
 	}
 
+	public static IEntityIterator<IEntity> generateJavaSystemSoftware() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(selfEntity, bm);
+				final JavaSystemSoftware javaSystemSoftware = JavaEntityFactory.instance.createJavaSystemSoftware(0);
+				for (CompilationUnit cu : cuList)
+					javaSystemSoftware.add((org.whole.lang.java.model.CompilationUnit) JDTTransformerVisitor.transform(cu));
+
+				bm.setResult(javaSystemSoftware);
+			}
+		});
+	}
+	
 	public static IWorkspaceRoot getWorkspaceRoot() {
 		return ResourcesPlugin.getWorkspace().getRoot();
 	}
