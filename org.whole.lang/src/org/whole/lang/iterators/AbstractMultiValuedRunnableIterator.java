@@ -59,6 +59,7 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 				resultIterator = bm.getResultIterator();
 				if (bm.hasResultIterator()) {
 					bm.setResultIterator(null);
+					resultIterator.setBindings(bm);
 					resultIterator.reset(selfEntity);
 				}
 			} catch (Throwable e) {
