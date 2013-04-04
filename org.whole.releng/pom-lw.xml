@@ -37,8 +37,8 @@
 		<module>../org.whole.lang.feature/pom-lw.xml</module>
 
 		<module>../org.whole.lang.ui/pom-lw.xml</module>
-		<module>../org.whole.lang.e4.ui/pom-lw.xml</module>
-		<module>../org.whole.lang.e4.ui.compatibility/pom-lw.xml</module>
+		<!--module>../org.whole.lang.e4.ui/pom-lw.xml</module>
+		<module>../org.whole.lang.e4.ui.compatibility/pom-lw.xml</module-->
 		<module>../org.whole.lang.ui.notations/pom-lw.xml</module>
 
 		<module>../org.whole.langs.core/pom-lw.xml</module>
