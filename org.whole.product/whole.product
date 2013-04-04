@@ -16,8 +16,8 @@
    <launcherArgs>
       <programArgs>--launcher.XXMaxPermSize
 256m</programArgs>
-      <vmArgs>-Xms256m
--Xmx512m</vmArgs>
+      <vmArgs>-Xms512m
+-Xmx1024m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
