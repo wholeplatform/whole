@@ -160,7 +160,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				if (useTemplateFactorySemantics())
 					setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee));
 				else {
-					CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());
+					CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());//TODO test
 					setResultIterator(QueriesIteratorFactory.patternMatcherIterator(
 							getResult()));
 				}
@@ -219,7 +219,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     @Override
     public void visit(Path entity) {
     	boolean useFactorySemantics = useFactorySemantics(entity);
-    	boolean templateSemantics = useTemplateFactorySemantics(useFactorySemantics);
+    	boolean templateSemantics = useTemplateFactorySemantics(useFactorySemantics);//TODO test true);
     	boolean inheritedSemantics = useInheritedSemantics(true);
     	DistinctScope<IEntity> oldDistinctScope = distinctScope;
     	distinctScope = null;

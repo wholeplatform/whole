@@ -65,6 +65,7 @@ public class ResourceUtils {
 		bm.wDefValue("fileFullPath", name = file.getFullPath().toString());
 		bm.wDefValue("fileFullPathName", StringUtils.stripFileExtension(name));
 
+		bm.wDefValue("workspaceLocation", container.getWorkspace().getRoot().getLocation().toString());
 		bm.wDefValue("contextURI", "platform:/resource/"+project.getName());
 
 		bm.wDefValue("breakpointsDisabled", false);

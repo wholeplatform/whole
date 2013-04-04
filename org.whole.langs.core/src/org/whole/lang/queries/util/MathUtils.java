@@ -158,7 +158,7 @@ public class MathUtils {
 	public static IEntity addition(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
-	
+
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
 			throw new IllegalArgumentException(WholeMessages.no_data);
