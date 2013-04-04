@@ -28,12 +28,10 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
@@ -84,14 +82,7 @@ public class StringUtils {
 			contentStream = new BufferedInputStream(contentStream);
 		// strip BOM if present
 		StringUtils.encodingFromBOM(contentStream, null);
-		BufferedReader in = new BufferedReader(new InputStreamReader(contentStream, encoding), BUFFER_SIZE);
-		List<String> buffer = new ArrayList<String>(1024);
-		String line;
-		while ((line = in.readLine()) != null)
-			buffer.add(line);
-		
-        contentStream.close();
-        return (String[]) buffer.toArray(new String[buffer.size()]);
+		return readAsString(contentStream, encoding).split(EOL_REGEXP, -1);
 	}
 
 	public static char[] peekChars(Reader reader, int length) throws IOException {
