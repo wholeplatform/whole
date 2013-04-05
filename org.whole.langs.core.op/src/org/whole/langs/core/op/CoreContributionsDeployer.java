@@ -56,6 +56,12 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/templates/TemplatesSemantics.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsSemantics.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsActions.xwl")));
+
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

@@ -26,6 +26,7 @@ import org.whole.lang.grammars.reflect.GrammarsLanguageDeployer;
 import org.whole.lang.math.reflect.MathLanguageDeployer;
 import org.whole.lang.misc.reflect.MiscLanguageDeployer;
 import org.whole.lang.models.reflect.ModelsLanguageDeployer;
+import org.whole.lang.patterns.reflect.PatternsLanguageDeployer;
 import org.whole.lang.pojo.reflect.PojoLanguageDeployer;
 import org.whole.lang.queries.reflect.QueriesLanguageDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
@@ -57,6 +58,7 @@ public class CoreLanguagesDeployer extends AbstractSuiteDeployer {
 			MathLanguageDeployer.class,
 			MiscLanguageDeployer.class,
 			ModelsLanguageDeployer.class,
+			PatternsLanguageDeployer.class,
 			PojoLanguageDeployer.class,
 			QueriesLanguageDeployer.class,
 			SemanticsLanguageDeployer.class,

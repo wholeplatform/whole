@@ -1,0 +1,277 @@
+package org.whole.lang.patterns.visitors;
+
+import org.whole.lang.patterns.model.*;
+
+/** 
+ * @generator Whole
+ */
+public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
+	public void visit(IPatternsEntity entity) {
+	}
+
+	public void visit(PatternLanguage entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Patterns entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Library entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Template entity) {
+	}
+
+	public void visit(Pattern entity) {
+		visit((IPatternsEntity) entity);
+		visit((Template) entity);
+	}
+
+	public void visit(VariationPoint entity) {
+		visit((Template) entity);
+		visit((Expression) entity);
+	}
+
+	public void visit(Expression entity) {
+	}
+
+	public void visit(PatternApplication entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(Arguments entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Argument entity) {
+	}
+
+	public void visit(Binding entity) {
+		visit((IPatternsEntity) entity);
+		visit((Argument) entity);
+	}
+
+	public void visit(VariablePoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(FunctionApplicationPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(Slot entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(ResultPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(JoinPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(InsertionPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(ScopePoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(TemplatePoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(DerivationPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(SelectionPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(ConditionPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(IterationPoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(SequencePoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(InlinePoint entity) {
+		visit((IPatternsEntity) entity);
+		visit((VariationPoint) entity);
+	}
+
+	public void visit(Declarations entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Declaration entity) {
+	}
+
+	public void visit(FunctionDeclaration entity) {
+		visit((IPatternsEntity) entity);
+		visit((Declaration) entity);
+	}
+
+	public void visit(PointcutDeclaration entity) {
+		visit((IPatternsEntity) entity);
+		visit((Declaration) entity);
+	}
+
+	public void visit(JoinPointDeclaration entity) {
+		visit((IPatternsEntity) entity);
+		visit((Declaration) entity);
+	}
+
+	public void visit(VariableDeclaration entity) {
+		visit((IPatternsEntity) entity);
+		visit((Declaration) entity);
+	}
+
+	public void visit(Types entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(ResultTypes entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Type entity) {
+	}
+
+	public void visit(Repetition entity) {
+		visit((IPatternsEntity) entity);
+		visit((Type) entity);
+	}
+
+	public void visit(Choice entity) {
+		visit((IPatternsEntity) entity);
+		visit((Type) entity);
+	}
+
+	public void visit(Enumeration entity) {
+		visit((IPatternsEntity) entity);
+		visit((Type) entity);
+	}
+
+	public void visit(EnumValues entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(EnumValue entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(ResultType entity) {
+		visit((Type) entity);
+		visit((ResultTypeOrPathExpression) entity);
+	}
+
+	public void visit(ResultTypeOrPathExpression entity) {
+	}
+
+	public void visit(Name entity) {
+		visit((IPatternsEntity) entity);
+		visit((ResultType) entity);
+	}
+
+	public void visit(PathExpression entity) {
+		visit((Expression) entity);
+		visit((ResultTypeOrPathExpression) entity);
+	}
+
+	public void visit(StepExpression entity) {
+		visit((PathExpression) entity);
+	}
+
+	public void visit(PatternJoinPointStep entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(JoinPointStep entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(PointcutStep entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(SlotStep entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(OuterDefinitionStep entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(Cut entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(Insert entity) {
+		visit((IPatternsEntity) entity);
+		visit((StepExpression) entity);
+	}
+
+	public void visit(Predicate entity) {
+	}
+
+	public void visit(SlotsDefined entity) {
+		visit((IPatternsEntity) entity);
+		visit((Predicate) entity);
+	}
+
+	public void visit(PatternTypeTest entity) {
+		visit((IPatternsEntity) entity);
+		visit((Predicate) entity);
+	}
+
+	public void visit(Placement entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(URI entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Namespace entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(Version entity) {
+		visit((IPatternsEntity) entity);
+	}
+
+	public void visit(BooleanValue entity) {
+		visit((IPatternsEntity) entity);
+	}
+}

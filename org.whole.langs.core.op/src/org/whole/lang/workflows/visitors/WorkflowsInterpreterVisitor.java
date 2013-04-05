@@ -490,7 +490,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				String name = ((Assignments) arguments).get(i).getName().getValue();
 				FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
 				if (fd != null)
-					getBindings().wSet(name, EntityUtils.convert(getBindings().wGet(name), ed.getEntityDescriptor(fd)));
+					getBindings().wDef(name, EntityUtils.convert(getBindings().wGet(name), ed.getEntityDescriptor(fd))); //TODO test was wSet
 			}
 			model = ef.create(ed, getBindings());
 
