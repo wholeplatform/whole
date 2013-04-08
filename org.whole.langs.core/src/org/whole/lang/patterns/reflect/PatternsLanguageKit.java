@@ -1,12 +1,14 @@
 package org.whole.lang.patterns.reflect;
 
+import org.whole.lang.factories.IEntityRegistry;
+import org.whole.lang.parsers.IDataTypeParser;
+import org.whole.lang.patterns.model.adapters.PatternsAdaptersEntityRegistry;
+import org.whole.lang.patterns.model.impl.PatternsImplEntityRegistry;
+import org.whole.lang.patterns.model.impl.PatternsStrictImplEntityRegistry;
+import org.whole.lang.patterns.parsers.PatternsDataTypePresentationParser;
 import org.whole.lang.reflect.AbstractLanguageKit;
 import org.whole.lang.reflect.EntityDescriptorEnum;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
-import org.whole.lang.factories.IEntityRegistry;
-import org.whole.lang.patterns.model.impl.PatternsImplEntityRegistry;
-import org.whole.lang.patterns.model.impl.PatternsStrictImplEntityRegistry;
-import org.whole.lang.patterns.model.adapters.PatternsAdaptersEntityRegistry;
 import org.whole.lang.templates.ITemplateManager;
 
 /** 
@@ -45,6 +47,11 @@ public class PatternsLanguageKit extends AbstractLanguageKit {
 
 	protected IEntityRegistry createAdaptersEntityRegistry() {
 		return new PatternsAdaptersEntityRegistry();
+	}
+
+	@Override
+	protected IDataTypeParser getDataTypePresentationParser() {
+		return PatternsDataTypePresentationParser.instance();
 	}
 
 	public ITemplateManager getTemplateManager() {

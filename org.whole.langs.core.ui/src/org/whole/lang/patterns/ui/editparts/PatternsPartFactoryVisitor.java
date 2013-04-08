@@ -68,6 +68,7 @@ import org.whole.lang.patterns.model.VariablePoint;
 import org.whole.lang.patterns.model.Version;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.PatternsIdentityDefaultVisitor;
+import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
@@ -148,7 +149,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     
     @Override
     public void visit(BooleanValue entity) {
-    	part = new BooleanValuePart();
+    	part = new ContentLightDataEntityPart();
     }
 
     @Override
