@@ -45,7 +45,7 @@ public class ModelDeclarationsTableFigure extends TableFigure {
 		label = new EntityLabel(" Entity");
 		label.setForegroundColor(color);
 		headers.add(label);
-		label = new EntityLabel("Features");
+		label = new EntityLabel("Structure");
 		label.setForegroundColor(color);
 		headers.add(label);
 		add(headers, TableLayout.Placement.HEADER);

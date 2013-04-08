@@ -33,6 +33,7 @@ import org.whole.lang.misc.ui.MiscUIDeployer;
 import org.whole.lang.models.ui.ModelsUIDeployer;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.patterns.ui.PatternsUIDeployer;
 import org.whole.lang.pojo.ui.PojoUIDeployer;
 import org.whole.lang.queries.ui.QueriesUIDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
@@ -71,6 +72,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 			MathUIDeployer.class,
 			MiscUIDeployer.class,
 			ModelsUIDeployer.class,
+			PatternsUIDeployer.class,
 			PojoUIDeployer.class,
 			QueriesUIDeployer.class,
 			SemanticsUIDeployer.class,
