@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.patterns"/>
     <semantics:Name value="Patterns"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="16">
+    <semantics:SemanticFunctions initialCapacity="17">
         <semantics:SemanticFunction>
             <semantics:Name value="toArtifacts"/>
             <semantics:FunctionType>
@@ -4662,7 +4662,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="7">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPoint"/>
                     <semantics:FunctionApplication>
@@ -4695,6 +4695,15 @@
                     <semantics:FunctionApplication>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
+                    <semantics:FunctionApplication>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#template"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     </semantics:FunctionApplication>
@@ -5402,6 +5411,173 @@
                     </queries:If>
                 </queries:Choose>
             </queries:Block>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="joinPointPath"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Names initialCapacity="2">
+                    <queries:Name value="buildJoinPointPath"/>
+                    <queries:Name value="parentStep"/>
+                </queries:Names>
+                <queries:Block initialCapacity="2">
+                    <queries:QueryDeclaration>
+                        <queries:Name value="buildJoinPointPath"/>
+                        <queries:Names initialCapacity="3">
+                            <queries:Name value="parentEntity"/>
+                            <queries:Name value="selfFd"/>
+                            <queries:Name value="selfIndex"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="2">
+                            <queries:Filter>
+                                <queries:ParentStep/>
+                                <queries:VariableTest value="parentEntity"/>
+                            </queries:Filter>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:Path initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="parentEntity"/>
+                                        <queries:Not>
+                                        <queries:Or initialCapacity="5">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SequencePoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ResultPoint"/>
+                                        </queries:Or>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <queries:Call>
+                                        <queries:Name value="buildJoinPointPath"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:Path>
+                                <queries:Choose initialCapacity="4">
+                                    <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="parentEntity"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPoint"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="whole:org.whole.lang.patterns:PatternsModel#JoinPointStep"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="parentEntity"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Path>
+                                        </semantics:TypeCast>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="parentEntity"/>
+                                        <queries:Or initialCapacity="4">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SequencePoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ResultPoint"/>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:VoidLiteral/>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="parentEntity"/>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="wGetFeatureDescriptor"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="parentEntity"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wGetFeatureDescriptor(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="selfFd"/>
+                                        </queries:Filter>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="unparseFeatureDescriptor"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser"/>
+                                        <workflows:StringLiteral value="unparseFeatureDescriptor(org.whole.lang.reflect.FeatureDescriptor)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="selfFd"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Block>
+                                        </semantics:TypeCast>
+                                    </queries:If>
+                                    <queries:Do>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="wIndexOf"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="parentEntity"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wIndexOf(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="selfIndex"/>
+                                        </queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Queries#IntLiteral"/>
+                                        <commons:VarName value="selfIndex"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </commons:StageUpFragment>
+                                        </queries:Block>
+                                    </queries:Do>
+                                </queries:Choose>
+                            </queries:Sequence>
+                        </queries:Block>
+                    </queries:QueryDeclaration>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <queries:Path initialCapacity="1">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Queries#StepExpression"/>
+                                    <commons:VarName value="parentStep"/>
+                                    <commons:Quantifier value="+"/>
+                                </commons:Variable>
+                            </queries:Path>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                        <queries:Filter>
+                            <queries:Call>
+                                <queries:Name value="buildJoinPointPath"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                            <queries:VariableTest value="parentStep"/>
+                        </queries:Filter>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:Block>
+            </queries:Scope>
         </semantics:SemanticFunction>
     </semantics:SemanticFunctions>
 </semantics:SemanticTheory>

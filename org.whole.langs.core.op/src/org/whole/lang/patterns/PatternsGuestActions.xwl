@@ -1,0 +1,810 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.patterns:PatternsGuestActions"/>
+    <actions:Namespace value="org.whole.lang.patterns"/>
+    <actions:Name value="Patterns"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="Introduce Patterns in Pattern Language"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="workspace"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:Filter>
+                            <actions:ActionCall>
+                                <actions:Label value="whole:org.whole.lang.patterns:PatternsGuestActions#Introduce Patterns in Pattern Language (results)"/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="selectedEntities"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                            </actions:ActionCall>
+                            <queries:VariableTest value="workspace"/>
+                        </queries:Filter>
+                        <queries:Call>
+                            <queries:Name value="workspace"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Introduce Scattered Pattern in Pattern Language"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="workspace"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:Filter>
+                            <actions:ActionCall>
+                                <actions:Label value="whole:org.whole.lang.patterns:PatternsGuestActions#Introduce Scattered Pattern in Pattern Language (results)"/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="selectedEntities"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                            </actions:ActionCall>
+                            <queries:VariableTest value="workspace"/>
+                        </queries:Filter>
+                        <queries:Call>
+                            <queries:Name value="workspace"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="Introduce Patterns in Pattern Language (results)"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="8">
+                        <queries:Name value="patternLanguageUri"/>
+                        <queries:Name value="patternLanguageNamespace"/>
+                        <queries:Name value="patternLanguageName"/>
+                        <queries:Name value="patternLanguageFileName"/>
+                        <queries:Name value="patternName"/>
+                        <queries:Name value="patternTemplate"/>
+                        <queries:Name value="workspaceArtifacts"/>
+                        <queries:Name value="nameGenerator"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="8">
+                        <queries:Filter>
+                            <queries:VariableRefStep value="packageName"/>
+                            <queries:VariableTest value="patternLanguageNamespace"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:VariableRefStep value="fileName"/>
+                            <queries:VariableTest value="patternLanguageName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:Addition>
+                                <queries:VariableRefStep value="patternLanguageName"/>
+                                <queries:StringLiteral value="Patterns"/>
+                            </queries:Addition>
+                            <queries:VariableTest value="patternLanguageFileName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:Addition>
+                                <queries:StringLiteral value="whole:"/>
+                                <queries:Addition>
+                                    <queries:VariableRefStep value="patternLanguageNamespace"/>
+                                    <queries:Addition>
+                                        <queries:StringLiteral value=":"/>
+                                        <queries:VariableRefStep value="patternLanguageFileName"/>
+                                    </queries:Addition>
+                                </queries:Addition>
+                            </queries:Addition>
+                            <queries:VariableTest value="patternLanguageUri"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                    <commons:Resolver/>
+                                    <artifacts:Projects initialCapacity="1">
+                                        <artifacts:Project>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Natures initialCapacity="1">
+                                        <artifacts:Nature value="org.eclipse.jdt.core.javanature"/>
+                                        </artifacts:Natures>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="src"/>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:Attributes initialCapacity="1">
+                                        <artifacts:Attribute value="source"/>
+                                        </artifacts:Attributes>
+                                        <commons:Resolver/>
+                                        </artifacts:Metadata>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="patternLanguageFileName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        </artifacts:Artifacts>
+                                        <commons:Resolver/>
+                                        </artifacts:Project>
+                                    </artifacts:Projects>
+                                </artifacts:Workspace>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="workspaceArtifacts"/>
+                        </queries:Filter>
+                        <workflows:LoadArtifacts xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="Load Artifacts"/>
+                            <workflows:Variable value="workspaceArtifacts"/>
+                            <workflows:ResourceKind value="WORKSPACE"/>
+                            <workflows:StringLiteral value="/"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <queries:Path initialCapacity="8">
+                            <queries:VariableRefStep value="workspaceArtifacts"/>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#projects"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:Block initialCapacity="5">
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:ChildStep/>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <artifacts:FileArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="patternLanguageFileName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:StageUpFragment>
+                                        <patterns:PatternLanguage xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
+                                        <commons:VarName value="patternLanguageUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Namespace"/>
+                                        <commons:VarName value="patternLanguageNamespace"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <commons:VarName value="patternLanguageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <patterns:Patterns initialCapacity="0"/>
+                                        </patterns:PatternLanguage>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                    </commons:StageUpFragment>
+                                </queries:PointwiseInsert>
+                                <queries:PointwiseUpdate>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#metadata"/>
+                                    </queries:Path>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <artifacts:Metadata xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                    </commons:StageUpFragment>
+                                </queries:PointwiseUpdate>
+                                <queries:Filter>
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createFreshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:CreateJavaClassInstance>
+                                    <queries:VariableTest value="nameGenerator"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="7">
+                                    <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#patterns"/>
+                                    <queries:ChildStep/>
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="putBoundName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="putBoundName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </queries:Path>
+                                <queries:CartesianInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:Path initialCapacity="5">
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#patterns"/>
+                                    </queries:Path>
+                                    <queries:Select>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <patterns:Pattern xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <patterns:TemplatePoint>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Template"/>
+                                        <commons:VarName value="patternTemplate"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </patterns:TemplatePoint>
+                                        </patterns:Pattern>
+                                        </commons:StageUpFragment>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="patternTemplate"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="nextFreshName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="patternName"/>
+                                        </queries:Filter>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </queries:CartesianInsert>
+                            </queries:Block>
+                        </queries:Path>
+                        <queries:VariableRefStep value="workspaceArtifacts"/>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Introduce Scattered Pattern in Pattern Language (results)"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="9">
+                        <queries:Name value="patternLanguageUri"/>
+                        <queries:Name value="patternLanguageNamespace"/>
+                        <queries:Name value="patternLanguageName"/>
+                        <queries:Name value="patternLanguageFileName"/>
+                        <queries:Name value="patternName"/>
+                        <queries:Name value="patternTemplate"/>
+                        <queries:Name value="workspaceArtifacts"/>
+                        <queries:Name value="nameGenerator"/>
+                        <queries:Name value="resultPoint"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="8">
+                        <queries:Filter>
+                            <queries:VariableRefStep value="packageName"/>
+                            <queries:VariableTest value="patternLanguageNamespace"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:VariableRefStep value="fileName"/>
+                            <queries:VariableTest value="patternLanguageName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:Addition>
+                                <queries:VariableRefStep value="patternLanguageName"/>
+                                <queries:StringLiteral value="Patterns"/>
+                            </queries:Addition>
+                            <queries:VariableTest value="patternLanguageFileName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <queries:Addition>
+                                <queries:StringLiteral value="whole:"/>
+                                <queries:Addition>
+                                    <queries:VariableRefStep value="patternLanguageNamespace"/>
+                                    <queries:Addition>
+                                        <queries:StringLiteral value=":"/>
+                                        <queries:VariableRefStep value="patternLanguageFileName"/>
+                                    </queries:Addition>
+                                </queries:Addition>
+                            </queries:Addition>
+                            <queries:VariableTest value="patternLanguageUri"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                    <commons:Resolver/>
+                                    <artifacts:Projects initialCapacity="1">
+                                        <artifacts:Project>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Natures initialCapacity="1">
+                                        <artifacts:Nature value="org.eclipse.jdt.core.javanature"/>
+                                        </artifacts:Natures>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <artifacts:Name value="src"/>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:Attributes initialCapacity="1">
+                                        <artifacts:Attribute value="source"/>
+                                        </artifacts:Attributes>
+                                        <commons:Resolver/>
+                                        </artifacts:Metadata>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="patternLanguageFileName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                        </artifacts:Artifacts>
+                                        <commons:Resolver/>
+                                        </artifacts:Project>
+                                    </artifacts:Projects>
+                                </artifacts:Workspace>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="workspaceArtifacts"/>
+                        </queries:Filter>
+                        <workflows:LoadArtifacts xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="Load Artifacts"/>
+                            <workflows:Variable value="workspaceArtifacts"/>
+                            <workflows:ResourceKind value="WORKSPACE"/>
+                            <workflows:StringLiteral value="/"/>
+                            <workflows:ArtifactsTraversalStrategy value="DEEP"/>
+                            <workflows:ArtifactsSynchronizeStrategy value="UPDATE"/>
+                            <workflows:StringLiteral value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                        </workflows:LoadArtifacts>
+                        <queries:Path initialCapacity="8">
+                            <queries:VariableRefStep value="workspaceArtifacts"/>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#projects"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:Block initialCapacity="5">
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:ChildStep/>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <artifacts:FileArtifact xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="patternLanguageFileName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:StageUpFragment>
+                                        <patterns:PatternLanguage xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
+                                        <commons:VarName value="patternLanguageUri"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Namespace"/>
+                                        <commons:VarName value="patternLanguageNamespace"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <commons:VarName value="patternLanguageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <patterns:Patterns initialCapacity="0"/>
+                                        </patterns:PatternLanguage>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                    </commons:StageUpFragment>
+                                </queries:PointwiseInsert>
+                                <queries:PointwiseUpdate>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#metadata"/>
+                                    </queries:Path>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <artifacts:Metadata xmlns:artifacts="http://lang.whole.org/Artifacts">
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                    </commons:StageUpFragment>
+                                </queries:PointwiseUpdate>
+                                <queries:Filter>
+                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="createFreshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </workflows:CreateJavaClassInstance>
+                                    <queries:VariableTest value="nameGenerator"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="7">
+                                    <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                                    <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#patterns"/>
+                                    <queries:ChildStep/>
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="putBoundName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="putBoundName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </queries:Path>
+                                <queries:CartesianInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:Path initialCapacity="5">
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#artifacts"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#patterns"/>
+                                    </queries:Path>
+                                    <queries:Select>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <patterns:Pattern xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <patterns:TemplatePoint>
+                                        <patterns:SequencePoint initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Template"/>
+                                        <commons:VarName value="resultPoint"/>
+                                        <commons:Quantifier value="+"/>
+                                        </commons:Variable>
+                                        </patterns:SequencePoint>
+                                        </patterns:TemplatePoint>
+                                        </patterns:Pattern>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="nextFreshName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="nameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="patternName"/>
+                                        </queries:Filter>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <patterns:ResultPoint xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Template"/>
+                                        <commons:VarName value="patternTemplate"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <patterns:Insert>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Placement"/>
+                                        <commons:VarName value="placement"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#PathExpression"/>
+                                        <commons:VarName value="path"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </patterns:Insert>
+                                        </patterns:ResultPoint>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="resultPoint"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="patternTemplate"/>
+                                        </queries:Filter>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#joinPointPath"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="patternPath"/>
+                                        </queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Delete>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="patternPath"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:FollowingSiblingStep/>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Delete>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <patterns:Placement xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel" value="AFTER_LAST_CHILD"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Block>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <patterns:Placement xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel" value="AROUND"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="placement"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="patternPath"/>
+                                        <queries:VariableTest value="path"/>
+                                        </queries:Filter>
+                                        </queries:Sequence>
+                                        </queries:Block>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </queries:CartesianInsert>
+                            </queries:Block>
+                        </queries:Path>
+                        <queries:VariableRefStep value="workspaceArtifacts"/>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>
