@@ -448,20 +448,25 @@ public class ArtifactsWorkspaceUtils {
 			return aef.createName('.'+extension);
 	}
 
+	public static IEntity getPersistenceKits() {
+		IEntity persistenceKitIds = BindingManagerFactory.instance.createTuple();
+		for (IPersistenceKit persistenceKit : ReflectionFactory.getPersistenceKits())
+			persistenceKitIds.wAdd(BindingManagerFactory.instance.createSpecificValue(
+					ReflectionFactory.getPersistenceKit(persistenceKit.getId())));
+		return persistenceKitIds;
+	}
+
 	public static IEntity getPersistenceKits(FileArtifact fileArtifact) {
 		IEntity persistenceKitIds = BindingManagerFactory.instance.createTuple();
 		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 		bindPath(fileArtifact, bindings, false);
-		if (bindings.wIsSet("persistenceKitId"))
+		if (bindings.wIsSet("persistenceKitId")) {
 			persistenceKitIds.wAdd(
 					BindingManagerFactory.instance.createSpecificValue(
 							ReflectionFactory.getPersistenceKit(bindings.wStringValue("persistenceKitId"))));
-		else
-			for (IPersistenceKit persistenceKit : ReflectionFactory.getPersistenceKits())
-				persistenceKitIds.wAdd(BindingManagerFactory.instance.createSpecificValue(
-						ReflectionFactory.getPersistenceKit(persistenceKit.getId())));
-
-		return persistenceKitIds;
+			return persistenceKitIds;
+		} else
+			return getPersistenceKits();
 	}
 	public static IEntity getContents(FileArtifact fileArtifact, String persistenceKitId) {
 		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
