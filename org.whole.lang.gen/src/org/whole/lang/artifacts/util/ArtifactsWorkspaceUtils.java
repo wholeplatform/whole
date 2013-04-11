@@ -323,6 +323,7 @@ public class ArtifactsWorkspaceUtils {
 		case IJavaElement.JAVA_PROJECT:
 			Project project = aef.createProject();
 			project.setName(aef.createName(name));
+			project.setNatures(aef.createNatures(aef.createNature("org.eclipse.jdt.core.javanature")));
 			project.setArtifacts(aef.createArtifacts(0));
 			entity = project;
 			break;
