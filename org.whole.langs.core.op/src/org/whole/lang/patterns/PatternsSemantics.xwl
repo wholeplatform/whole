@@ -657,7 +657,7 @@
                 <queries:Names initialCapacity="1">
                     <queries:Name value="anyTemplate"/>
                 </queries:Names>
-                <queries:Choose initialCapacity="37">
+                <queries:Choose initialCapacity="38">
                     <queries:If>
                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                         <queries:Scope>
@@ -1721,6 +1721,94 @@
                                 </queries:Scope>
                             </queries:If>
                         </queries:Block>
+                    </queries:If>
+                    <queries:If>
+                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:ExpressionTest>
+                                    <queries:VariableRefStep value="inPatternLanguage"/>
+                                </queries:ExpressionTest>
+                                <queries:Block initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="joinpoints#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="pointcuts#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </queries:Sequence>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="scopeNamesPoint"/>
+                                        <queries:SelfStep/>
+                                        </queries:PointwiseInsert>
+                                        </queries:Sequence>
+                                    </queries:Path>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:QueryDeclaration>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="pointcuts#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        </queries:QueryDeclaration>
+                                    </commons:StageUpFragment>
+                                </queries:Block>
+                            </queries:If>
+                            <queries:Do>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <semantics:SemanticFunction>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="pointcuts#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                    </semantics:SemanticFunction>
+                                </commons:StageUpFragment>
+                            </queries:Do>
+                        </queries:Choose>
                     </queries:If>
                     <queries:If>
                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
