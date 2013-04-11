@@ -5529,12 +5529,13 @@
                                     <queries:Filter>
                                         <queries:VariableRefStep value="parentEntity"/>
                                         <queries:Not>
-                                        <queries:Or initialCapacity="5">
+                                        <queries:Or initialCapacity="6">
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SequencePoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ResultPoint"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#RootFragment"/>
                                         </queries:Or>
                                         </queries:Not>
                                     </queries:Filter>
@@ -5563,11 +5564,12 @@
                                         <queries:ExpressionTest>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="parentEntity"/>
-                                        <queries:Or initialCapacity="4">
+                                        <queries:Or initialCapacity="5">
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#TemplatePoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SequencePoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ResultPoint"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#RootFragment"/>
                                         </queries:Or>
                                         </queries:Filter>
                                         </queries:ExpressionTest>
