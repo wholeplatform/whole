@@ -499,7 +499,7 @@
                             <queries:ChildStep/>
                             <queries:SelfStep/>
                         </queries:Path>
-                        <queries:Block initialCapacity="4">
+                        <queries:Block initialCapacity="3">
                             <queries:Filter>
                                 <queries:ParentStep/>
                                 <queries:VariableTest value="parentEntity"/>
@@ -529,39 +529,34 @@
                                     <queries:VariableTest value="name"/>
                                 </queries:Filter>
                             </queries:Path>
-                            <queries:If>
-                                <queries:Not>
-                                    <queries:KindTest value="RESOLVER"/>
-                                </queries:Not>
-                                <queries:Filter>
-                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:VariableTest value="type"/>
-                                </queries:Filter>
-                            </queries:If>
-                            <queries:Do>
-                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <patterns:Slot xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
-                                        <commons:Variable>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <patterns:Slot xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                    <commons:Variable>
                                         <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
                                         <commons:VarName value="name"/>
                                         <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        <patterns:BooleanValue value="false"/>
+                                    </commons:Variable>
+                                    <patterns:BooleanValue value="false"/>
+                                    <commons:Resolver/>
+                                    <commons:StageDownFragment>
+                                        <semantics:TypeCast xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:EntityType value="http://lang.whole.org/Models#EntityType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        </queries:Filter>
                                         <commons:Resolver/>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Models#EntityType"/>
-                                        <commons:VarName value="type"/>
-                                        <commons:Quantifier value="?"/>
-                                        </commons:Variable>
                                         <commons:Resolver/>
-                                    </patterns:Slot>
-                                </commons:StageUpFragment>
-                            </queries:Do>
+                                        </semantics:FunctionApplication>
+                                        </semantics:TypeCast>
+                                    </commons:StageDownFragment>
+                                    <commons:Resolver/>
+                                </patterns:Slot>
+                            </commons:StageUpFragment>
                         </queries:Block>
                     </queries:CartesianUpdate>
                 </queries:Scope>
