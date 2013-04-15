@@ -170,6 +170,18 @@ public class SemanticsUtils {
 			return gef.create(targetEd);
 		}
 	}
+	//TODO test
+	public static IEntity createMigrateEntityWithUri(IEntity selfEntity, String sourceUri, String targetUri) {
+		final EntityDescriptor<?> selfEd = selfEntity.wGetEntityDescriptor();
+		if (selfEd.getDataKind().isString()) {
+			String sourceValue = selfEntity.wStringValue();
+			if (sourceValue.startsWith(sourceUri))
+				GenericEntityFactory.instance.create(selfEd,
+						sourceValue.length() == sourceUri.length() ?
+						targetUri : targetUri + sourceValue.substring(sourceUri.length()));
+		}
+		return BindingManagerFactory.instance.createVoid();
+	}
 
 	public static IEntity createTerm(String edUri, FreshNameGenerator nameGenerator) {
 		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, false, null);
