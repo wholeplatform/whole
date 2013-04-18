@@ -65,15 +65,15 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.E4MenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
-public class E4Part {
-	protected E4GraphicalViewer viewer;
+public abstract class AbstractE4Part {
+	protected IEntityPartViewer viewer;
 	protected MPopupMenu contextMenu;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<MMenu> contextMenuProvider;
@@ -102,7 +102,7 @@ public class E4Part {
 		restoreState();
 
 		parent.setLayout(new FillLayout());
-		viewer = new E4GraphicalViewer(parent);
+		viewer = createEntityViewer(parent);
 		viewer.setKeyHandler(new E4KeyHandler(context));
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -114,13 +114,13 @@ public class E4Part {
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				context.remove(E4GraphicalViewer.class);
+				context.remove(IEntityPartViewer.class);
 			}
 
 			@Override
 			@SuppressWarnings("unchecked")
 			public void focusGained(FocusEvent e) {
-				context.set(E4GraphicalViewer.class, viewer);
+				context.set(IEntityPartViewer.class, viewer);
 				setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
@@ -133,7 +133,7 @@ public class E4Part {
 
 		viewer.setContents(modelInput, createDefaultContents());
 		
-		context.set(E4GraphicalViewer.class, viewer);
+		context.set(IEntityPartViewer.class, viewer);
 		HandlersBehavior.registerHandlers(handlerService);
 
 		part.getMenus().add(contextMenu = createContextMenu());
@@ -148,6 +148,8 @@ public class E4Part {
 		//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
 		E4Utils.forceRender(context, contextMenu);
 }
+
+	protected abstract IEntityPartViewer createEntityViewer(Composite parent);
 
 	protected void setSelection(IBindingManager bm) {
 		if (modelInput != null)
@@ -232,7 +234,7 @@ public class E4Part {
 		setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 	}
 
-	public E4GraphicalViewer getViewer() {
+	public IEntityPartViewer getViewer() {
 		return viewer;
 	}
 

@@ -24,7 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.AnimableRunnable;
@@ -52,7 +52,7 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		boolean delayUpdates = delayUpdates(viewer, this.delayUpdates);
 		boolean enableAnimation = AnimableRunnable.enableAnimation(!this.delayUpdates);
 		try {
@@ -66,7 +66,7 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 		}
 	}
 
-	protected boolean delayUpdates(E4GraphicalViewer viewer, boolean enable) {
+	protected boolean delayUpdates(IEntityPartViewer viewer, boolean enable) {
 		Boolean oldDelayUpdates = (Boolean) viewer.getProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES);
 		viewer.setProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES, enable);
 		return oldDelayUpdates != null && oldDelayUpdates;

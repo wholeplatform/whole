@@ -29,7 +29,7 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.EditPart;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -54,7 +54,7 @@ public class SelectNotationHandler {
 	@Execute
 	public void execute(@Named(EDITORKIT_ID_PARAMETER_ID) String editorKitId,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
-			final E4GraphicalViewer viewer, UISynchronize synchronize) {
+			final IEntityPartViewer viewer, UISynchronize synchronize) {
 		IEditorKit editorKit = ReflectionFactory.getEditorKit(editorKitId);
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 

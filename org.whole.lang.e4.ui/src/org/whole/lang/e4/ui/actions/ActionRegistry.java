@@ -34,7 +34,7 @@ import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.util.E4Utils;
@@ -63,9 +63,9 @@ public class ActionRegistry {
 	public ActionRegistry(IEclipseContext context) {
 		this.context = context;
 	}
-	public ActionRegistry(IEclipseContext context, Shell shell) {
+	public ActionRegistry(IEclipseContext context, Widget widget) {
 		this(context);
-		registerBaseActions(shell);
+		registerBaseActions(widget);
 	}
 
 	public void updateActions(Collection<IUpdatableAction> actionsToUpdate) {
@@ -214,7 +214,7 @@ public class ActionRegistry {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
 	}
 
-	protected void registerBaseActions(Shell shell) {
+	protected void registerBaseActions(Widget widget) {
 		registerAction(undoAction = new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI));
 		registerAction(redoAction = new RedoAction(context, REDO_LABEL, REDO_ICON_URI));
 		registerAction(createE4ActionAdapter(CUT_MENU_ID));
@@ -231,7 +231,7 @@ public class ActionRegistry {
 		registerAction(createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
 
-		shell.addDisposeListener(new DisposeListener() {
+		widget.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				if (undoAction != null)

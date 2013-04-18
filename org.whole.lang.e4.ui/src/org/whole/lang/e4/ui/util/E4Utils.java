@@ -46,7 +46,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -136,7 +136,7 @@ public class E4Utils {
 		defineSelectionBindings(bm, event);
 		return bm;
 	}
-	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, E4GraphicalViewer viewer) {
+	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		defineSelectionBindings(bm, selectedEntityParts, viewer);
 		return bm;
@@ -146,9 +146,9 @@ public class E4Utils {
 		ISelection selection = event.getSelection();
 		List<IEntityPart> selectedEntityParts = selection instanceof IStructuredSelection ?
 				((IStructuredSelection) selection).toList() : Collections.emptyList();
-		defineSelectionBindings(bm, selectedEntityParts, (E4GraphicalViewer) event.getSelectionProvider());		
+		defineSelectionBindings(bm, selectedEntityParts, (IEntityPartViewer) event.getSelectionProvider());		
 	}
-	public static void defineSelectionBindings(IBindingManager bm, List<IEntityPart> selectedEntityParts, E4GraphicalViewer viewer) {
+	public static void defineSelectionBindings(IBindingManager bm, List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer) {
 		IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
 		for (IEntityPart selectedEntityPart : selectedEntityParts)
 			selectedEntities.wAdd(selectedEntityPart.getModelEntity());

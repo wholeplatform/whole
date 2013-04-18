@@ -17,23 +17,26 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
 
-import java.lang.reflect.Field;
 import java.util.EventObject;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Composite;
@@ -44,13 +47,16 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.parts.E4Part;
+import org.whole.lang.e4.ui.parts.E4GraphicalPart;
 import org.whole.lang.e4.ui.parts.ModelInput;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.e4.ui.viewers.IModelInputListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.WholeUIPlugin;
@@ -61,13 +67,13 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
 /**
  * @author Enrico Persiani
  */
-public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEditor, IGotoMarker {
+public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersistableEditor, IGotoMarker {
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
 	public E3EditorPart() {
-		super(E4Part.class, CUT | COPY | PASTE);
+		super(E4GraphicalPart.class, CUT | COPY | PASTE);
 	}
 
 	@Override
@@ -76,11 +82,19 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 
 		setPartName(getEditorInput().getName());
 
-		getComponent().getViewer().getCommandStack().addCommandStackListener(listener = new CommandStackListener() {
+		final IEntityPartViewer viewer = getComponent().getViewer();
+		viewer.getCommandStack().addCommandStackListener(listener = new CommandStackListener() {
 			public void commandStackChanged(EventObject event) {
-				setDirtyState(getComponent().getViewer().isDirty());
+				setDirtyState(viewer.isDirty());
 			}
 		});
+		viewer.addModelInputListener(new IModelInputListener() {
+			public void modelInputChanged(IModelInput oldModelInput, IModelInput newModelInput) {
+				if (hasOutlinePage())
+					getOutlinePage().updateContents();
+			}
+		});
+		getSelectionSynchronizer().addViewer(viewer);
 
 		undoAction = new UndoAction(getContext(), UNDO_LABEL);
 		undoAction.update();
@@ -95,17 +109,6 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
 		super.setFocus();
-	}
-
-	//FIXME remove when implemented in DIEditorPart
-	private IEclipseContext getContext() {
-		try {
-			Field contextField = DIEditorPart.class.getDeclaredField("context");
-			contextField.setAccessible(true);
-			return ((IEclipseContext) contextField.get(this)).getParent();
-		} catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
 	}
 
 	public void gotoMarker(IMarker marker) {
@@ -176,6 +179,8 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 	public Object getAdapter(Class adapter) {
 		if (adapter == GraphicalViewer.class)
 			return getComponent().getViewer();
+		else if (adapter == IContentOutlinePage.class)
+			return getOutlinePage();
 		else if (adapter == ZoomManager.class)
 			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
 		else if (adapter == CommandStack.class)
@@ -194,6 +199,32 @@ public class E3EditorPart extends DIEditorPart<E4Part> implements IPersistableEd
 			redoAction.dispose();
 		super.dispose();
 	}
+
+	private E3OutlinePage outlinePage;
+	protected boolean hasOutlinePage() {
+		return outlinePage != null && outlinePage.isValid();
+	}
+	protected E3OutlinePage getOutlinePage() {
+		if (outlinePage == null)
+			outlinePage = new E3OutlinePage(getContext(), getComponent().getViewer(), getSelectionSynchronizer());
+		return outlinePage;
+	}
+	protected SelectionSynchronizer synchronizer;
+	protected SelectionSynchronizer getSelectionSynchronizer() {
+		if (synchronizer == null) {
+			synchronizer = new SelectionSynchronizer() {
+				@Override
+				protected EditPart convert(EditPartViewer viewer, EditPart part) {
+					EditPart mappedPart = super.convert(viewer, part);
+					if (mappedPart instanceof GraphicalEditPart &&!((GraphicalEditPart)mappedPart).getFigure().isShowing())
+						mappedPart = null;
+					return mappedPart;
+				}
+			};
+		}
+		return synchronizer;
+	}
+
 
 	@Override
 	public void saveState(IMemento memento) {

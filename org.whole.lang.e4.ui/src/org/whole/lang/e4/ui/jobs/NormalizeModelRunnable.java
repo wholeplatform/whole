@@ -23,7 +23,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
@@ -40,7 +40,7 @@ public class NormalizeModelRunnable extends AbstractRunnableWithProgress {
 
 	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("self"), label);
 

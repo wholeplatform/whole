@@ -74,15 +74,17 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
 /**
  * @author Enrico Persiani
  */
-public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager {
+public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager, IEntityPartViewer {
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
+	private List<IModelInputListener> modelInputListeners;
 
 	public E4GraphicalViewer(Composite parent) {
 		this(parent, new E4EditDomain());
 	}
 	public E4GraphicalViewer(Composite parent, E4EditDomain domain) {
 		partFocusListeners = new ArrayList<IPartFocusListener>();
+		modelInputListeners = new ArrayList<IModelInputListener>();
 
 		createControl2(parent);
 		domain.addViewer(this);
@@ -134,6 +136,17 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	public void removePartFocusListener(IPartFocusListener listener) {
 		partFocusListeners.remove(listener);
+	}
+
+	protected void fireModelInputChanged(IModelInput oldModelInput, IModelInput newModelInput) {
+		for (IModelInputListener listener : modelInputListeners)
+			listener.modelInputChanged(oldModelInput, newModelInput);
+	}
+	public void addModelInputListener(IModelInputListener listener) {
+		modelInputListeners.add(listener);
+	}
+	public void removeModelInputListener(IModelInputListener listener) {
+		modelInputListeners.remove(listener);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -212,10 +225,13 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return getCommandStack().isDirty();
 	}
 
+	protected IModelInput modelInput = null;
 	public void setContents(IModelInput modelInput, IEntity defaultContents) {
 		if (modelInput != null) {
 			try {
+				IModelInput oldModelInput = this.modelInput;
 				setEntityContents(modelInput.readModel());
+				fireModelInputChanged(oldModelInput, this.modelInput = modelInput);
 			} catch (Exception e) {
 				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
 				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();

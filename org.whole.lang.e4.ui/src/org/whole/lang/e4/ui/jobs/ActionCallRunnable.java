@@ -27,7 +27,7 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
@@ -61,7 +61,7 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 			bm.wSet("primarySelectedEntity", EntityUtils.mapEntity(bm.wGet("primarySelectedEntity"), model));
 		}
 
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(model, label);
 

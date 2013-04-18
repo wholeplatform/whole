@@ -31,9 +31,9 @@ import org.whole.lang.ui.commands.TextTransactionCommand;
  * @author Enrico Persiani
  */
 public class E4HistoryCommandStack extends CommandStack {
-	protected E4GraphicalViewer viewer;
+	protected IEntityPartViewer viewer;
 
-	public E4HistoryCommandStack(E4GraphicalViewer viewer) {
+	public E4HistoryCommandStack(IEntityPartViewer viewer) {
 		this.viewer = viewer;
 	}
 

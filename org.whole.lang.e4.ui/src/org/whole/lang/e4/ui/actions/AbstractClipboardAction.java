@@ -23,7 +23,7 @@ import org.eclipse.gef.Disposable;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.actions.NullActionRedirection;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -33,14 +33,14 @@ import org.whole.lang.ui.editparts.IEntityPart;
  */
 @SuppressWarnings("restriction")
 public abstract class AbstractClipboardAction extends AbstractE4Action implements Disposable {
-	protected E4GraphicalViewer viewer;
+	protected IEntityPartViewer viewer;
 	protected CommandStackEventListener listener;
 	protected String label;
 
 	public AbstractClipboardAction(IEclipseContext context, String label) {
 		super(context, label);
 		this.label = label;
-		this.viewer = context.get(E4GraphicalViewer.class);
+		this.viewer = context.get(IEntityPartViewer.class);
 		viewer.getCommandStack().addCommandStackEventListener(listener = new CommandStackEventListener() {
 			public void stackChanged(CommandStackEvent event) {
 				if (event.isPostChangeEvent())
@@ -73,13 +73,13 @@ public abstract class AbstractClipboardAction extends AbstractE4Action implement
 		if (!bm.wIsSet("primarySelectedEntity"))
 			return NullActionRedirection.instance();
 
-		E4GraphicalViewer viewer = (E4GraphicalViewer) ((IBindingManager) selection).wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) ((IBindingManager) selection).wGetValue("viewer");
 		IEntityPart entityPart = viewer.getEditPartRegistry().get(((IBindingManager) selection).wGet("primarySelectedEntity"));
 		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
 		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
 	}
 
-	protected abstract void doRun(E4GraphicalViewer viewer);
-	protected abstract boolean calculateEnabled(E4GraphicalViewer viewer);
-	protected abstract String calculateLabel(E4GraphicalViewer viewer);
+	protected abstract void doRun(IEntityPartViewer viewer);
+	protected abstract boolean calculateEnabled(IEntityPartViewer viewer);
+	protected abstract String calculateLabel(IEntityPartViewer viewer);
 }

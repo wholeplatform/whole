@@ -29,7 +29,7 @@ import org.eclipse.swt.widgets.Event;
  * @author Enrico Persiani
  */
 public class E4EditDomain extends EditDomain {
-	public void addViewer(E4GraphicalViewer viewer) {
+	public void addViewer(IEntityPartViewer viewer) {
 		super.addViewer(viewer);
 
 		// configures a new command stack

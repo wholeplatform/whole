@@ -25,7 +25,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
@@ -41,7 +41,7 @@ public class CutHandler extends RedirectableModelTransactionHandler {
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {			
-			if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
+			if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((IEntityPartViewer) bm.wGetValue("viewer"))) {
 				return true;
 			}
 			return super.canExecute(bm);
@@ -53,10 +53,10 @@ public class CutHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((E4GraphicalViewer) bm.wGetValue("viewer"))) {
+		if (bm.wIsSet("viewer") && ClipboardUtils.hasTextSeletion((IEntityPartViewer) bm.wGetValue("viewer"))) {
 			HandlersBehavior.copy(bm);
 
-			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 			IEntity focusEntity = bm.wGet("focusEntity");
 			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
 			

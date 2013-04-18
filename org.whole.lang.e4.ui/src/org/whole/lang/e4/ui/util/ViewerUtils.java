@@ -28,7 +28,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.ExtendedExposeHelper;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -37,7 +37,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
  * @author Enrico Persiani
  */
 public class ViewerUtils {
-	public static void reveal(E4GraphicalViewer viewer, EditPart part) {
+	public static void reveal(IEntityPartViewer viewer, EditPart part) {
 		if (part == null)
 			return;
 
@@ -46,7 +46,7 @@ public class ViewerUtils {
 		exposeRegion(viewer, part);
 	}
 
-	public static void exposeEditPart(E4GraphicalViewer viewer, EditPart part) {
+	public static void exposeEditPart(IEntityPartViewer viewer, EditPart part) {
 		EditPart parentPart = part.getParent();
 		EditPart childPart = part;
 
@@ -65,7 +65,7 @@ public class ViewerUtils {
 			viewer.getControl().getAccessible().setFocus(accessiblePart.getAccessibleID());
 	}
 
-	public static void exposeRegion(E4GraphicalViewer viewer, EditPart part) {
+	public static void exposeRegion(IEntityPartViewer viewer, EditPart part) {
 		Viewport port = getFigureCanvas(viewer).getViewport();
 		IFigure target = ((GraphicalEditPart) part).getFigure();
 		Rectangle exposeRegion = target.getBounds().getCopy();
@@ -98,11 +98,11 @@ public class ViewerUtils {
 		}
 	}
 
-	private static FigureCanvas getFigureCanvas(E4GraphicalViewer viewer) {
+	private static FigureCanvas getFigureCanvas(IEntityPartViewer viewer) {
 		return (FigureCanvas) viewer.getControl();
 	}
 
-	public static void refreshNotation(E4GraphicalViewer viewer) {
+	public static void refreshNotation(IEntityPartViewer viewer) {
 		FigureCanvas figureCanvas = getFigureCanvas(viewer);
 		Viewport viewport = figureCanvas.getViewport();
 		viewport.invalidateTree();
@@ -110,10 +110,10 @@ public class ViewerUtils {
 		figureCanvas.redraw();
 	}
 
-	public void rebuildNotation(E4GraphicalViewer viewer) {
+	public void rebuildNotation(IEntityPartViewer viewer) {
 		viewer.setContents(viewer.getContents().getModel());
 	}
-	public void rebuildNotation(E4GraphicalViewer viewer, IEntity entity) {
+	public void rebuildNotation(IEntityPartViewer viewer, IEntity entity) {
 		Object editPart = viewer.getEditPartRegistry().get(entity);
 		if (editPart == null)
 			editPart = viewer.getEditPartRegistry().get(entity.wGetParent().wGet(entity));

@@ -53,6 +53,7 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
@@ -63,7 +64,7 @@ import org.whole.lang.ui.actions.IUpdatableAction;
  */
 @SuppressWarnings("restriction")
 public class E4Dialog extends Dialog {
-	protected E4GraphicalViewer viewer;
+	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 
@@ -106,7 +107,7 @@ public class E4Dialog extends Dialog {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void focusGained(FocusEvent e) {
-				context.set(E4GraphicalViewer.class, viewer);
+				context.set(IEntityPartViewer.class, viewer);
 				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
 				selectionService.setSelection(bm);
 			}
@@ -115,7 +116,7 @@ public class E4Dialog extends Dialog {
 		viewer.setKeyHandler(new E4KeyHandler(context));
 		viewer.setEntityContents(createDefaultContents());
 
-		context.set(E4GraphicalViewer.class, viewer);
+		context.set(IEntityPartViewer.class, viewer);
 
 		actionRegistry = createActionRegistry();
 		HandlersBehavior.registerHandlers(handlerService);

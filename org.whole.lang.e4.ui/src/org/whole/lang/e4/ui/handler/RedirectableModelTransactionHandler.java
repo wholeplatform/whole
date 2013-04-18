@@ -23,7 +23,7 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.actions.NullActionRedirection;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -58,7 +58,7 @@ public abstract class RedirectableModelTransactionHandler extends ModelTransacti
 		if (!bm.wIsSet("primarySelectedEntity"))
 			return NullActionRedirection.instance();
 
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("primarySelectedEntity"));
 		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
 		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();

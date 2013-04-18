@@ -23,7 +23,7 @@ import java.net.URL;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -44,15 +44,15 @@ public class UndoAction extends AbstractClipboardAction {
 		}
 	}
 
-	protected void doRun(E4GraphicalViewer viewer) {
+	protected void doRun(IEntityPartViewer viewer) {
 		viewer.getCommandStack().undo();
 	}
 
-	protected boolean calculateEnabled(E4GraphicalViewer viewer) {
+	protected boolean calculateEnabled(IEntityPartViewer viewer) {
 		return viewer.getCommandStack().canUndo();
 	}
 
-	protected String calculateLabel(E4GraphicalViewer viewer) {
+	protected String calculateLabel(IEntityPartViewer viewer) {
 		String editLabel = label;
 		if (isEnabled()) {
 			String label = viewer.getCommandStack().getUndoCommand().getLabel();

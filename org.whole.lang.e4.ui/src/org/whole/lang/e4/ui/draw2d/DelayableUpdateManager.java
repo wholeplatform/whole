@@ -22,7 +22,7 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.swt.widgets.Display;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -30,10 +30,10 @@ import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 public class DelayableUpdateManager extends DeferredUpdateManager {
 	public static final String PROPERTY_DELAY_UPDATES = "DelayUpdates";
 
-	private final E4GraphicalViewer Viewer;
+	private final IEntityPartViewer Viewer;
 	private boolean hasDelayedUpdates;
 
-	public DelayableUpdateManager(E4GraphicalViewer e4GraphicalViewer) {
+	public DelayableUpdateManager(IEntityPartViewer e4GraphicalViewer) {
 		this.Viewer = e4GraphicalViewer;
 
 		hasDelayedUpdates = false;

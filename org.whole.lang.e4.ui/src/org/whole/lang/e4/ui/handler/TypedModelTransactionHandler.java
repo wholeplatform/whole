@@ -28,7 +28,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 
 /**
@@ -55,7 +55,7 @@ public abstract class TypedModelTransactionHandler {
 	public void execute(@Named(ED_URI_PARAMETER_ID) String edUri,
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
-			E4GraphicalViewer viewer) throws Exception {
+			IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
 		try {

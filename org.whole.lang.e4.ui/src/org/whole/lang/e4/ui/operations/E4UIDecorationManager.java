@@ -38,7 +38,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.WorkspaceDecorationManager;
@@ -51,12 +51,12 @@ import org.whole.lang.ui.editparts.ModelObserver;
 @SuppressWarnings("restriction")
 public class E4UIDecorationManager extends WorkspaceDecorationManager {
 	protected UISynchronize synchronize;
-	protected E4GraphicalViewer viewer;
+	protected IEntityPartViewer viewer;
 
 	public E4UIDecorationManager(UISynchronize synchronize, IBindingManager bm) {
 		super((IFile) bm.wGetValue("file"), ((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).getAdapter(IProgressMonitor.class));
 		this.synchronize = synchronize;
-		this.viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		this.viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 	}
 
 	public void addDecoration(final DecorationKind kind, final IEntity entity, final String message, final String location) {

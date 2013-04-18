@@ -21,7 +21,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.tools.Tools;
@@ -53,7 +53,7 @@ public final class ActivateToolAction extends AbstractE4Action {
 	public void run() {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		boolean clearCaret = Tools.TEXTUAL != tool && Tools.TEXTUAL.isActive(viewer);
 		if (tool.ensureActive(viewer) && clearCaret) {
 			IEntity focusEntity = bm.wGet("focusEntity");

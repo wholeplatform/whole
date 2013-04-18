@@ -17,31 +17,27 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
-import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
-import org.whole.lang.e4.ui.parts.E4GraphicalPart;
+import org.whole.lang.e4.ui.parts.E4TreePart;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
+public class E3TreeViewPart extends DIViewPart<E4TreePart> {
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
-	public E3ViewPart() {
-		super(E4GraphicalPart.class);
+	public E3TreeViewPart() {
+		super(E4TreePart.class);
 	}
 
 	@Override
@@ -61,19 +57,6 @@ public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
 		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
 		super.setFocus();
-	}
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Object getAdapter(Class adapter) {
-		if (adapter == GraphicalViewer.class)
-			return getComponent().getViewer();
-		else if (adapter == ZoomManager.class)
-			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
-		else if (adapter == CommandStack.class)
-			return getComponent().getViewer().getCommandStack();
-		else
-			return super.getAdapter(adapter);
 	}
 
 	@Override

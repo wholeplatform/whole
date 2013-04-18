@@ -23,7 +23,7 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -33,7 +33,7 @@ public class UndoHandler {
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {
-			E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 			return viewer.getEditDomain().getCommandStack().canUndo();
 		} catch (Exception e) {
 			return false;
@@ -42,7 +42,7 @@ public class UndoHandler {
 
 	@Execute
 	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		viewer.getEditDomain().getCommandStack().undo();
 	}
 }

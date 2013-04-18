@@ -62,7 +62,7 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -183,12 +183,12 @@ public class HandlersBehavior {
 		if (!isValidEntityPartSelection(bm, true))
 			return false;
 
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		return viewer.getEditPartRegistry().get(primarySelectedEntity) instanceof IGraphicalEntityPart;
 	}
 	public static void copyAsImage(IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEntityPart part = viewer.getEditPartRegistry().get(primarySelectedEntity);
 		Clipboard.instance().setImageContents((IGraphicalEntityPart) part);
@@ -246,7 +246,7 @@ public class HandlersBehavior {
 		
 	}
 	public static void pasteAs(IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		Shell shell = viewer.getControl().getShell();
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImplicitElementImportAsModelDialog(
@@ -332,13 +332,13 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canSelectAll(IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity entityContents = viewer.getEntityContents();
 		IGraphicalEntityPart contents = (IGraphicalEntityPart) viewer.getEditPartRegistry().get(entityContents);
 		return ((IEntityFigure) contents.getFigure()).isInteractiveEdit();
 	}
 	public static void selectAll(IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity entityContents = viewer.getEntityContents();
 		IEntityPart contents = viewer.getEditPartRegistry().get(entityContents);
 		viewer.setSelection(new StructuredSelection(contents));
@@ -358,7 +358,7 @@ public class HandlersBehavior {
 		return isValidEntityPartSelection(bm, true);
 	}
 	public static void importEntity(IBindingManager bm) {
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		Shell shell = viewer.getControl().getShell();
 
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");

@@ -29,7 +29,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 
@@ -58,7 +58,7 @@ public class PerformHandler  {
 	public void execute(@Named(BEHAVIOR_XWL_PARAMETER_ID) String behaviorXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), label);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		try {

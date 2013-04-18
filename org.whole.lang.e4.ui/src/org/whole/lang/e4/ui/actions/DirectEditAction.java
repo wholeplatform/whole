@@ -23,7 +23,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.LocationRequest;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 
@@ -46,7 +46,7 @@ public final class DirectEditAction extends AbstractE4Action {
 		if (selectionService.getSelection() instanceof IBindingManager) {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
 			if (bm.wIsSet("viewer")) {
-				E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 				IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 				IEntityPart entityPart = viewer.getEditPartRegistry().get(primarySelectedEntity);
 				setEnabled(entityPart.understandsRequest(request));
@@ -58,7 +58,7 @@ public final class DirectEditAction extends AbstractE4Action {
 	public void run() {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		E4GraphicalViewer viewer = (E4GraphicalViewer) bm.wGetValue("viewer");
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEntityPart entityPart = viewer.getEditPartRegistry().get(primarySelectedEntity);
 		try {

@@ -28,7 +28,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
-import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 
@@ -56,7 +56,7 @@ public abstract class FragmentModelTransactionHandler {
 	@Execute
 	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, E4GraphicalViewer viewer) throws Exception {
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
 		try {
