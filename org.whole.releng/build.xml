@@ -218,4 +218,9 @@
 
 		<antcall target="clean_ldk"/>
 	</target>
+
+	<target name="test_ldk" description="Test the released Whole Language Development Kit">
+		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="test"/>
+		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="clean"/>
+	</target>
 </project>
