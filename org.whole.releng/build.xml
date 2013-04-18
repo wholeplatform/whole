@@ -206,6 +206,8 @@
 		<antcall target="set_build_version"/>
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy"/>
 		<antcall target="set_meta_version"/>
+
+		<antcall target="clean_ldk"/>
 	</target>
 
 	<target name="release_ldk_local" depends="clean">
@@ -213,5 +215,7 @@
 		<antcall target="set_build_version"/>
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install"/>
 		<antcall target="set_meta_version"/>
+
+		<antcall target="clean_ldk"/>
 	</target>
 </project>
