@@ -1165,12 +1165,22 @@
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
-                                        <queries:Choose initialCapacity="2">
+                                        <queries:Choose initialCapacity="3">
                                         <queries:If>
                                         <queries:TypeTest value="http://lang.whole.org/Queries#Sequence"/>
                                         <queries:Delete>
                                         <queries:ChildStep/>
                                         </queries:Delete>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                        <commons:StageUpFragment>
+                                        <queries:Do>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        </queries:Do>
+                                        </commons:StageUpFragment>
                                         </queries:If>
                                         <queries:Do>
                                         <queries:SelfStep/>
@@ -1312,12 +1322,29 @@
                                         </commons:StageUpFragment>
                                         </queries:If>
                                         <queries:Do>
+                                        <queries:Path initialCapacity="2">
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="wrapAtTemplateStage"/>
                                         <queries:VariableRefStep value="template"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Do>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        </queries:Do>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:SelfStep/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </queries:Path>
                                         </queries:Do>
                                         </queries:Choose>
                                     </queries:Block>
