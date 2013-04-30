@@ -59,7 +59,7 @@ public class CutHandler extends RedirectableModelTransactionHandler {
 			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 			IEntity focusEntity = bm.wGet("focusEntity");
 			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
-			
+
 			Command command = focusPart.getCommand(TextualRequest.createDeleteRequest());
 			command.setLabel(getLabel(bm)+" text");
 

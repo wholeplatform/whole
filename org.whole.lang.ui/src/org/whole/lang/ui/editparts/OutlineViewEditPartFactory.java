@@ -27,7 +27,10 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalViewer;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
@@ -37,8 +40,10 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.operations.IDecorationManager.DecorationKind;
 import org.whole.lang.ui.editor.IGEFEditorKit;
+import org.whole.lang.ui.editors.TreeDirectEditManager;
 import org.whole.lang.ui.editors.WholeOutlinePage;
 import org.whole.lang.ui.editpolicies.IHilightable;
+import org.whole.lang.ui.editpolicies.TreeDirectEditPolicy;
 import org.whole.lang.ui.editpolicies.WholeComponentEditPolicy;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.templates.OutlineUIProvider;
@@ -47,27 +52,26 @@ import org.whole.lang.ui.views.WholeGraphicalViewer;
 import org.whole.lang.ui.views.properties.tabbed.EntityPropertySource;
 import org.whole.lang.util.EntityUtils;
 
-
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
 public class OutlineViewEditPartFactory implements EditPartFactory {
-	public EditPart createEditPart(EditPart context, Object entity) {
-		IEntity modelEntity = (IEntity) entity;
-		if (EntityUtils.isData(modelEntity)) {
-			OutlineTreeLeafEditPart outlineTreeLeafEditPart = EntityUtils.isComposite(modelEntity) ?
-					new CompositeOutlineTreeLeafEditPart(modelEntity) :
-						new OutlineTreeLeafEditPart(modelEntity);
-			return outlineTreeLeafEditPart;
-		} else {
-			OutlineTreeNodeEditPart outlineTreeNodeEditPart = EntityUtils.isComposite(modelEntity) ?
-					new CompositeOutlineTreeNodeEditPart(modelEntity) :
-						new OutlineTreeNodeEditPart(modelEntity);
-			return outlineTreeNodeEditPart;
+	public EditPart createEditPart(EditPart context, Object modelEntity) {
+		IEntity entity = (IEntity) modelEntity;
+
+		switch (entity.wGetEntityKind()) {
+		case DATA:
+			return new OutlineTreeLeafEditPart(entity);
+		case COMPOSITE:
+			return new CompositeOutlineTreeNodeEditPart(entity);
+		case SIMPLE:
+			return new OutlineTreeNodeEditPart(entity);
 		}
+
+		throw new IllegalArgumentException("unsupported entity kind");
 	}
 
-	protected static abstract class OutlineTreeEditPart extends AbstractTreeEditPart implements IEntityPart {
+	protected static abstract class OutlineTreeEditPart extends AbstractTreeEditPart implements ITreeEntityPart {
 		public OutlineTreeEditPart(IEntity entity) {
 			super(entity);
 		}
@@ -135,10 +139,19 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		}
 
 		public void addDecoration(DecorationKind kind, String tooltip) {
-			//TODO implement
 		}
 		public void deleteDecorations(boolean deep) {
-			//TODO implement		
+		}
+
+		@Override
+		public void performRequest(Request request) {
+			if (request.getType() == RequestConstants.REQ_DIRECT_EDIT || request.getType() == RequestConstants.REQ_OPEN)
+				performDirectEdit((LocationRequest) request);
+			else
+				super.performRequest(request);
+		}
+
+		protected void performDirectEdit(LocationRequest request) {
 		}
 
 		protected void createEditPolicies() {
@@ -178,6 +191,7 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		public void setDetailed(boolean value, IEntityPart childPart) {
 		}
 	}
+
 	public static class OutlineTreeNodeEditPart extends OutlineTreeEditPart {
 		public OutlineTreeNodeEditPart(IEntity entity) {
 			super(entity);
@@ -211,6 +225,9 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		}
 	}
 	public static class OutlineTreeLeafEditPart extends OutlineTreeEditPart {
+		protected TreeDirectEditPolicy directEditPolicy;
+		private TreeDirectEditManager manager;
+
 		public OutlineTreeLeafEditPart(IEntity entity) {
 			super(entity);
 		}
@@ -227,33 +244,35 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 			}
 			refreshVisuals();
 		}
+
+		protected void performDirectEdit(LocationRequest request) {
+			if (directEditPolicy != null)
+				showDirectEdit();
+		}
+
+		protected void showDirectEdit() {
+			if (manager == null)
+				manager = new TreeDirectEditManager(this);
+		    
+		    manager.show();
+		}
+
+		@Override
+		protected void createEditPolicies() {
+			super.createEditPolicies();
+			installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
+					directEditPolicy = new TreeDirectEditPolicy());
+		}
 	}
 	public static class CompositeOutlineTreeNodeEditPart extends OutlineTreeNodeEditPart implements IHilightable {
 		public CompositeOutlineTreeNodeEditPart(IEntity entity) {
 			super(entity);
 		}
 
-		public boolean isModelChildrenReversed() {
-			return false;
-		}
-
 		public int getHilightPosition() {
 			return getModelEntity().wSize();
 		}
-		public void setHilightPosition(int hilightPosition) { }
-	}
-	public static class CompositeOutlineTreeLeafEditPart extends OutlineTreeLeafEditPart implements IHilightable {
-		public CompositeOutlineTreeLeafEditPart(IEntity entity) {
-			super(entity);
+		public void setHilightPosition(int hilightPosition) {
 		}
-
-		public boolean isModelChildrenReversed() {
-			return false;
-		}
-
-		public int getHilightPosition() {
-			return getModelEntity().wSize();
-		}
-		public void setHilightPosition(int hilightPosition) { }
 	}
 }

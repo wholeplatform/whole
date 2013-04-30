@@ -27,7 +27,6 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.gef.EditPart;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
@@ -56,7 +55,7 @@ public class SelectNotationHandler {
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			final IEntityPartViewer viewer, UISynchronize synchronize) {
 		IEditorKit editorKit = ReflectionFactory.getEditorKit(editorKitId);
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		final IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 
 		boolean historyEnabled = ReflectionFactory.getHistoryManager(primarySelectedEntity).setHistoryEnabled(false);
 
@@ -67,15 +66,11 @@ public class SelectNotationHandler {
 		IEntityPart fragmentPart = ModelObserver.getObserver(fragmentRoot, editPartRegistry);
 		fragmentPart.rebuild();
 
-		final EditPart newSelectedPart = (EditPart) editPartRegistry.get(primarySelectedEntity);
-		if (newSelectedPart != null) {
-			synchronize.asyncExec(new Runnable() {
-				public void run() {
-					viewer.reveal(newSelectedPart);
-					viewer.select(newSelectedPart);					
-				}				
-			});
-		}
+		synchronize.asyncExec(new Runnable() {
+			public void run() {
+				viewer.selectAndReveal(primarySelectedEntity);	
+			}				
+		});
 
 		ReflectionFactory.getHistoryManager(primarySelectedEntity).setHistoryEnabled(historyEnabled);
 	}

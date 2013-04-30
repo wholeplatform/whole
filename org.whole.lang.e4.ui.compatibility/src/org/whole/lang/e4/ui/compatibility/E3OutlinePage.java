@@ -21,17 +21,23 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.parts.ScrollableThumbnail;
 import org.eclipse.draw2d.parts.Thumbnail;
+import org.eclipse.e4.core.commands.ECommandService;
+import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.e4.ui.bindings.EBindingService;
+import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RootEditPart;
@@ -40,16 +46,20 @@ import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
-import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -60,74 +70,125 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.PageBook;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.api.IModelInput;
+import org.whole.lang.e4.ui.api.IUIProvider;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
+import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.e4.ui.viewers.E4TreeViewer;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.model.ICompoundModel;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.WholeImages;
+import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory.OutlineTreeNodeEditPart;
 import org.whole.lang.ui.views.WholeGraphicalViewer;
 
 /**
- * @author Riccardo Solmi, Enrico Persiani
+ * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
 public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
-	private IEclipseContext context;
+	private static final int OUTLINE_PAGE_ID = 0;
+	private static final int OVERVIEW_PAGE_ID = 1;
+
 	private IEntityPartViewer graphicalViewer;
 	private SelectionSynchronizer synchronizer;
-	private ActionRegistry actionRegistry;
-	private PageBook pageBook;
-	private Control outline;
-	private Canvas overview;
-	private Thumbnail thumbnail;
+	private IEclipseContext context;
+	private ECommandService commandService;
+	private EHandlerService handlerService;
+	private EBindingService bindingService;
 
-	private IAction collapseAllAction;
-	private IAction toggleOverviewAction;
-	static final int OUTLINE = 0;
-	static final int OVERVIEW = 1;
-
-	private DisposeListener disposeListener;
+	static class OtlineTreeViewer extends E4TreeViewer {
+		public OtlineTreeViewer(IEclipseContext context) {
+			this.modelInput = context.get(IModelInput.class);
+		}
+		@SuppressWarnings("unchecked")
+		@Override
+		public ISelection getSelection() {
+			IStructuredSelection selection = (IStructuredSelection) super.getSelection();
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), this);
+			if (modelInput != null)
+				E4Utils.defineResourceBindings(bm, modelInput);
+			return new BindingManagerAdapter(bm, selection);
+		}
+	}
 
 	public E3OutlinePage(IEclipseContext context, IEntityPartViewer graphicalViewer, SelectionSynchronizer synchronizer) {
-		super(new TreeViewer());
-		this.context = context.getParent();
+		super(new OtlineTreeViewer(context));
 		this.graphicalViewer = graphicalViewer;
 		this.synchronizer = synchronizer;
+
+		this.context = context.getParent();
+		this.commandService = this.context.get(ECommandService.class);
+		this.handlerService = this.context.get(EHandlerService.class);
+		this.bindingService = this.context.get(EBindingService.class);
 	}
 
 	@Override
+	protected IEntityPartViewer getViewer() {
+		return (IEntityPartViewer) super.getViewer();
+	}
+	@Override
 	public void setFocus() {
-//		context.set(IEntityPartViewer.class, graphicalViewer);
-//		IActionBars actionBars = getSite().getActionBars();
-//		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), actionRegistry.getAction(EDIT_UNDO));
-//		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), actionRegistry.getAction(EDIT_UNDO));
-//		actionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), actionRegistry.getAction(EDIT_DELETE));
+		context.set(IEntityPartViewer.class, graphicalViewer);
 		super.setFocus();
 	}
 
+	protected IUIProvider<IMenuManager> contextMenuProvider;
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 		IActionBars actionBars = pageSite.getActionBars();
 
-//		getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
-//			@Override
-//			public void selectionChanged(SelectionChangedEvent event) {
-//				context.get(ESelectionService.class).setSelection(E4Utils.createSelectionBindings(event));
-//			}
-//		});
-//		this.actionRegistry = new ActionRegistry(context, graphicalViewer.getControl());
-
-//		// setup global actions
-//		ActionRegistry registry = getActionFactory().getActionRegistry();
-//		List<String> actionIds = new ArrayList<String>();
-//		for (String actionId  : createGlobalActions(actionIds, registry))
-//			actionBars.setGlobalActionHandler(actionId, registry.getAction(actionId));
-
-		// create contributions
 		createContributions(actionBars);
 		actionBars.updateActionBars();
+	}
+	
+	@Override
+	public void setActionBars(IActionBars actionBars) {
+		super.setActionBars(actionBars);
+		List<String> actionIds = new ArrayList<String>();
+		for (String actionId  : createGlobalActions(actionIds))
+			actionBars.setGlobalActionHandler(actionId, actionRegistry.getAction(actionId));
+	}
+	
+	protected List<String> createGlobalActions(List<String> actions) {
+		actions.add(ActionFactory.UNDO.getId());
+		actions.add(ActionFactory.REDO.getId());
+		actions.add(ActionFactory.CUT.getId());
+		actions.add(ActionFactory.COPY.getId());
+		actions.add(ActionFactory.PASTE.getId());
+		actions.add(ActionFactory.DELETE.getId());
+		actions.add(ActionFactory.DELETE.getId());
+		actions.add(ActionFactory.FIND.getId());
+		return actions;
+	}
+
+	private ActionRegistry actionRegistry;
+	protected ActionRegistry createActionRegistry() {
+		ActionRegistry actionRegistry = new ActionRegistry(context, getControl());
+		IEntityPartViewer viewer = getViewer();
+
+		IUpdatableAction undoAction = actionRegistry.getAction(EDIT_UNDO);
+		ParameterizedCommand command = commandService.createCommand(EDIT_UNDO, null);
+		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, undoAction);
+
+		IUpdatableAction redoAction = actionRegistry.getAction(EDIT_REDO);
+		command = commandService.createCommand(EDIT_REDO, null);
+		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, redoAction);
+
+		IUpdatableAction deleteAction = actionRegistry.getAction(EDIT_DELETE);
+		command = commandService.createCommand(EDIT_DELETE, null);
+		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, deleteAction);
+
+		return actionRegistry;
 	}
 
 	public void collapseAll(EditPart part) {
@@ -140,6 +201,10 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		for (Iterator<?> i = part.getChildren().iterator(); i.hasNext();)
 			collapseAll((EditPart) i.next());
 	}
+
+	private IAction collapseAllAction;
+	private IAction toggleOverviewAction;
+	private DisposeListener disposeListener;
 	protected void createContributions(IActionBars actionBars) {
 		IToolBarManager tbm = actionBars.getToolBarManager();
 		collapseAllAction = new Action("collapse all") {
@@ -153,22 +218,11 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 
 		toggleOverviewAction = new Action("overview", Action.AS_CHECK_BOX) {
 			public void run() {
-				showPage(isChecked() ? OVERVIEW : OUTLINE);
+				showPage(isChecked() ? OVERVIEW_PAGE_ID : OUTLINE_PAGE_ID);
 			}
 		};
 		toggleOverviewAction.setImageDescriptor(ImageDescriptor.createFromImage(WholeImages.OVERVIEW));
 		tbm.add(toggleOverviewAction);
-	}
-
-	protected List<String> createGlobalActions(List<String> actions, ActionRegistry registry) {
-		actions.add(ActionFactory.UNDO.getId());
-		actions.add(ActionFactory.REDO.getId());
-		actions.add(ActionFactory.CUT.getId());
-		actions.add(ActionFactory.COPY.getId());
-		actions.add(ActionFactory.PASTE.getId());
-		actions.add(ActionFactory.DELETE.getId());
-		actions.add(ActionFactory.FIND.getId());
-		return actions;
 	}
 
 	public static final String PROPERTY_DIRTY = "Dirty";
@@ -190,32 +244,27 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 				if ((Boolean) getViewer().getProperty(PROPERTY_DIRTY)) {
 					Display.getDefault().asyncExec(new Runnable() {
 						public void run() {
-//							RootEditPart rootEditPart = getViewer().getRootEditPart();
-//							IEntityPart contents = (IEntityPart) rootEditPart.getContents();
-//							setContents(contents.getModelEntity());
 							updateContents();
 						}
 					});
 				}
 			}
 		});
-
-//		ContextMenuProvider provider = new WholeContextMenuProvider(getViewer(), getActionFactory());
-//		getViewer().setContextMenu(provider);
-//		getSite().registerContextMenu("org.whole.lang.outline.contextmenu", provider, getSite().getSelectionProvider());
-//		getViewer().setKeyHandler(graphicalViewer.getKeyHandler()); //TODO replace with parent keyHandler
-
-		showPage(OUTLINE);
+		showPage(OUTLINE_PAGE_ID);
 	}
-	
+
+	private PageBook pageBook;
+	private Control outline;
+	private Canvas overview;
+	private Thumbnail thumbnail;
 	protected void showPage(int id) {
-		if (id == OUTLINE) {
+		if (id == OUTLINE_PAGE_ID) {
 			collapseAllAction.setEnabled(true);
 			toggleOverviewAction.setChecked(false);
 			pageBook.showPage(outline);
 			if (thumbnail != null)
 				thumbnail.setVisible(false);
-		} else if (id == OVERVIEW) {
+		} else if (id == OVERVIEW_PAGE_ID) {
 			if (thumbnail == null)
 				initializeOverview();
 			collapseAllAction.setEnabled(false);
@@ -233,14 +282,42 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		configureOutlineViewer();
 		hookOutlineViewer();
 		initializeOutlineViewer();
+
+		IEntityPartViewer viewer = getViewer();
+		viewer.getControl().addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				context.set(IEntityPartViewer.class, graphicalViewer);
+			}
+		});
+
+		viewer.setKeyHandler(new E4KeyHandler(context));
+
+		context.set(IEntityPartViewer.class, viewer);
+
+		actionRegistry = createActionRegistry();
+		HandlersBehavior.registerHandlers(handlerService);
+
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
+
+		viewer.setContextMenu(new ContextMenuProvider(viewer) {
+			@Override
+			public void buildContextMenu(IMenuManager menuManager) {
+				contextMenuProvider.populate(menuManager);
+			}
+		});
+
 	}
 
-	private boolean valid = true;
 	public boolean isValid() {
-		return valid;
+		Control control = getControl();
+		return control != null && !control.isDisposed();
 	}
 	public void dispose() {
-		valid = false;
 		modelObserver.dispose();
 		unhookOutlineViewer();
 		if (thumbnail != null) {
@@ -261,30 +338,28 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		return pageBook;
 	}
 
-	protected void hookOutlineViewer() {
-		synchronizer.addViewer(getViewer());
-	}
-
 	ModelObserver modelObserver;
-	@SuppressWarnings("unchecked")
 	protected void initializeOutlineViewer() {
 		updateContents();
-		modelObserver = new ModelObserver(
-				graphicalViewer.getEntityContents().wGetModel().getCompoundModel(),
-				getViewer().getEditPartRegistry());
+
+		ICompoundModel compoundModel = graphicalViewer.getEntityContents().wGetModel().getCompoundModel();
+		Map<IEntity, IEntityPart> editPartRegistry = getViewer().getEditPartRegistry();
+		modelObserver = new ModelObserver(compoundModel, editPartRegistry);
+	}
+
+	public void updateContents() {
+		getViewer().setEntityContents(graphicalViewer.getEntityContents());
 	}
 
 	protected void initializeOverview() {
-		LightweightSystem lws = new LightweightSystem(overview);
-		RootEditPart rep = graphicalViewer.getRootEditPart();
-//		if (rep instanceof ScalableFreeformRootEditPart) {
-//			ScalableFreeformRootEditPart root = (ScalableFreeformRootEditPart) rep;
-		if (rep instanceof ScalableRootEditPart) {
-			ScalableRootEditPart root = (ScalableRootEditPart) rep;
-			thumbnail = new ScrollableThumbnail((Viewport) root.getFigure());
+		LightweightSystem lightWeightSystem = new LightweightSystem(overview);
+		RootEditPart rootEditPart = graphicalViewer.getRootEditPart();
+		if (rootEditPart instanceof ScalableRootEditPart) {
+			ScalableRootEditPart scalableRootEditPart = (ScalableRootEditPart) rootEditPart;
+			thumbnail = new ScrollableThumbnail((Viewport) scalableRootEditPart.getFigure());
 			thumbnail.setBorder(new MarginBorder(3));
-			thumbnail.setSource(root.getLayer(LayerConstants.PRINTABLE_LAYERS));
-			lws.setContents(thumbnail);
+			thumbnail.setSource(scalableRootEditPart.getLayer(LayerConstants.PRINTABLE_LAYERS));
+			lightWeightSystem.setContents(thumbnail);
 			disposeListener = new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					if (thumbnail != null) {
@@ -296,16 +371,15 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 			graphicalViewer.getControl().addDisposeListener(disposeListener);
 		}
 	}
-
-	public void updateContents() {
-		getViewer().setContents(graphicalViewer.getContents().getModel());
+	
+	protected void hookOutlineViewer() {
+		synchronizer.addViewer(getViewer());
 	}
 
 	protected void unhookOutlineViewer() {
 		Control control = graphicalViewer.getControl();
 		synchronizer.removeViewer(getViewer());
-		if (disposeListener != null && control != null
-				&& !control.isDisposed())
+		if (disposeListener != null && control != null && !control.isDisposed())
 			control.removeDisposeListener(disposeListener);
 	}
 }

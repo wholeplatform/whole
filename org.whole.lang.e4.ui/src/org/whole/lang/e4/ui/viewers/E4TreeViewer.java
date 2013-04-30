@@ -21,14 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.ui.parts.TreeViewer;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Tree;
+import org.whole.lang.commons.model.RootFragment;
+import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -48,18 +57,41 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	private List<IPartFocusListener> partFocusListeners;
 	private List<IModelInputListener> modelInputListeners;
 
-	public E4TreeViewer(Composite parent) {
-		this(parent, new E4EditDomain());
+	public E4TreeViewer() {
+		setEditPartFactory(new OutlineViewEditPartFactory());
 	}
 	public E4TreeViewer(Composite parent, E4EditDomain domain) {
+		this();
+
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
 
 		createControl(parent);
 		domain.addViewer(this);
-
-		setEditPartFactory(new OutlineViewEditPartFactory());
 	}
+	public E4TreeViewer(Composite parent) {
+		this(parent, new E4EditDomain());
+	}
+
+	@Override
+	public Control createControl(Composite parent) {
+		Tree tree = (Tree) super.createControl(parent);
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent event) {
+				Point point = new Point(event.x, event.y);
+			    EditPart editPart = findObjectAt(point);
+			    if (editPart != null) {
+			    	LocationRequest request = new LocationRequest(RequestConstants.REQ_DIRECT_EDIT);
+			    	request.setLocation(point);
+					editPart.performRequest(request);
+			    }
+			}
+		});
+		return tree;
+	}
+
+	// Begin Block Shared With E4GraphicalViewer
 
 	public CommandStack getCommandStack() {
 		return getEditDomain().getCommandStack();
@@ -67,12 +99,16 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	public boolean isDirty() {
 		return getCommandStack().isDirty();
 	}
-	
+
 	public IEntity getEntityContents() {
-		return ((IEntityPart) getContents()).getModelEntity().wGetAdaptee(false);
+		RootFragment modelEntity = ((IEntityPart) getContents()).getModelEntity();
+		return modelEntity.getRootEntity().wGetAdaptee(false);
 	}
 	public void setEntityContents(IEntity entity) {
 		setContents(entity);
+		flush();
+		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		getCommandStack().flush();
 	}
 
 	protected IModelInput modelInput = null;
@@ -93,7 +129,16 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 				setEntityContents(statusModel);
 			}
 		} else
-			setEntityContents(QueriesTemplateManager.instance().create("FileArtifact generator"));//defaultContents);
+			setEntityContents(defaultContents);
+	}
+	protected RootFragment wrapContents(IEntity entity) {
+		return entity instanceof RootFragment ? (RootFragment) entity :
+			new LazyContainmentRootFragmentImpl(entity);
+	}
+	public void setContents(Object contents) {
+		IEntity root = (IEntity) contents;
+		super.setContents(wrapContents(root));
+		updateModelObserver(root);
 	}
 
 	public Map<IEntity, IEntityPart> getEditPartRegistry() {
@@ -109,7 +154,6 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	public void setKeyHandler(E4KeyHandler handler) {
 		super.setKeyHandler(handler);
 	}
-	
 
 	public void selectAndReveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
@@ -120,11 +164,6 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		}
 	}
 
-	public void setContents(Object contents) {
-		IEntity root = (IEntity) contents;
-		super.setContents(root);
-		updateModelObserver(root);
-	}
 	protected void updateModelObserver(IEntity entity) {
 		ICompoundModel model = entity.wGetModel().getCompoundModel();
 		if (modelObserver != null && modelObserver.getModel() != model) {
@@ -167,4 +206,6 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	public void removeModelInputListener(IModelInputListener listener) {
 		modelInputListeners.remove(listener);
 	}
+
+	// End Block Shared With E4GraphicalViewer
 }

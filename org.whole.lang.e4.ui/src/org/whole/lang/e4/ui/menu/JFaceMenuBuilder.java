@@ -149,7 +149,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	public void addNotationsItem() {
 		IBindingManager bm = getBindings();
 
-		IMenuManager menu = createMenu(NOTATION_LABEL, getValidSingleSelectionVisibleWhen());
+		IMenuManager menu = createMenu(NOTATION_LABEL, getNotationsVisibleWhen());
 		addItem(menu);
 
 		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))

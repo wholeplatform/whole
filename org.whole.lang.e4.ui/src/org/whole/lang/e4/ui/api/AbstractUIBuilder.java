@@ -30,6 +30,7 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
+import org.whole.lang.e4.ui.expressions.NotationsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ValidSingleSelectionVisibleWhen;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.menu.ActionsCompositeContributionItem;
@@ -55,6 +56,7 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 	private final ContentAssistVisibleWhen contentAssistVisibleWhen;
 	private final ValidSingleSelectionVisibleWhen validSingleSelectionVisibleWhen;
 	private final FeatureAssistVisibleWhen featureAssistVisibleWhen;
+	private final NotationsVisibleWhen notationsVisibleWhen;
 
 	public AbstractUIBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
 		this.context = context;
@@ -62,6 +64,7 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 		this.contentAssistVisibleWhen = new ContentAssistVisibleWhen();
 		this.validSingleSelectionVisibleWhen = new ValidSingleSelectionVisibleWhen();
 		this.featureAssistVisibleWhen = new FeatureAssistVisibleWhen();
+		this.notationsVisibleWhen = new NotationsVisibleWhen();
 	}
 
 	private final IBindingManager emptyBindings = E4Utils.createSelectionBindings(Collections.<IEntityPart>emptyList(), null);
@@ -79,6 +82,9 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 	}
 	protected FeatureAssistVisibleWhen getFeatureAssistVisibleWhen() {
 		return featureAssistVisibleWhen;
+	}
+	public NotationsVisibleWhen getNotationsVisibleWhen() {
+		return notationsVisibleWhen;
 	}
 
 	@Override

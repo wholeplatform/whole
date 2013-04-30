@@ -15,22 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.parts;
+package org.whole.lang.ui.editparts;
 
-import org.eclipse.swt.widgets.Composite;
-import org.whole.lang.e4.ui.viewers.E4TreeViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
+import org.eclipse.gef.TreeEditPart;
 
-public class E4TreePart extends AbstractE4Part {
-
-	protected IEntityPartViewer createEntityViewer(Composite parent) {
-		return new E4TreeViewer(parent);
-	}
-	
-	@Override
-	protected IEntity createDefaultContents() {
-		return QueriesTemplateManager.instance().create("FileArtifact generator");
-	}
+/**
+ * @author Enrico Persiani
+ */
+public interface ITreeEntityPart extends IEntityPart, TreeEditPart {
 }

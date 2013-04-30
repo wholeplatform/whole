@@ -15,22 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.parts;
+package org.whole.lang.e4.ui.expressions;
 
-import org.eclipse.swt.widgets.Composite;
-import org.whole.lang.e4.ui.viewers.E4TreeViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.reflect.QueriesTemplateManager;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 
-public class E4TreePart extends AbstractE4Part {
-
-	protected IEntityPartViewer createEntityViewer(Composite parent) {
-		return new E4TreeViewer(parent);
-	}
-	
+/**
+ * @author Enrico Persiani
+ */
+public class NotationsVisibleWhen extends ValidSingleSelectionVisibleWhen {
 	@Override
-	protected IEntity createDefaultContents() {
-		return QueriesTemplateManager.instance().create("FileArtifact generator");
+	public boolean isVisible(IBindingManager bm) {
+		if (!super.isVisible(bm))
+			return false;
+
+		return bm.wGet("viewer") instanceof E4GraphicalViewer;
 	}
 }

@@ -112,7 +112,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	protected RootEditPart createRootEditPart() {
 		RootEditPart rootEditPart = new RootEditPart();
-		
+
 		List<String> levels = new ArrayList<String>(3);
 		levels.add(ZoomManager.FIT_ALL);
 		levels.add(ZoomManager.FIT_WIDTH);
@@ -125,6 +125,101 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	public IScalableRootEditPart getScalableRootEditPart() {
 		return (IScalableRootEditPart) super.getRootEditPart();
+	}
+
+	// Begin Block Shared With E4TreeViewer
+
+	public CommandStack getCommandStack() {
+		return getEditDomain().getCommandStack();
+	}
+	public boolean isDirty() {
+		return getCommandStack().isDirty();
+	}
+
+	public IEntity getEntityContents() {
+		RootFragment modelEntity = ((IEntityPart) getContents()).getModelEntity();
+		return modelEntity.getRootEntity().wGetAdaptee(false);
+	}
+	public void setEntityContents(IEntity entity) {
+		setContents(entity);
+		flush();
+		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
+		getCommandStack().flush();
+	}
+
+	protected IModelInput modelInput = null;
+	public void setContents(IModelInput modelInput, IEntity defaultContents) {
+		if (modelInput != null) {
+			try {
+				IModelInput oldModelInput = this.modelInput;
+				setEntityContents(modelInput.readModel());
+				fireModelInputChanged(oldModelInput, this.modelInput = modelInput);
+			} catch (Exception e) {
+				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
+				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
+				IEntity statusModel = new ErrorStatusTemplate().create();
+				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
+						modelInput.getFile().getName(), modelInput.getPersistenceKit().getDescription());
+				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);
+				statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(e.getLocalizedMessage());
+				setEntityContents(statusModel);
+			}
+		} else
+			setEntityContents(defaultContents);
+	}
+	protected RootFragment wrapContents(IEntity entity) {
+		return entity instanceof RootFragment ? (RootFragment) entity :
+			new LazyContainmentRootFragmentImpl(entity);
+	}
+	public void setContents(Object contents) {
+		IEntity root = (IEntity) contents;
+		super.setContents(wrapContents(root));
+		updateModelObserver(root);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<IEntity, IEntityPart> getEditPartRegistry() {
+		return super.getEditPartRegistry();
+	}
+	public IEntityPart getFocusEntityPart() {
+		return (IEntityPart) getFocusEditPart();
+	}
+
+	public E4KeyHandler getKeyHandler() {
+		return (E4KeyHandler) super.getKeyHandler();
+	}
+	public void setKeyHandler(E4KeyHandler handler) {
+		super.setKeyHandler(handler);
+	}
+
+	public void selectAndReveal(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+
+		if (entityPart != null) {
+			reveal(entityPart);
+			select(entityPart);
+		}
+	}
+
+	protected void updateModelObserver(IEntity entity) {
+		ICompoundModel model = entity.wGetModel().getCompoundModel();
+		if (modelObserver != null && modelObserver.getModel() != model) {
+			modelObserver.dispose();
+			modelObserver = null;
+		}
+		if (modelObserver == null)
+			modelObserver = new ModelObserver(model, (Map<IEntity, IEntityPart>) getEditPartRegistry());		
+	}
+	public void addEntityPartListener(EntityPartListener listener) {
+		modelObserver.addEntityPartListener(listener);
+	}
+	public void removeEntityPartListener(EntityPartListener listener) {
+		modelObserver.removeEntityPartListener(listener);
+	}
+
+	public void dispose() {
+		if (modelObserver != null)
+			modelObserver.dispose();
 	}
 
 	protected void firePartFocusChanged(IEntityPart oldPart, IEntityPart newPart) {
@@ -149,10 +244,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		modelInputListeners.remove(listener);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<IEntity, IEntityPart> getEditPartRegistry() {
-		return super.getEditPartRegistry();
-	}
+	// End Block Shared With E4TreeViewer
 
 	@SuppressWarnings("unchecked")
 	public class E4FigureCanvas extends FigureCanvas {
@@ -185,90 +277,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		}
 	}
 
-	public E4KeyHandler getKeyHandler() {
-		return (E4KeyHandler) super.getKeyHandler();
-	}
-	public void setKeyHandler(E4KeyHandler handler) {
-		super.setKeyHandler(handler);
-	}
-
 	public Control createControl2(Composite parent) {
 		setControl(new E4FigureCanvas(parent, getLightweightSystem()));
 		hookRootFigure();
 		return getControl();
-	}
-
-	protected void updateModelObserver(IEntity entity) {
-		ICompoundModel model = entity.wGetModel().getCompoundModel();
-		if (modelObserver != null && modelObserver.getModel() != model) {
-			modelObserver.dispose();
-			modelObserver = null;
-		}
-		if (modelObserver == null)
-			modelObserver = new ModelObserver(model, (Map<IEntity, IEntityPart>) getEditPartRegistry());		
-	}
-	public void dispose() {
-		if (modelObserver != null)
-			modelObserver.dispose();
-	}
-	public void addEntityPartListener(EntityPartListener listener) {
-		modelObserver.addEntityPartListener(listener);
-	}
-	public void removeEntityPartListener(EntityPartListener listener) {
-		modelObserver.removeEntityPartListener(listener);
-	}
-
-	public CommandStack getCommandStack() {
-		return getEditDomain().getCommandStack();
-	}
-	public boolean isDirty() {
-		return getCommandStack().isDirty();
-	}
-
-	protected IModelInput modelInput = null;
-	public void setContents(IModelInput modelInput, IEntity defaultContents) {
-		if (modelInput != null) {
-			try {
-				IModelInput oldModelInput = this.modelInput;
-				setEntityContents(modelInput.readModel());
-				fireModelInputChanged(oldModelInput, this.modelInput = modelInput);
-			} catch (Exception e) {
-				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
-				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
-				IEntity statusModel = new ErrorStatusTemplate().create();
-				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
-						modelInput.getFile().getName(), modelInput.getPersistenceKit().getDescription());
-				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);
-				statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(e.getLocalizedMessage());
-				setEntityContents(statusModel);
-			}
-		} else
-			setEntityContents(defaultContents);
-	}
-
-	protected RootFragment wrapContents(IEntity entity) {
-		return entity instanceof RootFragment ? (RootFragment) entity :
-			new LazyContainmentRootFragmentImpl(entity);
-	}
-	public void setContents(Object contents) {
-		IEntity root = (IEntity) contents;
-		super.setContents(wrapContents(root));
-		updateModelObserver(root);
-	}
-
-	public IEntity getEntityContents() {
-		RootFragment modelEntity = ((IEntityPart) getContents()).getModelEntity();
-		return modelEntity.getRootEntity().wGetAdaptee(false);
-	}
-	public void setEntityContents(IEntity entity) {
-		setContents(entity);
-		flush();
-		ReflectionFactory.getHistoryManager(entity).setHistoryEnabled(true);
-		getCommandStack().flush();
-	}
-
-	public IEntityPart getFocusEntityPart() {
-		return (IEntityPart) getFocusEditPart();
 	}
 
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited) {
@@ -314,26 +326,26 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return lws;
 	}
 
-//	private ResourceManager resourceManager;
+	//	private ResourceManager resourceManager;
 	@Override
 	public ResourceManager getResourceManager() {
-//		return resourceManager;
+		//		return resourceManager;
 		return super.getResourceManager();
 	}
-//	@Override
-//	protected void hookControl() {
-//		super.hookControl();
-//
-//		if (resourceManager == null)
-//			resourceManager = new LocalResourceManager(JFaceResources.getResources());
-//	}
-//	@Override
-//	protected void unhookControl() {
-//		super.unhookControl();
-//
-//		if (resourceManager != null)
-//			resourceManager.dispose();
-//	}
+	//	@Override
+	//	protected void hookControl() {
+	//		super.hookControl();
+	//
+	//		if (resourceManager == null)
+	//			resourceManager = new LocalResourceManager(JFaceResources.getResources());
+	//	}
+	//	@Override
+	//	protected void unhookControl() {
+	//		super.unhookControl();
+	//
+	//		if (resourceManager != null)
+	//			resourceManager.dispose();
+	//	}
 
 	@Override
 	protected void handleDispose(DisposeEvent e) {
@@ -353,14 +365,5 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		if (fontRegistry == null)
 			fontRegistry = new FontRegistry(getResourceManager());
 		return fontRegistry;
-	}
-
-	public void selectAndReveal(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
-
-		if (entityPart != null) {
-			reveal(entityPart);
-			select(entityPart);
-		}
 	}
 }

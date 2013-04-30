@@ -251,7 +251,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 
 	@Override
 	public void addNotationsItem() {
-		MMenu menu = createMenu(NOTATION_LABEL, getValidSingleSelectionVisibleWhen());
+		MMenu menu = createMenu(NOTATION_LABEL, getNotationsVisibleWhen());
 
 		addItem(menu);
 		
