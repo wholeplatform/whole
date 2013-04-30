@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.patterns"/>
     <semantics:Name value="Patterns"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="15">
+    <semantics:SemanticFunctions initialCapacity="18">
         <semantics:SemanticFunction>
             <semantics:Name value="toArtifacts"/>
             <semantics:FunctionType>
@@ -333,16 +333,15 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="7">
+                        <queries:Names initialCapacity="6">
                             <queries:Name value="actionsUri"/>
-                            <queries:Name value="guestActionsUri"/>
                             <queries:Name value="actionsNamespace"/>
                             <queries:Name value="actionsName"/>
                             <queries:Name value="functionUri"/>
                             <queries:Name value="functionUri2"/>
                             <queries:Name value="modelUri"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="10">
+                        <queries:Block initialCapacity="9">
                             <queries:Filter>
                                 <queries:Addition>
                                     <queries:Singleton>
@@ -565,23 +564,17 @@
                                     </queries:PointwiseUpdate>
                                 </queries:Sequence>
                             </queries:Path>
-                            <queries:Filter>
-                                <queries:Addition>
-                                    <queries:Singleton>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                                    </queries:Singleton>
-                                    <queries:StringLiteral value="GuestActions"/>
-                                </queries:Addition>
-                                <queries:VariableTest value="guestActionsUri"/>
-                            </queries:Filter>
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Actions#URI"/>
-                                        <commons:VarName value="guestActionsUri"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="guestActionsUri"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Actions#Namespace"/>
                                         <commons:VarName value="actionsNamespace"/>
@@ -608,13 +601,12 @@
                                         <actions:MenuActions initialCapacity="1">
                                         <actions:GuardedAction>
                                         <commons:StageDownFragment>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="Expand "/>
-                                        <queries:Addition>
-                                        <queries:VariableRefStep value="actionsName"/>
-                                        <queries:StringLiteral value=" Patterns"/>
-                                        </queries:Addition>
-                                        </queries:Addition>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="expandPatternsActionName"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
                                         </commons:StageDownFragment>
                                         <semantics:FunctionApplication>
                                         <commons:Variable>
@@ -4833,6 +4825,59 @@
                 </queries:If>
                 <queries:SelfStep/>
             </queries:Choose>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="guestActionsUri"/>
+            <semantics:FunctionType>
+                <semantics:EntityType value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Singleton>
+                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
+                </queries:Singleton>
+                <queries:StringLiteral value="GuestActions"/>
+            </queries:Addition>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="expandPatternsActionName"/>
+            <semantics:FunctionType>
+                <semantics:EntityType value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                <queries:StringLiteral value="Expand "/>
+                <queries:Addition>
+                    <queries:Singleton>
+                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                    </queries:Singleton>
+                    <queries:StringLiteral value=" Patterns"/>
+                </queries:Addition>
+            </queries:Addition>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="expandPatternsActionUri"/>
+            <semantics:FunctionType>
+                <semantics:EntityType value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
+                <semantics:FunctionApplication>
+                    <semantics:Name value="guestActionsUri"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:Addition>
+                    <queries:StringLiteral value="#"/>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="expandPatternsActionName"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Addition>
+            </queries:Addition>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="contextType"/>
