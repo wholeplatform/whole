@@ -321,6 +321,11 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	@Override
+	public void visit(ResourceKind entity) {
+		setResult(entity);
+	}
+
+	@Override
 	public void visit(Text entity) {
 		setResult(BindingManagerFactory.instance.createValue(entity.wStringValue()));
 	}
@@ -678,7 +683,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 	protected String getResourceString(PersistenceActivity entity) {
-		ResourceKind resourceKind = EntityUtils.safeGet(entity.getResourceKind(), ResourceKindEnum.FILE_SYSTEM);
+		ResourceKind resourceKind = getResourceKind(entity);
 		if (resourceKind.wContainsValue(ResourceKindEnum.VARIABLE)) {
 			Variable variable = (Variable) entity.getResource();
 			return variable.getValue();
@@ -686,6 +691,12 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			entity.getResource().accept(this);
 			return getResultString();
 		}
+	}
+	protected ResourceKind getResourceKind(PersistenceActivity entity) {
+		ResourceKind resourceKind = entity.getResourceKind();
+		setResult(null);
+		resourceKind.accept(this);
+		return (ResourceKind) getResult();		
 	}
 	protected String getPersistenceId(Expression entity) {
 		try {
@@ -704,7 +715,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		}
 	}
 	protected void afterWriteModel(SaveModel entity, IPersistenceProvider provider) throws Exception {
-		if (entity.getResourceKind().wContainsValue(ResourceKindEnum.VARIABLE)) {
+		if (getResourceKind(entity).wContainsValue(ResourceKindEnum.VARIABLE)) {
 			String result = ((StringPersistenceProvider) provider).getStore();		
 			Variable variable = (Variable) entity.getResource();
 			getBindings().wDefValue(variable.getValue(), result);
@@ -718,7 +729,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		
 		String resource = getResourceString(entity);
 
-		ResourceKind resourceKind = EntityUtils.safeGet(entity.getResourceKind(), ResourceKindEnum.FILE_SYSTEM);
+		ResourceKind resourceKind = getResourceKind(entity);
 		switch (resourceKind.getValue().getOrdinal()) {
 		case ResourceKindEnum.FILE_SYSTEM_ord:
 			return getFileSystemProvider(bm, resource, isInput);
