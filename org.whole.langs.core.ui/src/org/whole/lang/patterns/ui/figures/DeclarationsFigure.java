@@ -34,7 +34,7 @@ public class DeclarationsFigure extends TableFigure {
     public DeclarationsFigure() {
         super(new TableLayout(3)
         		.withColumnSpacing(10).withRowSpacing(10).withColumnAlignment(2, Alignment.FILL)
-        		.withMarginTop(5).withMarginBottom(5).withMarginLeft(5));
+        		.withMarginTop(5).withMarginBottom(5).withMarginLeft(3).withMarginRight(3));
         setBorder(CompositePlaceHolderBorder.OPTIONAL);
         TableRowFigure headers = new TableRowFigure();
         Color color = ColorConstants.gray;

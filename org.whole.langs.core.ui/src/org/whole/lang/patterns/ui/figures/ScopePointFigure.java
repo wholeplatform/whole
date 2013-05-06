@@ -14,7 +14,9 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.swt.graphics.Color;
 import org.whole.lang.queries.ui.figures.ScopeBracketsBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -37,6 +39,10 @@ public class ScopePointFigure extends ContentPaneFigure {
         initContentPanes(2);
         add(createContentPane(0));
         add(createContentPane(1, new MarginBorder(4, 0, 4, 0)));
-        setBorder(new ScopeBracketsBorder(2, 1, 2, 1));
+        setBorder(new ScopeBracketsBorder(1, 1, 2, 1) {
+        	protected Color getDelimiterColor() {
+        		return ColorConstants.gray;
+        	}
+        });
     }
 }
