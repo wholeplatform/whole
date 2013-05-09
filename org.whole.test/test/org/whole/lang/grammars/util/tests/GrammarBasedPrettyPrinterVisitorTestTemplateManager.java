@@ -217,7 +217,7 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.text.builders.ITextBuilder b0 = (org.whole.lang.text.builders.ITextBuilder) op.wGetBuilder(org.whole.lang.text.reflect.TextLanguageKit.URI);
-                b0.Document_(34);
+                b0.Document_(35);
                 b0.Row_(1);
                 b0.Text("events");
                 b0._Row();
@@ -319,6 +319,9 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
                 b0._Row();
                 b0.Row_(1);
                 b0.Text("end");
+                b0._Row();
+                b0.Row_(1);
+                b0.Text("");
                 b0._Row();
                 b0._Document();
             }
