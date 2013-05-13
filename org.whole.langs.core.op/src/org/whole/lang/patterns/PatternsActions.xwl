@@ -763,7 +763,12 @@
                             <queries:ExpressionTest>
                                 <queries:Filter>
                                     <queries:ParentStep/>
-                                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
+                                    <queries:Or initialCapacity="4">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariablePoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionApplicationPoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#DerivationPoint"/>
+                                    </queries:Or>
                                 </queries:Filter>
                             </queries:ExpressionTest>
                             <queries:Or initialCapacity="2">
