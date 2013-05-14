@@ -126,7 +126,7 @@
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
         <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="3">
+        <actions:MenuActions initialCapacity="4">
             <actions:GuardedAction>
                 <actions:Label value="Extract Patterns"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
@@ -571,6 +571,95 @@
                             <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                         </queries:Filter>
                     </queries:ExpressionTest>
+                </queries:Every>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Merge Slots"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="3">
+                        <queries:Name value="mergeSlot"/>
+                        <queries:Name value="mergeName"/>
+                        <queries:Name value="mergeType"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:Path initialCapacity="2">
+                            <queries:VariableRefStep value="selectedEntities"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:And initialCapacity="4">
+                                    <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                    </queries:IndexTest>
+                                    <queries:VariableTest value="mergeSlot"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        <queries:VariableTest value="mergeName"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                                        <queries:VariableTest value="mergeType"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:For>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="selectedEntities"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:Not>
+                                        <queries:VariableTest value="mergeSlot"/>
+                                    </queries:Not>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:Sequence initialCapacity="3">
+                                <queries:PointwiseUpdate>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        <queries:Not>
+                                        <queries:VariableTest value="mergeName"/>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <queries:VariableRefStep value="mergeName"/>
+                                </queries:PointwiseUpdate>
+                                <queries:PointwiseUpdate>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                                        <queries:Not>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:KindTest value="RESOLVER"/>
+                                        <queries:VariableTest value="mergeType"/>
+                                        </queries:Or>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                </queries:PointwiseUpdate>
+                                <queries:PointwiseUpdate>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                                        <queries:Not>
+                                        <queries:VariableTest value="mergeType"/>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <queries:VariableRefStep value="mergeType"/>
+                                </queries:PointwiseUpdate>
+                            </queries:Sequence>
+                        </queries:For>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:Every xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                    </queries:Path>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
                 </queries:Every>
             </actions:GuardedAction>
         </actions:MenuActions>
