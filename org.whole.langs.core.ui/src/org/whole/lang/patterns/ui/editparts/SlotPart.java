@@ -16,11 +16,12 @@ package org.whole.lang.patterns.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.patterns.model.Slot;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.patterns.model.Slot;
 import org.whole.lang.patterns.ui.figures.SlotFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  *  @author  Riccardo Solmi
