@@ -35,12 +35,18 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private IEntityIterator<?>[] argsIterators;
+	private boolean useSelectedEntities;
 	private IEntity nextEntity = null;
 	private IEntity resetEntity = null;
 
+	public /*protected*/ ActionCallIterator(String functionUri) {
+		this(functionUri, null);
+		useSelectedEntities = true;
+	}
 	public /*protected*/ ActionCallIterator(String functionUri, IEntityIterator<?>[] optArgsIterators) {
 		this.functionUri = functionUri;
 		this.argsIterators = optArgsIterators;
+		useSelectedEntities = false;
 	}
 
 	@Override
@@ -70,23 +76,24 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 		return functionIterator;
 	}
 	protected void initArguments() {
-		IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
-
-		if (argsIterators != null && argsIterators.length > 0)
-			for (IEntityIterator<?> argIterator : argsIterators) {
-				argIterator.setBindings(getBindings());
-				argIterator.reset(resetEntity);
-				
-				for (IEntity arg : argIterator)
-					selectedEntities.wAdd(arg);
-			}
-		else
-			selectedEntities.wAdd(resetEntity);
-
-		getBindings().wDef("selectedEntities", selectedEntities);
-		if (!selectedEntities.wIsEmpty())
-			getBindings().wDef("primarySelectedEntity", selectedEntities.wGet(0));
-
+		if (!useSelectedEntities) {
+			IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
+	
+			if (argsIterators != null && argsIterators.length > 0)
+				for (IEntityIterator<?> argIterator : argsIterators) {
+					argIterator.setBindings(getBindings());
+					argIterator.reset(resetEntity);
+					
+					for (IEntity arg : argIterator)
+						selectedEntities.wAdd(arg);
+				}
+			else
+				selectedEntities.wAdd(resetEntity);
+	
+			getBindings().wDef("selectedEntities", selectedEntities);
+			if (!selectedEntities.wIsEmpty())
+				getBindings().wDef("primarySelectedEntity", selectedEntities.wGet(0));
+		}
 		getBindings().wDef("self", resetEntity);
 	}
 
