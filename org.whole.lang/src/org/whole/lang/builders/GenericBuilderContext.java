@@ -30,6 +30,7 @@ import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.contexts.IdentityEntityContext;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
+import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -63,6 +64,10 @@ public class GenericBuilderContext extends GenericForwardStrategyBuilder impleme
 		wSetEntityContext(entityContext);
     }
 
+	protected ModelBuilder createModelBuilder() {
+		return new ModelBuilder(RegistryConfigurations.RESOLVER);
+	}
+
 	private EntityContext entityModelContext;
 	private IBuilder entityModelBuilder;
 	protected void wBuildEntity_(EntityDescriptor<?> ed) {
@@ -73,7 +78,7 @@ public class GenericBuilderContext extends GenericForwardStrategyBuilder impleme
 
 		if (entityModelBuilder == null) {
 			entityModelBuilder = new GenericEntityScopeBuilder(
-				new GenericBuilderContext(new ModelBuilder(), entityModelContext));
+				new GenericBuilderContext(createModelBuilder(), entityModelContext));
 			entityModelBuilder.wSetBuilderContext(this);
 		}
 		entityModelBuilder.wEntity_(ed);
