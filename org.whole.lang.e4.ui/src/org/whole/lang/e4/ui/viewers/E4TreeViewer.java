@@ -27,11 +27,14 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.ui.parts.TreeViewer;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.Widget;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
@@ -44,6 +47,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.ITreeEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
 import org.whole.langs.core.CoreMetaModelsDeployer;
@@ -89,6 +93,33 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 			}
 		});
 		return tree;
+	}
+
+	@Override
+	protected void refreshDropTargetAdapter() {
+		if (getControl() == null)
+			return;
+		if (getDelegatingDropAdapter().isEmpty())
+			setDropTarget(null);
+		else {
+			if (getDropTarget() == null)
+				setDropTarget(new DropTarget(getControl(), DND.DROP_MOVE
+						| DND.DROP_COPY | DND.DROP_LINK));
+			
+			//FIXME workaround for Eclipse bug
+			if (getDropTarget().getControl() == null)
+				return;
+			getDropTarget().setTransfer(
+					getDelegatingDropAdapter().getTransfers());
+		}
+	}
+
+	@Override
+	public void deselect(EditPart editpart) {
+		//FIXME workaround for Eclipse bug
+		Widget widget = ((ITreeEntityPart) editpart).getWidget();
+		if (widget != null && !widget.isDisposed())
+			super.deselect(editpart);
 	}
 
 	// Begin Block Shared With E4GraphicalViewer

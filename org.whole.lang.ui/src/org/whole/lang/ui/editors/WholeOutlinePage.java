@@ -45,6 +45,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Canvas;
@@ -61,6 +63,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.actions.WholeActionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.ITreeEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory.OutlineTreeNodeEditPart;
@@ -86,7 +89,34 @@ public class WholeOutlinePage extends ContentOutlinePage implements IAdaptable {
 	private DisposeListener disposeListener;
 
 	public WholeOutlinePage(WholeGraphicalViewer graphicalViewer, SelectionSynchronizer synchronizer) {
-		super(new TreeViewer());
+		super(new TreeViewer() {
+			@Override
+			protected void refreshDropTargetAdapter() {
+				if (getControl() == null)
+					return;
+				if (getDelegatingDropAdapter().isEmpty())
+					setDropTarget(null);
+				else {
+					if (getDropTarget() == null)
+						setDropTarget(new DropTarget(getControl(), DND.DROP_MOVE
+								| DND.DROP_COPY | DND.DROP_LINK));
+					
+					//FIXME workaround for Eclipse bug
+					if (getDropTarget().getControl() == null)
+						return;
+					getDropTarget().setTransfer(
+							getDelegatingDropAdapter().getTransfers());
+				}
+			}
+			
+			@Override
+			public void deselect(EditPart editpart) {
+				//FIXME workaround for Eclipse bug
+				Widget widget = ((ITreeEntityPart) editpart).getWidget();
+				if (widget != null && !widget.isDisposed())
+					super.deselect(editpart);
+			}
+		});
 		this.graphicalViewer = graphicalViewer;
 		this.synchronizer = synchronizer;
 	}

@@ -551,22 +551,24 @@ public class HandlersBehavior {
 			bm.wSet("primarySelectedEntity", EntityUtils.mapEntity(bm.wGet("primarySelectedEntity"), model));
 		}
 
-		IEntityIterator<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"), null);
-		iterator.setBindings(bm);
-		iterator.reset(model);
+		IEntityIterator<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"));
 
-		IEntity results = MiscEntityFactory.instance.createMisc();
-		for (IEntity result : iterator) {
-			if (analyzing)
+		if (analyzing) {
+			iterator.setBindings(bm);
+			iterator.reset(model);
+
+			IEntity results = MiscEntityFactory.instance.createMisc();
+			for (IEntity result : iterator) {
 				results.wAdd(GenericEntityFactory.instance.create(
 						CommonsEntityDescriptorEnum.StageUpFragment,
 						//CommonsEntityFactory.instance.createStageUpFragment(
 						EntityUtils.cloneIfParented(result)));//TODO substitute with a no containment fragment
-
-			((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
-			result.wIsAdapter();
-		}
-		bm.setResult(results);
+	
+				((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).worked(1);
+			}
+			bm.setResult(results);
+		} else
+			BehaviorUtils.evaluate(iterator, model, bm);
 	}
 
 	public static boolean canPerform(IBindingManager bm) {

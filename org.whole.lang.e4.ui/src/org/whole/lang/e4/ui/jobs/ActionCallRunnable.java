@@ -62,8 +62,8 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 		}
 
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(model, label);
+		final CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+		final ModelTransactionCommand mtc = new ModelTransactionCommand(model, label);
 
 		pm.beginTask("executing action", 90, IOperationProgressMonitor.TOTAL_WORK);
 		try {
@@ -72,8 +72,13 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 			mtc.commit();
 			if (analyzing) {
 				E4Utils.revealResultsView(context.get(UISynchronize.class), bm, bm.getResult());
-			} else if (mtc.canUndo())
-				commandStack.execute(mtc);
+			} else if (mtc.canUndo()) {
+				context.get(UISynchronize.class).syncExec(new Runnable() {
+					public void run() {
+						commandStack.execute(mtc);
+					}
+				});
+			}
 		} catch (OperationCanceledException e) {
 			mtc.rollback();
 		} catch (RuntimeException e) {

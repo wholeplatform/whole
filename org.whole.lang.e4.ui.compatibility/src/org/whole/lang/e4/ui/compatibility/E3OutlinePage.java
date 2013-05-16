@@ -17,7 +17,9 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_REDO;
+import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_UNDO;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -227,10 +229,11 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 
 	public static final String PROPERTY_DIRTY = "Dirty";
 
+	private PropertyChangeListener propertyChangeListener;
 	protected void configureOutlineViewer() {
 		getViewer().setEditDomain(graphicalViewer.getEditDomain());
 		getViewer().setEditPartFactory(new OutlineViewEditPartFactory());
-		graphicalViewer.addPropertyChangeListener(new PropertyChangeListener() {
+		propertyChangeListener = new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				// check if we are enabling updates delaying
@@ -241,7 +244,8 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 				}
 
 				// rebuild if outline is dirty
-				if ((Boolean) getViewer().getProperty(PROPERTY_DIRTY)) {
+				Boolean isDirty = (Boolean) getViewer().getProperty(PROPERTY_DIRTY);
+				if (isDirty != null && isDirty) {
 					Display.getDefault().asyncExec(new Runnable() {
 						public void run() {
 							updateContents();
@@ -249,7 +253,8 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 					});
 				}
 			}
-		});
+		};
+		graphicalViewer.addPropertyChangeListener(propertyChangeListener);
 		showPage(OUTLINE_PAGE_ID);
 	}
 
@@ -377,6 +382,8 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 	}
 
 	protected void unhookOutlineViewer() {
+		graphicalViewer.removePropertyChangeListener(propertyChangeListener);
+
 		Control control = graphicalViewer.getControl();
 		synchronizer.removeViewer(getViewer());
 		if (disposeListener != null && control != null && !control.isDisposed())
