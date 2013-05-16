@@ -68,9 +68,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 			return new IContributionItem[0];
 
 		IBindingManager bm = (IBindingManager) selection;
-
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		String languageURI = primarySelectedEntity.wGetLanguageKit().getURI();
+		String languageURI = bm.wGet("self").wGetLanguageKit().getURI();
 
 		Map<GuardedAction, String> actionsMap = new HashMap<GuardedAction, String>();
 		IResourceRegistry<Resource> registry = ActionsRegistry.instance();

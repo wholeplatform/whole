@@ -44,19 +44,17 @@ public class ActionsVisibleWhen extends AbstractSelectionConstrainedVisibleWhen 
 
 	@Override
 	public boolean isVisible(IBindingManager bm) {
-		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
+		if (!HandlersBehavior.isValidEntityPartSelection(bm, false))
 			return false;
 
-	IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-	String languageURI = primarySelectedEntity.wGetLanguageKit().getURI();
-
-	IResourceRegistry<Resource> registry = ActionsRegistry.instance();
-	for (IResource resource : registry.getResources(false)) {
-		LanguageActionFactory actionsModule = resource.getEntity();
-		URI targetLanguage = actionsModule.getTargetLanguage();
-		if (DataTypeUtils.getDataKind(targetLanguage).isString() &&
-				!languageURI.equals(targetLanguage.getValue()))
-			continue;
+		String languageURI = bm.wGet("self").wGetLanguageKit().getURI();
+	
+		IResourceRegistry<Resource> registry = ActionsRegistry.instance();
+		for (IResource resource : registry.getResources(false)) {
+			LanguageActionFactory actionsModule = resource.getEntity();
+			URI targetLanguage = actionsModule.getTargetLanguage();
+			if (DataTypeUtils.getDataKind(targetLanguage).isString() && !languageURI.equals(targetLanguage.getValue()))
+				continue;
 
 			IEntityIterator<GuardedAction> iterator = IteratorFactory.<GuardedAction>childMatcherIterator()
 					.withPattern(ActionsEntityDescriptorEnum.GuardedAction);
