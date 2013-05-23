@@ -929,7 +929,7 @@
                                         <commons:Resolver/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Actions#Text"/>
-                                        <commons:VarName value="semanticsUri"/>
+                                        <commons:VarName value="languageUri"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <actions:ActionKind value="REPLACE"/>
