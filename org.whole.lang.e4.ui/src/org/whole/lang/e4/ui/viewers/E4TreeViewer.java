@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
@@ -129,6 +130,12 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 	public boolean isDirty() {
 		return getCommandStack().isDirty();
+	}
+
+	public EditDomain linkEditDomain(IEntityPartViewer viewer) {
+		EditDomain editDomain = viewer.getEditDomain();
+		setEditDomain(editDomain);
+		return editDomain;
 	}
 
 	public IEntity getEntityContents() {

@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.viewers;
 
 import java.util.Map;
 
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
@@ -33,6 +34,8 @@ import org.whole.lang.ui.editparts.IEntityPart;
 public interface IEntityPartViewer extends EditPartViewer {
 	public CommandStack getCommandStack();
 	public boolean isDirty();
+
+	public EditDomain linkEditDomain(IEntityPartViewer viewer);
 
 	public IEntity getEntityContents();
 	public void setEntityContents(IEntity entity);
