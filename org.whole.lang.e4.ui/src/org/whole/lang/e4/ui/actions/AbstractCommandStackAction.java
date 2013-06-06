@@ -20,6 +20,7 @@ package org.whole.lang.e4.ui.actions;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.Disposable;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
 import org.whole.lang.bindings.IBindingManager;
@@ -32,28 +33,36 @@ import org.whole.lang.ui.editparts.IEntityPart;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public abstract class AbstractClipboardAction extends AbstractE4Action implements Disposable {
+public abstract class AbstractCommandStackAction extends AbstractE4Action implements Disposable {
 	protected IEntityPartViewer viewer;
+	protected CommandStack trackingCommandStack;
 	protected CommandStackEventListener listener;
 	protected String label;
 
-	public AbstractClipboardAction(IEclipseContext context, String label) {
+	public AbstractCommandStackAction(IEclipseContext context, String label) {
 		super(context, label);
 		this.label = label;
 		this.viewer = context.get(IEntityPartViewer.class);
-		viewer.getCommandStack().addCommandStackEventListener(listener = new CommandStackEventListener() {
+		track(viewer.getCommandStack());
+	}
+
+	public void track(CommandStack commandStack) {
+		if (listener != null)
+			trackingCommandStack.removeCommandStackEventListener(listener);
+
+		trackingCommandStack = commandStack;
+		trackingCommandStack.addCommandStackEventListener(listener = new CommandStackEventListener() {
 			public void stackChanged(CommandStackEvent event) {
 				if (event.isPostChangeEvent())
 					update();
 			}
 		});
 	}
-
 	public void dispose() {
 		if (viewer != null)
 			viewer.getCommandStack().removeCommandStackEventListener(listener);
 	}
-	
+
 	@Override
 	public void run() {
 		doRun(viewer);

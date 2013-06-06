@@ -29,7 +29,7 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class RedoAction extends AbstractClipboardAction {
+public class RedoAction extends AbstractCommandStackAction {
 	public RedoAction(IEclipseContext context, String label) {
 		super(context, label);
 		setId(EDIT_REDO);
