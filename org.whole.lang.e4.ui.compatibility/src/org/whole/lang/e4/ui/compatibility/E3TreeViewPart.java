@@ -55,7 +55,9 @@ public class E3TreeViewPart extends DIViewPart<E4TreePart> {
 	public void setFocus() {
 		IActionBars actionBars = getViewSite().getActionBars();
 		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
+		undoAction.update();
 		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+		redoAction.update();
 		super.setFocus();
 	}
 

@@ -104,6 +104,10 @@ public interface IUIConstants {
 	public static final String IMPORT_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/import_fragment.gif");
 	public static final String SELECT_LANGUAGE_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/select_language.gif"); 
 
+	public static final String LINKED_TO_ACTIVE_EDITOR_URI = E4Utils.createPlatformPuginURI("icons/actions/link_to_active_editor.gif"); 
+	public static final String LINKED_TO_EDITOR_URI = E4Utils.createPlatformPuginURI("icons/actions/link_to_editor.gif"); 
+	public static final String NOT_LINKED_URI = E4Utils.createPlatformPuginURI("icons/actions/not_linked.gif"); 
+	
 	// labels
 	public static final String UNDO_LABEL = "Undo";
 	public static final String REDO_LABEL = "Redo";

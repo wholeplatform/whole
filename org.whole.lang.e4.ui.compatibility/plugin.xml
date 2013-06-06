@@ -16,7 +16,15 @@
             id="org.whole.lang.e4.ui.compatibility.E3ViewPart"
             class="org.whole.lang.e4.ui.compatibility.E3ViewPart"
             icon="icons/views/whole.gif"
-            name="Whole E4 View"
+            name="E4 View"
+            restorable="true">
+      </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.compatibility.E3DetailsViewPart"
+            class="org.whole.lang.e4.ui.compatibility.E3DetailsViewPart"
+            icon="icons/views/whole.gif"
+            name="E4 Details View"
             restorable="true">
       </view>
       <view
@@ -24,7 +32,7 @@
             id="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
             class="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
             icon="icons/views/whole.gif"
-            name="Whole E4 Tree View"
+            name="E4 Tree View"
             restorable="true">
       </view>
    </extension>
