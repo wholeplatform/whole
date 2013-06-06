@@ -38,6 +38,7 @@ import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.tools.DeselectAllTracker;
 import org.eclipse.gef.tools.MarqueeDragTracker;
 import org.eclipse.swt.SWT;
+import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
@@ -100,26 +101,32 @@ public class RootFragmentPart extends AbstractFragmentPart implements LayerConst
 				graphics.setLineStyle(Graphics.LINE_SOLID);
 				graphics.setXORMode(false);
 
-				clipArea = graphics.getClip(new Rectangle()).expand(1,1);
-				graphics.setForegroundColor(ColorConstants.gray);
-				graphics.drawLine(r2.x, r2.y, r2.x, r2.bottom());
-				graphics.drawLine(r2.x, r2.y, r2.right(), r2.y);
-				graphics.drawLine(r2.right() + 1, r2.y + 3, r2.right() + 1, r2.bottom() + 1);
-				graphics.drawLine(r2.x + 3, r2.bottom() + 1, r2.right() + 1, r2.bottom() + 1);
-
-				graphics.setForegroundColor(ColorConstants.darkGray);
-				graphics.drawLine(r2.right(), r2.y + 1, r2.right(), r2.bottom());
-				graphics.drawLine(r2.x + 1, r2.bottom(), r2.right(), r2.bottom());
-
-				graphics.setForegroundColor(ColorConstants.lightGray);
-				graphics.drawLine(r2.right() + 2, r2.y + 3, r2.right() + 2, r2.bottom() + 1);
-				Point.SINGLETON.setLocation(r2.right() + 1, r2.y + 2);
-				if (clipArea.contains(Point.SINGLETON))
-					graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
-				graphics.drawLine(r2.x + 3, r2.bottom() + 2, r2.right() + 1, r2.bottom() + 2);
-				Point.SINGLETON.setLocation(r2.x + 2, r2.bottom() + 1);
-				if (clipArea.contains(Point.SINGLETON))
-					graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
+				IEntity rootEntity = ((RootFragment) getModelEntity()).getRootEntity().wGetAdaptee(false);
+				if (rootEntity.wGetParent() instanceof RootFragment) {	
+					clipArea = graphics.getClip(new Rectangle()).expand(1,1);
+					graphics.setForegroundColor(ColorConstants.gray);
+					graphics.drawLine(r2.x, r2.y, r2.x, r2.bottom());
+					graphics.drawLine(r2.x, r2.y, r2.right(), r2.y);
+					graphics.drawLine(r2.right() + 1, r2.y + 3, r2.right() + 1, r2.bottom() + 1);
+					graphics.drawLine(r2.x + 3, r2.bottom() + 1, r2.right() + 1, r2.bottom() + 1);
+	
+					graphics.setForegroundColor(ColorConstants.darkGray);
+					graphics.drawLine(r2.right(), r2.y + 1, r2.right(), r2.bottom());
+					graphics.drawLine(r2.x + 1, r2.bottom(), r2.right(), r2.bottom());
+	
+					graphics.setForegroundColor(ColorConstants.lightGray);
+					graphics.drawLine(r2.right() + 2, r2.y + 3, r2.right() + 2, r2.bottom() + 1);
+					Point.SINGLETON.setLocation(r2.right() + 1, r2.y + 2);
+					if (clipArea.contains(Point.SINGLETON))
+						graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
+					graphics.drawLine(r2.x + 3, r2.bottom() + 2, r2.right() + 1, r2.bottom() + 2);
+					Point.SINGLETON.setLocation(r2.x + 2, r2.bottom() + 1);
+					if (clipArea.contains(Point.SINGLETON))
+						graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
+				} else {
+					graphics.setForegroundColor(ColorConstants.lightGray);
+					graphics.drawRectangle(r2.x-1, r2.y-1, r2.width+1, r2.height+1);
+				}
 			}
 
 			public void validate() {
