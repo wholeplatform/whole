@@ -964,16 +964,20 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getRightOperand().accept(this);
 		
 		Expressions operands = entity.getExtendedOperands();
-		if (operands.wIsEmpty())
-			return;
-		for (int i = 0; i < operands.size(); i++) {
-			out.printRaw(" ");
-			entity.getOperator().accept(this);
-			out.printRaw(" ");
-			operands.get(i).accept(this);
+		if (operands.wIsAdapter())
+			operands.accept(this);
+		else {
+			if (operands.wIsEmpty())
+				return;
+			for (int i = 0; i < operands.size(); i++) {
+				out.printRaw(" ");
+				entity.getOperator().accept(this);
+				out.printRaw(" ");
+				operands.get(i).accept(this);
+			}
 		}
 	}
-	
+
 	public void visit(Statements entity) {
 		for (int i = 0; i < entity.size(); i++)
 			entity.get(i).accept(this);

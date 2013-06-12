@@ -210,13 +210,15 @@ public class ModelsPrettyPrinterVisitor extends ModelsTraverseAllVisitor {
 
 	public void visit(EnumValues entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
-			EnumValue enumValue = entity.get(i);
 			if (i>0)
-				out.printRaw((", " + enumValue.getValue()));
-			else
-				out.printRaw(enumValue.getValue());
+				printDelimiter(", ");
 			
+			entity.get(i).accept(this);
 		}
+	}
+
+	public void visit(EnumValue entity) {
+		out.printRaw(entity.getValue());
 	}
 
 	public void visit(DataType entity) {
