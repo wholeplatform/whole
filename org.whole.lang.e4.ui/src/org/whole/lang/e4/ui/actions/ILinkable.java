@@ -21,5 +21,5 @@ package org.whole.lang.e4.ui.actions;
  * @author Enrico Persiani
  */
 public interface ILinkable {
-	public void setLinkType(LinkType linkType);
+	public void updateLinkType(LinkType linkType);
 }

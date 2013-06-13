@@ -34,10 +34,9 @@ public class LinkToEditorAction extends Action {
 	protected ILinkable linkable;
 	protected LinkTypeAction selectedAction;
 
-	public LinkToEditorAction(ILinkable linkable) {
+	public LinkToEditorAction() {
 		super("linkToEditor", Action.AS_DROP_DOWN_MENU);
 
-		this.linkable = linkable;
 		List<IContributionItem> items = new ArrayList<IContributionItem>();
 		for (LinkType linkType : LinkType.values()) {
 			LinkTypeAction action = new LinkTypeAction(linkType);
@@ -45,6 +44,13 @@ public class LinkToEditorAction extends Action {
 			items.add(item);
 		}
 		setMenuCreator(new LinkToEditorMenuCreator(items));
+	}
+	
+	public void setLinkable(ILinkable linkable) {
+		this.linkable = linkable;
+	}
+	public ILinkable getLinkable() {
+		return linkable;
 	}
 
 	@Override
@@ -129,7 +135,8 @@ public class LinkToEditorAction extends Action {
 
 		@Override
 		public void run() {
-			linkable.setLinkType(linkType);
+			if (linkable != null)
+				linkable.updateLinkType(linkType);
 		}
 	};
 }
