@@ -29,7 +29,7 @@ import org.eclipse.swt.graphics.Color;
  */
 public class PlaceHolderBorder extends AbstractBorder {
 	public static final Insets EMPTY_INSETS = new Insets();
-	private boolean isOptional;
+	protected boolean isOptional;
 	
 	public static Border OPTIONAL = new PlaceHolderBorder(true);
 	public static Border MANDATORY = new PlaceHolderBorder(false);

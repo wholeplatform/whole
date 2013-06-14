@@ -67,7 +67,7 @@ public class AndPart extends CompositeRowWithPlaceholderPart {
 
 	@Override
 	protected void refreshVisuals() {
-		boolean hasBorder = getFigure().getBorder() != CompositePlaceHolderBorder.OPTIONAL;
+		boolean hasBorder = getFigure().getBorder() != CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL;
 		boolean showBorder = Matcher.matchAny(getParentModelEntity(),
 				QueriesEntityDescriptorEnum.And,
 //				QueriesEntityDescriptorEnum.Or,
@@ -75,6 +75,6 @@ public class AndPart extends CompositeRowWithPlaceholderPart {
 		if (showBorder && !hasBorder)
 			getFigure().setBorder(border);
 		else if (hasBorder && !showBorder)
-			getFigure().setBorder(CompositePlaceHolderBorder.OPTIONAL);
+			getFigure().setBorder(CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
 	}
 }

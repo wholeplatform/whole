@@ -178,7 +178,7 @@ public class GrammarBasedUIUtils {
 			entityFigure = compositeFigure;
 		} else if (columnsNum > 0) {
 			TableFigure tableFigure = new TableFigure(columnsNum);
-			tableFigure.setBorder(CompositePlaceHolderBorder.OPTIONAL);
+			tableFigure.setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 			entityFigure = tableFigure;
 		} else
 			entityFigure = new CompositeFigure(!isMultiline, true);

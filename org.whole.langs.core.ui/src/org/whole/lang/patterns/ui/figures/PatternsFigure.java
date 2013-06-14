@@ -31,7 +31,7 @@ public class PatternsFigure extends TableFigure {
 
     public PatternsFigure() {
         super(new TableLayout(3).withColumnSpacing(10).withRowSpacing(10).withMarginTop(5).withMarginBottom(5).withMarginLeft(5));
-        setBorder(CompositePlaceHolderBorder.OPTIONAL);
+        setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
         TableRowFigure headers = new TableRowFigure();
         Color color = ColorConstants.gray;
         EntityLabel label = new EntityLabel("Types");

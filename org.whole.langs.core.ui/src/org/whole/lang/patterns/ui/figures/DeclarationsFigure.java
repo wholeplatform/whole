@@ -35,7 +35,7 @@ public class DeclarationsFigure extends TableFigure {
         super(new TableLayout(3)
         		.withColumnSpacing(10).withRowSpacing(10).withColumnAlignment(2, Alignment.FILL)
         		.withMarginTop(5).withMarginBottom(5).withMarginLeft(3).withMarginRight(3));
-        setBorder(CompositePlaceHolderBorder.OPTIONAL);
+        setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
         TableRowFigure headers = new TableRowFigure();
         Color color = ColorConstants.gray;
         EntityLabel label = new EntityLabel("Types");

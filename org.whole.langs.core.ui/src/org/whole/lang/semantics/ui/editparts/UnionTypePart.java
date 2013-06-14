@@ -74,7 +74,7 @@ public class UnionTypePart extends CompositeColumnWithPlaceholderPart {//Composi
 
 	@Override
 	protected void refreshVisuals() {
-		boolean hasBorder = getFigure().getBorder() != CompositePlaceHolderBorder.OPTIONAL;
+		boolean hasBorder = getFigure().getBorder() != CompositePlaceHolderBorder.OPTIONAL_VERTICAL;
 		boolean showBorder = Matcher.matchAny(getParentModelEntity(),
 				SemanticsEntityDescriptorEnum.SubtypeType,
 				SemanticsEntityDescriptorEnum.SupertypeType,
@@ -82,6 +82,6 @@ public class UnionTypePart extends CompositeColumnWithPlaceholderPart {//Composi
 		if (showBorder && !hasBorder)
 			getFigure().setBorder(border);
 		else if (hasBorder && !showBorder)
-			getFigure().setBorder(CompositePlaceHolderBorder.OPTIONAL);
+			getFigure().setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 	}
 }

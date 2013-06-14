@@ -33,7 +33,7 @@ public class VariantsTableFigure extends TableFigure {
 	public VariantsTableFigure() {
 		super(2);
 		getLayoutManager().withRowSpacing(8);
-		setBorder(CompositePlaceHolderBorder.OPTIONAL);
+		setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 	}
 
 	public void showActive(int value) {

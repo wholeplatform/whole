@@ -30,7 +30,7 @@ import org.whole.lang.ui.layout.TableLayout;
 public class ArgumentsFigure extends TableFigure {
 	public ArgumentsFigure() {
 		super(2);
-		setBorder(CompositePlaceHolderBorder.OPTIONAL);
+		setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 	}
 
 	protected void paintFigure(Graphics g) {

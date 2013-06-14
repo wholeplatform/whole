@@ -40,7 +40,7 @@ public class CompositeFigure extends EntityFigure {
 		setLayoutManager(createLayoutManager(isHorizontal));
 		setOpaque(false);
 		if (withPlaceholder)
-			setBorder(CompositePlaceHolderBorder.OPTIONAL);
+			setBorder(CompositePlaceHolderBorder.OPTIONAL_COMPOSITE);
 	}
 	public CompositeFigure(ICompositeEntityLayout layout) {
 		this(layout, true);
@@ -49,7 +49,7 @@ public class CompositeFigure extends EntityFigure {
 		setLayoutManager(layout);
 		setOpaque(false);
 		if (withPlaceholder)
-			setBorder(CompositePlaceHolderBorder.OPTIONAL);
+			setBorder(CompositePlaceHolderBorder.OPTIONAL_COMPOSITE);
 	}
 
 	protected ICompositeEntityLayout createLayoutManager(boolean isHorizontal) {

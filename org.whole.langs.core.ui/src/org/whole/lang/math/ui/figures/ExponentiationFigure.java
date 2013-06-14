@@ -36,6 +36,6 @@ public class ExponentiationFigure extends ContentPaneFigure {
 
     public void showBaseParen(boolean val) {
     	getContentPane(0).setBorder(
-    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL);
+    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
     }
 }

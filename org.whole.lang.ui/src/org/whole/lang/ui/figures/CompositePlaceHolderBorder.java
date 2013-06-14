@@ -27,9 +27,37 @@ import org.whole.lang.ui.layout.TableLayout;
  * @author Riccardo Solmi
  */
 public class CompositePlaceHolderBorder extends PlaceHolderBorder {
-	public static Border OPTIONAL = new CompositePlaceHolderBorder(true);
-	public static Border MANDATORY = new CompositePlaceHolderBorder(false);
-	
+	public static Border OPTIONAL_HORIZONTAL = new CompositePlaceHolderBorder(true) {
+		public boolean isHorizontal(IFigure figure) {
+			return true;
+		}
+	};
+	public static Border OPTIONAL_VERTICAL = new CompositePlaceHolderBorder(true) {
+		public boolean isHorizontal(IFigure figure) {
+			return false;
+		}
+	};
+	public static Border OPTIONAL_COMPOSITE = new CompositePlaceHolderBorder(true) {
+		public boolean isHorizontal(IFigure figure) {
+			return ((CompositeFigure) figure).isHorizontal();
+		}
+	};
+	public static Border MANDATORY_HORIZONTAL = new CompositePlaceHolderBorder(false) {
+		public boolean isHorizontal(IFigure figure) {
+			return true;
+		}
+	};
+	public static Border MANDATORY_VERTICAL = new CompositePlaceHolderBorder(false) {
+		public boolean isHorizontal(IFigure figure) {
+			return false;
+		}
+	};
+	public static Border MANDATORY_COMPOSITE = new CompositePlaceHolderBorder(false) {
+		public boolean isHorizontal(IFigure figure) {
+			return ((CompositeFigure) figure).isHorizontal();
+		}
+	};
+
 	protected CompositePlaceHolderBorder(boolean isOptional) {
 		super(isOptional);
 	}
@@ -41,11 +69,40 @@ public class CompositePlaceHolderBorder extends PlaceHolderBorder {
 		else
 			return EMPTY_INSETS;
 	}
+	
+	public boolean isHorizontal(IFigure figure) {
+		return false;
+	}
+
 
 	@Override
 	public void paint(IFigure figure, Graphics graphics, Insets insets) {
-		if (showBorder(figure))
-			super.paint(figure, graphics, insets);
+		if (showBorder(figure)) {
+			int i = insets();
+			tempRect.setBounds(figure.getBounds());
+			tempRect.x += tempRect.width/2 -i;
+			tempRect.y += tempRect.height/2 -i;
+			tempRect.width = tempRect.height = i*2;
+
+			graphics.setForegroundColor(getColor());
+			if (isHorizontal(figure)) {
+				graphics.drawLine(tempRect.x, tempRect.y, tempRect.x+1, tempRect.y);
+				graphics.drawLine(tempRect.x, tempRect.y, tempRect.x, tempRect.bottom());
+				graphics.drawLine(tempRect.x, tempRect.bottom(), tempRect.x+1, tempRect.bottom());
+	
+				graphics.drawLine(tempRect.right(), tempRect.y, tempRect.right()-1, tempRect.y);
+				graphics.drawLine(tempRect.right(), tempRect.y, tempRect.right(), tempRect.bottom());
+				graphics.drawLine(tempRect.right(), tempRect.bottom(), tempRect.right()-1, tempRect.bottom());
+			} else {
+				graphics.drawLine(tempRect.x, tempRect.y, tempRect.x, tempRect.y+1);
+				graphics.drawLine(tempRect.x, tempRect.y, tempRect.right(), tempRect.y);
+				graphics.drawLine(tempRect.right(), tempRect.y, tempRect.right(), tempRect.y+1);
+	
+				graphics.drawLine(tempRect.x, tempRect.bottom(), tempRect.x, tempRect.bottom()-1);
+				graphics.drawLine(tempRect.x, tempRect.bottom(), tempRect.right(), tempRect.bottom());
+				graphics.drawLine(tempRect.right(), tempRect.bottom(), tempRect.right(), tempRect.bottom()-1);
+			}
+		}
 	}
 
 	protected boolean showBorder(IFigure figure) {

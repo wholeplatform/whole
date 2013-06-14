@@ -34,7 +34,7 @@ public class FeatureTableTypeTableFigure extends TableFigure {
 		.withRowSpacing(4).withColumnSpacing(8)
 		.withMargin(1, 5, 2, 5));
 	
-		setBorder(CompositePlaceHolderBorder.OPTIONAL);
+		setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 	}
 
 	protected void paintFigure(Graphics g) {
