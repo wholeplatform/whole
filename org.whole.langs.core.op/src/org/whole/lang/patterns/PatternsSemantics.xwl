@@ -4129,10 +4129,25 @@
                                     <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#types"/>
                                     <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:SelfStep/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="3">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Choice"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Repetition"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Enumeration"/>
+                                        </queries:Or>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:If>
+                                        </queries:Choose>
                                         <queries:VariableTest value="entityName"/>
-                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
                                     </queries:Filter>
                                 </queries:Path>
                                 <queries:Choose initialCapacity="2">
