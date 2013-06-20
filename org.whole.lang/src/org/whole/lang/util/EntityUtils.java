@@ -371,6 +371,16 @@ public class EntityUtils {
 		}
 		return root;
 	}
+	public static IEntity getLanguageFragmentRoot(IEntity entity) {
+		String languageURI = entity.wGetLanguageKit().getURI();
+		IEntity root = entity;
+		IEntity ancestor = entity.wGetParent();
+		while (!isNull(ancestor) && ancestor.wGetLanguageKit().getURI().equals(languageURI)) {
+			root = ancestor;
+			ancestor = ancestor.wGetParent();
+		}
+		return root;
+	}
 	public static IEntity getFragmentRoot(IEntity entity) {
     	IEntity fragment = entity.wGetModel().getFragment();
     	if (fragment != null)
