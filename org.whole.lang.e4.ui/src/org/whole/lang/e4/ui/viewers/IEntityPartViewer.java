@@ -45,7 +45,8 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public IEntityPart getFocusEntityPart();
 
 	public void selectAndReveal(IEntity entity);
-	
+	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited);
+
 	public E4KeyHandler getKeyHandler();
 	public void setKeyHandler(E4KeyHandler handler);
 

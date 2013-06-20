@@ -246,4 +246,8 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	// End Block Shared With E4GraphicalViewer
+	
+	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited) {
+		throw new UnsupportedOperationException();
+	}
 }
