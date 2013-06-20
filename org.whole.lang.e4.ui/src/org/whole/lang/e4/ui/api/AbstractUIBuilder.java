@@ -51,16 +51,14 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 		ActionsFeatureDescriptorEnum.migrateMenuActions,
 	};
 
-	protected final IEclipseContext context;
-	protected final ActionRegistry actionRegistry;
+	protected IContextProvider contextProvider;
 	private final ContentAssistVisibleWhen contentAssistVisibleWhen;
 	private final ValidSingleSelectionVisibleWhen validSingleSelectionVisibleWhen;
 	private final FeatureAssistVisibleWhen featureAssistVisibleWhen;
 	private final NotationsVisibleWhen notationsVisibleWhen;
 
-	public AbstractUIBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.context = context;
-		this.actionRegistry = actionRegistry;
+	public AbstractUIBuilder(IContextProvider contextProvider) {
+		this.contextProvider = contextProvider;
 		this.contentAssistVisibleWhen = new ContentAssistVisibleWhen();
 		this.validSingleSelectionVisibleWhen = new ValidSingleSelectionVisibleWhen();
 		this.featureAssistVisibleWhen = new FeatureAssistVisibleWhen();
@@ -69,7 +67,7 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 
 	private final IBindingManager emptyBindings = E4Utils.createSelectionBindings(Collections.<IEntityPart>emptyList(), null);
 	protected IBindingManager getBindings() {
-		ESelectionService selectionService = context.get(ESelectionService.class);
+		ESelectionService selectionService = contextProvider.getContext().get(ESelectionService.class);
 		return selectionService.getSelection() instanceof IBindingManager ?
 				(IBindingManager) selectionService.getSelection() : emptyBindings;
 	}
@@ -103,35 +101,35 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 	public void addSourceItem() {
 		FeatureDescriptor menu = ActionsFeatureDescriptorEnum.sourceMenuActions;
 		VisibilityExpression expression = new ActionsVisibleWhen(menu);
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menu);
+		IContributionItem ici = new ActionsCompositeContributionItem(contextProvider, menu);
 		addActionsItem(SOURCE_LABEL, expression, ici);
 	}
 	@Override
 	public void addRefactorItem() {
 		FeatureDescriptor menu = ActionsFeatureDescriptorEnum.refactorMenuActions;
 		VisibilityExpression expression = new ActionsVisibleWhen(menu);
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menu);
+		IContributionItem ici = new ActionsCompositeContributionItem(contextProvider, menu);
 		addActionsItem(REFACTOR_LABEL, expression, ici);
 	}
 	@Override
 	public void addTranslateItem() {
 		FeatureDescriptor menu = ActionsFeatureDescriptorEnum.translateMenuActions;
 		VisibilityExpression expression = new ActionsVisibleWhen(menu);
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menu);
+		IContributionItem ici = new ActionsCompositeContributionItem(contextProvider, menu);
 		addActionsItem(TRANSLATE_LABEL, expression, ici);
 	}
 	@Override
 	public void addAnalyzeItem() {
 		FeatureDescriptor menu = ActionsFeatureDescriptorEnum.analyzeMenuActions;
 		VisibilityExpression expression = new ActionsVisibleWhen(menu);
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menu);
+		IContributionItem ici = new ActionsCompositeContributionItem(contextProvider, menu);
 		addActionsItem(ANALYZE_LABEL, expression, ici);
 	}
 	@Override
 	public void addMigrateItem() {
 		FeatureDescriptor menu = ActionsFeatureDescriptorEnum.migrateMenuActions;
 		VisibilityExpression expression = new ActionsVisibleWhen(menu);
-		IContributionItem ici = new ActionsCompositeContributionItem(context, actionRegistry, menu);
+		IContributionItem ici = new ActionsCompositeContributionItem(contextProvider, menu);
 		addActionsItem(MIGRATE_LABEL, expression, ici);
 	}
 

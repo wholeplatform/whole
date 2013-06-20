@@ -57,7 +57,9 @@ public class E4ActionAdapter extends AbstractE4Action {
 			setText(label);
 		
 		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(menu.getIconURI())));
+			String iconURI = menu.getIconURI();
+			if (iconURI != null)
+				setImageDescriptor(ImageDescriptor.createFromURL(new URL(iconURI)));
 		} catch (Exception e) {
 		}
 	}

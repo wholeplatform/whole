@@ -59,6 +59,7 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
@@ -72,7 +73,7 @@ import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
-public abstract class AbstractE4Part {
+public abstract class AbstractE4Part implements IContextProvider {
 	protected IEntityPartViewer viewer;
 	protected MPopupMenu contextMenu;
 	protected ActionRegistry actionRegistry;
@@ -89,6 +90,13 @@ public abstract class AbstractE4Part {
 	@Inject MPart part;
 	@Optional @Inject IModelInput modelInput;
 	@Inject IWorkspace workspace;
+
+	public IEclipseContext getContext() {
+		return context;
+	}
+	public ActionRegistry getActionRegistry() {
+		return actionRegistry;
+	}
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
@@ -142,12 +150,12 @@ public abstract class AbstractE4Part {
 		actionRegistry = createActionRegistry();
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
 
-		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(context, actionRegistry));
+		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(this));
 		contextMenuProvider.populate(contextMenu);
 
 		//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
 		E4Utils.forceRender(context, contextMenu);
-}
+	}
 
 	protected abstract IEntityPartViewer createEntityViewer(Composite parent);
 

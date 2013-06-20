@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -35,7 +34,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
@@ -67,8 +66,8 @@ import org.whole.lang.util.StringUtils;
 public class EntityAssistCompositeContributionItem extends AbstractCompositeContributionItem {
 	protected ImageDescriptor languageIcon;
 
-	public EntityAssistCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
-		super(context, actionRegistry);
+	public EntityAssistCompositeContributionItem(IContextProvider contextProvider) {
+		super(contextProvider);
 		try {
 			this.languageIcon = ImageDescriptor.createFromURL(new URL(SELECT_LANGUAGE_ICON_URI));
 		} catch (MalformedURLException e) {
@@ -78,7 +77,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	protected IContributionItem[] getItems() {
 		List<IContributionItem> items = new ArrayList<IContributionItem>();
 		
-		Object selection = context.get(ESelectionService.class).getSelection();
+		Object selection = contextProvider.getContext().get(ESelectionService.class).getSelection();
 		if (!(selection instanceof IBindingManager))
 			return new IContributionItem[0];
 		else {
@@ -162,7 +161,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (isWrappable(targetEntity, ed, (IEnablerPredicate) wrapAction[0])) {
 				String label = (String) wrapAction[2];
 				IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
-				wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
+				wrapElements.add(contextProvider.getActionRegistry().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, transformer)));
 				wrapTypes.add(ed);
 			}
@@ -172,7 +171,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (EntityUtils.isComposite(ed) && !wrapTypes.contains(ed) &&
 					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.assignableTo(ed.getEntityDescriptor(0)))) {
 				String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-				wrapElements.add(actionRegistry.createPerformAction(label, WRAP_ICON_URI, 
+				wrapElements.add(contextProvider.getActionRegistry().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, DefaultWrapInTransformer.instance)));
 			}
 
@@ -200,10 +199,10 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	}
 
 	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
-		return actionRegistry.getAddEntityAction(ed);
+		return contextProvider.getActionRegistry().getAddEntityAction(ed);
 	}
 	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
-		return actionRegistry.getReplaceEntityAction(ed);
+		return contextProvider.getActionRegistry().getReplaceEntityAction(ed);
 	}
 	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {
 		return E4Utils.wrapToBehavior(ed, transformer);

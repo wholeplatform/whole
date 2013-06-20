@@ -20,12 +20,11 @@ package org.whole.lang.e4.ui.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -46,8 +45,8 @@ import org.whole.lang.util.IEntityTransformer;
 public class FeatureAssistCompositeContributionItem extends EntityAssistCompositeContributionItem {
 	protected FeatureDescriptor fd;
 
-	public FeatureAssistCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
-		super(context, actionRegistry);
+	public FeatureAssistCompositeContributionItem(IContextProvider contextProvider) {
+		super(contextProvider);
 	}
 
 	@Override
@@ -75,11 +74,11 @@ public class FeatureAssistCompositeContributionItem extends EntityAssistComposit
 
 	@Override
 	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
-		return actionRegistry.getAddEntityAction(ed, fd);
+		return contextProvider.getActionRegistry().getAddEntityAction(ed, fd);
 	}
 	@Override
 	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
-		return actionRegistry.getReplaceEntityAction(ed, fd);
+		return contextProvider.getActionRegistry().getReplaceEntityAction(ed, fd);
 	}
 	@Override
 	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {

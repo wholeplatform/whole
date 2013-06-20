@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -36,7 +35,7 @@ import org.whole.lang.actions.reflect.ActionsFeatureDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -55,15 +54,15 @@ import org.whole.lang.util.DataTypeUtils;
 public class ActionsCompositeContributionItem extends AbstractCompositeContributionItem {
 	protected FeatureDescriptor menu;
 
-	public ActionsCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry, FeatureDescriptor menu) {
-		super(context, actionRegistry);
+	public ActionsCompositeContributionItem(IContextProvider contextProvider, FeatureDescriptor menu) {
+		super(contextProvider);
 		this.menu = menu;
 	}
 
 	@Override
 	protected IContributionItem[] getItems() {
 
-		Object selection = context.get(ESelectionService.class).getSelection();
+		Object selection = contextProvider.getContext().get(ESelectionService.class).getSelection();
 		if (!(selection instanceof IBindingManager))
 			return new IContributionItem[0];
 
@@ -98,7 +97,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 		for (GuardedAction guardedAction : guardedActions) {
 			String actionName = guardedAction.getName().getValue();
 			String functionUri = actionsMap.get(guardedAction);
-			IUpdatableAction action = actionRegistry.createActionCallAction(
+			IUpdatableAction action = contextProvider.getActionRegistry().createActionCallAction(
 					actionName, isAnalyze(), guardedAction.getEnablerPredicate(), functionUri);
 			action.update();
 			actions.add(action);

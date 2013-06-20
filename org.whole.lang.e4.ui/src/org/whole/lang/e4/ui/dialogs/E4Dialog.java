@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -63,7 +64,7 @@ import org.whole.lang.ui.actions.IUpdatableAction;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E4Dialog extends Dialog {
+public class E4Dialog extends Dialog implements IContextProvider {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
@@ -80,6 +81,13 @@ public class E4Dialog extends Dialog {
 	@Inject EModelService modelService;
 	@Inject MApplication application;
 	@Inject EBindingService bindingService;
+
+	public IEclipseContext getContext() {
+		return context;
+	}
+	public ActionRegistry getActionRegistry() {
+		return actionRegistry;
+	}
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -121,7 +129,7 @@ public class E4Dialog extends Dialog {
 		actionRegistry = createActionRegistry();
 		HandlersBehavior.registerHandlers(handlerService);
 
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

@@ -20,7 +20,6 @@ package org.whole.lang.e4.ui.actions;
 
 import java.util.Comparator;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -28,21 +27,20 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Menu;
+import org.whole.lang.e4.ui.api.IContextProvider;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
 public abstract class AbstractCompositeContributionItem extends ContributionItem {
-	protected IEclipseContext context;
-	protected ActionRegistry actionRegistry;
+	protected IContextProvider contextProvider;
 	protected Comparator<IAction> comparator;
 	protected IContributionItem[] items;
 	protected IMenuListener listener;
 
-	public AbstractCompositeContributionItem(IEclipseContext context, ActionRegistry actionRegistry) {
-		this.context = context;
-		this.actionRegistry = actionRegistry;
+	public AbstractCompositeContributionItem(IContextProvider contextProvider) {
+		this.contextProvider = contextProvider;
 		this.comparator = new Comparator<IAction>() {
 			public int compare(IAction left, IAction right) {
 				return left.getText().compareTo(right.getText());

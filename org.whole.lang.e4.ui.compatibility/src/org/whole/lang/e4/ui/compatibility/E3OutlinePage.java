@@ -75,6 +75,7 @@ import org.eclipse.ui.part.PageBook;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
@@ -97,7 +98,7 @@ import org.whole.lang.ui.views.WholeGraphicalViewer;
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
+public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, IContextProvider {
 	private static final int OUTLINE_PAGE_ID = 0;
 	private static final int OVERVIEW_PAGE_ID = 1;
 
@@ -132,6 +133,13 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		this.commandService = this.context.get(ECommandService.class);
 		this.handlerService = this.context.get(EHandlerService.class);
 		this.bindingService = this.context.get(EBindingService.class);
+	}
+
+	public IEclipseContext getContext() {
+		return context;
+	}
+	public ActionRegistry getActionRegistry() {
+		return actionRegistry;
 	}
 
 	@Override
@@ -307,7 +315,7 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		actionRegistry = createActionRegistry();
 		HandlersBehavior.registerHandlers(handlerService);
 
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(context, actionRegistry));
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

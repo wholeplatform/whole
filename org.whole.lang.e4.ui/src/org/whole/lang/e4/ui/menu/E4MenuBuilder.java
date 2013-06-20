@@ -21,7 +21,6 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.util.Iterator;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
@@ -39,8 +38,8 @@ import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.action.IContributionItem;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
+import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.expressions.AddEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ReplaceEntityVisibleWhen;
 import org.whole.lang.e4.ui.expressions.SelectNotationVisibleWhen;
@@ -61,10 +60,10 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	protected EModelService modelService;
 	protected MApplication application;
 
-	public E4MenuBuilder(IEclipseContext context, ActionRegistry actionRegistry) {
-		super(context, actionRegistry);
-		this.modelService = context.get(EModelService.class);
-		this.application = context.get(MApplication.class);
+	public E4MenuBuilder(IContextProvider contextProvider) {
+		super(contextProvider);
+		this.modelService = contextProvider.getContext().get(EModelService.class);
+		this.application = contextProvider.getContext().get(MApplication.class);
 	}
 
 	protected UniqueIdGenerator idGen;
@@ -123,7 +122,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 		MMenu menu = createMenu(CONTENT_ASSIST_LABEL, getContentAssistVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new ContentAssistCompositeContributionItem(context, actionRegistry);
+		IContributionItem ici = new ContentAssistCompositeContributionItem(contextProvider);
 		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 	@Override
@@ -131,7 +130,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 		MMenu menu = createMenu(ENTITY_ASSIST_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new EntityAssistCompositeContributionItem(context, actionRegistry);
+		IContributionItem ici = new EntityAssistCompositeContributionItem(contextProvider);
 		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 	@Override
@@ -139,7 +138,7 @@ public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 		MMenu menu = createMenu(FEATURE_ASSIST_LABEL, getFeatureAssistVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new FeatureAssistCompositeContributionItem(context, actionRegistry);
+		IContributionItem ici = new FeatureAssistCompositeContributionItem(contextProvider);
 		menu.getChildren().add(createOpaqueMenuItem(ici));
 	}
 
