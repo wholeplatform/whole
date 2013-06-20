@@ -32,6 +32,7 @@ import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.views.WholeGraphicalViewer;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -52,15 +53,16 @@ public class SelectEditorKitAction extends SelectionAction {
 		List<?> selectedObjects = getSelectedObjects();
 		if (selectedObjects.isEmpty() || !(selectedObjects.get(0) instanceof IEntityPart))
 			return false;
-		IEntityPart selectedPart = (IEntityPart) selectedObjects.get(0);
-		IEntity selectedEntity = selectedPart.getModelEntity();
-
-		IEntity fragmentRoot = selectedEntity.wGetModel().getFragment();
-		if (fragmentRoot == null)
-			return false;
-
-		GraphicalViewer viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(GraphicalViewer.class);
-		return ModelObserver.getObserver(fragmentRoot, viewer.getEditPartRegistry()) != null;
+		return true;
+//		IEntityPart selectedPart = (IEntityPart) selectedObjects.get(0);
+//		IEntity selectedEntity = selectedPart.getModelEntity();
+//
+//		IEntity fragmentRoot = selectedEntity.wGetModel().getFragment();
+//		if (fragmentRoot == null)
+//			return false;
+//
+//		GraphicalViewer viewer = (GraphicalViewer) getWorkbenchPart().getAdapter(GraphicalViewer.class);
+//		return ModelObserver.getObserver(fragmentRoot, viewer.getEditPartRegistry()) != null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -75,8 +77,8 @@ public class SelectEditorKitAction extends SelectionAction {
 
 		final WholeGraphicalViewer viewer = (WholeGraphicalViewer) selectedPart.getViewer();
 		Map<IEntity, IEntityPart> editPartRegistry = viewer.getEditPartRegistry();
-		IEntity fragmentRoot = selectedEntity.wGetModel().getFragment();
-		IEntityPart fragmentPart = ModelObserver.getObserver(fragmentRoot, editPartRegistry);
+		IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(selectedEntity);
+		IEntityPart fragmentPart = ModelObserver.getObserver(selectedEntity, fragmentRoot, editPartRegistry);
 		fragmentPart.rebuild();
 
 		final EditPart newSelectedPart = (EditPart) editPartRegistry.get(selectedEntity);

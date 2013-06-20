@@ -34,6 +34,7 @@ import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -62,8 +63,8 @@ public class SelectNotationHandler {
 		primarySelectedEntity.wGetModel().setEditorKit(editorKit);
 
 		Map<IEntity, IEntityPart> editPartRegistry = viewer.getEditPartRegistry();
-		IEntity fragmentRoot = primarySelectedEntity.wGetModel().getFragment();
-		IEntityPart fragmentPart = ModelObserver.getObserver(fragmentRoot, editPartRegistry);
+		IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(primarySelectedEntity);
+		IEntityPart fragmentPart = ModelObserver.getObserver(primarySelectedEntity, fragmentRoot, editPartRegistry);
 		fragmentPart.rebuild();
 
 		synchronize.asyncExec(new Runnable() {
