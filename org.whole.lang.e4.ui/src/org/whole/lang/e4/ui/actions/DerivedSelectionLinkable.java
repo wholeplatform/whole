@@ -17,31 +17,27 @@
  */
 package org.whole.lang.e4.ui.actions;
 
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.whole.lang.e4.ui.viewers.E4EditDomain;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
-public class DetailsSelectionLinkable extends AbstractSelectionLinkable {
+public class DerivedSelectionLinkable extends AbstractSelectionLinkable {
+	protected String functionUri;
 
-	public DetailsSelectionLinkable(IEntityPartViewer viewer) {
+	public DerivedSelectionLinkable(IEntityPartViewer viewer, String functionUri) {
 		super(viewer);
-	}
-
-	@Override
-	public void selectionChanged(MPart part, Object selection) {
-		if (isRelevant(selection))
-			updateViewerContents();
+		this.functionUri = functionUri;
 	}
 
 	protected void updateViewerContents() {
 		viewer.getControl().getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				updateViewerContents(viewer, linkType.isLinkedToActivePart());
+				updateViewerContents(linkType.isLinkedToActivePart());
 			}
 		});
 	}
@@ -53,16 +49,25 @@ public class DetailsSelectionLinkable extends AbstractSelectionLinkable {
 		if (linkType.isNotLinked())
 			unlinkViewer();
 		else if (lastSelection != null)
-			updateViewerContents(viewer, true);
+			updateViewerContents(true);
 	}
 
-	protected void updateViewerContents(IEntityPartViewer viewer, boolean relink) {
+	protected void updateViewerContents(boolean relink) {
+		if (lastSelection == null)
+			return;
+
 		if (relink)
 			linkViewer((IEntityPartViewer) lastSelection.wGetValue("viewer"));
 
-		if (lastSelection != null && lastSelection.wIsSet("primarySelectedEntity"))
-			viewer.setContents(lastSelection.wGet("primarySelectedEntity"));
+		IEntity result = BehaviorUtils.apply(functionUri, lastSelection.wGet("self"), lastSelection);
+		if (result != null)
+			setDerivedContents(result);
 	}
+
+	protected void setDerivedContents(IEntity result) {
+		viewer.setContents(result);
+	}
+
 	protected void linkViewer(IEntityPartViewer fromViewer) {
 		viewer.linkEditDomain(fromViewer);
 	}

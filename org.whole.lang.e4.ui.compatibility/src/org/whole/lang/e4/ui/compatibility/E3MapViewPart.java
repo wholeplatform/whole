@@ -27,16 +27,17 @@ import org.eclipse.ui.PartInitException;
 import org.whole.lang.e4.ui.actions.DerivedSelectionLinkable;
 import org.whole.lang.e4.ui.actions.LinkToEditorAction;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
  */
 @SuppressWarnings("restriction")
-public class E3DetailsViewPart extends E3ViewPart {
+public class E3MapViewPart extends E3ViewPart {
 	protected DerivedSelectionLinkable selectionLinkable;
 	protected LinkToEditorAction linkToEditorAction;
 
-	public E3DetailsViewPart() {
+	public E3MapViewPart() {
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class E3DetailsViewPart extends E3ViewPart {
 		super.createPartControl(parent);
 		
 		IEntityPartViewer viewer = getComponent().getViewer();
-		selectionLinkable = new DerivedSelectionLinkable(viewer, "whole:org.whole.lang:ViewDerivationLibrary#deriveDetailsViewContents") {
+		selectionLinkable = new DerivedSelectionLinkable(viewer, "whole:org.whole.lang:ViewDerivationLibrary#deriveMapViewContents") {
 			@Override
 			protected void linkViewer(IEntityPartViewer fromViewer) {
 				super.linkViewer(fromViewer);
@@ -58,6 +59,12 @@ public class E3DetailsViewPart extends E3ViewPart {
 				CommandStack commandStack = viewer.getCommandStack();
 				undoAction.track(commandStack);
 				redoAction.track(commandStack);
+			}
+
+			@Override
+			protected void setDerivedContents(IEntity result) {
+				super.setDerivedContents(result);
+				viewer.setInteractive(result, false, true, false);
 			}
 		};
 

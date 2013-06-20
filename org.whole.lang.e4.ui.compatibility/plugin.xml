@@ -29,6 +29,22 @@
       </view>
       <view
             category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.compatibility.E3IndexViewPart"
+            class="org.whole.lang.e4.ui.compatibility.E3IndexViewPart"
+            icon="icons/views/whole.gif"
+            name="E4 Index View"
+            restorable="true">
+      </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.compatibility.E3MapViewPart"
+            class="org.whole.lang.e4.ui.compatibility.E3MapViewPart"
+            icon="icons/views/whole.gif"
+            name="E4 Map View"
+            restorable="true">
+      </view>
+      <view
+            category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
             class="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
             icon="icons/views/whole.gif"
