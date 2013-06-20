@@ -42,7 +42,7 @@ public class ConnectionCreateCommand extends AbstractConnectionCommand {
 
 	public void execute() {
 		IEntity connection = getConnection();
-		IEntity transitionParent = EntityUtils.getFragmentRoot(source).wGet(1);//FIXME get transitions from presentation aspect
+		IEntity transitionParent = EntityUtils.getCompoundRoot(source).wGet(1);//FIXME get transitions from presentation aspect
 		connect(source, sourceFeature, connection);
 		//FIXME should use presentation aspects
 		connection.wSet(getConnectionFeature("source"), source);
@@ -53,7 +53,7 @@ public class ConnectionCreateCommand extends AbstractConnectionCommand {
 
 	public void undo() {
 		IEntity connection = getConnection();
-		IEntity transitionParent = EntityUtils.getFragmentRoot(source).wGet(1);
+		IEntity transitionParent = EntityUtils.getCompoundRoot(source).wGet(1);
 		disconnect(source, sourceFeature, getConnection());
 		disconnect(target, targetFeature, getConnection());
 		transitionParent.wRemove(connection);
