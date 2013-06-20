@@ -18,6 +18,7 @@
 package org.whole.langs.core.op;
 
 import org.whole.lang.ReflectLibraryDeployer;
+import org.whole.lang.ViewDerivationLibraryDeployer;
 import org.whole.lang.editors.reflect.EditorsLanguageKit;
 import org.whole.lang.editors.visitors.EditorsArtifactsGeneratorVisitor;
 import org.whole.lang.frames.reflect.FramesLanguageKit;
@@ -116,5 +117,6 @@ public class CoreOperationsDeployer extends AbstractLanguageExtensionDeployer {
 		//TODO test
 //		ReflectLibrary.deploy();
 		new ReflectLibraryDeployer().deploy(platform);
+		new ViewDerivationLibraryDeployer().deploy(platform);
 	}
 }

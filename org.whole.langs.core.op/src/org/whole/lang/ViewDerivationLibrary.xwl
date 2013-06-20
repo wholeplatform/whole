@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang:ViewDerivationLibrary"/>
+    <semantics:Namespace value="org.whole.lang"/>
+    <semantics:Name value="ViewDerivation"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="3">
+        <semantics:SemanticFunction>
+            <semantics:Name value="deriveDetailsViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="deriveIndexViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="deriveMapViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>
