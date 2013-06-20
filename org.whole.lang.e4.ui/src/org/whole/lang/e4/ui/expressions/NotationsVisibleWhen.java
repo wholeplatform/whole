@@ -29,6 +29,6 @@ public class NotationsVisibleWhen extends ValidSingleSelectionVisibleWhen {
 		if (!super.isVisible(bm))
 			return false;
 
-		return bm.wGet("viewer") instanceof E4GraphicalViewer;
+		return bm.wGetValue("viewer") instanceof E4GraphicalViewer;
 	}
 }
