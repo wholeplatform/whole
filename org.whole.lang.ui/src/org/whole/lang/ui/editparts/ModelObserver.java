@@ -70,6 +70,17 @@ public class ModelObserver implements PropertyChangeListener {
     	}
 		return observer;
 	}
+	public static IEntityPart getObserver(IEntity entity, IEntity ancestorEntity, Map<IEntity, IEntityPart> mapping) {
+		IEntityPart observer;
+	   	if (entity == ancestorEntity)
+	   		observer = getObserver(entity, mapping);
+	   	else {
+	   	   	observer = getObserver(entity.wGetParent(), ancestorEntity, mapping);
+		   	if (observer == null)
+		   		observer = mapping.get(entity);
+	   	}
+	   	return observer;
+	}
 
 	private List<EntityPartListener> listenerList = new ArrayList<EntityPartListener>();
 	public void addEntityPartListener(EntityPartListener listener) {
