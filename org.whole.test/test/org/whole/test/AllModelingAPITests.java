@@ -40,7 +40,7 @@ import org.whole.lang.reflect.ReflectiveAPITest;
 /**
  * Runs: 132
  * Errors: 2
- * Failures: 8 (+2 ReflectionFactoryTest works only alone)
+ * Failures: 7 (+2 ReflectionFactoryTest works only alone)
  *
  * @author Riccardo Solmi
  */

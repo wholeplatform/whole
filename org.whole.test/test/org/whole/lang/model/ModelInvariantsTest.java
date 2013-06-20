@@ -62,13 +62,17 @@ public class ModelInvariantsTest extends TestCase {
 			assertEquals(compoundModel, e.wGetModel().getCompoundModel());
 	}
 
-	//FIXME
 	public void testUniqueFragmentModel() {
 		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
 		i.reset(new GrammarsActions().create());
 		for (IEntity e : i) {
 			Logger.getLogger("org.whole.test").info(StringUtils.transientId(e));
-			assertEquals(EntityUtils.getFragmentRoot(e).wGetModel(), e.wGetModel());
+			
+			IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(e);
+			if (fragmentRoot != e && EntityUtils.isFragment(fragmentRoot))
+				fragmentRoot = fragmentRoot.wGetRoot();
+
+			assertEquals(fragmentRoot.wGetModel(), e.wGetModel());
 		}
 	}
 
