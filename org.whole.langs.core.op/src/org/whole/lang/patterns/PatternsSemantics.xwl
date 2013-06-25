@@ -3772,14 +3772,43 @@
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="slotTest"/>
                                     </queries:Filter>
-                                    <queries:Path initialCapacity="2">
+                                    <queries:Path initialCapacity="3">
+                                        <queries:Filter>
                                         <queries:Filter>
                                         <queries:AncestorStep/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ConditionPoint"/>
                                         </queries:Filter>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
                                         <queries:Filter>
-                                        <queries:DescendantOrSelfStep/>
+                                        <queries:DescendantStep/>
+                                        <queries:Prune>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ConditionPoint"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#condition"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SlotsDefined"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
+                                        </queries:Or>
+                                        </queries:Prune>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
+                                        <queries:DistinctTest>
+                                        <queries:IdentityComparator>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:IdentityComparator>
+                                        </queries:DistinctTest>
+                                        </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
                                     <queries:Filter>
