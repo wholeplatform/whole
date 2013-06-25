@@ -61,7 +61,8 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 	}
 
 	public void setBindings(IBindingManager bindings) {
-		super.setBindings(bindings);
+		if (getIterator() != null)
+			super.setBindings(bindings);
 		comparator.setBindings(bindings);
 	}
 
@@ -86,6 +87,11 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 		public void visit(IEntity entity) {
 			if (!distinctScope.addDistinct(this, entity))
 				throw new VisitException();
+		}
+
+		@Override
+		public void setBindings(IBindingManager bm) {
+			distinctScope.setBindings(bm);
 		}
 
 		public void toString(StringBuilder sb) {
