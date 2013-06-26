@@ -26,11 +26,12 @@ import org.whole.lang.ui.layout.RowLayout;
 public class VariableDeclarationStatementFigure extends ContentPaneFigure {
 
     public VariableDeclarationStatementFigure() {
-        super(new RowLayout().withSpacing(0));
-        initContentPanes(2);
+        super(new RowLayout().withSpacing(1));
+        initContentPanes(3);
         add(createContentPane(0));
-        addContent("");
         add(createContentPane(1));
+        addContent("");
+        add(createContentPane(2));
         addContentLighter(";");
     }
 }

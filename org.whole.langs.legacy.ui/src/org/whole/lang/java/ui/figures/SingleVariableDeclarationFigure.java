@@ -22,18 +22,20 @@ import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
- * @author Enrico Persiani
+ * @author Riccardo Solmi
  */
-public class ParameterFigure extends ContentPaneFigure {
+public class SingleVariableDeclarationFigure extends ContentPaneFigure {
 	private IFigure varargs;
 
-	public ParameterFigure() {
-		super(new RowLayout().withSpacing(4));
-		initContentPanes(2);
+	public SingleVariableDeclarationFigure() {
+		super(new RowLayout().withSpacing(1));
+		initContentPanes(3);
 
 		add(createContentPane(0));
-		varargs = addContentLight("...");
 		add(createContentPane(1));
+		varargs = addContentLight("...");
+        addContent(" ");
+		add(createContentPane(2));
 	}
 
 	public void showVarargs(boolean visible) {

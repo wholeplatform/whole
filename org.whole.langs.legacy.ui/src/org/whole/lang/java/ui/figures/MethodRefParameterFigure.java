@@ -15,31 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.java.ui.editparts;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.whole.lang.java.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.VariableDeclarationStatement;
-import org.whole.lang.java.ui.figures.VariableDeclarationStatementFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class VariableDeclarationStatementPart extends AbstractContentPanePart {
-	protected IFigure createFigure() {
-		return new VariableDeclarationStatementFigure();
+public class MethodRefParameterFigure extends ContentPaneFigure {
+	private IFigure varargs;
+
+	public MethodRefParameterFigure() {
+		super(new RowLayout().withSpacing(1));
+		initContentPanes(2);
+
+		add(createContentPane(0));
+		varargs = addContentLight("...");
+        addContent(" ");
+		add(createContentPane(1));
 	}
 
-	protected List<IEntity> getModelSpecificChildren() {
-		List<IEntity> list = new ArrayList<IEntity>(3);
-		VariableDeclarationStatement entity = getModelEntity();
-		list.add(entity.getModifiers());
-		list.add(entity.getType());
-		list.add(entity.getFragments());
-		return list;
+	public void showVarargs(boolean visible) {
+		varargs.setVisible(visible);
 	}
 }

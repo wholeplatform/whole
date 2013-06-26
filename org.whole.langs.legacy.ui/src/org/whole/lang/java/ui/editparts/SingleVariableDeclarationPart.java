@@ -23,7 +23,7 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.SingleVariableDeclaration;
 import org.whole.lang.java.model.Varargs;
-import org.whole.lang.java.ui.figures.ParameterFigure;
+import org.whole.lang.java.ui.figures.SingleVariableDeclarationFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
@@ -33,19 +33,20 @@ import org.whole.lang.util.EntityUtils;
  */
 public class SingleVariableDeclarationPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new ParameterFigure();
+		return new SingleVariableDeclarationFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		SingleVariableDeclaration singleVariableDeclaration = getModelEntity();
+		SingleVariableDeclaration entity = getModelEntity();
 
-		Varargs varargs = singleVariableDeclaration.getVarargs();
-		((ParameterFigure) getFigure())
+		Varargs varargs = entity.getVarargs();
+		((SingleVariableDeclarationFigure) getFigure())
 				.showVarargs(!EntityUtils.isResolver(varargs) && varargs.wBooleanValue());
 
-		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(singleVariableDeclaration.getType());
-		list.add(singleVariableDeclaration.getName());
+		List<IEntity> list = new ArrayList<IEntity>(3);
+		list.add(entity.getModifiers());
+		list.add(entity.getType());
+		list.add(entity.getName());
 		return list;
 	}
 }

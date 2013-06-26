@@ -23,7 +23,7 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.MethodRefParameter;
 import org.whole.lang.java.model.Varargs;
-import org.whole.lang.java.ui.figures.ParameterFigure;
+import org.whole.lang.java.ui.figures.MethodRefParameterFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
@@ -33,14 +33,14 @@ import org.whole.lang.util.EntityUtils;
  */
 public class MethodRefParameterPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new ParameterFigure();
+		return new MethodRefParameterFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
 		MethodRefParameter methodRefParameter = getModelEntity();
 
 		Varargs varargs = methodRefParameter.getVarargs();
-		((ParameterFigure) getFigure())
+		((MethodRefParameterFigure) getFigure())
 				.showVarargs(!EntityUtils.isResolver(varargs) && varargs.wBooleanValue());
 
 		List<IEntity> list = new ArrayList<IEntity>(2);

@@ -35,8 +35,9 @@ public class VariableDeclarationExpressionPart extends AbstractContentPanePart {
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		List<IEntity> list = new ArrayList<IEntity>(2);
+		List<IEntity> list = new ArrayList<IEntity>(3);
 		VariableDeclarationExpression entity = getModelEntity();
+		list.add(entity.getModifiers());
 		list.add(entity.getType());
 		list.add(entity.getFragments());
 		return list;
