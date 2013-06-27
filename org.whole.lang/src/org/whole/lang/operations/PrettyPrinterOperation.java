@@ -26,13 +26,9 @@ import java.io.Writer;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.model.SameStageFragment;
-import org.whole.lang.commons.model.StageDownFragment;
-import org.whole.lang.commons.model.StageUpFragment;
-import org.whole.lang.commons.model.Variable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.DataTypeUtils;
-import org.whole.lang.visitors.GenericForwardEntityKindVisitor;
+import org.whole.lang.visitors.EntityKindIdentityVisitor;
 import org.whole.lang.visitors.IVisitor;
 
 /**
@@ -92,7 +88,7 @@ public class PrettyPrinterOperation extends AbstractOperation {
 
     @Override
     protected IVisitor createDefaultVisitor(IEntity entity, int normalizedStage) {
-		return new GenericForwardEntityKindVisitor() {
+		return new EntityKindIdentityVisitor() {
 			public void visitSimpleEntity(IEntity entity) {
 				if (entity.wIsAdapter())
 					entity = entity.wGetAdaptee(false);
@@ -140,26 +136,6 @@ public class PrettyPrinterOperation extends AbstractOperation {
 				} else
 					getPrettyPrintWriter().printRaw(value);
 				getPrettyPrintWriter().printlnRaw(")");
-			}
-
-			public void visitEntityResolver(IEntity entity) {
-				getPrettyPrintWriter().printlnRaw(entity.wGetEntityDescriptor().getName() + "[]");
-			}
-
-			public void visitEntityVariable(Variable entity) {
-				stagedVisit(entity);
-			}
-
-			public void visitSameStageFragment(SameStageFragment entity) {
-				stagedVisit(entity);
-			}
-
-			public void visitStageDownFragment(StageDownFragment entity) {
-				stagedVisit(entity);
-			}
-
-			public void visitStageUpFragment(StageUpFragment entity) {
-				stagedVisit(entity);
 			}
 		};
 	}

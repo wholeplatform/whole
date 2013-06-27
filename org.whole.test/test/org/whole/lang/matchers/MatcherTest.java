@@ -37,7 +37,7 @@ import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.MethodInvocation;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
-import org.whole.lang.matchers.GenericMatcherFactory.AbstractMatcherOperation;
+import org.whole.lang.matchers.GenericMatcherFactory.AbstractVariableVisitor;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.Feature;
@@ -174,8 +174,8 @@ public class MatcherTest extends TestCase {
 		Matcher.removeVars(pattern, true);
 		
 	    GenericTraversalFactory.instance.topDown(
-	    	    new AbstractMatcherOperation() {
-	    	    	public void visitEntityVariable(Variable variable) {
+	    	    new AbstractVariableVisitor() {
+	    	    	public void visitVariable(Variable variable) {
 	    	    		fail();
 	    	    	}
 	    	    }, false

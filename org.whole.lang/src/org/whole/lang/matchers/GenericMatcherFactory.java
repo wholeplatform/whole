@@ -25,9 +25,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.QuantifierEnum;
-import org.whole.lang.commons.model.SameStageFragment;
-import org.whole.lang.commons.model.StageDownFragment;
-import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
@@ -44,7 +41,6 @@ import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.visitors.AbstractVisitor;
-import org.whole.lang.visitors.GenericForwardEntityKindVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.VisitException;
 
@@ -816,8 +812,8 @@ public class GenericMatcherFactory {
 	}
 
 	public IVisitor rename(final Map<String, String> nameMap) {
-	    return new AbstractMatcherOperation() {
-	    	public void visitEntityVariable(Variable variable) {
+	    return new AbstractVariableVisitor() {
+	    	public void visitVariable(Variable variable) {
 	        	String oldName = variable.getVarName().getValue();
 	        	String newName = nameMap.get(oldName);
 	        	
@@ -827,8 +823,8 @@ public class GenericMatcherFactory {
 	    };
 	}
 	public IVisitor rename(final String oldName, final String newName) {
-	    return new AbstractMatcherOperation() {
-	    	public void visitEntityVariable(Variable variable) {
+	    return new AbstractVariableVisitor() {
+	    	public void visitVariable(Variable variable) {
 	        	if (variable.getVarName().getValue().equals(oldName))
 	        		variable.getVarName().setValue(newName);
 	    	}
@@ -842,9 +838,9 @@ public class GenericMatcherFactory {
 
 	// NB substitute a copy of the binding values
 	public IVisitor substitute(final IBindingScope inBindings, final IBindingScope outBindings) {
-	    return new AbstractMatcherOperation() {
+	    return new AbstractVariableVisitor() {
 	    	private Set<Variable> vars = new HashSet<Variable>();
-	    	public void visitEntityVariable(Variable variable) {
+	    	public void visitVariable(Variable variable) {
 	    		if (!EntityUtils.hasParent(variable) || !vars.add(variable))
 	    			return;
 
@@ -898,15 +894,13 @@ public class GenericMatcherFactory {
 		};
 	}
 
-	public static class AbstractMatcherOperation extends GenericForwardEntityKindVisitor {
-        public void visitSameStageFragment(SameStageFragment entity) {
-        	visit(entity.wGetRoot());
-        }
-        public void visitStageDownFragment(StageDownFragment entity) {
-        	visit(entity.wGetRoot());
-        }
-        public void visitStageUpFragment(StageUpFragment entity) {
-        	visit(entity.wGetRoot());
-        }
+	public static abstract class AbstractVariableVisitor extends AbstractVisitor {
+		public void visit(IEntity entity) {
+			IEntity adaptee = entity.wGetAdaptee(false);
+			if (EntityUtils.isVariable(adaptee.wGetEntityDescriptor()))
+	        	visitVariable((Variable) adaptee);
+		}
+
+		public abstract void visitVariable(Variable entity);
 	}
 }
