@@ -74,23 +74,58 @@
                     <queries:Names initialCapacity="1">
                         <queries:Name value="newEntity"/>
                     </queries:Names>
-                    <queries:Block initialCapacity="2">
+                    <queries:Block initialCapacity="4">
+                        <queries:Filter>
+                            <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="create replacement entity"/>
+                                <commons:Resolver/>
+                                <workflows:Registry value="DEFAULT"/>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
+                                    <commons:VarName value="edUri"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Resolver/>
+                            </workflows:CreateEntity>
+                            <queries:VariableTest value="newEntity"/>
+                        </queries:Filter>
+                        <queries:If>
+                            <queries:And initialCapacity="2">
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="newEntity"/>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:Not>
+                                    <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="newEntity"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:ExpressionTest>
+                                </queries:Not>
+                            </queries:And>
+                            <queries:PointwiseInsert>
+                                <queries:Placement value="INTO"/>
+                                <queries:VariableRefStep value="newEntity"/>
+                                <commons:StageUpFragment>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Commons#Any"/>
+                                        <commons:VarName value="placeholder"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </commons:StageUpFragment>
+                            </queries:PointwiseInsert>
+                        </queries:If>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
-                                <queries:Filter>
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create replacement entity"/>
-                                        <commons:Resolver/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Workflows#StringLiteral"/>
-                                        <commons:VarName value="edUri"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        <commons:Resolver/>
-                                    </workflows:CreateEntity>
-                                    <queries:VariableTest value="newEntity"/>
-                                </queries:Filter>
+                                <queries:VariableRefStep value="newEntity"/>
                                 <queries:Filter>
                                     <queries:ChildStep/>
                                     <queries:IndexTest>
