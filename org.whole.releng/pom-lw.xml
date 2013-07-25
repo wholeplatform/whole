@@ -155,7 +155,7 @@
 							<groupId>com.wholeplatform</groupId>
 							<artifactId>org.whole.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>JUNO_4_2_x</classifier>
+							<classifier>KEPLER_4_3_x</classifier>
 						</artifact>
 					</target>
 					<environments>

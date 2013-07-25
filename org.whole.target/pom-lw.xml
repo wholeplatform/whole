@@ -36,9 +36,9 @@
 							<artifacts>
 								<artifact>
 									<!-- note: the file name must be ${classifier}.target -->
-									<file>JUNO_4_2_x.target</file>
+									<file>KEPLER_4_3_x.target</file>
 									<type>target</type>
-									<classifier>JUNO_4_2_x</classifier>
+									<classifier>KEPLER_4_3_x</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
