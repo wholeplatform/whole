@@ -28,7 +28,6 @@ import org.whole.lang.operations.OperationCanceledException;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class PrettyPrintModelRunnable extends AbstractRunnableWithProgress {
 
 	public PrettyPrintModelRunnable(IEclipseContext context, IBindingManager bm, String label) {

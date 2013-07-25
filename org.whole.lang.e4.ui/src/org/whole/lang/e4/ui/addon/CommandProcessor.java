@@ -29,8 +29,10 @@ import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.e4.ui.command.CommandFactory;
 import org.whole.lang.e4.ui.command.ICommandFactory;
 
-@SuppressWarnings("restriction")
-class CommandProcessor {
+/**
+ * @author Enrico Persiani
+ */
+public class CommandProcessor {
 	@Inject
 	protected MApplication application;
 

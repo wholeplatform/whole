@@ -71,7 +71,6 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4Utils {
 
 	public static MCommand findCommand(String commandId, MApplication application) {

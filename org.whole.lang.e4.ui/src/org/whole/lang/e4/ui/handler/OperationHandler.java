@@ -31,7 +31,6 @@ import org.whole.lang.e4.ui.jobs.RunnableJob;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class OperationHandler {
 
 	@CanExecute

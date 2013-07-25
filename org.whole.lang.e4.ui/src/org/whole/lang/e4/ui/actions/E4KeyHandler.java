@@ -36,7 +36,6 @@ import org.whole.lang.ui.actions.IUpdatableAction;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4KeyHandler extends KeyHandler {
 	protected IEclipseContext context;
 	protected KeyHandler parent;

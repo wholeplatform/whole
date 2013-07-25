@@ -62,7 +62,6 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class EntityAssistCompositeContributionItem extends AbstractCompositeContributionItem {
 	protected ImageDescriptor languageIcon;
 

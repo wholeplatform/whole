@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractSelectionLinkable implements ILinkable, ISelectionListener {
 	protected IEntityPartViewer viewer;
 	protected LinkType linkType;

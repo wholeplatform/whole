@@ -31,7 +31,6 @@ import org.whole.lang.e4.ui.parts.E4TreePart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3TreeViewPart extends DIViewPart<E4TreePart> {
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;

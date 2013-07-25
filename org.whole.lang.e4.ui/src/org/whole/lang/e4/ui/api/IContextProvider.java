@@ -24,7 +24,6 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public interface IContextProvider {
 	public IEclipseContext getContext();
 	public ActionRegistry getActionRegistry();

@@ -26,7 +26,6 @@ import org.whole.lang.bindings.IBindingManager;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractSelectionConstrainedVisibleWhen extends VisibilityExpression {
 	public AbstractSelectionConstrainedVisibleWhen() {
 	}

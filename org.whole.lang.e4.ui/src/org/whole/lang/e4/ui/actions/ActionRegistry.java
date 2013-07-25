@@ -50,7 +50,6 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ActionRegistry {
 	protected IEclipseContext context;
 	protected UndoAction undoAction;

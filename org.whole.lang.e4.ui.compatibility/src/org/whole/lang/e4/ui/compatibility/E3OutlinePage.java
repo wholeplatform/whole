@@ -97,7 +97,6 @@ import org.whole.lang.ui.views.WholeGraphicalViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, IContextProvider {
 	private static final int OUTLINE_PAGE_ID = 0;
 	private static final int OVERVIEW_PAGE_ID = 1;

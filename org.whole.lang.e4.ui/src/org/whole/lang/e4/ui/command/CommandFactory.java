@@ -25,7 +25,6 @@ import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class CommandFactory implements ICommandFactory {
 	public CommandFactory() {
 	}

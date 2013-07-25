@@ -41,7 +41,6 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ContentAssistCompositeContributionItem extends AbstractCompositeContributionItem {
 	public ContentAssistCompositeContributionItem(IContextProvider contextProvider) {
 		super(contextProvider);

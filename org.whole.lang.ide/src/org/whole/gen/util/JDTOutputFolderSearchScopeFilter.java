@@ -32,7 +32,7 @@ public class JDTOutputFolderSearchScopeFilter implements ISearchScopeFilter {
 	/**
 	 * @see org.eclipse.jdt.internal.ui.filters.OutputFolderFilter#select(org.eclipse.jface.viewers.Viewer, Object, Object)
 	 */ 
-	@SuppressWarnings("restriction")
+	
 	public boolean encloses(IResource resource) {
 		if(resource instanceof IFolder) {
 			IFolder folder= (IFolder)resource;

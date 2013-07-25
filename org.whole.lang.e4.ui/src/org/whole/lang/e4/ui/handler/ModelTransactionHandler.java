@@ -30,7 +30,6 @@ import org.whole.lang.ui.commands.ModelTransactionCommand;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class ModelTransactionHandler {
 
 	@CanExecute

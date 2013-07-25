@@ -131,7 +131,7 @@ public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPers
 				getComponent().getViewer().getEntityContents().wGetLanguageKit().getURI());
 	}
 	
-	@SuppressWarnings("restriction")
+	
 	@Override
 	public void doSaveAs() {
 		IEntity entityContents = getComponent().getViewer().getEntityContents();

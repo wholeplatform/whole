@@ -30,7 +30,6 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class FindReplaceHandler {
 
 	@CanExecute

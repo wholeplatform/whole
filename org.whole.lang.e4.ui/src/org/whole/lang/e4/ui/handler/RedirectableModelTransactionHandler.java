@@ -31,7 +31,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class RedirectableModelTransactionHandler extends ModelTransactionHandler {
 
 	@Override

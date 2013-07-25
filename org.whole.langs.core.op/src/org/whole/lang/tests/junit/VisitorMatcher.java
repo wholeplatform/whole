@@ -25,7 +25,6 @@ import org.whole.lang.visitors.IVisitor;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class VisitorMatcher extends TypeSafeMatcher<IEntity> {
 	private final IVisitor visitor;
 

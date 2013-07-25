@@ -28,7 +28,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class RedoAction extends AbstractCommandStackAction {
 	public RedoAction(IEclipseContext context, String label) {
 		super(context, label);

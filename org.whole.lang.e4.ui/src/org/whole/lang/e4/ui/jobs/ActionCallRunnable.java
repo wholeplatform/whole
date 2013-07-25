@@ -35,7 +35,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.util.EntityUtils;
 
-@SuppressWarnings("restriction")
+
 public class ActionCallRunnable extends AbstractRunnableWithProgress {
 
 	public ActionCallRunnable(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {

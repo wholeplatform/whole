@@ -28,7 +28,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class UndoAction extends AbstractCommandStackAction {
 	public UndoAction(IEclipseContext context, String label) {
 		super(context, label);

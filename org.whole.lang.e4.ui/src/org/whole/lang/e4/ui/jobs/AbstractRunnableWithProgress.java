@@ -32,7 +32,6 @@ import org.whole.lang.ui.util.AnimableRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractRunnableWithProgress implements IRunnableWithProgress {
 	protected IEclipseContext context;
 	protected IBindingManager bm;

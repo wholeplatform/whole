@@ -30,7 +30,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public final class DirectEditAction extends AbstractE4Action {
 	private static final  Request request = new LocationRequest(RequestConstants.REQ_DIRECT_EDIT);
 

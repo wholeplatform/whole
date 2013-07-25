@@ -32,7 +32,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractCommandStackAction extends AbstractE4Action implements Disposable {
 	protected IEntityPartViewer viewer;
 	protected CommandStack trackingCommandStack;

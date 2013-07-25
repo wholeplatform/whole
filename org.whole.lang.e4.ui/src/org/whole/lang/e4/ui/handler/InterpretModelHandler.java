@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.InterpretModelRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class InterpretModelHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canInterpretModel(bm);

@@ -33,7 +33,6 @@ import org.whole.lang.ui.util.MarkerUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ValidateModelRunnable extends AbstractRunnableWithProgress {
 
 	public ValidateModelRunnable(IEclipseContext context, IBindingManager bm, String label) {

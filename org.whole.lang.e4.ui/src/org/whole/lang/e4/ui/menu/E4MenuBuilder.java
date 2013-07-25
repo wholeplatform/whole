@@ -55,7 +55,6 @@ import org.whole.lang.util.UniqueIdGenerator;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4MenuBuilder extends AbstractUIBuilder<MMenuElement, MMenu> {
 	protected EModelService modelService;
 	protected MApplication application;

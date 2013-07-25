@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.NormalizeModelRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class NormalizeModelHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canNormalizeModel(bm);

@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.GenerateArtifactsRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class GenerateArtifactslHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canGenerateArtifacts(bm);

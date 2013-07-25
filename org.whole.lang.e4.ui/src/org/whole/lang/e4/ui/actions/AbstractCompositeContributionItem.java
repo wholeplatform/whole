@@ -32,7 +32,6 @@ import org.whole.lang.e4.ui.api.IContextProvider;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractCompositeContributionItem extends ContributionItem {
 	protected IContextProvider contextProvider;
 	protected Comparator<IAction> comparator;

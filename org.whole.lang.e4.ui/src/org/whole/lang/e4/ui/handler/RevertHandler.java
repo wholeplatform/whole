@@ -29,7 +29,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class RevertHandler {
 
 	@CanExecute

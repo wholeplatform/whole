@@ -28,7 +28,6 @@ import org.whole.lang.operations.OperationCanceledException;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class GenerateJavaRunnable extends AbstractRunnableWithProgress {
 
 	public GenerateJavaRunnable(IEclipseContext context, IBindingManager bm, String label) {

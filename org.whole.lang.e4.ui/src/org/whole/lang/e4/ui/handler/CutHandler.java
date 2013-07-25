@@ -35,7 +35,6 @@ import org.whole.lang.ui.util.ClipboardUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class CutHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute

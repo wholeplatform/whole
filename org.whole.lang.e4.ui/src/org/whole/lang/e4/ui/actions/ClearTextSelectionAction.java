@@ -30,7 +30,6 @@ import org.whole.lang.ui.util.CaretUpdater;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public final class ClearTextSelectionAction extends AbstractE4Action {
 	private final int direction;
 

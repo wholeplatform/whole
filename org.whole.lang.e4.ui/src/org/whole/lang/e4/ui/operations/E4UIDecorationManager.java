@@ -48,7 +48,6 @@ import org.whole.lang.ui.editparts.ModelObserver;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4UIDecorationManager extends WorkspaceDecorationManager {
 	protected UISynchronize synchronize;
 	protected IEntityPartViewer viewer;

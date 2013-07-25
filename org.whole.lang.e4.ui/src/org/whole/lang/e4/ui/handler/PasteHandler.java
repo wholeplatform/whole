@@ -38,7 +38,6 @@ import org.whole.lang.ui.util.ClipboardUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class PasteHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute

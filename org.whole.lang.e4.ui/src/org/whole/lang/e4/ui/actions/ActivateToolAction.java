@@ -29,7 +29,6 @@ import org.whole.lang.ui.tools.Tools;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public final class ActivateToolAction extends AbstractE4Action {
 	private final Tools tool;
 

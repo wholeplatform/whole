@@ -27,7 +27,6 @@ import org.whole.lang.e4.ui.dialogs.E4Dialog;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class OpenDialogHandler {
 	@Execute
 	public void execute(IEclipseContext context, EPartService partService) {
@@ -36,14 +35,5 @@ public class OpenDialogHandler {
 		if (dialog.open() == Window.OK) {
 			// do nothing
 		}
-//		MWindow window = MBasicFactory.INSTANCE.createWindow();
-//		window.setWidth(200);
-//		window.setHeight(150);
-//		window.setVisible(true);
-//		window.setOnTop(true);
-//		MPart part = MBasicFactory.INSTANCE.createPart();
-////		part.setCloseable(value)
-////		window.getChildren().add(part);
-//		parentWindow.getWindows().add(window);
 	}
 }

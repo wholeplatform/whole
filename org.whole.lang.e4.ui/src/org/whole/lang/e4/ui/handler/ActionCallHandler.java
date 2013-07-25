@@ -37,7 +37,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ActionCallHandler {
 
 	@CanExecute

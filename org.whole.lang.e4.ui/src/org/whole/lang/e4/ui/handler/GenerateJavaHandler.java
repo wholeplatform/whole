@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.GenerateJavaRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class GenerateJavaHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canGenerateJava(bm);

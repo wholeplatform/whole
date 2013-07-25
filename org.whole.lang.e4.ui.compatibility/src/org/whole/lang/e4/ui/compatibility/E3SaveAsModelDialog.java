@@ -51,7 +51,6 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3SaveAsModelDialog extends SaveAsDialog {
 	private List<IPersistenceKit> persistenceKits;
 	private ComboViewer saveAsCombo;

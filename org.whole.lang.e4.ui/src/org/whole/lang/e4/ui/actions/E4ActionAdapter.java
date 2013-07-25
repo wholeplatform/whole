@@ -37,7 +37,6 @@ import org.whole.lang.e4.ui.util.E4Utils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4ActionAdapter extends AbstractE4Action {
 	protected String commandId;
 	protected Map<String, String> parameters;

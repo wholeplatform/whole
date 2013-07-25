@@ -35,7 +35,6 @@ import org.whole.lang.e4.ui.parts.E4GraphicalPart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
@@ -47,7 +46,7 @@ public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		
+	
 		undoAction = new UndoAction(getContext().getParent(), UNDO_LABEL);
 		undoAction.update();
 

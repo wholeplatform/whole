@@ -94,7 +94,7 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction") 
+ 
 public class HandlersBehavior {
 
 	public static void registerHandlers(EHandlerService handlerService) {

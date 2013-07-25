@@ -63,7 +63,6 @@ import org.whole.lang.ui.actions.IUpdatableAction;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E4Dialog extends Dialog implements IContextProvider {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
@@ -91,14 +90,6 @@ public class E4Dialog extends Dialog implements IContextProvider {
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		//FIXME workaround due to an eclipse compatibility layer bug
-		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=386329
-		// safely delete the following line of code as soon as the compatibility layer is removed 
-		context = context.getParent();
-		selectionService = context.get(ESelectionService.class);
-		handlerService = context.get(EHandlerService.class);
-		bindingService = context.get(EBindingService.class);
-
 		viewer = new E4GraphicalViewer(parent);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {

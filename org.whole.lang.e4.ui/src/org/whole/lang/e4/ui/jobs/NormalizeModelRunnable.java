@@ -31,7 +31,6 @@ import org.whole.lang.ui.commands.ModelTransactionCommand;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class NormalizeModelRunnable extends AbstractRunnableWithProgress {
 
 	public NormalizeModelRunnable(IEclipseContext context, IBindingManager bm, String label) {

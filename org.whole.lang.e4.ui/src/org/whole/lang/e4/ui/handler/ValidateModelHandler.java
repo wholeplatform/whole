@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.ValidateModelRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ValidateModelHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canValidateModel(bm);

@@ -41,7 +41,6 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class FeatureAssistCompositeContributionItem extends EntityAssistCompositeContributionItem {
 	protected FeatureDescriptor fd;
 

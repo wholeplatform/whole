@@ -32,7 +32,6 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3IndexViewPart extends E3ViewPart {
 	protected DerivedSelectionLinkable selectionLinkable;
 	protected LinkToEditorAction linkToEditorAction;

@@ -31,7 +31,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class E3DetailsViewPart extends E3ViewPart {
 	protected DerivedSelectionLinkable selectionLinkable;
 	protected LinkToEditorAction linkToEditorAction;

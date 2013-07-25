@@ -25,7 +25,6 @@ import org.whole.lang.ui.actions.IUpdatableAction;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractE4Action extends Action implements IUpdatableAction {
 	private IEclipseContext context;
 	

@@ -23,7 +23,6 @@ import org.eclipse.e4.ui.model.application.commands.MCommandParameter;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public interface ICommandFactory {
 	public MCommand createMCommand(String elementId, String commandName, MCommandParameter... parameters);
 	public MCommandParameter createMCommandParameter(String elementId, String label, boolean optional);

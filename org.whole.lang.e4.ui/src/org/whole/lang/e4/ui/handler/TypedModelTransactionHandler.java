@@ -34,7 +34,6 @@ import org.whole.lang.ui.commands.ModelTransactionCommand;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class TypedModelTransactionHandler {
 	@CanExecute
 	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri,

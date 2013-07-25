@@ -101,7 +101,7 @@ public class CommandFactory implements ICommandFactory {
 	/**
 	 * @see org.eclipse.gef.ui.actions.DeleteAction#createDeleteCommand(List)
 	 */
-	@SuppressWarnings("restriction")
+	
 	public static Command createDeleteCommand(List<?> objects) {
 		if (objects.isEmpty())
 			return null;

@@ -41,13 +41,15 @@ import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.PersistState;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
-import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
+import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.events.FocusEvent;
@@ -63,7 +65,7 @@ import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
-import org.whole.lang.e4.ui.menu.E4MenuBuilder;
+import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
@@ -75,9 +77,9 @@ import org.whole.lang.ui.editparts.IEntityPart;
 @SuppressWarnings("restriction")
 public abstract class AbstractE4Part implements IContextProvider {
 	protected IEntityPartViewer viewer;
-	protected MPopupMenu contextMenu;
+	protected IMenuManager contextMenu;
 	protected ActionRegistry actionRegistry;
-	protected IUIProvider<MMenu> contextMenuProvider;
+	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
 	
 	@Inject IEclipseContext context;
@@ -144,17 +146,20 @@ public abstract class AbstractE4Part implements IContextProvider {
 		context.set(IEntityPartViewer.class, viewer);
 		HandlersBehavior.registerHandlers(handlerService);
 
-		part.getMenus().add(contextMenu = createContextMenu());
-		menuService.registerContextMenu(viewer.getControl(), CONTEXT_MENU_ID);
+		contextMenu = new MenuManager("Whole Context Menu", CONTEXT_MENU_ID);
 
 		actionRegistry = createActionRegistry();
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
 
-		contextMenuProvider = new PopupMenuProvider<MMenuElement, MMenu>(new E4MenuBuilder(this));
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
 		contextMenuProvider.populate(contextMenu);
 
-		//FIXME workaround for an Eclipse bug that doesn't rebuild correctly the menu
-		E4Utils.forceRender(context, contextMenu);
+		viewer.setContextMenu(new ContextMenuProvider(viewer) {
+			@Override
+			public void buildContextMenu(IMenuManager menuManager) {
+				contextMenuProvider.populate(menuManager);
+			}
+		});
 	}
 
 	protected abstract IEntityPartViewer createEntityViewer(Composite parent);
@@ -253,6 +258,6 @@ public abstract class AbstractE4Part implements IContextProvider {
 	}
 
 	protected ActionRegistry createActionRegistry() {
-		return new ActionRegistry(context);
+		return new ActionRegistry(context, viewer.getControl());
 	}
 }

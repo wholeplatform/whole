@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.jobs.PrettyPrintModelRunnable;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class PrettyPrintModelHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canPrettyPrintModel(bm);

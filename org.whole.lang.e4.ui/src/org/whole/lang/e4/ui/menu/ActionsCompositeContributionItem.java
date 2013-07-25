@@ -50,7 +50,6 @@ import org.whole.lang.util.DataTypeUtils;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ActionsCompositeContributionItem extends AbstractCompositeContributionItem {
 	protected FeatureDescriptor menu;
 

@@ -125,7 +125,7 @@ public abstract class AbstractFreeformRootPart extends AbstractPart {
 
 			SnapToHelper ss[] = new SnapToHelper[snapStrategies.size()];
 			for (int i = 0; i < snapStrategies.size(); i++)
-				ss[i] = (SnapToHelper) snapStrategies.get(i);
+				ss[i] = snapStrategies.get(i);
 			return new CompoundSnapToHelper(ss);
 		}
 		return super.getAdapter(key);

@@ -22,6 +22,8 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
@@ -29,9 +31,11 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.window.Window;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
 import org.whole.lang.e4.ui.api.IContextProvider;
+import org.whole.lang.e4.ui.dialogs.E4Dialog;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;
@@ -194,6 +198,17 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	}
 
 	public void addOpenDialog() {
+		Action action = new Action() {
+			@Override
+			public void run() {
+				E4Dialog dialog = ContextInjectionFactory.make(E4Dialog.class, contextProvider.getContext());
+				dialog.create();
+				if (dialog.open() == Window.OK) {
+					// do nothing
+				}
+			}
+		};
+		addItem(action);
 	}
 
 	protected IMenuManager createMenu(String name, VisibilityExpression expression) {

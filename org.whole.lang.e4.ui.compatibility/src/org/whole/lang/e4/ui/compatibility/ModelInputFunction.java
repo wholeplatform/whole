@@ -32,7 +32,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public class ModelInputFunction extends ContextFunction {
 	@Override
 	public Object compute(IEclipseContext context) {

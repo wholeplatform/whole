@@ -41,7 +41,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings("restriction")
 public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I, C> {
 	protected static final FeatureDescriptor[] actionMenus = new FeatureDescriptor[] {
 		ActionsFeatureDescriptorEnum.sourceMenuActions,
