@@ -34,7 +34,7 @@ Export-Package: org.whole.lang.actions,
 Require-Bundle: org.whole.lang,
  org.whole.langs.core,
  org.whole.langs.legacy,
- org.junit4;resolution:=optional
+ org.junit;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
