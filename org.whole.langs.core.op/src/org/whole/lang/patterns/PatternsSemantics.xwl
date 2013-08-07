@@ -333,15 +333,16 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="6">
+                        <queries:Names initialCapacity="7">
                             <queries:Name value="actionsUri"/>
                             <queries:Name value="actionsNamespace"/>
                             <queries:Name value="actionsName"/>
+                            <queries:Name value="actionsVersion"/>
                             <queries:Name value="functionUri"/>
                             <queries:Name value="functionUri2"/>
                             <queries:Name value="modelUri"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="9">
+                        <queries:Block initialCapacity="10">
                             <queries:Filter>
                                 <queries:Addition>
                                     <queries:Singleton>
@@ -358,6 +359,10 @@
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                 <queries:VariableTest value="actionsName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#version"/>
+                                <queries:VariableTest value="actionsVersion"/>
                             </queries:Filter>
                             <queries:Path initialCapacity="2">
                                 <queries:VariableRefStep value="patternLanguageModel"/>
@@ -414,7 +419,11 @@
                                         <commons:VarName value="actionsName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Actions#Version"/>
+                                        <commons:VarName value="actionsVersion"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Actions#URI"/>
                                         <commons:VarName value="modelUri"/>
@@ -585,7 +594,11 @@
                                         <commons:VarName value="actionsName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Actions#Version"/>
+                                        <commons:VarName value="actionsVersion"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                         <commons:Resolver/>
                                         <actions:ToolbarActions>
                                         <commons:Resolver/>
@@ -649,12 +662,13 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="11">
+                        <queries:Names initialCapacity="12">
                             <queries:Name value="templateStage"/>
                             <queries:Name value="executableStage"/>
                             <queries:Name value="semanticsUri"/>
                             <queries:Name value="semanticsNamespace"/>
                             <queries:Name value="semanticsName"/>
+                            <queries:Name value="semanticsVersion"/>
                             <queries:Name value="functionName"/>
                             <queries:Name value="functionUri"/>
                             <queries:Name value="modelUri"/>
@@ -662,7 +676,7 @@
                             <queries:Name value="functionBodyPoint"/>
                             <queries:Name value="inPatternLanguage"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="10">
+                        <queries:Block initialCapacity="11">
                             <queries:Filter>
                                 <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
                                 <queries:VariableTest value="templateStage"/>
@@ -687,6 +701,10 @@
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                 <queries:VariableTest value="semanticsName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#version"/>
+                                <queries:VariableTest value="semanticsVersion"/>
                             </queries:Filter>
                             <queries:Path initialCapacity="2">
                                 <queries:VariableRefStep value="patternLanguageModel"/>
@@ -713,7 +731,11 @@
                                         <commons:VarName value="semanticsName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Semantics#Version"/>
+                                        <commons:VarName value="semanticsVersion"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                         <commons:StageDownFragment>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
@@ -757,19 +779,20 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="10">
+                        <queries:Names initialCapacity="11">
                             <queries:Name value="templateStage"/>
                             <queries:Name value="executableStage"/>
                             <queries:Name value="semanticsUri"/>
                             <queries:Name value="semanticsNamespace"/>
                             <queries:Name value="semanticsName"/>
+                            <queries:Name value="semanticsVersion"/>
                             <queries:Name value="functionName"/>
                             <queries:Name value="functionUri"/>
                             <queries:Name value="modelUri"/>
                             <queries:Name value="functionBodyPoint"/>
                             <queries:Name value="inPatternLanguage"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="13">
+                        <queries:Block initialCapacity="14">
                             <queries:Filter>
                                 <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
                                 <queries:VariableTest value="templateStage"/>
@@ -794,6 +817,10 @@
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                 <queries:VariableTest value="semanticsName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#version"/>
+                                <queries:VariableTest value="semanticsVersion"/>
                             </queries:Filter>
                             <queries:Filter>
                                 <queries:StringLiteral value="expandPatterns"/>
@@ -841,7 +868,11 @@
                                         <commons:VarName value="semanticsName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Semantics#Version"/>
+                                        <commons:VarName value="semanticsVersion"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                         <semantics:SemanticFunctions initialCapacity="2">
                                         <semantics:SemanticFunction>
                                         <commons:Variable>
@@ -4063,16 +4094,17 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="7">
+                        <queries:Names initialCapacity="8">
                             <queries:Name value="modelUri"/>
                             <queries:Name value="modelNamespace"/>
                             <queries:Name value="modelName"/>
+                            <queries:Name value="modelVersion"/>
                             <queries:Name value="modelTypeRelationsPoint"/>
                             <queries:Name value="modelDeclarartionsPoint"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="entityName"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="7">
+                        <queries:Block initialCapacity="8">
                             <queries:Filter>
                                 <queries:Addition>
                                     <queries:Singleton>
@@ -4089,6 +4121,10 @@
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                 <queries:VariableTest value="modelName"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#version"/>
+                                <queries:VariableTest value="modelVersion"/>
                             </queries:Filter>
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -4119,7 +4155,11 @@
                                         <commons:VarName value="modelNamespace"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <commons:Resolver/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Version"/>
+                                        <commons:VarName value="modelVersion"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#URI"/>
                                         <commons:VarName value="modelUri"/>
