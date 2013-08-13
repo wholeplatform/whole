@@ -44,6 +44,6 @@ public abstract class AbstractOverQualifiedDataEntityPart extends AbstractDataEn
 	}
 	protected abstract String getQualifierPart(String qname);
 	protected String getNamePart(String qname) {
-		return ResourceUtils.getResourceFragmentName(qname);
+		return ResourceUtils.stripResourceFragmentUri(qname);
 	}
 }

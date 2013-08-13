@@ -190,9 +190,15 @@ public class ResourceUtils {
 	}
 	public static String getResourceFragmentName(String resourceUri) {
 		int index = resourceUri.indexOf('#');
-		return index > 0 ? resourceUri.substring(index+1) : resourceUri;//FIXME
-//    	String[] data = resourceUri.split("#");
-//    	return data.length == 2 ? data[1] : resourceUri;
+		return index > 0 ? resourceUri.substring(index+1) : null;
+	}
+	public static String stripResourceFragmentName(String resourceUri) {
+		int index = resourceUri.indexOf('#');
+		return index > 0 ? resourceUri.substring(0, index) : resourceUri;
+	}
+	public static String stripResourceFragmentUri(String resourceUri) {
+		int index = resourceUri.indexOf('#');
+		return index > 0 ? resourceUri.substring(index+1) : resourceUri;
 	}
 
 	public static void handleCancelRequest(IBindingManager bm) {

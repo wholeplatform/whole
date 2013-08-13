@@ -2902,7 +2902,7 @@
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="getResourceFragmentName(java.lang.String)"/>
+                                    <workflows:StringLiteral value="stripResourceFragmentUri(java.lang.String)"/>
                                     <workflows:Expressions initialCapacity="1">
                                         <workflows:Variable value="actualNameUri"/>
                                     </workflows:Expressions>

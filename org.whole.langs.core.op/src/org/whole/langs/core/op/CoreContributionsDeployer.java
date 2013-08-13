@@ -17,7 +17,6 @@
  */
 package org.whole.langs.core.op;
 
-import org.whole.lang.actions.ActionsActions;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.grammars.GrammarsActions;
 import org.whole.lang.models.ModelsActions;
@@ -32,12 +31,14 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
  */
 public class CoreContributionsDeployer extends AbstractContributionDeployer {
 	public void deploy(ReflectionFactory platform) {
-		InterpreterOperation.interpret(new ActionsActions().create());
 		InterpreterOperation.interpret(new GrammarsActions().create());
 		InterpreterOperation.interpret(new GenericQueriesActions().create());
 		InterpreterOperation.interpret(new ModelsActions().create());
 
 		try {
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/actions/ActionsActions.xwl")));
+
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsActions.xwl")));
 

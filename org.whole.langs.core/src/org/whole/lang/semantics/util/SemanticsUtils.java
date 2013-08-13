@@ -231,7 +231,7 @@ public class SemanticsUtils {
 		SemanticsEntityFactory sf = SemanticsEntityFactory.instance;
 			return sf.buildTypedVariable()
 					.set(SemanticsFeatureDescriptorEnum.variable,
-							sf.createVariable(nameGenerator.nextFreshName(StringUtils.toLowerPrefix(ResourceUtils.getResourceFragmentName(type.getValue())))))
+							sf.createVariable(nameGenerator.nextFreshName(StringUtils.toLowerPrefix(ResourceUtils.stripResourceFragmentUri(type.getValue())))))
 					.set(SemanticsFeatureDescriptorEnum.signature,
 							EntityUtils.clone(type))
 					.getResult();
