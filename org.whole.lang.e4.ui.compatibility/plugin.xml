@@ -21,7 +21,7 @@
       </view>
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.compatibility.E3DetailsViewPart"
+            id="org.whole.lang.e4.ui.part.details"
             class="org.whole.lang.e4.ui.compatibility.E3DetailsViewPart"
             icon="icons/views/whole.gif"
             name="E4 Details View"
@@ -29,7 +29,7 @@
       </view>
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.compatibility.E3IndexViewPart"
+            id="org.whole.lang.e4.ui.part.index"
             class="org.whole.lang.e4.ui.compatibility.E3IndexViewPart"
             icon="icons/views/whole.gif"
             name="E4 Index View"
@@ -37,7 +37,7 @@
       </view>
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.compatibility.E3MapViewPart"
+            id="org.whole.lang.e4.ui.part.map"
             class="org.whole.lang.e4.ui.compatibility.E3MapViewPart"
             icon="icons/views/whole.gif"
             name="E4 Map View"
@@ -45,10 +45,18 @@
       </view>
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
+            id="org.whole.lang.e4.ui.part.tree"
             class="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
             icon="icons/views/whole.gif"
             name="E4 Tree View"
+            restorable="true">
+      </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.part.results"
+            class="org.whole.lang.e4.ui.compatibility.E3ResultsViewPart"
+            icon="icons/views/whole.gif"
+            name="E4 Results View"
             restorable="true">
       </view>
    </extension>
