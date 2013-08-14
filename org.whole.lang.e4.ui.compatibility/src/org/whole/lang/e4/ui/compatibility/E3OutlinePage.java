@@ -360,7 +360,7 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, ICo
 	}
 
 	public void updateContents() {
-		getViewer().setEntityContents(graphicalViewer.getEntityContents());
+		getViewer().setContents(graphicalViewer.getEntityContents());
 	}
 
 	protected void initializeOverview() {
