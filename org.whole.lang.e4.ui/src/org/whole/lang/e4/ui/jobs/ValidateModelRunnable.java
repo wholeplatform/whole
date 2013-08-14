@@ -47,7 +47,7 @@ public class ValidateModelRunnable extends AbstractRunnableWithProgress {
 			bm.wDefValue("decorationManager", new E4UIDecorationManager(synchronize, bm));
 			HandlersBehavior.validateModel(bm);
 			if (MarkerUtils.findMarkers((IResource) bm.wGetValue("file"), true).length > 0)
-				E4Utils.revealLegacyView(synchronize, bm, "org.eclipse.ui.views.ProblemView", null);
+				E4Utils.revealPart(context, "org.eclipse.ui.views.ProblemView");
 		} catch (OperationCanceledException e) {
 			// gracefully terminate execution
 		} finally {

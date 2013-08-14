@@ -31,14 +31,13 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MBindingTable;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MKeyBinding;
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
-import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
-import org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer;
-import org.eclipse.e4.ui.workbench.swt.factories.IRendererFactory;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -60,7 +59,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
-import org.whole.lang.ui.views.ResultsView;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.DefaultWrapInTransformer;
@@ -90,18 +88,6 @@ public class E4Utils {
 			}
 		}
 		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static void forceRender(IEclipseContext context, MMenu menu) {
-		MenuManagerRenderer renderer = getMenuManagerRenderer(context, menu);
-		renderer.processContents((MElementContainer<MUIElement>) ((Object) menu));
-	}
-
-	public static MenuManagerRenderer getMenuManagerRenderer(IEclipseContext context, MMenu menu) {
-		IRendererFactory rendererFactory = context.get(IRendererFactory.class);
-		MenuManagerRenderer renderer = (MenuManagerRenderer) rendererFactory.getRenderer(menu, null);
-		return renderer;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -237,50 +223,17 @@ public class E4Utils {
 			throw new IllegalArgumentException("unsupported entity transformer");
 	}
 
-	@SuppressWarnings("unchecked")
-	protected static class RevealViewRunnable<T> implements Runnable {
-		protected IBindingManager bm;
-		protected String viewId;
-		protected String secondaryId;
-		protected T result;
-
-		public RevealViewRunnable(IBindingManager bm, String viewId, String secondaryId) {
-			this.bm = bm;
-			this.viewId = viewId;
-			this.secondaryId = secondaryId;
-		}
-		public T getResult() {
-			return result;
-		}
-		public void run() {
-			try {
-				// we must use the platform class loader
-				// because bm doesn't includes the variable "classLoader"
-				ClassLoader cl = ReflectionFactory.getClassLoader(bm);
-				Class<?> pluginClass = Class.forName("org.whole.lang.ui.WholeUIPlugin", true, cl);
-				Method revealViewMethod = pluginClass.getMethod("revealView", new Class[] {String.class, String.class});
-				result = (T) revealViewMethod.invoke(null, viewId, secondaryId);
-			} catch (Exception e) {
-				throw new IllegalStateException(e);
-			}
-		}
-	};
-	public static <T> T revealLegacyView(UISynchronize uiSynchronize, IBindingManager bm, String viewId, String secondaryId) {
-		RevealViewRunnable<T> runnable = new RevealViewRunnable<T>(bm, viewId, secondaryId);
-		uiSynchronize.syncExec(runnable);
-		return runnable.getResult();
-	}
-	public static <T> T  revealLegacyView(UISynchronize uiSynchronize, IBindingManager bm, Class<T> clazz) {
-		return revealLegacyView(uiSynchronize, bm, clazz.getName(), null);
-	}
-	public static void revealResultsView(UISynchronize uiSynchronize, IBindingManager bm, final IEntity results) {
-		RevealViewRunnable<ResultsView> runnable = new RevealViewRunnable<ResultsView>(bm, ResultsView.class.getName(), null) {
+	public static void revealPart(final IEclipseContext context, final String partId) {
+		context.get(UISynchronize.class).syncExec(new Runnable() {
+			@Override
 			public void run() {
-				super.run();
-				getResult().setContents(results);
+				EPartService partService = context.get(EPartService.class);
+				MPart part = partService.findPart(partId);
+				if (part == null)
+					part = partService.createPart(partId);
+				partService.showPart(part, PartState.VISIBLE);
 			}
-		};
-		uiSynchronize.syncExec(runnable);
+		});
 	}
 	public static void invokeInterpreter(IBindingManager bm) {
 		try {
