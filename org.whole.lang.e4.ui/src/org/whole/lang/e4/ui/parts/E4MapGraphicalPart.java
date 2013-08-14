@@ -15,17 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.compatibility;
+package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
-
-import org.whole.lang.e4.ui.parts.E4IndexGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public class E3IndexViewPart extends E3DerivedViewPart<E4IndexGraphicalPart> {
-	public E3IndexViewPart() {
-		super(INDEX_PART_ID, E4IndexGraphicalPart.class, false);
+public class E4MapGraphicalPart extends AbstractE4DerivedGraphicalPart {
+	protected String getDerivationFunction() {
+		return "whole:org.whole.lang:ViewDerivationLibrary#deriveMapViewContents";
 	}
 }

@@ -26,6 +26,14 @@ public interface IUIConstants {
 	// bundle id
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
 
+	// part id
+	public static final String EDITOR_PART_ID = BUNDLE_ID+".part.editor";
+	public static final String DETAILS_PART_ID = BUNDLE_ID+".part.details";
+	public static final String MAP_PART_ID = BUNDLE_ID+".part.map";
+	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
+	public static final String RESULTS_PART_ID = BUNDLE_ID+".part.results";
+	public static final String TREE_PART_ID = BUNDLE_ID+".part.tree";
+
 	// context menu id
 	public static final String CONTEXT_MENU_ID = BUNDLE_ID+".context.menu";
 
@@ -107,7 +115,9 @@ public interface IUIConstants {
 	public static final String LINKED_TO_ACTIVE_EDITOR_URI = E4Utils.createPlatformPuginURI("icons/actions/link_to_active_editor.gif"); 
 	public static final String LINKED_TO_EDITOR_URI = E4Utils.createPlatformPuginURI("icons/actions/link_to_editor.gif"); 
 	public static final String NOT_LINKED_URI = E4Utils.createPlatformPuginURI("icons/actions/not_linked.gif"); 
-	
+
+	public static final String CLEAR_CONTENTS_URI = E4Utils.createPlatformPuginURI("icons/actions/clear_contents.gif");
+
 	// labels
 	public static final String UNDO_LABEL = "Undo";
 	public static final String REDO_LABEL = "Redo";
@@ -131,6 +141,11 @@ public interface IUIConstants {
 	public static final String ANALYZE_LABEL = "Analyze";
 	public static final String MIGRATE_LABEL = "Migrate";
 
+	public static final String CLEAR_CONTENTS_LABEL = "Feature Assist";
+	public static final String SAVE_AS_LABEL = "Save As...";
+
 	// tag used to render a GroupMarker instead of a Separator
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
+
+	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
 }

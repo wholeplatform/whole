@@ -17,10 +17,10 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -30,27 +30,32 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
-import org.whole.lang.e4.ui.parts.E4GraphicalPart;
+import org.whole.lang.e4.ui.parts.AbstractE4Part;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
-public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
+public class E3ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
+	protected String partId;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
-	public E3ViewPart() {
-		super(E4GraphicalPart.class);
+	public E3ViewPart(String partId, Class<C> partClass) {
+		super(partClass);
+		this.partId = partId;
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-	
-		undoAction = new UndoAction(getContext().getParent(), UNDO_LABEL);
+
+		getContext().get(MPart.class).setElementId(partId);
+
+		undoAction = new UndoAction(getContext(), UNDO_LABEL);
 		undoAction.update();
 
-		redoAction = new RedoAction(getContext().getParent(), REDO_LABEL);
+		redoAction = new RedoAction(getContext(), REDO_LABEL);
 		redoAction.update();
 	}
 
@@ -65,12 +70,13 @@ public class E3ViewPart extends DIViewPart<E4GraphicalPart> {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class adapter) {
-		if (adapter == GraphicalViewer.class)
-			return getComponent().getViewer();
-		else if (adapter == ZoomManager.class)
-			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+		IEntityPartViewer viewer = getComponent().getViewer();
+		if (adapter == GraphicalViewer.class) {
+			return viewer instanceof GraphicalViewer ? viewer : null;
+		} else if (adapter == ZoomManager.class)
+			return viewer.getProperty(ZoomManager.class.toString());
 		else if (adapter == CommandStack.class)
-			return getComponent().getViewer().getCommandStack();
+			return viewer.getCommandStack();
 		else
 			return super.getAdapter(adapter);
 	}

@@ -31,6 +31,7 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -61,6 +62,8 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.actions.ILinkViewerListener;
+import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
@@ -81,7 +84,9 @@ public abstract class AbstractE4Part implements IContextProvider {
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
-	
+	protected ListenerList selectionLinkableListenerList;
+	protected ILinkableSelectionListener selectionLinkable;
+
 	@Inject IEclipseContext context;
 	@Inject ESelectionService selectionService;
 	@Inject EHandlerService handlerService;
@@ -93,6 +98,10 @@ public abstract class AbstractE4Part implements IContextProvider {
 	@Optional @Inject IModelInput modelInput;
 	@Inject IWorkspace workspace;
 
+	public AbstractE4Part() {
+		this.selectionLinkableListenerList = new ListenerList();
+	}
+
 	public IEclipseContext getContext() {
 		return context;
 	}
@@ -102,13 +111,6 @@ public abstract class AbstractE4Part implements IContextProvider {
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
-		//FIXME workaround due to an eclipse compatibility layer bug
-		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=386329
-		// safely delete the following line of code as soon as the compatibility layer is removed 
-		context = context.getParent();
-		selectionService = context.get(ESelectionService.class);
-		handlerService = context.get(EHandlerService.class);
-		
 		restoreState();
 
 		parent.setLayout(new FillLayout());
@@ -151,6 +153,7 @@ public abstract class AbstractE4Part implements IContextProvider {
 		actionRegistry = createActionRegistry();
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
 
+		context.set(ActionRegistry.class, getActionRegistry());
 		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
 		contextMenuProvider.populate(contextMenu);
 
@@ -200,6 +203,9 @@ public abstract class AbstractE4Part implements IContextProvider {
 	public void clearListeners() {
 		if (resourceListener != null && this.workspace != null)
 			this.workspace.removeResourceChangeListener(resourceListener);
+
+		if (selectionLinkable != null)
+			selectionService.removeSelectionListener(selectionLinkable);
 	}
 
 	protected IEntity createDefaultContents() {
@@ -259,5 +265,40 @@ public abstract class AbstractE4Part implements IContextProvider {
 
 	protected ActionRegistry createActionRegistry() {
 		return new ActionRegistry(context, viewer.getControl());
+	}
+	
+	public void addLinkViewerListener(ILinkViewerListener listener) { 
+		selectionLinkableListenerList.add(listener); 
+	} 
+	public void removeLinkViewerListener(ILinkViewerListener listener) { 
+		selectionLinkableListenerList.remove(listener); 
+	} 
+	protected void fireViewerLinked(IEntityPartViewer toViewer) { 
+		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).viewerLinked(getViewer(), toViewer); 
+	}
+	protected void fireViewerUnlinked() { 
+		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).viewerUnlinked(getViewer()); 
+	}
+	protected void fireContentsDerived(IEntity result) { 
+		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).condentsDerived(getViewer(), result); 
+	}
+
+	public void setSelectionLinkable(ILinkableSelectionListener selectionLinkable) {
+		if (this.selectionLinkable != null)
+			selectionService.removeSelectionListener(this.selectionLinkable);
+
+		this.selectionLinkable = selectionLinkable;
+
+		if (selectionLinkable != null)
+			selectionService.addSelectionListener(selectionLinkable);
+	}
+	public ILinkableSelectionListener getSelectionLinkable() {
+		return selectionLinkable;
 	}
 }

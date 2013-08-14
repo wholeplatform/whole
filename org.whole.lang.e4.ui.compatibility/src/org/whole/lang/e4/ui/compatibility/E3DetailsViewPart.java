@@ -17,66 +17,15 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.PartInitException;
-import org.whole.lang.e4.ui.actions.DerivedSelectionLinkable;
-import org.whole.lang.e4.ui.actions.LinkToEditorAction;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
+
+import org.whole.lang.e4.ui.parts.E4DetailsGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public class E3DetailsViewPart extends E3ViewPart {
-	protected DerivedSelectionLinkable selectionLinkable;
-	protected LinkToEditorAction linkToEditorAction;
-
+public class E3DetailsViewPart extends E3DerivedViewPart<E4DetailsGraphicalPart> {
 	public E3DetailsViewPart() {
-	}
-
-	@Override
-	public void createPartControl(Composite parent) {
-		super.createPartControl(parent);
-		
-		IEntityPartViewer viewer = getComponent().getViewer();
-		selectionLinkable = new DerivedSelectionLinkable(viewer, "whole:org.whole.lang:ViewDerivationLibrary#deriveDetailsViewContents") {
-			@Override
-			protected void linkViewer(IEntityPartViewer fromViewer) {
-				super.linkViewer(fromViewer);
-				CommandStack commandStack = viewer.getCommandStack();
-				undoAction.track(commandStack);
-				redoAction.track(commandStack);
-			}
-			@Override
-			protected void unlinkViewer() {
-				super.unlinkViewer();
-				CommandStack commandStack = viewer.getCommandStack();
-				undoAction.track(commandStack);
-				redoAction.track(commandStack);
-			}
-		};
-
-		ESelectionService selectionService = getContext().get(ESelectionService.class);
-		selectionService.addSelectionListener(selectionLinkable);
-		linkToEditorAction.setLinkable(selectionLinkable);
-	}
-
-	@Override
-	public void init(IViewSite site) throws PartInitException {
-		super.init(site);
-		IActionBars actionBars = site.getActionBars();
-		IToolBarManager toolBarManager = actionBars.getToolBarManager();
-		toolBarManager.add(linkToEditorAction = new LinkToEditorAction());
-	}
-
-	@Override
-	public void dispose() {
-		ESelectionService selectionService = getContext().get(ESelectionService.class);
-		selectionService.removeSelectionListener(selectionLinkable);
-		super.dispose();
+		super(DETAILS_PART_ID, E4DetailsGraphicalPart.class, false);
 	}
 }

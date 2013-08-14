@@ -17,8 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.api.IUIConstants.UNDO_LABEL;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.util.EventObject;
 import java.util.HashSet;
@@ -29,6 +28,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
@@ -79,6 +79,8 @@ public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPers
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
+
+		getContext().get(MPart.class).setElementId(EDITOR_PART_ID);
 
 		setPartName(getEditorInput().getName());
 
