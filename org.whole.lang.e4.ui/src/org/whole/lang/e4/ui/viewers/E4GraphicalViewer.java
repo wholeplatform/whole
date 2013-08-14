@@ -157,10 +157,11 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	protected IModelInput modelInput = null;
 	public void setContents(IModelInput modelInput, IEntity defaultContents) {
 		if (modelInput != null) {
+			IModelInput oldModelInput = this.modelInput;
+			this.modelInput = modelInput;
 			try {
-				IModelInput oldModelInput = this.modelInput;
-				setEntityContents(modelInput.readModel());
-				fireModelInputChanged(oldModelInput, this.modelInput = modelInput);
+				setEntityContents(this.modelInput.readModel());
+				fireModelInputChanged(oldModelInput, this.modelInput);
 			} catch (Exception e) {
 				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
 				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
@@ -174,6 +175,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		} else
 			setEntityContents(defaultContents);
 	}
+	public void reloadContents() {
+		setContents(modelInput, null);
+	}
+
 	protected RootFragment wrapContents(IEntity entity) {
 		return entity instanceof RootFragment ? (RootFragment) entity :
 			new LazyContainmentRootFragmentImpl(entity);

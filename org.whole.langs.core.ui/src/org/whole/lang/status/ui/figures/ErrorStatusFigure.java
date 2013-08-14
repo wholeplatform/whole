@@ -17,8 +17,11 @@
  */
 package org.whole.lang.status.ui.figures;
 
+import org.eclipse.draw2d.ActionListener;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -26,7 +29,7 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Enrico Persiani
  */
 public class ErrorStatusFigure extends ContentPaneFigure {
-	public ErrorStatusFigure() {
+	public ErrorStatusFigure(ActionListener linkListener) {
 		super(new ColumnLayout().withMargin(10).withSpacing(5));
 		initContentPanes(2);
 		setInteractiveEdit(false);
@@ -41,6 +44,10 @@ public class ErrorStatusFigure extends ContentPaneFigure {
 		row = new EntityFigure(new RowLayout().withSpacing(5));
 		row.addContentLight("Cause:");
 		row.add(createContentPane(1));
+		add(row);
+
+		row = new EntityFigure(new RowLayout().withSpacing(5));
+		row.add(new EntityButton(LabelFactory.createContentLight("reload"), linkListener, null));
 		add(row);
 	}
 }

@@ -20,7 +20,10 @@ package org.whole.lang.status.ui.editparts;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.ActionEvent;
+import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.ui.figures.ErrorStatusFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -35,7 +38,19 @@ public class ErrorStatusPart extends AbstractContentPanePart {
 
 	@Override
 	protected IFigure createFigure() {
-		return new ErrorStatusFigure();
+		return new ErrorStatusFigure(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				EditPartViewer viewer = getViewer();
+				try {
+					//FIXME workaround due to dependency cycles
+					// when E4 migration is complete getViewer() should
+					// return an IEntityPartViewer instance
+					viewer.getClass().getMethod("reloadContents").invoke(viewer);
+				} catch (Exception e) {
+				}
+			}
+		});
 	}
 
 	@Override

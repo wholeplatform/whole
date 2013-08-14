@@ -41,6 +41,8 @@ public class E4HistoryCommandStack extends CommandStack {
 	public void flush() {
 		super.flush();
 		getHistoryManager().clearHistory();
+		//FIXME workaround since there's no suitable flag
+		notifyListeners(null, POST_EXECUTE);
 	}
 
 	public void execute(Command command) {
