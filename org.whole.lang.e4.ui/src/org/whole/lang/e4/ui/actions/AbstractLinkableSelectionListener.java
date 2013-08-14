@@ -18,23 +18,22 @@
 package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.workbench.modeling.ISelectionListener;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
-public abstract class AbstractSelectionLinkable implements ILinkable, ISelectionListener {
+public abstract class AbstractLinkableSelectionListener implements ILinkableSelectionListener {
 	protected IEntityPartViewer viewer;
 	protected LinkType linkType;
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
 
-	public AbstractSelectionLinkable(IEntityPartViewer viewer) {
+	public AbstractLinkableSelectionListener(IEntityPartViewer viewer) {
 		this(viewer, LinkType.ACTIVE_PART);
 	}
-	public AbstractSelectionLinkable(IEntityPartViewer viewer, LinkType defaultLinkType) {
+	public AbstractLinkableSelectionListener(IEntityPartViewer viewer, LinkType defaultLinkType) {
 		this.viewer = viewer;
 		this.linkType = defaultLinkType;
 		this.linkedViewer = null;

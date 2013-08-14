@@ -26,10 +26,10 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-public class DerivedSelectionLinkable extends AbstractSelectionLinkable {
+public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionListener {
 	protected String functionUri;
 
-	public DerivedSelectionLinkable(IEntityPartViewer viewer, String functionUri) {
+	public DerivedLinkableSelectionListener(IEntityPartViewer viewer, String functionUri) {
 		super(viewer);
 		this.functionUri = functionUri;
 	}
@@ -68,8 +68,8 @@ public class DerivedSelectionLinkable extends AbstractSelectionLinkable {
 		viewer.setContents(result);
 	}
 
-	protected void linkViewer(IEntityPartViewer fromViewer) {
-		viewer.linkEditDomain(fromViewer);
+	protected void linkViewer(IEntityPartViewer toViewer) {
+		viewer.linkEditDomain(toViewer);
 	}
 	protected void unlinkViewer() {
 		viewer.setEditDomain(new E4EditDomain());
