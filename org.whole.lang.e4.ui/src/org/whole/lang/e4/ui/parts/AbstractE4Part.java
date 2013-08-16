@@ -40,6 +40,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.PersistState;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
@@ -184,8 +185,13 @@ public abstract class AbstractE4Part implements IContextProvider {
 							event.getDelta().accept(new IResourceDeltaVisitor() {
 								public boolean visit(IResourceDelta delta) throws CoreException {
 									if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
-											delta.getMarkerDeltas().length == 0) {
-										viewer.setContents(modelInput, null);
+											(delta.getFlags() & IResourceDelta.CONTENT) != 0) {
+										context.get(UISynchronize.class).asyncExec(new Runnable() {
+											@Override
+											public void run() {
+												viewer.setContents(modelInput, null);
+											}
+										});
 										return false;
 									} else
 										return true;
