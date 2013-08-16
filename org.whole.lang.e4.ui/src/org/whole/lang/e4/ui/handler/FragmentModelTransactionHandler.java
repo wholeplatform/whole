@@ -25,7 +25,9 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
@@ -41,13 +43,16 @@ public abstract class FragmentModelTransactionHandler {
 	public boolean canExecute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			defineBindings(fragmentXwl, predicateXwl, bm);
 			return isEnabled(bm);
 		} catch (Exception e) {
 			return false;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}
@@ -58,8 +63,9 @@ public abstract class FragmentModelTransactionHandler {
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			defineBindings(fragmentXwl, predicateXwl, bm);
 
 			mtc.setLabel(getLabel(bm));
@@ -72,6 +78,7 @@ public abstract class FragmentModelTransactionHandler {
 			mtc.rollback();
 			throw e;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}

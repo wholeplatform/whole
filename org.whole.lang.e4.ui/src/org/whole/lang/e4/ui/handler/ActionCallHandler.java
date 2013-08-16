@@ -27,7 +27,9 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.e4.ui.jobs.RunnableJob;
@@ -45,13 +47,15 @@ public class ActionCallHandler {
 			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
 
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			defineBindings(functionUri, predicateXwl, analyzing, bm);
 			return HandlersBehavior.canCallAction(bm);
 		} catch (Exception e) {
 			return false;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}

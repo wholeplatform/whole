@@ -54,7 +54,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.actions.iterators.ActionCallIterator;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
@@ -465,10 +467,13 @@ public class HandlersBehavior {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEntity predicateEntity = bm.wGet("predicateEntity");
 
-		bm.wEnterScope();
+
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
 		bm.wDefValue("self", primarySelectedEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		ts.rollback();
 		bm.wExitScope();
 
 		if (!predicateResult)
@@ -490,10 +495,13 @@ public class HandlersBehavior {
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEntity predicateEntity = bm.wGet("predicateEntity");
 
-		bm.wEnterScope();
+
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
 		bm.wDefValue("self", primarySelectedEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
+		ts.rollback();
 		bm.wExitScope();
 
 		if (!predicateResult)
@@ -629,17 +637,19 @@ public class HandlersBehavior {
 
 	public static void generateJava(IBindingManager bm) {
 		ClassLoader cl = ReflectionFactory.getClassLoader(bm);
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
+			bm.wEnterScope(ts);
 			Class<?> generatorClass = Class.forName("org.whole.lang.ui.actions.JavaModelGeneratorAction", true, cl);
 			Method generateMethod = generatorClass.getMethod("generate", IProgressMonitor.class, IEntity.class, IBindingManager.class);
 			final IOperationProgressMonitor operationProgressMonitor = (IOperationProgressMonitor) bm.wGetValue("progressMonitor");
-			bm.wEnterScope();
 			generateMethod.invoke(null, operationProgressMonitor.getAdapter(IProgressMonitor.class), bm.wGet("self"), bm);
 		} catch (OperationCanceledException e) {
 			throw e;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}

@@ -23,7 +23,9 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 
@@ -34,12 +36,14 @@ public abstract class ModelTransactionHandler {
 
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			return isEnabled(bm);
 		} catch (Exception e) {
 			return false;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}
@@ -49,8 +53,9 @@ public abstract class ModelTransactionHandler {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			mtc.setLabel(getLabel(bm));
 			mtc.begin();
 			run(bm);
@@ -61,6 +66,7 @@ public abstract class ModelTransactionHandler {
 			mtc.rollback();
 			throw e;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}

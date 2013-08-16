@@ -21,12 +21,10 @@ import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.util.Collections;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.IContributionItem;
 import org.whole.lang.actions.reflect.ActionsFeatureDescriptorEnum;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;

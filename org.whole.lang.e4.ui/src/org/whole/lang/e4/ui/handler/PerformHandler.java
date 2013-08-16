@@ -26,7 +26,9 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
@@ -42,13 +44,15 @@ public class PerformHandler  {
 	public boolean canExecute(@Named(BEHAVIOR_XWL_PARAMETER_ID) String behaviorXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			defineBindings(behaviorXwl, predicateXwl, bm);
 			return HandlersBehavior.canPerform(bm);
 		} catch (Exception e) {
 			return false;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}
@@ -60,8 +64,9 @@ public class PerformHandler  {
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), label);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
-			bm.wEnterScope();
+			bm.wEnterScope(ts);
 			defineBindings(behaviorXwl, predicateXwl, bm);
 
 			mtc.begin();
@@ -73,6 +78,7 @@ public class PerformHandler  {
 			mtc.rollback();
 			throw e;
 		} finally {
+			ts.rollback();
 			bm.wExitScope();
 		}
 	}
