@@ -20,6 +20,7 @@ package org.whole.lang.util;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -36,15 +37,19 @@ public interface IDataTypeWrapper {
 			return (E) value;
 		}
 	};
-
 	public static final IDataTypeWrapper envSpecificValue = new IDataTypeWrapper() {
 		@SuppressWarnings("unchecked")
 		public <E extends IEntity> E createEntity(Object value) {
 			return (E) BindingManagerFactory.instance.createSpecificValue(value);
 		}
 	};
-
-	public static final IDataTypeWrapper envValue = new IDataTypeWrapper() {
+	public static final IDataTypeWrapper envEnumValue = new IDataTypeWrapper() {
+		@SuppressWarnings("unchecked")
+		public <E extends IEntity> E createEntity(Object value) {
+			return (E) BindingManagerFactory.instance.createValue((EnumValue) value);
+		}
+	};
+	public static final IDataTypeWrapper envObjectValue = new IDataTypeWrapper() {
 		@SuppressWarnings("unchecked")
 		public <E extends IEntity> E createEntity(Object value) {
 			return (E) BindingManagerFactory.instance.createValue(value);

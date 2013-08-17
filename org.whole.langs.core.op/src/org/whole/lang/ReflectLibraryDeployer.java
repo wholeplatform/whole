@@ -30,7 +30,6 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.resources.IResource;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.IDataTypeWrapper;
 import org.whole.lang.util.IRunnable;
@@ -41,18 +40,13 @@ import org.whole.lang.util.ResourceUtils;
  */
 public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static final String URI = "whole:org.whole.lang:ReflectLibrary";
-	public static final String LANGUAGE_ED = "http://lang.whole.org/Queries#LanguageTest";
 	public static final String KIND_ED = "http://lang.whole.org/Queries#KindTest";
-	public static final String TYPE_ED = "http://lang.whole.org/Queries#TypeTest";
-	public static final String FEATURE_ED = "http://lang.whole.org/Queries#FeatureStep";
-	public static final String INT_ED = "http://lang.whole.org/Queries#IntLiteral";
-	public static final String STRING_ED = "http://lang.whole.org/Queries#StringLiteral";
 
 	//ILanguageKit, EntityDescriptor, FeatureDescriptor, IEntity APIs
 	public void deploy(ReflectionFactory platform) {
 		putFunctionLibrary(URI);
 
-		putFunctionCode("languages", languagesIterator()); // -> languageURI...
+		putFunctionCode("languages", languagesIterator());
 
 		//self = DataEntity<languageURI | entityURI | featureURI | LK | ED | FD>
 		putFunctionCode("languageURI", languageURIIterator());
@@ -63,8 +57,8 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("languageVersion", languageVersionIterator());
 		putFunctionCode("languageIsDynamic", languageIsDynamicIterator());
 		putFunctionCode("languageMetamodel", languageMetamodelIterator());
-		putFunctionCode("languageEntities", languageEntitiesIterator()); // -> typeTest...
-		putFunctionCode("languageFeatures", languageFeaturesIterator()); // -> featureStep...
+		putFunctionCode("languageEntities", languageEntitiesIterator());
+		putFunctionCode("languageFeatures", languageFeaturesIterator());
 
 		//self = DataEntity<entityURI | ED>
 		putFunctionCode("entityLanguage", entityLanguageIterator());
@@ -131,12 +125,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(IteratorFactory.collectionIterator(
 						ReflectionFactory.getLanguageKits(false, ResourceUtils.SIMPLE_COMPARATOR),
-						new IDataTypeWrapper.CustomDatatypeWrapper(LANGUAGE_ED) {
-							@Override
-							public <E extends IEntity> E createEntity(Object value) {
-								return super.createEntity(((IResource) value).getURI());
-							}
-						}));
+						IDataTypeWrapper.envObjectValue));
 			}
 		});
 	}
@@ -204,12 +193,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			protected IEntityIterator<?> getPropertyIterator(ILanguageKit languageKit) {
 				return IteratorFactory.collectionIterator(
 						languageKit.getEntityDescriptorEnum(),
-						new IDataTypeWrapper.CustomDatatypeWrapper(TYPE_ED) {
-							@Override
-							public <E extends IEntity> E createEntity(Object value) {
-								return super.createEntity(((Descriptor) value).getURI());
-							}
-						});
+						IDataTypeWrapper.envEnumValue);
 			}
 		});
 	}
@@ -218,12 +202,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			protected IEntityIterator<?> getPropertyIterator(ILanguageKit languageKit) {
 				return IteratorFactory.collectionIterator(
 						languageKit.getFeatureDescriptorEnum(),
-						new IDataTypeWrapper.CustomDatatypeWrapper(FEATURE_ED) {
-							@Override
-							public <E extends IEntity> E createEntity(Object value) {
-								return super.createEntity(((Descriptor) value).getURI());
-							}
-						});
+						IDataTypeWrapper.envEnumValue);
 			}
 		});
 	}
@@ -356,33 +335,28 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			protected IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed) {
 				return IteratorFactory.collectionIterator(
 						ed.getEntityFeatureDescriptors(),
-						new IDataTypeWrapper() {
-							@SuppressWarnings("unchecked")
-							public <E extends IEntity> E createEntity(Object value) {
-								return (E) BindingManagerFactory.instance.createValue((Descriptor) value);
-							}
-						});
+						IDataTypeWrapper.envEnumValue);
 			}
 		});
 	}
 	public static IEntityIterator<IEntity> entitySupertypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new EntityMultiValuedPropertyRunnable() {
 			protected IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed) {
-				return supertypesIterator(ed, TYPE_ED);
+				return supertypesIterator(ed);
 			}
 		});
 	}
 	public static IEntityIterator<IEntity> entitySubtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new EntityMultiValuedPropertyRunnable() {
 			protected IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed) {
-				return subtypesIterator(ed, TYPE_ED);
+				return subtypesIterator(ed);
 			}
 		});
 	}
 	public static IEntityIterator<IEntity> entityExtendedConcreteSubtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new EntityMultiValuedPropertyRunnable() {
 			protected IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed) {
-				return extendedConcreteSubtypesIterator(ed, TYPE_ED);
+				return extendedConcreteSubtypesIterator(ed);
 			}
 		});
 	}
@@ -588,9 +562,8 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> languageIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(LANGUAGE_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(
-						ed, selfEntity.wGetLanguageKit().getURI()));
+				bm.setResult(BindingManagerFactory.instance.createValue(
+						selfEntity.wGetLanguageKit()));
 			}
 		});
 	}
@@ -608,9 +581,8 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> typeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(TYPE_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(
-						ed, selfEntity.wGetEntityDescriptor().getURI()));
+				bm.setResult(BindingManagerFactory.instance.createValue(
+						selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
@@ -632,89 +604,63 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> subtypesIterator() {
-		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(subtypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
-			}
-		});
-	}
-	public static IEntityIterator<IEntity> subtypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
-		return IteratorFactory.collectionIterator(
-				ed.languageSubtypesIterable(), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
-					@Override
-					public <E extends IEntity> E createEntity(Object value) {
-						return super.createEntity(((Descriptor) value).getURI());
-					}
-				});
-	}
-
 	public static IEntityIterator<IEntity> supertypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
+				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> supertypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
+	public static IEntityIterator<IEntity> supertypesIterator(EntityDescriptor<?> ed) {
 		return IteratorFactory.collectionIterator(
-				ed.languageSupertypesIterable(), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
-					@Override
-					public <E extends IEntity> E createEntity(Object value) {
-						return super.createEntity(((Descriptor) value).getURI());
-					}
-				});
+				ed.languageSupertypesIterable(),
+				IDataTypeWrapper.envEnumValue);
 	}
-//	new IDataTypeWrapper() {
-//		@SuppressWarnings("unchecked")
-//		public <E extends IEntity> E createEntity(Object value) {
-//			return (E) BindingManagerFactory.instance.createValue((Descriptor) value);
-//		}
-//	}
+
+	public static IEntityIterator<IEntity> subtypesIterator() {
+		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResultIterator(subtypesIterator(selfEntity.wGetEntityDescriptor()));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> subtypesIterator(EntityDescriptor<?> ed) {
+		return IteratorFactory.collectionIterator(
+				ed.languageSubtypesIterable(),
+				IDataTypeWrapper.envEnumValue);
+	}
 
 	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor(), TYPE_ED));
+				bm.setResultIterator(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator(EntityDescriptor<?> ed, String entityTypeUri) {
+	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator(EntityDescriptor<?> ed) {
 		return IteratorFactory.collectionIterator(
-				ed.getEntityDescriptorEnum().getExtendedLanguageConcreteSubtypesOf(ed), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
-					@Override
-					public <E extends IEntity> E createEntity(Object value) {
-						return super.createEntity(((Descriptor) value).getURI());
-					}
-				});
+				ed.getEntityDescriptorEnum().getExtendedLanguageConcreteSubtypesOf(ed),
+				IDataTypeWrapper.envEnumValue);
 	}
 
 	public static IEntityIterator<IEntity> featuresIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(featuresIterator(selfEntity.wGetEntityDescriptor(), FEATURE_ED));
+				bm.setResultIterator(featuresIterator(selfEntity.wGetEntityDescriptor()));
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> featuresIterator(EntityDescriptor<?> ed, String entityTypeUri) {
+	public static IEntityIterator<IEntity> featuresIterator(EntityDescriptor<?> ed) {
 		return IteratorFactory.collectionIterator(
-				ed.getEntityFeatureDescriptors(), new IDataTypeWrapper.CustomDatatypeWrapper(entityTypeUri) {
-					@Override
-					public <E extends IEntity> E createEntity(Object value) {
-						return super.createEntity(((Descriptor) value).getURI());
-					}
-				});
+				ed.getEntityFeatureDescriptors(),
+				IDataTypeWrapper.envEnumValue);
 	}
 	public static IEntityIterator<IEntity> aspectualFeaturesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(IteratorFactory.collectionIterator(
-						selfEntity.wGetAspectualFeatureDescriptors(), new IDataTypeWrapper.CustomDatatypeWrapper(FEATURE_ED) {
-							@Override
-							public <E extends IEntity> E createEntity(Object value) {
-								return super.createEntity(((Descriptor) value).getURI());
-							}
-						}));
+						selfEntity.wGetAspectualFeatureDescriptors(),
+						IDataTypeWrapper.envEnumValue));
 			}
 		});
 	}
@@ -722,8 +668,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> sizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(INT_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(ed, selfEntity.wSize()));
+				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wSize()));
 			}
 		});
 	}
@@ -731,8 +676,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> adjacentSizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(INT_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(ed, selfEntity.wAdjacentSize()));
+				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wAdjacentSize()));
 			}
 		});
 	}
@@ -740,8 +684,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static IEntityIterator<IEntity> inverseAdjacentSizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(INT_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(ed, selfEntity.wInverseAdjacentSize()));
+				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wInverseAdjacentSize()));
 			}
 		});
 	}
@@ -802,11 +745,10 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
 
-				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
-					String uri = selfEntity.wStringValue();
-					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(STRING_ED, false, null);
-					result = GenericEntityFactory.instance.create(ed, ResourceUtils.getResourceFragmentUri(uri));
-				}
+				if (DataTypeUtils.getDataKind(selfEntity).isString())
+					result = BindingManagerFactory.instance.createValue(
+							ResourceUtils.getResourceFragmentUri(selfEntity.wStringValue()));
+
 				bm.setResult(result);
 			}
 		});
@@ -816,11 +758,10 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				IEntity result = null;
 
-				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
-					String uri = selfEntity.wStringValue();
-					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(STRING_ED, false, null);
-					result = GenericEntityFactory.instance.create(ed, ResourceUtils.getResourceFragmentName(uri));
-				}
+				if (DataTypeUtils.getDataKind(selfEntity).isString())
+					result = BindingManagerFactory.instance.createValue(
+							ResourceUtils.getResourceFragmentName(selfEntity.wStringValue()));
+
 				bm.setResult(result);
 			}
 		});
