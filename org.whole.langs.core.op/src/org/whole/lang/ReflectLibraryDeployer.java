@@ -106,7 +106,6 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("language", languageIterator());
 		putFunctionCode("kind", kindIterator());
 		putFunctionCode("type", typeIterator());
-		putFunctionCode("formalType", formalTypeIterator());//TODO Deprecated
 		putFunctionCode("atType", atTypeIterator());
 		putFunctionCode("atFeature", atFeatureIterator());
 		putFunctionCode("supertypes", supertypesIterator());
@@ -124,8 +123,6 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("uriFeature", uriFeatureIterator());
 		putFunctionCode("uriResourcePart", uriResourcePartIterator());
 		putFunctionCode("uriFragmentPart", uriFragmentPartIterator());
-		putFunctionCode("resourceFragmentUri", uriResourcePartIterator());//TODO Deprecated
-		putFunctionCode("resourceFragmentName", uriFragmentPartIterator());//TODO Deprecated
 	}
 
 
@@ -618,15 +615,6 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> formalTypeIterator() {
-		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(TYPE_ED, false, null);
-				bm.setResult(GenericEntityFactory.instance.create(
-						ed, selfEntity.wGetParent().wGetEntityDescriptor(selfEntity).getURI()));
-			}
-		});
-	}
 	public static IEntityIterator<IEntity> atTypeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
