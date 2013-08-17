@@ -366,7 +366,7 @@
                                         <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
                                         <workflows:Expressions initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -686,7 +686,7 @@
                                         <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
                                         <workflows:Expressions initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
                                         <queries:Filter>

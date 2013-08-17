@@ -4875,7 +4875,7 @@
                 <queries:If>
                     <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
                     <semantics:FunctionApplication>
-                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -4896,7 +4896,7 @@
                         </queries:ExpressionTest>
                     </queries:And>
                     <semantics:FunctionApplication>
-                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
                         <semantics:FunctionApplication>
                             <semantics:Name value="contextType"/>
                             <queries:ParentStep/>
@@ -5027,8 +5027,13 @@
                     <semantics:TypeCast>
                         <semantics:EntityType value="http://lang.whole.org/Models#EntityType"/>
                         <semantics:FunctionApplication>
-                            <semantics:Name value="whole:org.whole.lang:ReflectLibrary#formalType"/>
-                            <queries:ParentStep/>
+                            <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="whole:org.whole.lang:ReflectLibrary#atType"/>
+                                <queries:ParentStep/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </semantics:FunctionApplication>
@@ -5041,8 +5046,13 @@
                     <semantics:TypeCast>
                         <semantics:EntityType value="http://lang.whole.org/Models#EntityType"/>
                         <semantics:FunctionApplication>
-                            <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </semantics:FunctionApplication>

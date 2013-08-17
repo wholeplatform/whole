@@ -219,7 +219,7 @@
                                         <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
                                         <workflows:Expressions initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -360,7 +360,7 @@
                                         <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
                                         <workflows:Expressions initialCapacity="1">
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
                                         <queries:Filter>
@@ -542,6 +542,8 @@
                                         <semantics:TypeCast xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:EntityType value="http://lang.whole.org/Models#EntityType"/>
                                         <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -549,6 +551,9 @@
                                         <queries:KindTest value="RESOLVER"/>
                                         </queries:Not>
                                         </queries:Filter>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
@@ -890,26 +895,34 @@
                                 <queries:VariableTest value="action"/>
                             </queries:Filter>
                             <queries:ParentStep/>
-                            <queries:Sequence initialCapacity="2">
-                                <queries:Filter>
-                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#formalType"/>
+                            <queries:Path initialCapacity="2">
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#atType"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:VariableTest value="typeName"/>
-                                </queries:Filter>
-                                <queries:Filter>
-                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#resourceFragmentName"/>
-                                        <queries:VariableRefStep value="typeName"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="typeName"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:VariableTest value="name"/>
-                                </queries:Filter>
-                            </queries:Sequence>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="name"/>
+                                    </queries:Filter>
+                                </queries:Sequence>
+                            </queries:Path>
                             <queries:TemplateNames/>
                         </queries:Select>
                         <queries:TemplateNames/>
