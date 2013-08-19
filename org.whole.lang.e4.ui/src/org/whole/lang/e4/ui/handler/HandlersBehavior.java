@@ -17,31 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.ACTION_CALL_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.ADD_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.ADD_FRAGMENT_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.COPY_AS_IMAGE_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.COPY_ENTITY_PATH_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_COPY;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_CUT;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_FIND_AND_REPLACE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_PASTE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_SELECT_ALL;
-import static org.whole.lang.e4.ui.api.IUIConstants.FILE_REVERT;
-import static org.whole.lang.e4.ui.api.IUIConstants.GENERATEARTIFACTS_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.GENERATEJAVA_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.IMPORT_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.INTERPRET_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.NORMALIZE_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.PASTE_AS_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.PERFORM_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.PRETTYPRINT_MODEL_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.REPLACE_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.REPLACE_FRAGMENT_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.REPLACE_WITH_DEFAULT_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.SELECT_NOTATION_COMMAND_ID;
-import static org.whole.lang.e4.ui.api.IUIConstants.VALIDATE_MODEL_COMMAND_ID;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
