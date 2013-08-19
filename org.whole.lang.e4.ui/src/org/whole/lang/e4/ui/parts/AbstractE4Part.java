@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
@@ -65,7 +66,6 @@ import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
@@ -79,7 +79,7 @@ import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
 @SuppressWarnings("restriction")
-public abstract class AbstractE4Part implements IContextProvider {
+public abstract class AbstractE4Part {
 	protected IEntityPartViewer viewer;
 	protected IMenuManager contextMenu;
 	protected ActionRegistry actionRegistry;
@@ -101,13 +101,6 @@ public abstract class AbstractE4Part implements IContextProvider {
 
 	public AbstractE4Part() {
 		this.selectionLinkableListenerList = new ListenerList();
-	}
-
-	public IEclipseContext getContext() {
-		return context;
-	}
-	public ActionRegistry getActionRegistry() {
-		return actionRegistry;
 	}
 
 	@PostConstruct
@@ -154,9 +147,9 @@ public abstract class AbstractE4Part implements IContextProvider {
 		actionRegistry = createActionRegistry();
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
 
-		context.set(ActionRegistry.class, getActionRegistry());
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
-		contextMenuProvider.populate(contextMenu);
+		context.set(ActionRegistry.class, actionRegistry);
+		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

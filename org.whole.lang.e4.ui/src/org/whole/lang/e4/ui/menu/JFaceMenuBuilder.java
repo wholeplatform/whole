@@ -34,7 +34,6 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.window.Window;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.api.AbstractUIBuilder;
-import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.dialogs.E4Dialog;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
@@ -50,8 +49,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	protected Set<IUpdatableAction> actionsToUpdate;
 	protected IMenuManager menuManager;
 
-	public JFaceMenuBuilder(IContextProvider contextProvider) {
-		super(contextProvider);
+	public JFaceMenuBuilder() {
 		this.actionsToUpdate = new HashSet<IUpdatableAction>();
 		this.menuManager = null;
 	}
@@ -66,10 +64,10 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	}
 
 	public void before() {
-		contextProvider.getActionRegistry().updateBaseActions();
+		actionRegistry.updateBaseActions();
 	}
 	public void after() {
-		contextProvider.getActionRegistry().updateActions(actionsToUpdate);
+		actionRegistry.updateActions(actionsToUpdate);
 		actionsToUpdate.clear();
 	}
 
@@ -84,36 +82,36 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	}
 
 	public void addUndoItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_UNDO));
+		addItem(actionRegistry.getAction(EDIT_UNDO));
 	}
 	public void addRedoItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_REDO));
+		addItem(actionRegistry.getAction(EDIT_REDO));
 	}
 
 	public void addCutItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_CUT));
+		addItem(actionRegistry.getAction(EDIT_CUT));
 	}
 	public void addCopyItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_COPY));
+		addItem(actionRegistry.getAction(EDIT_COPY));
 	}
 	public void addCopyEntityPathItem() {
-		addItem(contextProvider.getActionRegistry().getAction(COPY_ENTITY_PATH_COMMAND_ID));
+		addItem(actionRegistry.getAction(COPY_ENTITY_PATH_COMMAND_ID));
 	}
 	public void addCopyAsImageItem() {
-		addItem(contextProvider.getActionRegistry().getAction(COPY_AS_IMAGE_COMMAND_ID));
+		addItem(actionRegistry.getAction(COPY_AS_IMAGE_COMMAND_ID));
 	}
 	public void addPasteAsItem() {
-		addItem(contextProvider.getActionRegistry().getAction(PASTE_AS_COMMAND_ID));
+		addItem(actionRegistry.getAction(PASTE_AS_COMMAND_ID));
 	}
 	public void addPasteItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_PASTE));
+		addItem(actionRegistry.getAction(EDIT_PASTE));
 	}
 
 	public void addDeleteItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_DELETE));
+		addItem(actionRegistry.getAction(EDIT_DELETE));
 	}
 	public void addSelectAllItem() {
-		addItem(contextProvider.getActionRegistry().getAction(EDIT_SELECT_ALL));
+		addItem(actionRegistry.getAction(EDIT_SELECT_ALL));
 	}
 
 	@Override
@@ -121,7 +119,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		IMenuManager menu = createMenu(CONTENT_ASSIST_LABEL, getContentAssistVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new ContentAssistCompositeContributionItem(contextProvider);
+		IContributionItem ici = new ContentAssistCompositeContributionItem(this);
 		menu.add(ici);
 	}
 
@@ -130,7 +128,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL, getValidSingleSelectionVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new EntityAssistCompositeContributionItem(contextProvider);
+		IContributionItem ici = new EntityAssistCompositeContributionItem(this);
 		menu.add(ici);
 	}
 	@Override
@@ -138,7 +136,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		IMenuManager menu = createMenu(FEATURE_ASSIST_LABEL, getFeatureAssistVisibleWhen());
 		addItem(menu);
 
-		IContributionItem ici = new FeatureAssistCompositeContributionItem(contextProvider);
+		IContributionItem ici = new FeatureAssistCompositeContributionItem(this);
 		menu.add(ici);
 	}
 
@@ -160,14 +158,14 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 		IEditorKit selectedEditorKit = primarySelectedEntity.wGetEditorKit();
 		for (IEditorKit editorKit : primarySelectedEntity.wGetLanguageKit().getEditorKits()) {
-			IUpdatableAction action = contextProvider.getActionRegistry().getSelectNotationAction(editorKit);
+			IUpdatableAction action = actionRegistry.getSelectNotationAction(editorKit);
 			action.setChecked(editorKit == selectedEditorKit);
 			menu.add(action);
 		}
 	}
 
 	public void addImportItem() {
-		addItem(contextProvider.getActionRegistry().getAction(IMPORT_COMMAND_ID));
+		addItem(actionRegistry.getAction(IMPORT_COMMAND_ID));
 	}
 
 	public void addRemoveItem() {
@@ -182,17 +180,17 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 	}
 	@Override
 	public void addDefaultItem() {
-		addItem(contextProvider.getActionRegistry().getAction(REPLACE_WITH_DEFAULT_COMMAND_ID));
+		addItem(actionRegistry.getAction(REPLACE_WITH_DEFAULT_COMMAND_ID));
 	}
 
 	public void addReplaceEntityItem(EntityDescriptor<?> ed) {
-		IUpdatableAction action = contextProvider.getActionRegistry().getReplaceEntityAction(ed);
+		IUpdatableAction action = actionRegistry.getReplaceEntityAction(ed);
 		actionsToUpdate.add(action);
 		addItem(action);
 	}
 
 	public void addAddEntityItem(EntityDescriptor<?> ed) {
-		IUpdatableAction action = contextProvider.getActionRegistry().getAddEntityAction(ed);
+		IUpdatableAction action = actionRegistry.getAddEntityAction(ed);
 		actionsToUpdate.add(action);
 		addItem(action);
 	}
@@ -201,7 +199,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		Action action = new Action() {
 			@Override
 			public void run() {
-				E4Dialog dialog = ContextInjectionFactory.make(E4Dialog.class, contextProvider.getContext());
+				E4Dialog dialog = ContextInjectionFactory.make(E4Dialog.class, context);
 				dialog.create();
 				if (dialog.open() == Window.OK) {
 					// do nothing

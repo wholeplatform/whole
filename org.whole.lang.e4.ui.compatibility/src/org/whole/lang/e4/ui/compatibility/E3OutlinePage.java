@@ -17,9 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_DELETE;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_REDO;
-import static org.whole.lang.e4.ui.api.IUIConstants.EDIT_UNDO;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -37,6 +35,7 @@ import org.eclipse.draw2d.parts.ScrollableThumbnail;
 import org.eclipse.draw2d.parts.Thumbnail;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.gef.ContextMenuProvider;
@@ -75,7 +74,6 @@ import org.eclipse.ui.part.PageBook;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
@@ -97,7 +95,7 @@ import org.whole.lang.ui.views.WholeGraphicalViewer;
 /**
  * @author Enrico Persiani
  */
-public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, IContextProvider {
+public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 	private static final int OUTLINE_PAGE_ID = 0;
 	private static final int OVERVIEW_PAGE_ID = 1;
 
@@ -132,13 +130,6 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, ICo
 		this.commandService = this.context.get(ECommandService.class);
 		this.handlerService = this.context.get(EHandlerService.class);
 		this.bindingService = this.context.get(EBindingService.class);
-	}
-
-	public IEclipseContext getContext() {
-		return context;
-	}
-	public ActionRegistry getActionRegistry() {
-		return actionRegistry;
 	}
 
 	@Override
@@ -314,7 +305,9 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable, ICo
 		actionRegistry = createActionRegistry();
 		HandlersBehavior.registerHandlers(handlerService);
 
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
+		context.set(ActionRegistry.class, actionRegistry);
+		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

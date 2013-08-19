@@ -25,6 +25,7 @@ import javax.inject.Named;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -48,7 +49,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.api.IContextProvider;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -63,7 +63,7 @@ import org.whole.lang.ui.actions.IUpdatableAction;
 /**
  * @author Enrico Persiani
  */
-public class E4Dialog extends Dialog implements IContextProvider {
+public class E4Dialog extends Dialog {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
@@ -73,20 +73,20 @@ public class E4Dialog extends Dialog implements IContextProvider {
 		super(shell);
 	}
 
-	@Inject IEclipseContext context;
-	@Inject ESelectionService selectionService;
-	@Inject EHandlerService handlerService;
-	@Inject ECommandService commandService;
-	@Inject EModelService modelService;
-	@Inject MApplication application;
-	@Inject EBindingService bindingService;
-
-	public IEclipseContext getContext() {
-		return context;
-	}
-	public ActionRegistry getActionRegistry() {
-		return actionRegistry;
-	}
+	@Inject
+	protected IEclipseContext context;
+	@Inject
+	protected ESelectionService selectionService;
+	@Inject
+	protected EHandlerService handlerService;
+	@Inject
+	protected ECommandService commandService;
+	@Inject
+	protected EModelService modelService;
+	@Inject
+	protected MApplication application;
+	@Inject
+	protected EBindingService bindingService;
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -120,7 +120,9 @@ public class E4Dialog extends Dialog implements IContextProvider {
 		actionRegistry = createActionRegistry();
 		HandlersBehavior.registerHandlers(handlerService);
 
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(new JFaceMenuBuilder(this));
+		context.set(ActionRegistry.class, actionRegistry);
+		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override

@@ -148,4 +148,5 @@ public interface IUIConstants {
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
 
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
+	public static final String FIND_REPLACE_DIALOG_TITLE = "Find/Replace";
 }
