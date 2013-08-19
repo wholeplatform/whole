@@ -103,9 +103,9 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 		if (!EntityUtils.isResolver(arguments)) {
     		arguments.accept(this);
     		IEntityIterator<?> argumentsIterator = getResultIterator();
-    		
+
     		if (!argumentsIterator.getClass().equals(SelfIterator.class))
-    			resultIterator = IteratorFactory.forIterator(argumentsIterator, resultIterator);
+    			resultIterator = IteratorFactory.composeIterator(resultIterator, argumentsIterator);
     	}
 		setResultIterator(resultIterator);
   	}
