@@ -114,13 +114,6 @@ public abstract class AbstractVisitor implements IVisitor {
 		getOperation().stagedDefaultVisit(entity, relativeStage);
 	}
 
-	public <E extends IEntity> E applyAdapter(E entity) {
-		if (entity.wIsAdapter()) {
-			visitAdapter((IEntityAdapter) entity);
-			return null;
-		}
-		return entity;
-	}
 	public boolean visitAdapter(IEntityAdapter entity) {
 		return CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());
 	}

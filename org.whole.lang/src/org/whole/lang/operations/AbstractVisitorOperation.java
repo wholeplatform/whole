@@ -73,13 +73,6 @@ public abstract class AbstractVisitorOperation extends AbstractOperation impleme
 	public static <E extends IEntity> E filterAdapter(E entity) {
 		return entity.wIsAdapter() ? null : entity;
 	}
-	public <E extends IEntity> E applyAdapter(E entity) {
-		if (entity.wIsAdapter()) {
-			visitAdapter((IEntityAdapter) entity);
-			return null;
-		}
-		return entity;
-	}
 	public boolean visitAdapter(IEntityAdapter entity) {
 		return CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());
 	}
