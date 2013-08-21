@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Reflect"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="59">
+    <semantics:SemanticFunctions initialCapacity="62">
         <semantics:SemanticFunction>
             <semantics:Name value="languages"/>
             <semantics:FunctionType>
@@ -403,6 +403,23 @@
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
+            <semantics:Name value="entityFeature"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityFeatureIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityFeatureIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
             <semantics:Name value="entityFeatures"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
@@ -717,92 +734,92 @@
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="language"/>
+            <semantics:Name value="instanceLanguage"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#LanguageTest"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="languageIterator"/>
+                    <workflows:Text value="instanceLanguageIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="languageIterator()"/>
+                    <workflows:StringLiteral value="instanceLanguageIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="kind"/>
+            <semantics:Name value="instanceKind"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#KindTest"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="kindIterator"/>
+                    <workflows:Text value="instanceKindIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="kindIterator()"/>
+                    <workflows:StringLiteral value="instanceKindIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="type"/>
+            <semantics:Name value="instanceType"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="typeIterator"/>
+                    <workflows:Text value="instanceTypeIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="typeIterator()"/>
+                    <workflows:StringLiteral value="instanceTypeIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="atType"/>
+            <semantics:Name value="instanceAtType"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="atTypeIterator"/>
+                    <workflows:Text value="instanceAtTypeIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="atTypeIterator()"/>
+                    <workflows:StringLiteral value="instanceAtTypeIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="atFeature"/>
+            <semantics:Name value="instanceAtFeature"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="atFeatureIterator"/>
+                    <workflows:Text value="instanceAtFeatureIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="atFeatureIterator()"/>
+                    <workflows:StringLiteral value="instanceAtFeatureIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="supertypes"/>
+            <semantics:Name value="instanceSupertypes"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:SequenceType>
@@ -811,17 +828,17 @@
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="supertypesIterator"/>
+                    <workflows:Text value="instanceSupertypesIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="supertypesIterator()"/>
+                    <workflows:StringLiteral value="instanceSupertypesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="subtypes"/>
+            <semantics:Name value="instanceSubtypes"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:SequenceType>
@@ -830,17 +847,17 @@
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="subtypesIterator"/>
+                    <workflows:Text value="instanceSubtypesIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="subtypesIterator()"/>
+                    <workflows:StringLiteral value="instanceSubtypesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="extendedConcreteSubtypes"/>
+            <semantics:Name value="instanceExtendedConcreteSubtypes"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:SequenceType>
@@ -849,17 +866,51 @@
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="extendedConcreteSubtypesIterator"/>
+                    <workflows:Text value="instanceExtendedConcreteSubtypesIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="extendedConcreteSubtypesIterator()"/>
+                    <workflows:StringLiteral value="instanceExtendedConcreteSubtypesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="features"/>
+            <semantics:Name value="instanceFeatureStep"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="instanceFeatureStepIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="instanceFeatureStepIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="instanceFeature"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="instanceFeatureIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="instanceFeatureIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="instanceFeatures"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:SequenceType>
@@ -868,17 +919,17 @@
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="featuresIterator"/>
+                    <workflows:Text value="instanceFeaturesIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="featuresIterator()"/>
+                    <workflows:StringLiteral value="instanceFeaturesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="aspectualFeatures"/>
+            <semantics:Name value="instanceAspectualFeatures"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:SequenceType>
@@ -887,62 +938,62 @@
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="aspectualFeaturesIterator"/>
+                    <workflows:Text value="instanceAspectualFeaturesIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="aspectualFeaturesIterator()"/>
+                    <workflows:StringLiteral value="instanceAspectualFeaturesIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="size"/>
+            <semantics:Name value="instanceChildSize"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#IntLiteral"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="sizeIterator"/>
+                    <workflows:Text value="instanceChildSizeIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="sizeIterator()"/>
+                    <workflows:StringLiteral value="instanceChildSizeIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="adjacentSize"/>
+            <semantics:Name value="instanceAdjacentSize"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#IntLiteral"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="adjacentSizeIterator"/>
+                    <workflows:Text value="instanceAdjacentSizeIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="adjacentSizeIterator()"/>
+                    <workflows:StringLiteral value="instanceAdjacentSizeIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="inverseAdjacentSize"/>
+            <semantics:Name value="instanceInverseAdjacentSize"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:EntityType value="http://lang.whole.org/Queries#IntLiteral"/>
             </semantics:FunctionType>
             <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="inverseAdjacentSizeIterator"/>
+                    <workflows:Text value="instanceInverseAdjacentSizeIterator"/>
                     <commons:Resolver/>
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
-                    <workflows:StringLiteral value="inverseAdjacentSizeIterator()"/>
+                    <workflows:StringLiteral value="instanceInverseAdjacentSizeIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>

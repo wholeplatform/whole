@@ -76,6 +76,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("entitySize", entitySizeIterator());
 		putFunctionCode("entityChildSize", entityChildSizeIterator());
 		putFunctionCode("entityAdjacentSize", entityAdjacentSizeIterator());
+		putFunctionCode("entityFeature", entityFeatureIterator());
 		putFunctionCode("entityFeatures", entityFeaturesIterator());
 		putFunctionCode("entitySupertypes", entitySupertypesIterator());
 		putFunctionCode("entitySubtypes", entitySubtypesIterator());
@@ -98,19 +99,21 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("featureType", featureTypeIterator());
 
 		//self = IEntity
-		putFunctionCode("language", languageIterator());
-		putFunctionCode("kind", kindIterator());
-		putFunctionCode("type", typeIterator());
-		putFunctionCode("atType", atTypeIterator());
-		putFunctionCode("atFeature", atFeatureIterator());
-		putFunctionCode("supertypes", supertypesIterator());
-		putFunctionCode("subtypes", subtypesIterator());
-		putFunctionCode("extendedConcreteSubtypes", extendedConcreteSubtypesIterator());
-		putFunctionCode("features", featuresIterator());
-		putFunctionCode("aspectualFeatures", aspectualFeaturesIterator());
-		putFunctionCode("size", sizeIterator());
-		putFunctionCode("adjacentSize", adjacentSizeIterator());
-		putFunctionCode("inverseAdjacentSize", inverseAdjacentSizeIterator());
+		putFunctionCode("instanceLanguage", instanceLanguageIterator());
+		putFunctionCode("instanceKind", instanceKindIterator());
+		putFunctionCode("instanceType", instanceTypeIterator());
+		putFunctionCode("instanceAtType", instanceAtTypeIterator());
+		putFunctionCode("instanceAtFeature", instanceAtFeatureIterator());
+		putFunctionCode("instanceSupertypes", instanceSupertypesIterator());
+		putFunctionCode("instanceSubtypes", instanceSubtypesIterator());
+		putFunctionCode("instanceExtendedConcreteSubtypes", instanceExtendedConcreteSubtypesIterator());
+		putFunctionCode("instanceFeatureStep", instanceFeatureStepIterator());
+		putFunctionCode("instanceFeature", instanceFeatureIterator());
+		putFunctionCode("instanceFeatures", instanceFeaturesIterator());
+		putFunctionCode("instanceAspectualFeatures", instanceAspectualFeaturesIterator());
+		putFunctionCode("instanceChildSize", instanceChildSizeIterator());
+		putFunctionCode("instanceAdjacentSize", instanceAdjacentSizeIterator());
+		putFunctionCode("instanceInverseAdjacentSize", instanceInverseAdjacentSizeIterator());
 
 		//self = DataEntity<resourceURI>
 		putFunctionCode("uriLanguage", uriLanguageIterator());
@@ -331,6 +334,36 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
+	public static IEntityIterator<IEntity> entityFeatureIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntityPropertyRunnable() {
+			protected void setResult(IBindingManager bm, EntityDescriptor<?> ed) {
+				setFeatureDescriptorResult(bm, ed);
+			}
+		});
+	}
+	public static void setFeatureDescriptorResult(IBindingManager bm, EntityDescriptor<?> ed) {
+		FeatureDescriptor fd = bm.wIsSet("feature") ? getFeatureDescriptor(bm.wGet("feature"), bm) : null;
+		String featureName = fd == null && bm.wIsSet("featureName") ? bm.wStringValue("featureName") : null;
+		int featureIndex = fd == null && featureName == null && bm.wIsSet("featureIndex") ? bm.wIntValue("featureIndex") : -1;
+
+		FeatureDescriptor lfd = null;
+		if (fd != null) {
+			if (fd.getLanguageKit().equals(ed.getLanguageKit()))
+				lfd = fd;
+			else
+				featureName = fd.getName();
+		}
+		if (featureName != null)
+			lfd = ed.getFeatureDescriptorEnum().valueOf(featureName);
+
+		FeatureDescriptor efd = null;
+		if (lfd != null)
+			featureIndex = ed.indexOf(lfd);
+		if (featureIndex > -1 && featureIndex < ed.featureSize())
+			efd = ed.getEntityFeatureDescriptor(featureIndex);
+		
+		bm.setResult(efd != null ? BindingManagerFactory.instance.createValue(efd) : null);
+	}
 	public static IEntityIterator<IEntity> entityFeaturesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new EntityMultiValuedPropertyRunnable() {
 			protected IEntityIterator<?> getPropertyIterator(EntityDescriptor<?> ed) {
@@ -538,29 +571,32 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	}
 	protected abstract static class FeatureSingleValuedPropertyRunnable implements IRunnable {
 		public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-			FeatureDescriptor fd = null;
-
-			if (DataTypeUtils.getDataKind(selfEntity).isString()) {
-				String uri = selfEntity.wStringValue();
-				if (ResourceUtils.hasResourceFragmentUri(uri)) {
-					String languageUri = ResourceUtils.stripResourceFragmentName(uri);
-					String descriptorName = ResourceUtils.getResourceFragmentName(uri);
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-					ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
-					if (languageKit != null)
-						fd = languageKit.getFeatureDescriptorEnum().valueOf(descriptorName);
-				}
-			} else if (DataTypeUtils.getDataKind(selfEntity).isEnumValue() && selfEntity.wEnumValue() instanceof FeatureDescriptor)
-				fd = (FeatureDescriptor) selfEntity.wEnumValue();
-			else if (DataTypeUtils.getDataKind(selfEntity).isObject() && selfEntity.wGetValue() instanceof FeatureDescriptor)
-				fd = (FeatureDescriptor) selfEntity.wGetValue();
-
+			FeatureDescriptor fd = getFeatureDescriptor(selfEntity, bm);
 			bm.setResult(fd != null ? getProperty(fd) : null);
 		}
 		protected abstract IEntity getProperty(FeatureDescriptor d);
 	}
+	public static FeatureDescriptor getFeatureDescriptor(IEntity selfEntity, IBindingManager bm) {
+		FeatureDescriptor fd = null;
 
-	public static IEntityIterator<IEntity> languageIterator() {
+		if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+			String uri = selfEntity.wStringValue();
+			if (ResourceUtils.hasResourceFragmentUri(uri)) {
+				String languageUri = ResourceUtils.stripResourceFragmentName(uri);
+				String descriptorName = ResourceUtils.getResourceFragmentName(uri);
+				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+				ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
+				if (languageKit != null)
+					fd = languageKit.getFeatureDescriptorEnum().valueOf(descriptorName);
+			}
+		} else if (DataTypeUtils.getDataKind(selfEntity).isEnumValue() && selfEntity.wEnumValue() instanceof FeatureDescriptor)
+			fd = (FeatureDescriptor) selfEntity.wEnumValue();
+		else if (DataTypeUtils.getDataKind(selfEntity).isObject() && selfEntity.wGetValue() instanceof FeatureDescriptor)
+			fd = (FeatureDescriptor) selfEntity.wGetValue();
+		return fd;
+	}
+
+	public static IEntityIterator<IEntity> instanceLanguageIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
@@ -569,7 +605,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> kindIterator() {
+	public static IEntityIterator<IEntity> instanceKindIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(KIND_ED, false, null);
@@ -579,7 +615,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> typeIterator() {
+	public static IEntityIterator<IEntity> instanceTypeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(
@@ -588,7 +624,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> atTypeIterator() {
+	public static IEntityIterator<IEntity> instanceAtTypeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ? 
@@ -596,7 +632,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	public static IEntityIterator<IEntity> atFeatureIterator() {
+	public static IEntityIterator<IEntity> instanceAtFeatureIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ?
@@ -605,7 +641,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> supertypesIterator() {
+	public static IEntityIterator<IEntity> instanceSupertypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(supertypesIterator(selfEntity.wGetEntityDescriptor()));
@@ -618,7 +654,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IEntityIterator<IEntity> subtypesIterator() {
+	public static IEntityIterator<IEntity> instanceSubtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(subtypesIterator(selfEntity.wGetEntityDescriptor()));
@@ -631,7 +667,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IEntityIterator<IEntity> extendedConcreteSubtypesIterator() {
+	public static IEntityIterator<IEntity> instanceExtendedConcreteSubtypesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(extendedConcreteSubtypesIterator(selfEntity.wGetEntityDescriptor()));
@@ -644,7 +680,42 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				IDataTypeWrapper.envEnumValue);
 	}
 
-	public static IEntityIterator<IEntity> featuresIterator() {
+	public static IEntityIterator<IEntity> instanceFeatureStepIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				EntityDescriptor<?> ed = selfEntity.wGetEntityDescriptor();
+
+				FeatureDescriptor fd = bm.wIsSet("feature") ? getFeatureDescriptor(bm.wGet("feature"), bm) : null;
+				String featureName = fd == null && bm.wIsSet("featureName") ? bm.wStringValue("featureName") : null;
+				int featureIndex = fd == null && featureName == null && bm.wIsSet("featureIndex") ? bm.wIntValue("featureIndex") : -1;
+
+				FeatureDescriptor efd = null;
+				if (featureName != null)
+					fd = ed.getFeatureDescriptorEnum().valueOf(featureName);
+				if (fd != null)
+					featureIndex = ed.indexOf(fd);
+				
+				
+				IEntity child = null;
+				if (featureIndex > -1 && featureIndex < ed.featureSize())
+					child = selfEntity.wGet(featureIndex);
+				else if (fd != null && selfEntity.wGetAspectualFeatureDescriptors().contains(fd))
+					child = selfEntity.wGet(efd);
+
+				bm.setResult(child != null ? child : null);
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> instanceFeatureIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				setFeatureDescriptorResult(bm, selfEntity.wGetEntityDescriptor());
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> instanceFeaturesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(featuresIterator(selfEntity.wGetEntityDescriptor()));
@@ -656,7 +727,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				ed.getEntityFeatureDescriptors(),
 				IDataTypeWrapper.envEnumValue);
 	}
-	public static IEntityIterator<IEntity> aspectualFeaturesIterator() {
+	public static IEntityIterator<IEntity> instanceAspectualFeaturesIterator() {
 		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResultIterator(IteratorFactory.collectionIterator(
@@ -666,7 +737,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> sizeIterator() {
+	public static IEntityIterator<IEntity> instanceChildSizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wSize()));
@@ -674,7 +745,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> adjacentSizeIterator() {
+	public static IEntityIterator<IEntity> instanceAdjacentSizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wAdjacentSize()));
@@ -682,7 +753,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		});
 	}
 
-	public static IEntityIterator<IEntity> inverseAdjacentSizeIterator() {
+	public static IEntityIterator<IEntity> instanceInverseAdjacentSizeIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(BindingManagerFactory.instance.createValue(selfEntity.wInverseAdjacentSize()));

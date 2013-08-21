@@ -368,7 +368,7 @@
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -688,7 +688,7 @@
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#type"/>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:IndexTest>
