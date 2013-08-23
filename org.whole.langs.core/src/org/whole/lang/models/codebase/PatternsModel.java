@@ -700,7 +700,8 @@ public class PatternsModel extends AbstractTemplateFactory<org.whole.lang.models
         b1.Resolver();
         b0._Feature();
         b0.Feature_();
-        b0.FeatureModifiers_(0);
+        b0.FeatureModifiers_(1);
+        b0.FeatureModifier("optional");
         b0._FeatureModifiers();
         b0.SimpleName("Expression");
         b0.SimpleName("expression");

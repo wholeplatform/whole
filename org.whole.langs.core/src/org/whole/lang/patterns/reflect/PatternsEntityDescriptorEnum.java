@@ -332,7 +332,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
 				VariableDeclaration.class, false)
 				.withFeature(PatternsFeatureDescriptorEnum.name, Name_ord)
 				.withFeature(PatternsFeatureDescriptorEnum.expression,
-						Expression_ord)
+						Expression_ord, true, false, false, false, false)
 				.withFeature(PatternsFeatureDescriptorEnum.resultType,
 						Type_ord, true, false, false, false, false);
 		putCompositeEntity(Types_ord, "Types", Types.class, false, Type_ord,

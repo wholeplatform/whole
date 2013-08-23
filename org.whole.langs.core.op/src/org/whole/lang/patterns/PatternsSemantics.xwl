@@ -2029,7 +2029,16 @@
                                 </queries:Choose>
                                 <queries:VariableTest value="expression"/>
                             </queries:Filter>
-                            <queries:Choose initialCapacity="2">
+                            <queries:Choose initialCapacity="3">
+                                <queries:If>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="expression"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:VoidLiteral/>
+                                </queries:If>
                                 <queries:If>
                                     <queries:ExpressionTest>
                                         <queries:Filter>
