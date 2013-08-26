@@ -75,7 +75,7 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 			for (int i=0; i<values.length; i++) {
 				IEntity value = values[i];
 				if (!Matcher.match(value, selectedEntity)) {
-					IUpdatableAction action = contextProvider.getActionRegistry().createReplaceFragmentAction(DataTypeUtils.getAsPresentationString(value), BindingManagerFactory.instance.createSpecificValue(true), value);
+					IUpdatableAction action = contextProvider.getActionRegistry().getActionFactory().createReplaceFragmentAction(DataTypeUtils.getAsPresentationString(value), BindingManagerFactory.instance.createSpecificValue(true), value);
 					if (action.isEnabled())
 						actions[actionsSize++] = action;
 				}	

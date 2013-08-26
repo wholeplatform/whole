@@ -24,7 +24,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.eclipse.core.commands.ParameterizedCommand;
+import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -34,15 +40,12 @@ import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.widgets.Widget;
-import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.model.IEntity;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.util.StringUtils;
@@ -51,7 +54,12 @@ import org.whole.lang.util.StringUtils;
  * @author Enrico Persiani
  */
 public class ActionRegistry {
-	protected IEclipseContext context;
+	@Inject protected IEclipseContext context;
+	@Inject	protected ECommandService commandService;
+	@Inject	protected EBindingService bindingService;
+	@Inject protected IEntityPartViewer viewer;
+
+	protected ActionFactory actionFactory;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 	protected Map<String, IUpdatableAction> baseActions = new HashMap<String, IUpdatableAction>();
@@ -59,12 +67,53 @@ public class ActionRegistry {
 	protected Map<String, Map<String, IUpdatableAction>> replaceActions = new HashMap<String, Map<String, IUpdatableAction>>();
 	protected Map<String, Map<String, IUpdatableAction>> addActions = new HashMap<String, Map<String, IUpdatableAction>>();
 
-	public ActionRegistry(IEclipseContext context) {
-		this.context = context;
+	public ActionFactory getActionFactory() {
+		return actionFactory;
 	}
-	public ActionRegistry(IEclipseContext context, Widget widget) {
-		this(context);
-		registerBaseActions(widget);
+
+	@PostConstruct
+	protected void registerBaseActions(IEntityPartViewer viewer) {
+		actionFactory = new ActionFactory(context);
+
+		registerAction(undoAction = new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI));
+		registerAction(redoAction = new RedoAction(context, REDO_LABEL, REDO_ICON_URI));
+		registerAction(actionFactory.createE4ActionAdapter(CUT_MENU_ID));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_MENU_ID));
+		registerAction(actionFactory.createE4ActionAdapter(PASTE_MENU_ID));
+		registerAction(actionFactory.createE4ActionAdapter(DELETE_MENU_ID));
+		registerAction(actionFactory.createE4ActionAdapter(SELECT_ALL_MENU_ID));
+
+		String copyIconURI = E4Utils.findMenu(COPY_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
+		String pasteIconURI = E4Utils.findMenu(PASTE_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
+		registerAction(actionFactory.createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
+
+		viewer.getControl().addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				if (undoAction != null)
+					undoAction.dispose();
+				if (redoAction != null)
+					redoAction.dispose();
+			}
+		});
+	}
+	protected void registerAction(IUpdatableAction action) {
+		baseActions.put(action.getId(), action);
+	}
+	public void registerKeyActions(E4KeyHandler keyHandler) {
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, actionFactory.createDirectEditAction());
+
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_LEFT)), true, actionFactory.createClearTextSelection(SWT.LEFT));
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_RIGHT)), true, actionFactory.createClearTextSelection(SWT.RIGHT));
+
+		IUpdatableAction activatePanningToolAction = actionFactory.createActivateToolAction(Tools.PANNING);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
+		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
 	}
 
 	public void updateActions(Collection<IUpdatableAction> actionsToUpdate) {
@@ -85,7 +134,7 @@ public class ActionRegistry {
 		if (action == null) {
 			String label = editorKit.getName();
 			Map<String, String> parameters = Collections.singletonMap(EDITORKIT_ID_PARAMETER_ID, editorKitId);
-			selectNotationActions.put(editorKitId, action = createE4ActionAdapter(label, null, SELECT_NOTATION_COMMAND_ID, parameters, IAction.AS_RADIO_BUTTON));
+			selectNotationActions.put(editorKitId, action = actionFactory.createE4ActionAdapter(label, null, SELECT_NOTATION_COMMAND_ID, parameters, IAction.AS_RADIO_BUTTON));
 		}
 		return action;
 	}
@@ -106,7 +155,7 @@ public class ActionRegistry {
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(ED_URI_PARAMETER_ID, edUri);
 			parameters.put(FD_URI_PARAMETER_ID, fdUri);
-			actionMap.put(edUri, action = createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_COMMAND_ID, parameters));
+			actionMap.put(edUri, action = actionFactory.createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_COMMAND_ID, parameters));
 		}
 		return action;
 	}
@@ -127,129 +176,29 @@ public class ActionRegistry {
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put(ED_URI_PARAMETER_ID, edUri);
 			parameters.put(FD_URI_PARAMETER_ID, fdUri);
-			actionMap.put(edUri, action = createE4ActionAdapter(label, ADD_ICON_URI, ADD_COMMAND_ID, parameters));
+			actionMap.put(edUri, action = actionFactory.createE4ActionAdapter(label, ADD_ICON_URI, ADD_COMMAND_ID, parameters));
 		}
 		return action;
 	}
 
-	public IUpdatableAction createReplaceFragmentAction(String label, IEntity predicate, IEntity fragment) {
-		try {
-			Map<String, String> parameters = new HashMap<String, String>();
-			StringPersistenceProvider spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
-			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
-			spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
-			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
-			return createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_FRAGMENT_COMMAND_ID, parameters);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
-	}
-	public IUpdatableAction createAddFragmentAction(String label, IEntity predicate, IEntity fragment) {
-		try {
-			Map<String, String> parameters = new HashMap<String, String>();
-			StringPersistenceProvider spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
-			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
-			spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
-			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
-			return createE4ActionAdapter(label, ADD_ICON_URI, ADD_FRAGMENT_COMMAND_ID, parameters);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
-	}
-	public IUpdatableAction createPerformAction(String label, String iconUri, IEntity predicate, IEntity behavior) {
-		try {
-			Map<String, String> parameters = new HashMap<String, String>();
-			StringPersistenceProvider spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(behavior, spp);
-			parameters.put(BEHAVIOR_XWL_PARAMETER_ID, spp.getStore());
-			spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
-			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
-			parameters.put(DESCRIPTION_PARAMETER_ID, label);
-			return createE4ActionAdapter(label, iconUri, PERFORM_COMMAND_ID, parameters);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
+	protected void registerWorkbenchAction(String commandId) {
+		IUpdatableAction action = getAction(commandId);
+		ParameterizedCommand command = commandService.createCommand(commandId, null);
+		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, action);		
 	}
 
-	public IUpdatableAction createActionCallAction(String label, boolean analyzing, IEntity predicate, String functionUri) {
-		try {
-			Map<String, String> parameters = new HashMap<String, String>();
-			parameters.put(FUNCTION_URI_PARAMETER_ID, functionUri);
-			StringPersistenceProvider spp = new StringPersistenceProvider();
-			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
-			parameters.put(PREDICATE_XWL_PARAMETER_ID, spp.getStore());
-			parameters.put(DESCRIPTION_PARAMETER_ID, label);
-			parameters.put(ANALYSING_PARAMETER_ID, Boolean.valueOf(analyzing).toString());
-			return createE4ActionAdapter(label, null, ACTION_CALL_COMMAND_ID, parameters);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
+	public void registerUndoAction() {
+		registerWorkbenchAction(EDIT_UNDO);		
 	}
-
-	public IUpdatableAction createClearTextSelection(int direction) {
-		return new ClearTextSelectionAction(context, direction);
+	public void registerRedoAction() {
+		registerWorkbenchAction(EDIT_REDO);
 	}
-	public IUpdatableAction createActivateToolAction(Tools tool) {
-		return new ActivateToolAction(context, tool);
+	public void registerDeleteAction() {
+		registerWorkbenchAction(EDIT_DELETE);
 	}
-	public IUpdatableAction createDirectEditAction() {
-		return new DirectEditAction(context);
-	}
-
-	public void registerKeyActions(E4KeyHandler keyHandler) {
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, createDirectEditAction());
-
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_LEFT)), true, createClearTextSelection(SWT.LEFT));
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_RIGHT)), true, createClearTextSelection(SWT.RIGHT));
-
-		IUpdatableAction activatePanningToolAction = createActivateToolAction(Tools.PANNING);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
-	}
-
-	protected void registerBaseActions(Widget widget) {
-		registerAction(undoAction = new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI));
-		registerAction(redoAction = new RedoAction(context, REDO_LABEL, REDO_ICON_URI));
-		registerAction(createE4ActionAdapter(CUT_MENU_ID));
-		registerAction(createE4ActionAdapter(COPY_MENU_ID));
-		registerAction(createE4ActionAdapter(PASTE_MENU_ID));
-		registerAction(createE4ActionAdapter(DELETE_MENU_ID));
-		registerAction(createE4ActionAdapter(SELECT_ALL_MENU_ID));
-
-		String copyIconURI = E4Utils.findMenu(COPY_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
-		String pasteIconURI = E4Utils.findMenu(PASTE_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
-		registerAction(createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
-
-		widget.addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				if (undoAction != null)
-					undoAction.dispose();
-				if (redoAction != null)
-					redoAction.dispose();
-			}
-		});
-	}
-	protected void registerAction(IUpdatableAction action) {
-		baseActions.put(action.getId(), action);
-	}
-	protected E4ActionAdapter createE4ActionAdapter(String handledMenuId) {
-		return new E4ActionAdapter(context, handledMenuId);
-	}
-	protected E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, String> parameters) {
-		return new E4ActionAdapter(context, label, iconURI, commandId, parameters);
-	}
-	protected E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, String> parameters, int style) {
-		return new E4ActionAdapter(context, label, iconURI, commandId, parameters, style);
+	public void registerWorkbenchActions() {
+		registerUndoAction();
+		registerRedoAction();
+		registerDeleteAction();
 	}
 }

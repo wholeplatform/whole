@@ -96,7 +96,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 		for (GuardedAction guardedAction : guardedActions) {
 			String actionName = guardedAction.getName().getValue();
 			String functionUri = actionsMap.get(guardedAction);
-			IUpdatableAction action = contextProvider.getActionRegistry().createActionCallAction(
+			IUpdatableAction action = contextProvider.getActionRegistry().getActionFactory().createActionCallAction(
 					actionName, isAnalyze(), guardedAction.getEnablerPredicate(), functionUri);
 			action.update();
 			actions.add(action);

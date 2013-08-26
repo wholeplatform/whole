@@ -39,7 +39,7 @@ import org.whole.lang.actions.model.Hierarchical;
 import org.whole.lang.actions.model.SubgroupAction;
 import org.whole.lang.actions.visitors.ActionsUIInterpreterVisitor;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.e4.ui.actions.ActionRegistry;
+import org.whole.lang.e4.ui.actions.ActionFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
@@ -62,7 +62,7 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings({"restriction", "unchecked"})
+@SuppressWarnings("unchecked")
 public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 	@Override
@@ -215,7 +215,7 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 		//FIXME transformer always passed as null
 		IEclipseContext context = (IEclipseContext) getBindings().wGetValue("context");
-		ActionRegistry actionRegistry = new ActionRegistry(context);
+		ActionFactory actionRegistry = new ActionFactory(context);
 
 		QueriesEntityFactory qf = QueriesEntityFactory.instance;
 		IEntity predicate = enablerPredicate instanceof OpaqueEnablerPredicate ?

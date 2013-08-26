@@ -160,7 +160,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (isWrappable(targetEntity, ed, (IEnablerPredicate) wrapAction[0])) {
 				String label = (String) wrapAction[2];
 				IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
-				wrapElements.add(contextProvider.getActionRegistry().createPerformAction(label, WRAP_ICON_URI, 
+				wrapElements.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, transformer)));
 				wrapTypes.add(ed);
 			}
@@ -170,7 +170,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (EntityUtils.isComposite(ed) && !wrapTypes.contains(ed) &&
 					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.assignableTo(ed.getEntityDescriptor(0)))) {
 				String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-				wrapElements.add(contextProvider.getActionRegistry().createPerformAction(label, WRAP_ICON_URI, 
+				wrapElements.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, DefaultWrapInTransformer.instance)));
 			}
 
