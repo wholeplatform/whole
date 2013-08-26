@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.core.commands.ParameterizedCommand;
@@ -34,12 +35,11 @@ import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.gef.Disposable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
@@ -60,8 +60,6 @@ public class ActionRegistry {
 	@Inject protected IEntityPartViewer viewer;
 
 	protected ActionFactory actionFactory;
-	protected UndoAction undoAction;
-	protected RedoAction redoAction;
 	protected Map<String, IUpdatableAction> baseActions = new HashMap<String, IUpdatableAction>();
 	protected Map<String, IUpdatableAction> selectNotationActions = new HashMap<String, IUpdatableAction>();
 	protected Map<String, Map<String, IUpdatableAction>> replaceActions = new HashMap<String, Map<String, IUpdatableAction>>();
@@ -72,11 +70,11 @@ public class ActionRegistry {
 	}
 
 	@PostConstruct
-	protected void registerBaseActions(IEntityPartViewer viewer) {
+	protected void registerBaseActions() {
 		actionFactory = new ActionFactory(context);
 
-		registerAction(undoAction = new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI));
-		registerAction(redoAction = new RedoAction(context, REDO_LABEL, REDO_ICON_URI));
+		registerAction(actionFactory.createUndoAction());
+		registerAction(actionFactory.createRedoAction());
 		registerAction(actionFactory.createE4ActionAdapter(CUT_MENU_ID));
 		registerAction(actionFactory.createE4ActionAdapter(COPY_MENU_ID));
 		registerAction(actionFactory.createE4ActionAdapter(PASTE_MENU_ID));
@@ -90,17 +88,15 @@ public class ActionRegistry {
 		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(actionFactory.createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
 		registerAction(actionFactory.createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
-
-		viewer.getControl().addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent e) {
-				if (undoAction != null)
-					undoAction.dispose();
-				if (redoAction != null)
-					redoAction.dispose();
-			}
-		});
 	}
+
+	@PreDestroy
+	protected void dipose() {
+		for (IUpdatableAction action : baseActions.values())
+			if (action instanceof Disposable)
+				((Disposable) action).dispose();
+	}
+
 	protected void registerAction(IUpdatableAction action) {
 		baseActions.put(action.getId(), action);
 	}

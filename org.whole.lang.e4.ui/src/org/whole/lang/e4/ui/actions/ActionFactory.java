@@ -117,4 +117,10 @@ public class ActionFactory {
 	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, String> parameters, int style) {
 		return new E4ActionAdapter(context, label, iconURI, commandId, parameters, style);
 	}
+	public RedoAction createRedoAction() {
+		return new RedoAction(context, REDO_LABEL, REDO_ICON_URI);
+	}
+	public UndoAction createUndoAction() {
+		return new UndoAction(context, UNDO_LABEL, UNDO_ICON_URI);
+	}
 }
