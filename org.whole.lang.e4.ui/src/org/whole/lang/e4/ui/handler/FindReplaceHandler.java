@@ -19,33 +19,33 @@ package org.whole.lang.e4.ui.handler;
 
 import javax.inject.Named;
 
-import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.ui.actions.ModelFindAction;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.e4.ui.dialogs.E4FindReplaceDialog;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
 public class FindReplaceHandler {
-
-	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		try {
-			return HandlersBehavior.isValidEntityPartSelection(bm, false);
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, @Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
-		ModelFindAction.findReplaceDialogInstance.setSelectedEntity(EntityUtils.clone(bm.wGet("primarySelectedEntity")));
-		ModelFindAction.findReplaceDialogInstance.close();
-		ModelFindAction.findReplaceDialogInstance.setParentShell(shell);
-		ModelFindAction.findReplaceDialogInstance.open();
+	public void execute(IEclipseContext context, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+
+		E4FindReplaceDialog dialog = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
+		if (dialog.getShell() == null) {
+			dialog.create();
+			dialog.open();
+		} else
+			dialog.getShell().setActive();
+
+		IEntity template = bm.wGet("primarySelectedEntity");
+
+		dialog.setTemplate(EntityUtils.isFragment(template) ?
+				CommonsEntityFactory.instance.createResolver() : EntityUtils.clone(template));
 	}
 }
