@@ -17,8 +17,6 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -26,18 +24,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.parts.ScrollableThumbnail;
 import org.eclipse.draw2d.parts.Thumbnail;
-import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.LayerConstants;
@@ -52,7 +47,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -85,7 +79,6 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.WholeImages;
-import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
@@ -101,10 +94,8 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 
 	private IEntityPartViewer graphicalViewer;
 	private SelectionSynchronizer synchronizer;
+	private ActionRegistry actionRegistry;
 	private IEclipseContext context;
-	private ECommandService commandService;
-	private EHandlerService handlerService;
-	private EBindingService bindingService;
 
 	static class OtlineTreeViewer extends E4TreeViewer {
 		public OtlineTreeViewer(IEclipseContext context) {
@@ -127,9 +118,6 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		this.synchronizer = synchronizer;
 
 		this.context = context.getParent();
-		this.commandService = this.context.get(ECommandService.class);
-		this.handlerService = this.context.get(EHandlerService.class);
-		this.bindingService = this.context.get(EBindingService.class);
 	}
 
 	@Override
@@ -138,7 +126,7 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 	}
 	@Override
 	public void setFocus() {
-		context.set(IEntityPartViewer.class, graphicalViewer);
+//		context.set(IEntityPartViewer.class, graphicalViewer);
 		super.setFocus();
 	}
 
@@ -169,26 +157,6 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		actions.add(ActionFactory.DELETE.getId());
 		actions.add(ActionFactory.FIND.getId());
 		return actions;
-	}
-
-	private ActionRegistry actionRegistry;
-	protected ActionRegistry createActionRegistry() {
-		ActionRegistry actionRegistry = new ActionRegistry(context, getControl());
-		IEntityPartViewer viewer = getViewer();
-
-		IUpdatableAction undoAction = actionRegistry.getAction(EDIT_UNDO);
-		ParameterizedCommand command = commandService.createCommand(EDIT_UNDO, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, undoAction);
-
-		IUpdatableAction redoAction = actionRegistry.getAction(EDIT_REDO);
-		command = commandService.createCommand(EDIT_REDO, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, redoAction);
-
-		IUpdatableAction deleteAction = actionRegistry.getAction(EDIT_DELETE);
-		command = commandService.createCommand(EDIT_DELETE, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, deleteAction);
-
-		return actionRegistry;
 	}
 
 	public void collapseAll(EditPart part) {
@@ -278,6 +246,8 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 	}
 
 	public void createControl(Composite parent) {
+		HandlersBehavior.registerHandlers(this.context.get(EHandlerService.class));
+
 		pageBook = new PageBook(parent, SWT.NONE);
 		outline = getViewer().createControl(pageBook);
 		overview = new Canvas(pageBook, SWT.NONE);
@@ -290,22 +260,24 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
+				context.remove(IEntityPartViewer.class);
+				context.remove(ActionRegistry.class);
 			}
 
 			@Override
 			public void focusGained(FocusEvent e) {
 				context.set(IEntityPartViewer.class, graphicalViewer);
+				context.set(ActionRegistry.class, actionRegistry);
 			}
 		});
 
 		viewer.setKeyHandler(new E4KeyHandler(context));
-
 		context.set(IEntityPartViewer.class, viewer);
 
-		actionRegistry = createActionRegistry();
-		HandlersBehavior.registerHandlers(handlerService);
-
+		actionRegistry = ContextInjectionFactory.make(ActionRegistry.class, context);
+		actionRegistry.registerWorkbenchActions();
 		context.set(ActionRegistry.class, actionRegistry);
+
 		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
 		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 

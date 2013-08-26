@@ -52,7 +52,6 @@ import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.events.FocusEvent;
@@ -78,10 +77,8 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
-@SuppressWarnings("restriction")
 public abstract class AbstractE4Part {
 	protected IEntityPartViewer viewer;
-	protected IMenuManager contextMenu;
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
@@ -106,48 +103,48 @@ public abstract class AbstractE4Part {
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		restoreState();
+		
+		HandlersBehavior.registerHandlers(handlerService);
 
 		parent.setLayout(new FillLayout());
 		viewer = createEntityViewer(parent);
-		viewer.setKeyHandler(new E4KeyHandler(context));
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				setSelection(E4Utils.createSelectionBindings(event));
+				updateSelection(E4Utils.createSelectionBindings(event));
 			}
 		});
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusLost(FocusEvent event) {
 				context.remove(IEntityPartViewer.class);
+				context.remove(ActionRegistry.class);
 			}
 
 			@Override
 			@SuppressWarnings("unchecked")
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
-				setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				context.set(ActionRegistry.class, actionRegistry);
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
 
-		viewer.setContents(modelInput, createDefaultContents());
-		
+		viewer.setKeyHandler(new E4KeyHandler(context));
+		viewer.setContents(modelInput, createDefaultContents());		
 		context.set(IEntityPartViewer.class, viewer);
-		HandlersBehavior.registerHandlers(handlerService);
 
-		contextMenu = new MenuManager("Whole Context Menu", CONTEXT_MENU_ID);
-
-		actionRegistry = createActionRegistry();
+		actionRegistry = ContextInjectionFactory.make(ActionRegistry.class, context);
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
-
 		context.set(ActionRegistry.class, actionRegistry);
+
 		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
 		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 
@@ -161,7 +158,7 @@ public abstract class AbstractE4Part {
 
 	protected abstract IEntityPartViewer createEntityViewer(Composite parent);
 
-	protected void setSelection(IBindingManager bm) {
+	protected void updateSelection(IBindingManager bm) {
 		if (modelInput != null)
 			E4Utils.defineResourceBindings(bm, modelInput);
 		selectionService.setSelection(bm);
@@ -219,7 +216,7 @@ public abstract class AbstractE4Part {
 			part.getPersistedState().put("filePath", modelInput.getFile().getFullPath().toPortableString());
 		}
 	}
-	
+
 	protected void restoreState() {
 		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
 			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
@@ -249,7 +246,7 @@ public abstract class AbstractE4Part {
 	@Focus
 	public void setFocus() {
 		viewer.getControl().setFocus();
-		setSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 	}
 
 	public IEntityPartViewer getViewer() {
@@ -262,10 +259,6 @@ public abstract class AbstractE4Part {
 		return contextMenu;
 	}
 
-	protected ActionRegistry createActionRegistry() {
-		return new ActionRegistry(context, viewer.getControl());
-	}
-	
 	public void addLinkViewerListener(ILinkViewerListener listener) { 
 		selectionLinkableListenerList.add(listener); 
 	} 

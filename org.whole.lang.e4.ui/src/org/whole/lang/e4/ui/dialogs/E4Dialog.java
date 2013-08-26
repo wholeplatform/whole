@@ -17,17 +17,12 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.commands.ParameterizedCommand;
-import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.bindings.EBindingService;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -35,7 +30,6 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -54,11 +48,12 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
-import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 /**
  * @author Enrico Persiani
@@ -73,54 +68,54 @@ public class E4Dialog extends Dialog {
 		super(shell);
 	}
 
-	@Inject
-	protected IEclipseContext context;
-	@Inject
-	protected ESelectionService selectionService;
-	@Inject
-	protected EHandlerService handlerService;
-	@Inject
-	protected ECommandService commandService;
-	@Inject
-	protected EModelService modelService;
-	@Inject
-	protected MApplication application;
-	@Inject
-	protected EBindingService bindingService;
+	@Inject	protected IEclipseContext context;
+	@Inject protected ESelectionService selectionService;
+	@Inject	protected EHandlerService handlerService;
+	@Inject	protected EModelService modelService;
+	@Inject	protected MApplication application;
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
+		HandlersBehavior.registerHandlers(handlerService);
+
 		viewer = new E4GraphicalViewer(parent);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				selectionService.setSelection(E4Utils.createSelectionBindings(event));
+				updateSelection(E4Utils.createSelectionBindings(event));
 			}
 		});
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusLost(FocusEvent event) {
+				context.remove(IEntityPartViewer.class);
+				context.remove(ActionRegistry.class);
 			}
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
-				IBindingManager bm = E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer);
-				selectionService.setSelection(bm);
+				context.set(ActionRegistry.class, actionRegistry);
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+			}
+		});
+		viewer.addPartFocusListener(new IPartFocusListener() {
+			@SuppressWarnings("unchecked")
+			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
 			}
 		});
 
 		viewer.setKeyHandler(new E4KeyHandler(context));
 		viewer.setEntityContents(createDefaultContents());
-
 		context.set(IEntityPartViewer.class, viewer);
 
-		actionRegistry = createActionRegistry();
-		HandlersBehavior.registerHandlers(handlerService);
-
+		actionRegistry = ContextInjectionFactory.make(ActionRegistry.class, context);
+		actionRegistry.registerWorkbenchActions();
 		context.set(ActionRegistry.class, actionRegistry);
+
 		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
 		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
 
@@ -133,25 +128,11 @@ public class E4Dialog extends Dialog {
 		return parent;
 	}
 
-	protected IEntity createDefaultContents() {
-		return new ErrorStatusTemplate().create();
+	protected void updateSelection(IBindingManager bm) {
+		selectionService.setSelection(bm);
 	}
 
-	protected ActionRegistry createActionRegistry() {
-		ActionRegistry actionRegistry = new ActionRegistry(context, getShell());
-
-		IUpdatableAction undoAction = actionRegistry.getAction(EDIT_UNDO);
-		ParameterizedCommand command = commandService.createCommand(EDIT_UNDO, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, undoAction);
-
-		IUpdatableAction redoAction = actionRegistry.getAction(EDIT_REDO);
-		command = commandService.createCommand(EDIT_REDO, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, redoAction);
-
-		IUpdatableAction deleteAction = actionRegistry.getAction(EDIT_DELETE);
-		command = commandService.createCommand(EDIT_DELETE, null);
-		viewer.getKeyHandler().put((KeySequence) bindingService.getBestSequenceFor(command), true, deleteAction);
-
-		return actionRegistry;
+	protected IEntity createDefaultContents() {
+		return new ErrorStatusTemplate().create();
 	}
 }
