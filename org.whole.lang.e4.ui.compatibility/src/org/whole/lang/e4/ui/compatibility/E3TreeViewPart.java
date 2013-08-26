@@ -19,17 +19,12 @@ package org.whole.lang.e4.ui.compatibility;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import org.whole.lang.e4.ui.actions.RedoAction;
-import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.E4TreePart;
 
 /**
  * @author Enrico Persiani
  */
 public class E3TreeViewPart extends E3ViewPart<E4TreePart> {
-	protected UndoAction undoAction;
-	protected RedoAction redoAction;
-
 	public E3TreeViewPart() {
 		super(TREE_PART_ID, E4TreePart.class);
 	}

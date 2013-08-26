@@ -17,7 +17,6 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
@@ -55,15 +54,14 @@ public class E3DerivedViewPart<C extends AbstractE4DerivedGraphicalPart> extends
 
 		getComponent().addLinkViewerListener(new ILinkViewerListener() {
 			public void viewerLinked(IEntityPartViewer viewer, IEntityPartViewer toViewer) {
-				trackCommandStack(viewer);
+				redirectCommandStackActions(viewer);
 			}
 			public void viewerUnlinked(IEntityPartViewer viewer) {
-				trackCommandStack(viewer);
+				redirectCommandStackActions(viewer);
 			}
-			protected void trackCommandStack(IEntityPartViewer viewer) {
-				CommandStack commandStack = viewer.getCommandStack();
-				undoAction.track(commandStack);
-				redoAction.track(commandStack);
+			protected void redirectCommandStackActions(IEntityPartViewer viewer) {
+				undoAction.redirect(viewer);
+				redoAction.redirect(viewer);
 			}
 			public void condentsDerived(IEntityPartViewer viewer, IEntity result) {
 				if (disableEditing)

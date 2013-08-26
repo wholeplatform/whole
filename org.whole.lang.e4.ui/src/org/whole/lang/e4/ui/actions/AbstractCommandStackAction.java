@@ -20,7 +20,6 @@ package org.whole.lang.e4.ui.actions;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.Disposable;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
 import org.whole.lang.bindings.IBindingManager;
@@ -34,7 +33,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
  */
 public abstract class AbstractCommandStackAction extends AbstractE4Action implements Disposable {
 	protected IEntityPartViewer viewer;
-	protected CommandStack trackingCommandStack;
 	protected CommandStackEventListener listener;
 	protected String label;
 
@@ -42,24 +40,16 @@ public abstract class AbstractCommandStackAction extends AbstractE4Action implem
 		super(context, label);
 		this.label = label;
 		this.viewer = context.get(IEntityPartViewer.class);
-		track(viewer.getCommandStack());
-	}
-
-	public void track(CommandStack commandStack) {
-		if (listener != null)
-			trackingCommandStack.removeCommandStackEventListener(listener);
-
-		trackingCommandStack = commandStack;
-		trackingCommandStack.addCommandStackEventListener(listener = new CommandStackEventListener() {
-			public void stackChanged(CommandStackEvent event) {
-				if (event.isPostChangeEvent())
-					update();
-			}
-		});
+		this.viewer.getCommandStack().addCommandStackEventListener(this.listener = new PostChangeUpdater());
 	}
 	public void dispose() {
 		if (viewer != null)
 			viewer.getCommandStack().removeCommandStackEventListener(listener);
+	}
+
+	public void redirect(IEntityPartViewer viewer) {
+		this.viewer.getCommandStack().removeCommandStackEventListener(listener);
+		(this.viewer = viewer).getCommandStack().addCommandStackEventListener(listener);
 	}
 
 	@Override
@@ -90,4 +80,11 @@ public abstract class AbstractCommandStackAction extends AbstractE4Action implem
 	protected abstract void doRun(IEntityPartViewer viewer);
 	protected abstract boolean calculateEnabled(IEntityPartViewer viewer);
 	protected abstract String calculateLabel(IEntityPartViewer viewer);
+
+	private class PostChangeUpdater implements CommandStackEventListener {
+		public void stackChanged(CommandStackEvent event) {
+			if (event.isPostChangeEvent())
+				update();
+		}
+	}
 }
