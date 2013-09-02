@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.ContextMenuProvider;
@@ -35,6 +36,7 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -50,7 +52,9 @@ import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -71,14 +75,16 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected E4GraphicalViewer replaceViewer;
 	protected ActionRegistry replaceActionRegistry;
 	protected Control buttonPanel;
+	protected IEntity foundEntity;
 
 	@Inject
 	public E4FindReplaceDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		super(shell);
 		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.RESIZE | SWT.TITLE);
 		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
-		this.selectionTracking = true;
 		this.buttonPanel = null;
+		enableSelectionTracking(true);
+		clearFoundEntity();
 	}
 
 	@Override
@@ -156,24 +162,75 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected void buttonPressed(int buttonId) {
 		super.buttonPressed(buttonId);
 
-		switch (buttonId) {
-		case FIND_ID:
-			IEntity entityContents = viewer.getEntityContents();
-			iterator.withPattern(entityContents);
-			if (iterator.hasNext()) {
-				selectionTracking = false;
-				IEntity next = iterator.next();
-				IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
-				viewer.selectAndReveal(next);
-				selectionTracking = true;
+		boolean state = enableSelectionTracking(false);
+		try {
+			switch (buttonId) {
+			case FIND_ID:
+				doFind();
+				break;
+	
+			case REPLACE_ID:
+				doReplace(true);
+				break;
+	
+			case REPLACE_FIND_ID:
+				doReplace(false);
+				doFind();
+				break;
+	
+			case REPLACE_ALL_ID:
+				break;
+	
+			case IDialogConstants.CLOSE_ID:
+			default:
+				okPressed();
+				break;
 			}
-			break;
-
-		case IDialogConstants.CLOSE_ID:
-		default:
-			okPressed();
-			break;
+		} finally {
+			enableSelectionTracking(state);
 		}
+	}
+
+	protected void doFind() {
+		iterator.withPattern(viewer.getEntityContents());
+		if (findNext())
+			selectAndReveal(getFoundEntity());
+	}
+
+	protected void doReplace(boolean updateSelection) {
+		if (!hasFoundEntity())
+			return;
+
+		final IEntity replacement = EntityUtils.clone(replaceViewer.getEntityContents());
+		ModelTransactionCommand command = new ModelTransactionCommand();
+		try {
+			command.setModel(getFoundEntity());
+			command.begin();
+			iterator.set(replacement);
+			command.commit();
+		} catch (Exception e) {
+			command.rollback();
+		} finally {
+			clearFoundEntity();
+		}
+		IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
+		viewer.getCommandStack().execute(command);
+		if (updateSelection) {
+			FigureCanvas figureCanvas = (FigureCanvas) viewer.getControl();
+			figureCanvas.getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					boolean state = enableSelectionTracking(false);
+					selectAndReveal(replacement);
+					enableSelectionTracking(state);
+				}
+			});
+		}
+	}
+
+	protected void selectAndReveal(IEntity entity) {
+		IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
+		viewer.selectAndReveal(entity);
 	}
 
 	@Override
@@ -195,13 +252,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 		return composite;
 	}
 
-	protected Control getButtonPanel() {
-		return buttonPanel;
-	}
-
 	@Inject
 	protected void setSelection(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection) {
-		if (!selectionTracking || selection.wGetValue("viewer") == viewer)
+		if (!isSelectionTracking() || selection.wGetValue("viewer") == viewer)
 			return;
 
 		this.selection = selection.wClone();
@@ -211,12 +264,50 @@ public class E4FindReplaceDialog extends E4Dialog {
 			IEntity primarySelectedEntity = this.selection.wGet("primarySelectedEntity");
 			if (primarySelectedEntity != self) {
 				iterator.skipToSame(primarySelectedEntity);
-				if (iterator.hasNext())
-					iterator.next();
+				findNext();
 			}
 		}
 	}
 
+	protected boolean isSelectionTracking() {
+		return selectionTracking;
+	}
+	protected boolean enableSelectionTracking(boolean enable) {
+		boolean state = selectionTracking;
+		selectionTracking = enable;
+		return state;
+	}
+
+	protected boolean findNext() {
+		boolean hasNext = iterator.hasNext();
+		foundEntity = hasNext ? iterator.next() : null;
+		updateButtonsEnablement(hasNext);
+		return hasNext;
+	}
+	protected void clearFoundEntity() {
+		foundEntity = null;
+		updateButtonsEnablement(false);
+	}
+	protected IEntity getFoundEntity() {
+		return foundEntity;
+	}
+	protected boolean hasFoundEntity() {
+		return foundEntity != null;
+	}
+
+	protected void updateButtonsEnablement(boolean enabled) {
+		Button button = getButton(REPLACE_FIND_ID);
+		if (button != null)
+			button.setEnabled(enabled);
+		button = getButton(REPLACE_ID);
+		if (button != null)
+			button.setEnabled(enabled);
+	}
+
+	protected Control getButtonPanel() {
+		return buttonPanel;
+	}
+	
 	public void setTemplate(IEntity template) {
 		viewer.setEntityContents(template);
 		replaceViewer.setEntityContents(CommonsEntityFactory.instance.createResolver());
