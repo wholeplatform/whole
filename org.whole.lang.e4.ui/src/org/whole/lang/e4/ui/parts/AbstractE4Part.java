@@ -77,6 +77,9 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 
+/**
+ * @author Enrico Persiani
+ */
 public abstract class AbstractE4Part {
 	protected IEntityPartViewer viewer;
 	protected ActionRegistry actionRegistry;
