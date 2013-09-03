@@ -21,8 +21,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.jface.action.IMenuManager;
@@ -76,6 +77,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected ActionRegistry replaceActionRegistry;
 	protected Control buttonPanel;
 	protected IEntity foundEntity;
+	protected boolean freshTemplate;
 
 	@Inject
 	public E4FindReplaceDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
@@ -85,6 +87,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		this.buttonPanel = null;
 		enableSelectionTracking(true);
 		clearFoundEntity();
+		clearFreshTemplate();
 	}
 
 	@Override
@@ -162,6 +165,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected void buttonPressed(int buttonId) {
 		super.buttonPressed(buttonId);
 
+		clearFreshTemplate();
+
 		boolean state = enableSelectionTracking(false);
 		try {
 			switch (buttonId) {
@@ -179,6 +184,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 				break;
 	
 			case REPLACE_ALL_ID:
+				doReplaceAll();
 				break;
 	
 			case IDialogConstants.CLOSE_ID:
@@ -196,7 +202,6 @@ public class E4FindReplaceDialog extends E4Dialog {
 		if (findNext())
 			selectAndReveal(getFoundEntity());
 	}
-
 	protected void doReplace(boolean updateSelection) {
 		if (!hasFoundEntity())
 			return;
@@ -216,8 +221,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 		IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
 		viewer.getCommandStack().execute(command);
 		if (updateSelection) {
-			FigureCanvas figureCanvas = (FigureCanvas) viewer.getControl();
-			figureCanvas.getDisplay().asyncExec(new Runnable() {
+			Control control = viewer.getControl();
+			control.getDisplay().asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					boolean state = enableSelectionTracking(false);
@@ -226,6 +231,42 @@ public class E4FindReplaceDialog extends E4Dialog {
 				}
 			});
 		}
+	}
+	protected void doReplaceAll() {
+		IEntity self = selection.wGet("self");
+		iterator.reset(self);
+
+		if (!findNext())
+			return;
+
+		boolean state = enableSelectionTracking(false);
+		IEntity replacement = replaceViewer.getEntityContents();
+		ModelTransactionCommand command = new ModelTransactionCommand();
+		command.setModel(getFoundEntity());
+		try {
+			command.begin();
+			do {
+				iterator.set(replacement = EntityUtils.clone(replacement));
+			} while (findNext());
+			command.commit();
+		} catch (Exception e) {
+			command.rollback();
+		} finally {
+			clearFoundEntity();
+		}
+		IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
+		viewer.getCommandStack().execute(command);
+		Control control = viewer.getControl();
+		final IEntity revealEntity = replacement;
+		control.getDisplay().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				boolean state = enableSelectionTracking(false);
+				selectAndReveal(revealEntity);
+				enableSelectionTracking(state);
+			}
+		});
+		enableSelectionTracking(state);
 	}
 
 	protected void selectAndReveal(IEntity entity) {
@@ -253,7 +294,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	@Inject
-	protected void setSelection(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection) {
+	protected void setSelection(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
 		if (!isSelectionTracking() || selection.wGetValue("viewer") == viewer)
 			return;
 
@@ -264,7 +305,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 			IEntity primarySelectedEntity = this.selection.wGet("primarySelectedEntity");
 			if (primarySelectedEntity != self) {
 				iterator.skipToSame(primarySelectedEntity);
-				findNext();
+				if (isFreshTemplate())
+					findNext();
 			}
 		}
 	}
@@ -295,6 +337,16 @@ public class E4FindReplaceDialog extends E4Dialog {
 		return foundEntity != null;
 	}
 
+	protected void setFreshTemplate() {
+		this.freshTemplate = true;
+	}
+	protected void clearFreshTemplate() {
+		this.freshTemplate = false;
+	}
+	protected boolean isFreshTemplate() {
+		return freshTemplate;
+	}
+
 	protected void updateButtonsEnablement(boolean enabled) {
 		Button button = getButton(REPLACE_FIND_ID);
 		if (button != null)
@@ -318,5 +370,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		int minWidth = Math.max(VIEWER_MINIMUM_WIDTH, Math.max(buttonBarSize.x, buttonPanelSize.x));
 		int minHeight = VIEWER_MINIMUM_HEIGHT + buttonBarSize.y + buttonPanelSize.y;
 		getShell().setMinimumSize(new Point(minWidth, minHeight));
+		
+		setFreshTemplate();
 	}
 }
