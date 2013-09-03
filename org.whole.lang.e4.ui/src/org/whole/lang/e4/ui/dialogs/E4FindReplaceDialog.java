@@ -97,7 +97,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText(IUIConstants.FIND_REPLACE_DIALOG_TITLE);
+		shell.setText(IUIConstants.FIND_REPLACE_DIALOG_TEXT);
 		setBlockOnOpen(false);
 	}
 
@@ -173,7 +173,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		composite.setLayout(layout);
 		
 		//FIXME workaround to prevent button reordering on Shell.setDefaultButton()
-		final Button button = createButton(composite, FIND_ID, "Find", false);
+		final Button button = createButton(composite, FIND_ID, IUIConstants.FIND_BUTTON_TEXT, false);
 		getShell().addShellListener(new ShellAdapter() {
 			@Override
 			public void shellActivated(ShellEvent e) {
@@ -181,9 +181,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 			}
 		});
 
-		createButton(composite, REPLACE_ID, "Replace", false);
-		createButton(composite, REPLACE_FIND_ID, "Find/Replace", false);
-		createButton(composite, REPLACE_ALL_ID, "Replace All", false);
+		createButton(composite, REPLACE_ID, IUIConstants.REPLACE_BUTTON_TEXT, false);
+		createButton(composite, REPLACE_FIND_ID, IUIConstants.REPLACE_FIND_BUTTON_TEXT, false);
+		createButton(composite, REPLACE_ALL_ID, IUIConstants.REPLACE_ALL_BUTTON_TEXT, false);
 		composite.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, false));
 		return composite;
 	}
@@ -367,7 +367,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		foundEntity = hasNext ? iterator.next() : null;
 		updateButtonsEnablement(hasNext);
 		if (updateStatus)
-			setStatusMessage(hasNext ? "" : "Pattern Not Found");
+			setStatusMessage(hasNext ? "" : IUIConstants.PATTERN_NOT_FOUND_TEXT);
 		return hasNext;
 	}
 	protected void clearFoundEntity() {

@@ -148,5 +148,12 @@ public interface IUIConstants {
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
 
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
-	public static final String FIND_REPLACE_DIALOG_TITLE = "Find/Replace";
+
+	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
+	public static final String FIND_BUTTON_TEXT = "Find";
+	public static final String REPLACE_BUTTON_TEXT = "Replace";
+	public static final String REPLACE_FIND_BUTTON_TEXT = "Find/Replace";
+	public static final String REPLACE_ALL_BUTTON_TEXT = "Replace All";
+	public static final String PATTERN_NOT_FOUND_TEXT = "Pattern Not Found";
+
 }
