@@ -23,7 +23,9 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * @author Enrico Persiani
@@ -57,7 +59,20 @@ public class E4EditDomain extends EditDomain {
 			return false;
 
 		FigureCanvas figureCanvas = (FigureCanvas) viewer.getControl();
-		return !figureCanvas.getClientArea().contains(mouseEvent.x, mouseEvent.y);
+		if (!figureCanvas.getClientArea().contains(mouseEvent.x, mouseEvent.y))
+			return true;
+
+		Shell canvasShell = figureCanvas.getShell();
+		Point absolutePoint = figureCanvas.toDisplay(mouseEvent.x, mouseEvent.y);
+		for (Shell shell : figureCanvas.getDisplay().getShells()) {
+			if (shell == canvasShell || !shell.isVisible())
+				continue;
+
+			if (shell.getBounds().contains(absolutePoint))
+				return true;
+		}
+		
+		return false;
 	}
 
 	protected void abortDragTracker(EditPartViewer viewer) {
