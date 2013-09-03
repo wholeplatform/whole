@@ -34,12 +34,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
@@ -76,6 +79,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected E4GraphicalViewer replaceViewer;
 	protected ActionRegistry replaceActionRegistry;
 	protected Control buttonPanel;
+	protected Control statusPanel;
+	protected Label statusLabel;
 	protected IEntity foundEntity;
 	protected boolean freshTemplate;
 
@@ -84,7 +89,6 @@ public class E4FindReplaceDialog extends E4Dialog {
 		super(shell);
 		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.RESIZE | SWT.TITLE);
 		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
-		this.buttonPanel = null;
 		enableSelectionTracking(true);
 		clearFoundEntity();
 		clearFreshTemplate();
@@ -157,10 +161,67 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
-		createButton(parent, IDialogConstants.CLOSE_ID, "Close", false);
+	protected Control createButtonBar(Composite parent) {
+		buttonPanel = createButtonPanel(parent);
+		statusPanel = createStatusPanel(parent);
+		return buttonPanel;
+	}
+
+	protected Control createButtonPanel(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(-2, false);
+		composite.setLayout(layout);
+		
+		//FIXME workaround to prevent button reordering on Shell.setDefaultButton()
+		final Button button = createButton(composite, FIND_ID, "Find", false);
+		getShell().addShellListener(new ShellAdapter() {
+			@Override
+			public void shellActivated(ShellEvent e) {
+				((Shell) e.widget).setDefaultButton(button);
+			}
+		});
+
+		createButton(composite, REPLACE_ID, "Replace", false);
+		createButton(composite, REPLACE_FIND_ID, "Find/Replace", false);
+		createButton(composite, REPLACE_ALL_ID, "Replace All", false);
+		composite.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, false));
+		return composite;
 	}
 	
+	protected Control createStatusPanel(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(1, false);
+		composite.setLayout(layout);
+		statusLabel = new Label(composite, SWT.LEFT);
+		statusLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		Button button = createButton(composite, IDialogConstants.CLOSE_ID, "Close", false);
+		GridData gridData = (GridData) button.getLayoutData();
+		gridData.horizontalAlignment = SWT.RIGHT;
+		gridData.verticalAlignment = SWT.BOTTOM;
+		gridData.grabExcessHorizontalSpace = gridData.grabExcessVerticalSpace = false;
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, false));
+		return composite;
+	}
+
+	protected void updateButtonsEnablement(boolean enabled) {
+		Button button = getButton(REPLACE_FIND_ID);
+		if (button != null)
+			button.setEnabled(enabled);
+		button = getButton(REPLACE_ID);
+		if (button != null)
+			button.setEnabled(enabled);
+	}
+
+	protected Control getButtonPanel() {
+		return buttonPanel;
+	}
+	protected Control getStatusPanel() {
+		return statusPanel;
+	}
+	protected void setStatusMessage(String message) {
+		statusLabel.setText(message);
+	}
+
 	@Override
 	protected void buttonPressed(int buttonId) {
 		super.buttonPressed(buttonId);
@@ -199,7 +260,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 
 	protected void doFind() {
 		iterator.withPattern(viewer.getEntityContents());
-		if (findNext())
+		if (findNext(true))
 			selectAndReveal(getFoundEntity());
 	}
 	protected void doReplace(boolean updateSelection) {
@@ -236,7 +297,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		IEntity self = selection.wGet("self");
 		iterator.reset(self);
 
-		if (!findNext())
+		if (!findNext(true))
 			return;
 
 		boolean state = enableSelectionTracking(false);
@@ -247,7 +308,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			command.begin();
 			do {
 				iterator.set(replacement = EntityUtils.clone(replacement));
-			} while (findNext());
+			} while (findNext(true));
 			command.commit();
 		} catch (Exception e) {
 			command.rollback();
@@ -274,28 +335,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 		viewer.selectAndReveal(entity);
 	}
 
-	@Override
-	protected Control createButtonBar(Composite parent) {
-		buttonPanel = createButtonPanel(parent);
-		return super.createButtonBar(parent);
-	}
-
-	protected Control createButtonPanel(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout(2, false);
-		composite.setLayout(layout);
-		createButton(composite, FIND_ID, "Find", true);
-		createButton(composite, REPLACE_ID, "Replace", false);
-		createButton(composite, REPLACE_FIND_ID, "Replace/Find", false);
-		createButton(composite, REPLACE_ALL_ID, "Replace All", false);
-		layout.numColumns = 2;
-		composite.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, false));
-		return composite;
-	}
-
 	@Inject
 	protected void setSelection(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
-		if (!isSelectionTracking() || selection.wGetValue("viewer") == viewer)
+		if (!isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
 			return;
 
 		this.selection = selection.wClone();
@@ -306,7 +348,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			if (primarySelectedEntity != self) {
 				iterator.skipToSame(primarySelectedEntity);
 				if (isFreshTemplate())
-					findNext();
+					findNext(false);
 			}
 		}
 	}
@@ -320,10 +362,12 @@ public class E4FindReplaceDialog extends E4Dialog {
 		return state;
 	}
 
-	protected boolean findNext() {
+	protected boolean findNext(boolean updateStatus) {
 		boolean hasNext = iterator.hasNext();
 		foundEntity = hasNext ? iterator.next() : null;
 		updateButtonsEnablement(hasNext);
+		if (updateStatus)
+			setStatusMessage(hasNext ? "" : "Pattern Not Found");
 		return hasNext;
 	}
 	protected void clearFoundEntity() {
@@ -346,31 +390,19 @@ public class E4FindReplaceDialog extends E4Dialog {
 	protected boolean isFreshTemplate() {
 		return freshTemplate;
 	}
-
-	protected void updateButtonsEnablement(boolean enabled) {
-		Button button = getButton(REPLACE_FIND_ID);
-		if (button != null)
-			button.setEnabled(enabled);
-		button = getButton(REPLACE_ID);
-		if (button != null)
-			button.setEnabled(enabled);
-	}
-
-	protected Control getButtonPanel() {
-		return buttonPanel;
-	}
 	
 	public void setTemplate(IEntity template) {
 		viewer.setEntityContents(template);
 		replaceViewer.setEntityContents(CommonsEntityFactory.instance.createResolver());
 
 		// set dialog minimum size
-		Point buttonBarSize = getButtonBar().getSize();
+		Point buttonBarSize = getStatusPanel().getSize();
 		Point buttonPanelSize = getButtonPanel().getSize();
 		int minWidth = Math.max(VIEWER_MINIMUM_WIDTH, Math.max(buttonBarSize.x, buttonPanelSize.x));
 		int minHeight = VIEWER_MINIMUM_HEIGHT + buttonBarSize.y + buttonPanelSize.y;
 		getShell().setMinimumSize(new Point(minWidth, minHeight));
 		
 		setFreshTemplate();
+		setStatusMessage("");
 	}
 }
