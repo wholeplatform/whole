@@ -101,7 +101,6 @@ public class XsiModelTemplateTest extends TestCase {
 		assertTrue(Matcher.match(xmlModelFromXsiModel, xmlModel));
 	}
 
-	//FIXME
 	public void testXsdModelTemplate() throws Exception {
 		String pacs002FileName = "pacs.002.001.02S2.xsd";
 		IEntity xsdPacs002 = loadXMLSchema(pacs002FileName);

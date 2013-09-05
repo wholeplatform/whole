@@ -552,12 +552,12 @@ public class DataTypeUtilsTest extends TestCase {
 	}
 
 	public void testNullBoxUnbox() throws Exception {
-		assertNull(unbox(box(null, CommonsEntityDescriptorEnum.Resolver), Resolver.class));
-
 		assertNull(unbox(box(null, ObjectData), Object.class));
 		assertNull(unbox(box(null, StringData), String.class));
 
-		assertNull(unbox(box(null, CommonsEntityDescriptorEnum.Any), List.class));
+		assertNotNull(unbox(box(null, CommonsEntityDescriptorEnum.Resolver), Resolver.class));
+		assertNotNull(unbox(box(null, CommonsEntityDescriptorEnum.Any), List.class));
+
 		assertNotNull(unbox(box(null, ContainmentTuple), List.class));
 	}
 
