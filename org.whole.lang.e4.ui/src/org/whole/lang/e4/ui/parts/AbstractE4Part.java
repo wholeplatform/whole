@@ -85,7 +85,7 @@ public abstract class AbstractE4Part {
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
-	protected ListenerList selectionLinkableListenerList;
+	protected ListenerList linkViewerListenerList;
 	protected ILinkableSelectionListener selectionLinkable;
 
 	@Inject IEclipseContext context;
@@ -100,7 +100,7 @@ public abstract class AbstractE4Part {
 	@Inject IWorkspace workspace;
 
 	public AbstractE4Part() {
-		this.selectionLinkableListenerList = new ListenerList();
+		this.linkViewerListenerList = new ListenerList();
 	}
 
 	@PostConstruct
@@ -121,8 +121,8 @@ public abstract class AbstractE4Part {
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent event) {
-				context.remove(IEntityPartViewer.class);
-				context.remove(ActionRegistry.class);
+//				context.remove(IEntityPartViewer.class);
+//				context.remove(ActionRegistry.class);
 			}
 
 			@Override
@@ -263,23 +263,23 @@ public abstract class AbstractE4Part {
 	}
 
 	public void addLinkViewerListener(ILinkViewerListener listener) { 
-		selectionLinkableListenerList.add(listener); 
+		linkViewerListenerList.add(listener); 
 	} 
 	public void removeLinkViewerListener(ILinkViewerListener listener) { 
-		selectionLinkableListenerList.remove(listener); 
+		linkViewerListenerList.remove(listener); 
 	} 
 	protected void fireViewerLinked(IEntityPartViewer toViewer) { 
-		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
 		for (int i = 0; i < listeners.length; i++)
 			((ILinkViewerListener) listeners[i]).viewerLinked(getViewer(), toViewer); 
 	}
 	protected void fireViewerUnlinked() { 
-		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
 		for (int i = 0; i < listeners.length; i++)
 			((ILinkViewerListener) listeners[i]).viewerUnlinked(getViewer()); 
 	}
 	protected void fireContentsDerived(IEntity result) { 
-		Object[] listeners = selectionLinkableListenerList.getListeners(); 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
 		for (int i = 0; i < listeners.length; i++)
 			((ILinkViewerListener) listeners[i]).condentsDerived(getViewer(), result); 
 	}
