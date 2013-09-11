@@ -43,10 +43,13 @@ public class ClearContentsAction extends AbstractE4Action {
 	public void run() {
 		IEntityPartViewer viewer = getContext().get(IEntityPartViewer.class);
 		viewer.setContents(null, createDefaultContents());
+		update();
 	}
 	
 	@Override
 	public void update() {
+		IEntityPartViewer viewer = getContext().get(IEntityPartViewer.class);
+		setEnabled(viewer.hasContents());
 	}
 
 	protected IEntity createDefaultContents() {

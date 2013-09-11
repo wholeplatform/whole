@@ -20,27 +20,26 @@ package org.whole.lang.e4.ui.compatibility;
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.PartInitException;
-import org.whole.lang.e4.ui.actions.ClearContentsAction;
 import org.whole.lang.e4.ui.parts.E4ResultsGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
 public class E3ResultsViewPart extends E3ViewPart<E4ResultsGraphicalPart> {
-	protected ClearContentsAction clearContentsAction;
-
 	public E3ResultsViewPart() {
 		super(RESULTS_PART_ID, E4ResultsGraphicalPart.class);
 	}
-
+	
 	@Override
-	public void init(IViewSite site) throws PartInitException {
-		super.init(site);
-		IActionBars actionBars = site.getActionBars();
+	public void createPartControl(Composite parent) {
+		super.createPartControl(parent);
+
+		IViewSite viewSite = getViewSite();
+		IActionBars actionBars = viewSite.getActionBars();
 		IToolBarManager toolBarManager = actionBars.getToolBarManager();
-		toolBarManager.add(clearContentsAction = new ClearContentsAction(getContext()));
+		toolBarManager.add(getComponent().getClearContentsAction());
 	}
 }
