@@ -22,6 +22,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
+import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.ui.views.ContextView;
 import org.whole.lang.ui.views.DebugView;
 import org.whole.lang.ui.views.DetailsView;
@@ -61,6 +62,7 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 		folder.addView(VariablesView.ID);
 		folder.addPlaceholder(ContextView.ID);
 		folder.addPlaceholder(ResultsView.ID);
+		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
 		folder.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 	}
 
