@@ -23,8 +23,12 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Jav
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -33,6 +37,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
@@ -44,11 +50,15 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ide.WholeIDEDebugPerspectiveFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
@@ -167,26 +177,46 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 
 		final IEntity breakpointEntity = entity;
 		final IEntity debugModel = EntityUtils.safeGetRootEntity(entity);//TODO add variable
+		final IEclipseContext context = (IEclipseContext) PlatformUI.getWorkbench().getService(IEclipseContext.class);
 
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
 				WholeUIPlugin.revealPerspective(WholeIDEDebugPerspectiveFactory.ID);
-				debugView = (DebugView) WholeUIPlugin.revealView(DebugView.class.getName());
-				VariablesView variablesView = (VariablesView) WholeUIPlugin.revealView(VariablesView.class.getName());
-
-				variablesView.setContents(variablesModel);
-				debugView.setContents(debugModel);
-				debugView.selectAndReveal(breakpointEntity);
-
-				if (debugEnv.wIsSet("self")) {
-					IEntity selfEntity = debugEnv.wGet("self");
-					IEditorPart editorPart = UIUtils.getActiveEditor();
-					if (editorPart instanceof WholeGraphicalEditor)
-						((WholeGraphicalEditor) editorPart).selectAndReveal(selfEntity);
+				
+				if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer)
+					E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
+				else {
+					debugView = (DebugView) WholeUIPlugin.revealView(DebugView.class.getName());
+					VariablesView variablesView = (VariablesView) WholeUIPlugin.revealView(VariablesView.class.getName());
+					
+					variablesView.setContents(variablesModel);
+					debugView.setContents(debugModel);
+					debugView.selectAndReveal(breakpointEntity);
+					
+					if (debugEnv.wIsSet("self")) {
+						IEntity selfEntity = debugEnv.wGet("self");
+						IEditorPart editorPart = UIUtils.getActiveEditor();
+						if (editorPart instanceof WholeGraphicalEditor)
+							((WholeGraphicalEditor) editorPart).selectAndReveal(selfEntity);
+					}
 				}
 			}
 		});
-		debugView.doBreak(debugEnv);
+		if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer) {
+			CyclicBarrier barrier = new CyclicBarrier(2);
+			IEventBroker eventBroker = context.get(IEventBroker.class);
+			eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {breakpointEntity, debugEnv, barrier});
+			try {
+				barrier.await();
+			} catch (InterruptedException e) {
+				throw new IllegalStateException(e);
+			} catch (BrokenBarrierException e) {
+				
+				throw new OperationCanceledException(e);
+			}
+
+		} else
+			debugView.doBreak(debugEnv);
 	}
 	private DebugView debugView;
 
