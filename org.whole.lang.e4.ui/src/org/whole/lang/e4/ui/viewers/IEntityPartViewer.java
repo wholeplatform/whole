@@ -41,6 +41,7 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public void setEntityContents(IEntity entity);
 	public void setContents(IModelInput modelInput, IEntity defaultContents);
 	public void reloadContents();
+	public boolean hasContents();
 
 	public Map<IEntity, IEntityPart> getEditPartRegistry();
 	public IEntityPart getFocusEntityPart();

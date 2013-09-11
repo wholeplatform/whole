@@ -182,6 +182,9 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		super.setContents(wrapContents(root));
 		updateModelObserver(root);
 	}
+	public boolean hasContents() {
+		return CoreMetaModelsDeployer.STATUS_URI.equals(getEntityContents().wGetLanguageKit().getURI());
+	}
 
 	public Map<IEntity, IEntityPart> getEditPartRegistry() {
 		return super.getEditPartRegistry();

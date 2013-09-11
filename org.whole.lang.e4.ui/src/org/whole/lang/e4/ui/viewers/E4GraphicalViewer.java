@@ -188,6 +188,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		super.setContents(wrapContents(root));
 		updateModelObserver(root);
 	}
+	public boolean hasContents() {
+		return !CoreMetaModelsDeployer.STATUS_URI.equals(getEntityContents().wGetLanguageKit().getURI());
+	}
 
 	@SuppressWarnings("unchecked")
 	public Map<IEntity, IEntityPart> getEditPartRegistry() {
