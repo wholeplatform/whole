@@ -98,7 +98,9 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 	private IEclipseContext context;
 
 	static class OtlineTreeViewer extends E4TreeViewer {
+		protected IEclipseContext context;
 		public OtlineTreeViewer(IEclipseContext context) {
+			this.context = context;
 			this.modelInput = context.get(IModelInput.class);
 		}
 		@SuppressWarnings("unchecked")
