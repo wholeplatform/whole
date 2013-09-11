@@ -33,6 +33,7 @@ public interface IUIConstants {
 	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
 	public static final String RESULTS_PART_ID = BUNDLE_ID+".part.results";
 	public static final String TREE_PART_ID = BUNDLE_ID+".part.tree";
+	public static final String DEBUG_PART_ID = BUNDLE_ID+".part.debug";
 
 	// context menu id
 	public static final String CONTEXT_MENU_ID = BUNDLE_ID+".context.menu";
@@ -118,6 +119,10 @@ public interface IUIConstants {
 
 	public static final String CLEAR_CONTENTS_URI = E4Utils.createPlatformPuginURI("icons/actions/clear_contents.gif");
 
+	public static final String DEBUG_RUN_URI = E4Utils.createPlatformPuginURI("icons/actions/run.gif");
+	public static final String DEBUG_RESUME_URI = E4Utils.createPlatformPuginURI("icons/actions/resume.gif");
+	public static final String DEBUG_TERMINATE_URI = E4Utils.createPlatformPuginURI("icons/actions/terminate.gif");
+
 	// labels
 	public static final String UNDO_LABEL = "Undo";
 	public static final String REDO_LABEL = "Redo";
@@ -144,10 +149,15 @@ public interface IUIConstants {
 	public static final String CLEAR_CONTENTS_LABEL = "Feature Assist";
 	public static final String SAVE_AS_LABEL = "Save As...";
 
+	public static final String DEBUG_RUN_LABEL = "Run";
+	public static final String DEBUG_RESUME_LABEL = "Resume";
+	public static final String DEBUG_TERMINATE_LABEL = "Terminate";
+
 	// tag used to render a GroupMarker instead of a Separator
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
 
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
+	public static final String TOPIC_BREAK_DEBUG = "TOPIC_BREAK_DEBUG";
 
 	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
 	public static final String FIND_BUTTON_TEXT = "Find";
@@ -155,5 +165,4 @@ public interface IUIConstants {
 	public static final String REPLACE_FIND_BUTTON_TEXT = "Find/Replace";
 	public static final String REPLACE_ALL_BUTTON_TEXT = "Replace All";
 	public static final String PATTERN_NOT_FOUND_TEXT = "Pattern Not Found";
-
 }
