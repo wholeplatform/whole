@@ -23,30 +23,23 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.PartInitException;
 import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
 public class E3DebugViewPart extends E3ViewPart<E4DebugGraphicalPart> {
-	protected IToolBarManager toolBarManager;
-
 	public E3DebugViewPart() {
 		super(DEBUG_PART_ID, E4DebugGraphicalPart.class);
 	}
 
 	@Override
-	public void init(IViewSite site) throws PartInitException {
-		super.init(site);
-		IActionBars actionBars = site.getActionBars();
-		this.toolBarManager = actionBars.getToolBarManager();
-	}
-
-	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-
+		
+		IViewSite viewSite = getViewSite();
+		IActionBars actionBars = viewSite.getActionBars();
+		IToolBarManager toolBarManager = actionBars.getToolBarManager();
 		toolBarManager.add(getComponent().getRunAction(getContext()));
 		toolBarManager.add(getComponent().getResumeAction(getContext()));
 		toolBarManager.add(getComponent().getTerminateAction(getContext()));
