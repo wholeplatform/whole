@@ -53,7 +53,6 @@ public class WholeURIResolver extends AbstractURIResolver {
 		sb.append(StringUtils.packageURIPath(part[1]));
 		sb.append('/');
 		sb.append(part[2]);
-		//TODO append version derived suffix
 		sb.append(".xwl");
 		return sb.toString();
 	}
@@ -66,7 +65,8 @@ public class WholeURIResolver extends AbstractURIResolver {
 		return uri.substring(startIndex, uri.indexOf(':', startIndex));
 	}
 	public static String getVersion(String uri) {
-		return uri.substring(uri.lastIndexOf(':'));
+		String[] part = uri.split(":");
+		return part.length == 4 ? part[3] : "";
 	}
 	public static String getURI(String namespace, String name, String version) {
 		StringBuilder sb = new StringBuilder(
@@ -75,8 +75,10 @@ public class WholeURIResolver extends AbstractURIResolver {
 		sb.append(namespace);
 		sb.append(':');
 		sb.append(name);
-		sb.append(':');
-		sb.append(version);
+		if (version != null && !version.isEmpty()) {
+			sb.append(':');
+			sb.append(version);
+		}
 		return sb.toString();
 	}
 }

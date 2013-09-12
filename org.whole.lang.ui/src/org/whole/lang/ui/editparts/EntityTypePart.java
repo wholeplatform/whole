@@ -32,7 +32,7 @@ public class EntityTypePart extends AbstractOverQualifiedDataEntityPart {
 		String uri = ResourceUtils.getResourceFragmentUri(qname);
 		if (uri != null) {
 			if (ReflectionFactory.hasLanguageKit(uri, true, null))
-				return ReflectionFactory.getLanguageKit(uri, false, null).getName();
+				return ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null));
 			else {
 				//TODO in both branches
 				EditPartViewer viewer = getViewer();

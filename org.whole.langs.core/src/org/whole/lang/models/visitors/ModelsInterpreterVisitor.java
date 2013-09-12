@@ -108,11 +108,21 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 					languageURI = AbstractLanguageKit.calculateURI(languageNamespace, languageName);			
 			} else
 				languageURI = model.getUri().getValue();
-	
+
+			String languageVersion;
+			if (EntityUtils.isResolver(model.getVersion())) {
+				if (bm.wIsSet("version"))
+					languageVersion = bm.wStringValue("version");
+				else
+					languageVersion = "";			
+			} else
+				languageVersion = model.getVersion().getValue();
+
 			languageKit = new DynamicLanguageKit();
 			languageKit.setURI(languageURI);
 			languageKit.setNamespace(languageNamespace);
 			languageKit.setName(languageName);
+			languageKit.setVersion(languageVersion);
 			languageKit.setEntity(model);
 //			configureLanguageKit(languageKit, model);
 	
