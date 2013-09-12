@@ -35,10 +35,6 @@ public class PopupMenuProvider<I, C extends I> implements IUIProvider<C> {
 		uiBuilder.setContainer(menu);
 		uiBuilder.before();
 
-		uiBuilder.addOpenDialog();
-
-		uiBuilder.addSeparator();
-
 		uiBuilder.addUndoItem();
 		uiBuilder.addRedoItem();
 

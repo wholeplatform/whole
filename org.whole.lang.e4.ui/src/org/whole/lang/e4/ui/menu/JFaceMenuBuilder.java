@@ -195,20 +195,6 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		addItem(action);
 	}
 
-	public void addOpenDialog() {
-		Action action = new Action() {
-			@Override
-			public void run() {
-				E4Dialog dialog = ContextInjectionFactory.make(E4Dialog.class, context);
-				dialog.create();
-				if (dialog.open() == Window.OK) {
-					// do nothing
-				}
-			}
-		};
-		addItem(action);
-	}
-
 	protected IMenuManager createMenu(String name, VisibilityExpression expression) {
 		IMenuManager menu = createMenu(name);
 		menu.setVisible(expression.isVisible(getBindings()));

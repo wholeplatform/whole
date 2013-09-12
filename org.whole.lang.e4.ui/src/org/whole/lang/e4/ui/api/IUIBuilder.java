@@ -64,7 +64,4 @@ public interface IUIBuilder<I, C extends I> {
 
 	public void addReplaceEntityItem(EntityDescriptor<?> ed);
 	public void addAddEntityItem(EntityDescriptor<?> ed);
-
-	//TODO remove
-	public void addOpenDialog();
 }
