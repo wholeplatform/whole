@@ -53,6 +53,7 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 
 	protected void addTopLeftViews(IFolderLayout folder) {
 		folder.addView(DebugView.ID);
+		folder.addView(IUIConstants.DEBUG_PART_ID);
 		folder.addPlaceholder(SampleView.ID);
 		folder.addView(IPageLayout.ID_RES_NAV);
 //		topLeft.addView(IPageLayout.ID_OUTLINE);
@@ -60,6 +61,7 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
 		folder.addView(VariablesView.ID);
+		folder.addView(IUIConstants.VARIABLES_PART_ID);
 		folder.addPlaceholder(ContextView.ID);
 		folder.addPlaceholder(ResultsView.ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
