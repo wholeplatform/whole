@@ -23,9 +23,7 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Jav
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -183,12 +181,17 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			public void run() {
 				WholeUIPlugin.revealPerspective(WholeIDEDebugPerspectiveFactory.ID);
 				
-				if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer)
+				if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer) {
 					E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
-				else {
+					E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
+					if (debugEnv.wIsSet("self") && debugEnv.wIsSet("viewer")) {
+						IEntity selfEntity = debugEnv.wGet("self");
+						((IEntityPartViewer) debugEnv.wGetValue("viewer")).selectAndReveal(selfEntity);
+					}
+				} else {
 					debugView = (DebugView) WholeUIPlugin.revealView(DebugView.class.getName());
 					VariablesView variablesView = (VariablesView) WholeUIPlugin.revealView(VariablesView.class.getName());
-					
+
 					variablesView.setContents(variablesModel);
 					debugView.setContents(debugModel);
 					debugView.selectAndReveal(breakpointEntity);
@@ -205,16 +208,17 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer) {
 			CyclicBarrier barrier = new CyclicBarrier(2);
 			IEventBroker eventBroker = context.get(IEventBroker.class);
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
 			eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {breakpointEntity, debugEnv, barrier});
 			try {
 				barrier.await();
 			} catch (InterruptedException e) {
 				throw new IllegalStateException(e);
-			} catch (BrokenBarrierException e) {
-				
+			} catch (BrokenBarrierException e) {	
 				throw new OperationCanceledException(e);
+			} finally {
+				eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
 			}
-
 		} else
 			debugView.doBreak(debugEnv);
 	}
