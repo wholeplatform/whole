@@ -67,6 +67,14 @@
             name="E4 Debug View"
             restorable="true">
       </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.part.variables"
+            class="org.whole.lang.e4.ui.compatibility.E3VariablesViewPart"
+            icon="icons/views/whole.gif"
+            name="E4 Variables View"
+            restorable="true">
+      </view>
    </extension>
 
    <extension
