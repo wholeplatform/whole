@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Reflect"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="62">
+    <semantics:SemanticFunctions initialCapacity="72">
         <semantics:SemanticFunction>
             <semantics:Name value="languages"/>
             <semantics:FunctionType>
@@ -1079,6 +1079,176 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
                     <workflows:StringLiteral value="uriFragmentPartIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriIsWholeScheme"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriIsWholeScheme"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriIsWholeSchemeIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithNamespaceNameVersion"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithNamespaceNameVersion"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithNamespaceNameVersionIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriNamespace"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriNamespace"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriNamespaceIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithNamespace"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithNamespace"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithNamespaceIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithNamespaceSuffix"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithNamespaceSuffix"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithNamespaceSuffixIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriName"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriName"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriNameIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithName"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithName"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithNameIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithNameSuffix"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithNameSuffix"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithNameSuffixIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriVersion"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriVersion"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriVersionIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="uriWithVersion"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="uriWithVersion"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="uriWithVersionIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>

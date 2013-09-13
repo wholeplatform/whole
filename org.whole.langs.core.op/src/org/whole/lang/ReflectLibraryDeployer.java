@@ -30,6 +30,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.resources.WholeURIResolver;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IDataTypeWrapper;
@@ -121,6 +122,16 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("uriFeature", uriFeatureIterator());
 		putFunctionCode("uriResourcePart", uriResourcePartIterator());
 		putFunctionCode("uriFragmentPart", uriFragmentPartIterator());
+		putFunctionCode("uriIsWholeScheme", uriIsWholeSchemeIterator());
+		putFunctionCode("uriWithNamespaceNameVersion", uriWithNamespaceNameVersionIterator());
+		putFunctionCode("uriNamespace", uriNamespaceIterator());
+		putFunctionCode("uriWithNamespace", uriWithNamespaceIterator());
+		putFunctionCode("uriWithNamespaceSuffix", uriWithNamespaceSuffixIterator());
+		putFunctionCode("uriName", uriNameIterator());
+		putFunctionCode("uriWithName", uriWithNameIterator());
+		putFunctionCode("uriWithNameSuffix", uriWithNameSuffixIterator());
+		putFunctionCode("uriVersion", uriVersionIterator());
+		putFunctionCode("uriWithVersion", uriWithVersionIterator());
 	}
 
 
@@ -836,6 +847,155 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 					String fragmentPart = ResourceUtils.getResourceFragmentName(selfEntity.wStringValue());
 					if (fragmentPart != null)
 						result = BindingManagerFactory.instance.createValue(fragmentPart);
+				}
+
+				bm.setResult(result);
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> uriIsWholeSchemeIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResult(BindingManagerFactory.instance.createValue(
+						DataTypeUtils.getDataKind(selfEntity).isString() ?
+								WholeURIResolver.isWholeScheme(selfEntity.wStringValue()) : false));
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> uriWithNamespaceNameVersionIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				String namespace = bm.wIsSet("namespace") ? bm.wStringValue("namespace") : null;
+				String name = bm.wIsSet("name") ? bm.wStringValue("name") : null;
+				String version = bm.wIsSet("version") ? bm.wStringValue("version") : "";
+				if (namespace != null && name != null)
+					result = BindingManagerFactory.instance.createValue(WholeURIResolver.getURI(namespace, name, version));
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriNamespaceIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString())
+					try {
+						result = BindingManagerFactory.instance.createValue(WholeURIResolver.getNamespace(selfEntity.wStringValue()));
+					} catch (IllegalArgumentException e) {
+					}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriWithNamespaceIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+					String namespace = bm.wIsSet("namespace") ? bm.wStringValue("namespace") : null;
+					if (namespace != null)
+						try {
+							result = BindingManagerFactory.instance.createValue(WholeURIResolver.setNamespace(selfEntity.wStringValue(), namespace));
+						} catch (IllegalArgumentException e) {
+						}
+				}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriWithNamespaceSuffixIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+					String suffix = bm.wIsSet("suffix") ? bm.wStringValue("suffix") : "";
+					try {
+						result = BindingManagerFactory.instance.createValue(WholeURIResolver.addNamespaceSuffix(selfEntity.wStringValue(), suffix));
+					} catch (IllegalArgumentException e) {
+					}
+				}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriNameIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString())
+					try {
+						result = BindingManagerFactory.instance.createValue(WholeURIResolver.getName(selfEntity.wStringValue()));
+					} catch (IllegalArgumentException e) {
+					}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriWithNameIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+					String name = bm.wIsSet("name") ? bm.wStringValue("name") : null;
+					if (name != null)
+						try {
+							result = BindingManagerFactory.instance.createValue(WholeURIResolver.setName(selfEntity.wStringValue(), name));
+						} catch (IllegalArgumentException e) {
+						}
+				}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriWithNameSuffixIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+					String suffix = bm.wIsSet("suffix") ? bm.wStringValue("suffix") : "";
+					result = BindingManagerFactory.instance.createValue(WholeURIResolver.addNameSuffix(selfEntity.wStringValue(), suffix));
+				}
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriVersionIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString())
+					result = BindingManagerFactory.instance.createValue(WholeURIResolver.getVersion(selfEntity.wStringValue()));
+
+				bm.setResult(result);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> uriWithVersionIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				IEntity result = null;
+
+				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
+					String version = bm.wIsSet("version") ? bm.wStringValue("version") : "";
+					result = BindingManagerFactory.instance.createValue(WholeURIResolver.setVersion(selfEntity.wStringValue(), version));
 				}
 
 				bm.setResult(result);
