@@ -344,12 +344,27 @@
                         </queries:Names>
                         <queries:Block initialCapacity="10">
                             <queries:Filter>
-                                <queries:Addition>
-                                    <queries:Singleton>
+                                <queries:Scope>
+                                    <queries:Names initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                    </queries:Names>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="Actions"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                                    </queries:Singleton>
-                                    <queries:StringLiteral value="Actions"/>
-                                </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
                                 <queries:VariableTest value="actionsUri"/>
                             </queries:Filter>
                             <queries:Filter>
@@ -686,12 +701,27 @@
                                 <queries:VariableTest value="executableStage"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <queries:Addition>
-                                    <queries:Singleton>
+                                <queries:Scope>
+                                    <queries:Names initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                    </queries:Names>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="Semantics"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                                    </queries:Singleton>
-                                    <queries:StringLiteral value="Semantics"/>
-                                </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
                                 <queries:VariableTest value="semanticsUri"/>
                             </queries:Filter>
                             <queries:Filter>
@@ -802,12 +832,27 @@
                                 <queries:VariableTest value="executableStage"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <queries:Addition>
-                                    <queries:Singleton>
+                                <queries:Scope>
+                                    <queries:Names initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                    </queries:Names>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="Semantics"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                                    </queries:Singleton>
-                                    <queries:StringLiteral value="Semantics"/>
-                                </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
                                 <queries:VariableTest value="semanticsUri"/>
                             </queries:Filter>
                             <queries:Filter>
@@ -4115,12 +4160,27 @@
                         </queries:Names>
                         <queries:Block initialCapacity="8">
                             <queries:Filter>
-                                <queries:Addition>
-                                    <queries:Singleton>
+                                <queries:Scope>
+                                    <queries:Names initialCapacity="1">
+                                        <queries:Name value="suffix"/>
+                                    </queries:Names>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="Model"/>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="suffix"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                                    </queries:Singleton>
-                                    <queries:StringLiteral value="Model"/>
-                                </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
                                 <queries:VariableTest value="modelUri"/>
                             </queries:Filter>
                             <queries:Filter>
@@ -4925,12 +4985,27 @@
                 <semantics:EntityType value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                 <semantics:LegacyType value="STRING"/>
             </semantics:FunctionType>
-            <queries:Addition xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Singleton>
-                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
-                </queries:Singleton>
-                <queries:StringLiteral value="GuestActions"/>
-            </queries:Addition>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Names initialCapacity="1">
+                    <queries:Name value="suffix"/>
+                </queries:Names>
+                <queries:Block initialCapacity="2">
+                    <queries:Do>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <tests:StringLiteral xmlns:tests="http://lang.whole.org/Tests" value="GuestActions"/>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="suffix"/>
+                        </queries:Filter>
+                    </queries:Do>
+                    <semantics:FunctionApplication>
+                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNameSuffix"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#uri"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:Block>
+            </queries:Scope>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="expandPatternsActionName"/>
