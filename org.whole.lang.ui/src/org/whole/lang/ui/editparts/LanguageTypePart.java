@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.semantics.ui.editparts;
+package org.whole.lang.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.semantics.ui.figures.LanguageTypeFigure;
-import org.whole.lang.ui.editparts.AbstractDataEntityPart;
+import org.whole.lang.ui.figures.LanguageTypeFigure;
+import org.whole.lang.util.ResourceUtils;
 
 /**
  * @author Riccardo Solmi
@@ -35,6 +35,6 @@ public class LanguageTypePart extends AbstractDataEntityPart {
 //no		super.refreshVisuals();
 		String uri = getModelEntity().wStringValue();
 		getLabel().setText(ReflectionFactory.hasLanguageKit(uri, true, null) ?
-				ReflectionFactory.getLanguageKit(uri, false, null).getName() : uri);
+				ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null)) : uri);
 	}
 }

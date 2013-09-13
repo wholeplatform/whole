@@ -25,7 +25,6 @@ import org.whole.lang.ui.editparts.EntityTypePart;
  */
 public class TypeTestPart extends EntityTypePart {
 	public IFigure createFigure() {
-		IFigure typeTestFigure = super.createFigure();
-		return typeTestFigure;
+		return super.createFigure();
 	}
 }

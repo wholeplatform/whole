@@ -86,6 +86,7 @@ import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.LanguageTypePart;
 import org.whole.lang.ui.editparts.LiteralDataEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;

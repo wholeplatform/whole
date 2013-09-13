@@ -18,23 +18,13 @@
 package org.whole.lang.queries.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.queries.ui.figures.LanguageTestFigure;
-import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.editparts.AbstractDataEntityPart;
+import org.whole.lang.ui.editparts.LanguageTypePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class LanguageTestPart extends AbstractDataEntityPart {
+public class LanguageTestPart extends LanguageTypePart {
 	public IFigure createFigure() {
-		return new LanguageTestFigure();
-	}
-
-	@Override
-	protected void refreshVisuals() {
-//no		super.refreshVisuals();
-		String uri = getModelEntity().wStringValue();
-		getLabel().setText(ReflectionFactory.hasLanguageKit(uri, true, null) ?
-				ReflectionFactory.getLanguageKit(uri, false, null).getName() : uri);
+		return super.createFigure();
 	}
 }
