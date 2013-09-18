@@ -3035,16 +3035,14 @@
                                     <queries:Choose initialCapacity="2">
                                         <queries:If>
                                         <queries:ExpressionTest>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="hasResourceFragmentUri"/>
+                                        <queries:Path initialCapacity="1">
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="hasResourceFragmentUri(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
                                         </queries:ExpressionTest>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <semantics:FunctionApplication>
@@ -5751,32 +5749,20 @@
                                         </queries:ExpressionTest>
                                         <semantics:TypeCast>
                                         <semantics:EntityType value="http://lang.whole.org/Queries#FeatureStep"/>
-                                        <queries:Block initialCapacity="2">
-                                        <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="wGetFeatureDescriptor"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="parentEntity"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
-                                        <workflows:StringLiteral value="wGetFeatureDescriptor(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaInstanceMethod>
-                                        <queries:VariableTest value="selfFd"/>
-                                        </queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="unparseFeatureDescriptor"/>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceAtFeature"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser"/>
-                                        <workflows:StringLiteral value="unparseFeatureDescriptor(org.whole.lang.reflect.FeatureDescriptor)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="selfFd"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
-                                        </queries:Block>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureURI"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
                                         </semantics:TypeCast>
                                     </queries:If>
                                     <queries:Do>

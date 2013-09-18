@@ -82,16 +82,14 @@
                                         <queries:KindTest value="DATA"/>
                                         </queries:Not>
                                         <queries:ExpressionTest>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="hasResourceFragmentUri"/>
+                                        <queries:Path initialCapacity="1">
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="hasResourceFragmentUri(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
                                         </queries:ExpressionTest>
                                     </queries:Or>
                                     <queries:VariableRefStep value="self"/>
@@ -1169,15 +1167,12 @@
                                     <queries:TypeTest value="http://lang.whole.org/Semantics#ChooseTemplate"/>
                                     <queries:ExpressionTest>
                                         <queries:LessThan>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="wSize"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceChildSize"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="self"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
-                                        <workflows:StringLiteral value="wSize()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:IntLiteral value="2"/>
                                         </queries:LessThan>
                                     </queries:ExpressionTest>
@@ -1948,16 +1943,12 @@
                                         <queries:VariableTest value="variableTypeUri"/>
                                     </queries:Filter>
                                     <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="createVarType"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriEntity"/>
+                                        <queries:VariableRefStep value="variableTypeUri"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser"/>
-                                        <workflows:StringLiteral value="parseEntityDescriptor(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="variableTypeUri"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:VariableTest value="variableType"/>
                                     </queries:Filter>
                                     <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
@@ -2003,16 +1994,12 @@
                                         <queries:VariableTest value="variableName"/>
                                     </queries:Filter>
                                     <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getFormalType"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceAtType"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
-                                        <workflows:StringLiteral value="getFormalEntityDescriptor(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
                                         <queries:VariableTest value="variableType"/>
                                     </queries:Filter>
                                     <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
@@ -2262,27 +2249,20 @@
                                 <queries:VariableTest value="action"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="languageKitsIterator"/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languages"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
-                                    <workflows:StringLiteral value="languageKitsIterator()"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </workflows:InvokeJavaClassMethod>
-                                <queries:And initialCapacity="2">
-                                    <queries:VariableTest value="languageKit"/>
-                                    <queries:ExpressionTest>
-                                        <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                </semantics:FunctionApplication>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageURI"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="languageKit"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.resources.IResource"/>
-                                        <workflows:StringLiteral value="getURI()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:And initialCapacity="2">
                                         <queries:VariableTest value="languageUri"/>
                                         <queries:ExpressionTest>
@@ -2292,21 +2272,16 @@
                                         </queries:NotEquals>
                                         </queries:ExpressionTest>
                                         </queries:And>
-                                        </queries:Filter>
-                                    </queries:ExpressionTest>
-                                </queries:And>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
                             </queries:Filter>
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getSimpleName"/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageSimpleName"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="getSimpleName(org.whole.lang.resources.IResource)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="languageKit"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
                                 <queries:VariableTest value="languageName"/>
                             </queries:Filter>
                             <queries:TemplateNames/>
@@ -2354,47 +2329,24 @@
                             <queries:TypeTest value="http://lang.whole.org/Semantics#EntityType"/>
                             <queries:VariableTest value="actualEntityUri"/>
                         </queries:And>
-                        <queries:Sequence initialCapacity="5">
+                        <queries:Sequence initialCapacity="4">
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getEntityName"/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="getResourceFragmentName(java.lang.String)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="actualEntityUri"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
-                                <queries:VariableTest value="actualEntityName"/>
-                            </queries:Filter>
-                            <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getLanguageUri"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="getResourceFragmentUri(java.lang.String)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="actualEntityUri"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
+                                </semantics:FunctionApplication>
                                 <queries:VariableTest value="actualLanguageUri"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getLanguageKit"/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
-                                    <workflows:StringLiteral value="safeGetLanguageKit(java.lang.String, boolean, java.lang.String)"/>
-                                    <workflows:Expressions initialCapacity="3">
-                                        <workflows:Variable value="actualLanguageUri"/>
-                                        <workflows:BooleanLiteral value="true"/>
-                                        <workflows:Variable value="contextURI"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
-                                <queries:VariableTest value="actualLanguageKit"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VariableTest value="actualEntityName"/>
                             </queries:Filter>
                             <queries:Select>
                                 <queries:Filter>
@@ -2421,27 +2373,22 @@
                                     <queries:VariableTest value="languageAction"/>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="languageKitsIterator"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languages"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
-                                        <workflows:StringLiteral value="languageKitsIterator()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:InvokeJavaClassMethod>
+                                    </semantics:FunctionApplication>
                                     <queries:And initialCapacity="2">
                                         <queries:VariableTest value="languageKit"/>
                                         <queries:ExpressionTest>
                                         <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageURI"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="languageKit"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.resources.IResource"/>
-                                        <workflows:StringLiteral value="getURI()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:And initialCapacity="2">
                                         <queries:VariableTest value="languageUri"/>
                                         <queries:ExpressionTest>
@@ -2457,16 +2404,12 @@
                                 </queries:Filter>
                                 <queries:Sequence initialCapacity="3">
                                     <queries:Filter>
-                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getSimpleName"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageSimpleName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="getSimpleName(org.whole.lang.resources.IResource)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="languageKit"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
                                         <queries:VariableTest value="languageName"/>
                                     </queries:Filter>
                                     <queries:Filter>
@@ -2485,15 +2428,12 @@
                                         <queries:VariableTest value="firstEd"/>
                                     </queries:Filter>
                                     <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <workflows:Variable xmlns:workflows="http://lang.whole.org/Workflows" value="firstEd"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="firstEd"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.Descriptor"/>
-                                        <workflows:StringLiteral value="getURI()"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:VariableTest value="entityUri"/>
                                     </queries:Filter>
                                 </queries:Sequence>
@@ -2524,29 +2464,20 @@
                                     <queries:VariableTest value="entityAction"/>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="entityDescriptorIterator"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageEntities"/>
+                                        <queries:VariableRefStep value="actualLanguageUri"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
-                                        <workflows:StringLiteral value="entityDescriptorIterator(org.whole.lang.reflect.ILanguageKit)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="actualLanguageKit"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
-                                    <queries:And initialCapacity="2">
-                                        <queries:VariableTest value="ed"/>
-                                        <queries:ExpressionTest>
+                                    </semantics:FunctionApplication>
+                                    <queries:ExpressionTest>
                                         <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getEntityName"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="ed"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.EntityDescriptor"/>
-                                        <workflows:StringLiteral value="getName()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:And initialCapacity="2">
                                         <queries:VariableTest value="entityName"/>
                                         <queries:ExpressionTest>
@@ -2557,19 +2488,15 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                    </queries:And>
+                                    </queries:ExpressionTest>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="ed"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.Descriptor"/>
-                                        <workflows:StringLiteral value="getURI()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:InvokeJavaInstanceMethod>
+                                    </semantics:FunctionApplication>
                                     <queries:VariableTest value="entityUri"/>
                                 </queries:Filter>
                                 <queries:TemplateNames/>
@@ -2666,27 +2593,22 @@
                                 </queries:Filter>
                             </queries:Tuple>
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="languageKitsIterator"/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languages"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.reflect.ReflectionFactory"/>
-                                    <workflows:StringLiteral value="languageKitsIterator()"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </workflows:InvokeJavaClassMethod>
+                                </semantics:FunctionApplication>
                                 <queries:And initialCapacity="2">
                                     <queries:VariableTest value="languageKit"/>
                                     <queries:ExpressionTest>
                                         <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageURI"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="languageKit"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.resources.IResource"/>
-                                        <workflows:StringLiteral value="getURI()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:InvokeJavaInstanceMethod>
+                                        </semantics:FunctionApplication>
                                         <queries:VariableTest value="languageUri"/>
                                         </queries:Filter>
                                     </queries:ExpressionTest>
@@ -2694,16 +2616,12 @@
                             </queries:Filter>
                             <queries:Sequence initialCapacity="3">
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getSimpleName"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#languageSimpleName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="getSimpleName(org.whole.lang.resources.IResource)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="languageKit"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
                                     <queries:VariableTest value="languageName"/>
                                 </queries:Filter>
                                 <queries:Filter>
@@ -2722,15 +2640,12 @@
                                     <queries:VariableTest value="firstEd"/>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getURI"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
+                                        <workflows:Variable xmlns:workflows="http://lang.whole.org/Workflows" value="firstEd"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="firstEd"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.reflect.Descriptor"/>
-                                        <workflows:StringLiteral value="getURI()"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </workflows:InvokeJavaInstanceMethod>
+                                    </semantics:FunctionApplication>
                                     <queries:VariableTest value="entityUri"/>
                                 </queries:Filter>
                             </queries:Sequence>
@@ -2788,29 +2703,34 @@
                         </queries:And>
                         <queries:Sequence initialCapacity="4">
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getTheoryUri"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="getResourceFragmentUri(java.lang.String)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="actualNameUri"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
+                                <queries:Choose initialCapacity="3">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticTheory"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#uri"/>
+                                    </queries:Path>
+                                    <queries:StringLiteral value=""/>
+                                </queries:Choose>
                                 <queries:VariableTest value="actualTheoryUri"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="getFunctionName"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                    <workflows:StringLiteral value="stripResourceFragmentUri(java.lang.String)"/>
-                                    <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="actualNameUri"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
+                                <queries:Choose initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableRefStep value="actualNameUri"/>
+                                </queries:Choose>
                                 <queries:VariableTest value="actualFunctionName"/>
                             </queries:Filter>
                             <queries:Select>
@@ -3095,16 +3015,12 @@
                                     </queries:Filter>
                                 </queries:Path>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getEntityName"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="getResourceFragmentName(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="entityUri"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
                                     <queries:VariableTest value="entityName"/>
                                 </queries:Filter>
                                 <queries:TemplateNames/>
@@ -3195,16 +3111,12 @@
                                     </queries:Filter>
                                 </queries:Path>
                                 <queries:Filter>
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="getFeatureName"/>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.util.ResourceUtils"/>
-                                        <workflows:StringLiteral value="getResourceFragmentName(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="featureUri"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
                                     <queries:VariableTest value="featureName"/>
                                 </queries:Filter>
                                 <queries:TemplateNames/>
@@ -3250,16 +3162,29 @@
                             <queries:TypeTest value="http://lang.whole.org/Semantics#URI"/>
                         </queries:Or>
                         <queries:Filter>
-                            <queries:Addition>
-                                <queries:StringLiteral value="whole:"/>
-                                <queries:Addition>
-                                    <queries:VariableRefStep value="packageName"/>
-                                    <queries:Addition>
-                                        <queries:StringLiteral value=":"/>
+                            <queries:Scope>
+                                <queries:Names initialCapacity="3">
+                                    <queries:Name value="namespace"/>
+                                    <queries:Name value="name"/>
+                                    <queries:Name value="version"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:VariableRefStep value="packageName"/>
+                                        <queries:VariableTest value="namespace"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
                                         <queries:VariableRefStep value="fileName"/>
-                                    </queries:Addition>
-                                </queries:Addition>
-                            </queries:Addition>
+                                        <queries:VariableTest value="name"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriWithNamespaceNameVersion"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
                             <queries:VariableTest value="semanticsUri"/>
                         </queries:Filter>
                         <queries:TemplateNames/>
