@@ -56,8 +56,8 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> E getFunctionModel(String functionUri, boolean loadOnDemand, String contextUri) {
 		IEntity functionModel = uriModelMap.get(functionUri);
-		if (functionModel == null && loadOnDemand && ResourceUtils.hasResourceFragmentUri(functionUri)) {
-			String libraryUri = ResourceUtils.getResourceFragmentUri(functionUri);
+		if (functionModel == null && loadOnDemand && ResourceUtils.hasFragmentPart(functionUri)) {
+			String libraryUri = ResourceUtils.getResourcePart(functionUri);
 			getFunctionLibrary(libraryUri, loadOnDemand, contextUri);
 			functionModel = uriModelMap.get(functionUri);
 		}
@@ -75,7 +75,7 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 	public void putFunctionCode(String functionUri, ICloneable functionCode) {
 		uriCodeMap.put(functionUri, functionCode);
 
-		String functionName = ResourceUtils.getResourceFragmentName(functionUri);
+		String functionName = ResourceUtils.getFragmentPart(functionUri);
 		uriCodeMap.put(functionName, functionCode);
 	}
 	@SuppressWarnings("unchecked")

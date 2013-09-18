@@ -47,7 +47,7 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 
 	protected FeatureDescriptor getFeatureDescriptor() {
 		if (featureDescriptor == null) {
-			if (!ResourceUtils.hasResourceFragmentUri(featureName))
+			if (!ResourceUtils.hasFragmentPart(featureName))
 				return entity.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
 			
 	    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;

@@ -148,7 +148,7 @@ public class SemanticsUtils {
 		return createShallowMigrateEntity(selfEntity, ed);
 	}
 	public static IEntity createShallowMigrateEntity(IEntity selfEntity, String targetUri) {
-		String edUri = ResourceUtils.hasResourceFragmentUri(targetUri) ?
+		String edUri = ResourceUtils.hasFragmentPart(targetUri) ?
 				targetUri : targetUri+"#"+selfEntity.wGetEntityDescriptor().getName();
 
 		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, false, null);
@@ -231,7 +231,7 @@ public class SemanticsUtils {
 		SemanticsEntityFactory sf = SemanticsEntityFactory.instance;
 			return sf.buildTypedVariable()
 					.set(SemanticsFeatureDescriptorEnum.variable,
-							sf.createVariable(nameGenerator.nextFreshName(StringUtils.toLowerPrefix(ResourceUtils.stripResourceFragmentUri(type.getValue())))))
+							sf.createVariable(nameGenerator.nextFreshName(StringUtils.toLowerPrefix(ResourceUtils.stripResourcePart(type.getValue())))))
 					.set(SemanticsFeatureDescriptorEnum.signature,
 							EntityUtils.clone(type))
 					.getResult();

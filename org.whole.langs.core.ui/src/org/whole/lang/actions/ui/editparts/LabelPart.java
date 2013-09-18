@@ -37,7 +37,7 @@ public class LabelPart extends AbstractOverQualifiedDataEntityPart {
 	}
 
 	protected String getQualifierPart(String qname) {
-		String uri = ResourceUtils.getResourceFragmentUri(qname);
+		String uri = ResourceUtils.getResourcePart(qname);
 		IResourceRegistry<Resource> registry = ActionsRegistry.instance();
 		IResource resource = registry.getResource(uri, false, null);
 		return resource != null ? resource.getName() : uri;

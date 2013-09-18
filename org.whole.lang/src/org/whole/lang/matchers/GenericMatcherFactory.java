@@ -235,7 +235,7 @@ public class GenericMatcherFactory {
 
 		protected EntityDescriptor<?> getOtherEntityDescriptor(EntityDescriptor<?> selfEd) {
 			if (ed == null) {
-				if (!ResourceUtils.hasResourceFragmentUri(edUri))
+				if (!ResourceUtils.hasFragmentPart(edUri))
 					return selfEd.getEntityDescriptorEnum().valueOf(edUri);
 
 		    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
@@ -267,7 +267,7 @@ public class GenericMatcherFactory {
 
 		protected FeatureDescriptor getOtherFeatureDescriptor(FeatureDescriptor selfFd) {
 			if (fd == null) {
-				if (!ResourceUtils.hasResourceFragmentUri(fdUri))
+				if (!ResourceUtils.hasFragmentPart(fdUri))
 					return selfFd.getFeatureDescriptorEnum().valueOf(fdUri);
 
 		    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;

@@ -180,23 +180,22 @@ public class ResourceUtils {
 		}
 	}
 
-	//FIXME remove. Fails on names containing #
-	public static boolean hasResourceFragmentUri(String resourceUri) {
+	public static boolean hasFragmentPart(String resourceUri) {
 		return resourceUri.indexOf('#') > 0;
 	}
-	public static String getResourceFragmentUri(String resourceUri) {
+	public static String getResourcePart(String resourceUri) {
 		int index = resourceUri.indexOf('#');
 		return index > 0 ? resourceUri.substring(0, index) : null;
 	}
-	public static String getResourceFragmentName(String resourceUri) {
+	public static String getFragmentPart(String resourceUri) {
 		int index = resourceUri.indexOf('#');
 		return index > 0 ? resourceUri.substring(index+1) : null;
 	}
-	public static String stripResourceFragmentName(String resourceUri) {
+	public static String stripFragmentPart(String resourceUri) {
 		int index = resourceUri.indexOf('#');
 		return index > 0 ? resourceUri.substring(0, index) : resourceUri;
 	}
-	public static String stripResourceFragmentUri(String resourceUri) {
+	public static String stripResourcePart(String resourceUri) {
 		int index = resourceUri.indexOf('#');
 		return index > 0 ? resourceUri.substring(index+1) : resourceUri;
 	}

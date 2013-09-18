@@ -27,7 +27,7 @@ import org.whole.lang.util.ResourceUtils;
  */
 public class NamePart extends AbstractOverQualifiedDataEntityPart {
 	protected String getQualifierPart(String qname) {
-		String uri = ResourceUtils.getResourceFragmentUri(qname);
+		String uri = ResourceUtils.getResourcePart(qname);
 		IResource resource = FunctionLibraryRegistry.instance().getResource(uri, false, null);
 		return resource != null ? resource.getName() : uri;
 	}
