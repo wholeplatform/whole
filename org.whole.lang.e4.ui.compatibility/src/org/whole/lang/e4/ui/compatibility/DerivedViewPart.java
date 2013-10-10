@@ -31,11 +31,11 @@ import org.whole.lang.model.IEntity;
 /**
  * @author Enrico Persiani
  */
-public class E3DerivedViewPart<C extends AbstractE4DerivedGraphicalPart> extends E3ViewPart<C> {
+public class DerivedViewPart<C extends AbstractE4DerivedGraphicalPart> extends ViewPart<C> {
 	protected LinkToEditorAction linkToEditorAction;
 	protected boolean disableEditing;
 
-	public E3DerivedViewPart(String partId, Class<C> partClass, boolean disableEditing) {
+	public DerivedViewPart(String partId, Class<C> partClass, boolean disableEditing) {
 		super(partId, partClass);
 		this.disableEditing = disableEditing;
 	}

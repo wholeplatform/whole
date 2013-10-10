@@ -67,12 +67,12 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
 /**
  * @author Enrico Persiani
  */
-public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersistableEditor, IGotoMarker {
+public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersistableEditor, IGotoMarker {
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
-	public E3EditorPart() {
+	public EditorPart() {
 		super(E4GraphicalPart.class, CUT | COPY | PASTE);
 	}
 
@@ -142,7 +142,7 @@ public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPers
 			if (persistenceKit.canApply(entityContents))
 				persistenceKits.add(persistenceKit);
 
-		E3SaveAsModelDialog dialog = new E3SaveAsModelDialog(
+		SaveAsModelDialog dialog = new SaveAsModelDialog(
 				getSite().getWorkbenchWindow().getShell(), getContext(), persistenceKits);
 
 		if (dialog.open() == Dialog.CANCEL)
@@ -202,13 +202,13 @@ public class E3EditorPart extends DIEditorPart<E4GraphicalPart> implements IPers
 		super.dispose();
 	}
 
-	private E3OutlinePage outlinePage;
+	private OutlinePage outlinePage;
 	protected boolean hasOutlinePage() {
 		return outlinePage != null && outlinePage.isValid();
 	}
-	protected E3OutlinePage getOutlinePage() {
+	protected OutlinePage getOutlinePage() {
 		if (outlinePage == null)
-			outlinePage = new E3OutlinePage(getContext(), getComponent().getViewer(), getSelectionSynchronizer());
+			outlinePage = new OutlinePage(getContext(), getComponent().getViewer(), getSelectionSynchronizer());
 		return outlinePage;
 	}
 	protected SelectionSynchronizer synchronizer;

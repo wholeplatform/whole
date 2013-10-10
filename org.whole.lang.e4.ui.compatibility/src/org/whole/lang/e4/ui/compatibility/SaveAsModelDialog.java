@@ -51,16 +51,16 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Enrico Persiani
  */
-public class E3SaveAsModelDialog extends SaveAsDialog {
+public class SaveAsModelDialog extends SaveAsDialog {
 	private List<IPersistenceKit> persistenceKits;
 	private ComboViewer saveAsCombo;
 	private IEclipseContext context;
 	private IPersistenceKit persistenceKit;
 
-	public E3SaveAsModelDialog(Shell parentShell, IEclipseContext context) {
+	public SaveAsModelDialog(Shell parentShell, IEclipseContext context) {
 		this(parentShell, context, ReflectionFactory.getPersistenceKits());
 	}
-	public E3SaveAsModelDialog(Shell parentShell, IEclipseContext context, Collection<IPersistenceKit> persistenceKits) {
+	public SaveAsModelDialog(Shell parentShell, IEclipseContext context, Collection<IPersistenceKit> persistenceKits) {
 		super(parentShell);
 		this.persistenceKits = new ArrayList<IPersistenceKit>(persistenceKits);
 		this.context = context;

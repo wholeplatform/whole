@@ -17,31 +17,30 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
-
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IViewSite;
-import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleContext;
 
 /**
  * @author Enrico Persiani
  */
-public class E3DebugViewPart extends E3ViewPart<E4DebugGraphicalPart> {
-	public E3DebugViewPart() {
-		super(DEBUG_PART_ID, E4DebugGraphicalPart.class);
+public class E4CompatibilityPlugin extends AbstractUIPlugin {
+	public static final String PLUGIN_ID = "org.whole.lang.e4.ui.compatibility";
+
+	private static E4CompatibilityPlugin plugin;
+	
+	public E4CompatibilityPlugin() {
 	}
 
-	@Override
-	public void createPartControl(Composite parent) {
-		super.createPartControl(parent);
-		
-		IViewSite viewSite = getViewSite();
-		IActionBars actionBars = viewSite.getActionBars();
-		IToolBarManager toolBarManager = actionBars.getToolBarManager();
-		toolBarManager.add(getComponent().getRunAction(getContext()));
-		toolBarManager.add(getComponent().getResumeAction(getContext()));
-		toolBarManager.add(getComponent().getTerminateAction(getContext()));
+	public void start(BundleContext context) throws Exception {
+		plugin = this;
+		super.start(context);
+	}
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
+
+	public static E4CompatibilityPlugin getDefault() {
+		return plugin;
 	}
 }

@@ -24,6 +24,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 import org.eclipse.ui.console.IConsoleConstants;
+import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.ui.WholeUIPerspectiveFactory;
 import org.whole.lang.ui.views.ContextView;
 import org.whole.lang.ui.views.ResultsView;
@@ -42,6 +43,7 @@ public class WholeIDEPerspectiveFactory extends WholeUIPerspectiveFactory {
 	}
 
 	protected void addBottomRightViews(IFolderLayout folder) {
+		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
 		folder.addPlaceholder(ResultsView.ID);
 	}
 

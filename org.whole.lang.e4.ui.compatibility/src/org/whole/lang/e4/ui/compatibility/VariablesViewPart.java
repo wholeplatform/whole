@@ -17,30 +17,15 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.BundleContext;
+import static org.whole.lang.e4.ui.api.IUIConstants.*;
+
+import org.whole.lang.e4.ui.parts.E4VariablesGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public class E3Plugin extends AbstractUIPlugin {
-	public static final String PLUGIN_ID = "org.whole.lang.e4.ui.compatibility";
-
-	private static E3Plugin plugin;
-	
-	public E3Plugin() {
-	}
-
-	public void start(BundleContext context) throws Exception {
-		plugin = this;
-		super.start(context);
-	}
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
-
-	public static E3Plugin getDefault() {
-		return plugin;
+public class VariablesViewPart extends ViewPart<E4VariablesGraphicalPart> {
+	public VariablesViewPart() {
+		super(VARIABLES_PART_ID, E4VariablesGraphicalPart.class);
 	}
 }

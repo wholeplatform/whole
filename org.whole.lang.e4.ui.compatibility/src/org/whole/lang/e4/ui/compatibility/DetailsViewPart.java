@@ -19,13 +19,13 @@ package org.whole.lang.e4.ui.compatibility;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import org.whole.lang.e4.ui.parts.E4IndexGraphicalPart;
+import org.whole.lang.e4.ui.parts.E4DetailsGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public class E3IndexViewPart extends E3DerivedViewPart<E4IndexGraphicalPart> {
-	public E3IndexViewPart() {
-		super(INDEX_PART_ID, E4IndexGraphicalPart.class, false);
+public class DetailsViewPart extends DerivedViewPart<E4DetailsGraphicalPart> {
+	public DetailsViewPart() {
+		super(DETAILS_PART_ID, E4DetailsGraphicalPart.class, false);
 	}
 }

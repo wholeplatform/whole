@@ -19,13 +19,13 @@ package org.whole.lang.e4.ui.compatibility;
 
 import static org.whole.lang.e4.ui.api.IUIConstants.*;
 
-import org.whole.lang.e4.ui.parts.E4DetailsGraphicalPart;
+import org.whole.lang.e4.ui.parts.E4MapGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public class E3DetailsViewPart extends E3DerivedViewPart<E4DetailsGraphicalPart> {
-	public E3DetailsViewPart() {
-		super(DETAILS_PART_ID, E4DetailsGraphicalPart.class, false);
+public class MapViewPart extends DerivedViewPart<E4MapGraphicalPart> {
+	public MapViewPart() {
+		super(MAP_PART_ID, E4MapGraphicalPart.class, false);
 	}
 }

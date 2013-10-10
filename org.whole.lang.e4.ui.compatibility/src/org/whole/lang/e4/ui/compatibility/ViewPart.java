@@ -36,12 +36,12 @@ import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-public class E3ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
+public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 	protected String partId;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 
-	public E3ViewPart(String partId, Class<C> partClass) {
+	public ViewPart(String partId, Class<C> partClass) {
 		super(partClass);
 		this.partId = partId;
 	}

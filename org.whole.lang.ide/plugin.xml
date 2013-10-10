@@ -28,14 +28,14 @@
               class="org.whole.lang.ui.views.ContextView"
               icon="icons/views/context.gif"
 			  id="org.whole.lang.ui.views.ContextView"
-              name="Context"/>
+              name="Context E3"/>
         <view
               allowMultiple="false"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.SampleView"
               icon="icons/views/sample.gif"
 			  id="org.whole.lang.ui.views.SampleView"
-              name="Sample"/>
+              name="Sample E3"/>
 	</extension>
 
 	<extension

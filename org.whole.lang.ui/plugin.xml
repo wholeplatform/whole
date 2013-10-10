@@ -129,42 +129,42 @@
               class="org.whole.lang.ui.views.DetailsView"
               icon="icons/views/details.gif"
 			  id="org.whole.lang.ui.views.DetailsView"
-              name="Details"/>
+              name="Details E3"/>
         <view
               allowMultiple="true"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.MapView"
               icon="icons/views/map.gif"
 			  id="org.whole.lang.ui.views.MapView"
-              name="Map"/>
+              name="Map E3"/>
         <view
               allowMultiple="true"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.IndexView"
               icon="icons/views/index.gif"
 			  id="org.whole.lang.ui.views.IndexView"
-              name="Index"/>
+              name="Index E3"/>
         <view
               allowMultiple="true"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.ResultsView"
               icon="icons/views/results.gif"
 			  id="org.whole.lang.ui.views.ResultsView"
-              name="Results"/>
+              name="Results E3"/>
         <view
               allowMultiple="false"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.DebugView"
               icon="icons/views/debug.gif"
 			  id="org.whole.lang.ui.views.DebugView"
-              name="Debug"/>
+              name="Debug E3"/>
         <view
               allowMultiple="false"
               category="org.whole.lang.ui.views.category"
               class="org.whole.lang.ui.views.VariablesView"
               icon="icons/views/variables.gif"
 			  id="org.whole.lang.ui.views.VariablesView"
-              name="Variables"/>
+              name="Variables E3"/>
 		<view name="Debug GEF" category="org.whole.lang.ui.views.category"
 			class="org.eclipse.gef.ui.console.DebugGEF"
 			id="org.eclipse.gef.ui.console.DebugGEF">

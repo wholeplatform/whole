@@ -13,66 +13,59 @@
          point="org.eclipse.ui.views">
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.compatibility.E3ViewPart"
-            class="org.whole.lang.e4.ui.compatibility.E3ViewPart"
-            icon="icons/views/whole.gif"
-            name="E4 View"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.part.details"
-            class="org.whole.lang.e4.ui.compatibility.E3DetailsViewPart"
+            class="org.whole.lang.e4.ui.compatibility.DetailsViewPart"
             icon="icons/views/whole.gif"
-            name="E4 Details View"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.index"
-            class="org.whole.lang.e4.ui.compatibility.E3IndexViewPart"
-            icon="icons/views/whole.gif"
-            name="E4 Index View"
+            name="Details"
             restorable="true">
       </view>
       <view
             category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.part.map"
-            class="org.whole.lang.e4.ui.compatibility.E3MapViewPart"
+            class="org.whole.lang.e4.ui.compatibility.MapViewPart"
             icon="icons/views/whole.gif"
-            name="E4 Map View"
+            name="Map"
             restorable="true">
       </view>
       <view
             category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.tree"
-            class="org.whole.lang.e4.ui.compatibility.E3TreeViewPart"
-            icon="icons/views/whole.gif"
-            name="E4 Tree View"
+            id="org.whole.lang.e4.ui.part.index"
+            class="org.whole.lang.e4.ui.compatibility.IndexViewPart"
+            icon="icons/views/index.gif"
+            name="Index"
             restorable="true">
       </view>
       <view
             category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.part.results"
-            class="org.whole.lang.e4.ui.compatibility.E3ResultsViewPart"
+            class="org.whole.lang.e4.ui.compatibility.ResultsViewPart"
             icon="icons/views/whole.gif"
-            name="E4 Results View"
+            name="Results"
             restorable="true">
       </view>
       <view
             category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.part.debug"
-            class="org.whole.lang.e4.ui.compatibility.E3DebugViewPart"
-            icon="icons/views/whole.gif"
-            name="E4 Debug View"
+            class="org.whole.lang.e4.ui.compatibility.DebugViewPart"
+            icon="icons/views/debug.gif"
+            name="Debug"
             restorable="true">
       </view>
       <view
             category="org.whole.lang.ui.views.category"
             id="org.whole.lang.e4.ui.part.variables"
-            class="org.whole.lang.e4.ui.compatibility.E3VariablesViewPart"
+            class="org.whole.lang.e4.ui.compatibility.VariablesViewPart"
+            icon="icons/views/variables.gif"
+            name="Variables"
+            restorable="true">
+      </view>
+
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.part.tree"
+            class="org.whole.lang.e4.ui.compatibility.TreeViewPart"
             icon="icons/views/whole.gif"
-            name="E4 Variables View"
+            name="E4 Tree View Example"
             restorable="true">
       </view>
    </extension>
@@ -80,13 +73,13 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="XML Builder Persistence E4"
+            name="XML Builder Persistence"
             extensions="xwl,xml"
             icon="icons/editors/xml_builder.gif"
             default="false"
-            class="org.whole.lang.e4.ui.compatibility.E3EditorPart"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.xml.E4XmlBuilderEditor">
-            <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
 	</extension>
 

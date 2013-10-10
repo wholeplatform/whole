@@ -20,6 +20,7 @@ package org.whole.lang.ide;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPlaceholderFolderLayout;
+import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.ui.views.ContextView;
 import org.whole.lang.ui.views.ResultsView;
 import org.whole.lang.ui.views.SampleView;
@@ -58,8 +59,10 @@ public class WholeIDESamplePerspectiveFactory extends WholeIDEPerspectiveFactory
 	protected void addMidRightViews(IFolderLayout folder) {
 		folder.addView(SampleView.ID);
 		folder.addPlaceholder(ResultsView.ID);
+		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
 		folder.addView(VariablesView.ID);
+		folder.addView(IUIConstants.VARIABLES_PART_ID);
 	}
 }

@@ -88,7 +88,7 @@ import org.whole.lang.ui.views.WholeGraphicalViewer;
 /**
  * @author Enrico Persiani
  */
-public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
+public class OutlinePage extends ContentOutlinePage implements IAdaptable {
 	private static final int OUTLINE_PAGE_ID = 0;
 	private static final int OVERVIEW_PAGE_ID = 1;
 
@@ -114,7 +114,7 @@ public class E3OutlinePage extends ContentOutlinePage implements IAdaptable {
 		}
 	}
 
-	public E3OutlinePage(IEclipseContext context, IEntityPartViewer graphicalViewer, SelectionSynchronizer synchronizer) {
+	public OutlinePage(IEclipseContext context, IEntityPartViewer graphicalViewer, SelectionSynchronizer synchronizer) {
 		super(new OtlineTreeViewer(context));
 		this.graphicalViewer = graphicalViewer;
 		this.synchronizer = synchronizer;

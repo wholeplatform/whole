@@ -25,9 +25,6 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.ui.views.ContextView;
 import org.whole.lang.ui.views.DebugView;
-import org.whole.lang.ui.views.DetailsView;
-import org.whole.lang.ui.views.IndexView;
-import org.whole.lang.ui.views.MapView;
 import org.whole.lang.ui.views.ResultsView;
 import org.whole.lang.ui.views.SampleView;
 import org.whole.lang.ui.views.VariablesView;
@@ -52,19 +49,19 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 	}
 
 	protected void addTopLeftViews(IFolderLayout folder) {
-		folder.addView(DebugView.ID);
 		folder.addView(IUIConstants.DEBUG_PART_ID);
+		folder.addView(DebugView.ID);
 		folder.addPlaceholder(SampleView.ID);
 		folder.addView(IPageLayout.ID_RES_NAV);
 //		topLeft.addView(IPageLayout.ID_OUTLINE);
 		folder.addView(PaletteView.ID);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
-		folder.addView(VariablesView.ID);
 		folder.addView(IUIConstants.VARIABLES_PART_ID);
+		folder.addView(VariablesView.ID);
 		folder.addPlaceholder(ContextView.ID);
-		folder.addPlaceholder(ResultsView.ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
+		folder.addPlaceholder(ResultsView.ID);
 		folder.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 	}
 
@@ -84,12 +81,12 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IConsoleConstants.ID_CONSOLE_VIEW);
 		layout.addShowViewShortcut(PaletteView.ID);
-		layout.addShowViewShortcut(DebugView.ID);
-		layout.addShowViewShortcut(VariablesView.ID);
+		layout.addShowViewShortcut(IUIConstants.DEBUG_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
 		layout.addShowViewShortcut(ContextView.ID);
-		layout.addShowViewShortcut(IndexView.ID);
-		layout.addShowViewShortcut(MapView.ID);
-		layout.addShowViewShortcut(DetailsView.ID);
+		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
 		layout.addShowViewShortcut(SampleView.ID);
 	}
 }

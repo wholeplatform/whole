@@ -18,10 +18,7 @@
 package org.whole.lang.ide;
 
 import org.eclipse.ui.IFolderLayout;
-import org.whole.lang.ui.views.DetailsView;
-import org.whole.lang.ui.views.IndexView;
-import org.whole.lang.ui.views.MapView;
-import org.whole.lang.ui.views.ResultsView;
+import org.whole.lang.e4.ui.api.IUIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -30,11 +27,11 @@ public class WholeIDEExplorePerspectiveFactory extends WholeIDEPerspectiveFactor
 	public static String ID = WholeIDEExplorePerspectiveFactory.class.getName();
 
 	protected void addTopRightViews(IFolderLayout folder) {
-		folder.addView(MapView.ID);
+		folder.addView(IUIConstants.MAP_PART_ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
-		folder.addView(IndexView.ID);
-		folder.addView(DetailsView.ID);
-		folder.addPlaceholder(ResultsView.ID);
+		folder.addView(IUIConstants.INDEX_PART_ID);
+		folder.addView(IUIConstants.DETAILS_PART_ID);
+		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
 	}
 }
