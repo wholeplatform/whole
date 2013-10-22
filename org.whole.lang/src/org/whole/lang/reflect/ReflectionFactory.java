@@ -421,7 +421,7 @@ public class ReflectionFactory {
     public void addPersistenceKit(String editorId, IPersistenceKit persistenceKit) {
     	addPersistenceKit(persistenceKit);
     	editorIdPersistenceKitMap.put(editorId, persistenceKit);
-    	List<String> editorIds = persistenceKitEditorIdMap.remove(persistenceKit);
+    	List<String> editorIds = persistenceKitEditorIdMap.get(persistenceKit);
     	if (editorIds == null)
     		persistenceKitEditorIdMap.put(persistenceKit, editorIds = new ArrayList<String>());
     	editorIds.add(editorId);
