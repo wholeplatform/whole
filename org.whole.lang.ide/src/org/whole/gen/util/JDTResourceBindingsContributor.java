@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
@@ -30,6 +31,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.util.IResourceBindingsContributor;
+import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -57,15 +59,13 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 					bm.wDefValue("compilationUnitName", compilationUnitName);
 					bm.wDefValue("className", StringUtils.toSimpleName(compilationUnitName));
 
-					//FIXME workaround for SampleView.defineBindings() invocation that causes the following exception:
-					//java.lang.IllegalArgumentException: Attempted to beginRule: P/org.whole.dev.langs, does not match outer scope rule: org.whole.lang.ui.views.SampleView
-//					try {
-//						project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
-//						Class<?> clazz = IDEUtils.loadCompilationUnit(bm);
-//						if (clazz != null)
-//							bm.wDefValue("class", clazz);
-//					} catch (Exception e) {
-//					}
+					try {
+						project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
+						Class<?> clazz = IDEUtils.loadCompilationUnit(bm);
+						if (clazz != null)
+							bm.wDefValue("class", clazz);
+					} catch (Exception e) {
+					}
 
 					IResource correspondingResource = packageFragment.getParent().getCorrespondingResource();
 					IPath sourcePath = correspondingResource.getProjectRelativePath();
