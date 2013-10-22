@@ -61,8 +61,7 @@
             extensions="java"
             default="false"
             icon="icons/editors/java_source.gif"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.java.JavaSourceEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.javaSource"/>
       </editor>
@@ -71,8 +70,7 @@
             extensions="java"
             icon="icons/editors/java_builder.gif"
             default="false"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.java.JavaBuilderEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.javaWhole"/>
       </editor>
@@ -81,10 +79,18 @@
             extensions="xml"
             icon="icons/editors/xml_source.gif"
             default="false"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.xml.XmlSourceEditor">
             <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
+      </editor>
+      <editor
+            name="XML Builder Persistence"
+            extensions="xwl,xml"
+            icon="icons/editors/xml_builder.gif"
+            default="false"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.xml.XmlBuilderEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
       <editor
             name="XML Builder Persistence E3"
@@ -93,7 +99,7 @@
             default="false"
             contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
             class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            id="org.whole.lang.xml.XmlBuilderEditor">
+            id="org.whole.lang.xml.E3XmlBuilderEditor">
             <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
       </editor>
       <editor
@@ -101,8 +107,7 @@
             extensions="text,txt,csv,flf"
             icon="icons/editors/text_source.gif"
             default="false"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.text.TextSourceEditor">
             <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
       </editor>
@@ -111,8 +116,7 @@
             extensions="properties"
             icon="icons/editors/properties_text.gif"
             default="false"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.properties.PropertiesTextEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.properties"/>
       </editor>
@@ -121,8 +125,7 @@
             extensions="xml"
             icon="icons/editors/properties_xml.gif"
             default="false"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.properties.PropertiesXmlEditor">
             <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
       </editor>
@@ -131,8 +134,7 @@
             extensions="xsd"
             icon="icons/editors/xml_source.gif"
             default="false"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.xsd.XsdSourceEditor">
       </editor>
       <editor
@@ -140,8 +142,7 @@
             extensions="xml"
             icon="icons/editors/xml_source.gif"
             default="false"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.xsd.XsiSourceEditor">
       </editor>
       <editor
@@ -149,12 +150,10 @@
             extensions="js"
             default="false"
             icon="icons/editors/javascript_source.gif"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.java.JavaScriptSourceEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.javaScriptSource"/>
       </editor>
-
    </extension>
 
 </plugin>

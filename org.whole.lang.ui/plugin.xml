@@ -186,40 +186,6 @@
 			class="org.whole.lang.ui.preferences.WholePreferenceInitializer"/>
 	</extension>
 	
-   <extension
-         point="org.eclipse.ui.editors">
-	  <editor
-            name="Object Persistence"
-            default="true"
-            icon="icons/editors/object.gif"
-            extensions="ser"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            id="org.whole.lang.ObjectEditor">
-      </editor>
-
-	  <!--editor
-            name="XML Beans Persistence"
-            default="false"
-            icon="icons/editors/xml_beans.gif"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            id="org.whole.lang.XmlBeansEditor">
-            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
-      </editor-->
-
-      <!--editor
-            name="Datatype Persistence"
-            default="false"
-            extensions="data,text,txt"
-            icon="icons/editors/datatype.gif"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            id="org.whole.lang.DataTypeEditor">
-            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
-      </editor-->
-    </extension>
-
 	<extension point="org.eclipse.ui.cheatsheets.cheatSheetContent">
 		<category name="%cheatsheet.whole.category" id="org.whole.category"/>
 	</extension>

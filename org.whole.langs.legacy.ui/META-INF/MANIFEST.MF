@@ -34,6 +34,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.views,
  org.whole.lang,
  org.whole.lang.ui,
+ org.whole.lang.e4.ui.compatibility,
  org.whole.langs.legacy,
  org.whole.lang.ui.notations
 Bundle-ActivationPolicy: lazy

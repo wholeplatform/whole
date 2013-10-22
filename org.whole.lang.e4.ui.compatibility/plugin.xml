@@ -73,14 +73,32 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="XML Builder Persistence"
-            extensions="xwl,xml"
-            icon="icons/editors/xml_builder.gif"
-            default="false"
+            name="Object Persistence"
+            extensions="ser"
+            icon="icons/editors/object.gif"
+            default="true"
             class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.xml.E4XmlBuilderEditor">
-            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
+            id="org.whole.lang.ObjectEditor">
       </editor>
+	  <!--editor
+            name="XML Beans Persistence"
+            extensions="xwl,xml"
+            icon="icons/editors/xml_beans.gif"
+            default="false"
+            contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.XmlBeansEditor">
+            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
+      </editor-->
+
+      <!--editor
+            name="Datatype Persistence"
+            extensions="data,text,txt"
+            icon="icons/editors/datatype.gif"
+            default="false"
+            contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.DataTypeEditor">
+            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+      </editor-->
 	</extension>
 
    <extension
