@@ -28,6 +28,7 @@ public interface IModelInput {
 	IFile getFile();
 	IPersistenceKit getPersistenceKit();
 	IPersistenceKit getBasePersistenceKit();
+	String getOverridePersistenceKitId();
 	void setOverridePersistenceKitId(String persistenceKitId);
 	IEntity readModel() throws Exception;
 	boolean isReadable();

@@ -59,6 +59,10 @@ public class ModelInput implements IModelInput {
 	}
 
 	@Override
+	public String getOverridePersistenceKitId() {
+		return this.overridePersistenceKitId;
+	}
+	@Override
 	public void setOverridePersistenceKitId(String overridePersistenceKitId) {
 		this.overridePersistenceKitId = overridePersistenceKitId;
 		this.readable = null;

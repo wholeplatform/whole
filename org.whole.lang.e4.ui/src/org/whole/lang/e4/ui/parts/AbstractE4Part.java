@@ -216,6 +216,7 @@ public abstract class AbstractE4Part {
 		part.getMenus().clear();
 		if (modelInput != null) {
 			part.getPersistedState().put("basePersistenceKitId", modelInput.getBasePersistenceKit().getId());
+			part.getPersistedState().put("overridePersistenceKitId", modelInput.getOverridePersistenceKitId());
 			part.getPersistedState().put("filePath", modelInput.getFile().getFullPath().toPortableString());
 		}
 	}
@@ -224,7 +225,9 @@ public abstract class AbstractE4Part {
 		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
 			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(part.getPersistedState().get("filePath")));
-			context.set(IModelInput.class, modelInput = new ModelInput(file, basePersistenceKitId));
+			modelInput = new ModelInput(file, basePersistenceKitId);
+			modelInput.setOverridePersistenceKitId(part.getPersistedState().get("overridePersistenceKitId"));
+			context.set(IModelInput.class, modelInput);
 		}
 	}
 
