@@ -23,6 +23,7 @@ import javax.inject.Singleton;
 
 import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.ContextMenuProvider;
@@ -336,8 +337,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	@Inject
-	protected void setSelection(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
-		if (!isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
+	protected void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
+		if (selection == null || !isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
 			return;
 
 		this.selection = selection.wClone();
