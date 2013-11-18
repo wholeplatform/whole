@@ -59,6 +59,22 @@
             name="Variables"
             restorable="true">
       </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.part.context"
+            class="org.whole.lang.e4.ui.compatibility.ContextViewPart"
+            icon="icons/views/whole.gif"
+            name="Context"
+            restorable="true">
+      </view>
+      <view
+            category="org.whole.lang.ui.views.category"
+            id="org.whole.lang.e4.ui.part.sample"
+            class="org.whole.lang.e4.ui.compatibility.SampleViewPart"
+            icon="icons/views/whole.gif"
+            name="Sample"
+            restorable="true">
+      </view>
 
       <view
             category="org.whole.lang.ui.views.category"

@@ -35,6 +35,8 @@ public interface IUIConstants {
 	public static final String TREE_PART_ID = BUNDLE_ID+".part.tree";
 	public static final String DEBUG_PART_ID = BUNDLE_ID+".part.debug";
 	public static final String VARIABLES_PART_ID = BUNDLE_ID+".part.variables";
+	public static final String CONTEXT_PART_ID = BUNDLE_ID+".part.context";
+	public static final String SAMPLE_PART_ID = BUNDLE_ID+".part.sample";
 
 	// context menu id
 	public static final String CONTEXT_MENU_ID = BUNDLE_ID+".context.menu";
@@ -160,6 +162,7 @@ public interface IUIConstants {
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
 	public static final String TOPIC_BREAK_DEBUG = "TOPIC_BREAK_DEBUG";
 	public static final String TOPIC_UPDATE_VARIABLES = "TOPIC_UPDATE_VARIABLES";
+	public static final String TOPIC_UPDATE_SAMPLE_CONTEXT = "TOPIC_UPDATE_SAMPLE_CONTEXT";
 
 	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
 	public static final String FIND_BUTTON_TEXT = "Find";
