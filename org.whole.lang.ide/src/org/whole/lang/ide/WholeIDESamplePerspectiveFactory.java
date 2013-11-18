@@ -54,15 +54,17 @@ public class WholeIDESamplePerspectiveFactory extends WholeIDEPerspectiveFactory
 	}
 
 	protected void addTopRightViews(IFolderLayout folder) {
+		folder.addView(IUIConstants.CONTEXT_PART_ID);
 		folder.addView(ContextView.ID);
 	}
 	protected void addMidRightViews(IFolderLayout folder) {
+		folder.addView(IUIConstants.SAMPLE_PART_ID);
 		folder.addView(SampleView.ID);
-		folder.addPlaceholder(ResultsView.ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
+		folder.addPlaceholder(ResultsView.ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
-		folder.addView(VariablesView.ID);
 		folder.addView(IUIConstants.VARIABLES_PART_ID);
+		folder.addView(VariablesView.ID);
 	}
 }
