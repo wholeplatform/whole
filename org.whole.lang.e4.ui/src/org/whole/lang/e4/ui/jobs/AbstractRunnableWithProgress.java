@@ -24,6 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
@@ -40,11 +41,11 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 
 	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
 		this.context = context;
-		this.bm = bm.wClone();
+		this.bm = E4Utils.clone(bm);
 		this.label = label;
 		this.delayUpdates = delayUpdates;
 	}
-	
+
 	public IBindingManager getBindings() {
 		return bm;
 	}
