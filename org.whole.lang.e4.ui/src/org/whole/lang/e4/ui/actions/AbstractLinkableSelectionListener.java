@@ -17,28 +17,31 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
  */
 public abstract class AbstractLinkableSelectionListener implements ILinkableSelectionListener {
+	@Inject
+	protected IEclipseContext context;
+	@Inject
 	protected IEntityPartViewer viewer;
+	@Inject @Named(LINK_TYPE)
 	protected LinkType linkType;
+
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
-
-	public AbstractLinkableSelectionListener(IEntityPartViewer viewer) {
-		this(viewer, LinkType.ACTIVE_PART);
-	}
-	public AbstractLinkableSelectionListener(IEntityPartViewer viewer, LinkType defaultLinkType) {
-		this.viewer = viewer;
-		this.linkType = defaultLinkType;
-		this.linkedViewer = null;
-		this.lastSelection = null;
-	}
+	protected ListenerList linkViewerListenerList = new ListenerList();
 
 	@Override
 	public void selectionChanged(MPart part, Object selection) {
@@ -63,12 +66,34 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 		if (viewer == selectedViewer)
 			return false;
 
-		lastSelection = actualSelection.wClone();
+		lastSelection = E4Utils.clone(actualSelection);
 
 		if (!linkType.isUpdateOnSelectionChange())
 			return false;
 
 		return linkType.isLinkedToActivePart() ||
 				(linkType.isLinkedToFixedPart() && selectedViewer == linkedViewer);
+	}
+
+	public void addLinkViewerListener(ILinkViewerListener listener) { 
+		linkViewerListenerList.add(listener); 
+	} 
+	public void removeLinkViewerListener(ILinkViewerListener listener) { 
+		linkViewerListenerList.remove(listener); 
+	} 
+	protected void fireViewerLinked(IEntityPartViewer toViewer) { 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).viewerLinked(viewer, toViewer); 
+	}
+	protected void fireViewerUnlinked() { 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).viewerUnlinked(viewer); 
+	}
+	protected void fireContentsDerived(IEntity result) { 
+		Object[] listeners = linkViewerListenerList.getListeners(); 
+		for (int i = 0; i < listeners.length; i++)
+			((ILinkViewerListener) listeners[i]).contentsDerived(viewer, lastSelection, result); 
 	}
 }

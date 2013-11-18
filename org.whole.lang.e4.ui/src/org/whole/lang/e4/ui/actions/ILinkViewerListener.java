@@ -17,6 +17,7 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 
@@ -26,5 +27,5 @@ import org.whole.lang.model.IEntity;
 public interface ILinkViewerListener {
 	public void viewerLinked(IEntityPartViewer viewer, IEntityPartViewer toViewer);
 	public void viewerUnlinked(IEntityPartViewer viewer);
-	public void condentsDerived(IEntityPartViewer viewer, IEntity result);
+	public void contentsDerived(IEntityPartViewer viewer, IBindingManager selection, IEntity result);
 }

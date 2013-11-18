@@ -17,21 +17,45 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.whole.lang.e4.ui.jobs.DeriveModelRunnable;
+import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.util.ChangeTracker;
 import org.whole.lang.e4.ui.viewers.E4EditDomain;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
 public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionListener {
+	public static final String LABEL = "derive model";
+	protected ChangeTracker changeTracker;
+
+	@Inject @Named(FUNCTION_URI)
 	protected String functionUri;
 
-	public DerivedLinkableSelectionListener(IEntityPartViewer viewer, String functionUri) {
-		super(viewer);
-		this.functionUri = functionUri;
+	@PostConstruct
+	void init() {
+		changeTracker = ChangeTracker.create();
+	}
+
+	@Override
+	public void updateLinkType(LinkType linkType) {
+		super.updateLinkType(linkType);
+
+		if (linkType.isNotLinked()) {
+			viewer.setEditDomain(new E4EditDomain());
+			viewer.setEntityContents(EntityUtils.clone(viewer.getEntityContents()));
+			fireViewerUnlinked();
+		} else if (lastSelection != null)
+			updateViewerContents(true);
 	}
 
 	protected void updateViewerContents() {
@@ -42,37 +66,31 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 		});
 	}
 
-	@Override
-	public void updateLinkType(LinkType linkType) {
-		super.updateLinkType(linkType);
-
-		if (linkType.isNotLinked())
-			unlinkViewer();
-		else if (lastSelection != null)
-			updateViewerContents(true);
-	}
-
 	protected void updateViewerContents(boolean relink) {
 		if (lastSelection == null)
 			return;
 
-		if (relink)
-			linkViewer((IEntityPartViewer) lastSelection.wGetValue("viewer"));
+		if (relink) {
+			IEntityPartViewer toViewer = (IEntityPartViewer) lastSelection.wGetValue("viewer");
+			viewer.linkEditDomain(toViewer);
+			fireViewerLinked(toViewer);
+		}
 
-		IEntity result = BehaviorUtils.apply(functionUri, lastSelection.wGet("self"), lastSelection);
-		if (result != null)
-			setDerivedContents(result);
-	}
+		if (!changeTracker.testChangedAndUpdate(lastSelection, lastSelection.wGet("self"))) {
+			System.out.printf("SKIP DERIVATION\n");
+			return;
+		}
 
-	protected void setDerivedContents(IEntity result) {
-		viewer.setContents(result);
-	}
-
-	protected void linkViewer(IEntityPartViewer toViewer) {
-		viewer.linkEditDomain(toViewer);
-	}
-	protected void unlinkViewer() {
-		viewer.setEditDomain(new E4EditDomain());
-		viewer.setEntityContents(EntityUtils.clone(viewer.getEntityContents()));
+		IRunnableWithProgress runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
+			@Override
+			protected void updateUI(IEntity result) {
+				super.updateUI(result);
+				fireContentsDerived(result);
+			}
+		};
+		final RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
+		job.setUser(false);
+		job.setPriority(Job.INTERACTIVE);
+		job.schedule();
 	}
 }

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.LinkToEditorAction;
 import org.whole.lang.e4.ui.parts.AbstractE4DerivedGraphicalPart;
@@ -63,7 +64,7 @@ public class DerivedViewPart<C extends AbstractE4DerivedGraphicalPart> extends V
 				undoAction.redirect(viewer);
 				redoAction.redirect(viewer);
 			}
-			public void condentsDerived(IEntityPartViewer viewer, IEntity result) {
+			public void contentsDerived(IEntityPartViewer viewer, IBindingManager selection,  IEntity result) {
 				if (disableEditing)
 					viewer.setInteractive(result, false, true, false);
 			}

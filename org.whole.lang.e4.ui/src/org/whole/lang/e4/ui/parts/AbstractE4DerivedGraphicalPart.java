@@ -17,10 +17,14 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
+import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.actions.LinkType;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
@@ -33,26 +37,14 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 		return viewer;
 	}
 
-	protected DerivedLinkableSelectionListener createSelectionLinkable(IEntityPartViewer viewer) {
-		return new DerivedLinkableSelectionListener(viewer, getDerivationFunction()) {
-			@Override
-			protected void linkViewer(IEntityPartViewer toViewer) {
-				super.linkViewer(toViewer);
-				fireViewerLinked(toViewer);
-			}
-		
-			@Override
-			protected void unlinkViewer() {
-				super.unlinkViewer();
-				fireViewerUnlinked();
-			}
-			
-			@Override
-			protected void setDerivedContents(IEntity result) {
-				super.setDerivedContents(result);
-				fireContentsDerived(result);
-			}
-		};
+	protected ILinkableSelectionListener createSelectionLinkable(IEntityPartViewer viewer) {
+		String functionUri = getDerivationFunction();
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set(ILinkableSelectionListener.FUNCTION_URI, functionUri);
+		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
+		// we need to pass the viewer because it has not been set in the active context
+		params.set(IEntityPartViewer.class, viewer);
+		return ContextInjectionFactory.make(DerivedLinkableSelectionListener.class, context, params);
 	}
 
 	protected abstract String getDerivationFunction();

@@ -31,7 +31,6 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -85,7 +84,6 @@ public abstract class AbstractE4Part {
 	protected ActionRegistry actionRegistry;
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
-	protected ListenerList linkViewerListenerList;
 	protected ILinkableSelectionListener selectionLinkable;
 
 	@Inject IEclipseContext context;
@@ -98,10 +96,6 @@ public abstract class AbstractE4Part {
 	@Inject MPart part;
 	@Optional @Inject IModelInput modelInput;
 	@Inject IWorkspace workspace;
-
-	public AbstractE4Part() {
-		this.linkViewerListenerList = new ListenerList();
-	}
 
 	@PostConstruct
 	public void createPartControl(Composite parent) {
@@ -121,8 +115,6 @@ public abstract class AbstractE4Part {
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent event) {
-//				context.remove(IEntityPartViewer.class);
-//				context.remove(ActionRegistry.class);
 			}
 
 			@Override
@@ -266,26 +258,13 @@ public abstract class AbstractE4Part {
 	}
 
 	public void addLinkViewerListener(ILinkViewerListener listener) { 
-		linkViewerListenerList.add(listener); 
+		if (this.selectionLinkable != null)
+			selectionLinkable.addLinkViewerListener(listener); 
 	} 
 	public void removeLinkViewerListener(ILinkViewerListener listener) { 
-		linkViewerListenerList.remove(listener); 
+		if (this.selectionLinkable != null)
+			selectionLinkable.removeLinkViewerListener(listener); 
 	} 
-	protected void fireViewerLinked(IEntityPartViewer toViewer) { 
-		Object[] listeners = linkViewerListenerList.getListeners(); 
-		for (int i = 0; i < listeners.length; i++)
-			((ILinkViewerListener) listeners[i]).viewerLinked(getViewer(), toViewer); 
-	}
-	protected void fireViewerUnlinked() { 
-		Object[] listeners = linkViewerListenerList.getListeners(); 
-		for (int i = 0; i < listeners.length; i++)
-			((ILinkViewerListener) listeners[i]).viewerUnlinked(getViewer()); 
-	}
-	protected void fireContentsDerived(IEntity result) { 
-		Object[] listeners = linkViewerListenerList.getListeners(); 
-		for (int i = 0; i < listeners.length; i++)
-			((ILinkViewerListener) listeners[i]).condentsDerived(getViewer(), result); 
-	}
 
 	public void setSelectionLinkable(ILinkableSelectionListener selectionLinkable) {
 		if (this.selectionLinkable != null)
