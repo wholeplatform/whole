@@ -32,9 +32,9 @@ public class E4VariablesGraphicalPart extends E4GraphicalPart {
 	@Optional
 	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_VARIABLES) IEntity results) {
 		if (results != null) {
-			viewer.setEntityContents(results);
-			viewer.setInteractive(results, false, true, false);
+			getViewer().setEntityContents(results);
+			getViewer().setInteractive(results, false, true, false);
 		} else
-			viewer.setContents(null, createDefaultContents());
+			getViewer().setContents(null, createDefaultContents());
 	}
 }

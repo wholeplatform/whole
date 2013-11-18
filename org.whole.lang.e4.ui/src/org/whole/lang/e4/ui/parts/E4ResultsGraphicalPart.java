@@ -35,7 +35,7 @@ public class E4ResultsGraphicalPart extends E4GraphicalPart {
 	@Inject
 	@Optional
 	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_RESULTS) IEntity results) {
-		viewer.setEntityContents(results);
+		getViewer().setEntityContents(results);
 		getClearContentsAction().update();
 	}
 

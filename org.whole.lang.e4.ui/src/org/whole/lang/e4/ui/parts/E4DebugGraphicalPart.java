@@ -60,9 +60,9 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 
 		IEntity breakpoint = (IEntity) args[0];
 		IEntity contents = EntityUtils.getCompoundRoot(breakpoint);
-		viewer.setEntityContents(contents);
-		viewer.setInteractive(contents, false, true, false);
-		viewer.selectAndReveal(breakpoint);
+		getViewer().setEntityContents(contents);
+		getViewer().setInteractive(contents, false, true, false);
+		getViewer().selectAndReveal(breakpoint);
 		
 		// release any suspended thread
 		if (this.barrier != null)
@@ -83,7 +83,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 	public void doResume() {
 		setSuspended(false);
-		viewer.setContents(null, createDefaultContents());
+		getViewer().setContents(null, createDefaultContents());
 		try {
 			CyclicBarrier barrier = this.barrier;
 			this.barrier = null;
@@ -94,7 +94,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 	public void doTerminate() {
 		setSuspended(false);
-		viewer.setContents(null, createDefaultContents());
+		getViewer().setContents(null, createDefaultContents());
 		CyclicBarrier barrier = this.barrier;
 		this.barrier = null;
 		barrier.reset();
