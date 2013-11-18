@@ -173,19 +173,21 @@ public class E4Utils {
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
+		defineResourceBindings(bm, modelInput.getFile());
+		bm.wDefValue("modelInput", modelInput);
+	}
+	public static void defineResourceBindings(IBindingManager bm, IFile file) {
 		try {
 			// NOTE: we must use the platform class loader
 			// because bm doesn't includes the classLoader variable, yet
 			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 			Class<?> resourceUtilsClass = Class.forName("org.whole.lang.ui.util.ResourceUtils", true, cl);
 			Method defineResourceBindingsMethod = resourceUtilsClass.getMethod("defineResourceBindings", new Class[] {IBindingManager.class, IFile.class});
-			defineResourceBindingsMethod.invoke(null, bm, modelInput.getFile());
-			bm.wDefValue("modelInput", modelInput);
+			defineResourceBindingsMethod.invoke(null, bm, file);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
 	}
-
 		
 	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, IEntityTransformer entityTransformer) {
 		return wrapToBehavior(ed, null, entityTransformer);
@@ -262,5 +264,11 @@ public class E4Utils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public static IBindingManager clone(IBindingManager bm) {
+		IBindingManager clone = BindingManagerFactory.instance.createBindingManager();
+		clone.wAddAll(bm);
+		return clone;
+
 	}
 }
