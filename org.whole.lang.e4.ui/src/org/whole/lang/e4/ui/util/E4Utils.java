@@ -265,10 +265,4 @@ public class E4Utils {
 			e.printStackTrace();
 		}
 	}
-	public static IBindingManager clone(IBindingManager bm) {
-		IBindingManager clone = BindingManagerFactory.instance.createBindingManager();
-		clone.wAddAll(bm);
-		return clone;
-
-	}
 }

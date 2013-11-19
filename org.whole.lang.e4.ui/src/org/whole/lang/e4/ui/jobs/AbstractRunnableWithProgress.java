@@ -41,7 +41,7 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 
 	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
 		this.context = context;
-		this.bm = E4Utils.clone(bm);
+		this.bm = bm.clone();
 		this.label = label;
 		this.delayUpdates = delayUpdates;
 	}

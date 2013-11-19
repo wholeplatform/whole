@@ -23,16 +23,19 @@ import java.util.Set;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.ICloneable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IBindingScope {
+public interface IBindingScope extends ICloneable {
 	public static enum Kind { SCOPE, OUTER_GROUP_ADAPTER, OUTER_SCOPE_ADAPTER, INNER_SCOPE_ADAPTER };
 	
 	public Kind getKind();
 
-	public IBindingScope wClone();
+	public IBindingScope clone();
+	public IBindingScope clone(ICloneContext cc);
 
 	public IBindingScope wTargetScope();
 	public IBindingScope wEnclosingScope();

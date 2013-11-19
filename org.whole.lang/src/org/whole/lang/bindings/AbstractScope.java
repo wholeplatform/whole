@@ -29,7 +29,7 @@ import org.whole.lang.util.DataTypeUtils;
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractScope implements IBindingScope {
+public abstract class AbstractScope extends AbstractCloneableScope {
 	public Kind getKind() {
 		return Kind.SCOPE;
 	}

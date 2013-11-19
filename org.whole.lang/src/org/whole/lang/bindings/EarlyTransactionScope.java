@@ -28,6 +28,7 @@ import java.util.TreeSet;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -48,8 +49,11 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 		this.map = map;
 	}
 
-	public INestableScope wClone() {
-		return new EarlyTransactionScope(new HashMap<String, IEntity>(map)).wWithEnclosingScope(wEnclosingScope().wClone());
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		EarlyTransactionScope scope = (EarlyTransactionScope) super.clone(cc);
+		scope.map = new HashMap<String, IEntity>(map);
+		return scope;
 	}
 
 	public Kind getKind() {

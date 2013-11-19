@@ -27,6 +27,7 @@ import java.util.TreeMap;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -43,13 +44,14 @@ public class SimpleScope extends AbstractScope {
 		this.map = map;
 	}
 
-	public IBindingScope wClone() {
-		final SimpleScope copy = new SimpleScope(new HashMap<String, IEntity>(map));
-		copy.result = result;
-		copy.resultIterator = resultIterator;
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		SimpleScope scope = (SimpleScope) super.clone(cc);
+		scope.map = new HashMap<String, IEntity>(map);
+		scope.resultScope = resultScope == this ? scope : null;
+		return scope;
 	}
+
 //	@SuppressWarnings("unchecked")
 //	protected Map<String, IEntity> deepCloneMap() {
 //		Map<String, IEntity> copy_map = (Map<String, IEntity>) ((HashMap<String, IEntity>) map).clone();

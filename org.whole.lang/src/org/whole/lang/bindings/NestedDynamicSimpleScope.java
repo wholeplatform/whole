@@ -26,6 +26,7 @@ import java.util.TreeSet;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -40,10 +41,11 @@ public class NestedDynamicSimpleScope extends SimpleScope implements INestableSc
 		super(map);
 	}
 
-	public INestableScope wClone() {
-		NestedDynamicSimpleScope copy = new NestedDynamicSimpleScope(new HashMap<String, IEntity>(map));
-		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		NestedDynamicSimpleScope scope = (NestedDynamicSimpleScope) super.clone(cc);
+		scope.enclosingScope = cc.clone(enclosingScope);
+		return scope;
 	}
 
 	public IBindingScope wEnclosingScope() {

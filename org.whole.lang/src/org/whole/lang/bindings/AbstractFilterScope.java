@@ -18,12 +18,14 @@
 package org.whole.lang.bindings;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -36,6 +38,13 @@ public abstract class AbstractFilterScope extends AbstractDelegatingScope implem
 		super(NullScope.instance);
 
 		this.filterNames = filterNames;
+	}
+
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		AbstractFilterScope scope = (AbstractFilterScope) super.clone(cc);
+		scope.filterNames = new HashSet<String>(filterNames);
+		return scope;
 	}
 
 	public Kind getKind() {

@@ -66,7 +66,7 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 		if (viewer == selectedViewer)
 			return false;
 
-		lastSelection = E4Utils.clone(actualSelection);
+		lastSelection = actualSelection.clone();
 
 		if (!linkType.isUpdateOnSelectionChange())
 			return false;

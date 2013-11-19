@@ -27,6 +27,7 @@ import java.util.TreeSet;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -48,15 +49,13 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 		this.unsetNames = unsetNames;
 	}
 
-	public INestableScope wClone() {
-		final LazyTransactionScope copy = new LazyTransactionScope(
-				new HashMap<String, IEntity>(map),
-				new HashSet<String>(defNames),
-				new HashSet<String>(unsetNames));
-		copy.result = result;
-		copy.resultIterator = resultIterator;
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy.wWithEnclosingScope(wEnclosingScope().wClone());
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		LazyTransactionScope scope = (LazyTransactionScope) super.clone(cc);
+		scope.defNames = new HashSet<String>(defNames);
+		scope.unsetNames = new HashSet<String>(unsetNames);
+		scope.enclosingScope = cc.clone(enclosingScope);
+		return scope;
 	}
 
 	public Kind getKind() {

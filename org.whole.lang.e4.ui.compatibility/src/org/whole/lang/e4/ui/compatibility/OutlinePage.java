@@ -97,9 +97,9 @@ public class OutlinePage extends ContentOutlinePage implements IAdaptable {
 	private ActionRegistry actionRegistry;
 	private IEclipseContext context;
 
-	static class OtlineTreeViewer extends E4TreeViewer {
+	static class OutlineTreeViewer extends E4TreeViewer {
 		protected IEclipseContext context;
-		public OtlineTreeViewer(IEclipseContext context) {
+		public OutlineTreeViewer(IEclipseContext context) {
 			this.context = context;
 			this.modelInput = context.get(IModelInput.class);
 		}
@@ -115,7 +115,7 @@ public class OutlinePage extends ContentOutlinePage implements IAdaptable {
 	}
 
 	public OutlinePage(IEclipseContext context, IEntityPartViewer graphicalViewer, SelectionSynchronizer synchronizer) {
-		super(new OtlineTreeViewer(context));
+		super(new OutlineTreeViewer(context));
 		this.graphicalViewer = graphicalViewer;
 		this.synchronizer = synchronizer;
 

@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.whole.lang.operations.CloneContext;
+import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.util.FreshNameGenerator;
 
@@ -38,10 +40,17 @@ public class EnvironmentManager implements IEnvironmentManager {
 		//FIXME test only
 //		currentOperation = new AnonymousOperation(this);
 	}
-	protected EnvironmentManager(IEnvironmentManager env) {
-		for (String envName : env.getEnvironmentNames())
-			createEnvironment(envName, env.getEnvironment(envName).wTargetScope());
-		currentOperation = env.getCurrentOperation();
+
+	public IEnvironmentManager clone() {
+		return clone(new CloneContext());
+	}
+	public IEnvironmentManager clone(ICloneContext cc) {
+		EnvironmentManager em = new EnvironmentManager();
+		cc.putClone(this, em);
+		for (String envName : getEnvironmentNames())
+			em.environments.put(em.freshNameGenerator.nextFreshName(envName),
+					cc.clone(getEnvironment(envName)));
+		return em;
 	}
 
 	public IOperation getCurrentOperation() {
@@ -74,14 +83,12 @@ public class EnvironmentManager implements IEnvironmentManager {
 	}
 
 	public IBindingManager createEnvironment(String namePrefix) {
-		return createEnvironment(namePrefix,
-				BindingManagerFactory.instance.createSimpleScope());
+		return createEnvironment(namePrefix, BindingManagerFactory.instance.createSimpleScope());
 	}
 	public IBindingManager createEnvironment(String namePrefix, IBindingScope scope) {
 		IBindingManager env;
 		environments.put(freshNameGenerator.nextFreshName(namePrefix),
-				env = BindingManagerFactory.instance.createBindingManager(
-						scope, this));
+				env = BindingManagerFactory.instance.createBindingManager(scope, this));
 		return env;
 	}
 

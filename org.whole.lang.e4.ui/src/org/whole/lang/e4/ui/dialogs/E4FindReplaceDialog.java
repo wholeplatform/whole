@@ -341,7 +341,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		if (selection == null || !isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
 			return;
 
-		this.selection = E4Utils.clone(selection);
+		this.selection = selection.clone();
 		IEntity self = this.selection.wGet("self");
 		iterator.reset(self);
 		if (this.selection.wIsSet("primarySelectedEntity")) {

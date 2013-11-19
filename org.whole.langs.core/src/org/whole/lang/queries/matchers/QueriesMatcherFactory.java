@@ -104,9 +104,8 @@ public class QueriesMatcherFactory {
 				}
 				if (laScope != null)
 					throw new VisitException();
-				else {
-					laScope = fromClause.lookaheadScope().wClone();
-				}
+				else
+					laScope = fromClause.lookaheadScope().clone();
 			}
 
 			if (laScope == null)

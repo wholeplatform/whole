@@ -27,24 +27,27 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.ReflectiveUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class JavaBeanScope implements IBindingScope {
+public class JavaBeanScope extends AbstractCloneableScope {
 	private Object bean;
-	private Map<String, PropertyDescriptor> propertyMap;
+	final private Map<String, PropertyDescriptor> propertyMap;
 
 	public JavaBeanScope(Object bean) {
 		this.bean = bean;
 		propertyMap = ReflectiveUtils.getBeanPropertyMap(bean.getClass());
 	}
 
-	public IBindingScope wClone() {
-		final JavaBeanScope copy = new JavaBeanScope(ReflectiveUtils.reflectiveClone(bean));
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		JavaBeanScope scope = (JavaBeanScope) super.clone(cc);
+		scope.bean = ReflectiveUtils.reflectiveClone(bean);
+		scope.resultScope = resultScope == this ? scope : null;
+		return scope;
 	}
 
 	public Kind getKind() {

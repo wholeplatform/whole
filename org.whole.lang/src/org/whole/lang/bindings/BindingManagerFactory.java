@@ -60,9 +60,6 @@ public class BindingManagerFactory {
 	public IEnvironmentManager createEnvironmentManager() {
 		return new EnvironmentManager();
 	}
-	public IEnvironmentManager createEnvironmentManager(IEnvironmentManager env) {
-		return new EnvironmentManager(env);
-	}
 
 	public IBindingManager createArguments() {
 		IBindingManager args = createEnvironmentManager().createEnvironment("env");
@@ -73,8 +70,8 @@ public class BindingManagerFactory {
 		IBindingManager args = createEnvironmentManager().createEnvironment("bm");
 		return args;
 	}
-	public IBindingManager createBindingManager(IBindingScope scope, IEnvironmentManager environmentManager) {
-		return new BindingManager(environmentManager, scope);
+	public IBindingManager createBindingManager(IBindingScope scope, IEnvironmentManager em) {
+		return new BindingManager(em, scope);
 	}
 
 	public IBindingScope createSimpleScope() {

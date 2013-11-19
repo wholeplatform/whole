@@ -19,6 +19,7 @@ package org.whole.lang.bindings;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 
 /**
@@ -31,11 +32,12 @@ public class NestedStaticScope extends AbstractDelegatingScope implements INesta
 		super(targetScope);
 	}
 
-	public INestableScope wClone() {
-		NestedStaticScope copy = new NestedStaticScope(wTargetScope().wClone());
-		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		NestedStaticScope scope = (NestedStaticScope) super.clone(cc);
+		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.resultScope = resultScope == this ? scope : null;
+		return scope;
 	}
 
 	public Kind getKind() {

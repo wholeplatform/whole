@@ -17,13 +17,17 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.ICloneable;
+
 
 
 /**
  * @author Riccardo Solmi
  */
-public interface IBindingManager extends IBindingScope {
-	public IBindingManager wClone();
+public interface IBindingManager extends IBindingScope, ICloneable {
+	public IBindingManager clone();
+	public IBindingManager clone(ICloneContext cc);
 
 	public IEnvironmentManager wGetEnvironmentManager();
 

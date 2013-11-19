@@ -18,13 +18,19 @@
 package org.whole.lang.bindings;
 
 import java.util.Set;
+
+import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.operations.ICloneable;
 import org.whole.lang.operations.IOperation;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEnvironmentManager {
+public interface IEnvironmentManager extends ICloneable {
 	public static final String CONFIGURATION = "Configuration";
+
+	public IEnvironmentManager clone();
+	public IEnvironmentManager clone(ICloneContext cc);
 
 	public IOperation getCurrentOperation();
 	public void enterOperation(IOperation operation);

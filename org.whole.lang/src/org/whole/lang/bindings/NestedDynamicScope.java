@@ -22,6 +22,7 @@ import java.util.TreeSet;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -34,11 +35,13 @@ public class NestedDynamicScope extends AbstractScope implements INestableScope 
 		this.targetScope = targetScope;
 	}
 
-	public INestableScope wClone() {
-		NestedDynamicScope copy = new NestedDynamicScope(wTargetScope().wClone());
-		copy.wWithEnclosingScope(wEnclosingScope().wClone());
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		NestedDynamicScope scope = (NestedDynamicScope) super.clone(cc);
+		scope.targetScope = cc.clone(targetScope);
+		scope.enclosingScope = cc.clone(enclosingScope);
+		scope.resultScope = resultScope == this ? scope : null;
+		return scope;
 	}
 
 	public IBindingScope wTargetScope() {

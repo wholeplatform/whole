@@ -268,7 +268,7 @@ public class BindingManagerTest extends TestCase {
 		bm.wEnterScope();
 		bm.wDefValue("c", false);
 
-		IBindingManager bm2 = bm.wClone();
+		IBindingManager bm2 = bm.clone();
 		assertEquals(bm.wIntValue("a"), bm2.wIntValue("a"));
 		assertEquals(bm.wLongValue("b"), bm2.wLongValue("b"));
 		assertEquals(bm.wStringValue("c"), bm2.wStringValue("c"));

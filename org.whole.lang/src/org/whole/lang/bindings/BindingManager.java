@@ -17,6 +17,9 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.operations.CloneContext;
+import org.whole.lang.operations.ICloneContext;
+
 
 /**
  * @author Riccardo Solmi
@@ -29,8 +32,14 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		this.environmentManager = environmentManager;
 	}
 
-	public IBindingManager wClone() {
-		return new BindingManager(environmentManager, wTargetScope().wClone());
+	public IBindingManager clone() {
+		return clone(new CloneContext());
+	}
+	@Override
+	public IBindingManager clone(ICloneContext cc) {
+		BindingManager bm = (BindingManager) super.clone(cc);
+		bm.environmentManager = cc.clone(environmentManager);
+		return bm;
 	}
 
 	public Kind getKind() {

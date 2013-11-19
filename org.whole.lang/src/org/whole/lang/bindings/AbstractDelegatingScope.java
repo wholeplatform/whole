@@ -23,15 +23,23 @@ import java.util.Set;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractDelegatingScope implements IBindingScope {
+public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 	private IBindingScope delegateScope;
-	
+
 	protected AbstractDelegatingScope(IBindingScope scope) {
 		this.delegateScope = scope;
+	}
+
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		AbstractDelegatingScope scope = (AbstractDelegatingScope) super.clone(cc);
+		scope.delegateScope = cc.clone(delegateScope);
+		return scope;
 	}
 
 	protected IBindingScope wDelegateScope() {

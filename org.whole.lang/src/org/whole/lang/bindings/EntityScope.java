@@ -26,6 +26,7 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.util.EntityUtils;
@@ -34,19 +35,21 @@ import org.whole.lang.util.EntityUtils;
  * IEntity adapter
  * @author Riccardo Solmi
  */
-public class EntityScope implements IBindingScope {
+public class EntityScope extends AbstractCloneableScope {
 	private IEntity entity;
-	private FeatureDescriptorEnum features;
+	final private FeatureDescriptorEnum features;
 
 	protected EntityScope(IEntity entity) {
 		this.entity = entity;
 		features = entity.wGetLanguageKit().getFeatureDescriptorEnum();
 	}
 
-	public IBindingScope wClone() {
-		final EntityScope copy = new EntityScope(EntityUtils.clone(entity));
-		copy.resultScope = resultScope == this ? copy : null;
-		return copy;
+	@Override
+	public IBindingScope clone(ICloneContext cc) {
+		EntityScope scope = (EntityScope) super.clone(cc);
+		scope.entity = EntityUtils.clone(entity);
+		scope.resultScope = resultScope == this ? scope : null;
+		return scope;
 	}
 
 	public Kind getKind() {

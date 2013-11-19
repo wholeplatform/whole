@@ -86,7 +86,7 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 				if (canExecute) {
 					IEntity primarySelectedEntity = selection.wGet("primarySelectedEntity");
 					IEntity model = EntityUtils.getCompoundRoot(primarySelectedEntity);
-					bm = E4Utils.clone(selection);
+					bm = selection.clone();
 					bm.wDefValue("breakpointsDisabled", true);
 					BehaviorUtils.evaluate(contextModel, 0, bm);
 

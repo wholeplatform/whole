@@ -23,6 +23,7 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -32,7 +33,10 @@ public class VoidScope extends NullScope {
 	protected VoidScope() {
 	}
 
-	public IBindingScope wClone() {
+	public IBindingScope clone() {
+		return instance;
+	}
+	public IBindingScope clone(ICloneContext cc) {
 		return instance;
 	}
 

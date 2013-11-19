@@ -30,11 +30,13 @@ import org.whole.lang.bindings.INestableScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.CloneContext;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Enrico Persiani
  */
-public class BindingManagerAdapter  implements IStructuredSelection, IBindingManager {
+public class BindingManagerAdapter implements IStructuredSelection, IBindingManager {
 	private final IBindingManager bm;
 	private final IStructuredSelection selection;
 
@@ -43,9 +45,13 @@ public class BindingManagerAdapter  implements IStructuredSelection, IBindingMan
 		this.selection = selection;
 	}
 
-	public IBindingManager wClone() {
-		return bm.wClone();
+	public IBindingManager clone() {
+		return clone(new CloneContext());
 	}
+	public IBindingManager clone(ICloneContext cc) {
+		return new BindingManagerAdapter(cc.clone(bm), selection);
+	}
+
 
 	public IEnvironmentManager wGetEnvironmentManager() {
 		return bm.wGetEnvironmentManager();

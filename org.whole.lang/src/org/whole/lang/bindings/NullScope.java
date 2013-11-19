@@ -25,6 +25,7 @@ import java.util.Set;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
@@ -34,7 +35,10 @@ public class NullScope implements IBindingScope {
 	protected NullScope() {
 	}
 
-	public IBindingScope wClone() {
+	public IBindingScope clone() {
+		return instance;
+	}
+	public IBindingScope clone(ICloneContext cc) {
 		return instance;
 	}
 
