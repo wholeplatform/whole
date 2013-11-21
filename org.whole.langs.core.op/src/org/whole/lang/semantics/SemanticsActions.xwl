@@ -2331,21 +2331,27 @@
                         </queries:And>
                         <queries:Sequence initialCapacity="4">
                             <queries:Filter>
-                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </semantics:FunctionApplication>
+                                <queries:Choose initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:StringLiteral value=""/>
+                                </queries:Choose>
                                 <queries:VariableTest value="actualLanguageUri"/>
                             </queries:Filter>
                             <queries:Filter>
-                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                    <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </semantics:FunctionApplication>
+                                <queries:Choose initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFragmentPart"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableRefStep value="actualEntityUri"/>
+                                </queries:Choose>
                                 <queries:VariableTest value="actualEntityName"/>
                             </queries:Filter>
                             <queries:Select>
