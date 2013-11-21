@@ -44,8 +44,6 @@ import org.whole.lang.util.EntityUtils;
  */
 @Singleton
 public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
-	private static final String LABEL = "sample";
-
 	@Inject IEventBroker eventBroker;
 
 	protected IEntity contextModel;
@@ -117,8 +115,8 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 		if (behaviorModel == null)
 			return;
 		else {
-			IRunnableWithProgress runnable = new ExecuteSampleModelRunnable(context, bm, LABEL, contextModel, selfModel, behaviorModel);
-			RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
+			IRunnableWithProgress runnable = new ExecuteSampleModelRunnable(context, bm, behaviorLabel, contextModel, selfModel, behaviorModel);
+			RunnableJob job = new RunnableJob("Executing "+behaviorLabel+" operation...", runnable);
 			job.setUser(false);
 			job.setPriority(Job.INTERACTIVE);
 			job.schedule();
