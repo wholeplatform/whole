@@ -37,12 +37,12 @@ public class ChangeTracker {
 		if (tracked.length != objects.length)
 			return true;
 		for (int i=0; i<objects.length; i++)
-			if (objects[i] != SKIP && objects[i].equals(tracked[i]))
+			if (objects[i] != SKIP && !objects[i].equals(tracked[i]))
 				return true;
 		return false;
 	}
 
-	public boolean testChangedAndUpdate(Object... objects) {
+	public synchronized boolean testChangedAndUpdate(Object... objects) {
 		boolean changed = isChanged(objects);
 		if (changed) {
 			Object[] updated = new Object[objects.length];

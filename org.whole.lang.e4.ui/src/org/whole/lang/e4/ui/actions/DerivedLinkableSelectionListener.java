@@ -75,6 +75,9 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			viewer.linkEditDomain(toViewer);
 			fireViewerLinked(toViewer);
 		}
+		
+		if (!changeTracker.testChangedAndUpdate(lastSelection, lastSelection.wGet("self")))
+			return;
 
 		IRunnableWithProgress runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
 			@Override
