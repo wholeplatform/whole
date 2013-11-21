@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.tools.Tools;
 
@@ -56,9 +57,12 @@ public final class ActivateToolAction extends AbstractE4Action {
 		boolean clearCaret = Tools.TEXTUAL != tool && Tools.TEXTUAL.isActive(viewer);
 		if (tool.ensureActive(viewer) && clearCaret) {
 			IEntity focusEntity = bm.wGet("focusEntity");
-			ITextualEntityPart focusPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(focusEntity);
-			focusPart.setCaretVisible(false);
-			viewer.setSelection(new StructuredSelection(focusPart));
+			IEntityPart focusPart = viewer.getEditPartRegistry().get(focusEntity);
+			if (focusPart instanceof ITextualEntityPart) {
+				ITextualEntityPart textualPart = (ITextualEntityPart) focusPart;
+				textualPart.setCaretVisible(false);
+				viewer.setSelection(new StructuredSelection(textualPart));
+			}
 		}
 	}
 }
