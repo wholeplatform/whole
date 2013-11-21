@@ -34,7 +34,6 @@ import org.whole.lang.e4.ui.actions.LinkViewerAdapter;
 import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.e4.ui.jobs.ExecuteSampleModelRunnable;
 import org.whole.lang.e4.ui.jobs.RunnableJob;
-import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
@@ -64,7 +63,7 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 		if (sampleContext != null) {
 			contextModel = sampleContext.wGet(0);
 			selfModel = sampleContext.wGet(1);
-			executeIfUpdated();
+			execute();
 		}
 	}
 
@@ -101,7 +100,7 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 						transactionScope.rollback();
 						bm.wExitScope();
 					}
-					executeIfUpdated();
+					execute();
 
 				} else {
 					bm = null;
@@ -114,11 +113,10 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 		return listener;
 	}
 
-	protected void executeIfUpdated() {
+	protected void execute() {
 		if (behaviorModel == null)
 			return;
 		else {
-			System.out.printf("%d %d %d\n", contextModel.hashCode(), selfModel.hashCode(), behaviorModel.hashCode());
 			IRunnableWithProgress runnable = new ExecuteSampleModelRunnable(context, bm, LABEL, contextModel, selfModel, behaviorModel);
 			RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
 			job.setUser(false);
