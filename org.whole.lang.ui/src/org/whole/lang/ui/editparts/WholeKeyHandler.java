@@ -45,6 +45,7 @@ import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.tools.DefaultToolStrategy;
 import org.whole.lang.ui.tools.EditPoint;
+import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.ui.tools.IToolStrategy;
 import org.whole.lang.ui.tools.Tools;
 
@@ -64,7 +65,7 @@ import org.whole.lang.ui.tools.Tools;
  *
  * @author Riccardo Solmi
  */
-public class WholeKeyHandler extends KeyHandler implements PositionConstants {
+public class WholeKeyHandler extends KeyHandler implements PositionConstants, IEditPointProvider {
 	int counter;
 
 	/**

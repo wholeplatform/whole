@@ -17,8 +17,8 @@
  */
 package org.whole.lang.ui.actions;
 
-import org.whole.lang.ui.editparts.WholeKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
+import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.ui.tools.IWholeSelection;
 import org.whole.lang.ui.tools.SelectionPart;
 
@@ -32,7 +32,7 @@ public class DefaultKeyHandler implements IKeyHandler {
 	protected DefaultKeyHandler() {
 	}
 
-	public EditPoint findNeighbour(WholeKeyHandler keyHandler, EditPoint editPoint, int direction) {
+	public EditPoint findNeighbour(IEditPointProvider editPointProvider, EditPoint editPoint, int direction) {
 		return null;
 	}
 	

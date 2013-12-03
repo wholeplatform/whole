@@ -28,8 +28,8 @@ import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.DefaultKeyHandler;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.editparts.WholeKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
+import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -45,7 +45,7 @@ public class GrammarsKeyHandler extends DefaultKeyHandler {
 	protected GrammarsKeyHandler() {
 	}
 
-	public EditPoint findNeighbour(WholeKeyHandler keyHandler, EditPoint editPoint, int direction) {
+	public EditPoint findNeighbour(IEditPointProvider editPointProvider, EditPoint editPoint, int direction) {
 		int caret = editPoint.caret;
 		IEntityPart focusPart = editPoint.focus;
 		IEntity focusEntity = focusPart.getModelEntity();
@@ -59,7 +59,7 @@ public class GrammarsKeyHandler extends DefaultKeyHandler {
 				switch (caret) {
 					case 0:
 					case 1:
-						return findInParent(keyHandler, editPoint, focusEntity, direction);
+						return findInParent(editPointProvider, editPoint, focusEntity, direction);
 					case 2:
 					case 3:
 						return editPoint.caret(caret-2);
@@ -68,7 +68,7 @@ public class GrammarsKeyHandler extends DefaultKeyHandler {
 				switch (caret) {
 					case 2:
 					case 3:
-						return findInParent(keyHandler, editPoint, focusEntity, direction);
+						return findInParent(editPointProvider, editPoint, focusEntity, direction);
 					case 0:
 					case 1:
 						return editPoint.caret(caret+2);
@@ -76,59 +76,59 @@ public class GrammarsKeyHandler extends DefaultKeyHandler {
 			case EAST:
 				switch (caret) {
 					case 0:
-						return findInChild(keyHandler, editPoint, focusEntity.wGet(0), direction);
+						return findInChild(editPointProvider, editPoint, focusEntity.wGet(0), direction);
 					case 2:
-						return findInChild(keyHandler, editPoint, focusEntity.wGet(1), direction);
+						return findInChild(editPointProvider, editPoint, focusEntity.wGet(1), direction);
 					case 1:
 					case 3:
-						return findInParent(keyHandler, editPoint, focusEntity, direction);
+						return findInParent(editPointProvider, editPoint, focusEntity, direction);
 				}
 			case WEST:
 				switch (caret) {
 					case 1:
-						return findInChild(keyHandler, editPoint, focusEntity.wGet(0), direction);
+						return findInChild(editPointProvider, editPoint, focusEntity.wGet(0), direction);
 					case 3:
-						return findInChild(keyHandler, editPoint, focusEntity.wGet(1), direction);
+						return findInChild(editPointProvider, editPoint, focusEntity.wGet(1), direction);
 					case 0:
 					case 2:
-						return findInParent(keyHandler, editPoint, focusEntity, direction);
+						return findInParent(editPointProvider, editPoint, focusEntity, direction);
 				}
 		}			
 		}
 		return null;
 	}
 
-	public EditPoint findInParent(WholeKeyHandler keyHandler, EditPoint editPoint, IEntity child, int direction) {
+	public EditPoint findInParent(IEditPointProvider editPointProvider, EditPoint editPoint, IEntity child, int direction) {
 		IEntity parentEntity = child.wGetParent();
 
 		if (EntityUtils.isNull(parentEntity))
-			return keyHandler.getEditPoint();
+			return editPointProvider.getEditPoint();
 
 		switch (parentEntity.wGetEntityOrd()) {
 		case GrammarsEntityDescriptorEnum.As_ord:
 			switch (direction) {
 			case NORTH:
 				if (parentEntity.wGet(1) == child)
-					return findInChild(keyHandler, editPoint, parentEntity.wGet(0), direction);
+					return findInChild(editPointProvider, editPoint, parentEntity.wGet(0), direction);
 				else
-					return findInParent(keyHandler, editPoint, parentEntity, direction);
+					return findInParent(editPointProvider, editPoint, parentEntity, direction);
 			case SOUTH:
 				if (parentEntity.wGet(0) == child)
-					return findInChild(keyHandler, editPoint, parentEntity.wGet(1), direction);
+					return findInChild(editPointProvider, editPoint, parentEntity.wGet(1), direction);
 				else
-					return findInParent(keyHandler, editPoint, parentEntity, direction);
+					return findInParent(editPointProvider, editPoint, parentEntity, direction);
 			case EAST:
 			case WEST:
-				return findInParent(keyHandler, editPoint, parentEntity, direction);
+				return findInParent(editPointProvider, editPoint, parentEntity, direction);
 			}
 		}
-		return keyHandler.getEditPoint();
+		return editPointProvider.getEditPoint();
 	}
 
-	public EditPoint findInChild(WholeKeyHandler keyHandler, EditPoint editPoint, IEntity child, int direction) {
+	public EditPoint findInChild(IEditPointProvider editPointProvider, EditPoint editPoint, IEntity child, int direction) {
 		//TODO
 		
-		return keyHandler.getEditPoint();
+		return editPointProvider.getEditPoint();
 	}
 
 	public int indexOf(IEntityPart parent, IEntityPart child) {

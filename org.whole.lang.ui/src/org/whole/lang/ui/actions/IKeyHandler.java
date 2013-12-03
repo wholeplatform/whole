@@ -17,8 +17,8 @@
  */
 package org.whole.lang.ui.actions;
 
-import org.whole.lang.ui.editparts.WholeKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
+import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.ui.tools.IWholeSelection;
 
 /**
@@ -27,7 +27,7 @@ import org.whole.lang.ui.tools.IWholeSelection;
 public interface IKeyHandler {
 //	public EditPoint findInParent(ModelBasedKeyHandler keyHandler, AbstractPart childPart, int direction);
 //	public EditPoint findInChild(ModelBasedKeyHandler keyHandler, AbstractPart focusPart, int direction);
-	public EditPoint findNeighbour(WholeKeyHandler keyHandler, EditPoint editPoint, int direction);
+	public EditPoint findNeighbour(IEditPointProvider editPointProvider, EditPoint editPoint, int direction);
 	
 	// selection strategy methods
 	public IWholeSelection calculateDoubleClickSelection(EditPoint editPoint);
