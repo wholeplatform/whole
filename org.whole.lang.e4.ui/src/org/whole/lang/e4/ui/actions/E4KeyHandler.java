@@ -30,15 +30,17 @@ import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.bindings.keys.SWTKeySupport;
 import org.eclipse.swt.events.KeyEvent;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.editparts.IEntityPart;
 
 /**
  * @author Enrico Persiani
  */
 public class E4KeyHandler extends KeyHandler {
 	protected IEclipseContext context;
-	protected KeyHandler parent;
+	protected E4KeyHandler parent;
 	protected Map<KeySequence, IUpdatableAction> pressActions;
 	protected Map<KeySequence, IUpdatableAction> releaseActions;
 	protected Map<IEditorKit, Map<KeySequence, IUpdatableAction>> editorKitPressedActions;
@@ -46,6 +48,13 @@ public class E4KeyHandler extends KeyHandler {
 	
 	public E4KeyHandler(IEclipseContext context) {
 		this.context = context;
+	}
+	
+	protected IEntityPartViewer getViewer() {
+		return context.get(IEntityPartViewer.class);
+	}
+	protected IEntityPart getFocusEntityPart() {
+		return getViewer().getFocusEntityPart();
 	}
 
 	protected Map<IEditorKit, Map<KeySequence, IUpdatableAction>> getEditorKitActionsMap(boolean pressed) {
@@ -122,6 +131,10 @@ public class E4KeyHandler extends KeyHandler {
 	}
 	public IAction remove(KeySequence keySequence, boolean pressed) {
 		return (pressed ? getPressActions() : getReleaseActions()).remove(keySequence);
+	}
+	public E4KeyHandler setParent(E4KeyHandler parent) {
+		this.parent = parent;
+		return this;
 	}
 
 	@Override
