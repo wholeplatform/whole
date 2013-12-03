@@ -49,6 +49,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
@@ -144,7 +145,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 			}
 		});
 
-		replaceViewer.setKeyHandler(new E4KeyHandler(context));
+		E4KeyHandler keyHandler = new E4KeyHandler(context);
+		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		replaceViewer.setKeyHandler(keyHandler);
 		replaceViewer.setEntityContents(createDefaultContents());
 		context.set(IEntityPartViewer.class, replaceViewer);
 

@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.api.IUIProvider;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -108,7 +109,9 @@ public class E4Dialog extends Dialog {
 			}
 		});
 
-		viewer.setKeyHandler(new E4KeyHandler(context));
+		E4KeyHandler keyHandler = new E4KeyHandler(context);
+		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		viewer.setKeyHandler(keyHandler);
 		viewer.setEntityContents(createDefaultContents());
 		context.set(IEntityPartViewer.class, viewer);
 

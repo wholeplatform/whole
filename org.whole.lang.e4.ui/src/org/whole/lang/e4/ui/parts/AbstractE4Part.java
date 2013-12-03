@@ -62,6 +62,7 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
+import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.api.IModelInput;
@@ -132,7 +133,9 @@ public abstract class AbstractE4Part {
 			}
 		});
 
-		viewer.setKeyHandler(new E4KeyHandler(context));
+		E4KeyHandler keyHandler = new E4KeyHandler(context);
+		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		viewer.setKeyHandler(keyHandler);
 		viewer.setContents(modelInput, createDefaultContents());		
 		context.set(IEntityPartViewer.class, viewer);
 
