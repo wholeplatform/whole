@@ -39,4 +39,4 @@ Export-Package: org.whole.lang,
  org.whole.lang.visitors
 Bundle-ActivationPolicy: lazy
 Eclipse-BuddyPolicy: registered
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.5.0"
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.0"
