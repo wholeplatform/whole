@@ -19,7 +19,7 @@ package org.whole.lang.e4.ui.parts;
 
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 public class E4GraphicalPart extends AbstractE4Part {
 

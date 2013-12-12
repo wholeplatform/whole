@@ -26,7 +26,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.whole.lang.e4.ui.parts.ModelInput;
+import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.reflect.ReflectionFactory;
 
 /**

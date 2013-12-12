@@ -22,7 +22,7 @@ import java.beans.PropertyChangeListener;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.swt.widgets.Display;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

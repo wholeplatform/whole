@@ -24,11 +24,11 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.IdentityEntityPartListener;
 import org.whole.lang.ui.editparts.EntityPartEvent;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.editparts.IdentityEntityPartListener;
 import org.whole.lang.ui.editparts.ModelObserver;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
  * @author Enrico Persiani
@@ -119,11 +119,11 @@ public class CaretUpdater extends IdentityEntityPartListener {
 		updateCaret(entityPart, viewer, start, end, location, deselectAll);
 	}
 	public void sheduleAsyncUpdate() {
-		((WholeGraphicalViewer) viewer).addEntityPartListener(this);
+		((IEntityPartViewer) viewer).addEntityPartListener(this);
 	}
 	public void afterUpdate(EntityPartEvent event) {
 		if (Matcher.find(selectedEntity, event.getEntityPart().getModelEntity(), false) != null) {
-			((WholeGraphicalViewer) viewer).removeEntityPartListener(this);
+			((IEntityPartViewer) viewer).removeEntityPartListener(this);
 			sheduleSyncUpdate();
 		}
 	}

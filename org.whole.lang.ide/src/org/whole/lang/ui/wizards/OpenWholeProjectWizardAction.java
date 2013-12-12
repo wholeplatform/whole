@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui.wizards;
 
-//import org.eclipse.jdt.ui.actions.AbstractOpenWizardAction;
 import org.eclipse.ui.INewWizard;
 
 /**
@@ -28,14 +27,7 @@ public class OpenWholeProjectWizardAction extends AbstractOpenWizardAction {
 	public OpenWholeProjectWizardAction() {
 		super();
 	}
-	
-//	public OpenWholeProjectWizardAction(String label, Class[] acceptedTypes) {
-//		super(label, acceptedTypes, true);
-//	}
-	
-//	protected Wizard createWizard() { 
-//		return new WholeProjectWizard(); 
-//	}	
+
 	protected INewWizard createWizard() { 
 		return new WholeProjectWizard(); 
 	}	

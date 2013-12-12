@@ -26,12 +26,12 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.whole.lang.commons.ui.editpolicies.VarTypeDirectEditPolicy;
 import org.whole.lang.ui.actions.IActionRedirection;
+import org.whole.lang.ui.editors.MultilineTextCellEditor;
 import org.whole.lang.ui.editparts.AbstractPart;
 import org.whole.lang.ui.editparts.LabelCellEditorLocator;
 import org.whole.lang.ui.editparts.LabelDirectEditManager;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.views.MultilineTextCellEditor;
 
 /** 
  * @author Riccardo Solmi

@@ -30,32 +30,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.whole.gen.util.IDEUtils;
 import org.whole.gen.util.JDTUtils;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.JavaCompilerOperation;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
-import org.whole.lang.ui.util.ResourceUtils;
 
-public class JavaModelGeneratorAction extends AbstractVisitorOperationAction {
-
-	public JavaModelGeneratorAction() {
-		super(JavaCompilerOperation.ID);
-	}
-
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		IEntity rootFragment = (IEntity) getGraphicalViewer().getContents().getModel();
-		IEntity entity = rootFragment.wGetRoot();
-
-		if (entity.wGetLanguageKit().hasVisitor(JavaCompilerOperation.ID)) {
-			final IBindingManager params = BindingManagerFactory.instance.createArguments();
-			ResourceUtils.defineResourceBindings(params, getActiveEditor().getEditorInput());
-
-			generate(monitor, entity, params);
-		}
-	}
+public class JavaModelGeneratorAction {
 
 	public static void generate(IProgressMonitor monitor, final IEntity program,
 			final IBindingManager params) throws InvocationTargetException,

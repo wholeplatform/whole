@@ -4,5 +4,5 @@
 	<service>
 		<provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
 	</service>
-	<property name="service.context.key" type="String" value="org.whole.lang.e4.ui.api.IModelInput"/>
+	<property name="service.context.key" type="String" value="org.whole.lang.ui.input.IModelInput"/>
 </scr:component>

@@ -79,7 +79,7 @@ import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
-import org.whole.lang.ui.actions.AbstractLazySelectionAction;
+import org.whole.lang.ui.actions.IActionConstants;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
@@ -235,7 +235,7 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 			actions.wAdd(aef.createReplaceDifferentTemplateAction(
 					qef.create(LanguageTest, languageURI),
 					ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit),
-					AbstractLazySelectionAction.SELECT_LANGUAGE_ICON));
+					IActionConstants.SELECT_LANGUAGE_ICON));
 		}
 		languagesGroup.setActions(actions);
 		mergeResult(languagesGroup);
@@ -305,7 +305,7 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 			actions.wAdd(aef.createReplaceDifferentTemplateAction(
 					prototype,
 					ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit),
-					AbstractLazySelectionAction.SELECT_LANGUAGE_ICON));
+					IActionConstants.SELECT_LANGUAGE_ICON));
 		}
 		languagesGroup.setActions(actions);
 		boolean addedLanguages = EntityUtils.isResolver(entity) ?
@@ -409,7 +409,7 @@ public class QueriesContentAssistVisitor extends QueriesIdentityVisitor {
 			actions.wAdd(aef.createReplaceDifferentTemplateAction(
 					prototype,
 					ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit),
-					AbstractLazySelectionAction.SELECT_LANGUAGE_ICON));
+					IActionConstants.SELECT_LANGUAGE_ICON));
 		}
 		languagesGroup.setActions(actions);
 		boolean addedLanguages = EntityUtils.isResolver(entity) ?

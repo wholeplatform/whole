@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -31,7 +31,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.AbstractE4Part;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

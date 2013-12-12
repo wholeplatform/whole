@@ -19,9 +19,9 @@ package org.whole.lang.e4.ui.parts;
 
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.viewers.E4TreeViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.reflect.QueriesTemplateManager;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 public class E4TreePart extends AbstractE4Part {
 

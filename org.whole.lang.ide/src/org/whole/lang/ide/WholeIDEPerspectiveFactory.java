@@ -19,16 +19,12 @@ package org.whole.lang.ide;
 
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPlaceholderFolderLayout;
 import org.eclipse.ui.console.IConsoleConstants;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.ui.WholeUIPerspectiveFactory;
-import org.whole.lang.ui.views.ContextView;
-import org.whole.lang.ui.views.ResultsView;
-import org.whole.lang.ui.views.SampleView;
 
 /**
  * @author Riccardo Solmi
@@ -44,13 +40,11 @@ public class WholeIDEPerspectiveFactory extends WholeUIPerspectiveFactory {
 
 	protected void addBottomRightViews(IFolderLayout folder) {
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
-		folder.addPlaceholder(ResultsView.ID);
 	}
 
 	@Override
 	protected void addBottomViews(IPlaceholderFolderLayout folder) {
 		super.addBottomViews(folder);
-		folder.addPlaceholder(NewSearchUI.SEARCH_VIEW_ID);
 		folder.addPlaceholder(IConsoleConstants.ID_CONSOLE_VIEW);
 	}
 
@@ -88,9 +82,8 @@ public class WholeIDEPerspectiveFactory extends WholeUIPerspectiveFactory {
 	protected void addShowViewShortcuts(IPageLayout layout) {
 		super.addShowViewShortcuts(layout);
 		layout.addShowViewShortcut(JavaUI.ID_PACKAGES);
-		layout.addShowViewShortcut(NewSearchUI.SEARCH_VIEW_ID);
 		layout.addShowViewShortcut(IConsoleConstants.ID_CONSOLE_VIEW);
-		layout.addShowViewShortcut(SampleView.ID);
-		layout.addShowViewShortcut(ContextView.ID);
+		layout.addShowViewShortcut(IUIConstants.SAMPLE_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.CONTEXT_PART_ID);
 	}
 }

@@ -31,7 +31,6 @@ Export-Package: org.whole.lang.java.ui,
  org.whole.langs.legacy.ui
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.views,
  org.whole.lang,
  org.whole.lang.ui,
  org.whole.lang.e4.ui.compatibility,

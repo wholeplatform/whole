@@ -21,8 +21,8 @@ import java.io.Serializable;
 
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.actions.DefaultKeyHandler;
-import org.whole.lang.ui.actions.IKeyHandler;
+import org.whole.lang.ui.keys.DefaultKeyHandler;
+import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.requests.CommandFactory;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.templates.DefaultUITemplate;

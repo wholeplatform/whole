@@ -24,7 +24,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.api.IContextProvider;
+import org.whole.lang.e4.ui.actions.IContextProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;

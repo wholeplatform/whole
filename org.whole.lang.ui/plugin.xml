@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-	<extension-point id="globalactions" name="Whole Global Actions" schema="schema/globalactions.exsd"/>
 	<extension-point id="resourceBindingsContributors" name="Resource Bindings Contributors" schema="schema/resourceBindingsContributors.exsd"/>
-	<extension-point id="searchScopeFilters" name="Search Scope Filters" schema="schema/searchScopeFilters.exsd"/>
 
 	<extension point="org.eclipse.ui.importWizards">
 		<category id="org.whole.lang.ui.wizards" name="Whole"/>
@@ -23,87 +21,6 @@
 		</wizard>
 	</extension>
 
-	<extension id="WholeBuilder" name="Whole Builder"
-		point="org.eclipse.core.resources.builders">
-		<builder hasNature="true">
-			<run class="org.whole.lang.ui.builder.WholeBuilder"/>
-		</builder>
-	</extension>
-	
-	<extension id="WholeNature" name="Whole Project Nature"
-		point="org.eclipse.core.resources.natures">
-		<runtime>
-			<run class="org.whole.lang.ui.builder.WholeNature"/>
-		</runtime>
-		<builder id="org.whole.lang.ui.WholeBuilder"/>
-	</extension>
-
-	<extension point="org.eclipse.ui.popupMenus">
-		<objectContribution adaptable="true"
-			objectClass="org.eclipse.core.resources.IProject" nameFilter="*"
-			id="org.whole.lang.ui.natureContribution">
-			<action label="Toggle Whole project nature"
-				class="org.whole.lang.ui.builder.ToggleWholeNatureAction"
-				menubarPath="additions" enablesFor="+"
-				id="org.whole.lang.ui.toggleWholeNatureAction">
-			</action>
-		</objectContribution>
-	</extension>
-	
-	<extension
-			point="org.eclipse.ui.commands">
-		<category
-		        id="org.whole.lang.ui.editor.commands"
-        		name="Whole Graphical Editor Commands"
-        		description="Commands available in the Whole Graphical Editors and Views">
-		</category>
-		<command
-			categoryId="org.whole.lang.ui.editor.commands"
-			id="org.whole.lang.ui.command.GotoEntityPath"
-			name="Go To Entity Path...">
-		</command>
-	</extension>
-
-	<extension point="org.eclipse.core.expressions.definitions">
-		<definition id="org.whole.lang.ui.definition.WholeGraphicalEditorActive">
-			<with variable="activeEditor">
-				<instanceof value="org.whole.lang.ui.editors.WholeGraphicalEditor"/>
-			</with>
-		</definition>
-	</extension>
-
-	<extension
-			point="org.eclipse.ui.handlers">
-		<handler
-				class="org.whole.lang.ui.handlers.GoToEntityPath"
-				commandId="org.whole.lang.ui.command.GotoEntityPath">
-			<activeWhen>
-				<reference
-						definitionId="org.whole.lang.ui.definition.WholeGraphicalEditorActive">
-				</reference>
-			</activeWhen>
-		</handler>
-	</extension>
-
-	<extension
-			point="org.eclipse.ui.menus">
-		<menuContribution
-				locationURI="menu:navigate?after=additions">
-			<command
-				commandId="org.whole.lang.ui.command.GotoEntityPath">
-			</command>
-		</menuContribution>
-	</extension>
-
-	<!--extension
-			point="org.eclipse.ui.bindings">
-		<key
-			commandId="org.whole.lang.ui.command.GotoEntityPath"
-			sequence="M1+M2+P"
-			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
-		</key>
-	</extension-->
-
 	<extension id="wholemarker" name="Whole Marker" point="org.eclipse.core.resources.markers"/>
 	<extension id="wholeproblem" name="Whole Problem" point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.core.resources.problemmarker"/>
@@ -120,56 +37,6 @@
 		</consoleFactory>
 	</extension>
 	
-	<extension point="org.eclipse.ui.views">
-		<category name="Whole" id="org.whole.lang.ui.views.category">
-		</category>
-        <view
-              allowMultiple="true"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.DetailsView"
-              icon="icons/views/details.gif"
-			  id="org.whole.lang.ui.views.DetailsView"
-              name="Details E3"/>
-        <view
-              allowMultiple="true"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.MapView"
-              icon="icons/views/map.gif"
-			  id="org.whole.lang.ui.views.MapView"
-              name="Map E3"/>
-        <view
-              allowMultiple="true"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.IndexView"
-              icon="icons/views/index.gif"
-			  id="org.whole.lang.ui.views.IndexView"
-              name="Index E3"/>
-        <view
-              allowMultiple="true"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.ResultsView"
-              icon="icons/views/results.gif"
-			  id="org.whole.lang.ui.views.ResultsView"
-              name="Results E3"/>
-        <view
-              allowMultiple="false"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.DebugView"
-              icon="icons/views/debug.gif"
-			  id="org.whole.lang.ui.views.DebugView"
-              name="Debug E3"/>
-        <view
-              allowMultiple="false"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.VariablesView"
-              icon="icons/views/variables.gif"
-			  id="org.whole.lang.ui.views.VariablesView"
-              name="Variables E3"/>
-		<view name="Debug GEF" category="org.whole.lang.ui.views.category"
-			class="org.eclipse.gef.ui.console.DebugGEF"
-			id="org.eclipse.gef.ui.console.DebugGEF">
-		</view>
-	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page name="Whole"
 			class="org.whole.lang.ui.preferences.WholePreferencePage"
@@ -181,6 +48,7 @@
 			id="org.whole.lang.ui.preferences.EditorPreferencePage">
 		</page>
 	</extension>
+
 	<extension point="org.eclipse.core.runtime.preferences">
 		<initializer
 			class="org.whole.lang.ui.preferences.WholePreferenceInitializer"/>
@@ -189,103 +57,4 @@
 	<extension point="org.eclipse.ui.cheatsheets.cheatSheetContent">
 		<category name="%cheatsheet.whole.category" id="org.whole.category"/>
 	</extension>
-
-     <extension
-           point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-        <propertyContributor
-              contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor"
-              labelProvider="org.whole.lang.ui.views.properties.tabbed.EntityLabelProvider"
-              >
-           <propertyCategory category="info"/>
-        </propertyContributor>
-     </extension>
-     <extension
-           point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-        <propertyTabs contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
-           <propertyTab
-                 category="info"
-                 id="AdvancedTab"
-                 indented="false"
-                 label="Advanced"/>
-        </propertyTabs>
-     </extension>
-     <extension
-           point="org.eclipse.ui.views.properties.tabbed.propertySections">
-        <propertySections contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
-           <propertySection
-                 class="org.whole.lang.ui.views.properties.tabbed.WholeAdvancedPropertySection"
-                 id="AdvancedSection"
-                 tab="AdvancedTab">
-              <input type="org.whole.lang.ui.editparts.IEntityPart"/>
-           </propertySection>
-        </propertySections>
-     </extension>
-
-	<extension point="org.eclipse.search.searchPages">
-	  <page id="org.whole.lang.ui.search.WholeSearchPage"
-	   icon="icons/actions/search.gif"
-	   label="Whole Search"
-	   sizeHint="460,160"
-	   showScopeSection="true"
-	   canSearchEnclosingProjects="true"
-	   class="org.whole.lang.ui.search.WholeSearchPage">
-	  </page>
-	 </extension>
-	
-	 <extension point="org.eclipse.search.searchResultViewPages">
-	  <viewPage id="org.whole.lang.ui.search.WholeSearchResultPage"
-	   searchResultClass="org.whole.lang.ui.search.WholeSearchResult"
-	   class="org.whole.lang.ui.search.WholeSearchResultPage">
-	  </viewPage>
-	 </extension>
-
-	<extension
-			point="org.eclipse.ui.menus">
-
-		<menuContribution
-				locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-			<menu
-					label="Source"
-					id="org.whole.lang.ui.source.menu">
-				<separator name="commentGroup"/>
-				<separator name="editGroup"/>
-				<separator name="importGroup"/>
-				<separator name="generateGroup"/>
-				<separator name="codeGroup"/>
-				<separator name="externalizeGroup"/>
-				<separator name="convertGroup"/>
-			</menu>
-
-			<menu
-					label="Refactor"
-					id="org.whole.lang.ui.refactor.menu">
-				<separator name="undoRedoGroup"/>
-				<separator name="reorgGroup"/>
-				<separator name="codingGroup"/>
-				<separator name="reorgGroup2"/>
-				<separator name="typeGroup"/>
-				<separator name="codingGroup2"/>
-				<separator name="typeGroup2"/>
-				<separator name="scriptGroup"/>
-			</menu>
-			
-			<menu
-					label="Translate"
-					id="org.whole.lang.ui.translate.menu">
-			</menu>
-			
-			<menu
-					label="Analyze"
-					id="org.whole.lang.ui.analyze.menu">
-			</menu>
-			
-			<menu
-					label="Migrate"
-					id="org.whole.lang.ui.migrate.menu">
-			</menu>
-
-		</menuContribution>
-
-	</extension>
-
 </plugin>

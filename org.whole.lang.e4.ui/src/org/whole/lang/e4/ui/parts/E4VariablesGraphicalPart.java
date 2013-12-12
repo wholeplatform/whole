@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.model.IEntity;
 
 /**

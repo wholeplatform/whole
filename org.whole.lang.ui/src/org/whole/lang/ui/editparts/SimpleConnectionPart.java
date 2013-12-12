@@ -30,6 +30,7 @@ import org.whole.lang.operations.IDecorationManager.DecorationKind;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editpolicies.WholeConnectionEditPolicy;
 import org.whole.lang.ui.requests.ICommandFactory;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -108,5 +109,10 @@ public class SimpleConnectionPart extends AbstractConnectionEditPart implements 
 	public void setDetailed(boolean value) {
 	}
 	public void setDetailed(boolean value, IEntityPart childPart) {
+	}
+	
+	@Override
+	public IEntityPartViewer getViewer() {
+		return (IEntityPartViewer) super.getViewer();
 	}
 }

@@ -17,9 +17,7 @@
  */
 package org.whole.lang.workflows.visitors;
 
-import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.ClassPath_ord;
-import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CurrentJavaProject_ord;
-import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.JavaProject_ord;
+import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.*;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -38,7 +36,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.whole.gen.util.IDEUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
@@ -48,9 +45,8 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ide.WholeIDEDebugPerspectiveFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
@@ -62,10 +58,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.actions.JavaModelGeneratorAction;
-import org.whole.lang.ui.editors.WholeGraphicalEditor;
-import org.whole.lang.ui.util.UIUtils;
-import org.whole.lang.ui.views.DebugView;
-import org.whole.lang.ui.views.VariablesView;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.VisitException;
@@ -173,56 +166,34 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		for (int i : voidVars)
 			variablesModel.wGet(i).wSet(WorkflowsFeatureDescriptorEnum.expression, BindingManagerFactory.instance.createVoid().wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
 
-		final IEntity breakpointEntity = entity;
-		final IEntity debugModel = EntityUtils.safeGetRootEntity(entity);//TODO add variable
 		final IEclipseContext context = (IEclipseContext) PlatformUI.getWorkbench().getService(IEclipseContext.class);
 
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
 				WholeUIPlugin.revealPerspective(WholeIDEDebugPerspectiveFactory.ID);
 				
-				if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer) {
-					E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
-					E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
-					if (debugEnv.wIsSet("self") && debugEnv.wIsSet("viewer")) {
-						IEntity selfEntity = debugEnv.wGet("self");
-						((IEntityPartViewer) debugEnv.wGetValue("viewer")).selectAndReveal(selfEntity);
-					}
-				} else {
-					debugView = (DebugView) WholeUIPlugin.revealView(DebugView.class.getName());
-					VariablesView variablesView = (VariablesView) WholeUIPlugin.revealView(VariablesView.class.getName());
-
-					variablesView.setContents(variablesModel);
-					debugView.setContents(debugModel);
-					debugView.selectAndReveal(breakpointEntity);
-					
-					if (debugEnv.wIsSet("self")) {
-						IEntity selfEntity = debugEnv.wGet("self");
-						IEditorPart editorPart = UIUtils.getActiveEditor();
-						if (editorPart instanceof WholeGraphicalEditor)
-							((WholeGraphicalEditor) editorPart).selectAndReveal(selfEntity);
-					}
+				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
+				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
+				if (debugEnv.wIsSet("self") && debugEnv.wIsSet("viewer")) {
+					IEntity selfEntity = debugEnv.wGet("self");
+					((IEntityPartViewer) debugEnv.wGetValue("viewer")).selectAndReveal(selfEntity);
 				}
 			}
 		});
-		if (debugEnv.wIsSet("viewer") && debugEnv.wGetValue("viewer") instanceof IEntityPartViewer) {
-			CyclicBarrier barrier = new CyclicBarrier(2);
-			IEventBroker eventBroker = context.get(IEventBroker.class);
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
-			eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {breakpointEntity, debugEnv, barrier});
-			try {
-				barrier.await();
-			} catch (InterruptedException e) {
-				throw new IllegalStateException(e);
-			} catch (BrokenBarrierException e) {	
-				throw new OperationCanceledException(e);
-			} finally {
-				eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
-			}
-		} else
-			debugView.doBreak(debugEnv);
+		CyclicBarrier barrier = new CyclicBarrier(2);
+		IEventBroker eventBroker = context.get(IEventBroker.class);
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
+		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {entity, debugEnv, barrier});
+		try {
+			barrier.await();
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		} catch (BrokenBarrierException e) {	
+			throw new OperationCanceledException(e);
+		} finally {
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+		}
 	}
-	private DebugView debugView;
 
 	@Override
 	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
@@ -294,7 +265,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			return super.getJavaTemplateFactory(entity);
 
 		case CurrentJavaProject_ord:
-			javaProject = IDEUtils.getJavaProject(UIUtils.getActiveEditor());
+			javaProject = (IJavaProject) getBindings().wGetValue("javaProject");
 			break;
 			
 		case JavaProject_ord:

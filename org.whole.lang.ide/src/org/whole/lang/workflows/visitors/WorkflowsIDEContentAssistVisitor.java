@@ -19,6 +19,7 @@ package org.whole.lang.workflows.visitors;
 
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.StringLiteral;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.whole.lang.actions.factories.ActionsEntityFactory;
 import org.whole.lang.actions.model.GroupAction;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -29,7 +30,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.ReplaceWithClassNameAction;
 import org.whole.lang.ui.actions.ReplaceWithResourceAction;
 import org.whole.lang.ui.actions.ReplaceWithResourceAndPersistenceAction;
-import org.whole.lang.ui.commands.ReplaceChildCommand;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.Expression;
@@ -69,6 +69,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 							ReflectionFactory.getDefaultPersistenceKit();
 
 			customAction = new ReplaceWithResourceAndPersistenceAction(
+					(IEclipseContext) getBindings().wGetValue("eclipseContext"),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(), persistenceKit,
 					"Select resource...") {
@@ -91,18 +92,13 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 					}
 				}
 
-				protected ReplaceChildCommand createReplacePersistenceCommand(IEntity parent) {
-					ReplaceChildCommand replacePersistence = new ReplaceChildCommand();
-					replacePersistence.setParent(parent);
-					replacePersistence.setOldChild(((PersistenceActivity) parent).getPersistence());
-					replacePersistence.setNewChild(
-							WorkflowsEntityFactory.instance.createStringLiteral(
-									persistenceKit.getId()));
-					return replacePersistence;
-				}
+				protected void performReplacePersistence(IEntity parent) {
+					((PersistenceActivity) parent).setPersistence(WorkflowsEntityFactory.instance.createStringLiteral(persistenceKit.getId()));
+				};
 			};
 		} else if (WorkflowsUtils.isResourceInArtifactsActivity(entity)) {
 			customAction = new ReplaceWithResourceAction(
+					(IEclipseContext) getBindings().wGetValue("eclipseContext"),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(),
 					"Select resource...") {
@@ -142,6 +138,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 			return false;
 
 		ReplaceWithClassNameAction action = new ReplaceWithClassNameAction(
+				(IEclipseContext) getBindings().wGetValue("eclipseContext"),
 				WorkflowsEntityDescriptorEnum.StringLiteral, entity.wStringValue(),
 				"Select class...");
 		

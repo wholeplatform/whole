@@ -23,6 +23,7 @@ import java.beans.PropertyChangeListener;
 import org.eclipse.gef.EditPart;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IDecorationManager.DecorationKind;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Riccardo Solmi
@@ -44,4 +45,6 @@ public interface IEntityPart extends EditPart, PropertyChangeListener {
 
 	public void addDecoration(DecorationKind kind, String tooltip);
 	public void deleteDecorations(boolean deep);
+	
+	public IEntityPartViewer getViewer();
 }

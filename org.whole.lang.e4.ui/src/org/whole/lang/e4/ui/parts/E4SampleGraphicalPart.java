@@ -30,12 +30,12 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.LinkViewerAdapter;
-import org.whole.lang.e4.ui.api.IUIConstants;
 import org.whole.lang.e4.ui.jobs.ExecuteSampleModelRunnable;
 import org.whole.lang.e4.ui.jobs.RunnableJob;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 

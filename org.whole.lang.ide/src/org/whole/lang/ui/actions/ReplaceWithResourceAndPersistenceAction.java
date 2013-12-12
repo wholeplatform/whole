@@ -23,29 +23,26 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.commands.ReplaceChildCommand;
 import org.whole.lang.ui.dialogs.OpenAsModelDialog;
 import org.whole.lang.ui.dialogs.SaveAsModelDialog;
-import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
  */
-public abstract class ReplaceWithResourceAndPersistenceAction extends ReplaceWithResourceAction implements IEntityTransformer {
+public abstract class ReplaceWithResourceAndPersistenceAction extends ReplaceWithResourceAction {
 	protected IPersistenceKit defaultPersistenceKit;
 	protected IPersistenceKit persistenceKit;
 
-	public ReplaceWithResourceAndPersistenceAction(EntityDescriptor<?> type,
+	public ReplaceWithResourceAndPersistenceAction(IEclipseContext context, EntityDescriptor<?> type,
 			String path, IPersistenceKit defaultPersistenceKit, String text) {
-		super(type, path, text);
+		super(context, type, path, text);
 		this.defaultPersistenceKit = defaultPersistenceKit;
 	}
 
@@ -85,16 +82,12 @@ public abstract class ReplaceWithResourceAndPersistenceAction extends ReplaceWit
 	}
 
 	@Override
-	protected Command createReplaceResourceCommand(IEntity parent, IEntity oldChild, IEntity newChild) {
-		Command replaceResource = super.createReplaceResourceCommand(parent, oldChild, newChild);
-		if (defaultPersistenceKit == persistenceKit || persistenceKit == null)
-			return replaceResource;
+	protected void performReplace(IEntity primarySelectedEntity, IEntity replacement) {
+		super.performReplace(primarySelectedEntity, replacement);
 
-		CompoundCommand compound = new CompoundCommand("set resource and persistence");
-		compound.add(replaceResource);
-		compound.add(createReplacePersistenceCommand(parent));
-		return compound;
+		if (persistenceKit != null && persistenceKit != defaultPersistenceKit)
+			performReplacePersistence(primarySelectedEntity.wGetParent());
 	}
 
-	protected abstract ReplaceChildCommand createReplacePersistenceCommand(IEntity parent);
+	protected abstract void performReplacePersistence(IEntity parent);
 }

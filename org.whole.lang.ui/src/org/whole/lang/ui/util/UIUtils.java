@@ -21,12 +21,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.FontMetrics;
@@ -36,14 +36,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ISources;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.services.IEvaluationService;
-import org.eclipse.ui.services.IServiceLocator;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.Fragment;
@@ -60,10 +52,6 @@ public class UIUtils {
 	public static final String LOCATION_REGEXP = "/(?:(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))/)*(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))?";
 	public static final Pattern LOCATION_PATTERN = Pattern.compile(LOCATION_REGEXP);
 
-	public static List<IEntityPart> getSelectedEntityParts(IEditorPart editorPart) {
-		GraphicalViewer viewer = (GraphicalViewer) editorPart.getAdapter(GraphicalViewer.class);
-		return viewer == null ? Collections.<IEntityPart>emptyList() : getSelectedEntityParts(viewer.getSelection());
-	}
 	public static List<IEntityPart> getSelectedEntityParts(ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
@@ -95,31 +83,7 @@ public class UIUtils {
 			bm.wDef("primarySelectedEntity", entities.wGet(0));
 	}
 
-	public static IEditorInput getActiveEditorInput(IEvaluationContext context) {
-		Object part = context.getVariable(ISources.ACTIVE_PART_NAME);
-		if (!(part instanceof IWorkbenchPart))
-			return null;
-		IWorkbenchPart activePart = (IWorkbenchPart) part;
-		Object activeEditor = context.getVariable(ISources.ACTIVE_EDITOR_NAME);
-		return activePart == activeEditor && activeEditor instanceof IEditorPart ? ((IEditorPart) activeEditor).getEditorInput() : null;
-	}
-	public static IEditorPart getActiveEditor() {
-		try {
-			IServiceLocator serviceLocator = PlatformUI.getWorkbench();
-			IEvaluationService evaluationService = (IEvaluationService) serviceLocator.getService(IEvaluationService.class);
-			return (IEditorPart) evaluationService.getCurrentState().getVariable(ISources.ACTIVE_EDITOR_NAME);
-		} catch (Throwable e) {
-			return ActiveEditorHelper.findActiveEditor();
-		}
-	}
-	public static IWorkbenchPart getActivePart() {
-		try {
-			return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
-		} catch (Throwable e) {
-			return ActiveEditorHelper.findActiveEditor();
-		}
-	}
-
+	//TODO convert to IEntityPartViewer.selectAndReveal(IEntity entity)
 	public static void selectAndReveal(EditPartViewer viewer, IEntity entity) {
 		IEntityPart linkPart = (IEntityPart) viewer.getEditPartRegistry().get(entity);
 
@@ -127,15 +91,6 @@ public class UIUtils {
 			viewer.reveal(linkPart);
 			viewer.select(linkPart);
 		}
-	}
-
-	public static void showInformationDialog(final String title, final String message) {
-		final Shell shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
-		shell.getDisplay().syncExec(new Runnable() {
-			public void run() {
-				MessageDialog.openInformation(shell, title, message);
-			}
-		});
 	}
 
 	public static int getButtonWidthHint(Composite composite) {
@@ -170,24 +125,4 @@ public class UIUtils {
 				return monitor;
 		return display.getPrimaryMonitor();
 	}
-
-	public static SelectionKind calculateSelectionKind(IEvaluationContext context) {
-		Object activeSelection = context.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME);
-		if (!(activeSelection instanceof ISelection))
-			return SelectionKind.OTHER;
-		ISelection selection = (ISelection) activeSelection;
-
-		if (selection.isEmpty() || !(selection instanceof IStructuredSelection))
-			return ResourceUtils.isAdaptableToFile(UIUtils.getActiveEditorInput(context)) ?
-					SelectionKind.EDITOR_INPUT_FILE : SelectionKind.OTHER;
-		
-		Object firstElement = ((IStructuredSelection) selection).getFirstElement();
-		if (firstElement instanceof IEntityPart)
-			return SelectionKind.ENTITY_PART;
-		else if (ResourceUtils.isAdaptableToFile(firstElement))
-			return SelectionKind.WORKSPACE_FILE;
-		else
-			return SelectionKind.OTHER;
-	}
-
 }

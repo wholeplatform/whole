@@ -26,8 +26,8 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

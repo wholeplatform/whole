@@ -25,10 +25,10 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.AnimableRunnable;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.command.CommandFactory;
 import org.whole.lang.e4.ui.command.ICommandFactory;
 

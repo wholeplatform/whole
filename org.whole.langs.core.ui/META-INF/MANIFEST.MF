@@ -7,7 +7,6 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.whole.lang.actions.ui,
- org.whole.lang.actions.ui.contributions,
  org.whole.lang.actions.ui.editparts,
  org.whole.lang.actions.ui.factories,
  org.whole.lang.actions.ui.figures,
@@ -72,13 +71,10 @@ Export-Package: org.whole.lang.actions.ui,
  org.whole.lang.workflows.ui.figures,
  org.whole.lang.workflows.visitors,
  org.whole.langs.core.ui
-Require-Bundle: org.eclipse.core.expressions,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.ui,
  org.eclipse.ui.console,
- org.eclipse.ui.views,
- org.eclipse.ui.views.properties.tabbed,
  org.whole.lang,
  org.whole.lang.ui,
  org.whole.langs.core,

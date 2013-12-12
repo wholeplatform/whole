@@ -22,12 +22,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
-import org.whole.lang.e4.ui.api.IUIConstants;
-import org.whole.lang.ui.views.ContextView;
-import org.whole.lang.ui.views.DebugView;
-import org.whole.lang.ui.views.ResultsView;
-import org.whole.lang.ui.views.SampleView;
-import org.whole.lang.ui.views.VariablesView;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -50,18 +45,15 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 
 	protected void addTopLeftViews(IFolderLayout folder) {
 		folder.addView(IUIConstants.DEBUG_PART_ID);
-		folder.addView(DebugView.ID);
-		folder.addPlaceholder(SampleView.ID);
+		folder.addPlaceholder(IUIConstants.SAMPLE_PART_ID);
 		folder.addView(IPageLayout.ID_RES_NAV);
 //		topLeft.addView(IPageLayout.ID_OUTLINE);
 		folder.addView(PaletteView.ID);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
 		folder.addView(IUIConstants.VARIABLES_PART_ID);
-		folder.addView(VariablesView.ID);
-		folder.addPlaceholder(ContextView.ID);
+		folder.addPlaceholder(IUIConstants.CONTEXT_PART_ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
-		folder.addPlaceholder(ResultsView.ID);
 		folder.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 	}
 
@@ -83,10 +75,10 @@ public class WholeIDEDebugPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(PaletteView.ID);
 		layout.addShowViewShortcut(IUIConstants.DEBUG_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
-		layout.addShowViewShortcut(ContextView.ID);
+		layout.addShowViewShortcut(IUIConstants.CONTEXT_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
-		layout.addShowViewShortcut(SampleView.ID);
+		layout.addShowViewShortcut(IUIConstants.SAMPLE_PART_ID);
 	}
 }

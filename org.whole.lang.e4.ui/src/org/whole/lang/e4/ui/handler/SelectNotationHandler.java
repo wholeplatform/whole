@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.Map;
 
@@ -28,18 +28,17 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
-@SuppressWarnings({"restriction"})
 public class SelectNotationHandler {
 
 	@CanExecute

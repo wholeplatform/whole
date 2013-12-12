@@ -28,10 +28,10 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.GraphicalEditPart;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.ExtendedExposeHelper;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

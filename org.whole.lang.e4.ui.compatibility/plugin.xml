@@ -1,177 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension
-         point="org.whole.lang.deployers">
-      <deployer
-            desc="Actions E4 Deployer"
-            class="org.whole.lang.e4.actions.ActionsE4Deployer"
-            id="org.whole.lang.e4.actions.ActionsE4Deployer">
-      </deployer>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.details"
-            class="org.whole.lang.e4.ui.compatibility.DetailsViewPart"
-            icon="icons/views/whole.gif"
-            name="Details"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.map"
-            class="org.whole.lang.e4.ui.compatibility.MapViewPart"
-            icon="icons/views/whole.gif"
-            name="Map"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.index"
-            class="org.whole.lang.e4.ui.compatibility.IndexViewPart"
-            icon="icons/views/index.gif"
-            name="Index"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.results"
-            class="org.whole.lang.e4.ui.compatibility.ResultsViewPart"
-            icon="icons/views/whole.gif"
-            name="Results"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.debug"
-            class="org.whole.lang.e4.ui.compatibility.DebugViewPart"
-            icon="icons/views/debug.gif"
-            name="Debug"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.variables"
-            class="org.whole.lang.e4.ui.compatibility.VariablesViewPart"
-            icon="icons/views/variables.gif"
-            name="Variables"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.context"
-            class="org.whole.lang.e4.ui.compatibility.ContextViewPart"
-            icon="icons/views/context.gif"
-            name="Context"
-            restorable="true">
-      </view>
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.sample"
-            class="org.whole.lang.e4.ui.compatibility.SampleViewPart"
-            icon="icons/views/sample.gif"
-            name="Sample"
-            restorable="true">
-      </view>
-
-      <view
-            category="org.whole.lang.ui.views.category"
-            id="org.whole.lang.e4.ui.part.tree"
-            class="org.whole.lang.e4.ui.compatibility.TreeViewPart"
-            icon="icons/views/whole.gif"
-            name="E4 Tree View Example"
-            restorable="true">
-      </view>
-   </extension>
-
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            name="Object Persistence"
-            extensions="ser"
-            icon="icons/editors/object.gif"
-            default="true"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.ObjectEditor">
-      </editor>
-	  <!--editor
-            name="XML Beans Persistence"
-            extensions="xwl,xml"
-            icon="icons/editors/xml_beans.gif"
-            default="false"
-            contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.XmlBeansEditor">
-            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
-      </editor-->
-
-      <!--editor
-            name="Datatype Persistence"
-            extensions="data,text,txt"
-            icon="icons/editors/datatype.gif"
-            default="false"
-            contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.DataTypeEditor">
-            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
-      </editor-->
+	<extension
+			point="org.whole.lang.deployers">
+		<deployer
+				desc="Actions E4 Deployer"
+				class="org.whole.lang.e4.actions.ActionsE4Deployer"
+				id="org.whole.lang.e4.actions.ActionsE4Deployer">
+		</deployer>
 	</extension>
+	<extension
+			point="org.eclipse.ui.views">
+		<category
+				name="Whole"
+				id="org.whole.lang.ui.views.category">
+		</category>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.details"
+				class="org.whole.lang.e4.ui.compatibility.DetailsViewPart"
+				icon="icons/views/whole.gif"
+				name="Details"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.map"
+				class="org.whole.lang.e4.ui.compatibility.MapViewPart"
+				icon="icons/views/whole.gif"
+				name="Map"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.index"
+				class="org.whole.lang.e4.ui.compatibility.IndexViewPart"
+				icon="icons/views/index.gif"
+				name="Index"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.results"
+				class="org.whole.lang.e4.ui.compatibility.ResultsViewPart"
+				icon="icons/views/whole.gif"
+				name="Results"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.debug"
+				class="org.whole.lang.e4.ui.compatibility.DebugViewPart"
+				icon="icons/views/debug.gif"
+				name="Debug"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.variables"
+				class="org.whole.lang.e4.ui.compatibility.VariablesViewPart"
+				icon="icons/views/variables.gif"
+				name="Variables"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.context"
+				class="org.whole.lang.e4.ui.compatibility.ContextViewPart"
+				icon="icons/views/context.gif"
+				name="Context"
+				restorable="true">
+		</view>
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.sample"
+				class="org.whole.lang.e4.ui.compatibility.SampleViewPart"
+				icon="icons/views/sample.gif"
+				name="Sample"
+				restorable="true">
+		</view>
+		
+		<view
+				category="org.whole.lang.ui.views.category"
+				id="org.whole.lang.e4.ui.part.tree"
+				class="org.whole.lang.e4.ui.compatibility.TreeViewPart"
+				icon="icons/views/whole.gif"
+				name="E4 Tree View Example"
+				restorable="true">
+		</view>
+	</extension>
+	
+	<extension
+			point="org.eclipse.ui.editors">
+		<editor
+				name="Object Persistence"
+				extensions="ser"
+				icon="icons/editors/object.gif"
+				default="true"
+				class="org.whole.lang.e4.ui.compatibility.EditorPart"
+				id="org.whole.lang.ObjectEditor">
+		</editor>
 
-   <extension
-         point="org.eclipse.ui.menus">
-
+		<!--editor
+		name="XML Beans Persistence"
+		extensions="xwl,xml"
+		icon="icons/editors/xml_beans.gif"
+		default="false"
+		contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
+		id="org.whole.lang.XmlBeansEditor">
+		<contentTypeBinding contentTypeId="org.eclipse.core.runtime.xml"/>
+		</editor-->
+		
+		<!--editor
+		name="Datatype Persistence"
+		extensions="data,text,txt"
+		icon="icons/editors/datatype.gif"
+		default="false"
+		contributorClass="org.whole.lang.e4.ui.compatibility.EditorPart"
+		id="org.whole.lang.DataTypeEditor">
+		<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+		</editor-->
+	</extension>
+	
+	<extension
+			point="org.eclipse.ui.menus">
+	
 		<menuContribution
-		          locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+				locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
 			<toolbar
 					id="org.whole.lang.e4.ui.compatibility.toolbar"
 					label="Whole Toolbar">
-				<control class="org.whole.lang.e4.ui.compatibility.ZoomControlContribution" />
-				<command
-						commandId="org.whole.lang.e4.ui.command::validateModel"
-						icon="icons/actions/validate.gif"
-						label="Validate Model"
-						style="push"
-						tooltip="Validates the active model"/>
-				<command
-						commandId="org.whole.lang.e4.ui.command::normalizeModel"
-						icon="icons/actions/normalize.gif"
-						label="Normalize Model"
-						style="push"
-						tooltip="Normalizes the active model"/>
-				<command
-						commandId="org.whole.lang.e4.ui.command::prettyPrintModel"
-						icon="icons/actions/pretty_print.gif"
-						label="Pretty Print Model"
-						style="push"
-						tooltip="Pretty Prints the active model"/>
-				<command
-						commandId="org.whole.lang.e4.ui.command::interpretModel"
-						icon="icons/actions/interpret.gif"
-						label="Interpret Model"
-						style="push"
-						tooltip="Interprets the active model"/>
-				<command
-						commandId="org.whole.lang.e4.ui.command::generateArtifacts"
-						icon="icons/actions/generate_artifacts.gif"
-						label="Generate Artifacts"
-						style="push"
-						tooltip="Generates Artifacts for the active model"/>
-				<command
-						commandId="org.whole.lang.e4.ui.command::generateJava"
-						icon="icons/actions/generate_java.gif"
-						label="Generates Java Classes"
-						style="push"
-						tooltip="Generates Java Classes for the active model"/>
+			<control class="org.whole.lang.e4.ui.compatibility.ZoomControlContribution" />
+			<command
+					commandId="org.whole.lang.e4.ui.command::validateModel"
+					icon="icons/actions/validate.gif"
+					label="Validate Model"
+					style="push"
+					tooltip="Validates the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::normalizeModel"
+					icon="icons/actions/normalize.gif"
+					label="Normalize Model"
+					style="push"
+					tooltip="Normalizes the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::prettyPrintModel"
+					icon="icons/actions/pretty_print.gif"
+					label="Pretty Print Model"
+					style="push"
+					tooltip="Pretty Prints the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::interpretModel"
+					icon="icons/actions/interpret.gif"
+					label="Interpret Model"
+					style="push"
+					tooltip="Interprets the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::generateArtifacts"
+					icon="icons/actions/generate_artifacts.gif"
+					label="Generate Artifacts"
+					style="push"
+					tooltip="Generates Artifacts for the active model"/>
+			<command
+					commandId="org.whole.lang.e4.ui.command::generateJava"
+					icon="icons/actions/generate_java.gif"
+					label="Generates Java Classes"
+					style="push"
+					tooltip="Generates Java Classes for the active model"/>
 			</toolbar>
 		</menuContribution>
 	</extension>
-
+	
 	<extension
 			id="commandContributions"
 			point="org.eclipse.e4.workbench.model">
 		<processor
 				beforefragment="false"
 				class="org.whole.lang.e4.ui.addon.CommandProcessor">
+		</processor>
+		<processor
+				beforefragment="false"
+				class="org.whole.lang.e4.ui.addon.ViewerRebuildProcessor">
 		</processor>
 	</extension>
 </plugin>

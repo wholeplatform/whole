@@ -25,7 +25,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.e4.ui.api.IUIConstants;
 
 /**
  * @author Enrico Persiani

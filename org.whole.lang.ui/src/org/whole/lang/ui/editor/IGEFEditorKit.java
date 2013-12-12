@@ -19,8 +19,8 @@ package org.whole.lang.ui.editor;
 
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.templates.IUITemplate;
 

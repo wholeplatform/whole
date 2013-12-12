@@ -20,11 +20,7 @@ package org.whole.lang.ide;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPlaceholderFolderLayout;
-import org.whole.lang.e4.ui.api.IUIConstants;
-import org.whole.lang.ui.views.ContextView;
-import org.whole.lang.ui.views.ResultsView;
-import org.whole.lang.ui.views.SampleView;
-import org.whole.lang.ui.views.VariablesView;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -55,16 +51,18 @@ public class WholeIDESamplePerspectiveFactory extends WholeIDEPerspectiveFactory
 
 	protected void addTopRightViews(IFolderLayout folder) {
 		folder.addView(IUIConstants.CONTEXT_PART_ID);
-		folder.addPlaceholder(ContextView.ID);
 	}
 	protected void addMidRightViews(IFolderLayout folder) {
 		folder.addView(IUIConstants.SAMPLE_PART_ID);
-		folder.addPlaceholder(SampleView.ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
-		folder.addPlaceholder(ResultsView.ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
 		folder.addView(IUIConstants.VARIABLES_PART_ID);
-		folder.addPlaceholder(VariablesView.ID);
+	}
+
+	@Override
+	protected void addShowViewShortcuts(IPageLayout layout) {
+		super.addShowViewShortcuts(layout);
+		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
 	}
 }

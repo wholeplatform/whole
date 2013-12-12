@@ -21,65 +21,6 @@
 	</deployer>
 	</extension>
 
-	<extension point="org.eclipse.ui.views">
-        <view
-              allowMultiple="false"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.ContextView"
-              icon="icons/views/context.gif"
-			  id="org.whole.lang.ui.views.ContextView"
-              name="Context E3"/>
-        <view
-              allowMultiple="false"
-              category="org.whole.lang.ui.views.category"
-              class="org.whole.lang.ui.views.SampleView"
-              icon="icons/views/sample.gif"
-			  id="org.whole.lang.ui.views.SampleView"
-              name="Sample E3"/>
-	</extension>
-
-	<extension
-			id="org.whole.lang.ide.globalActions"
-			name="Global Actions"
-			point="org.whole.lang.ui.globalactions">
-		<globalaction
-			class="org.whole.lang.ui.actions.ValidatorAction"
-			icon="icons/actions/validator.gif"
-			id="org.whole.lang.ui.actions.ValidatorAction"
-			label="&amp;Validator"
-			tooltip="Validate model"/>
-		<globalaction
-			class="org.whole.lang.ui.actions.NormalizerAction"
-			icon="icons/actions/normalizer.gif"
-			id="org.whole.lang.ui.actions.NormalizerAction"
-			label="&amp;Normalizer"
-			tooltip="Normalize model"/>
-		<globalaction
-			class="org.whole.lang.ui.actions.PrettyPrinterAction"
-			icon="icons/actions/pretty_printer.gif"
-			id="org.whole.lang.ui.actions.PrettyPrinterAction"
-			label="Pretty &amp;Printer"
-			tooltip="Pretty Print model"/>
-		<globalaction
-			class="org.whole.lang.ui.actions.InterpreterAction"
-			icon="icons/actions/interpreter_start.gif"
-			id="org.whole.lang.ui.actions.InterpreterAction"
-			label="&amp;Interpreter"
-			tooltip="Interpret model"/>
-		<globalaction
-			class="org.whole.lang.ui.actions.ArtifactsGeneratorAction"
-			icon="icons/actions/artifacts_generator.gif"
-			id="org.whole.lang.ui.actions.ArtifactsGeneratorAction"
-			label="Artifacts &amp;Generator"
-			tooltip="Generate Artifacts"/>
-		<globalaction
-			class="org.whole.lang.ui.actions.JavaModelGeneratorAction"
-			icon="icons/actions/java_generator.gif"
-			id="org.whole.lang.ide.javaGenerator"
-			label="&amp;Java Generator"
-			tooltip="Generate Java"/>
-	</extension>
-
 	<extension point="org.eclipse.ui.actionSets">
 		<actionSet label="Model Creation" visible="false" id="org.whole.lang.ui.wholeElementCreationActions">
 			<action
@@ -191,12 +132,6 @@
 		<resourceBindingsContributor
 			class="org.whole.gen.util.JDTResourceBindingsContributor"
 			id="JDTResourceBindingsContributor"/>
-	</extension>
-	<extension
-			point="org.whole.lang.ui.searchScopeFilters">
-		<searchScopeFilter
-			class="org.whole.gen.util.JDTOutputFolderSearchScopeFilter"
-			id="JDTOutputFolderSearchScopeFilter"/>
 	</extension>
 	<extension
 			point="org.eclipse.jdt.core.classpathContainerInitializer">

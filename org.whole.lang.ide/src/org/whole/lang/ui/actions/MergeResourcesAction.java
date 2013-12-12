@@ -17,10 +17,12 @@
  */
 package org.whole.lang.ui.actions;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -36,52 +38,53 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.whole.lang.artifacts.model.IArtifactsEntity;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.artifacts.util.ArtifactsWorkspaceUtils;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.IdentityIteratorComparator;
+import org.whole.lang.e4.ui.actions.AbstractE4Action;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
-import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.util.UIUtils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.IEntityTransformer;
 
 /**
  * @author Enrico Persiani
  */
-public class MergeResourcesAction extends AbstractLazySelectionAction  implements IEntityTransformer {
+public class MergeResourcesAction extends AbstractE4Action {
 	protected static final String SELECT_RESOURCE_MSG = "Select a resource";
 	protected static final ImageDescriptor SELECT_RESOURCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
-	protected static final IEnablerPredicate TRUE = EnablerPredicateFactory.instance.alwaysTrue();
 
-	protected IArtifactsEntity entity;
-
-	public MergeResourcesAction() {
-		super(UIUtils.getActivePart());
+	public MergeResourcesAction(IEclipseContext context) {
+		super(context);
 		setText("Add Artifacts...");
 		setImageDescriptor(SELECT_RESOURCE_ICON);
 	}
 
 	@Override
-	protected boolean calculateEnabled() {
-		List<?> selectedObjects = getSelectedObjects();
-		return selectedObjects.size() == 1 && selectedObjects.get(0) instanceof IEntityPart;
+	public void update() {
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		if (selectionService.getSelection() instanceof IBindingManager) {
+			IBindingManager bm = (IBindingManager) selectionService.getSelection();
+			setEnabled(HandlersBehavior.isValidEntityPartSelection(bm, true));
+		} else
+			setEnabled(false);
 	}
 
 	@Override
 	public void run() {
-		IEntityPart selectedPart = (IEntityPart) getSelectedObjects().get(0);
-		IEntity selectedEntity = selectedPart.getModelEntity();
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		IBindingManager bm = (IBindingManager) selectionService.getSelection();
+		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
 
-		Shell shell = getWorkbenchPart().getSite().getShell();
+		Shell shell = (Shell) getContext().get(IServiceConstants.ACTIVE_SHELL);
 		IEntity result = performWorkspaceResourceSelection(shell, selectedEntity);
 		if (!EntityUtils.isNull(result)) {
 			ModelTransactionCommand mtc = new ModelTransactionCommand(selectedEntity);
@@ -90,13 +93,15 @@ public class MergeResourcesAction extends AbstractLazySelectionAction  implement
 				mtc.begin();
 				EntityUtils.merge(selectedEntity, result, createEntityComparator(), false);
 				mtc.commit();
-				if (mtc.canUndo())
-					execute(mtc);
+				if (mtc.canUndo()) {
+					IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+					CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+					commandStack.execute(mtc);
+				}
 			} catch (RuntimeException e) {
 				mtc.rollback();
 				throw e;
 			}
-			
 		}
 	}
 
@@ -161,9 +166,5 @@ public class MergeResourcesAction extends AbstractLazySelectionAction  implement
 	protected IdentityIteratorComparator<IEntity> createEntityComparator() {
 		return new IdentityIteratorComparator<IEntity>(
 				IteratorFactory.featureByNameIterator(ArtifactsFeatureDescriptorEnum.name));
-	}
-
-	@Override
-	public void transform(IEntity oldEntity, IEntity newEntity) {
 	}
 }

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -40,6 +40,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.PersistState;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
@@ -65,17 +66,19 @@ import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.api.IUIProvider;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
+import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.IPartFocusListener;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -110,7 +113,7 @@ public abstract class AbstractE4Part {
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				updateSelection(E4Utils.createSelectionBindings(event));
+				updateSelection(E4Utils.createSelectionBindings(event, context));
 			}
 		});
 		viewer.getControl().addFocusListener(new FocusListener() {
@@ -123,13 +126,13 @@ public abstract class AbstractE4Part {
 			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
 				context.set(ActionRegistry.class, actionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 			}
 		});
 
@@ -247,7 +250,32 @@ public abstract class AbstractE4Part {
 	@Focus
 	public void setFocus() {
 		viewer.getControl().setFocus();
-		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+		updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+	}
+	
+	@Inject
+	@Optional
+	protected void refreshViewer(@UIEventTopic(IUIConstants.TOPIC_REFRESH_VIEWER) IEntity results) {
+		if (results != null)
+			getViewer().refreshNotation(results);
+		else
+			getViewer().refreshNotation();
+	}
+
+	@Inject
+	@Optional
+	protected void rebuildViewer(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER) IEntity results) {
+		if (results != null)
+			getViewer().rebuildNotation(results);
+		else
+			getViewer().rebuildNotation();
+	}
+
+	@Inject
+	@Optional
+	protected void rebuildViewerConditional(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL) String resourceUri) {
+		if (getViewer().getReferencedResources().contains(resourceUri))
+			getViewer().rebuildNotation();
 	}
 
 	public IEntityPartViewer getViewer() {

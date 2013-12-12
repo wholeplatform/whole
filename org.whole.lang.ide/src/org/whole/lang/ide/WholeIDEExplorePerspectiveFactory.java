@@ -18,7 +18,8 @@
 package org.whole.lang.ide;
 
 import org.eclipse.ui.IFolderLayout;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.eclipse.ui.IPageLayout;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -33,5 +34,13 @@ public class WholeIDEExplorePerspectiveFactory extends WholeIDEPerspectiveFactor
 		folder.addView(IUIConstants.INDEX_PART_ID);
 		folder.addView(IUIConstants.DETAILS_PART_ID);
 		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
+	}
+
+	@Override
+	protected void addShowViewShortcuts(IPageLayout layout) {
+		super.addShowViewShortcuts(layout);
+		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
 	}
 }

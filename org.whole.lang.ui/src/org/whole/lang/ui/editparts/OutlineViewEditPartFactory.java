@@ -34,28 +34,25 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.IPropertySource2;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.operations.IDecorationManager.DecorationKind;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editors.TreeDirectEditManager;
-import org.whole.lang.ui.editors.WholeOutlinePage;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.editpolicies.TreeDirectEditPolicy;
 import org.whole.lang.ui.editpolicies.WholeComponentEditPolicy;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.templates.OutlineUIProvider;
-import org.whole.lang.ui.util.UIUtils;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
-import org.whole.lang.ui.views.properties.tabbed.EntityPropertySource;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
 public class OutlineViewEditPartFactory implements EditPartFactory {
+	private static final String PROPERTY_DIRTY = "Dirty";
+
 	public EditPart createEditPart(EditPart context, Object modelEntity) {
 		IEntity entity = (IEntity) modelEntity;
 
@@ -162,14 +159,6 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 			return ((IGEFEditorKit)getModelEntity().wGetEditorKit()).getCommandFactory();
 		}
 
-		@Override
-		@SuppressWarnings("rawtypes")
-		public Object getAdapter(Class key) {
-			if (key == IPropertySource.class || key == IPropertySource2.class)
-				return new EntityPropertySource(getModelEntity());
-			return super.getAdapter(key);
-		}
-
 		public boolean isReversable() {
 			return false;
 		}
@@ -190,23 +179,20 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		}
 		public void setDetailed(boolean value, IEntityPart childPart) {
 		}
+		
+		@Override
+		public IEntityPartViewer getViewer() {
+			return (IEntityPartViewer) super.getViewer();
+		}
 	}
 
 	public static class OutlineTreeNodeEditPart extends OutlineTreeEditPart {
+
 		public OutlineTreeNodeEditPart(IEntity entity) {
 			super(entity);
 		}
 
 		protected void propertyChangeUI(PropertyChangeEvent evt) {
-			IEditorPart activeEditor = UIUtils.getActiveEditor();
-			if (activeEditor != null)  {
-				EditPartViewer viewer = (EditPartViewer) activeEditor.getAdapter(GraphicalViewer.class);
-				Object value = viewer.getProperty(WholeGraphicalViewer.PROPERTY_DELAY_UPDATES);
-				if (value != null ? (Boolean) value : false) {
-					getViewer().setProperty(WholeOutlinePage.PROPERTY_DIRTY, true);
-					return;
-				}
-			}
 			refresh();
 		}
 
@@ -233,15 +219,6 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		}
 
 		protected void propertyChangeUI(PropertyChangeEvent evt) {
-			IEditorPart activeEditor = UIUtils.getActiveEditor();
-			if (activeEditor != null)  {
-				EditPartViewer viewer = (EditPartViewer) activeEditor.getAdapter(GraphicalViewer.class);
-				Object value = viewer.getProperty(WholeGraphicalViewer.PROPERTY_DELAY_UPDATES);
-				if (value != null ? (Boolean) value : false) {
-					getViewer().setProperty(WholeOutlinePage.PROPERTY_DIRTY, true);
-					return;
-				}
-			}
 			refreshVisuals();
 		}
 

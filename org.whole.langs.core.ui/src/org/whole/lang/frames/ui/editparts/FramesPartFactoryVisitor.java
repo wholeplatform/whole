@@ -81,13 +81,13 @@ import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -140,7 +140,7 @@ public class FramesPartFactoryVisitor extends FramesIdentityDefaultVisitor imple
 		part = new FramePart();
 
 		if (framesChangeEventHandler == null) {
-			framesChangeEventHandler = new FramesChangeEventHandler((WholeGraphicalViewer) context.getViewer());
+			framesChangeEventHandler = new FramesChangeEventHandler(((IEntityPart) context).getViewer());
 			entity.wGetModel().getCompoundModel().addChangeEventHandler(framesChangeEventHandler);
 		}
 	}

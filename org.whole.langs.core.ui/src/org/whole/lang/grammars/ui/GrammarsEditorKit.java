@@ -23,10 +23,10 @@ import org.whole.lang.grammars.ui.actions.GrammarsCommandFactory;
 import org.whole.lang.grammars.ui.actions.GrammarsKeyHandler;
 import org.whole.lang.grammars.ui.editparts.GrammarsPartFactoryVisitor;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editor.IActionFactory;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.requests.ICommandFactory;
 
 /** 

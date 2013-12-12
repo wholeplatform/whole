@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,7 +34,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
-import org.whole.lang.e4.ui.api.IContextProvider;
+import org.whole.lang.e4.ui.actions.IContextProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
@@ -42,11 +42,11 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
-import org.whole.lang.ui.actions.AssignableToPredicate;
 import org.whole.lang.ui.actions.EnablerPredicateFactory;
-import org.whole.lang.ui.actions.IEnablerPredicate;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editor.IGEFEditorKit;
+import org.whole.lang.ui.enablerpredicate.AssignableToPredicate;
+import org.whole.lang.ui.enablerpredicate.IEnablerPredicate;
 import org.whole.lang.ui.menu.ActionContainer;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;

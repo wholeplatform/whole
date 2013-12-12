@@ -18,17 +18,7 @@
 package org.whole.lang.ui.console;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IHyperlink;
-import org.eclipse.ui.editors.text.EditorsUI;
-import org.eclipse.ui.part.FileEditorInput;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.editors.WholeGraphicalEditor;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -43,17 +33,17 @@ public class EntityLocationHyperlink implements IHyperlink {
 	}
 
 	public void linkActivated() {
-		try {
-			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			IEditorPart openEditor = activePage.openEditor(new FileEditorInput(file), EditorsUI.DEFAULT_TEXT_EDITOR_ID, true);
-			if (openEditor instanceof WholeGraphicalEditor) {
-				WholeGraphicalEditor wholeGraphicalEditor = (WholeGraphicalEditor) openEditor;
-				final IEntity entity = EntityUtils.getEntity(wholeGraphicalEditor.getRootEntity(), location);
-				wholeGraphicalEditor.selectAndReveal(entity);					
-			}
-		} catch (PartInitException e) {
-			WholeUIPlugin.log(e);
-		}
+//		try {
+//			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//			IEditorPart openEditor = activePage.openEditor(new FileEditorInput(file), EditorsUI.DEFAULT_TEXT_EDITOR_ID, true);
+//			if (openEditor instanceof WholeGraphicalEditor) {
+//				WholeGraphicalEditor wholeGraphicalEditor = (WholeGraphicalEditor) openEditor;
+//				final IEntity entity = EntityUtils.getEntity(wholeGraphicalEditor.getRootEntity(), location);
+//				wholeGraphicalEditor.selectAndReveal(entity);					
+//			}
+//		} catch (PartInitException e) {
+//			WholeUIPlugin.log(e);
+//		}
 	}
 
 	public void linkEntered() {

@@ -29,9 +29,9 @@ import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IActionRedirection;
+import org.whole.lang.ui.editors.MultilineTextCellEditor;
 import org.whole.lang.ui.editpolicies.DataEntityDirectEditPolicy;
 import org.whole.lang.ui.figures.IEntityFigure;
-import org.whole.lang.ui.views.MultilineTextCellEditor;
 import org.whole.lang.util.DataTypeUtils;
 
 /**

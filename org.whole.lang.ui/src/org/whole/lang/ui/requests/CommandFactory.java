@@ -70,8 +70,7 @@ public class CommandFactory implements ICommandFactory {
 	protected final ICommandFactory removeFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {
 			IEntity entity = request.getModelEntity();
-//			if (!EnablerPredicateFactory.isSelectionRoot(entity, request.iterator()))
-			if (!EnablerPredicateFactory.isSelectionRoot(request))
+			if (!isSelectionRoot(request))
 				return null;
 			ReplaceChildCommand cmd = new ReplaceChildCommand();
 			cmd.setParent(request.getParentModelEntity());
@@ -83,8 +82,7 @@ public class CommandFactory implements ICommandFactory {
 	protected final ICommandFactory removeIndexedFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {
 			IEntity entity = request.getModelEntity();
-//			if (!EnablerPredicateFactory.isSelectionRoot(entity, request.iterator()))
-			if (!EnablerPredicateFactory.isSelectionRoot(request))
+			if (!isSelectionRoot(request))
 				return null;
 			CompositeRemoveCommand cmd = new CompositeRemoveCommand();
 			cmd.setComposite(request.getParentModelEntity());
@@ -92,12 +90,23 @@ public class CommandFactory implements ICommandFactory {
 			return cmd;
 		}
 	};
+
 	protected static IEntity createEmpty(IEntity parent, IEntity child) {
 		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(child);
 		return CommonsEntityAdapterFactory.createResolver(ed);
 	}
-	
-	
+
+	protected static boolean isSelectionRoot(PartRequest request) {
+		EditPart parent = request.getPart().getParent();
+		while (parent != null) {
+			for (IEntityPart entityPart : request)
+				if (parent.equals(entityPart))
+					return false;
+			parent = parent.getParent();
+		}
+		return true;
+	}
+
 	/**
 	 * @see org.eclipse.gef.ui.actions.DeleteAction#createDeleteCommand(List)
 	 */
@@ -123,18 +132,6 @@ public class CommandFactory implements ICommandFactory {
 		return compoundCmd;
 	}
 
-//	protected final ICommandFactory removeAllIndexedFeatures = new ICommandFactory() {
-//		public Command create(PartRequest request) {
-//			CompoundCommand compound = new CompoundCommand();
-//			List editParts = request.getPart().getChildren();
-//			Iterator childIterator = editParts.iterator();
-//			while(childIterator.hasNext()) {
-//				IEntityPart part = (IEntityPart) childIterator.next();
-//				compound.add(removeIndexedFeature.create(new DeletePartRequest(PartRequest.DELETE, part, editParts)));
-//			}
-//			return compound.unwrap();
-//		}
-//	};
 	protected final ICommandFactory orphanFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {
 			DnDOverCompositeRequest orderedRequest = (DnDOverCompositeRequest) request;
@@ -324,9 +321,9 @@ public class CommandFactory implements ICommandFactory {
 				if (targetEntityAncestors.contains(dndEntity) && !isCloneRequest)
 					return UnexecutableCommand.INSTANCE;
 				EntityDescriptor<?> dndEntityDescriptor = dndEntity.wGetEntityDescriptor();
-				isCompositeAddCommand &= EnablerPredicateFactory.isAssignableToComponentType(targetEntity, dndEntityDescriptor) ||
+				isCompositeAddCommand &= EntityUtils.isAddable(targetEntity, dndEntityDescriptor) ||
 						EntityUtils.isComposite(targetEntity);
-				isReplaceCommand &= EnablerPredicateFactory.isAssignableToFeatureType(targetEntity, dndEntityDescriptor);
+				isReplaceCommand &= EntityUtils.isReplaceable(targetEntity, dndEntityDescriptor);
 			}
 			if (isCompositeAddCommand)
 				return createCompositeAddCommand(request);

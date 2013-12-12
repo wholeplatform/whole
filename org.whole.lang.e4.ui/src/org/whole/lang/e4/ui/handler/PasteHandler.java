@@ -25,7 +25,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.actions.IActionRedirection;
@@ -34,6 +33,7 @@ import org.whole.lang.ui.commands.TextTransactionCommand;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.requests.TextualRequest;
 import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

@@ -18,8 +18,6 @@
 package org.whole.lang.ui.util;
 
 import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.SameStageFragment;
-import static org.whole.lang.ui.actions.EnablerPredicateFactory.isAssignableToComponentType;
-import static org.whole.lang.ui.actions.EnablerPredicateFactory.isAssignableToFeatureType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -200,8 +198,8 @@ public class ClipboardUtils {
 
 		EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
 		if (SameStageFragment.equals(stage) &&
-				((EntityUtils.isComposite(targetEntity) && isAssignableToComponentType(targetEntity, ed)) ||
-				(!needsCompositeTarget && isAssignableToFeatureType(targetEntity, ed))))
+				((EntityUtils.isComposite(targetEntity) && EntityUtils.isAddable(targetEntity, ed)) ||
+				(!needsCompositeTarget && EntityUtils.isReplaceable(targetEntity, ed))))
 			return entity;
 
 		return CommonsEntityFactory.instance.create(stage, entity);

@@ -17,17 +17,12 @@
  */
 package org.whole.lang.actions.ui;
 
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.menus.IMenuService;
-import org.eclipse.ui.services.IServiceLocator;
 import org.whole.lang.actions.reflect.ActionsLanguageKit;
-import org.whole.lang.actions.ui.contributions.ActionsContributionFactory;
 import org.whole.lang.actions.visitors.ActionsUIContentAssistVisitor;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.menu.WholeMenu;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
 
@@ -41,15 +36,6 @@ public class ActionsUIDeployer extends AbstractLanguageExtensionDeployer {
 				ContentAssistOperation.ID, new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
 				return new ActionsUIContentAssistVisitor();
-			}
-		});
-
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-			public void run() {
-				IServiceLocator serviceLocator = PlatformUI.getWorkbench();
-				IMenuService menuService = (IMenuService) serviceLocator.getService(IMenuService.class);
-				for (WholeMenu wholeMenu : WholeMenu.values())
-					menuService.addContributionFactory(new ActionsContributionFactory(wholeMenu));
 			}
 		});
 	}

@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui.wizards;
 
-//import org.eclipse.jdt.ui.actions.AbstractOpenWizardAction;
 import org.eclipse.ui.INewWizard;
 
 /**

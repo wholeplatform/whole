@@ -17,19 +17,9 @@
  */
 package org.whole.lang.commons.ui.actions;
 
-import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.ui.IWorkbenchPart;
-import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.ui.actions.CompositeAddAction;
 import org.whole.lang.ui.actions.EnablerPredicateFactory;
-import org.whole.lang.ui.actions.ReplaceChildAction;
 import org.whole.lang.ui.editor.ActionFactory;
-import org.whole.lang.util.DefaultCopyTransformer;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -51,45 +41,4 @@ public class CommonsActionFactory extends ActionFactory {
 				{ pf.alwaysTrue(), CommonsEntityDescriptorEnum.StageUpFragment, "StageUpFragment", wrapIn0}
 		};
 	}
-
-	@Override
-	public SelectionAction createAddAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> addEntityDescriptor) {
-		if (CommonsEntityDescriptorEnum.Variable.equals(addEntityDescriptor) ||
-				CommonsEntityDescriptorEnum.InlineVariable.equals(addEntityDescriptor))
-			return new CompositeAddAction(workbenchPart, EnablerPredicateFactory.instance.alwaysTrue(),
-					addEntityDescriptor, toPresentationName(addEntityDescriptor.getName())) {
-				
-				protected IEntity configureNewChild(IEntity selectedEntity, IEntity newChild) {
-					EntityDescriptor<?> elementED = selectedEntity.wGetEntityDescriptor(0);
-					((Variable) newChild).getVarType().wSetValue(elementED);
-					return newChild;
-				}
-			};
-		else
-			return super.createAddAction(workbenchPart, addEntityDescriptor);
-	}
-
-	@Override
-	public SelectionAction createReplaceAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> replaceEntityDescriptor) {
-		if (CommonsEntityDescriptorEnum.Variable.equals(replaceEntityDescriptor) ||
-				CommonsEntityDescriptorEnum.InlineVariable.equals(replaceEntityDescriptor))
-			return new ReplaceChildAction(workbenchPart, EnablerPredicateFactory.instance.alwaysTrue(), 
-					replaceEntityDescriptor, toPresentationName(replaceEntityDescriptor.getName()),
-					new DefaultCopyTransformer() {
-
-				public void transform(IEntity selectedEntity, IEntity newEntity) {
-					if (CommonsEntityDescriptorEnum.Variable.equals(selectedEntity.wGetEntityDescriptor()) ||
-							 CommonsEntityDescriptorEnum.InlineVariable.equals(selectedEntity.wGetEntityDescriptor()))
-						super.transform(selectedEntity, newEntity);
-					else {
-						newEntity.wGet(CommonsFeatureDescriptorEnum.varName).wSetValue(selectedEntity.wGetParent().wGetFeatureDescriptor(selectedEntity).getName());
-						newEntity.wGet(CommonsFeatureDescriptorEnum.varType).wSetValue(
-								EntityUtils.isResolver(selectedEntity) ? selectedEntity.wGetParent().wGetEntityDescriptor(selectedEntity) : //TODO workaround for resolver container descriptor
-								selectedEntity.wGetEntityDescriptor());
-					}
-				}
-			});
-		else
-			return super.createReplaceAction(workbenchPart, replaceEntityDescriptor);
-	};
 }

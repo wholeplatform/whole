@@ -26,9 +26,9 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.e4.ui.jobs.DeriveModelRunnable;
 import org.whole.lang.e4.ui.jobs.RunnableJob;
 import org.whole.lang.e4.ui.util.ChangeTracker;
-import org.whole.lang.e4.ui.viewers.E4EditDomain;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.EntityEditDomain;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -54,7 +54,7 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 		super.updateLinkType(linkType);
 
 		if (linkType.isNotLinked()) {
-			viewer.setEditDomain(new E4EditDomain());
+			viewer.setEditDomain(new EntityEditDomain());
 			viewer.setEntityContents(EntityUtils.clone(viewer.getEntityContents()));
 			fireViewerUnlinked();
 		} else if (lastSelection != null)

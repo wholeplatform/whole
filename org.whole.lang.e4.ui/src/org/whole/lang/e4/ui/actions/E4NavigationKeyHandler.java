@@ -34,10 +34,10 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
-import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IEditPointProvider;
 

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.actions;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;

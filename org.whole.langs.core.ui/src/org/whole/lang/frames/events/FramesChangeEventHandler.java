@@ -32,7 +32,7 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.visitors.GenericIdentityVisitor;
 import org.whole.lang.visitors.VisitException;
 
@@ -41,9 +41,9 @@ import org.whole.lang.visitors.VisitException;
  */
 public class FramesChangeEventHandler extends IdentityChangeEventHandler {
 	private static final long serialVersionUID = 1L;
-	protected final WholeGraphicalViewer viewer;
+	protected final IEntityPartViewer viewer;
 
-	public FramesChangeEventHandler(WholeGraphicalViewer viewer) {
+	public FramesChangeEventHandler(IEntityPartViewer viewer) {
 		this.viewer = viewer;
 	}
 

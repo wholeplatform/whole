@@ -21,11 +21,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.tools.Tools;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

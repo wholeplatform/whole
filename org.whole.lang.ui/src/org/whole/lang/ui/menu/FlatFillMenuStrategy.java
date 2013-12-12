@@ -28,7 +28,7 @@ public class FlatFillMenuStrategy implements IFillMenuStrategy {
 		return SingletonHolder.instance;
 	}
 	public static IFillMenuStrategy instance(String groupName) {
-		return new E3FlatFillMenuStrategy(groupName);
+		return new FlatFillMenuStrategy(groupName);
 	}
 
 	private String groupName;

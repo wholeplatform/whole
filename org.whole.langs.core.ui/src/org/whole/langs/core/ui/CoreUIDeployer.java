@@ -18,7 +18,6 @@
 package org.whole.langs.core.ui;
 
 import org.whole.lang.actions.ui.ActionsUIDeployer;
-import org.whole.lang.actions.ui.ActionsUIOperationsDeployer;
 import org.whole.lang.artifacts.ui.ArtifactsUIDeployer;
 import org.whole.lang.commons.ui.CommonsUIDeployer;
 import org.whole.lang.editors.ui.EditorsUIDeployer;
@@ -59,7 +58,6 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 	@SuppressWarnings("unchecked")
 	public CoreUIDeployer() {
 		super(
-			ActionsUIOperationsDeployer.class,
 			ActionsUIDeployer.class,
 			ArtifactsUIDeployer.class,
 			CommonsUIDeployer.class,

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.jobs;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -28,15 +28,15 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**

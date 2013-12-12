@@ -35,7 +35,7 @@ import org.whole.lang.util.DataTypeUtils;
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public class LabelDirectEditManager extends WholeTextDirectEditManager {
+public class LabelDirectEditManager extends TextDirectEditManager {
 	protected Label label;
 	protected VerifyListener verifyListener;
 

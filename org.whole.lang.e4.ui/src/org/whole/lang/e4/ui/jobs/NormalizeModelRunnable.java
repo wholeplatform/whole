@@ -23,10 +23,10 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

@@ -22,11 +22,9 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.SharedCursors;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.tools.SelectionTool;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.events.KeyEvent;
@@ -35,12 +33,10 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.ui.actions.ImmutableSelectionProvider;
 import org.whole.lang.ui.commands.ITextCommand;
 import org.whole.lang.ui.commands.TextTransactionCommand;
 import org.whole.lang.ui.editparts.AbstractPart;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.editparts.WholeKeyHandler;
 import org.whole.lang.ui.editpolicies.TextualHilightEditPolicy;
 import org.whole.lang.ui.requests.TextualRequest;
 import org.whole.lang.ui.util.AnimableRunnable;
@@ -355,23 +351,11 @@ public class TextualSelectionTool extends SelectionTool implements PositionConst
 	}
 
 	protected void handleModelKeyPressed(KeyEvent event) {
-		final EditPartViewer viewer = getCurrentViewer();
-		final KeyHandler keyHandler = viewer.getKeyHandler();
-		if (keyHandler instanceof WholeKeyHandler)
-			((WholeKeyHandler) keyHandler).keyPressed(getEditorKit(), event, new ImmutableSelectionProvider(
-					new StructuredSelection(viewer.getFocusEditPart())));
-		else
-			keyHandler.keyPressed(event);
+		getCurrentViewer().getKeyHandler().keyPressed(event);
 	}
 
 	protected void handleModelKeyReleased(KeyEvent event) {
-		final EditPartViewer viewer = getCurrentViewer();
-		final KeyHandler keyHandler = viewer.getKeyHandler();
-		if (keyHandler instanceof WholeKeyHandler)
-			((WholeKeyHandler) keyHandler).keyReleased(getEditorKit(), event, new ImmutableSelectionProvider(
-					new StructuredSelection(viewer.getFocusEditPart())));
-		else
-			keyHandler.keyReleased(event);
+		getCurrentViewer().getKeyHandler().keyReleased(event);
 	}
 
 	protected boolean handleBackspace() {

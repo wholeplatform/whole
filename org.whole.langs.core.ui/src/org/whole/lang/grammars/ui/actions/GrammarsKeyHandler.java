@@ -26,8 +26,8 @@ import java.util.List;
 
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.actions.DefaultKeyHandler;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.keys.DefaultKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.util.EntityUtils;

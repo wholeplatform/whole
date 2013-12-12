@@ -35,7 +35,7 @@ import org.whole.lang.actions.reflect.ActionsFeatureDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
-import org.whole.lang.e4.ui.api.IContextProvider;
+import org.whole.lang.e4.ui.actions.IContextProvider;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;

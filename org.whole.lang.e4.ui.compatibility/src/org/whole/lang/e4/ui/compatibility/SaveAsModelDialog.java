@@ -44,8 +44,8 @@ import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.whole.lang.codebase.BeansPersistenceKit;
 import org.whole.lang.codebase.DataTypePersistenceKit;
 import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.util.StringUtils;
 
 /**

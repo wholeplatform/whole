@@ -68,22 +68,22 @@ import org.eclipse.ui.part.PageBook;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.api.IUIProvider;
+import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4TreeViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory.OutlineTreeNodeEditPart;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -107,7 +107,7 @@ public class OutlinePage extends ContentOutlinePage implements IAdaptable {
 		@Override
 		public ISelection getSelection() {
 			IStructuredSelection selection = (IStructuredSelection) super.getSelection();
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), this);
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), this, context);
 			if (modelInput != null)
 				E4Utils.defineResourceBindings(bm, modelInput);
 			return new BindingManagerAdapter(bm, selection);
@@ -205,7 +205,7 @@ public class OutlinePage extends ContentOutlinePage implements IAdaptable {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				// check if we are enabling updates delaying
-				if (!WholeGraphicalViewer.PROPERTY_DELAY_UPDATES.equals(evt.getPropertyName()) ||
+				if (!DelayableUpdateManager.PROPERTY_DELAY_UPDATES.equals(evt.getPropertyName()) ||
 						evt.getNewValue() == null || ((Boolean) evt.getNewValue())) {
 					getViewer().setProperty(PROPERTY_DIRTY, false);
 					return;

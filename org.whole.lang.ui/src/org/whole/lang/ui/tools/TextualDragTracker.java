@@ -29,12 +29,12 @@ import org.eclipse.gef.tools.SimpleDragTracker;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
-import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
+import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.util.CaretUpdater;
 
 /** 

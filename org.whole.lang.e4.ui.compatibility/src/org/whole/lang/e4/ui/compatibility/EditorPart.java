@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.EventObject;
 import java.util.HashSet;
@@ -52,14 +52,14 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
-import org.whole.lang.e4.ui.api.IModelInput;
+import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.e4.ui.parts.E4GraphicalPart;
-import org.whole.lang.e4.ui.parts.ModelInput;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.e4.ui.viewers.IModelInputListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.input.IModelInputListener;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
 import org.whole.langs.core.CoreMetaModelsDeployer;

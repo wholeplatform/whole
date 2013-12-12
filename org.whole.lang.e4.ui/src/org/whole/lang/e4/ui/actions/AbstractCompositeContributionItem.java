@@ -27,7 +27,6 @@ import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Menu;
-import org.whole.lang.e4.ui.api.IContextProvider;
 
 /**
  * @author Enrico Persiani

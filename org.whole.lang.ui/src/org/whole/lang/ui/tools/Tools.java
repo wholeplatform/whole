@@ -17,34 +17,27 @@
  */
 package org.whole.lang.ui.tools;
 
-import java.util.List;
-
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.palette.MarqueeToolEntry;
-import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
 import org.eclipse.gef.tools.PanningSelectionTool;
 import org.eclipse.gef.ui.palette.PaletteViewer;
-import org.whole.lang.ui.palette.TextualSelectionToolEntry;
-import org.whole.lang.ui.palette.WholePaletteFactory;
 
 public enum Tools {
-	PANNING("org.eclipse.gef.tools.PanningSelectionTool", PanningSelectionTool.class, PanningSelectionToolEntry.class),
-	TEXTUAL("org.whole.lang.ui.tools.TextualSelectionTool", TextualSelectionTool.class, TextualSelectionToolEntry.class),
-	MARQUEE("org.eclipse.gef.tools.MarqueeSelectionTool", MarqueeSelectionTool.class, MarqueeToolEntry.class);
+	PANNING("org.eclipse.gef.tools.PanningSelectionTool", PanningSelectionTool.class),
+	TEXTUAL("org.whole.lang.ui.tools.TextualSelectionTool", TextualSelectionTool.class),
+	MARQUEE("org.eclipse.gef.tools.MarqueeSelectionTool", MarqueeSelectionTool.class);
 
 	private final String entryId;
 	private final Class<?> toolClass;
-	private final Class<?> toolEntryClass;
 	
-	private Tools(String entryId, Class<?> toolClass, Class<?> toolEntryClass) {
+	private Tools(String entryId, Class<?> toolClass) {
 		this.entryId = entryId;
 		this.toolClass = toolClass;
-		this.toolEntryClass = toolEntryClass;
 	}
 
 	public boolean isPanning() {
@@ -88,14 +81,15 @@ public enum Tools {
 
 	@SuppressWarnings("unchecked")
 	public boolean ensureActive(PaletteViewer paletteViewer) {
-		PaletteGroup toolsGroup = WholePaletteFactory.getPaletteToolsGroup(paletteViewer, this);
-
-		List<ToolEntry> toolEntries = (List<ToolEntry>) toolsGroup.getChildren();
-		for (ToolEntry toolEntry : toolEntries)
-			if (entryId.equals(toolEntry.getId())) {
-				paletteViewer.setActiveTool(toolEntry);
-				return true;
-			}
+//FIXME
+//		PaletteGroup toolsGroup = WholePaletteFactory.getPaletteToolsGroup(paletteViewer, this);
+//
+//		List<ToolEntry> toolEntries = (List<ToolEntry>) toolsGroup.getChildren();
+//		for (ToolEntry toolEntry : toolEntries)
+//			if (entryId.equals(toolEntry.getId())) {
+//				paletteViewer.setActiveTool(toolEntry);
+//				return true;
+//			}
 
 		return false;
 	}
@@ -112,16 +106,6 @@ public enum Tools {
 	public Tool createTool() {
 		try {
 			return (Tool) toolClass.newInstance();
-		} catch (Exception e) {
-			throw new IllegalStateException("Cannot create tool entry", e);
-		}
-	}
-
-	public ToolEntry createToolEntry() {
-		try {
-			ToolEntry toolEntry = (ToolEntry) toolEntryClass.newInstance();
-			toolEntry.setId(entryId);
-			return toolEntry;
 		} catch (Exception e) {
 			throw new IllegalStateException("Cannot create tool entry", e);
 		}

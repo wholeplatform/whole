@@ -44,8 +44,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.e4.ui.api.IModelInput;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -59,6 +57,8 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.DefaultWrapInTransformer;
@@ -116,13 +116,15 @@ public class E4Utils {
 		return "platform:/plugin/org.whole.lang.e4.ui/" + pluginRelativePath;
 	}
 
-	public static IBindingManager createSelectionBindings(SelectionChangedEvent event) {
+	public static IBindingManager createSelectionBindings(SelectionChangedEvent event, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		bm.wDefValue("eclipseContext", context);
 		defineSelectionBindings(bm, event);
 		return bm;
 	}
-	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer) {
+	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		bm.wDefValue("eclipseContext", context);
 		defineSelectionBindings(bm, selectedEntityParts, viewer);
 		return bm;
 	}

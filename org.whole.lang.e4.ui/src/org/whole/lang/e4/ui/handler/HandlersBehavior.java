@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -63,6 +62,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DefaultCopyTransformer;
 import org.whole.lang.util.DefaultWrapInTransformer;

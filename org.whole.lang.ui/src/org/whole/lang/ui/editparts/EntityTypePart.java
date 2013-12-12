@@ -17,11 +17,7 @@
  */
 package org.whole.lang.ui.editparts;
 
-import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.editors.WholeGraphicalEditor;
-import org.whole.lang.ui.views.WholeEditDomain;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
 import org.whole.lang.util.ResourceUtils;
 
 /**
@@ -31,18 +27,9 @@ public class EntityTypePart extends AbstractOverQualifiedDataEntityPart {
 	protected String getQualifierPart(String qname) {		
 		String uri = ResourceUtils.getResourcePart(qname);
 		if (uri != null) {
+			getViewer().getReferencedResources().add(uri);
 			if (ReflectionFactory.hasLanguageKit(uri, true, null))
 				return ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null));
-			else {
-				//TODO in both branches
-				EditPartViewer viewer = getViewer();
-				if (viewer instanceof WholeGraphicalViewer) {
-					WholeEditDomain wed = (WholeEditDomain) viewer.getEditDomain();
-					WholeGraphicalEditor wge = (WholeGraphicalEditor) wed.getEditorPart();
-					if (wge != null)
-						wge.getReferencedResources().add(uri);
-				}
-			}
 		}
 		return uri;
 	}

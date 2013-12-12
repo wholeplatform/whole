@@ -17,25 +17,22 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
-import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
+import org.whole.lang.e4.ui.dialogs.E4Dialog;
 import org.whole.lang.workflows.model.Assignments;
 
 /**
  * @author Enrico Persiani
  */
-public class AssignmentsDialog extends TrayDialog {
+public class AssignmentsDialog extends E4Dialog {
 	protected String title;
 	protected String message;
 	protected Assignments assignments;
-	protected WholeGraphicalViewer viewer;
 
 	public AssignmentsDialog(Shell shell, String title, String message,
 			Assignments assignments) {
@@ -54,19 +51,16 @@ public class AssignmentsDialog extends TrayDialog {
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
-		Label label = new Label(composite, SWT.NONE);
+		Label label = new Label(parent, SWT.NONE);
 		label.setText(message);
 		label.setFocus();
-		viewer = new WholeGraphicalViewer(composite, assignments);
-		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		return composite;
+		return super.createDialogArea(parent);
 	}
 	
 	@Override
 	public int open() {
 		int result = super.open();
-		viewer.dispose();
+		viewer.setEntityContents(assignments);
 		return result;
 	}
 

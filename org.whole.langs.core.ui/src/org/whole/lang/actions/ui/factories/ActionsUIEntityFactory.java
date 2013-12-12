@@ -50,7 +50,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
-import org.whole.lang.ui.actions.AbstractLazySelectionAction;
+import org.whole.lang.ui.actions.IActionConstants;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.visitors.GenericIdentityVisitor;
@@ -94,7 +94,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 		for (IPersistenceKit persistenceKit : ReflectionFactory.getPersistenceKits())
 			actions.wAdd(createTemplateAction(kind, create(resultEd, persistenceKit.getId()),
 					persistenceKit.getDescription(),
-					AbstractLazySelectionAction.SELECT_PERSISTENCE_ICON,
+					IActionConstants.SELECT_PERSISTENCE_ICON,
 					kind == ActionKindEnum.REPLACE));
 		groupAction.setActions(actions);
 
@@ -113,7 +113,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 
 			actions.wAdd(createTemplateAction(kind, create(resultEd, uri),
 					ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit),
-					AbstractLazySelectionAction.SELECT_LANGUAGE_ICON,
+					IActionConstants.SELECT_LANGUAGE_ICON,
 					kind == ActionKindEnum.REPLACE));
 		}
 		groupAction.setActions(actions);
@@ -166,7 +166,7 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	}
 	public TemplateAction createTemplateAction(ActionKindEnum.Value kind, IEntity prototype, String label, boolean differentPredicate) {
 		return createTemplateAction(kind, prototype, label, kind == ActionKindEnum.INSERT ?
-				AbstractLazySelectionAction.INSERT_ICON : AbstractLazySelectionAction.REPLACE_ICON, differentPredicate);
+				IActionConstants.INSERT_ICON : IActionConstants.REPLACE_ICON, differentPredicate);
 	}
 	public TemplateAction createTemplateAction(ActionKindEnum.Value kind, IEntity prototype, String label, ImageDescriptor icon, boolean differentPredicate) {
 		ActionsEntityFactory aef = ActionsEntityFactory.instance;

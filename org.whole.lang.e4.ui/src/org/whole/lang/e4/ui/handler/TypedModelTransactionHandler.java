@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import javax.inject.Named;
 
@@ -30,8 +30,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

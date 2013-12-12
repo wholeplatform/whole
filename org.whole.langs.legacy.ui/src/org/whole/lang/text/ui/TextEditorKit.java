@@ -22,10 +22,10 @@ import org.whole.lang.text.reflect.TextLanguageKit;
 import org.whole.lang.text.ui.actions.TextActionFactory;
 import org.whole.lang.text.ui.actions.TextKeyHandler;
 import org.whole.lang.text.ui.editparts.TextPartFactoryVisitor;
-import org.whole.lang.ui.actions.IKeyHandler;
 import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editor.IActionFactory;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.keys.IKeyHandler;
 
 /** 
  * @author Riccardo Solmi

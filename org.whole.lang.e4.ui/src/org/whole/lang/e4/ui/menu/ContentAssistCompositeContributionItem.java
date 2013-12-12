@@ -26,7 +26,7 @@ import org.eclipse.jface.action.IContributionItem;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
-import org.whole.lang.e4.ui.api.IContextProvider;
+import org.whole.lang.e4.ui.actions.IContextProvider;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ContentAssistOperation;

@@ -18,7 +18,7 @@
 package org.whole.lang.ui.requests;
 
 import org.eclipse.gef.commands.Command;
-import org.whole.lang.ui.actions.IEnablerPredicate;
+import org.whole.lang.ui.enablerpredicate.IEnablerPredicate;
 
 
 public class PartRequestHandler implements IPartRequestHandler {

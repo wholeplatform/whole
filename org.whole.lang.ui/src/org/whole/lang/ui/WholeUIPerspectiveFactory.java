@@ -22,11 +22,6 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
-import org.whole.lang.ui.views.DetailsView;
-import org.whole.lang.ui.views.IndexView;
-import org.whole.lang.ui.views.MapView;
-import org.whole.lang.ui.views.ResultsView;
-import org.whole.lang.ui.views.VariablesView;
 
 /**
  * @author Riccardo Solmi
@@ -64,7 +59,6 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 	protected void addTopRightViews(IFolderLayout folder) {
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
-		folder.addPlaceholder(ResultsView.ID);
 	}
 	protected void addBottomViews(IPlaceholderFolderLayout folder) {
 		folder.addPlaceholder(IPageLayout.ID_PROP_SHEET);
@@ -92,9 +86,5 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(PaletteView.ID);
-		layout.addShowViewShortcut(IndexView.ID);
-		layout.addShowViewShortcut(MapView.ID);
-		layout.addShowViewShortcut(DetailsView.ID);
-		layout.addShowViewShortcut(VariablesView.ID);
 	}
 }

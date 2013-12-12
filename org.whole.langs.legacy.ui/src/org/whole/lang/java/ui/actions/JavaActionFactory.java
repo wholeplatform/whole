@@ -17,20 +17,7 @@
  */
 package org.whole.lang.java.ui.actions;
 
-import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.ui.IWorkbenchPart;
-import org.whole.lang.java.factories.JavaEntityFactory;
-import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
-import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.ui.actions.CompositeAddAction;
-import org.whole.lang.ui.actions.EnablerPredicateFactory;
-import org.whole.lang.ui.actions.IEnablerPredicate;
-import org.whole.lang.ui.actions.ReplaceChildAction;
 import org.whole.lang.ui.editor.ActionFactory;
-import org.whole.lang.util.DefaultCopyTransformer;
-import org.whole.lang.util.EntityUtils;
 
 /** 
  * @author Enrico Persiani
@@ -46,52 +33,52 @@ public class JavaActionFactory extends ActionFactory {
 	private JavaActionFactory() {
 	}
 
-	private static class CompositeAddMethodDeclarationAction extends CompositeAddAction {
-		public CompositeAddMethodDeclarationAction(IWorkbenchPart part, IEnablerPredicate enablerPredicate, EntityDescriptor<?> type, String text) {
-			super(part, enablerPredicate, type, text);
-		}
-
-		@Override
-		protected IEntity configureNewChild(IEntity selectedEntity, IEntity newChild) {
-			IEntity parentEntity = selectedEntity.wGetParent();
-			boolean needsBlock = !EntityUtils.isNull(parentEntity) &&
-					JavaEntityDescriptorEnum.ClassDeclaration.equals(parentEntity.wGetEntityDescriptor());
-			if (needsBlock)
-				newChild.wSet(JavaFeatureDescriptorEnum.body, JavaEntityFactory.instance.createBlock(0));
-
-			return super.configureNewChild(selectedEntity, newChild);
-		}
-	}
-
-	private static class MethodDeclarationCopyTransformer extends DefaultCopyTransformer {
-		@Override
-		public void transform(IEntity oldEntity, IEntity newEntity) {
-			super.transform(oldEntity, newEntity);
-			IEntity grandParentEntity = oldEntity.wGetParent().wGetParent();
-			boolean needsBlock = !EntityUtils.isNull(grandParentEntity) &&
-					JavaEntityDescriptorEnum.ClassDeclaration.equals(grandParentEntity.wGetEntityDescriptor()) &&
-					!EntityUtils.isNotResolver(newEntity.wGet(JavaFeatureDescriptorEnum.body));
-			if (needsBlock)
-				newEntity.wSet(JavaFeatureDescriptorEnum.body, JavaEntityFactory.instance.createBlock(0));
-		}
-	}
-	@Override
-	public SelectionAction createAddAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> addedEntityDescriptor) {
-		if (!JavaEntityDescriptorEnum.MethodDeclaration.equals(addedEntityDescriptor))
-			return super.createAddAction(workbenchPart, addedEntityDescriptor);
-		else {
-			IEnablerPredicate identityPredicate = EnablerPredicateFactory.instance.alwaysTrue();
-			return new CompositeAddMethodDeclarationAction(workbenchPart, identityPredicate, addedEntityDescriptor, addedEntityDescriptor.getName());
-		}
-	}
-
-	@Override
-	public SelectionAction createReplaceAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> replaceEntityDescriptor) {
-		if (!JavaEntityDescriptorEnum.MethodDeclaration.equals(replaceEntityDescriptor))
-			return super.createReplaceAction(workbenchPart, replaceEntityDescriptor);
-		else {
-			IEnablerPredicate identityPredicate = EnablerPredicateFactory.instance.alwaysTrue();
-			return new ReplaceChildAction(workbenchPart, identityPredicate, replaceEntityDescriptor, replaceEntityDescriptor.getName(), new MethodDeclarationCopyTransformer());
-		}
-	}
+//	private static class CompositeAddMethodDeclarationAction extends CompositeAddAction {
+//		public CompositeAddMethodDeclarationAction(IWorkbenchPart part, IEnablerPredicate enablerPredicate, EntityDescriptor<?> type, String text) {
+//			super(part, enablerPredicate, type, text);
+//		}
+//
+//		@Override
+//		protected IEntity configureNewChild(IEntity selectedEntity, IEntity newChild) {
+//			IEntity parentEntity = selectedEntity.wGetParent();
+//			boolean needsBlock = !EntityUtils.isNull(parentEntity) &&
+//					JavaEntityDescriptorEnum.ClassDeclaration.equals(parentEntity.wGetEntityDescriptor());
+//			if (needsBlock)
+//				newChild.wSet(JavaFeatureDescriptorEnum.body, JavaEntityFactory.instance.createBlock(0));
+//
+//			return super.configureNewChild(selectedEntity, newChild);
+//		}
+//	}
+//
+//	private static class MethodDeclarationCopyTransformer extends DefaultCopyTransformer {
+//		@Override
+//		public void transform(IEntity oldEntity, IEntity newEntity) {
+//			super.transform(oldEntity, newEntity);
+//			IEntity grandParentEntity = oldEntity.wGetParent().wGetParent();
+//			boolean needsBlock = !EntityUtils.isNull(grandParentEntity) &&
+//					JavaEntityDescriptorEnum.ClassDeclaration.equals(grandParentEntity.wGetEntityDescriptor()) &&
+//					!EntityUtils.isNotResolver(newEntity.wGet(JavaFeatureDescriptorEnum.body));
+//			if (needsBlock)
+//				newEntity.wSet(JavaFeatureDescriptorEnum.body, JavaEntityFactory.instance.createBlock(0));
+//		}
+//	}
+//	@Override
+//	public SelectionAction createAddAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> addedEntityDescriptor) {
+//		if (!JavaEntityDescriptorEnum.MethodDeclaration.equals(addedEntityDescriptor))
+//			return super.createAddAction(workbenchPart, addedEntityDescriptor);
+//		else {
+//			IEnablerPredicate identityPredicate = EnablerPredicateFactory.instance.alwaysTrue();
+//			return new CompositeAddMethodDeclarationAction(workbenchPart, identityPredicate, addedEntityDescriptor, addedEntityDescriptor.getName());
+//		}
+//	}
+//
+//	@Override
+//	public SelectionAction createReplaceAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> replaceEntityDescriptor) {
+//		if (!JavaEntityDescriptorEnum.MethodDeclaration.equals(replaceEntityDescriptor))
+//			return super.createReplaceAction(workbenchPart, replaceEntityDescriptor);
+//		else {
+//			IEnablerPredicate identityPredicate = EnablerPredicateFactory.instance.alwaysTrue();
+//			return new ReplaceChildAction(workbenchPart, identityPredicate, replaceEntityDescriptor, replaceEntityDescriptor.getName(), new MethodDeclarationCopyTransformer());
+//		}
+//	}
 }

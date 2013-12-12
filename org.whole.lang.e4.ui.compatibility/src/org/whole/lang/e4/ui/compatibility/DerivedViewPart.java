@@ -26,8 +26,8 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.LinkToEditorAction;
 import org.whole.lang.e4.ui.parts.AbstractE4DerivedGraphicalPart;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

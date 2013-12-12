@@ -50,16 +50,16 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
-import org.whole.lang.e4.ui.api.IUIConstants;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.IPartFocusListener;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -120,7 +120,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		replaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				updateSelection(E4Utils.createSelectionBindings(event));
+				updateSelection(E4Utils.createSelectionBindings(event, context));
 			}
 		});
 		replaceViewer.getControl().addFocusListener(new FocusListener() {
@@ -135,13 +135,13 @@ public class E4FindReplaceDialog extends E4Dialog {
 			public void focusGained(FocusEvent e) {
 				context.set(IEntityPartViewer.class, replaceViewer);
 				context.set(ActionRegistry.class, replaceActionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer));
+				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer, context));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 			}
 		});
 

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.actions;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -42,12 +42,13 @@ import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.swt.SWT;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.keys.AbstractKeyHandler;
 import org.whole.lang.ui.tools.Tools;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -100,7 +101,7 @@ public class ActionRegistry {
 	protected void registerAction(IUpdatableAction action) {
 		baseActions.put(action.getId(), action);
 	}
-	public void registerKeyActions(E4KeyHandler keyHandler) {
+	public void registerKeyActions(AbstractKeyHandler keyHandler) {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, actionFactory.createDirectEditAction());
 
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_LEFT)), true, actionFactory.createClearTextSelection(SWT.LEFT));

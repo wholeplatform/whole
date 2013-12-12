@@ -43,8 +43,6 @@ import org.eclipse.gef.tools.SelectEditPartTracker;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.IPropertySource2;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.operations.IDecorationManager.DecorationKind;
@@ -63,7 +61,7 @@ import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.requests.ICommandFactory;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.util.AnimableRunnable;
-import org.whole.lang.ui.views.properties.tabbed.EntityPropertySource;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 
@@ -149,8 +147,6 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getAdapter(Class key) {
-		if (key == IPropertySource.class || key == IPropertySource2.class)
-			return new EntityPropertySource(getModelEntity());
 		if (key == ExposeHelper.class || key == ExtendedExposeHelper.class)
 			return new WholeExtendedExposeHelper(this);
 		if (key == IHilightable.class)
@@ -411,5 +407,10 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 			setDetailed(false);
 		else if (value == EditPart.SELECTED_PRIMARY && !isDetailed())
 			setDetailed(true);
+	}
+	
+	@Override
+	public IEntityPartViewer getViewer() {
+		return (IEntityPartViewer) super.getViewer();
 	}
 }

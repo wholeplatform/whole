@@ -18,26 +18,34 @@
 package org.whole.lang.e4.actions;
 
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
-import static org.whole.lang.e4.ui.api.IUIConstants.WRAP_ICON_URI;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelectionProvider;
 import org.whole.lang.actions.model.Action;
 import org.whole.lang.actions.model.ActionKindEnum;
 import org.whole.lang.actions.model.ActionKindEnum.Value;
+import org.whole.lang.actions.model.ActionKind;
 import org.whole.lang.actions.model.Actions;
+import org.whole.lang.actions.model.CustomAction;
 import org.whole.lang.actions.model.FillStrategy;
 import org.whole.lang.actions.model.GroupAction;
 import org.whole.lang.actions.model.Hierarchical;
+import org.whole.lang.actions.model.Icon;
+import org.whole.lang.actions.model.PerformAction;
+import org.whole.lang.actions.model.Predicate;
+import org.whole.lang.actions.model.SeparatedAction;
+import org.whole.lang.actions.model.Size;
 import org.whole.lang.actions.model.SubgroupAction;
-import org.whole.lang.actions.visitors.ActionsUIInterpreterVisitor;
+import org.whole.lang.actions.model.TemplateAction;
+import org.whole.lang.actions.model.Text;
+import org.whole.lang.actions.visitors.ActionsInterpreterVisitor;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.e4.ui.actions.ActionFactory;
 import org.whole.lang.matchers.Matcher;
@@ -45,9 +53,10 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.ui.actions.ActionsComparator;
-import org.whole.lang.ui.actions.IEnablerPredicate;
+import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.enablerpredicate.IEnablerPredicate;
 import org.whole.lang.ui.menu.ActionSet;
 import org.whole.lang.ui.menu.FlatFillMenuStrategy;
 import org.whole.lang.ui.menu.FullMenuNameStrategy;
@@ -56,6 +65,7 @@ import org.whole.lang.ui.menu.IFillMenuStrategy;
 import org.whole.lang.ui.menu.IItemContainer;
 import org.whole.lang.ui.menu.IMenuNameStrategy;
 import org.whole.lang.ui.menu.PrefixMenuNameStrategy;
+import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IEntityTransformer;
 
@@ -63,15 +73,100 @@ import org.whole.lang.util.IEntityTransformer;
  * @author Enrico Persiani
  */
 @SuppressWarnings("unchecked")
-public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
+public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
+
+	@Override
+	public void visit(Text entity) {
+		setResult(entity);
+	}
+
+	@Override
+	public void visit(Icon entity) {
+		setResult(entity);
+	}
+
+	@Override
+	public void visit(ActionKind entity) {
+		setResult(entity);
+	}
+
+	@Override
+	public void visit(Size entity) {
+		setResult(entity);
+	}
+
+	@Override
+	public void visit(SeparatedAction entity) {
+		entity.getAction().accept(this);
+	}
+
+	@Override
+	public void visit(PerformAction entity) {
+		entity.getKind().accept(this);
+		ActionKindEnum.Value kind = ((ActionKind) getResult()).getValue();
+
+		entity.getText().accept(this);
+		String text = getResult().wStringValue();
+
+		Predicate enablerPredicate = entity.getEnablerPredicate();
+		IEnablerPredicate predicate = null;
+		if (EntityUtils.isResolver(enablerPredicate))
+			predicate = EnablerPredicateFactory.instance.alwaysTrue();
+		else {
+			enablerPredicate.accept(this);
+			predicate = createEnablerPredicate(getResult());
+		}
+
+//TODO!	entity.getConfiguration()
+
+		entity.getTransformation().accept(this);
+		IAction action = createAction(kind, predicate, null, getResult(), text);
+
+		Icon icon = entity.getIcon();
+		if (DataTypeUtils.getDataKind(icon).isObject())
+			action.setImageDescriptor((ImageDescriptor) icon.wGetValue());
+
+		setResult(BindingManagerFactory.instance.createValue(action));
+	}
+
+	@Override
+	public void visit(TemplateAction entity) {
+		entity.getKind().accept(this);
+		ActionKindEnum.Value kind = ((ActionKind) getResult()).getValue();
+
+		entity.getText().accept(this);
+		String text = getResult().wStringValue();
+
+		Predicate enablerPredicate = entity.getEnablerPredicate();
+		IEnablerPredicate predicate = null;
+		if (EntityUtils.isResolver(enablerPredicate))
+			predicate = EnablerPredicateFactory.instance.alwaysTrue();
+		else {
+			enablerPredicate.accept(this);
+			predicate = createEnablerPredicate(getResult());
+		}
+
+//TODO?	entity.getConfiguration()
+
+		//TODO use custom IEntityTransformer if available
+		entity.getTransformation().accept(this);
+		IAction action = createAction(kind, predicate, null, getResult(), text);
+
+
+		Icon icon = entity.getIcon();
+		if (DataTypeUtils.getDataKind(icon).isObject())
+			action.setImageDescriptor((ImageDescriptor) icon.wGetValue());
+
+		setResult(BindingManagerFactory.instance.createValue(action));
+	}
+
+	@Override
+	public void visit(CustomAction entity) {
+		setResult(entity);
+	}
 
 	@Override
 	public void visit(Actions entity) {
-		if (getBindings().wIsSet("selectionProvider")) {
-			super.visit(entity);
-			return;
-		}
-
 		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
 				getBindings().wGetValue("itemContainer");
 		IFillMenuStrategy strategy = (IFillMenuStrategy)
@@ -100,10 +195,6 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 				continue;
 
 			IUpdatableAction updatableAction = (IUpdatableAction) result.wGetValue();
-			//FIXME workaround for old and deprecated SelectionAction
-			if (updatableAction instanceof SelectionAction) {
-				((SelectionAction) updatableAction).setSelectionProvider((ISelectionProvider) getBindings().wGetValue("viewer"));
-			}
 			updatableAction.update();
 
 			if (updatableAction.isEnabled())
@@ -120,11 +211,6 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 	@Override
 	public void visit(GroupAction entity) {
-		if (getBindings().wIsSet("selectionProvider")) {
-			super.visit(entity);
-			return;
-		}
-
 		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
 				getBindings().wGetValue("itemContainer");
 		
@@ -156,11 +242,6 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 
 	@Override
 	public void visit(SubgroupAction entity) {
-		if (getBindings().wIsSet("selectionProvider")) {
-			super.visit(entity);
-			return;
-		}
-
 		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
 				getBindings().wGetValue("itemContainer");
 		
@@ -198,20 +279,10 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 			throw new UnsupportedOperationException("cannot evaluate expression");
 		}
 	}
-	@Override
-	public IEnablerPredicate createEnablerPredicate(IEntity predicate) {
-		if (getBindings().wIsSet("selectionProvider"))
-			return super.createEnablerPredicate(predicate);
 
-		return new OpaqueEnablerPredicate(predicate);
-	}
-
-	@Override
 	protected IAction createAction(Value kind,
 			IEnablerPredicate enablerPredicate, IEntityTransformer transformer,
 			IEntity prototype, String text) {
-		if (getBindings().wIsSet("selectionProvider"))
-			return super.createAction(kind, enablerPredicate, transformer, prototype, text);
 
 		//FIXME transformer always passed as null
 		IEclipseContext context = (IEclipseContext) getBindings().wGetValue("context");
@@ -254,5 +325,9 @@ public class ActionsE4InterpreterVisitor extends ActionsUIInterpreterVisitor {
 						int splitSize = getResult().wIntValue();
 
 						return new HierarchicalFillMenuStrategy(nameStrategy, splitSize, groupName);
+	}
+
+	private IEnablerPredicate createEnablerPredicate(IEntity predicate) {
+		return new OpaqueEnablerPredicate(predicate);
 	}
 }

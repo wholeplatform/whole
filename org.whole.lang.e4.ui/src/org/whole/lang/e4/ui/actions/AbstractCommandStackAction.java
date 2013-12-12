@@ -23,10 +23,10 @@ import org.eclipse.gef.Disposable;
 import org.eclipse.gef.commands.CommandStackEvent;
 import org.eclipse.gef.commands.CommandStackEventListener;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.actions.NullActionRedirection;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

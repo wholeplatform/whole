@@ -23,6 +23,8 @@ import javax.inject.Named;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -44,17 +46,18 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
-import org.whole.lang.e4.ui.api.IUIProvider;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
-import org.whole.lang.e4.ui.viewers.IPartFocusListener;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
+import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.IPartFocusListener;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -75,6 +78,35 @@ public class E4Dialog extends Dialog {
 	@Inject	protected EModelService modelService;
 	@Inject	protected MApplication application;
 
+	@Inject
+	@Optional
+	protected void refreshViewer(@UIEventTopic(IUIConstants.TOPIC_REFRESH_VIEWER) IEntity results) {
+		if (results != null)
+			getViewer().refreshNotation(results);
+		else
+			getViewer().refreshNotation();
+	}
+
+	@Inject
+	@Optional
+	protected void rebuildViewer(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER) IEntity results) {
+		if (results != null)
+			getViewer().rebuildNotation(results);
+		else
+			getViewer().rebuildNotation();
+	}
+
+	@Inject
+	@Optional
+	protected void rebuildViewerConditional(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL) String resourceUri) {
+		if (getViewer().getReferencedResources().contains(resourceUri))
+			getViewer().rebuildNotation();
+	}
+
+	public IEntityPartViewer getViewer() {
+		return viewer;
+	}
+
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		HandlersBehavior.registerHandlers(handlerService);
@@ -84,7 +116,7 @@ public class E4Dialog extends Dialog {
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				updateSelection(E4Utils.createSelectionBindings(event));
+				updateSelection(E4Utils.createSelectionBindings(event, context));
 			}
 		});
 		viewer.getControl().addFocusListener(new FocusListener() {
@@ -99,13 +131,13 @@ public class E4Dialog extends Dialog {
 			public void focusGained(FocusEvent event) {
 				context.set(IEntityPartViewer.class, viewer);
 				context.set(ActionRegistry.class, actionRegistry);
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 			}
 		});
 		viewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer));
+				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
 			}
 		});
 

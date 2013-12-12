@@ -18,8 +18,6 @@
 package org.whole.lang.ui;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -36,18 +34,14 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.whole.lang.ui.editors.WholeGraphicalEditor;
 
 
 /**
@@ -81,15 +75,11 @@ public class WholeUIPlugin extends AbstractUIPlugin {
 
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		Platform.getExtensionRegistry().addRegistryChangeListener(GlobalActionExtensions.instance());
 		Platform.getExtensionRegistry().addRegistryChangeListener(ResourceBindingsContributorExtensions.instance());
-		Platform.getExtensionRegistry().addRegistryChangeListener(SearchScopeFilterExtensions.instance());
 	}
 
 	public void stop(BundleContext context) throws Exception {
-		Platform.getExtensionRegistry().removeRegistryChangeListener(GlobalActionExtensions.instance());
 		Platform.getExtensionRegistry().removeRegistryChangeListener(ResourceBindingsContributorExtensions.instance());
-		Platform.getExtensionRegistry().removeRegistryChangeListener(SearchScopeFilterExtensions.instance());
 		super.stop(context);
 	}
 
@@ -198,64 +188,9 @@ public class WholeUIPlugin extends AbstractUIPlugin {
 		return getDefault().getFontRegistry().get(OPEN_SYMBOL_LARGE);
 	}
 
-	public static IEditorPart[] getGraphicalEditors() {
-		List<IEditorPart> result= new ArrayList<IEditorPart>(10);
-		IWorkbench workbench= getDefault().getWorkbench();
-		IWorkbenchWindow[] windows= workbench.getWorkbenchWindows();
-		for (int windowIndex= 0; windowIndex < windows.length; windowIndex++) {
-			IWorkbenchPage[] pages= windows[windowIndex].getPages();
-			for (int pageIndex= 0; pageIndex < pages.length; pageIndex++) {
-				IEditorReference[] references= pages[pageIndex].getEditorReferences();
-				for (int refIndex= 0; refIndex < references.length; refIndex++) {
-					IEditorPart editor= references[refIndex].getEditor(false);
-					if (editor instanceof WholeGraphicalEditor)
-						result.add(editor);
-				}
-			}
-		}
-		return (IEditorPart[])result.toArray(new IEditorPart[result.size()]);
-	}
-
-	public static IViewPart findView(String viewId) {
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		if (activePage == null)
-			return null;
-		return activePage.findView(viewId);
-	}
-
-	public static boolean isViewVisible(String viewId) {
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IViewPart part = activePage.findView(viewId);
-		if (part == null)
-			return false;
-		return activePage.isPartVisible(part);
-	}
-	public static boolean isViewVisible(IViewPart view) {
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		if (activePage == null)
-			return false;
-		return activePage.isPartVisible(view);
-	}
-
 	public static void revealPerspective(String perspectiveId) {
 		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();		
 		IPerspectiveDescriptor perspectiveDescriptor = PlatformUI.getWorkbench().getPerspectiveRegistry().findPerspectiveWithId(perspectiveId);
 		activePage.setPerspective(perspectiveDescriptor);
-	}
-
-	public static IViewPart revealView(String viewId) {
-		return revealView(viewId, null);
-	}
-	public static IViewPart revealView(String viewId, String secondaryID) {
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IViewPart part = activePage.findView(viewId);
-		if (part == null)
-			try {
-				part = activePage.showView(viewId, secondaryID, IWorkbenchPage.VIEW_VISIBLE);
-			} catch (PartInitException e) {
-			}
-		else
-			activePage.bringToTop(part);
-		return part;
 	}
 }

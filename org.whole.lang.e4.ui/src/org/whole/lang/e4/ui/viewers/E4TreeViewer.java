@@ -18,8 +18,10 @@
 package org.whole.lang.e4.ui.viewers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;
@@ -38,8 +40,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
-import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
@@ -48,9 +48,15 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.IPartFocusListener;
 import org.whole.lang.ui.editparts.ITreeEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.OutlineViewEditPartFactory;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.input.IModelInputListener;
+import org.whole.lang.ui.keys.AbstractKeyHandler;
+import org.whole.lang.ui.viewers.EntityEditDomain;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
@@ -61,21 +67,23 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
 	private List<IModelInputListener> modelInputListeners;
+	private Set<String> referencedResources;
 
 	public E4TreeViewer() {
 		setEditPartFactory(new OutlineViewEditPartFactory());
 	}
-	public E4TreeViewer(Composite parent, E4EditDomain domain) {
+	public E4TreeViewer(Composite parent, EntityEditDomain domain) {
 		this();
 
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
+		referencedResources = new HashSet<String>();
 
 		createControl(parent);
 		domain.addViewer(this);
 	}
 	public E4TreeViewer(Composite parent) {
-		this(parent, new E4EditDomain());
+		this(parent, new EntityEditDomain());
 	}
 
 	@Override
@@ -124,6 +132,9 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	// Begin Block Shared With E4GraphicalViewer
+	public Set<String> getReferencedResources() {
+		return referencedResources;
+	}
 
 	public CommandStack getCommandStack() {
 		return getEditDomain().getCommandStack();
@@ -193,10 +204,10 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		return (IEntityPart) getFocusEditPart();
 	}
 
-	public E4KeyHandler getKeyHandler() {
-		return (E4KeyHandler) super.getKeyHandler();
+	public AbstractKeyHandler getKeyHandler() {
+		return (AbstractKeyHandler) super.getKeyHandler();
 	}
-	public void setKeyHandler(E4KeyHandler handler) {
+	public void setKeyHandler(AbstractKeyHandler handler) {
 		super.setKeyHandler(handler);
 	}
 
@@ -252,7 +263,22 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		modelInputListeners.remove(listener);
 	}
 
+	public void rebuildNotation() {
+		setContents(getContents().getModel());
+	}
+
+	public void rebuildNotation(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		entityPart.rebuild();
+	}
 	// End Block Shared With E4GraphicalViewer
+	
+	public void refreshNotation() {
+		// do nothing
+	}
+	public void refreshNotation(IEntity entity) {
+		// do nothing
+	}
 	
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited) {
 		throw new UnsupportedOperationException();

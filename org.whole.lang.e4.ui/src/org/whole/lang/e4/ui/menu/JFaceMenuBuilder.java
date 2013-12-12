@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import static org.whole.lang.e4.ui.api.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +30,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.api.AbstractUIBuilder;
+import org.whole.lang.e4.ui.actions.AbstractUIBuilder;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;

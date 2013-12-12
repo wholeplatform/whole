@@ -32,8 +32,6 @@ Export-Package: org.whole.examples.annotations,
  org.whole.examples.lang.imp.visitors,
  org.whole.examples.patterns,
  org.whole.examples.patterns.source,
- org.whole.examples.patterns.ui.contributions,
- org.whole.examples.ui.contributions,
  org.whole.examples.xml
 Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.core.resources,

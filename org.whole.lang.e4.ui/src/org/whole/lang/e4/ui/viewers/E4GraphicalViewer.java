@@ -18,11 +18,15 @@
 package org.whole.lang.e4.ui.viewers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
@@ -36,8 +40,6 @@ import org.eclipse.swt.widgets.Control;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
-import org.whole.lang.e4.ui.actions.E4KeyHandler;
-import org.whole.lang.e4.ui.api.IModelInput;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.editparts.IScalableRootEditPart;
 import org.whole.lang.e4.ui.editparts.RootEditPart;
@@ -61,15 +63,22 @@ import org.whole.lang.ui.dnd.XmlBuilderFileTransferDragSourceListener;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editparts.IPartFocusListener;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editparts.WholeEditPartFactory;
 import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.input.IModelInputListener;
+import org.whole.lang.ui.keys.AbstractKeyHandler;
 import org.whole.lang.ui.resources.ColorRegistry;
 import org.whole.lang.ui.resources.FontRegistry;
 import org.whole.lang.ui.resources.IColorRegistry;
 import org.whole.lang.ui.resources.IFontRegistry;
 import org.whole.lang.ui.resources.IResourceManager;
 import org.whole.lang.ui.tools.Tools;
+import org.whole.lang.ui.viewers.EntityEditDomain;
+import org.whole.lang.ui.viewers.ZoomGestureListener;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
@@ -79,13 +88,15 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
 	private List<IModelInputListener> modelInputListeners;
+	private Set<String> referencedResources;
 
 	public E4GraphicalViewer(Composite parent) {
-		this(parent, new E4EditDomain());
+		this(parent, new EntityEditDomain());
 	}
-	public E4GraphicalViewer(Composite parent, E4EditDomain domain) {
+	public E4GraphicalViewer(Composite parent, EntityEditDomain domain) {
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
+		referencedResources = new HashSet<String>();
 
 		createControl2(parent);
 		domain.addViewer(this);
@@ -96,7 +107,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		configureViewer(domain);
 	}
 
-	protected void configureViewer(E4EditDomain domain) {
+	protected void configureViewer(EntityEditDomain domain) {
 		addDragSourceListener(new EditPartTransferDragSourceListener(this));
 		addDropTargetListener(new EditPartTransferDropTargetListener(this));
 
@@ -106,7 +117,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		addDragSourceListener(new TextTransferDragSourceListener(this));
 		addDropTargetListener(new TextTransferDropTargetListener(this));
 
-		getControl().addGestureListener(new E4ZoomGestureListener(getScalableRootEditPart().getZoomManager()));
+		getControl().addGestureListener(new ZoomGestureListener(getScalableRootEditPart().getZoomManager()));
 
 		Tools.PANNING.ensureActive(domain);
 	}
@@ -129,6 +140,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	// Begin Block Shared With E4TreeViewer
+	public Set<String> getReferencedResources() {
+		return referencedResources;
+	}
 
 	public CommandStack getCommandStack() {
 		return getEditDomain().getCommandStack();
@@ -200,10 +214,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return (IEntityPart) getFocusEditPart();
 	}
 
-	public E4KeyHandler getKeyHandler() {
-		return (E4KeyHandler) super.getKeyHandler();
+	public AbstractKeyHandler getKeyHandler() {
+		return (AbstractKeyHandler) super.getKeyHandler();
 	}
-	public void setKeyHandler(E4KeyHandler handler) {
+	public void setKeyHandler(AbstractKeyHandler handler) {
 		super.setKeyHandler(handler);
 	}
 
@@ -258,8 +272,28 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	public void removeModelInputListener(IModelInputListener listener) {
 		modelInputListeners.remove(listener);
 	}
+	public void rebuildNotation() {
+		setContents(getContents().getModel());
+	}
+
+	public void rebuildNotation(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		entityPart.rebuild();
+	}
 
 	// End Block Shared With E4TreeViewer
+
+	public void refreshNotation(IEntity entity) {
+		refreshNotation(((IGraphicalEntityPart) getEditPartRegistry().get(entity)).getFigure());
+	}
+	public void refreshNotation() {
+		refreshNotation(getFigureCanvas().getViewport());
+	}
+	protected void refreshNotation(IFigure figure) {
+		figure.invalidateTree();
+		figure.revalidate();
+		getFigureCanvas().redraw();
+	}
 
 	@SuppressWarnings("unchecked")
 	public class E4FigureCanvas extends FigureCanvas {
@@ -267,25 +301,25 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			super(parent, lws);
 		}
 		public void cut() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this);
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			CutHandler handler = new CutHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void copy() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this);
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			CopyHandler handler = new CopyHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void paste() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this);
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			PasteHandler handler = new PasteHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
 		}
 		public void selectAll() {
-			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this);
+			IBindingManager bm = E4Utils.createSelectionBindings(getSelectedEditParts(), E4GraphicalViewer.this, EclipseContextFactory.create());
 			SelectAllHandler handler = new SelectAllHandler();
 			if (handler.canExecute(bm))
 				handler.execute(bm);
@@ -331,8 +365,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	@Override
-	public E4EditDomain getEditDomain() {
-		return (E4EditDomain) super.getEditDomain();
+	public EntityEditDomain getEditDomain() {
+		return (EntityEditDomain) super.getEditDomain();
 	}
 	@Override
 	protected LightweightSystem createLightweightSystem() {

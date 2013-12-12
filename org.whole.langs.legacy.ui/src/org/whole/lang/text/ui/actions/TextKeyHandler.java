@@ -20,8 +20,8 @@ package org.whole.lang.text.ui.actions;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.whole.lang.ui.actions.DefaultKeyHandler;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.keys.DefaultKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IWholeSelection;
 import org.whole.lang.ui.tools.SelectionRange;

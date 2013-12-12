@@ -26,7 +26,10 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.gef.commands.Command;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -38,34 +41,45 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.actions.AbstractE4Action;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.commands.ReplaceChildCommand;
-import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.util.ResourceUtils;
-import org.whole.lang.ui.util.UIUtils;
-import org.whole.lang.util.IEntityTransformer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
  */
-public abstract class ReplaceWithResourceAction extends ReplaceChildAction  implements IEntityTransformer {
+public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 	protected static final String SELECT_RESOURCE_MSG = "Select a resource";
 	protected static final ImageDescriptor SELECT_RESOURCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
-	protected static final IEnablerPredicate TRUE = EnablerPredicateFactory.instance.alwaysTrue();
+
 	public static enum ResourceKind {
 		WORKSPACE, FILE_SYSTEM, CLASSPATH, URL
 	}
 
+	protected EntityDescriptor<?> ed;
 	protected String path;
 
-	public ReplaceWithResourceAction(EntityDescriptor<?> type, String path, String text) {
-		super(UIUtils.getActivePart(), TRUE, type, text, null);
-		this.transformer = this;
+	public ReplaceWithResourceAction(IEclipseContext context, EntityDescriptor<?> ed, String path, String text) {
+		super(context, text, SELECT_RESOURCE_ICON);
+		this.ed = ed;
 		this.path = path;
-		setImageDescriptor(SELECT_RESOURCE_ICON);
+	}
+
+	@Override
+	public void update() {
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		if (selectionService.getSelection() instanceof IBindingManager) {
+			IBindingManager bm = (IBindingManager) selectionService.getSelection();
+			setEnabled(HandlersBehavior.isValidEntityPartSelection(bm, true));
+		} else
+			setEnabled(false);
 	}
 
 	protected abstract boolean isLoading(IEntity selectedEntity);
@@ -73,43 +87,51 @@ public abstract class ReplaceWithResourceAction extends ReplaceChildAction  impl
 
 	@Override
 	public void run() {
-		IEntityPart selectedPart = (IEntityPart) getSelectedObjects().get(0);
-		IEntity selectedEntity = selectedPart.getModelEntity();
-		IEntity parent = selectedPart.getParentModelEntity();
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		IBindingManager bm = (IBindingManager) selectionService.getSelection();
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
 
-		ResourceKind resourceKind = getResourceKind(selectedEntity);
-		Shell shell = getWorkbenchPart().getSite().getShell();
+		ResourceKind resourceKind = getResourceKind(primarySelectedEntity);
+		Shell shell = (Shell) getContext().get(IServiceConstants.ACTIVE_SHELL);
 
 		boolean selectionPerformed = false;
 		switch (resourceKind) {
 		case WORKSPACE:
-			selectionPerformed = performWorkspaceResourceSelection(shell, selectedEntity);
+			selectionPerformed = performWorkspaceResourceSelection(shell, primarySelectedEntity);
 			break;
 		case CLASSPATH:
-			selectionPerformed = performClasspathResourceSelection(shell, selectedEntity);
+			selectionPerformed = performClasspathResourceSelection(shell, primarySelectedEntity);
 			break;
 		case FILE_SYSTEM:
 		case URL:
-			selectionPerformed = performFilesystemSelection(shell, selectedEntity,  resourceKind == ResourceKind.URL);
+			selectionPerformed = performFilesystemSelection(shell, primarySelectedEntity,  resourceKind == ResourceKind.URL);
 			break;
 		}
 
 		if (!selectionPerformed)
 			return;
 
-		IEntity newResource = contextMenuRequest.cloneType();
-		transformer.transform(selectedEntity, newResource);
+		IEntity replacement = GenericEntityFactory.instance.create(ed, path);
 
-		execute(createReplaceResourceCommand(parent, selectedEntity, newResource));
+		ModelTransactionCommand mtc = new ModelTransactionCommand(primarySelectedEntity);
+		try {
+			mtc.setLabel("replace with class name");
+			mtc.begin();
+			performReplace(primarySelectedEntity, replacement);
+			mtc.commit();
+			if (mtc.canUndo()) {
+				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+				CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+				commandStack.execute(mtc);
+			}
+		} catch (RuntimeException e) {
+			mtc.rollback();
+			throw e;
+		}
 	}
 
-	protected Command createReplaceResourceCommand(IEntity parent, IEntity oldChild, IEntity newChild) {
-		ReplaceChildCommand replaceResource = new ReplaceChildCommand();
-		replaceResource.setParent(parent);
-		replaceResource.setOldChild(oldChild);
-		replaceResource.setNewChild(newChild);
-		replaceResource.setLabel("set resource");
-		return replaceResource;
+	protected void performReplace(IEntity primarySelectedEntity, IEntity replacement) {
+		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
 	}
 
 	protected boolean performFilesystemSelection(Shell shell, IEntity entity, boolean isURL) {

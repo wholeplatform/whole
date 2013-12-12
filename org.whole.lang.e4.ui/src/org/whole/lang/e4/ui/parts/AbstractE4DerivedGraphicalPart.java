@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.LinkType;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani

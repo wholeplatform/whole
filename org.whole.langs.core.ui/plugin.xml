@@ -20,19 +20,6 @@
                  label="Metadata"/>
         </propertyTabs>
      </extension>
-     <extension
-           point="org.eclipse.ui.views.properties.tabbed.propertySections">
-        <propertySections contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
-           <propertySection
-                 class="org.whole.lang.artifacts.ui.views.properties.tabbed.sections.MetadataPropertySection"
-                 enablesFor="1"
-                 filter="org.whole.lang.artifacts.ui.views.properties.tabbed.sections.MetadataArtifactsSelectionFilter"
-                 id="MetadataSection"
-                 tab="MetadataTab">
-                 <input type="org.whole.lang.ui.editparts.IEntityPart"/>
-           </propertySection>
-        </propertySections>
-    </extension>
 	<extension
    	     point="org.eclipse.core.contenttype.contentTypes">
 		<content-type
@@ -55,11 +42,10 @@
          point="org.eclipse.ui.editors">
       <editor
             name="Grammar Based Persistence"
-            default="false"
             extensions="text,txt,flf,csv"
+            default="false"
             icon="icons/editors/grammar.gif"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.grammars.GrammarEditor">
             <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
       </editor>
@@ -68,8 +54,7 @@
             default="false"
             extensions="h,m,c"
             icon="icons/editors/grammar.gif"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.objectivec.ObjectiveCEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.objectivecWhole"/>
       </editor>
@@ -78,8 +63,7 @@
             default="false"
             extensions="mediawiki"
             icon="icons/editors/grammar.gif"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.mediawiki.MediaWikiEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.mediawikiSource"/>
       </editor>

@@ -17,8 +17,8 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import org.whole.lang.e4.ui.api.IUIBuilder;
-import org.whole.lang.e4.ui.api.IUIProvider;
+import org.whole.lang.ui.IUIBuilder;
+import org.whole.lang.ui.IUIProvider;
 
 /**
  * @author Enrico Persiani

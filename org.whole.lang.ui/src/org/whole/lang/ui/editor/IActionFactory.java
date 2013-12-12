@@ -17,36 +17,12 @@
  */
 package org.whole.lang.ui.editor;
 
-import java.util.List;
-import java.util.Map;
-
-import org.eclipse.gef.KeyStroke;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.ui.IWorkbenchPart;
-import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  * @author Riccardo Solmi
  */
 public interface IActionFactory {
-	// called once at editor configuration time
-	public void initActions(IWorkbenchPart workbenchPart);
-	public void initAddActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<EntityDescriptor<?>, SelectionAction> addActionsMap);
-	public void initReplaceActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<EntityDescriptor<?>, SelectionAction> replaceActionsMap);
-	public void initWrapActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<EntityDescriptor<?>, List<SelectionAction>> wrapActionsMap);
-	public void initTextActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<EntityDescriptor<?>, List<SelectionAction>> textActionsMap);
-	public void initKeyActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<KeyStroke, SelectionAction> keyActionsMap);
-
 	// called at context menu configuration time
-	public void fillValueMenu(IWorkbenchPart workbenchPart, IMenuManager contextMenu, ISelectionProvider provider);
 	public Object[][] wrapActions();
 	public Object[][] textActions();
-
-	// called at context menu configuration time once per entity descriptor (they are cached)
-	public SelectionAction createAddAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> addEntityDescriptor);
-	public SelectionAction createReplaceAction(IWorkbenchPart workbenchPart, EntityDescriptor<?> replaceEntityDescriptor);
-	public List<? extends SelectionAction> createWrapActions(IWorkbenchPart workbenchPart, EntityDescriptor<?> wrapEntityDescriptor);
 }

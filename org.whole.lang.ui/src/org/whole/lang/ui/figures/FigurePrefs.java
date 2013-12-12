@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.resource.ColorRegistry;
@@ -29,10 +28,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.ui.IEditorPart;
 import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.views.WholeGraphicalViewer;
 
 
 /**
@@ -220,12 +217,15 @@ public class FigurePrefs extends PreferenceConstants {
 		return style;
 	}
 
+	//FIXME workaround for backward compatibility
+	//TODO migrate to E4 preferences injection
+	private static Runnable rebuildAllViewerRunnable = null;
+	public static void setRebuildAllViewerRunnable(
+			Runnable rebuildAllViewerRunnable) {
+		FigurePrefs.rebuildAllViewerRunnable = rebuildAllViewerRunnable;
+	}
 	private static final void invalidateEditors() {
-		IEditorPart[] editors = WholeUIPlugin.getGraphicalEditors();
-		for (int i=0; i<editors.length; i++) {
-			WholeGraphicalViewer viewer = (WholeGraphicalViewer) editors[i].getAdapter(GraphicalViewer.class);
-			if (viewer != null)
-				viewer.refreshNotation();
-		}
+		if (rebuildAllViewerRunnable != null)
+			rebuildAllViewerRunnable.run();
 	}
 }

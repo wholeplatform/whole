@@ -17,6 +17,10 @@
  */
 package org.whole.lang.ui.actions;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
@@ -24,51 +28,51 @@ import org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
-import org.whole.gen.util.IDEUtils;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.actions.AbstractE4Action;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.WholeUIPlugin;
-import org.whole.lang.ui.util.UIUtils;
-import org.whole.lang.util.IEntityTransformer;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
 /**
  * @author Enrico Persiani
  */
-public class ReplaceWithClassNameAction extends ReplaceChildAction implements IEntityTransformer {
+public class ReplaceWithClassNameAction extends AbstractE4Action {
 	
 	private static final ImageDescriptor SELECT_CLASS_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_class.png");
 
-	private String className;
+	protected EntityDescriptor<?> ed;
+	protected String className;
 
-	public ReplaceWithClassNameAction(EntityDescriptor<?> type,
-			String className, String text) {
-		super(UIUtils.getActivePart(), 
-			EnablerPredicateFactory.instance.alwaysTrue(), type, text, null);
-		setImageDescriptor(SELECT_CLASS_ICON);
-		this.transformer = this;
+	public ReplaceWithClassNameAction(IEclipseContext context, EntityDescriptor<?> ed, String className, String text) {
+		super(context, text, SELECT_CLASS_ICON);
+		this.ed = ed;
 		this.className = className;
+		setText(text);
 	}
 
 	@Override
-	protected boolean calculateEnabled() {
-		if (!(getWorkbenchPart() instanceof IEditorPart))
-			return false;
-
-		IJavaProject javaProject = IDEUtils.getJavaProject((IEditorPart) 
-				getWorkbenchPart());
-		if (javaProject == null)
-			return false;
-
-		return true;
+	public void update() {
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		if (selectionService.getSelection() instanceof IBindingManager) {
+			IBindingManager bm = (IBindingManager) selectionService.getSelection();
+			IJavaProject javaProject = (IJavaProject) bm.wGetValue("javaProject");
+			setEnabled(javaProject != null && 
+					HandlersBehavior.isValidEntityPartSelection(bm, true));
+		} else
+			setEnabled(false);
 	}
 
 	@Override
 	public void run() {
-		Shell shell = getWorkbenchPart().getSite().getShell();
+		Shell shell = (Shell) getContext().get(IServiceConstants.ACTIVE_SHELL);
 
 		FilteredItemsSelectionDialog dialog = new OpenTypeSelectionDialog(shell,
 				true, PlatformUI.getWorkbench().getProgressService(), null,
@@ -85,7 +89,26 @@ public class ReplaceWithClassNameAction extends ReplaceChildAction implements IE
 
 		className = primaryType.getFullyQualifiedName();
 
-		super.run();
+		ESelectionService selectionService = getContext().get(ESelectionService.class);
+		IBindingManager bm = (IBindingManager) selectionService.getSelection();
+		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity replacement = GenericEntityFactory.instance.create(ed, className);
+
+		ModelTransactionCommand mtc = new ModelTransactionCommand(primarySelectedEntity);
+		try {
+			mtc.setLabel("replace with class name");
+			mtc.begin();
+			primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
+			mtc.commit();
+			if (mtc.canUndo()) {
+				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+				CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+				commandStack.execute(mtc);
+			}
+		} catch (RuntimeException e) {
+			mtc.rollback();
+			throw e;
+		}
 	}
 
 	public void transform(IEntity oldEntity, IEntity newEntity) {
