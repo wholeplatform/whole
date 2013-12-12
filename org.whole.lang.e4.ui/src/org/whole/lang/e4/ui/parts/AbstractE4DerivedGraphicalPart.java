@@ -38,13 +38,18 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 	}
 
 	protected ILinkableSelectionListener createSelectionLinkable(IEntityPartViewer viewer) {
-		String functionUri = getDerivationFunction();
 		IEclipseContext params = EclipseContextFactory.create();
-		params.set(ILinkableSelectionListener.FUNCTION_URI, functionUri);
-		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		// we need to pass the viewer because it has not been set in the active context
 		params.set(IEntityPartViewer.class, viewer);
-		return ContextInjectionFactory.make(DerivedLinkableSelectionListener.class, context, params);
+		return ContextInjectionFactory.make(DerivedLinkableSelectionListener.class, context,
+				configureSelectionLinkable(params));
+	}
+
+	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
+		params.set(ILinkableSelectionListener.FUNCTION_URI, getDerivationFunction());
+		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
+		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, false);
+		return params;
 	}
 
 	protected abstract String getDerivationFunction();

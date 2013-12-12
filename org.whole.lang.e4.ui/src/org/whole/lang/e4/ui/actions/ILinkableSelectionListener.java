@@ -25,6 +25,7 @@ import org.eclipse.e4.ui.workbench.modeling.ISelectionListener;
 public interface ILinkableSelectionListener extends ILinkable, ISelectionListener {
 	public static final String LINK_TYPE = "org.whole.lang.e4.ui.actions.linkType";
 	public static final String FUNCTION_URI = "org.whole.lang.e4.ui.actions.functionUri";
+	public static final String SHARE_EDIT_DOMAIN = "org.whole.lang.e4.ui.actions.shareEditDoman";
 
 	public void addLinkViewerListener(ILinkViewerListener listener);
 	public void removeLinkViewerListener(ILinkViewerListener listener); 

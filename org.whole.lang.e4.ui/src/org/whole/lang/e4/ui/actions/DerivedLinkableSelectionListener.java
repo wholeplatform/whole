@@ -27,8 +27,8 @@ import org.whole.lang.e4.ui.jobs.DeriveModelRunnable;
 import org.whole.lang.e4.ui.jobs.RunnableJob;
 import org.whole.lang.e4.ui.util.ChangeTracker;
 import org.whole.lang.e4.ui.viewers.E4EditDomain;
-import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.e4.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -40,6 +40,9 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 
 	@Inject @Named(FUNCTION_URI)
 	protected String functionUri;
+	
+	@Inject @Named(SHARE_EDIT_DOMAIN)
+	protected boolean shareEditDomain;
 
 	@PostConstruct
 	void init() {
@@ -70,7 +73,7 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 		if (lastSelection == null)
 			return;
 
-		if (relink) {
+		if (shareEditDomain && relink) {
 			IEntityPartViewer toViewer = (IEntityPartViewer) lastSelection.wGetValue("viewer");
 			viewer.linkEditDomain(toViewer);
 			fireViewerLinked(toViewer);

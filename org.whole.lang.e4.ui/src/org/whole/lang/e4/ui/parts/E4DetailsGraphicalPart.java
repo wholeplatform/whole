@@ -19,6 +19,9 @@ package org.whole.lang.e4.ui.parts;
 
 import javax.inject.Singleton;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+
 
 /**
  * @author Enrico Persiani
@@ -27,5 +30,12 @@ import javax.inject.Singleton;
 public class E4DetailsGraphicalPart extends AbstractE4DerivedGraphicalPart {
 	protected String getDerivationFunction() {
 		return "whole:org.whole.lang:ViewDerivationLibrary#deriveDetailsViewContents";
+	}
+	
+	@Override
+	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
+		params = super.configureSelectionLinkable(params);
+		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, true);
+		return params;
 	}
 }
