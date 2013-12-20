@@ -46,7 +46,6 @@ import org.whole.lang.models.model.TypeAliasOf;
 import org.whole.lang.models.model.Types;
 import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
 import org.whole.lang.models.util.ModelInfo;
-import org.whole.lang.reflect.AbstractLanguageKit;
 import org.whole.lang.reflect.DynamicLanguageKit;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityDescriptorEnum;
@@ -61,7 +60,7 @@ import org.whole.lang.visitors.VisitException;
  * @author Riccardo Solmi
  */
 public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
-	private DynamicLanguageKit languageKit;
+//	private DynamicLanguageKit languageKit;
 	private EntityDescriptorEnum entityDescriptorEnum;
 	private FeatureDescriptorEnum featureDescriptorEnum;
 	private ModelInfo modelInfo;
@@ -83,53 +82,39 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 	public void visit(Model entity) {
 		IBindingManager bm = getBindings();
 
-		if (bm.wIsSet("languageKit")) {
-			languageKit = (DynamicLanguageKit) bm.wGetValue("languageKit");
+		boolean isSetLanaguageKit = bm.wIsSet("languageKit");
+		DynamicLanguageKit languageKit = isSetLanaguageKit ? (DynamicLanguageKit) bm.wGetValue("languageKit") : null;
+
+		if (isSetLanaguageKit && (EntityUtils.isResolver(entity.getUri()) || languageKit.getURI().equals(entity.getUri().getValue()))) {
 			languageKit.setEntity(entity);
 			configureLanguageKit(languageKit, entity);
 			ReflectionFactory.updatePersistenceAndEditorKits(languageKit);
 		} else {
 			Model model = EntityUtils.clone(entity);		
 	
+			String languageURI = model.getUri().getValue();
+			String languageNamespace = model.getNamespace().getValue();
 			String languageName = model.getName().getValue();
-			String languageNamespace;
-			if (EntityUtils.isResolver(model.getNamespace())) {
-				String packagePrefix = bm.wIsSet("packageName") ?
-					bm.wStringValue("packageName") : AbstractLanguageKit.defaultPackagePrefix();
-					languageNamespace = AbstractLanguageKit.calculateNamespace(packagePrefix, languageName);
-			} else
-				languageNamespace = model.getNamespace().getValue();
-	
-			String languageURI;
-			if (EntityUtils.isResolver(model.getUri())) {
-				if (bm.wIsSet("URI"))
-					languageURI = bm.wStringValue("URI");
-				else
-					languageURI = AbstractLanguageKit.calculateURI(languageNamespace, languageName);			
-			} else
-				languageURI = model.getUri().getValue();
+			String languageVersion = EntityUtils.isResolver(model.getVersion()) ? "" : model.getVersion().getValue();
 
-			String languageVersion;
-			if (EntityUtils.isResolver(model.getVersion())) {
-				if (bm.wIsSet("version"))
-					languageVersion = bm.wStringValue("version");
-				else
-					languageVersion = "";			
-			} else
-				languageVersion = model.getVersion().getValue();
-
-			languageKit = new DynamicLanguageKit();
-			languageKit.setURI(languageURI);
-			languageKit.setNamespace(languageNamespace);
-			languageKit.setName(languageName);
-			languageKit.setVersion(languageVersion);
-			languageKit.setEntity(model);
+			DynamicLanguageKit newLanguageKit = new DynamicLanguageKit();
+			newLanguageKit.setURI(languageURI);
+			newLanguageKit.setNamespace(languageNamespace);
+			newLanguageKit.setName(languageName);
+			newLanguageKit.setVersion(languageVersion);
+			newLanguageKit.setEntity(model);
 //			configureLanguageKit(languageKit, model);
-	
-			bm.wDefValue("languageKit", languageKit);
-	
-			ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(languageKit));
 
+			if (isSetLanaguageKit)
+				bm.wSetValue("languageKit", newLanguageKit);
+			else
+				bm.wDefValue("languageKit", newLanguageKit);
+	
+			ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(newLanguageKit));
+
+			if (isSetLanaguageKit)
+				bm.wSetValue("languageKit", languageKit);
+				
 			setResult(BindingManagerFactory.instance.createVoid());
 		}
 	}
