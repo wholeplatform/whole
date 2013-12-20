@@ -990,9 +990,9 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b2.DataType("String");
                 b2._DataEntity();
                 b2._ModelDeclarations();
+                b2.Namespace("org.whole.lang");
                 b1.Resolver();
-                b1.Resolver();
-                b1.Resolver();
+                b2.URI("http://lang.whole.org/SampleM");
                 b2._Model();
                 b1._StageUpFragment();
                 b1.Resolver();

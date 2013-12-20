@@ -35,6 +35,10 @@ public class SampleModel extends AbstractTemplateFactory<org.whole.lang.models.m
         b0.DataType("int");
         b0._DataEntity();
         b0._ModelDeclarations();
+        b0.Namespace("org.whole.lang");
+        org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+        b1.Resolver();
+        b0.URI("http://lang.whole.org/SampleM");
         b0._Model();
     }
 }

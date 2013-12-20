@@ -888,9 +888,9 @@
                                         <models:DataType value="String"/>
                                         </models:DataEntity>
                                     </models:ModelDeclarations>
+                                    <models:Namespace value="org.whole.lang"/>
                                     <commons:Resolver/>
-                                    <commons:Resolver/>
-                                    <commons:Resolver/>
+                                    <models:URI value="http://lang.whole.org/SampleM"/>
                                 </models:Model>
                             </commons:StageUpFragment>
                             <commons:Resolver/>

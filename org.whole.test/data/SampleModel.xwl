@@ -27,7 +27,7 @@
             <models:DataType value="int"/>
         </models:DataEntity>
     </models:ModelDeclarations>
+    <models:Namespace value="org.whole.lang"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <models:URI value="http://lang.whole.org/SampleM"/>
 </models:Model>
