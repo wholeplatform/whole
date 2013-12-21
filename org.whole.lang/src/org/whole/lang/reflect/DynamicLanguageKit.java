@@ -17,19 +17,14 @@
  */
 package org.whole.lang.reflect;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.factories.IEntityRegistry;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.DynamicAdaptersEntityRegistry;
 import org.whole.lang.model.impl.DynamicImplEntityRegistry;
 import org.whole.lang.model.impl.DynamicStrictImplEntityRegistry;
-import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.parsers.DataTypeParsers;
 import org.whole.lang.parsers.IDataTypeParser;
 import org.whole.lang.templates.DynamicTemplateManager;
 import org.whole.lang.templates.ITemplateManager;
-import org.whole.lang.util.StringUtils;
 
 /**
  * @author Riccardo Solmi
@@ -48,39 +43,6 @@ public class DynamicLanguageKit extends AbstractLanguageKit {
 				platform.removeLanguageKit(languageKit.getURI());
 			}
 		};
-	}
-
-	public static String calculateName(String languageURI) {
-		int index = languageURI.lastIndexOf('/');
-		String descrString = languageURI.substring(index+1);
-		return StringUtils.toUpperCap(descrString);
-	}
-	public static String calculateNamespace(String languageURI) {
-		//FIXME
-		StringBuilder sb = new StringBuilder();
-		int index = languageURI.indexOf('/', 7);
-		String urlSign = languageURI.substring(7,index);
-		String[] urlArray = urlSign.split("\\.");
-		for (int i=urlArray.length-1; i>=0; i--) {
-			sb.append(urlArray[i]);
-			sb.append('.');
-		}
-		return sb.toString();
-	}
-
-	@Override
-	public void setEntity(IEntity entity) {
-		if (this.entity == entity)
-			;
-		else if (this.entity != null && !this.entity.wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Models#Model"))
-			super.setEntity(entity);
-		else {
-			super.setEntity(entity);
-	
-			IBindingManager bm = BindingManagerFactory.instance.createArguments();
-			bm.wDefValue("languageKit", this);
-			InterpreterOperation.interpret(entity, bm);
-		}
 	}
 
 	public boolean isDynamic() {

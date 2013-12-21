@@ -27,7 +27,6 @@ import org.whole.lang.grammars.parsers.GrammarBasedDataTypeParser;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
 import org.whole.lang.grammars.util.GrammarsUtils;
 import org.whole.lang.matchers.Matcher;
-import org.whole.lang.models.model.Model;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -78,11 +77,8 @@ public class GrammarsInterpreterVisitor extends GrammarsIdentityDefaultVisitor {
 			languageKit = ReflectionFactory.getLanguageKit(languageUri, true, contextUri);
 		} else {
 			languageUri = ((LanguageDescriptor) targetLanguage).getUri().getValue();
-			Model targetModel = GrammarsUtils.deriveModel(grammar, false);
-
-			bm.wDefValue("URI", languageUri);
-			stagedVisit(targetModel);
-			languageKit = (ILanguageKit) bm.wGetValue("languageKit");
+			stagedVisit(GrammarsUtils.deriveModel(grammar, false));
+			languageKit = (ILanguageKit) bm.getResult().wGetValue();
 		}
 
 		if (languageKit.isDynamic()) {

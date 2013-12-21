@@ -18,7 +18,6 @@
 package org.whole.lang.models.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -60,7 +59,6 @@ import org.whole.lang.visitors.VisitException;
  * @author Riccardo Solmi
  */
 public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
-//	private DynamicLanguageKit languageKit;
 	private EntityDescriptorEnum entityDescriptorEnum;
 	private FeatureDescriptorEnum featureDescriptorEnum;
 	private ModelInfo modelInfo;
@@ -80,43 +78,31 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 
 	@Override
 	public void visit(Model entity) {
-		IBindingManager bm = getBindings();
-
-		boolean isSetLanaguageKit = bm.wIsSet("languageKit");
-		DynamicLanguageKit languageKit = isSetLanaguageKit ? (DynamicLanguageKit) bm.wGetValue("languageKit") : null;
-
-		if (isSetLanaguageKit && (EntityUtils.isResolver(entity.getUri()) || languageKit.getURI().equals(entity.getUri().getValue()))) {
-			languageKit.setEntity(entity);
-			configureLanguageKit(languageKit, entity);
-			ReflectionFactory.updatePersistenceAndEditorKits(languageKit);
-		} else {
-			Model model = EntityUtils.clone(entity);		
-	
-			String languageURI = model.getUri().getValue();
-			String languageNamespace = model.getNamespace().getValue();
-			String languageName = model.getName().getValue();
-			String languageVersion = EntityUtils.isResolver(model.getVersion()) ? "" : model.getVersion().getValue();
-
-			DynamicLanguageKit newLanguageKit = new DynamicLanguageKit();
-			newLanguageKit.setURI(languageURI);
-			newLanguageKit.setNamespace(languageNamespace);
-			newLanguageKit.setName(languageName);
-			newLanguageKit.setVersion(languageVersion);
-			newLanguageKit.setEntity(model);
-//			configureLanguageKit(languageKit, model);
-
-			if (isSetLanaguageKit)
-				bm.wSetValue("languageKit", newLanguageKit);
-			else
-				bm.wDefValue("languageKit", newLanguageKit);
-	
-			ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(newLanguageKit));
-
-			if (isSetLanaguageKit)
-				bm.wSetValue("languageKit", languageKit);
+		boolean hasArgLanguageKit = getBindings().wIsSet("languageKit");
+		DynamicLanguageKit argLanguageKit = hasArgLanguageKit ? (DynamicLanguageKit) getBindings().wGetValue("languageKit") : null;
+		boolean useArgLanguageKit = hasArgLanguageKit && argLanguageKit.getURI().equals(entity.getUri().getValue());
 				
-			setResult(BindingManagerFactory.instance.createVoid());
+		DynamicLanguageKit languageKit;
+		if (useArgLanguageKit)
+			languageKit = argLanguageKit;
+		else {
+			languageKit = new DynamicLanguageKit();
+			languageKit.setURI(entity.getUri().getValue());
+			languageKit.setNamespace(entity.getNamespace().getValue());
+			languageKit.setName(entity.getName().getValue());
+			languageKit.setVersion(EntityUtils.isResolver(entity.getVersion()) ? "" : entity.getVersion().getValue());
 		}
+		entity = EntityUtils.cloneIfParented(entity);
+		languageKit.setEntity(entity);
+		configureLanguageKit(languageKit, entity);
+		ReflectionFactory.updatePersistenceAndEditorKits(languageKit);
+
+		if (!useArgLanguageKit) {
+			ReflectionFactory.deploy(DynamicLanguageKit.getDeployer(languageKit));
+			if (hasArgLanguageKit)
+				getBindings().wSetValue("languageKit", argLanguageKit);
+		}
+		setResult(BindingManagerFactory.instance.createValue(languageKit));
 	}
 	public void configureLanguageKit(DynamicLanguageKit languageKit, Model model) {
 		modelInfo = new ModelInfo(model);
@@ -332,8 +318,6 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 						isOptional, isId, isReference, isDerived, isShared);
 			}
 
-//			for (String ename : modelInfo.allSuperTypes(name))
-//				ed.withSupertypes(entityDescriptorEnum.valueOf(ename).getOrdinal());
 			for (String ename : modelInfo.allSubTypes(name))
 				ed.setLanguageSubtypes(true, entityDescriptorEnum.valueOf(ename).getOrdinal());
 		}

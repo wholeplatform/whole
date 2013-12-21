@@ -20,6 +20,7 @@ package org.whole.lang.resources;
 import java.io.File;
 import java.net.URI;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.codebase.FilePersistenceProvider;
@@ -28,6 +29,7 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
 import org.whole.lang.util.EntityUtils;
@@ -94,6 +96,10 @@ public class Resource implements IResource {
 		if (entity == null) {
 			try {
 				setEntity(getResourcePersistenceKit().readModel(getResourcePersistenceProvider()));
+
+				IBindingManager bm = BindingManagerFactory.instance.createArguments();
+				bm.wDefValue("languageKit", this);
+				InterpreterOperation.interpret(entity, bm);
 			} catch (Exception e) {
 			}
 		}
