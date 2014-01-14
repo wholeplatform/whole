@@ -36,7 +36,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -48,6 +47,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.dialogs.SelectResourceAsDialog;
 import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
@@ -183,7 +183,7 @@ public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 					StringUtils.JAVA_FILE_EXTENSION);
 
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		OpenResourceDialog dialog = new OpenResourceDialog(shell, workspaceRoot, IResource.FILE);
+		SelectResourceAsDialog dialog = new SelectResourceAsDialog(shell, workspaceRoot, IResource.FILE);
 		if (fileName != null)
 			dialog.setInitialPattern(fileName);
 
