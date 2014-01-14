@@ -20,9 +20,6 @@ package org.whole.lang.ui.tools;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Tool;
-import org.eclipse.gef.palette.MarqueeToolEntry;
-import org.eclipse.gef.palette.PanningSelectionToolEntry;
-import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
 import org.eclipse.gef.tools.PanningSelectionTool;
 import org.eclipse.gef.ui.palette.PaletteViewer;
@@ -72,26 +69,7 @@ public enum Tools {
 			return true;
 
 		EditDomain editDomain = viewer.getEditDomain();
-		PaletteViewer paletteViewer = editDomain.getPaletteViewer();
-		if (paletteViewer != null)
-			return ensureActive(paletteViewer);
-		else
-			return ensureActive(editDomain);
-	}
-
-	@SuppressWarnings("unchecked")
-	public boolean ensureActive(PaletteViewer paletteViewer) {
-//FIXME
-//		PaletteGroup toolsGroup = WholePaletteFactory.getPaletteToolsGroup(paletteViewer, this);
-//
-//		List<ToolEntry> toolEntries = (List<ToolEntry>) toolsGroup.getChildren();
-//		for (ToolEntry toolEntry : toolEntries)
-//			if (entryId.equals(toolEntry.getId())) {
-//				paletteViewer.setActiveTool(toolEntry);
-//				return true;
-//			}
-
-		return false;
+		return ensureActive(editDomain);
 	}
 
 	public boolean ensureActive(EditDomain editDomain) {
