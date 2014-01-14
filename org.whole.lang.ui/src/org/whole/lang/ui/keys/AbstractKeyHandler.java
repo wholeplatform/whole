@@ -75,8 +75,8 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 		Object selection = getSelection();
 		if (selection instanceof IBindingManager) {
 			IBindingManager bm = (IBindingManager) selection;
-			if (bm.wIsSet("primarySelectedEntity")) {
-				return getEditorKitActions(bm.wGet("primarySelectedEntity").wGetEditorKit(),
+			if (bm.wIsSet("focusEntity")) {
+				return getEditorKitActions(bm.wGet("focusEntity").wGetEditorKit(),
 						pressed).get(keySequence);
 			}
 		}
@@ -116,7 +116,6 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 
 		if (action.isEnabled()) {
 			action.run();
-			event.doit = false;
 			return true;
 		} else
 			return false;
@@ -135,16 +134,16 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 
 	@Override
 	public boolean keyPressed(KeyEvent event) {
-		if (handleEvent(event, getPressAction(convertKeyEvent(event))))
-			return true;
-		return parent != null && parent.keyPressed(event);
+		boolean handled = handleEvent(event, getPressAction(convertKeyEvent(event))) ||
+				(parent != null && parent.keyPressed(event));
+		return !(event.doit = !handled);
 	}
 
 	@Override
 	public boolean keyReleased(KeyEvent event) {
-		if (handleEvent(event, getReleaseAction(convertKeyEvent(event))))
-			return true;
-		return parent != null && parent.keyReleased(event);
+		boolean handled = handleEvent(event, getReleaseAction(convertKeyEvent(event))) ||
+				(parent != null && parent.keyReleased(event));
+		return !(event.doit = !handled);
 	}
 
 	@Deprecated

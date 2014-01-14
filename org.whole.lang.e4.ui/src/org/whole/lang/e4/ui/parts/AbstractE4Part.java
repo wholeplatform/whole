@@ -137,7 +137,7 @@ public abstract class AbstractE4Part {
 		});
 
 		E4KeyHandler keyHandler = new E4KeyHandler(context);
-//FIXME		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		keyHandler.setParent(new E4NavigationKeyHandler(context));
 		viewer.setKeyHandler(keyHandler);
 		viewer.setContents(modelInput, createDefaultContents());		
 		context.set(IEntityPartViewer.class, viewer);

@@ -98,9 +98,6 @@ public class ActionFactory {
 		}
 	}
 
-	public IUpdatableAction createClearTextSelection(int direction) {
-		return new ClearTextSelectionAction(context, direction);
-	}
 	public IUpdatableAction createActivateToolAction(Tools tool) {
 		return new ActivateToolAction(context, tool);
 	}

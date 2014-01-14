@@ -37,9 +37,11 @@ import org.eclipse.swt.events.KeyEvent;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IEditPointProvider;
+import org.whole.lang.ui.util.CaretUpdater;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -141,7 +143,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 				continue;
 
 			Dimension difference = pCurrent.getDifference(pStart);
-			int d = Math.abs(difference.height()) + Math.abs(difference.height());
+			int d = Math.abs(difference.width()) + Math.abs(difference.height());
 			if (d < distance) {
 				distance = d;
 				epFinal = epCurrent;
@@ -330,13 +332,23 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 	 * @param	direction	PositionConstants.* indicating the direction in which to traverse
 	 */
 	boolean navigateNextSibling(KeyEvent event, int direction, List<?> list) {
-		GraphicalEditPart epStart = (GraphicalEditPart) getFocusEntityPart();
+		IGraphicalEntityPart epStart = (IGraphicalEntityPart) getFocusEntityPart();
+		if (epStart instanceof ITextualEntityPart) {
+			ITextualEntityPart textualEntityPart = (ITextualEntityPart) epStart;
+			if ((direction == PositionConstants.WEST && textualEntityPart.getCaretPosition() > 0) ||
+					(direction == PositionConstants.EAST && textualEntityPart.getCaretPosition() < textualEntityPart.getCaretPositions())) {
+				int position = textualEntityPart.getCaretPosition() +
+						(direction == PositionConstants.WEST ? -1 : 1);
+				CaretUpdater.sheduleSyncUpdate(getViewer(), textualEntityPart.getModelEntity(), position, true);
+				return true;
+			}
+		}
 		IFigure figure = epStart.getFigure();
 		Point pStart = getNavigationPoint(figure);
 		figure.translateToAbsolute(pStart);
 		EditPart next = findSibling(list, pStart, direction, epStart); // parent.findSibling(pStart, direction, epStart);
 		while (next == null) {
-			epStart = (GraphicalEditPart)epStart.getParent();
+			epStart = (IGraphicalEntityPart) epStart.getParent();
 			if (epStart == getViewer().getContents() || epStart.getParent() == getViewer().getContents() || epStart.getParent() == null)
 				return false;
 

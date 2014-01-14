@@ -104,9 +104,6 @@ public class ActionRegistry {
 	public void registerKeyActions(AbstractKeyHandler keyHandler) {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, actionFactory.createDirectEditAction());
 
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_LEFT)), true, actionFactory.createClearTextSelection(SWT.LEFT));
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ARROW_RIGHT)), true, actionFactory.createClearTextSelection(SWT.RIGHT));
-
 		IUpdatableAction activatePanningToolAction = actionFactory.createActivateToolAction(Tools.PANNING);
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
