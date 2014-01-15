@@ -730,14 +730,16 @@
                                         <queries:Filter>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
-                                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="new MergeResourcesAction()"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.ui.actions.MergeResourcesAction"/>
-                                        <workflows:StringLiteral value="MergeResourcesAction()"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </workflows:CreateJavaClassInstance>
+									    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+								        <workflows:Text value="new MergeResourcesAction()"/>
+								        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+								        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+								        <workflows:StringLiteral value="org.whole.lang.ui.actions.MergeResourcesAction"/>
+								        <workflows:StringLiteral value="MergeResourcesAction(org.eclipse.e4.core.contexts.IEclipseContext)"/>
+								        <workflows:Expressions initialCapacity="1">
+							            <workflows:Variable value="eclipseContext"/>
+								        </workflows:Expressions>
+									    </workflows:CreateJavaClassInstance>
                                         <queries:VariableTest value="customAction"/>
                                         </queries:Filter>
                                         <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
