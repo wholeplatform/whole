@@ -168,32 +168,8 @@ public abstract class AbstractE4Part {
 	@Inject
 	public void setModelInput(final IModelInput modelInput, IWorkspace workspace) {
 		clearListeners();
-		if (modelInput != null) {
-			workspace.addResourceChangeListener(resourceListener = new IResourceChangeListener() {
-				public void resourceChanged(IResourceChangeEvent event) {
-					if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
-						try {
-							event.getDelta().accept(new IResourceDeltaVisitor() {
-								public boolean visit(IResourceDelta delta) throws CoreException {
-									if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
-											(delta.getFlags() & IResourceDelta.CONTENT) != 0) {
-										context.get(UISynchronize.class).asyncExec(new Runnable() {
-											@Override
-											public void run() {
-												viewer.setContents(modelInput, null);
-											}
-										});
-										return false;
-									} else
-										return true;
-								}
-							});
-						} catch (CoreException e) {
-						}
-					}
-				}
-			});
-		}
+		if (modelInput != null)
+			workspace.addResourceChangeListener(resourceListener = new ResourceChangeListener(modelInput));
 	}
 
 	@PreDestroy
@@ -223,10 +199,14 @@ public abstract class AbstractE4Part {
 		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
 			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(part.getPersistedState().get("filePath")));
-			modelInput = new ModelInput(file, basePersistenceKitId);
+			IModelInput modelInput = new ModelInput(file, basePersistenceKitId);
 			modelInput.setOverridePersistenceKitId(part.getPersistedState().get("overridePersistenceKitId"));
-			context.set(IModelInput.class, modelInput);
+			updateModelInput(modelInput);
 		}
+	}
+
+	protected void updateModelInput(IModelInput modelInput) {
+		context.set(IModelInput.class, this.modelInput = modelInput);
 	}
 
 	@Persist
@@ -308,5 +288,49 @@ public abstract class AbstractE4Part {
 	}
 	public ILinkableSelectionListener getSelectionLinkable() {
 		return selectionLinkable;
+	}
+
+	public class ResourceChangeListener implements IResourceChangeListener {
+		private final IModelInput modelInput;
+
+		public ResourceChangeListener(IModelInput modelInput) {
+			this.modelInput = modelInput;
+		}
+
+		public void resourceChanged(IResourceChangeEvent event) {
+			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+				try {
+					event.getDelta().accept(new IResourceDeltaVisitor() {
+						public boolean visit(IResourceDelta delta) throws CoreException {
+							if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
+									(delta.getFlags() & IResourceDelta.CONTENT) != 0) {
+								context.get(UISynchronize.class).asyncExec(new Runnable() {
+									@Override
+									public void run() {
+										viewer.setContents(modelInput, null);
+									}
+								});
+								return false;
+							} else if (delta.getKind() == IResourceDelta.REMOVED &&
+									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+								IFile file = modelInput.getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
+								final ModelInput newModelInput = new ModelInput(file, modelInput.getBasePersistenceKit().getId());
+								newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
+								updateModelInput(newModelInput);
+								context.get(UISynchronize.class).asyncExec(new Runnable() {
+									@Override
+									public void run() {
+										viewer.setContents(newModelInput, null);
+									}
+								});
+								return false;
+							} else
+								return true;
+						}
+					});
+				} catch (CoreException e) {
+				}
+			}
+		}
 	}
 }

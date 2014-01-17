@@ -25,6 +25,11 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
@@ -71,6 +76,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
+	protected ResourceChangeListener resourceListener;
 
 	public EditorPart() {
 		super(E4GraphicalPart.class, CUT | COPY | PASTE);
@@ -103,6 +109,9 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 		redoAction = new RedoAction(getContext(), REDO_LABEL);
 		redoAction.update();
+		
+		IWorkspace workspace = ((FileEditorInput) getEditorInput()).getFile().getWorkspace();
+		workspace.addResourceChangeListener(resourceListener = new ResourceChangeListener());
 	}
 
 	@Override
@@ -199,6 +208,10 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 			undoAction.dispose();
 		if (redoAction != null)
 			redoAction.dispose();
+		if (resourceListener != null) {
+			IWorkspace workspace = ((FileEditorInput) getEditorInput()).getFile().getWorkspace();
+			workspace.removeResourceChangeListener(resourceListener);
+		}
 		super.dispose();
 	}
 
@@ -235,5 +248,26 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 	@Override
 	public void restoreState(IMemento memento) {
+	}
+
+	public class ResourceChangeListener implements IResourceChangeListener {
+		public void resourceChanged(IResourceChangeEvent event) {
+			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+				try {
+					event.getDelta().accept(new IResourceDeltaVisitor() {
+						public boolean visit(IResourceDelta delta) throws CoreException {
+							if (delta.getKind() == IResourceDelta.REMOVED &&
+									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+								IFile file = ((FileEditorInput) getEditorInput()).getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
+								setInput(new FileEditorInput(file));
+								return false;
+							} else
+								return true;
+						}
+					});
+				} catch (CoreException e) {
+				}
+			}
+		}
 	}
 }
