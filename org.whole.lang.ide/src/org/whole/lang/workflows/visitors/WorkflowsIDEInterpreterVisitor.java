@@ -35,8 +35,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.UISynchronizer;
 import org.whole.gen.util.IDEUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -166,12 +168,11 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		for (int i : voidVars)
 			variablesModel.wGet(i).wSet(WorkflowsFeatureDescriptorEnum.expression, BindingManagerFactory.instance.createVoid().wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
 
-		final IEclipseContext context = (IEclipseContext) PlatformUI.getWorkbench().getService(IEclipseContext.class);
-
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+		final IEclipseContext context = (IEclipseContext) getBindings().wGetValue("eclipseContext");
+		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
 				WholeUIPlugin.revealPerspective(WholeIDEDebugPerspectiveFactory.ID);
-				
+
 				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
 				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
 				if (debugEnv.wIsSet("self") && debugEnv.wIsSet("viewer")) {
