@@ -17,6 +17,9 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.viewers.E4TreeViewer;
 import org.whole.lang.model.IEntity;
@@ -26,7 +29,9 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class E4TreePart extends AbstractE4Part {
 
 	protected IEntityPartViewer createEntityViewer(Composite parent) {
-		return new E4TreeViewer(parent);
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("parent", parent);
+		return ContextInjectionFactory.make(E4TreeViewer.class, context, params);
 	}
 	
 	@Override

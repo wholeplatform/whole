@@ -21,16 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.frames.factories.FramesEntityFactory;
 import org.whole.lang.frames.model.ReusePoint;
 import org.whole.lang.frames.ui.figures.ReusePointFigure;
 import org.whole.lang.frames.util.FramesUtils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.ui.util.ResourceUtils;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -43,12 +39,9 @@ public class ReusePointPart extends AbstractContentPanePart {
 	protected List<IEntity> getModelSpecificChildren() {
 		ReusePoint entity = getModelEntity();
 
-		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		ResourceUtils.defineResourceBindings(bm, getViewer().getEditDomain());
-
 		IEntity frame = null;
 		try {
-			frame = FramesUtils.getActiveVariant(entity, bm);
+			frame = FramesUtils.getActiveVariant(entity, getViewer().getContextBindings());
 		} catch(Exception e) {
 		}
 		if (frame == null)//FIXME or VoidImpl

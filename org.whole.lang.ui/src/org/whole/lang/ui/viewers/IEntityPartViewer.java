@@ -20,9 +20,11 @@ package org.whole.lang.ui.viewers;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.CommandStack;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -45,6 +47,9 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public void setContents(IModelInput modelInput, IEntity defaultContents);
 	public void reloadContents();
 	public boolean hasContents();
+
+	public IEclipseContext getContext();
+	public IBindingManager getContextBindings();
 
 	public Map<IEntity, IEntityPart> getEditPartRegistry();
 	public IEntityPart getFocusEntityPart();

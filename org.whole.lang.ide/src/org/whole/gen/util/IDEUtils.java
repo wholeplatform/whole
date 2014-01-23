@@ -53,7 +53,6 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.text.edits.TextEdit;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -62,7 +61,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.controls.JavaSourceFolderFilter;
 import org.whole.lang.ui.controls.JavaSourceFolderValidator;
-import org.whole.lang.ui.util.ResourceUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -251,9 +249,6 @@ public class IDEUtils {
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
-	}
-	public static IJavaProject getJavaProject(IEditorPart editorPart) {
-		return getJavaProject(ResourceUtils.getFile(editorPart.getEditorInput()).getProject());
 	}
 	public static IJavaProject getJavaProject(String projectName) {
 		return getJavaProject(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));

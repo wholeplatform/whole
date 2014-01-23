@@ -23,6 +23,8 @@ import javax.inject.Singleton;
 
 import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -115,7 +117,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	protected Control createReplaceArea(Composite parent) {
-		replaceViewer = new E4GraphicalViewer(parent);
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("parent", parent);
+		replaceViewer = ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
 		replaceViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		replaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

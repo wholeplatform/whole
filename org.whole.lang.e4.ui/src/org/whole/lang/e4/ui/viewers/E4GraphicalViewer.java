@@ -23,10 +23,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
@@ -37,6 +44,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
@@ -77,23 +85,28 @@ import org.whole.lang.ui.resources.IFontRegistry;
 import org.whole.lang.ui.resources.IResourceManager;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.viewers.EntityEditDomain;
-import org.whole.lang.ui.viewers.ZoomGestureListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.viewers.ZoomGestureListener;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
  * @author Enrico Persiani
  */
 public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IResourceManager, IEntityPartViewer {
+	@Inject IEclipseContext context;
+	@Inject @Named("parent") Composite parent;
+	@Inject @Optional EntityEditDomain domain;
+
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
 	private List<IModelInputListener> modelInputListeners;
 	private Set<String> referencedResources;
 
-	public E4GraphicalViewer(Composite parent) {
-		this(parent, new EntityEditDomain());
-	}
-	public E4GraphicalViewer(Composite parent, EntityEditDomain domain) {
+	@PostConstruct
+	protected void initialize() {
+		if (domain == null)
+			domain = new EntityEditDomain();
+
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
 		referencedResources = new HashSet<String>();
@@ -140,6 +153,21 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	// Begin Block Shared With E4TreeViewer
+	public IEclipseContext getContext() {
+		return context;
+	}
+	
+	public IBindingManager getContextBindings() {
+		Object selection = getContext().get(ESelectionService.class).getSelection();
+		if (selection instanceof IBindingManager)
+			return (IBindingManager) selection;
+		else {
+			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+			E4Utils.defineResourceBindings(bm, modelInput);
+			return bm;
+		}
+	}
+
 	public Set<String> getReferencedResources() {
 		return referencedResources;
 	}

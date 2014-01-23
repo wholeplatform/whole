@@ -21,16 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.model.impl.RootFragmentImpl;
 import org.whole.lang.frames.factories.FramesEntityFactory;
 import org.whole.lang.frames.model.IncludePoint;
 import org.whole.lang.frames.ui.figures.IncludePointFigure;
 import org.whole.lang.frames.util.FramesUtils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.ui.util.ResourceUtils;
 
 /**
  * @author Riccardo Solmi
@@ -43,10 +39,7 @@ public class IncludePointPart extends AbstractContentPanePart {
 	protected List<IEntity> getModelSpecificChildren() {
 		IncludePoint entity = getModelEntity();
 		
-		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		ResourceUtils.defineResourceBindings(bm, getViewer().getEditDomain());
-
-		IEntity frame = FramesUtils.getActiveVariant(entity, bm);
+		IEntity frame = FramesUtils.getActiveVariant(entity, getViewer().getContextBindings());
 		if (frame == null)
 			frame = FramesEntityFactory.instance.createEmpty();
 //		new RootFragmentImpl(frame);//FIXME workaround

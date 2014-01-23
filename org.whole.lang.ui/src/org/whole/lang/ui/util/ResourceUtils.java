@@ -27,13 +27,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ide.ResourceUtil;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.ui.ResourceBindingsContributorExtensions;
@@ -78,29 +73,9 @@ public class ResourceUtils {
 			}
 	}
 
-	public static void defineResourceBindings(IBindingManager bm, IEditorInput editorInput) {
-		if (editorInput != null)
-			bm.wDefValue("editorInputName", editorInput.getName());
-		IFile file = getFile(editorInput);
-		if (file != null)
-			defineResourceBindings(bm, file);
-	}
-
-	public static void defineResourceBindings(IBindingManager bm, EditDomain editDomain) {
-		if (editDomain instanceof DefaultEditDomain) {
-			IEditorPart editorPart = ((DefaultEditDomain) editDomain).getEditorPart();
-			if (editorPart != null)
-				defineResourceBindings(bm, editorPart.getEditorInput());
-		}
-	}
-
 	public static IProgressMonitor getProgressMonitor(IBindingManager bm) {
 		return bm.wIsSet("progressMonitor") ?
 				((IOperationProgressMonitor) bm.wGetValue("progressMonitor")).getAdapter(IProgressMonitor.class) : null;
-	}
-
-	public static IFile getFile(IEditorInput editorInput) {
-		return ResourceUtil.getFile(editorInput);
 	}
 
 	public static boolean isAdaptableToFile(Object element) {

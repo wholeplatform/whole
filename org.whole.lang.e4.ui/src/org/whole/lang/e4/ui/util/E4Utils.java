@@ -20,11 +20,9 @@ package org.whole.lang.e4.ui.util;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -58,6 +56,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -175,22 +174,9 @@ public class E4Utils {
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
-		defineResourceBindings(bm, modelInput.getFile());
+		ResourceUtils.defineResourceBindings(bm, modelInput.getFile());
 		bm.wDefValue("modelInput", modelInput);
 	}
-	public static void defineResourceBindings(IBindingManager bm, IFile file) {
-		try {
-			// NOTE: we must use the platform class loader
-			// because bm doesn't includes the classLoader variable, yet
-			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
-			Class<?> resourceUtilsClass = Class.forName("org.whole.lang.ui.util.ResourceUtils", true, cl);
-			Method defineResourceBindingsMethod = resourceUtilsClass.getMethod("defineResourceBindings", new Class[] {IBindingManager.class, IFile.class});
-			defineResourceBindingsMethod.invoke(null, bm, file);
-		} catch (Exception e) {
-			throw new IllegalStateException(e);
-		}
-	}
-		
 	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, IEntityTransformer entityTransformer) {
 		return wrapToBehavior(ed, null, entityTransformer);
 	}

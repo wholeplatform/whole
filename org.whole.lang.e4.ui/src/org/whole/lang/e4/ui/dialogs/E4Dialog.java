@@ -22,6 +22,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -111,7 +112,9 @@ public class E4Dialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		HandlersBehavior.registerHandlers(handlerService);
 
-		viewer = new E4GraphicalViewer(parent);
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("parent", parent);
+		viewer = ContextInjectionFactory.make(E4GraphicalViewer.class, context, params);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

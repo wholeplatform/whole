@@ -23,7 +23,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
@@ -38,8 +45,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.impl.LazyContainmentRootFragmentImpl;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
@@ -64,6 +74,10 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
  */
 @SuppressWarnings("unchecked")
 public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
+	@Inject IEclipseContext context;
+	@Inject @Named("parent") Composite parent;
+	@Inject @Optional EntityEditDomain domain;
+
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
 	private List<IModelInputListener> modelInputListeners;
@@ -72,8 +86,11 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	public E4TreeViewer() {
 		setEditPartFactory(new OutlineViewEditPartFactory());
 	}
-	public E4TreeViewer(Composite parent, EntityEditDomain domain) {
-		this();
+
+	@PostConstruct
+	public void initialize() {
+		if (domain == null)
+			domain = new EntityEditDomain();
 
 		partFocusListeners = new ArrayList<IPartFocusListener>();
 		modelInputListeners = new ArrayList<IModelInputListener>();
@@ -81,9 +98,6 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 
 		createControl(parent);
 		domain.addViewer(this);
-	}
-	public E4TreeViewer(Composite parent) {
-		this(parent, new EntityEditDomain());
 	}
 
 	@Override
@@ -132,6 +146,21 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	// Begin Block Shared With E4GraphicalViewer
+	public IEclipseContext getContext() {
+		return context;
+	}
+	
+	public IBindingManager getContextBindings() {
+		Object selection = getContext().get(ESelectionService.class).getSelection();
+		if (selection instanceof IBindingManager)
+			return (IBindingManager) selection;
+		else {
+			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+			E4Utils.defineResourceBindings(bm, modelInput);
+			return bm;
+		}
+	}
+
 	public Set<String> getReferencedResources() {
 		return referencedResources;
 	}
