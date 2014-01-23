@@ -312,7 +312,8 @@ public abstract class AbstractE4Part {
 								});
 								return false;
 							} else if (delta.getKind() == IResourceDelta.REMOVED &&
-									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0 &&
+											modelInput.getFile().equals(delta.getResource())) {
 								IFile file = modelInput.getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
 								final ModelInput newModelInput = new ModelInput(file, modelInput.getBasePersistenceKit().getId());
 								newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());

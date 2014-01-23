@@ -17,7 +17,9 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IUIConstants.EDITOR_PART_ID;
+import static org.whole.lang.e4.ui.actions.IUIConstants.REDO_LABEL;
+import static org.whole.lang.e4.ui.actions.IUIConstants.UNDO_LABEL;
 
 import java.util.EventObject;
 import java.util.HashSet;
@@ -48,6 +50,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableEditor;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
@@ -257,10 +261,29 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 					event.getDelta().accept(new IResourceDeltaVisitor() {
 						public boolean visit(IResourceDelta delta) throws CoreException {
 							if (delta.getKind() == IResourceDelta.REMOVED &&
-									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
-								IFile file = ((FileEditorInput) getEditorInput()).getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
-								setInput(new FileEditorInput(file));
-								return false;
+									(((FileEditorInput) getEditorInput()).getFile()).equals(delta.getResource())) {
+								if ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+									IFile file = ((FileEditorInput) getEditorInput()).getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
+									setInput(new FileEditorInput(file));
+									
+									getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
+										public void run() {
+											setPartName(getEditorInput().getName());
+										}
+									});
+									return false;
+								} else if (delta.getFlags() == 0) {
+									getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
+										public void run() {
+											IWorkbenchWindow window = getEditorSite().getWorkbenchWindow();
+											IWorkbenchPage page = window.getActivePage();	
+											page.activate(EditorPart.this);
+											page.closeEditor(EditorPart.this, false);
+										}
+									});
+									return false;
+								} else
+									return true;
 							} else
 								return true;
 						}
