@@ -9,17 +9,6 @@
             id="org.whole.langs.core.ui.CoreUIDeployer">
       </deployer>
 	</extension>
-     <extension
-           point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-        <propertyTabs contributorId="org.whole.lang.ui.editors.WholeGraphicalEditor">
-           <propertyTab
-                 afterTab="org.whole.lang.ui.AdvancedTabs"
-                 category="info"
-                 id="MetadataTab"
-                 indented="false"
-                 label="Metadata"/>
-        </propertyTabs>
-     </extension>
 	<extension
    	     point="org.eclipse.core.contenttype.contentTypes">
 		<content-type

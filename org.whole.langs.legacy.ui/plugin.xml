@@ -93,16 +93,6 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
       <editor
-            name="XML Builder Persistence E3"
-            extensions="xwl,xml"
-            icon="icons/editors/xml_builder.gif"
-            default="false"
-            contributorClass="org.whole.lang.ui.actions.WholeActionBarContributor"
-            class="org.whole.lang.ui.editors.WholeGraphicalEditor"
-            id="org.whole.lang.xml.E3XmlBuilderEditor">
-            <!--contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/-->
-      </editor>
-      <editor
             name="Text Editor (Whole)"
             extensions="text,txt,csv,flf"
             icon="icons/editors/text_source.gif"
