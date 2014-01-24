@@ -37,8 +37,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.UISynchronizer;
 import org.whole.gen.util.IDEUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -54,7 +52,6 @@ import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
@@ -183,14 +180,14 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		});
 		CyclicBarrier barrier = new CyclicBarrier(2);
 		IEventBroker eventBroker = context.get(IEventBroker.class);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, EntityUtils.clone(variablesModel));
 		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {entity, debugEnv, barrier});
 		try {
 			barrier.await();
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		} catch (BrokenBarrierException e) {	
-			throw new OperationCanceledException(e);
+			// execution terminated
 		} finally {
 			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
 		}

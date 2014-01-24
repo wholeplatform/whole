@@ -35,6 +35,8 @@ import org.whole.lang.e4.ui.actions.RunAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.viewers.EntityEditDomain;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -56,20 +58,22 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	@Inject
 	@Optional
 	private void doBreak(@UIEventTopic(IUIConstants.TOPIC_BREAK_DEBUG) Object[] args) {
-		setSuspended(true);
-
-		IEntity breakpoint = (IEntity) args[0];
-		IEntity contents = EntityUtils.getCompoundRoot(breakpoint);
-		getViewer().setEntityContents(contents);
-		getViewer().setInteractive(contents, false, true, false);
-		getViewer().selectAndReveal(breakpoint);
-		
 		// release any suspended thread
 		if (this.barrier != null)
 			doRun();
 
+		setSuspended(true);
+
+		IEntity breakpoint = (IEntity) args[0];
+		IEntity contents = EntityUtils.getCompoundRoot(breakpoint);
+
 		this.debugEnv = (IBindingManager) args[1];
 		this.barrier = (CyclicBarrier) args[2];
+
+		getViewer().linkEditDomain((IEntityPartViewer) debugEnv.wGetValue("viewer"));
+		getViewer().setContents(contents);
+		getViewer().setInteractive(contents, false, true, false);
+		getViewer().selectAndReveal(breakpoint);
 	}
 
 	public void doRun() {
@@ -83,7 +87,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 	public void doResume() {
 		setSuspended(false);
-		getViewer().setContents(null, createDefaultContents());
+		resetContents();
 		try {
 			CyclicBarrier barrier = this.barrier;
 			this.barrier = null;
@@ -94,10 +98,15 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 	public void doTerminate() {
 		setSuspended(false);
-		getViewer().setContents(null, createDefaultContents());
+		resetContents();
 		CyclicBarrier barrier = this.barrier;
 		this.barrier = null;
 		barrier.reset();
+	}
+
+	protected void resetContents() {
+		getViewer().setEditDomain(new EntityEditDomain());
+		getViewer().setEntityContents(createDefaultContents());
 	}
 
 	protected Set<IUpdatableAction> actions = new HashSet<IUpdatableAction>();
