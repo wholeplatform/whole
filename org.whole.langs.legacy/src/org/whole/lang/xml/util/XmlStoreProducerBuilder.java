@@ -24,8 +24,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderOperation;
-import org.whole.lang.commons.builders.ICommonsBuilder;
-import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.contexts.IBuilderContext;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.model.EnumValue;
@@ -46,14 +44,12 @@ import org.whole.lang.xml.reflect.XmlLanguageKit;
  */
 public class XmlStoreProducerBuilder implements IBuilder {
 	private IXmlBuilder xb;
-	private ICommonsBuilder cb;
 	private IBindingManager bm;
 	private String newPrefix = null;
 	private String namespaceURI = null;
 
 	public XmlStoreProducerBuilder(IBuilderOperation targetOperation) {
 		xb = (IXmlBuilder) targetOperation.wGetBuilder(XmlLanguageKit.URI);
-		cb = (ICommonsBuilder) targetOperation.wGetBuilder(CommonsLanguageKit.URI);
 		bm = BindingManagerFactory.instance.createBindingManager();
 	}
 
@@ -93,7 +89,6 @@ public class XmlStoreProducerBuilder implements IBuilder {
 		xb.XMLDecl_();
 		xb.Version("1.0");
 		xb._XMLDecl();
-		cb.Resolver();
 		xb._Prolog();
 	}
 	public void buildEndDocument() {

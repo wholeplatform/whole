@@ -78,12 +78,18 @@ public abstract class AbstractBuilderOperation implements IBuilderOperation {
 	}
 	protected IBuilder createGenericBuilderAdapter(String languageURI, boolean log) {
 		if (genericBuilderOperation == null)
-			genericBuilderOperation = new GenericBuilderAdapterOperation(wGetBuilder(languageURI, log)).withBindings(getBindings());
-		return genericBuilderOperation.wGetBuilder();
+			genericBuilderOperation = createGenericBuilderAdapterOperation(wGetBuilder(languageURI, log));
+		return genericBuilderOperation.wGetBuilder(languageURI, log);
+	}
+	protected IBuilderOperation createGenericBuilderAdapterOperation(IBuilder targetBuilder) {
+		return new GenericBuilderAdapterOperation(targetBuilder).withBindings(getBindings());
 	}
 	protected IBuilder createSpecificBuilderAdapter(String languageURI, boolean log) {
 		if (specificBuilderOperation == null)
-			specificBuilderOperation = new SpecificBuilderAdapterOperation(wGetBuilder()).withBindings(getBindings());
+			specificBuilderOperation = createSpecificBuilderAdapterOperation(wGetBuilder());
 		return specificBuilderOperation.wGetBuilder(languageURI, log);
+	}
+	protected IBuilderOperation createSpecificBuilderAdapterOperation(IBuilder targetBuilder) {
+		return new SpecificBuilderAdapterOperation(targetBuilder).withBindings(getBindings());
 	}
 }

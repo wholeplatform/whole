@@ -20,7 +20,10 @@ package org.whole.lang.xml.codebase;
 import java.io.PrintWriter;
 
 import org.whole.lang.builders.AbstractBuilderOperation;
+import org.whole.lang.builders.GenericFailureBuilder;
+import org.whole.lang.builders.GenericIdentityBuilder;
 import org.whole.lang.builders.IBuilder;
+import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.operations.IPrettyPrintWriter;
 import org.whole.lang.operations.PrettyPrintWriter;
 import org.whole.lang.xml.builders.XmlPrettyPrinterBuilder;
@@ -44,12 +47,15 @@ public class XmlPrettyPrinterBuilderOperation extends AbstractBuilderOperation {
 	}
 
 	protected IBuilder createGenericBuilder() {
-		return createGenericBuilderAdapter(XmlLanguageKit.URI, false);
+		return createGenericBuilderAdapter(XmlLanguageKit.URI, false);//FIXME add generic filter to identity(Commons)/failure(others) for non XML calls
 	}
 
 	protected IBuilder createSpecificBuilder(String languageURI) {
 		if (languageURI.equals(XmlLanguageKit.URI))
 			return new XmlPrettyPrinterBuilder(printWriter);
-		return null;
+		else if (languageURI.equals(CommonsLanguageKit.URI))
+			return createSpecificBuilderAdapterOperation(new GenericIdentityBuilder()).wGetBuilder(languageURI, false);
+		else
+			return createSpecificBuilderAdapterOperation(new GenericFailureBuilder()).wGetBuilder(languageURI, false);
 	}
 }
