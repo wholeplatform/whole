@@ -40,6 +40,9 @@
    <feature url="features/org.whole.extras.feature_1.0.0.qualifier.jar" id="org.whole.extras.feature" version="1.0.0.qualifier">
       <category name="Whole Platform Extras 1.0.0.qualifier"/>
    </feature>
+   <feature url="features/com.fasterxml.jackson.feature_2.3.1.jar" id="com.fasterxml.jackson.feature" version="2.3.1">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
    <feature url="features/net.sourceforge.jodatime.feature_1.6.2.jar" id="net.sourceforge.jodatime.feature" version="1.6.2">
       <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
    </feature>

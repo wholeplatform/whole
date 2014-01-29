@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %bundleName
+Bundle-SymbolicName: com.fasterxml.jackson
+Bundle-Version: 2.3.1
+Bundle-ClassPath: lib/jackson-core-2.3.1.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: com.fasterxml.jackson.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-BundleShape: dir

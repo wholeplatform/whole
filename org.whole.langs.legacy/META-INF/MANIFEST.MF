@@ -22,6 +22,14 @@ Export-Package: org.whole.lang.bytecode.util,
  org.whole.lang.javascript.reflect,
  org.whole.lang.javascript.util,
  org.whole.lang.javascript.visitors,
+ org.whole.lang.json,
+ org.whole.lang.json.builders,
+ org.whole.lang.json.codebase,
+ org.whole.lang.json.factories,
+ org.whole.lang.json.model,
+ org.whole.lang.json.reflect,
+ org.whole.lang.json.util,
+ org.whole.lang.json.visitors,
  org.whole.lang.properties.builders,
  org.whole.lang.properties.codebase,
  org.whole.lang.properties.factories,
@@ -66,10 +74,12 @@ Export-Package: org.whole.lang.bytecode.util,
  org.whole.lang.xsd.visitors,
  org.whole.langs.legacy
 Require-Bundle: org.whole.lang,
+ org.eclipse.core.runtime;bundle-version="3.9.0",
  org.mozilla.rhino;resolution:=optional,
  org.beanshell.bsh;resolution:=optional,
  org.objectweb.asm;bundle-version="[3.1.0,4.0.0)";resolution:=optional,
- net.sourceforge.jodatime;resolution:=optional
+ net.sourceforge.jodatime;resolution:=optional,
+ com.fasterxml.jackson;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -24,6 +24,8 @@
 	<modules>
 		<module>../org.whole.target/pom-lw.xml</module>
 
+		<module>../com.fasterxml.jackson/pom-lw.xml</module>
+		<module>../com.fasterxml.jackson.feature/pom-lw.xml</module>
 		<module>../net.sourceforge.jodatime/pom-lw.xml</module>
 		<module>../net.sourceforge.jodatime.feature/pom-lw.xml</module>
 		<module>../org.beanshell.bsh/pom-lw.xml</module>

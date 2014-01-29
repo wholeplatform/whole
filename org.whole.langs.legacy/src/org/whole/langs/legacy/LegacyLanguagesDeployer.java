@@ -17,9 +17,9 @@
  */
 package org.whole.langs.legacy;
 
-import org.whole.lang.PersistenceLibraryDeployer;
 import org.whole.lang.java.reflect.JavaLanguageDeployer;
 import org.whole.lang.javascript.reflect.JavaScriptLanguageDeployer;
+import org.whole.lang.json.reflect.JSONLanguageDeployer;
 import org.whole.lang.properties.reflect.PropertiesLanguageDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
@@ -50,6 +50,8 @@ public class LegacyLanguagesDeployer extends AbstractSuiteDeployer {
 			ScriptsLanguageDeployer.class,
 			JavaScriptLanguageDeployer.class,
 			JavaPersistenceDeployer.class,
+			JSONLanguageDeployer.class,
+			JSONPersistenceDeployer.class,
 			DefaultPersistenceDeployer.class
 		);
 	}

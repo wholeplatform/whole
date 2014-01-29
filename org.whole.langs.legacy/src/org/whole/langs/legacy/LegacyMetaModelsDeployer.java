@@ -19,6 +19,7 @@ package org.whole.langs.legacy;
 
 import org.whole.lang.java.reflect.JavaLanguageKit;
 import org.whole.lang.javascript.reflect.JavaScriptLanguageKit;
+import org.whole.lang.json.reflect.JSONLanguageKit;
 import org.whole.lang.properties.reflect.PropertiesLanguageKit;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -41,6 +42,7 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.setMetaModelTemplate(MappingLanguageKit.URI, "org.whole.lang.models.codebase.XsdMappingModel");
 		platform.setMetaModelTemplate(ScriptsLanguageKit.URI, "org.whole.lang.models.codebase.ScriptsModel");
 		platform.setMetaModelTemplate(JavaScriptLanguageKit.URI, "org.whole.lang.models.codebase.JavaScriptModel");
+		platform.setMetaModelTemplate(JSONLanguageKit.URI, "org.whole.lang.models.codebase.JSONModel");
 	}
 
 	public void undeploy(ReflectionFactory platform) {
@@ -52,5 +54,6 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.unsetMetaModelTemplate(MappingLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ScriptsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(JavaScriptLanguageKit.URI);
+		platform.unsetMetaModelTemplate(JSONLanguageKit.URI);
 	}
 }

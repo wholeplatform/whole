@@ -54,6 +54,7 @@ public class PlatformLibraryClasspathContainer extends PDEClasspathContainer imp
 		bundles.add("org.whole.langs.db.op");
 		
 		// enabling features
+		bundles.add("com.fasterxml.jackson");
 		bundles.add("net.sourceforge.jodatime");
 		bundles.add("org.objectweb.asm");
 		bundles.add("org.beanshell.bsh");

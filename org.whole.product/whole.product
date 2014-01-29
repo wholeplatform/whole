@@ -222,6 +222,7 @@ Library.
    <features>
       <feature id="org.eclipse.sdk"/>
       <feature id="org.eclipse.gef.sdk"/>
+      <feature id="com.fasterxml.jackson.feature"/>
       <feature id="net.sourceforge.jodatime.feature"/>
       <feature id="org.beanshell.bsh.feature"/>
       <feature id="org.h2.feature"/>

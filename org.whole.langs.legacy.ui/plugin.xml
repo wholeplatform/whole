@@ -75,6 +75,15 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.javaWhole"/>
       </editor>
       <editor
+            name="JSON Editor (Whole)"
+            extensions="json,jsonld"
+            default="false"
+            icon="icons/editors/json_source.gif"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.json.JSONSourceEditor">
+            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+      </editor>
+      <editor
             name="XML Editor (Whole)"
             extensions="xml"
             icon="icons/editors/xml_source.gif"
