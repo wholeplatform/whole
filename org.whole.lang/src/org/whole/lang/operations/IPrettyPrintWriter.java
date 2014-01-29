@@ -17,10 +17,14 @@
  */
 package org.whole.lang.operations;
 
+import java.io.Writer;
+
 /**
  * @author Riccardo Solmi
  */
 public interface IPrettyPrintWriter extends Appendable {
+	public Writer asWriter();
+
 	public boolean isInlined();
 	public boolean setInlined(boolean inlined);
 

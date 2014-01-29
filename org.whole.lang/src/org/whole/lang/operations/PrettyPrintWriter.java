@@ -19,6 +19,7 @@ package org.whole.lang.operations;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 import org.whole.lang.util.StringUtils;
 
@@ -215,5 +216,53 @@ public class PrettyPrintWriter implements IPrettyPrintWriter {
 	}
 	public Appendable append(CharSequence csq, int start, int end) throws IOException {
 		return append(csq.subSequence(start, end));
+	}
+
+	public Writer asWriter() { //TODO ? add boolean raw
+		return new WriterAdapter(); // raw ? printWriter : new WriterAdapter();
+	}
+
+	public class WriterAdapter extends Writer {
+		@Override
+	    public void write(char[] cbuf, int off, int len) throws IOException {
+	         PrettyPrintWriter.this.append(String.valueOf(cbuf), off, len);
+	    }
+		@Override
+	    public void write(int c) throws IOException {
+			PrettyPrintWriter.this.append((char) c);
+	    }
+		@Override
+	    public void write(String str) throws IOException {
+			PrettyPrintWriter.this.append(str);
+	    }
+	    public void write(String str, int off, int len) throws IOException {
+	    	PrettyPrintWriter.this.append(str, off, len);
+	    }
+
+		@Override
+		public Writer append(char c) throws IOException {
+			PrettyPrintWriter.this.append(c);
+			return this;
+		}
+		@Override
+		public Writer append(CharSequence csq) throws IOException {
+			PrettyPrintWriter.this.append(csq);
+			return this;
+		}
+		@Override
+		public Writer append(CharSequence csq, int start, int end) throws IOException {
+			PrettyPrintWriter.this.append(csq, start, end);
+			return this;
+		}
+
+	    @Override
+	    public void flush() throws IOException {
+	    	PrettyPrintWriter.this.printWriter.flush();
+	    }
+
+	    @Override
+	    public void close() throws IOException {
+	    	PrettyPrintWriter.this.printWriter.close();
+	    }
 	}
 }
