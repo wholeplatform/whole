@@ -142,10 +142,10 @@ public class E4FindReplaceDialog extends E4Dialog {
 				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer, context));
 			}
 		});
-		viewer.addPartFocusListener(new IPartFocusListener() {
+		replaceViewer.addPartFocusListener(new IPartFocusListener() {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
-				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				updateSelection(E4Utils.createSelectionBindings(replaceViewer.getSelectedEditParts(), replaceViewer, context));
 			}
 		});
 
