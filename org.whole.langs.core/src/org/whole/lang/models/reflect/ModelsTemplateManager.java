@@ -21,7 +21,6 @@ import org.whole.lang.models.codebase.FramesModel;
 import org.whole.lang.models.codebase.GrammarBasedModel;
 import org.whole.lang.models.codebase.GrammarsModel;
 import org.whole.lang.models.codebase.ILModel;
-import org.whole.lang.models.codebase.JSONModel;
 import org.whole.lang.models.codebase.Java5Model;
 import org.whole.lang.models.codebase.JavaPatternsModel;
 import org.whole.lang.models.codebase.JavaScriptModel;
@@ -170,7 +169,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 
 		put("Scripts model", new ScriptsModel());
 		put("JavaScript model", new JavaScriptModel());
-		put("JSON model", new JSONModel());
 
 //		put("import Mbed language", new MbedImporterTemplateFactory(new MbedLanguage()));
 //		put("import Java language", new MbedImporterTemplateFactory(new JavaLanguage()));

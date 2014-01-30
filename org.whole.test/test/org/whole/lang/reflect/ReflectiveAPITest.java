@@ -24,11 +24,14 @@ import junit.framework.TestCase;
 
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.json.reflect.JSONLanguageKit;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.EditorsModel;
 import org.whole.lang.models.model.Model;
 import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
 import org.whole.lang.models.reflect.ModelsFeatureDescriptorEnum;
+import org.whole.lang.models.reflect.ModelsLanguageKit;
 
 /**
  * @author Riccardo Solmi
@@ -41,6 +44,12 @@ public class ReflectiveAPITest extends TestCase {
         ReflectionFactory.deployWholePlatform();
         model = new EditorsModel().create();
     }
+
+	public void testMetaModel() {
+		IEntity metaModel = ReflectionFactory.getLanguageKit(JSONLanguageKit.URI, false, null).getMetaModel();
+		IEntity templateModel = ReflectionFactory.getLanguageKit(ModelsLanguageKit.URI, false, null).getTemplateManager().create("JSON model");
+		assertTrue(Matcher.match(metaModel, templateModel));
+	}
 
     public void testModelEnumerations() {
         EntityDescriptorEnum entitiesEnum = model.wGetEntityDescriptor().getEntityDescriptorEnum();

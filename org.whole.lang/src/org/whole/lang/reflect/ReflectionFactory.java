@@ -32,8 +32,10 @@ import java.util.TreeSet;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderFactory;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.DataTypePersistenceKit;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.ObjectPersistenceKit;
 import org.whole.lang.codebase.PrettyPrintPersistenceKit;
 import org.whole.lang.contexts.EntityContext;
@@ -52,6 +54,7 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.LanguageKitResourceFactory;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.templates.ITemplateFactory;
+import org.whole.lang.templates.ResourceTemplateFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.visitors.IVisitorFactory;
@@ -142,6 +145,8 @@ public class ReflectionFactory {
         			"org.whole.langs.db.DBLanguagesDeployer",
         			"org.whole.langs.core.CoreDynamicLanguagesDeployer",
         			"org.whole.langs.core.op.WorkflowsInterpreterDeployer",
+        			"org.whole.langs.core.CoreMetaModelsDeployer",
+        			"org.whole.langs.legacy.LegacyMetaModelsDeployer",
         			"org.whole.langs.core.op.CoreOperationsDeployer",
         			"org.whole.langs.legacy.op.LegacyOperationsDeployer",
         			"org.whole.langs.db.op.DBContributionsDeployer",
@@ -478,6 +483,17 @@ public class ReflectionFactory {
         return new EntityContext(entity);
     }
 
+    public void setMetaModelTemplate(String languageURI, String templateName, String resourceClasspath) {
+    	setMetaModelTemplate(languageURI, templateName, new ClasspathPersistenceProvider(resourceClasspath));
+    }
+    public void setMetaModelTemplate(String languageURI, String templateName, IPersistenceProvider pp) {
+    	ITemplateFactory<?> templateFactory = new ResourceTemplateFactory<IEntity>(pp);
+
+    	setMetaModelTemplate(languageURI, templateFactory);
+    	if (templateName != null)
+    		getLanguageKit("http://lang.whole.org/Models", false, null).getTemplateManager().put(templateName, templateFactory);
+    }
+    
     public void setMetaModelTemplate(String languageURI, ITemplateFactory<?> metaModelTemplate) {
     	getLanguageKit(languageURI).setMetaModelTemplate(metaModelTemplate);
     }
