@@ -18,9 +18,10 @@
 package org.whole.langs.legacy.ui;
 
 import org.whole.lang.java.ui.JavaUIDeployer;
+import org.whole.lang.json.ui.JSONUIDeployer;
 import org.whole.lang.properties.ui.PropertiesUIDeployer;
-import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
+import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.scripts.ui.ScriptsUIDeployer;
 import org.whole.lang.text.ui.TextUIDeployer;
 import org.whole.lang.xml.ui.XmlUIDeployer;
@@ -39,6 +40,7 @@ public class LegacyUIDeployer extends AbstractSuiteDeployer {
 	public LegacyUIDeployer() {
 		super(
 			JavaUIDeployer.class,
+			JSONUIDeployer.class,
 			PropertiesUIDeployer.class,
 			ScriptsUIDeployer.class,
 			TextUIDeployer.class,
