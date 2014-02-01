@@ -53,7 +53,7 @@ public class OrPart extends CompositeColumnWithPlaceholderPart {
 
     			g.setLineStyle(SWT.LINE_CUSTOM);
     			g.setLineDash(new int[] {1,1});
-    			drawRowSeparators(g);
+    			drawFixedSizeRowSeparators(g);
     			g.setLineStyle(SWT.LINE_SOLID);
     			g.setLineDash((int[]) null);
     		}

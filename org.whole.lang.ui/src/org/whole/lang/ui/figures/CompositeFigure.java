@@ -96,14 +96,20 @@ public class CompositeFigure extends EntityFigure {
 		super.remove(figure);
 	}
 
-	public void drawChildrenSeparators(Graphics g) {
+	public void drawFixedSizeChildrenSeparators(Graphics g) {
 		if (isHorizontal())
-			drawColumnSeparators(g);
+			drawFixedSizeColumnSeparators(g);
 		else
-			drawRowSeparators(g);
+			drawFixedSizeRowSeparators(g);
+	}
+	public void drawVariableSizeChildrenSeparators(Graphics g) {
+		if (isHorizontal())
+			drawVariableSizeColumnSeparators(g);
+		else
+			drawVariableSizeRowSeparators(g);
 	}
 	@SuppressWarnings("unchecked")
-	public void drawRowSeparators(Graphics g) {
+	public void drawFixedSizeRowSeparators(Graphics g) {
 		List<IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
@@ -112,13 +118,13 @@ public class CompositeFigure extends EntityFigure {
 		int x1 = bounds.right();
 		int spacing = getLayoutManager().getSpacing()/2;
 		for (int i=0; i<children.size()-1; i++) {
-			Rectangle bounds2 = children.get(i).getBounds();
-			int y = bounds2.bottom() + spacing;
+			Rectangle boundsBefore = children.get(i).getBounds();
+			int y = boundsBefore.bottom() + spacing;
 			g.drawLine(x0, y, x1, y);
 		}
 	}
 	@SuppressWarnings("unchecked")
-	public void drawColumnSeparators(Graphics g) {
+	public void drawFixedSizeColumnSeparators(Graphics g) {
 		List<IFigure> children = getChildren();
 		if (children.isEmpty())
 			return;
@@ -127,8 +133,42 @@ public class CompositeFigure extends EntityFigure {
 		int y1 = bounds.bottom();
 		int spacing = getLayoutManager().getSpacing()/2;
 		for (int i=0; i<children.size()-1; i++) {
-			Rectangle bounds2 = children.get(i).getBounds();
-			int x = bounds2.right() + spacing;
+			Rectangle boundsBefore = children.get(i).getBounds();
+			int x = boundsBefore.right() + spacing;
+			g.drawLine(x, y0, x, y1);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public void drawVariableSizeRowSeparators(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int spacing = getLayoutManager().getSpacing()/2;
+		for (int i=0; i<children.size()-1; i++) {
+			Rectangle boundsBefore = children.get(i).getBounds();
+			Rectangle boundsAfter = children.get(i+1).getBounds();
+			int x0 = Math.min(boundsBefore.x, boundsAfter.x);
+			int x1 = boundsBefore.right() > boundsAfter.right() || boundsBefore.right() < boundsAfter.x ?
+					boundsBefore.right() : boundsAfter.right();
+			int y = boundsBefore.bottom() + spacing;
+			g.drawLine(x0, y, x1, y);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public void drawVariableSizeColumnSeparators(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int spacing = getLayoutManager().getSpacing()/2;
+		for (int i=0; i<children.size()-1; i++) {
+			Rectangle boundsBefore = children.get(i).getBounds();
+			Rectangle boundsAfter = children.get(i+1).getBounds();
+			int y0 = Math.min(boundsBefore.y, boundsAfter.y);
+			int y1 = boundsBefore.bottom() > boundsAfter.bottom() || boundsBefore.bottom() < boundsAfter.y ?
+					boundsBefore.bottom() : boundsAfter.bottom();
+			int x = boundsBefore.right() + spacing;
 			g.drawLine(x, y0, x, y1);
 		}
 	}

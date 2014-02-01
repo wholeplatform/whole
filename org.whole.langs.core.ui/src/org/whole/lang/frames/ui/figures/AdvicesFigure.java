@@ -35,6 +35,6 @@ public class AdvicesFigure extends CompositeFigure {
 		super.paintFigure(g);
 
 		g.setForegroundColor(ColorConstants.lightGray);
-		drawChildrenSeparators(g);
+		drawFixedSizeChildrenSeparators(g);
 	}
 }

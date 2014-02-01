@@ -52,7 +52,7 @@ public class AndPart extends CompositeRowWithPlaceholderPart {
 
     			g.setLineStyle(SWT.LINE_CUSTOM);
     			g.setLineDash(new int[] {1,3});
-    			drawColumnSeparators(g);
+    			drawFixedSizeColumnSeparators(g);
     			g.setLineStyle(SWT.LINE_SOLID);
     			g.setLineDash((int[]) null);
     		}
