@@ -55,4 +55,12 @@ public final class NullActionRedirection implements IActionRedirection {
 	public void performSelectAll() {
 		throw new UnsupportedOperationException();
 	}
+
+	public void performUndo() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void performRedo() {
+		throw new UnsupportedOperationException();
+	}
 }

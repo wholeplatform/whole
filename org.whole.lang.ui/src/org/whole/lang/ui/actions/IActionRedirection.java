@@ -27,5 +27,8 @@ public interface IActionRedirection {
 	public void performCopy();
 	public void performPaste();
 
+	public void performUndo();
+	public void performRedo();
+	
 	public void performSelectAll();
 }

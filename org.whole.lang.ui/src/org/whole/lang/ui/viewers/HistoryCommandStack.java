@@ -20,6 +20,7 @@ package org.whole.lang.ui.viewers;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.commands.UnexecutableCommand;
 import org.whole.lang.lifecycle.IHistoryManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -41,8 +42,11 @@ public class HistoryCommandStack extends CommandStack {
 	public void flush() {
 		super.flush();
 		getHistoryManager().clearHistory();
-		//FIXME workaround since there's no suitable flag
-		notifyListeners(null, POST_EXECUTE);
+		forceRefresh();
+	}
+
+	public void forceRefresh() {
+		notifyListeners(UnexecutableCommand.INSTANCE, POST_EXECUTE);
 	}
 
 	public void execute(Command command) {

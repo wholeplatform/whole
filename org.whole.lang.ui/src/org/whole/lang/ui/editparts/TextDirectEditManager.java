@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.figures.ITextFigure;
+import org.whole.lang.ui.viewers.HistoryCommandStack;
 
 /**
  * @author Enrico Persiani
@@ -46,18 +47,38 @@ public class TextDirectEditManager extends DirectEditManager implements IActionR
 		return getCellEditor() != null 
 				&& getCellEditor().isActivated();
 	}
-	public void performCut() {
-		if (getCellEditor().isCutEnabled())
-			getCellEditor().performCut();
-	}
+
 	public void performCopy() {
 		if (getCellEditor().isCopyEnabled())
 			getCellEditor().performCopy();
 	}
-	public void performPaste() {
-		if (getCellEditor().isPasteEnabled())
-			getCellEditor().performPaste();
+	public void performCut() {
+		if (getCellEditor().isCutEnabled()) {
+			getCellEditor().performCut();
+			getCommandStack().forceRefresh();
+		}
 	}
+	public void performPaste() {
+		if (getCellEditor().isPasteEnabled()) {
+			getCellEditor().performPaste();
+			getCommandStack().forceRefresh();
+		}
+	}
+
+	public void performUndo() {
+		if (getCellEditor().isUndoEnabled()) {
+			getCellEditor().performUndo();
+			getCommandStack().forceRefresh();
+		}
+
+	}
+	public void performRedo() {
+		if (getCellEditor().isRedoEnabled()) {
+			getCellEditor().performRedo();
+			getCommandStack().forceRefresh();
+		}
+	}
+
 	public void performSelectAll() {
 		if (getCellEditor().isSelectAllEnabled())
 			getCellEditor().performSelectAll();
@@ -66,6 +87,9 @@ public class TextDirectEditManager extends DirectEditManager implements IActionR
 	@Override
 	protected IGraphicalEntityPart getEditPart() {
 		return (IGraphicalEntityPart) super.getEditPart();
+	}
+	protected HistoryCommandStack getCommandStack() {
+		return (HistoryCommandStack) getEditPart().getViewer().getCommandStack();
 	}
 
 	protected void bringDown() {

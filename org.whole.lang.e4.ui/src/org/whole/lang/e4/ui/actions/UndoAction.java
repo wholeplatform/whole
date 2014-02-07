@@ -23,6 +23,7 @@ import java.net.URL;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -44,16 +45,20 @@ public class UndoAction extends AbstractCommandStackAction {
 	}
 
 	protected void doRun(IEntityPartViewer viewer) {
-		viewer.getCommandStack().undo();
+		IActionRedirection actionRedirection = getActionRedirection();
+		if (actionRedirection.isActive())
+			actionRedirection.performUndo();
+		else
+			viewer.getCommandStack().undo();
 	}
 
 	protected boolean calculateEnabled(IEntityPartViewer viewer) {
-		return viewer.getCommandStack().canUndo();
+		return getActionRedirection().isActive() ? true : viewer.getCommandStack().canUndo();
 	}
 
 	protected String calculateLabel(IEntityPartViewer viewer) {
 		String editLabel = label;
-		if (isEnabled()) {
+		if (isEnabled() && !getActionRedirection().isActive()) {
 			String label = viewer.getCommandStack().getUndoCommand().getLabel();
 			editLabel += " " + (label != null ? label : "unknown");
 		}
