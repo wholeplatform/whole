@@ -18,6 +18,7 @@
 package org.whole.lang.ui.tools;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -36,6 +37,7 @@ import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
  * @author Enrico Persiani
@@ -44,15 +46,19 @@ public class TextualDragTracker extends SimpleDragTracker {
 	private static final int STATE_SELECT = SimpleDragTracker.MAX_STATE << 1;
 	private static final int STATE_SWIPE = SimpleDragTracker.MAX_STATE << 2;
 
-	private ITextualEntityPart textualEntityPart;
 	private IGraphicalEntityPart beginPart;
 	private IGraphicalEntityPart endPart;
 
 	private int start;
 	private int end;
 
-	public TextualDragTracker(ITextualEntityPart textualEntityPart) {
-		this.textualEntityPart = textualEntityPart;
+	public TextualDragTracker() {
+	}
+
+	@Override
+	protected List<IEntityPart> createOperationSet() {
+		IEntityPartViewer viewer = (IEntityPartViewer) getCurrentViewer();
+		return Collections.<IEntityPart>singletonList(viewer.getFocusEntityPart());
 	}
 
 	@Override
@@ -65,25 +71,28 @@ public class TextualDragTracker extends SimpleDragTracker {
 		return "Drop Text";
 	}
 
+	protected ITextualEntityPart getTextualEntityPart() {
+		EditPart target = getCurrentViewer().findObjectAt(getLocation());
+		return target instanceof ITextualEntityPart ? (ITextualEntityPart) target : null;
+	}
+
 	@Override
 	protected boolean handleButtonDown(int button) {
-		if (button != 1) {
+		ITextualEntityPart textualEntityPart = getTextualEntityPart();
+		if (button != 1 || textualEntityPart == null) {
 			setState(STATE_INVALID);
 			return handleInvalidInput();
 		} else {
-			if (false) //FIXME implement selection dragging
-				return stateTransition(STATE_INITIAL, STATE_DRAG);
-			else {
-				beginPart = endPart = textualEntityPart;
-				CaretUpdater.sheduleSyncUpdate(getCurrentViewer(), beginPart.getModelEntity(), getLocation(), true);
-				start = textualEntityPart.getCaretPosition();
-				return stateTransition(STATE_INITIAL, STATE_SELECT);
-			}
+			beginPart = endPart = textualEntityPart;
+			CaretUpdater.sheduleSyncUpdate(getCurrentViewer(), beginPart.getModelEntity(), getLocation(), true);
+			start = textualEntityPart.getCaretPosition();
+			return stateTransition(STATE_INITIAL, STATE_SELECT);
 		}
 	}
 
 	protected boolean handleTripleClick(int button) {
-		if (button == 1) {
+		ITextualEntityPart textualEntityPart = getTextualEntityPart();
+		if (button == 1 && textualEntityPart != null) {
 			IGEFEditorKit editorkit = (IGEFEditorKit) textualEntityPart.getModelEntity().wGetEditorKit();
 			EditPoint editPoint = new EditPoint(textualEntityPart, textualEntityPart.getCaretPosition());
 			IKeyHandler keyHandler = editorkit.getKeyHandler();
@@ -96,7 +105,8 @@ public class TextualDragTracker extends SimpleDragTracker {
 
 	@Override
 	protected boolean handleDoubleClick(int button) {
-		if (button == 1) {
+		ITextualEntityPart textualEntityPart = getTextualEntityPart();
+		if (button == 1 && textualEntityPart != null) {
 			IGEFEditorKit editorkit = (IGEFEditorKit) textualEntityPart.getModelEntity().wGetEditorKit();
 			EditPoint editPoint = new EditPoint(textualEntityPart, textualEntityPart.getCaretPosition());
 			IKeyHandler keyHandler = editorkit.getKeyHandler();
@@ -115,6 +125,7 @@ public class TextualDragTracker extends SimpleDragTracker {
 	@Override
 	protected boolean handleDragInProgress() {
 		EditPartViewer viewer = getCurrentViewer();
+		ITextualEntityPart textualEntityPart = getTextualEntityPart();
 		EditPart overPart = viewer.findObjectAt(getLocation());
 		if (overPart == endPart) {
 			end = textualEntityPart.getCaretPosition();
@@ -129,7 +140,7 @@ public class TextualDragTracker extends SimpleDragTracker {
 			textualFigure.translateToAbsolute(textBounds);
 
 			Point mouseLocation = getLocation();
-			
+
 			mouseLocation.x = Math.max(mouseLocation.x, textBounds.x);
 			mouseLocation.x = Math.min(mouseLocation.x, textBounds.right()-1);
 			mouseLocation.y = Math.max(mouseLocation.y, textBounds.y);
@@ -173,6 +184,8 @@ public class TextualDragTracker extends SimpleDragTracker {
 					// update focus only if instance of ICaretEntityPart
 					focusPart = lastPart;
 				}
+			default:
+				break;
 			}
 		}
 		List<IEntityPart> partList = new ArrayList<IEntityPart>();
@@ -188,6 +201,8 @@ public class TextualDragTracker extends SimpleDragTracker {
 				if (part instanceof ITextualEntityPart)
 					((ITextualEntityPart)part).setSelectionRange(0, ((ITextualEntityPart)part).getCaretPositions());
 				partList.add(sel.getPart());
+				break;
+			default:
 				break;
 			}
 		}

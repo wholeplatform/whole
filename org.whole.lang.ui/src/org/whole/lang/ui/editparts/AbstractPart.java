@@ -96,6 +96,14 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 	}
 
 	@Override
+	public void setFocus(boolean value) {
+		if (hasFocus() == value)
+			return;
+		setFlag(FLAG_FOCUS, value);
+		fireSelectionChanged();
+	}
+
+	@Override
 	public boolean isSelectable() {
 		if (!super.isSelectable())
 			return false;

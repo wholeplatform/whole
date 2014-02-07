@@ -62,7 +62,7 @@ public abstract class AbstractTextualEntityPart extends AbstractPart implements 
 	public DragTracker getDragTracker(Request request) {
 		EditPartViewer viewer = getViewer();
 		return viewer != null && Tools.TEXTUAL.isActive(viewer) ? 
-				new TextualDragTracker(this) : super.getDragTracker(request);
+				new TextualDragTracker() : super.getDragTracker(request);
 	}
 
 	@Override
