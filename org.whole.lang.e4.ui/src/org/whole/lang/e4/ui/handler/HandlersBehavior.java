@@ -122,6 +122,10 @@ public class HandlersBehavior {
 		}
 		return true;
 	}
+	public static boolean isValidFocusEntityPart(IBindingManager bm) {
+		return bm.wIsSet("focusEntity") &&
+				!Matcher.match(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("focusEntity"));
+	}
 
 	public static boolean canCut(IBindingManager bm) {
 		return isValidEntityPartSelection(bm, false);
@@ -142,54 +146,53 @@ public class HandlersBehavior {
 			Clipboard.instance().setEntitiesContents(EntityUtils.clone(bm.wGet("selectedEntities")));
 	}
 	public static boolean canCopyEntityPath(IBindingManager bm) {
-		return isValidEntityPartSelection(bm, true);
+		return isValidFocusEntityPart(bm);
 	}
 	public static void copyEntityPath(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		try {
 			Class<?> queryUtilsClass = Class.forName("org.whole.lang.queries.util.QueriesUtils",
 					true, ReflectionFactory.getClassLoader(bm));
 			Method createRootPathMethod = queryUtilsClass.getMethod("createRootPath", new Class[] {IEntity.class});
-			IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, primarySelectedEntity);
+			IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, focusEntity);
 			Clipboard.instance().setEntityContents(entityPath);
 		} catch (Exception e) {
-			String location = EntityUtils.getLocation(primarySelectedEntity);
+			String location = EntityUtils.getLocation(focusEntity);
 			Clipboard.instance().setTextContents(location);
 		}
 	}
 	public static boolean canCopyAsImage(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		return viewer.getEditPartRegistry().get(primarySelectedEntity) instanceof IGraphicalEntityPart;
+		IEntity focusEntity = bm.wGet("focusEntity");
+		return viewer.getEditPartRegistry().get(focusEntity) instanceof IGraphicalEntityPart;
 	}
 	public static void copyAsImage(IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		IEntityPart part = viewer.getEditPartRegistry().get(primarySelectedEntity);
+		IEntity focusEntity = bm.wGet("focusEntity");
+		IEntityPart part = viewer.getEditPartRegistry().get(focusEntity);
 		Clipboard.instance().setImageContents((IGraphicalEntityPart) part);
 	}
 
 	public static boolean canPaste(IBindingManager bm) {
-
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
 		IEntity clipboardTuple = Clipboard.instance().getInternalOrNativeEntityContents();
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
 		iterator.reset(clipboardTuple);
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		if (primarySelectedEntity != null && iterator.hasNext()) {
+		IEntity focusEntity = bm.wGet("focusEntity");
+		if (focusEntity != null && iterator.hasNext()) {
 			IEntity clipboardEntity = iterator.next();
-			boolean addable = EntityUtils.isAddable(primarySelectedEntity, clipboardEntity);
+			boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
 			if (!addable && !iterator.hasNext())
-				return EntityUtils.isReplaceable(primarySelectedEntity, clipboardEntity);
+				return EntityUtils.isReplaceable(focusEntity, clipboardEntity);
 			else {
 				while (addable && iterator.hasNext())
-					addable = EntityUtils.isAddable(primarySelectedEntity, iterator.next());
+					addable = EntityUtils.isAddable(focusEntity, iterator.next());
 				return addable;
 			}
 		}
@@ -200,25 +203,25 @@ public class HandlersBehavior {
 			IEntityIterator<IEntity> iterator = IteratorFactory.childReverseIterator();
 			iterator.reset(Clipboard.instance().getInternalOrNativeEntityContents());
 	
-			IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+			IEntity focusEntity = bm.wGet("focusEntity");
 			while (iterator.hasNext()) {
 				IEntity clipboardEntity = EntityUtils.clone(iterator.next());
-				boolean addable = EntityUtils.isAddable(primarySelectedEntity, clipboardEntity);
+				boolean addable = EntityUtils.isAddable(focusEntity, clipboardEntity);
 				if (!addable && !iterator.hasNext()) {
-					IEntity parent = primarySelectedEntity.wGetParent();
-					parent.wSet(primarySelectedEntity, clipboardEntity);
+					IEntity parent = focusEntity.wGetParent();
+					parent.wSet(focusEntity, clipboardEntity);
 					break;
 				} else
 					if (bm.wIsSet("hilightPosition"))
-						primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
+						focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
 					else
-						primarySelectedEntity.wAdd(clipboardEntity);
+						focusEntity.wAdd(clipboardEntity);
 			}
 		}
 	}
 
 	public static boolean canPasteAs(IBindingManager bm) {
-		return isValidEntityPartSelection(bm, true) &&
+		return isValidFocusEntityPart(bm) &&
 				(Clipboard.instance().getEntityContents() != null ||
 				Clipboard.instance().getTextContents() != null);
 		
@@ -226,9 +229,9 @@ public class HandlersBehavior {
 	public static void pasteAs(IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		Shell shell = viewer.getControl().getShell();
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImplicitElementImportAsModelDialog(
-				shell, "Paste As", EntityUtils.isComposite(primarySelectedEntity));
+				shell, "Paste As", EntityUtils.isComposite(focusEntity));
 		if (!dialog.show())
 			return;
 		
@@ -244,7 +247,7 @@ public class HandlersBehavior {
 		if (bm.wIsSet("syntheticRoot")) {
 			IEntity syntheticRoot = bm.wGet("syntheticRoot");
 			adding |= syntheticRoot.wSize() > 1;
-			if (adding && !EntityUtils.isComposite(primarySelectedEntity)) {
+			if (adding && !EntityUtils.isComposite(focusEntity)) {
 				adding = false;
 				iterator = IteratorFactory.selfIterator();
 			} else
@@ -260,19 +263,19 @@ public class HandlersBehavior {
 			IEntity clipboardEntity = EntityUtils.clone(iterator.next());
 			if (!adding) {
 				if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-						!EntityUtils.isReplaceable(primarySelectedEntity, clipboardEntity))
+						!EntityUtils.isReplaceable(focusEntity, clipboardEntity))
 					clipboardEntity = CommonsEntityFactory.instance.create(stage, clipboardEntity);
-				IEntity parent = primarySelectedEntity.wGetParent();
-				parent.wSet(primarySelectedEntity, clipboardEntity);
+				IEntity parent = focusEntity.wGetParent();
+				parent.wSet(focusEntity, clipboardEntity);
 				break;
 			} else {
 				if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-						!EntityUtils.isAddable(primarySelectedEntity, clipboardEntity))
+						!EntityUtils.isAddable(focusEntity, clipboardEntity))
 					clipboardEntity = CommonsEntityFactory.instance.create(stage, clipboardEntity);
 				if (bm.wIsSet("hilightPosition"))
-					primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
+					focusEntity.wAdd(bm.wIntValue("hilightPosition"), clipboardEntity);
 				else
-					primarySelectedEntity.wAdd(clipboardEntity);
+					focusEntity.wAdd(clipboardEntity);
 			}
 		}
 	}
@@ -323,25 +326,25 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canReplaceWithDefault(IBindingManager bm) {
-		return isValidEntityPartSelection(bm, true);
+		return isValidFocusEntityPart(bm);
 	}
 	public static void replaceWithDefault(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity primarySelectedEntity = bm.wGet("focusEntity");
 		IEntity parent = primarySelectedEntity.wGetParent();
 		IEntity defaultEntity = GenericEntityFactory.instance.create(primarySelectedEntity.wGetEntityDescriptor());
 		parent.wSet(primarySelectedEntity, defaultEntity);
 	}
 
 	public static boolean canImportEntity(IBindingManager bm) {
-		return isValidEntityPartSelection(bm, true);
+		return isValidFocusEntityPart(bm);
 	}
 	public static void importEntity(IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		Shell shell = viewer.getControl().getShell();
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImportAsModelDialog(
-				shell, "Import model", EntityUtils.isComposite(primarySelectedEntity));
+				shell, "Import model", EntityUtils.isComposite(focusEntity));
 		if (!dialog.show())
 			return;
 
@@ -355,19 +358,19 @@ public class HandlersBehavior {
 				IEntity importedEntity = persistenceKit.readModel(pp);
 				if (!adding) {
 					if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-							!EntityUtils.isReplaceable(primarySelectedEntity, importedEntity))
+							!EntityUtils.isReplaceable(focusEntity, importedEntity))
 						importedEntity = CommonsEntityFactory.instance.create(stage, importedEntity);
-					IEntity parent = primarySelectedEntity.wGetParent();
-					parent.wSet(primarySelectedEntity, importedEntity);
+					IEntity parent = focusEntity.wGetParent();
+					parent.wSet(focusEntity, importedEntity);
 					break;
 				} else {
 					if (!CommonsEntityDescriptorEnum.SameStageFragment.equals(stage) ||
-							!EntityUtils.isAddable(primarySelectedEntity, importedEntity))
+							!EntityUtils.isAddable(focusEntity, importedEntity))
 						importedEntity = CommonsEntityFactory.instance.create(stage, importedEntity);
 					if (bm.wIsSet("hilightPosition"))
-						primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), importedEntity);
+						focusEntity.wAdd(bm.wIntValue("hilightPosition"), importedEntity);
 					else
-						primarySelectedEntity.wAdd(importedEntity);
+						focusEntity.wAdd(importedEntity);
 				}
 			} catch (Exception e) {
 				// fail silently
@@ -376,10 +379,10 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canReplaceEntity(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity primarySelectedEntity = bm.wGet("focusEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
 			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
@@ -400,54 +403,54 @@ public class HandlersBehavior {
 		}
 	};
 	public static void replaceEntity(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
-			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
+			focusEntity = focusEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		IEntity replacement = GenericEntityFactory.instance.create(ed);
-		transformer.transform(primarySelectedEntity.wGetAdaptee(false), replacement);
-		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
+		transformer.transform(focusEntity.wGetAdaptee(false), replacement);
+		focusEntity.wGetParent().wSet(focusEntity, replacement);
 	}
 
 	public static boolean canAddEntity(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
-			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
-		return EntityUtils.isAddable(primarySelectedEntity, ed);
+			focusEntity = focusEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
+		return EntityUtils.isAddable(focusEntity, ed);
 	}
 	public static void addEntity(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		EntityDescriptor<?> ed = (EntityDescriptor<?>) bm.wGetValue("entityDescriptor");
 		if (bm.wIsSet("featureDescriptor"))
-			primarySelectedEntity = primarySelectedEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
+			focusEntity = focusEntity.wGet((FeatureDescriptor) bm.wGetValue("featureDescriptor"));
 		IEntity child = GenericEntityFactory.instance.create(ed);
 
 		//FIXME make configurable
 		if (CommonsEntityDescriptorEnum.Variable.isLanguageSupertypeOf(ed))
-			child.wGet(CommonsFeatureDescriptorEnum.varType).wSetValue(primarySelectedEntity.wGetEntityDescriptor(0));
+			child.wGet(CommonsFeatureDescriptorEnum.varType).wSetValue(focusEntity.wGetEntityDescriptor(0));
 
 		if (bm.wIsSet("hilightPosition"))
-			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), child);
+			focusEntity.wAdd(bm.wIntValue("hilightPosition"), child);
 		else
-			primarySelectedEntity.wAdd(child);
+			focusEntity.wAdd(child);
 	}
 
 	public static boolean canReplaceFragment(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity predicateEntity = bm.wGet("predicateEntity");
 
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("self", primarySelectedEntity);
+		bm.wDefValue("self", focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
@@ -455,27 +458,27 @@ public class HandlersBehavior {
 		if (!predicateResult)
 			return false;
 
-		return EntityUtils.isReplaceable(primarySelectedEntity, bm.wGet("fragmentEntity"));
+		return EntityUtils.isReplaceable(focusEntity, bm.wGet("fragmentEntity"));
 	}
 
 	public static void replaceFragment(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, fragmentEntity);
+		focusEntity.wGetParent().wSet(focusEntity, fragmentEntity);
 	}
 
 	public static boolean canAddFragment(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity predicateEntity = bm.wGet("predicateEntity");
 
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
 		//FIXME workaround for domain content assist that assume self initialized with primarySelectedEntity
-		bm.wDefValue("self", primarySelectedEntity);
+		bm.wDefValue("self", focusEntity);
 		boolean predicateResult = BehaviorUtils.evaluatePredicate(predicateEntity, 0, bm);
 		ts.rollback();
 		bm.wExitScope();
@@ -483,35 +486,35 @@ public class HandlersBehavior {
 		if (!predicateResult)
 			return false;
 
-		return EntityUtils.isAddable(primarySelectedEntity, bm.wGet("fragmentEntity"));
+		return EntityUtils.isAddable(focusEntity, bm.wGet("fragmentEntity"));
 	}
 
 	public static void addFragment(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity fragmentEntity = bm.wGet("fragmentEntity");
 		if (bm.wIsSet("hilightPosition"))
-			primarySelectedEntity.wAdd(bm.wIntValue("hilightPosition"), fragmentEntity);
+			focusEntity.wAdd(bm.wIntValue("hilightPosition"), fragmentEntity);
 		else
-			primarySelectedEntity.wAdd(fragmentEntity);
+			focusEntity.wAdd(fragmentEntity);
 	}
 
 	public static boolean canWrapFragment(IBindingManager bm) {
-		if (!isValidEntityPartSelection(bm, true))
+		if (!isValidFocusEntityPart(bm))
 			return false;
 
 		if (!BehaviorUtils.evaluatePredicate(bm.wGet("predicateEntity"), 0, bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-		return EntityUtils.isReplaceable(primarySelectedEntity, fragmentEntity);
+		return EntityUtils.isReplaceable(focusEntity, fragmentEntity);
 	}
 
 	public static void wrapFragment(IBindingManager bm) {
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity fragmentEntity = bm.wGet("fragmentEntity");
-		DefaultWrapInTransformer.instance.transform(primarySelectedEntity, fragmentEntity);
-		primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, fragmentEntity);
+		DefaultWrapInTransformer.instance.transform(focusEntity, fragmentEntity);
+		focusEntity.wGetParent().wSet(focusEntity, fragmentEntity);
 	}
 
 	public static boolean canCallAction(IBindingManager bm) {
@@ -533,6 +536,7 @@ public class HandlersBehavior {
 			for (int i = 0; i < size; i++)
 				tuple.wSet(i, EntityUtils.mapEntity(tuple.wGet(i), model));
 			bm.wSet("primarySelectedEntity", EntityUtils.mapEntity(bm.wGet("primarySelectedEntity"), model));
+			bm.wSet("focusEntity", EntityUtils.mapEntity(bm.wGet("focusEntity"), model));
 		}
 
 		IEntityIterator<?> iterator = new ActionCallIterator(bm.wStringValue("functionUri"));

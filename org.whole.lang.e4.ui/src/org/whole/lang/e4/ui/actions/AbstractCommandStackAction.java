@@ -68,11 +68,14 @@ public abstract class AbstractCommandStackAction extends AbstractE4Action implem
 			return NullActionRedirection.instance();
 
 		IBindingManager bm = (IBindingManager) selection;
-		if (!bm.wIsSet("primarySelectedEntity"))
+		if (!bm.wIsSet("focusEntity"))
 			return NullActionRedirection.instance();
 
-		IEntityPartViewer viewer = (IEntityPartViewer) ((IBindingManager) selection).wGetValue("viewer");
-		IEntityPart entityPart = viewer.getEditPartRegistry().get(((IBindingManager) selection).wGet("primarySelectedEntity"));
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("focusEntity"));
+		if (entityPart == null)
+			return NullActionRedirection.instance();
+
 		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
 		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
 	}

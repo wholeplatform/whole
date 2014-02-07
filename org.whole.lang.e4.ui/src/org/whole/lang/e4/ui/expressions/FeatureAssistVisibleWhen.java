@@ -24,13 +24,13 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-public class FeatureAssistVisibleWhen extends ValidSingleSelectionVisibleWhen {
+public class FeatureAssistVisibleWhen extends ValidFocusPartVisibleWhen {
 	@Override
 	public boolean isVisible(IBindingManager bm) {
 		if (!super.isVisible(bm))
 			return false;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity primarySelectedEntity = bm.wGet("focusEntity");
 		return EntityUtils.isSimple(primarySelectedEntity) && !primarySelectedEntity.wIsEmpty();
 	}
 }

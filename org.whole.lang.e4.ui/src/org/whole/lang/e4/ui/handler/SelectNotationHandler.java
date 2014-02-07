@@ -44,7 +44,7 @@ public class SelectNotationHandler {
 	@CanExecute
 	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {
-			return HandlersBehavior.isValidEntityPartSelection(bm, true);
+			return HandlersBehavior.isValidFocusEntityPart(bm);
 		} catch (Exception e) {
 			return false;
 		}
@@ -55,23 +55,23 @@ public class SelectNotationHandler {
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			final IEntityPartViewer viewer, UISynchronize synchronize) {
 		IEditorKit editorKit = ReflectionFactory.getEditorKit(editorKitId);
-		final IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		final IEntity focusEntity = bm.wGet("focusEntity");
 
-		boolean historyEnabled = ReflectionFactory.getHistoryManager(primarySelectedEntity).setHistoryEnabled(false);
+		boolean historyEnabled = ReflectionFactory.getHistoryManager(focusEntity).setHistoryEnabled(false);
 
-		primarySelectedEntity.wGetModel().setEditorKit(editorKit);
+		focusEntity.wGetModel().setEditorKit(editorKit);
 
 		Map<IEntity, IEntityPart> editPartRegistry = viewer.getEditPartRegistry();
-		IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(primarySelectedEntity);
-		IEntityPart fragmentPart = ModelObserver.getObserver(primarySelectedEntity, fragmentRoot, editPartRegistry);
+		IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(focusEntity);
+		IEntityPart fragmentPart = ModelObserver.getObserver(focusEntity, fragmentRoot, editPartRegistry);
 		fragmentPart.rebuild();
 
 		synchronize.asyncExec(new Runnable() {
 			public void run() {
-				viewer.selectAndReveal(primarySelectedEntity);	
+				viewer.selectAndReveal(focusEntity);	
 			}				
 		});
 
-		ReflectionFactory.getHistoryManager(primarySelectedEntity).setHistoryEnabled(historyEnabled);
+		ReflectionFactory.getHistoryManager(focusEntity).setHistoryEnabled(historyEnabled);
 	}
 }

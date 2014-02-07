@@ -32,7 +32,7 @@ import org.whole.lang.e4.ui.expressions.ActionsVisibleWhen;
 import org.whole.lang.e4.ui.expressions.ContentAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.FeatureAssistVisibleWhen;
 import org.whole.lang.e4.ui.expressions.NotationsVisibleWhen;
-import org.whole.lang.e4.ui.expressions.ValidSingleSelectionVisibleWhen;
+import org.whole.lang.e4.ui.expressions.ValidFocusPartVisibleWhen;
 import org.whole.lang.e4.ui.expressions.VisibilityExpression;
 import org.whole.lang.e4.ui.menu.ActionsCompositeContributionItem;
 import org.whole.lang.e4.ui.util.E4Utils;
@@ -57,13 +57,13 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 	@Inject
 	protected ActionRegistry actionRegistry;
 	private final ContentAssistVisibleWhen contentAssistVisibleWhen;
-	private final ValidSingleSelectionVisibleWhen validSingleSelectionVisibleWhen;
+	private final ValidFocusPartVisibleWhen validFocusPartVisibleWhen;
 	private final FeatureAssistVisibleWhen featureAssistVisibleWhen;
 	private final NotationsVisibleWhen notationsVisibleWhen;
 
 	public AbstractUIBuilder() {
 		this.contentAssistVisibleWhen = new ContentAssistVisibleWhen();
-		this.validSingleSelectionVisibleWhen = new ValidSingleSelectionVisibleWhen();
+		this.validFocusPartVisibleWhen = new ValidFocusPartVisibleWhen();
 		this.featureAssistVisibleWhen = new FeatureAssistVisibleWhen();
 		this.notationsVisibleWhen = new NotationsVisibleWhen();
 	}
@@ -86,8 +86,8 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 	protected ContentAssistVisibleWhen getContentAssistVisibleWhen() {
 		return contentAssistVisibleWhen;
 	}
-	protected ValidSingleSelectionVisibleWhen getValidSingleSelectionVisibleWhen() {
-		return validSingleSelectionVisibleWhen;
+	protected ValidFocusPartVisibleWhen getValidFocusPartVisibleWhen() {
+		return validFocusPartVisibleWhen;
 	}
 	protected FeatureAssistVisibleWhen getFeatureAssistVisibleWhen() {
 		return featureAssistVisibleWhen;
@@ -98,7 +98,7 @@ public abstract class AbstractUIBuilder<I, C extends I> implements IUIBuilder<I,
 
 	@Override
 	public void addRemoveItem() {
-		C menu = createMenu(REMOVE_LABEL, getValidSingleSelectionVisibleWhen());
+		C menu = createMenu(REMOVE_LABEL, getValidFocusPartVisibleWhen());
 		addItem(menu);
 		C previous = setContainer(menu);
 

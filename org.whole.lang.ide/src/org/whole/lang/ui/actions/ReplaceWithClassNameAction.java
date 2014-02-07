@@ -65,7 +65,7 @@ public class ReplaceWithClassNameAction extends AbstractE4Action {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
 			IJavaProject javaProject = (IJavaProject) bm.wGetValue("javaProject");
 			setEnabled(javaProject != null && 
-					HandlersBehavior.isValidEntityPartSelection(bm, true));
+					HandlersBehavior.isValidFocusEntityPart(bm));
 		} else
 			setEnabled(false);
 	}
@@ -91,14 +91,14 @@ public class ReplaceWithClassNameAction extends AbstractE4Action {
 
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity replacement = GenericEntityFactory.instance.create(ed, className);
 
-		ModelTransactionCommand mtc = new ModelTransactionCommand(primarySelectedEntity);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(focusEntity);
 		try {
 			mtc.setLabel("replace with class name");
 			mtc.begin();
-			primarySelectedEntity.wGetParent().wSet(primarySelectedEntity, replacement);
+			focusEntity.wGetParent().wSet(focusEntity, replacement);
 			mtc.commit();
 			if (mtc.canUndo()) {
 				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");

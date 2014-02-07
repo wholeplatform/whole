@@ -63,7 +63,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b1.StringLiteral("clone(org.whole.lang.model.IEntity)");
                 b1.Expressions_(1);
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");
@@ -75,7 +75,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b0._PointwiseUpdate();
                 b0.PointwiseUpdate_();
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");
@@ -172,7 +172,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b1.StringLiteral("clone(org.whole.lang.model.IEntity)");
                 b1.Expressions_(1);
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");
@@ -184,7 +184,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b0._PointwiseUpdate();
                 b0.PointwiseUpdate_();
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");
@@ -247,7 +247,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b1.StringLiteral("clone(org.whole.lang.model.IEntity)");
                 b1.Expressions_(1);
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");
@@ -259,7 +259,7 @@ public class WrapActionsTemplateManager extends AbstractTemplateManager {
                 b0._PointwiseUpdate();
                 b0.PointwiseUpdate_();
                 b0.Path_(2);
-                b0.VariableRefStep("primarySelectedEntity");
+                b0.VariableRefStep("focusEntity");
                 b2.Variable_();
                 b2.VarType("http://lang.whole.org/Queries#FeatureStep");
                 b2.VarName("intoFDUri");

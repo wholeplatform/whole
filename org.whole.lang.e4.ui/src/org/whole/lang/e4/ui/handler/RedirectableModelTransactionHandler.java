@@ -54,11 +54,11 @@ public abstract class RedirectableModelTransactionHandler extends ModelTransacti
 	}
 
 	protected IActionRedirection getActionRedirection(IBindingManager bm) {
-		if (!bm.wIsSet("primarySelectedEntity"))
+		if (!bm.wIsSet("focusEntity"))
 			return NullActionRedirection.instance();
 
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("primarySelectedEntity"));
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("focusEntity"));
 		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
 		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
 	}

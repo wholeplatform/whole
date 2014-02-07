@@ -73,7 +73,7 @@ public class MergeResourcesAction extends AbstractE4Action {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		if (selectionService.getSelection() instanceof IBindingManager) {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
-			setEnabled(HandlersBehavior.isValidEntityPartSelection(bm, true));
+			setEnabled(HandlersBehavior.isValidFocusEntityPart(bm));
 		} else
 			setEnabled(false);
 	}
@@ -82,16 +82,16 @@ public class MergeResourcesAction extends AbstractE4Action {
 	public void run() {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 
 		Shell shell = (Shell) getContext().get(IServiceConstants.ACTIVE_SHELL);
-		IEntity result = performWorkspaceResourceSelection(shell, selectedEntity);
+		IEntity result = performWorkspaceResourceSelection(shell, focusEntity);
 		if (!EntityUtils.isNull(result)) {
-			ModelTransactionCommand mtc = new ModelTransactionCommand(selectedEntity);
+			ModelTransactionCommand mtc = new ModelTransactionCommand(focusEntity);
 			try {
 				mtc.setLabel("add Artifacts");
 				mtc.begin();
-				EntityUtils.merge(selectedEntity, result, createEntityComparator(), false);
+				EntityUtils.merge(focusEntity, result, createEntityComparator(), false);
 				mtc.commit();
 				if (mtc.canUndo()) {
 					IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");

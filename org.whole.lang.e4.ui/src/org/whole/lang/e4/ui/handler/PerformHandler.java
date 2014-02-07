@@ -62,7 +62,7 @@ public class PerformHandler  {
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"), label);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"), label);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {

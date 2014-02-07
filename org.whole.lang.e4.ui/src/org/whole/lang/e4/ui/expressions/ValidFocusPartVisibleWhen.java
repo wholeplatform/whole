@@ -18,30 +18,14 @@
 package org.whole.lang.e4.ui.expressions;
 
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.util.EntityUtils;
+import org.whole.lang.e4.ui.handler.HandlersBehavior;
 
 /**
  * @author Enrico Persiani
  */
-public class AddEntityVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
-	protected EntityDescriptor<?> ed;
-	protected boolean sameLanguage;
-
-	public AddEntityVisibleWhen(EntityDescriptor<?> ed, boolean sameLanguage) {
-		this.ed = ed;
-		this.sameLanguage = sameLanguage;
-	}
-
+public class ValidFocusPartVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
 	@Override
 	public boolean isVisible(IBindingManager bm) {
-		IEntity entity = bm.wGet("primarySelectedEntity");
-		if (entity == null)
-			return false;
-		
-		EntityDescriptor<?> selectedED = entity.wGetEntityDescriptor();
-		return sameLanguage == selectedED.getLanguageKit().equals(ed.getLanguageKit()) &&
-				EntityUtils.isAddable(entity, ed);
+		return HandlersBehavior.isValidFocusEntityPart(bm);
 	}
 }

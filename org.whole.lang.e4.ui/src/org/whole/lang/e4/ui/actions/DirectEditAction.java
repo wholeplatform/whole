@@ -46,8 +46,8 @@ public final class DirectEditAction extends AbstractE4Action {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
 			if (bm.wIsSet("viewer")) {
 				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-				IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-				IEntityPart entityPart = viewer.getEditPartRegistry().get(primarySelectedEntity);
+				IEntity focusEntity = bm.wGet("focusEntity");
+				IEntityPart entityPart = viewer.getEditPartRegistry().get(focusEntity);
 				setEnabled(entityPart.understandsRequest(request));
 			}
 		}
@@ -58,8 +58,8 @@ public final class DirectEditAction extends AbstractE4Action {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		IEntityPart entityPart = viewer.getEditPartRegistry().get(primarySelectedEntity);
+		IEntity focusEntity = bm.wGet("focusEntity");
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(focusEntity);
 		try {
 			entityPart.performRequest(request);
 		} catch (Exception e) {

@@ -62,7 +62,7 @@ public class ImpActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b0.Label("translate to Java");
         b4.FunctionApplication_();
         b4.Name("whole:org.whole.examples.lang.imp:ImpSemantics#translateToJava");
-        b2.VariableRefStep("primarySelectedEntity");
+        b2.VariableRefStep("focusEntity");
         b1.Resolver();
         b1.Resolver();
         b4._FunctionApplication();
@@ -72,7 +72,7 @@ public class ImpActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b0.Label("translate to Text");
         b4.FunctionApplication_();
         b4.Name("whole:org.whole.examples.lang.imp:ImpSemantics#translateToText");
-        b2.VariableRefStep("primarySelectedEntity");
+        b2.VariableRefStep("focusEntity");
         b1.Resolver();
         b1.Resolver();
         b4._FunctionApplication();

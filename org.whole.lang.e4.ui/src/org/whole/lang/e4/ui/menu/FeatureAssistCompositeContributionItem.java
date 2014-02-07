@@ -51,10 +51,10 @@ public class FeatureAssistCompositeContributionItem extends EntityAssistComposit
 	@Override
 	protected boolean fillItems(IItemContainer<MenuManager, ImageDescriptor> menuContainer, IItemContainer<IAction, ImageDescriptor> actionContainer, IBindingManager bm) {
 		List<MenuManager> menus = new ArrayList<MenuManager>();
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 
-		for (int i = 0; i < selectedEntity.wSize(); i++) {
-			fd = selectedEntity.wGetFeatureDescriptor(i);
+		for (int i = 0; i < focusEntity.wSize(); i++) {
+			fd = focusEntity.wGetFeatureDescriptor(i);
 			MenuManager featureMenu = new MenuManager(fd.getName(), null, null);
 			if (super.fillItems(MenuManagerContainer.create(featureMenu), ActionContainer.create(featureMenu), bm))
 				menus.add(featureMenu);

@@ -61,7 +61,7 @@ public abstract class TypedModelTransactionHandler {
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("primarySelectedEntity"));
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
 			bm.wEnterScope(ts);

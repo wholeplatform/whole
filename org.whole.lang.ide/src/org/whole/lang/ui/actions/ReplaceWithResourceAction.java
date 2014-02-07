@@ -77,7 +77,7 @@ public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		if (selectionService.getSelection() instanceof IBindingManager) {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
-			setEnabled(HandlersBehavior.isValidEntityPartSelection(bm, true));
+			setEnabled(HandlersBehavior.isValidFocusEntityPart(bm));
 		} else
 			setEnabled(false);
 	}
@@ -89,22 +89,22 @@ public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 	public void run() {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
+		IEntity focusEntity = bm.wGet("focusEntity");
 
-		ResourceKind resourceKind = getResourceKind(primarySelectedEntity);
+		ResourceKind resourceKind = getResourceKind(focusEntity);
 		Shell shell = (Shell) getContext().get(IServiceConstants.ACTIVE_SHELL);
 
 		boolean selectionPerformed = false;
 		switch (resourceKind) {
 		case WORKSPACE:
-			selectionPerformed = performWorkspaceResourceSelection(shell, primarySelectedEntity);
+			selectionPerformed = performWorkspaceResourceSelection(shell, focusEntity);
 			break;
 		case CLASSPATH:
-			selectionPerformed = performClasspathResourceSelection(shell, primarySelectedEntity);
+			selectionPerformed = performClasspathResourceSelection(shell, focusEntity);
 			break;
 		case FILE_SYSTEM:
 		case URL:
-			selectionPerformed = performFilesystemSelection(shell, primarySelectedEntity,  resourceKind == ResourceKind.URL);
+			selectionPerformed = performFilesystemSelection(shell, focusEntity,  resourceKind == ResourceKind.URL);
 			break;
 		}
 
@@ -113,11 +113,11 @@ public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 
 		IEntity replacement = GenericEntityFactory.instance.create(ed, path);
 
-		ModelTransactionCommand mtc = new ModelTransactionCommand(primarySelectedEntity);
+		ModelTransactionCommand mtc = new ModelTransactionCommand(focusEntity);
 		try {
 			mtc.setLabel("replace with class name");
 			mtc.begin();
-			performReplace(primarySelectedEntity, replacement);
+			performReplace(focusEntity, replacement);
 			mtc.commit();
 			if (mtc.canUndo()) {
 				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");

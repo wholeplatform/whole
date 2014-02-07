@@ -121,7 +121,7 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 
 	@Override
 	public void addEntityAssistItem() {
-		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL, getValidSingleSelectionVisibleWhen());
+		IMenuManager menu = createMenu(ENTITY_ASSIST_LABEL, getValidFocusPartVisibleWhen());
 		addItem(menu);
 
 		IContributionItem ici = new EntityAssistCompositeContributionItem(this);
@@ -148,12 +148,12 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 		IMenuManager menu = createMenu(NOTATION_LABEL, getNotationsVisibleWhen());
 		addItem(menu);
 
-		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
+		if (!HandlersBehavior.isValidFocusEntityPart(bm))
 			return;
 
-		IEntity primarySelectedEntity = bm.wGet("primarySelectedEntity");
-		IEditorKit selectedEditorKit = primarySelectedEntity.wGetEditorKit();
-		for (IEditorKit editorKit : primarySelectedEntity.wGetLanguageKit().getEditorKits()) {
+		IEntity focusEntity = bm.wGet("focusEntity");
+		IEditorKit selectedEditorKit = focusEntity.wGetEditorKit();
+		for (IEditorKit editorKit : focusEntity.wGetLanguageKit().getEditorKits()) {
 			IUpdatableAction action = actionRegistry.getSelectNotationAction(editorKit);
 			action.setChecked(editorKit == selectedEditorKit);
 			menu.add(action);

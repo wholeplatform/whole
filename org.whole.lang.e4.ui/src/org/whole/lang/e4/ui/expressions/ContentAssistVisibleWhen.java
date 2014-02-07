@@ -39,12 +39,12 @@ import org.whole.lang.visitors.VisitException;
 public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibleWhen {
 	@Override
 	public boolean isVisible(IBindingManager bm) {
-		if (!HandlersBehavior.isValidEntityPartSelection(bm, true))
+		if (!HandlersBehavior.isValidFocusEntityPart(bm))
 			return false;
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
-		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("primarySelectedEntity"), bm);
+		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("focusEntity"), bm);
 		ts.rollback();
 		bm.wExitScope();
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {

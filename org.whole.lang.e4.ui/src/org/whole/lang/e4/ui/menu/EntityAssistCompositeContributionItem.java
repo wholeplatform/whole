@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -36,6 +37,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractCompositeContributionItem;
 import org.whole.lang.e4.ui.actions.IContextProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -86,12 +88,12 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	}
 
 	protected boolean fillItems(IItemContainer<MenuManager, ImageDescriptor> menuContainer, IItemContainer<IAction, ImageDescriptor> actionContainer, IBindingManager bm) {
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, selectedEntity);
+		IEntity focusEntity = bm.wGet("focusEntity");
+		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, focusEntity);
 
 		actionContainer.addSeparator();
 
-		boolean hasActions = fillEntityAssistMenu(actionContainer, selectedEntity, selectedEntity.wGetLanguageKit());
+		boolean hasActions = fillEntityAssistMenu(actionContainer, focusEntity, focusEntity.wGetLanguageKit());
 		
 		return hasExtendedActions || hasActions;
 	}
@@ -149,7 +151,41 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 	
 		hasActions |= replaceElements.size() > 0;
 
-		List<IAction> wrapElements = new ArrayList<IAction>();
+		List<IAction> wrapElements = createWrapActions(lk, targetEntity);
+
+		container.addSeparator();
+		Collections.sort(wrapElements, comparator);
+		HierarchicalFillMenuStrategy.instance().fillMenu(
+				container, ActionSet.create(wrapElements.toArray(new IAction[0])), 0, wrapElements.size());
+
+		hasActions |= wrapElements.size() > 0;
+		
+		List<IAction> textElements = createTextActions(lk, targetEntity);
+
+		container.addSeparator();
+		Collections.sort(textElements, comparator);
+		HierarchicalFillMenuStrategy.instance().fillMenu(
+				container, ActionSet.create(textElements.toArray(new IAction[0])), 0, textElements.size());
+
+		hasActions |= textElements.size() > 0;
+
+		return hasActions;
+	}
+
+	protected IEntity getTargetEntity(IEntity selectedEntity) {
+		return selectedEntity;
+	}
+
+	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
+		return contextProvider.getActionRegistry().getAddEntityAction(ed);
+	}
+
+	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
+		return contextProvider.getActionRegistry().getReplaceEntityAction(ed);
+	}
+
+	protected List<IAction> createWrapActions(ILanguageKit lk, IEntity targetEntity) {
+		List<IAction> wrapActions = new ArrayList<IAction>();
 
 		Set<EntityDescriptor<?>> wrapTypes = new HashSet<EntityDescriptor<?>>();
 		IGEFEditorKit editorKit = (IGEFEditorKit) (targetEntity.wGetLanguageKit().equals(lk) ?
@@ -160,7 +196,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (isWrappable(targetEntity, ed, (IEnablerPredicate) wrapAction[0])) {
 				String label = (String) wrapAction[2];
 				IEntityTransformer transformer = (IEntityTransformer) wrapAction[3];
-				wrapElements.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
+				wrapActions.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, transformer)));
 				wrapTypes.add(ed);
 			}
@@ -170,40 +206,44 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 			if (EntityUtils.isComposite(ed) && !wrapTypes.contains(ed) &&
 					isWrappable(targetEntity, ed, EnablerPredicateFactory.instance.assignableTo(ed.getEntityDescriptor(0)))) {
 				String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-				wrapElements.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
+				wrapActions.add(contextProvider.getActionRegistry().getActionFactory().createPerformAction(label, WRAP_ICON_URI, 
 						QueriesEntityFactory.instance.createBooleanLiteral(true), getBehavior(ed, DefaultWrapInTransformer.instance)));
 			}
 
-		container.addSeparator();
-		Collections.sort(wrapElements, comparator);
-		HierarchicalFillMenuStrategy.instance().fillMenu(
-				container, ActionSet.create(wrapElements.toArray(new IAction[0])), 0, wrapElements.size());
-
-		hasActions |= wrapElements.size() > 0;
-		
-		//TODO add text actions
-
-		return hasActions;
+		return wrapActions;
 	}
-
-	protected IEntity getTargetEntity(IEntity selectedEntity) {
-		return selectedEntity;
-	}
-
 	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
 		return (predicate == EnablerPredicateFactory.instance.alwaysTrue() ||
 				((AssignableToPredicate) predicate).getEntityDescriptor()
 						.isPlatformSupertypeOf(selectedEntity.wGetEntityDescriptor()) ) && 
 							EntityUtils.isReplaceable(selectedEntity, ed);
 	}
-
-	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
-		return contextProvider.getActionRegistry().getAddEntityAction(ed);
-	}
-	protected IUpdatableAction getReplaceEntityAction(EntityDescriptor<?> ed) {
-		return contextProvider.getActionRegistry().getReplaceEntityAction(ed);
-	}
 	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {
 		return E4Utils.wrapToBehavior(ed, transformer);
+	}
+
+	protected List<IAction> createTextActions(ILanguageKit lk, IEntity targetEntity) {
+		List<IAction> textActions = new ArrayList<IAction>();
+
+		IGEFEditorKit editorKit = (IGEFEditorKit) (targetEntity.wGetLanguageKit().equals(lk) ?
+				ReflectionFactory.getEditorKit(targetEntity) : lk.getDefaultEditorKit());
+
+		for (Object[] textAction : editorKit.getActionFactory().textActions()) {
+			EntityDescriptor<?> ed = (EntityDescriptor<?>) textAction[1];
+			if (Matcher.matchImpl(ed, targetEntity)) {
+				@SuppressWarnings("unchecked")
+				Class<IUpdatableAction> actionClass = (Class<IUpdatableAction>) textAction[2];
+				try {
+					IUpdatableAction action = actionClass
+							.getConstructor(IEclipseContext.class)
+							.newInstance(contextProvider.getContext());
+					action.update();
+					if (action.isEnabled())
+						textActions.add(action);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return textActions;
 	}
 }

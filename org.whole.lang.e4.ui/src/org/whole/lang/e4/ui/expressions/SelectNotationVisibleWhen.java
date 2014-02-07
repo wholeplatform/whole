@@ -35,7 +35,7 @@ public class SelectNotationVisibleWhen extends AbstractSelectionConstrainedVisib
 
 	@Override
 	public boolean isVisible(IBindingManager bm) {
-		IEntity entity = bm.wGet("primarySelectedEntity");
+		IEntity entity = bm.wGet("focusEntity");
 		return entity != null && editorKit.canApply(entity.wGetLanguageKit())
 				&& selected == editorKit.equals(entity.wGetEditorKit());
 	}

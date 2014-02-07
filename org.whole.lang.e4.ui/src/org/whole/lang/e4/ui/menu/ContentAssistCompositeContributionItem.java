@@ -55,8 +55,8 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 
 		IBindingManager bm = (IBindingManager) selection;
 
-		IEntity selectedEntity = bm.wGet("primarySelectedEntity");
-		IEntity[] values = ContentAssistOperation.getContentAssist(selectedEntity, bm);
+		IEntity focusEntity = bm.wGet("focusEntity");
+		IEntity[] values = ContentAssistOperation.getContentAssist(focusEntity, bm);
 
 		ActionListContainer container = ActionListContainer.create(items);
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {
@@ -74,7 +74,7 @@ public class ContentAssistCompositeContributionItem extends AbstractCompositeCon
 			int actionsSize = 0;
 			for (int i=0; i<values.length; i++) {
 				IEntity value = values[i];
-				if (!Matcher.match(value, selectedEntity)) {
+				if (!Matcher.match(value, focusEntity)) {
 					IUpdatableAction action = contextProvider.getActionRegistry().getActionFactory().createReplaceFragmentAction(DataTypeUtils.getAsPresentationString(value), BindingManagerFactory.instance.createSpecificValue(true), value);
 					if (action.isEnabled())
 						actions[actionsSize++] = action;

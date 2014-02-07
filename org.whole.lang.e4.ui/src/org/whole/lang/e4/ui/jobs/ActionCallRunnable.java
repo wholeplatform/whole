@@ -65,6 +65,7 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 			for (int i = 0; i < size; i++)
 				tuple.wSet(i, EntityUtils.mapEntity(tuple.wGet(i), model));
 			bm.wSet("primarySelectedEntity", EntityUtils.mapEntity(bm.wGet("primarySelectedEntity"), model));
+			bm.wSet("focusEntity", EntityUtils.mapEntity(bm.wGet("focusEntity"), model));
 		}
 
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");

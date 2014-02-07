@@ -41,7 +41,7 @@
                                 <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
                                 <workflows:Expressions initialCapacity="1">
                                     <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <queries:VariableRefStep value="focusEntity"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                         <commons:VarName value="intoFDUri"/>
@@ -53,7 +53,7 @@
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
-                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <queries:VariableRefStep value="focusEntity"/>
                                 <commons:Variable>
                                     <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                     <commons:VarName value="intoFDUri"/>
@@ -145,7 +145,7 @@
                                 <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
                                 <workflows:Expressions initialCapacity="1">
                                     <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <queries:VariableRefStep value="focusEntity"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                         <commons:VarName value="intoFDUri"/>
@@ -157,7 +157,7 @@
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
-                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <queries:VariableRefStep value="focusEntity"/>
                                 <commons:Variable>
                                     <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                     <commons:VarName value="intoFDUri"/>
@@ -215,7 +215,7 @@
                                 <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
                                 <workflows:Expressions initialCapacity="1">
                                     <queries:Path initialCapacity="2">
-                                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                                        <queries:VariableRefStep value="focusEntity"/>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                         <commons:VarName value="intoFDUri"/>
@@ -227,7 +227,7 @@
                         </queries:PointwiseUpdate>
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
-                                <queries:VariableRefStep value="primarySelectedEntity"/>
+                                <queries:VariableRefStep value="focusEntity"/>
                                 <commons:Variable>
                                     <commons:VarType value="http://lang.whole.org/Queries#FeatureStep"/>
                                     <commons:VarName value="intoFDUri"/>

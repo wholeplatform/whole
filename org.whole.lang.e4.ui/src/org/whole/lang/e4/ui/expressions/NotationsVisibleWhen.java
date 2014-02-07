@@ -23,7 +23,7 @@ import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 /**
  * @author Enrico Persiani
  */
-public class NotationsVisibleWhen extends ValidSingleSelectionVisibleWhen {
+public class NotationsVisibleWhen extends ValidFocusPartVisibleWhen {
 	@Override
 	public boolean isVisible(IBindingManager bm) {
 		if (!super.isVisible(bm))
