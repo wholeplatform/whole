@@ -31,10 +31,12 @@ import org.whole.examples.lang.imp.reflect.ImpLanguageDeployer;
 import org.whole.examples.lang.imp.ui.ImpUIDeployer;
 import org.whole.examples.patterns.JavaPatternsActions;
 import org.whole.examples.xml.XmlActions;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * @author Riccardo Solmi
@@ -57,6 +59,12 @@ public class ExamplesContributionsDeployer extends AbstractSuiteDeployer {
 
 	public void deploy(ReflectionFactory platform) {
 		super.deploy(platform);
+		try {
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/examples/lang/imp/ImpSemantics.xwl")));
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
 		InterpreterOperation.interpret(new AnnotationsActions().create());
 		InterpreterOperation.interpret(new ImpActions().create());
 		InterpreterOperation.interpret(new JavadocsActions().create());
