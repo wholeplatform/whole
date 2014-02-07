@@ -1095,8 +1095,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NewExpression"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
                             <text:TextSeparator value=""/>
+                            <text:Text value="new "/>
                             <semantics:FunctionApplication>
                                 <commons:Resolver/>
                                 <semantics:Variable value="constructor"/>
@@ -1345,7 +1346,7 @@
                             <text:Text value="["/>
                             <semantics:FunctionApplication>
                                 <commons:Resolver/>
-                                <semantics:Variable value="property"/>
+                                <semantics:Variable value="expression"/>
                                 <commons:Resolver/>
                                 <commons:Resolver/>
                             </semantics:FunctionApplication>
