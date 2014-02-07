@@ -50,6 +50,7 @@ public class DynamicContentAssistVisitor extends AbstractDynamicVisitor {
 		IBindingManager bm = getBindings();
 		bm.wDef("selectedEntities", BindingManagerFactory.instance.createTuple(entity));
 		bm.wDef("primarySelectedEntity", entity);
+		bm.wDef("focusEntity", entity);
 		super.visit(EntityUtils.getCompoundRoot(entity));
 	}
 

@@ -148,7 +148,11 @@ public class E4Utils {
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
 		iterator.reset(selectedEntities);
 		if (iterator.hasNext()) {
-			bm.wDef("primarySelectedEntity", iterator.next());
+			IEntity focusEntity = iterator.next();
+			bm.wDef("primarySelectedEntity", focusEntity);
+			if (!bm.wIsSet("focusEntity"))
+				bm.wDef("focusEntity", focusEntity);
+
 			IEntityPart primarySelectedEntityPart = selectedEntityParts.get(0);
 			if (primarySelectedEntityPart instanceof IHilightable) {
 				final IHilightable hilightable = (IHilightable) primarySelectedEntityPart;
