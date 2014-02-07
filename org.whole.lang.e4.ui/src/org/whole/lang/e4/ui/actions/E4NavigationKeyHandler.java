@@ -306,6 +306,12 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 		EditPoint focusPoint = getEditPoint();
 		IGEFEditorKit editorKit = (IGEFEditorKit) focusPoint.focus.getModelEntity().wGetEditorKit();
 		IKeyHandler keyHandler = editorKit.getKeyHandler();
+		//FIXME workaround for a bug in navigation actions
+		if (focusPoint.focus instanceof ITextualEntityPart) {
+			ITextualEntityPart part = (ITextualEntityPart) focusPoint.focus;
+			CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
+					part.getCaretPosition(), true);
+		}
 		editPoint = keyHandler.findNeighbour(this, focusPoint, direction);
 
 		if (editPoint == null)
@@ -348,6 +354,9 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 		figure.translateToAbsolute(pStart);
 		EditPart next = findSibling(list, pStart, direction, epStart); // parent.findSibling(pStart, direction, epStart);
 		while (next == null) {
+			if (!(epStart.getParent() instanceof IGraphicalEntityPart))
+				return false;
+
 			epStart = (IGraphicalEntityPart) epStart.getParent();
 			if (epStart == getViewer().getContents() || epStart.getParent() == getViewer().getContents() || epStart.getParent() == null)
 				return false;

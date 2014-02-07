@@ -37,7 +37,7 @@ public class TextActionFactory extends ActionFactory {
 	public Object[][] textActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Split on caret", SplitTextualAction.class },
+				{ pf.alwaysTrue(), TextEntityDescriptorEnum.Text, SplitOnCaretAction.class },
 //				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Newline on caret", NewlineTextualAction.class },
 //				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Backspace", BackspaceTextualAction.class },
 //				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Delete", DeleteTextualAction.class },

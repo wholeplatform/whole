@@ -113,6 +113,7 @@ public interface IUIConstants {
 	public static final String REPLACE_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/replace.gif");
 	public static final String ADD_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/insert.gif");
 	public static final String WRAP_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/wrap.gif");
+	public static final String TEXT_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/text.gif");
 	public static final String IMPORT_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/import_fragment.gif");
 	public static final String SELECT_LANGUAGE_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/select_language.gif"); 
 
@@ -132,6 +133,7 @@ public interface IUIConstants {
 	public static final String COPY_ENTITY_PATH_LABEL = "Copy Entity Path";
 	public static final String COPY_AS_IMAGE_LABEL = "Copy As Image";
 	public static final String PASTE_AS_LABEL = "Paste As";
+	public static final String SPLIT_ON_CARET_LABEL = "Split on Caret";
 
 	public static final String REMOVE_LABEL = "Remove";
 	public static final String DEFAULT_LABEL = "Default";
