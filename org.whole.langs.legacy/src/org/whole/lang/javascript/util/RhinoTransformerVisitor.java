@@ -416,10 +416,10 @@ public class RhinoTransformerVisitor implements NodeVisitor {
 				jb.PrefixOperator(PrefixOperatorEnum.minus);
 				break;
 			case Token.BITNOT:
-				jb.PrefixOperator(PrefixOperatorEnum.not);
+				jb.PrefixOperator(PrefixOperatorEnum.complement);
 				break;
 			case Token.NOT:
-				jb.PrefixOperator(PrefixOperatorEnum.complement);
+				jb.PrefixOperator(PrefixOperatorEnum.not);
 				break;
 			case Token.TYPEOF:
 				jb.PrefixOperator(PrefixOperatorEnum.typeof);
