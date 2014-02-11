@@ -58,7 +58,7 @@ public class GrammarsEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(GrammarsLanguageKit.URI);
+		return languageKit.getURI().equals(GrammarsLanguageKit.URI) && !languageKit.isDynamic();
 	}
 
 	public IActionFactory getActionFactory() {

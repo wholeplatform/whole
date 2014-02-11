@@ -46,7 +46,7 @@ public class PatternsEditorKit extends AbstractEditorKit {
     }
 
     public boolean canApply(ILanguageKit languageKit) {
-        return languageKit.getURI().equals(PatternsLanguageKit.URI);
+        return languageKit.getURI().equals(PatternsLanguageKit.URI) && !languageKit.isDynamic();
     }
 
 	public IActionFactory getActionFactory() {

@@ -49,6 +49,6 @@ public class SQLTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(SQLLanguageKit.URI);
+		return languageKit.getURI().equals(SQLLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

@@ -45,7 +45,7 @@ public class SemanticsEditorKit extends AbstractEditorKit {
 	}
 	
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(SemanticsLanguageKit.URI);
+		return languageKit.getURI().equals(SemanticsLanguageKit.URI) && !languageKit.isDynamic();
 	}
 
 	public IActionFactory getActionFactory() {

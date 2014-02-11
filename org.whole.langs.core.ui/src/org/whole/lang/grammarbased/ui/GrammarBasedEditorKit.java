@@ -20,13 +20,13 @@ package org.whole.lang.grammarbased.ui;
 import org.whole.lang.grammarbased.ui.editparts.GrammarBasedPartFactory;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.editor.AbstractGenericEditorKit;
+import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 
 /**
  * @author Enrico Persiani
  */
-public class GrammarBasedEditorKit extends AbstractGenericEditorKit {
+public class GrammarBasedEditorKit extends AbstractEditorKit {
 	private static final long serialVersionUID = 1L;
 	public static final String ID = GrammarBasedEditorKit.class.getName();
 
@@ -38,10 +38,10 @@ public class GrammarBasedEditorKit extends AbstractGenericEditorKit {
 		return "Grammar based";
 	}
 	
-//	@Override
-//	public int getDefaultLevel() {
-//		return 5;
-//	}
+	@Override
+	public int getDefaultLevel() {
+		return -5;
+	}
 
 	public boolean canApply(ILanguageKit languageKit) {
 		return GrammarsRegistry.instance().containsGrammarFor(languageKit.getURI());

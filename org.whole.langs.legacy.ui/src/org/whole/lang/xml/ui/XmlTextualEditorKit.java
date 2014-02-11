@@ -53,6 +53,6 @@ public class XmlTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(XmlLanguageKit.URI);
+		return languageKit.getURI().equals(XmlLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

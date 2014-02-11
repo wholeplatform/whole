@@ -19,14 +19,14 @@ package org.whole.lang.status.ui;
 
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.status.ui.editparts.StatusPartFactory;
-import org.whole.lang.ui.editor.AbstractGenericEditorKit;
+import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
  * @author Enrico Persiani
  */
-public class StatusEditorKit extends AbstractGenericEditorKit {
+public class StatusEditorKit extends AbstractEditorKit {
 	private static final long serialVersionUID = 1L;
 	public static final String ID = StatusEditorKit.class.getName();
 

@@ -86,9 +86,6 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     public EditPart createEditPart(EditPart context, Object modelEntity) {
         this.context = context;
-        // for adaptive entities
-        if (!(modelEntity instanceof IPatternsEntity))
-            modelEntity = ((IEntity) modelEntity).wGetAdaptee(false);
         ((IPatternsEntity) modelEntity).accept(this);
         return part;
     }

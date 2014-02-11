@@ -48,7 +48,7 @@ public class TextEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(TextLanguageKit.URI);
+		return languageKit.getURI().equals(TextLanguageKit.URI) && !languageKit.isDynamic();
 	}
 
 	@Override

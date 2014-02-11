@@ -48,6 +48,6 @@ public class ActionsEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(ActionsLanguageKit.URI);
+		return languageKit.getURI().equals(ActionsLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

@@ -48,7 +48,7 @@ public class RedBlackTreeEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(RedBlackTreeLanguageKit.URI);
+		return languageKit.getURI().equals(RedBlackTreeLanguageKit.URI) && !languageKit.isDynamic();
 	}
 
 }

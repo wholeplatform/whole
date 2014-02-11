@@ -44,6 +44,6 @@ public class ScriptsEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(ScriptsLanguageKit.URI);
+		return languageKit.getURI().equals(ScriptsLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

@@ -54,7 +54,7 @@ public class XsdOutlineEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(XsdLanguageKit.URI);
+		return languageKit.getURI().equals(XsdLanguageKit.URI) && !languageKit.isDynamic();
 	}
 
 	public IActionFactory getActionFactory() {

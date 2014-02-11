@@ -15,9 +15,12 @@
 package org.whole.lang.json.ui.editparts;
 
 import org.eclipse.gef.EditPart;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.json.model.*;
+import org.whole.lang.json.model.Array;
+import org.whole.lang.json.model.IJSONEntity;
+import org.whole.lang.json.model.Name;
+import org.whole.lang.json.model.Null;
 import org.whole.lang.json.model.Object;
+import org.whole.lang.json.model.Pair;
 import org.whole.lang.json.visitors.JSONIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
@@ -31,9 +34,6 @@ public class JSONPartFactoryVisitor extends JSONIdentityDefaultVisitor implement
 
     public EditPart createEditPart(EditPart context, java.lang.Object modelEntity) {
         this.context = context;
-        // for adaptive entities
-        if (!(modelEntity instanceof IJSONEntity))
-            modelEntity = ((IEntity) modelEntity).wGetAdaptee(false);
         ((IJSONEntity) modelEntity).accept(this);
         return part;
     }

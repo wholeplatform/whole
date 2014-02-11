@@ -55,6 +55,6 @@ public class ImpDiagramEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(ImpLanguageKit.URI);
+		return languageKit.getURI().equals(ImpLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

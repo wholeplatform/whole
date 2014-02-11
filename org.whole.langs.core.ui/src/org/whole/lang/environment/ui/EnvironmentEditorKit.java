@@ -47,6 +47,6 @@ public class EnvironmentEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(EnvironmentLanguageKit.URI);
+		return languageKit.getURI().equals(EnvironmentLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }

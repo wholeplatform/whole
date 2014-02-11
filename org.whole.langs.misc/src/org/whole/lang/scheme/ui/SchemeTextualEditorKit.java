@@ -43,6 +43,6 @@ public class SchemeTextualEditorKit extends AbstractEditorKit {
 	}
 	
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(SchemeLanguageKit.URI);
+		return languageKit.getURI().equals(SchemeLanguageKit.URI) && !languageKit.isDynamic();
 	}
 }
