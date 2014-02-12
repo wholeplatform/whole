@@ -109,10 +109,12 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		return getResource(uri, loadOnDemand, contextUri) != null;
 	}
 
+	protected Set<String> uriFailureSet = new HashSet<String>();
+
 	@SuppressWarnings("unchecked")
 	public T getResource(String uri, boolean loadOnDemand, String contextUri) {
 		T resource = uriResourceMap.get(uri);
-		if (resource == null && loadOnDemand)
+		if (resource == null && loadOnDemand && !uriFailureSet.contains(uri))
 			try {
 				IPersistenceProvider pp = getURIResolverRegistry().resolve(contextUri, uri);
 				if (pp.exists()) {
@@ -120,13 +122,15 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 					resource.setResourcePersistenceProvider(pp);
 
 					uriResourceMap.put(uri, resource);
-					final boolean isSetResourceEntity = resource.getEntity() != null;
+					final boolean isValidResource = resource.getEntity() != null && resource.getName() != null;
 					uriResourceMap.remove(uri);
 
-					if (isSetResourceEntity)
+					if (isValidResource)
 						addResource(resource, false);
-					else
+					else {
 						resource = null;
+						uriFailureSet.add(uri);
+					}
 				}
 			} catch (IllegalArgumentException e) {
 			}
