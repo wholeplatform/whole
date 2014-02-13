@@ -26,7 +26,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.parsers.DataTypeParsers;
 import org.whole.lang.parsers.IDataTypeParser;
-import org.whole.lang.ui.commands.ReplaceDataCommand;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.util.DataTypeUtils;
 
@@ -62,9 +62,15 @@ public class DataEntityDirectEditPolicy extends DirectEditPolicy {
 		}
 	}
 	protected Command getDirectEditCommand(IEntity hostEntity, String value, IDataTypeParser parser) {
-		ReplaceDataCommand cmd = new ReplaceDataCommand();
-		cmd.setEntity(hostEntity);
-		cmd.setNewValue(parser.parse(hostEntity.wGetEntityDescriptor(), value));
-		return cmd;
+		ModelTransactionCommand command = new ModelTransactionCommand(hostEntity);
+		try {
+			command.begin();
+			hostEntity.wSetValue(parser.parse(hostEntity.wGetEntityDescriptor(), value));
+			command.commit();
+			return command;
+		} catch (Exception e) {
+			command.rollback();
+			return UnexecutableCommand.INSTANCE;
+		}
 	}
 }

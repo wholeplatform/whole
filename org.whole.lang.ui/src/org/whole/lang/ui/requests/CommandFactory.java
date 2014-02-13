@@ -39,7 +39,6 @@ import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.commands.CompositeAddCommand;
 import org.whole.lang.ui.commands.CompositeRemoveCommand;
 import org.whole.lang.ui.commands.ReplaceChildCommand;
-import org.whole.lang.ui.commands.UnsetFeatureCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericTraversalFactory;
@@ -57,15 +56,6 @@ public class CommandFactory implements ICommandFactory {
 	}
 
 	private Map<String, List<IPartRequestHandler>> handlersMap = new HashMap<String, List<IPartRequestHandler>>(128); // requestType -> list of RequestHandlers
-
-	protected final ICommandFactory unsetFeature = new ICommandFactory() {
-		public Command create(PartRequest request) {
-			UnsetFeatureCommand cmd = new UnsetFeatureCommand();
-			cmd.setParent(request.getParentModelEntity());
-			cmd.setChild(request.getModelEntity());
-			return cmd;
-		}
-	};
 
 	protected final ICommandFactory removeFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {

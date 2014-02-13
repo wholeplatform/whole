@@ -26,12 +26,13 @@ import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Toggle;
 import org.whole.lang.features.ui.figures.VariableFeatureRightFigure;
+import org.whole.lang.frames.factories.FramesEntityFactory;
 import org.whole.lang.frames.model.VariableFeature;
 import org.whole.lang.frames.model.VariableValue;
 import org.whole.lang.frames.model.VariableValueEnum;
 import org.whole.lang.frames.reflect.FramesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.commands.ReplaceFeatureDataCommand;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.DataTypeUtils;
 
@@ -42,21 +43,27 @@ public class VariableFeatureRightPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
 		return new VariableFeatureRightFigure(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				ReplaceFeatureDataCommand cmd = new ReplaceFeatureDataCommand();
-				cmd.setEntity(getModelEntity());
-				cmd.setFeature(FramesFeatureDescriptorEnum.value);
-				cmd.setNewValue(((Toggle) event.getSource()).isSelected() ?
-						VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED);
-				getViewer().getEditDomain().getCommandStack().execute(cmd);
+				VariableFeature entity = getModelEntity();
+				ModelTransactionCommand command = new ModelTransactionCommand(entity);
+				try {
+					command.begin();
+					entity.setValue(FramesEntityFactory.instance.createVariableValue(
+							((Toggle) event.getSource()).isSelected() ?
+									VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED));
+					command.commit();
+					getViewer().getEditDomain().getCommandStack().execute(command);
+				} catch (Exception e) {
+					command.rollback();
+				}
 			}
 		});
 	}
 
 	@Override
 	protected void propertyChangeUI(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("value")) {
+		if (evt.getPropertyName().equals(FramesFeatureDescriptorEnum.value.getName()))
 			refreshVisuals();
-		} else
+		else
 			super.propertyChangeUI(evt);
 	}
 

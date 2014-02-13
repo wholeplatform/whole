@@ -23,5 +23,7 @@ package org.whole.lang.ui.commands;
  * A marker interface used for the transitioning of legacy commands to
  * org.whole.lang.ui.commands.ModelTransactionCommand. 
  */
+//TODO replace with ModelTransactionCommand
+@Deprecated
 public interface ILegacyCommand {
 }

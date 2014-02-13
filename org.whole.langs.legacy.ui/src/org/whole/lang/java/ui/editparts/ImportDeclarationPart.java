@@ -25,12 +25,13 @@ import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Toggle;
+import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.ImportDeclaration;
 import org.whole.lang.java.model.ImportModifier;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.java.ui.figures.ImportDeclarationFigure;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.commands.ReplaceFeatureDataCommand;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.DataTypeUtils;
 
@@ -42,20 +43,30 @@ public class ImportDeclarationPart extends AbstractContentPanePart {
 		return new ImportDeclarationFigure(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
-						ReplaceFeatureDataCommand cmd = new ReplaceFeatureDataCommand();
-						cmd.setEntity(getModelEntity());
-						cmd.setFeature(JavaFeatureDescriptorEnum._static);
-						cmd.setNewValue(((Toggle) event.getSource()).isSelected());
-						getViewer().getEditDomain().getCommandStack().execute(cmd);
+						ImportDeclaration entity = getModelEntity();
+						ModelTransactionCommand command = new ModelTransactionCommand(entity);
+						try {
+							command.begin();
+							entity.setStatic(JavaEntityFactory.instance.createImportModifier(((Toggle) event.getSource()).isSelected()));
+							command.commit();
+							getViewer().getEditDomain().getCommandStack().execute(command);
+						} catch (Exception e) {
+							command.rollback();
+						}
 					}
 				},
 				new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
-						ReplaceFeatureDataCommand cmd = new ReplaceFeatureDataCommand();
-						cmd.setEntity(getModelEntity());
-						cmd.setFeature(JavaFeatureDescriptorEnum.onDemand);
-						cmd.setNewValue(((Toggle) event.getSource()).isSelected());
-						getViewer().getEditDomain().getCommandStack().execute(cmd);
+						ImportDeclaration entity = getModelEntity();
+						ModelTransactionCommand command = new ModelTransactionCommand(entity);
+						try {
+							command.begin();
+							entity.setOnDemand(JavaEntityFactory.instance.createImportModifier(((Toggle) event.getSource()).isSelected()));
+							command.commit();
+							getViewer().getEditDomain().getCommandStack().execute(command);
+						} catch (Exception e) {
+							command.rollback();
+						}
 					}
 				});
 	}
@@ -65,8 +76,7 @@ public class ImportDeclarationPart extends AbstractContentPanePart {
 	}
 
 	protected void propertyChangeUI(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("value") ||
-				evt.getPropertyName().equals(JavaFeatureDescriptorEnum._static.getName()) ||
+		if (evt.getPropertyName().equals(JavaFeatureDescriptorEnum._static.getName()) ||
 				evt.getPropertyName().equals(JavaFeatureDescriptorEnum.onDemand.getName())) {
 			refreshVisuals();
 		} else {

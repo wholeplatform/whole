@@ -26,9 +26,10 @@ import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Toggle;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.commands.ReplaceFeatureDataCommand;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.notations.flowchart.figures.SwitchControlFigure;
+import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.SwitchControl;
 import org.whole.lang.workflows.model.SwitchType;
 import org.whole.lang.workflows.model.SwitchTypeEnum;
@@ -42,12 +43,16 @@ public class SwitchControlPart extends AbstractContentPanePart {
 		return new SwitchControlFigure(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				SwitchControl entity = getModelEntity();
-				ReplaceFeatureDataCommand cmd = new ReplaceFeatureDataCommand();
-				cmd.setEntity(entity);
-				cmd.setFeature(WorkflowsFeatureDescriptorEnum.switchType);
-				cmd.setNewValue(((Toggle) event.getSource()).isSelected() ?
-						SwitchTypeEnum.inclusive : SwitchTypeEnum.exclusive);
-				getViewer().getEditDomain().getCommandStack().execute(cmd);
+				ModelTransactionCommand command = new ModelTransactionCommand(entity);
+				try {
+					command.begin();
+					entity.setSwitchType(WorkflowsEntityFactory.instance.createSwitchType(((Toggle) event.getSource()).isSelected() ?
+							SwitchTypeEnum.inclusive : SwitchTypeEnum.exclusive));
+					command.commit();
+					getViewer().getEditDomain().getCommandStack().execute(command);
+				} catch (Exception e) {
+					command.rollback();
+				}
 			}
 		});
 	}
@@ -58,12 +63,10 @@ public class SwitchControlPart extends AbstractContentPanePart {
 	}
 
 	protected void propertyChangeUI(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("value") ||
-				evt.getPropertyName().equals(WorkflowsFeatureDescriptorEnum.switchType.getName()))
+		if (evt.getPropertyName().equals(WorkflowsFeatureDescriptorEnum.switchType.getName()))
 			refreshVisuals();
-		else {
+		else
 			super.propertyChangeUI(evt);
-		}
 	}
 	protected void refreshVisuals() {
 		SwitchControl entity = getModelEntity();
