@@ -121,7 +121,21 @@
 		<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
 		</editor-->
 	</extension>
-	
+
+	<extension
+			point="org.eclipse.compare.contentMergeViewers">
+		<viewer
+				class="org.whole.lang.e4.ui.compatibility.ModelMergeViewerCreator"
+				extensions="xwl"
+				id="org.whole.lang.e4.ui.compatibility.ModelMergeViewerCreator"
+				label="Whole Model Compare">
+		</viewer>
+		<contentTypeBinding
+				contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"
+				contentMergeViewerId="org.whole.lang.e4.ui.compatibility.ModelMergeViewerCreator">
+		</contentTypeBinding>
+	</extension>
+
 	<extension
 			point="org.eclipse.ui.menus">
 	
