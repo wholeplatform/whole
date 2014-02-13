@@ -28,8 +28,6 @@ import org.whole.lang.ui.layout.ColumnLayout;
  * @author Riccardo Solmi
  */
 public class VariableFeatureDownFigure extends ContentPaneFigure {
-	private EntityToggle valueToggle;
-
 	public VariableFeatureDownFigure(ActionListener toggleListener) {
 		super(new ColumnLayout() {
 			@Override
@@ -39,13 +37,12 @@ public class VariableFeatureDownFigure extends ContentPaneFigure {
 		}.withMarginTop(-2).withMinorAlignment(Alignment.CENTER));
 		initContentPanes(1);
 
-		add(valueToggle = new EntityToggle(
-				WholeImages.CHOICE_NOT_SELECTED, WholeImages.CHOICE_SELECTED, toggleListener));
+		add(createToggleFigure(new EntityToggle(
+				WholeImages.CHOICE_NOT_SELECTED, WholeImages.CHOICE_SELECTED, toggleListener)));
 		add(createContentPane(0));
 	}
 
 	public void setVariableValue(boolean value) {
-		valueToggle.setSelected(value);
-		revalidate();
+		getFoldingToggle(0).setSelected(value);
 	}
 }

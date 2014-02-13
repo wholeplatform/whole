@@ -27,8 +27,6 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class VariableFeatureRightFigure extends ContentPaneFigure {
-	private EntityToggle valueToggle;
-
 	public VariableFeatureRightFigure(ActionListener toggleListener) {
 		super(new RowLayout() {
 			@Override
@@ -38,13 +36,12 @@ public class VariableFeatureRightFigure extends ContentPaneFigure {
 		}.withMarginLeft(-2).withMarginRight(6));
 		initContentPanes(1);
 
-		add(valueToggle = new EntityToggle(
-				WholeImages.CHOICE_NOT_SELECTED, WholeImages.CHOICE_SELECTED, toggleListener));
+		add(createToggleFigure(new EntityToggle(
+				WholeImages.CHOICE_NOT_SELECTED, WholeImages.CHOICE_SELECTED, toggleListener)));
 		add(createContentPane(0));
 	}
 
 	public void setVariableValue(boolean value) {
-		valueToggle.setSelected(value);
-		revalidate();
+		getFoldingToggle(0).setSelected(value);
 	}
 }

@@ -124,8 +124,7 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 		return createToggleFigure(paneIndex, new EntityToggle());
 	}
 	public Toggle createToggleFigure(final int paneIndex, Toggle toggle) {
-		Toggle toggleFigure = toggle;
-		toggleFigure.addActionListener(new ActionListener() {
+		toggle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				new AnimableRunnable() {
 					public void doRun() {
@@ -135,14 +134,19 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 			}
         });
 
+		setToggleIndex(paneIndex, foldingToggles.size());
+		createToggleFigure(toggle);
+
+		return toggle;
+	}
+	public Toggle createToggleFigure(Toggle toggle) {
 		if (foldingToggles == Collections.EMPTY_LIST) {
 			foldingToggles = new ArrayList<Toggle>();
 			addLayoutListener(LayoutAnimator.getDefault());
 		}
-		setToggleIndex(paneIndex, foldingToggles.size());
-		foldingToggles.add(toggleFigure);
+		foldingToggles.add(toggle);
 
-		return toggleFigure;
+		return toggle;
 	}
 	protected void toggleVisibility(int paneIndex) {
 		IFigure contentPane = getContentPane(paneIndex);

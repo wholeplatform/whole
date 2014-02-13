@@ -48,7 +48,6 @@ import org.whole.lang.ui.notations.NotationImages;
  */
 public class SwitchControlFigure extends NodeFigure {
 	protected IFigure bodyFigure;
-	private EntityToggle switchTypeToggle;
 
 	public SwitchControlFigure(ActionListener a1) {
 		initContentPanes(3);
@@ -69,7 +68,7 @@ public class SwitchControlFigure extends NodeFigure {
 		casesFigure.add(createContentPane(2));
 
 		bodyFigure = new EntityFigure(new ColumnLayout().withMinorAlignment(Alignment.CENTER).withSpacing(2));
-		bodyFigure.add(switchTypeToggle = new EntityToggle("\u00d7", "+", a1) {
+		bodyFigure.add(createToggleFigure(new EntityToggle("\u00d7", "+", a1) {
 			protected EntityLabel createLabel(String text) {
 				return new EntityLabel(text) {
 					public Color getLocalForegroundColor() {
@@ -80,7 +79,7 @@ public class SwitchControlFigure extends NodeFigure {
 					}
 				};
 			}
-		});
+		}));
 		bodyFigure.add(casesFigure);
 
 		add(topFigure);
@@ -89,8 +88,7 @@ public class SwitchControlFigure extends NodeFigure {
 	}
 
 	public void setSwitchType(boolean isInclusive) {
-		switchTypeToggle.setSelected(isInclusive);
-		revalidate();
+		getFoldingToggle(1).setSelected(isInclusive);
 	}
 
 	protected void toggleVisibility(int paneIndex) {

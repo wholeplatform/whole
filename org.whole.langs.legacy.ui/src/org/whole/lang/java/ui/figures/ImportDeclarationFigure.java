@@ -28,35 +28,29 @@ import org.whole.lang.ui.layout.RowLayout;
  *  @author Riccardo Solmi
  */
 public class ImportDeclarationFigure extends ContentPaneFigure {
-	private EntityToggle staticToggle, onDemandToggle;
-
 	public ImportDeclarationFigure(ActionListener a1, ActionListener a2) {
 		super(new RowLayout().withSpacing(0));
 		initContentPanes(1);
 		addKeyword("import");
-		add(staticToggle = new EntityToggle(" ", " static ", a1) {
-
+		add(createToggleFigure(new EntityToggle(" ", " static ", a1) {
 			protected EntityLabel createLabel(String text) {
 				return LabelFactory.createKeyword(text);
 			}
-		});
+		}));
 		add(createContentPane(0));
-		add(onDemandToggle = new EntityToggle(" ", ".*", a2) {
-
+		add(createToggleFigure(new EntityToggle(" ", ".*", a2) {
 			protected EntityLabel createLabel(String text) {
 				return LabelFactory.createIdentifier(text);
 			}
-		});
+		}));
 		addContentLighter(";");
 	}
 
 	public void setStaticModifier(boolean value) {
-		staticToggle.setSelected(value);
-		revalidate();
+		getFoldingToggle(0).setSelected(value);
 	}
 
 	public void setOnDemandModifier(boolean value) {
-		onDemandToggle.setSelected(value);
-		revalidate();
+		getFoldingToggle(1).setSelected(value);
 	}
 }
