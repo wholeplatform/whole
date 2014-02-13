@@ -75,6 +75,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.IUIProvider;
+import org.whole.lang.ui.dialogs.LazyConfirmationDialogReloader;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
 import org.whole.lang.ui.input.IModelInput;
@@ -89,6 +90,7 @@ public abstract class AbstractE4Part {
 	protected IUIProvider<IMenuManager> contextMenuProvider;
 	protected IResourceChangeListener resourceListener;
 	protected ILinkableSelectionListener selectionLinkable;
+	protected LazyConfirmationDialogReloader reloader;
 
 	@Inject IEclipseContext context;
 	@Inject ESelectionService selectionService;
@@ -153,6 +155,13 @@ public abstract class AbstractE4Part {
 			@Override
 			public void buildContextMenu(IMenuManager menuManager) {
 				contextMenuProvider.populate(menuManager);
+			}
+		});
+		
+		reloader = new LazyConfirmationDialogReloader(viewer.getControl(), new Runnable() {
+			@Override
+			public void run() {
+				viewer.setContents(modelInput, null);
 			}
 		});
 	}
@@ -304,12 +313,7 @@ public abstract class AbstractE4Part {
 						public boolean visit(IResourceDelta delta) throws CoreException {
 							if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
 									(delta.getFlags() & IResourceDelta.CONTENT) != 0) {
-								context.get(UISynchronize.class).asyncExec(new Runnable() {
-									@Override
-									public void run() {
-										viewer.setContents(modelInput, null);
-									}
-								});
+								reloadContents();
 								return false;
 							} else if (delta.getKind() == IResourceDelta.REMOVED &&
 									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0 &&
@@ -318,12 +322,7 @@ public abstract class AbstractE4Part {
 								final ModelInput newModelInput = new ModelInput(file, modelInput.getBasePersistenceKit().getId());
 								newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
 								updateModelInput(newModelInput);
-								context.get(UISynchronize.class).asyncExec(new Runnable() {
-									@Override
-									public void run() {
-										viewer.setContents(newModelInput, null);
-									}
-								});
+								reloadContents();
 								return false;
 							} else
 								return true;
@@ -332,6 +331,18 @@ public abstract class AbstractE4Part {
 				} catch (CoreException e) {
 				}
 			}
+		}
+
+		protected void reloadContents() {
+			context.get(UISynchronize.class).asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					if (viewer.isDirty())
+						reloader.schedule(modelInput.getFile());
+					else
+						viewer.setContents(modelInput, null);
+				}
+			});
 		}
 	}
 }
