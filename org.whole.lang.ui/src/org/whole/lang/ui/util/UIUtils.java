@@ -21,10 +21,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.draw2d.FigureCanvas;
-import org.eclipse.draw2d.Viewport;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ISelection;
@@ -81,16 +77,6 @@ public class UIUtils {
 		bm.wDef("selectedEntities", entities);
 		if (entities.wSize() > 0)
 			bm.wDef("primarySelectedEntity", entities.wGet(0));
-	}
-
-	//TODO convert to IEntityPartViewer.selectAndReveal(IEntity entity)
-	public static void selectAndReveal(EditPartViewer viewer, IEntity entity) {
-		IEntityPart linkPart = (IEntityPart) viewer.getEditPartRegistry().get(entity);
-
-		if (linkPart != null) {
-			viewer.reveal(linkPart);
-			viewer.select(linkPart);
-		}
 	}
 
 	public static int getButtonWidthHint(Composite composite) {

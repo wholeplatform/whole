@@ -22,7 +22,6 @@ import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.Clickable;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.notations.tree.figures.SimpleEntityTreeTableFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -49,7 +48,7 @@ public class SimpleEntityTreeTablePart extends SimpleEntityTreePart {
 						Clickable linkButton = (Clickable) event.getSource();
 						int index = (Integer) linkButton.getModel().getUserData();
 
-						UIUtils.selectAndReveal(getViewer(), getModelEntity().wGet(index));
+						getViewer().selectAndReveal(getModelEntity().wGet(index));
 					}
 				});
 	}

@@ -27,7 +27,6 @@ import org.eclipse.draw2d.Clickable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.figures.IEntityFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -67,7 +66,7 @@ public abstract class AbstractContentPaneManagerPart extends AbstractContentPane
 				Clickable linkButton = (Clickable) event.getSource();
 				int index = (Integer) linkButton.getModel().getUserData();
 
-				UIUtils.selectAndReveal(getViewer(), getModelEntity().wGet(index));
+				getViewer().selectAndReveal(getModelEntity().wGet(index));
 			}
 		};
 	}

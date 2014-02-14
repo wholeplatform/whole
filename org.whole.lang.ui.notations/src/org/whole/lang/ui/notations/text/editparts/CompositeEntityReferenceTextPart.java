@@ -28,7 +28,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.notations.text.figures.CompositeEntityReferenceTextFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -46,7 +45,7 @@ public class CompositeEntityReferenceTextPart extends AbstractContentPanePart {
 				Clickable linkButton = (Clickable) event.getSource();
 				int index = (Integer) linkButton.getModel().getUserData();
 
-				UIUtils.selectAndReveal(getViewer(), getModelEntity().wGet(index));
+				getViewer().selectAndReveal(getModelEntity().wGet(index));
 			}
 		});
 	}

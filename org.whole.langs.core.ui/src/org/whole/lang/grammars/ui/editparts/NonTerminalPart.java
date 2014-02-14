@@ -27,7 +27,6 @@ import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractDataEntityPart;
-import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.visitors.AbstractVisitor;
 import org.whole.lang.visitors.GenericTraversalFactory;
 import org.whole.lang.visitors.VisitException;
@@ -50,7 +49,7 @@ public class NonTerminalPart extends AbstractDataEntityPart {
 										throw new VisitException();
 							}}), grammar, false);
 					if (p != null)
-						UIUtils.selectAndReveal(getViewer(), p);
+						getViewer().selectAndReveal(p);
 				}
 			}
 		});

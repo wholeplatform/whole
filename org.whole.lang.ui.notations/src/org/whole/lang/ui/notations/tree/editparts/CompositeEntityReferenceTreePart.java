@@ -28,7 +28,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.notations.tree.figures.CompositeEntityReferenceTreeFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -50,7 +49,7 @@ public class CompositeEntityReferenceTreePart extends AbstractContentPanePart {
 				Clickable linkButton = (Clickable) event.getSource();
 				int index = (Integer) linkButton.getModel().getUserData();
 
-				UIUtils.selectAndReveal(getViewer(), getModelEntity().wGet(index));
+				getViewer().selectAndReveal(getModelEntity().wGet(index));
 			}
 		});
 	}

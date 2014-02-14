@@ -32,7 +32,6 @@ import org.whole.lang.frames.reflect.FramesEntityDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.visitors.GenericIdentityVisitor;
 import org.whole.lang.visitors.VisitException;
 
@@ -61,7 +60,7 @@ public class FeatureReferencePart extends AbstractContentPanePart {
 							}, frame.getVariability());
 
 					if (targetFeature != null)
-						UIUtils.selectAndReveal(getViewer(), targetFeature);
+						getViewer().selectAndReveal(targetFeature);
 				}
 			}
 		});
