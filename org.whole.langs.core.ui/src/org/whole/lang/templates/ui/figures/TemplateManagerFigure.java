@@ -35,7 +35,7 @@ public class TemplateManagerFigure extends ContentPaneFigure {
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.addKeyword("templates");
         row.add(createContentPane(0));
-        row.add(createToggleFigure(1));
+        row.add(createFoldingToggle(1));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));
         row.add(createContentPane(1));

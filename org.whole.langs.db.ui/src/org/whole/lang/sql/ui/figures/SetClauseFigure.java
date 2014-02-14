@@ -34,7 +34,7 @@ public class SetClauseFigure extends ContentPaneFigure {
         initContentPanes(2);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(2));
+        row.add(createFoldingToggle(2));
         row.addKeyword("SET");
         row.addContentLight("(");
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));

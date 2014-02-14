@@ -38,7 +38,7 @@ public class SlotFigure extends ContentPaneFigure {
 		initContentPanes(5);
 		setLayoutManager(new RowLayout().withSpacing(3).withMargin(2, 3, 2, 3));
 
-		add(createToggleFigure(5));
+		add(createFoldingToggle(5, 0, 1, 4));
 		add(createContentPane(0));
 		baseFigure = new EntityFigure(new RowLayout().withSpacing(3));
 		baseFigure.setBorder(new DoubleSquareBracketsBorder());
@@ -50,10 +50,6 @@ public class SlotFigure extends ContentPaneFigure {
 		baseFigure.add(createContentPane(3));
 		baseFigure.add(createContentPane(4));
 		add(baseFigure);
-		
-		setToggleIndex(0, 0);
-		setToggleIndex(1, 0);
-		setToggleIndex(4, 0);
 
 		clickFoldingToggle(0);
 	}

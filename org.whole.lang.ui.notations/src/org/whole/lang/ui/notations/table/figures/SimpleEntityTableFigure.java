@@ -53,7 +53,7 @@ public class SimpleEntityTableFigure extends ManagedContentPaneFigure {
 			add(typeRow);
 			return;
 		}
-		typeRow.add(createToggleFigure(0));
+		typeRow.add(createFoldingToggle(0));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.add(createVisibilityToggle());
 		add(typeRow);
@@ -66,7 +66,7 @@ public class SimpleEntityTableFigure extends ManagedContentPaneFigure {
 			featureRow.addLabel(ed.getEntityFeatureDescriptor(i).getName());
 			featureRow.add(createContentPane(i));
 			childrenFigure.add(featureRow);
-			setToggleIndex(i, 0);
+			bindFoldingToggle(0, i);
 		}
 		for (int i=childSize, size=ed.featureSize(); i<size; i++) {
 			EntityFigure featureRow = new EntityFigure(new TableRowLayout()

@@ -41,7 +41,7 @@ public class MethodDeclarationFigure extends ContentPaneFigure {
 
 		add(createContentPane(7));
 		EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
-		row.add(createToggleFigure(6));
+		row.add(createFoldingToggle(6));
 		row.add(createContentPane(0));
 		
 		typeParameters = new EntityFigure(new RowLayout().withSpacing(4));

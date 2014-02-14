@@ -63,8 +63,7 @@ public class CompositeEntityTreeFigure extends NodeFigure {
 				.withMinorAlignment(Alignment.CENTER)
 				.withMajorAlignment(isRightToLeft() ? Alignment.TRAILING : Alignment.LEADING));
 		
-		mainToggle = createToggleFigure(0,
-				new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE));
+		mainToggle = createFoldingToggle(new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE), 0);
 
 		compositeFigure = new CompositeFigure(false);
 		compositeFigure.setBorder(null);

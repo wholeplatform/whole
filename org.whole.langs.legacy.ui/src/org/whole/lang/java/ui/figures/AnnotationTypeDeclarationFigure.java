@@ -34,7 +34,7 @@ public class AnnotationTypeDeclarationFigure extends ContentPaneFigure {
         EntityFigure row;
         add(createContentPane(0));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3));
         row.add(createContentPane(1));
         row.addKeyword("@interface");
         row.add(createContentPane(2));

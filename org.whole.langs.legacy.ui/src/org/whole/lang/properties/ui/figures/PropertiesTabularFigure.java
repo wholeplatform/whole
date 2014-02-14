@@ -49,7 +49,7 @@ public class PropertiesTabularFigure extends ContentPaneFigure {
 		node = new EntityFigure(new ColumnLayout().withMargin(0, 2, 5, 2));
 		
 		header = new EntityFigure(new RowLayout().withSpacing(8).withMargin(6, 4, 4, 12));
-		header.add(createToggleFigure(2));
+		header.add(createFoldingToggle(2));
 		header.add(createContentPane(1));
 
 		node.add(header);

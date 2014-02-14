@@ -36,7 +36,7 @@ public class CommentFigure extends ContentPaneFigure {
 		EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
 		row.addContentLighter("/*");
 		row.add(createContentPane(0));
-		row.add(createToggleFigure(1));
+		row.add(createFoldingToggle(1));
 		add(row);
 
 		body = new EntityFigure(new ColumnLayout());

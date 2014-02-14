@@ -32,7 +32,7 @@ public class CDataSectOutlineFigure extends OutlineCompositeNodeFigure {
 		setLayoutManager(new RowLayout().withMarginTop(5).withMinorAlignment(Alignment.LEADING).withSpacing(4));
 		initContentPanes(1);
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		addLabel(NotationImages.XML_CDATASECT16);
 		CompositeFigure composite = new CompositeFigure(false);
 		composite.getLayoutManager().withMarginTop(0);

@@ -35,7 +35,7 @@ public class DerivationPointFigure extends ContentPaneFigure {
 		setLayoutManager(new RowLayout().withSpacing(4)
 				.withMargin(CONTENT_MARGIN, CONTENT_MARGIN, CONTENT_MARGIN+2, CONTENT_MARGIN));
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		add(createContentPane(0));
 		add(createContentPane(1));
 

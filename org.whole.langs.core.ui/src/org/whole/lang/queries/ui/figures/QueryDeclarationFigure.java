@@ -33,7 +33,7 @@ public class QueryDeclarationFigure extends ContentPaneFigure {
 		initContentPanes(3);
 
 		EntityFigure row1 = new EntityFigure(new RowLayout().withSpacing(2));
-		row1.add(createToggleFigure(2));
+		row1.add(createFoldingToggle(2));
 		row1.addKeyword("query ");
 		row1.add(createContentPane(0));
 

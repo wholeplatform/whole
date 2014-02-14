@@ -37,8 +37,7 @@ public abstract class ManagedContentPaneFigure extends ContentPaneFigure {
 	}
 
 	protected Toggle createVisibilityToggle() {
-		return createToggleFigure(1,
-				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND));
+		return createFoldingToggle(new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), 1);
 	}
 	protected void initVisibilityToggle() {
 		if (visibilityManager.isChildrenVisibilityInitiallyEnabled())
@@ -60,7 +59,7 @@ public abstract class ManagedContentPaneFigure extends ContentPaneFigure {
 	public List<Toggle> getFoldingToggles(IFigure figure) {
 		List<Toggle> toggles = super.getFoldingToggles(figure);
 
-		int paneIndex = containingContentPaneIndex(figure);
+		int paneIndex = ancestorOrSelfContentPaneIndexOf(figure);
 		if (paneIndex > 0 && !visibilityManager.isChildVisible(paneIndex))
 			toggles.add(getVisibilityToggle());
 

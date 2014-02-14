@@ -60,35 +60,36 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	public List<Toggle> getFoldingToggles(IFigure figure) {
 		List<Toggle> result = new ArrayList<Toggle>(2);
 
-		int paneIndex = containingContentPaneIndex(figure);
+		int paneIndex = ancestorOrSelfContentPaneIndexOf(figure);
 		if (paneIndex == -1)
 			return result;
 
-		int toggleIndex = toggleIndex(paneIndex);
+		int toggleIndex = toggleIndexOf(paneIndex);
 		if (toggleIndex == -1)
 			return result;
 
 		result.add(getFoldingToggle(toggleIndex));
 		return result;
 	}
-	
-	protected int toggleIndex(int paneIndex) {
+
+	protected int toggleIndexOf(int paneIndex) {
 		return toggleIndexOfContentPane == null ? -1 : toggleIndexOfContentPane[paneIndex];
 	}
-	protected void setToggleIndex(int paneIndex, int toggleIndex) {
-		if (toggleIndexOfContentPane == null) {
+	protected void bindFoldingToggle(int toggleIndex, int... paneIndexes) {
+		if (toggleIndexOfContentPane == null && paneIndexes.length > 0) {
 			toggleIndexOfContentPane = new int[contentPanes.length];
 			Arrays.fill(toggleIndexOfContentPane, -1);
 		}
-		if (paneIndex >= 0 && paneIndex < toggleIndexOfContentPane.length)
-			toggleIndexOfContentPane[paneIndex] = toggleIndex;
+		for (int paneIndex : paneIndexes)
+			if (paneIndex >= 0 && paneIndex < toggleIndexOfContentPane.length)
+				toggleIndexOfContentPane[paneIndex] = toggleIndex;
 	}
 
-	protected int containingContentPaneIndex(IFigure figure) {
+	protected int ancestorOrSelfContentPaneIndexOf(IFigure figure) {
 		if (contentPanes == null)
 			return -1;
 		do {
-			int index = contentPaneIndex(figure);
+			int index = contentPaneIndexOf(figure);
 			if (index >= 0)
 				return index;
 			
@@ -96,7 +97,7 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 		} while (figure != this);
 		return -1;
 	}
-	protected int contentPaneIndex(IFigure contentPane) {
+	protected int contentPaneIndexOf(IFigure contentPane) {
 		for (int i=0; i<contentPanes.length; i++)
 			if (contentPanes[i] == contentPane)
 				return i;
@@ -120,36 +121,37 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 //		}
 //	}
 
-	public Toggle createToggleFigure(final int paneIndex) {
-		return createToggleFigure(paneIndex, new EntityToggle());
+	public Toggle createFoldingToggle(int paneIndexOrTag, int... paneIndexes) {
+		return createFoldingToggle(new EntityToggle(), paneIndexOrTag, paneIndexes);
 	}
-	public Toggle createToggleFigure(final int paneIndex, Toggle toggle) {
+	public Toggle createFoldingToggle(Toggle toggle, final int paneIndexOrTag, int... paneIndexes) {
 		toggle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				new AnimableRunnable() {
 					public void doRun() {
-						toggleVisibility(paneIndex);
+						toggleVisibility(paneIndexOrTag);
 					}
 				}.syncExec();
 			}
         });
 
-		setToggleIndex(paneIndex, foldingToggles.size());
-		createToggleFigure(toggle);
+		createActionableFoldingToggle(toggle, paneIndexes);
+		bindFoldingToggle(foldingToggles.size()-1, paneIndexOrTag);
 
 		return toggle;
 	}
-	public Toggle createToggleFigure(Toggle toggle) {
+	public Toggle createActionableFoldingToggle(Toggle toggle, int... paneIndexes) {
 		if (foldingToggles == Collections.EMPTY_LIST) {
 			foldingToggles = new ArrayList<Toggle>();
 			addLayoutListener(LayoutAnimator.getDefault());
 		}
 		foldingToggles.add(toggle);
+		bindFoldingToggle(foldingToggles.size()-1, paneIndexes);
 
 		return toggle;
 	}
-	protected void toggleVisibility(int paneIndex) {
-		IFigure contentPane = getContentPane(paneIndex);
+	protected void toggleVisibility(int paneIndexOrTag) {
+		IFigure contentPane = getContentPane(paneIndexOrTag);
 		contentPane.setVisible(!contentPane.isVisible());
 	}
 

@@ -50,7 +50,7 @@ public class SelectFigure extends ContentPaneFigure {
 
 		EntityFigure row3 = new EntityFigure(new RowLayout().withSpacing(4));
 		fig[2] = row3.addKeyword("where");
-		row3.add(createToggleFigure(2));
+		row3.add(createFoldingToggle(2));
 		row3.add(createContentPane(2));
 
 		EntityFigure row4 = new EntityFigure(new RowLayout().withSpacing(6));

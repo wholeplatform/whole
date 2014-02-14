@@ -61,13 +61,7 @@ public class ReusePointFigure extends ContentPaneFigure {
 		add(stackFigure);
 		Toggle toggleFigure = new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND);
 		toggleFigure.setBorder(new MarginBorder(1, 2, 1, 3));
-		add(createToggleFigure(5, toggleFigure));
-
-		setToggleIndex(0, 0);
-		setToggleIndex(1, 0);
-		setToggleIndex(2, 0);
-		setToggleIndex(3, 0);
-//		setToggleIndex(4, 0);
+		add(createFoldingToggle(toggleFigure, 5, 0, 1, 2, 3));
 
 		clickFoldingToggle(0);
 	}

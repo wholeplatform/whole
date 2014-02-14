@@ -33,7 +33,7 @@ public class PIOutlineFigure extends OutlineCompositeNodeFigure {
 		initContentPanes(2);
 
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(4));
-		topFigure.add(createToggleFigure(1));
+		topFigure.add(createFoldingToggle(1));
 		topFigure.addLabel(NotationImages.XML_PI16);
 		topFigure.add(createContentPane(0));
 

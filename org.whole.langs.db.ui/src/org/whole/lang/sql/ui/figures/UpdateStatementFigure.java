@@ -35,7 +35,7 @@ public class UpdateStatementFigure extends ContentPaneFigure {
         initContentPanes(5);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(5));
+        row.add(createFoldingToggle(5, 1, 2, 3, 4));
         row.addKeyword("UPDATE ");
         row.add(createContentPane(0));
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));
@@ -75,11 +75,6 @@ public class UpdateStatementFigure extends ContentPaneFigure {
         row11.addContentLight("(");
         row11.add(createContentPane(4));
         row11.addContentLight(")");
-
-		setToggleIndex(1, 0);
-		setToggleIndex(2, 0);
-		setToggleIndex(3, 0);
-		setToggleIndex(4, 0);
     }
 
 	@Override

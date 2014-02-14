@@ -31,7 +31,7 @@ public class CommentOutlineFigure extends OutlineCompositeNodeFigure {
 		setLayoutManager(new RowLayout().withMinorAlignment(Alignment.LEADING).withSpacing(4));
 		initContentPanes(1);
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		addLabel(NotationImages.XML_COMMENT16);
 		add(createContentPane(0));
 	}

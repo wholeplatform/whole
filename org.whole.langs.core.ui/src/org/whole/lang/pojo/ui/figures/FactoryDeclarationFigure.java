@@ -39,7 +39,7 @@ public class FactoryDeclarationFigure extends ContentPaneFigure {
         row.add(createContentPane(0));
         row.addKeyword("prefix");
         row.add(createContentPane(1));
-        row.add(createToggleFigure(2));
+        row.add(createFoldingToggle(2));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));
         row.add(createContentPane(2));

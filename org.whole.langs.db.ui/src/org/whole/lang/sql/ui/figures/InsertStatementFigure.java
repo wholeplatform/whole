@@ -34,7 +34,7 @@ public class InsertStatementFigure extends ContentPaneFigure {
         initContentPanes(3);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3, 2));
         row.addKeyword("INSERT INTO");
         row.add(createContentPane(0));
         row.addContentLight("(");
@@ -46,8 +46,6 @@ public class InsertStatementFigure extends ContentPaneFigure {
         row2.addContentLight("(");
         row2.add(createContentPane(2));
         row2.addContentLight(")");
-
-		setToggleIndex(2, 0);
     }
 
 	@Override

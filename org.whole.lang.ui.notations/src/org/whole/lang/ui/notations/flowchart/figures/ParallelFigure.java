@@ -48,7 +48,7 @@ public class ParallelFigure extends NodeFigure {
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(2));
 		topFigure.addLabel(NotationImages.PARALLEL16);
 		topFigure.add(createContentPane(0));
-		topFigure.add(createToggleFigure(1));
+		topFigure.add(createFoldingToggle(1));
 
 		add(topFigure);
 		add(createContentPane(1));

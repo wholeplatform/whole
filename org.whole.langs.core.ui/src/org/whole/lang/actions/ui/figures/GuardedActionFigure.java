@@ -39,7 +39,7 @@ public class GuardedActionFigure extends ContentPaneFigure {
 		initContentPanes(3);
 
 		EntityFigure row1 = new EntityFigure(new RowLayout().withSpacing(5).withMarginLeft(2));
-		row1.add(fig[0] = createToggleFigure(3));
+		row1.add(fig[0] = createFoldingToggle(3, 1, 2));
 		row1.add(createContentPane(0));
 
 		row2 = new EntityFigure(new RowLayout().withSpacing(8).withMarginLeft(16));
@@ -53,10 +53,7 @@ public class GuardedActionFigure extends ContentPaneFigure {
 		add(row1);
 		add(row2);
 		add(row3);
-		
-		setToggleIndex(1, 0);
-		setToggleIndex(2, 0);
-		
+
 		clickFoldingToggle(0);
 	}
 

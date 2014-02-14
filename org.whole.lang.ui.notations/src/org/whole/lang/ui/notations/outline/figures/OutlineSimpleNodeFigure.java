@@ -49,12 +49,12 @@ public class OutlineSimpleNodeFigure extends AbstractOutlineSimpleNodeFigure {
 		featuresContainer.setLayoutManager(layout);
 		add(featuresContainer);
 
-		setToggleIndex(0, -1);
+		bindFoldingToggle(-1, 0);
 		int startingIndex = (label == null ? 1 : 0); // check if content pane for the label feature already created
 		for (int i=startingIndex; i<features.length; i++) {
 			IEntityFigure featureFigure = new OutlineCompositeNodeFigure(true, null, features[i].getName());
 			featuresContainer.add(createNestedContentPanes(i, featureFigure));
-			setToggleIndex(i, 0);
+			bindFoldingToggle(0, i);
 		}
 	}
 

@@ -32,7 +32,7 @@ public class FigureDeclarationFigure extends ContentPaneFigure {
         initContentPanes(2);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(1));
+        row.add(createFoldingToggle(1));
         row.addKeyword("figure");
         row.add(createContentPane(0));
         row.addLiteral(":");

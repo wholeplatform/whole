@@ -36,7 +36,7 @@ public class ConstructorDeclarationFigure extends ContentPaneFigure {
 		EntityFigure row;
 		add(createContentPane(0));
 		add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-		row.add(createToggleFigure(6));
+		row.add(createFoldingToggle(6));
 		row.add(createContentPane(1));
 		f1 = row.addContentLight("<");
 		row.add(createContentPane(2));

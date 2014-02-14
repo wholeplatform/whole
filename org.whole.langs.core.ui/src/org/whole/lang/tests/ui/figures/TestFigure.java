@@ -40,7 +40,7 @@ public class TestFigure extends ContentPaneFigure {
         initContentPanes(3);
 
         add(headerFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2,4,2,4)));
-        headerFigure.add(createToggleFigure(2));
+        headerFigure.add(createFoldingToggle(2));
 
         EntityFigure titleFigure = new EntityFigure(new OverLayout());
         titleFigure.add(createContentPane(1));

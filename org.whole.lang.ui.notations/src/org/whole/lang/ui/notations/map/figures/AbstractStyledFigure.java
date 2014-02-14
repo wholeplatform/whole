@@ -54,7 +54,7 @@ public abstract class AbstractStyledFigure extends NodeFigure implements IStyled
 
 		shapeFigure = new EntityFigure(new RowLayout().withSpacing(4));
 		shapeFigure.add(createContentPane(0));
-		shapeFigure.add(createToggleFigure(1));
+		shapeFigure.add(createFoldingToggle(1));
 		add(shapeFigure);
 		add(createContentPane(1));		
 	}

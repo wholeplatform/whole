@@ -38,7 +38,7 @@ public class LibraryFigure extends ContentPaneFigure {
         row.add(createContentPane(1));
         row.addKeyword("language");
         row.add(createContentPane(2));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));
         row.add(createContentPane(3));

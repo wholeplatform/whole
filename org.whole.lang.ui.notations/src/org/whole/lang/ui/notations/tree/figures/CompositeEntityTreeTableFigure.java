@@ -49,7 +49,7 @@ public class CompositeEntityTreeTableFigure extends NodeFigure {
 				);
 		initContentPanes(1);
 
-		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createToggleFigure(0));
+		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createFoldingToggle(0));
 
 		EntityDescriptor<?> elementEntityDescriptor = ed.getEntityDescriptor(0);
 		//max is a workaround for data and composite entities

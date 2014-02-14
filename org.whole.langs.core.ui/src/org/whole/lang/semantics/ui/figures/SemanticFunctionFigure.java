@@ -32,7 +32,7 @@ public class SemanticFunctionFigure extends ContentPaneFigure {
 		initContentPanes(3);
 
 		EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
-		row.add(createToggleFigure(2));
+		row.add(createFoldingToggle(2));
 		row.add(createContentPane(0));
 		row.addContentLight(":");
 		row.add(createContentPane(1));

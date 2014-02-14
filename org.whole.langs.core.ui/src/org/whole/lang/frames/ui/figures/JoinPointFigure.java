@@ -59,8 +59,7 @@ public class JoinPointFigure extends ContentPaneFigure {
 			};
 		}.withMinorAlignment(Alignment.LEADING)
 			.withSpacing(2).withMarginTop(1).withMarginBottom(1).withMarginRight(3));
-		headerFigure.add(createToggleFigure(0,
-				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND)));
+		headerFigure.add(createFoldingToggle(new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), 0));
 		headerFigure.add(createContentPane(0));
 
 		add(createContentPane(1));

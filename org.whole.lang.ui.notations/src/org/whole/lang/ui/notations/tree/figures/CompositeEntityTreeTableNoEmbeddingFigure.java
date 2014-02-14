@@ -50,7 +50,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 				);
 		initContentPanes(1);
 
-		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createToggleFigure(0));
+		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createFoldingToggle(0));
 
 		add(titleFigure);
 		add(createContentPane(0, createCompositeFigure()));

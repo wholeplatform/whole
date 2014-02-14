@@ -32,7 +32,7 @@ public class ProductionFigure extends ContentPaneFigure {
 		super(new RowLayout());
 		initContentPanes(3);
 
-		add(createToggleFigure(1));
+		add(createFoldingToggle(1));
 		add(createContentPane(0, new MarginBorder(0,4,0,0)));
 		addContentLight(":");
 		add(createContentPane(2, new MarginBorder(0,0,0,4)));

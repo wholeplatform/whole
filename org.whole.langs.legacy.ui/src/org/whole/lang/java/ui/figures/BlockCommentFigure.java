@@ -40,7 +40,7 @@ public class BlockCommentFigure extends ContentPaneFigure {
 		EntityFigure row;
 
 		add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-		row.add(createToggleFigure(0));
+		row.add(createFoldingToggle(0));
 		row.addContentLighter(javadocStyle ? "/**" : "/*");
 
 		add(createContentPane(0, new MarginBorder(0,16,0,0)));

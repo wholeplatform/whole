@@ -41,7 +41,7 @@ public class XsiSimpleElementNodeFigure extends AbstractOutlineSimpleNodeFigure 
 		if (attributes+contents == 0)
 			getFoldingToggle(0).setVisible(false);
 		else
-			setToggleIndex(0, -1);
+			bindFoldingToggle(-1, 0);
 
 		EntityFigure labelContainer = getLabelFigure();
 		labelContainer.add(this.label = label);
@@ -51,7 +51,7 @@ public class XsiSimpleElementNodeFigure extends AbstractOutlineSimpleNodeFigure 
 		IFigure contentsFigure = getContentsFigure();
 		for (int i=attributes; i<attributes+contents; i++) {
 			contentsFigure.add(createContentPane(i, new MarginBorder(4, 0, 0, 0)));
-			setToggleIndex(i, 0);
+			bindFoldingToggle(0, i);
 		}
 		add(contentsFigure);
 	}

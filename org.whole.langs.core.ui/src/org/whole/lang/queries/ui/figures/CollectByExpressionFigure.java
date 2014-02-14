@@ -35,7 +35,7 @@ public class CollectByExpressionFigure extends ContentPaneFigure {
 		EntityFigure collectFigure = new EntityFigure(new SubLayout());
 		collectFigure.addLabel(label).setFont(WholeUIPlugin.getOpenSymbolLargeFont());
 		EntityFigure subFigure = new EntityFigure(new RowLayout().withSpacing(2));
-		subFigure.add(createToggleFigure(0));
+		subFigure.add(createFoldingToggle(0));
 		subFigure.add(createContentPane(0));
 		collectFigure.add(subFigure);
 		add(collectFigure);

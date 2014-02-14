@@ -32,13 +32,13 @@ public class ImportDeclarationFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(0));
 		initContentPanes(1);
 		addKeyword("import");
-		add(createToggleFigure(new EntityToggle(" ", " static ", a1) {
+		add(createActionableFoldingToggle(new EntityToggle(" ", " static ", a1) {
 			protected EntityLabel createLabel(String text) {
 				return LabelFactory.createKeyword(text);
 			}
 		}));
 		add(createContentPane(0));
-		add(createToggleFigure(new EntityToggle(" ", ".*", a2) {
+		add(createActionableFoldingToggle(new EntityToggle(" ", ".*", a2) {
 			protected EntityLabel createLabel(String text) {
 				return LabelFactory.createIdentifier(text);
 			}

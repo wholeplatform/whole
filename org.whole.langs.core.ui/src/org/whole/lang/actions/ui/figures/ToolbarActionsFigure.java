@@ -85,7 +85,7 @@ public class ToolbarActionsFigure extends ContentPaneFigure {
 	//TODO remove
 	protected EntityFigure createActionRow(int paneIndex) {
 		EntityFigure row = new EntityFigure(new RowLayout().withSpacing(4));
-		row.add(createToggleFigure(paneIndex));
+		row.add(createFoldingToggle(paneIndex));
 		row.add(createContentPane(paneIndex));
 		return row;
 	}

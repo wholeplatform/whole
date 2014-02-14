@@ -43,7 +43,7 @@ public class PojoDeclarationFigure extends ContentPaneFigure {
         row.add(createContentPane(2));
         row.addKeyword("extends");
         row.add(createContentPane(3));
-        row.add(createToggleFigure(6));
+        row.add(createFoldingToggle(6));
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));
         row2.add(new EntityLabel("    "));
         row2.add(createContentPane(4));

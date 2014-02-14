@@ -36,7 +36,7 @@ public class VariableFeatureRightFigure extends ContentPaneFigure {
 		}.withMarginLeft(-2).withMarginRight(6));
 		initContentPanes(1);
 
-		add(createToggleFigure(new EntityToggle(
+		add(createActionableFoldingToggle(new EntityToggle(
 				WholeImages.CHOICE_NOT_SELECTED, WholeImages.CHOICE_SELECTED, toggleListener)));
 		add(createContentPane(0));
 	}

@@ -42,8 +42,7 @@ public class DataEntityTreeFigure extends NodeFigure {
 	public DataEntityTreeFigure(EntityDescriptor<?> ed, boolean isRightToLeft) {
 		this.isRightToLeft = isRightToLeft;
 		initContentPanes(1);
-		mainToggle = createToggleFigure(0,
-				new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE));
+		mainToggle = createFoldingToggle(new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE), 0);
 		
 		IFigure contentPane = createContentPane(0, LabelFactory.createLiteral());
 		contentPane.setBorder(new MarginBorder(0, SPACING, 0, SPACING));

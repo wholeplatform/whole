@@ -38,7 +38,7 @@ public class ProductionInlineFigure extends ContentPaneFigure {
 		initContentPanes(3);
 		
 		EntityFigure row = new EntityFigure(new RowLayout());
-		row.add(createToggleFigure(0));
+		row.add(createFoldingToggle(0));
 		row.add(createContentPane(1, new MarginBorder(0,2,0,0)));
 		row.addContentLight(":");
 		row.add(createContentPane(2));

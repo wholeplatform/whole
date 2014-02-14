@@ -47,7 +47,7 @@ public class CompositeEntityReferenceColumnFigure extends ContentPaneFigure {
 		this.linkListener = linkListener;
 
 		typeRow = new EntityFigure(new RowLayout().withMargin(1, 3, 1, 3).withSpacing(4));
-		typeRow.add(createToggleFigure(0));
+		typeRow.add(createFoldingToggle(0));
 		typeRow.addDeclaration(ed.getName());
 		add(typeRow);
 

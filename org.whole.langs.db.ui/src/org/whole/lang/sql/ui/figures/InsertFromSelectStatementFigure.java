@@ -34,7 +34,7 @@ public class InsertFromSelectStatementFigure extends ContentPaneFigure {
         initContentPanes(3);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3, 2));
         row.addKeyword("INSERT INTO");
         row.add(createContentPane(0));
         row.addContentLight("(");
@@ -43,8 +43,6 @@ public class InsertFromSelectStatementFigure extends ContentPaneFigure {
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));
         row2.add(new EntityLabel("    "));
         row2.add(createContentPane(2));
-
-		setToggleIndex(2, 0);
     }
 
 

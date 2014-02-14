@@ -40,7 +40,7 @@ public class EnumDeclarationFigure extends ContentPaneFigure {
         row.add(createContentPane(1));
         row.addKeyword("as");
         row.add(createContentPane(2));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));
         row.add(createContentPane(3));

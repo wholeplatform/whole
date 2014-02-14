@@ -37,7 +37,7 @@ public class PropertiesFigure extends ContentPaneFigure {
 		header.add(createContentPane(0));
 		header.addKeyword("defaults");
 		header.add(createContentPane(1));
-		header.add(createToggleFigure(2));
+		header.add(createFoldingToggle(2));
 
 		add(header);
 		add(createContentPane(2, new MarginBorder(0,24,0,0)));

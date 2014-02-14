@@ -42,7 +42,7 @@ public class IterationPointFigure extends ContentPaneFigure {
 			.withSpacing(8).withMargin(6, 8, 4, 8));
 		headerFigure.addLabel(NotationImages.PACKAGE_OBJ);
 		headerFigure.add(createContentPane(0));
-		headerFigure.add(createToggleFigure(1));
+		headerFigure.add(createFoldingToggle(1));
 
 		add(headerFigure);
 		add(createContentPane(1, new MarginBorder(8)));

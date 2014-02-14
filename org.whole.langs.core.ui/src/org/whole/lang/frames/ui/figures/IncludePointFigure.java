@@ -58,10 +58,7 @@ public class IncludePointFigure extends ContentPaneFigure {
 		add(stackFigure);
 		Toggle toggleFigure = new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND);
 		toggleFigure.setBorder(new MarginBorder(1, 2, 1, 3));
-		add(createToggleFigure(2, toggleFigure));
-
-		setToggleIndex(0, 0);
-//		setToggleIndex(1, 0);
+		add(createFoldingToggle(toggleFigure, 2, 0));
 
 		clickFoldingToggle(0);
 	}

@@ -49,7 +49,7 @@ public abstract class AbstractOutlineSimpleNodeFigure extends NodeFigure {
 		initContentPanes(contentPanes);
 
 		labelFigure = new EntityFigure(new RowLayout().withSpacing(4));
-		labelFigure.add(createToggleFigure(0));
+		labelFigure.add(createFoldingToggle(0));
 		add(labelFigure);
 
 		if (!startOpened)

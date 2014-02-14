@@ -28,7 +28,7 @@ public class EntityTemplateInlineFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(4));
 		initContentPanes(2);
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		add(createContentPane(0));
 		add(createContentPane(1));
 		

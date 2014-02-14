@@ -68,8 +68,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 				.withSpacing(DrawUtils.SPACING + DrawUtils.EDGE_SPACING * featureNum)
 				.withReversedChildren(isRightToLeft()));
 
-		mainToggle = createToggleFigure(featureNum,
-				new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE));
+		mainToggle = createFoldingToggle(new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE), featureNum);
 		
 		IFigure outline = new EntityFigure(new RoundedTitleTabLayout().withRightToLeft(isRightToLeft())) {
 			@Override
@@ -160,8 +159,8 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 		return visibilityToggleIndex;
 	}
 	protected Toggle createVisibilityToggle(int toggleIndex) {
-		return createToggleFigure(visibilityToggleIndex = toggleIndex,
-				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND));
+		return createFoldingToggle(
+				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), visibilityToggleIndex = toggleIndex);
 	}
 	protected void initVisibilityToggle() {
 		if (visibilityManager!=null && visibilityManager.isChildrenVisibilityInitiallyEnabled())
@@ -170,7 +169,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 	public void setContentPaneVisible(int paneIndex, boolean visible) {
 		((IFigure) features.getChildren().get(paneIndex)).setVisible(visible);
 		if (((IFigure) getContentPaneContainer().getChildren().get(paneIndex)).isVisible() ^ visible)
-			clickFoldingToggle(toggleIndex(paneIndex));
+			clickFoldingToggle(toggleIndexOf(paneIndex));
 	}
 	protected IFigure getContentPaneContainer() {
 		return contents;
@@ -181,7 +180,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 		List<Toggle> toggles = super.getFoldingToggles(figure);
 		toggles.add(getFoldingToggle(0));
 
-		int paneIndex = containingContentPaneIndex(figure);
+		int paneIndex = ancestorOrSelfContentPaneIndexOf(figure);
 		if (paneIndex > 0 && !visibilityManager.isChildVisible(paneIndex))
 			toggles.add(getFoldingToggle(1));
 
@@ -228,8 +227,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 			
 			feature.addLabel(fd.getName());
 
-			featureToggles[i] = createToggleFigure(i,
-					new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE));
+			featureToggles[i] = createFoldingToggle(new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE), i);
 			feature.add(featureToggles[i]);
 			featuresOutline.add(feature);
 		}

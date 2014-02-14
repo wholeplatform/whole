@@ -48,7 +48,7 @@ public class EntityOutlineLeftFigure extends ContentPaneFigure {
 
 		EntityFigure typeRow = new EntityFigure(new RowLayout().withSpacing(4));
 		typeRow.add(createContentPane(0));
-		typeRow.add(createToggleFigure(1));
+		typeRow.add(createFoldingToggle(1));
 		add(typeRow);
 
 		add(createContentPane(1, new MarginBorder(5, 0, 0, 20)));

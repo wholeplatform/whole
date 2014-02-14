@@ -32,7 +32,7 @@ public class VariablePointFigure extends ContentPaneFigure {
 		initContentPanes(2);
 		setLayoutManager(new RowLayout().withSpacing(3).withMargin(0, 3, 0, 3));
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		add(createContentPane(0));
 		add(createContentPane(1));
 

@@ -52,7 +52,7 @@ public class OutlineCompositeNodeFigure extends NodeFigure {
 		initContentPanes(label == null ? 2 : 1);
 
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(4));
-		topFigure.add(createToggleFigure(label == null ? 1 : 0));
+		topFigure.add(createFoldingToggle(label == null ? 1 : 0));
 
 		if (label == null) {
 			topFigure.addLabel(image);

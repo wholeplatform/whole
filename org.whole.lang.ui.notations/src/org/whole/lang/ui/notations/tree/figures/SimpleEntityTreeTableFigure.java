@@ -60,7 +60,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 		initContentPanes(childSize);
 
 		titleFigure = TreeNotationUtils.createTitleFigure(
-				ed.getName(), createToggleFigure(255));
+				ed.getName(), createFoldingToggle(255));
 
 		tableFigure = createTableFigure(2);
 		tableFigure.getLayoutManager().withColumnAlignment(0, Alignment.TRAILING);
@@ -103,7 +103,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 			if (embeddingStrategy.embedChild(ed, i))
 				row.add(createContentPane(i));
 			else {
-				row.add(createToggleFigure(i));
+				row.add(createFoldingToggle(i));
 				contentsFigure.add(createContentPane(i));
 			}
 			tableFigure.add(row);

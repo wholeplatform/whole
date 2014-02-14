@@ -34,7 +34,7 @@ public class DeleteStatementFigure extends ContentPaneFigure {
         initContentPanes(3);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(3));
+        row.add(createFoldingToggle(3, 1, 2));
         row.addKeyword("DELETE ");
         row.add(createContentPane(0));
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));
@@ -53,9 +53,6 @@ public class DeleteStatementFigure extends ContentPaneFigure {
         row5.addContentLight("(");
         row5.add(createContentPane(2));
         row5.addContentLight(")");
-
-		setToggleIndex(1, 0);
-		setToggleIndex(2, 0);
     }
 
 	@Override

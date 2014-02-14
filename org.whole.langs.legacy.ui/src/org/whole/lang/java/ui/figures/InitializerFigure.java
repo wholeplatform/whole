@@ -34,7 +34,7 @@ public class InitializerFigure extends ContentPaneFigure {
         EntityFigure row;
         add(createContentPane(0));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(1));
+        row.add(createFoldingToggle(1));
         row.addContentLighter("{");
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));

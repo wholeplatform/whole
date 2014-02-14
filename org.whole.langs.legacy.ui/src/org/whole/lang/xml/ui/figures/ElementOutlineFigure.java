@@ -34,7 +34,7 @@ public class ElementOutlineFigure extends OutlineCompositeNodeFigure {
 		initContentPanes(3);
 
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(4));
-		topFigure.add(createToggleFigure(2));
+		topFigure.add(createFoldingToggle(2));
 		topFigure.addLabel(NotationImages.XML_TAG16);
 		topFigure.add(createContentPane(0));
 		topFigure.add(createContentPane(1));

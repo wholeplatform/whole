@@ -36,7 +36,7 @@ public class CompositeEntityTextFigure extends ContentPaneFigure {
 		initContentPanes(1);
 
 		EntityFigure typeRow = new EntityFigure(new RowLayout().withSpacing(3));
-		typeRow.add(createToggleFigure(0));
+		typeRow.add(createFoldingToggle(0));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.addContentLight("[");
 		typeRow.add(delimiter1 = addContentLight("]"));

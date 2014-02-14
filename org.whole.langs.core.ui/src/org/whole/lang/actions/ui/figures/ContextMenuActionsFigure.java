@@ -96,7 +96,7 @@ public class ContextMenuActionsFigure extends ContentPaneFigure {
 		TableRowFigure row = new TableRowFigure();
 		row.getLayoutManager().withMajorAlignment(Alignment.TRAILING);
 		row.addLabel(text);
-		row.add(createToggleFigure(paneIndex));
+		row.add(createFoldingToggle(paneIndex));
 		return row;
 	}
 

@@ -36,7 +36,7 @@ public class TheoryFigure extends ContentPaneFigure {
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.addKeyword("theory");
         row.add(createContentPane(0));
-        row.add(createToggleFigure(4));
+        row.add(createFoldingToggle(4));
         add(row2 = new EntityFigure(new RowLayout().withSpacing(4)));
         row2.add(new EntityLabel("    "));
         row2.add(createContentPane(1));

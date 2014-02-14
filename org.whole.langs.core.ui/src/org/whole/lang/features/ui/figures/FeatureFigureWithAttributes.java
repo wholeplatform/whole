@@ -48,7 +48,7 @@ public class FeatureFigureWithAttributes extends StyledFigure {
 
 		EntityFigure headerFigure = new EntityFigure(new RowLayout().withSpacing(4).withMarginLeft(12));
 		headerFigure.add(createContentPane(0));
-		headerFigure.add(createToggleFigure(2));
+		headerFigure.add(createFoldingToggle(2));
 
 		shapeFigure = new EntityFigure(new UnderLeftLayout().withSpacing(2));
 		shapeFigure.add(headerFigure);

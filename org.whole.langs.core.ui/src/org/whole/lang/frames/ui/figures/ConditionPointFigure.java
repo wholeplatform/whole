@@ -64,15 +64,11 @@ public class ConditionPointFigure extends ContentPaneFigure implements ITabularL
 				return result;
 			};
 		}.withMinorAlignment(Alignment.LEADING).withSpacing(2).withMarginTop(2).withMarginBottom(2).withMarginRight(2));
-		headerFigure.add(createToggleFigure(2,
-				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND)));
+		headerFigure.add(createFoldingToggle(new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), 2, 0, 1));
 		headerFigure.add(createContentPane(0));
 
 		add(createContentPane(1));
 		add(headerFigure);
-
-		setToggleIndex(0, 0);
-		setToggleIndex(1, 0);
 
 		clickFoldingToggle(0);
 	}

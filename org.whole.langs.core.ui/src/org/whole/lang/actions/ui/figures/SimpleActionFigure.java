@@ -40,7 +40,7 @@ public class SimpleActionFigure extends ContentPaneFigure {
 		initContentPanes(2);
 
 		EntityFigure row1 = new EntityFigure(new RowLayout().withSpacing(5).withMarginLeft(2));
-		row1.add(fig[0] = createToggleFigure(1));
+		row1.add(fig[0] = createFoldingToggle(1));
 		row1.add(createContentPane(0));
 
 		row2 = new EntityFigure(new RowLayout().withSpacing(8).withMarginLeft(16));

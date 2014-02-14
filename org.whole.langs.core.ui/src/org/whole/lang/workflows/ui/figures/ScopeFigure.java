@@ -43,9 +43,9 @@ public class ScopeFigure extends NodeFigure {
 		normalFlowFigure.add(createContentPane(1, new MarginBorder(4)));
 
 		togglesFigure = new EntityFigure(new ColumnLayout());
-		togglesFigure.add(createToggleFigure(2));
-		togglesFigure.add(createToggleFigure(3));
-		togglesFigure.add(createToggleFigure(4));
+		togglesFigure.add(createFoldingToggle(2));
+		togglesFigure.add(createFoldingToggle(3));
+		togglesFigure.add(createFoldingToggle(4));
 
 		add(normalFlowFigure);
 		add(togglesFigure);

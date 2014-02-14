@@ -47,7 +47,7 @@ public class SimpleEntityTextFigure extends ManagedContentPaneFigure {
 			return;
 		}
 		EntityFigure typeRow = new EntityFigure(new RowLayout().withSpacing(3));
-		typeRow.add(createToggleFigure(0));
+		typeRow.add(createFoldingToggle(0));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.addContentLight("{");
 		typeRow.add(createVisibilityToggle());

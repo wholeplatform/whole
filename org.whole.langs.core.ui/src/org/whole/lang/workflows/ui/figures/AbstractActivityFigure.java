@@ -47,13 +47,13 @@ public abstract class AbstractActivityFigure extends NodeFigure {
 			.withSpacing(2).withMarginLeft(2).withMarginRight(2));
 		header.addLabel(image);
 		header.add(createContentPane(0));
-		header.add(createToggleFigure(contentPanes));
+		header.add(createFoldingToggle(contentPanes));
 
 		add(header);
 		add(contentFigure = createContentFigure());
 
 		for (int i=1; i<contentPanes; i++)
-			setToggleIndex(i, 0);
+			bindFoldingToggle(0, i);
 	
 		clickFoldingToggle(0);
 	}

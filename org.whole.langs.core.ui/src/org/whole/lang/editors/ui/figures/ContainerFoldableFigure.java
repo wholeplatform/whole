@@ -37,7 +37,7 @@ public class ContainerFoldableFigure extends ContentPaneFigure {
         initContentPanes(2);
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-        row.add(createToggleFigure(hasName ? 1 : 0));
+        row.add(createFoldingToggle(hasName ? 1 : 0));
         row.addKeyword(keyword);
         if (hasName)
             row.add(createContentPane(0));

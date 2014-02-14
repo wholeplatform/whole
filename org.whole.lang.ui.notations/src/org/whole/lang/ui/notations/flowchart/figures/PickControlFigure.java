@@ -45,7 +45,7 @@ public class PickControlFigure extends NodeFigure {
 
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(11));
 		topFigure.addLabel(NotationImages.PICK16);
-		topFigure.add(createToggleFigure(0));
+		topFigure.add(createFoldingToggle(0));
 
 		add(topFigure);
 		add(createContentPane(0));

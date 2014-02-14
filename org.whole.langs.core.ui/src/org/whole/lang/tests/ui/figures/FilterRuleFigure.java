@@ -43,7 +43,7 @@ public class FilterRuleFigure extends ContentPaneFigure {
         row.add(createContentPane(1));
         row.addContentLighter("()");
         row.addContentLighter("{");
-        row.add(createToggleFigure(2));
+        row.add(createFoldingToggle(2));
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.add(new EntityLabel("    "));
         row.add(createContentPane(2));

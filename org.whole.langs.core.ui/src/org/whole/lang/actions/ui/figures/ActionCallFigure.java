@@ -41,7 +41,7 @@ public class ActionCallFigure extends ContentPaneFigure {
 		initContentPanes(2);
 
 		labelRow = new EntityFigure(new RowLayout().withSpacing(5).withMarginLeft(2));
-		labelRow.add(createToggleFigure(1));
+		labelRow.add(createFoldingToggle(1));
 		labelRow.add(createContentPane(0));
 		add(labelRow);
 		add(createContentPane(1, new MarginBorder(0,16,0,0)));

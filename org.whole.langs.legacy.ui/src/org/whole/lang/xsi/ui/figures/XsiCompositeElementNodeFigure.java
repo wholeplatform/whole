@@ -45,7 +45,7 @@ public class XsiCompositeElementNodeFigure extends NodeFigure {
 		initContentPanes(1);
 
 		EntityFigure topFigure = new EntityFigure(new RowLayout().withSpacing(4));
-		topFigure.add(createToggleFigure(0));
+		topFigure.add(createFoldingToggle(0));
 
 		topFigure.add(this.label = label);
 

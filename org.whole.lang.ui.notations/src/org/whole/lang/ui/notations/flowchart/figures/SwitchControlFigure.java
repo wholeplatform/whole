@@ -60,7 +60,7 @@ public class SwitchControlFigure extends NodeFigure {
 		CompositeFigure topFigure = new CompositeFigure(true);
 		topFigure.addLabel(NotationImages.SWITCH16);
 		topFigure.add(createContentPane(0));
-		topFigure.add(createToggleFigure(12));
+		topFigure.add(createFoldingToggle(12, 1, 2));
 
 		EntityFigure casesFigure = new EntityFigure(
 				new RowLayout().withMinorAlignment(Alignment.LEADING).withSpacing(3));
@@ -68,7 +68,7 @@ public class SwitchControlFigure extends NodeFigure {
 		casesFigure.add(createContentPane(2));
 
 		bodyFigure = new EntityFigure(new ColumnLayout().withMinorAlignment(Alignment.CENTER).withSpacing(2));
-		bodyFigure.add(createToggleFigure(new EntityToggle("\u00d7", "+", a1) {
+		bodyFigure.add(createActionableFoldingToggle(new EntityToggle("\u00d7", "+", a1) {
 			protected EntityLabel createLabel(String text) {
 				return new EntityLabel(text) {
 					public Color getLocalForegroundColor() {

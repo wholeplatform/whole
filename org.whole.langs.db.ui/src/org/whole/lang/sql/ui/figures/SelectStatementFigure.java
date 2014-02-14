@@ -34,7 +34,7 @@ public class SelectStatementFigure extends ContentPaneFigure {
 		initContentPanes(7);
 		EntityFigure row;
 		add(row = new EntityFigure(new RowLayout().withSpacing(4)));
-		row.add(createToggleFigure(7));
+		row.add(createFoldingToggle(7, 2, 3, 4, 5, 6));
 		row.addKeyword("SELECT");
 		row.add(createContentPane(0));
 		row.add(createContentPane(1));
@@ -58,12 +58,6 @@ public class SelectStatementFigure extends ContentPaneFigure {
 		row6.add(new EntityLabel("    "));
 		row6.addKeyword("ORDER BY");
 		row6.add(createContentPane(6));
-
-		setToggleIndex(2, 0);
-		setToggleIndex(3, 0);
-		setToggleIndex(4, 0);
-		setToggleIndex(5, 0);
-		setToggleIndex(6, 0);
 	}
 
 	@Override

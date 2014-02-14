@@ -34,7 +34,7 @@ public class ElementFigure extends ContentPaneFigure {
         EntityFigure row;
         add(row = new EntityFigure(new RowLayout().withSpacing(4)));
         row.addKeyword("<");
-        row.add(createToggleFigure(2));
+        row.add(createFoldingToggle(2));
         row.add(createContentPane(0));
         row.add(createContentPane(1));
         row.addKeyword(">");

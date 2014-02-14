@@ -32,7 +32,7 @@ public class VariableFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(3).withMarginLeft(4).withMarginRight(3));
 		initContentPanes(3);
 
-		add(createToggleFigure(0));
+		add(createFoldingToggle(0));
 		add(createContentPane(0));
 		add(createContentPane(1));
 		add(createContentPane(2));
