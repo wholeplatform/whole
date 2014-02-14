@@ -19,7 +19,6 @@ package org.whole.lang.ui.notations.outline.editparts;
 
 import org.eclipse.gef.EditPart;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.IEditPartFactory;
@@ -44,37 +43,23 @@ public class OutlinePartFactory implements IEditPartFactory {
 		IEntity entity = (IEntity) modelEntity;
 		EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
 
-		//TODO workaround. Remove when Commons EntityKinds will be removed 
-		if (ed.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
-			switch (ed.getOrdinal()) {
-			case CommonsEntityDescriptorEnum.Resolver_ord:
-				return new PlaceHolderPart();
-			case CommonsEntityDescriptorEnum.Variable_ord:
-			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-			case CommonsEntityDescriptorEnum.RootFragment_ord:
-			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
+		if (!ed.equals(CommonsEntityDescriptorEnum.Resolver))
+			switch (entity.wGetEntityKind()) {
+			case DATA:
+				switch (ed.getDataKind()) {
+				case STRING:
+					return new LiteralTextualEntityPart();
+				default:
+					return new LiteralDataEntityPart();
+				}
+			case COMPOSITE:
+				if (ed.getEntityFeatureDescriptor(0).isReference())
+					return new CompositeEntityReferenceOutlinePart(ed);
+				else
+					return new CompositeEntityOutlinePart(ed);
+			case SIMPLE:
 				return new SimpleEntityOutlinePart(ed);
 			}
-		}
-
-		switch (entity.wGetEntityKind()) {
-		case DATA:
-			switch (ed.getDataKind()) {
-			case STRING:
-				return new LiteralTextualEntityPart();
-			default:
-				return new LiteralDataEntityPart();
-			}
-		case COMPOSITE:
-			if (ed.getEntityFeatureDescriptor(0).isReference())
-				return new CompositeEntityReferenceOutlinePart(ed);
-			else
-				return new CompositeEntityOutlinePart(ed);
-		case SIMPLE:
-			return new SimpleEntityOutlinePart(ed);
-		}
 		return new PlaceHolderPart();
 	}
 }

@@ -19,7 +19,6 @@ package org.whole.lang.ui.notations.tree.editparts;
 
 import org.eclipse.gef.EditPart;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.IEditPartFactory;
@@ -51,32 +50,17 @@ public class TreeRightPartFactory implements IEditPartFactory {
 
 	public EditPart createEditPart(EditPart context, Object modelEntity) {
 		IEntity entity = (IEntity) modelEntity;
-		
 		EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
 
-		//TODO workaround. Remove when Commons EntityKinds will be removed 
-		if (ed.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
-			switch (ed.getOrdinal()) {
-			case CommonsEntityDescriptorEnum.Resolver_ord:
-				return createPlaceHolderPart(context, entity);
-			case CommonsEntityDescriptorEnum.Variable_ord:
-			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-			case CommonsEntityDescriptorEnum.RootFragment_ord:
-			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
+		if (!ed.equals(CommonsEntityDescriptorEnum.Resolver))
+			switch (entity.wGetEntityKind()) {
+			case DATA:
+				return createDataEntityPart(context, entity);
+			case COMPOSITE:
+				return createCompositeEntityPart(context, entity);
+			case SIMPLE:
 				return createSimpleEntityPart(context, entity);
 			}
-		}
-
-		switch (entity.wGetEntityKind()) {
-		case DATA:
-			return createDataEntityPart(context, entity);
-		case COMPOSITE:
-			return createCompositeEntityPart(context, entity);
-		case SIMPLE:
-			return createSimpleEntityPart(context, entity);
-		}
 		return createPlaceHolderPart(context, entity);
 	}
 
