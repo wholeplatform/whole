@@ -31,9 +31,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.whole.lang.ui.editor.IGEFEditorKit;
-import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.util.CaretUpdater;
@@ -46,8 +45,8 @@ public class TextualDragTracker extends SimpleDragTracker {
 	private static final int STATE_SELECT = SimpleDragTracker.MAX_STATE << 1;
 	private static final int STATE_SWIPE = SimpleDragTracker.MAX_STATE << 2;
 
-	private IGraphicalEntityPart beginPart;
-	private IGraphicalEntityPart endPart;
+	private ITextualEntityPart beginPart;
+	private ITextualEntityPart endPart;
 
 	private int start;
 	private int end;
@@ -72,14 +71,22 @@ public class TextualDragTracker extends SimpleDragTracker {
 	}
 
 	protected ITextualEntityPart getTextualEntityPart() {
+		if (beginPart != null)
+			return beginPart;
+
 		EditPart target = getCurrentViewer().findObjectAt(getLocation());
-		return target instanceof ITextualEntityPart ? (ITextualEntityPart) target : null;
+		if (!(target instanceof ITextualEntityPart))
+			throw new IllegalStateException();
+
+		return (ITextualEntityPart) target;
 	}
 
 	@Override
 	protected boolean handleButtonDown(int button) {
 		ITextualEntityPart textualEntityPart = getTextualEntityPart();
 		if (button != 1 || textualEntityPart == null) {
+			beginPart = endPart = null;
+			start = end = 0;
 			setState(STATE_INVALID);
 			return handleInvalidInput();
 		} else {
