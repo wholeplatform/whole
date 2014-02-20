@@ -143,7 +143,6 @@ public abstract class AbstractTextualEntityPart extends AbstractPart implements 
 	private MouseEvent createDoubleClickEvent(LocationRequest request) {
 		Point location = request.getLocation();
 		location = location != null ? new Point(location) : new Point();
-		getFigure().translateToAbsolute(location);
 		Event event = new Event();
 		event.widget = getViewer().getControl();
 		event.display = event.widget.getDisplay();
