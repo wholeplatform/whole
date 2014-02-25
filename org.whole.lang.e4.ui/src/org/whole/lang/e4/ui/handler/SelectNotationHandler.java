@@ -31,6 +31,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -57,21 +58,27 @@ public class SelectNotationHandler {
 		IEditorKit editorKit = ReflectionFactory.getEditorKit(editorKitId);
 		final IEntity focusEntity = bm.wGet("focusEntity");
 
-		boolean historyEnabled = ReflectionFactory.getHistoryManager(focusEntity).setHistoryEnabled(false);
-
 		focusEntity.wGetModel().setEditorKit(editorKit);
 
 		Map<IEntity, IEntityPart> editPartRegistry = viewer.getEditPartRegistry();
 		IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(focusEntity);
 		IEntityPart fragmentPart = ModelObserver.getObserver(focusEntity, fragmentRoot, editPartRegistry);
-		fragmentPart.rebuild();
 
+		ModelTransactionCommand command = new ModelTransactionCommand(focusEntity);
+		try {
+			command.begin();
+			fragmentPart.rebuild();
+			command.commit();
+			if (command.canUndo())
+				viewer.getEditDomain().getCommandStack().execute(command);
+		} catch (Exception e) {
+			command.rollback();
+		}
+			
 		synchronize.asyncExec(new Runnable() {
 			public void run() {
 				viewer.selectAndReveal(focusEntity);	
 			}				
 		});
-
-		ReflectionFactory.getHistoryManager(focusEntity).setHistoryEnabled(historyEnabled);
 	}
 }
