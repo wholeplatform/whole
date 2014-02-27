@@ -33,8 +33,8 @@ public class PointwiseUpdateIterator<E extends IEntity> extends AbstractPointwis
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity toLookahead, E nextEntity) {
-		EntityDescriptor<?> toType = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
-		return (E) EntityUtils.convert(nextEntity, toType);
+		EntityDescriptor<?> toFd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
+		return (E) EntityUtils.convertCloneIfParented(nextEntity, toFd);
 	}
 
 	protected void doNext(IEntity toEntity, E nextEntity) {

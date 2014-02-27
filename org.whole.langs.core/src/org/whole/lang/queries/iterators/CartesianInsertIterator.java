@@ -36,18 +36,18 @@ public class CartesianInsertIterator<E extends IEntity> extends AbstractCartesia
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity lastToEntity, E nextEntity) {
-		EntityDescriptor<?> toType;
+		EntityDescriptor<?> toEd;
 		switch (placement) {
 		case BEFORE:
-			toType = lastToEntity.wGetParent().wGetEntityDescriptor(lastToEntity);
+			toEd = lastToEntity.wGetParent().wGetEntityDescriptor(lastToEntity);
 			break;
 		case INTO:
-			toType = lastToEntity.wGetEntityDescriptor(0);
+			toEd = lastToEntity.wGetEntityDescriptor(0);
 			break;
 		default:
 			throw new IllegalArgumentException("unsupported placement");
 		}
-		return (E) EntityUtils.convert(nextEntity, toType);
+		return (E) EntityUtils.convertCloneIfParented(nextEntity, toEd);
 	}
 
 	protected void doNext(IEntity lastToEntity, E nextEntity) {

@@ -154,7 +154,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 			} else {
 				EntityDescriptor<?> varType = variable.getVarType().getValue();
 				try {
-					bm.setResult(value = EntityUtils.convert(value, varType));
+					bm.setResult(value = EntityUtils.convertCloneIfParented(value, varType));
 				} catch (IllegalArgumentException e) {
 					throw new SubstituteException(variable, value.wGetEntityDescriptor());					
 				}

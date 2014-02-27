@@ -30,6 +30,7 @@ import org.whole.lang.matchers.SubstituteException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.InternalIEntity;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 
@@ -120,7 +121,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 								try {
 									setResultIterator(
 											IteratorFactory.sequenceIterator(
-												IteratorFactory.constantIterator(EntityUtils.convert(value, varType), true),
+												IteratorFactory.constantIterator(EntityUtils.convertCloneIfParented(value, varType), true),
 												IteratorFactory.constantIterator(newVariable, true)));
 								} catch (IllegalArgumentException e) {
 									throw new SubstituteException(variable, value.wGetEntityDescriptor());					
@@ -134,7 +135,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 							} else {
 								EntityDescriptor<?> varType = variable.getVarType().getValue();
 								try {
-									setResult(EntityUtils.convert(value, varType));
+									setResult(EntityUtils.convertCloneIfParented(value, varType));
 								} catch (IllegalArgumentException e) {
 									throw new SubstituteException(variable, value.wGetEntityDescriptor());					
 								}
@@ -165,7 +166,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	        	if (selfEntity != oldSelfEntity2)
 	        		getBindings().wDef("self", selfEntity = oldSelfEntity2);
 				iterator.reset(selfEntity);
-				EntityDescriptor<?> resultChildDescriptor = result.wGetEntityDescriptor(i);
+				FeatureDescriptor resultChildDescriptor = result.wGetFeatureDescriptor(i);
 				if (EntityUtils.isComposite(result)) {
     				result.wRemove(i--);
     				if (iterator.hasNext()) {
@@ -178,7 +179,7 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	    					if (BindingManagerFactory.instance.isVoid(e))
 	    						resultSize = nextResultSize;
 	    					else {
-		    					result.wAdd(++i, EntityUtils.convert(e, resultChildDescriptor));
+		    					result.wAdd(++i, EntityUtils.convertCloneIfReparenting(e, resultChildDescriptor));
 		    					resultSize = result.wSize();
 	    					}
 	    					resettableScope.commit();
@@ -200,15 +201,15 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 	    				getBindings().wExitScope();
     				}
 					if (e != null)
-						result.wSet(i, EntityUtils.convert(e, resultChildDescriptor));
+						result.wSet(i, EntityUtils.convertCloneIfReparenting(e, resultChildDescriptor));
 					else
 						result.wRemove(i);
 				}
 			} else {
 				IEntity child = getResult();
 				if (child != null && !BindingManagerFactory.instance.isVoid(child)) {
-    				EntityDescriptor<?> resultChildDescriptor = result.wGetAdaptee(false).wGetEntityDescriptor(i);
-    				result.wSet(i, EntityUtils.convert(child, resultChildDescriptor));
+					FeatureDescriptor resultChildDescriptor = result.wGetAdaptee(false).wGetFeatureDescriptor(i);
+    				result.wSet(i, EntityUtils.convertCloneIfReparenting(child, resultChildDescriptor));
     			}  else
 					result.wRemove(i);
     		}

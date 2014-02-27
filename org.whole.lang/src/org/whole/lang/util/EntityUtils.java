@@ -222,6 +222,20 @@ public class EntityUtils {
 		return entity;
 	}
 
+	public static final void addCloneIfReparenting(IEntity entity, int index, IEntity value) {
+		entity.wAdd(index, cloneIfReparenting(value, entity.wGetFeatureDescriptor(index).isReference()));
+	}
+	public static final void setCloneIfReparenting(IEntity entity, int index, IEntity value) {
+		entity.wSet(index, cloneIfReparenting(value, entity.wGetFeatureDescriptor(index).isReference()));
+	}
+	public static final void setCloneIfReparenting(IEntity entity, FeatureDescriptor fd, IEntity value) {
+		FeatureDescriptor efd = fd.isEntityFeatureDescriptor() ? fd : entity.wGetEntityDescriptor().getEntityFeatureDescriptor(fd);
+		entity.wSet(fd, cloneIfReparenting(value, efd.isReference()));
+	}
+
+	public static final <E extends IEntity> E cloneIfReparenting(E entity, boolean assignToReference) {
+		return !assignToReference && hasParent(entity) ? clone(entity) : entity;
+	}
 	public static final <E extends IEntity> E cloneIfParented(E entity) {
 		return hasParent(entity) ? clone(entity) : entity;
 	}
@@ -267,25 +281,31 @@ public class EntityUtils {
 		return isComposite(entity) && entity.wGetEntityDescriptor(0).isLanguageSupertypeOf(ed);
 	}
 
-	public static final IEntity convert(IEntity value, EntityDescriptor<?> toType) {
+	public static final IEntity convertCloneIfParented(IEntity value, EntityDescriptor<?> toType) {
+		return convertCloneIfReparenting(value, toType, false);
+	}
+	public static final IEntity convertCloneIfReparenting(IEntity value, FeatureDescriptor toEFd) {
+		return convertCloneIfReparenting(value, toEFd.getEntityDescriptor(), toEFd.isReference());
+	}
+	public static final IEntity convertCloneIfReparenting(IEntity value, EntityDescriptor<?> toEd, boolean isToReference) {
 		//FIXME (workaround) force conversion semantics for data types
-		if (toType.getEntityKind().isData() && value.wGetEntityKind().isData())
+		if (toEd.getEntityKind().isData() && value.wGetEntityKind().isData())
 			try {
-				return DataTypeUtils.convert(value, toType);
+				return DataTypeUtils.convertCloneIfReparenting(value, toEd, isToReference);
 			} catch (IllegalArgumentException e) {
 			}
 
-		if (toType.isPlatformSupertypeOf(value.wGetEntityDescriptor()))
-			return cloneIfParented(value);
+		if (toEd.isPlatformSupertypeOf(value.wGetEntityDescriptor()))
+			return cloneIfReparenting(value, isToReference);
 		else if (value.wGetEntityKind().isData())
 			try {
-				return DataTypeUtils.convert(value, toType);
+				return DataTypeUtils.convertCloneIfReparenting(value, toEd, isToReference);
 			} catch (IllegalArgumentException e) {
 				//TODO test in synch with wGetAdaptee behavior on WholeEditPartFactory
-				return cloneIfParented(value).wGetAdapter(toType);
+				return cloneIfReparenting(value, isToReference).wGetAdapter(toEd);
 			}
 		else
-			return cloneIfParented(value).wGetAdapter(toType);
+			return cloneIfReparenting(value, isToReference).wGetAdapter(toEd);
 	}
 
 	public static final IEntity merge(IEntity merger, IEntity mergee, IEntityComparator<IEntity> comparator, boolean orderAware) {
@@ -301,7 +321,7 @@ public class EntityUtils {
 			if (!EntityUtils.isNull(parent)) {
 				int index = parent.wIndexOf(initialMerger);
 				if (parent.wGetEntityDescriptor(index).isLanguageSupertypeOf(mergee.wGetEntityDescriptor()))
-					parent.wSet(index, cloneIfParented(mergee));
+					setCloneIfReparenting(parent, index, mergee);
 				return parent.wGet(index);
 			} else
 				return initialMergee;

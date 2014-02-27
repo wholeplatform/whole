@@ -34,6 +34,7 @@ import org.whole.lang.parsers.DataTypeParsers;
 import org.whole.lang.parsers.IDataTypeParser;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.FeatureDescriptor;
 
 /**
  * @author Riccardo Solmi
@@ -74,10 +75,16 @@ public class DataTypeUtils {
 			setFromPresentationString(toEntity, getAsPresentationString(fromEntity));
 		return toEntity;
 	}
-	public static IEntity convert(IEntity fromEntity, EntityDescriptor<?> toEd) {
+	public static IEntity convertCloneIfParented(IEntity fromEntity, EntityDescriptor<?> toEd) {
+		return convertCloneIfReparenting(fromEntity, toEd, false);
+	}
+	public static final IEntity convertCloneIfReparenting(IEntity fromEntity, FeatureDescriptor toEFd) {
+		return convertCloneIfReparenting(fromEntity, toEFd.getEntityDescriptor(), toEFd.isReference());
+	}
+	public static final IEntity convertCloneIfReparenting(IEntity fromEntity, EntityDescriptor<?> toEd, boolean isToReference) {
 		EntityDescriptor<?> fromEd = fromEntity.wGetEntityDescriptor();
 		if (toEd.equals(fromEd))
-			return EntityUtils.cloneIfParented(fromEntity);
+			return EntityUtils.cloneIfReparenting(fromEntity, isToReference);
 		else
 			try {
 				//TODO getMostSpecificDescriptor before converting to string

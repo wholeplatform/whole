@@ -31,6 +31,7 @@ import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.EntityFeatureDescriptorImpl;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
@@ -250,6 +251,11 @@ public class NullEntity implements InternalIEntity, Serializable, Cloneable {
 	}
 
 	public FeatureDescriptor wGetFeatureDescriptor(IEntity child) {
+		if (child.wGetParent() == this)
+			return new EntityFeatureDescriptorImpl(
+					wGetEntityDescriptor(), null, null, child.wGetEntityDescriptor(),
+					false, false, false, false, false);
+
 		throw new IllegalStateException(WholeMessages.null_model);
 	}
 

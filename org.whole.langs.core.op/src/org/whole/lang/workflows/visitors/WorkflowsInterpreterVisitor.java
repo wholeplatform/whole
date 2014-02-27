@@ -495,7 +495,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				String name = ((Assignments) arguments).get(i).getName().getValue();
 				FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
 				if (fd != null)
-					getBindings().wDef(name, EntityUtils.convert(getBindings().wGet(name), ed.getEntityDescriptor(fd))); //TODO test was wSet
+					getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
 			}
 			model = ef.create(ed, getBindings());
 
@@ -504,12 +504,12 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
 			if (ed.getEntityKind().isData()) {
 				((Expressions) arguments).get(0).accept(this);
-				model = DataTypeUtils.convert(getResult(), ed);
+				model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
 			} else {
 				IEntity[] values = new IEntity[arguments.wSize()];
 				for (int i = 0; i < values.length; i++) {
 					((Expressions) arguments).get(i).accept(this);
-					values[i] = EntityUtils.convert(getResult(), ed.getEntityDescriptor(i));
+					values[i] = EntityUtils.convertCloneIfReparenting(getResult(), ed.getEntityFeatureDescriptor(i));
 				}
 				model = ef.create(ed, values);
 			}

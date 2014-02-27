@@ -36,22 +36,22 @@ public class PointwiseInsertIterator<E extends IEntity> extends AbstractPointwis
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity toLookahead, E nextEntity) {
-		EntityDescriptor<?> toType;
+		EntityDescriptor<?> toEd;
 		switch (placement) {
 		case BEFORE:
-			toType = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
+			toEd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
 			break;
 		case INTO:
 			//TODO workaround for Resolver ED
 			if (EntityUtils.isResolver(toLookahead))
-				toType = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead).getEntityDescriptor(0);
+				toEd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead).getEntityDescriptor(0);
 			else
-				toType = toLookahead.wGetEntityDescriptor(0);
+				toEd = toLookahead.wGetEntityDescriptor(0);
 			break;
 		default:
 			throw new IllegalArgumentException("unsupported placement");
 		}
-		return (E) EntityUtils.convert(nextEntity, toType);
+		return (E) EntityUtils.convertCloneIfParented(nextEntity, toEd);
 	}
 
 	protected void doNext(IEntity toEntity, E nextEntity) {

@@ -78,7 +78,7 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 		
 		IEntity[] result = new IEntity[size];
 		for (int i=0; i<size; i++)
-			result[i] = DataTypeUtils.convert(values.wGet(i), resultDescriptor);
+			result[i] = DataTypeUtils.convertCloneIfParented(values.wGet(i), resultDescriptor);
 
 		Arrays.sort(result, new Comparator<IEntity>() {
 			public int compare(IEntity e1, IEntity e2) {

@@ -46,7 +46,7 @@ public class Helpers {
 					return pef.createReferenceType(typeName);
 
 		case JavaEntityDescriptorEnum.PrimitiveType_ord:
-			return (Type) DataTypeUtils.convert(JavaEntityFactory.instance.createPrimitiveType(((PrimitiveType) javaType).getValue()), PojoEntityDescriptorEnum.PrimitiveType);
+			return (Type) DataTypeUtils.convertCloneIfParented(JavaEntityFactory.instance.createPrimitiveType(((PrimitiveType) javaType).getValue()), PojoEntityDescriptorEnum.PrimitiveType);
 
 		case JavaEntityDescriptorEnum.ArrayType_ord:
 			ArrayType arrayType = (ArrayType) javaType;

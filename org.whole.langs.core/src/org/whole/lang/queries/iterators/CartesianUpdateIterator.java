@@ -34,8 +34,8 @@ public class CartesianUpdateIterator<E extends IEntity> extends AbstractCartesia
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity lastToEntity, E nextEntity) {
 		try {
-			EntityDescriptor<?> toType = lastToEntity.wGetParent().wGetEntityDescriptor(lastToEntity);
-			return (E) EntityUtils.convert(nextEntity, toType);
+			EntityDescriptor<?> toEd = lastToEntity.wGetParent().wGetEntityDescriptor(lastToEntity);
+			return (E) EntityUtils.convertCloneIfParented(nextEntity, toEd);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return null;
 		}			

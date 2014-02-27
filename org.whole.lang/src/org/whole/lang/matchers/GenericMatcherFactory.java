@@ -849,12 +849,13 @@ public class GenericMatcherFactory {
     			if (value != null && !BindingManagerFactory.instance.isVoid(value)) {
     				boolean isInline = EntityUtils.isInlineVariable(variable);
     	    		EntityDescriptor<?> varType = variable.getVarType().getValue();
-    				
+
     				if (!isInline)
-    					value = EntityUtils.convert(value, varType);
+    					value = EntityUtils.convertCloneIfParented(value, varType);//TODO convertCloneIfReparenting variable reference
 
     				outBindings.wDef(varName, value);
 
+    				//TODO if has not a parent and has only one inverseAdjacent use it and use convertCloneIfReparenting
     				IEntity parentEntity = variable.wGetParent();
     				int variableIndex = parentEntity.wIndexOf(variable);
     				QuantifierEnum.Value quantifierValue = variable.getQuantifier().getValue();
@@ -870,9 +871,9 @@ public class GenericMatcherFactory {
     					for (int i=0, size=value.wSize(); i<size; i++)
     						parentEntity.wAdd(variableIndex+i, EntityUtils.clone(value.wGet(i)));
     				} else if (isCompositeVar)
-    					parentEntity.wAdd(variableIndex, EntityUtils.cloneIfParented(value));
+    					parentEntity.wAdd(variableIndex, value);
     				else
-    					parentEntity.wSet(variableIndex, EntityUtils.cloneIfParented(value));
+    					parentEntity.wSet(variableIndex, value);
 	    		}
 	    	}
 	    };

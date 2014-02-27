@@ -68,7 +68,7 @@ public class SemanticsUtils {
 //TODO				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
 				
 				EntityDescriptor<?> toEd = CommonsDataTypePersistenceParser.parseEntityDescriptor(entityTypeUri);
-				bm.setResult(DataTypeUtils.convert(selfEntity, toEd));
+				bm.setResult(DataTypeUtils.convertCloneIfParented(selfEntity, toEd));
 			}
 		});
 	}

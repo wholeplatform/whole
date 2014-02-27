@@ -165,7 +165,7 @@ public class AnnotatedXmlSchemaToModelsAndMappingQuery extends AbstractTemplateF
         b1.Resolver();
         b1.Resolver();
         b2.StringLiteral("org.whole.lang.util.EntityUtils");
-        b2.StringLiteral("convert(org.whole.lang.model.IEntity, org.whole.lang.reflect.EntityDescriptor)");
+        b2.StringLiteral("convertCloneIfParented(org.whole.lang.model.IEntity, org.whole.lang.reflect.EntityDescriptor)");
         b2.Expressions_(2);
         b2.Variable("entity");
         b2.Variable("ed");
