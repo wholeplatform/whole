@@ -274,4 +274,39 @@ public class E4Utils {
 	public static void reportError(final IEclipseContext context, final String title, final String message, Throwable t) {
 		WholeUIPlugin.reportError((Shell) context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
 	}
+
+	public static void suspendOperation(SuspensionKind kind, final IBindingManager bindings, IEntity suspendEntity, IEntity variablesModel) {
+		suspendOperation(kind, null, suspendEntity, bindings, variablesModel);
+	}
+	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity onEntity, final IBindingManager bindings, IEntity variablesModel) {
+		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		context.get(UISynchronize.class).syncExec(new Runnable() {
+			public void run() {
+				//FIXME move perspective IDs to IUIConstants
+				WholeUIPlugin.revealPerspective("org.whole.lang.ide.WholeIDEDebugPerspectiveFactory");
+
+				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
+				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
+				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
+					IEntity selfEntity = bindings.wGet("self");
+					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
+				}
+			}
+		});
+		CyclicBarrier barrier = new CyclicBarrier(2);
+		IEventBroker eventBroker = context.get(IEventBroker.class);
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, EntityUtils.clone(variablesModel));
+		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {
+				kind, throwable, onEntity, bindings, barrier});
+		try {
+			barrier.await();
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		} catch (BrokenBarrierException e) {	
+			// execution terminated
+			throw new OperationCanceledException(e);
+		} finally {
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+		}
+	}
 }

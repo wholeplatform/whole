@@ -36,7 +36,12 @@ public class TerminateAction extends AbstractDebugAction {
 		} catch (Exception e) {
 		}
 	}
-	
+
+	@Override
+	public void update() {
+		setEnabled(debugPart.getSuspensionKind().isSuspended());
+	}
+
 	@Override
 	public void run() {
 		debugPart.doTerminate();

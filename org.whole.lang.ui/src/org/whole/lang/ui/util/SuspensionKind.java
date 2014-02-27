@@ -15,25 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.actions;
+package org.whole.lang.ui.util;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 
 /**
  * @author Enrico Persiani
  */
-public abstract class AbstractDebugAction extends AbstractE4Action {
-	protected E4DebugGraphicalPart debugPart;
+public enum SuspensionKind {
+	NONE, BREAK, ERROR;
 
-	public AbstractDebugAction(IEclipseContext context, E4DebugGraphicalPart debugPart, String label) {
-		super(context, label);
-		this.debugPart = debugPart;
-		update();
+	public boolean isSuspended() {
+		return !equals(NONE);
 	}
-
-	@Override
-	public void update() {
-		setEnabled(debugPart.getSuspensionKind().isBreak());
+	
+	public boolean isBreak() {
+		return equals(BREAK);
+	}
+	
+	public boolean isError() {
+		return equals(ERROR);
 	}
 }

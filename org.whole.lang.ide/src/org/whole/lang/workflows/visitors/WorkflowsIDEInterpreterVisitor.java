@@ -20,11 +20,6 @@ package org.whole.lang.workflows.visitors;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.*;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -33,9 +28,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jdt.core.IJavaProject;
 import org.whole.gen.util.IDEUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
@@ -43,41 +35,44 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.ide.WholeIDEDebugPerspectiveFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.actions.JavaModelGeneratorAction;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.VisitException;
-import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Breakpoint;
 import org.whole.lang.workflows.model.ClassProvider;
 import org.whole.lang.workflows.model.Condition;
+import org.whole.lang.workflows.model.CreateEntity;
+import org.whole.lang.workflows.model.CreateJavaClassInstance;
+import org.whole.lang.workflows.model.DeleteArtifacts;
+import org.whole.lang.workflows.model.InvokeJavaClassMethod;
+import org.whole.lang.workflows.model.InvokeJavaInstanceMethod;
+import org.whole.lang.workflows.model.InvokeOperation;
+import org.whole.lang.workflows.model.LoadArtifacts;
 import org.whole.lang.workflows.model.LoadJavaModel;
+import org.whole.lang.workflows.model.LoadModel;
+import org.whole.lang.workflows.model.Parse;
 import org.whole.lang.workflows.model.ResourceKind;
 import org.whole.lang.workflows.model.ResourceKindEnum;
+import org.whole.lang.workflows.model.SaveArtifacts;
+import org.whole.lang.workflows.model.SaveModel;
 import org.whole.lang.workflows.model.Task;
+import org.whole.lang.workflows.model.Unparse;
 import org.whole.lang.workflows.model.Variable;
-import org.whole.lang.workflows.model.Variables;
-import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
-import org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum;
 import org.whole.lang.workflows.ui.dialogs.AssignmentsDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ConfirmationDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ITaskDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.TaskDialogHelper;
+import org.whole.lang.workflows.util.WorkflowsUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -114,7 +109,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 	@Override
 	public void visit(Breakpoint entity) {
 		setResult(null);
-		final IBindingManager debugEnv = getBindings();
+		IBindingManager debugEnv = getBindings();
 
 		if (entity.getDisabled().wBooleanValue() ||
 				(debugEnv.wIsSet("breakpointsDisabled") && debugEnv.wBooleanValue("breakpointsDisabled")))
@@ -126,70 +121,140 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 				return;
 		}
 
-		WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
-		Assignments assignments = ef.createAssignments(0);
-		Variables variables = entity.getShowVariables();
-		List<Integer> voidVars = new ArrayList<Integer>();
-		IEntity expression;
-		int index = 0;
-		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables))
-			for (int size=variables.size(); index<size; index++) {
-				String name = variables.get(index).getValue();
-				if (debugEnv.wIsSet(name)) {
-					if (BindingManagerFactory.instance.isVoid(debugEnv.wGet(name)))
-						voidVars.add(index);
+		IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation(), entity.getShowVariables());
+		E4Utils.suspendOperation(SuspensionKind.BREAK, debugEnv, entity, variablesModel);
+	}
 
-					expression = CommonsEntityFactory.instance.createStageDownFragment(
-							ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
-				} else
-					expression = CommonsEntityFactory.instance.createResolver();
-				
-				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
-			}
-		else
-			for (String name : new TreeSet<String>(debugEnv.wNames())) {
-				if (BindingManagerFactory.instance.isVoid(debugEnv.wGet(name)))
-					voidVars.add(index);
-
-				expression = CommonsEntityFactory.instance.createStageDownFragment(
-						ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
-
-				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
-				index++;
-			}
-
-		stagedVisit(assignments, 1);	
-		final IEntity variablesModel = getResult();
-
-		//FIXME add workaround for missing GenericTemplateInterpreter strategy preserving Voids
-		for (int i : voidVars)
-			variablesModel.wGet(i).wSet(WorkflowsFeatureDescriptorEnum.expression, BindingManagerFactory.instance.createVoid().wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
-
-		final IEclipseContext context = (IEclipseContext) getBindings().wGetValue("eclipseContext");
-		context.get(UISynchronize.class).syncExec(new Runnable() {
-			public void run() {
-				WholeUIPlugin.revealPerspective(WholeIDEDebugPerspectiveFactory.ID);
-
-				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
-				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
-				if (debugEnv.wIsSet("self") && debugEnv.wIsSet("viewer")) {
-					IEntity selfEntity = debugEnv.wGet("self");
-					((IEntityPartViewer) debugEnv.wGetValue("viewer")).selectAndReveal(selfEntity);
-				}
-			}
-		});
-		CyclicBarrier barrier = new CyclicBarrier(2);
-		IEventBroker eventBroker = context.get(IEventBroker.class);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, EntityUtils.clone(variablesModel));
-		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {entity, debugEnv, barrier});
+	@Override
+	public void visit(Variable entity) {
 		try {
-			barrier.await();
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		} catch (BrokenBarrierException e) {	
-			// execution terminated
-		} finally {
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(CreateEntity entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(LoadJavaModel entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(LoadModel entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(SaveModel entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(Parse entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(Unparse entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(DeleteArtifacts entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(LoadArtifacts entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(SaveArtifacts entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(InvokeOperation entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+
+	@Override
+	public void visit(CreateJavaClassInstance entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(InvokeJavaClassMethod entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+		}
+	}
+	@Override
+	public void visit(InvokeJavaInstanceMethod entity) {
+		try {
+			super.visit(entity);
+		} catch (Exception e) {
+			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
+			E4Utils.suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
 		}
 	}
 

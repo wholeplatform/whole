@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.action.IAction;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.IUIConstants;
@@ -35,6 +36,9 @@ import org.whole.lang.e4.ui.actions.RunAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editpolicies.SuspensionFeedbackEditPolicy;
+import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
@@ -45,14 +49,14 @@ import org.whole.lang.util.EntityUtils;
 public class E4DebugGraphicalPart extends E4GraphicalPart {
 	protected CyclicBarrier barrier;
 	protected IBindingManager debugEnv;
-	protected boolean suspended;
+	protected SuspensionKind suspensionKind = SuspensionKind.NONE;
 
-	public void setSuspended(boolean suspended) {
-		this.suspended = suspended;
-		updateActions();
+	public SuspensionKind getSuspensionKind() {
+		return suspensionKind;
 	}
-	public boolean isSuspended() {
-		return suspended;
+	public void setSuspensionKind(SuspensionKind suspensionKind) {
+		this.suspensionKind = suspensionKind;
+		updateActions();
 	}
 
 	@Inject
@@ -62,18 +66,27 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		if (this.barrier != null)
 			doRun();
 
-		setSuspended(true);
+		setSuspensionKind((SuspensionKind) args[0]);
 
-		IEntity breakpoint = (IEntity) args[0];
+		final Throwable throwable = (Throwable) args[1];
+		final IEntity breakpoint = (IEntity) args[2];
 		IEntity contents = EntityUtils.getCompoundRoot(breakpoint);
 
-		this.debugEnv = (IBindingManager) args[1];
-		this.barrier = (CyclicBarrier) args[2];
+		this.debugEnv = (IBindingManager) args[3];
+		this.barrier = (CyclicBarrier) args[4];
 
 		getViewer().linkEditDomain((IEntityPartViewer) debugEnv.wGetValue("viewer"));
 		getViewer().setContents(contents);
 		getViewer().setInteractive(contents, false, true, false);
-		getViewer().selectAndReveal(breakpoint);
+		context.get(UISynchronize.class).asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				IEntityPart breakpointPart = getViewer().getEditPartRegistry().get(breakpoint);
+				breakpointPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
+						new SuspensionFeedbackEditPolicy(suspensionKind, throwable));
+				getViewer().reveal(breakpoint);
+			}
+		});
 	}
 
 	public void doRun() {
@@ -86,7 +99,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		doResume();
 	}
 	public void doResume() {
-		setSuspended(false);
+		setSuspensionKind(SuspensionKind.NONE);
 		resetContents();
 		try {
 			CyclicBarrier barrier = this.barrier;
@@ -97,7 +110,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		}
 	}
 	public void doTerminate() {
-		setSuspended(false);
+		setSuspensionKind(SuspensionKind.NONE);
 		resetContents();
 		CyclicBarrier barrier = this.barrier;
 		this.barrier = null;
