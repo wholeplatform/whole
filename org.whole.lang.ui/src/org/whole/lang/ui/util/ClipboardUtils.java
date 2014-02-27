@@ -69,13 +69,12 @@ public class ClipboardUtils {
 	public static IEntity parseEntity(String text) throws Exception {
 		return ReflectionFactory.getDefaultPersistenceKit().readModel(new StringPersistenceProvider(text));
 	}
-	public static IEntity parseClipboardContents(IPersistenceKit persistenceKit, IBindingManager bm) {
-		IEntity parsedEntity = null;
+	public static IEntity parseClipboardContents(IPersistenceKit persistenceKit, IBindingManager bm) throws Exception {
 		IEntity entity = Clipboard.instance().getEntityContents();
 		if (entity != null && ReflectionFactory.getDefaultPersistenceKit().equals(persistenceKit)) {
-			parsedEntity = entity;
-			if (EntityUtils.isTuple(parsedEntity))
-				bm.wDef("syntheticRoot", parsedEntity);
+			if (EntityUtils.isTuple(entity))
+				bm.wDef("syntheticRoot", entity);
+			return entity;
 		} else {
 			String text;
 			if (entity != null) {
@@ -86,14 +85,12 @@ public class ClipboardUtils {
 			} else
 				text = Clipboard.instance().getTextContents();
 
+			if (text == null)
+				throw new IllegalStateException("no clipboard contents");
+
 			bm.wDefValue("parseFragments", true);
-			try {
-				if (text != null)
-					parsedEntity = persistenceKit.readModel(new StringPersistenceProvider(text, bm));
-			} catch (Exception e) {
-			}
+			return persistenceKit.readModel(new StringPersistenceProvider(text, bm));
 		}
-		return parsedEntity;
 	}
 
 	public static File createTempImageFile(ImageData imageData) throws IOException, FileNotFoundException {

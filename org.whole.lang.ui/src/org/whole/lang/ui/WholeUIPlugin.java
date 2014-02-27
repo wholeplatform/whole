@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -35,14 +36,11 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
 
 /**
  * @author Riccardo Solmi
@@ -121,7 +119,21 @@ public class WholeUIPlugin extends AbstractUIPlugin {
 	public static IStatus newErrorStatus(String message, Throwable exception) {
 		return new Status(IStatus.ERROR, getUniqueIdentifier(), INTERNAL_ERROR, message, exception);
 	}
-	
+
+	public static void reportError(final Shell activeShell, final String title, final String message) {
+		reportError(activeShell, title, message, null);		
+	}
+	public static void reportError(final Shell activeShell, final String title, final String message, final Throwable t) {
+		if (t != null)
+			WholeUIPlugin.log(t);
+		Display display = activeShell != null ? activeShell.getDisplay() : Display.getDefault();
+		display.syncExec(new Runnable() {
+			public void run() {
+				MessageDialog.openError(activeShell, title, message + (t != null ? "\n\nSee the error log for more details." : ""));
+			}
+		});
+	}
+
 	/**
 	 * Convenience method which returns the unique identifier of this plugin.
 	 */

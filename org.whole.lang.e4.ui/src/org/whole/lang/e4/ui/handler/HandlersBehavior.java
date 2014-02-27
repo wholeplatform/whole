@@ -26,7 +26,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.actions.iterators.ActionCallIterator;
@@ -72,7 +72,6 @@ import org.whole.lang.util.IEntityTransformer;
 /**
  * @author Enrico Persiani
  */
- 
 public class HandlersBehavior {
 
 	public static void registerHandlers(EHandlerService handlerService) {
@@ -236,9 +235,12 @@ public class HandlersBehavior {
 			return;
 		
 		IPersistenceKit persistenceKit = dialog.getPersistenceKit();
-		IEntity entity = ClipboardUtils.parseClipboardContents(persistenceKit, bm);
-		if (entity == null) {
-			MessageDialog.openError(shell, "Paste As Error", "Parse failed using the selected persistence.");
+		IEntity entity = CommonsEntityFactory.instance.createResolver();
+		try {
+			entity = ClipboardUtils.parseClipboardContents(persistenceKit, bm);
+		} catch (Exception e) {
+			IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+			E4Utils.reportError(context, "Write Model errors", "Parse failed using the selected persistence.", e);
 			return;
 		}
 		
@@ -473,7 +475,6 @@ public class HandlersBehavior {
 
 		IEntity focusEntity = bm.wGet("focusEntity");
 		IEntity predicateEntity = bm.wGet("predicateEntity");
-
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);

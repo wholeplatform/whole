@@ -59,6 +59,8 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 			final IOperationProgressMonitor pm = new OperationProgressMonitorAdapter(monitor);
 			bm.wDefValue("progressMonitor", pm);
 			run(pm);
+		} catch (Exception e) {
+			E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
 		} finally {
 			AnimableRunnable.enableAnimation(enableAnimation);
 			delayUpdates(viewer, delayUpdates);

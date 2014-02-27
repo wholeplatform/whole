@@ -22,8 +22,11 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MBindingTable;
@@ -33,30 +36,36 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.util.ResourceUtils;
+import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -238,8 +247,10 @@ public class E4Utils {
 			InputStream is = (InputStream) consoleClass.getMethod("getInputStream").invoke(ioConsole);
 			OutputStream os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
 			InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("cannot obtain an I/O console", e);
 		}
 	}
 	public static void invokePrettyPrinter(IBindingManager bm) {
@@ -253,8 +264,14 @@ public class E4Utils {
 			bm.wDefValue("printWriter", new PrintWriter(os));
 			PrettyPrinterOperation.prettyPrint(bm.wGet("self"), bm);
 			bm.wExitScope();
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new IllegalStateException("cannot obtain an I/O console", e);
 		}
+	}
+
+	public static void reportError(final IEclipseContext context, final String title, final String message, Throwable t) {
+		WholeUIPlugin.reportError((Shell) context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
 	}
 }

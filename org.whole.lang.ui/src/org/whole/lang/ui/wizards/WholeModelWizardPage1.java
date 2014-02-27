@@ -17,13 +17,14 @@
  */
 package org.whole.lang.ui.wizards;
 
+import static org.whole.lang.ui.util.ResourceUtils.defineResourceBindings;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -38,7 +39,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.ide.IDE;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -50,7 +50,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.templates.ITemplateManager;
 import org.whole.lang.ui.WholeUIPlugin;
-import static org.whole.lang.ui.util.ResourceUtils.defineResourceBindings;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
@@ -157,12 +156,6 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
 	}
     protected IPersistenceKit persistenceKit;
 	protected InputStream getInitialContents() {
-		if (fileHandle == null) {
-			MessageDialog.openError(getShell(), "Write Model errors", "no file context available");
-			return null;
-		}
-		
-		
 		IEntity model = templateFactory.create(templates[templateCombo.getSelectionIndex()]);		
 		persistenceKit = getPersistenceKit(saveAsCombo);
 
@@ -171,10 +164,8 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
 			defineResourceBindings(pp.getBindings(), fileHandle);
 			persistenceKit.writeModel(model, pp);
 			return pp.openInputStream();
-		}
-		catch (Exception e) {
-			MessageDialog.openError(getShell(), "Write Model errors", StringUtils.errorMessage(e));
-			return null;
+		} catch (Exception e) {
+			throw new IllegalStateException("error writing file contents", e);
 		}
 	}
 
@@ -183,26 +174,21 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
 	}
 	
 	public boolean finish() {
-		final IFile newFile = createNewFile();
-		if (newFile == null) 
-			return false;
-	
-		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-		final IWorkbenchPage page = window.getActivePage();
-		if (page == null)
-			return false;
-
 		try {
+			IFile newFile = createNewFile();
+
 			String editorID = ReflectionFactory.getEditorIdFromPersistenceKit(persistenceKit);
 			IDE.setDefaultEditor(newFile, editorID);
+
+			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+			IWorkbenchPage page = window.getActivePage();
             IDE.openEditor(page, newFile, true);
-//			page.openEditor(new FileEditorInput(newFile), editorID); 
-		}
-		catch (PartInitException e) {
-			WholeUIPlugin.log(e);
+
+            exampleCount++;
+            return true;
+		} catch (Exception e) {
+			WholeUIPlugin.reportError(getShell(), "Create model error", "Unable to create a new model.", e);
 			return false;
 		}
-		exampleCount++;
-		return true;
 	}
 }

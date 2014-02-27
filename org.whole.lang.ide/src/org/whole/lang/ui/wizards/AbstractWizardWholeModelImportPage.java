@@ -25,7 +25,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.swt.SWT;
@@ -42,12 +42,14 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.WizardResourceImportPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.pojo.reflect.PojoLanguageKit;
 import org.whole.lang.reflect.ILanguageKit;
@@ -117,7 +119,7 @@ public abstract class AbstractWizardWholeModelImportPage extends WizardResourceI
 	}
 
 	private void initOptionsGroup() {
-		ILanguageKit languageKit = ReflectionFactory.getLanguageKit(PojoLanguageKit.URI);
+		ILanguageKit languageKit = ReflectionFactory.getLanguageKit(PojoLanguageKit.URI, false, null);
 		setFilename("ModelExample" + filenameCount + "." + languageKit.getDefaultFileExtension());
 		persistenceKits = new ArrayList<IPersistenceKit>(languageKit.getPersistenceKits());
 		Iterator<IPersistenceKit> iterator = persistenceKits.iterator();
@@ -180,7 +182,8 @@ public abstract class AbstractWizardWholeModelImportPage extends WizardResourceI
 			return true;
 		}
 		catch (Exception e) {
-			MessageDialog.openError(getShell(), "Write Model errors", StringUtils.errorMessage(e));
+			IEclipseContext context = (IEclipseContext) PlatformUI.getWorkbench().getService(IEclipseContext.class);
+			E4Utils.reportError(context, "Write Model errors", StringUtils.errorMessage(e), e);
 			return false;
 		}
 	}

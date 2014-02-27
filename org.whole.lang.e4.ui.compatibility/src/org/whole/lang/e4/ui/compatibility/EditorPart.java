@@ -17,9 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.EDITOR_PART_ID;
-import static org.whole.lang.e4.ui.actions.IUIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.actions.IUIConstants.UNDO_LABEL;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.EventObject;
 import java.util.HashSet;
@@ -45,7 +43,6 @@ import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IMemento;
@@ -63,9 +60,9 @@ import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.e4.ui.parts.E4GraphicalPart;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.input.IModelInputListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -184,8 +181,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 			// reset entity contents command stack and dirty state
 			getComponent().getViewer().setEntityContents(entityContents);
 		} catch (Exception e) {
-			WholeUIPlugin.log(e);
-			MessageDialog.openError(getSite().getShell(), "Write Model errors", StringUtils.errorMessage(e));
+			E4Utils.reportError(getContext(), "Write Model errors", StringUtils.errorMessage(e), e);
 		}
 	}
 
