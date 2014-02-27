@@ -55,7 +55,7 @@ public abstract class OperationHandler {
 
 		IRunnableWithProgress runnable = createRunnable(bm, context);
 		final RunnableJob job = new RunnableJob("Executing "+getLabel(bm)+" operation...", runnable);
-		job.setUser(true);
+		job.setUser(false);
 		job.setPriority(Job.INTERACTIVE);
 		job.schedule();
 	}

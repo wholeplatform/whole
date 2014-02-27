@@ -71,7 +71,7 @@ public class ActionCallHandler {
 		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, true);
 		defineBindings(functionUri, predicateXwl, analyzing, actionRunnable.getBindings());
 		final RunnableJob job = new RunnableJob("Executing "+label+" action...", actionRunnable);
-		job.setUser(true);
+		job.setUser(false);
 		job.setPriority(Job.INTERACTIVE);
 		job.schedule();
 	}
