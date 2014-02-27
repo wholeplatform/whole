@@ -59,6 +59,8 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public void rebuildNotation();
 	public void rebuildNotation(IEntity entity);
 
+	public void reveal(IEntity entity);
+	public void select(IEntity entity);
 	public void selectAndReveal(IEntity entity);
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited);
 

@@ -249,6 +249,15 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		super.setKeyHandler(handler);
 	}
 
+	public void select(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		if (entityPart != null)
+			select(entityPart);
+	}
+	public void reveal(IEntity entity) {
+		IEntityPart entityPart = getEditPartRegistry().get(entity);
+			reveal(entityPart);
+	}
 	public void selectAndReveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
 
