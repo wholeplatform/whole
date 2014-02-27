@@ -40,7 +40,11 @@ import org.whole.lang.properties.reflect.PropertiesEntityDescriptorEnum;
 import org.whole.lang.properties.util.PropertiesUtils;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
+import org.whole.lang.util.EntityUtils;
+import org.whole.lang.xml.codebase.XmlSourcePersistenceKit;
+import org.whole.lang.xml.model.Document;
 import org.whole.lang.xml.util.SaxConsumerHandler;
+import org.whole.lang.xml.util.SaxHandlerBuilderOperation;
 import org.whole.lang.xml.util.XmlStoreConsumerBuilderOperation;
 import org.whole.lang.xml.util.XmlStoreConsumerVisitor;
 import org.whole.lang.xml.util.XmlStoreProducerBuilder;
@@ -150,5 +154,17 @@ public class PersistenceTest extends TestCase {
 		new XmlStoreConsumerVisitor(op).visit(xmlModel);
 		IEntity model2 = op.wGetResult();
 		return model2;
+	}
+
+	public void testSaxHandlerBuilder() throws Exception {
+		Document xmlModel = (Document) XmlSourcePersistenceKit.instance().readModel(
+				new ClasspathPersistenceProvider("org/whole/lang/xsd/util/javaee_web_services_client_1_2.xsd"));
+
+		ModelBuilderOperation op = new ModelBuilderOperation();
+		SaxConsumerHandler saxHandler = new SaxConsumerHandler(op, !EntityUtils.isResolver(xmlModel.getProlog().getXmlDecl()));
+		SaxHandlerBuilderOperation sbop = new SaxHandlerBuilderOperation(saxHandler, saxHandler);
+		new ModelTemplate(xmlModel).apply(sbop);
+
+		assertTrue(Matcher.match(op.wGetResult(), xmlModel));
 	}
 }

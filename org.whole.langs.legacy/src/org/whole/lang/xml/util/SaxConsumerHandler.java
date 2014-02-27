@@ -276,12 +276,14 @@ public class SaxConsumerHandler extends DefaultHandler implements LexicalHandler
 		builder.DocTypeDecl_();
 		builder.Name(name);
 
-		if (publicId != null && systemId != null) {
+		boolean validPublicId = publicId != null && publicId.length() > 0;
+		boolean validSystemId = systemId != null && systemId.length() > 0;
+		if (validPublicId && validSystemId) {
 			builder.PublicId_();
 			builder.PubidLiteral(publicId);
 			builder.SystemLiteral(systemId);
 			builder._PublicId();
-		} else if (systemId != null) {
+		} else if (validSystemId) {
 			builder.SystemId_();
 			builder.SystemLiteral(systemId != null ? systemId : publicId);
 			builder._SystemId();			
