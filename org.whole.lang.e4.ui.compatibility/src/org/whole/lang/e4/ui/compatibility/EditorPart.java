@@ -28,7 +28,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -110,7 +109,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 		redoAction = new RedoAction(getContext(), REDO_LABEL);
 		redoAction.update();
-		
+
 		IWorkspace workspace = ((FileEditorInput) getEditorInput()).getFile().getWorkspace();
 		workspace.addResourceChangeListener(resourceListener = new ResourceChangeListener());
 	}
@@ -142,8 +141,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		return !CoreMetaModelsDeployer.STATUS_URI.equals(
 				getComponent().getViewer().getEntityContents().wGetLanguageKit().getURI());
 	}
-	
-	
+
 	@Override
 	public void doSaveAs() {
 		IEntity entityContents = getComponent().getViewer().getEntityContents();
@@ -165,7 +163,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 			// perform save to new file
 			IFilePersistenceProvider pp = new IFilePersistenceProvider(file);
 			persistenceKit.writeModel(entityContents, pp);
-			
+
 			// update default editor in package explorer
 			IDE.setDefaultEditor(file, ReflectionFactory.getEditorIdFromPersistenceKit(persistenceKit));
 
@@ -253,38 +251,29 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 	public class ResourceChangeListener implements IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
 			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
-				try {
-					event.getDelta().accept(new IResourceDeltaVisitor() {
-						public boolean visit(IResourceDelta delta) throws CoreException {
-							if (delta.getKind() == IResourceDelta.REMOVED &&
-									(((FileEditorInput) getEditorInput()).getFile()).equals(delta.getResource())) {
-								if ((delta.getFlags() & IResourceDelta.MOVED_TO) != 0) {
-									IFile file = ((FileEditorInput) getEditorInput()).getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
-									setInput(new FileEditorInput(file));
-									
-									getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
-										public void run() {
-											setPartName(getEditorInput().getName());
-										}
-									});
-									return false;
-								} else if (delta.getFlags() == 0) {
-									getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
-										public void run() {
-											IWorkbenchWindow window = getEditorSite().getWorkbenchWindow();
-											IWorkbenchPage page = window.getActivePage();	
-											page.activate(EditorPart.this);
-											page.closeEditor(EditorPart.this, false);
-										}
-									});
-									return false;
-								} else
-									return true;
-							} else
-								return true;
+				IFile file = ((FileEditorInput) getEditorInput()).getFile();
+				IResourceDelta member = event.getDelta().findMember(file.getFullPath());
+				if (member == null || member.getKind() != IResourceDelta.REMOVED)
+					return;
+
+				if ((member.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+					IFile destination = file.getWorkspace().getRoot().getFile(member.getMovedToPath());
+					setInput(new FileEditorInput(destination));
+
+					getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
+						public void run() {
+							setPartName(getEditorInput().getName());
 						}
 					});
-				} catch (CoreException e) {
+				} else if (member.getFlags() == 0) {
+					getEditorSite().getShell().getDisplay().asyncExec(new Runnable() {
+						public void run() {
+							IWorkbenchWindow window = getEditorSite().getWorkbenchWindow();
+							IWorkbenchPage page = window.getActivePage();	
+							page.activate(EditorPart.this);
+							page.closeEditor(EditorPart.this, false);
+						}
+					});
 				}
 			}
 		}

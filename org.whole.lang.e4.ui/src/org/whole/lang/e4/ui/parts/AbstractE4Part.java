@@ -27,10 +27,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
@@ -299,6 +297,18 @@ public abstract class AbstractE4Part {
 		return selectionLinkable;
 	}
 
+	protected void reloadContents() {
+		context.get(UISynchronize.class).asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				if (viewer.isDirty())
+					reloader.schedule(modelInput.getFile());
+				else
+					viewer.setContents(modelInput, null);
+			}
+		});
+	}
+
 	public class ResourceChangeListener implements IResourceChangeListener {
 		private final IModelInput modelInput;
 
@@ -308,41 +318,21 @@ public abstract class AbstractE4Part {
 
 		public void resourceChanged(IResourceChangeEvent event) {
 			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
-				try {
-					event.getDelta().accept(new IResourceDeltaVisitor() {
-						public boolean visit(IResourceDelta delta) throws CoreException {
-							if (delta.getKind() == IResourceDelta.CHANGED && modelInput.getFile().equals(delta.getResource()) &&
-									(delta.getFlags() & IResourceDelta.CONTENT) != 0) {
-								reloadContents();
-								return false;
-							} else if (delta.getKind() == IResourceDelta.REMOVED &&
-									(delta.getFlags() & IResourceDelta.MOVED_TO) != 0 &&
-											modelInput.getFile().equals(delta.getResource())) {
-								IFile file = modelInput.getFile().getWorkspace().getRoot().getFile(delta.getMovedToPath());
-								final ModelInput newModelInput = new ModelInput(file, modelInput.getBasePersistenceKit().getId());
-								newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
-								updateModelInput(newModelInput);
-								reloadContents();
-								return false;
-							} else
-								return true;
-						}
-					});
-				} catch (CoreException e) {
+				IFile file = modelInput.getFile();
+				IResourceDelta member = event.getDelta().findMember(file.getFullPath());
+				if (member == null)
+					return;
+
+				if (member.getKind() == IResourceDelta.REMOVED && (member.getFlags() & IResourceDelta.MOVED_TO) != 0) {
+					IFile destination = modelInput.getFile().getWorkspace().getRoot().getFile(member.getMovedToPath());
+					ModelInput newModelInput = new ModelInput(destination, modelInput.getBasePersistenceKit().getId());
+					newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
+					updateModelInput(newModelInput);
+					reloadContents();
+				} else if (member.getKind() == IResourceDelta.CHANGED &&  (member.getFlags() & IResourceDelta.CONTENT) != 0) {
+					reloadContents();
 				}
 			}
-		}
-
-		protected void reloadContents() {
-			context.get(UISynchronize.class).asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (viewer.isDirty())
-						reloader.schedule(modelInput.getFile());
-					else
-						viewer.setContents(modelInput, null);
-				}
-			});
 		}
 	}
 }
