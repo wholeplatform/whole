@@ -18,15 +18,19 @@
 package org.whole.langs.legacy.op;
 
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.html.codebase.HtmlPersistenceKit;
+import org.whole.lang.html.visitors.HtmlPrettyPrinterVisitor;
 import org.whole.lang.javascript.reflect.JavaScriptLanguageKit;
 import org.whole.lang.javascript.visitors.JavaScriptInterpreterVisitor;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.AbstractContributionExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
+import org.whole.langs.legacy.LegacyMetaModelsDeployer;
 
 /**
  * @author Enrico Persiani
@@ -46,6 +50,13 @@ public class LegacyContributionExtensionsDeployer extends AbstractContributionEx
 			throw new IllegalStateException(e);
 		}
 
+		platform.addPersistenceKit("org.whole.lang.html.Html5Editor", HtmlPersistenceKit.instance());
+		platform.addOperationFactory(LegacyMetaModelsDeployer.HTML5_URI, PrettyPrinterOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				return new HtmlPrettyPrinterVisitor((PrettyPrinterOperation) operation);
+			}
+		});
 		platform.addOperationFactory(JavaScriptLanguageKit.URI, InterpreterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
