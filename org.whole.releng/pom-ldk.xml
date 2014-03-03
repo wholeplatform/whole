@@ -51,6 +51,16 @@
 				<version>${rhino-version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nu.validator.htmlparser</groupId>
+				<artifactId>htmlparser</artifactId>
+				<version>${htmlparser-version}</version>
+			</dependency>
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit-version}</version>
@@ -72,6 +82,8 @@
 		<joda-time-version>1.6.2</joda-time-version>
 		<rhino-version>1.7R3</rhino-version>
 		<junit-version>4.8.2</junit-version>
+		<jackson-version>2.3.1</jackson-version>
+		<htmlparser-version>1.4</htmlparser-version>
 	</properties>
 
 	<build>

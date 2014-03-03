@@ -28,6 +28,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>nu.validator.htmlparser</groupId>
+			<artifactId>htmlparser</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<scope>provided</scope>
