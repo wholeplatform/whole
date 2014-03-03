@@ -46,6 +46,9 @@
    <feature url="features/net.sourceforge.jodatime.feature_1.6.2.jar" id="net.sourceforge.jodatime.feature" version="1.6.2">
       <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
    </feature>
+   <feature url="features/nu.validator.htmlparser.feature_1.4.0.jar" id="nu.validator.htmlparser.feature" version="1.4.0">
+      <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
+   </feature>
    <feature url="features/org.beanshell.bsh.feature_2.0.0.b4.jar" id="org.beanshell.bsh.feature" version="2.0.0.b4">
       <category name="Whole Platform Enabling Features 1.0.0.qualifier"/>
    </feature>

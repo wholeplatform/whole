@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %bundleName
+Bundle-SymbolicName: nu.validator.htmlparser
+Bundle-Version: 1.4.0
+Bundle-ClassPath: lib/htmlparser-1.4.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: nu.validator.htmlparser.common,
+ nu.validator.htmlparser.sax
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-BundleShape: dir

@@ -28,6 +28,8 @@
 		<module>../com.fasterxml.jackson.feature/pom-lw.xml</module>
 		<module>../net.sourceforge.jodatime/pom-lw.xml</module>
 		<module>../net.sourceforge.jodatime.feature/pom-lw.xml</module>
+		<module>../nu.validator.htmlparser/pom-lw.xml</module>
+		<module>../nu.validator.htmlparser.feature/pom-lw.xml</module>
 		<module>../org.beanshell.bsh/pom-lw.xml</module>
 		<module>../org.beanshell.bsh.feature/pom-lw.xml</module>
 		<module>../org.h2/pom-lw.xml</module>
