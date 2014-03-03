@@ -9,6 +9,11 @@
             id="org.whole.langs.legacy.LegacyLanguagesDeployer">
       </deployer>
       <deployer
+            desc="Whole Legacy Dynamic Languages Deployer"
+            class="org.whole.langs.legacy.LegacyDynamicLanguagesDeployer"
+            id="org.whole.langs.legacy.LegacyDynamicLanguagesDeployer">
+      </deployer>
+      <deployer
             desc="Whole Legacy Meta Models Deployer"
             class="org.whole.langs.legacy.LegacyMetaModelsDeployer"
             id="org.whole.langs.legacy.LegacyMetaModelsDeployer">
