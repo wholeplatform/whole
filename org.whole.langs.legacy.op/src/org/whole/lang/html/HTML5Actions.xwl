@@ -4,7 +4,7 @@
     <actions:Namespace value="org.whole.lang.html"/>
     <actions:Name value="Html5Actions"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <actions:URI value="whole:org.whole.lang.html:HTML5Model"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <actions:ToolbarActions>
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -42,11 +42,21 @@
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>
         <actions:MenuActions initialCapacity="0"/>
-        <actions:MenuActions initialCapacity="1">
+        <actions:MenuActions initialCapacity="2">
             <actions:GuardedAction>
                 <actions:Label value="translate to XHTML"/>
                 <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                     <semantics:Name value="whole:org.whole.lang.html:HTML5Semantics#toXHtml"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="translate to HTML"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.html:HTML5Semantics#toHtml"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
