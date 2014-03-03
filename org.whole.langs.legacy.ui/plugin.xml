@@ -153,6 +153,14 @@
             id="org.whole.lang.java.JavaScriptSourceEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.javaScriptSource"/>
       </editor>
+      <editor
+            name="HTML5 Editor (Whole)"
+            extensions="html,htm"
+            icon="icons/editors/html5_source.gif"
+            default="false"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.html.Html5Editor">
+      </editor>
    </extension>
 
 </plugin>
