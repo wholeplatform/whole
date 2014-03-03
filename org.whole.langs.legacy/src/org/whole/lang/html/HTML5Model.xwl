@@ -1,8 +1,226 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
-    <models:SimpleName value="HTML5"/>
+    <models:SimpleName value="HTML5"/>>
     <models:TypeRelations initialCapacity="0"/>
-    <models:ModelDeclarations initialCapacity="73">
+    <models:ModelDeclarations initialCapacity="90">
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="CoreAttributes"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="5">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="class"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ID"/>
+                    <models:SimpleName value="id"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="lang"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="style"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="title"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="EventHandlerAttributes"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="20">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onafterprint"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onbeforeprint"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onbeforeunload"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onblur"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onerror"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onfocus"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onhashchange"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onload"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onmessage"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onoffline"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="ononline"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onpopstate"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onpagehide"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onpageshow"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onredo"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onresize"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onscroll"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onstorage"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onundo"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Function"/>
+                    <models:SimpleName value="onunload"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -14,8 +232,8 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="GlobalAttributes"/>
-                    <models:SimpleName value="globalAttributes"/>
+                    <models:SimpleName value="CoreAttributes"/>
+                    <models:SimpleName value="coreAttributes"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
@@ -245,7 +463,9 @@
             </models:Types>
             <models:Features initialCapacity="3">
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="DOMString"/>
                     <models:SimpleName value="name"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -456,167 +676,7 @@
                 <models:SimpleName value="HtmlElement"/>
                 <models:SimpleName value="SectioningRoot"/>
             </models:Types>
-            <models:Features initialCapacity="21">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onafterprint"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onbeforeprint"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onbeforeunload"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onblur"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onerror"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onfocus"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onhashchange"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onload"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onmessage"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onoffline"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="ononline"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onpopstate"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onpagehide"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onpageshow"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onredo"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onresize"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onscroll"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onstorage"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onundo"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Function"/>
-                    <models:SimpleName value="onunload"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
+            <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="FlowContentElements"/>
@@ -1404,6 +1464,753 @@
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Form"/>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+            </models:Types>
+            <models:Features initialCapacity="9">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="accept-charset"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="action"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="autocomplete"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="enctype"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="method"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="noValidate"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="target"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="FlowContentElements"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Input"/>
+            <models:Types initialCapacity="4">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+                <models:SimpleName value="InteractiveContent"/>
+            </models:Types>
+            <models:Features initialCapacity="29">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="accept"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="alt"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="autocomplete"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="autofocus"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="checked"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="dirname"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="disabled"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IDRef"/>
+                    <models:SimpleName value="form"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formAction"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formEnctype"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formMethod"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="formNoValidate"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formTarget"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="height"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="max"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="maxLength"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="min"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="multiple"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="pattern"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="placeholder"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="readonly"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="required"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="size"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="src"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="step"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="InputType"/>
+                    <models:SimpleName value="type"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="value"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="width"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Textarea"/>
+            <models:Types initialCapacity="4">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+                <models:SimpleName value="InteractiveContent"/>
+            </models:Types>
+            <models:Features initialCapacity="13">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="autofocus"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="cols"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="dirName"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="disabled"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IDRef"/>
+                    <models:SimpleName value="form"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="maxLength"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="placeholder"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="readOnly"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="required"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="rows"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="wrap"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Button"/>
+            <models:Types initialCapacity="4">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+                <models:SimpleName value="InteractiveContent"/>
+            </models:Types>
+            <models:Features initialCapacity="12">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="autofocus"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="disabled"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IDRef"/>
+                    <models:SimpleName value="form"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formAction"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formEnctype"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formMethod"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="formNoValidate"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="formTarget"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="ButtonType"/>
+                    <models:SimpleName value="type"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="value"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="PhrasingContentElements"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Select"/>
+            <models:Types initialCapacity="4">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+                <models:SimpleName value="InteractiveContent"/>
+            </models:Types>
+            <models:Features initialCapacity="8">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="autofocus"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="disabled"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IDRef"/>
+                    <models:SimpleName value="form"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="multiple"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="required"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMLong"/>
+                    <models:SimpleName value="size"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="OptionOrOptGroups"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Label"/>
+            <models:Types initialCapacity="4">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+                <models:SimpleName value="InteractiveContent"/>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="IDRef"/>
+                    <models:SimpleName value="form"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="htmlFor"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="PhrasingContentElements"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="OptionOrOptGroups"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="HtmlElement"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="disabled"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="label"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Options"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="OptionsOrPhrasingContentElements"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Option"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Option"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="OptionOrOptGroups"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMBoolean"/>
+                    <models:SimpleName value="selected"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="DOMString"/>
+                    <models:SimpleName value="value"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="OptGroup"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="OptionOrOptGroups"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Options"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Datalist"/>
+            <models:Types initialCapacity="3">
+                <models:SimpleName value="HtmlElement"/>
+                <models:SimpleName value="FlowContent"/>
+                <models:SimpleName value="PhrasingContent"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="OptionsOrPhrasingContentElements"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="MetadataContentElements"/>
@@ -1444,8 +2251,9 @@
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PhrasingContentElements"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="FlowOrPhrasingContentElements"/>
+                <models:SimpleName value="OptionsOrPhrasingContentElements"/>
             </models:Types>
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
@@ -1478,6 +2286,46 @@
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="InputType"/>
+            <models:Types initialCapacity="0"/>
+            <models:EnumValues initialCapacity="23">
+                <models:EnumValue value="hidden"/>
+                <models:EnumValue value="text"/>
+                <models:EnumValue value="search"/>
+                <models:EnumValue value="tel"/>
+                <models:EnumValue value="url"/>
+                <models:EnumValue value="email"/>
+                <models:EnumValue value="passworg"/>
+                <models:EnumValue value="datetime"/>
+                <models:EnumValue value="date"/>
+                <models:EnumValue value="month"/>
+                <models:EnumValue value="week"/>
+                <models:EnumValue value="time"/>
+                <models:EnumValue value="datetime-local"/>
+                <models:EnumValue value="number"/>
+                <models:EnumValue value="range"/>
+                <models:EnumValue value="color"/>
+                <models:EnumValue value="checkbox"/>
+                <models:EnumValue value="radio"/>
+                <models:EnumValue value="file"/>
+                <models:EnumValue value="submit"/>
+                <models:EnumValue value="image"/>
+                <models:EnumValue value="reset"/>
+                <models:EnumValue value="button"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ButtonType"/>
+            <models:Types initialCapacity="0"/>
+            <models:EnumValues initialCapacity="3">
+                <models:EnumValue value="submit"/>
+                <models:EnumValue value="reset"/>
+                <models:EnumValue value="button"/>
+            </models:EnumValues>
+        </models:EnumEntity>
         <models:EnumEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="HeadingRank"/>
@@ -1514,6 +2362,18 @@
         </models:DataEntity>
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ID"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="IDRef"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="DOMString"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="PhrasingContent"/>
@@ -1528,6 +2388,6 @@
         </models:DataEntity>
     </models:ModelDeclarations>
     <models:Namespace value="org.whole.lang.html"/>
-    <models:Version value="WD-20110405"/>
+    <models:Version value="WD-20121011"/>
     <models:URI value="whole:org.whole.lang.html:HTML5Model"/>
 </models:Model>
