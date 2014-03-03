@@ -35,13 +35,17 @@ public class LegacyContributionExtensionsDeployer extends AbstractContributionEx
 	public void deploy(ReflectionFactory platform) {
 		try {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/html/HTML5Semantics.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/html/HTML5Actions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/javascript/JavaScriptSemantics.xwl")));
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/javascript/JavaScriptActions.xwl")));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-		
+
 		platform.addOperationFactory(JavaScriptLanguageKit.URI, InterpreterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
