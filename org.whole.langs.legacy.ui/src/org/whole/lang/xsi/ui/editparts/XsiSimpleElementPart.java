@@ -24,7 +24,6 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.gef.EditPart;
-import org.eclipse.ui.PlatformUI;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IdentityChangeEventHandler;
 import org.whole.lang.iterators.IEntityIterator;
@@ -146,7 +145,7 @@ public class XsiSimpleElementPart extends AbstractContentPanePart {
 					refresh();
 				}
 				private void refresh() {
-					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+					getViewer().getControl().getDisplay().asyncExec(new Runnable() {
 						public void run() {
 							refreshVisuals();
 						}

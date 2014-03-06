@@ -32,11 +32,10 @@ Export-Package: org.whole.lang.java.ui,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.workbench,
- org.eclipse.ui,
+ org.eclipse.jface,
  org.whole.lang,
  org.whole.lang.ui,
  org.whole.lang.e4.ui,
- org.whole.lang.e4.ui.compatibility,
  org.whole.langs.legacy,
  org.whole.lang.ui.notations
 Bundle-ActivationPolicy: lazy
