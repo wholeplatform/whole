@@ -80,6 +80,8 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.IUIProvider;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.LazyConfirmationDialogReloader;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
@@ -186,6 +188,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 	protected Control createMergeArea(Composite parent) {
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
+		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
 		viewer = ContextInjectionFactory.make(E4GraphicalViewer.class, getContext(), params);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
