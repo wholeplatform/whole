@@ -21,13 +21,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -37,12 +45,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 
 /**
  * @author Enrico Persiani
@@ -57,7 +63,7 @@ public class OpenAsModelDialog extends ElementTreeSelectionDialog {
 		setValidator(createPersistenceValidator());
 	}
 	protected OpenAsModelDialog(Shell parent, IPersistenceKit defaultPersistenceKit, String title, String message) {
-		super(parent, new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+		super(parent, createLabelProvider(), createContentProvider());
 		this.persistenceKit = defaultPersistenceKit;
 		setInput(ResourcesPlugin.getWorkspace());
 		setTitle(title); 
@@ -79,11 +85,11 @@ public class OpenAsModelDialog extends ElementTreeSelectionDialog {
 		};
 	}
 	protected IStatus createMultiSelectionStatus() {
-		return new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.ERROR,
+		return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR,
 				"Choose a single file", null);
 	}
 	protected IStatus createWrongPersistenceStatus() {
-		return new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.ERROR,
+		return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR,
 				"Can't open model with selected persistence", null);
 	}
 
@@ -138,5 +144,72 @@ public class OpenAsModelDialog extends ElementTreeSelectionDialog {
 
 	public IPersistenceKit getPersistenceKit() {
 		return persistenceKit;
+	}
+
+	protected static ITreeContentProvider createContentProvider() {
+		try {
+			return (ITreeContentProvider) Class.forName(
+					"org.eclipse.ui.model.WorkbenchContentProvider",
+					true, ReflectionFactory.getPlatformClassLoader()).newInstance();
+		} catch (Exception e) {
+			return new ResourceTreeContentProvider();
+		}
+	}
+	protected static ILabelProvider createLabelProvider() {
+		try {
+			return (ILabelProvider) Class.forName(
+					"org.eclipse.ui.model.WorkbenchLabelProvider",
+					true, ReflectionFactory.getPlatformClassLoader()).newInstance();
+		} catch (Exception e) {
+			return new ResourceTreeLabelProvider();
+		}
+	}
+
+	public static class ResourceTreeContentProvider implements ITreeContentProvider {
+		public void dispose() {
+		}
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		}
+		public Object[] getElements(Object inputElement) {
+			return null;
+		}
+		public Object[] getChildren(Object parentElement) {
+			try {
+				if (parentElement instanceof IContainer)
+					return ((IContainer) parentElement).members();
+			} catch (CoreException e) {
+			}
+			return null;
+		}
+		public Object getParent(Object element) {
+			return element instanceof IResource ?
+					((IResource) element).getParent() : null;
+		}
+		public boolean hasChildren(Object element) {
+			try {
+				if (element instanceof IContainer)
+					return ((IContainer) element).members().length > 0;
+			} catch (CoreException e) {
+			}
+			return false;
+		}
+	}
+	public static class ResourceTreeLabelProvider implements ILabelProvider {
+	    public void addListener(ILabelProviderListener listener) {
+	    }
+	    public void dispose() {
+	    }
+	    public boolean isLabelProperty(Object element, String property) {
+	        return false;
+	    }
+	    public void removeListener(ILabelProviderListener listener) {
+	    }
+	    public Image getImage(Object element) {
+	        return null;
+	    }
+	    public String getText(Object element) {
+			return element instanceof IResource ?
+					((IResource) element).getName() : null;
+	    }
 	}
 }

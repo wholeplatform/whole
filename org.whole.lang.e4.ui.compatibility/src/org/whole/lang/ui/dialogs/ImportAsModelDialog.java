@@ -28,9 +28,9 @@ import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -120,7 +120,7 @@ public class ImportAsModelDialog extends OpenAsModelDialog implements IImportAsM
 			return Status.OK_STATUS;
 		}
 		private Status createErrorStatus(String message) {
-			return new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.ERROR, message, null);
+			return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR, message, null);
 		}
 	}
 }

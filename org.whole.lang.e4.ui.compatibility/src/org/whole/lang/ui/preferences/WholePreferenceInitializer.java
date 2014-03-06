@@ -20,7 +20,7 @@ package org.whole.lang.ui.preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -33,11 +33,11 @@ public class WholePreferenceInitializer extends AbstractPreferenceInitializer {
 			return;
 		initialized = true;
 
-		IPreferenceStore store = WholeUIPlugin.getDefault().getPreferenceStore();
+		IPreferenceStore store = UIUtils.getPreferenceStore();
 		
 		PreferenceConstants.initializeDefaultValues(store,
-				WholeUIPlugin.getDefault().getColorRegistry(),
-				WholeUIPlugin.getDefault().getFontRegistry());
+				UIUtils.getColorRegistry(),
+				UIUtils.getFontRegistry());
 	}
 
 }

@@ -44,12 +44,12 @@ import org.eclipse.ui.ide.IDE;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.StringPersistenceProvider;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.templates.ITemplateManager;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
@@ -72,7 +72,7 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
 		super("sampleModelPage1", selection);
 		this.setTitle("Whole Model");
 		this.setDescription("Create a new Whole Model");
-		this.setImageDescriptor(ImageDescriptor.createFromFile(WholeUIPlugin.class,"images/banner.png"));
+		this.setImageDescriptor(ImageDescriptor.createFromFile(E4CompatibilityPlugin.class,"images/banner.png"));
 		this.workbench = aWorkbench;
 	}
 
@@ -187,7 +187,7 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
             exampleCount++;
             return true;
 		} catch (Exception e) {
-			WholeUIPlugin.reportError(getShell(), "Create model error", "Unable to create a new model.", e);
+			E4CompatibilityPlugin.reportError(getShell(), "Create model error", "Unable to create a new model.", e);
 			return false;
 		}
 	}

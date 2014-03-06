@@ -17,9 +17,7 @@
  */
 package org.whole.lang.ui.dialogs;
 
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.SameStageFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.StageDownFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.StageUpFragment;
+import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +40,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
-public class ImportAsModelDialogFactory {
+public class ImportAsModelDialogFactory implements IImportAsModelDialogFactory {
 	protected static final String[] STAGES_LABELS = { "Same", "Down", "Up" };
 	protected static final EntityDescriptor<?>[] STAGES_EDS = { SameStageFragment, StageDownFragment, StageUpFragment };
 

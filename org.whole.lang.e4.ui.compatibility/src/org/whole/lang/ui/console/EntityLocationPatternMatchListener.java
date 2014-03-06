@@ -24,7 +24,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.ui.console.IPatternMatchListener;
 import org.eclipse.ui.console.PatternMatchEvent;
 import org.eclipse.ui.console.TextConsole;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.ui.util.UIUtils;
 
 /**
@@ -76,7 +76,7 @@ public class EntityLocationPatternMatchListener implements IPatternMatchListener
 			EntityLocationHyperlink hyperlink = new EntityLocationHyperlink(file, location);
 			console.addHyperlink(hyperlink, offset, length);
 		} catch (BadLocationException e) {
-			WholeUIPlugin.log(e);
+			E4CompatibilityPlugin.log(e);
 		}
 	}
 }

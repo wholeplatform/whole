@@ -65,7 +65,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -110,7 +110,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 	private Button fgItalicCheckBox;
 
 	public EditorPreferencePage() {
-		setPreferenceStore(WholeUIPlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(UIUtils.getPreferenceStore());
 		setDescription("Colors and Fonts");
 
 		fKeys = createOverlayStoreKeys();
@@ -121,8 +121,8 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 	private ColorRegistry colorRegistry;
 	private FontRegistry fontRegistry;
 	public void init(IWorkbench workbench) {
-		colorRegistry = WholeUIPlugin.getDefault().getColorRegistry();
-		fontRegistry = WholeUIPlugin.getDefault().getFontRegistry();
+		colorRegistry = UIUtils.getColorRegistry();
+		fontRegistry = UIUtils.getFontRegistry();
 	}
 
 	private OverlayPreferenceStore.OverlayKey[] createOverlayStoreKeys() {
