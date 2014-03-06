@@ -20,11 +20,11 @@ package org.whole.examples.dataintegration.xsd;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractContributionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 
@@ -45,7 +45,7 @@ public class DTAUSDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/examples/dataintegration/xsd/DTAUSActions.xwl"));
 			InterpreterOperation.interpret(model);
 		} catch (Exception e) {
-			WholeUIPlugin.log(e);
+			E4CompatibilityPlugin.log(e);
 		}
 	}
 }
