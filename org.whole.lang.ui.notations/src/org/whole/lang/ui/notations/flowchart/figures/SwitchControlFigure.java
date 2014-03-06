@@ -30,7 +30,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.EntityFigure;
@@ -42,6 +41,7 @@ import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.NotationImages;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -75,7 +75,7 @@ public class SwitchControlFigure extends NodeFigure {
 						return FigurePrefs.contentLightColor;
 					}	
 					public Font getLocalFont() {
-						return WholeUIPlugin.getOpenSymbolMediumFont();
+						return UIUtils.getOpenSymbolMediumFont();
 					}
 				};
 			}

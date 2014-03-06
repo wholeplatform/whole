@@ -26,8 +26,7 @@ Export-Package: org.whole.lang.ui.notations,
  org.whole.lang.ui.notations.tree.editparts,
  org.whole.lang.ui.notations.tree.figures
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- org.eclipse.ui.views,
+ org.eclipse.jface,
  org.whole.lang,
  org.whole.lang.ui
 Bundle-ActivationPolicy: lazy

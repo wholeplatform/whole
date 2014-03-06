@@ -17,16 +17,16 @@
  */
 package org.whole.lang.ui.notations;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * @author Riccardo Solmi
  */
 public class NotationImages {
 	public static ImageDescriptor createIconDescriptor(String imageFilePath) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.whole.lang.ui.notations", imageFilePath);
+		return ImageDescriptor.createFromURL(Platform.getBundle("org.whole.lang.ui.notations").getEntry(imageFilePath));
 	}
 	public static Image createIcon(String imageFilePath) {
 		return createIconDescriptor(imageFilePath).createImage();
