@@ -21,6 +21,7 @@ public class HtmlPrettyPrinterVisitor extends GenericIdentityVisitor {
 		IEntity xhtmlDocument = BehaviorUtils.apply("whole:org.whole.lang.html:HTML5Semantics#toXHtml", entity);
 		HtmlSerializer serializer = new HtmlSerializer(out.asWriter());
 		SaxHandlerBuilderOperation sbop = new SaxHandlerBuilderOperation(serializer, serializer, "http://www.w3.org/1999/xhtml");
-		new ModelTemplate(xhtmlDocument).apply(sbop);		
+		if (xhtmlDocument != null)
+			new ModelTemplate(xhtmlDocument).apply(sbop);		
 	};
 }
