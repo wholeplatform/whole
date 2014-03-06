@@ -695,11 +695,14 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
 
     public IEntity wGetOwner() {
-    	IEntity owner = wGetParent();
-    	if (EntityUtils.isNull(owner) && wInverseAdjacentSize() == 1)
-    		return wInverseAdjacents().iterator().next();
-    	else
-    		return owner;
+    	if (wGetEntityDescriptor().isRelationship()) {
+    		IEntity owner = wGetParent();
+    		if (EntityUtils.isNull(owner) && wInverseAdjacentSize() == 1)
+    			owner = wInverseAdjacents().iterator().next();
+    		if (!EntityUtils.isNull(owner) && owner.wGetFeatureDescriptor(this).isToMany())
+    			return owner;
+    	}
+    	return NullEntity.instance;
     }
 
     protected final void notifyAdded(int index, IEntity newValue, boolean isContainment) {
@@ -708,7 +711,7 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
             EntityDescriptor<?> ownerEd = owner.wGetEntityDescriptor();
             FeatureDescriptor ownerFd = owner.wGetFeatureDescriptor(this);
 
-        	isContainment = !ownerEd.getEntityFeatureDescriptor(ownerFd).isReference();
+//was      	isContainment = !ownerEd.getEntityFeatureDescriptor(ownerFd).isReference();
 
             FeatureDescriptor oppositeFd;
             EntityDescriptor<?> oppositeEd;

@@ -31,7 +31,6 @@ import org.whole.lang.model.EnumType;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.EnumValueImpl;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
