@@ -83,10 +83,9 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		this.debugEnv = (IBindingManager) args[3];
 		this.barrier = (CyclicBarrier) args[4];
 
-//TODO test and remove
-//		getViewer().linkEditDomain((IEntityPartViewer) debugEnv.wGetValue("viewer"));
 		getViewer().setContents(contents);
 		getViewer().setInteractive(contents, false, true, false);
+		//FIXME workaround call reveal twice (async for Linux, the other for Mac)
 		context.get(UISynchronize.class).asyncExec(new Runnable() {
 			@Override
 			public void run() {
@@ -96,6 +95,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 				getViewer().reveal(breakpoint);
 			}
 		});
+		getViewer().reveal(breakpoint);
 	}
 
 	public void doRun() {
