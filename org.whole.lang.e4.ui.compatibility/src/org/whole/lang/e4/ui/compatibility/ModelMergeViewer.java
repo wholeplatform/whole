@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2013 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2014 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -250,17 +250,17 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		IMergeViewerContentProvider contentProvider = getContentProvider();
 		IEntity container = viewer.getEntityContents();
 		if (contentProvider != null) {
-			readContents(container, InputType.ANCESTOR, contentProvider.getAncestorContent(input));
+			readContents(container, InputType.ANCESTOR, contentProvider.getAncestorContent(input));//TODO getAncestorContent is null unless merge mode
 			readContents(container, InputType.LEFT, contentProvider.getLeftContent(input));
 			readContents(container, InputType.RIGHT, contentProvider.getRightContent(input));
 			setDirty(false);
 		}
 	}
 
-	protected void readContents(IEntity container, InputType inputType, Object input) {
+	protected void readContents(IEntity container, InputType inputType, Object input) {//TODO
 		try {
 			IStreamContentAccessor accessor = (IStreamContentAccessor) input;
-			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();
+			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
 			IEntity entity = defaultPersistenceKit.readModel(new StreamPersistenceProvider(accessor.getContents()));
 			container.wSet(inputType.ordinal(), entity);
 		} catch (Exception e) {
@@ -275,7 +275,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 
 	protected byte[] getContents(InputType inputType) {
 		try {
-			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();
+			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			defaultPersistenceKit.writeModel(viewer.getEntityContents().wGet(inputType.ordinal()), new StreamPersistenceProvider(baos));
 			return baos.toByteArray();
@@ -292,8 +292,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		Runnable runnable = new Runnable() {
 			public void run() {
 				for (Object listener : listenerList.getListeners()) {
-					final IPropertyChangeListener propertyChangeListener = 
-							(IPropertyChangeListener) listener;
+					final IPropertyChangeListener propertyChangeListener = (IPropertyChangeListener) listener;
 					SafeRunner.run(new ISafeRunnable() {
 						public void run() throws Exception {
 							propertyChangeListener.propertyChange(event);

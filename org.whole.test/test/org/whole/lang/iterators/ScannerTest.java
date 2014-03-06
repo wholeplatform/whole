@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2013 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2014 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -58,7 +58,7 @@ public class ScannerTest extends TestCase {
 			String str = s.nextString();
 			assertEquals(JavaEntityDescriptorEnum.CompilationUnit, e1.wGetEntityDescriptor());
 			assertEquals(JavaEntityDescriptorEnum.PackageDeclaration, e2.wGetEntityDescriptor());
-			assertEquals("Copyright 2004-2013 Riccardo Solmi.", str);
+			assertEquals("Copyright 2004-2014 Riccardo Solmi.", str);
 		} catch (Exception e) {
 			fail();
 		}
