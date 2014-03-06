@@ -25,7 +25,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.ide.IDE;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Enrico Persiani
@@ -42,7 +42,7 @@ public abstract class AbstractWholeModelImportWizard extends Wizard implements I
         if (!selectedResources.isEmpty())
             this.selection = new StructuredSelection(selectedResources);
 
-        setDefaultPageImageDescriptor(WholeUIPlugin.getImageDescriptor("icons/wizards/importproj_wiz.png"));
+        setDefaultPageImageDescriptor(UIUtils.getImageDescriptor("icons/wizards/importproj_wiz.png"));
 		setNeedsProgressMonitor(true);
 	}
 

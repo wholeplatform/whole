@@ -33,7 +33,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.NewProjectAction;
-import org.whole.lang.ui.WholeUIPlugin;
 
 public abstract class AbstractOpenWizardAction extends Action {
 	
@@ -97,7 +96,7 @@ public abstract class AbstractOpenWizardAction extends Action {
 	}
 			
 	private IStructuredSelection evaluateCurrentSelection() {
-		IWorkbenchWindow window= WholeUIPlugin.getActiveWorkbenchWindow();
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (window != null) {
 			ISelection selection= window.getSelectionService().getSelection();
 			if (selection instanceof IStructuredSelection) {
@@ -122,7 +121,7 @@ public abstract class AbstractOpenWizardAction extends Action {
 	 */
 	protected Shell getShell() {
 		if (fShell == null) {
-			return WholeUIPlugin.getActiveWorkbenchShell();
+			return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 		}
 		return fShell;
 	}

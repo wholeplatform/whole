@@ -45,10 +45,10 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.dialogs.SelectResourceAsDialog;
 import org.whole.lang.ui.util.ResourceUtils;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
@@ -57,7 +57,7 @@ import org.whole.lang.util.StringUtils;
  */
 public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 	protected static final String SELECT_RESOURCE_MSG = "Select a resource";
-	protected static final ImageDescriptor SELECT_RESOURCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
+	protected static final ImageDescriptor SELECT_RESOURCE_ICON = UIUtils.getImageDescriptor("icons/actions/select_persistence.gif");
 
 	public static enum ResourceKind {
 		WORKSPACE, FILE_SYSTEM, CLASSPATH, URL

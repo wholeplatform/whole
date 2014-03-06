@@ -27,13 +27,13 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 
 /**
  * @author Enrico Persiani
  */
 public class JavaSourceFolderValidator implements ISelectionStatusValidator {
-	private IStatus errorStatus= new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.ERROR, "", null);
+	private IStatus errorStatus= new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR, "", null);
 	private IStatus okStatus= Status.OK_STATUS;
 
 	public IStatus validate(Object[] selection) {

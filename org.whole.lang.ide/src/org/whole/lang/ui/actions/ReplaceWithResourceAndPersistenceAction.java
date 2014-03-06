@@ -27,9 +27,9 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.dialogs.OpenAsModelDialog;
 import org.whole.lang.ui.dialogs.SaveAsModelDialog;
 
@@ -55,7 +55,7 @@ public abstract class ReplaceWithResourceAndPersistenceAction extends ReplaceWit
 			OpenAsModelDialog dialog = new OpenAsModelDialog(shell, defaultPersistenceKit) {
 				@Override
 				protected IStatus createWrongPersistenceStatus() {
-					return new Status(IStatus.WARNING, WholeUIPlugin.PLUGIN_ID, IStatus.WARNING,
+					return new Status(IStatus.WARNING, E4CompatibilityPlugin.PLUGIN_ID, IStatus.WARNING,
 							"Can't open model with selected persistence", null);
 				}
 			};

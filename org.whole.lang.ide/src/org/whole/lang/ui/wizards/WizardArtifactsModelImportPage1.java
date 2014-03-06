@@ -31,16 +31,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.model.WorkbenchViewerComparator;
-import org.whole.lang.artifacts.factories.ArtifactsEntityFactory;
-import org.whole.lang.artifacts.model.IArtifactsEntity;
-import org.whole.lang.artifacts.model.Metadata;
-import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
-import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.artifacts.templates.WorkspaceTemplate;
 import org.whole.lang.builders.ModelBuilderOperation;
-import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 
 /**

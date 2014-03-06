@@ -49,12 +49,12 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.pojo.reflect.PojoLanguageKit;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -224,7 +224,7 @@ public abstract class AbstractWizardWholeModelImportPage extends WizardResourceI
 				}
 			}
 		} catch (PartInitException e) {
-			WholeUIPlugin.log(e);
+			E4CompatibilityPlugin.log(e);
 			return false;
 		}
 		return true;

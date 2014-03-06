@@ -34,13 +34,13 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.part.ISetSelectionTarget;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.templates.codebase.ProjectsArtifactsTemplateManager;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.util.BehaviorUtils;
 
 public class WholeProjectWizard extends Wizard implements INewWizard {
@@ -95,7 +95,7 @@ public class WholeProjectWizard extends Wizard implements INewWizard {
 					Matcher.removeVars(projectTemplate, false);
 					ArtifactsGeneratorOperation.generate(projectTemplate, params);
 				} catch (Exception exception) {
-					WholeUIPlugin.log(exception);
+					E4CompatibilityPlugin.log(exception);
 				} finally {
 					progressMonitor.done();
 				}
@@ -105,7 +105,7 @@ public class WholeProjectWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(false, false, operation);
 		} catch (Exception exception) {
-			WholeUIPlugin.log(exception);
+			E4CompatibilityPlugin.log(exception);
 			return false;
 		}
 

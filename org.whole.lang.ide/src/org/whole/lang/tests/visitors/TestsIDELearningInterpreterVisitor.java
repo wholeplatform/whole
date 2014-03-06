@@ -18,11 +18,11 @@
 package org.whole.lang.tests.visitors;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.console.IPatternMatchListener;
-import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.tests.model.TestSuite;
 import org.whole.lang.ui.console.EntityLocationPatternMatchListener;
 import org.whole.lang.ui.console.WholeConsoleFactory;
@@ -51,7 +51,8 @@ public class TestsIDELearningInterpreterVisitor extends TestsLearningInterpreter
 		printWriter().flush();
 
 		// delay listener removal to ensure all events are processed
-		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+		IEclipseContext context = (IEclipseContext) getBindings().wGetValue("eclipseContext");
+		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
 				Display.getCurrent().timerExec(1000, new Runnable() {
 					public void run() {

@@ -50,8 +50,8 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
@@ -60,7 +60,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class MergeResourcesAction extends AbstractE4Action {
 	protected static final String SELECT_RESOURCE_MSG = "Select a resource";
-	protected static final ImageDescriptor SELECT_RESOURCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
+	protected static final ImageDescriptor SELECT_RESOURCE_ICON = UIUtils.getImageDescriptor("icons/actions/select_persistence.gif");
 
 	public MergeResourcesAction(IEclipseContext context) {
 		super(context);

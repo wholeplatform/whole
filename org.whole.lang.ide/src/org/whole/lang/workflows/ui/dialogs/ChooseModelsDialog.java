@@ -30,11 +30,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.whole.lang.codebase.IFilePersistenceProvider;
+import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Tuple;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.dialogs.OpenAsModelDialog;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.Assign;
@@ -61,7 +61,7 @@ public class ChooseModelsDialog extends OpenAsModelDialog {
 			public IStatus validate(Object[] selection) {
 				for (Object item : selection) {
 					if (!(item instanceof IFile))
-						return new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.ERROR,
+						return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR,
 								"Only files allowed", null);
 					try {
 						getPersistenceKit().readModel(new IFilePersistenceProvider((IFile) item));

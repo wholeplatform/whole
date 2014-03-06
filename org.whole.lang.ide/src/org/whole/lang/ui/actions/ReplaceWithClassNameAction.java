@@ -36,8 +36,8 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.StringUtils;
 
@@ -46,7 +46,7 @@ import org.whole.lang.util.StringUtils;
  */
 public class ReplaceWithClassNameAction extends AbstractE4Action {
 	
-	private static final ImageDescriptor SELECT_CLASS_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_class.png");
+	private static final ImageDescriptor SELECT_CLASS_ICON = UIUtils.getImageDescriptor("icons/actions/select_class.png");
 
 	protected EntityDescriptor<?> ed;
 	protected String className;
