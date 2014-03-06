@@ -37,6 +37,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.whole.langs.legacy.op,
  org.whole.langs.core,
  org.whole.langs.core.op,
+ org.whole.lang.e4.ui,
  org.whole.lang.ui
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
