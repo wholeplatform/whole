@@ -39,6 +39,7 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
@@ -51,13 +52,14 @@ import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.OperationCanceledException;
+import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.figures.IEntityFigure;
@@ -229,8 +231,10 @@ public class HandlersBehavior {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		Shell shell = viewer.getControl().getShell();
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImplicitElementImportAsModelDialog(
-				shell, "Paste As", EntityUtils.isComposite(focusEntity));
+		IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+		IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
+				.createImplicitElementImportAsModelDialog(
+						shell, "Paste As", EntityUtils.isComposite(focusEntity));
 		if (!dialog.show())
 			return;
 		
@@ -345,8 +349,9 @@ public class HandlersBehavior {
 		Shell shell = viewer.getControl().getShell();
 
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImportAsModelDialog(
-				shell, "Import model", EntityUtils.isComposite(focusEntity));
+		IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+		IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
+				.createImportAsModelDialog(shell, "Import model", EntityUtils.isComposite(focusEntity));
 		if (!dialog.show())
 			return;
 
@@ -570,7 +575,8 @@ public class HandlersBehavior {
 
 	public static boolean canValidateModel(IBindingManager bm) {
 		return bm.wIsSet("file") && bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(ValidatorOperation.ID);
+				bm.wGet("self").wGetLanguageKit().hasVisitor(ValidatorOperation.ID) &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void validateModel(IBindingManager bm) {
@@ -579,7 +585,8 @@ public class HandlersBehavior {
 
 	public static boolean canNormalizeModel(IBindingManager bm) {
 		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(NormalizerOperation.ID);
+				bm.wGet("self").wGetLanguageKit().hasVisitor(NormalizerOperation.ID) &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void normalizeModel(IBindingManager bm) {
@@ -587,7 +594,8 @@ public class HandlersBehavior {
 	}
 
 	public static boolean canPrettyPrintModel(IBindingManager bm) {
-		return bm.wIsSet("self");
+		return bm.wIsSet("self") &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void prettyPrintModel(IBindingManager bm) {
@@ -595,7 +603,8 @@ public class HandlersBehavior {
 	}
 	public static boolean canInterpretModel(IBindingManager bm) {
 		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(InterpreterOperation.ID);
+				bm.wGet("self").wGetLanguageKit().hasVisitor(InterpreterOperation.ID) &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void interpretModel(IBindingManager bm) {
@@ -604,7 +613,8 @@ public class HandlersBehavior {
 
 	public static boolean canGenerateArtifacts(IBindingManager bm) {
 		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(ArtifactsGeneratorOperation.ID);
+				bm.wGet("self").wGetLanguageKit().hasVisitor(ArtifactsGeneratorOperation.ID) &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void generateArtifacts(IBindingManager bm) {
@@ -612,8 +622,8 @@ public class HandlersBehavior {
 	}
 	public static boolean canGenerateJava(IBindingManager bm) {
 		return bm.wIsSet("self") &&
-				//FIXME use JavaCompilerOperation.ID
-				bm.wGet("self").wGetLanguageKit().hasVisitor("toJavaModel");
+				bm.wGet("self").wGetLanguageKit().hasVisitor(IUIConstants.JAVA_COMPILER_OPERATION_ID) &&
+				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 
 	public static void generateJava(IBindingManager bm) {

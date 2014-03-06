@@ -62,6 +62,8 @@ import org.whole.lang.e4.ui.parts.E4GraphicalPart;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.input.IModelInputListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -84,6 +86,8 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 	@Override
 	public void createPartControl(Composite parent) {
+		getContext().set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+
 		super.createPartControl(parent);
 
 		getContext().get(MPart.class).setElementId(EDITOR_PART_ID);

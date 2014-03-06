@@ -28,7 +28,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.dnd.AbstractTransferDropTargetListener;
@@ -46,16 +45,19 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
 public class FileTransferDropTargetListener extends AbstractTransferDropTargetListener {
+	protected IImportAsModelDialogFactory factory;
 
-	public FileTransferDropTargetListener(EditPartViewer viewer) {
+	public FileTransferDropTargetListener(IEntityPartViewer viewer, IImportAsModelDialogFactory factory) {
 		super(viewer, FileTransfer.getInstance());
+		this.factory = factory;
 	}
 
 	@Override
@@ -91,7 +93,7 @@ public class FileTransferDropTargetListener extends AbstractTransferDropTargetLi
 		List<EditPart> editParts = new ArrayList<EditPart>();
 
 		Shell shell = getViewer().getControl().getShell();
-		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createElementListImportAsModelDialog(shell, "DnD Import");
+		IImportAsModelDialog dialog = factory.createElementListImportAsModelDialog(shell, "DnD Import");
 		String[] fileNames = new String[filePaths.length];
 		for (int i=0; i<fileNames.length; i++)
 			fileNames[i] = filePaths[i].substring(filePaths[i].lastIndexOf(File.separatorChar)+1);

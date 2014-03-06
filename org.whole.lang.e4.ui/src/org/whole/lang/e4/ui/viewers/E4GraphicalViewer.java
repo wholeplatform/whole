@@ -62,6 +62,7 @@ import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.dnd.EditPartTransferDragSourceListener;
 import org.whole.lang.ui.dnd.EditPartTransferDropTargetListener;
 import org.whole.lang.ui.dnd.FileTransferDropTargetListener;
@@ -96,6 +97,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	@Inject IEclipseContext context;
 	@Inject @Named("parent") Composite parent;
 	@Inject @Optional EntityEditDomain domain;
+	@Inject IImportAsModelDialogFactory factory;
 
 	private ModelObserver modelObserver;
 	private List<IPartFocusListener> partFocusListeners;
@@ -125,10 +127,10 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		addDropTargetListener(new EditPartTransferDropTargetListener(this));
 
 		addDragSourceListener(new XmlBuilderFileTransferDragSourceListener(this));
-		addDropTargetListener(new FileTransferDropTargetListener(this));
+		addDropTargetListener(new FileTransferDropTargetListener(this, factory));
 
 		addDragSourceListener(new TextTransferDragSourceListener(this));
-		addDropTargetListener(new TextTransferDropTargetListener(this));
+		addDropTargetListener(new TextTransferDropTargetListener(this, factory));
 
 		getControl().addGestureListener(new ZoomGestureListener(getScalableRootEditPart().getZoomManager()));
 
@@ -170,6 +172,13 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	public Set<String> getReferencedResources() {
 		return referencedResources;
+	}
+	protected boolean executable = true;
+	public boolean isOperationExecutable() {
+		return executable;
+	}
+	public void setOperationExecutable(boolean executable) {
+		this.executable = executable;
 	}
 
 	public CommandStack getCommandStack() {
@@ -324,7 +333,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		refreshNotation(((IGraphicalEntityPart) getEditPartRegistry().get(entity)).getFigure());
 	}
 	public void refreshNotation() {
-		refreshNotation(getFigureCanvas().getViewport());
+		if (getFigureCanvas() != null)
+			refreshNotation(getFigureCanvas().getViewport());
 	}
 	protected void refreshNotation(IFigure figure) {
 		figure.invalidateTree();

@@ -31,6 +31,8 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.parts.AbstractE4Part;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -48,6 +50,8 @@ public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 
 	@Override
 	public void createPartControl(Composite parent) {
+		getContext().set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+
 		super.createPartControl(parent);
 
 		getContext().get(MPart.class).setElementId(partId);

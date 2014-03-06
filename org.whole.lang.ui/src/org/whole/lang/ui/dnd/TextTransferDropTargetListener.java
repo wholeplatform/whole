@@ -43,7 +43,7 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.util.ClipboardUtils;
 import org.whole.lang.util.EntityUtils;
@@ -52,9 +52,11 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class TextTransferDropTargetListener extends AbstractTransferDropTargetListener {
+	protected IImportAsModelDialogFactory factory;
 
-	public TextTransferDropTargetListener(EditPartViewer viewer) {
+	public TextTransferDropTargetListener(EditPartViewer viewer, IImportAsModelDialogFactory factory) {
 		super(viewer, TextTransfer.getInstance());
+		this.factory = factory;
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 		String text = (String) getCurrentEvent().data; 
 
 		Shell shell = getViewer().getControl().getShell();
-		IImportAsModelDialog dialog = ImportAsModelDialogFactory.instance().createImplicitElementImportAsModelDialog(shell, "Drop As");
+		IImportAsModelDialog dialog = factory.createImplicitElementImportAsModelDialog(shell, "Drop As");
 		if (!dialog.show())
 			return null;
 
