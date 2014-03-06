@@ -29,7 +29,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 
 /**
@@ -79,7 +79,7 @@ public class FigurePrefs extends PreferenceConstants {
 	public static Font contentLighterFont;
 
 	static {
-		final IPreferenceStore store = WholeUIPlugin.getDefault().getPreferenceStore();
+		final IPreferenceStore store = UIUtils.getPreferenceStore();
 		store.addPropertyChangeListener(new IPropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent event) {
 				final String prop = event.getProperty();
@@ -191,13 +191,13 @@ public class FigurePrefs extends PreferenceConstants {
 	}
 
 	private static final Color getColor(IPreferenceStore store, String key) {
-		ColorRegistry registry = WholeUIPlugin.getDefault().getColorRegistry();
+		ColorRegistry registry = UIUtils.getColorRegistry();
 		registry.put(key, PreferenceConverter.getColor(store, key));
 		return registry.get(key);
 	}
 
 	private static final Font getFont(IPreferenceStore store, String key) {
-		FontRegistry registry = WholeUIPlugin.getDefault().getFontRegistry();
+		FontRegistry registry = UIUtils.getFontRegistry();
 		registry.put(key, setStyle(FontDescriptor.copy(PreferenceConverter.getFontDataArray(store, FONT)), getStyle(store, key)));
 		return registry.get(key);
 	}

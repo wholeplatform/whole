@@ -23,6 +23,7 @@ import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.RGB;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -118,7 +119,7 @@ public class PreferenceConstants {
 	}
 
 	public static void restoreRegistries(IPreferenceStore store) {
-		restoreRegistries(store, WholeUIPlugin.getDefault().getColorRegistry(), WholeUIPlugin.getDefault().getFontRegistry());
+		restoreRegistries(store, UIUtils.getColorRegistry(), UIUtils.getFontRegistry());
 	}
 	public static void restoreRegistries(IPreferenceStore store, ColorRegistry colorRegistry, FontRegistry fontRegistry) {
 		colorRegistry.put(SELECTION_COLOR, PreferenceConverter.getColor(store, SELECTION_COLOR));

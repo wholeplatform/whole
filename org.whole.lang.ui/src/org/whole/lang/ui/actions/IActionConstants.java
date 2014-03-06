@@ -18,18 +18,18 @@
 package org.whole.lang.ui.actions;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Enrico Persiani
  */
 public interface IActionConstants {
-	public static final ImageDescriptor INSERT_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/insert.gif"); 
-	public static final ImageDescriptor REPLACE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/replace.gif"); 
-	public static final ImageDescriptor WRAP_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/wrap.gif"); 
-	public static final ImageDescriptor TEXT_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/text.gif"); 
-	public static final ImageDescriptor SELECT_STAGE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_stage.gif"); 
-	public static final ImageDescriptor SELECT_LANGUAGE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_language.gif"); 
-	public static final ImageDescriptor SELECT_PERSISTENCE_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/select_persistence.gif");
-	public static final ImageDescriptor IMPORT_FRAGMENT_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/import_fragment.gif"); 
+	public static final ImageDescriptor INSERT_ICON = UIUtils.getImageDescriptor("icons/actions/insert.gif");
+	public static final ImageDescriptor REPLACE_ICON = UIUtils.getImageDescriptor("icons/actions/replace.gif");
+	public static final ImageDescriptor WRAP_ICON = UIUtils.getImageDescriptor("icons/actions/wrap.gif");
+	public static final ImageDescriptor TEXT_ICON = UIUtils.getImageDescriptor("icons/actions/text.gif");
+	public static final ImageDescriptor SELECT_STAGE_ICON = UIUtils.getImageDescriptor("icons/actions/select_stage.gif");
+	public static final ImageDescriptor SELECT_LANGUAGE_ICON = UIUtils.getImageDescriptor("icons/actions/select_language.gif");
+	public static final ImageDescriptor SELECT_PERSISTENCE_ICON = UIUtils.getImageDescriptor("icons/actions/select_persistence.gif");
+	public static final ImageDescriptor IMPORT_FRAGMENT_ICON = UIUtils.getImageDescriptor("icons/actions/import_fragment.gif");
 }

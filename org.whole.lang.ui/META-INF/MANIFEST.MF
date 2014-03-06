@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.whole.lang.ui.WholeUIPlugin
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -13,7 +12,6 @@ Export-Package: org.whole.lang.codebase,
  org.whole.lang.ui,
  org.whole.lang.ui.actions,
  org.whole.lang.ui.commands,
- org.whole.lang.ui.console,
  org.whole.lang.ui.controls,
  org.whole.lang.ui.dialogs,
  org.whole.lang.ui.dnd,
@@ -28,15 +26,13 @@ Export-Package: org.whole.lang.codebase,
  org.whole.lang.ui.keys,
  org.whole.lang.ui.layout,
  org.whole.lang.ui.menu,
- org.whole.lang.ui.preferences,
  org.whole.lang.ui.requests,
  org.whole.lang.ui.resources,
  org.whole.lang.ui.ruler,
  org.whole.lang.ui.templates,
  org.whole.lang.ui.tools,
  org.whole.lang.ui.util,
- org.whole.lang.ui.viewers,
- org.whole.lang.ui.wizards
+ org.whole.lang.ui.viewers
 Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.core.net,
  org.eclipse.core.resources,
@@ -44,13 +40,6 @@ Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.e4.core.contexts,
  org.eclipse.jface,
  org.eclipse.jface.text,
- org.eclipse.ui,
- org.eclipse.ui.console,
- org.eclipse.ui.ide,
- org.eclipse.ui.editors,
- org.eclipse.ui.views,
- org.eclipse.ui.views.properties.tabbed,
- org.eclipse.search,
  org.eclipse.gef;bundle-version="3.9.0";visibility:=reexport,
  org.whole.lang
 Bundle-ActivationPolicy: lazy

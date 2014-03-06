@@ -29,6 +29,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.ResumeAction;
@@ -59,6 +60,13 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		updateActions();
 	}
 
+	@Override
+	protected IEntityPartViewer createEntityViewer(Composite parent) {
+		IEntityPartViewer viewer = super.createEntityViewer(parent);
+		viewer.setOperationExecutable(false);
+		return viewer;
+	}
+
 	@Inject
 	@Optional
 	private void doBreak(@UIEventTopic(IUIConstants.TOPIC_BREAK_DEBUG) Object[] args) {
@@ -75,7 +83,8 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		this.debugEnv = (IBindingManager) args[3];
 		this.barrier = (CyclicBarrier) args[4];
 
-		getViewer().linkEditDomain((IEntityPartViewer) debugEnv.wGetValue("viewer"));
+//TODO test and remove
+//		getViewer().linkEditDomain((IEntityPartViewer) debugEnv.wGetValue("viewer"));
 		getViewer().setContents(contents);
 		getViewer().setInteractive(contents, false, true, false);
 		context.get(UISynchronize.class).asyncExec(new Runnable() {

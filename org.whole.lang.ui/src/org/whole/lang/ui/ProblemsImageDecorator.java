@@ -56,7 +56,7 @@ public class ProblemsImageDecorator {
 			try {
 				return getErrorTicksFromMarkers((IResource) obj, IResource.DEPTH_INFINITE);
 			} catch (CoreException e) {
-				WholeUIPlugin.log(e);
+				throw new IllegalStateException(e);
 			}
 		}
 		return 0;

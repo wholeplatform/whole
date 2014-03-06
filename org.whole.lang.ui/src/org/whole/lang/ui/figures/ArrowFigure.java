@@ -22,10 +22,10 @@ import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ArrowFactory.ArrowKind;
 import org.whole.lang.ui.figures.ArrowFactory.Direction;
 import org.whole.lang.ui.layout.AbstractEntityLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -53,10 +53,10 @@ public class ArrowFigure extends EntityFigure {
 	}
 
 	public Color getLocalForegroundColor() {
-		return WholeUIPlugin.getDefault().getColorRegistry().get(colorName);
+		return UIUtils.getColorRegistry().get(colorName);
 	}
 	public Color getLocalBackgroundColor() {
-		return WholeUIPlugin.getDefault().getColorRegistry().get(colorName);
+		return UIUtils.getColorRegistry().get(colorName);
 	}
 
 	protected void paintFigure(Graphics g) {

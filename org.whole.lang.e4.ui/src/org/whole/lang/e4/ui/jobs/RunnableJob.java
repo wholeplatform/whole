@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.operations.OperationCanceledException;
-import org.whole.lang.ui.WholeUIPlugin;
 
 public class RunnableJob extends Job {
 	protected IRunnableWithProgress runnable;
@@ -42,7 +42,7 @@ public class RunnableJob extends Job {
 		} catch (InterruptedException e) {
 			// do nothing
 		} catch (Exception e) {
-			return new Status(Status.ERROR, WholeUIPlugin.PLUGIN_ID, 0, "An exception occurred while executing the job "+getName(), e);
+			return new Status(Status.ERROR, IUIConstants.BUNDLE_ID, 0, "An exception occurred while executing the job "+getName(), e);
 		} finally {
 			monitor.done();
 		}

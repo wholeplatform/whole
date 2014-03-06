@@ -3,24 +3,6 @@
 <plugin>
 	<extension-point id="resourceBindingsContributors" name="Resource Bindings Contributors" schema="schema/resourceBindingsContributors.exsd"/>
 
-	<extension point="org.eclipse.ui.importWizards">
-		<category id="org.whole.lang.ui.wizards" name="Whole"/>
-	</extension>
-
-	<extension point="org.eclipse.ui.newWizards">
-		<category name="Whole" id="org.whole.lang.ui.WholeWizards"/>
-
-		<wizard id="org.whole.lang.ui.wizards.WholeModelCreationWizard"
-			name="%_UI_WholeModel_title"
-			icon="icons/wizards/whole_model_creation.gif"
-			class="org.whole.lang.ui.wizards.WholeModelCreationWizard"
-			category="org.whole.lang.ui.WholeWizards">
-
-			<description>%_UI_WholeModel_description</description>
-			<selection class="org.eclipse.core.resources.IResource"/>
-		</wizard>
-	</extension>
-
 	<extension id="wholemarker" name="Whole Marker" point="org.eclipse.core.resources.markers"/>
 	<extension id="wholeproblem" name="Whole Problem" point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.core.resources.problemmarker"/>
@@ -28,32 +10,7 @@
 		<persistent value="true"/>
 		<attribute name="uri"/>
 	</extension>
-	
-	<extension point="org.eclipse.ui.console.consoleFactories">
-		<consoleFactory
-			label="Whole Console"
-			icon="icons/views/console.gif"
-			class="org.whole.lang.ui.console.WholeConsoleFactory">
-		</consoleFactory>
-	</extension>
-	
-	<extension point="org.eclipse.ui.preferencePages">
-		<page name="Whole"
-			class="org.whole.lang.ui.preferences.WholePreferencePage"
-			id="org.whole.lang.ui.preferences.WholePreferencePage">
-		</page>
-		<page name="Whole Languages"
-			category="org.whole.lang.ui.preferences.WholePreferencePage"
-			class="org.whole.lang.ui.preferences.EditorPreferencePage"
-			id="org.whole.lang.ui.preferences.EditorPreferencePage">
-		</page>
-	</extension>
 
-	<extension point="org.eclipse.core.runtime.preferences">
-		<initializer
-			class="org.whole.lang.ui.preferences.WholePreferenceInitializer"/>
-	</extension>
-	
 	<extension point="org.eclipse.ui.cheatsheets.cheatSheetContent">
 		<category name="%cheatsheet.whole.category" id="org.whole.category"/>
 	</extension>

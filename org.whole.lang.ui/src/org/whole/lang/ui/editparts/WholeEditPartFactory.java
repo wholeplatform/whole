@@ -23,7 +23,6 @@ import java.util.Map;
 import org.eclipse.gef.EditPart;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.editor.IGEFEditorKit;
 
 /**
@@ -51,8 +50,7 @@ public class WholeEditPartFactory implements IEditPartFactory {
 	        part.setModel(entity);
 	        return part;
 		} catch (Exception e) {
-			WholeUIPlugin.log(e);
-			throw new IllegalArgumentException("Illegal model entity: "+object+" in context: "+context);
+			throw new IllegalArgumentException("Illegal model entity: "+object+" in context: "+context, e);
 		}
 	}	
 }

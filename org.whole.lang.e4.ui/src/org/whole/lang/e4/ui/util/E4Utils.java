@@ -20,6 +20,7 @@ package org.whole.lang.e4.ui.util;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
@@ -59,7 +60,6 @@ import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
@@ -73,6 +73,8 @@ import org.whole.lang.util.DefaultWrapInTransformer;
 import org.whole.lang.util.DefaultWrapWithinTransformer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IEntityTransformer;
+import org.whole.lang.util.NullInputStream;
+import org.whole.lang.util.NullOutputStream;
 
 /**
  * @author Enrico Persiani
@@ -239,40 +241,49 @@ public class E4Utils {
 		});
 	}
 	public static void invokeInterpreter(IBindingManager bm) {
+		InputStream is;
+		OutputStream os;
 		try {
 			ClassLoader cl = ReflectionFactory.getClassLoader(bm);
 			Class<?> consoleFactoryClass = Class.forName("org.whole.lang.ui.console.WholeConsoleFactory", true, cl);
 			Object ioConsole = consoleFactoryClass.getMethod("getIOConsole").invoke(null);
 			Class<?> consoleClass = Class.forName("org.eclipse.ui.console.IOConsole", true, cl);
-			InputStream is = (InputStream) consoleClass.getMethod("getInputStream").invoke(ioConsole);
-			OutputStream os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
-			InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
-		} catch (RuntimeException e) {
-			throw e;
+			is = (InputStream) consoleClass.getMethod("getInputStream").invoke(ioConsole);
+			os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
 		} catch (Exception e) {
-			throw new IllegalStateException("cannot obtain an I/O console", e);
+			is = NullInputStream.instance();
+			os = NullOutputStream.instance();
 		}
+		InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
 	}
 	public static void invokePrettyPrinter(IBindingManager bm) {
+		OutputStream os;
 		try {
 			ClassLoader cl = ReflectionFactory.getClassLoader(bm);
 			Class<?> consoleFactoryClass = Class.forName("org.whole.lang.ui.console.WholeConsoleFactory", true, cl);
 			Object ioConsole = consoleFactoryClass.getMethod("getIOConsole").invoke(null);
 			Class<?> consoleClass = Class.forName("org.eclipse.ui.console.IOConsole", true, cl);
-			OutputStream os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
+			os = (OutputStream) consoleClass.getMethod("newOutputStream").invoke(ioConsole);
+		} catch (Exception e) {
+			os = NullOutputStream.instance();
+		}
+
+		try {
 			bm.wEnterScope();
 			bm.wDefValue("printWriter", new PrintWriter(os));
 			PrettyPrinterOperation.prettyPrint(bm.wGet("self"), bm);
+		} finally {
 			bm.wExitScope();
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (Exception e) {
-			throw new IllegalStateException("cannot obtain an I/O console", e);
 		}
 	}
-
 	public static void reportError(final IEclipseContext context, final String title, final String message, Throwable t) {
-		WholeUIPlugin.reportError((Shell) context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
+		try {
+			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+			Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
+			uiPluginClass.getMethod("reportError", Shell.class, String.class, String.class, Throwable.class)
+					.invoke(null, context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
+		} catch (Exception e) {
+		}
 	}
 
 	public static void suspendOperation(SuspensionKind kind, final IBindingManager bindings, IEntity suspendEntity, IEntity variablesModel) {
@@ -282,8 +293,14 @@ public class E4Utils {
 		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
-				//FIXME move perspective IDs to IUIConstants
-				WholeUIPlugin.revealPerspective("org.whole.lang.ide.WholeIDEDebugPerspectiveFactory");
+				try {
+					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+					Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
+					Method method = uiPluginClass.getMethod("revealPerspective", String.class);
+					method.invoke(null, IUIConstants.DEBUG_PERSPECTIVE_ID);
+				} catch (Exception e) {
+					throw new IllegalStateException(e);
+				}
 
 				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
 				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);

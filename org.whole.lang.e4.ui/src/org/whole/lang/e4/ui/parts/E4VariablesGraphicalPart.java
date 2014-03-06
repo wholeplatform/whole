@@ -21,13 +21,23 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
 public class E4VariablesGraphicalPart extends E4GraphicalPart {
+
+	@Override
+	protected IEntityPartViewer createEntityViewer(Composite parent) {
+		IEntityPartViewer viewer = super.createEntityViewer(parent);
+		viewer.setOperationExecutable(false);
+		return viewer;
+	}
+
 	@Inject
 	@Optional
 	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_VARIABLES) IEntity results) {

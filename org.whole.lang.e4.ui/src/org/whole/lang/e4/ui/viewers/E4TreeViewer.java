@@ -164,6 +164,13 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	public Set<String> getReferencedResources() {
 		return referencedResources;
 	}
+	protected boolean executable = true;
+	public boolean isOperationExecutable() {
+		return executable;
+	}
+	public void setOperationExecutable(boolean executable) {
+		this.executable = executable;
+	}
 
 	public CommandStack getCommandStack() {
 		return getEditDomain().getCommandStack();

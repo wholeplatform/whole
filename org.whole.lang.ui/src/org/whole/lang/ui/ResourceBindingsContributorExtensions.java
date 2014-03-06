@@ -85,7 +85,7 @@ public class ResourceBindingsContributorExtensions implements IRegistryChangeLis
 				contributor = (IResourceBindingsContributor) element.createExecutableExtension("class");
 				addContributor(element.getAttribute("id"), contributor);
 			} catch (CoreException e) {
-				WholeUIPlugin.log(e);
+				throw new IllegalStateException(e);
 			}
 		}
 	}

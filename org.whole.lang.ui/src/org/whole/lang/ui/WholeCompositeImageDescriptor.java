@@ -130,8 +130,7 @@ public class WholeCompositeImageDescriptor extends CompositeImageDescriptor {
 		ImageData data= descriptor.getImageData(); // see bug 51965: getImageData can return null
 		if (data == null) {
 			data= DEFAULT_IMAGE_DATA;
-			WholeUIPlugin.log(new Status(IStatus.ERROR, WholeUIPlugin.PLUGIN_ID, IStatus.OK, 
-					"Image data not available: " + descriptor.toString(), null)); //$NON-NLS-1$
+			throw new IllegalArgumentException("Image data not available: " + descriptor.toString());
 		}
 		return data;
 	}

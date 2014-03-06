@@ -23,7 +23,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.WholeUIPlugin;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -53,7 +53,7 @@ public class CurlyBracketsBorder extends MarginBorder {
 
 		if (insets.left > 0) {
 			if (r.height < HSIZE1*4) {
-				g.setFont(WholeUIPlugin.getOpenSymbolMediumFont());
+				g.setFont(UIUtils.getOpenSymbolMediumFont());
 				g.drawText("{", leftX, r.y-1);
 			} else {
 				g.drawArc(leftX, r.y, HSIZE1, HSIZE1*2, 90, 90);
@@ -68,7 +68,7 @@ public class CurlyBracketsBorder extends MarginBorder {
 		}
 		if (insets.right > 0) {
 			if (r.height < HSIZE1*4) {
-				g.setFont(WholeUIPlugin.getOpenSymbolMediumFont());
+				g.setFont(UIUtils.getOpenSymbolMediumFont());
 				g.drawText("}", rightX-HSIZE1+2, r.y-1);
 			} else {
 				g.drawArc(rightX-HSIZE1, r.y, HSIZE1, HSIZE1*2, 0, 90);

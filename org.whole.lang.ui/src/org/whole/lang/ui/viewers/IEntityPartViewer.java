@@ -73,6 +73,8 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public void removePartFocusListener(IPartFocusListener listener);
 	public void addModelInputListener(IModelInputListener listener);
 	public void removeModelInputListener(IModelInputListener listener);
-	
+
 	public Set<String> getReferencedResources();
+	public boolean isOperationExecutable();
+	public void setOperationExecutable(boolean executable);
 }

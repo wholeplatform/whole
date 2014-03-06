@@ -32,7 +32,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.ui.ResourceBindingsContributorExtensions;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -70,7 +69,7 @@ public class ResourceUtils {
 			try {
 				contributor.addResourceBindings(bm);
 			} catch (Exception e) {
-				WholeUIPlugin.log(e);
+				throw new IllegalStateException(e);
 			}
 	}
 
