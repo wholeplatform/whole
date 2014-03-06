@@ -36,16 +36,24 @@ import org.whole.lang.ui.util.UIUtils;
  * @author Riccardo Solmi
  */
 public class FigurePrefs extends PreferenceConstants {
-	public static Color darkerColor = new Color(null, 0, 43, 54);
-	public static Color darkColor = new Color(null, 7, 54, 66);
-	public static Color lightColor = new Color(null, 238, 232, 213);
-	public static Color lighterColor = new Color(null, 253, 246, 227);
 	public static Color brightBlueColor = new Color(null, 180, 213, 255);
 	public static Color blueColor = new Color(null, 112, 158, 230);
 	public static Color lightBlueColor = new Color(null, 194, 212, 243);
 	public static Color yellowColor = new Color(null, 255, 181, 21);
 	public static Color lightGray = new Color(null, 233, 233, 233);
 
+	//TODO make customizable
+	public static Color deleteBackgroundColor = new Color(null, 255, 221, 221);
+	public static Color addBackgroundColor = new Color(null, 222, 253, 223);
+	public static Color deleteColor = new Color(null, 253, 170, 171);
+	public static Color addColor = new Color(null, 112, 195, 74);
+	public static Color add2Color = new Color(null, 181, 225, 181);
+	public static Color collapseBackgroundColor = new Color(null, 248, 248, 255);
+	public static Color collapseColor = new Color(null, 188, 208, 249);
+	public static Color reviewCommentBackgroundColor = new Color(null, 255, 250, 233);
+	public static Color reviewCommentColor = new Color(null, 222, 162, 97);
+
+	
 	public static Color selectionColor;
 	public static Color matchingSelectionColor;
 	public static Color hostLanguageColor;
