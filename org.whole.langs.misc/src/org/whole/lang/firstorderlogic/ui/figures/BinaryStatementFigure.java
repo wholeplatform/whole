@@ -18,9 +18,9 @@
 package org.whole.lang.firstorderlogic.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  *  @author Riccardo Solmi
@@ -34,7 +34,7 @@ public class BinaryStatementFigure extends ContentPaneFigure {
         p1 = addContentLighter("(");
         add(createContentPane(0));
         p2 = addContentLighter(")");
-        addLabel(operatorLabel).setFont(WholeUIPlugin.getOpenSymbolMediumFont());
+        addLabel(operatorLabel).setFont(UIUtils.getOpenSymbolMediumFont());
         p3 = addContentLighter("(");
         add(createContentPane(1));
         p4 = addContentLighter(")");
