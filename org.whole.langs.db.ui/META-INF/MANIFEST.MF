@@ -9,15 +9,12 @@ Bundle-Localization: plugin
 Export-Package: org.whole.lang.rdb.ui,
  org.whole.lang.sql.ui,
  org.whole.langs.db.ui
-Require-Bundle: org.whole.lang,
- org.whole.lang.ui,
- org.whole.langs.db,
- org.whole.lang.ui.notations,
- org.eclipse.ui,
- org.eclipse.ui.views,
- org.eclipse.gef,
+Require-Bundle: org.whole.langs.db,
+ org.whole.lang,
+ org.eclipse.core.runtime,
  org.eclipse.jface,
- org.eclipse.core.runtime
+ org.whole.lang.ui,
+ org.whole.lang.ui.notations
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
