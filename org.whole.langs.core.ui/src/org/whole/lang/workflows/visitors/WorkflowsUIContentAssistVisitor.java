@@ -56,8 +56,8 @@ import org.whole.lang.reflect.EntityDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.actions.IActionConstants;
+import org.whole.lang.ui.util.UIUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
@@ -71,10 +71,10 @@ import org.whole.lang.workflows.util.WorkflowsUtils;
  * @author Enrico Persiani, Riccardo Solmi
  */
 public class WorkflowsUIContentAssistVisitor extends WorkflowsIdentityVisitor {
-	protected static final ImageDescriptor INSTANCE_METHOD_ICON = WholeUIPlugin.getImageDescriptor("icons/actions/public_method.png");
+	protected static final ImageDescriptor INSTANCE_METHOD_ICON = UIUtils.getImageDescriptor("icons/actions/public_method.png");
 	protected static final Image BASE_IMAGE = INSTANCE_METHOD_ICON.createImage();
-	protected static final ImageDescriptor CLASS_METHOD_ICON = new DecorationOverlayIcon(BASE_IMAGE, WholeUIPlugin.getImageDescriptor("icons/actions/decoration/static_decoration.png"), IDecoration.TOP_RIGHT);
-	protected static final ImageDescriptor CONSTRUCTOR_ICON = new DecorationOverlayIcon(BASE_IMAGE, WholeUIPlugin.getImageDescriptor("icons/actions/decoration/constructor_decoration.png"), IDecoration.TOP_RIGHT);
+	protected static final ImageDescriptor CLASS_METHOD_ICON = new DecorationOverlayIcon(BASE_IMAGE, UIUtils.getImageDescriptor("icons/actions/decoration/static_decoration.png"), IDecoration.TOP_RIGHT);
+	protected static final ImageDescriptor CONSTRUCTOR_ICON = new DecorationOverlayIcon(BASE_IMAGE, UIUtils.getImageDescriptor("icons/actions/decoration/constructor_decoration.png"), IDecoration.TOP_RIGHT);
 	protected static ImageDescriptor calculateImageDescriptor(IEntity entity) {
 		if (Matcher.match(CreateJavaClassInstance, entity))
 			return CONSTRUCTOR_ICON;

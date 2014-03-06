@@ -19,9 +19,9 @@ package org.whole.lang.math.ui.figures;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -40,7 +40,7 @@ public class MathCompositeRowFigure extends StringSeparatedCompositeRowFigure {
 	}
 	@Override
 	protected Font getLocalFont() {
-		return WholeUIPlugin.getOpenSymbolFont();
+		return UIUtils.getOpenSymbolFont();
 	}
 	@Override
 	protected int getSeparatorAscent() {

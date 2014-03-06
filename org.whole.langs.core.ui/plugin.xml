@@ -9,54 +9,7 @@
             id="org.whole.langs.core.ui.CoreUIDeployer">
       </deployer>
 	</extension>
-	<extension
-   	     point="org.eclipse.core.contenttype.contentTypes">
-		<content-type
-			priority="high"
-		        name="ObjectiveC Source File (Whole)"
-		        id="org.whole.ui.contenttype.contentTypes.objectivecWhole"
-		        base-type="org.eclipse.core.runtime.text"
-		        file-extensions="h,m,c">
-		</content-type>
-		<content-type
-		        id="org.whole.ui.contenttype.contentTypes.mediawikiSource"
-		        name="Mediawiki Source File (Whole)" 
-			    base-type="org.eclipse.core.runtime.text"
-			    alias-for="org.eclipse.mylyn.wikitext.mediawiki"
-			    file-extensions="mediawiki">
-		</content-type>
-	</extension>
-		
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            name="Grammar Based Persistence"
-            extensions="text,txt,flf,csv"
-            default="false"
-            icon="icons/editors/grammar.gif"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.grammars.GrammarEditor">
-            <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
-      </editor>
-      <editor
-            name="Objective C Editor (Whole)"
-            default="false"
-            extensions="h,m,c"
-            icon="icons/editors/grammar.gif"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.objectivec.ObjectiveCEditor">
-            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.objectivecWhole"/>
-      </editor>
-      <editor
-            name="MediaWiki Editor (Whole)"
-            default="false"
-            extensions="mediawiki"
-            icon="icons/editors/grammar.gif"
-            class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.mediawiki.MediaWikiEditor">
-            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.mediawikiSource"/>
-      </editor>
-   </extension>
+
      <extension
            point="org.whole.lang.ui.resourceBindingsContributors">
         <resourceBindingsContributor

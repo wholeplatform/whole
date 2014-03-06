@@ -19,11 +19,11 @@ package org.whole.lang.types.ui.figures;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.SubLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -39,7 +39,7 @@ public class VariableTypeFigure extends ContentPaneFigure {
 				return FigurePrefs.identifiersColor;
 			}	
 			public Font getLocalFont() {
-				return WholeUIPlugin.getOpenSymbolSmallFont();
+				return UIUtils.getOpenSymbolSmallFont();
 			}
 		};
 		add(createContentPane(0, id));

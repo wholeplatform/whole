@@ -18,9 +18,9 @@
 package org.whole.lang.grammars.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.layout.FractionLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -40,7 +40,7 @@ public class IndentFigure extends RuleFractionFigure {
 		});
 		addLabel("");
 		EntityLabel symbol = new EntityLabel("\u21e5");
-		symbol.setFont(WholeUIPlugin.getOpenSymbolMediumFont());
+		symbol.setFont(UIUtils.getOpenSymbolMediumFont());
 		symbol.setForegroundColor(ColorConstants.lightGray);
 		add(symbol);
 	}

@@ -17,9 +17,9 @@
  */
 package org.whole.lang.semantics.ui.figures;
 
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -30,6 +30,6 @@ public class SequenceTypeFigure extends ContentPaneFigure {
 		initContentPanes(1);
 		
 		add(createContentPane(0));
-		addLabel("\u2026").setFont(WholeUIPlugin.getOpenSymbolMediumFont());
+		addLabel("\u2026").setFont(UIUtils.getOpenSymbolMediumFont());
 	}
 }

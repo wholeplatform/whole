@@ -19,9 +19,9 @@ package org.whole.lang.grammars.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.layout.FractionLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -51,7 +51,7 @@ public class SpaceFigure extends RuleFractionFigure {
 		});
 		addLabel("");
 		EntityLabel symbol = new EntityLabel("\u2334");
-		symbol.setFont(WholeUIPlugin.getOpenSymbolLargeFont());
+		symbol.setFont(UIUtils.getOpenSymbolLargeFont());
 		symbol.setForegroundColor(ColorConstants.lightGray);
 		add(symbol);
 	}

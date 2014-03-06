@@ -24,7 +24,6 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.gef.EditPart;
-import org.eclipse.ui.PlatformUI;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IdentityDefaultChangeEventHandler;
 import org.whole.lang.features.ui.figures.FeatureGroupFigure;
@@ -78,7 +77,7 @@ public class CloneGroupDownPart extends AbstractContentPanePart {
 			childObserver = new IdentityDefaultChangeEventHandler() {
 				private static final long serialVersionUID = 1L;
 			    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, Object oldValue, Object newValue) {
-					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			    	getViewer().getControl().getDisplay().asyncExec(new Runnable() {
 						public void run() {
 					    	refreshVisuals();
 						}

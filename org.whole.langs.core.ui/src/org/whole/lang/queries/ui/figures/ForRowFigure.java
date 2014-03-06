@@ -20,12 +20,12 @@ package org.whole.lang.queries.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -42,7 +42,7 @@ public class ForRowFigure extends ContentPaneFigure {
 				return ColorConstants.gray;
 			}
 			public Font getLocalFont() {
-				return WholeUIPlugin.getOpenSymbolLargeFont();
+				return UIUtils.getOpenSymbolLargeFont();
 			}
 		});
 		add(col0);

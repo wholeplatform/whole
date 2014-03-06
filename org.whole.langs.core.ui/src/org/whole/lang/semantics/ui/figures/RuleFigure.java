@@ -19,7 +19,6 @@ package org.whole.lang.semantics.ui.figures;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.MarginBorder;
-import org.whole.lang.ui.WholeUIPlugin;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.EntityFigure;
