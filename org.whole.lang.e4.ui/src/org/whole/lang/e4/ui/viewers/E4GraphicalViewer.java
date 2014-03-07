@@ -18,6 +18,7 @@
 package org.whole.lang.e4.ui.viewers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +28,12 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.draw2d.ExclusionSearch;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.TreeSearch;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -85,6 +89,9 @@ import org.whole.lang.ui.resources.IColorRegistry;
 import org.whole.lang.ui.resources.IFontRegistry;
 import org.whole.lang.ui.resources.IResourceManager;
 import org.whole.lang.ui.tools.Tools;
+import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
+import org.whole.lang.ui.treesearch.ITreeSearch;
+import org.whole.lang.ui.treesearch.NonInteractiveConditional;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.viewers.ZoomGestureListener;
@@ -388,6 +395,37 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			entityFigure.setInteractiveBrowse(browse);
 			entityFigure.setInteractiveInherited(inherited);
 		}
+	}
+
+	@Override
+	public EditPart findObjectAtExcluding(Point pt, Collection exclude, final Conditional condition) {
+		class ConditionalTreeSearch extends ExclusionSearch implements ITreeSearch {
+			ConditionalTreeSearch(Collection coll) {
+				super(coll);
+			}
+
+			public boolean accept(IFigure figure) {
+				EditPart editpart = null;
+				while (editpart == null && figure != null) {
+					editpart = (EditPart) getVisualPartMap().get(figure);
+					figure = figure.getParent();
+				}
+				return editpart != null
+						&& (condition == null || condition.evaluate(editpart));
+			}
+		}
+		TreeSearch search = new ConditionalTreeSearch(exclude);
+		IFigure figure = getLightweightSystem().getRootFigure().findFigureAt(pt.x, pt.y,
+				condition instanceof NonInteractiveConditional ?
+						search : new DelegatingInteractiveTreeSearch(search));
+		EditPart part = null;
+		while (part == null && figure != null) {
+			part = (EditPart) getVisualPartMap().get(figure);
+			figure = figure.getParent();
+		}
+		if (part == null)
+			return getContents();
+		return part;
 	}
 
 	private EditPart focusEditPart;

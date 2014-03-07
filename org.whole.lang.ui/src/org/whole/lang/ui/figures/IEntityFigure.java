@@ -18,7 +18,6 @@
 package org.whole.lang.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
@@ -53,7 +52,4 @@ public interface IEntityFigure extends IFigure {
 	public void setInteractiveBrowse(boolean interactiveBrowse);
 	public boolean isInteractiveInherited();
 	public void setInteractiveInherited(boolean interactiveInherited);
-
-	public IFigure findFigureAt(int x, int y, TreeSearch search, boolean inheritedEdit);
-	public IFigure findMouseEventTargetAt(int x, int y, boolean inheritedBrowse);
 }

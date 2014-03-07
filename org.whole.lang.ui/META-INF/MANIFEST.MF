@@ -31,6 +31,7 @@ Export-Package: org.whole.lang.codebase,
  org.whole.lang.ui.ruler,
  org.whole.lang.ui.templates,
  org.whole.lang.ui.tools,
+ org.whole.lang.ui.treesearch,
  org.whole.lang.ui.util,
  org.whole.lang.ui.viewers
 Require-Bundle: org.eclipse.core.expressions,

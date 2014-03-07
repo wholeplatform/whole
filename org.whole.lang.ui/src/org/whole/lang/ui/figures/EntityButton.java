@@ -21,12 +21,12 @@ import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.Clickable;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TreeSearch;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
+import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
+import org.whole.lang.ui.treesearch.ITreeSearch;
 
 /**
  * @author Riccardo Solmi
@@ -102,97 +102,15 @@ public class EntityButton extends Clickable implements IEntityFigure {
 		setFlag(FLAG_INTERACTIVE_INHERITED, interactiveInherited);
 	}
 
+//	@Override
+//	protected boolean isMouseEventTarget() {
+//		return super.isMouseEventTarget() && InteractiveTreeSearch.calculateInteractiveBrowse(this);
+//	}
+
 	@Override
 	public IFigure findFigureAt(int x, int y, TreeSearch search) {
-		//FIXME inherit from ancestors
-		return findFigureAt(x, y, search, isInteractiveEdit());
-	}
-	public IFigure findFigureAt(int x, int y, TreeSearch search, boolean inheritedEdit) {
-		boolean isInteractiveEdit = isInteractiveInherited() ? inheritedEdit : isInteractiveEdit();
-
-		if (!containsPoint(x, y))
-			return null;
-		if (search.prune(this))
-			return null;
-		IFigure child = findDescendantAtExcluding(x, y, search, isInteractiveEdit);
-		if (child != null)
-			return child;
-		if (isInteractiveEdit && search.accept(this))
-			return this;
-		return null;
-	}
-	private static final Point PRIVATE_POINT = new Point();
-	protected IFigure findDescendantAtExcluding(int x, int y, TreeSearch search, boolean inheritedEdit) {
-		PRIVATE_POINT.setLocation(x, y);
-		translateFromParent(PRIVATE_POINT);
-		if (!getClientArea(Rectangle.SINGLETON).contains(PRIVATE_POINT))
-			return null;
-
-		x = PRIVATE_POINT.x;
-		y = PRIVATE_POINT.y;
-		IFigure fig;
-		for (int i = getChildren().size(); i > 0;) {
-			i--;
-			fig = (IFigure) getChildren().get(i);
-			if (fig.isVisible()) {
-				if (fig instanceof IEntityFigure)
-					fig = ((IEntityFigure) fig).findFigureAt(x, y, search, inheritedEdit);
-				else
-					fig = null;//fig.findFigureAt(x, y, search);
-
-				if (fig != null)
-					return fig;
-			}
-		}
-		// No descendants were found
-		return null;
-	}
-
-	@Override
-	public IFigure findMouseEventTargetAt(int x, int y) {
-		//FIXME inherit from ancestors
-		return findMouseEventTargetAt(x, y, isInteractiveBrowse());
-	}
-	public IFigure findMouseEventTargetAt(int x, int y, boolean inheritedBrowse) {
-		boolean isInteractiveBrowse = isInteractiveInherited() ? inheritedBrowse : isInteractiveBrowse();
-
-		if (!containsPoint(x, y))
-			return null;
-		IFigure f = findMouseEventTargetInDescendantsAt(x, y, isInteractiveBrowse);
-		if (f != null)
-			return f;
-		if (isInteractiveBrowse && isMouseEventTarget())
-			return this;
-		return null;
-	}
-	@Override
-	protected IFigure findMouseEventTargetInDescendantsAt(int x, int y) {
-		//FIXME inherit from ancestors
-		return findMouseEventTargetInDescendantsAt(x, y, isInteractiveBrowse());
-	}
-	protected IFigure findMouseEventTargetInDescendantsAt(int x, int y, boolean inheritedBrowse) {
-		PRIVATE_POINT.setLocation(x, y);
-		translateFromParent(PRIVATE_POINT);
-
-		if (!getClientArea(Rectangle.SINGLETON).contains(PRIVATE_POINT))
-			return null;
-
-		IFigure fig;
-		for (int i = getChildren().size(); i > 0;) {
-			i--;
-			fig = (IFigure) getChildren().get(i);
-			if (fig.isVisible() && fig.isEnabled()) {
-				if (fig.containsPoint(PRIVATE_POINT.x, PRIVATE_POINT.y)) {
-					if (fig instanceof IEntityFigure)
-						fig = ((IEntityFigure) fig).findMouseEventTargetAt(
-								PRIVATE_POINT.x, PRIVATE_POINT.y, inheritedBrowse);
-					else
-						fig = null;//fig.findMouseEventTargetAt(PRIVATE_POINT.x, PRIVATE_POINT.y);
-					return fig;
-				}
-			}
-		}
-		return null;
+		return super.findFigureAt(x, y,
+				search instanceof ITreeSearch ? search : new DelegatingInteractiveTreeSearch(search));
 	}
 //TODO end
 
