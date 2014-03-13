@@ -315,6 +315,14 @@ public class E4Utils {
 		suspendOperation(kind, null, suspendEntity, bindings, variablesModel);
 	}
 	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity onEntity, final IBindingManager bindings, IEntity variablesModel) {
+		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
+			if (throwable != null)
+				reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+						"Domain behavior error", "Error while executing domain behavior", throwable);
+
+			return;
+		}
+			
 		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
