@@ -134,6 +134,9 @@ public interface IUIConstants {
 	public static final String COPY_AS_IMAGE_LABEL = "Copy As Image";
 	public static final String PASTE_AS_LABEL = "Paste As";
 	public static final String SPLIT_ON_CARET_LABEL = "Split on Caret";
+	public static final String NEWLINE_LABEL = "Newline on Caret";
+	public static final String BACKSPACE_LABEL = "Backspace";
+	public static final String DELETE_LABEL = "Backspace";
 
 	public static final String REMOVE_LABEL = "Remove";
 	public static final String DEFAULT_LABEL = "Default";

@@ -23,16 +23,17 @@ import org.whole.lang.e4.ui.actions.IUIConstants;
 /**
  * @author Enrico Persiani
  */
-public class SplitOnCaretAction extends AbstractModelTextAction {
-	public SplitOnCaretAction(IEclipseContext context) {
-		super(context, IUIConstants.SPLIT_ON_CARET_LABEL);
+public class NewlineAction extends AbstractModelTextAction {
+	public NewlineAction(IEclipseContext context) {
+		super(context, IUIConstants.NEWLINE_LABEL);
 	}
+	
 
 	protected String getEnablementUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#splitOnCaretEnabled";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
 	}
 
 	protected String getBehaviorUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#splitOnCaret";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
 	}
 }

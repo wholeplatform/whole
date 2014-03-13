@@ -17,8 +17,11 @@
  */
 package org.whole.lang.text.ui.actions;
 
+import org.eclipse.jface.bindings.keys.IKeyLookup;
+import org.eclipse.jface.bindings.keys.KeyLookupFactory;
+import org.eclipse.jface.bindings.keys.KeySequence;
+import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
-import org.whole.lang.ui.actions.EnablerPredicateFactory;
 import org.whole.lang.ui.editor.ActionFactory;
 
 /** 
@@ -35,57 +38,35 @@ public class TextActionFactory extends ActionFactory {
 	}
 
 	public Object[][] textActions() {
-		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
-		return new Object[][] {
-				{ pf.alwaysTrue(), TextEntityDescriptorEnum.Text, SplitOnCaretAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Newline on caret", NewlineTextualAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Backspace", BackspaceTextualAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Delete", DeleteTextualAction.class },
+		IKeyLookup keyLookup = KeyLookupFactory.getDefault();
 
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Goto left text", LeftTextualAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Goto right text", RightTextualAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Goto up text", UpTextualAction.class },
-//				{ pf.sameType(), TextEntityDescriptorEnum.Text, "Goto down text", DownTextualAction.class },
+		int ctrlKey = keyLookup.getCtrl();
+		int spaceKey = keyLookup.formalKeyLookup(IKeyLookup.SPACE_NAME);
+		KeyStroke ctrlSpaceKeyStroke = KeyStroke.getInstance(ctrlKey, spaceKey);
+		KeySequence ctrltSpaceKeySequence = KeySequence.getInstance(ctrlSpaceKeyStroke);
+
+		int returnKey = keyLookup.formalKeyLookup(IKeyLookup.RETURN_NAME);
+		KeyStroke returnKeyStroke = KeyStroke.getInstance(returnKey);
+		KeySequence returnKeySequence = KeySequence.getInstance(returnKeyStroke);
+
+		int backspaceKey = keyLookup.formalKeyLookup(IKeyLookup.BACKSPACE_NAME);
+		KeyStroke backspaceKeyStroke = KeyStroke.getInstance(backspaceKey);
+		KeySequence backspaceKeySequence = KeySequence.getInstance(backspaceKeyStroke);
+
+		int deleteKey = keyLookup.formalKeyLookup(IKeyLookup.DELETE_NAME);
+		KeyStroke deleteKeyStroke = KeyStroke.getInstance(deleteKey);
+		KeySequence deleteKeySequence = KeySequence.getInstance(deleteKeyStroke);
+
+		return new Object[][] {
+				{ ctrltSpaceKeySequence, TextEntityDescriptorEnum.Text, SplitOnCaretAction.class },
+				{ returnKeySequence, TextEntityDescriptorEnum.Text, NewlineAction.class },
+				{ backspaceKeySequence, TextEntityDescriptorEnum.Text, BackspaceAction.class },
+				{ deleteKeySequence, TextEntityDescriptorEnum.Text, DeleteAction.class },
+
+//				{ leftKeySequence, TextEntityDescriptorEnum.Text, LeftTextualAction.class },
+//				{ rightKeySequence, TextEntityDescriptorEnum.Text, RightTextualAction.class },
+//				{ upKeySequence, TextEntityDescriptorEnum.Text, UpTextualAction.class },
+//				{ downKeySequence, TextEntityDescriptorEnum.Text, DownTextualAction.class },
 		}; 
 	}
-
-//	public void initKeyActions(IWorkbenchPart workbenchPart, ActionRegistry actionRegistry, Map<KeyStroke, SelectionAction> keyActionsMap) {
-//		super.initKeyActions(workbenchPart, actionRegistry, keyActionsMap);
-//
-////TODO either change the modifier or remove the keystroke at all
-////		SelectionAction action = (SelectionAction) actionRegistry.getAction(SplitTextualAction.ID);
-////		keyActionsMap.put(KeyStroke.getPressed(' ', 32, SWT.MOD1), action);
-//
-//		SelectionAction action = (SelectionAction) actionRegistry.getAction(NewlineTextualAction.ID);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.CR, 13, SWT.NONE), action);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.LF, 10, SWT.NONE), action);
-//
-//		action = (SelectionAction) actionRegistry.getAction(BackspaceTextualAction.ID);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.BS, 8, SWT.NONE), action);
-//
-//		action = (SelectionAction) actionRegistry.getAction(DeleteTextualAction.ID);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.DEL, 127, SWT.NONE), action);
-//
-//		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
-//
-//		KeyStroke stroke = KeyStroke.getPressed(SWT.ARROW_LEFT, SWT.NONE);
-//		NavigateTextualAction navigateAction = new LeftTextualAction(workbenchPart, pf.sameType(), TextEntityDescriptorEnum.Text, "Goto left text");
-//		navigateAction.setSelectionRangeAction(keyActionsMap.get(stroke));
-//		actionRegistry.registerAction(navigateAction);
-//		keyActionsMap.put(stroke, navigateAction);
-//
-//		stroke = KeyStroke.getPressed(SWT.ARROW_RIGHT, SWT.NONE);
-//		navigateAction = new RightTextualAction(workbenchPart, pf.sameType(), TextEntityDescriptorEnum.Text, "Goto right text");
-//		navigateAction.setSelectionRangeAction(keyActionsMap.get(stroke));
-//		actionRegistry.registerAction(navigateAction);
-//		keyActionsMap.put(stroke, navigateAction);
-//
-//		navigateAction = new UpTextualAction(workbenchPart, pf.sameType(), TextEntityDescriptorEnum.Text, "Goto up text");
-//		actionRegistry.registerAction(navigateAction);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.ARROW_UP, SWT.NONE), navigateAction);
-//
-//		navigateAction = new DownTextualAction(workbenchPart, pf.sameType(), TextEntityDescriptorEnum.Text, "Goto down text");
-//		actionRegistry.registerAction(navigateAction);
-//		keyActionsMap.put(KeyStroke.getPressed(SWT.ARROW_DOWN, SWT.NONE), navigateAction);
-//	}
 }
