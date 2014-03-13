@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui;
 
-import org.eclipse.gef.ui.views.palette.PaletteView;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -53,7 +52,6 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 	}
 	protected void addBottomLeftViews(IFolderLayout folder) {
 		folder.addView(IPageLayout.ID_OUTLINE);
-		folder.addView(PaletteView.ID);
 		folder.addView(IPageLayout.ID_PROGRESS_VIEW);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
@@ -85,6 +83,5 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-		layout.addShowViewShortcut(PaletteView.ID);
 	}
 }
