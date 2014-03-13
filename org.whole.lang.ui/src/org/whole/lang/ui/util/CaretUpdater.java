@@ -119,7 +119,11 @@ public class CaretUpdater extends IdentityEntityPartListener {
 		updateCaret(entityPart, viewer, start, end, location, deselectAll);
 	}
 	public void sheduleAsyncUpdate() {
-		((IEntityPartViewer) viewer).addEntityPartListener(this);
+		viewer.getControl().getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				sheduleSyncUpdate();
+			}
+		});
 	}
 	public void afterUpdate(EntityPartEvent event) {
 		if (Matcher.find(selectedEntity, event.getEntityPart().getModelEntity(), false) != null) {
