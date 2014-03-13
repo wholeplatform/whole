@@ -45,7 +45,9 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
+import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.keys.AbstractKeyHandler;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -101,6 +103,8 @@ public class ActionRegistry {
 	protected void registerAction(IUpdatableAction action) {
 		baseActions.put(action.getId(), action);
 	}
+	public void registerNotationKeyActions(IGEFEditorKit editorKit) {
+	}
 	public void registerKeyActions(AbstractKeyHandler keyHandler) {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, actionFactory.createDirectEditAction());
 
@@ -108,6 +112,22 @@ public class ActionRegistry {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
+
+		// register notation specific key handlers
+		// TODO make notation key actions scoped (ie active only on their notation)
+		for (IEditorKit editorKit : ReflectionFactory.getEditorKits()) {
+			for (Object[] textAction : ((IGEFEditorKit) editorKit).getActionFactory().textActions()) {
+				KeySequence keySequence = (KeySequence) textAction[0];
+				Class<IUpdatableAction> actionClass = (Class<IUpdatableAction>) textAction[2];
+				try {
+					IUpdatableAction action = actionClass
+							.getConstructor(IEclipseContext.class)
+							.newInstance(context);
+					keyHandler.put(keySequence, true, action);
+				} catch (Exception e) {
+				}
+			}
+		}
 	}
 
 	public void updateActions(Collection<IUpdatableAction> actionsToUpdate) {
