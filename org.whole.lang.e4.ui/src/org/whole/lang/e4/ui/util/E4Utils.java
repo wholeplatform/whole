@@ -240,6 +240,31 @@ public class E4Utils {
 			}
 		});
 	}
+	public static void reveal(final IEntityPartViewer viewer, final IEntity entity) {
+		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.reveal(entity);
+			}
+		});
+	}
+	public static void select(final IEntityPartViewer viewer, final IEntity entity) {
+		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.select(entity);
+			}
+		});
+	}
+	public static void selectAndReveal(final IEntityPartViewer viewer, final IEntity entity) {
+		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
+			@Override
+			public void run() {
+				viewer.selectAndReveal(entity);
+			}
+		});
+	}
+
 	public static void invokeInterpreter(IBindingManager bm) {
 		InputStream is;
 		OutputStream os;
