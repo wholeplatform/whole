@@ -17,21 +17,31 @@
  */
 package org.whole.lang.ui.commands;
 
-import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
  */
 public class ModelTextCommand extends ModelTransactionCommand {
-	private EditPartViewer viewer;
+	private IEntityPartViewer viewer;
 	private CaretUpdater initialSelection;
 	private CaretUpdater finalSelection;
 	private IEntity newSelectedEntity;
 	private int newSelectionStart;
 	private int newSelectionEnd;
+
+	public ModelTextCommand() {
+		super();
+	}
+	public ModelTextCommand(IEntity model) {
+		super(model);
+	}
+	public ModelTextCommand(IEntity model, String label) {
+		super(model, label);
+	}
 
 	@Override
 	public void undo() {
@@ -45,7 +55,7 @@ public class ModelTextCommand extends ModelTransactionCommand {
 		super.redo();
 	}
 
-	public void setViewer(EditPartViewer viewer) {
+	public void setViewer(IEntityPartViewer viewer) {
 		this.viewer = viewer;
 	}
 
@@ -74,6 +84,7 @@ public class ModelTextCommand extends ModelTransactionCommand {
 	public ICommand commit() {
 		ICommand command = super.commit();
 		finalSelection = CaretUpdater.createCU(viewer, newSelectedEntity, newSelectionStart, newSelectionEnd);
+		finalSelection.sheduleAsyncUpdate();
 		return command;
 	}
 }
