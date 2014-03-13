@@ -136,7 +136,7 @@ public interface IUIConstants {
 	public static final String SPLIT_ON_CARET_LABEL = "Split on Caret";
 	public static final String NEWLINE_LABEL = "Newline on Caret";
 	public static final String BACKSPACE_LABEL = "Backspace";
-	public static final String DELETE_LABEL = "Backspace";
+	public static final String DELETE_LABEL = "Delete";
 
 	public static final String REMOVE_LABEL = "Remove";
 	public static final String DEFAULT_LABEL = "Default";
