@@ -92,7 +92,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 				return a1.getName().getValue().compareTo(a2.getName().getValue());
 			}
 		});
-		
+
 		for (GuardedAction guardedAction : guardedActions) {
 			String actionName = guardedAction.getName().getValue();
 			String functionUri = actionsMap.get(guardedAction);

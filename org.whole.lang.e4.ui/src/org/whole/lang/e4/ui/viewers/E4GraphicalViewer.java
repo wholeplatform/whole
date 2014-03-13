@@ -397,6 +397,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public EditPart findObjectAtExcluding(Point pt, Collection exclude, final Conditional condition) {
 		class ConditionalTreeSearch extends ExclusionSearch implements ITreeSearch {
