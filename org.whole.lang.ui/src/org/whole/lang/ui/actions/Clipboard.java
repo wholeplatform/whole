@@ -110,21 +110,8 @@ public class Clipboard {
 		return (T) contents;
 	}
 
-	public void setEntityContents(IEntity entity) {
-		setEntityContents(new IEntity[] {entity});
-	}
-	public void setEntityContents(List<IEntityPart> entityParts) {
-		IEntity[] values = new IEntity[entityParts.size()];
-		for (int i=0; i<values.length; i++)
-			values[i] = EntityUtils.clone(entityParts.get(i).getModelEntity());
-
-		setEntityContents(values);
-	}
 	protected File[] xmlBuilderFiles;
-	public void setEntityContents(IEntity... entities) {
-		setEntitiesContents(BindingManagerFactory.instance.createTuple(true, entities));
-	}
-	public void setEntitiesContents(IEntity tuple) {
+	public void setEntityContents(IEntity tuple) {
 		String contents = null;
 
 		try {
@@ -136,13 +123,8 @@ public class Clipboard {
 					file.delete();
 				xmlBuilderFiles = null;
 			}
-//			xmlBuilderFiles = new File[entities.length];
-//			for (int i=0; i<entities.length; i++) {
-//				xmlBuilderFiles[i] = ClipboardUtils.createTempXmlBuilderFile(entities[i]);
-//
-//				// ensure file deletion on exit
-//				xmlBuilderFiles[i].deleteOnExit();
-//			}
+
+			// create temporary files
 			List<File> files = new ArrayList<File>();
 			IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
 			iterator.set(tuple);

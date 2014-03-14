@@ -52,7 +52,6 @@ import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.OperationCanceledException;
-import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -143,8 +142,13 @@ public class HandlersBehavior {
 		String selectedText;
 		if (bm.wIsSet("selectedText") && !(selectedText = bm.wStringValue("selectedText")).isEmpty())
 			Clipboard.instance().setTextContents(selectedText);
-		else
-			Clipboard.instance().setEntitiesContents(EntityUtils.clone(bm.wGet("selectedEntities")));
+		else {
+			IEntity selectedEntities = bm.wGet("selectedEntities");
+			IEntity tuple = BindingManagerFactory.instance.createTuple(true);
+			for (int i=0, size=selectedEntities.wSize(); i<size; i++)
+				tuple.wAdd(EntityUtils.clone(selectedEntities.wGet(i)));
+			Clipboard.instance().setEntityContents(tuple);
+		}
 	}
 	public static boolean canCopyEntityPath(IBindingManager bm) {
 		return isValidFocusEntityPart(bm);
@@ -156,7 +160,7 @@ public class HandlersBehavior {
 					true, ReflectionFactory.getClassLoader(bm));
 			Method createRootPathMethod = queryUtilsClass.getMethod("createRootPath", new Class[] {IEntity.class});
 			IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, focusEntity);
-			Clipboard.instance().setEntityContents(entityPath);
+			Clipboard.instance().setEntityContents(BindingManagerFactory.instance.createTuple(true, entityPath));
 		} catch (Exception e) {
 			String location = EntityUtils.getLocation(focusEntity);
 			Clipboard.instance().setTextContents(location);
