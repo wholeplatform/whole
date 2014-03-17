@@ -56,8 +56,9 @@ public class JavaBuilderPersistenceKit extends AbstractGenericPersistenceKit {
 	@SuppressWarnings("unchecked")
 	protected IEntity doReadModel(IPersistenceProvider pp) throws Exception {
 		IBindingManager bm = pp.getBindings();
-		if (bm.wIsSet("class")) {
-			Class<?> codebaseClass = (Class<?>) bm.wGetValue("class");
+		if (bm.wIsSet("compilationUnitName")) {
+			ClassLoader classLoader = ReflectionFactory.getClassLoader(bm);
+			Class<?> codebaseClass = classLoader.loadClass(bm.wStringValue("compilationUnitName"));
 			if (ITemplateFactory.class.isAssignableFrom(codebaseClass))
 				return ((ITemplateFactory<IEntity>) codebaseClass.newInstance()).create();
 		}

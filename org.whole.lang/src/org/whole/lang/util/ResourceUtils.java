@@ -165,15 +165,12 @@ public class ResourceUtils {
 		bm.wDefValue("folderName", filePath);
 		bm.wDefValue("packageName", packageName = filePath.replace('/', '.'));
 
+		if ("class".equals(fileExtension)) {
+			String compilationUnitName = packageName+'.'+fileName;
+			bm.wDefValue("compilationUnitName", compilationUnitName);
+			bm.wDefValue("className", fileName);
+		}
 		try {
-			if ("class".equals(fileExtension)) {
-				String compilationUnitName = packageName+'.'+fileName;
-				Class<?> clazz = ReflectionFactory.getClassLoader(bm).loadClass(compilationUnitName);
-
-				bm.wDefValue("compilationUnitName", compilationUnitName);
-				bm.wDefValue("className", fileName);
-				bm.wDefValue("class", clazz);
-			}
 			String resourceUri = ReflectionFactory.getClassLoader(bm).getResource(resourceClasspath).toURI().toString();
 			bm.wDefValue("contextURI", resourceUri.substring(0, resourceUri.length()-resourceClasspath.length()-1));
 		} catch (Exception e) {

@@ -59,13 +59,8 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 					bm.wDefValue("compilationUnitName", compilationUnitName);
 					bm.wDefValue("className", StringUtils.toSimpleName(compilationUnitName));
 
-					try {
-						project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
-						Class<?> clazz = IDEUtils.loadCompilationUnit(bm);
-						if (clazz != null)
-							bm.wDefValue("class", clazz);
-					} catch (Exception e) {
-					}
+					// perform an incremental build to ensure class files are generated
+					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
 
 					IResource correspondingResource = packageFragment.getParent().getCorrespondingResource();
 					IPath sourcePath = correspondingResource.getProjectRelativePath();
