@@ -113,8 +113,6 @@ public class ActionRegistry {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
 
-		// register notation specific key handlers
-		// TODO make notation key actions scoped (ie active only on their notation)
 		for (IEditorKit editorKit : ReflectionFactory.getEditorKits()) {
 			for (Object[] textAction : ((IGEFEditorKit) editorKit).getActionFactory().textActions()) {
 				KeySequence keySequence = (KeySequence) textAction[0];
@@ -123,7 +121,7 @@ public class ActionRegistry {
 					IUpdatableAction action = actionClass
 							.getConstructor(IEclipseContext.class)
 							.newInstance(context);
-					keyHandler.put(keySequence, true, action);
+					keyHandler.put(editorKit, keySequence, true, action);
 				} catch (Exception e) {
 				}
 			}

@@ -83,24 +83,21 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 		return null;
 	}
 
-	protected Map<KeySequence, IUpdatableAction> getPressActions() {
-		if (pressActions == null)
-			pressActions = new TreeMap<KeySequence, IUpdatableAction>();
-		return pressActions;
+	protected Map<KeySequence, IUpdatableAction> getActions(boolean pressed) {
+		if (pressed) {
+			if (pressActions == null)
+				pressActions = new TreeMap<KeySequence, IUpdatableAction>();
+			return pressActions;
+		} else {
+			if (releaseActions == null)
+				releaseActions = new TreeMap<KeySequence, IUpdatableAction>();
+			return releaseActions;
+		}
 	}
-	protected Map<KeySequence, IUpdatableAction> getReleaseActions() {
-		if (releaseActions == null)
-			releaseActions = new TreeMap<KeySequence, IUpdatableAction>();
-		return releaseActions;
-	}
-
-	protected IUpdatableAction getPressAction(KeySequence keySequence) {
-		IUpdatableAction editorKitAction = getEditorKitAction(keySequence, true);
-		return editorKitAction != null ? editorKitAction : getPressActions().get(keySequence);
-	}
-	protected IUpdatableAction getReleaseAction(KeySequence keySequence) {
-		IUpdatableAction editorKitAction = getEditorKitAction(keySequence, false);
-		return editorKitAction != null ? editorKitAction : getReleaseActions().get(keySequence);
+	
+	protected IUpdatableAction getAction(KeySequence keySequence, boolean pressed) {
+		IUpdatableAction editorKitAction = getEditorKitAction(keySequence, pressed);
+		return editorKitAction != null ? editorKitAction : getActions(pressed).get(keySequence);
 	}
 
 	protected KeySequence convertKeyEvent(KeyEvent event) {
@@ -122,11 +119,18 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 	}
 	
 	public void put(KeySequence keySequence, boolean pressed, IUpdatableAction action) {
-		(pressed ? getPressActions() : getReleaseActions()).put(keySequence, action);
+		getActions(pressed).put(keySequence, action);
 	}
 	public IAction remove(KeySequence keySequence, boolean pressed) {
-		return (pressed ? getPressActions() : getReleaseActions()).remove(keySequence);
+		return getActions(pressed).remove(keySequence);
 	}
+	public void put(IEditorKit editorKit, KeySequence keySequence, boolean pressed, IUpdatableAction action) {
+		getEditorKitActions(editorKit, pressed).put(keySequence, action);
+	}
+	public IAction remove(IEditorKit editorKit, KeySequence keySequence, boolean pressed) {
+		return getEditorKitActions(editorKit, pressed).remove(keySequence);
+	}
+
 	public AbstractKeyHandler setParent(AbstractKeyHandler parent) {
 		this.parent = parent;
 		return this;
@@ -134,14 +138,14 @@ public abstract class AbstractKeyHandler extends KeyHandler {
 
 	@Override
 	public boolean keyPressed(KeyEvent event) {
-		boolean handled = handleEvent(event, getPressAction(convertKeyEvent(event))) ||
+		boolean handled = handleEvent(event, getAction(convertKeyEvent(event), true)) ||
 				(parent != null && parent.keyPressed(event));
 		return !(event.doit = !handled);
 	}
 
 	@Override
 	public boolean keyReleased(KeyEvent event) {
-		boolean handled = handleEvent(event, getReleaseAction(convertKeyEvent(event))) ||
+		boolean handled = handleEvent(event, getAction(convertKeyEvent(event), false)) ||
 				(parent != null && parent.keyReleased(event));
 		return !(event.doit = !handled);
 	}

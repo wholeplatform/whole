@@ -309,8 +309,16 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 		//FIXME workaround for a bug in navigation actions
 		if (focusPoint.focus instanceof ITextualEntityPart) {
 			ITextualEntityPart part = (ITextualEntityPart) focusPoint.focus;
-			CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
-					part.getCaretPosition(), true);
+			int start = part.getSelectionStart();
+			int end = part.getSelectionEnd();
+			if (start != -1 && end != -1) {
+				CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
+						direction == PositionConstants.WEST ? start : end, true);
+				return true;
+			} else {
+				CaretUpdater.sheduleSyncUpdate(part.getViewer(), part.getModelTextEntity(), 
+						part.getCaretPosition(), true);
+			}
 		}
 		editPoint = keyHandler.findNeighbour(this, focusPoint, direction);
 
