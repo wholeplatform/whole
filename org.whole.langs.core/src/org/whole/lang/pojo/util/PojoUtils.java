@@ -355,7 +355,7 @@ public class PojoUtils {
 				Type keyType = mapType.getKeyType();
 				elementType = mapType.getValueType();
 				for (Entry<Object, Object> element : fromMap.entrySet())
-					toIEntity.wSet(create(element.getKey(), keyType, library),
+					toIEntity.wSet((IEntity) create(element.getKey(), keyType, library),//FIXME workaround for Java 8 compiler
 							create(element.getValue(), elementType, library));
 				break;
 			}

@@ -427,7 +427,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		Variable queryName = entity.getQueryName();
 		Arguments arguments = entity.getArguments();
 
-		IEntityIterator<?>[] argsIterators = new IEntityIterator<?>[0];
+		IEntityIterator<? extends IEntity>[] argsIterators = new IEntityIterator<?>[0];
 
 		Set<String> filterNames = getOperation().getResultsScope().wNames();
 		IBindingManager args = BindingManagerFactory.instance.createBindingManager(

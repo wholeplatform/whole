@@ -193,7 +193,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	
     	boolean inheritedSemantics = useInheritedSemantics(false);
 		boolean templateFactorySemantics = useTemplateFactorySemantics(true);
-    	IEntityIterator<?>[] argsIterators = new IEntityIterator<?>[arguments.wSize()];
+    	IEntityIterator<? extends IEntity>[] argsIterators = new IEntityIterator<?>[arguments.wSize()];
     	for (int i=0, size=arguments.wSize(); i<size; i++) {
 			arguments.get(i).accept(this);
 			argsIterators[i] = getResultIterator();
@@ -250,7 +250,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IEntityIterator<?>[] iteratorChain = new IEntityIterator<?>[size];
+			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
@@ -267,7 +267,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-	    	IEntityIterator<?>[] iteratorChain = new IEntityIterator<?>[size];
+	    	IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
@@ -284,7 +284,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	if (size == 1)
     		entity.get(0).accept(this);//FIXME nested scope is exposed
     	else {
-			IEntityIterator<?>[] iteratorChain = new IEntityIterator<?>[size];
+			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
 			
 	    	for (int i=0; i<size; i++) {
 				entity.get(i).accept(this);
