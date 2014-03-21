@@ -67,7 +67,7 @@
                                         </wxml:Attribute>
                                         <wxml:Attribute>
                                         <wxml:Name value="path"/>
-                                        <wxml:Value value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+                                        <wxml:Value value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
                                         </wxml:Attribute>
                                         </wxml:Attributes>
                                         <wxml:Content initialCapacity="0"/>
@@ -358,7 +358,7 @@
                                         <text:Text value="Eclipse-RegisterBuddy: org.whole.lang"/>
                                         </text:Row>
                                         <text:Row initialCapacity="1">
-                                        <text:Text value="Bundle-RequiredExecutionEnvironment: JavaSE-1.6"/>
+                                        <text:Text value="Bundle-RequiredExecutionEnvironment: JavaSE-1.8"/>
                                         </text:Row>
                                         <text:Row initialCapacity="0"/>
                                         </text:Document>
@@ -442,7 +442,7 @@
                                         </wxml:Attribute>
                                         <wxml:Attribute>
                                         <wxml:Name value="path"/>
-                                        <wxml:Value value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+                                        <wxml:Value value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
                                         </wxml:Attribute>
                                         </wxml:Attributes>
                                         <wxml:Content initialCapacity="0"/>

@@ -124,23 +124,41 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${resources-version}</version>
 				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>org.eclipse.jdt.core</artifactId>
+							<version>3.9.50.v20140317-1741</version>
+						</dependency>
+						<dependency>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
+							<version>1.0.650.v20140316-1836</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
 		<plugins>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-source-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<executions>
-						<execution>
-							<id>plugin-source</id>
-							<goals>
-								<goal>plugin-source</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<!-- enable tycho build extension -->
 				<groupId>org.eclipse.tycho</groupId>
@@ -191,11 +209,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk-version>1.6</jdk-version>
+		<jdk-version>1.8</jdk-version>
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>0.19.0</tycho-version>
+		<tycho-version>0.20.0</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>

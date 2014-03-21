@@ -14,4 +14,4 @@ Require-Bundle: org.whole.lang,
  org.beanshell.bsh
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

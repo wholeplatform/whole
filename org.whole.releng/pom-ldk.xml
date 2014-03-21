@@ -70,7 +70,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk-version>1.6</jdk-version>
+		<jdk-version>1.8</jdk-version>
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
@@ -123,6 +123,8 @@
 					<excludes>
 						<exclude>**/DeployerExtensions.java</exclude>
 						<exclude>**/WholePlugin.java</exclude>
+						<exclude>org/whole/lang/java/compiler/**</exclude>
+						<exclude>**/JavaCompilerUtils.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

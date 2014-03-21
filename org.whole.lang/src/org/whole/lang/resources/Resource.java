@@ -119,10 +119,10 @@ public class Resource implements IResource {
 	}
 
 	public <E extends IEntity> IEntityIterator<E> apply(IEntity query, IBindingManager bindings) {
-		return apply(getEntity(), query, bindings);
+		return apply((IEntity) getEntity(), query, bindings);//FIXME workaround for Java 8 compiler
 	}
 	public <E extends IEntity> IEntityIterator<E> apply(String uriFragment, IEntity query, IBindingManager bindings) {
-		return apply(getEntity(uriFragment), query, bindings);
+		return apply((IEntity) getEntity(uriFragment), query, bindings);//FIXME workaround for Java 8 compiler
 	}
 	protected <E extends IEntity> IEntityIterator<E> apply(IEntity entity, IEntity query, IBindingManager bindings) {
 		IEntityIterator<E> iterator = IteratorFactory.templateInterpreterIterator(query);
@@ -132,10 +132,10 @@ public class Resource implements IResource {
 	}
 
 	public void apply(IBuilderOperation operation) {
-		apply(getEntity(), operation);
+		apply((IEntity) getEntity(), operation);//FIXME workaround for Java 8 compiler
 	}
 	public void apply(String uriFragment, IBuilderOperation operation) {
-		apply(getEntity(uriFragment), operation);
+		apply((IEntity) getEntity(uriFragment), operation);//FIXME workaround for Java 8 compiler
 	}
 	protected void apply(IEntity entity, IBuilderOperation operation) {
 		new ModelTemplate(entity).apply(operation);

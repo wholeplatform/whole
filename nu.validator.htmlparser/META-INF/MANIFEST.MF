@@ -8,5 +8,5 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: nu.validator.htmlparser.common,
  nu.validator.htmlparser.sax
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-BundleShape: dir

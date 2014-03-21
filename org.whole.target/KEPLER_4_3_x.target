@@ -17,5 +17,10 @@
 <!--repository location="http://download.vogella.com/kepler/e4tools"/-->
 <repository location="http://whole.sourceforge.net/e4tools-updates"/>
 </location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.jdt.java8patch.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.pde.java8patch.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/eclipse/updates/4.3-P-builds"/>
+</location>
 </locations>
 </target>

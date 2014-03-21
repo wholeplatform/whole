@@ -18,4 +18,4 @@ Import-Package: nu.validator.htmlparser.common;resolution:=optional,
  nu.validator.htmlparser.sax;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -82,4 +82,4 @@ Require-Bundle: org.whole.lang,
  com.fasterxml.jackson;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

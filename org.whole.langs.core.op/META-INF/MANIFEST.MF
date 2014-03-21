@@ -37,4 +37,4 @@ Require-Bundle: org.whole.lang,
  org.junit;resolution:=optional
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

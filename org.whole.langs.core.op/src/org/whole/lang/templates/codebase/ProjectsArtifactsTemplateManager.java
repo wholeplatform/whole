@@ -88,7 +88,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b2._Attribute();
                 b2.Attribute_();
                 b2.Name("path");
-                b2.Value("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6");
+                b2.Value("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8");
                 b2._Attribute();
                 b2._Attributes();
                 b2.Content();
@@ -384,7 +384,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b2.Text("Eclipse-RegisterBuddy: org.whole.lang");
                 b2._Row();
                 b2.Row_(1);
-                b2.Text("Bundle-RequiredExecutionEnvironment: JavaSE-1.6");
+                b2.Text("Bundle-RequiredExecutionEnvironment: JavaSE-1.8");
                 b2._Row();
                 b2.Row();
                 b2._Document();
@@ -469,7 +469,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b3._Attribute();
                 b3.Attribute_();
                 b3.Name("path");
-                b3.Value("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6");
+                b3.Value("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8");
                 b3._Attribute();
                 b3._Attributes();
                 b3.Content();

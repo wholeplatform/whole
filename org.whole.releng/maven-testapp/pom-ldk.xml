@@ -14,37 +14,37 @@
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-lang</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-core</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-legacy</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-db</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-core-op</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-legacy-op</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wholeplatform</groupId>
 			<artifactId>whole-langs-db-op</artifactId>
-			<version>1.0.0.v20130415-1649</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>

@@ -21,6 +21,7 @@
 	            dir="@{basedir}" resultproperty="@{resultproperty}">
 	      	<jvmarg value="-Xmx512m"/>
 	      	<jvmarg value="-Djava.net.useSystemProxies=false"/>
+	      	<jvmarg value="-Dtycho.localArtifacts=ignore"/>
 	      	<classpath>
 	          <fileset dir="${maven.home}/boot">
 	            <include name="*.jar" />
@@ -69,6 +70,7 @@
 		<replace dir="${workspace.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
 			<include name="*/pom-lw.xml"/>
 			<include name="*/pom-ldk.xml"/>
+			<include name="org.whole.releng/maven-testapp/pom-ldk.xml"/>
 		</replace>
 	</target>
 	<target name="set_meta_version" depends="init_lastversion">
@@ -81,6 +83,7 @@
 		<replace dir="${workspace.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
 			<include name="*/pom-lw.xml"/>
 			<include name="*/pom-ldk.xml"/>
+			<include name="org.whole.releng/maven-testapp/pom-ldk.xml"/>
 		</replace>
 	</target>
 
@@ -220,7 +223,10 @@
 	</target>
 
 	<target name="test_ldk" description="Test the released Whole Language Development Kit">
+		<property name="version.fixed" value="true"/>
+		<antcall target="set_build_version"/>
 		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="test"/>
 		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="clean"/>
+		<antcall target="set_meta_version"/>
 	</target>
 </project>
