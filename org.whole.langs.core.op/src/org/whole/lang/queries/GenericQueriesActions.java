@@ -77,8 +77,8 @@ public class GenericQueriesActions extends AbstractTemplateFactory<org.whole.lan
         b3.Variable("featureName");
         b3.Variable("fd");
         b1.Resolver();
-        b3.StringLiteral("java.lang.Object");
-        b3.StringLiteral("toString()");
+        b3.StringLiteral("org.whole.lang.reflect.FeatureDescriptor");
+        b3.StringLiteral("getName()");
         b1.Resolver();
         b3._InvokeJavaInstanceMethod();
         b3.Task_();
@@ -733,8 +733,8 @@ public class GenericQueriesActions extends AbstractTemplateFactory<org.whole.lan
         b3.Variable("featureName");
         b3.Variable("fd");
         b1.Resolver();
-        b3.StringLiteral("java.lang.Object");
-        b3.StringLiteral("toString()");
+        b3.StringLiteral("org.whole.lang.reflect.FeatureDescriptor");
+        b3.StringLiteral("getName()");
         b1.Resolver();
         b3._InvokeJavaInstanceMethod();
         b3.Task_();
@@ -806,7 +806,7 @@ public class GenericQueriesActions extends AbstractTemplateFactory<org.whole.lan
         b1.Resolver();
         b1.Resolver();
         b3.StringLiteral("org.whole.lang.commons.factories.CommonsEntityAdapterFactory");
-        b3.StringLiteral("createCompositeVariable(org.whole.lang.reflect.EntityDescriptor, java.lang.String, org.whole.lang.reflect.EntityDescriptor, org.whole.lang.commons.model.QuantifierEnum$Value)");
+        b3.StringLiteral("createInlineVariable(org.whole.lang.reflect.EntityDescriptor, java.lang.String, org.whole.lang.reflect.EntityDescriptor, org.whole.lang.commons.model.QuantifierEnum.Value)");
         b3.Expressions_(4);
         b3.Variable("ed");
         b3.Variable("varName");
