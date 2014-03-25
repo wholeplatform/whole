@@ -39,6 +39,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
@@ -101,7 +102,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		}
 
 		if (!TaskDialogHelper.showTaskDialog(factory, "Task", description, assignments, getBindings()))
-			throw new VisitException("task not completed: "+description);
+			throw new OperationCanceledException(new VisitException("task not completed: "+description));
 
 		assignments.accept(this);
 	}
