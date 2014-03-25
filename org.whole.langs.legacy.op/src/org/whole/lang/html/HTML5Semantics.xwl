@@ -27,12 +27,7 @@
                             </wxml:Prolog>
                             <wxml:Element>
                                 <wxml:Name value="html"/>
-                                <wxml:Attributes initialCapacity="1">
-                                    <wxml:Attribute>
-                                        <wxml:Name value="lang"/>
-                                        <wxml:Value value="en"/>
-                                    </wxml:Attribute>
-                                </wxml:Attributes>
+                                <wxml:Attributes initialCapacity="0"/>
                                 <wxml:Content initialCapacity="2">
                                     <semantics:FunctionApplication>
                                         <commons:Resolver/>
@@ -779,7 +774,7 @@
                 <semantics:LanguageType value="http://lang.whole.org/Xml"/>
                 <semantics:LanguageType value="whole:org.whole.lang.html:HTML5Model"/>
             </semantics:FunctionType>
-            <semantics:Rules initialCapacity="8">
+            <semantics:Rules initialCapacity="12">
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
@@ -830,8 +825,12 @@
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="head"/>
-                                <wxml:Attributes initialCapacity="0"/>
-                                <semantics:Variable value="content"/>
+                                <semantics:Variable value="attributes"/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="content"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
                             </wxml:Element>
                         </commons:StageUpFragment>
                     </queries:ExpressionTest>
@@ -856,8 +855,12 @@
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
                                 <wxml:Name value="body"/>
-                                <wxml:Attributes initialCapacity="0"/>
-                                <semantics:Variable value="content"/>
+                                <semantics:Variable value="attributes"/>
+                                <semantics:StructuredVariable>
+                                    <semantics:Variable value="content"/>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </semantics:StructuredVariable>
                             </wxml:Element>
                         </commons:StageUpFragment>
                     </queries:ExpressionTest>
@@ -889,7 +892,11 @@
                                     </wxml:Attribute>
                                     <wxml:Attribute>
                                         <wxml:Name value="content"/>
+                                        <semantics:StructuredVariable>
                                         <semantics:Variable value="content"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
                                     </wxml:Attribute>
                                 </wxml:Attributes>
                                 <wxml:Content initialCapacity="0"/>
@@ -929,7 +936,11 @@
                                     </wxml:Attribute>
                                     <wxml:Attribute>
                                         <wxml:Name value="content"/>
+                                        <semantics:StructuredVariable>
                                         <semantics:Variable value="content"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:StructuredVariable>
                                     </wxml:Attribute>
                                 </wxml:Attributes>
                                 <wxml:Content initialCapacity="0"/>
@@ -954,6 +965,164 @@
                                 <commons:Resolver/>
                             </semantics:FunctionApplication>
                         </html5:Meta>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
+                                <wxml:Name value="meta"/>
+                                <wxml:Attributes initialCapacity="1">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="charset"/>
+                                        <semantics:Variable value="charset"/>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <wxml:Content initialCapacity="0"/>
+                            </wxml:Element>
+                        </commons:StageUpFragment>
+                    </queries:ExpressionTest>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <commons:StageUpFragment>
+                            <text:Text xmlns:text="http://lang.whole.org/Text" value="TODO meta with charset"/>
+                        </commons:StageUpFragment>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
+                                <wxml:Name value="title"/>
+                                <semantics:Variable value="attributes"/>
+                                <wxml:Content initialCapacity="1">
+                                    <semantics:StructuredVariable>
+                                        <semantics:Variable value="content"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                    </semantics:StructuredVariable>
+                                </wxml:Content>
+                            </wxml:Element>
+                        </commons:StageUpFragment>
+                    </queries:ExpressionTest>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <html5:Title xmlns:html5="whole:org.whole.lang.html:HTML5Model">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="content"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </html5:Title>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
+                                <wxml:Name value="link"/>
+                                <wxml:Attributes initialCapacity="4">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="href"/>
+                                        <semantics:Variable value="href"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="rel"/>
+                                        <semantics:Variable value="rel"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="type"/>
+                                        <semantics:Variable value="type"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="media"/>
+                                        <semantics:Variable value="media"/>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <wxml:Content initialCapacity="0"/>
+                            </wxml:Element>
+                        </commons:StageUpFragment>
+                    </queries:ExpressionTest>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <html5:Link xmlns:html5="whole:org.whole.lang.html:HTML5Model">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="href"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="rel"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="media"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="type"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                        </html5:Link>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <wxml:Element xmlns:wxml="http://lang.whole.org/Xml">
+                                <wxml:Name value="script"/>
+                                <wxml:Attributes initialCapacity="2">
+                                    <wxml:Attribute>
+                                        <wxml:Name value="type"/>
+                                        <semantics:Variable value="type"/>
+                                    </wxml:Attribute>
+                                    <wxml:Attribute>
+                                        <wxml:Name value="src"/>
+                                        <semantics:Variable value="src"/>
+                                    </wxml:Attribute>
+                                </wxml:Attributes>
+                                <wxml:Content initialCapacity="0"/>
+                            </wxml:Element>
+                        </commons:StageUpFragment>
+                    </queries:ExpressionTest>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <html5:Script xmlns:html5="whole:org.whole.lang.html:HTML5Model">
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="src"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <semantics:Variable value="type"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </html5:Script>
                     </commons:StageUpFragment>
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
