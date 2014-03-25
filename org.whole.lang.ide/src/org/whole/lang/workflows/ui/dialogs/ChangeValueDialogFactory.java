@@ -17,9 +17,16 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.workflows.model.Assign;
 import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Expression;
@@ -40,6 +47,14 @@ public class ChangeValueDialogFactory implements ITaskDialogFactory {
 	public Dialog createDialog(Shell shell, String title, String message, Assignments assignments, IBindingManager bindings) {
 		Assign assign = (Assign) assignments.wGet(0);
 		Expression expression = assign.getExpression();
-		return new ChangeValueDialog(shell, title, message, expression, bindings);
+		IEntity entity = BehaviorUtils.evaluate(expression, 0, bindings);
+		assign.wSet(expression, entity);
+
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("dialogTitle", title);
+		params.set("dialogMessage", message);
+		params.set("dialogEntity", entity);
+		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+		return ContextInjectionFactory.make(ChangeValueDialog.class, (IEclipseContext) bindings.wGetValue("eclipseContext"), params);
 	}
 }

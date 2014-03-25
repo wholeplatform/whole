@@ -17,9 +17,14 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
+import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.workflows.model.Assignments;
 
 /**
@@ -36,6 +41,11 @@ public class AssignmentsDialogFactory implements ITaskDialogFactory {
 	}
 
 	public Dialog createDialog(Shell shell, String title, String message, Assignments assignments, IBindingManager bindings) {
-		return new AssignmentsDialog(shell, title, message, assignments);
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("dialogTitle", title);
+		params.set("dialogMessage", message);
+		params.set("dialogAssignments", assignments);
+		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+		return ContextInjectionFactory.make(AssignmentsDialog.class, (IEclipseContext) bindings.wGetValue("eclipseContext"), params);
 	}
 }

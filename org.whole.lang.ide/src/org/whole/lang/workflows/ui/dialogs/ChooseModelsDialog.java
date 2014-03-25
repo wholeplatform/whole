@@ -22,9 +22,13 @@ import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.creat
 import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.PathExpression;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Expression;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -42,14 +46,17 @@ import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Expression;
 import org.whole.lang.workflows.model.Variable;
 
-
 /**
  * @author Enrico Persiani
  */
 public class ChooseModelsDialog extends OpenAsModelDialog {
 	protected Assignments assignments;
 
-	public ChooseModelsDialog(Shell shell, String title, String message, Assignments assignments) {
+	@Inject
+	public ChooseModelsDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell,
+			@Named("dialogTitle") String title,
+			@Named("dialogMessage") String message,
+			@Named("dialogAssignments") Assignments assignments) {
 		super(shell, ReflectionFactory.getDefaultPersistenceKit(), title, message);
 		setShellStyle(SWT.DIALOG_TRIM);
 		setValidator(createPersistenceValidator());

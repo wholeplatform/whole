@@ -17,6 +17,10 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -30,21 +34,18 @@ import org.whole.lang.workflows.model.Assignments;
  * @author Enrico Persiani
  */
 public class AssignmentsDialog extends E4Dialog {
-	protected String title;
-	protected String message;
-	protected Assignments assignments;
+	@Inject	@Named("dialogTitle") protected String title;
+	@Inject	@Named("dialogMessage") protected String message;
+	@Inject	@Named("dialogAssignments") protected Assignments assignments;
 
-	public AssignmentsDialog(Shell shell, String title, String message,
-			Assignments assignments) {
+	@Inject
+	public AssignmentsDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		super(shell);
-		setShellStyle(SWT.DIALOG_TRIM);
-		this.title = title;
-		this.message = message;
-		this.assignments = assignments;
 	}
 
 	@Override
 	protected Control createContents(Composite parent) {
+		setShellStyle(SWT.DIALOG_TRIM);
 		getShell().setText(title);
 		return super.createContents(parent);
 	}
@@ -54,14 +55,9 @@ public class AssignmentsDialog extends E4Dialog {
 		Label label = new Label(parent, SWT.NONE);
 		label.setText(message);
 		label.setFocus();
-		return super.createDialogArea(parent);
-	}
-	
-	@Override
-	public int open() {
-		int result = super.open();
+		Control area = super.createDialogArea(parent);
 		viewer.setEntityContents(assignments);
-		return result;
+		return area;
 	}
 
 	@Override

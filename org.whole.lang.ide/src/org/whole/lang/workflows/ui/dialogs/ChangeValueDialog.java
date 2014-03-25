@@ -17,37 +17,34 @@
  */
 package org.whole.lang.workflows.ui.dialogs;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.matchers.Matcher;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.util.DataTypeUtils;
-import org.whole.lang.workflows.model.Expression;
-import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
  */
 public class ChangeValueDialog extends InputDialog {
-	private Expression expression;
+	private IEntity entity;
 
-	public ChangeValueDialog(Shell shell, String title, String message, Expression expression, IBindingManager bindings) {
-		super(shell, title, message, DataTypeUtils.getAsPresentationString(
-				Matcher.match(WorkflowsEntityDescriptorEnum.Variable, expression) ?	
-						bindings.wGet(expression.wStringValue()) : expression),
-						new EntityInputValidator());
+	@Inject
+	public ChangeValueDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell,
+			@Named("dialogTitle") String title,
+			@Named("dialogMessage") String message,
+			@Named("dialogEntity") IEntity entity) {
+		super(shell, title, message, 
+				DataTypeUtils.getAsPresentationString(entity),
+				new EntityInputValidator(EntityUtils.clone(entity)));
 		setShellStyle(SWT.DIALOG_TRIM);
-		boolean isVariable = Matcher.match(WorkflowsEntityDescriptorEnum.Variable, expression);
-		EntityDescriptor<?> ed = isVariable ? WorkflowsEntityDescriptorEnum.StringLiteral : expression.wGetEntityDescriptor();
-		((EntityInputValidator) getValidator()).setEntityDescriptor(ed);
-		
-		Expression value = (Expression) GenericEntityFactory.instance.create(ed, getValue());
-		expression.wGetParent().wSet(expression, value);
-		this.expression = value;
+		this.entity = entity;
 	}
 
 	@Override
@@ -55,18 +52,18 @@ public class ChangeValueDialog extends InputDialog {
 		super.buttonPressed(buttonId);
 		String value = getValue();
 		if (value != null) {
-			DataTypeUtils.setFromPresentationString(expression, value);
+			DataTypeUtils.setFromPresentationString(entity, value);
 		}
 	}
 
 	private static class EntityInputValidator implements IInputValidator {
-		private EntityDescriptor<?> ed;
-		public void setEntityDescriptor(EntityDescriptor<?> ed) {
-			this.ed = ed;
+		private IEntity entity;
+		public EntityInputValidator(IEntity entity) {
+			this.entity = entity;
 		}
 		public String isValid(String value) {
 			try {
-				DataTypeUtils.createFromPresentationString(ed, value);
+				DataTypeUtils.setFromPresentationString(entity, value);
 				return null;
 			} catch (Exception e) {
 				return "invalid value";
