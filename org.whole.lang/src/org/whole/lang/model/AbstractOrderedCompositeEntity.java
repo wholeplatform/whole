@@ -135,15 +135,10 @@ public abstract class AbstractOrderedCompositeEntity<E extends IEntity> extends 
 
 
 	private boolean testIsContainment() {
-//		if (isContainment())
-			return true;
-//		else {
-//			if (elements.size() > 0)
-//				return false;
-//			return false;
-//		}
+		return isContainment()
+				|| wGetEntityDescriptor().getURI().equals("http://lang.whole.org/Environment#Tuple");//FIXME workaround
 	}
-	
+
 //	** by index features methods **
 
 	public int wSize() {
