@@ -354,8 +354,13 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	}
 
 	public void define(IBindingScope bm, Assignments assignments) {
-		for (int i = 0; i < assignments.wSize(); i++)
-			define(bm, assignments.get(i));
+		IEntity selfEntity = bm.wGet("self");
+		for (int i = 0; i < assignments.wSize(); i++) {
+			Assign assign = assignments.get(i);
+			define(bm, assign);
+			if (!assign.getName().getValue().equals("self"))
+				resetSelfEntity(selfEntity);
+		}
 	}
 	public void define(IBindingScope bm, Assign entity) {
 		String name = entity.getName().getValue();
@@ -439,11 +444,13 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			arguments.accept(this);
 			argsIterators = (IEntityIterator<?>[]) getResultValue();
 		} else if (Matcher.match(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
+			IEntity selfEntity = getBindings().wGet("self");
 			argsIterators = new IEntityIterator<?>[arguments.wSize()];
 			for (int i = 0; i < argsIterators.length; i++) {
 				((Expressions) arguments).get(i).accept(this);
 				argsIterators[i] = getResultIterator();
 				setResultIterator(null);
+				resetSelfEntity(selfEntity);
 			}
 		} else
 			define(args, (Assignments) arguments);
@@ -502,14 +509,17 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			resettableScope.rollback();
 			getBindings().wExitScope();
 		} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
+			IEntity selfEntity = getBindings().wGet("self");
 			if (ed.getEntityKind().isData()) {
 				((Expressions) arguments).get(0).accept(this);
 				model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
+				resetSelfEntity(selfEntity);
 			} else {
 				IEntity[] values = new IEntity[arguments.wSize()];
 				for (int i = 0; i < values.length; i++) {
 					((Expressions) arguments).get(i).accept(this);
 					values[i] = EntityUtils.convertCloneIfReparenting(getResult(), ed.getEntityFeatureDescriptor(i));
+					resetSelfEntity(selfEntity);
 				}
 				model = ef.create(ed, values);
 			}
@@ -940,22 +950,36 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			throw new IllegalArgumentException("wrong parameter number");
 		
 		Object[] parameters = new Object[parameterTypes.length];
-		
+
+		IEntity selfEntity = getBindings().wGet("self");
+
 		// map simple parameters
 		int length = parameterTypes.length - (varArgs ? 1 : 0);
-		for (int i = 0; i < length; i++)
+		for (int i = 0; i < length; i++) {
 			parameters[i] = unbox(parameterTypes[i], expressions.get(i));
-		
+			resetSelfEntity(selfEntity);
+		}
+
 		// map varArgs parameters
 		if (varArgs) {
 			Class<?> parameterType = parameterTypes[length].getComponentType();
 			Object varArgsArray = Array.newInstance(parameterType,
 					expressionsSize - length);
-			for (int j = 0, i = length; i < expressionsSize; i++, j++)
+			for (int j = 0, i = length; i < expressionsSize; i++, j++) {
 				Array.set(varArgsArray, j, unbox(parameterType, expressions.get(i)));
+				resetSelfEntity(selfEntity);
+			}
 			
 			parameters[length] = varArgsArray;
 		}
 		return parameters;
+	}
+
+	protected void resetSelfEntity(IEntity selfEntity) {
+		if (getBindings().wGet("self") != selfEntity)
+			if (getBindings().wIsSet("self"))
+				getBindings().wSet("self", selfEntity);
+			else
+				getBindings().wDef("self", selfEntity);	
 	}
 }
