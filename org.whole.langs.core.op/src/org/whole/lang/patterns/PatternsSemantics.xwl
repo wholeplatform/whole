@@ -5692,9 +5692,8 @@
                 <queries:Block initialCapacity="2">
                     <queries:QueryDeclaration>
                         <queries:Name value="buildJoinPointPath"/>
-                        <queries:Names initialCapacity="3">
+                        <queries:Names initialCapacity="2">
                             <queries:Name value="parentEntity"/>
-                            <queries:Name value="selfFd"/>
                             <queries:Name value="selfIndex"/>
                         </queries:Names>
                         <queries:Block initialCapacity="2">
@@ -5779,34 +5778,21 @@
                                         </semantics:TypeCast>
                                     </queries:If>
                                     <queries:Do>
-                                        <queries:Block initialCapacity="2">
-                                        <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="wIndexOf"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="parentEntity"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
-                                        <workflows:StringLiteral value="wIndexOf(org.whole.lang.model.IEntity)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="self"/>
-                                        </workflows:Expressions>
-                                        </workflows:InvokeJavaInstanceMethod>
-                                        <queries:VariableTest value="selfIndex"/>
-                                        </queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Filter>
                                         <queries:ChildStep/>
                                         <queries:IndexTest>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#IntLiteral"/>
-                                        <commons:VarName value="selfIndex"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceAtIndex"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
                                         </queries:IndexTest>
                                         </queries:Filter>
                                         </commons:StageUpFragment>
-                                        </queries:Block>
                                     </queries:Do>
                                 </queries:Choose>
                             </queries:Sequence>

@@ -105,6 +105,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("instanceType", instanceTypeIterator());
 		putFunctionCode("instanceAtType", instanceAtTypeIterator());
 		putFunctionCode("instanceAtFeature", instanceAtFeatureIterator());
+		putFunctionCode("instanceAtIndex", instanceAtIndexIterator());
 		putFunctionCode("instanceSupertypes", instanceSupertypesIterator());
 		putFunctionCode("instanceSubtypes", instanceSubtypesIterator());
 		putFunctionCode("instanceExtendedConcreteSubtypes", instanceExtendedConcreteSubtypesIterator());
@@ -648,6 +649,14 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 				bm.setResult(EntityUtils.hasParent(selfEntity) ?
 						BindingManagerFactory.instance.createValue(selfEntity.wGetParent().wGetFeatureDescriptor(selfEntity)) : null);
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> instanceAtIndexIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResult(EntityUtils.hasParent(selfEntity) ?
+						BindingManagerFactory.instance.createValue(selfEntity.wGetParent().wIndexOf(selfEntity)) : null);
 			}
 		});
 	}
