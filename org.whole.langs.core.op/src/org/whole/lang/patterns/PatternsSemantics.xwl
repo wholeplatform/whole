@@ -1624,15 +1624,16 @@
                         <queries:Names initialCapacity="1">
                             <queries:Name value="outerDefinitionName"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="3">
+                        <queries:Block initialCapacity="4">
+                            <queries:Filter>
+                                <queries:Addition>
+                                    <queries:StringLiteral value="outer#"/>
+                                    <queries:VariableRefStep value="self"/>
+                                </queries:Addition>
+                                <queries:VariableTest value="outerDefinitionName"/>
+                            </queries:Filter>
                             <queries:Path initialCapacity="2">
-                                <queries:Filter>
-                                    <queries:Addition>
-                                        <queries:StringLiteral value="outer#"/>
-                                        <queries:VariableRefStep value="self"/>
-                                    </queries:Addition>
-                                    <queries:VariableTest value="outerDefinitionName"/>
-                                </queries:Filter>
+                                <queries:VariableRefStep value="outerDefinitionName"/>
                                 <queries:Sequence initialCapacity="1">
                                     <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
@@ -1666,17 +1667,15 @@
                                     </queries:PointwiseInsert>
                                 </queries:Sequence>
                             </queries:Path>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <queries:Call>
-                                    <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
-                                        <queries:VariableRefStep value="outerDefinitionName"/>
-                                        </semantics:TypeCast>
-                                    </commons:StageDownFragment>
-                                    <commons:Resolver/>
-                                </queries:Call>
-                            </commons:StageUpFragment>
+                            <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="createVariableRefStep"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Registry value="DEFAULT"/>
+                                <workflows:StringLiteral value="http://lang.whole.org/Queries#VariableRefStep"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:VariableRefStep value="outerDefinitionName"/>
+                                </workflows:Expressions>
+                            </workflows:CreateEntity>
                         </queries:Block>
                     </queries:Scope>
                 </queries:If>
@@ -3694,6 +3693,7 @@
                                         <queries:SelfStep/>
                                         <queries:VariableTest value="_resultJoinPoint"/>
                                         </queries:Filter>
+                                        <queries:Choose initialCapacity="2">
                                         <queries:CartesianInsert>
                                         <queries:Placement value="BEFORE"/>
                                         <queries:Path initialCapacity="2">
@@ -3716,6 +3716,19 @@
                                         </queries:Path>
                                         <queries:VariableRefStep value="_resultJoinPoint"/>
                                         </queries:CartesianInsert>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <commons:Resolver/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#path"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        <queries:VariableRefStep value="_resultJoinPoint"/>
+                                        </queries:CartesianInsert>
+                                        </queries:Choose>
                                     </queries:Block>
                                 </queries:Scope>
                             </commons:StageUpFragment>
