@@ -18,6 +18,7 @@
 package org.whole.langs.legacy.ui;
 
 import org.whole.lang.java.ui.JavaUIDeployer;
+import org.whole.lang.javascript.ui.JavaScriptUIDeployer;
 import org.whole.lang.json.ui.JSONUIDeployer;
 import org.whole.lang.properties.ui.PropertiesUIDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
@@ -40,6 +41,7 @@ public class LegacyUIDeployer extends AbstractSuiteDeployer {
 	public LegacyUIDeployer() {
 		super(
 			JavaUIDeployer.class,
+			JavaScriptUIDeployer.class,
 			JSONUIDeployer.class,
 			PropertiesUIDeployer.class,
 			ScriptsUIDeployer.class,
