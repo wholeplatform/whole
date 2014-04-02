@@ -17,11 +17,12 @@ package org.whole.lang.javascript.ui.editparts;
 import org.eclipse.gef.EditPart;
 import org.whole.lang.javascript.model.*;
 import org.whole.lang.javascript.visitors.JavaScriptIdentityDefaultVisitor;
-import org.whole.lang.ui.editparts.IEditPartFactory;
-import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
-import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
-import org.whole.lang.ui.editparts.LiteralTextualEntityPart;
+import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
+import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.KeywordDataEntityPart;
+import org.whole.lang.ui.editparts.LiteralDataEntityPart;
+import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 
 /**
  *  @generator Whole
@@ -52,6 +53,11 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
     @Override
     public void visit(Comment entity) {
         part = new CommentPart();
+    }
+
+    @Override
+    public void visit(CommentKind entity) {
+        part = new ContentDataEntityPart();
     }
 
     @Override
@@ -210,6 +216,11 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
     }
 
     @Override
+    public void visit(VariableDeclarationKind entity) {
+        part = new KeywordDataEntityPart();
+    }
+
+    @Override
     public void visit(XmlAny entity) {
         part = new XmlAnyPart();
     }
@@ -232,6 +243,11 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
     @Override
     public void visit(XmlDotQuery entity) {
         part = new XmlDotQueryPart();
+    }
+
+    @Override
+    public void visit(XmlMemberOperator entity) {
+        part = new ContentDataEntityPart();
     }
 
     @Override
@@ -285,6 +301,21 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
     }
 
     @Override
+    public void visit(PrefixOperator entity) {
+        part = new ContentDataEntityPart();
+    }
+
+    @Override
+    public void visit(InfixOperator entity) {
+        part = new ContentDataEntityPart();
+    }
+
+    @Override
+    public void visit(PostfixOperator entity) {
+        part = new ContentDataEntityPart();
+    }
+
+    @Override
     public void visit(InfixExpression entity) {
         part = new InfixExpressionPart();
     }
@@ -292,6 +323,11 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
     @Override
     public void visit(AssignmentExpression entity) {
         part = new AssignmentExpressionPart();
+    }
+
+    @Override
+    public void visit(AssignmentOperator entity) {
+        part = new ContentDataEntityPart();
     }
 
     @Override
@@ -351,7 +387,7 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
 
     @Override
     public void visit(Identifier entity) {
-        part = new IdentifierTextualEntityPart();
+        part = new ContentTextualEntityPart();
     }
 
     @Override
@@ -371,12 +407,12 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
 
     @Override
     public void visit(BooleanLiteral entity) {
-        part = new LiteralTextualEntityPart();
+        part = new LiteralDataEntityPart();
     }
 
     @Override
     public void visit(NumberLiteral entity) {
-        part = new LiteralTextualEntityPart();
+        part = new LiteralDataEntityPart();
     }
 
     @Override
@@ -386,7 +422,7 @@ public class JavaScriptPartFactoryVisitor extends JavaScriptIdentityDefaultVisit
 
     @Override
     public void visit(BooleanData entity) {
-        part = new ContentTextualEntityPart();
+        part = new ContentDataEntityPart();
     }
 
     @Override

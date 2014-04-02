@@ -28,6 +28,7 @@ public class ArrayComprehensionExpressionFigure extends ContentPaneFigure {
         addContentLight("[");
         add(createContentPane(0));
         add(createContentPane(1));
+        addKeyword("if");
         add(createContentPane(2));
         addContentLight("]");
     }

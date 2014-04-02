@@ -24,7 +24,7 @@ public class ProgramFigure extends ContentPaneFigure {
 
     public ProgramFigure() {
         initContentPanes(1);
-        setLayoutManager(new MonoLayout());
+        setLayoutManager(new MonoLayout().withMargin(8));
         add(createContentPane(0));
     }
 }
