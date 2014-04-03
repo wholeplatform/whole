@@ -1683,9 +1683,20 @@
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionDeclaration"/>
                     <queries:Choose initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
-                                <queries:VariableRefStep value="inPatternLanguage"/>
-                            </queries:ExpressionTest>
+                            <queries:Or initialCapacity="2">
+                                <queries:ExpressionTest>
+                                    <queries:VariableRefStep value="inPatternLanguage"/>
+                                </queries:ExpressionTest>
+                                <queries:ExpressionTest>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:ParentStep/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ScopePoint"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:ExpressionTest>
+                            </queries:Or>
                             <queries:Block initialCapacity="2">
                                 <queries:Path initialCapacity="2">
                                     <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
@@ -3254,7 +3265,18 @@
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
+                                        <queries:Or initialCapacity="2">
                                         <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Queries#Filter"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Queries#expression"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Or>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Do>
                                         <commons:StageDownFragment>
