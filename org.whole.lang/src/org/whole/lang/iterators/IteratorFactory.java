@@ -21,6 +21,7 @@ import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.IDataTypeWrapper;
 import org.whole.lang.util.IRunnable;
@@ -233,6 +234,10 @@ public class IteratorFactory {
 
     public static <E extends IEntity> ChooseByOrderIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
     	return new ChooseByOrderIterator<E>(iteratorChain);
+    }
+
+    public static <E extends IEntity> ChooseByTypeIterator<E> chooseIterator(ILanguageKit languageKit) {
+    	return new ChooseByTypeIterator<E>(languageKit);
     }
 
     public static <E extends IEntity> SequenceIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {

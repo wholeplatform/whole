@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import java.util.Map;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -36,6 +37,10 @@ public class ChooseByTypeIterator<E extends IEntity> extends AbstractLazyCloneab
 	protected ChooseByTypeIterator(ILanguageKit languageKit) {
 		this.languageKit = languageKit;
 		this.iteratorChain = new IEntityIterator<?>[languageKit.getEntityDescriptorEnum().size()];
+		for (int i = 0; i < this.iteratorChain.length; i++) {
+			this.iteratorChain[i] = IteratorFactory.constantIterator(
+					BindingManagerFactory.instance.createVoid(), true);
+		}
 		initLazyClone(false);
 	}
 

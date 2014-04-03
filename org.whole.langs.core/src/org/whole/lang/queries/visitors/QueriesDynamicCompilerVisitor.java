@@ -18,11 +18,16 @@
 package org.whole.lang.queries.visitors;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.model.Variable;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
@@ -30,6 +35,7 @@ import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.factories.GenericEntityFactory;
+import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -38,6 +44,8 @@ import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.queries.codebase.IfWithTemplate;
+import org.whole.lang.queries.codebase.IfWithTypeTest;
 import org.whole.lang.queries.iterators.Placement;
 import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.queries.matchers.QueriesMatcherFactory;
@@ -48,6 +56,7 @@ import org.whole.lang.queries.reflect.QueriesLanguageKit;
 import org.whole.lang.queries.util.MathUtils;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericTraversalFactory;
@@ -250,14 +259,91 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	if (size == 1)
     		entity.get(0).accept(this);
     	else {
-			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
-			
-	    	for (int i=0; i<size; i++) {
-				entity.get(i).accept(this);
-				iteratorChain[i] = getResultIterator();
-			}
+    		boolean canOptimize = true;
+    		ILanguageKit languageKit = null;
+    		Map<EntityDescriptor<?>, PathExpression> typeMap = new HashMap<EntityDescriptor<?>, PathExpression>();
+    		
+    		If ifWithTemplate = new IfWithTemplate().create();
+    		If ifWithTypeTest = new IfWithTypeTest().create();
 
-	    	setResultIterator(IteratorFactory.chooseIterator(iteratorChain));
+    		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+    		getBindings().wEnterScope(ts);
+    		for (int i=0; i<size; i++) {
+    			PathExpression child = entity.get(i);
+    			try {
+    				if (!Matcher.match(ifWithTemplate, child, getBindings()) &&
+    						!Matcher.match(ifWithTypeTest, child, getBindings())) {
+    					canOptimize = false;
+    					break;
+    				}
+
+    				EntityDescriptor<?> ed = getBindings().wIsSet("typeTest") ?
+							CommonsDataTypePersistenceParser.getEntityDescriptor(getBindings().wStringValue("typeTest")) :
+							getBindings().wGet("pattern").wGetEntityDescriptor();
+
+					if (ed == null) {
+    					canOptimize = false;
+    					break;
+    				}
+
+    				if (typeMap.containsKey(ed)) {
+    					PathExpression behavior = typeMap.get(ed);
+    					boolean isPattern = behavior.wGetParent() == entity;
+        				if (isPattern) {
+        					canOptimize = false;
+        					break;
+        				}
+    				} else {
+	        			if (languageKit == null)
+	        				languageKit = ed.getLanguageKit();
+	        			else if (!languageKit.equals(ed.getLanguageKit())) {// || !languageKit.getURI().equals("whole:org.whole.lang.javascript:JavaScript")) {
+	        				canOptimize = false;
+	        				break;
+	        			}
+	        			typeMap.put(ed, getBindings().wIsSet("pattern") ? child :
+	        				getBindings().wGet("expression").wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+    				}
+    			} finally {
+    				ts.rollback();
+    			}
+    		}
+    		getBindings().wExitScope();
+
+    		if (canOptimize) {
+    			ChooseByTypeIterator<IEntity> chooseIterator = IteratorFactory.chooseIterator(languageKit);
+
+    			for (Entry<EntityDescriptor<?>, PathExpression> entry : typeMap.entrySet()) {
+    		    	boolean inheritedSemantics = useInheritedSemantics(false);
+    		    	boolean templateSemantics = useTemplateFactorySemantics(false);
+
+
+    		    	useInheritedSemantics(false);
+    		    	useTemplateFactorySemantics(true);
+
+    		    	Set<String> oldDeclaredNames = declaredNames;
+
+    		    	entry.getValue().accept(this);
+    		    	chooseIterator.setCase(entry.getKey(), getResultIterator());
+
+    		    	declaredNames = oldDeclaredNames;
+
+    				useInheritedSemantics(false);
+    				useTemplateFactorySemantics(templateSemantics);
+    				useInheritedSemantics(inheritedSemantics);
+    			}
+
+    			setResultIterator(chooseIterator);
+
+    		} else {
+    			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
+
+    			for (int i=0; i<size; i++) {
+    				entity.get(i).accept(this);
+    				iteratorChain[i] = getResultIterator();
+    			}
+
+    			setResultIterator(IteratorFactory.chooseIterator(iteratorChain));
+    		}
     	}
     }
 
