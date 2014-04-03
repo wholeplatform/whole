@@ -294,21 +294,29 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		
 	}
 	protected void evaluate(SubjectStatement entity) {
-		IEntity subject = evaluate(entity.getSubject(), true);
-		if (!EntityUtils.isNull(subject))
-			subject = applyFilterRule(subject);
-
-		IVisitor visitor = evaluate(entity.getConstraint());
-		boolean result = Matcher.match(visitor, subject);
-
-		// exception already evaluated
-		getBindings().wUnset("thrownException");
-
-		if (!result) {
-			if (Matcher.match(TestsEntityDescriptorEnum.AssertThat, entity))
-				throw new AssertionError((AssertThat) entity, subject, visitor);
-			else
-				throw new AssumptionError((AssumeThat) entity, subject, visitor);
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+		getBindings().wEnterScope(ts);
+		
+		try {
+			IEntity subject = evaluate(entity.getSubject(), true);
+			if (!EntityUtils.isNull(subject))
+				subject = applyFilterRule(subject);
+	
+			IVisitor visitor = evaluate(entity.getConstraint());
+			boolean result = Matcher.match(visitor, subject);
+	
+			// exception already evaluated
+			getBindings().wUnset("thrownException");
+	
+			if (!result) {
+				if (Matcher.match(TestsEntityDescriptorEnum.AssertThat, entity))
+					throw new AssertionError((AssertThat) entity, subject, visitor);
+				else
+					throw new AssumptionError((AssumeThat) entity, subject, visitor);
+			}
+		} finally {
+			ts.rollback();
+			getBindings().wExitScope();
 		}
 	}
 
