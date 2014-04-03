@@ -11,7 +11,7 @@
                 <semantics:LanguageType value="whole:org.whole.lang.javascript:JavaScript"/>
                 <semantics:LanguageType value="http://lang.whole.org/Text"/>
             </semantics:FunctionType>
-            <semantics:Rules initialCapacity="64">
+            <semantics:Rules initialCapacity="76">
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Program"/>
@@ -1376,7 +1376,8 @@
                             </semantics:FunctionApplication>
                             <text:Text value=" "/>
                             <semantics:IfDefTemplate>
-                                <text:Row initialCapacity="1">
+                                <text:Row initialCapacity="2">
+                                    <text:Text value="if "/>
                                     <semantics:FunctionApplication>
                                         <commons:Resolver/>
                                         <semantics:Variable value="filter"/>
@@ -1769,10 +1770,21 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:UnionType initialCapacity="2">
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#CatchClauses"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#SwitchCases"/>
-                    </semantics:UnionType>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#CatchClauses"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Document>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#SwitchCases"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
                             <semantics:FunctionApplication>
@@ -1825,12 +1837,7 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:UnionType initialCapacity="4">
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableInitializers"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Expressions"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Patterns"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ObjectProperties"/>
-                    </semantics:UnionType>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableInitializers"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
                             <text:TextSeparator value=", "/>
@@ -1845,18 +1852,109 @@
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:UnionType initialCapacity="10">
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#AssignmentOperator"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#InfixOperator"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PrefixOperator"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PostfixOperator"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlMemberOperator"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableDeclarationKind"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Identifier"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StringData"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NumberLiteral"/>
-                        <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#BooleanLiteral"/>
-                    </semantics:UnionType>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Expressions"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=", "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#ObjectProperties"/>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                            <text:TextSeparator value=", "/>
+                            <semantics:FunctionApplication>
+                                <commons:Resolver/>
+                                <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                            </semantics:FunctionApplication>
+                        </text:Row>
+                    </commons:StageUpFragment>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#AssignmentOperator"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#InfixOperator"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PrefixOperator"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#PostfixOperator"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#XmlMemberOperator"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#VariableDeclarationKind"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#Identifier"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#StringData"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#NumberLiteral"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:TypeCast>
+                </semantics:ExecutionRule>
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#BooleanLiteral"/>
                     <semantics:TypeCast>
                         <semantics:EntityType value="http://lang.whole.org/Text#Text"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
