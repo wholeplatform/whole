@@ -19,6 +19,7 @@ package org.whole.langs.core;
 
 import org.whole.lang.actions.reflect.ActionsLanguageDeployer;
 import org.whole.lang.artifacts.reflect.ArtifactsLanguageDeployer;
+import org.whole.lang.changes.reflect.ChangesLanguageDeployer;
 import org.whole.lang.editors.reflect.EditorsLanguageDeployer;
 import org.whole.lang.environment.reflect.EnvironmentLanguageDeployer;
 import org.whole.lang.frames.reflect.FramesLanguageDeployer;
@@ -26,6 +27,7 @@ import org.whole.lang.grammars.reflect.GrammarsLanguageDeployer;
 import org.whole.lang.math.reflect.MathLanguageDeployer;
 import org.whole.lang.misc.reflect.MiscLanguageDeployer;
 import org.whole.lang.models.reflect.ModelsLanguageDeployer;
+import org.whole.lang.modules.reflect.ModulesLanguageDeployer;
 import org.whole.lang.patterns.reflect.PatternsLanguageDeployer;
 import org.whole.lang.pojo.reflect.PojoLanguageDeployer;
 import org.whole.lang.queries.reflect.QueriesLanguageDeployer;
@@ -51,6 +53,7 @@ public class CoreLanguagesDeployer extends AbstractSuiteDeployer {
 		super(
 			ActionsLanguageDeployer.class,
 			ArtifactsLanguageDeployer.class,
+			ChangesLanguageDeployer.class,
 			EditorsLanguageDeployer.class,
 			EnvironmentLanguageDeployer.class,
 			FramesLanguageDeployer.class,
@@ -58,6 +61,7 @@ public class CoreLanguagesDeployer extends AbstractSuiteDeployer {
 			MathLanguageDeployer.class,
 			MiscLanguageDeployer.class,
 			ModelsLanguageDeployer.class,
+			ModulesLanguageDeployer.class,
 			PatternsLanguageDeployer.class,
 			PojoLanguageDeployer.class,
 			QueriesLanguageDeployer.class,

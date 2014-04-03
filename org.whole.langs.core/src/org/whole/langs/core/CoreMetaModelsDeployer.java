@@ -19,6 +19,7 @@ package org.whole.langs.core;
 
 import org.whole.lang.actions.reflect.ActionsLanguageKit;
 import org.whole.lang.artifacts.reflect.ArtifactsLanguageKit;
+import org.whole.lang.changes.reflect.ChangesLanguageKit;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.editors.reflect.EditorsLanguageKit;
 import org.whole.lang.environment.reflect.EnvironmentLanguageKit;
@@ -47,6 +48,7 @@ import org.whole.lang.models.codebase.TestsModel;
 import org.whole.lang.models.codebase.TypesModel;
 import org.whole.lang.models.codebase.WorkflowModel;
 import org.whole.lang.models.reflect.ModelsLanguageKit;
+import org.whole.lang.modules.reflect.ModulesLanguageKit;
 import org.whole.lang.patterns.reflect.PatternsLanguageKit;
 import org.whole.lang.pojo.reflect.PojoLanguageKit;
 import org.whole.lang.queries.reflect.QueriesLanguageKit;
@@ -69,6 +71,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(CommonsLanguageKit.URI, new CommonsModel());
 		platform.setMetaModelTemplate(ActionsLanguageKit.URI, new ActionsModel());
 		platform.setMetaModelTemplate(ArtifactsLanguageKit.URI, new ArtifactsModel());
+		platform.setMetaModelTemplate(ChangesLanguageKit.URI, "Changes model", "org/whole/lang/changes/ChangesModel.xwl");
 		platform.setMetaModelTemplate(EditorsLanguageKit.URI, new EditorsModel());
 		platform.setMetaModelTemplate(EnvironmentLanguageKit.URI, new EnvironmentModel());
 		platform.setMetaModelTemplate(FramesLanguageKit.URI, new FramesModel());
@@ -77,6 +80,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(MathLanguageKit.URI, new MathModel());
 		platform.setMetaModelTemplate(MiscLanguageKit.URI, new MiscModel());
 		platform.setMetaModelTemplate(ModelsLanguageKit.URI, new ModelsModel());
+		platform.setMetaModelTemplate(ModulesLanguageKit.URI, "Modules model", "org/whole/lang/modules/ModulesModel.xwl");
 		platform.setMetaModelTemplate(PatternsLanguageKit.URI, new PatternsModel());
 		platform.setMetaModelTemplate(PojoLanguageKit.URI, new PojoModel());
 		platform.setMetaModelTemplate(QueriesLanguageKit.URI, new QueriesModel());
@@ -92,6 +96,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.unsetMetaModelTemplate(CommonsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ActionsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ArtifactsLanguageKit.URI);
+		platform.unsetMetaModelTemplate(ChangesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(EditorsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(EnvironmentLanguageKit.URI);
 		platform.unsetMetaModelTemplate(FramesLanguageKit.URI);
@@ -100,6 +105,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.unsetMetaModelTemplate(MathLanguageKit.URI);
 		platform.unsetMetaModelTemplate(MiscLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ModelsLanguageKit.URI);
+		platform.unsetMetaModelTemplate(ModulesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(PatternsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(PojoLanguageKit.URI);
 		platform.unsetMetaModelTemplate(QueriesLanguageKit.URI);
