@@ -23,10 +23,12 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.swt.SWTException;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.dialogs.E4FindReplaceDialog;
-import org.whole.lang.model.IEntity;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -43,9 +45,15 @@ public class FindReplaceHandler {
 		} else
 			dialog.getShell().setActive();
 
-		IEntity template = bm.wGet("primarySelectedEntity");
-
-		dialog.setTemplate(EntityUtils.isFragment(template) ?
-				CommonsEntityFactory.instance.createResolver() : EntityUtils.clone(template));
+		try {
+			dialog.setTemplate(bm.wIsSet("primarySelectedEntity") && 
+					!Matcher.matchImpl(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("primarySelectedEntity")) ?
+							EntityUtils.clone(bm.wGet("primarySelectedEntity")) : CommonsEntityFactory.instance.createResolver());
+		} catch (SWTException e) {
+			context.remove(E4FindReplaceDialog.class);
+			dialog = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
+			dialog.create();
+			dialog.open();
+		}
 	}
 }

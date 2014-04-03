@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
@@ -57,6 +58,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -77,6 +79,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	private static final int VIEWER_MINIMUM_WIDTH = 400;
 
 	protected MatcherIterator<IEntity> iterator;
+	protected IBindingManager bindings;
 	protected IBindingManager selection;
 	protected boolean selectionTracking;
 	protected Control replaceArea;
@@ -93,6 +96,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		super(shell);
 		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.RESIZE | SWT.TITLE);
 		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
+		this.bindings = BindingManagerFactory.instance.createArguments();
 		enableSelectionTracking(true);
 		clearFoundEntity();
 		clearFreshTemplate();
@@ -276,6 +280,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			return;
 
 		final IEntity replacement = EntityUtils.clone(replaceViewer.getEntityContents());
+		Matcher.substitute(replacement, bindings, false);
 		ModelTransactionCommand command = new ModelTransactionCommand();
 		try {
 			command.setModel(getFoundEntity());
@@ -310,12 +315,15 @@ public class E4FindReplaceDialog extends E4Dialog {
 
 		boolean state = enableSelectionTracking(false);
 		IEntity replacement = replaceViewer.getEntityContents();
+		IEntity lastReplaced = null;
 		ModelTransactionCommand command = new ModelTransactionCommand();
 		command.setModel(getFoundEntity());
 		try {
 			command.begin();
 			do {
-				iterator.set(replacement = EntityUtils.clone(replacement));
+				lastReplaced = EntityUtils.clone(replacement);
+				Matcher.substitute(lastReplaced, bindings, false);
+				iterator.set(lastReplaced);
 			} while (findNext(true));
 			command.commit();
 		} catch (Exception e) {
@@ -326,15 +334,17 @@ public class E4FindReplaceDialog extends E4Dialog {
 		IEntityPartViewer viewer = (IEntityPartViewer) selection.wGetValue("viewer");
 		viewer.getCommandStack().execute(command);
 		Control control = viewer.getControl();
-		final IEntity revealEntity = replacement;
-		control.getDisplay().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				boolean state = enableSelectionTracking(false);
-				selectAndReveal(revealEntity);
-				enableSelectionTracking(state);
-			}
-		});
+		if (lastReplaced != null) {
+			final IEntity revealEntity = lastReplaced;
+			control.getDisplay().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					boolean state = enableSelectionTracking(false);
+					selectAndReveal(revealEntity);
+					enableSelectionTracking(state);
+				}
+			});
+		}
 		enableSelectionTracking(state);
 	}
 
@@ -371,6 +381,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	}
 
 	protected boolean findNext(boolean updateStatus) {
+		iterator.setBindings(bindings);
 		boolean hasNext = iterator.hasNext();
 		foundEntity = hasNext ? iterator.next() : null;
 		updateButtonsEnablement(hasNext);
