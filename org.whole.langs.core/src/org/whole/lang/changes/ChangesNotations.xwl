@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<gefpatterns:Notation xmlns:gefpatterns="whole:org.whole.lang.gef:GEFPatternsModel:2">
+    <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.changes.ui"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Changes"/>
+    <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.changes"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Changes"/>
+    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Changes"/>
+    <gefpatterns:Parts initialCapacity="18">
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="RevisionFrame"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="RevisionFrame"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="6">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="baseRevisions"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="leftRevisions"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="rightRevisions"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="baseContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="leftContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="rightContent"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="RevisionTrack"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="RevisionTrack"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="revisions"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="compare"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Revisions"/>
+            <gefpatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Revisions"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefpatterns:CompositePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Revision"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Revision"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="1">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="revisor"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="UnifiedCompare"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="UnifiedCompare"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="1">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="unifiedContent"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="SideBySideCompare"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="SideBySideCompare"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="3">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="baseContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="firstRevisedContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="secondRevisedContent"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Changes"/>
+            <gefpatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Changes"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <java:Block xmlns:java="http://lang.whole.org/Java" initialCapacity="1">
+                    <java:SuperConstructorInvocation>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <java:Types initialCapacity="0"/>
+                        <java:Arguments initialCapacity="1">
+                            <java:BooleanLiteral value="false"/>
+                        </java:Arguments>
+                    </java:SuperConstructorInvocation>
+                </java:Block>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefpatterns:CompositePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Cut"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Cut"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="clipboard"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Copy"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Copy"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="clipboard"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Paste"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Paste"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="clipboard"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Delete"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Delete"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="1">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Insert"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Insert"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="1">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Replace"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Replace"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="deleteContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="insertContent"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Wrap"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Wrap"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="3">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="cutContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="insertContent"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="clipboard"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:ContentPanePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Comment"/>
+            <gefpatterns:ContentPaneFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Comment"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:ContentPaneFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <gefpatterns:Features initialCapacity="2">
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="comment"/>
+                </gefpatterns:Feature>
+                <gefpatterns:Feature>
+                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="content"/>
+                </gefpatterns:Feature>
+            </gefpatterns:Features>
+        </gefpatterns:ContentPanePart>
+        <gefpatterns:TextualPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Text"/>
+            <gefpatterns:Label>
+                <gefpatterns:LabelStyle value="ContentLight"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:Label>
+        </gefpatterns:TextualPart>
+        <gefpatterns:LabelPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Nothing"/>
+            <gefpatterns:Label>
+                <gefpatterns:LabelStyle value="ContentLight"/>
+                <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="nothing"/>
+            </gefpatterns:Label>
+        </gefpatterns:LabelPart>
+        <gefpatterns:TextualPart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Clipboard"/>
+            <gefpatterns:Label>
+                <gefpatterns:LabelStyle value="Content"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:Label>
+        </gefpatterns:TextualPart>
+    </gefpatterns:Parts>
+    <gefpatterns:Figures initialCapacity="0"/>
+</gefpatterns:Notation>
