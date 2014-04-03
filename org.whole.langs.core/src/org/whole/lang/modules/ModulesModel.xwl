@@ -11,8 +11,9 @@
             <models:AnyType/>
         </models:SubtypesOf>
         <models:SupertypesOf>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="Content"/>
+                <models:SimpleName value="Adapter"/>
             </models:Types>
             <models:AnyType/>
         </models:SupertypesOf>
@@ -64,7 +65,8 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
+                    <models:FeatureModifiers initialCapacity="2">
+                        <models:FeatureModifier value="optional"/>
                         <models:FeatureModifier value="derived"/>
                     </models:FeatureModifiers>
                     <models:SimpleName value="Content"/>
@@ -72,7 +74,8 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
+                    <models:FeatureModifiers initialCapacity="2">
+                        <models:FeatureModifier value="optional"/>
                         <models:FeatureModifier value="derived"/>
                     </models:FeatureModifiers>
                     <models:SimpleName value="Content"/>

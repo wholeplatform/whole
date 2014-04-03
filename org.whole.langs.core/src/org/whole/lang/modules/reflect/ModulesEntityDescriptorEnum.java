@@ -44,7 +44,7 @@ public class ModulesEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initEntityDescriptors() {
         putSimpleEntity(Module_ord, "Module", Module.class, false).withFeature(ModulesFeatureDescriptorEnum.content, Content_ord);
         putSimpleEntity(Include_ord, "Include", Include.class, false).withFeature(ModulesFeatureDescriptorEnum.resource, Resource_ord);
-        putSimpleEntity(Reuse_ord, "Reuse", Reuse.class, false).withFeature(ModulesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ModulesFeatureDescriptorEnum.adapter, Adapter_ord, true, false, false, false, false).withFeature(ModulesFeatureDescriptorEnum.original, Content_ord, false, false, false, true, false).withFeature(ModulesFeatureDescriptorEnum.adapted, Content_ord, false, false, false, true, false).withFeature(ModulesFeatureDescriptorEnum.variant, Content_ord, true, false, false, false, false);
+        putSimpleEntity(Reuse_ord, "Reuse", Reuse.class, false).withFeature(ModulesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ModulesFeatureDescriptorEnum.adapter, Adapter_ord, true, false, false, false, false).withFeature(ModulesFeatureDescriptorEnum.original, Content_ord, true, false, false, true, false).withFeature(ModulesFeatureDescriptorEnum.adapted, Content_ord, true, false, false, true, false).withFeature(ModulesFeatureDescriptorEnum.variant, Content_ord, true, false, false, false, false);
         putSimpleEntity(Resource_ord, "Resource", Resource.class, false).withFeature(ModulesFeatureDescriptorEnum.locator, Locator_ord).withFeature(ModulesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false).withFeature(ModulesFeatureDescriptorEnum.registry, Registry_ord, true, false, false, false, false);
         putSimpleEntity(Locator_ord, "Locator", Locator.class, true, WorkspacePath_ord, FileSystemPath_ord, ClassPathURI_ord, URI_ord);
         putDataEntity(WorkspacePath_ord, "WorkspacePath", WorkspacePath.class, false, String.class);
@@ -59,6 +59,6 @@ public class ModulesEntityDescriptorEnum extends EntityDescriptorEnum {
 
     protected void initForeignTypeRelations() {
         setAssignableToAll(true, Module_ord, Include_ord, Reuse_ord);
-        setAssignableFromAll(true, Content_ord);
+        setAssignableFromAll(true, Content_ord, Adapter_ord);
     }
 }
