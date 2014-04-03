@@ -25,6 +25,7 @@ public class NewExpressionFigure extends ContentPaneFigure {
     public NewExpressionFigure() {
         initContentPanes(2);
         setLayoutManager(new RowLayout().withSpacing(4));
+        addKeyword("new");
         add(createContentPane(0));
         addContentLight("(");
         add(createContentPane(1));
