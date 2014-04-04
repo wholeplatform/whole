@@ -1,0 +1,44 @@
+package org.whole.lang.reusables.visitors;
+
+import org.whole.lang.reusables.visitors.ReusablesIdentityUnaryVisitor;
+import org.whole.lang.reusables.visitors.IReusablesVisitor;
+import org.whole.lang.reusables.model.*;
+import org.whole.lang.visitors.IVisitor;
+
+/**
+ *  @generator  Whole
+ */
+public class ReusablesTraverseAllChildrenVisitor extends ReusablesIdentityUnaryVisitor<IReusablesVisitor> {
+
+    public ReusablesTraverseAllChildrenVisitor() {
+        wSetVisitor1(this);
+    }
+
+    public ReusablesTraverseAllChildrenVisitor(IVisitor visitor1) {
+        super(visitor1);
+    }
+
+    public void visit(Adapt entity) {
+        entity.getOriginal().accept(wGetVisitor1());
+        entity.getAdapter().accept(wGetVisitor1());
+        entity.getAdapted().accept(wGetVisitor1());
+    }
+
+    public void visit(Reuse entity) {
+        entity.getSource().accept(wGetVisitor1());
+        entity.getOriginal().accept(wGetVisitor1());
+        entity.getAdapter().accept(wGetVisitor1());
+        entity.getAdapted().accept(wGetVisitor1());
+        entity.getVariant().accept(wGetVisitor1());
+    }
+
+    public void visit(Include entity) {
+        entity.getSource().accept(wGetVisitor1());
+    }
+
+    public void visit(Resource entity) {
+        entity.getLocator().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+        entity.getRegistry().accept(wGetVisitor1());
+    }
+}
