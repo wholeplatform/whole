@@ -19,6 +19,7 @@ package org.whole.langs.core.ui;
 
 import org.whole.lang.actions.ui.ActionsUIDeployer;
 import org.whole.lang.artifacts.ui.ArtifactsUIDeployer;
+import org.whole.lang.changes.ui.ChangesUIDeployer;
 import org.whole.lang.commons.ui.CommonsUIDeployer;
 import org.whole.lang.editors.ui.EditorsUIDeployer;
 import org.whole.lang.editors.visitors.EditorsOperationsDeployer;
@@ -60,6 +61,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 		super(
 			ActionsUIDeployer.class,
 			ArtifactsUIDeployer.class,
+			ChangesUIDeployer.class,
 			CommonsUIDeployer.class,
 			EditorsOperationsDeployer.class,
 			EditorsUIDeployer.class,
