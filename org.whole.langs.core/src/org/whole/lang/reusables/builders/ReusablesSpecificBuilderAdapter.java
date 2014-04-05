@@ -19,8 +19,8 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         super(strategy, entityContext);
     }
 
-    public void registry() {
-        wFeature(ReusablesFeatureDescriptorEnum.registry);
+    public void uri() {
+        wFeature(ReusablesFeatureDescriptorEnum.uri);
     }
 
     public void persistence() {
@@ -90,6 +90,22 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Include);
     }
 
+    public void Reusables() {
+        wEntity(ReusablesEntityDescriptorEnum.Reusables);
+    }
+
+    public void Reusables_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Reusables);
+    }
+
+    public void Reusables_(int initialCapacity) {
+        wEntity_(ReusablesEntityDescriptorEnum.Reusables, initialCapacity);
+    }
+
+    public void _Reusables() {
+        _wEntity(ReusablesEntityDescriptorEnum.Reusables);
+    }
+
     public void Resource() {
         wEntity(ReusablesEntityDescriptorEnum.Resource);
     }
@@ -100,6 +116,18 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void _Resource() {
         _wEntity(ReusablesEntityDescriptorEnum.Resource);
+    }
+
+    public void Registry() {
+        wEntity(ReusablesEntityDescriptorEnum.Registry);
+    }
+
+    public void Registry_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Registry);
+    }
+
+    public void _Registry() {
+        _wEntity(ReusablesEntityDescriptorEnum.Registry);
     }
 
     public void WorkspacePath() {
@@ -140,13 +168,5 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void Persistence(String value) {
         wEntity(ReusablesEntityDescriptorEnum.Persistence, value);
-    }
-
-    public void Registry() {
-        wEntity(ReusablesEntityDescriptorEnum.Registry);
-    }
-
-    public void Registry(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.Registry, value);
     }
 }

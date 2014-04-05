@@ -33,7 +33,15 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Reusables entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Resource entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Registry entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -54,10 +62,6 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
     }
 
     public void visit(Persistence entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(Registry entity) {
         wGetStrategy().visit(entity);
     }
 }

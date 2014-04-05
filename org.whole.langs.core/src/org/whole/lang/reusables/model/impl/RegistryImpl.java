@@ -1,51 +1,74 @@
 package org.whole.lang.reusables.model.impl;
 
-import org.whole.lang.model.AbstractDataEntity;
+import org.whole.lang.model.AbstractSimpleEntity;
 import org.whole.lang.reusables.model.*;
-import org.whole.lang.reusables.visitors.IReusablesVisitor;
-import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
+import org.whole.lang.reusables.visitors.IReusablesVisitor;
+import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
+import org.whole.lang.model.IEntity;
 
 /**
  *  @generator  Whole
  */
-public class RegistryImpl extends AbstractDataEntity implements Registry {
+public class RegistryImpl extends AbstractSimpleEntity implements Registry {
     private static final long serialVersionUID = 1;
-    private String value;
 
-    public String getValue() {
-        return notifyRequested(value);
-    }
-
-    public void setValue(String value) {
-        notifyChanged(this.value, this.value = value);
-    }
-
-    public void accept(IReusablesVisitor visitor) {
-        visitor.visit(this);
+    public EntityDescriptor<Registry> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Registry;
     }
 
     public int wGetEntityOrd() {
         return ReusablesEntityDescriptorEnum.Registry_ord;
     }
 
-    public EntityDescriptor<Registry> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Registry;
+    public void accept(IReusablesVisitor visitor) {
+        visitor.visit(this);
+    }
+    private URI locator;
+
+    public URI getLocator() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.locator, locator);
     }
 
-    public Object wGetValue() {
-        return getValue();
+    public void setLocator(URI locator) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.locator, this.locator, this.locator = locator);
+    }
+    private URI uri;
+
+    public URI getUri() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.uri, uri);
     }
 
-    public void wSetValue(Object value) {
-        setValue((String) value);
+    public void setUri(URI uri) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.uri, this.uri, this.uri = uri);
     }
 
-    public String wStringValue() {
-        return getValue();
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getLocator().wGetAdaptee(false);
+            case 1 :
+            return getUri().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
     }
 
-    public void wSetValue(String value) {
-        setValue(value);
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setLocator(value.wGetAdapter(ReusablesEntityDescriptorEnum.URI));
+            break;
+            case 1 :
+            setUri(value.wGetAdapter(ReusablesEntityDescriptorEnum.URI));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public int wSize() {
+        return 2;
     }
 }

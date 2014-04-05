@@ -22,6 +22,14 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((IReusablesEntity) entity);
     }
 
+    public void visit(Reusable entity) {
+    }
+
+    public void visit(Reusables entity) {
+        visit((IReusablesEntity) entity);
+        visit((Reusable) entity);
+    }
+
     public void visit(Source entity) {
     }
 
@@ -34,6 +42,11 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(Resource entity) {
+        visit((IReusablesEntity) entity);
+        visit((Source) entity);
+    }
+
+    public void visit(Registry entity) {
         visit((IReusablesEntity) entity);
         visit((Source) entity);
     }
@@ -59,10 +72,6 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(Persistence entity) {
-        visit((IReusablesEntity) entity);
-    }
-
-    public void visit(Registry entity) {
         visit((IReusablesEntity) entity);
     }
 }

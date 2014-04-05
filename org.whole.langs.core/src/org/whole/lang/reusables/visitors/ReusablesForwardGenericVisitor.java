@@ -30,7 +30,15 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Reusables entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Resource entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Registry entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -51,10 +59,6 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
     }
 
     public void visit(Persistence entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(Registry entity) {
         wGetVisitor1().visit(entity);
     }
 }

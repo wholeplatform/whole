@@ -43,15 +43,6 @@ public class ResourceImpl extends AbstractSimpleEntity implements Resource {
     public void setPersistence(Persistence persistence) {
         notifyChanged(ReusablesFeatureDescriptorEnum.persistence, this.persistence, this.persistence = persistence);
     }
-    private Registry registry;
-
-    public Registry getRegistry() {
-        return notifyRequested(ReusablesFeatureDescriptorEnum.registry, registry);
-    }
-
-    public void setRegistry(Registry registry) {
-        notifyChanged(ReusablesFeatureDescriptorEnum.registry, this.registry, this.registry = registry);
-    }
 
     public IEntity wGet(int index) {
         switch (index) {
@@ -59,8 +50,6 @@ public class ResourceImpl extends AbstractSimpleEntity implements Resource {
             return getLocator().wGetAdaptee(false);
             case 1 :
             return getPersistence().wGetAdaptee(false);
-            case 2 :
-            return getRegistry().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -74,15 +63,12 @@ public class ResourceImpl extends AbstractSimpleEntity implements Resource {
             case 1 :
             setPersistence(value.wGetAdapter(ReusablesEntityDescriptorEnum.Persistence));
             break;
-            case 2 :
-            setRegistry(value.wGetAdapter(ReusablesEntityDescriptorEnum.Registry));
-            break;
             default :
             throw new IllegalArgumentException();
         }
     }
 
     public int wSize() {
-        return 3;
+        return 2;
     }
 }

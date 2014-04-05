@@ -31,9 +31,18 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
         wGetVisitor1().visit(entity.getSource());
     }
 
+    public void visit(Reusables entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
     public void visit(Resource entity) {
         wGetVisitor1().visit(entity.getLocator());
         wGetVisitor1().visit(entity.getPersistence());
-        wGetVisitor1().visit(entity.getRegistry());
+    }
+
+    public void visit(Registry entity) {
+        wGetVisitor1().visit(entity.getLocator());
+        wGetVisitor1().visit(entity.getUri());
     }
 }

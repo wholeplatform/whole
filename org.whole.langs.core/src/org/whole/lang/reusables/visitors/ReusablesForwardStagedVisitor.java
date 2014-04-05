@@ -19,7 +19,15 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Reusables entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Resource entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Registry entity) {
         stagedVisit(entity);
     }
 
@@ -40,10 +48,6 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(Persistence entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(Registry entity) {
         stagedVisit(entity);
     }
 }

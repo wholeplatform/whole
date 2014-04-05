@@ -7,6 +7,7 @@ import org.whole.lang.factories.IEntityRegistryProvider;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.factories.IEntityBuilder;
 import org.whole.lang.factories.EntityBuilder;
+import org.whole.lang.model.IEntity;
 
 /**
  *  @generator  Whole
@@ -54,16 +55,40 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Include, source);
     }
 
+    public Reusables createReusables() {
+        return create(ReusablesEntityDescriptorEnum.Reusables);
+    }
+
+    public Reusables createReusables(Reusable... entities) {
+        return create(ReusablesEntityDescriptorEnum.Reusables, (IEntity[]) entities);
+    }
+
+    public Reusables createReusables(int initialSize) {
+        return clone(ReusablesEntityDescriptorEnum.Reusables, initialSize);
+    }
+
     public Resource createResource() {
         return create(ReusablesEntityDescriptorEnum.Resource);
     }
 
-    public Resource createResource(Locator locator, Persistence persistence, Registry registry) {
-        return create(ReusablesEntityDescriptorEnum.Resource, locator, persistence, registry);
+    public Resource createResource(Locator locator, Persistence persistence) {
+        return create(ReusablesEntityDescriptorEnum.Resource, locator, persistence);
     }
 
     public IEntityBuilder<Resource> buildResource() {
         return new EntityBuilder<Resource>(create(ReusablesEntityDescriptorEnum.Resource));
+    }
+
+    public Registry createRegistry() {
+        return create(ReusablesEntityDescriptorEnum.Registry);
+    }
+
+    public Registry createRegistry(URI locator, URI uri) {
+        return create(ReusablesEntityDescriptorEnum.Registry, locator, uri);
+    }
+
+    public IEntityBuilder<Registry> buildRegistry() {
+        return new EntityBuilder<Registry>(create(ReusablesEntityDescriptorEnum.Registry));
     }
 
     public WorkspacePath createWorkspacePath() {
@@ -104,13 +129,5 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
 
     public Persistence createPersistence(String value) {
         return create(ReusablesEntityDescriptorEnum.Persistence, value);
-    }
-
-    public Registry createRegistry() {
-        return create(ReusablesEntityDescriptorEnum.Registry);
-    }
-
-    public Registry createRegistry(String value) {
-        return create(ReusablesEntityDescriptorEnum.Registry, value);
     }
 }

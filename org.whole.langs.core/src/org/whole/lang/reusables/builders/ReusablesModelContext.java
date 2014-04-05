@@ -69,11 +69,11 @@ public class ReusablesModelContext extends EntityContext {
         wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
     }
 
-    public ReusablesModelContext getRegistry() {
-        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.registry);
+    public ReusablesModelContext getUri() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.uri);
     }
 
-    public void setRegistry(ReusablesModelContext registry) {
-        wSet(ReusablesFeatureDescriptorEnum.registry, registry);
+    public void setUri(ReusablesModelContext uri) {
+        wSet(ReusablesFeatureDescriptorEnum.uri, uri);
     }
 }

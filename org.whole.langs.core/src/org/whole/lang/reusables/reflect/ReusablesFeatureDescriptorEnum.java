@@ -14,7 +14,7 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int variant_ord = 4;
     public static final int locator_ord = 5;
     public static final int persistence_ord = 6;
-    public static final int registry_ord = 7;
+    public static final int uri_ord = 7;
     public static final ReusablesFeatureDescriptorEnum instance = new ReusablesFeatureDescriptorEnum();
     public static final FeatureDescriptor original = instance.valueOf(original_ord);
     public static final FeatureDescriptor adapter = instance.valueOf(adapter_ord);
@@ -23,7 +23,7 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final FeatureDescriptor variant = instance.valueOf(variant_ord);
     public static final FeatureDescriptor locator = instance.valueOf(locator_ord);
     public static final FeatureDescriptor persistence = instance.valueOf(persistence_ord);
-    public static final FeatureDescriptor registry = instance.valueOf(registry_ord);
+    public static final FeatureDescriptor uri = instance.valueOf(uri_ord);
 
     private ReusablesFeatureDescriptorEnum() {
         putFeatureDescriptor(original_ord, "original");
@@ -33,7 +33,7 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
         putFeatureDescriptor(variant_ord, "variant");
         putFeatureDescriptor(locator_ord, "locator");
         putFeatureDescriptor(persistence_ord, "persistence");
-        putFeatureDescriptor(registry_ord, "registry");
+        putFeatureDescriptor(uri_ord, "uri");
     }
     private static final long serialVersionUID = 1;
 }

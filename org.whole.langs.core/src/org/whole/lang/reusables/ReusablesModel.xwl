@@ -21,7 +21,7 @@
             <models:EntityType value="http://lang.whole.org/Queries#PathExpression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="14">
+    <models:ModelDeclarations initialCapacity="15">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -120,6 +120,17 @@
                 </models:Feature>
             </models:Features>
         </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Reusables"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Reusable"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Reusable"/>
+        </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -145,7 +156,7 @@
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Source"/>
             </models:Types>
-            <models:Features initialCapacity="3">
+            <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Locator"/>
@@ -160,12 +171,25 @@
                     <models:SimpleName value="persistence"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Registry"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Source"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Registry"/>
-                    <models:SimpleName value="registry"/>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="URI"/>
+                    <models:SimpleName value="locator"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="URI"/>
+                    <models:SimpleName value="uri"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -213,12 +237,6 @@
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Persistence"/>
-            <models:Types initialCapacity="0"/>
-            <models:DataType value="String"/>
-        </models:DataEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Registry"/>
             <models:Types initialCapacity="0"/>
             <models:DataType value="String"/>
         </models:DataEntity>

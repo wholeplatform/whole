@@ -45,12 +45,4 @@ public class ResourceAdapter extends AbstractEntityAdapter implements Resource {
     public void setPersistence(Persistence persistence) {
         wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
     }
-
-    public Registry getRegistry() {
-        return wGet(ReusablesFeatureDescriptorEnum.registry).wGetAdapter(ReusablesEntityDescriptorEnum.Registry);
-    }
-
-    public void setRegistry(Registry registry) {
-        wSet(ReusablesFeatureDescriptorEnum.registry, registry);
-    }
 }

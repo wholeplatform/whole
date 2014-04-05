@@ -10,7 +10,7 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void visit();
 
-    public void registry();
+    public void uri();
 
     public void persistence();
 
@@ -44,11 +44,25 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Include();
 
+    public void Reusables();
+
+    public void Reusables_();
+
+    public void Reusables_(int initialCapacity);
+
+    public void _Reusables();
+
     public void Resource();
 
     public void Resource_();
 
     public void _Resource();
+
+    public void Registry();
+
+    public void Registry_();
+
+    public void _Registry();
 
     public void WorkspacePath();
 
@@ -69,8 +83,4 @@ public interface IReusablesBuilder extends IBuilder {
     public void Persistence();
 
     public void Persistence(String value);
-
-    public void Registry();
-
-    public void Registry(String value);
 }

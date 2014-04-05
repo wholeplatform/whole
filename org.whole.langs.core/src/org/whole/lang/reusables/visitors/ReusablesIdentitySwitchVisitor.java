@@ -21,8 +21,14 @@ public abstract class ReusablesIdentitySwitchVisitor extends AbstractVisitor imp
             case ReusablesEntityDescriptorEnum.Include_ord :
             visit((Include) entity);
             break;
+            case ReusablesEntityDescriptorEnum.Reusables_ord :
+            visit((Reusables) entity);
+            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             visit((Resource) entity);
+            break;
+            case ReusablesEntityDescriptorEnum.Registry_ord :
+            visit((Registry) entity);
             break;
             case ReusablesEntityDescriptorEnum.WorkspacePath_ord :
             visit((WorkspacePath) entity);
@@ -38,9 +44,6 @@ public abstract class ReusablesIdentitySwitchVisitor extends AbstractVisitor imp
             break;
             case ReusablesEntityDescriptorEnum.Persistence_ord :
             visit((Persistence) entity);
-            break;
-            case ReusablesEntityDescriptorEnum.Registry_ord :
-            visit((Registry) entity);
             break;
         }
     }

@@ -14,8 +14,4 @@ public interface Resource extends IReusablesEntity, Source {
     public Persistence getPersistence();
 
     public void setPersistence(Persistence persistence);
-
-    public Registry getRegistry();
-
-    public void setRegistry(Registry registry);
 }

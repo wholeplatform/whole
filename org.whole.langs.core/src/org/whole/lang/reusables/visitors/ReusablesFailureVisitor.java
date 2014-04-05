@@ -25,7 +25,15 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Reusables entity) {
+        throw new VisitException();
+    }
+
     public void visit(Resource entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Registry entity) {
         throw new VisitException();
     }
 
@@ -46,10 +54,6 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(Persistence entity) {
-        throw new VisitException();
-    }
-
-    public void visit(Registry entity) {
         throw new VisitException();
     }
 }

@@ -16,12 +16,13 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new AdaptImpl());
         put(new ReuseImpl());
         put(new IncludeImpl());
+        put(new ReusablesImpl());
         put(new ResourceImpl());
+        put(new RegistryImpl());
         put(new WorkspacePathImpl());
         put(new FileSystemPathImpl());
         put(new ClassPathURIImpl());
         put(new URIImpl());
         put(new PersistenceImpl());
-        put(new RegistryImpl());
     }
 }

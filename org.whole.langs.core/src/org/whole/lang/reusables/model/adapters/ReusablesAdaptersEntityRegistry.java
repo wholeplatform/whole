@@ -17,15 +17,16 @@ public class ReusablesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new AdaptAdapter());
         put(new ReuseAdapter());
         put(new IncludeAdapter());
+        put(new ReusablesAdapter());
         put(new SourceAdapter());
         put(new PathExpressionAdapter());
         put(new ResourceAdapter());
+        put(new RegistryAdapter());
         put(new LocatorAdapter());
         put(new WorkspacePathAdapter());
         put(new FileSystemPathAdapter());
         put(new ClassPathURIAdapter());
         put(new URIAdapter());
         put(new PersistenceAdapter());
-        put(new RegistryAdapter());
     }
 }

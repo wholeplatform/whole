@@ -5,7 +5,7 @@
     <models:Namespace xmlns:models="http://lang.whole.org/Models" value="org.whole.lang.reusables"/>
     <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Reusables"/>
     <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Reusables"/>
-    <gefpatterns:Parts initialCapacity="10">
+    <gefpatterns:Parts initialCapacity="9">
         <gefpatterns:ContentPanePart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Adapt"/>
             <gefpatterns:ContentPaneFigure>
@@ -177,6 +177,17 @@
                 </gefpatterns:Feature>
             </gefpatterns:Features>
         </gefpatterns:ContentPanePart>
+        <gefpatterns:CompositePart>
+            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Reusables"/>
+            <gefpatterns:CompositeFigure>
+                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Reusables"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </gefpatterns:CompositeFigure>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </gefpatterns:CompositePart>
         <gefpatterns:DataPart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="WorkspacePath"/>
             <gefpatterns:EditingStyle value="TEXT"/>
@@ -210,23 +221,7 @@
             </gefpatterns:Label>
         </gefpatterns:DataPart>
         <gefpatterns:DataPart>
-            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Variable"/>
-            <gefpatterns:EditingStyle value="TEXT"/>
-            <gefpatterns:Label>
-                <gefpatterns:LabelStyle value="Content"/>
-                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            </gefpatterns:Label>
-        </gefpatterns:DataPart>
-        <gefpatterns:DataPart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Persistence"/>
-            <gefpatterns:EditingStyle value="TEXT"/>
-            <gefpatterns:Label>
-                <gefpatterns:LabelStyle value="Content"/>
-                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            </gefpatterns:Label>
-        </gefpatterns:DataPart>
-        <gefpatterns:DataPart>
-            <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Registry"/>
             <gefpatterns:EditingStyle value="TEXT"/>
             <gefpatterns:Label>
                 <gefpatterns:LabelStyle value="Content"/>

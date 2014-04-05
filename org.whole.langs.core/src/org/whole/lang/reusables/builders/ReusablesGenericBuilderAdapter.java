@@ -48,8 +48,8 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesFeatureDescriptorEnum.persistence_ord :
             specificBuilder.persistence();
             break;
-            case ReusablesFeatureDescriptorEnum.registry_ord :
-            specificBuilder.registry();
+            case ReusablesFeatureDescriptorEnum.uri_ord :
+            specificBuilder.uri();
             break;
         }
     }
@@ -65,8 +65,14 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include();
             break;
+            case ReusablesEntityDescriptorEnum.Reusables_ord :
+            specificBuilder.Reusables();
+            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource();
+            break;
+            case ReusablesEntityDescriptorEnum.Registry_ord :
+            specificBuilder.Registry();
             break;
         }
     }
@@ -82,8 +88,14 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include_();
             break;
+            case ReusablesEntityDescriptorEnum.Reusables_ord :
+            specificBuilder.Reusables_();
+            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource_();
+            break;
+            case ReusablesEntityDescriptorEnum.Registry_ord :
+            specificBuilder.Registry_();
             break;
         }
     }
@@ -99,8 +111,22 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder._Include();
             break;
+            case ReusablesEntityDescriptorEnum.Reusables_ord :
+            specificBuilder._Reusables();
+            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder._Resource();
+            break;
+            case ReusablesEntityDescriptorEnum.Registry_ord :
+            specificBuilder._Registry();
+            break;
+        }
+    }
+
+    public void wEntity_(EntityDescriptor<?> entityDesc, int initialCapacity) {
+        switch (entityDesc.getOrdinal()) {
+            case ReusablesEntityDescriptorEnum.Reusables_ord :
+            specificBuilder.Reusables_(initialCapacity);
             break;
         }
     }
@@ -121,9 +147,6 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case ReusablesEntityDescriptorEnum.Persistence_ord :
             specificBuilder.Persistence(value);
-            break;
-            case ReusablesEntityDescriptorEnum.Registry_ord :
-            specificBuilder.Registry(value);
             break;
         }
     }

@@ -15,7 +15,11 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(Include entity);
 
+    public void visit(Reusables entity);
+
     public void visit(Resource entity);
+
+    public void visit(Registry entity);
 
     public void visit(WorkspacePath entity);
 
@@ -26,6 +30,4 @@ public interface IReusablesVisitor extends IVisitor {
     public void visit(URI entity);
 
     public void visit(Persistence entity);
-
-    public void visit(Registry entity);
 }

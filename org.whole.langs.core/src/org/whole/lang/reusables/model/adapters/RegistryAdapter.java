@@ -6,6 +6,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
+import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 
 /**
  *  @generator  Whole
@@ -29,11 +30,19 @@ public class RegistryAdapter extends AbstractEntityAdapter implements Registry {
         return ReusablesEntityDescriptorEnum.Registry;
     }
 
-    public String getValue() {
-        return wStringValue();
+    public URI getLocator() {
+        return wGet(ReusablesFeatureDescriptorEnum.locator).wGetAdapter(ReusablesEntityDescriptorEnum.URI);
     }
 
-    public void setValue(String value) {
-        wSetValue(value);
+    public void setLocator(URI locator) {
+        wSet(ReusablesFeatureDescriptorEnum.locator, locator);
+    }
+
+    public URI getUri() {
+        return wGet(ReusablesFeatureDescriptorEnum.uri).wGetAdapter(ReusablesEntityDescriptorEnum.URI);
+    }
+
+    public void setUri(URI uri) {
+        wSet(ReusablesFeatureDescriptorEnum.uri, uri);
     }
 }
