@@ -26,11 +26,19 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Synch entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Include entity) {
         wGetVisitor1().visit(entity);
     }
 
     public void visit(Reusables entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(ReferenceStep entity) {
         wGetVisitor1().visit(entity);
     }
 

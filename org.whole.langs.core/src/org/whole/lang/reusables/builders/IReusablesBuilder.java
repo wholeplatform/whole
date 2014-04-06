@@ -16,9 +16,13 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void locator();
 
+    public void variantRevision();
+
     public void variant();
 
     public void source();
+
+    public void adaptedRevision();
 
     public void adapted();
 
@@ -38,6 +42,12 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Reuse();
 
+    public void Synch();
+
+    public void Synch_();
+
+    public void _Synch();
+
     public void Include();
 
     public void Include_();
@@ -51,6 +61,12 @@ public interface IReusablesBuilder extends IBuilder {
     public void Reusables_(int initialCapacity);
 
     public void _Reusables();
+
+    public void ReferenceStep();
+
+    public void ReferenceStep_();
+
+    public void _ReferenceStep();
 
     public void Resource();
 

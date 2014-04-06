@@ -18,4 +18,8 @@ public interface Adapt extends IReusablesEntity {
     public Reusable getAdapted();
 
     public void setAdapted(Reusable adapted);
+
+    public Revision getAdaptedRevision();
+
+    public void setAdaptedRevision(Revision adaptedRevision);
 }

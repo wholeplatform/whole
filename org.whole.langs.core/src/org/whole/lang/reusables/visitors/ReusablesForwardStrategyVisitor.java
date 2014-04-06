@@ -29,11 +29,19 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Synch entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Include entity) {
         wGetStrategy().visit(entity);
     }
 
     public void visit(Reusables entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ReferenceStep entity) {
         wGetStrategy().visit(entity);
     }
 

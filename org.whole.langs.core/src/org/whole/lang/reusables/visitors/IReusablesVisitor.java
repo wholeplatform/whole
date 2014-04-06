@@ -13,9 +13,13 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(Reuse entity);
 
+    public void visit(Synch entity);
+
     public void visit(Include entity);
 
     public void visit(Reusables entity);
+
+    public void visit(ReferenceStep entity);
 
     public void visit(Resource entity);
 

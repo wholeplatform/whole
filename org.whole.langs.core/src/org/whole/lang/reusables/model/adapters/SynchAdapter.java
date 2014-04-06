@@ -11,14 +11,14 @@ import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 /**
  *  @generator  Whole
  */
-public class ReuseAdapter extends AbstractEntityAdapter implements Reuse {
+public class SynchAdapter extends AbstractEntityAdapter implements Synch {
     private static final long serialVersionUID = 1;
 
-    public ReuseAdapter(IEntity implementor) {
+    public SynchAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ReuseAdapter() {
+    public SynchAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -26,8 +26,8 @@ public class ReuseAdapter extends AbstractEntityAdapter implements Reuse {
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Reuse> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Reuse;
+    public EntityDescriptor<Synch> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Synch;
     }
 
     public Source getSource() {
@@ -68,5 +68,21 @@ public class ReuseAdapter extends AbstractEntityAdapter implements Reuse {
 
     public void setAdaptedRevision(Revision adaptedRevision) {
         wSet(ReusablesFeatureDescriptorEnum.adaptedRevision, adaptedRevision);
+    }
+
+    public Reusable getVariant() {
+        return wGet(ReusablesFeatureDescriptorEnum.variant).wGetAdapter(ReusablesEntityDescriptorEnum.Reusable);
+    }
+
+    public void setVariant(Reusable variant) {
+        wSet(ReusablesFeatureDescriptorEnum.variant, variant);
+    }
+
+    public Revision getVariantRevision() {
+        return wGet(ReusablesFeatureDescriptorEnum.variantRevision).wGetAdapter(ReusablesEntityDescriptorEnum.Revision);
+    }
+
+    public void setVariantRevision(Revision variantRevision) {
+        wSet(ReusablesFeatureDescriptorEnum.variantRevision, variantRevision);
     }
 }

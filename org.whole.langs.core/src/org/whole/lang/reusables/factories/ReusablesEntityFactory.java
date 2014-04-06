@@ -27,8 +27,8 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Adapt);
     }
 
-    public Adapt createAdapt(Reusable original, PathExpression adapter, Reusable adapted) {
-        return create(ReusablesEntityDescriptorEnum.Adapt, original, adapter, adapted);
+    public Adapt createAdapt(Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
+        return create(ReusablesEntityDescriptorEnum.Adapt, original, adapter, adapted, adaptedRevision);
     }
 
     public IEntityBuilder<Adapt> buildAdapt() {
@@ -39,12 +39,24 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Reuse);
     }
 
-    public Reuse createReuse(Source source, Reusable original, PathExpression adapter, Reusable adapted, Reusable variant) {
-        return create(ReusablesEntityDescriptorEnum.Reuse, source, original, adapter, adapted, variant);
+    public Reuse createReuse(Source source, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
+        return create(ReusablesEntityDescriptorEnum.Reuse, source, original, adapter, adapted, adaptedRevision);
     }
 
     public IEntityBuilder<Reuse> buildReuse() {
         return new EntityBuilder<Reuse>(create(ReusablesEntityDescriptorEnum.Reuse));
+    }
+
+    public Synch createSynch() {
+        return create(ReusablesEntityDescriptorEnum.Synch);
+    }
+
+    public Synch createSynch(Source source, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision, Reusable variant, Revision variantRevision) {
+        return create(ReusablesEntityDescriptorEnum.Synch, source, original, adapter, adapted, adaptedRevision, variant, variantRevision);
+    }
+
+    public IEntityBuilder<Synch> buildSynch() {
+        return new EntityBuilder<Synch>(create(ReusablesEntityDescriptorEnum.Synch));
     }
 
     public Include createInclude() {
@@ -65,6 +77,14 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
 
     public Reusables createReusables(int initialSize) {
         return clone(ReusablesEntityDescriptorEnum.Reusables, initialSize);
+    }
+
+    public ReferenceStep createReferenceStep() {
+        return create(ReusablesEntityDescriptorEnum.ReferenceStep);
+    }
+
+    public ReferenceStep createReferenceStep(Source source) {
+        return create(ReusablesEntityDescriptorEnum.ReferenceStep, source);
     }
 
     public Resource createResource() {

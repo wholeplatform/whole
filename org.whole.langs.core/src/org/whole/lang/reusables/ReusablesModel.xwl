@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Reusables"/>
-    <models:TypeRelations initialCapacity="3">
+    <models:TypeRelations initialCapacity="5">
         <models:SubtypesOf>
             <models:Types initialCapacity="3">
                 <models:SimpleName value="Adapt"/>
@@ -20,8 +20,16 @@
             <models:SimpleName value="PathExpression"/>
             <models:EntityType value="http://lang.whole.org/Queries#PathExpression"/>
         </models:TypeAliasOf>
+        <models:TypeAliasOf>
+            <models:SimpleName value="StepExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#StepExpression"/>
+        </models:TypeAliasOf>
+        <models:TypeAliasOf>
+            <models:SimpleName value="Revision"/>
+            <models:EntityType value="whole:org.whole.lang.changes:ChangesModel#Revision"/>
+        </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="15">
+    <models:ModelDeclarations initialCapacity="19">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -34,7 +42,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Adapt"/>
             <models:Types initialCapacity="0"/>
-            <models:Features initialCapacity="3">
+            <models:Features initialCapacity="4">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Reusable"/>
@@ -56,6 +64,14 @@
                     </models:FeatureModifiers>
                     <models:SimpleName value="Reusable"/>
                     <models:SimpleName value="adapted"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Revision"/>
+                    <models:SimpleName value="adaptedRevision"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -101,8 +117,33 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
+                    <models:SimpleName value="Revision"/>
+                    <models:SimpleName value="adaptedRevision"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Synch"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Reuse"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="Reusable"/>
                     <models:SimpleName value="variant"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Revision"/>
+                    <models:SimpleName value="variantRevision"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -149,6 +190,31 @@
                 <models:SimpleName value="Locator"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="StepExpression"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="PathExpression"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ReferenceStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="StepExpression"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Source"/>
+                    <models:SimpleName value="source"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -240,6 +306,14 @@
             <models:Types initialCapacity="0"/>
             <models:DataType value="String"/>
         </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Revision"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
     </models:ModelDeclarations>
     <models:Namespace value="org.whole.lang.reusables"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

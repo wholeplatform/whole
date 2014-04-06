@@ -36,11 +36,17 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesFeatureDescriptorEnum.adapted_ord :
             specificBuilder.adapted();
             break;
+            case ReusablesFeatureDescriptorEnum.adaptedRevision_ord :
+            specificBuilder.adaptedRevision();
+            break;
             case ReusablesFeatureDescriptorEnum.source_ord :
             specificBuilder.source();
             break;
             case ReusablesFeatureDescriptorEnum.variant_ord :
             specificBuilder.variant();
+            break;
+            case ReusablesFeatureDescriptorEnum.variantRevision_ord :
+            specificBuilder.variantRevision();
             break;
             case ReusablesFeatureDescriptorEnum.locator_ord :
             specificBuilder.locator();
@@ -62,11 +68,17 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder.Reuse();
             break;
+            case ReusablesEntityDescriptorEnum.Synch_ord :
+            specificBuilder.Synch();
+            break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include();
             break;
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder.Reusables();
+            break;
+            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
+            specificBuilder.ReferenceStep();
             break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource();
@@ -85,11 +97,17 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder.Reuse_();
             break;
+            case ReusablesEntityDescriptorEnum.Synch_ord :
+            specificBuilder.Synch_();
+            break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include_();
             break;
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder.Reusables_();
+            break;
+            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
+            specificBuilder.ReferenceStep_();
             break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource_();
@@ -108,11 +126,17 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder._Reuse();
             break;
+            case ReusablesEntityDescriptorEnum.Synch_ord :
+            specificBuilder._Synch();
+            break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder._Include();
             break;
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder._Reusables();
+            break;
+            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
+            specificBuilder._ReferenceStep();
             break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder._Resource();

@@ -18,11 +18,17 @@ public abstract class ReusablesIdentitySwitchVisitor extends AbstractVisitor imp
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             visit((Reuse) entity);
             break;
+            case ReusablesEntityDescriptorEnum.Synch_ord :
+            visit((Synch) entity);
+            break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             visit((Include) entity);
             break;
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             visit((Reusables) entity);
+            break;
+            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
+            visit((ReferenceStep) entity);
             break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             visit((Resource) entity);

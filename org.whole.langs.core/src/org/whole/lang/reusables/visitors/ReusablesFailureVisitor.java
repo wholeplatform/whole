@@ -21,11 +21,19 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Synch entity) {
+        throw new VisitException();
+    }
+
     public void visit(Include entity) {
         throw new VisitException();
     }
 
     public void visit(Reusables entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ReferenceStep entity) {
         throw new VisitException();
     }
 

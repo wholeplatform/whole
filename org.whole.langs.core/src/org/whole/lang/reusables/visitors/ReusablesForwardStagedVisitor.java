@@ -15,11 +15,19 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Synch entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Include entity) {
         stagedVisit(entity);
     }
 
     public void visit(Reusables entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ReferenceStep entity) {
         stagedVisit(entity);
     }
 

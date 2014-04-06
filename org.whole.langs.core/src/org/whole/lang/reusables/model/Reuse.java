@@ -23,7 +23,7 @@ public interface Reuse extends IReusablesEntity {
 
     public void setAdapted(Reusable adapted);
 
-    public Reusable getVariant();
+    public Revision getAdaptedRevision();
 
-    public void setVariant(Reusable variant);
+    public void setAdaptedRevision(Revision adaptedRevision);
 }

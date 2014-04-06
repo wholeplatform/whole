@@ -53,4 +53,12 @@ public class AdaptAdapter extends AbstractEntityAdapter implements Adapt {
     public void setAdapted(Reusable adapted) {
         wSet(ReusablesFeatureDescriptorEnum.adapted, adapted);
     }
+
+    public Revision getAdaptedRevision() {
+        return wGet(ReusablesFeatureDescriptorEnum.adaptedRevision).wGetAdapter(ReusablesEntityDescriptorEnum.Revision);
+    }
+
+    public void setAdaptedRevision(Revision adaptedRevision) {
+        wSet(ReusablesFeatureDescriptorEnum.adaptedRevision, adaptedRevision);
+    }
 }

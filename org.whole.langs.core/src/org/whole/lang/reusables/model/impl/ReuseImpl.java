@@ -61,14 +61,14 @@ public class ReuseImpl extends AbstractSimpleEntity implements Reuse {
     public void setAdapted(Reusable adapted) {
         notifyChanged(ReusablesFeatureDescriptorEnum.adapted, this.adapted, this.adapted = adapted);
     }
-    private Reusable variant;
+    private Revision adaptedRevision;
 
-    public Reusable getVariant() {
-        return notifyRequested(ReusablesFeatureDescriptorEnum.variant, variant);
+    public Revision getAdaptedRevision() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.adaptedRevision, adaptedRevision);
     }
 
-    public void setVariant(Reusable variant) {
-        notifyChanged(ReusablesFeatureDescriptorEnum.variant, this.variant, this.variant = variant);
+    public void setAdaptedRevision(Revision adaptedRevision) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.adaptedRevision, this.adaptedRevision, this.adaptedRevision = adaptedRevision);
     }
 
     public IEntity wGet(int index) {
@@ -82,7 +82,7 @@ public class ReuseImpl extends AbstractSimpleEntity implements Reuse {
             case 3 :
             return getAdapted().wGetAdaptee(false);
             case 4 :
-            return getVariant().wGetAdaptee(false);
+            return getAdaptedRevision().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -103,7 +103,7 @@ public class ReuseImpl extends AbstractSimpleEntity implements Reuse {
             setAdapted(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
             break;
             case 4 :
-            setVariant(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
+            setAdaptedRevision(value.wGetAdapter(ReusablesEntityDescriptorEnum.Revision));
             break;
             default :
             throw new IllegalArgumentException();

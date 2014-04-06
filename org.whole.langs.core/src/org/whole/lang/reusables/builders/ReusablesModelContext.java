@@ -37,6 +37,14 @@ public class ReusablesModelContext extends EntityContext {
         wSet(ReusablesFeatureDescriptorEnum.adapted, adapted);
     }
 
+    public ReusablesModelContext getAdaptedRevision() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.adaptedRevision);
+    }
+
+    public void setAdaptedRevision(ReusablesModelContext adaptedRevision) {
+        wSet(ReusablesFeatureDescriptorEnum.adaptedRevision, adaptedRevision);
+    }
+
     public ReusablesModelContext getSource() {
         return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.source);
     }
@@ -51,6 +59,14 @@ public class ReusablesModelContext extends EntityContext {
 
     public void setVariant(ReusablesModelContext variant) {
         wSet(ReusablesFeatureDescriptorEnum.variant, variant);
+    }
+
+    public ReusablesModelContext getVariantRevision() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.variantRevision);
+    }
+
+    public void setVariantRevision(ReusablesModelContext variantRevision) {
+        wSet(ReusablesFeatureDescriptorEnum.variantRevision, variantRevision);
     }
 
     public ReusablesModelContext getLocator() {

@@ -18,6 +18,11 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((IReusablesEntity) entity);
     }
 
+    public void visit(Synch entity) {
+        visit((IReusablesEntity) entity);
+        visit((Reuse) entity);
+    }
+
     public void visit(Include entity) {
         visit((IReusablesEntity) entity);
     }
@@ -39,6 +44,15 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(Locator entity) {
+    }
+
+    public void visit(StepExpression entity) {
+        visit((PathExpression) entity);
+    }
+
+    public void visit(ReferenceStep entity) {
+        visit((IReusablesEntity) entity);
+        visit((StepExpression) entity);
     }
 
     public void visit(Resource entity) {

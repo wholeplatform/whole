@@ -31,12 +31,20 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         wFeature(ReusablesFeatureDescriptorEnum.locator);
     }
 
+    public void variantRevision() {
+        wFeature(ReusablesFeatureDescriptorEnum.variantRevision);
+    }
+
     public void variant() {
         wFeature(ReusablesFeatureDescriptorEnum.variant);
     }
 
     public void source() {
         wFeature(ReusablesFeatureDescriptorEnum.source);
+    }
+
+    public void adaptedRevision() {
+        wFeature(ReusablesFeatureDescriptorEnum.adaptedRevision);
     }
 
     public void adapted() {
@@ -78,6 +86,18 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Reuse);
     }
 
+    public void Synch() {
+        wEntity(ReusablesEntityDescriptorEnum.Synch);
+    }
+
+    public void Synch_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Synch);
+    }
+
+    public void _Synch() {
+        _wEntity(ReusablesEntityDescriptorEnum.Synch);
+    }
+
     public void Include() {
         wEntity(ReusablesEntityDescriptorEnum.Include);
     }
@@ -104,6 +124,18 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void _Reusables() {
         _wEntity(ReusablesEntityDescriptorEnum.Reusables);
+    }
+
+    public void ReferenceStep() {
+        wEntity(ReusablesEntityDescriptorEnum.ReferenceStep);
+    }
+
+    public void ReferenceStep_() {
+        wEntity_(ReusablesEntityDescriptorEnum.ReferenceStep);
+    }
+
+    public void _ReferenceStep() {
+        _wEntity(ReusablesEntityDescriptorEnum.ReferenceStep);
     }
 
     public void Resource() {

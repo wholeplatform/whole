@@ -17,6 +17,7 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
         wGetVisitor1().visit(entity.getOriginal());
         wGetVisitor1().visit(entity.getAdapter());
         wGetVisitor1().visit(entity.getAdapted());
+        wGetVisitor1().visit(entity.getAdaptedRevision());
     }
 
     public void visit(Reuse entity) {
@@ -24,7 +25,17 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
         wGetVisitor1().visit(entity.getOriginal());
         wGetVisitor1().visit(entity.getAdapter());
         wGetVisitor1().visit(entity.getAdapted());
+        wGetVisitor1().visit(entity.getAdaptedRevision());
+    }
+
+    public void visit(Synch entity) {
+        wGetVisitor1().visit(entity.getSource());
+        wGetVisitor1().visit(entity.getOriginal());
+        wGetVisitor1().visit(entity.getAdapter());
+        wGetVisitor1().visit(entity.getAdapted());
+        wGetVisitor1().visit(entity.getAdaptedRevision());
         wGetVisitor1().visit(entity.getVariant());
+        wGetVisitor1().visit(entity.getVariantRevision());
     }
 
     public void visit(Include entity) {
@@ -34,6 +45,10 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
     public void visit(Reusables entity) {
         for (int i = 0; i < entity.size(); i++)
             wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(ReferenceStep entity) {
+        wGetVisitor1().visit(entity.getSource());
     }
 
     public void visit(Resource entity) {

@@ -15,8 +15,10 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
     protected void createPrototypes() {
         put(new AdaptImpl());
         put(new ReuseImpl());
+        put(new SynchImpl());
         put(new IncludeImpl());
         put(new ReusablesImpl());
+        put(new ReferenceStepImpl());
         put(new ResourceImpl());
         put(new RegistryImpl());
         put(new WorkspacePathImpl());

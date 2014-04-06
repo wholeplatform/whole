@@ -11,19 +11,28 @@ import org.whole.lang.model.IEntity;
 /**
  *  @generator  Whole
  */
-public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
+public class SynchImpl extends AbstractSimpleEntity implements Synch {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<Adapt> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Adapt;
+    public EntityDescriptor<Synch> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Synch;
     }
 
     public int wGetEntityOrd() {
-        return ReusablesEntityDescriptorEnum.Adapt_ord;
+        return ReusablesEntityDescriptorEnum.Synch_ord;
     }
 
     public void accept(IReusablesVisitor visitor) {
         visitor.visit(this);
+    }
+    private Source source;
+
+    public Source getSource() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.source, source);
+    }
+
+    public void setSource(Source source) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.source, this.source, this.source = source);
     }
     private Reusable original;
 
@@ -61,17 +70,41 @@ public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
     public void setAdaptedRevision(Revision adaptedRevision) {
         notifyChanged(ReusablesFeatureDescriptorEnum.adaptedRevision, this.adaptedRevision, this.adaptedRevision = adaptedRevision);
     }
+    private Reusable variant;
+
+    public Reusable getVariant() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.variant, variant);
+    }
+
+    public void setVariant(Reusable variant) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.variant, this.variant, this.variant = variant);
+    }
+    private Revision variantRevision;
+
+    public Revision getVariantRevision() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.variantRevision, variantRevision);
+    }
+
+    public void setVariantRevision(Revision variantRevision) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.variantRevision, this.variantRevision, this.variantRevision = variantRevision);
+    }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getOriginal().wGetAdaptee(false);
+            return getSource().wGetAdaptee(false);
             case 1 :
-            return getAdapter().wGetAdaptee(false);
+            return getOriginal().wGetAdaptee(false);
             case 2 :
-            return getAdapted().wGetAdaptee(false);
+            return getAdapter().wGetAdaptee(false);
             case 3 :
+            return getAdapted().wGetAdaptee(false);
+            case 4 :
             return getAdaptedRevision().wGetAdaptee(false);
+            case 5 :
+            return getVariant().wGetAdaptee(false);
+            case 6 :
+            return getVariantRevision().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -80,16 +113,25 @@ public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setOriginal(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
+            setSource(value.wGetAdapter(ReusablesEntityDescriptorEnum.Source));
             break;
             case 1 :
-            setAdapter(value.wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression));
+            setOriginal(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
             break;
             case 2 :
-            setAdapted(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
+            setAdapter(value.wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression));
             break;
             case 3 :
+            setAdapted(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
+            break;
+            case 4 :
             setAdaptedRevision(value.wGetAdapter(ReusablesEntityDescriptorEnum.Revision));
+            break;
+            case 5 :
+            setVariant(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
+            break;
+            case 6 :
+            setVariantRevision(value.wGetAdapter(ReusablesEntityDescriptorEnum.Revision));
             break;
             default :
             throw new IllegalArgumentException();
@@ -97,6 +139,6 @@ public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
     }
 
     public int wSize() {
-        return 4;
+        return 7;
     }
 }
