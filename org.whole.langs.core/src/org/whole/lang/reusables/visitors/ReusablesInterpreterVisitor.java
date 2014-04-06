@@ -213,29 +213,36 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		IEntityIterator<?> contentIterator = null;
 		IEntityIterator<?> adapterIterator = null;
 		if (EntityUtils.isResolver(reusable)) {
-			reusable =  entity.getOriginal();
+			try {
+				getBindings().wEnterScope();
+				getBindings().wDefValue("evaluateCloneOperation", true);
 
-			if (EntityUtils.isResolver(reusable)) {
-				entity.getSource().accept(this);
-				contentIterator = Matcher.isAssignableAsIsFrom(
-						QueriesEntityDescriptorEnum.PathExpression, entity.getSource().wGetAdaptee(false)) ?
-								IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
-
-				contentIterator.setBindings(getBindings());
-				contentIterator.reset(entity);
-				if (contentIterator.hasNext())
-					original = EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable);
-				if (contentIterator.hasNext()) {
-					original = ReusablesEntityFactory.instance.createReusables(original);
-					do {
-						original.wAdd(EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable));
-					} while (contentIterator.hasNext());
+				reusable =  entity.getOriginal();
+	
+				if (EntityUtils.isResolver(reusable)) {
+					entity.getSource().accept(this);
+					contentIterator = Matcher.isAssignableAsIsFrom(
+							QueriesEntityDescriptorEnum.PathExpression, entity.getSource().wGetAdaptee(false)) ?
+									IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
+	
+					contentIterator.setBindings(getBindings());
+					contentIterator.reset(entity);
+					if (contentIterator.hasNext())
+						original = EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable);
+					if (contentIterator.hasNext()) {
+						original = ReusablesEntityFactory.instance.createReusables(original);
+						do {
+							original.wAdd(EntityUtils.clone(contentIterator.next()).wGetAdapter(Reusable));
+						} while (contentIterator.hasNext());
+					}
+					entity.setOriginal(original);
 				}
-				entity.setOriginal(original);
-			}
-			if (EntityUtils.isNotResolver(entity.getAdapter())) {
-				entity.getAdapter().accept(this);
-				adapterIterator = getResultIterator();
+				if (EntityUtils.isNotResolver(entity.getAdapter())) {
+					entity.getAdapter().accept(this);
+					adapterIterator = getResultIterator();
+				}
+			} finally {
+				getBindings().wExitScope();
 			}
 		}
 
@@ -245,7 +252,13 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		boolean updateAdapted = EntityUtils.isResolver(entity.getAdapted());
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
 			(selfEntity, bm, arguments) -> {
-				evaluateAndClone(selfEntity, bm);
+				try {
+					getBindings().wEnterScope();
+					getBindings().wDefValue("evaluateCloneOperation", true);
+					evaluateAndClone(selfEntity, bm);
+				} finally {
+					getBindings().wExitScope();
+				}
 				if (updateAdapted) {
 					Reusable adapted = EntityUtils.clone(bm.getResult()).wGetAdapter(Reusable);
 					if (EntityUtils.isResolver(entity.getAdapted()))
