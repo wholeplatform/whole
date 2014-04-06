@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.reusables:ReusablesGuestActions"/>
+    <actions:Namespace value="org.whole.lang.reusables"/>
+    <actions:Name value="Reusables"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="2">
+            <actions:GuardedAction>
+                <actions:Label value="Expand Reusables"/>
+                <queries:Call xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Name value="primarySelectedEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Call>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Wrap with Adapt"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="adaptable"/>
+                    </queries:Names>
+                    <queries:For>
+                        <queries:Path initialCapacity="2">
+                            <queries:VariableRefStep value="selectedEntities"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:VariableTest value="adaptable"/>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:PointwiseUpdate>
+                            <queries:VariableRefStep value="adaptable"/>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <reusables:Adapt xmlns:reusables="whole:org.whole.lang.reusables:ReusablesModel">
+                                    <commons:Variable>
+                                        <commons:VarType value="whole:org.whole.lang.reusables:ReusablesModel#Reusable"/>
+                                        <commons:VarName value="adaptable"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                </reusables:Adapt>
+                            </commons:StageUpFragment>
+                        </queries:PointwiseUpdate>
+                    </queries:For>
+                </queries:Scope>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="1">
+            <actions:GuardedAction>
+                <actions:Label value="Expand Reusables (preview)"/>
+                <queries:Call xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Name value="primarySelectedEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </queries:Call>
+                <queries:BooleanLiteral xmlns:queries="http://lang.whole.org/Queries" value="true"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

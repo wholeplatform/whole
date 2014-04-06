@@ -61,6 +61,9 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/lang/templates/TemplatesSemantics.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/reusables/ReusablesGuestActions.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsSemantics.xwl")));
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsActions.xwl")));
