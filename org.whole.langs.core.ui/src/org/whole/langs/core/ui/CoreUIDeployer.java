@@ -39,6 +39,7 @@ import org.whole.lang.queries.ui.QueriesUIDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.ui.ReusablesUIDeployer;
 import org.whole.lang.semantics.ui.SemanticsUIDeployer;
 import org.whole.lang.status.ui.StatusUIDeployer;
 import org.whole.lang.templates.ui.TemplatesUIDeployer;
@@ -75,6 +76,7 @@ public class CoreUIDeployer extends AbstractSuiteDeployer {
 			PatternsUIDeployer.class,
 			PojoUIDeployer.class,
 			QueriesUIDeployer.class,
+			ReusablesUIDeployer.class,
 			SemanticsUIDeployer.class,
 			StatusUIDeployer.class,
 			TemplatesUIDeployer.class,

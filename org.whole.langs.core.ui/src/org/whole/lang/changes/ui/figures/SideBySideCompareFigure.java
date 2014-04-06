@@ -22,6 +22,7 @@ import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -45,21 +46,21 @@ public class SideBySideCompareFigure extends ContentPaneFigure {
 
 		EntityFigure leftFigure = new EntityFigure(new OverLayout());
 		leftFigure.add(createContentPane(1));
-		EntityLabel header = addIdentifier("REVISION 0");
+		EntityLabel header = LabelFactory.createIdentifier("REVISION 0");
 		header.setBorder(new MarginBorder(8, 2, 4, 6));
 		leftFigure.add(header);
 		add(leftFigure);
 
 		baseFigure = new EntityFigure(new OverLayout());
 		baseFigure.add(createContentPane(0));
-		header = addIdentifier("BASE REVISION");
+		header = LabelFactory.createIdentifier("BASE REVISION");
 		header.setBorder(new MarginBorder(8, 2, 4, 6));
 		baseFigure.add(header);
 		add(baseFigure);
 
 		EntityFigure rightFigure = new EntityFigure(new OverLayout());
 		rightFigure.add(createContentPane(2));
-		header = addIdentifier("REVISION 1");
+		header = LabelFactory.createIdentifier("REVISION 1");
 		header.setBorder(new MarginBorder(8, 2, 4, 6));
 		rightFigure.add(header);
 		add(rightFigure);
