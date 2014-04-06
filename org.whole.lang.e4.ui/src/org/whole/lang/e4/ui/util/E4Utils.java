@@ -47,6 +47,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.events.IdentityRequestEventHandler;
@@ -265,7 +266,7 @@ public class E4Utils {
 		});
 	}
 
-	public static void invokeInterpreter(IBindingManager bm) {
+	public static IBindingScope invokeInterpreter(IBindingManager bm) {
 		InputStream is;
 		OutputStream os;
 		try {
@@ -279,7 +280,7 @@ public class E4Utils {
 			is = NullInputStream.instance();
 			os = NullOutputStream.instance();
 		}
-		InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
+		return InterpreterOperation.interpret(bm.wGet("self"), bm, is, os);
 	}
 	public static void invokePrettyPrinter(IBindingManager bm) {
 		OutputStream os;

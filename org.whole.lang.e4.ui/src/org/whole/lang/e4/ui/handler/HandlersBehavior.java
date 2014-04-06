@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -56,6 +57,7 @@ import org.whole.lang.operations.ValidatorOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.ui.actions.Clipboard;
 import org.whole.lang.ui.dialogs.IImportAsModelDialog;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
@@ -612,7 +614,11 @@ public class HandlersBehavior {
 	}
 
 	public static void interpretModel(IBindingManager bm) {
-		E4Utils.invokeInterpreter(bm);
+		IBindingScope resultsScope = E4Utils.invokeInterpreter(bm);
+		IEntity selfEntity = bm.wGet("self");
+		//FIXME workaround for Reusables language
+		if (selfEntity != null && Matcher.matchImpl(ReusablesEntityDescriptorEnum.Adapt, selfEntity))
+			BehaviorUtils.evaluate(resultsScope.getResultIterator(), selfEntity, bm);
 	}
 
 	public static boolean canGenerateArtifacts(IBindingManager bm) {

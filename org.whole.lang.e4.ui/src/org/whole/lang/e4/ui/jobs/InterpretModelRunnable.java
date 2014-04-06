@@ -20,10 +20,13 @@ package org.whole.lang.e4.ui.jobs;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
+import org.whole.lang.ui.commands.ModelTransactionCommand;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -36,11 +39,22 @@ public class InterpretModelRunnable extends AbstractRunnableWithProgress {
 
 	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("self"), label);
+
 		pm.beginTask("Interpreting...", IOperationProgressMonitor.TOTAL_WORK);
 		try {
+			mtc.begin();
 			HandlersBehavior.interpretModel(bm);
+			mtc.commit();
+			if (mtc.canUndo())
+				commandStack.execute(mtc);
 		} catch (OperationCanceledException e) {
-			// gracefully terminate execution
+			mtc.rollback();
+		} catch (RuntimeException e) {
+			mtc.rollback();
+			throw e;
 		} finally {
 			pm.endTask();
 		}
