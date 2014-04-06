@@ -1,0 +1,486 @@
+<?xml version="1.0"?>
+<patterns:Library xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+    <patterns:URI value="whole:org.whole.lang.math:MathLibrary"/>
+    <patterns:Namespace value="org.whole.lang.math"/>
+    <patterns:Name value="MathLibrary"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <patterns:Declarations initialCapacity="1">
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="toJavaScript"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="7">
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Math#Identifier"/>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:DerivationPoint>
+                            <queries:SelfStep/>
+                            <models:EntityType xmlns:models="http://lang.whole.org/Models" value="whole:org.whole.lang.javascript:JavaScript#Identifier"/>
+                        </patterns:DerivationPoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Math#Boolean"/>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:DerivationPoint>
+                            <queries:SelfStep/>
+                            <models:EntityType xmlns:models="http://lang.whole.org/Models" value="whole:org.whole.lang.javascript:JavaScript#BooleanLiteral"/>
+                        </patterns:DerivationPoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="8">
+                        <queries:TypeTest value="http://lang.whole.org/Math#ByteInteger"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#ShortInteger"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Integer"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#LongInteger"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#BigInteger"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Float"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Double"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#BigDecimal"/>
+                    </queries:Or>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:DerivationPoint>
+                            <queries:SelfStep/>
+                            <models:EntityType xmlns:models="http://lang.whole.org/Models" value="whole:org.whole.lang.javascript:JavaScript#NumberLiteral"/>
+                        </patterns:DerivationPoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Math#Constant"/>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:ScopePoint>
+                            <patterns:Declarations initialCapacity="1">
+                                <patterns:VariableDeclaration>
+                                    <patterns:Name value="kind"/>
+                                    <queries:SelfStep/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:VariableDeclaration>
+                            </patterns:Declarations>
+                            <patterns:SelectionPoint initialCapacity="5">
+                                <patterns:ConditionPoint>
+                                    <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="pi"/>
+                                        </queries:Equals>
+                                    </queries:ExpressionTest>
+                                    <patterns:TemplatePoint>
+                                        <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="3.141592653589793"/>
+                                    </patterns:TemplatePoint>
+                                </patterns:ConditionPoint>
+                                <patterns:ConditionPoint>
+                                    <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="e"/>
+                                        </queries:Equals>
+                                    </queries:ExpressionTest>
+                                    <patterns:TemplatePoint>
+                                        <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="2.718281828459045"/>
+                                    </patterns:TemplatePoint>
+                                </patterns:ConditionPoint>
+                                <patterns:ConditionPoint>
+                                    <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="gamma"/>
+                                        </queries:Equals>
+                                    </queries:ExpressionTest>
+                                    <patterns:TemplatePoint>
+                                        <javascript:NumberLiteral xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="0.5772156649015329"/>
+                                    </patterns:TemplatePoint>
+                                </patterns:ConditionPoint>
+                                <patterns:ConditionPoint>
+                                    <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="i"/>
+                                        </queries:Equals>
+                                    </queries:ExpressionTest>
+                                    <patterns:TemplatePoint>
+                                        <javascript:Identifier xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="NaN"/>
+                                    </patterns:TemplatePoint>
+                                </patterns:ConditionPoint>
+                                <patterns:ConditionPoint>
+                                    <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="kind"/>
+                                        <queries:StringLiteral value="infinity"/>
+                                        </queries:Equals>
+                                    </queries:ExpressionTest>
+                                    <patterns:TemplatePoint>
+                                        <javascript:Identifier xmlns:javascript="whole:org.whole.lang.javascript:JavaScript" value="Infinity"/>
+                                    </patterns:TemplatePoint>
+                                </patterns:ConditionPoint>
+                            </patterns:SelectionPoint>
+                        </patterns:ScopePoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="http://lang.whole.org/Math#Rational"/>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:TemplatePoint>
+                            <patterns:ScopePoint>
+                                <patterns:Declarations initialCapacity="2">
+                                    <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="numeratorPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:JoinPointDeclaration>
+                                    <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="denominatorPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:JoinPointDeclaration>
+                                </patterns:Declarations>
+                                <patterns:SequencePoint initialCapacity="3">
+                                    <javascript:InfixExpression xmlns:javascript="whole:org.whole.lang.javascript:JavaScript">
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="numeratorPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:JoinPoint>
+                                        <javascript:InfixOperator value="/"/>
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="denominatorPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:JoinPoint>
+                                    </javascript:InfixExpression>
+                                    <patterns:ScopePoint>
+                                        <patterns:Declarations initialCapacity="1">
+                                        <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <patterns:JoinPointStep value="numeratorPoint"/>
+                                        </patterns:JoinPointDeclaration>
+                                        </patterns:Declarations>
+                                        <patterns:SequencePoint initialCapacity="1">
+                                        <patterns:DerivationPoint>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Math#numerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </patterns:SequencePoint>
+                                    </patterns:ScopePoint>
+                                    <patterns:ScopePoint>
+                                        <patterns:Declarations initialCapacity="1">
+                                        <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <patterns:JoinPointStep value="denominatorPoint"/>
+                                        </patterns:JoinPointDeclaration>
+                                        </patterns:Declarations>
+                                        <patterns:SequencePoint initialCapacity="1">
+                                        <patterns:DerivationPoint>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:FeatureStep value="http://lang.whole.org/Math#denominator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </patterns:SequencePoint>
+                                    </patterns:ScopePoint>
+                                </patterns:SequencePoint>
+                            </patterns:ScopePoint>
+                        </patterns:TemplatePoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="2">
+                        <queries:TypeTest value="http://lang.whole.org/Math#Minus"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Not"/>
+                    </queries:Or>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:TemplatePoint>
+                            <patterns:ScopePoint>
+                                <patterns:Declarations initialCapacity="1">
+                                    <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:JoinPointDeclaration>
+                                </patterns:Declarations>
+                                <patterns:SequencePoint initialCapacity="2">
+                                    <javascript:PrefixExpression xmlns:javascript="whole:org.whole.lang.javascript:JavaScript">
+                                        <patterns:SelectionPoint initialCapacity="2">
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Minus"/>
+                                        <javascript:PrefixOperator value="-"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Not"/>
+                                        <javascript:PrefixOperator value="!"/>
+                                        </patterns:ConditionPoint>
+                                        </patterns:SelectionPoint>
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:JoinPoint>
+                                    </javascript:PrefixExpression>
+                                    <patterns:DerivationPoint>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:DerivationPoint>
+                                </patterns:SequencePoint>
+                            </patterns:ScopePoint>
+                        </patterns:TemplatePoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="13">
+                        <queries:TypeTest value="http://lang.whole.org/Math#Addition"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Multiplication"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Subtraction"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Division"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Remainder"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Or"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#And"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#Equal"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#NotEquals"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#LessThan"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#LessOrEqual"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#GreaterThan"/>
+                        <queries:TypeTest value="http://lang.whole.org/Math#GreaterOrEqual"/>
+                    </queries:Or>
+                    <patterns:ResultPoint>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <patterns:TemplatePoint>
+                            <patterns:ScopePoint>
+                                <patterns:Declarations initialCapacity="2">
+                                    <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="leftPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:JoinPointDeclaration>
+                                    <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="rightPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:JoinPointDeclaration>
+                                </patterns:Declarations>
+                                <patterns:SequencePoint initialCapacity="3">
+                                    <javascript:InfixExpression xmlns:javascript="whole:org.whole.lang.javascript:JavaScript">
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="leftPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:JoinPoint>
+                                        <patterns:SelectionPoint initialCapacity="13">
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Addition"/>
+                                        <javascript:InfixOperator value="+"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Multiplication"/>
+                                        <javascript:InfixOperator value="*"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Subtraction"/>
+                                        <javascript:InfixOperator value="-"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Division"/>
+                                        <javascript:InfixOperator value="/"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Remainder"/>
+                                        <javascript:InfixOperator value="%"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Or"/>
+                                        <javascript:InfixOperator value="||"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#And"/>
+                                        <javascript:InfixOperator value="&amp;&amp;"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#Equal"/>
+                                        <javascript:InfixOperator value="==="/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#NotEquals"/>
+                                        <javascript:InfixOperator value="!=="/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#LessThan"/>
+                                        <javascript:InfixOperator value="&lt;"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#LessOrEqual"/>
+                                        <javascript:InfixOperator value="&lt;="/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#GreaterThan"/>
+                                        <javascript:InfixOperator value="&gt;"/>
+                                        </patterns:ConditionPoint>
+                                        <patterns:ConditionPoint>
+                                        <queries:TypeTest value="http://lang.whole.org/Math#GreaterOrEqual"/>
+                                        <javascript:InfixOperator value="&gt;="/>
+                                        </patterns:ConditionPoint>
+                                        </patterns:SelectionPoint>
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="rightPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:JoinPoint>
+                                    </javascript:InfixExpression>
+                                    <patterns:ScopePoint>
+                                        <patterns:Declarations initialCapacity="1">
+                                        <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <patterns:JoinPointStep value="leftPoint"/>
+                                        </patterns:JoinPointDeclaration>
+                                        </patterns:Declarations>
+                                        <patterns:SequencePoint initialCapacity="1">
+                                        <patterns:DerivationPoint>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="2"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <patterns:ScopePoint>
+                                        <patterns:Declarations initialCapacity="1">
+                                        <patterns:VariableDeclaration>
+                                        <patterns:Name value="clone"/>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="clone(self)"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariableDeclaration>
+                                        </patterns:Declarations>
+                                        <patterns:DerivationPoint>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Delete>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="clone"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:FollowingSiblingStep/>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Delete>
+                                        <queries:VariableRefStep value="clone"/>
+                                        </queries:Block>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </patterns:ScopePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </patterns:SequencePoint>
+                                    </patterns:ScopePoint>
+                                    <patterns:ScopePoint>
+                                        <patterns:Declarations initialCapacity="1">
+                                        <patterns:JoinPointDeclaration>
+                                        <patterns:Name value="expressionPoint"/>
+                                        <patterns:JoinPointStep value="rightPoint"/>
+                                        </patterns:JoinPointDeclaration>
+                                        </patterns:Declarations>
+                                        <patterns:SequencePoint initialCapacity="1">
+                                        <patterns:DerivationPoint>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="1">
+                                        <queries:FollowingSiblingStep/>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </patterns:SequencePoint>
+                                    </patterns:ScopePoint>
+                                </patterns:SequencePoint>
+                            </patterns:ScopePoint>
+                        </patterns:TemplatePoint>
+                        <patterns:Insert>
+                            <patterns:Placement value="AROUND"/>
+                            <patterns:JoinPointStep value="expressionPoint"/>
+                        </patterns:Insert>
+                    </patterns:ResultPoint>
+                </queries:If>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+    </patterns:Declarations>
+</patterns:Library>

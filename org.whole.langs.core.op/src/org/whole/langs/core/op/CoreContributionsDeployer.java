@@ -53,10 +53,10 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/tests/GenericTestsActions.xwl")));
 
-			//Requires SemanticsActions
+			//Require SemanticsActions
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/frames/FramesSemantics.xwl")));
-			
+
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/templates/TemplatesSemantics.xwl")));
 
@@ -66,6 +66,10 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsActions.xwl")));
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/patterns/PatternsGuestActions.xwl")));
+
+			//Require Patterns Semantics and Actions
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/math/MathLibrary.xwl")));
 
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
