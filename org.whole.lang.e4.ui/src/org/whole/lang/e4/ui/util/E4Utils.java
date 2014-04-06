@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
@@ -48,6 +49,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.events.IdentityRequestEventHandler;
@@ -358,6 +360,16 @@ public class E4Utils {
 			throw new OperationCanceledException(e);
 		} finally {
 			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+		}
+	}
+
+	public static void openEditor(IEclipseContext context, IFile file, IPersistenceKit persistenceKit) {
+		try {
+			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+			Class<?> editorPartClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
+			editorPartClass.getMethod("openEditor", IEclipseContext.class, IFile.class, IPersistenceKit.class)
+					.invoke(null, context, file, persistenceKit);
+		} catch (Exception e) {
 		}
 	}
 }

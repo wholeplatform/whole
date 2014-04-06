@@ -17,17 +17,25 @@
  */
 package org.whole.lang.e4.ui;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.ResourceBindingsContributorExtensions;
 
 /**
@@ -57,30 +65,14 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	/**
-	 * Logs the specified status with this plug-in's log.
-	 * 
-	 * @param status status to log
-	 */
 	public static void log(IStatus status) {
 		getDefault().getLog().log(status);
 	}
 
-	/**
-	 * Logs the specified throwable with this plug-in's log.
-	 * 
-	 * @param t throwable to log 
-	 */
 	public static void log(Throwable t) {
 		log(newErrorStatus("Error logged from Whole plug-in: ", t)); //$NON-NLS-1$
 	}
-	
-	/**
-	 * Returns a new error status for this plugin with the given message
-	 * @param message the message to be included in the status
-	 * @param exception the exception to be included in the status or <code>null</code> if none
-	 * @return a new error status
-	 */
+
 	public static IStatus newErrorStatus(String message, Throwable exception) {
 		return new Status(IStatus.ERROR, getUniqueIdentifier(), INTERNAL_ERROR, message, exception);
 	}
@@ -100,9 +92,6 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 		});
 	}
 
-	/**
-	 * Convenience method which returns the unique identifier of this plugin.
-	 */
 	public static String getUniqueIdentifier() {
 		if (getDefault() == null) {
 			return PLUGIN_ID;
@@ -114,5 +103,22 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();		
 		IPerspectiveDescriptor perspectiveDescriptor = PlatformUI.getWorkbench().getPerspectiveRegistry().findPerspectiveWithId(perspectiveId);
 		activePage.setPerspective(perspectiveDescriptor);
+	}
+	public static boolean openEditor(IEclipseContext context, IFile file, IPersistenceKit persistenceKit) {
+		IEditorPart editorPart = context.get(IEditorPart.class);
+		try {
+			if (editorPart != null) {
+				IWorkbenchPage page = editorPart.getEditorSite().getPage();
+				if (page != null) {
+					String editorID = ReflectionFactory.getEditorIdFromPersistenceKit(persistenceKit);
+					IDE.setDefaultEditor(file, editorID);
+					IDE.openEditor(page, file, true);
+				}
+			}
+		} catch (PartInitException e) {
+			E4CompatibilityPlugin.reportError((Shell) context.get(IServiceConstants.ACTIVE_SHELL), "Open editor error", "Error while trying to open an editor");
+			return false;
+		}
+		return true;
 	}
 }
