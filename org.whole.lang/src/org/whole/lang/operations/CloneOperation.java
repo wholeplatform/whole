@@ -53,6 +53,13 @@ public class CloneOperation {
 		return clonedEntities;
 	}
 
+	protected void cloneAndUpdate(IEntity entityClone, int index) {
+		entityClone.wSet(index, cloneDescendantTree(entityClone.wGet(index)));
+	}
+	protected void cloneAndUpdate(IEntity entityClone, FeatureDescriptor fd) {
+		entityClone.wSet(fd, cloneDescendantTree(entityClone.wGet(fd)));
+	}
+
 	protected IEntity cloneDescendantTree(IEntity entity) {
 		IEntity entityClone = entityCloneMap.get(entity);
 		if (entityClone == null) {
@@ -60,11 +67,11 @@ public class CloneOperation {
 			entityCloneMap.put(entity, entityClone);
 
 			for (int i=0; i<entityClone.wSize(); i++)
-				entityClone.wSet(i, cloneDescendantTree(entityClone.wGet(i)));
+				cloneAndUpdate(entityClone, i);
 			
 			for (FeatureDescriptor fd : entity.wGetAspectualFeatureDescriptors())
 				if (!fd.isReference())
-					entityClone.wSet(fd, cloneDescendantTree(entityClone.wGet(fd)));
+					cloneAndUpdate(entityClone, fd);
 		}
 		return entityClone;
 	}
