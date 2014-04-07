@@ -16,12 +16,24 @@
         <actions:MenuActions initialCapacity="3">
             <actions:GuardedAction>
                 <actions:Label value="Review Compare"/>
-                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#compare"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </semantics:FunctionApplication>
+                <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#compare"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="refreshNotation"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.e4.ui.util.E4Utils"/>
+                        <workflows:StringLiteral value="rebuildNotation(org.whole.lang.ui.viewers.IEntityPartViewer)"/>
+                        <workflows:Expressions initialCapacity="1">
+                            <workflows:Variable value="viewer"/>
+                        </workflows:Expressions>
+                    </workflows:InvokeJavaClassMethod>
+                </queries:Block>
                 <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
                     <queries:ExpressionTest>
                         <queries:Path initialCapacity="2">
