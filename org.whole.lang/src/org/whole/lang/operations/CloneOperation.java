@@ -66,9 +66,9 @@ public class CloneOperation {
 			entityClone = ((InternalIEntity) entity).wShallowClone();
 			entityCloneMap.put(entity, entityClone);
 
-			for (int i=0; i<entityClone.wSize(); i++)
+			for (int i=entityClone.wSize()-1; i>=0; i--)
 				cloneAndUpdate(entityClone, i);
-			
+
 			for (FeatureDescriptor fd : entity.wGetAspectualFeatureDescriptors())
 				if (!fd.isReference())
 					cloneAndUpdate(entityClone, fd);

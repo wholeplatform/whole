@@ -68,11 +68,15 @@ public class EvaluateCloneOperation extends CloneOperation {
 						IteratorFactory.constantComposeIterator(entityClone,
 								IteratorFactory.featureByIndexIterator(index)));
 			} else {
-				iterator = QueriesIteratorFactory.cartesianInsertIterator(iterator, 
-						IteratorFactory.constantIterator(entityClone, false), Placement.INTO);
+				if (index == entityClone.wSize()-1)
+					iterator = QueriesIteratorFactory.cartesianInsertIterator(iterator, 
+							IteratorFactory.selfIterator(), Placement.INTO);
+				else
+					iterator = QueriesIteratorFactory.cartesianInsertIterator(iterator, 
+							IteratorFactory.childIterator(index+1), Placement.BEFORE);
 			}
-			entityClone.wRemove(index);
 			BehaviorUtils.evaluate(iterator, entityClone, getBindings());
+			entityClone.wRemove(index);
 			resetSelfEntity(selfEntity);
 		} else
 			super.cloneAndUpdate(entityClone, index);
