@@ -65,9 +65,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPart;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.changes.factories.ChangesEntityFactory;
+import org.whole.lang.changes.model.RevisionTrack;
+import org.whole.lang.changes.model.SideBySideCompare;
+import org.whole.lang.changes.reflect.ChangesFeatureDescriptorEnum;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StreamPersistenceProvider;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
@@ -75,7 +81,6 @@ import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
-import org.whole.lang.misc.factories.MiscEntityFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
@@ -86,6 +91,7 @@ import org.whole.lang.ui.dialogs.LazyConfirmationDialogReloader;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.util.BehaviorUtils;
 
 /**
  * @author Enrico Persiani
@@ -120,7 +126,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		createMergeArea(parent);
 		getControl().setData(CompareUI.COMPARE_VIEWER_TITLE, "Whole Model Compare");
 
-		viewer.setEntityContents(MiscEntityFactory.instance.createMisc(3));
+		viewer.setEntityContents(createMergeModel());
 		viewer.getCommandStack().addCommandStackListener(csListener = new CommandStackListener() {
 			public void commandStackChanged(EventObject event) {
 				setDirty(viewer.isDirty());
@@ -249,25 +255,51 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		return new ErrorStatusTemplate().create();
 	}
 
-	protected void refresh(Object input) {
-		IMergeViewerContentProvider contentProvider = getContentProvider();
-		IEntity container = viewer.getEntityContents();
-		if (contentProvider != null) {
-			readContents(container, InputType.ANCESTOR, contentProvider.getAncestorContent(input));//TODO getAncestorContent is null unless merge mode
-			readContents(container, InputType.LEFT, contentProvider.getLeftContent(input));
-			readContents(container, InputType.RIGHT, contentProvider.getRightContent(input));
-			setDirty(false);
+	protected IEntity createMergeModel() {
+		ChangesEntityFactory ef = ChangesEntityFactory.instance;
+		return ef.createRevisionTrack(
+				ef.createRevisions(0),
+//						ef.createRevision(ef.createText("revisor 0"), ef.createRevisionChanges(0)),
+//						ef.createRevision(ef.createText("revisor 1"), ef.createRevisionChanges(0))),
+				ef.createSideBySideCompare());
+	}
+	protected IEntity getSideModel(MergeSide side) {
+		RevisionTrack revisionTrack = (RevisionTrack) viewer.getEntityContents();
+		SideBySideCompare compare = (SideBySideCompare) revisionTrack.getCompare();
+		switch (side) {
+		default:
+		case ANCESTOR:
+			return compare.wGet(ChangesFeatureDescriptorEnum.baseContent);
+		case LEFT:
+			return compare.wGet(ChangesFeatureDescriptorEnum.firstRevisedContent);
+		case RIGHT:
+			return compare.wGet(ChangesFeatureDescriptorEnum.secondRevisedContent);			
+		}
+	}
+	protected void setSideModel(MergeSide side, IEntity entity, String label) {
+		ChangesEntityFactory ef = ChangesEntityFactory.instance;
+		RevisionTrack revisionTrack = (RevisionTrack) viewer.getEntityContents();
+		SideBySideCompare compare = (SideBySideCompare) revisionTrack.getCompare();
+		switch (side) {
+		default:
+		case LEFT:
+			compare.wSet(ChangesFeatureDescriptorEnum.firstRevisedContent, entity);
+			revisionTrack.getRevisions().wSet(0, ef.createRevision(ef.createText(label), ef.createRevisionChanges(0)));
+			break;
+		case RIGHT:
+			compare.wSet(ChangesFeatureDescriptorEnum.secondRevisedContent, entity);
+			revisionTrack.getRevisions().wSet(1, ef.createRevision(ef.createText(label), ef.createRevisionChanges(0)));
+			break;
+		case ANCESTOR:
+			compare.wSet(ChangesFeatureDescriptorEnum.baseContent, entity);
+			if (label != null)
+				revisionTrack.getRevisions().wSet(2, ef.createRevision(ef.createText(label), ef.createRevisionChanges(0)));
+			break;
 		}
 	}
 
-	protected void readContents(IEntity container, InputType inputType, Object input) {//TODO
-		try {
-			IStreamContentAccessor accessor = (IStreamContentAccessor) input;
-			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
-			IEntity entity = defaultPersistenceKit.readModel(new StreamPersistenceProvider(accessor.getContents()));
-			container.wSet(inputType.ordinal(), entity);
-		} catch (Exception e) {
-		}
+	public static enum MergeSide {
+		ANCESTOR, LEFT, RIGHT
 	}
 
 	protected void inputChanged(Object input, Object oldInput) {
@@ -275,15 +307,46 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		if (input != oldInput)
 			refresh(input);
 	}
+	public void refresh() {
+		refresh(getInput());
+	}
+	protected void refresh(Object input) {
+		IMergeViewerContentProvider contentProvider = getContentProvider();
+		if (contentProvider != null && input != null) {
+			readSideModel(MergeSide.ANCESTOR, contentProvider.getAncestorContent(input), contentProvider.getAncestorLabel(input));
+			readSideModel(MergeSide.LEFT, contentProvider.getLeftContent(input), contentProvider.getLeftLabel(input));
+			readSideModel(MergeSide.RIGHT, contentProvider.getRightContent(input), contentProvider.getRightLabel(input));
+			setDirty(false);
 
-	protected byte[] getContents(InputType inputType) {
+			IBindingManager bm = BindingManagerFactory.instance.createArguments();
+			BehaviorUtils.apply(
+					"whole:org.whole.lang.changes:RevisionsLibrarySemantics#compare",
+					viewer.getEntityContents(), bm);
+
+//			viewer.rebuildNotation();
+		}
+	}
+	protected void readSideModel(MergeSide side, Object input, String label) {
+		IEntity sideModel = null;
+		if (input != null)
+			try {
+				IStreamContentAccessor accessor = (IStreamContentAccessor) input;
+				IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
+				sideModel = persistenceKit.readModel(new StreamPersistenceProvider(accessor.getContents()));
+			} catch (Exception e) {
+				//TODO ? sideModel = Status model instance with failure info
+			}
+		setSideModel(side, sideModel != null ? sideModel : CommonsEntityFactory.instance.createResolver(), label);
+	}
+
+	protected byte[] getSideModelBytes(MergeSide side) {
 		try {
-			IPersistenceKit defaultPersistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
+			IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			defaultPersistenceKit.writeModel(viewer.getEntityContents().wGet(inputType.ordinal()), new StreamPersistenceProvider(baos));
+			persistenceKit.writeModel(getSideModel(side), new StreamPersistenceProvider(baos));
 			return baos.toByteArray();
 		} catch (Exception e) {
-			throw new IllegalStateException("cannot gather contents of "+inputType.name().toLowerCase()+" pane", e);
+			throw new IllegalStateException("cannot gather contents of "+side.name().toLowerCase()+" pane", e);
 		}
 	}
 
@@ -332,11 +395,6 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		return viewer.getSelection();
 	}
 
-	@Override
-	public void refresh() {
-		refresh(getInput());
-	}
-
 	public IMergeViewerContentProvider getContentProvider() {
 		return (IMergeViewerContentProvider) super.getContentProvider();
 	}
@@ -364,11 +422,11 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 	@Override
 	public void flush(IProgressMonitor monitor) {
 		if (isDirty()) {
-			if (getCompareConfiguration().isRightEditable())
-				getContentProvider().saveRightContent(getInput(), getContents(InputType.RIGHT));
-
 			if (getCompareConfiguration().isLeftEditable())
-				getContentProvider().saveLeftContent(getInput(), getContents(InputType.LEFT));
+				getContentProvider().saveLeftContent(getInput(), getSideModelBytes(MergeSide.LEFT));
+
+			if (getCompareConfiguration().isRightEditable())
+				getContentProvider().saveRightContent(getInput(), getSideModelBytes(MergeSide.RIGHT));
 
 			setDirty(false);
 		}
@@ -396,9 +454,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 			}
 		}
 	}
-	public enum InputType {
-		ANCESTOR, LEFT, RIGHT
-	}
+
 	public class ResourceChangeListener implements IResourceChangeListener {
 		protected IResource leftResource;
 		protected IResource rightResource;
