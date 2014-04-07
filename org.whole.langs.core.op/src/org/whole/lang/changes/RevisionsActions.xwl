@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.changes:RevisionsActions"/>
+    <actions:Namespace value="org.whole.lang.changes"/>
+    <actions:Name value="Revisions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="3">
+            <actions:GuardedAction>
+                <actions:Label value="Review Compare"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#compare"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:Or xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                    <queries:ExpressionTest>
+                        <queries:Path initialCapacity="2">
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
+                                <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                            </queries:Filter>
+                        </queries:Path>
+                    </queries:ExpressionTest>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                    <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Adapt"/>
+                    <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Reuse"/>
+                    <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Synch"/>
+                </queries:Or>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Next Change"/>
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#nextChange"/>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="selectAndReveal"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.e4.ui.util.E4Utils"/>
+                        <workflows:StringLiteral value="selectAndReveal(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
+                        <workflows:Expressions initialCapacity="2">
+                            <workflows:Variable value="viewer"/>
+                            <queries:SelfStep/>
+                        </workflows:Expressions>
+                    </workflows:InvokeJavaClassMethod>
+                </queries:Path>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Previous Change"/>
+                <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#previousChange"/>
+                        <queries:VariableRefStep value="primarySelectedEntity"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="selectAndReveal"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.e4.ui.util.E4Utils"/>
+                        <workflows:StringLiteral value="selectAndReveal(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
+                        <workflows:Expressions initialCapacity="2">
+                            <workflows:Variable value="viewer"/>
+                            <queries:SelfStep/>
+                        </workflows:Expressions>
+                    </workflows:InvokeJavaClassMethod>
+                </queries:Path>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="7">
+            <actions:GuardedAction>
+                <actions:Label value="Review To Side by Side Compare"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#toSideBySideCompare"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
+                    </queries:Filter>
+                </queries:ExpressionTest>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review To Unified Compare"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#toUnifiedCompare"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Filter>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                    </queries:Filter>
+                </queries:ExpressionTest>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Accept All Changes"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#acceptAllChanges"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Accept Selected Changes"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#acceptAllChanges"/>
+                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:ParentStep/>
+                            </queries:If>
+                            <queries:Do>
+                                <queries:SelfStep/>
+                            </queries:Do>
+                        </queries:Choose>
+                    </queries:Path>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Reject All Changes"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#rejectAllChanges"/>
+                    <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="primarySelectedEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Reject Selected Changes"/>
+                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                    <semantics:Name value="whole:org.whole.lang.changes:RevisionsLibrarySemantics#rejectAllChanges"/>
+                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:ChildStep/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:ParentStep/>
+                            </queries:If>
+                            <queries:Do>
+                                <queries:SelfStep/>
+                            </queries:Do>
+                        </queries:Choose>
+                    </queries:Path>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+                <queries:TypeTest xmlns:queries="http://lang.whole.org/Queries" value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+            </actions:GuardedAction>
+            <actions:GuardedAction>
+                <actions:Label value="Review Compare Entities Side by Side"/>
+                <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="compareModel"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="3">
+                        <queries:Do>
+                            <queries:Filter>
+                                <patterns:TemplatePoint xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+                                    <changes:RevisionTrack xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Revisions initialCapacity="2">
+                                        <changes:Revision>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <changes:RevisionChanges initialCapacity="1">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </changes:RevisionChanges>
+                                        </changes:Revision>
+                                        <changes:Revision>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <changes:RevisionChanges initialCapacity="1">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </changes:RevisionChanges>
+                                        </changes:Revision>
+                                        </changes:Revisions>
+                                        <changes:SideBySideCompare>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <patterns:DerivationPoint>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <patterns:DerivationPoint>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="selectedEntities"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </changes:SideBySideCompare>
+                                    </changes:RevisionTrack>
+                                </patterns:TemplatePoint>
+                                <queries:VariableTest value="compareModel"/>
+                            </queries:Filter>
+                        </queries:Do>
+                        <queries:Path initialCapacity="2">
+                            <queries:VariableRefStep value="compareModel"/>
+                            <actions:ActionCall>
+                                <actions:Label value="Review Compare"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </actions:ActionCall>
+                        </queries:Path>
+                        <queries:VariableRefStep value="compareModel"/>
+                    </queries:Block>
+                </queries:Scope>
+                <queries:ExpressionTest xmlns:queries="http://lang.whole.org/Queries">
+                    <queries:Path initialCapacity="2">
+                        <queries:VariableRefStep value="selectedEntities"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:IndexTest>
+                                <queries:IntLiteral value="1"/>
+                            </queries:IndexTest>
+                        </queries:Filter>
+                    </queries:Path>
+                </queries:ExpressionTest>
+            </actions:GuardedAction>
+        </actions:MenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>

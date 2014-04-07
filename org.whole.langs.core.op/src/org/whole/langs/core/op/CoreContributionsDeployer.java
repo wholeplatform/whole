@@ -17,6 +17,8 @@
  */
 package org.whole.langs.core.op;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.grammars.GrammarsActions;
 import org.whole.lang.operations.InterpreterOperation;
@@ -61,6 +63,8 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 					new ClasspathPersistenceProvider("org/whole/lang/templates/TemplatesSemantics.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/reusables/ReusablesActions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/reusables/ReusablesGuestActions.xwl")));
 
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
@@ -73,6 +77,17 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			//Require Patterns Semantics and Actions
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/math/MathLibrary.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/comparisons/ComparisonsPatterns.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/comparisons/DefaultComparisons.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/changes/ChangesActions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/changes/RevisionsLibrary.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/changes/RevisionsActions.xwl")));			
 
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

@@ -1,0 +1,1320 @@
+<?xml version="1.0"?>
+<patterns:Library xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+    <patterns:URI value="whole:org.whole.lang.changes:RevisionsLibrary"/>
+    <patterns:Namespace value="org.whole.lang.changes"/>
+    <patterns:Name value="Revisions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <patterns:Declarations initialCapacity="8">
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="compare"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionTrack"/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
+                                <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:And>
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#compare"/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:Scope>
+                                    <queries:Names initialCapacity="2">
+                                        <queries:Name value="revision"/>
+                                        <queries:Name value="other"/>
+                                    </queries:Names>
+                                    <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:ParentStep/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#revisions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#firstRevisedContent"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#secondRevisedContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                    </queries:Block>
+                                </queries:Scope>
+                            </queries:If>
+                            <queries:Do>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="revision"/>
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:ParentStep/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#revisions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#firstRevisedContent"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                    </queries:Scope>
+                                    <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="revision"/>
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:ParentStep/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#revisions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#secondRevisedContent"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                    </queries:Scope>
+                                </queries:Sequence>
+                            </queries:Do>
+                        </queries:Choose>
+                    </queries:Path>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#RevisionFrame"/>
+                    <queries:Sequence initialCapacity="2">
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#leftContent"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:Scope>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="revision"/>
+                                    <queries:Name value="other"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#leftRevisions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
+                                        <queries:VariableTest value="other"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#leftContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#rightContent"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:Scope>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="revision"/>
+                                    <queries:Name value="other"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#rightRevisions"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#baseContent"/>
+                                        <queries:VariableTest value="other"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#rightContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                    </queries:Sequence>
+                </queries:If>
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Adapt"/>
+                        <queries:And initialCapacity="2">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:And>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="revision"/>
+                            <queries:Name value="other"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="3">
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                <queries:VariableTest value="revision"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                <queries:VariableTest value="other"/>
+                            </queries:Filter>
+                            <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Reuse"/>
+                        <queries:And initialCapacity="3">
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:And>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="revision"/>
+                            <queries:Name value="other"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="3">
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                <queries:VariableTest value="revision"/>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                <queries:VariableTest value="other"/>
+                            </queries:Filter>
+                            <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:And initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Synch"/>
+                        <queries:And initialCapacity="2">
+                            <queries:Or initialCapacity="2">
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                                <queries:And initialCapacity="2">
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variantRevision"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variant"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Or>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:And>
+                    <queries:Sequence initialCapacity="2">
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:Scope>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="revision"/>
+                                    <queries:Name value="other"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
+                                        <queries:VariableTest value="revision"/>
+                                    </queries:Filter>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                        <queries:VariableTest value="other"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variant"/>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <queries:Scope>
+                                <queries:Names initialCapacity="2">
+                                    <queries:Name value="revision"/>
+                                    <queries:Name value="other"/>
+                                </queries:Names>
+                                <queries:Block initialCapacity="3">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variantRevision"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                        <queries:VariableTest value="revision"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adapted"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#original"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="other"/>
+                                    </queries:Filter>
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool#compare"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variant"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Block>
+                            </queries:Scope>
+                        </queries:If>
+                    </queries:Sequence>
+                </queries:If>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="toSideBySideCompare"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
+                    <queries:Path initialCapacity="2">
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#unifiedContent"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                        <patterns:TemplatePoint>
+                            <changes:SideBySideCompare xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <patterns:DerivationPoint>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:DerivationPoint>
+                                <patterns:DerivationPoint>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </patterns:DerivationPoint>
+                            </changes:SideBySideCompare>
+                        </patterns:TemplatePoint>
+                    </queries:Path>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                    <queries:SelfStep/>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="_leftSide"/>
+                            <queries:Name value="_rightSide"/>
+                        </queries:Names>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </changes:Delete>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_leftSide"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Delete>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_rightSide"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:SelfStep/>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="wSet relation"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="_leftSide"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                <workflows:StringLiteral value="wSet(org.whole.lang.reflect.FeatureDescriptor, org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFeature"/>
+                                        <queries:StringLiteral value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <workflows:Variable value="_rightSide"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="_leftSide"/>
+                            <queries:Name value="_rightSide"/>
+                        </queries:Names>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Insert>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_leftSide"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </changes:Insert>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_rightSide"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:SelfStep/>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="wSet relation"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="_leftSide"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                <workflows:StringLiteral value="wSet(org.whole.lang.reflect.FeatureDescriptor, org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFeature"/>
+                                        <queries:StringLiteral value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <workflows:Variable value="_rightSide"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Replace"/>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="_leftSide"/>
+                            <queries:Name value="_rightSide"/>
+                        </queries:Names>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#deleteContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </changes:Delete>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_leftSide"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#insertContent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        </changes:Insert>
+                                    </patterns:TemplatePoint>
+                                    <queries:VariableTest value="_rightSide"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:SelfStep/>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="wSet relation"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="_leftSide"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                <workflows:StringLiteral value="wSet(org.whole.lang.reflect.FeatureDescriptor, org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="2">
+                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriFeature"/>
+                                        <queries:StringLiteral value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <workflows:Variable value="_rightSide"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Scope>
+                </queries:If>
+                <queries:Do>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="6">
+                            <queries:Name value="_prototype"/>
+                            <queries:Name value="_prototypeChild"/>
+                            <queries:Name value="_original"/>
+                            <queries:Name value="_originalChild"/>
+                            <queries:Name value="_revised"/>
+                            <queries:Name value="_revisedChild"/>
+                        </queries:Names>
+                        <queries:Select>
+                            <queries:Tuple initialCapacity="2">
+                                <queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="shallowClone"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                        <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:SelfStep/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <queries:VariableTest value="_original"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="shallowClone"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                        <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <queries:SelfStep/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <queries:VariableTest value="_revised"/>
+                                </queries:Filter>
+                            </queries:Tuple>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="_prototype"/>
+                            </queries:Filter>
+                            <queries:Choose initialCapacity="2">
+                                <queries:If>
+                                    <queries:KindTest value="SIMPLE"/>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_prototypeChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_original"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_originalChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_revised"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_revisedChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:PointwiseUpdate>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="_originalChild"/>
+                                        <queries:VariableRefStep value="_revisedChild"/>
+                                        </queries:Sequence>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:VariableRefStep value="_prototypeChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        </queries:PointwiseUpdate>
+                                        </queries:Sequence>
+                                    </queries:Path>
+                                </queries:If>
+                                <queries:If>
+                                    <queries:KindTest value="COMPOSITE"/>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_prototypeChild"/>
+                                        </queries:Filter>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="_original"/>
+                                        <queries:VariableRefStep value="_revised"/>
+                                        </queries:Sequence>
+                                        <queries:Path initialCapacity="2">
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:VariableRefStep value="_prototypeChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        </queries:PointwiseInsert>
+                                        </queries:Sequence>
+                                    </queries:Path>
+                                </queries:If>
+                            </queries:Choose>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Scope>
+                </queries:Do>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="toUnifiedCompare"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
+                    <queries:SelfStep/>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                    <patterns:TemplatePoint>
+                        <changes:UnifiedCompare xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                            <patterns:DerivationPoint>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#originalContent"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </patterns:DerivationPoint>
+                        </changes:UnifiedCompare>
+                    </patterns:TemplatePoint>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                    <patterns:TemplatePoint>
+                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                            <patterns:DerivationPoint>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                </queries:Path>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </patterns:DerivationPoint>
+                        </changes:Insert>
+                    </patterns:TemplatePoint>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                    <queries:Choose initialCapacity="2">
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                            <patterns:TemplatePoint>
+                                <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                    <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:DerivationPoint>
+                                </changes:Delete>
+                            </patterns:TemplatePoint>
+                        </queries:If>
+                        <queries:Do>
+                            <patterns:TemplatePoint>
+                                <changes:Replace xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                    <patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:DerivationPoint>
+                                    <patterns:DerivationPoint>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#relation"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:DerivationPoint>
+                                </changes:Replace>
+                            </patterns:TemplatePoint>
+                        </queries:Do>
+                    </queries:Choose>
+                </queries:If>
+                <queries:Do>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="3">
+                            <queries:Name value="_prototype"/>
+                            <queries:Name value="_prototypeChild"/>
+                            <queries:Name value="_cloneChild"/>
+                        </queries:Names>
+                        <queries:Path initialCapacity="3">
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="_prototype"/>
+                            </queries:Filter>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="shallowClone"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:SelfStep/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                            <queries:Block initialCapacity="2">
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_cloneChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_prototypeChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_cloneChild"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototypeChild"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianUpdate>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:ChildStep/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:SelfStep/>
+                            </queries:Block>
+                        </queries:Path>
+                    </queries:Scope>
+                </queries:Do>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="acceptAllChanges"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#unifiedContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#secondRevisedContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="3">
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Cut"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                    </queries:Or>
+                    <queries:VoidLiteral/>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="5">
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Relate"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Copy"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Paste"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Comment"/>
+                    </queries:Or>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Replace"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#insertContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:Do>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="3">
+                            <queries:Name value="_prototype"/>
+                            <queries:Name value="_prototypeChild"/>
+                            <queries:Name value="_cloneChild"/>
+                        </queries:Names>
+                        <queries:Path initialCapacity="3">
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="_prototype"/>
+                            </queries:Filter>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="shallowClone"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:SelfStep/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                            <queries:Block initialCapacity="2">
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_cloneChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_prototypeChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_cloneChild"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototypeChild"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianUpdate>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:ChildStep/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:SelfStep/>
+                            </queries:Block>
+                        </queries:Path>
+                    </queries:Scope>
+                </queries:Do>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="rejectAllChanges"/>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#UnifiedCompare"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#unifiedContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#SideBySideCompare"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#firstRevisedContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="3">
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Paste"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                    </queries:Or>
+                    <queries:VoidLiteral/>
+                </queries:If>
+                <queries:If>
+                    <queries:Or initialCapacity="5">
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Relate"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Cut"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Copy"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Comment"/>
+                    </queries:Or>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Replace"/>
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#deleteContent"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                </queries:If>
+                <queries:Do>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="3">
+                            <queries:Name value="_prototype"/>
+                            <queries:Name value="_prototypeChild"/>
+                            <queries:Name value="_cloneChild"/>
+                        </queries:Names>
+                        <queries:Path initialCapacity="3">
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:VariableTest value="_prototype"/>
+                            </queries:Filter>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="shallowClone"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.semantics.util.SemanticsUtils"/>
+                                <workflows:StringLiteral value="createShallowCloneEntity(org.whole.lang.model.IEntity)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <queries:SelfStep/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                            <queries:Block initialCapacity="2">
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_cloneChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_prototypeChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_cloneChild"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_prototypeChild"/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianUpdate>
+                                        </queries:Sequence>
+                                        </queries:Path>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:CartesianInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:VariableRefStep value="_prototype"/>
+                                        <queries:ChildStep/>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        </queries:CartesianInsert>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:SelfStep/>
+                            </queries:Block>
+                        </queries:Path>
+                    </queries:Scope>
+                </queries:Do>
+            </queries:Choose>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="nextChange"/>
+            <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Filter>
+                    <queries:FollowingStep/>
+                    <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                </queries:Filter>
+                <queries:IndexTest>
+                    <queries:IntLiteral value="0"/>
+                </queries:IndexTest>
+            </queries:Filter>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="previousChange"/>
+            <queries:Filter xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Filter>
+                    <queries:PrecedingStep/>
+                    <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                </queries:Filter>
+                <queries:IndexTest>
+                    <queries:IntLiteral value="0"/>
+                </queries:IndexTest>
+            </queries:Filter>
+        </patterns:FunctionDeclaration>
+        <patterns:FunctionDeclaration>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="revisionSummary"/>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Names initialCapacity="2">
+                    <queries:Name value="additions"/>
+                    <queries:Name value="deletions"/>
+                </queries:Names>
+                <queries:Block initialCapacity="4">
+                    <queries:Filter>
+                        <queries:IntLiteral value="0"/>
+                        <queries:VariableTest value="additions"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:IntLiteral value="0"/>
+                        <queries:VariableTest value="deletions"/>
+                    </queries:Filter>
+                    <queries:Path initialCapacity="5">
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#changes"/>
+                        <queries:ChildStep/>
+                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#sides"/>
+                        <queries:AdjacentStep/>
+                        <queries:Choose initialCapacity="3">
+                            <queries:If>
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                                <queries:PointwiseUpdate>
+                                    <queries:VariableRefStep value="additions"/>
+                                    <queries:Addition>
+                                        <queries:VariableRefStep value="additions"/>
+                                        <queries:IntLiteral value="1"/>
+                                    </queries:Addition>
+                                </queries:PointwiseUpdate>
+                            </queries:If>
+                            <queries:If>
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                                <queries:PointwiseUpdate>
+                                    <queries:VariableRefStep value="deletions"/>
+                                    <queries:Addition>
+                                        <queries:VariableRefStep value="deletions"/>
+                                        <queries:IntLiteral value="1"/>
+                                    </queries:Addition>
+                                </queries:PointwiseUpdate>
+                            </queries:If>
+                            <queries:If>
+                                <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Replace"/>
+                                <queries:PointwiseUpdate>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="additions"/>
+                                        <queries:VariableRefStep value="deletions"/>
+                                    </queries:Sequence>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="additions"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="deletions"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                    </queries:Sequence>
+                                </queries:PointwiseUpdate>
+                            </queries:If>
+                        </queries:Choose>
+                    </queries:Path>
+                    <queries:Tuple initialCapacity="2">
+                        <queries:VariableRefStep value="additions"/>
+                        <queries:VariableRefStep value="deletions"/>
+                    </queries:Tuple>
+                </queries:Block>
+            </queries:Scope>
+        </patterns:FunctionDeclaration>
+    </patterns:Declarations>
+</patterns:Library>
