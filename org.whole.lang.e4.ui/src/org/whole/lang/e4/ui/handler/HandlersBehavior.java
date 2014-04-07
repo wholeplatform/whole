@@ -614,11 +614,7 @@ public class HandlersBehavior {
 	}
 
 	public static void interpretModel(IBindingManager bm) {
-		IBindingScope resultsScope = E4Utils.invokeInterpreter(bm);
-		IEntity selfEntity = bm.wGet("self");
-		//FIXME workaround for Reusables language
-		if (selfEntity != null && Matcher.matchImpl(ReusablesEntityDescriptorEnum.Adapt, selfEntity))
-			BehaviorUtils.evaluate(resultsScope.getResultIterator(), selfEntity, bm);
+		E4Utils.invokeInterpreter(bm);
 	}
 
 	public static boolean canGenerateArtifacts(IBindingManager bm) {

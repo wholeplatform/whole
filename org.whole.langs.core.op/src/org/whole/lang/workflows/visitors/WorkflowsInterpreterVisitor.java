@@ -408,10 +408,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			PrettyPrinterOperation.prettyPrint(model, bm);
 			break;
 		case OperationEnum.INTERPRETER_ord:
-			IBindingScope resultsScope = InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
-			//FIXME workaround for Reusables language
-			if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Adapt, model))
-				BehaviorUtils.evaluate(resultsScope.getResultIterator(), model, bm);
+			InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
 			break;
 		case OperationEnum.ARTIFACTS_GENERATOR_ord:
 			ArtifactsGeneratorOperation.generate(model, bm);
