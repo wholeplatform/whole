@@ -717,7 +717,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				
 				
 				IEntity child = null;
-				if (featureIndex > -1 && featureIndex < ed.featureSize())
+				if (featureIndex > -1 && featureIndex < selfEntity.wSize())
 					child = selfEntity.wGet(featureIndex);
 				else if (fd != null && selfEntity.wGetAspectualFeatureDescriptors().contains(fd))
 					child = selfEntity.wGet(efd);
