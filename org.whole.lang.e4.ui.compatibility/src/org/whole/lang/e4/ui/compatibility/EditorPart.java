@@ -17,9 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.EDITOR_PART_ID;
-import static org.whole.lang.e4.ui.actions.IUIConstants.REDO_LABEL;
-import static org.whole.lang.e4.ui.actions.IUIConstants.UNDO_LABEL;
+import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import java.util.EventObject;
 import java.util.HashSet;
@@ -33,10 +31,8 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
@@ -47,14 +43,11 @@ import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableEditor;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
@@ -62,7 +55,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.e4.ui.actions.RedoAction;
 import org.whole.lang.e4.ui.actions.UndoAction;
 import org.whole.lang.e4.ui.input.ModelInput;
