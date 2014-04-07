@@ -103,7 +103,14 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		case PathExpression_ord:
 		case Locator_ord:
 		case Source_ord:
-			setResultIterator(BehaviorUtils.lazyEvaluate(entity.wGetAdaptee(false), 0, getBindings()));
+//			setResultIterator(DynamicCompilerOperation.compile(entity.wGetAdaptee(false), getBindings()).getResultIterator());
+			try {
+				getBindings().wEnterScope();
+				getBindings().wDef("self", entity.wGetAdaptee(false));
+				setResultIterator(BehaviorUtils.lazyEvaluate(entity.wGetAdaptee(false), 0, getBindings()));
+			} finally {
+				getBindings().wExitScope();
+			}
 			return false;
 
 		default:
@@ -162,8 +169,10 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 				IteratorFactory.composeIterator(evaluateIterator, adapterIterator, contentIterator) :
 					IteratorFactory.composeIterator(evaluateIterator, contentIterator);
 
-		for (IEntity result : expandIterator)
+		for (IEntity result : expandIterator) {
 			stagedVisit(result.wGetAdaptee(false));
+			setResult(result);
+		}
 	}
 
 	@Override
@@ -178,8 +187,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 						IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
-				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm)
-		);
+				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
 		setResultIterator(IteratorFactory.composeIterator(evaluateIterator, contentIterator));
 	}
 
@@ -192,8 +200,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 						IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
-				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm)
-		);
+				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
 		setResultIterator(IteratorFactory.composeIterator(evaluateIterator, contentIterator));
 	}
 
