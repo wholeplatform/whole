@@ -1,0 +1,1968 @@
+<?xml version="1.0"?>
+<patterns:PatternLanguage xmlns:patterns="whole:org.whole.lang.patterns:PatternsModel">
+    <patterns:URI value="whole:org.whole.lang.comparisons:ComparisonsPatterns"/>
+    <patterns:Namespace value="org.whole.lang.comparisons"/>
+    <patterns:Name value="Comparisons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <patterns:Patterns initialCapacity="1">
+        <patterns:Pattern>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <patterns:Name value="ComparisonFunction"/>
+            <patterns:TemplatePoint>
+                <patterns:ScopePoint>
+                    <patterns:Declarations initialCapacity="9">
+                        <patterns:VariableDeclaration>
+                            <patterns:Name value="comparisonToolUri"/>
+                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:Slot>
+                                        <patterns:Name value="uri"/>
+                                        <patterns:BooleanValue value="true"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#URI"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:Slot>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                                <queries:Addition>
+                                    <queries:Addition>
+                                        <queries:StringLiteral value="whole:"/>
+                                        <queries:VariableRefStep value="packageName"/>
+                                    </queries:Addition>
+                                    <queries:Addition>
+                                        <queries:StringLiteral value=":"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="fileName"/>
+                                        <queries:StringLiteral value="ComparisonTool"/>
+                                        </queries:Addition>
+                                    </queries:Addition>
+                                </queries:Addition>
+                            </queries:Choose>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:VariableDeclaration>
+                        <patterns:VariableDeclaration>
+                            <patterns:Name value="comparisonToolNamespace"/>
+                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:Slot>
+                                        <patterns:Name value="namespace"/>
+                                        <patterns:BooleanValue value="true"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Namespace"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:Slot>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                                <queries:VariableRefStep value="packageName"/>
+                            </queries:Choose>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:VariableDeclaration>
+                        <patterns:VariableDeclaration>
+                            <patterns:Name value="comparisonToolName"/>
+                            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                <queries:Filter>
+                                    <patterns:Slot>
+                                        <patterns:Name value="name"/>
+                                        <patterns:BooleanValue value="true"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Semantics#Name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </patterns:Slot>
+                                    <queries:KindTest value="IMPL"/>
+                                </queries:Filter>
+                                <queries:VariableRefStep value="fileName"/>
+                            </queries:Choose>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:VariableDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="functionDefinitionPoint"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:JoinPointDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="functionActionPoint"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:JoinPointDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="matchRulePoint"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:JoinPointDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="compareCompositeRulePoint"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:JoinPointDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="compareRulePoint"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:JoinPointDeclaration>
+                        <patterns:JoinPointDeclaration>
+                            <patterns:Name value="library"/>
+                            <patterns:TemplatePoint>
+                                <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="2">
+                                    <semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolNamespace"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <semantics:SemanticFunctions initialCapacity="8">
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="matchFIXME0"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        </queries:Sequence>
+                                        <queries:DistinctTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:DistinctTest>
+                                        </queries:Filter>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:IndexTest>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:BooleanLiteral value="false"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="matchFIXME1"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="3">
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:KindTest value="DATA"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:BooleanLiteral value="false"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="matchFIXME2"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="5">
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:KindTest value="DATA"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="_other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:VariableTest value="_other"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_other"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:BooleanLiteral value="false"/>
+                                        </queries:Do>
+                                        <queries:Equals>
+                                        <queries:Singleton>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Singleton>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:Equals>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="match"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="10">
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="matchRulePoint"/>
+                                        </patterns:InsertionPoint>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Models#ModelDeclaration"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Or>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.patterns:PatternsModel#Declaration"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.patterns:PatternsModel#Declaration"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Or>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Semantics#SemanticFunction"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Semantics#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Actions#SimpleAction"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Actions#SimpleAction"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Artifacts#Artifact"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Artifacts#Artifact"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Artifacts#Project"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Artifacts#Project"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Or>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Grammars#Production"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Grammars#Production"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#name"/>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#name"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:BooleanLiteral value="true"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:BooleanLiteral value="false"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="compareComposite"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="compareCompositeRulePoint"/>
+                                        </patterns:InsertionPoint>
+                                        <queries:Do>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="4">
+                                        <queries:Name value="selfChild"/>
+                                        <queries:Name value="otherChild"/>
+                                        <queries:Name value="selfSize"/>
+                                        <queries:Name value="otherSize"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceChildSize"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="selfSize"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceChildSize"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <queries:VariableTest value="otherSize"/>
+                                        </queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="featureIndex"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfIndex"/>
+                                        <queries:VariableTest value="featureIndex"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeatureStep"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="selfChild"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="featureIndex"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherIndex"/>
+                                        <queries:VariableTest value="featureIndex"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceFeatureStep"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:VariableTest value="otherChild"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfIndex"/>
+                                        <queries:Name value="_otherIndex"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfIndex"/>
+                                        <queries:VariableTest value="_selfIndex"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="otherIndex"/>
+                                        <queries:VariableTest value="_otherIndex"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfIndex"/>
+                                        <queries:Name value="otherIndex"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="_selfIndex"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="selfIndex"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="_otherIndex"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        <queries:VariableTest value="otherIndex"/>
+                                        </queries:Filter>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#match"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:LessThan>
+                                        <queries:VariableRefStep value="selfSize"/>
+                                        <queries:VariableRefStep value="otherSize"/>
+                                        </queries:LessThan>
+                                        </queries:ExpressionTest>
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="selfChild"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <changes:Nothing xmlns:changes="whole:org.whole.lang.changes:ChangesModel"/>
+                                        </commons:StageUpFragment>
+                                        </queries:PointwiseInsert>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="BEFORE"/>
+                                        <queries:VariableRefStep value="otherChild"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <changes:Nothing xmlns:changes="whole:org.whole.lang.changes:ChangesModel"/>
+                                        </commons:StageUpFragment>
+                                        </queries:PointwiseInsert>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </queries:If>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compareComposite"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:LessThan>
+                                        <queries:VariableRefStep value="selfSize"/>
+                                        <queries:VariableRefStep value="otherSize"/>
+                                        </queries:LessThan>
+                                        </queries:ExpressionTest>
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:SelfStep/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <changes:Nothing xmlns:changes="whole:org.whole.lang.changes:ChangesModel"/>
+                                        </commons:StageUpFragment>
+                                        </queries:PointwiseInsert>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:GreaterThan>
+                                        <queries:VariableRefStep value="selfSize"/>
+                                        <queries:VariableRefStep value="otherSize"/>
+                                        </queries:GreaterThan>
+                                        </queries:ExpressionTest>
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <changes:Nothing xmlns:changes="whole:org.whole.lang.changes:ChangesModel"/>
+                                        </commons:StageUpFragment>
+                                        </queries:PointwiseInsert>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="compare"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="8">
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="compareRulePoint"/>
+                                        </patterns:InsertionPoint>
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:KindTest value="DATA"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:VoidLiteral/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compare"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="selfIndex"/>
+                                        <queries:Name value="otherIndex"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:IntLiteral value="0"/>
+                                        <queries:VariableTest value="selfIndex"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:IntLiteral value="0"/>
+                                        <queries:VariableTest value="otherIndex"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compareComposite"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="1">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compare"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Path>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                                        </queries:Or>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compare"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="_other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:VariableTest value="_other"/>
+                                        </queries:Filter>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_other"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#content"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compare"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Or>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="3">
+                                        <queries:Name value="_self"/>
+                                        <queries:Name value="_selfChange"/>
+                                        <queries:Name value="otherChange"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="6">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_self"/>
+                                        </queries:Filter>
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ParentStep/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        </queries:Or>
+                                        <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Insert>
+                                        </patterns:TemplatePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="_self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Delete>
+                                        </patterns:TemplatePoint>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="_selfChange"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:ParentStep/>
+                                        </queries:Path>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Delete>
+                                        </patterns:TemplatePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Insert>
+                                        </patterns:TemplatePoint>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="otherChange"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:VariableRefStep value="_selfChange"/>
+                                        </queries:CartesianUpdate>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:VariableRefStep value="otherChange"/>
+                                        </queries:CartesianUpdate>
+                                        </queries:If>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="link Revision to ChangeSides"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.changes.util.ChangesUtils"/>
+                                        <workflows:StringLiteral value="linkRevisionToChanges(org.whole.lang.changes.model.Revision, org.whole.lang.changes.model.ChangeSide, org.whole.lang.changes.model.ChangeSide)"/>
+                                        <workflows:Expressions initialCapacity="3">
+                                        <workflows:Variable value="revision"/>
+                                        <workflows:Variable value="_selfChange"/>
+                                        <workflows:Variable value="otherChange"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="3">
+                                        <queries:Name value="_self"/>
+                                        <queries:Name value="_selfChange"/>
+                                        <queries:Name value="otherChange"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="6">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_self"/>
+                                        </queries:Filter>
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ParentStep/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Insert>
+                                        </patterns:TemplatePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="_self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Delete>
+                                        </patterns:TemplatePoint>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="_selfChange"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <queries:Do>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:ParentStep/>
+                                        </queries:Path>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Nothing"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <patterns:TemplatePoint>
+                                        <changes:Delete xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        </changes:Delete>
+                                        </patterns:TemplatePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <patterns:TemplatePoint>
+                                        <changes:Insert xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Insert>
+                                        </patterns:TemplatePoint>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="otherChange"/>
+                                        </queries:Filter>
+                                        </queries:Do>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:VariableRefStep value="_selfChange"/>
+                                        </queries:CartesianUpdate>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:SubtypeTest value="whole:org.whole.lang.changes:ChangesModel#Change"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:VariableRefStep value="otherChange"/>
+                                        </queries:CartesianUpdate>
+                                        </queries:If>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="link Revision to ChangeSides"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.changes.util.ChangesUtils"/>
+                                        <workflows:StringLiteral value="linkRevisionToChanges(org.whole.lang.changes.model.Revision, org.whole.lang.changes.model.ChangeSide, org.whole.lang.changes.model.ChangeSide)"/>
+                                        <workflows:Expressions initialCapacity="3">
+                                        <workflows:Variable value="revision"/>
+                                        <workflows:Variable value="_selfChange"/>
+                                        <workflows:Variable value="otherChange"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <semantics:SemanticFunction>
+                                        <semantics:Name value="compareUnified"/>
+                                        <semantics:FunctionType>
+                                        <semantics:AnyType/>
+                                        <semantics:AnyType/>
+                                        </semantics:FunctionType>
+                                        <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="6">
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="compareRulePoint"/>
+                                        </patterns:InsertionPoint>
+                                        <queries:If>
+                                        <queries:And initialCapacity="3">
+                                        <queries:KindTest value="DATA"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:KindTest value="DATA"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <queries:VariableRefStep value="self"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:VoidLiteral/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="SIMPLE"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="2">
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compareUnified"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Path>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="COMPOSITE"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Equals>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <queries:VariableRefStep value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Equals>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="4">
+                                        <queries:Name value="_selfIndex"/>
+                                        <queries:Name value="_otherIndex"/>
+                                        <queries:Name value="_selfChild"/>
+                                        <queries:Name value="_otherChild"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="1">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:PointwiseProduct initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_selfChild"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="other"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:VariableTest value="_otherChild"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:PointwiseProduct>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="other"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="_otherChild"/>
+                                        <queries:VariableTest value="other"/>
+                                        </queries:Filter>
+                                        <semantics:FunctionApplication>
+                                        <patterns:DerivationPoint>
+                                        <queries:Addition>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <queries:StringLiteral value="#compareUnified"/>
+                                        </queries:Addition>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:DerivationPoint>
+                                        <queries:VariableRefStep value="_selfChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Path>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:KindTest value="SIMPLE"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="_self"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_self"/>
+                                        </queries:Filter>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Commons#Resolver"/>
+                                        <queries:ExpressionTest>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#featureIsOptional"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceAtFeature"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <patterns:TemplatePoint>
+                                        <changes:Replace xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <changes:Nothing/>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Replace>
+                                        </patterns:TemplatePoint>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <patterns:TemplatePoint>
+                                        <changes:Replace xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="_self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Replace>
+                                        </patterns:TemplatePoint>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </queries:CartesianUpdate>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="_self"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:VariableTest value="_self"/>
+                                        </queries:Filter>
+                                        <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:VariableRefStep value="_self"/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
+                                        <patterns:TemplatePoint>
+                                        <changes:Replace xmlns:changes="whole:org.whole.lang.changes:ChangesModel">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="_self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="other"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        </changes:Replace>
+                                        </patterns:TemplatePoint>
+                                        </queries:CartesianUpdate>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </semantics:SemanticFunction>
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="functionDefinitionPoint"/>
+                                        </patterns:InsertionPoint>
+                                        </semantics:SemanticFunctions>
+                                    </semantics:SemanticTheory>
+                                    <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolUri"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolNamespace"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <patterns:VariablePoint>
+                                        <patterns:Name value="comparisonToolName"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </patterns:VariablePoint>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <actions:ToolbarActions>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </actions:ToolbarActions>
+                                        <actions:ContextMenuActions>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <actions:MenuActions initialCapacity="1">
+                                        <patterns:InsertionPoint>
+                                        <patterns:Name value="functionActionPoint"/>
+                                        </patterns:InsertionPoint>
+                                        </actions:MenuActions>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </actions:ContextMenuActions>
+                                    </actions:LanguageActionFactory>
+                                </misc:Misc>
+                            </patterns:TemplatePoint>
+                        </patterns:JoinPointDeclaration>
+                    </patterns:Declarations>
+                    <patterns:SequencePoint initialCapacity="2">
+                        <patterns:Slot>
+                            <patterns:Name value="rules"/>
+                            <patterns:BooleanValue value="false"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <patterns:Repetition>
+                                <patterns:Name value="CompareRules"/>
+                                <patterns:Choice>
+                                    <patterns:Name value="CompareRule"/>
+                                    <patterns:Types initialCapacity="2">
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <patterns:Name value="CompareEntity"/>
+                                    </patterns:Types>
+                                </patterns:Choice>
+                            </patterns:Repetition>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:Slot>
+                        <patterns:DerivationPoint>
+                            <patterns:JoinPointStep value="library"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </patterns:DerivationPoint>
+                    </patterns:SequencePoint>
+                </patterns:ScopePoint>
+            </patterns:TemplatePoint>
+        </patterns:Pattern>
+    </patterns:Patterns>
+</patterns:PatternLanguage>

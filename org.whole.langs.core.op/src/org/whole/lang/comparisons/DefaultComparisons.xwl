@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<comparisons:ComparisonFunction xmlns:comparisons="whole:org.whole.lang.comparisons:ComparisonsPatternsModel">
+    <semantics:URI xmlns:semantics="http://lang.whole.org/Semantics" value="whole:org.whole.lang.comparisons:DefaultComparisonsComparisonTool"/>
+    <semantics:Namespace xmlns:semantics="http://lang.whole.org/Semantics" value="org.whole.lang.comparisons"/>
+    <semantics:Name xmlns:semantics="http://lang.whole.org/Semantics" value="DefaultComparisons"/>
+    <comparisons:CompareRules initialCapacity="1">
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </comparisons:CompareRules>
+</comparisons:ComparisonFunction>
