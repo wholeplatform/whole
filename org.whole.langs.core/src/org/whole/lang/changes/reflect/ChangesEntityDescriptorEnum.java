@@ -103,7 +103,7 @@ public class ChangesEntityDescriptorEnum extends EntityDescriptorEnum {
     }
 
     protected void initForeignTypeRelations() {
-        setAssignableToAll(true, Change_ord);
+        setAssignableToAll(true, Change_ord, Nothing_ord);
         setAssignableFromAll(true, Content_ord);
     }
 }

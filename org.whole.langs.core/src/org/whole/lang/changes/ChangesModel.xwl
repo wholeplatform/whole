@@ -3,8 +3,9 @@
     <models:SimpleName value="Changes"/>
     <models:TypeRelations initialCapacity="2">
         <models:SubtypesOf>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="Change"/>
+                <models:SimpleName value="Nothing"/>
             </models:Types>
             <models:AnyType/>
         </models:SubtypesOf>
@@ -103,7 +104,9 @@
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="2">
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="Revisor"/>
                     <models:SimpleName value="revisor"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

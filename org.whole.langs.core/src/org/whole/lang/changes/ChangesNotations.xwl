@@ -323,13 +323,14 @@
                 </gefpatterns:Feature>
             </gefpatterns:Features>
         </gefpatterns:ContentPanePart>
-        <gefpatterns:TextualPart>
+        <gefpatterns:DataPart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Text"/>
+            <gefpatterns:EditingStyle value="TEXT"/>
             <gefpatterns:Label>
                 <gefpatterns:LabelStyle value="ContentLight"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             </gefpatterns:Label>
-        </gefpatterns:TextualPart>
+        </gefpatterns:DataPart>
         <gefpatterns:LabelPart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Nothing"/>
             <gefpatterns:Label>
@@ -337,13 +338,14 @@
                 <java:StringLiteral xmlns:java="http://lang.whole.org/Java" value="nothing"/>
             </gefpatterns:Label>
         </gefpatterns:LabelPart>
-        <gefpatterns:TextualPart>
+        <gefpatterns:DataPart>
             <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Clipboard"/>
+            <gefpatterns:EditingStyle value="DATA"/>
             <gefpatterns:Label>
                 <gefpatterns:LabelStyle value="Content"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             </gefpatterns:Label>
-        </gefpatterns:TextualPart>
+        </gefpatterns:DataPart>
     </gefpatterns:Parts>
     <gefpatterns:Figures initialCapacity="0"/>
 </gefpatterns:Notation>
