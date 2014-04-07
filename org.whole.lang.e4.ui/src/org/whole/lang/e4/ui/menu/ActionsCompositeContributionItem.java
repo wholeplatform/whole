@@ -62,7 +62,7 @@ public class ActionsCompositeContributionItem extends AbstractCompositeContribut
 	protected IContributionItem[] getItems() {
 
 		Object selection = contextProvider.getContext().get(ESelectionService.class).getSelection();
-		if (!(selection instanceof IBindingManager))
+		if (!(selection instanceof IBindingManager) || !((IBindingManager) selection).wIsSet("self"))
 			return new IContributionItem[0];
 
 		IBindingManager bm = (IBindingManager) selection;
