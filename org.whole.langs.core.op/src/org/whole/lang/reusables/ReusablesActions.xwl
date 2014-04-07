@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.reusables:ReusablesActions"/>
+    <actions:Namespace value="org.whole.lang.reusables"/>
+    <actions:Name value="ReusablesActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="whole:org.whole.lang.reusables:ReusablesModel"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:SimpleAction>
+            <actions:Label value="Value Assist"/>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:VariableRefStep value="primarySelectedEntity"/>
+                <queries:Choose initialCapacity="1">
+                    <queries:If>
+                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#WorkspacePath"/>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <actions:Actions initialCapacity="1">
+                                <actions:GroupAction>
+                                    <commons:Resolver/>
+                                    <actions:Text value="Resource"/>
+                                    <actions:Hierarchical>
+                                        <actions:FullName/>
+                                        <actions:Size value="10"/>
+                                    </actions:Hierarchical>
+                                    <actions:Actions initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:Scope>
+                                        <queries:Names initialCapacity="1">
+                                        <queries:Name value="customAction"/>
+                                        </queries:Names>
+                                        <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="new SimpleReplaceWithResourceAction(...)"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.ui.actions.SimpleReplaceWithResourceAction"/>
+                                        <workflows:StringLiteral value="SimpleReplaceWithResourceAction(org.eclipse.e4.core.contexts.IEclipseContext, org.whole.lang.reflect.EntityDescriptor, java.lang.String, java.lang.String, java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="5">
+                                        <workflows:Variable value="eclipseContext"/>
+                                        <queries:Path initialCapacity="2">
+                                        <commons:StageUpFragment>
+                                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#WorkspacePath"/>
+                                        </commons:StageUpFragment>
+                                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriEntity"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </queries:Path>
+                                        <workflows:StringLiteral value="WORKSPACE"/>
+                                        <queries:SelfStep/>
+                                        <workflows:StringLiteral value="Select from Workspace..."/>
+                                        </workflows:Expressions>
+                                        </workflows:CreateJavaClassInstance>
+                                        <queries:VariableTest value="customAction"/>
+                                        </queries:Filter>
+                                        <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="create CustomAction"/>
+                                        <commons:Resolver/>
+                                        <workflows:Registry value="DEFAULT"/>
+                                        <workflows:StringLiteral value="http://lang.whole.org/Actions#CustomAction"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="customAction"/>
+                                        </workflows:Expressions>
+                                        </workflows:CreateEntity>
+                                        </queries:Block>
+                                        </queries:Scope>
+                                        </commons:StageDownFragment>
+                                    </actions:Actions>
+                                </actions:GroupAction>
+                            </actions:Actions>
+                        </commons:StageUpFragment>
+                    </queries:If>
+                </queries:Choose>
+            </queries:Path>
+        </actions:SimpleAction>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>
