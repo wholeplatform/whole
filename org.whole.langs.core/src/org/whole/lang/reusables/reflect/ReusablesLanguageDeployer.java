@@ -5,6 +5,7 @@ import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderFactory;
 import org.whole.lang.builders.SpecificBuilderAdapterOperation;
 import org.whole.lang.contexts.IEntityContext;
+import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageDeployer;
@@ -12,6 +13,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.builders.IReusablesBuilder;
 import org.whole.lang.reusables.builders.ReusablesGenericBuilderAdapter;
 import org.whole.lang.reusables.builders.ReusablesSpecificBuilderAdapter;
+import org.whole.lang.reusables.visitors.ReusablesArtifactsGeneratorVisitor;
 import org.whole.lang.reusables.visitors.ReusablesInterpreterVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
@@ -44,6 +46,12 @@ public class ReusablesLanguageDeployer extends AbstractLanguageDeployer {
         			return null;
         	}
         });
+		platform.addOperationFactory(ReusablesLanguageKit.URI, ArtifactsGeneratorOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				return new ReusablesArtifactsGeneratorVisitor();
+			}
+		});
     }
 
     public void undeploy(ReflectionFactory platform) {
