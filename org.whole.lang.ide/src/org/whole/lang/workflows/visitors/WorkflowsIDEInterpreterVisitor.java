@@ -19,21 +19,15 @@ package org.whole.lang.workflows.visitors;
 
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.*;
 
-import java.io.ByteArrayInputStream;
-
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.whole.gen.util.IDEUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
@@ -261,25 +255,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 
 	@Override
 	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
-		IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(resourceString);
-		if (resource == null) {
-			if (isInput)
-				throw new IllegalArgumentException("The workspace doesn't contain the resource: "+resourceString);
-			else {
-				try {
-					IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceString));
-					file.create(new ByteArrayInputStream(new byte[0]), true, null);
-					resource = file;
-				} catch (CoreException e) {
-					throw new IllegalArgumentException("Failed to create a file at the following path: "+resourceString);
-				}
-			}
-		}
-
-		if (resource instanceof IFile)
-			return new IFilePersistenceProvider((IFile) resource, bm);//, new ByteArrayOutputStream()
-		else
-			return super.getWorkspaceProvider(bm, resourceString, isInput);
+		return E4Utils.createWorkspaceProvider(bm, resourceString, isInput);
 	}
 
 	@Override
