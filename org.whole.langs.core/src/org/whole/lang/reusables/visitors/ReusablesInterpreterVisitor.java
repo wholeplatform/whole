@@ -22,7 +22,6 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collections;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -35,11 +34,9 @@ import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
-import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
@@ -165,12 +162,8 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 				IteratorFactory.composeIterator(evaluateIterator, adapterIterator, contentIterator) :
 					IteratorFactory.composeIterator(evaluateIterator, contentIterator);
 
-		String varName = "expanded";
-		IEntityIterator<?> blockIterator = IteratorFactory.blockIterator(
-				IteratorFactory.filterIterator(expandIterator, GenericMatcherFactory.instance.asVariableMatcher(varName)),
-						QueriesIteratorFactory.callIterator(varName), IteratorFactory.variableIterator(varName));
-
-		setResultIterator(QueriesIteratorFactory.scopeIterator(blockIterator, null, Collections.singleton(varName)));
+		for (IEntity result : expandIterator)
+			stagedVisit(result.wGetAdaptee(false));
 	}
 
 	@Override
@@ -357,8 +350,16 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 				break;
 			case ReusablesEntityDescriptorEnum.WorkspacePath_ord:
 			default:
-				//TODO provider = new IFilePersistenceProvider(new File(locatorString), getBindings());
-				throw new UnsupportedOperationException();
+				try {
+					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+					Class<?> editorPartClass = Class.forName("org.whole.lang.e4.ui.util.E4Utils", true, cl);
+					provider = (IPersistenceProvider) editorPartClass.getMethod("createWorkspaceProvider",
+							IBindingManager.class, String.class, boolean.class)
+								.invoke(null, getBindings(), location, true);
+				} catch (Exception e) {
+					throw new IllegalArgumentException("Failed to find the resource in the Workspace: " + 
+							location, e);
+				}
 			}
 
 			try {
