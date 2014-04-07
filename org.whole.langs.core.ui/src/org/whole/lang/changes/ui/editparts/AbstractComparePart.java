@@ -97,7 +97,6 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
 				IEntityPart lePart = ModelObserver.getObserver(le, editPartRegistry);
             	IEntityPart rePart = ModelObserver.getObserver(re, editPartRegistry);
 
-            	//TODO function arg
             	if (lePart != null && rePart != null) {
             		Rectangle leBounds = ((IGraphicalEntityPart) lePart).getFigure().getBounds();
             		Rectangle reBounds = ((IGraphicalEntityPart) rePart).getFigure().getBounds();
@@ -137,17 +136,21 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		g.setLineStyle(SWT.LINE_CUSTOM);
             		g.setLineDash(new int[] {1,3});
             		
-            		if (leBounds.height > 6) {
-            			g.drawLine(x0, leBounds.y, leBounds.x, leBounds.y);
-            			g.drawLine(x0, leBounds.bottom(), leBounds.x, leBounds.bottom());
-            		} else
-            			g.drawLine(x0, y0Center, leBounds.x, y0Center);
+            		if (leBounds.x < x0) {
+	            		if (leBounds.height > 6) {
+	            			g.drawLine(x0, leBounds.y, leBounds.x, leBounds.y);
+	            			g.drawLine(x0, leBounds.bottom(), leBounds.x, leBounds.bottom());
+	            		} else
+	            			g.drawLine(x0, y0Center, leBounds.x, y0Center);
+            		}
 
-            		if (reBounds.height > 6) {
-            			g.drawLine(x1, reBounds.y, reBounds.x, reBounds.y);
-            			g.drawLine(x1, reBounds.bottom(), reBounds.x, reBounds.bottom());
-            		} else
-            			g.drawLine(x1, y1Center, reBounds.x, y1Center);
+            		if (reBounds.x > x1) {//FIXME < bounds.right()
+	            		if (reBounds.height > 6) {
+	            			g.drawLine(x1, reBounds.y, reBounds.x, reBounds.y);
+	            			g.drawLine(x1, reBounds.bottom(), reBounds.x, reBounds.bottom());
+	            		} else
+	            			g.drawLine(x1, y1Center, reBounds.x, y1Center);
+            		}
 
             		g.popState();
             	}
