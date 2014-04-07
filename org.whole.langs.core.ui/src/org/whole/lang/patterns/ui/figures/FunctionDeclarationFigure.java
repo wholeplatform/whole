@@ -15,18 +15,25 @@
 package org.whole.lang.patterns.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 
 /**
  *  @author  Riccardo Solmi
  */
 public class FunctionDeclarationFigure extends ContentPaneFigure {
-
     public FunctionDeclarationFigure() {
         super(new TableRowLayout());
         initContentPanes(3);
+
         add(createContentPane(0));
-        add(createContentPane(1));
+        EntityFigure nameFigure = new EntityFigure(new RowLayout().withSpacing(4));
+        nameFigure.add(createFoldingToggle(2));
+        nameFigure.add(createContentPane(1));
+        add(nameFigure);
         add(createContentPane(2));
+
+        clickFoldingToggle(0);
     }
 }

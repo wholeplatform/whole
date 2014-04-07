@@ -37,7 +37,7 @@ public class PatternsFigure extends TableFigure {
         EntityLabel label = new EntityLabel("Types");
         label.setForegroundColor(color);
         headers.add(label);
-        label = new EntityLabel(" Pattern");
+        label = new EntityLabel("    Pattern");
         label.setForegroundColor(color);
         headers.add(label);
         label = new EntityLabel("Translation");
