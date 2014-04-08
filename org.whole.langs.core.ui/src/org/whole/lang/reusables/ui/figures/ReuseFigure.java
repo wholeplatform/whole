@@ -14,6 +14,7 @@
  */
 package org.whole.lang.reusables.ui.figures;
 
+import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
@@ -22,6 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.EntityToggle;
 import org.whole.lang.ui.figures.LabelFactory;
@@ -37,16 +39,20 @@ import org.whole.lang.ui.figures.EntityFigure;
 public class ReuseFigure extends ContentPaneFigure {
 	protected EntityFigure reuseFigure, originalFigure, configurationFigure;
 	protected ReuseBorder reuseBorder;
+	protected EntityLabel adaptedHeader;
 
-    public ReuseFigure() {
-        initContentPanes(5);
+    public ReuseFigure(ActionListener linkListener) {
+        initContentPanes(4);
         setLayoutManager(new RowLayout().withMinorAlignment(Alignment.LEADING));
         
         reuseFigure = new EntityFigure(new RowLayout().withMargin(0,0,0,7).withSpacing(16).withMinorAlignment(Alignment.LEADING));
 
 		EntityFigure adaptableFigure = new EntityFigure(new OverLayout());
 		adaptableFigure.add(createContentPane(3));
-		adaptableFigure.add(createContentPane(4, new MarginBorder(8, 2, 4, 6)));
+//		adaptableFigure.add(createContentPane(4, new MarginBorder(8, 2, 4, 6)));
+		adaptedHeader = LabelFactory.createRelation("ADAPTED");
+		adaptedHeader.setBorder(new MarginBorder(8, 2, 4, 6));
+		adaptableFigure.add(adaptedHeader);
 		reuseFigure.add(adaptableFigure);
 
 		originalFigure = new EntityFigure(new OverLayout());
@@ -70,9 +76,12 @@ public class ReuseFigure extends ContentPaneFigure {
 
         add(reuseFigure);
 
+        EntityFigure actionsFigure = new EntityFigure(new ColumnLayout().withSpacing(4));
         Toggle toggleFigure = new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND);
 		toggleFigure.setBorder(new MarginBorder(1, 2, 1, 3));
-		add(createFoldingToggle(toggleFigure, 5, 0, 2));
+		actionsFigure.add(createFoldingToggle(toggleFigure, 5, 0, 2));
+		actionsFigure.add(new EntityButton(linkListener));
+        add(actionsFigure);
 
 		clickFoldingToggle(0);
     }
@@ -82,7 +91,8 @@ public class ReuseFigure extends ContentPaneFigure {
 		if (paneIndex == 5) {
 			boolean isVisible = configurationFigure.isVisible();
 			configurationFigure.setVisible(!isVisible);
-			getContentPane(4).setVisible(!isVisible);
+//			getContentPane(4).setVisible(!isVisible);
+			adaptedHeader.setVisible(!isVisible);
 			originalFigure.setVisible(!isVisible);
 			reuseFigure.setBorder(isVisible ? null : reuseBorder);
 		} else

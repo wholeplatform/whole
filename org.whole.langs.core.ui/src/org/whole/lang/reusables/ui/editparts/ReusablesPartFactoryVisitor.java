@@ -80,7 +80,7 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
 
     @Override
     public void visit(WorkspacePath entity) {
-        part = new ContentTextualEntityPart();
+        part = new WorkspacePathPart();
     }
 
     @Override

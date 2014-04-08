@@ -17,15 +17,21 @@ package org.whole.lang.reusables.ui.editparts;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.e4.ui.jobs.InterpretModelRunnable;
-import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.util.EntityUtils;
+import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.model.Resource;
+import org.whole.lang.reusables.model.Reuse;
+import org.whole.lang.reusables.model.Source;
+import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.ui.figures.ReuseFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  *  @generator Whole
@@ -33,7 +39,18 @@ import org.whole.lang.reusables.ui.figures.ReuseFigure;
 public class ReusePart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new ReuseFigure();
+        return new ReuseFigure(event -> {
+        	try {
+	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	        	Reuse entity = getModelEntity();
+	        	Source source = entity.getSource();
+	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Resource, source)) {
+	    			IFile file = workspace.getRoot().getFile(Path.fromPortableString(((Resource) source).getLocator().wStringValue()));
+	            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+	        	}
+        	} catch (Exception e) {
+        	}
+        });
     }
 
     protected List<IEntity> getModelSpecificChildren() {
@@ -60,7 +77,7 @@ public class ReusePart extends AbstractContentPanePart {
         children.add(entity.getOriginal());
         children.add(entity.getAdapter());
         children.add(entity.getAdapted());
-        children.add(entity.getAdaptedRevision());
+//        children.add(entity.getAdaptedRevision());
         return children;
     }
 }
