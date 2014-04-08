@@ -334,6 +334,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 				IPersistenceKit persistenceKit = ReflectionFactory.getDefaultPersistenceKit();//TODO
 				sideModel = persistenceKit.readModel(new StreamPersistenceProvider(accessor.getContents()));
 			} catch (Exception e) {
+				E4Utils.reportError(getContext(), "Model Merge Viewer", "Unable to read the model", e);
 				//TODO ? sideModel = Status model instance with failure info
 			}
 		setSideModel(side, sideModel != null ? sideModel : CommonsEntityFactory.instance.createResolver(), label);
