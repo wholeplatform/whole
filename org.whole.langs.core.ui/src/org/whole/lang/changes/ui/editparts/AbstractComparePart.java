@@ -20,9 +20,10 @@ package org.whole.lang.changes.ui.editparts;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.swt.SWT;
 import org.whole.lang.changes.model.ChangeSides;
 import org.whole.lang.changes.model.Revision;
@@ -94,12 +95,14 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
     		for (Map.Entry<IEntity, IEntity> entry : map.entrySet()) {
             	IEntity le = entry.getKey();
             	IEntity re = entry.getValue();
-				IEntityPart lePart = ModelObserver.getObserver(le, editPartRegistry);
-            	IEntityPart rePart = ModelObserver.getObserver(re, editPartRegistry);
+				EditPart lePart = ModelObserver.getShowingObserver(le, editPartRegistry);
+				EditPart rePart = ModelObserver.getShowingObserver(re, editPartRegistry);
 
             	if (lePart != null && rePart != null) {
-            		Rectangle leBounds = ((IGraphicalEntityPart) lePart).getFigure().getBounds();
-            		Rectangle reBounds = ((IGraphicalEntityPart) rePart).getFigure().getBounds();
+            		IFigure leFigure = ((IGraphicalEntityPart) lePart).getFigure();
+            		IFigure reFigure = ((IGraphicalEntityPart) rePart).getFigure();
+            		Rectangle leBounds = leFigure.getBounds();
+            		Rectangle reBounds = reFigure.getBounds();
             		int y0Center = leBounds.y + leBounds.height / 2;
             		int y1Center = reBounds.y + reBounds.height / 2;
 
@@ -138,8 +141,8 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		
             		if (leBounds.x < x0) {
 	            		if (leBounds.height > 6) {
-	            			g.drawLine(x0, leBounds.y, leBounds.x, leBounds.y);
-	            			g.drawLine(x0, leBounds.bottom(), leBounds.x, leBounds.bottom());
+	            			g.drawLine(x0, leBounds.y, leBounds.right(), leBounds.y);
+	            			g.drawLine(x0, leBounds.bottom(), leBounds.right(), leBounds.bottom());
 	            		} else
 	            			g.drawLine(x0, y0Center, leBounds.x, y0Center);
             		}
