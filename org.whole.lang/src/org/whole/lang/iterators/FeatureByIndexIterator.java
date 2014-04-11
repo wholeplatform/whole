@@ -18,7 +18,6 @@
 package org.whole.lang.iterators;
 
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -31,21 +30,35 @@ public class FeatureByIndexIterator extends SelfIterator<IEntity> {
 	}
 
 	public boolean hasNext() {
-		return entity != null && entity.wContains(index);
+		return super.hasNext() && entity.wContains(index);
     }
 
     public IEntity lookahead() {
     	return hasNext() ? entity.wGet(index) : null;
     }
 
-	public void add(IEntity value) {
+    @Override
+    public void set(IEntity value) {
     	if (lastEntity == null)
     		throw new IllegalStateException();
     	
-    	if (EntityUtils.hasParent(lastEntity))
-    		lastEntity.wGetParent().wAdd(index, value);
+    	resetEntity.wSet(index, value);
+    }
+    @Override
+    public void add(IEntity value) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+    	
+    	resetEntity.wAdd(index, value);
+    }
+    @Override
+    public void remove() {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+    	
+    	resetEntity.wRemove(index);
     	lastEntity = null;
-	}
+    }
 
     @Override
 	public void toString(StringBuilder sb) {

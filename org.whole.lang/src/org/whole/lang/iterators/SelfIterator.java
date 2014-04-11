@@ -30,6 +30,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class SelfIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
     protected E entity;
+    protected E resetEntity;
     protected E lastEntity;
 
 	public IBindingScope lookaheadScope() {
@@ -54,7 +55,7 @@ public class SelfIterator<E extends IEntity> extends AbstractCloneableIterator<E
 
     @SuppressWarnings("unchecked")
 	public void reset(IEntity entity) {
-        this.entity = (E) entity;
+        this.entity = resetEntity = (E) entity;
 		lastEntity = null;
     }
 

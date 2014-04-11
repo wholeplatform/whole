@@ -48,7 +48,7 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 	protected FeatureDescriptor getFeatureDescriptor() {
 		if (featureDescriptor == null) {
 			if (!ResourceUtils.hasFragmentPart(featureName))
-				return entity.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
+				return resetEntity.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
 			
 	    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
 	    	featureDescriptor = CommonsDataTypePersistenceParser.getFeatureDescriptor(featureName, true, contextUri);
@@ -65,6 +65,28 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 
     public IEntity lookahead() {
     	return hasNext() ? entity.wGet(getFeatureDescriptor()) : null;
+    }
+
+    @Override
+    public void set(IEntity value) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+    	
+    	resetEntity.wSet(getFeatureDescriptor(), value);
+    }
+    @Override
+    public void add(IEntity value) {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+    	
+    	resetEntity.wSet(getFeatureDescriptor(), value);
+    }
+    @Override
+    public void remove() {
+    	if (lastEntity == null)
+    		throw new IllegalStateException();
+    	
+    	resetEntity.wRemove(getFeatureDescriptor());
     }
 
     @Override
