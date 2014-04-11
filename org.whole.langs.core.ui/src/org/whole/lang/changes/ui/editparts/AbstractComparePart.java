@@ -23,7 +23,6 @@ import java.util.Map;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.EditPart;
 import org.eclipse.swt.SWT;
 import org.whole.lang.changes.model.ChangeSides;
 import org.whole.lang.changes.model.Revision;
@@ -31,6 +30,8 @@ import org.whole.lang.changes.model.RevisionChange;
 import org.whole.lang.changes.model.RevisionTrack;
 import org.whole.lang.changes.model.Revisions;
 import org.whole.lang.changes.reflect.ChangesEntityDescriptorEnum;
+import org.whole.lang.changes.reflect.ChangesFeatureDescriptorEnum;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -95,11 +96,18 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
     		for (Map.Entry<IEntity, IEntity> entry : map.entrySet()) {
             	IEntity le = entry.getKey();
             	IEntity re = entry.getValue();
-				EditPart lePart = ModelObserver.getShowingObserver(le, editPartRegistry);
-				EditPart rePart = ModelObserver.getShowingObserver(re, editPartRegistry);
+				IEntityPart lePart = ModelObserver.getShowingObserver(le, editPartRegistry);
+				IEntityPart rePart = ModelObserver.getShowingObserver(re, editPartRegistry);
 
             	if (lePart != null && rePart != null) {
-            		IFigure leFigure = ((IGraphicalEntityPart) lePart).getFigure();
+            		boolean leHidden = le != lePart.getModelEntity();
+            		boolean reHidden = re != rePart.getModelEntity();
+            		boolean lePlaceholder = //le.wContains(ChangesFeatureDescriptorEnum.content) &&
+            				Matcher.match(ChangesEntityDescriptorEnum.Nothing, le.wGet(ChangesFeatureDescriptorEnum.content));
+            		boolean rePlaceholder = //re.wContains(ChangesFeatureDescriptorEnum.content) && 
+            					Matcher.match(ChangesEntityDescriptorEnum.Nothing, re.wGet(ChangesFeatureDescriptorEnum.content));
+
+					IFigure leFigure = ((IGraphicalEntityPart) lePart).getFigure();
             		IFigure reFigure = ((IGraphicalEntityPart) rePart).getFigure();
             		Rectangle leBounds = leFigure.getBounds();
             		Rectangle reBounds = reFigure.getBounds();
@@ -110,27 +118,29 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             				FigurePrefs.addBackgroundColor : FigurePrefs.deleteBackgroundColor);
             		g.setForegroundColor(FigurePrefs.collapseColor);
 
-            		if (leBounds.height > 6) {
+            		if (lePlaceholder)
+            			g.drawLine(x0, y0Center, x0 + 4, y0Center);
+            		else {
 	            		g.fillRectangle(x0, leBounds.y, 4, leBounds.height);
 	            		g.drawPolyline(new int[] {
 	            				x0, leBounds.y, x0 + 4, leBounds.y,
-	            				x0 + 4, leBounds.bottom(), x0, leBounds.bottom()
+	            				x0 + 4, leBounds.bottom()-1, x0, leBounds.bottom()-1
 	            		});
-            		} else
-            			g.drawLine(x0, y0Center, x0 + 4, y0Center);
+            		}
 
             		g.setBackgroundColor(re.wGetEntityDescriptor().equals(ChangesEntityDescriptorEnum.Insert) ?
             				FigurePrefs.addBackgroundColor : FigurePrefs.deleteBackgroundColor);
             		g.setForegroundColor(FigurePrefs.collapseColor);
 
-            		if (reBounds.height > 6) {
+            		if (rePlaceholder)
+            			g.drawLine(x1, y1Center, x1 - 5, y1Center);
+            		else {
 	            		g.fillRectangle(x1 - 5, reBounds.y, 5, reBounds.height);
 	            		g.drawPolyline(new int[] {
 	            				x1, reBounds.y, x1 - 5, reBounds.y,
-	            				x1 - 5, reBounds.bottom(), x1, reBounds.bottom()
+	            				x1 - 5, reBounds.bottom()-1, x1, reBounds.bottom()-1
 	            		});
-            		} else
-            			g.drawLine(x1, y1Center, x1 - 5, y1Center);
+            		}
 
             		g.setForegroundColor(FigurePrefs.collapseColor);
             		g.drawLine(x0 + 4, y0Center, x1 - 5, y1Center);
@@ -140,22 +150,29 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		g.setLineDash(new int[] {1,3});
             		
             		if (leBounds.x < x0) {
-	            		if (leBounds.height > 6) {
+	            		if (lePlaceholder)
+	            			g.drawLine(x0, y0Center, leBounds.right(), y0Center);
+	            		else {
 	            			g.drawLine(x0, leBounds.y, leBounds.right(), leBounds.y);
-	            			g.drawLine(x0, leBounds.bottom(), leBounds.right(), leBounds.bottom());
-	            		} else
-	            			g.drawLine(x0, y0Center, leBounds.x, y0Center);
+	            			g.drawLine(x0, leBounds.bottom()-1, leBounds.right(), leBounds.bottom()-1);
+	            		}
             		}
 
             		if (reBounds.x > x1) {//FIXME < bounds.right()
-	            		if (reBounds.height > 6) {
-	            			g.drawLine(x1, reBounds.y, reBounds.x, reBounds.y);
-	            			g.drawLine(x1, reBounds.bottom(), reBounds.x, reBounds.bottom());
-	            		} else
+	            		if (rePlaceholder)
 	            			g.drawLine(x1, y1Center, reBounds.x, y1Center);
+	            		else {
+	            			g.drawLine(x1, reBounds.y, reBounds.x, reBounds.y);
+	            			g.drawLine(x1, reBounds.bottom()-1, reBounds.x, reBounds.bottom()-1);
+	            		}
             		}
 
             		g.popState();
+            		
+            		if (leBounds.x < x0 && leHidden)
+            			g.drawRectangle(leBounds.x-1, leBounds.y, leBounds.width+1, leBounds.height-1);
+            		if (reBounds.x > x1 && reHidden)
+            				g.drawRectangle(reBounds.x-1, reBounds.y, reBounds.width+1, reBounds.height-1);
             	}
     		}
     	}
