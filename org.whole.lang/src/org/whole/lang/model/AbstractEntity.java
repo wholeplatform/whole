@@ -435,7 +435,7 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	}
 
 	public /*final*/ boolean wContains(int index) {
-		return index >= 0 && index < wSize();
+		return index >= 0 && index < wSize() + wAdjacentSize();
 	}
 	public /*final*/ FeatureDescriptor wGetFeatureDescriptor(int index) {
 		return wGetEntityDescriptor().getEntityFeatureDescriptor(index);
