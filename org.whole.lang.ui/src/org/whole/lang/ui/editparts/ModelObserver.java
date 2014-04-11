@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
@@ -62,12 +61,10 @@ public class ModelObserver implements PropertyChangeListener {
 
 	public static IEntityPart getShowingObserver(IEntity entity, Map<IEntity, IEntityPart> mapping) {
 		IEntityPart observer = mapping.get(entity);
-		IFigure figure = ((IGraphicalEntityPart) observer).getFigure();
 
-    	IEntity parentEntity = entity.wGetParent();
-    	while ((observer == null || !figure.isShowing()) && !EntityUtils.isNull(parentEntity)) {
+		IEntity parentEntity = entity.wGetParent();
+    	while ((observer == null || !(((IGraphicalEntityPart) observer).getFigure()).isShowing()) && !EntityUtils.isNull(parentEntity)) {
     		observer = mapping.get(parentEntity.wGet(entity));
-    		figure = ((IGraphicalEntityPart) observer).getFigure();
     		entity = parentEntity;
     		parentEntity = entity.wGetParent();	
     	}
