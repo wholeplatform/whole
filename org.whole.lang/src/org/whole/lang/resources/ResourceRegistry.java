@@ -207,9 +207,11 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		String resourceQName = resource.getQualifiedName();
 		if (resourceQName != null) {
 			Set<T> resourceSet = qnameResourcesMap.get(resourceQName);
-			resourceSet.remove(resource);
-			if (resourceSet.isEmpty())
-				qnameResourcesMap.remove(resourceQName);
+			if (resourceSet != null) {
+				resourceSet.remove(resource);
+				if (resourceSet.isEmpty())
+					qnameResourcesMap.remove(resourceQName);
+			}
 		}
 
 		String resourceName = resource.getName();
