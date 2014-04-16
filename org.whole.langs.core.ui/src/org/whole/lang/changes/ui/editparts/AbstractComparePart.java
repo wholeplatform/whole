@@ -149,12 +149,12 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		g.setLineStyle(SWT.LINE_CUSTOM);
             		g.setLineDash(new int[] {1,3});
             		
-            		if (leBounds.x < x0) {
+            		if (leBounds.right() < x0) {
 	            		if (lePlaceholder)
-	            			g.drawLine(x0, y0Center, leBounds.right(), y0Center);
+	            			g.drawLine(leBounds.right(), y0Center, x0, y0Center);
 	            		else {
-	            			g.drawLine(x0, leBounds.y, leBounds.right(), leBounds.y);
-	            			g.drawLine(x0, leBounds.bottom()-1, leBounds.right(), leBounds.bottom()-1);
+	            			g.drawLine(leBounds.right(), leBounds.y, x0, leBounds.y);
+	            			g.drawLine(leBounds.right(), leBounds.bottom()-1, x0, leBounds.bottom()-1);
 	            		}
             		}
 
