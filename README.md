@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wholeplatform/whole.svg?branch=master)](https://travis-ci.org/wholeplatform/whole)
+
 [Whole Platform](http://wholeplatform.com) Language Workbench
 =============================================================
 
