@@ -226,28 +226,4 @@
 		<rhino-version>1.7R3</rhino-version>
 		<junit-version>4.8.2</junit-version>
 	</properties>
-
-	<!-- update according to org.whole.target/KEPLER_4_3_x.target -->
-	<repositories>
-		<repository>
-			<id>eclipse-kepler-updates</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
-		</repository>
-		<repository>
-			<id>eclipse-kepler</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/kepler</url>
-		</repository>
-		<repository>
-			<id>e4tools</id>
-			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/e4tools-updates</url>
-		</repository>
-		<repository>
-			<id>java8patch</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3-P-builds</url>
-		</repository>
-	</repositories>
 </project>
