@@ -49,6 +49,7 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 		params.set(ILinkableSelectionListener.FUNCTION_URI, getDerivationFunction());
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, false);
+		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, false);
 		return params;
 	}
 
