@@ -22,7 +22,6 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
 import org.eclipse.gef.tools.PanningSelectionTool;
-import org.eclipse.gef.ui.palette.PaletteViewer;
 
 public enum Tools {
 	PANNING("org.eclipse.gef.tools.PanningSelectionTool", PanningSelectionTool.class),
@@ -49,15 +48,7 @@ public enum Tools {
 
 	public boolean isActive(EditPartViewer viewer) {
 		EditDomain editDomain = viewer.getEditDomain();
-		PaletteViewer paletteViewer = editDomain.getPaletteViewer();
-		if (paletteViewer != null)
-			return isActive(paletteViewer);
-		else
-			return isActive(editDomain);
-	}
-
-	public boolean isActive(PaletteViewer paletteViewer) {
-		return entryId.equals(paletteViewer.getActiveTool().getId());
+		return isActive(editDomain);
 	}
 
 	public boolean isActive(EditDomain editDomain) {
