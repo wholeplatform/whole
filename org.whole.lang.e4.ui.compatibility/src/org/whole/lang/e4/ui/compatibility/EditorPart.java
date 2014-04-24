@@ -100,12 +100,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 				setDirtyState(viewer.isDirty());
 			}
 		});
-		viewer.addModelInputListener(new IModelInputListener() {
-			public void modelInputChanged(IModelInput oldModelInput, IModelInput newModelInput) {
-				if (hasOutlinePage())
-					getOutlinePage().updateContents();
-			}
-		});
 		getSelectionSynchronizer().addViewer(viewer);
 
 		undoAction = new UndoAction(getContext(), UNDO_LABEL);
@@ -192,8 +186,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 	public Object getAdapter(Class adapter) {
 		if (adapter == GraphicalViewer.class)
 			return getComponent().getViewer();
-		else if (adapter == IContentOutlinePage.class)
-			return getOutlinePage();
 		else if (adapter == ZoomManager.class)
 			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
 		else if (adapter == CommandStack.class)
@@ -217,15 +209,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		super.dispose();
 	}
 
-	private OutlinePage outlinePage;
-	protected boolean hasOutlinePage() {
-		return outlinePage != null && outlinePage.isValid();
-	}
-	protected OutlinePage getOutlinePage() {
-		if (outlinePage == null)
-			outlinePage = new OutlinePage(getContext(), getComponent().getViewer(), getSelectionSynchronizer());
-		return outlinePage;
-	}
 	protected SelectionSynchronizer synchronizer;
 	protected SelectionSynchronizer getSelectionSynchronizer() {
 		if (synchronizer == null) {

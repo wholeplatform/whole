@@ -32,7 +32,7 @@ public interface IUIConstants {
 	public static final String MAP_PART_ID = BUNDLE_ID+".part.map";
 	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
 	public static final String RESULTS_PART_ID = BUNDLE_ID+".part.results";
-	public static final String TREE_PART_ID = BUNDLE_ID+".part.tree";
+	public static final String OUTLINE_PART_ID = BUNDLE_ID+".part.outline";
 	public static final String DEBUG_PART_ID = BUNDLE_ID+".part.debug";
 	public static final String VARIABLES_PART_ID = BUNDLE_ID+".part.variables";
 	public static final String CONTEXT_PART_ID = BUNDLE_ID+".part.context";

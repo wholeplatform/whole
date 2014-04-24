@@ -185,10 +185,10 @@
 		
 		<view
 				category="org.whole.lang.ui.views.category"
-				id="org.whole.lang.e4.ui.part.tree"
-				class="org.whole.lang.e4.ui.compatibility.TreeViewPart"
+				id="org.whole.lang.e4.ui.part.outline"
+				class="org.whole.lang.e4.ui.compatibility.OutlineTreeViewPart"
 				icon="icons/views/whole.gif"
-				name="E4 Tree View Example"
+				name="Outline"
 				restorable="true">
 		</view>
 	</extension>

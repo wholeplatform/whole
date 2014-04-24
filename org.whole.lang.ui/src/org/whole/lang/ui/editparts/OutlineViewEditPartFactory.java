@@ -48,8 +48,6 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi, Enrico Persiani
  */
 public class OutlineViewEditPartFactory implements EditPartFactory {
-	private static final String PROPERTY_DIRTY = "Dirty";
-
 	public EditPart createEditPart(EditPart context, Object modelEntity) {
 		IEntity entity = (IEntity) modelEntity;
 

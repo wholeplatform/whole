@@ -21,6 +21,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPlaceholderFolderLayout;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -51,7 +52,7 @@ public class WholeUIPerspectiveFactory implements IPerspectiveFactory {
 		folder.addView(IPageLayout.ID_RES_NAV);
 	}
 	protected void addBottomLeftViews(IFolderLayout folder) {
-		folder.addView(IPageLayout.ID_OUTLINE);
+		folder.addView(IUIConstants.OUTLINE_PART_ID);
 		folder.addView(IPageLayout.ID_PROGRESS_VIEW);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
