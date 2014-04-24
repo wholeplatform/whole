@@ -43,6 +43,8 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		pm.beginTask("Deriving...", IOperationProgressMonitor.TOTAL_WORK);
 		try {
+			bm.wEnterScope();
+			bm.wDefValue("breakpointsDisabled", true);
 			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
 			if (result != null) {
 				context.get(UISynchronize.class).asyncExec(new Runnable() {
@@ -54,6 +56,7 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 		} catch (OperationCanceledException e) {
 			// gracefully terminate execution
 		} finally {
+			bm.wExitScope();
 			pm.endTask();
 		}
 	}

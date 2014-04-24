@@ -107,6 +107,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		IBindingManager debugEnv = getBindings();
 
 		if (entity.getDisabled().wBooleanValue() ||
+				//FIXME the following check is performed also in E4Utils.suspendOperation
 				(debugEnv.wIsSet("breakpointsDisabled") && debugEnv.wBooleanValue("breakpointsDisabled")))
 			return;
 

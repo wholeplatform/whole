@@ -341,6 +341,9 @@ public class E4Utils {
 		suspendOperation(kind, null, suspendEntity, bindings, variablesModel);
 	}
 	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity onEntity, final IBindingManager bindings, IEntity variablesModel) {
+		if (bindings.wIsSet("breakpointsDisabled") && bindings.wBooleanValue("breakpointsDisabled"))
+			return;
+
 		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
 			if (throwable != null)
 				reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
