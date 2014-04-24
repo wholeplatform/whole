@@ -35,10 +35,4 @@ public enum LinkType {
 	public boolean isNotLinked() {
 		return this == NOT_LINKED;
 	}
-	public boolean isPartDependent() {
-		return isLinkedToFixedPart() || isLinkedToFixedPartSelection();
-	}
-	public boolean isUpdateOnSelectionChange() {
-		return isLinkedToActivePart() || isLinkedToFixedPart();
-	}
 }
