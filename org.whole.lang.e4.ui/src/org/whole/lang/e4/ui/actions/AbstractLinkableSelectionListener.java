@@ -22,6 +22,7 @@ import javax.inject.Named;
 
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
@@ -37,6 +38,12 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 	protected IEntityPartViewer viewer;
 	@Inject @Named(LINK_TYPE)
 	protected LinkType linkType;
+	@Optional @Inject @Named(FUNCTION_URI)
+	protected String functionUri;	
+	@Inject @Named(SHARE_EDIT_DOMAIN)
+	protected boolean shareEditDomain;
+	@Inject @Named(SYNCHRONIZE_SELECTION)
+	protected boolean synchronizeSelection;
 
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
@@ -44,6 +51,11 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 
 	@Override
 	public void selectionChanged(MPart part, Object selection) {
+		if (part.getElementId().equals(IUIConstants.OUTLINE_PART_ID) ||
+				part.getElementId().equals(IUIConstants.DETAILS_PART_ID) ||
+				part.getElementId().equals(IUIConstants.SAMPLE_PART_ID))
+			return;
+
 		if (isRelevant(selection))
 			updateViewerContents();
 	}
@@ -66,9 +78,6 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 			return false;
 
 		lastSelection = actualSelection.clone();
-
-		if (!linkType.isUpdateOnSelectionChange())
-			return false;
 
 		return linkType.isLinkedToActivePart() ||
 				(linkType.isLinkedToFixedPart() && selectedViewer == linkedViewer);

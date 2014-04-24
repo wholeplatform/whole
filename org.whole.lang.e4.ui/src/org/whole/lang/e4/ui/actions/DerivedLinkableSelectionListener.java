@@ -18,8 +18,6 @@
 package org.whole.lang.e4.ui.actions;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -37,12 +35,6 @@ import org.whole.lang.util.EntityUtils;
 public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionListener {
 	public static final String LABEL = "derive model";
 	protected ChangeTracker changeTracker;
-
-	@Inject @Named(FUNCTION_URI)
-	protected String functionUri;
-	
-	@Inject @Named(SHARE_EDIT_DOMAIN)
-	protected boolean shareEditDomain;
 
 	@PostConstruct
 	void init() {
@@ -82,16 +74,22 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 		if (!changeTracker.testChangedAndUpdate(lastSelection, lastSelection.wGet("self")))
 			return;
 
-		IRunnableWithProgress runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
-			@Override
-			protected void updateUI(IEntity result) {
-				super.updateUI(result);
-				fireContentsDerived(result);
-			}
-		};
-		final RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
-		job.setUser(false);
-		job.setPriority(Job.INTERACTIVE);
-		job.schedule();
+		if (functionUri != null) {
+			IRunnableWithProgress runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
+				@Override
+				protected void updateUI(IEntity result) {
+					super.updateUI(result);
+					fireContentsDerived(result);
+				}
+			};
+			final RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
+			job.setUser(false);
+			job.setPriority(Job.INTERACTIVE);
+			job.schedule();
+		} else
+			viewer.setContents(lastSelection.wGet("self"));
+
+		if (synchronizeSelection && lastSelection.wIsSet("primarySelectedEntity"))
+			viewer.selectAndReveal(lastSelection.wGet("primarySelectedEntity"));
 	}
 }
