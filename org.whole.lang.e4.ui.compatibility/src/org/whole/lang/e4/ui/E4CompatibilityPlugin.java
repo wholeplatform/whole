@@ -23,11 +23,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.gef.resources.GEFResources;
+import org.eclipse.gef.resources.IImageDescriptorFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -58,6 +62,23 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		Platform.getExtensionRegistry().addRegistryChangeListener(ResourceBindingsContributorExtensions.instance());
+		GEFResources.setImageRegistry(getImageRegistry());
+		GEFResources.setPreferenceStore(getPreferenceStore());
+		IImageDescriptorFactory factory = new IImageDescriptorFactory() {
+			public ImageDescriptor createFolder() {
+				ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+				return sharedImages.getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
+			}
+			public ImageDescriptor createDeleteDisabled() {
+				ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+				return sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE);
+			}
+			public ImageDescriptor createDelete() {
+				ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+				return sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED);
+			}
+		};
+		GEFResources.setImageDescriptorFactory(factory);
 	}
 
 	public void stop(BundleContext context) throws Exception {

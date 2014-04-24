@@ -41,7 +41,7 @@ Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.e4.core.contexts,
  org.eclipse.jface,
  org.eclipse.jface.text,
- org.eclipse.gef;bundle-version="3.9.0";visibility:=reexport,
+ org.eclipse.gef.lightweight;visibility:=reexport,
  org.whole.lang
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang

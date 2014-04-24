@@ -18,7 +18,7 @@
 package org.whole.lang.ui.viewers;
 
 import org.eclipse.draw2d.FigureCanvas;
-import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.AbstractEditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * @author Enrico Persiani
  */
-public class EntityEditDomain extends EditDomain {
+public class EntityEditDomain extends AbstractEditDomain {
 	public void addViewer(IEntityPartViewer viewer) {
 		super.addViewer(viewer);
 

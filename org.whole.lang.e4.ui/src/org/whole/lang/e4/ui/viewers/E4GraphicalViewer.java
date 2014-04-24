@@ -38,7 +38,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.AbstractEditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -195,8 +195,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return getCommandStack().isDirty();
 	}
 
-	public EditDomain linkEditDomain(IEntityPartViewer viewer) {
-		EditDomain editDomain = viewer.getEditDomain();
+	public AbstractEditDomain linkEditDomain(IEntityPartViewer viewer) {
+		AbstractEditDomain editDomain = viewer.getEditDomain();
 		setEditDomain(editDomain);
 		return editDomain;
 	}
