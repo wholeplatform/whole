@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.gef.AbstractEditDomain;
+import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
@@ -40,7 +40,7 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public CommandStack getCommandStack();
 	public boolean isDirty();
 
-	public AbstractEditDomain linkEditDomain(IEntityPartViewer viewer);
+	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer);
 
 	public IEntity getEntityContents();
 	public void setEntityContents(IEntity entity);

@@ -17,7 +17,7 @@
  */
 package org.whole.lang.ui.tools;
 
-import org.eclipse.gef.AbstractEditDomain;
+import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
@@ -47,11 +47,11 @@ public enum Tools {
 	}
 
 	public boolean isActive(EditPartViewer viewer) {
-		AbstractEditDomain editDomain = viewer.getEditDomain();
+		LightweightEditDomain editDomain = viewer.getEditDomain();
 		return isActive(editDomain);
 	}
 
-	public boolean isActive(AbstractEditDomain editDomain) {
+	public boolean isActive(LightweightEditDomain editDomain) {
 		return toolClass.isInstance(editDomain.getActiveTool());
 	}
 
@@ -59,11 +59,11 @@ public enum Tools {
 		if (isActive(viewer))
 			return true;
 
-		AbstractEditDomain editDomain = viewer.getEditDomain();
+		LightweightEditDomain editDomain = viewer.getEditDomain();
 		return ensureActive(editDomain);
 	}
 
-	public boolean ensureActive(AbstractEditDomain editDomain) {
+	public boolean ensureActive(LightweightEditDomain editDomain) {
 		try {
 			editDomain.setActiveTool(createTool());
 		} catch (Exception e) {
@@ -84,7 +84,7 @@ public enum Tools {
 		return getActiveTool(viewer.getEditDomain());
 	}
 
-	public static Tools getActiveTool(AbstractEditDomain editDomain) {
+	public static Tools getActiveTool(LightweightEditDomain editDomain) {
 		Tool activeTool = editDomain.getActiveTool();
 		for (Tools tool : values())
 			if (tool.toolClass.isInstance(activeTool))
