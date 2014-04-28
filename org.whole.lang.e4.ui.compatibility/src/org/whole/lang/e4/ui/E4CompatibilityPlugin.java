@@ -62,8 +62,8 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		Platform.getExtensionRegistry().addRegistryChangeListener(ResourceBindingsContributorExtensions.instance());
-		GEFResources.setImageRegistry(getImageRegistry());
-		GEFResources.setPreferenceStore(getPreferenceStore());
+		GEFResources.getInstance().setImageRegistry(getImageRegistry());
+		GEFResources.getInstance().setPreferenceStore(getPreferenceStore());
 		IImageDescriptorFactory factory = new IImageDescriptorFactory() {
 			public ImageDescriptor createFolder() {
 				ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
@@ -78,7 +78,7 @@ public class E4CompatibilityPlugin extends AbstractUIPlugin {
 				return sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE_DISABLED);
 			}
 		};
-		GEFResources.setImageDescriptorFactory(factory);
+		GEFResources.getInstance().setImageDescriptorFactory(factory);
 	}
 
 	public void stop(BundleContext context) throws Exception {
