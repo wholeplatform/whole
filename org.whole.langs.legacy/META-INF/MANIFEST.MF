@@ -77,7 +77,7 @@ Require-Bundle: org.whole.lang,
  org.eclipse.core.runtime;bundle-version="3.9.0",
  org.mozilla.rhino;resolution:=optional,
  org.beanshell.bsh;resolution:=optional,
- org.objectweb.asm;bundle-version="[3.1.0,4.0.0)";resolution:=optional,
+ org.objectweb.asm;bundle-version="3.1.0";resolution:=optional,
  net.sourceforge.jodatime;resolution:=optional,
  com.fasterxml.jackson;resolution:=optional
 Bundle-ActivationPolicy: lazy
