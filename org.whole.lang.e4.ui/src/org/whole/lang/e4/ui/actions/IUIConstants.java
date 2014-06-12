@@ -55,8 +55,8 @@ public interface IUIConstants {
 	public static final String ADD_FRAGMENT_COMMAND_ID = COMMAND_NS+"addFragment";
 
 	public static final String REPLACE_WITH_DEFAULT_COMMAND_ID = COMMAND_NS+"replaceWithDefault";
-	public static final String SELECT_NOTATION_COMMAND_ID = COMMAND_NS+"selectNotation";
 	public static final String IMPORT_COMMAND_ID = COMMAND_NS+"import";
+	public static final String SELECT_NOTATION_COMMAND_ID = COMMAND_NS+"selectNotation";
 	public static final String ACTION_CALL_COMMAND_ID = COMMAND_NS+"actionCall";
 	public static final String PERFORM_COMMAND_ID = COMMAND_NS+"perform";
 
@@ -108,8 +108,8 @@ public interface IUIConstants {
 	public static final String SELECT_ALL_MENU_ID = "selectAll";
 	
 	// icon uris
-	public static final String UNDO_ICON_URI = "platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.gif";
-	public static final String REDO_ICON_URI = "platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.gif";
+	public static final String UNDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/undo_edit.gif");
+	public static final String REDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/redo_edit.gif");
 	public static final String REPLACE_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/replace.gif");
 	public static final String ADD_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/insert.gif");
 	public static final String WRAP_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/wrap.gif");
