@@ -51,7 +51,7 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 	}
 
 	@Override
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+	public void run(IProgressMonitor monitor) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		boolean delayUpdates = delayUpdates(viewer, this.delayUpdates);
 		boolean enableAnimation = AnimableRunnable.enableAnimation(!this.delayUpdates);
