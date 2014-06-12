@@ -129,6 +129,9 @@
 
 	<extension
 			point="org.whole.lang.ui.resourceBindingsContributors">
+        <resourceBindingsContributor
+              class="org.whole.lang.grammars.ui.GrammarsResourceBindingsContributor"
+              id="GrammarsResourceBindingsContributor"/>
 		<resourceBindingsContributor
 			class="org.whole.gen.util.JDTResourceBindingsContributor"
 			id="JDTResourceBindingsContributor"/>

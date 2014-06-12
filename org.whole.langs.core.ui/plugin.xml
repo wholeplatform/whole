@@ -9,11 +9,4 @@
             id="org.whole.langs.core.ui.CoreUIDeployer">
       </deployer>
 	</extension>
-
-     <extension
-           point="org.whole.lang.ui.resourceBindingsContributors">
-        <resourceBindingsContributor
-              class="org.whole.lang.grammars.ui.GrammarsResourceBindingsContributor"
-              id="GrammarsResourceBindingsContributor"/>
-     </extension>
 </plugin>
