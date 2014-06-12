@@ -43,7 +43,7 @@ public class PerformHandler  {
 	@CanExecute
 	public boolean canExecute(@Named(BEHAVIOR_XWL_PARAMETER_ID) String behaviorXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
 			bm.wEnterScope(ts);
@@ -61,7 +61,7 @@ public class PerformHandler  {
 	public void execute(@Named(BEHAVIOR_XWL_PARAMETER_ID) String behaviorXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"), label);
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();

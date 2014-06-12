@@ -21,6 +21,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -35,7 +36,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public abstract class ModelTransactionHandler {
 
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
 			bm.wEnterScope(ts);
@@ -49,7 +50,7 @@ public abstract class ModelTransactionHandler {
 	}
 
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));

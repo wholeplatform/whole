@@ -23,6 +23,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -42,7 +43,7 @@ public abstract class FragmentModelTransactionHandler {
 	@CanExecute
 	public boolean canExecute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
@@ -60,7 +61,7 @@ public abstract class FragmentModelTransactionHandler {
 	@Execute
 	public void execute(@Named(FRAGMENT_XWL_PARAMETER_ID) String fragmentXwl,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm, IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();

@@ -40,7 +40,7 @@ public abstract class TypedModelTransactionHandler {
 	@CanExecute
 	public boolean canExecute(@Named(ED_URI_PARAMETER_ID) String edUri,
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
@@ -58,7 +58,7 @@ public abstract class TypedModelTransactionHandler {
 	@Execute
 	public void execute(@Named(ED_URI_PARAMETER_ID) String edUri,
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEntityPartViewer viewer) throws Exception {
 		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));

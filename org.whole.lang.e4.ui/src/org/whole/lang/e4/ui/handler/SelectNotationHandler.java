@@ -25,6 +25,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
@@ -43,7 +44,7 @@ import org.whole.lang.util.EntityUtils;
 public class SelectNotationHandler {
 
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {
 			return HandlersBehavior.isValidFocusEntityPart(bm);
 		} catch (Exception e) {
@@ -52,7 +53,7 @@ public class SelectNotationHandler {
 	}
 
 	@Execute
-	public void execute(@Named(EDITORKIT_ID_PARAMETER_ID) String editorKitId,
+	public void execute(@Optional @Named(EDITORKIT_ID_PARAMETER_ID) String editorKitId,
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			final IEntityPartViewer viewer, UISynchronize synchronize) {
 		IEditorKit editorKit = ReflectionFactory.getEditorKit(editorKitId);

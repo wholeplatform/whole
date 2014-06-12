@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -36,7 +37,7 @@ import org.whole.lang.e4.ui.jobs.RunnableJob;
 public abstract class OperationHandler {
 
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
 			bm.wEnterScope(ts);
@@ -50,7 +51,7 @@ public abstract class OperationHandler {
 	}
 
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
+	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
 
 		IRunnableWithProgress runnable = createRunnable(bm, context);

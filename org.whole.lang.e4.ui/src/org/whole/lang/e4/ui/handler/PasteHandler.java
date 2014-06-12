@@ -21,6 +21,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -41,7 +42,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class PasteHandler extends RedirectableModelTransactionHandler {
 	@Override
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {
 			if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
 				IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
@@ -56,7 +57,7 @@ public class PasteHandler extends RedirectableModelTransactionHandler {
 
 	@Override
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		if (bm.wIsSet("viewer") && Clipboard.instance().getInternalOrNativeEntityContents() == null) {
 			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 			if (ClipboardUtils.hasTextFocus(viewer) ||  ClipboardUtils.hasTextSeletion(viewer)) {

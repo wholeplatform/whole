@@ -45,7 +45,7 @@ public class ActionCallHandler {
 	public boolean canExecute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) throws Exception {
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
@@ -65,7 +65,7 @@ public class ActionCallHandler {
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
 			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
-			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
+			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
 
 		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, true);

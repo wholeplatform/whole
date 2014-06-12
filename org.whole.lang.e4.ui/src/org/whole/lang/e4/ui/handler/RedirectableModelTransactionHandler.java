@@ -21,6 +21,7 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.ui.actions.IActionRedirection;
@@ -35,7 +36,7 @@ public abstract class RedirectableModelTransactionHandler extends ModelTransacti
 
 	@Override
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public boolean canExecute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		try {
 			return getActionRedirection(bm).isActive() ? true : super.canExecute(bm);
 		} catch (Exception e) {
@@ -45,7 +46,7 @@ public abstract class RedirectableModelTransactionHandler extends ModelTransacti
 
 	@Override
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		IActionRedirection actionRedirection = getActionRedirection(bm);
 		if (actionRedirection.isActive())
 			performActionRedirection(actionRedirection);

@@ -22,6 +22,7 @@ import javax.inject.Named;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWTException;
 import org.whole.lang.bindings.IBindingManager;
@@ -36,7 +37,7 @@ import org.whole.lang.util.EntityUtils;
  */
 public class FindReplaceHandler {
 	@Execute
-	public void execute(IEclipseContext context, @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+	public void execute(final IEclipseContext context, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 
 		E4FindReplaceDialog dialog = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
 		if (dialog.getShell() == null) {
