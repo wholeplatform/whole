@@ -29,8 +29,7 @@ public class CommandFactory implements ICommandFactory {
 	public CommandFactory() {
 	}
 
-	@Override
-	public MCommand createMCommand(String elementId, String commandName, MCommandParameter... parameters) {
+	protected MCommand createMCommand(String elementId, String commandName, MCommandParameter... parameters) {
 		MCommand command = MCommandsFactory.INSTANCE.createCommand();
 		command.setElementId(elementId);
 		command.setCommandName(commandName);
@@ -39,8 +38,7 @@ public class CommandFactory implements ICommandFactory {
 		return command;
 	}
 
-	@Override
-	public MCommandParameter createMCommandParameter(String elementId, String label, boolean optional) {
+	protected MCommandParameter createMCommandParameter(String elementId, String label, boolean optional) {
 		MCommandParameter parameter = MCommandsFactory.INSTANCE.createCommandParameter();
 		parameter.setElementId(elementId);
 		parameter.setName(label);
