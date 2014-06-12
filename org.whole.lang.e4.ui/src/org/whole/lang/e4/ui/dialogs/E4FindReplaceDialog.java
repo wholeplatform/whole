@@ -19,7 +19,6 @@ package org.whole.lang.e4.ui.dialogs;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -69,7 +68,6 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-@Singleton
 public class E4FindReplaceDialog extends E4Dialog {
 	private static final int FIND_ID = IDialogConstants.CLIENT_ID + 1;
 	private static final int REPLACE_ID = IDialogConstants.CLIENT_ID + 2;
@@ -134,8 +132,6 @@ public class E4FindReplaceDialog extends E4Dialog {
 		replaceViewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				context.remove(IEntityPartViewer.class);
-				context.remove(ActionRegistry.class);
 			}
 
 			@SuppressWarnings("unchecked")

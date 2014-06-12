@@ -17,6 +17,7 @@
  */
 package org.whole.lang.e4.ui.dialogs;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -110,7 +111,8 @@ public class E4Dialog extends Dialog {
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		HandlersBehavior.registerHandlers(handlerService);
+		if (E4Utils.isLegacyApplication())
+			HandlersBehavior.registerHandlers(handlerService);
 
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
@@ -125,8 +127,6 @@ public class E4Dialog extends Dialog {
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent event) {
-				context.remove(IEntityPartViewer.class);
-				context.remove(ActionRegistry.class);
 			}
 
 			@SuppressWarnings("unchecked")
@@ -141,6 +141,7 @@ public class E4Dialog extends Dialog {
 			@SuppressWarnings("unchecked")
 			public void focusChanged(IEntityPart oldPart, IEntityPart newPart) {
 				updateSelection(E4Utils.createSelectionBindings(viewer.getSelectedEditParts(), viewer, context));
+				context.activateBranch();
 			}
 		});
 
@@ -166,8 +167,16 @@ public class E4Dialog extends Dialog {
 		return parent;
 	}
 
+	@PostConstruct
+	@Override
+	public int open() {
+		return super.open();
+	}
+
 	protected void updateSelection(IBindingManager bm) {
 		selectionService.setSelection(bm);
+		//FIXME workaround selectionService.setSelection(bm); doesn't update the ACTIVE_SELECTION in the active context
+		context.set(IServiceConstants.ACTIVE_SELECTION, bm);
 	}
 
 	protected IEntity createDefaultContents() {

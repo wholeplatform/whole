@@ -24,7 +24,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.swt.SWTException;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -40,21 +39,9 @@ public class FindReplaceHandler {
 	public void execute(final IEclipseContext context, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 
 		E4FindReplaceDialog dialog = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
-		if (dialog.getShell() == null) {
-			dialog.create();
-			dialog.open();
-		} else
-			dialog.getShell().setActive();
-
-		try {
-			dialog.setTemplate(bm.wIsSet("primarySelectedEntity") && 
-					!Matcher.matchImpl(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("primarySelectedEntity")) ?
-							EntityUtils.clone(bm.wGet("primarySelectedEntity")) : CommonsEntityFactory.instance.createResolver());
-		} catch (SWTException e) {
-			context.remove(E4FindReplaceDialog.class);
-			dialog = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
-			dialog.create();
-			dialog.open();
-		}
+		dialog.getShell().setActive();
+		dialog.setTemplate(bm.wIsSet("primarySelectedEntity") && 
+				!Matcher.matchImpl(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("primarySelectedEntity")) ?
+						EntityUtils.clone(bm.wGet("primarySelectedEntity")) : CommonsEntityFactory.instance.createResolver());
 	}
 }
