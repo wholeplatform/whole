@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.dialogs;
 
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -25,98 +27,66 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionStatusDialog;
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.ReflectionFactory;
 
 /**
  * @author Enrico Persiani
  */
-public class ImplicitElementImportAsModelDialog extends SelectionStatusDialog implements IImportAsModelDialog {
-	protected IPersistenceKit persistenceKit;
-	protected EntityDescriptor<?> stage;
-	protected boolean enableForceAdding;
-	protected boolean forceAdding;
+public class ImplicitElementImportAsModelDialog extends AbstractImportAsModelDialog {
+	protected Dialog dialog;
 
-	public ImplicitElementImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
-		super(parent);
-		setTitle(title);
-		this.enableForceAdding = enableForceAdding; 
-		this.persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
-		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
-		this.forceAdding = false;
-	}
-	
-	@Override
-	protected void computeResult() {
+	public ImplicitElementImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory,
+			String title, boolean enableForceAdding) {
+		super(shell, factory, title, "", enableForceAdding);
+		this.dialog = new Dialog(shell, this, new LabelProvider(), getTitle(), getMessage());
 	}
 
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
-		Composite group = new Composite(composite, SWT.NONE);
-		group.setLayout(new GridLayout());
-		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
-		gridLayout.marginWidth = 10;
-		group.setLayout(gridLayout);
-
-		addControls(group);
-
-		return composite;
+	protected boolean openDialog() {
+		return dialog.open() == Window.OK;
 	}
 
-	protected void addControls(Composite group) {
-		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Paste As:");
-		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
-		if (enableForceAdding)
-			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
-	}
+	public static class Dialog extends SelectionStatusDialog {
+		protected IImportAsModelDialog container;
 
-	@Override
-	protected Control createButtonBar(Composite parent) {
-		Control buttonBar = super.createButtonBar(parent);
-		getOkButton().setFocus();
-		return buttonBar;
-	}
+		public Dialog(Shell parent, IImportAsModelDialog container, ILabelProvider renderer, String title, String message) {
+			super(parent);
+			setTitle(title);
+			setMessage(message);
+			this.container = container;
+		}
+		@Override
+		protected void computeResult() {
+		}
 
-	public IPersistenceKit getPersistenceKit() {
-		return persistenceKit;
-	}
-	public void setPersistenceKit(IPersistenceKit persistenceKit) {
-		this.persistenceKit = persistenceKit;
-	}
+		@Override
+		protected Control createDialogArea(Composite parent) {
+			Composite composite = (Composite) super.createDialogArea(parent);
+			Composite group = new Composite(composite, SWT.NONE);
+			group.setLayout(new GridLayout());
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-	public EntityDescriptor<?> getStage() {
-		return stage;
-	}
-	public void setStage(EntityDescriptor<?> stage) {
-		this.stage = stage;
-	}
+			GridLayout gridLayout = new GridLayout();
+			gridLayout.numColumns = 2;
+			gridLayout.marginWidth = 10;
+			group.setLayout(gridLayout);
 
-	public boolean isForceAdding() {
-		return forceAdding;
-	}
-	public void setForceAdding(boolean forceAdding) {
-		this.forceAdding = forceAdding;
-	}
+			addControls(group);
 
-	public Object[] getSelection() {
-		throw new IllegalStateException("cannot get selection");
-	}
-	public void setSelection(Object[] selection) {
-		throw new IllegalStateException("cannot set selection");
-	}
+			return composite;
+		}
 
-	public boolean show() {
-		boolean value = super.open() == Window.OK;
-		if (value)
-			ImportAsModelDialogFactory.instance().setDefaults(persistenceKit, stage);				
-		return value;
-	}
-	public void validate() {
+		protected void addControls(Composite group) {
+			container.getFactory().addPersistenceCombo(container, group, "Paste As:");
+			container.getFactory().addStageCombo(container, group, "Stage:");
+			if (container.isEnableForceAdding())
+				container.getFactory().addForceAdditionButton(container, group, "Force addition");
+		}
+
+		@Override
+		protected Control createButtonBar(Composite parent) {
+			Control buttonBar = super.createButtonBar(parent);
+			getOkButton().setFocus();
+			return buttonBar;
+		}
 	}
 }

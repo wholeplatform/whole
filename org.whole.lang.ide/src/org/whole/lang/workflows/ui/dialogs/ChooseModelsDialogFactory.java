@@ -23,8 +23,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.ui.dialogs.DisabledImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
-import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.workflows.model.Assignments;
 
 /**
@@ -45,7 +45,9 @@ public class ChooseModelsDialogFactory implements ITaskDialogFactory {
 		params.set("dialogTitle", title);
 		params.set("dialogMessage", message);
 		params.set("dialogAssignments", assignments);
-		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
-		return ContextInjectionFactory.make(ChooseModelsDialog.class, (IEclipseContext) bindings.wGetValue("eclipseContext"), params);
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(DisabledImportAsModelDialogFactory.class, context);
+		params.set(IImportAsModelDialogFactory.class, factory);
+		return ContextInjectionFactory.make(ChooseModelsDialog.class, context, params);
 	}
 }

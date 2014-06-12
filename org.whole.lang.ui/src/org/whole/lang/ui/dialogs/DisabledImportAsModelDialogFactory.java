@@ -25,14 +25,22 @@ import org.eclipse.swt.widgets.Shell;
  * @author Enrico Persiani
  */
 @Singleton
-public class ImportAsModelDialogFactory extends AbstractImportAsModelDialogFactory {
-	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ImportAsModelDialog(shell, this, title, enableForceAdding));
+public class DisabledImportAsModelDialogFactory extends AbstractImportAsModelDialogFactory {
+	@Override
+	public IImportAsModelDialog createImportAsModelDialog(Shell shell,
+			String title, boolean enableForceAdding) {
+		return new DisabledImportAsModelDialog(shell, this, title, "The feature disabled in this context");
 	}
-	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ElementListImportAsModelDialog(shell, this, title, enableForceAdding));
+
+	@Override
+	public IImportAsModelDialog createElementListImportAsModelDialog(
+			Shell shell, String title, boolean enableForceAdding) {
+		return new DisabledImportAsModelDialog(shell, this, title, "The feature disabled in this context");
 	}
-	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ImplicitElementImportAsModelDialog(shell, this, title, enableForceAdding));
+
+	@Override
+	public IImportAsModelDialog createImplicitElementImportAsModelDialog(
+			Shell shell, String title, boolean enableForceAdding) {
+		return new DisabledImportAsModelDialog(shell, this, title, "The feature disabled in this context");
 	}
 }

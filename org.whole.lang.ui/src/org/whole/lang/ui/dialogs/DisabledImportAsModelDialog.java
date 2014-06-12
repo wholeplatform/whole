@@ -17,22 +17,21 @@
  */
 package org.whole.lang.ui.dialogs;
 
-import javax.inject.Singleton;
-
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 /**
  * @author Enrico Persiani
  */
-@Singleton
-public class ImportAsModelDialogFactory extends AbstractImportAsModelDialogFactory {
-	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ImportAsModelDialog(shell, this, title, enableForceAdding));
+public class DisabledImportAsModelDialog extends AbstractImportAsModelDialog {
+
+	public DisabledImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory, String title, String message) {
+		super(shell, factory, title, message, false);
 	}
-	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ElementListImportAsModelDialog(shell, this, title, enableForceAdding));
-	}
-	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title, boolean enableForceAdding) {
-		return configureDialog(new ImplicitElementImportAsModelDialog(shell, this, title, enableForceAdding));
+
+	@Override
+	protected boolean openDialog() {
+		MessageDialog.openInformation(shell, getTitle(), getMessage());
+		return false;
 	}
 }

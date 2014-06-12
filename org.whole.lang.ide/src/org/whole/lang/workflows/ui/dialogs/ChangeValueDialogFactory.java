@@ -24,6 +24,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.dialogs.DisabledImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.util.BehaviorUtils;
@@ -54,7 +55,9 @@ public class ChangeValueDialogFactory implements ITaskDialogFactory {
 		params.set("dialogTitle", title);
 		params.set("dialogMessage", message);
 		params.set("dialogEntity", entity);
-		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
-		return ContextInjectionFactory.make(ChangeValueDialog.class, (IEclipseContext) bindings.wGetValue("eclipseContext"), params);
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(DisabledImportAsModelDialogFactory.class, context);
+		params.set(IImportAsModelDialogFactory.class, factory);
+		return ContextInjectionFactory.make(ChangeValueDialog.class, context, params);
 	}
 }

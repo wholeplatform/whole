@@ -24,6 +24,8 @@ import org.whole.lang.reflect.EntityDescriptor;
  * @author Enrico Persiani
  */
 public interface IImportAsModelDialog {
+	public IImportAsModelDialogFactory getFactory();
+
 	public Object[] getSelection();
 	public void setSelection(Object[] selection);
 	
@@ -33,11 +35,18 @@ public interface IImportAsModelDialog {
 	public EntityDescriptor<?> getStage();
 	public void setStage(EntityDescriptor<?> stage);
 
+	public boolean isEnableForceAdding();
+	public void setEnableForceAdding(boolean enableForceAdding);
+
 	public boolean isForceAdding();
 	public void setForceAdding(boolean adding);
 
+	public String getTitle();
 	public void setTitle(String title);
+
+	public String getMessage();
 	public void setMessage(String message);
+
 	public boolean show();
-	public void validate();
+	public boolean validate();
 }

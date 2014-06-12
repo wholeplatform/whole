@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.compatibility;
 
 import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIViewPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
@@ -50,7 +51,9 @@ public class ViewPart<C extends AbstractE4Part> extends DIViewPart<C> {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		getContext().set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
+
+		getContext().set(IImportAsModelDialogFactory.class, factory);
 
 		super.createPartControl(parent);
 

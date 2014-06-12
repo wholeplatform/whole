@@ -17,6 +17,7 @@
  */
 package org.whole.lang.ui.dialogs;
 
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -27,109 +28,90 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.ReflectionFactory;
 
 /**
  * @author Enrico Persiani
  */
-public class ElementListImportAsModelDialog extends ElementListSelectionDialog implements IImportAsModelDialog {
-	protected IPersistenceKit persistenceKit;
-	protected EntityDescriptor<?> stage;
-	protected boolean enableForceAdding;
-	protected boolean forceAdding;
+public class ElementListImportAsModelDialog extends AbstractImportAsModelDialog {
+	protected Dialog dialog;
 
-	public ElementListImportAsModelDialog(Shell parent, String title, String message, boolean enableForceAdding) {
-		super(parent, new LabelProvider());
-		setTitle(title); 
-		setMessage(message);
-		this.enableForceAdding = enableForceAdding;
-		this.persistenceKit = ReflectionFactory.getDefaultPersistenceKit();
-		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
-		this.forceAdding = false;
+	public ElementListImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory,
+			String title, String message, boolean enableForceAdding) {
+		super(shell, factory, title, message, enableForceAdding);
+		this.dialog = new Dialog(shell, this, new LabelProvider(), getTitle(), getMessage());
 	}
 
-	public ElementListImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
-		this(parent, title, "Resources to drop", enableForceAdding);
-	}
-
-	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
-		Composite group = new Composite(composite, SWT.NONE);
-		group.setLayout(new GridLayout());
-		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
-		gridLayout.marginWidth = 10;
-		group.setLayout(gridLayout);
-
-		addControls(group);
-
-		return composite;
-	}
-
-	@Override
-	protected Text createFilterText(Composite parent) {
-		Text createFilterText = super.createFilterText(parent);
-		createFilterText.setVisible(false);
-		return createFilterText;
-	}
-
-	protected void addControls(Composite group) {
-		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Import As:");
-		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
-		if (enableForceAdding)
-			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
-	}
-
-	@Override
-	protected Control createButtonBar(Composite parent) {
-		Control buttonBar = super.createButtonBar(parent);
-		getOkButton().setFocus();
-		return buttonBar;
-	}
-
-	public IPersistenceKit getPersistenceKit() {
-		return persistenceKit;
-	}
-	public void setPersistenceKit(IPersistenceKit persistenceKit) {
-		this.persistenceKit = persistenceKit;
-	}
-
-	public EntityDescriptor<?> getStage() {
-		return stage;
-	}
-	public void setStage(EntityDescriptor<?> stage) {
-		this.stage = stage;
-	}
-
-	public boolean isForceAdding() {
-		return forceAdding;
-	}
-	public void setForceAdding(boolean forceAdding) {
-		this.forceAdding = forceAdding;
+	public ElementListImportAsModelDialog(Shell parent, IImportAsModelDialogFactory factory, String title, boolean enableForceAdding) {
+		this(parent, factory, title, "Resources to drop", enableForceAdding);
 	}
 
 	public Object[] getSelection() {
-		return getSelectedElements();
+		return dialog.getResult();
 	}
 	@Override
 	public void setSelection(Object[] selection) {
-		setElements(selection);
+		dialog.setElements(selection);
 	}
 
-	public boolean show() {
-		boolean value = super.open() == Window.OK;
-		if (value)
-			ImportAsModelDialogFactory.instance().setDefaults(persistenceKit, stage);				
-		return value;
+	@Override
+	protected boolean openDialog() {
+		return dialog.open() == Window.OK;
 	}
 
-	public void validate() {
-		validateCurrentSelection();
+	public boolean validate() {
+		return dialog.validate();
+	}
+
+	public static class Dialog extends ElementListSelectionDialog {
+		protected IImportAsModelDialog container;
+
+		public Dialog(Shell parent, IImportAsModelDialog container, ILabelProvider renderer, String title, String message) {
+			super(parent, renderer);
+			setTitle(title);
+			setMessage(message);
+			this.container = container;
+		}
+
+		@Override
+		protected Control createDialogArea(Composite parent) {
+			Composite composite = (Composite) super.createDialogArea(parent);
+			Composite group = new Composite(composite, SWT.NONE);
+			group.setLayout(new GridLayout());
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+			GridLayout gridLayout = new GridLayout();
+			gridLayout.numColumns = 2;
+			gridLayout.marginWidth = 10;
+			group.setLayout(gridLayout);
+
+			addControls(group);
+
+			return composite;
+		}
+
+		@Override
+		protected Text createFilterText(Composite parent) {
+			Text createFilterText = super.createFilterText(parent);
+			createFilterText.setVisible(false);
+			return createFilterText;
+		}
+
+		protected void addControls(Composite group) {
+			container.getFactory().addPersistenceCombo(container, group, "Paste As:");
+			container.getFactory().addStageCombo(container, group, "Stage:");
+			if (container.isEnableForceAdding())
+				container.getFactory().addForceAdditionButton(container, group, "Force addition");
+		}
+
+		@Override
+		protected Control createButtonBar(Composite parent) {
+			Control buttonBar = super.createButtonBar(parent);
+			getOkButton().setFocus();
+			return buttonBar;
+		}
+
+		public boolean validate() {
+			return super.validateCurrentSelection();
+		}
 	}
 }

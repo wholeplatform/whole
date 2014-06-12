@@ -27,100 +27,95 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.E4CompatibilityPlugin;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.ReflectionFactory;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public class ImportAsModelDialog extends OpenAsModelDialog implements IImportAsModelDialog {
-	protected EntityDescriptor<?> stage;
-	protected boolean enableForceAdding;
-	protected boolean forceAdding;
+public class ImportAsModelDialog extends AbstractImportAsModelDialog {
+	protected Dialog dialog;
 
-	public ImportAsModelDialog(Shell parent, String title, boolean enableForceAdding) {
-		this(parent, title, "Choose resources to be imported", enableForceAdding);
+	public ImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory,
+			String title, boolean enableForceAdding) {
+		this(shell, factory, title, "Choose resources to be imported", enableForceAdding);
 	}
-	public ImportAsModelDialog(Shell parent, String title, String message, boolean enableForceAdding) {
-		super(parent, ReflectionFactory.getDefaultPersistenceKit(), title, message);
-		this.enableForceAdding = enableForceAdding;
-		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
-		this.forceAdding = false;
-		setValidator(new SelectionValidator());
-	}
+	public ImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory,
+			String title, String message, boolean enableForceAdding) {
+		super(shell, factory, title, message, enableForceAdding);
 
-	@Override
-	protected void addControls(Composite group) {
-		ImportAsModelDialogFactory.addPersistenceCombo(this, group, "Import As:");
-		ImportAsModelDialogFactory.addStageCombo(this, group, "Stage:");
-		if (enableForceAdding)
-			ImportAsModelDialogFactory.addForceAdditionButton(this, group, "Force addition");
-	}
-
-	@Override
-	protected Control createButtonBar(Composite parent) {
-		Control buttonBar = super.createButtonBar(parent);
-		getOkButton().setFocus();
-		return buttonBar;
-	}
-
-	public void setPersistenceKit(IPersistenceKit persistenceKit) {
-		this.persistenceKit = persistenceKit;
-	}
-
-	public EntityDescriptor<?> getStage() {
-		return stage;
-	}
-	public void setStage(EntityDescriptor<?> stage) {
-		this.stage = stage;
-	}
-
-	public boolean isForceAdding() {
-		return forceAdding;
-	}
-	public void setForceAdding(boolean forceAdding) {
-		this.forceAdding = forceAdding;
+		this.dialog = new Dialog(shell, this, getPersistenceKit(), getTitle(), getMessage());
 	}
 
 	public Object[] getSelection() {
-		return getResult();
+		return dialog.getResult();
 	}
 	public void setSelection(Object[] selection) {
-		throw new IllegalStateException("cannot set selection");
+		dialog.setInitialSelections(selection);
 	}
 
-	public boolean show() {
-		boolean value = super.open() == Window.OK;
-		if (value)
-			ImportAsModelDialogFactory.instance().setDefaults(persistenceKit, stage);				
-		return value;
-	}
-	public void validate() {
-		updateOKStatus();
+	public boolean validate() {
+		return dialog.validate();
 	}
 
-	private final class SelectionValidator implements ISelectionStatusValidator {
-		public IStatus validate(Object[] selection) {
-			if (selection.length == 0)
-				return createErrorStatus("No files selected");
+	@Override
+	protected boolean openDialog() {
+		return dialog.open() == Window.OK;
+	}
 
-			for (Object selectedObject : selection) {
-				if (!(selectedObject instanceof IFile))
-					return createErrorStatus("Only files can be imported");
+	public static class Dialog extends OpenAsModelDialog {
+		protected IImportAsModelDialog container;
+		private IStatus status;
 
-				IFile selectedFile = (IFile) selectedObject;
-				try {
-					persistenceKit.readModel(new IFilePersistenceProvider(selectedFile));
-				} catch (Exception e) {
-					return createErrorStatus("Cannot open "+selectedFile.getName()+" using "+persistenceKit.getDescription()+" persistence");
-				}
-			}
-			return Status.OK_STATUS;
+		public Dialog(Shell parent, IImportAsModelDialog container, IPersistenceKit defaultPersistenceKit, String title, String message) {
+			super(parent, defaultPersistenceKit, title, message);
+			setValidator(new SelectionValidator());
+			this.container = container;
+			this.status = createErrorStatus("undefined");
 		}
-		private Status createErrorStatus(String message) {
+
+
+		@Override
+		protected void addControls(Composite group) {
+			container.getFactory().addPersistenceCombo(container, group, "Paste As:");
+			container.getFactory().addStageCombo(container, group, "Stage:");
+			if (container.isEnableForceAdding())
+				container.getFactory().addForceAdditionButton(container, group, "Force addition");
+		}
+
+		@Override
+		protected Control createButtonBar(Composite parent) {
+			Control buttonBar = super.createButtonBar(parent);
+			getOkButton().setFocus();
+			return buttonBar;
+		}
+
+		protected Status createErrorStatus(String message) {
 			return new Status(IStatus.ERROR, E4CompatibilityPlugin.PLUGIN_ID, IStatus.ERROR, message, null);
+		}
+
+		public boolean validate() {
+			updateOKStatus();
+			return status.isOK();
+		}
+
+		private final class SelectionValidator implements ISelectionStatusValidator {
+			public IStatus validate(Object[] selection) {
+				if (selection.length == 0)
+					return status = createErrorStatus("No files selected");
+
+				for (Object selectedObject : selection) {
+					if (!(selectedObject instanceof IFile))
+						return status = createErrorStatus("Only files can be imported");
+
+					IFile selectedFile = (IFile) selectedObject;
+					try {
+						persistenceKit.readModel(new IFilePersistenceProvider(selectedFile));
+					} catch (Exception e) {
+						return status = createErrorStatus("Cannot open "+selectedFile.getName()+" using "+persistenceKit.getDescription()+" persistence");
+					}
+				}
+				return status = Status.OK_STATUS;
+			}
 		}
 	}
 }

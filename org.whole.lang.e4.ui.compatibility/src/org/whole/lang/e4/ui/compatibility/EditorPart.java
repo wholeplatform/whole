@@ -31,6 +31,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.EditPart;
@@ -52,7 +53,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.e4.ui.actions.RedoAction;
@@ -65,7 +65,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
 import org.whole.lang.ui.input.IModelInput;
-import org.whole.lang.ui.input.IModelInputListener;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
@@ -86,7 +85,8 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 	@Override
 	public void createPartControl(Composite parent) {
-		getContext().set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
+		getContext().set(IImportAsModelDialogFactory.class, factory);
 
 		super.createPartControl(parent);
 

@@ -17,7 +17,12 @@
  */
 package org.whole.lang.ui.dialogs;
 
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  * @author Enrico Persiani
@@ -29,4 +34,9 @@ public interface IImportAsModelDialogFactory {
 	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title, boolean enableForceAdding);
 	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title);
 	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title, boolean enableForceAdding);
+	
+	public void setDefaults(IPersistenceKit defaultPersistenceKit, EntityDescriptor<?> defaultStage);
+	public Combo addPersistenceCombo(final IImportAsModelDialog dialog, Composite group, String label);
+	public Button addForceAdditionButton(final IImportAsModelDialog dialog, Composite group, String label);
+	public Combo addStageCombo(final IImportAsModelDialog dialog, Composite group, String label);
 }

@@ -192,9 +192,10 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 	}
 
 	protected Control createMergeArea(Composite parent) {
+		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(ImportAsModelDialogFactory.class, getContext());
 		IEclipseContext params = EclipseContextFactory.create();
 		params.set("parent", parent);
-		params.set(IImportAsModelDialogFactory.class, ImportAsModelDialogFactory.instance());
+		params.set(IImportAsModelDialogFactory.class, factory);
 		viewer = ContextInjectionFactory.make(E4GraphicalViewer.class, getContext(), params);
 		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -206,8 +207,6 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		viewer.getControl().addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent event) {
-				getContext().remove(IEntityPartViewer.class);
-				getContext().remove(ActionRegistry.class);
 			}
 
 			@SuppressWarnings("unchecked")
