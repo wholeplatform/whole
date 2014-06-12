@@ -113,7 +113,10 @@ public class E4Utils {
 	@SuppressWarnings("unchecked")
 	public static <T> T findMenu(String elementId, EModelService modelService, MApplication application, Class<T> type) {
 		for (MWindow window : modelService.findElements(application, null, MWindow.class, null)) {
-			MMenuElement menuElement = findMenu(elementId, window.getMainMenu());
+			MMenu mainMenu = window.getMainMenu();
+			if (mainMenu == null)
+				continue;
+			MMenuElement menuElement = findMenu(elementId, mainMenu);
 			if (menuElement != null)
 				return (T) menuElement;
 		}
@@ -419,5 +422,13 @@ public class E4Utils {
 			return new IFilePersistenceProvider((IFile) resource, bm);
 
 		throw new UnsupportedOperationException("Unable to find sthe specified resource in the Workspace");
+	}
+	public static boolean isLegacyApplication() {
+		try {
+			Class.forName("org.eclipse.ui.internal.Workbench", true, ReflectionFactory.getPlatformClassLoader());
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
 	}
 }
