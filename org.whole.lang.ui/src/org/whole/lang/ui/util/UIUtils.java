@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -51,6 +52,7 @@ import org.whole.lang.commons.model.Fragment;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.util.EntityUtils;
 
@@ -190,6 +192,8 @@ public class UIUtils {
 		return getFontRegistry();
 	}
 
+	//FIXME workaround for E4 products, should migrate to IEclipsePreferences
+	protected static IPreferenceStore preferenceStore = null;
 	public static IPreferenceStore getPreferenceStore() {
 		try {
 			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
@@ -197,7 +201,14 @@ public class UIUtils {
 			Object bundle = uiPluginClass.getMethod("getDefault").invoke(null);
 			return (IPreferenceStore) uiPluginClass.getMethod("getPreferenceStore").invoke(bundle);
 		} catch (Exception e) {
-			throw new IllegalStateException(e);
+	        if (preferenceStore == null) {
+	            preferenceStore = new PreferenceStore();
+	            PreferenceConstants.initializeDefaultValues(preferenceStore,
+	            		getColorRegistry(),
+	    				getFontRegistry());
+
+	        }
+	        return preferenceStore;
 		}
 	}
 	public static ImageDescriptor getImageDescriptor(String relativePath) {
