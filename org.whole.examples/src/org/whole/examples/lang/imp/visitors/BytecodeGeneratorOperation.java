@@ -17,14 +17,10 @@
  */
 package org.whole.examples.lang.imp.visitors;
 
-import java.io.PrintWriter;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.util.CheckClassAdapter;
-import org.objectweb.asm.util.TraceClassVisitor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.AbstractOperation;
@@ -58,9 +54,10 @@ public class BytecodeGeneratorOperation extends AbstractOperation implements Opc
 			classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 
 			//FIXME print nothing
-			ClassVisitor cc = new CheckClassAdapter(classWriter);
-			ClassVisitor tv = new TraceClassVisitor(cc, new PrintWriter(System.out));
-			classVisitor = tv;
+//			ClassVisitor cc = new CheckClassAdapter(classWriter);
+//			ClassVisitor tv = new TraceClassVisitor(cc, new PrintWriter(System.out));
+//			classVisitor = tv;
+			classVisitor = classWriter;
 
 			classVisitor.visit(V1_4, ACC_PUBLIC, "Example", null, "java/lang/Object", null);
 			
