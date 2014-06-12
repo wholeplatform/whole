@@ -41,7 +41,7 @@ public class ActionFactory {
 
 	public IUpdatableAction createReplaceFragmentAction(String label, IEntity predicate, IEntity fragment) {
 		try {
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
 			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
@@ -55,7 +55,7 @@ public class ActionFactory {
 	}
 	public IUpdatableAction createAddFragmentAction(String label, IEntity predicate, IEntity fragment) {
 		try {
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(fragment, spp);
 			parameters.put(FRAGMENT_XWL_PARAMETER_ID, spp.getStore());
@@ -69,7 +69,7 @@ public class ActionFactory {
 	}
 	public IUpdatableAction createPerformAction(String label, String iconUri, IEntity predicate, IEntity behavior) {
 		try {
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(behavior, spp);
 			parameters.put(BEHAVIOR_XWL_PARAMETER_ID, spp.getStore());
@@ -85,7 +85,7 @@ public class ActionFactory {
 
 	public IUpdatableAction createActionCallAction(String label, boolean analyzing, IEntity predicate, String functionUri) {
 		try {
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put(FUNCTION_URI_PARAMETER_ID, functionUri);
 			StringPersistenceProvider spp = new StringPersistenceProvider();
 			ReflectionFactory.getDefaultPersistenceKit().writeModel(predicate, spp);
@@ -108,10 +108,10 @@ public class ActionFactory {
 	public E4ActionAdapter createE4ActionAdapter(String handledMenuId) {
 		return new E4ActionAdapter(context, handledMenuId);
 	}
-	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, String> parameters) {
+	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, Object> parameters) {
 		return new E4ActionAdapter(context, label, iconURI, commandId, parameters);
 	}
-	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, String> parameters, int style) {
+	public E4ActionAdapter createE4ActionAdapter(String label, String iconURI, String commandId, Map<String, Object> parameters, int style) {
 		return new E4ActionAdapter(context, label, iconURI, commandId, parameters, style);
 	}
 	public RedoAction createRedoAction() {

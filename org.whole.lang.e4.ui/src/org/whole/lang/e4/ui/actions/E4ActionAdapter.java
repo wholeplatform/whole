@@ -39,7 +39,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
  */
 public class E4ActionAdapter extends AbstractE4Action {
 	protected String commandId;
-	protected Map<String, String> parameters;
+	protected Map<String, Object> parameters;
 
 	public E4ActionAdapter(IEclipseContext context, String handledMenuId) {
 		super(context);
@@ -62,16 +62,16 @@ public class E4ActionAdapter extends AbstractE4Action {
 		} catch (Exception e) {
 		}
 	}
-	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, String> parameters, int style) {
+	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, Object> parameters, int style) {
 		super(context, label, style);
 		initialize(iconURI, commandId, parameters);
 	}
-	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, String> parameters) {
+	public E4ActionAdapter(IEclipseContext context, String label, String iconURI, String commandId, Map<String, Object> parameters) {
 		super(context, label);
 		initialize(iconURI, commandId, parameters);
 	}
 
-	protected void initialize(String iconURI, String commandId, Map<String, String> parameters) {
+	protected void initialize(String iconURI, String commandId, Map<String, Object> parameters) {
 		setId(this.commandId = commandId);
 		this.parameters = parameters;
 

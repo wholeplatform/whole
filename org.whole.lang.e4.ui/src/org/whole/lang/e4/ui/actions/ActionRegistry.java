@@ -86,11 +86,11 @@ public class ActionRegistry {
 
 		String copyIconURI = E4Utils.findMenu(COPY_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
 		String pasteIconURI = E4Utils.findMenu(PASTE_MENU_ID, context.get(EModelService.class), context.get(MApplication.class), MHandledMenuItem.class).getIconURI();
-		registerAction(actionFactory.createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, String>emptyMap()));
-		registerAction(actionFactory.createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, String>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_ENTITY_PATH_LABEL, copyIconURI, COPY_ENTITY_PATH_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(COPY_AS_IMAGE_LABEL, copyIconURI, COPY_AS_IMAGE_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(PASTE_AS_LABEL, pasteIconURI, PASTE_AS_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(DEFAULT_LABEL, REPLACE_ICON_URI, REPLACE_WITH_DEFAULT_COMMAND_ID, Collections.<String, Object>emptyMap()));
+		registerAction(actionFactory.createE4ActionAdapter(IMPORT_LABEL, IMPORT_ICON_URI, IMPORT_COMMAND_ID, Collections.<String, Object>emptyMap()));
 	}
 
 	@PreDestroy
@@ -145,7 +145,7 @@ public class ActionRegistry {
 		IUpdatableAction action = selectNotationActions.get(editorKitId);
 		if (action == null) {
 			String label = editorKit.getName();
-			Map<String, String> parameters = Collections.singletonMap(EDITORKIT_ID_PARAMETER_ID, editorKitId);
+			Map<String, Object> parameters = Collections.singletonMap(EDITORKIT_ID_PARAMETER_ID, editorKitId);
 			selectNotationActions.put(editorKitId, action = actionFactory.createE4ActionAdapter(label, null, SELECT_NOTATION_COMMAND_ID, parameters, IAction.AS_RADIO_BUTTON));
 		}
 		return action;
@@ -164,7 +164,7 @@ public class ActionRegistry {
 		IUpdatableAction action = actionMap.get(fdUri);
 		if (action == null) {
 			String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put(ED_URI_PARAMETER_ID, edUri);
 			parameters.put(FD_URI_PARAMETER_ID, fdUri);
 			actionMap.put(edUri, action = actionFactory.createE4ActionAdapter(label, REPLACE_ICON_URI, REPLACE_COMMAND_ID, parameters));
@@ -185,7 +185,7 @@ public class ActionRegistry {
 		IUpdatableAction action = actionMap.get(fdUri);
 		if (action == null) {
 			String label = StringUtils.camelCaseToSpacedWords(ed.getName());
-			Map<String, String> parameters = new HashMap<String, String>();
+			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put(ED_URI_PARAMETER_ID, edUri);
 			parameters.put(FD_URI_PARAMETER_ID, fdUri);
 			actionMap.put(edUri, action = actionFactory.createE4ActionAdapter(label, ADD_ICON_URI, ADD_COMMAND_ID, parameters));
@@ -209,6 +209,9 @@ public class ActionRegistry {
 		registerWorkbenchAction(EDIT_DELETE);
 	}
 	public void registerWorkbenchActions() {
+		if (!E4Utils.isLegacyApplication())
+			return;
+
 		registerUndoAction();
 		registerRedoAction();
 		registerDeleteAction();
