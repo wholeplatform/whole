@@ -17,6 +17,10 @@
  */
 package org.whole.lang.ui.actions;
 
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
+
 /**
  * @author Enrico Persiani
  */
@@ -31,4 +35,17 @@ public interface IActionRedirection {
 	public void performRedo();
 	
 	public void performSelectAll();
+	
+	public static IActionRedirection getActionRedirection(IBindingManager bm) {
+		if (!bm.wIsSet("focusEntity"))
+			return NullActionRedirection.instance();
+
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("focusEntity"));
+		if (entityPart == null)
+			return NullActionRedirection.instance();
+
+		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
+		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
+	}
 }

@@ -25,7 +25,6 @@ import org.eclipse.gef.commands.CommandStackEventListener;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.ui.actions.IActionRedirection;
 import org.whole.lang.ui.actions.NullActionRedirection;
-import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -64,22 +63,13 @@ public abstract class AbstractCommandStackAction extends AbstractE4Action implem
 
 	protected IActionRedirection getActionRedirection() {
 		Object selection = getContext().get(IServiceConstants.ACTIVE_SELECTION);
+
 		if (!(selection instanceof IBindingManager))
 			return NullActionRedirection.instance();
 
 		IBindingManager bm = (IBindingManager) selection;
-		if (!bm.wIsSet("focusEntity"))
-			return NullActionRedirection.instance();
-
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntityPart entityPart = viewer.getEditPartRegistry().get(bm.wGet("focusEntity"));
-		if (entityPart == null)
-			return NullActionRedirection.instance();
-
-		IActionRedirection actionRedirection = (IActionRedirection) entityPart.getAdapter(IActionRedirection.class);
-		return actionRedirection != null ? actionRedirection : NullActionRedirection.instance();
+		return IActionRedirection.getActionRedirection(bm);
 	}
-
 	protected abstract void doRun(IEntityPartViewer viewer);
 	protected abstract boolean calculateEnabled(IEntityPartViewer viewer);
 	protected abstract String calculateLabel(IEntityPartViewer viewer);
