@@ -19,6 +19,8 @@ package org.whole.lang.e4.ui.parts;
 
 import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
+import java.util.EventObject;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -44,10 +46,12 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuFactoryImpl;
+import org.eclipse.e4.ui.services.EMenuService;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -105,7 +109,8 @@ public abstract class AbstractE4Part {
 	public void createPartControl(Composite parent) {
 		restoreState();
 		
-		HandlersBehavior.registerHandlers(handlerService);
+		if (E4Utils.isLegacyApplication())
+			HandlersBehavior.registerHandlers(handlerService);
 
 		parent.setLayout(new FillLayout());
 		viewer = createEntityViewer(parent);
@@ -155,7 +160,14 @@ public abstract class AbstractE4Part {
 				contextMenuProvider.populate(menuManager);
 			}
 		});
-		
+
+		if (!E4Utils.isLegacyApplication())
+			viewer.getCommandStack().addCommandStackListener(new CommandStackListener() {
+				public void commandStackChanged(EventObject event) {
+					part.setDirty(viewer.isDirty());
+				}
+			});
+
 		reloader = new LazyConfirmationDialogReloader(viewer.getControl(), new Runnable() {
 			@Override
 			public void run() {
@@ -170,9 +182,11 @@ public abstract class AbstractE4Part {
 		if (modelInput != null)
 			E4Utils.defineResourceBindings(bm, modelInput);
 		selectionService.setSelection(bm);
+		//FIXME workaround selectionService.setSelection(bm); doesn't update the ACTIVE_SELECTION in the active context
+		context.set(IServiceConstants.ACTIVE_SELECTION, bm);
 	}
 
-	@Inject
+	@Optional @Inject
 	public void setModelInput(final IModelInput modelInput, IWorkspace workspace) {
 		clearListeners();
 		if (modelInput != null)

@@ -22,7 +22,10 @@ import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.parts.AbstractE4Part;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -32,18 +35,19 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class RevertHandler {
 
 	@CanExecute
-	public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		try {
-			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-			return viewer.getCommandStack().isDirty() && bm.wIsSet("modelInput");
-		} catch (Exception e) {
-			return false;
-		}
+	public boolean canExecute(EPartService partService) {
+		return partService.getActivePart().isDirty();
 	}
 
 	@Execute
-	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		viewer.setContents((IModelInput) bm.wGetValue("modelInput"), null);
+	public void execute(EPartService partService, IModelInput modelInput, 
+			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		if (E4Utils.isLegacyApplication()) {
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+			viewer.setContents((IModelInput) bm.wGetValue("modelInput"), null);
+		} else {
+			AbstractE4Part part = (AbstractE4Part) partService.getActivePart().getObject();
+			part.getViewer().setContents(modelInput, null);
+		}
 	}
 }
