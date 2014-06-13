@@ -177,7 +177,7 @@
 							<groupId>com.wholeplatform</groupId>
 							<artifactId>org.whole.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>KEPLER_4_3_x</classifier>
+							<classifier>LUNA_4_4_x</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -227,32 +227,22 @@
 		<junit-version>4.8.2</junit-version>
 	</properties>
 
-	<!-- update according to org.whole.target/KEPLER_4_3_x.target -->
+	<!-- update according to org.whole.target/LUNA_4_4_x.target -->
 	<repositories>
 		<repository>
 			<id>eclipse-kepler-updates</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
-		</repository>
-		<repository>
-			<id>eclipse-kepler</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/kepler</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.4-I-builds</url>
 		</repository>
 		<repository>
 			<id>e4tools</id>
 			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/e4tools-updates</url>
+			<url>jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.e4.core.tools.update-0.16.0-SNAPSHOT.zip!/</url>
 		</repository>
 		<repository>
 			<id>gef</id>
 			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/gef-updates</url>
-		</repository>
-		<repository>
-			<id>java8patch</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3-P-builds</url>
+			<url>jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.gef.repository-3.9.2-SNAPSHOT.zip!/</url>
 		</repository>
 	</repositories>
 </project>

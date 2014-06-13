@@ -221,8 +221,6 @@ Library.
       <feature id="org.eclipse.sdk"/>
       <feature id="org.eclipse.gef.lightweight"/>
       <feature id="org.eclipse.gef.source"/>
-      <feature id="org.eclipse.jdt.java8patch"/>
-      <feature id="org.eclipse.pde.java8patch"/>
       <feature id="com.fasterxml.jackson.feature"/>
       <feature id="net.sourceforge.jodatime.feature"/>
       <feature id="nu.validator.htmlparser.feature"/>

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
 
-<target name="KEPLER_4_3_x" sequenceNumber="26">
+<target name="LUNA_4_4_x" sequenceNumber="26">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
 <unit id="org.eclipse.equinox.sdk.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.3"/>
+<repository location="http://download.eclipse.org/eclipse/updates/4.4-I-builds"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.gef.sdk.feature.group" version="0.0.0"/>
-<repository location="http://whole.sourceforge.net/gef-updates"/>
-<!--repository location="http://download.eclipse.org/releases/kepler"/-->
+<unit id="org.eclipse.gef.lightweight.feature.group" version="0.0.0"/>
+<repository location="jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.gef.repository-3.9.2-SNAPSHOT.zip!/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.e4.tools.e3x.bridge.feature.feature.group" version="0.0.0"/>
-<repository location="http://whole.sourceforge.net/e4tools-updates"/>
+<repository location="jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.e4.core.tools.update-0.16.0-SNAPSHOT.zip!/"/>
 <!--repository location="http://download.vogella.com/kepler/e4tools"/-->
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.jdt.java8patch.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.pde.java8patch.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.3-P-builds"/>
 </location>
 </locations>
 </target>
