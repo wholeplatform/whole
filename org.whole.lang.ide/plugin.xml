@@ -132,9 +132,6 @@
         <resourceBindingsContributor
               class="org.whole.lang.grammars.ui.GrammarsResourceBindingsContributor"
               id="GrammarsResourceBindingsContributor"/>
-		<resourceBindingsContributor
-			class="org.whole.gen.util.JDTResourceBindingsContributor"
-			id="JDTResourceBindingsContributor"/>
 	</extension>
 	<extension
 			point="org.eclipse.jdt.core.classpathContainerInitializer">

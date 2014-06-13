@@ -46,7 +46,7 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 			if (project.hasNature(JavaCore.NATURE_ID)) {
 				IJavaProject javaProject = JavaCore.create(project);
 				bm.wDefValue("javaProject", javaProject);
-				ReflectionFactory.setClassLoader(bm, IDEUtils.createClassLoader(javaProject, true));
+				ReflectionFactory.setClassLoader(bm, JDTUtils.createClassLoader(javaProject, true));
 
 				IPackageFragment packageFragment = javaProject.findPackageFragment(folder.getFullPath());
 				if (packageFragment != null) {
@@ -55,30 +55,18 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 						bm.wDefValue("packageName", packageName);
 
 					IFile file = (IFile) bm.wGetValue("file");
-					String compilationUnitName = IDEUtils.getCompilationUnitName(file);
+					String compilationUnitName = JDTUtils.getCompilationUnitName(file);
 					bm.wDefValue("compilationUnitName", compilationUnitName);
 					bm.wDefValue("className", StringUtils.toSimpleName(compilationUnitName));
 
+					addSourceFolderBindings(bm, packageFragment.getParent().getCorrespondingResource());
+
 					// perform an incremental build to ensure class files are generated
 					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
-
-					IResource correspondingResource = packageFragment.getParent().getCorrespondingResource();
-					IPath sourcePath = correspondingResource.getProjectRelativePath();
-					if (!sourcePath.isEmpty()) {
-						String sourceFolderName = sourcePath.toString();
-						bm.wDefValue("sourceFolderName", sourceFolderName);
-						bm.wDefValue("contextURI", bm.wStringValue("contextURI")+"/"+sourceFolderName);
-					}
-
-					IPath sourceLocationPath = correspondingResource.getLocation();
-					if (!sourceLocationPath.isEmpty())
-						bm.wDefValue("sourceLocationName", sourceLocationPath.toString());
 				} else {
 					for (IPackageFragmentRoot packageFragmentRoot : javaProject.getAllPackageFragmentRoots()) {
 						if (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
-							String sourceFolderName = packageFragmentRoot.getElementName();
-							bm.wDefValue("sourceFolderName", sourceFolderName);
-							bm.wDefValue("contextURI", bm.wStringValue("contextURI")+"/"+sourceFolderName);
+							addSourceFolderBindings(bm, packageFragmentRoot.getCorrespondingResource());
 							break;
 						}
 					}
@@ -86,5 +74,18 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 			}
 		} catch (CoreException e) {
 		}
+	}
+
+	protected void addSourceFolderBindings(IBindingManager bm, IResource packageFragmentRootResource) {
+		IPath sourcePath = packageFragmentRootResource.getProjectRelativePath();
+		if (!sourcePath.isEmpty()) {
+			String sourceFolderName = sourcePath.toString();
+			bm.wDefValue("sourceFolderName", sourceFolderName);
+			bm.wDefValue("contextURI", bm.wStringValue("contextURI")+"/"+sourceFolderName);
+		}
+
+		IPath sourceLocationPath = packageFragmentRootResource.getLocation();
+		if (!sourceLocationPath.isEmpty())
+			bm.wDefValue("sourceLocationName", sourceLocationPath.toString());
 	}
 }

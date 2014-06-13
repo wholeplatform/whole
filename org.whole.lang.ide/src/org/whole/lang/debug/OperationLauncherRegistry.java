@@ -113,8 +113,8 @@ public class OperationLauncherRegistry {
 								while (i.hasNext()) {
 									try {
 										CompilationUnit cu = i.next();
-										operationProgressMonitor.beginTask(IDEUtils.getTypeName(cu), 1);
-										IDEUtils.save(cu, packageFragmentRoot, null);
+										operationProgressMonitor.beginTask(JDTUtils.getTypeName(cu), 1);
+										JDTUtils.save(cu, packageFragmentRoot, null);
 										operationProgressMonitor.endTask();
 									} catch (JavaModelException e) {
 										throw new RuntimeException(e);

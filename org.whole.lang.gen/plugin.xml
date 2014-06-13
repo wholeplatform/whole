@@ -11,4 +11,11 @@
       </deployer>
    </extension>
 
+	<extension
+			point="org.whole.lang.ui.resourceBindingsContributors">
+		<resourceBindingsContributor
+			class="org.whole.gen.util.JDTResourceBindingsContributor"
+			id="JDTResourceBindingsContributor"/>
+	</extension>
+
 </plugin>

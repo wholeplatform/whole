@@ -43,7 +43,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
-import org.whole.gen.util.IDEUtils;
+import org.whole.gen.util.JDTUtils;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -159,7 +159,7 @@ public class WizardPojoModelImportPage1 extends AbstractWizardWholeModelImportPa
 		for (ITypeRoot typeRoot : elements) {
 			Class<?> clazz;
 			try {
-				clazz = Class.forName(typeRoot.findPrimaryType().getFullyQualifiedName(), false, IDEUtils.createClassLoader(typeRoot.getJavaProject(), true));
+				clazz = Class.forName(typeRoot.findPrimaryType().getFullyQualifiedName(), false, JDTUtils.createClassLoader(typeRoot.getJavaProject(), true));
 				if (clazz.getAnnotation(Deprecated.class) != null)
 					continue;
 			} catch (ClassNotFoundException e) {

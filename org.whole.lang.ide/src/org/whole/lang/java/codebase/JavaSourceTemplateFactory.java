@@ -19,7 +19,6 @@ package org.whole.lang.java.codebase;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.ITypeRoot;
-import org.whole.gen.util.IDEUtils;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.builders.GenericForwardSpecificBuilder;
 import org.whole.lang.builders.IBuilderOperation;
@@ -47,7 +46,7 @@ public class JavaSourceTemplateFactory extends JavaClassTemplateFactory {
 			if (sourceAttachment != null)
 				compilationUnit = JDTTransformerVisitor.transform(sourceAttachment, JDTUtils.parseAsCompilationUnit(sourceAttachment));
 			else
-				this.clazz = Class.forName(className, false, IDEUtils.createClassLoader(javaProject, true));
+				this.clazz = Class.forName(className, false, JDTUtils.createClassLoader(javaProject, true));
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException("Cannot load "+className+" class fomr "+javaProject.getElementName()+" Java Project");
 		}

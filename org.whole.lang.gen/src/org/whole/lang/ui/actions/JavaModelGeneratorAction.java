@@ -17,18 +17,19 @@
  */
 package org.whole.lang.ui.actions;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.whole.gen.util.IDEUtils;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
@@ -40,33 +41,31 @@ import org.whole.lang.operations.OperationProgressMonitorAdapter;
 public class JavaModelGeneratorAction {
 
 	public static void generate(IProgressMonitor monitor, final IEntity program,
-			final IBindingManager params) throws InvocationTargetException,
-			InterruptedException {
-		final IPackageFragmentRoot packageFragmentRoot;
-		if (params.wIsSet("sourceLocationName"))
-			//TODO ? create if doesn't exists
-			packageFragmentRoot = JDTUtils.getPackageFragmentRoot(params.wStringValue("sourceLocationName"));	
-		else
-			packageFragmentRoot = IDEUtils.getPackageFragmentRoot(new Shell());
+			IBindingManager bm) throws InterruptedException, CoreException {
+		
+		IPackageFragmentRoot packageFragmentRoot = JDTUtils.getPackageFragmentRoot(bm.wStringValue("sourceLocationName"));	
 
-		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-			protected void execute(IProgressMonitor progressMonitor) {
-				progressMonitor.beginTask("Generating...", 100);
-				final IOperationProgressMonitor operationProgressMonitor = new OperationProgressMonitorAdapter(progressMonitor);
-				params.wDefValue("progressMonitor", operationProgressMonitor);
+		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+		IWorkspace workspace = context.get(IWorkspace.class);
+		IWorkspaceRunnable operation = new IWorkspaceRunnable() {
+			@Override
+			public void run(IProgressMonitor monitor) throws CoreException {
+				monitor.beginTask("Generating...", 100);
+				final IOperationProgressMonitor operationProgressMonitor = new OperationProgressMonitorAdapter(monitor);
+				bm.wDefValue("progressMonitor", operationProgressMonitor);
 
 				operationProgressMonitor.beginTask("models", 10, IOperationProgressMonitor.TOTAL_WORK);
-				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(program, params);
+				final List<CompilationUnit> cuList = JavaCompilerOperation.compile(program, bm);
 				operationProgressMonitor.endTask();
-
+				
 				operationProgressMonitor.beginTask("classes", 90, cuList.size());					
 				if (packageFragmentRoot != null && !cuList.isEmpty()) {
 					Iterator<CompilationUnit> i = new ArrayList<CompilationUnit>(cuList).iterator();
 					while (i.hasNext()) {
 						try {
 							CompilationUnit cu = i.next();
-							operationProgressMonitor.beginTask(IDEUtils.getTypeName(cu), 1);
-							IDEUtils.save(cu, packageFragmentRoot, null);
+							operationProgressMonitor.beginTask(JDTUtils.getTypeName(cu), 1);
+							JDTUtils.save(cu, packageFragmentRoot, null);
 							operationProgressMonitor.endTask();
 						} catch (JavaModelException e) {
 							throw new RuntimeException(e);
@@ -78,6 +77,6 @@ public class JavaModelGeneratorAction {
 				operationProgressMonitor.endTask();
 			}
 		};
-		operation.run(monitor);
+		workspace.run(operation, workspace.getRoot(), IResource.NONE, monitor);
 	}
 }

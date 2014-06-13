@@ -24,7 +24,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
-import org.whole.gen.util.IDEUtils;
+import org.whole.gen.util.JDTUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -310,7 +310,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			break;
 			
 		case JavaProject_ord:
-			javaProject = IDEUtils.getJavaProject(classProvider.wStringValue());
+			javaProject = JDTUtils.getJavaProject(classProvider.wStringValue());
 			break;
 
 		default:

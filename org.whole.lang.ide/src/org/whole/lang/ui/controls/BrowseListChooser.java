@@ -41,7 +41,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.whole.gen.util.IDEUtils;
+import org.whole.gen.util.JDTUtils;
 
 /**
  * @author Enrico Persiani
@@ -62,7 +62,7 @@ public class BrowseListChooser extends Composite {
 	public void populateClassList(IPackageFragment packageFragment) {
 		classList.clear();
 		try {
-			ClassLoader projectURLClassLoader = IDEUtils.createClassLoader(packageFragment.getJavaProject(), true);
+			ClassLoader projectURLClassLoader = JDTUtils.createClassLoader(packageFragment.getJavaProject(), true);
 
 			for(IJavaElement javaElement : packageFragment.getChildren()) {
 				if(javaElement instanceof IClassFile) {
