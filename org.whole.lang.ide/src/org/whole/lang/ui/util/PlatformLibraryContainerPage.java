@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.ui.JavaUI;
@@ -38,9 +39,6 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.pde.core.plugin.IPluginBase;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
-import org.eclipse.pde.core.plugin.PluginRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -49,6 +47,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.osgi.framework.Bundle;
 import org.whole.lang.ide.WholeIDEPlugin;
 
 /**
@@ -71,7 +70,7 @@ public class PlatformLibraryContainerPage extends WizardPage implements IClasspa
 		Set<String> bundles = new HashSet<String>(PlatformLibraryClasspathContainer.BUNDLE_IDS);
 		Object[] checkedElements = jarsViewer.getCheckedElements();
 		for (Object checkedElement : checkedElements)
-			bundles.remove(((IPluginBase) checkedElement).getId());
+			bundles.remove(((Bundle) checkedElement).getSymbolicName());
 		containerEntry = JavaCore.newContainerEntry(calculatePath(bundles), false);
 		return true;
 	}
@@ -113,22 +112,22 @@ public class PlatformLibraryContainerPage extends WizardPage implements IClasspa
 		jarsViewer.setSorter(new ViewerSorter() {
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {
-				return super.compare(viewer, ((IPluginBase) e1).getId(), ((IPluginBase) e2).getId());
+				return super.compare(viewer, ((Bundle) e1).getSymbolicName(), ((Bundle) e2).getSymbolicName());
 			}
 		});
 		jarsViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		Set<String> excludedBundleIDs = getExclusions(containerEntry.getPath());
-		List<IPluginBase> bundles = new ArrayList<IPluginBase>();
-		List<IPluginBase> checkedElements = new ArrayList<IPluginBase>();
-		for (String bundleID : PlatformLibraryClasspathContainer.BUNDLE_IDS) {
-			IPluginModelBase model = PluginRegistry.findModel(bundleID);
-			if (model == null)
+		
+		List<Bundle> bundles = new ArrayList<Bundle>();
+		List<Bundle> checkedElements = new ArrayList<Bundle>();
+		for (String bundleId : PlatformLibraryClasspathContainer.BUNDLE_IDS) {
+			Bundle bundle = Platform.getBundle(bundleId);
+			if (bundle == null)
 				continue;
-			IPluginBase pluginBase = model.getPluginBase();
-			bundles.add(pluginBase);
-			if (!excludedBundleIDs.contains(bundleID))
-				checkedElements.add(pluginBase);
+			bundles.add(bundle);
+			if (!excludedBundleIDs.contains(bundleId))
+				checkedElements.add(bundle);
 		}
 		jarsViewer.setInput(bundles);
 		jarsViewer.setCheckedElements(checkedElements.toArray());
@@ -142,8 +141,8 @@ public class PlatformLibraryContainerPage extends WizardPage implements IClasspa
 			return columnIndex == 0 ? jarImage : null;
 		}
 		public String getColumnText(Object element, int columnIndex) {
-			IPluginBase pluginBase = (IPluginBase) element;
-			return columnIndex == 0 ? pluginBase.getId() : pluginBase.getVersion();
+			Bundle pluginBase = (Bundle) element;
+			return columnIndex == 0 ? pluginBase.getSymbolicName() : pluginBase.getVersion().toString();
 		}
 	}
 }

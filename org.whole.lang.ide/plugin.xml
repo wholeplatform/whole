@@ -134,12 +134,6 @@
               id="GrammarsResourceBindingsContributor"/>
 	</extension>
 	<extension
-			point="org.eclipse.jdt.core.classpathContainerInitializer">
-		<classpathContainerInitializer
-			class="org.whole.lang.ui.util.PlatformLibraryContainerInitializer"
-			id="org.whole.lang.ide.WHOLERT_CONTAINER"/>
-	</extension>
-	<extension
 			point="org.eclipse.jdt.ui.classpathContainerPage">
 		<classpathContainerPage
 			class="org.whole.lang.ui.util.PlatformLibraryContainerPage"
