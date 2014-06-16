@@ -243,7 +243,7 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	}
 
 	protected boolean isChildVisible(int i) {
-		return childSize[i] != null;
+		return childSize[i] != null;// && childFigure[i].isShowing();//FIXME
 	}
 
 	public void layout(IFigure container) {

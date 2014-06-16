@@ -26,6 +26,8 @@ import org.whole.lang.ui.layout.TableLayout;
  * @author Riccardo Solmi
  */
 public class TableFigure extends ContentPaneFigure {
+	protected TableFigure() {
+	}
 	public TableFigure(int columns) {
 		this(new TableLayout(columns).withRowSpacing(4).withColumnSpacing(8).withMargin(5));
 	}
