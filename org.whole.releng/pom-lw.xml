@@ -237,12 +237,12 @@
 		<repository>
 			<id>e4tools</id>
 			<layout>p2</layout>
-			<url>jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.e4.core.tools.update-0.16.0-SNAPSHOT.zip!/</url>
+			<url>http://whole.sourceforge.net/e4tools-luna-updates</url>
 		</repository>
 		<repository>
 			<id>gef</id>
 			<layout>p2</layout>
-			<url>jar:file:/Users/enricopersiani/Dropbox/Whole/org.eclipse.gef.repository-3.9.2-SNAPSHOT.zip!/</url>
+			<url>http://whole.sourceforge.net/gef-updates</url>
 		</repository>
 	</repositories>
 </project>
