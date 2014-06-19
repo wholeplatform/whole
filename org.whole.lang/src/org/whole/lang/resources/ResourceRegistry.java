@@ -215,7 +215,7 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		}
 
 		String resourceName = resource.getName();
-		if (resourceName != null) {
+		if (resourceName != null && nameOccurrencesMap.containsKey(resourceName)) {
 			int occurrences = nameOccurrencesMap.get(resourceName);
 			if (occurrences == 1)
 				nameOccurrencesMap.remove(resourceName);
