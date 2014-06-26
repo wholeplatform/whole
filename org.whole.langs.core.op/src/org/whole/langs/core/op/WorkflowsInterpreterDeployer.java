@@ -34,7 +34,8 @@ import org.whole.lang.workflows.visitors.WorkflowsInterpreterVisitor;
  */
 public class WorkflowsInterpreterDeployer extends AbstractDeployer {
 	public int getDeployLevel() {
-		return IDeployer.LEVEL_LANGUAGE_EXTENSION-1;//FIXME workaround for XSDRegistry.initialize() dependency in LegacyOperationsDeployer
+		return IDeployer.LEVEL_LANGUAGE_EXTENSION-2;
+		//FIXME workaround for XSDRegistry.initialize() dependency in LegacyOperationsDeployer and PersistenceLibraryDeployer
 	}
 
 	public void deploy(ReflectionFactory platform) {
