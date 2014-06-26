@@ -70,7 +70,7 @@
 		<replace dir="${workspace.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
 			<include name="*/pom-lw.xml"/>
 			<include name="*/pom-ldk.xml"/>
-			<include name="org.whole.releng/maven-testapp/pom-ldk.xml"/>
+			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml"/>
 		</replace>
 	</target>
 	<target name="set_meta_version" depends="init_lastversion">
@@ -83,7 +83,7 @@
 		<replace dir="${workspace.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
 			<include name="*/pom-lw.xml"/>
 			<include name="*/pom-ldk.xml"/>
-			<include name="org.whole.releng/maven-testapp/pom-ldk.xml"/>
+			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml"/>
 		</replace>
 	</target>
 
@@ -183,7 +183,7 @@
 
 		<unzip src="${backup.dir}/whole-${version}.zip" dest="${backup.dir}">
 			<patternset>
-				<include name="whole/org.whole.releng/readme.txt"/>
+				<include name="whole/org.whole.lw.releng/readme.txt"/>
 			</patternset>
 			<flattenmapper/>
 		</unzip>
