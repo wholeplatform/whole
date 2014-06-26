@@ -1,5 +1,0 @@
-To update target definition for product builds perform the following steps:
-
-1. Create a new .target file
-2. Update the org.whole.target/pom-lw.xml symbolic target definition in <artifact>
-3. Update the org.whole.releng/pom-lw.xml symbolic target reference in <artifact>

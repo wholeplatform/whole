@@ -22,7 +22,7 @@
 	</licenses>
 
 	<modules>
-		<module>../org.whole.target/pom-lw.xml</module>
+		<module>../org.whole.lw.target/pom-lw.xml</module>
 
 		<module>../com.fasterxml.jackson/pom-lw.xml</module>
 		<module>../com.fasterxml.jackson.feature/pom-lw.xml</module>
@@ -175,7 +175,7 @@
 					<target>
 						<artifact>
 							<groupId>com.wholeplatform</groupId>
-							<artifactId>org.whole.target</artifactId>
+							<artifactId>org.whole.lw.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
 							<classifier>LUNA_4_4_x</classifier>
 						</artifact>
@@ -227,7 +227,7 @@
 		<junit-version>4.8.2</junit-version>
 	</properties>
 
-	<!-- update according to org.whole.target/LUNA_4_4_x.target -->
+	<!-- update according to org.whole.lw.target/LUNA_4_4_x.target -->
 	<repositories>
 		<repository>
 			<id>eclipse-kepler-updates</id>
