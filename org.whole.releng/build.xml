@@ -65,7 +65,7 @@
 			<include name="*/META-INF/MANIFEST.MF"/>
 			<include name="*/feature.xml"/>
 			<include name="*/category.xml"/>
-			<include name="org.whole.product/whole.product"/>
+			<include name="org.whole.lw.product/whole.product"/>
 		</replace>
 		<replace dir="${workspace.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
 			<include name="*/pom-lw.xml"/>
@@ -78,7 +78,7 @@
 			<include name="*/META-INF/MANIFEST.MF"/>
 			<include name="*/feature.xml"/>
 			<include name="*/category.xml"/>
-			<include name="org.whole.product/whole.product"/>
+			<include name="org.whole.lw.product/whole.product"/>
 		</replace>
 		<replace dir="${workspace.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
 			<include name="*/pom-lw.xml"/>
@@ -126,7 +126,7 @@
 	<target name="build_lw" depends="init_backup, package_lw" unless="failure">
 		<copy todir="${backup.dir}">
 			<fileset dir="${workspace.dir}/org.whole.lw.repository/target" includes="whole-*.zip"/>
-		    <fileset dir="${workspace.dir}/org.whole.product/target/products" includes="whole-*"/>
+		    <fileset dir="${workspace.dir}/org.whole.lw.product/target/products" includes="whole-*"/>
 			<firstmatchmapper>
 				<globmapper from="whole*.gtk.x86_64.tar.gz" to="whole-lw*.tar.gz"/>
 				<globmapper from="whole*macosx.cocoa.x86_64.tar.gz" to="whole-lw*osx.tar.gz"/>

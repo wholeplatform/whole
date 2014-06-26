@@ -91,7 +91,7 @@
 		<module>../org.whole.sdk.feature/pom-lw.xml</module>
 
 		<module>../org.whole.lw.repository/pom-lw.xml</module>
-		<module>../org.whole.product/pom-lw.xml</module>
+		<module>../org.whole.lw.product/pom-lw.xml</module>
 	</modules>
 
 	<build>
