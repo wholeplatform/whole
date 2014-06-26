@@ -125,7 +125,7 @@
 	</target>
 	<target name="build_lw" depends="init_backup, package_lw" unless="failure">
 		<copy todir="${backup.dir}">
-			<fileset dir="${workspace.dir}/org.whole.repository/target" includes="whole-*.zip"/>
+			<fileset dir="${workspace.dir}/org.whole.lw.repository/target" includes="whole-*.zip"/>
 		    <fileset dir="${workspace.dir}/org.whole.product/target/products" includes="whole-*"/>
 			<firstmatchmapper>
 				<globmapper from="whole*.gtk.x86_64.tar.gz" to="whole-lw*.tar.gz"/>
