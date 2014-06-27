@@ -1,144 +1,131 @@
 <?xml version="1.0"?>
 <project name="whole" default="build" basedir=".">
-	<property environment="env"/>
-	<property name="maven.home" value="${env.M2_HOME}"/>
-	<property name="wholeproject.dir" value="../../.."/>
-	<property name="backups.dir" value="${wholeproject.dir}/backups"/>
-	<property name="repos.dir" value="${wholeproject.dir}/repos"/>
-	<property name="workspace.dir" value=".."/>
-	<property name="releng.dir" value="."/>
-	<property name="version.num" value="1.0.0"/>
-	<property name="version.num.old" value="1.0.0"/>
+	<property environment="env" />
+	<property name="maven.home" value="${env.M2_HOME}" />
+	<property name="releng.dir" value="." />
+	<property name="workspace.dir" value=".." />
+	<property name="whole.dir" value="../../.." />
+	<property name="backups.dir" value="${whole.dir}/backups" />
+	<property name="repos.dir" value="${whole.dir}/repos" />
+	<property name="version.num" value="1.0.0" />
+	<property name="version.num.old" value="1.0.0" />
 
 	<macrodef name="maven">
-	    <attribute name="options" default="" />
-	    <attribute name="goal" />
-	    <attribute name="basedir" />
-	    <attribute name="resultproperty" default="maven.result" />
-	    <element name="args" implicit="true" optional="true" />
-	    <sequential>
-	      <java classname="org.codehaus.classworlds.Launcher" fork="true"
-	            dir="@{basedir}" resultproperty="@{resultproperty}">
-	      	<jvmarg value="-Xmx512m"/>
-	      	<jvmarg value="-Djava.net.useSystemProxies=false"/>
-	      	<jvmarg value="-Dtycho.localArtifacts=ignore"/>
-	      	<classpath>
-	          <fileset dir="${maven.home}/boot">
-	            <include name="*.jar" />
-	          </fileset>
-	          <fileset dir="${maven.home}/lib">
-	            <include name="*.jar" />
-	          </fileset>
-	        </classpath>
-	        <sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
-	        <sysproperty key="maven.home" value="${maven.home}" />
-	        <arg line="--batch-mode @{options} @{goal}" />
-	      </java>
-	    </sequential>
-	  </macrodef>
+		<attribute name="options" default="" />
+		<attribute name="goal" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="maven.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<java classname="org.codehaus.classworlds.Launcher" fork="true" dir="@{basedir}" resultproperty="@{resultproperty}">
+				<jvmarg value="-Xmx512m" />
+				<jvmarg value="-Djava.net.useSystemProxies=false" />
+				<jvmarg value="-Dtycho.localArtifacts=ignore" />
+				<classpath>
+					<fileset dir="${maven.home}/boot">
+						<include name="*.jar" />
+					</fileset>
+					<fileset dir="${maven.home}/lib">
+						<include name="*.jar" />
+					</fileset>
+				</classpath>
+				<sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
+				<sysproperty key="maven.home" value="${maven.home}" />
+				<arg line="--batch-mode @{options} @{goal}" />
+			</java>
+		</sequential>
+	</macrodef>
 
-	<target name="load_version">
-		<property file="${releng.dir}/version.properties"/>
-	</target>
-	<target name="init_version" depends="init_newversion, init_lastversion">
-	</target>
-	<target name="init_newversion" depends="load_version" unless="${version.fixed}">
-		<tstamp>
-			<format property="RDATE" pattern="MM/dd/yyyy"/>
-		</tstamp>
-		<property name="version" value="${version.num}.v${DSTAMP}-${TSTAMP}"/>
+	<target name="init_version" unless="version">
+		<exec executable="git" outputproperty="commit.date.iso" failifexecutionfails="false" errorproperty="">
+			<arg value="log" />
+			<arg value="-1" />
+			<arg value="--format=%cd" />
+			<arg value="--date=iso" />
+		</exec>
 
-		<propertyfile file="${releng.dir}/version.properties">
-			<entry key="version.last" value="${version}"/>
-			<entry key="version.fixed" value="false"/>
-		</propertyfile>
-	</target>
-	<target name="init_lastversion" depends="load_version" unless="version">
-		<available file="${releng.dir}/version.properties" property="version.file.ok"/>
-		<fail message="file ( ${releng.dir}/version.properties ) not found!" unless="version.file.ok"/>
-		<fail message="version.last not defined in ( ${releng.dir}/version.properties )" unless="version.last" />
-		<property name="version" value="${version.last}"/>
+		<script language="javascript">
+		  project.setProperty('commit.version',
+			project.getProperty('commit.date.iso').replace(/[-:]/g, '').replace(' ', '-').substr(0, "13"));
+		</script>
+
+		<property name="version" value="${version.num}.v${commit.version}" />
 	</target>
 
 	<target name="set_build_version" depends="init_version">
 		<replace dir="${workspace.dir}" token="${version.num.old}.qualifier" value="${version}" summary="on">
-			<include name="*/META-INF/MANIFEST.MF"/>
-			<include name="*/feature.xml"/>
-			<include name="*/category.xml"/>
-			<include name="org.whole.lw.product/whole.product"/>
+			<include name="*/META-INF/MANIFEST.MF" />
+			<include name="*/feature.xml" />
+			<include name="*/category.xml" />
+			<include name="org.whole.lw.product/whole.product" />
 		</replace>
 		<replace dir="${workspace.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
-			<include name="*/pom-lw.xml"/>
-			<include name="*/pom-ldk.xml"/>
-			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml"/>
+			<include name="*/pom-lw.xml" />
+			<include name="*/pom-ldk.xml" />
+			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml" />
 		</replace>
 	</target>
-	<target name="set_meta_version" depends="init_lastversion">
+	<target name="set_meta_version" depends="init_version">
 		<replace dir="${workspace.dir}" token="${version}" value="${version.num}.qualifier" summary="on">
-			<include name="*/META-INF/MANIFEST.MF"/>
-			<include name="*/feature.xml"/>
-			<include name="*/category.xml"/>
-			<include name="org.whole.lw.product/whole.product"/>
+			<include name="*/META-INF/MANIFEST.MF" />
+			<include name="*/feature.xml" />
+			<include name="*/category.xml" />
+			<include name="org.whole.lw.product/whole.product" />
 		</replace>
 		<replace dir="${workspace.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
-			<include name="*/pom-lw.xml"/>
-			<include name="*/pom-ldk.xml"/>
-			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml"/>
+			<include name="*/pom-lw.xml" />
+			<include name="*/pom-ldk.xml" />
+			<include name="org.whole.lw.releng/maven-testapp/pom-ldk.xml" />
 		</replace>
 	</target>
 
-	<target name="init_backup" depends="init_version">
-		<property name="backup.dir" value="${backups.dir}/${version}"/>
-		<mkdir dir="${backup.dir}" />
+	<target name="init_build" depends="init_version">
+		<property name="build.dir" value="${releng.dir}/builds/${version}" />
+		<mkdir dir="${build.dir}" />
 	</target>
-	<target name="init_release" depends="init_lastversion">
-		<property name="backup.dir" value="${backups.dir}/${version}"/>
+	<target name="init_release" depends="init_version">
+		<available file="${releng.dir}/builds/${version}" type="dir" property="build.dir" value="${releng.dir}/builds/${version}" />
 	</target>
 
-	<target name="backup_dist" depends="init_backup" description="Backups the source distribution repos">
-		<zip destfile="${backup.dir}/whole-${version}.zip">
-			<zipfileset prefix="whole" dir="${repos.dir}/whole"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+	<target name="zip_public_sources" depends="init_build">
+		<zip destfile="${build.dir}/whole-${version}.zip">
+			<zipfileset prefix="whole" dir="${repos.dir}/whole" excludes=".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
-		<zip destfile="${backup.dir}/whole-examples-${version}.zip">
-			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+		<zip destfile="${build.dir}/whole-examples-${version}.zip">
+			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
 	</target>
-	<target name="backup" depends="backup_dist" description="Backups all repos">
-		<zip destfile="${backup.dir}/whole-apps-${version}.zip">
-			<zipfileset prefix="whole-apps" dir="${repos.dir}/whole-apps"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+	<target name="zip_private_sources" depends="init_build" description="zip sources of private ropos">
+		<zip destfile="${build.dir}/whole-apps-${version}.zip">
+			<zipfileset prefix="whole-apps" dir="${repos.dir}/whole-apps" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
-		<zip destfile="${backup.dir}/whole-incubator-${version}.zip">
-			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+		<zip destfile="${build.dir}/whole-incubator-${version}.zip">
+			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
-		<zip destfile="${backup.dir}/whole-incubator-runtime-${version}.zip">
-			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator-runtime"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+		<zip destfile="${build.dir}/whole-incubator-runtime-${version}.zip">
+			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator-runtime" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
-		<zip destfile="${backup.dir}/whole-spl-${version}.zip">
-			<zipfileset prefix="whole-spl" dir="${repos.dir}/whole-spl"
-				excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no"/>
+		<zip destfile="${build.dir}/whole-spl-${version}.zip">
+			<zipfileset prefix="whole-spl" dir="${repos.dir}/whole-spl" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
 	</target>
-	<target name="build_lw" depends="init_backup, package_lw" unless="failure">
-		<copy todir="${backup.dir}">
-			<fileset dir="${workspace.dir}/org.whole.lw.repository/target" includes="whole-*.zip"/>
-		    <fileset dir="${workspace.dir}/org.whole.lw.product/target/products" includes="whole-*"/>
+
+	<target name="build_lw" depends="init_build, package_lw" unless="failure">
+		<copy todir="${build.dir}">
+			<fileset dir="${workspace.dir}/org.whole.lw.repository/target" includes="whole-*.zip" />
+			<fileset dir="${workspace.dir}/org.whole.lw.product/target/products" includes="whole-*" />
 			<firstmatchmapper>
-				<globmapper from="whole*.gtk.x86_64.tar.gz" to="whole-lw*.tar.gz"/>
-				<globmapper from="whole*macosx.cocoa.x86_64.tar.gz" to="whole-lw*osx.tar.gz"/>
-				<globmapper from="whole*32.win32.x86_64.zip" to="whole-lw*dows.zip"/>
-				<identitymapper/>
+				<globmapper from="whole*.gtk.x86_64.tar.gz" to="whole-lw*.tar.gz" />
+				<globmapper from="whole*macosx.cocoa.x86_64.tar.gz" to="whole-lw*osx.tar.gz" />
+				<globmapper from="whole*32.win32.x86_64.zip" to="whole-lw*dows.zip" />
+				<identitymapper />
 			</firstmatchmapper>
-		 </copy>
-		
-		<antcall target="clean_lw"/>
+		</copy>
+
+		<antcall target="clean_lw" />
 	</target>
-	<target name="build_ldk" depends="init_backup, package_ldk" unless="failure">
-		<!--zip destfile="${backup.dir}/whole-ldk-${version}.zip">
+	<target name="build_ldk" depends="init_build, package_ldk" unless="failure">
+		<!--zip destfile="${build.dir}/whole-ldk-${version}.zip">
 			<mappedresources>
 				<fileset dir="${workspace.dir}/" includes="*/target/whole-*.jar"/>
 				<chainedmapper>
@@ -148,85 +135,97 @@
 			</mappedresources>
 		</zip-->
 
-		<antcall target="clean_ldk"/>
+		<antcall target="clean_ldk" />
 	</target>
-	<target name="build"
-		depends="init_backup, set_build_version, build_lw, build_ldk, set_meta_version, backup_dist"
-		description="Generates all distribution archives">
+	<target name="build" depends="set_build_version, build_lw, build_ldk, set_meta_version, zip_public_sources" description="Generates all distribution archives">
 	</target>
 
+	<target name="clean_builds">
+		<delete dir="${releng.dir}/builds" />
+	</target>
 	<target name="clean_lw">
-		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="clean"/>
-		<delete dir="workspace"/>
+		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="clean" />
+		<delete dir="${releng.dir}/workspace" />
 	</target>
 	<target name="clean_ldk">
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="clean"/>
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="clean" />
 	</target>
-	<target name="clean" depends="clean_lw, clean_ldk"/>
+	<target name="clean" depends="clean_builds, clean_lw, clean_ldk" description="Clean"/>
 
 	<target name="package_lw" unless="failure">
-		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="package" resultproperty="package_lw.result"/>
+		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="package" resultproperty="package_lw.result" />
 		<condition property="failure">
-			<not><equals arg1="${package_lw.result}" arg2="0"/></not>
+			<not>
+				<equals arg1="${package_lw.result}" arg2="0" />
+			</not>
 		</condition>
 	</target>
 	<target name="package_ldk" unless="failure">
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="package" resultproperty="package_ldk.result"/>
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="package" resultproperty="package_ldk.result" />
 		<condition property="failure">
-			<not><equals arg1="${package_ldk.result}" arg2="0"/></not>
+			<not>
+				<equals arg1="${package_ldk.result}" arg2="0" />
+			</not>
 		</condition>
 	</target>
-	<target name="package" depends="clean, package_lw, package_ldk"/>
+	<target name="package" depends="clean, package_lw, package_ldk" />
 
-	<target name="release_lw" depends="init_release" description="Release the Whole Language Workbench">
-		<property name="frs.dir" value="/home/frs/project/whole"/>
-
-		<unzip src="${backup.dir}/whole-${version}.zip" dest="${backup.dir}">
-			<patternset>
-				<include name="whole/org.whole.lw.releng/readme.txt"/>
-			</patternset>
-			<flattenmapper/>
-		</unzip>
-		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frs.dir}"/>
-		</exec>
-		<delete file="${backup.dir}/readme.txt"/>
-
-		<delete file="${backup.dir}/.DS_Store" quiet="true"/>
-		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir} riccardo_solmi@frs.sourceforge.net:${frs.dir}/builds"/>
-		</exec>
-
-		<unzip src="${backup.dir}/whole-updatesite-${version}.zip" dest="${backup.dir}/${version}"/>
-		<exec executable="rsync" failonerror="true">
-			<arg line="-ave ssh ${backup.dir}/${version} riccardo_solmi@frs.sourceforge.net:${frs.dir}/updates"/>
-		</exec>
-		<delete dir="${backup.dir}/${version}"/>
+	<target name="release_on_backups" depends="init_release" description="Release the Whole Language Workbench">
+		<fail unless="build.dir" message="Missing build to release in backup dir"/>
+		
+		<copy todir="${backups.dir}/${version}">
+			<fileset dir="${build.dir}" />
+		</copy>
 	</target>
 
-	<target name="release_ldk" depends="clean" description="Release the Whole Language Development Kit">
-		<property name="version.fixed" value="true"/>
-		<antcall target="set_build_version"/>
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy"/>
-		<antcall target="set_meta_version"/>
+	<target name="release_lw_on_sourceforge" depends="init_release" description="Release the Whole Language Workbench">
+		<fail unless="build.dir" message="Missing build to release on sourceforge"/>
 
-		<antcall target="clean_ldk"/>
+		<property name="frs.dir" value="/home/frs/project/whole" />
+
+		<unzip src="${build.dir}/whole-${version}.zip" dest="${build.dir}">
+			<patternset>
+				<include name="whole/org.whole.lw.releng/readme.txt" />
+			</patternset>
+			<flattenmapper />
+		</unzip>
+		<exec executable="rsync" failonerror="true">
+			<arg line="-ave ssh ${build.dir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frs.dir}" />
+		</exec>
+		<delete file="${build.dir}/readme.txt" />
+
+		<delete file="${build.dir}/.DS_Store" quiet="true" />
+		<exec executable="rsync" failonerror="true">
+			<arg line="-ave ssh ${build.dir} riccardo_solmi@frs.sourceforge.net:${frs.dir}/builds" />
+		</exec>
+
+		<unzip src="${build.dir}/whole-updatesite-${version}.zip" dest="${build.dir}/${version}" />
+		<exec executable="rsync" failonerror="true">
+			<arg line="-ave ssh ${build.dir}/${version} riccardo_solmi@frs.sourceforge.net:${frs.dir}/updates" />
+		</exec>
+		<delete dir="${build.dir}/${version}" />
+	</target>
+
+	<target name="release_ldk_on_sourceforge" depends="clean" description="Release the Whole Language Development Kit">
+		<antcall target="set_build_version" />
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy" />
+		<antcall target="set_meta_version" />
+
+		<antcall target="clean_ldk" />
 	</target>
 
 	<target name="release_ldk_local" depends="clean">
-		<property name="version.fixed" value="true"/>
-		<antcall target="set_build_version"/>
-		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install"/>
-		<antcall target="set_meta_version"/>
+		<antcall target="set_build_version" />
+		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install" />
+		<antcall target="set_meta_version" />
 
-		<antcall target="clean_ldk"/>
+		<antcall target="clean_ldk" />
 	</target>
 
 	<target name="test_ldk" description="Test the released Whole Language Development Kit">
-		<property name="version.fixed" value="true"/>
-		<antcall target="set_build_version"/>
-		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="test"/>
-		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="clean"/>
-		<antcall target="set_meta_version"/>
+		<antcall target="set_build_version" />
+		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="test" />
+		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="clean" />
+		<antcall target="set_meta_version" />
 	</target>
 </project>
