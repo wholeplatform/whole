@@ -5,4 +5,4 @@ before_script:
   - mvn install:install-file -DgroupId=org.eclipse.tycho -DartifactId=org.eclipse.jdt.core -Dversion=3.9.50.v20140317-1741 -Dpackaging=jar -Dfile=org.eclipse.jdt.core_3.9.50.v20140317-1741.jar
   - wget http://download.eclipse.org/eclipse/updates/4.3-P-builds/P20140317-1600/plugins/org.eclipse.jdt.compiler.apt_1.0.650.v20140316-1836.jar
   - mvn install:install-file -DgroupId=org.eclipse.tycho -DartifactId=org.eclipse.jdt.compiler.apt -Dversion=1.0.650.v20140316-1836 -Dpackaging=jar -Dfile=org.eclipse.jdt.compiler.apt_1.0.650.v20140316-1836.jar
-script: cd org.whole.lw.releng; ant build
+script: cd org.whole.lw.releng; ant set_build_version; mvn -Dtycho.localArtifacts=ignore -fpom-lw.xml package
