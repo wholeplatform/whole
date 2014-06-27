@@ -110,7 +110,7 @@
 		</zip>
 	</target>
 
-	<target name="build_lw" depends="init_build, package_lw" unless="failure">
+	<target name="copy_products" depends="init_build">
 		<copy todir="${build.dir}">
 			<fileset dir="${workspace.dir}/org.whole.lw.repository/target" includes="whole-*.zip" />
 			<fileset dir="${workspace.dir}/org.whole.lw.product/target/products" includes="whole-*" />
@@ -121,10 +121,14 @@
 				<identitymapper />
 			</firstmatchmapper>
 		</copy>
+	</target>
+
+	<target name="build_lw" depends="package_lw" unless="failure">
+		<antcall target="copy_products" />
 
 		<antcall target="clean_lw" />
 	</target>
-	<target name="build_ldk" depends="init_build, package_ldk" unless="failure">
+	<target name="build_ldk" depends="package_ldk" unless="failure">
 		<!--zip destfile="${build.dir}/whole-ldk-${version}.zip">
 			<mappedresources>
 				<fileset dir="${workspace.dir}/" includes="*/target/whole-*.jar"/>
@@ -137,7 +141,7 @@
 
 		<antcall target="clean_ldk" />
 	</target>
-	<target name="build" depends="set_build_version, build_lw, build_ldk, set_meta_version, zip_public_sources" description="Generates all distribution archives">
+	<target name="build" depends="zip_public_sources, set_build_version, build_lw, build_ldk, set_meta_version" description="Generates all distribution archives">
 	</target>
 
 	<target name="clean_builds">
@@ -150,7 +154,7 @@
 	<target name="clean_ldk">
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="clean" />
 	</target>
-	<target name="clean" depends="clean_builds, clean_lw, clean_ldk" description="Clean"/>
+	<target name="clean" depends="clean_builds, clean_lw, clean_ldk" description="Clean" />
 
 	<target name="package_lw" unless="failure">
 		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="package" resultproperty="package_lw.result" />
@@ -171,15 +175,15 @@
 	<target name="package" depends="clean, package_lw, package_ldk" />
 
 	<target name="release_on_backups" depends="init_release" description="Release the Whole Language Workbench">
-		<fail unless="build.dir" message="Missing build to release in backup dir"/>
-		
+		<fail unless="build.dir" message="Missing build to release in backup dir" />
+
 		<copy todir="${backups.dir}/${version}">
 			<fileset dir="${build.dir}" />
 		</copy>
 	</target>
 
 	<target name="release_lw_on_sourceforge" depends="init_release" description="Release the Whole Language Workbench">
-		<fail unless="build.dir" message="Missing build to release on sourceforge"/>
+		<fail unless="build.dir" message="Missing build to release on sourceforge" />
 
 		<property name="frs.dir" value="/home/frs/project/whole" />
 
