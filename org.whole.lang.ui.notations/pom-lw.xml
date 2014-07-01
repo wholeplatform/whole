@@ -6,9 +6,9 @@
 
 	<parent>
 		<groupId>com.wholeplatform</groupId>
-		<artifactId>org.whole.lw.releng</artifactId>
+		<artifactId>org.whole.product.lw.releng</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../org.whole.lw.releng/pom-lw.xml</relativePath>
+		<relativePath>../org.whole.product.lw.releng/pom-lw.xml</relativePath>
 	</parent>
 
 	<artifactId>org.whole.lang.ui.notations</artifactId>

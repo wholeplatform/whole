@@ -8,7 +8,7 @@
 		<groupId>com.wholeplatform</groupId>
 		<artifactId>whole-ldk</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../org.whole.lw.releng/pom-ldk.xml</relativePath>
+		<relativePath>../org.whole.product.lw.releng/pom-ldk.xml</relativePath>
 	</parent>
 
 	<artifactId>whole-lang</artifactId>
