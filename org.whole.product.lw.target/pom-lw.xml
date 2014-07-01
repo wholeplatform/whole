@@ -11,7 +11,7 @@
 		<relativePath>../org.whole.lw.releng/pom-lw.xml</relativePath>
 	</parent>
 
-	<artifactId>org.whole.lw.target</artifactId>
+	<artifactId>org.whole.product.lw.target</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
