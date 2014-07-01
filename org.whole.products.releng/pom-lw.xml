@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.wholeplatform</groupId>
-	<artifactId>org.whole.product.lw.releng</artifactId>
+	<artifactId>org.whole.products.releng</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -230,9 +230,9 @@
 	<!-- update according to org.whole.product.lw.target/LUNA_4_4_x.target -->
 	<repositories>
 		<repository>
-			<id>eclipse-kepler-updates</id>
+			<id>eclipse-luna-updates</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.4-I-builds</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.4</url>
 		</repository>
 		<repository>
 			<id>e4tools</id>
