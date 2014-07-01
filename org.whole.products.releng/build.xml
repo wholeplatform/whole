@@ -5,7 +5,6 @@
 	<property name="releng.dir" value="." />
 	<property name="workspace.dir" value=".." />
 	<property name="whole.dir" value="../../.." />
-	<property name="backups.dir" value="${whole.dir}/backups" />
 	<property name="repos.dir" value="${whole.dir}/repos" />
 	<property name="version.num" value="1.0.0" />
 	<property name="version.num.old" value="1.0.0" />
@@ -87,31 +86,31 @@
 		<available file="${releng.dir}/builds/${version}" type="dir" property="build.dir" value="${releng.dir}/builds/${version}" />
 	</target>
 
-	<target name="zip_public_sources" depends="init_build">
+	<target name="zip_whole_sources" depends="init_build">
 		<zip destfile="${build.dir}/whole-${version}.zip">
 			<zipfileset prefix="whole" dir="${repos.dir}/whole" excludes=".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
+	</target>
+	<target name="zip_examples_sources" depends="init_build">
 		<zip destfile="${build.dir}/whole-examples-${version}.zip">
 			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
 	</target>
-	<target name="zip_private_sources" depends="init_build" description="zip sources of private ropos">
-		<zip destfile="${build.dir}/whole-apps-${version}.zip">
-			<zipfileset prefix="whole-apps" dir="${repos.dir}/whole-apps" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
-		</zip>
-		<zip destfile="${build.dir}/whole-incubator-${version}.zip">
-			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
-		</zip>
-		<zip destfile="${build.dir}/whole-incubator-runtime-${version}.zip">
-			<zipfileset prefix="whole-incubator" dir="${repos.dir}/whole-incubator-runtime" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
-		</zip>
-		<zip destfile="${build.dir}/whole-spl-${version}.zip">
-			<zipfileset prefix="whole-spl" dir="${repos.dir}/whole-spl" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
-		</zip>
-	</target>
 
-	<target name="copy_products" depends="init_build">
-		<copy todir="${build.dir}">
+	<target name="clean_lw">
+		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="clean" />
+		<delete dir="${releng.dir}/workspace" />
+	</target>
+	<target name="package_lw" unless="failure">
+		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="package" resultproperty="package_lw.result" />
+		<condition property="failure">
+			<not>
+				<equals arg1="${package_lw.result}" arg2="0" />
+			</not>
+		</condition>
+	</target>
+	<target name="move_lw_products" depends="init_build">
+		<move todir="${build.dir}">
 			<fileset dir="${workspace.dir}/org.whole.product.lw.repository/target" includes="whole-*.zip" />
 			<fileset dir="${workspace.dir}/org.whole.product.lw.product/target/products" includes="whole-*" />
 			<firstmatchmapper>
@@ -120,49 +119,15 @@
 				<globmapper from="whole*32.win32.x86_64.zip" to="whole-lw*dows.zip" />
 				<identitymapper />
 			</firstmatchmapper>
-		</copy>
+		</move>
 	</target>
-
 	<target name="build_lw" depends="package_lw" unless="failure">
-		<antcall target="copy_products" />
-
+		<antcall target="move_lw_products" />
 		<antcall target="clean_lw" />
 	</target>
-	<target name="build_ldk" depends="package_ldk" unless="failure">
-		<!--zip destfile="${build.dir}/whole-ldk-${version}.zip">
-			<mappedresources>
-				<fileset dir="${workspace.dir}/" includes="*/target/whole-*.jar"/>
-				<chainedmapper>
-					<flattenmapper/>
-					<regexpmapper from="(.*)" to="lib/\1"/>
-				</chainedmapper>
-			</mappedresources>
-		</zip-->
 
-		<antcall target="clean_ldk" />
-	</target>
-	<target name="build" depends="zip_public_sources, set_build_version, build_lw, build_ldk, set_meta_version" description="Generates all distribution archives">
-	</target>
-
-	<target name="clean_builds">
-		<delete dir="${releng.dir}/builds" />
-	</target>
-	<target name="clean_lw">
-		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="clean" />
-		<delete dir="${releng.dir}/workspace" />
-	</target>
 	<target name="clean_ldk">
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="clean" />
-	</target>
-	<target name="clean" depends="clean_builds, clean_lw, clean_ldk" description="Clean" />
-
-	<target name="package_lw" unless="failure">
-		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="package" resultproperty="package_lw.result" />
-		<condition property="failure">
-			<not>
-				<equals arg1="${package_lw.result}" arg2="0" />
-			</not>
-		</condition>
 	</target>
 	<target name="package_ldk" unless="failure">
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="package" resultproperty="package_ldk.result" />
@@ -172,17 +137,19 @@
 			</not>
 		</condition>
 	</target>
-	<target name="package" depends="clean, package_lw, package_ldk" />
-
-	<target name="release_on_backups" depends="init_release" description="Release the Whole Language Workbench">
-		<fail unless="build.dir" message="Missing build to release in backup dir" />
-
-		<copy todir="${backups.dir}/${version}">
-			<fileset dir="${build.dir}" />
-		</copy>
+	<target name="build_ldk" depends="package_ldk" unless="failure">
+		<antcall target="clean_ldk" />
 	</target>
 
-	<target name="release_lw_on_sourceforge" depends="init_release" description="Release the Whole Language Workbench">
+	<target name="clean" depends="clean_lw, clean_ldk" description="Clean">
+		<delete dir="${releng.dir}/builds" />
+	</target>
+
+	<target name="package" depends="clean, package_lw, package_ldk" />
+
+	<target name="build" depends="zip_whole_sources, zip_examples_sources, set_build_version, build_lw, build_ldk, set_meta_version" description="Generates all distribution archives" />
+
+	<target name="release_lw" depends="init_release" description="Release the Whole Language Workbench">
 		<fail unless="build.dir" message="Missing build to release on sourceforge" />
 
 		<property name="frs.dir" value="/home/frs/project/whole" />
@@ -210,7 +177,7 @@
 		<delete dir="${build.dir}/${version}" />
 	</target>
 
-	<target name="release_ldk_on_sourceforge" depends="clean" description="Release the Whole Language Development Kit">
+	<target name="release_ldk" depends="clean" description="Release the Whole Language Development Kit">
 		<antcall target="set_build_version" />
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="deploy" />
 		<antcall target="set_meta_version" />
