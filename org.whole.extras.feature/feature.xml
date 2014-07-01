@@ -24,10 +24,6 @@
    </url>
 
    <includes
-         id="org.whole.langs.legacy.scripting.feature"
-         version="0.0.0"/>
-
-   <includes
          id="org.whole.langs.misc.feature"
          version="0.0.0"/>
 

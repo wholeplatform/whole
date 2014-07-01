@@ -66,9 +66,6 @@
 		<module>../org.whole.rcp/pom-lw.xml</module>
 		<module>../org.whole.rcp.feature/pom-lw.xml</module>
 
-		<module>../org.whole.langs.legacy.scripting/pom-lw.xml</module>
-		<module>../org.whole.langs.legacy.scripting.feature/pom-lw.xml</module>
-
 		<module>../org.whole.langs.misc/pom-lw.xml</module>
 		<module>../org.whole.langs.misc.feature/pom-lw.xml</module>
 
