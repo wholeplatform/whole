@@ -87,8 +87,10 @@
 		<module>../org.whole.sdk/pom-lw.xml</module>
 		<module>../org.whole.sdk.feature/pom-lw.xml</module>
 
-		<module>../org.whole.product.lw.repository/pom-lw.xml</module>
+		<module>../org.whole.product.lw/pom-lw.xml</module>
+		<module>../org.whole.product.lw.feature/pom-lw.xml</module>
 		<module>../org.whole.product.lw.product/pom-lw.xml</module>
+		<module>../org.whole.product.lw.repository/pom-lw.xml</module>
 	</modules>
 
 	<build>

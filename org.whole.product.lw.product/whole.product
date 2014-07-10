@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="%productName" uid="org.whole.lang.ide.product" id="org.whole.lang.ide.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="%productName" uid="org.whole.product.lw.product" id="org.whole.product.lw.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/whole250.png"/>
@@ -15,14 +15,16 @@
 
    <launcherArgs>
       <vmArgs>-Xms512m
--Xmx1024m</vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+-Xmx1024m
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="icons/whole16.png" i32="icons/whole32.png" i48="icons/whole48.png" i64="icons/whole64.png" i128="icons/whole128.png"/>
 
    <splash
-      location="org.whole.lang.ide"
+      location="org.whole.product.lw"
       startupProgressRect="0,315,500,15"
       startupMessageRect="8,261,441,20"
       startupForegroundColor="C8D5EA" />
@@ -227,7 +229,7 @@ Library.
       <feature id="org.beanshell.bsh.feature"/>
       <feature id="org.h2.feature"/>
       <feature id="org.mozilla.rhino.feature"/>
-      <feature id="org.whole.sdk.feature"/>
+      <feature id="org.whole.product.lw.feature"/>
       <feature id="org.whole.extras.feature"/>
    </features>
 

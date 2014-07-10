@@ -4,127 +4,21 @@
 
 	<extension
 		point="org.whole.lang.deployers">
-	<deployer
-			desc="Whole IDE Persistence Kits Deployer"
-			class="org.whole.gen.lang.reflect.JDTPersistenceKitsDeployer"
-			id="org.whole.gen.lang.reflect.JDTPersistenceKitsDeployer">
-	</deployer>
-	<deployer
-			desc="Whole IDE Operations Deployer"
-			class="org.whole.lang.ide.IDEOperationsDeployer"
-			id="org.whole.lang.ide.IDEOperationsDeployer">
-	</deployer>
-	<deployer
-			desc="Whole IDE Contribution Extensions Deployer"
-			class="org.whole.lang.ide.IDEContributionExtensionsDeployer"
-			id="org.whole.lang.ide.IDEContributionExtensionsDeployer">
-	</deployer>
-	</extension>
-
-	<extension point="org.eclipse.ui.actionSets">
-		<actionSet label="Model Creation" visible="false" id="org.whole.lang.ui.wholeElementCreationActions">
-			<action
-				label="%_UI_WholeModel_title"
-				icon="icons/wizards/whole_model_creation.gif"
-				tooltip="%_UI_WholeModel_tooltip"
-				class="org.whole.lang.ui.wizards.OpenWholeModelWizardAction"
-				toolbarPath="org.eclipse.jdt.ui.JavaElementCreationActionSet/JavaWizards"
-				id="org.whole.lang.ui.wholeModelCreationAction" />
-		</actionSet>
-	</extension>
-
-	<extension point="org.eclipse.ui.perspectiveExtensions">
-		<perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
-			<actionSet id="org.whole.lang.ui.wholeElementCreationActions"/>
-			<newWizardShortcut id="org.whole.lang.ui.wizards.WholeModelCreationWizard"/>
-		</perspectiveExtension>
-		<perspectiveExtension targetID="org.eclipse.debug.ui.DebugPerspective">
-			<actionSet id="org.whole.lang.ui.wholeElementCreationActions"/>
-			<newWizardShortcut id="org.whole.lang.ui.wizards.WholeModelCreationWizard"/>
-		</perspectiveExtension>
-		<perspectiveExtension targetID="org.eclipse.pde.ui.PDEPerspective">
-			<actionSet id="org.whole.lang.ui.wholeElementCreationActions"/>
-			<newWizardShortcut id="org.whole.lang.ui.wizards.WholeModelCreationWizard"/>
-		</perspectiveExtension>
-	</extension>
-
-	<extension point="org.eclipse.ui.perspectives">
-	<perspective
-			name="Whole Explore"
-			icon="icons/explorePerspective.gif"
-			class="org.whole.lang.ide.WholeIDEExplorePerspectiveFactory"
-			id="org.whole.lang.ide.WholeIDEExplorePerspectiveFactory">
-	</perspective>
-	<perspective
-			name="Whole Sample"
-			icon="icons/samplePerspective.gif"
-			class="org.whole.lang.ide.WholeIDESamplePerspectiveFactory"
-			id="org.whole.lang.ide.WholeIDESamplePerspectiveFactory">
-	</perspective>
-	<perspective
-			name="Whole Debug"
-			icon="icons/debugPerspective.gif"
-			class="org.whole.lang.ide.WholeIDEDebugPerspectiveFactory"
-			id="org.whole.lang.ide.WholeIDEDebugPerspectiveFactory">
-	</perspective>
-	</extension>
-	
-
-	<extension point="org.eclipse.ui.importWizards">
-		<wizard
-			category="org.whole.lang.ui.wizards"
-			class="org.whole.lang.ui.wizards.PojoModelImportWizard"
-			icon="icons/wizards/pojo_model_import.gif"
-			id="org.whole.lang.ui.wizards.PojoModelImportWizard"
-			name="Java classes into Pojo model">
-			<description>
-			Import a set of Java classes into a Pojo model
-			</description>
-		</wizard>
-		<wizard
-			category="org.whole.lang.ui.wizards"
-			class="org.whole.lang.ui.wizards.ArtifactsModelImportWizard"
-			icon="icons/wizards/artifacts_model_import.gif"
-			id="org.whole.lang.ui.wizards.ArtifactsModelImportWizard"
-			name="Workspace into Artifacts model">
-			<description>
-			Import resources from the Workspace into an Artifacts model
-			</description>
-		</wizard>
-		<wizard
-			category="org.whole.lang.ui.wizards"
-			class="org.whole.lang.ui.wizards.JavaModelImportWizard"
-			icon="icons/wizards/java_model_import.gif"
-			id="org.whole.lang.ui.wizards.JavaModelImportWizard"
-			name="Java class into Java model">
-			<description>
-			Import a Java class into a Java model
-			</description>
-		</wizard>
-	</extension>
-
-	<extension point="org.eclipse.ui.newWizards">
-		<wizard id="org.whole.lang.ui.wizards.WholeProjectWizard"
-			name="%_UI_WholeProject_title"
-			icon="icons/wizards/whole_project.gif"
-			class="org.whole.lang.ui.wizards.WholeProjectWizard"
-			category="org.whole.lang.ui.WholeWizards"
-			project="true">
-
-			<description>%_UI_WholeProject_description</description>
-			<selection class="org.eclipse.core.resources.IResource"/>
-		</wizard>
-
-		<wizard id="org.whole.lang.ui.wizards.WholePluginProjectWizard"
-			name="%_UI_WholePluginProject_title"
-			icon="icons/wizards/whole_plugin_project.gif"
-			class="org.whole.lang.ui.wizards.WholePluginProjectWizard"
-			category="org.whole.lang.ui.WholeWizards"
-			project="true">
-
-			<description>%_UI_WholePluginProject_description</description>
-			<selection class="org.eclipse.core.resources.IResource"/>
-		</wizard>
+		<deployer
+				desc="Whole IDE Persistence Kits Deployer"
+				class="org.whole.lang.java.reflect.JDTPersistenceKitsDeployer"
+				id="org.whole.gen.lang.reflect.JDTPersistenceKitsDeployer">
+		</deployer>
+		<deployer
+				desc="Whole IDE Operations Deployer"
+				class="org.whole.lang.ide.IDEOperationsDeployer"
+				id="org.whole.lang.ide.IDEOperationsDeployer">
+		</deployer>
+		<deployer
+				desc="Whole IDE Contribution Extensions Deployer"
+				class="org.whole.lang.ide.IDEContributionExtensionsDeployer"
+				id="org.whole.lang.ide.IDEContributionExtensionsDeployer">
+		</deployer>
 	</extension>
 
 	<extension
@@ -133,115 +27,13 @@
               class="org.whole.lang.grammars.ui.GrammarsResourceBindingsContributor"
               id="GrammarsResourceBindingsContributor"/>
 	</extension>
+
 	<extension
 			point="org.eclipse.jdt.ui.classpathContainerPage">
 		<classpathContainerPage
-			class="org.whole.lang.ui.util.PlatformLibraryContainerPage"
+			class="org.whole.lang.jdt.ui.PlatformLibraryContainerPage"
 			id="org.whole.lang.ide.WHOLERT_CONTAINER"
 			name="Whole Platform Library"/>
 	</extension>
 
-	<extension point="org.eclipse.ui.cheatsheets.cheatSheetContent">
-		<cheatsheet
-			name="%cheatsheet.models.newmodel.name"
-			category="org.whole.category"
-			id="org.whole.lang.models.newmodel"
-			contentFile="$nl$/cheatsheets/NewModel.xml">
-				<description>
-					%cheatsheet.models.newmodel.desc
-				</description>
-		</cheatsheet>
-		<cheatsheet
-			name="%cheatsheet.models.newmodelplugin.name"
-			category="org.whole.category"
-			id="org.whole.lang.models.newmodelplugin"
-			contentFile="$nl$/cheatsheets/NewModelPlugin.xml">
-				<description>
-					%cheatsheet.models.newmodelplugin.desc
-				</description>
-		</cheatsheet>
-	</extension>
-
-	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
-		<launchConfigurationType
-			name="Whole Operation"
-			delegate="org.whole.lang.debug.WholeOperationLaunchConfigurationDelegate"
-			modes="run"				
-			id="org.whole.lang.debug.wholeOperation">		
-		</launchConfigurationType>
-	</extension>
-	<extension
-			point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-		<launchConfigurationTabGroup
-			class="org.whole.lang.debug.WholeOperationLaunchConfigurationTabGroup"
-			id="org.whole.lang.debug.wholeOperationTabGroup"
-			type="org.whole.lang.debug.wholeOperation">
-			<launchMode
-				description="Launch a Whole Operation"
-				mode="run"/>
-		</launchConfigurationTabGroup>
-	</extension>
-	<extension
-			point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-		<launchConfigurationTypeImage
-			configTypeID="org.whole.lang.debug.wholeOperation"
-			icon="icons/debug/whole_operation.gif"
-			id="org.whole.lang.debug.wholeOperationTypeImage"/>
-	</extension>
-	<extension
-		point="org.eclipse.ui.splashHandlers">
-		<splashHandler
-    	    class="org.whole.lang.ui.splash.WholeSplashHandler"
-	        id="org.whole.lang.ide.splashHandler">
-		</splashHandler>
-		<splashHandlerProductBinding
-	        productId="org.whole.lang.ide.product"
-	        splashId="org.whole.lang.ide.splashHandler">
-		</splashHandlerProductBinding>
-	</extension>
-
-	<extension
-			id="product"
-			point="org.eclipse.core.runtime.products">
-		<product
-			application="org.eclipse.ui.ide.workbench"
-			name="%productName">
-			<property
-				name="aboutText"
-				value="%productBlurb">
-			</property>
-			<property
-				name="startupForegroundColor"
-				value="C8D5EA">
-			</property>
-			<property
-				name="startupProgressRect"
-				value="0,315,500,15">
-			</property>
-			<property
-				name="startupMessageRect"
-				value="8,261,441,20">
-			</property>
-			<property
-				name="appName"
-				value="%productName">
-			</property>
-			<property
-				name="cssTheme"
-				value="org.eclipse.e4.ui.css.theme.e4_default">
-			</property>
-			<property
-				name="preferenceCustomization"
-				value="plugin_customization.ini">
-			</property>
-			<property
-				name="aboutImage"
-				value="icons/whole250.png">
-			</property>
-			<property
-				name="windowImages"
-				value="icons/whole16.png,icons/whole32.png,icons/whole48.png,icons/whole64.png,icons/whole128.png">
-			</property>
-		</product>
-	</extension>
 </plugin>

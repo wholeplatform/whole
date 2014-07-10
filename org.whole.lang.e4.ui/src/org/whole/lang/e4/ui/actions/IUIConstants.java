@@ -178,10 +178,7 @@ public interface IUIConstants {
 	public static final String REPLACE_FIND_BUTTON_TEXT = "Replace/Find";
 	public static final String REPLACE_ALL_BUTTON_TEXT = "Replace All";
 	public static final String PATTERN_NOT_FOUND_TEXT = "Pattern Not Found";
-	
-	// perspective IDs
-	public static final String DEBUG_PERSPECTIVE_ID = "org.whole.lang.ide.WholeIDEDebugPerspectiveFactory";
-	
+
 	@Deprecated
 	public static final String JAVA_COMPILER_OPERATION_ID = "toJavaModel";
 }

@@ -10,8 +10,4 @@
 		<persistent value="true"/>
 		<attribute name="uri"/>
 	</extension>
-
-	<extension point="org.eclipse.ui.cheatsheets.cheatSheetContent">
-		<category name="%cheatsheet.whole.category" id="org.whole.category"/>
-	</extension>
 </plugin>

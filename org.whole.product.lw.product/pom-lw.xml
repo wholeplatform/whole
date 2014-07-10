@@ -28,7 +28,7 @@
 					</formats>
 					<products>
 						<product>
-							<id>org.whole.lang.ide.product</id>
+							<id>org.whole.product.lw.product</id>
 							<rootFolder>whole</rootFolder>
 							<archiveFileName>whole-${unqualifiedVersion}.${buildQualifier}</archiveFileName>
 						</product>

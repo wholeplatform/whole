@@ -6,19 +6,17 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Activator: org.whole.lang.ide.WholeIDEPlugin
 Bundle-SymbolicName: org.whole.lang.ide;singleton:=true
 Export-Package: org.whole.lang.java.codebase,
+ org.whole.lang.java.reflect,
+ org.whole.lang.tests.visitors,
  org.whole.lang.ui.actions,
  org.whole.lang.ui.controls,
- org.whole.lang.ui.util,
+ org.whole.lang.ui.perspectives,
  org.whole.lang.ui.views,
- org.whole.lang.tests.visitors,
- org.whole.lang.workflows.visitors,
+ org.whole.lang.ui.wizards,
  org.whole.lang.workflows.ui.dialogs,
- org.whole.gen.util,
- org.whole.gen.lang.reflect,
- org.whole.lang.ide
+ org.whole.lang.workflows.visitors
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.console,
  org.eclipse.ui.ide,

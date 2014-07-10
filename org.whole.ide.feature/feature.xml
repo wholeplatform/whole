@@ -31,11 +31,6 @@
          id="org.whole.rcp.feature"
          version="0.0.0"/>
 
-   <requires>
-      <import plugin="org.eclipse.platform" version="3.3.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.gef.lightweight" version="3.2.0" match="greaterOrEqual"/>
-   </requires>
-
    <plugin
          id="org.whole.ide"
          download-size="0"

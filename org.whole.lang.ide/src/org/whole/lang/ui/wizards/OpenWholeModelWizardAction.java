@@ -18,6 +18,7 @@
 package org.whole.lang.ui.wizards;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.ui.actions.AbstractOpenWizardAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
