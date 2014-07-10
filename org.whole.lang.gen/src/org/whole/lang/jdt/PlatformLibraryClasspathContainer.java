@@ -55,6 +55,7 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		// enabling features
 		bundles.add("com.fasterxml.jackson");
 		bundles.add("net.sourceforge.jodatime");
+		bundles.add("nu.validator.htmlparser");
 		bundles.add("org.objectweb.asm");
 		bundles.add("org.beanshell.bsh");
 		bundles.add("org.h2");

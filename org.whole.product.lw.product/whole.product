@@ -243,4 +243,8 @@ Library.
       <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
 
+   <repositories>
+      <repository location="http://whole.sourceforge.net/updates" enabled="true" />
+   </repositories>
+
 </product>
