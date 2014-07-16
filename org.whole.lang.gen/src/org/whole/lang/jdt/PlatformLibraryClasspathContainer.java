@@ -84,17 +84,26 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		try {
 			Bundle bundle = Platform.getBundle(bundleId);
 			String classPath = bundle.getHeaders().get("Bundle-ClassPath");
+			if (classPath == null)
+				classPath = ".";
 			File bundleFile = FileLocator.getBundleFile(bundle);
-			if (classPath == null) {
-				Path bundlePath = new Path(bundleFile.getAbsolutePath());
-				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, null, null));
-			} else if (".".equals(classPath)){
-				String suffix = bundleFile.isDirectory() ? "/bin" : "";
-				Path bundlePath = new Path(bundleFile.getAbsolutePath() + suffix);
-				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, null, null));
-			} else {
-				Path bundlePath = new Path(bundleFile.getAbsolutePath()+"/"+classPath);
-				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, null, null));
+			if (".".equals(classPath)) { // standard bundle
+				Path bundlePath, sourcePath;
+				if (bundleFile.isDirectory()) {
+					bundlePath = new Path(bundleFile.getAbsolutePath() + File.separator + "bin");
+					sourcePath = new Path(bundleFile.getAbsolutePath() + File.separator + "src");
+				} else {
+					bundlePath = new Path(bundleFile.getAbsolutePath());
+					String name = bundleFile.getName();
+					String container = bundleFile.getParent();
+					String sourceBundleName = bundleId + ".source" + name.substring(bundleId.length());
+					sourcePath = new Path(container + File.separator + sourceBundleName);
+				}
+				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, sourcePath, null));
+			} else { // bundle containing jar libraries
+				Path bundlePath = new Path(bundleFile.getAbsolutePath() + File.separator + classPath);
+				Path sourcePath = new Path(bundleFile.getAbsolutePath() + File.separator + classPath.replaceFirst("\\.jar$", "src.zip"));
+				classpathEntryList.add(JavaCore.newLibraryEntry(bundlePath, sourcePath, null));
 			}
 		} catch (Exception e) {
 		}
@@ -137,4 +146,68 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 	public static boolean sameKind(IPath entry) {
 		return entry.segmentCount() > 0 && WHOLERT_CONTAINER.equals(entry.segment(0));
 	}
+
+//
+//	private void addExtraLibrary(IPath path, IPluginModelBase model, ArrayList<IClasspathEntry> entries) {
+//		if (path.segmentCount() > 1) {
+//			IPath srcPath = null;
+//			if (model != null) {
+//				IPath shortPath = path.removeFirstSegments(path.matchingFirstSegments(new Path(model.getInstallLocation())));
+//				srcPath = getSourceAnnotation(model, shortPath.toString());
+//			} else {
+//				String filename = getSourceZipName(path.lastSegment());
+//				IPath candidate = path.removeLastSegments(1).append(filename);
+//				if (ResourcesPlugin.getWorkspace().getRoot().getFile(candidate).exists())
+//					srcPath = candidate;
+//			}
+//			IClasspathEntry clsEntry = JavaCore.newLibraryEntry(path, srcPath, null);
+//			if (!entries.contains(clsEntry))
+//				entries.add(clsEntry);
+//		}
+//	}
+//
+//	public static IPath getSourceAnnotation(IPluginModelBase model, String libraryName) {
+//		String newlibraryName = TargetWeaver.getWeavedSourceLibraryName(model, libraryName);
+//		String zipName = getSourceZipName(newlibraryName);
+//		IPath path = getPath(model, zipName);
+//		if (path == null) {
+//			SourceLocationManager manager = PDECore.getDefault().getSourceLocationManager();
+//			path = manager.findSourcePath(model.getPluginBase(), new Path(zipName));
+//		}
+//		return path;
+//	}
+//
+//	public static String getSourceZipName(String libraryName) {
+//		int dot = libraryName.lastIndexOf('.');
+//		return (dot != -1) ? libraryName.substring(0, dot) + "src.zip" : libraryName; //$NON-NLS-1$
+//	}
+//
+//	private static IPluginModelBase resolveLibraryInFragments(IPluginLibrary library, String libraryName) {
+//		IFragmentModel[] fragments = PDEManager.findFragmentsFor(library.getPluginModel());
+//
+//		for (int i = 0; i < fragments.length; i++) {
+//			IPath path = getPath(fragments[i], libraryName);
+//			if (path != null)
+//				return fragments[i];
+//		}
+//		return null;
+//	}
+//
+//	public static IPath getPath(IPluginModelBase model, String libraryName) {
+//		IResource resource = model.getUnderlyingResource();
+//		if (resource != null) {
+//			IResource jarFile = resource.getProject().findMember(libraryName);
+//			if (jarFile != null)
+//				return jarFile.getFullPath();
+//		} else {
+//			File file = new File(model.getInstallLocation(), libraryName);
+//			if (file.exists())
+//				return new Path(file.getAbsolutePath());
+//			file = new File(libraryName);
+//			if (file.exists() && file.isAbsolute()) {
+//				return new Path(libraryName);
+//			}
+//		}
+//		return null;
+//	}
 }
