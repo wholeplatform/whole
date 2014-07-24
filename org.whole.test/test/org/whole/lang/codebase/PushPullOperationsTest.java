@@ -18,8 +18,8 @@
 package org.whole.lang.codebase;
 
 
-import junit.framework.TestCase;
-
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -28,13 +28,14 @@ import org.whole.lang.templates.ModelTemplate;
 /**
  * @author Riccardo Solmi
  */
-public class PushPullOperationsTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
-	}
+public class PushPullOperationsTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testModel2PushPullOp() {
+    @Test
+    public void testModel2PushPullOp() {
 		IEntity model = new ModelsModel().create();
 		new ModelTemplate(model).apply(new PrettyPrinterBuilderOperation());
 	}

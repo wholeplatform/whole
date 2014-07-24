@@ -19,8 +19,11 @@ package org.whole.lang.commands;
 
 import java.util.List;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.lifecycle.IHistoryManager;
@@ -33,15 +36,18 @@ import org.whole.lang.models.model.Model;
 import org.whole.lang.models.model.SimpleEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
+import org.whole.test.SlowTests;
 
-public class HistoryInvariantsTest extends TestCase {
+public class HistoryInvariantsTest {
 	Model model;
     IHistoryManager history;
 
-    protected void setUp() throws Exception {
-        ReflectionFactory.deployWholePlatform();
-//TODO        ReflectionFactory.deploy(TestLanguagesDeployer.class);
-
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
+    @Before
+    public void setUp() throws Exception {
         model = new XmlModel().create();
         history = ReflectionFactory.getHistoryManager(model);
         history.setHistoryEnabled(true);
@@ -64,81 +70,87 @@ public class HistoryInvariantsTest extends TestCase {
 		return se;
 	}
 
-    public void testSameHistory() {
+    @Test
+	public void testSameHistory() {
     	performChanges(model);
-    	assertNotSame(history, ReflectionFactory.getHistoryManager(model));
-    	assertTrue(history.equals(ReflectionFactory.getHistoryManager(model)));
+    	Assert.assertNotSame(history, ReflectionFactory.getHistoryManager(model));
+    	Assert.assertTrue(history.equals(ReflectionFactory.getHistoryManager(model)));
 
     }
 
-    public void testMergeHistory() {
+    @Test
+	public void testMergeHistory() {
     	performChanges(model);
     	int size1 = history.getUndoSize();
     	SimpleEntity se = createSimpleEntity();
-    	assertEquals(size1, history.getUndoSize());
+    	Assert.assertEquals(size1, history.getUndoSize());
     	model.getDeclarations().wAdd(se);
-    	assertEquals(size1+1, history.getUndoSize());
+    	Assert.assertEquals(size1+1, history.getUndoSize());
 
     	size1 = history.getUndoSize();
     	se = createSimpleEntity();
     	se.wGetModel().getCompoundModel().setHistoryManager(history, false);
-    	assertEquals(size1, history.getUndoSize());
+    	Assert.assertEquals(size1, history.getUndoSize());
     	model.getDeclarations().wAdd(se);
-    	assertEquals(size1+1, history.getUndoSize());
+    	Assert.assertEquals(size1+1, history.getUndoSize());
 
     	size1 = history.getUndoSize();
     	se = createSimpleEntity();
     	se.wGetModel().getCompoundModel().setHistoryManager(history, true);
-    	assertEquals(size1+1, history.getUndoSize());
+    	Assert.assertEquals(size1+1, history.getUndoSize());
     	model.getDeclarations().wAdd(se);
-    	assertEquals(size1+2, history.getUndoSize());
+    	Assert.assertEquals(size1+2, history.getUndoSize());
 
     	size1 = history.getUndoSize();
     	se = createSimpleEntity();
     	history.mergeHistory(ReflectionFactory.getHistoryManager(se));
-    	assertEquals(size1+1, history.getUndoSize());
+    	Assert.assertEquals(size1+1, history.getUndoSize());
     	model.getDeclarations().wAdd(se);
-    	assertEquals(size1+2, history.getUndoSize());
+    	Assert.assertEquals(size1+2, history.getUndoSize());
 
     }
 
-    public void testHistoryDefaultHistoryEnablement() {
+    @Test
+	public void testHistoryDefaultHistoryEnablement() {
     	IEntity model = new XmlModel().create();
     	IHistoryManager history = ReflectionFactory.getHistoryManager(model);
-        assertFalse(history.isHistoryEnabled());
-        assertEquals(0, history.getUndoSize());
-        assertTrue(history.getUndoCommands().isEmpty());
+        Assert.assertFalse(history.isHistoryEnabled());
+        Assert.assertEquals(0, history.getUndoSize());
+        Assert.assertTrue(history.getUndoCommands().isEmpty());
     }
 
-    public void testModelNullCommands() {
+    @Test
+	public void testModelNullCommands() {
         IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
-        	assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetBindingCommand());
-        	assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetLastCommand());
+        	Assert.assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetBindingCommand());
+        	Assert.assertEquals(NullCommand.instance, ((InternalIEntity) e).wGetLastCommand());
         }
     }
 
-    public void testAscendingChangeIndex() {
+    @Test
+	public void testAscendingChangeIndex() {
     	performChanges(model);
         List<ICommand> changes = history.getUndoCommands();
 
         int prevTime = 0;
         for (int i=0; i<changes.size(); i++) {
         	int execTime = changes.get(i).getExecutionTime();
-        	assertTrue(prevTime <= execTime);
+        	Assert.assertTrue(prevTime <= execTime);
         	prevTime = execTime;
         }
     }
 
-    public void testModelCommands() {
+    @Test
+	public void testModelCommands() {
         IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         	cmd = ((InternalIEntity) e).wGetLastCommand();
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         }
 
         performChanges(model);
@@ -149,15 +161,17 @@ public class HistoryInvariantsTest extends TestCase {
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
         	if (cmd.getKind() != CommandKind.NULL)
-        		assertTrue(changes.contains(cmd));
+        		Assert.assertTrue(changes.contains(cmd));
         	
         	cmd = ((InternalIEntity) e).wGetLastCommand();
         	if (cmd.getKind() != CommandKind.NULL)
-        		assertTrue(changes.contains(cmd));
+        		Assert.assertTrue(changes.contains(cmd));
         }
     }
 
-    public void testModelCloneHistory() {
+    @Category(SlowTests.class)
+    @Test
+	public void testModelCloneHistory() {
         performChanges(model);
         IEntity model2 = EntityUtils.clone(model);
 
@@ -165,68 +179,72 @@ public class HistoryInvariantsTest extends TestCase {
         i.reset(model2);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         	cmd = ((InternalIEntity) e).wGetLastCommand();
         	if (cmd.getKind() != CommandKind.NULL)
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         }
 
-        assertTrue(Matcher.match(model2, model));
+        Assert.assertTrue(Matcher.match(model2, model));
     }
 
-    public void testClearHistory() {
+    @Test
+	public void testClearHistory() {
         performChanges(model);
         IEntity model2 = EntityUtils.clone(model);
 
         history.clearHistory();
-        assertTrue(history.getUndoCommands().isEmpty());
+        Assert.assertTrue(history.getUndoCommands().isEmpty());
 
         IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
         i.reset(model);
 		for (IEntity e : i) {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         	cmd = ((InternalIEntity) e).wGetLastCommand();
-        	assertTrue(cmd.getKind() == CommandKind.NULL);
+        	Assert.assertTrue(cmd.getKind() == CommandKind.NULL);
         }
 
-        assertTrue(Matcher.match(model2, model));
+        Assert.assertTrue(Matcher.match(model2, model));
     }
 
-    public void testTrimHistory() {
+    @Test
+	public void testTrimHistory() {
         performChanges(model);
         String oldValue = model.getName().getValue();
         model.getName().setValue("new name");
-    	assertTrue(history.getUndoSize() > 1);
+    	Assert.assertTrue(history.getUndoSize() > 1);
     	
     	history.trimHistory(1);
-    	assertEquals(1, history.getUndoSize());
+    	Assert.assertEquals(1, history.getUndoSize());
     	history.undo();
-    	assertEquals(oldValue, model.getName().getValue());
-    	assertEquals(0, history.getUndoSize());
+    	Assert.assertEquals(oldValue, model.getName().getValue());
+    	Assert.assertEquals(0, history.getUndoSize());
     }
 
-    public void testHistoryCapacity() {
+    @Test
+	public void testHistoryCapacity() {
         performChanges(model);
         model.getName().setValue("new name");
         
-    	assertTrue(history.getUndoSize() > 2);
+    	Assert.assertTrue(history.getUndoSize() > 2);
     	history.setHistoryCapacity(2);
-    	assertEquals(2, history.getUndoSize());
+    	Assert.assertEquals(2, history.getUndoSize());
     	
         performChanges(model);
         model.getName().setValue("new name 3");
-    	assertEquals(2, history.getUndoSize());
+    	Assert.assertEquals(2, history.getUndoSize());
 
     	history.setHistoryCapacity(3);
-    	assertEquals(2, history.getUndoSize());
+    	Assert.assertEquals(2, history.getUndoSize());
         model.getName().setValue("new name 4");
-    	assertEquals(3, history.getUndoSize());
+    	Assert.assertEquals(3, history.getUndoSize());
     }
 
     // The entity local history of binding commands is ordered
     // invariant: for each cmd, cmd.prevCommand.executionTime <= cmd.executionTime
-    public void testPrevCommandExecutionTimeOrder() {
+    @Test
+	public void testPrevCommandExecutionTimeOrder() {
     	performChanges(model);
 
         IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
@@ -235,13 +253,14 @@ public class HistoryInvariantsTest extends TestCase {
         	ICommand cmd = ((InternalIEntity) e).wGetBindingCommand();
         	while (cmd.getKind() != CommandKind.NULL) {
             	ICommand cmd1 = cmd.getPrevCommand();
-        		assertTrue(cmd1.getExecutionTime() <= cmd.getExecutionTime());
+        		Assert.assertTrue(cmd1.getExecutionTime() <= cmd.getExecutionTime());
         		cmd = cmd1;
         	}
         }
     }
 
-    public void testLastCommand() {
+    @Test
+	public void testLastCommand() {
     	IEntity e1 = model.getName();
     	e1.wSetValue("newLangName");    	
     	ICommand c1 = ((InternalIEntity) e1).wGetLastCommand();
@@ -249,20 +268,22 @@ public class HistoryInvariantsTest extends TestCase {
         List<ICommand> changes = history.getUndoCommands();
         ICommand lastCmd = (ICommand) changes.get(changes.size()-1);
 
-        assertSame(lastCmd, c1);
+        Assert.assertSame(lastCmd, c1);
     }
 
-    public void testChangeOrder() {
+    @Test
+	public void testChangeOrder() {
     	IEntity e1 = model.getName();
     	IEntity e2 = model.getNamespace();
     	
     	e1.wSetValue("newLangName");
     	e2.wSetValue("newNamespace");
     	
-    	assertTrue(((InternalIEntity) e1).wGetLastCommand().getExecutionTime() <= ((InternalIEntity) e2).wGetLastCommand().getExecutionTime());
+    	Assert.assertTrue(((InternalIEntity) e1).wGetLastCommand().getExecutionTime() <= ((InternalIEntity) e2).wGetLastCommand().getExecutionTime());
     }
 
-    public void testUndo() {
+    @Test
+	public void testUndo() {
         InternalIEntity e1 = (InternalIEntity) model.getName();
 
     	e1.wSetValue("newLangName1");
@@ -271,18 +292,19 @@ public class HistoryInvariantsTest extends TestCase {
     	ICommand c2 = e1.wGetLastCommand();
     	e1.wSetValue("newLangName3");
     	
-    	assertNotSame(c1, e1.wGetLastCommand());
+    	Assert.assertNotSame(c1, e1.wGetLastCommand());
     	
     	history.undo();
-    	assertEquals(e1.wStringValue(), "newLangName2");
-    	assertEquals(e1.wGetLastCommand(), c2);
+    	Assert.assertEquals(e1.wStringValue(), "newLangName2");
+    	Assert.assertEquals(e1.wGetLastCommand(), c2);
 
     	history.undo();
-    	assertEquals(e1.wStringValue(), "newLangName1");
-    	assertEquals(e1.wGetLastCommand(), c1);
+    	Assert.assertEquals(e1.wStringValue(), "newLangName1");
+    	Assert.assertEquals(e1.wGetLastCommand(), c1);
     }
 
-    public void testUndoRedo() {
+    @Test
+	public void testUndoRedo() {
         InternalIEntity e1 = (InternalIEntity) model.getName();
 
     	e1.wSetValue("newLangName1");
@@ -291,42 +313,44 @@ public class HistoryInvariantsTest extends TestCase {
     	ICommand c2 = e1.wGetLastCommand();
 
     	history.undo();
-    	assertEquals(e1.wStringValue(), "newLangName1");
-    	assertEquals(e1.wGetLastCommand(), c1);
+    	Assert.assertEquals(e1.wStringValue(), "newLangName1");
+    	Assert.assertEquals(e1.wGetLastCommand(), c1);
     	history.redo();
-    	assertEquals(e1.wStringValue(), "newLangName2");
-    	assertEquals(e1.wGetLastCommand(), c2);
+    	Assert.assertEquals(e1.wStringValue(), "newLangName2");
+    	Assert.assertEquals(e1.wGetLastCommand(), c2);
     }
 
-    public void testUndoSet() {
+    @Test
+	public void testUndoSet() {
         InternalIEntity e1 = (InternalIEntity) model.getName();
 
     	e1.wSetValue("newLangName1");
     	ICommand c1 = e1.wGetLastCommand();
     	e1.wSetValue("newLangName2");
     	ICommand c2 = e1.wGetLastCommand();
-    	assertNotSame(c2, c1);
+    	Assert.assertNotSame(c2, c1);
 
     	history.undo();
     	e1.wSetValue("newLangName3");
-    	assertSame(e1.wGetLastCommand().getPrevCommand(), c1);
+    	Assert.assertSame(e1.wGetLastCommand().getPrevCommand(), c1);
     }
 
-    public void testUndoRedoAll() {
+    @Test
+	public void testUndoRedoAll() {
     	IEntity model2 = EntityUtils.clone(model);
         performChanges(model);
     	IEntity model3 = EntityUtils.clone(model);
 
         while (history.getUndoSize() > 0)
         	history.undo();
-        assertTrue(history.getUndoCommands().isEmpty());
+        Assert.assertTrue(history.getUndoCommands().isEmpty());
 
-        assertTrue(Matcher.match(model2, model));
+        Assert.assertTrue(Matcher.match(model2, model));
 
         while (history.getRedoSize() > 0)
         	history.redo();
-        assertTrue(history.getRedoCommands().isEmpty());
+        Assert.assertTrue(history.getRedoCommands().isEmpty());
 
-        assertTrue(Matcher.match(model3, model));
+        Assert.assertTrue(Matcher.match(model3, model));
     }
 }

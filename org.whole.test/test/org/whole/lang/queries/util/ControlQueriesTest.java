@@ -17,8 +17,10 @@
  */
 package org.whole.lang.queries.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.grammars.model.Grammar;
@@ -58,14 +60,14 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class ControlQueriesTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
+public class ControlQueriesTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
-		}
-
-	public void testIf1() {
+    @Test
+    public void testIf1() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
@@ -79,7 +81,8 @@ public class ControlQueriesTest extends TestCase {
 		assertFalse(iterator.hasNext());
 	}
 
-	public void testIf2() {
+    @Test
+    public void testIf2() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
@@ -90,7 +93,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(model.getName().getValue(), ((ClassDeclaration) result).getName().getValue());
 	}
 
-	public void testIf3() {
+    @Test
+    public void testIf3() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
@@ -101,7 +105,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(StringUtils.toUpperCap(model.getName().getValue()), ((ClassDeclaration) result).getName().getValue());
 	}
 
-	public void testIf4() {
+    @Test
+    public void testIf4() {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("if4");
 
@@ -130,7 +135,8 @@ public class ControlQueriesTest extends TestCase {
 		assertFalse(iterator.hasNext());
 	}
 
-	public void testIf5() {
+    @Test
+    public void testIf5() {
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
 		PathExpression query = (PathExpression) tm.create("if5");
 
@@ -150,7 +156,8 @@ public class ControlQueriesTest extends TestCase {
 		assertFalse(bm.wIsSet("exp2"));
 	}
 
-	public void testDo1() {
+    @Test
+    public void testDo1() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = ControlQueriesTemplateManager.instance();
@@ -161,7 +168,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals("HelloWorld", ((ClassDeclaration) result).getName().getValue());
 	}
 
-	public void testFor1() {
+    @Test
+    public void testFor1() {
 		Model model = new XmlModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -177,7 +185,8 @@ public class ControlQueriesTest extends TestCase {
 		assertTrue(i>0);
 	}
 
-	public void testChoose1() {
+    @Test
+    public void testChoose1() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -219,7 +228,8 @@ public class ControlQueriesTest extends TestCase {
 		assertFalse(iterator.hasNext());
 	}
 
-	public void testChoose2() {
+    @Test
+    public void testChoose2() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -271,7 +281,8 @@ public class ControlQueriesTest extends TestCase {
 		}
 	}
 
-	public void testChoose3() {
+    @Test
+    public void testChoose3() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -313,7 +324,8 @@ public class ControlQueriesTest extends TestCase {
 		}
 	}
 
-	public void testChoose4() {
+    @Test
+    public void testChoose4() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -360,7 +372,8 @@ public class ControlQueriesTest extends TestCase {
 
 	//TODO choose5
 	
-	public void testCall1() {
+    @Test
+    public void testCall1() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -376,7 +389,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(16, count);
 	}
 
-	public void testCall2() {
+    @Test
+    public void testCall2() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -392,7 +406,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(16, count);
 	}
 
-	public void testCall3() {
+    @Test
+    public void testCall3() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -408,7 +423,8 @@ public class ControlQueriesTest extends TestCase {
 		
 		assertEquals(1, count);
 	}
-	public void testQueryDecl1() {
+    @Test
+    public void testQueryDecl1() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -425,7 +441,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(1, count);
 	}
 
-	public void testCall4() {
+    @Test
+    public void testCall4() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -441,7 +458,8 @@ public class ControlQueriesTest extends TestCase {
 		
 		assertEquals(1, count);
 	}
-	public void testQueryDecl2() {
+    @Test
+    public void testQueryDecl2() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -458,7 +476,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(1, count);
 	}
 
-	public void testCall5() {
+    @Test
+    public void testCall5() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -474,7 +493,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(4, count);
 	}
 
-	public void testCall6() {
+    @Test
+    public void testCall6() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -490,7 +510,8 @@ public class ControlQueriesTest extends TestCase {
 		
 		assertEquals(1, count);
 	}
-	public void testQueryDecl3() {
+    @Test
+    public void testQueryDecl3() {
 		Grammar grammar = new TestXmlGrammar().create();
 		
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -507,7 +528,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(1, count);
 	}
 
-	public void testCall7() {
+    @Test
+    public void testCall7() {
 		Grammar grammar = new TestXmlGrammar().create();
 
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -524,7 +546,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(1, count);
 	}
 
-	public void testQueryDecl4() {
+	@Test
+    public void testQueryDecl4() {
 		Grammar grammar = new TestXmlGrammar().create();
 
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -541,7 +564,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(1, count);
 	}
 
-	public void testQueryDecl5() {
+	@Test
+    public void testQueryDecl5() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations decls = model.getDeclarations();
 
@@ -575,7 +599,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(33, count);
 	}
 
-	public void testQueryDecl6() {
+	@Test
+    public void testQueryDecl6() {
 		Grammar grammar = new TestXmlGrammar().create(); //not used
 
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -595,7 +620,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(3, count);
 	}
 
-	public void testQueryDecl7() {
+	@Test
+    public void testQueryDecl7() {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		JavaEntityFactory jef = JavaEntityFactory.instance;
 
@@ -636,7 +662,8 @@ public class ControlQueriesTest extends TestCase {
 		assertTrue(Matcher.match(javaExp1, BehaviorUtils.evaluateFirstResult(query, queryExp1)));
 	}
 
-	public void testQueryDecl8() {
+	@Test
+    public void testQueryDecl8() {
 		ModelsEntityFactory mef = ModelsEntityFactory.instance;
 		FeatureModifiers modifiers = mef.createFeatureModifiers(
 				mef.createFeatureModifier(FeatureModifierEnum.optional),
@@ -655,7 +682,8 @@ public class ControlQueriesTest extends TestCase {
 		assertEquals(modifiers.wSize(), count);
 	}
 
-	public void testQueryDecl9() {
+	@Test
+    public void testQueryDecl9() {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 
 		IEntity queryExp1 = qef.createAddition(

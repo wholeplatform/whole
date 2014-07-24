@@ -19,6 +19,7 @@ package org.whole.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 import org.whole.lang.grammars.util.GrammarsUtilsTest;
 import org.whole.lang.grammars.util.tests.GrammarsTestSuite;
 import org.whole.lang.mediawiki.tests.MediawikiTestSuite;
@@ -52,7 +53,7 @@ import org.whole.lang.xsd.util.XsiDateTimeUtilsTest;
  * @author Riccardo Solmi
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {
+@SuiteClasses( {
 	PathExpressionsQueriesTest.class,
 	SelectQueriesTest.class,
 	ControlQueriesTest.class,

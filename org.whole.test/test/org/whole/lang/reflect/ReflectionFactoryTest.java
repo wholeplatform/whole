@@ -17,8 +17,12 @@
  */
 package org.whole.lang.reflect;
 
-import junit.framework.TestCase;
+import java.util.Collection;
+import java.util.HashSet;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.whole.lang.commons.reflect.CommonsLanguageDeployer;
 import org.whole.lang.models.reflect.ModelsLanguageDeployer;
 import org.whole.lang.ui.notations.tree.TreeUIDeployer;
@@ -26,12 +30,25 @@ import org.whole.lang.xml.reflect.XmlLanguageKit;
 import org.whole.lang.xml.ui.XmlTextualEditorKit;
 
 /**
- * works only alone
  * @author Riccardo Solmi
  */
-public class ReflectionFactoryTest extends TestCase {
-	//FIXME works only alone
-	public void testDeploy() {
+public class ReflectionFactoryTest {
+    @Before
+    public synchronized void deployWholePlatform() {
+    	ReflectionFactory.undeployWholePlatform();
+    	ReflectionFactory.undeploy(new AbstractLanguageDeployer() {
+			public void deploy(ReflectionFactory platform) {
+			}
+			public void undeploy(ReflectionFactory platform) {
+				Collection<IEditorKit> editorKits = ReflectionFactory.getEditorKits();
+				for (IEditorKit ek : new HashSet<>(editorKits))
+					platform.removeEditorKit(ek.getId());
+			}
+		});
+    }
+
+	@Test
+	public synchronized void testDeploy() {
 		int languageKitsSize = ReflectionFactory.getLanguageKits(true).size();
 		int editorKitsSize = ReflectionFactory.getEditorKits().size();
 
@@ -39,35 +56,36 @@ public class ReflectionFactoryTest extends TestCase {
 		ReflectionFactory.deploy(ModelsLanguageDeployer.class);
 		ReflectionFactory.deploy(TreeUIDeployer.class);
 
-		assertEquals(languageKitsSize+2, ReflectionFactory.getLanguageKits(true).size());
-		assertEquals(editorKitsSize+3, ReflectionFactory.getEditorKits().size());
+		Assert.assertEquals(languageKitsSize+2, ReflectionFactory.getLanguageKits(true).size());
+		Assert.assertEquals(editorKitsSize+3, ReflectionFactory.getEditorKits().size());
 
 		ReflectionFactory.deploy(CommonsLanguageDeployer.class);
 		ReflectionFactory.deploy(ModelsLanguageDeployer.class);
 		ReflectionFactory.deploy(TreeUIDeployer.class);
 
-		assertEquals(languageKitsSize+2, ReflectionFactory.getLanguageKits(true).size());
-		assertEquals(editorKitsSize+3, ReflectionFactory.getEditorKits().size());
+		Assert.assertEquals(languageKitsSize+2, ReflectionFactory.getLanguageKits(true).size());
+		Assert.assertEquals(editorKitsSize+3, ReflectionFactory.getEditorKits().size());
 
 		ReflectionFactory.undeploy(ModelsLanguageDeployer.class);
 		ReflectionFactory.undeploy(TreeUIDeployer.class);
 
-		assertEquals(languageKitsSize+1, ReflectionFactory.getLanguageKits(true).size());
-		assertEquals(editorKitsSize, ReflectionFactory.getEditorKits().size());
+		Assert.assertEquals(languageKitsSize+1, ReflectionFactory.getLanguageKits(true).size());
+		Assert.assertEquals(editorKitsSize, ReflectionFactory.getEditorKits().size());
 	}
 
-	//FIXME works only alone
-	public void testAddLanguageKit() {
+	@Test
+	public synchronized void testAddLanguageKit() {
 		int languageKitsSize = ReflectionFactory.getLanguageKits(true).size();
 		int editorKitsSize = ReflectionFactory.getEditorKits().size();
 
 		ReflectionFactory.deploy(
 				DynamicLanguageKit.getDeployer(new XmlLanguageKit()));
-		assertEquals(languageKitsSize+1, ReflectionFactory.getLanguageKits(true).size());
-		assertEquals(editorKitsSize, ReflectionFactory.getEditorKits().size());
+		Assert.assertEquals(languageKitsSize+1, ReflectionFactory.getLanguageKits(true).size());
+		Assert.assertEquals(editorKitsSize, ReflectionFactory.getEditorKits().size());
 	}
 
-	public void testAddEditorKit() {
+	@Test
+	public synchronized void testAddEditorKit() {
 		int languageKitsSize = ReflectionFactory.getLanguageKits(true).size();
 		int editorKitsSize = ReflectionFactory.getEditorKits().size();
 		
@@ -75,11 +93,12 @@ public class ReflectionFactoryTest extends TestCase {
 				DynamicLanguageKit.getDeployer(new XmlLanguageKit()));
 		ReflectionFactory.deploy(new EditorKitDeployer(XmlTextualEditorKit.ID));
 
-		assertEquals(ReflectionFactory.getLanguageKits(true).size(), languageKitsSize);
-		assertEquals(ReflectionFactory.getEditorKits().size(), editorKitsSize+1);
+		Assert.assertEquals(ReflectionFactory.getLanguageKits(true).size(), languageKitsSize);
+		Assert.assertEquals(ReflectionFactory.getEditorKits().size(), editorKitsSize+1);
 	}
 	
-	public void testAddOperationKit() {
+	@Test
+	public synchronized void testAddOperationKit() {
 		//TODO
 	}
 }

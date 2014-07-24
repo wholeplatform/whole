@@ -20,6 +20,7 @@ package org.whole.lang.util;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -34,8 +35,8 @@ public class StreamEncodingTest {
 	private static InputStream toStream(String contents, String encoding) throws UnsupportedEncodingException {
 		return new ByteArrayInputStream(("\uFEFF"+contents).getBytes(encoding));
 	}
-	private static InputStream asStream(String name) {
-		return StreamEncodingTest.class.getResourceAsStream(name);
+	private InputStream asStream(String name) {
+		return new BufferedInputStream(getClass().getResourceAsStream(name));
 	}
 
 	@Test

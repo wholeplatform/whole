@@ -13,8 +13,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -44,13 +46,17 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 /**
  * @author Enrico Persiani
  */
-public class WorkflowsInterpreterVisitorTest extends TestCase {
+public class WorkflowsInterpreterVisitorTest {
 	private Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.undeployWholePlatform(); //TODO workaround
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+    @Before
+	public void setUp() throws Exception {
 		comparatorsMap.put(ArtifactsEntityDescriptorEnum.Artifacts, new OrderedMatcher.SimpleFeatureComparator(ArtifactsFeatureDescriptorEnum.name));
 
 		new File("data/artifacts").mkdir();
@@ -58,64 +64,71 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		new File("data/SampleM.xml").deleteOnExit();
 	}
 	
+	@Test
 	public void testSequence() {
 		IEntity sequenceTest = WorkflowsTestTemplateManager.instance().create("sequenceTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(sequenceTest, args);
 
-		assertTrue(args.wIsSet("equals"));
-		assertTrue(args.wBooleanValue("equals"));
+		Assert.assertTrue(args.wIsSet("equals"));
+		Assert.assertTrue(args.wBooleanValue("equals"));
 	}
 
+	@Test
 	public void testParallel() {
 		IEntity parallelTest = WorkflowsTestTemplateManager.instance().create("parallelTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(parallelTest, args);
 
-		assertTrue(args.wIsSet("equals"));
-		assertTrue(args.wBooleanValue("equals"));
+		Assert.assertTrue(args.wIsSet("equals"));
+		Assert.assertTrue(args.wBooleanValue("equals"));
 	}
 
+	@Test
 	public void testWhileLoop() {
 		IEntity whileLoopTest = WorkflowsTestTemplateManager.instance().create("whileLoopTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(whileLoopTest, args);
 
-		assertTrue(args.wIsSet("count"));
-		assertEquals(5, args.wIntValue("count"));
+		Assert.assertTrue(args.wIsSet("count"));
+		Assert.assertEquals(5, args.wIntValue("count"));
 	}
 
+	@Test
 	public void testForeachLoop() {
 		IEntity foreachLoopTest = WorkflowsTestTemplateManager.instance().create("foreachLoopTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(foreachLoopTest, args);
 
-		assertTrue(args.wIsSet("count"));
-		assertEquals(5, args.wIntValue("count"));
+		Assert.assertTrue(args.wIsSet("count"));
+		Assert.assertEquals(5, args.wIntValue("count"));
 	}
 
+	@Test
 	public void testSwitchControl() {
 		IEntity switchControlTest = WorkflowsTestTemplateManager.instance().create("switchControlTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(switchControlTest, args);
 
-		assertTrue(args.wIsSet("value"));
-		assertEquals(12, args.wIntValue("value"));
+		Assert.assertTrue(args.wIsSet("value"));
+		Assert.assertEquals(12, args.wIntValue("value"));
 
-		assertTrue(args.wIsSet("result"));
-		assertEquals(1235, args.wIntValue("result"));
+		Assert.assertTrue(args.wIsSet("result"));
+		Assert.assertEquals(1235, args.wIntValue("result"));
 	}
 
+	@Test
 	public void testLoadModel() {
 		IEntity loadModelTest = WorkflowsTestTemplateManager.instance().create("loadModelTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(loadModelTest, args);
 		
-		assertFalse(args.wIsSet("varName"));
+		Assert.assertFalse(args.wIsSet("varName"));
 		
-		assertTrue(Matcher.match(args.wGet("model"), new SampleModel().create()));
+		Assert.assertTrue(Matcher.match(args.wGet("model"), new SampleModel().create()));
 	}
 	
+	@Test
 	public void testLoadAndSaveModelToString() {
 		IEntity loadAndSaveModelToStringTest = WorkflowsTestTemplateManager.instance().create("loadAndSaveModelToStringTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -127,61 +140,64 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		args.wDefValue("sourceString", sourceString);
 		InterpreterOperation.interpret(loadAndSaveModelToStringTest, args);
 
-		assertTrue(args.wIsSet("targetString"));
-		assertEquals(args.wStringValue("sourceString"), args.wStringValue("targetString"));
+		Assert.assertTrue(args.wIsSet("targetString"));
+		Assert.assertEquals(args.wStringValue("sourceString"), args.wStringValue("targetString"));
 	}
 
+	@Test
 	public void testSaveModel() {
 		IEntity saveModelTest = WorkflowsTestTemplateManager.instance().create("saveModelTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		args.wDef("model", new SampleModel().create());
 		InterpreterOperation.interpret(saveModelTest, args);
 
-		assertTrue(Matcher.match(args.wGet("model"), args.wGet("newModel")));
+		Assert.assertTrue(Matcher.match(args.wGet("model"), args.wGet("newModel")));
 
 	}
 
+	@Test
 	public void testLoadJavaModel() {
 		IEntity loadJavaModelTest = WorkflowsTestTemplateManager.instance().create("loadJavaModelTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(loadJavaModelTest, args);
 		
-		assertTrue(Matcher.match(args.wGet("model"), 
+		Assert.assertTrue(Matcher.match(args.wGet("model"), 
 				new JavaClassTemplateFactory(SampleModel.class).create()));
 	}
 
 
+	@Test
 	public void testShallowSaveArtifacts() {
 		IEntity shallowSaveArtifactsTest = WorkflowsTestTemplateManager.instance().create("shallowSaveArtifactsTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(shallowSaveArtifactsTest, args);
 
-		assertTrue(args.wIsSet("artifacts"));
+		Assert.assertTrue(args.wIsSet("artifacts"));
 		IEntity artifacts = args.wGet("artifacts");
 
-		assertTrue(args.wIsSet("shallowResult"));
+		Assert.assertTrue(args.wIsSet("shallowResult"));
 		IEntity shallowResult = args.wGet("shallowResult");
 
-		assertTrue(args.wIsSet("deepFileResult"));
+		Assert.assertTrue(args.wIsSet("deepFileResult"));
 		IEntity deepFileResult = args.wGet("deepFileResult");
 
-		assertTrue(args.wIsSet("deepDirectoryResult"));
+		Assert.assertTrue(args.wIsSet("deepDirectoryResult"));
 		IEntity deepDirectoryResult = args.wGet("deepDirectoryResult");
 
-		assertTrue(args.wIsSet("deepResult"));
+		Assert.assertTrue(args.wIsSet("deepResult"));
 		IEntity deepResult = args.wGet("deepResult");
 
 		// shallow save & deep file load == shallow save & deep
-		assertTrue(OrderedMatcher.match(deepFileResult, deepResult, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(deepFileResult, deepResult, comparatorsMap));
 
 		// shallow save & deep directory load == shallow save & shallow
-		assertTrue(OrderedMatcher.match(deepDirectoryResult, shallowResult, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(deepDirectoryResult, shallowResult, comparatorsMap));
 		
 		// the original model differs from every other model
-		assertFalse(OrderedMatcher.match(artifacts, shallowResult, comparatorsMap));
-		assertFalse(OrderedMatcher.match(artifacts, deepFileResult, comparatorsMap));
-		assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
-		assertFalse(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, shallowResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, deepFileResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
 		IEntityIterator<IEntity> iterator = IteratorFactory.matcherIterator(
@@ -193,36 +209,37 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 			iterator.next();
 			iterator.remove();
 		}
-		assertTrue(OrderedMatcher.match(deepDirectoryResult, deepFileResult, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(deepDirectoryResult, deepFileResult, comparatorsMap));
 	}
 
+	@Test
 	public void testDeepSaveArtifacts() {
 		IEntity deepSaveArtifactsTest = WorkflowsTestTemplateManager.instance().create("deepSaveArtifactsTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(deepSaveArtifactsTest, args);
 
-		assertTrue(args.wIsSet("artifacts"));
+		Assert.assertTrue(args.wIsSet("artifacts"));
 		IEntity artifacts = args.wGet("artifacts");
 
-		assertTrue(args.wIsSet("shallowResult"));
+		Assert.assertTrue(args.wIsSet("shallowResult"));
 		IEntity shallowResult = args.wGet("shallowResult");
 
-		assertTrue(args.wIsSet("deepFileResult"));
+		Assert.assertTrue(args.wIsSet("deepFileResult"));
 		IEntity deepFileResult = args.wGet("deepFileResult");
 
-		assertTrue(args.wIsSet("deepDirectoryResult"));
+		Assert.assertTrue(args.wIsSet("deepDirectoryResult"));
 		IEntity deepDirectoryResult = args.wGet("deepDirectoryResult");
 
-		assertTrue(args.wIsSet("deepResult"));
+		Assert.assertTrue(args.wIsSet("deepResult"));
 		IEntity deepResult = args.wGet("deepResult");
 
 		// deep save & deep load == original model
-		assertTrue(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(artifacts, deepResult, comparatorsMap));
 		
 		// the original model differs from every other model
-		assertFalse(OrderedMatcher.match(artifacts, shallowResult, comparatorsMap));
-		assertFalse(OrderedMatcher.match(artifacts, deepFileResult, comparatorsMap));
-		assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, shallowResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, deepFileResult, comparatorsMap));
+		Assert.assertFalse(OrderedMatcher.match(artifacts, deepDirectoryResult, comparatorsMap));
 
 		// the only difference is the content on the file artifact
 		IEntityIterator<IEntity> iterator = IteratorFactory.matcherIterator(
@@ -234,7 +251,7 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 			iterator.next();
 			iterator.remove();
 		}
-		assertTrue(Matcher.match(deepDirectoryResult, deepResult));
+		Assert.assertTrue(Matcher.match(deepDirectoryResult, deepResult));
 	}
 
 	private static final class TestDecorationManager extends AbstractDecorationManager {
@@ -247,6 +264,7 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testInvokeOperation() throws Exception {
 		IEntity invokeOperationTest = WorkflowsTestTemplateManager.instance().create("invokeOperationTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -257,19 +275,19 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		args.wDefValue("printWriter", new PrintWriter(writer));
 		InterpreterOperation.interpret(invokeOperationTest, args);
 
-		assertTrue(args.wIsSet("model"));
-		assertTrue(args.wIsSet("modelCopy"));
+		Assert.assertTrue(args.wIsSet("model"));
+		Assert.assertTrue(args.wIsSet("modelCopy"));
 
 		// validate assertions
-		assertNotNull(dm.messages);
-		assertFalse(dm.messages.isEmpty());
-		assertEquals(1, dm.messages.size());
-		assertTrue(dm.messages.contains("Reference to the undeclared type: IType"));
+		Assert.assertNotNull(dm.messages);
+		Assert.assertFalse(dm.messages.isEmpty());
+		Assert.assertEquals(1, dm.messages.size());
+		Assert.assertTrue(dm.messages.contains("Reference to the undeclared type: IType"));
 		
 		// normalize assertions
 		IEntity modelCopy = args.wGet("modelCopy");
-		assertFalse(Matcher.match(args.wGet("model"), modelCopy));
-		assertTrue(Matcher.match(args.wGet("model"), 
+		Assert.assertFalse(Matcher.match(args.wGet("model"), modelCopy));
+		Assert.assertTrue(Matcher.match(args.wGet("model"), 
 				NormalizerOperation.normalize(EntityUtils.clone(modelCopy))));
 
 		// pretty print assertions
@@ -280,24 +298,25 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		"entity DataStr" + ls+
 		"    value <String>" + ls+ls+
 		"abstract entity IType" + ls;
-		assertEquals(TEXT_MODEL, writer.toString());
+		Assert.assertEquals(TEXT_MODEL, writer.toString());
 
 		// pretty print assertions
 		ILanguageKit languageKit = ReflectionFactory.getLanguageKit("http://lang.whole.org/SampleM");
-		assertNotNull(languageKit);
+		Assert.assertNotNull(languageKit);
 		EntityDescriptor<? extends IEntity> ed = languageKit.getEntityDescriptorEnum().valueOf("Type");
-		assertNotNull(ed);
-		assertEquals(1, ed.featureSize());
+		Assert.assertNotNull(ed);
+		Assert.assertEquals(1, ed.featureSize());
 
 		// generate assertions
 		File file = new File("./data/SampleM.xwl");
-		assertTrue(file.exists());
+		Assert.assertTrue(file.exists());
 		IEntity entity = XmlBuilderPersistenceKit.instance().readModel(
 				new FilePersistenceProvider(file));
-		assertTrue(Matcher.match(args.wGet("model"), entity));
-		assertFalse(args.wIsSet("fileArtifact"));
+		Assert.assertTrue(Matcher.match(args.wGet("model"), entity));
+		Assert.assertFalse(args.wIsSet("fileArtifact"));
 	}
 
+	@Test
 	public void testInvokeQuery() {
 		IEntity invokeQueryTest = WorkflowsTestTemplateManager.instance().create("invokeQueryTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -305,12 +324,13 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		InterpreterOperation.interpret(invokeQueryTest, args);
 		args.wExitScope();
 		
-		assertFalse(args.wIsSet("queryName"));
-		assertFalse(args.wIsSet("methodName"));
-		assertFalse(args.wIsSet("self"));
-		assertFalse(args.wIsSet("methodCall"));
+		Assert.assertFalse(args.wIsSet("queryName"));
+		Assert.assertFalse(args.wIsSet("methodName"));
+		Assert.assertFalse(args.wIsSet("self"));
+		Assert.assertFalse(args.wIsSet("methodCall"));
 	}
 
+	@Test
 	public void testCreateEntity() {
 		IEntity createEntityTest = WorkflowsTestTemplateManager.instance().create("createEntityTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -318,8 +338,8 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 
 		ModelsEntityFactory mef = ModelsEntityFactory.instance(RegistryConfigurations.RESOLVER); 
 
-		assertTrue(args.wIsSet("entity"));
-		assertTrue(Matcher.match(
+		Assert.assertTrue(args.wIsSet("entity"));
+		Assert.assertTrue(Matcher.match(
 				mef.buildSimpleEntity()
 						.set(ModelsFeatureDescriptorEnum.modifiers,
 								mef.createEntityModifiers(0))
@@ -339,6 +359,7 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		));
 	}
 
+	@Test
 	public void testCreateModel() {
 		IEntity createModelTest = WorkflowsTestTemplateManager.instance().create("createModelTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -357,59 +378,65 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 						.getResult())
 		);
 
-		assertTrue(args.wIsSet("model"));
+		Assert.assertTrue(args.wIsSet("model"));
 		IEntity model = args.wGet("model");
 		Matcher.removeVars(model, false);
-		assertTrue(Matcher.match(se, model));
+		Assert.assertTrue(Matcher.match(se, model));
 	}
 
+	@Test
 	public void testCreateJavaClassInstance() {
 		IEntity createJavaClassInstanceTest = WorkflowsTestTemplateManager.instance().create("createJavaClassInstanceTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(createJavaClassInstanceTest, args);
 
-		assertTrue(args.wIsSet("value"));
-		assertEquals(new BigDecimal("1231.84587345"), args.wGetValue("value"));
+		Assert.assertTrue(args.wIsSet("value"));
+		Assert.assertEquals(new BigDecimal("1231.84587345"), args.wGetValue("value"));
 	}
 
+	@Test
 	public void testInvokeJavaClassMethodTest() {
 		IEntity invokeJavaClassMethodTest = WorkflowsTestTemplateManager.instance().create("invokeJavaClassMethodTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(invokeJavaClassMethodTest, args);
 
-		assertTrue(args.wIsSet("value"));
-		assertEquals(Double.parseDouble("1231.84587345"), args.wGetValue("value"));
+		Assert.assertTrue(args.wIsSet("value"));
+		Assert.assertEquals(Double.parseDouble("1231.84587345"), args.wGetValue("value"));
 	}
 
+	@Test
 	public void testInvokeJavaInstanceMethod() {
 		IEntity invokeJavaInstanceMethodTest = WorkflowsTestTemplateManager.instance().create("invokeJavaInstanceMethodTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(invokeJavaInstanceMethodTest, args);
 
-		assertTrue(args.wIsSet("value"));
-		assertFalse(args.wBooleanValue("value"));
+		Assert.assertTrue(args.wIsSet("value"));
+		Assert.assertFalse(args.wBooleanValue("value"));
 	}
 
+	@Test
 	public void testParse() {
 		IEntity parseTest = WorkflowsTestTemplateManager.instance().create("parseTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(parseTest, args);
 
-		assertTrue(args.wIsSet("model"));
+		Assert.assertTrue(args.wIsSet("model"));
 		IEntity model = args.wGet("model");
-		assertEquals(32, model.wGet(0).wIntValue());
-		assertEquals("enrico", model.wGet(1).wStringValue());
+		Assert.assertEquals(32, model.wGet(0).wIntValue());
+		Assert.assertEquals("enrico", model.wGet(1).wStringValue());
 	}
 
+	@Test
 	public void testUnparse() {
 		IEntity unparseTest = WorkflowsTestTemplateManager.instance().create("unparseTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
 		InterpreterOperation.interpret(unparseTest, args);
 
-		assertTrue(args.wIsSet("text"));
-		assertEquals("Type1, Type2, Type3", args.wStringValue("text"));
+		Assert.assertTrue(args.wIsSet("text"));
+		Assert.assertEquals("Type1, Type2, Type3", args.wStringValue("text"));
 	}
 
+	@Test
 	public void testTask() {
 		IEntity taskTest = WorkflowsTestTemplateManager.instance().create("taskTest");
 		IBindingManager args = BindingManagerFactory.instance.createArguments();
@@ -418,13 +445,13 @@ public class WorkflowsInterpreterVisitorTest extends TestCase {
 		try {
 			InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null);
 		} catch (VisitException e) {
-			fail();
+			Assert.fail();
 		}
 
 		args.wDefValue("reader", new StringReader("NO\n"));
 		try {
 			InterpreterOperation.interpret(taskTest, args, (Reader) null, (Writer) null);
-			fail();
+			Assert.fail();
 		} catch (VisitException e) {
 		}
 	}

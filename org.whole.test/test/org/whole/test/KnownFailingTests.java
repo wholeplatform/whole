@@ -17,22 +17,10 @@
  */
 package org.whole.test;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-
 /**
- * Runs: 500
- * Errors: 5
- * Failures: 19
- *
  * @author Riccardo Solmi
+ * 
+ * JUnit category marker
  */
-@RunWith(Suite.class)
-@SuiteClasses( {
-	AllModelingAPITests.class,
-	AllBehaviorAPITests.class,
-	AllLanguagesTests.class
-})
-public class AllTests {
+public interface KnownFailingTests {
 }

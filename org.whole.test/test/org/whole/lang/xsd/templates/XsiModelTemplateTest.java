@@ -17,14 +17,18 @@
  */
 package org.whole.lang.xsd.templates;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
@@ -45,17 +49,23 @@ import org.whole.lang.xml.reflect.XmlFeatureDescriptorEnum;
 import org.whole.lang.xsd.codebase.XsdDeployStrategies;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.codebase.XsiPersistenceKit;
+import org.whole.test.KnownFailingTests;
+import org.whole.test.SlowTests;
 
 /**
  * @author Enrico Persiani
  */
-public class XsiModelTemplateTest extends TestCase {
+public class XsiModelTemplateTest {
 	private Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = 
 		new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 
-	public XsiModelTemplateTest() {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Before
+    public void setUp() {
 		comparatorsMap.put(XmlEntityDescriptorEnum.Attributes, new Comparator<IEntity>() {
 			public int compare(IEntity o1, IEntity o2) {
 				
@@ -67,7 +77,7 @@ public class XsiModelTemplateTest extends TestCase {
 	}
 
 	private InputStream getInputStream(String fileName) {
-		return getClass().getResourceAsStream(fileName);
+		return new BufferedInputStream(getClass().getResourceAsStream(fileName));
 	}
 
 	private IEntity loadXMLSchema(String fileName) throws Exception {
@@ -75,7 +85,8 @@ public class XsiModelTemplateTest extends TestCase {
 				new StreamPersistenceProvider(getInputStream(fileName)));
 	}
 
-	//FIXME
+	@Category({KnownFailingTests.class, SlowTests.class})
+	@Test
 	public void testXsiModelTemplate() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		bm.wDefValue("folderLocation", new File("test/org/whole/lang/xsd/templates").getAbsolutePath());
@@ -98,9 +109,10 @@ public class XsiModelTemplateTest extends TestCase {
 		xsiModelTemplate.apply(xnbo);
 		IEntity xmlModelFromXsiModel = mop.wGetResult();
 
-		assertTrue(Matcher.match(xmlModelFromXsiModel, xmlModel));
+		Assert.assertTrue(Matcher.match(xmlModelFromXsiModel, xmlModel));
 	}
 
+	@Test
 	public void testXsdModelTemplate() throws Exception {
 		String pacs002FileName = "pacs.002.001.02S2.xsd";
 		IEntity xsdPacs002 = loadXMLSchema(pacs002FileName);
@@ -117,7 +129,7 @@ public class XsiModelTemplateTest extends TestCase {
 		xsdModelTemplate.apply(xnbo);
 		IEntity xmlModelFromXsdPacs002 = mop.wGetResult();
 	
-		assertTrue(OrderedMatcher.match(xmlModelFromXsdPacs002, xmlPacs002, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(xmlModelFromXsdPacs002, xmlPacs002, comparatorsMap));
 
 		String credTrfFileName = "SCTCcfBlkCredTrf.xsd";
 		IEntity xsdCredTrf = loadXMLSchema(credTrfFileName);
@@ -134,6 +146,6 @@ public class XsiModelTemplateTest extends TestCase {
 		xsdModelTemplate.apply(xnbo);
 		IEntity xmlModelFromXsdCredTrf = mop.wGetResult();
 	
-		assertTrue(OrderedMatcher.match(xmlModelFromXsdCredTrf, xmlCredTrf, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(xmlModelFromXsdCredTrf, xmlCredTrf, comparatorsMap));
 	}
 }

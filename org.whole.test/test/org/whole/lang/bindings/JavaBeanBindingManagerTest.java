@@ -19,8 +19,11 @@ package org.whole.lang.bindings;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -29,15 +32,19 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.xml.factories.XmlEntityFactory;
 import org.whole.langs.test.TestLanguagesDeployer;
 
-public class JavaBeanBindingManagerTest extends TestCase {
+public class JavaBeanBindingManagerTest {
 	private IBindingManager bm;
 	private ModelsEntityFactory mlf;
 	private XmlEntityFactory xlf;
 	private SampleJavaBean bean;
 
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
+
+    @Before
+    public void setUp() {
 		ReflectionFactory.deploy(TestLanguagesDeployer.class);
 		
 		bean = new SampleJavaBean();
@@ -48,7 +55,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		xlf = XmlEntityFactory.instance;
 	}
 
-	public void testScopeProtocol() {
+    @Test
+    public void testScopeProtocol() {
 		bm.wEnterScope();
 		bm.wExitScope();
 
@@ -58,14 +66,16 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		bm.wExitScope();		
 	}
 
-	public void testScopeProtocolError1() {
+    @Test
+    public void testScopeProtocolError1() {
 		try {
 			bm.wExitScope();
 			fail();
 		} catch (Exception e) {
 		}
 	}
-	public void testScopeProtocolError2() {
+    @Test
+    public void testScopeProtocolError2() {
 		try {
 			bm.wEnterScope();
 			bm.wEnterScope();
@@ -77,7 +87,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		}
 	}
 
-	public void testBindProtocolError() {
+    @Test
+    public void testBindProtocolError() {
 		try {
 			bm.wSet("undefName", mlf.createSimpleName("aName"));
 			fail();
@@ -91,7 +102,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		}
 	}
 
-	public void testBindEntities() {
+    @Test
+    public void testBindEntities() {
 		IEntity e1 = mlf.createSimpleName("aName");
 		IEntity e2 = mlf.createSimpleName("aName");
 
@@ -107,7 +119,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertNull(bm.wGet("unregistered"));
 	}
 
-	public void testBindInScope() {
+    @Test
+    public void testBindInScope() {
 		IEntity e1 = mlf.createSimpleName("aName");
 		IEntity e2 = mlf.createSimpleName("aName");
 		IEntity e3 = xlf.createCharData("data");
@@ -126,7 +139,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertEquals(e2, bm.wGet("id2"));
 		assertNull(bm.wGet("id3"));
 	}
-	public void testBindInStaticScope() {
+    @Test
+    public void testBindInStaticScope() {
 		IEntity e1 = mlf.createSimpleName("aName");
 		IEntity e2 = mlf.createSimpleName("aName");
 		IEntity e3 = xlf.createCharData("data");
@@ -152,7 +166,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertNull(bm.wGet("id4"));
 	}
 
-	public void testDefUse() {
+    @Test
+    public void testDefUse() {
 		IEntity e1 = mlf.createSimpleName("aName1");
 		IEntity e2 = mlf.createSimpleName("aName2");
 		IEntity e3 = mlf.createSimpleName("aName3");
@@ -179,7 +194,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertEquals(e4, bm.wGet("id2"));
 	}
 
-	public void testBindData() {
+    @Test
+    public void testBindData() {
 		 bm.wDefValue("boolF", false);
 		 assertTrue(bm.wBooleanValue("boolF") == false);
 
@@ -220,7 +236,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		 assertSame(o, bm.wGetValue("objectF"));
 	}
 
-	public void testBindDataErrors() {
+    @Test
+    public void testBindDataErrors() {
 		 bm.wDefValue("boolF", false);
 		 try {
 			 bm.wByteValue("boolF");
@@ -229,7 +246,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		 }
 	}
 
-	public void testIsSetUnset() {
+    @Test
+    public void testIsSetUnset() {
 		assertFalse(bm.wIsSet("a"));
 		bm.wDefValue("a", "10");
 		assertTrue(bm.wIsSet("a"));
@@ -237,12 +255,14 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertFalse(bm.wIsSet("a"));
 	}
 
-	public void testIsSetUnsetUndefined() {
+    @Test
+    public void testIsSetUnsetUndefined() {
 		bm.wUnset("a");
 		assertFalse(bm.wIsSet("a"));
 	}
 
-	public void testsSetUnsetInScope() {
+    @Test
+    public void testsSetUnsetInScope() {
 		bm.wDefValue("a", "10");
 		bm.wEnterScope();
 		bm.wDefValue("b", "false");
@@ -253,7 +273,8 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertFalse(bm.wIsSet("b"));
 	}
 
-	public void testIsSetUnsetPrimitive() {
+	@Test
+    public void testIsSetUnsetPrimitive() {
 		assertTrue(bm.wIsSet("c"));
 		bm.wDefValue("c", 10);
 		assertTrue(bm.wIsSet("c"));
@@ -261,12 +282,14 @@ public class JavaBeanBindingManagerTest extends TestCase {
 		assertTrue(bm.wIsSet("c"));
 	}
 
-	public void testIsSetUnsetUndefinedPrimitive() {
+	@Test
+    public void testIsSetUnsetUndefinedPrimitive() {
 		bm.wUnset("c");
 		assertTrue(bm.wIsSet("c"));
 	}
 
-	public void testsSetUnsetInScopePrimitive() {
+	@Test
+    public void testsSetUnsetInScopePrimitive() {
 		bm.wDefValue("c", 10);
 		bm.wEnterScope();
 		bm.wDefValue("d", false);

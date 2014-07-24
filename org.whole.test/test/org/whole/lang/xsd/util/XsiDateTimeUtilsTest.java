@@ -9,11 +9,14 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.tz.FixedDateTimeZone;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.parsers.DataTypeParsers;
@@ -25,12 +28,17 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.model.Schema;
 import org.whole.lang.xsd.parsers.SchemaDataTypeParsersTest;
+import org.whole.test.SlowTests;
 
-public class XsiDateTimeUtilsTest extends TestCase {
-
+public class XsiDateTimeUtilsTest {
 	private static final String DATATYPES_URI = "http://lang.whole.org/XsdDatatypes";
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
+	@Before
+	public void setUp() throws Exception {
 		InterpreterOperation.interpret(loadXsd("datatypes.xsd"));
 	}
 
@@ -49,9 +57,10 @@ public class XsiDateTimeUtilsTest extends TestCase {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		assertEquals(dateFormat.format(javaDate), toMatch);
+		Assert.assertEquals(dateFormat.format(javaDate), toMatch);
 	}
 
+	@Test
 	public void testGregorianCalendar() {
 		ILanguageKit languageKit = ReflectionFactory.getLanguageKit(DATATYPES_URI);
 		EntityDescriptorEnum edEnum = languageKit.getEntityDescriptorEnum();
@@ -88,15 +97,17 @@ public class XsiDateTimeUtilsTest extends TestCase {
 			return zone.toTimeZone();
 	}
 
+	@Category(SlowTests.class)
+    @Test
 	public void testCalendarConversions() {
 		DateTime jodaTime = new DateTime();
 
 		GregorianCalendar gregorianCalendar = new GregorianCalendar(getTimeZone(jodaTime.getZone()));
 		gregorianCalendar.setTime(jodaTime.toDate());
-		assertEquals(gregorianCalendar, DateTimeUtils.toGregorianCalendar(jodaTime));
+		Assert.assertEquals(gregorianCalendar, DateTimeUtils.toGregorianCalendar(jodaTime));
 		
 		Calendar calendar = Calendar.getInstance(getTimeZone(jodaTime.getZone()), Locale.getDefault());
 		calendar.setTime(jodaTime.toDate());
-		assertEquals(calendar, DateTimeUtils.toGregorianCalendar(jodaTime));
+		Assert.assertEquals(calendar, DateTimeUtils.toGregorianCalendar(jodaTime));
 	}
 }

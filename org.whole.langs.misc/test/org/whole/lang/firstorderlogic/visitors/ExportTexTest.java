@@ -17,8 +17,8 @@
  */
 package org.whole.lang.firstorderlogic.visitors;
 
-import junit.framework.TestCase;
-
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.models.codebase.FirstOrderLogicModel;
 import org.whole.lang.models.codebase.RDFModel;
 import org.whole.lang.models.codebase.TopicMapsModel;
@@ -28,13 +28,13 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Riccardo Solmi
  */
-public class ExportTexTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ReflectionFactory.deployWholePlatform();
+public class ExportTexTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
     }
 
+    @Test
     public void testExportTex() {
     	System.out.print(ExportTexOperation.export(
     			new FirstOrderLogicModel().create(), true));

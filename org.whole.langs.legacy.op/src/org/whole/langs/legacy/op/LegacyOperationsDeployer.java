@@ -36,6 +36,7 @@ import org.whole.lang.xsd.codebase.XsiPersistenceKit;
 import org.whole.lang.xsd.reflect.XsdLanguageKit;
 import org.whole.lang.xsd.resources.XsdRegistry;
 import org.whole.lang.xsd.visitors.XsdPrettyPrinterVisitor;
+import org.whole.langs.legacy.LegacyMetaModelsDeployer;
 
 /**
  * @author Riccardo Solmi
@@ -66,11 +67,16 @@ public class LegacyOperationsDeployer extends AbstractLanguageExtensionDeployer 
 		InterpreterOperation.interpret(new MappingActions().create());
 
 //FIXME requires WorkflowsInterpreter see WorkflowsInterpreterDeployer
-		XsdRegistry.initialize();
+		XsdRegistry.initialize(); 
 
 		platform.addPersistenceKit("org.whole.lang.xsd.XsdSourceEditor", XsdPersistenceKit.instance());
 		platform.addPersistenceKit("org.whole.lang.xsd.XsiSourceEditor", XsiPersistenceKit.instance());
 
 		InterpreterOperation.interpret(new SchemaModelsActions().create());
+	}
+
+	public void undeploy(ReflectionFactory platform) {
+		platform.removeLanguageKit(LegacyMetaModelsDeployer.MEDIAWIKI_URI);
+		XsdRegistry.deinitialize();
 	}
 }

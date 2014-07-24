@@ -31,4 +31,9 @@ public class CoreDynamicLanguagesDeployer extends AbstractDynamicLanguageDeploye
 		InterpreterOperation.interpret(new GrammarBasedModel().create());
 		InterpreterOperation.interpret(new StatusModel().create());
 	}
+
+	public void undeploy(ReflectionFactory platform) {
+		platform.removeLanguageKit(CoreMetaModelsDeployer.GRAMMAR_BASED_URI);
+		platform.removeLanguageKit(CoreMetaModelsDeployer.STATUS_URI);
+	}
 }

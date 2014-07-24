@@ -12,6 +12,7 @@
 	</parent>
 
 	<artifactId>org.whole.test</artifactId>
-	<packaging>eclipse-plugin</packaging>
+	<packaging>eclipse-test-plugin</packaging>
 
+	
 </project>

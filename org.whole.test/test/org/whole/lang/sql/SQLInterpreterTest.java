@@ -21,8 +21,12 @@ import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
@@ -39,23 +43,27 @@ import org.whole.lang.sql.reflect.SQLEntityDescriptorEnum;
 /**
  * @author Riccardo Solmi
  */
-public class SQLInterpreterTest extends TestCase {
+public class SQLInterpreterTest {
 	private Connection connection;
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+    @Before
+    public void setUp() throws Exception {
 		Class.forName("org.h2.Driver");
 		connection = DriverManager.getConnection("jdbc:h2:mem:");
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		connection.close();
 	}
 
-	public void testMapAuthorsQuery() {
+	@Test
+    public void testMapAuthorsQuery() {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
@@ -76,7 +84,8 @@ public class SQLInterpreterTest extends TestCase {
 		assertEquals(results.wSize(), index);
 	}
 
-	public void testMapAuthorsQuery2() {
+	@Test
+    public void testMapAuthorsQuery2() {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
@@ -97,7 +106,8 @@ public class SQLInterpreterTest extends TestCase {
 		assertEquals(results.wSize(), index);
 	}
 
-	public void testMapAuthorsQuery3() {
+	@Test
+    public void testMapAuthorsQuery3() {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
@@ -118,7 +128,8 @@ public class SQLInterpreterTest extends TestCase {
 		assertEquals(results.wSize(), index);
 	}
 
-	public void testMapAuthorsQueryWithNestedVar() {
+	@Test
+    public void testMapAuthorsQueryWithNestedVar() {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);
@@ -139,7 +150,8 @@ public class SQLInterpreterTest extends TestCase {
 		assertEquals(1, index);
 	}
 
-	public void testDataTypes() {
+	@Test
+    public void testDataTypes() {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
 		bm.wDefValue("generateDropStatements", false);

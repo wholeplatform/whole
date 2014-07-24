@@ -24,8 +24,10 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.java.util.JavaStoreProducerBuilder;
 import org.whole.lang.java.util.JavaStoreProducerBuilderOperation;
@@ -54,13 +56,14 @@ import org.xml.sax.SAXException;
 /**
  * @author Riccardo Solmi
  */
-public class PersistenceTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
-	}
+public class PersistenceTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testSingleBuilder2Java() {
+    @Test
+    public void testSingleBuilder2Java() {
 		ModelBuilderOperation op = new ModelBuilderOperation();
 
 		JavaStoreProducerBuilderOperation javaOp = new JavaStoreProducerBuilderOperation(op);
@@ -84,7 +87,8 @@ public class PersistenceTest extends TestCase {
 		PrettyPrinterOperation.prettyPrint(model);
 	}
 
-	public void testSingleBuilder2Xml() {
+    @Test
+    public void testSingleBuilder2Xml() {
 		ModelBuilderOperation op = new ModelBuilderOperation();
 
 		new ModelsModel().apply(new XmlStoreProducerBuilderOperation(op));
@@ -92,7 +96,8 @@ public class PersistenceTest extends TestCase {
 		IEntity xmlModel = op.wGetResult();
 		PrettyPrinterOperation.prettyPrint(xmlModel);
 	}
-	public void testSingleModel2Xml() {
+    @Test
+    public void testSingleModel2Xml() {
 		ModelBuilderOperation op = new ModelBuilderOperation();
 
 		IEntity model = new ModelsModel().create();
@@ -102,7 +107,8 @@ public class PersistenceTest extends TestCase {
 		PrettyPrinterOperation.prettyPrint(xmlModel);
 	}
 
-	public void testMultipleBuilders2Xml() {
+    @Test
+    public void testMultipleBuilders2Xml() {
 		ModelBuilderOperation op = new ModelBuilderOperation();
 		XmlStoreProducerBuilderOperation xmlOp = new XmlStoreProducerBuilderOperation(op);
 		((XmlStoreProducerBuilder) xmlOp.wGetBuilder()).buildStartDocument();
@@ -113,7 +119,8 @@ public class PersistenceTest extends TestCase {
 		PrettyPrinterOperation.prettyPrint(xmlModel);
 	}
 
-	public void testXmlModel2Builder() throws ParserConfigurationException, SAXException, IOException {
+    @Test
+    public void testXmlModel2Builder() throws ParserConfigurationException, SAXException, IOException {
 		IEntity xmlModel = SaxConsumerHandler.parse(this.getClass().getResourceAsStream("persistenceTest.xwl"), "UTF-8", true);
 		ModelBuilderOperation op = new ModelBuilderOperation();
 		new XmlStoreConsumerVisitor(op).visit(xmlModel);
@@ -121,14 +128,15 @@ public class PersistenceTest extends TestCase {
 		PrettyPrinterOperation.prettyPrint(op.wGetResult());
 	}
 
-	public void _testXml2Builder() throws ParserConfigurationException, SAXException, IOException {
+    public void _testXml2Builder() throws ParserConfigurationException, SAXException, IOException {
 		ModelBuilderOperation op = new ModelBuilderOperation();
 		SaxConsumerHandler.parse(
 				this.getClass().getResourceAsStream("persistenceTest.xwl"), "UTF-8", true,
 				new XmlStoreConsumerBuilderOperation(op));
 	}
 	
-	public void testXMLPersistence() {
+    @Test
+    public void testXMLPersistence() {
 		IEntity model1 = new TestEntities().create();
 		IEntity model2 = xmlRoundtrip(model1);
 		assertTrue(Matcher.match(model1, model2));
@@ -156,7 +164,8 @@ public class PersistenceTest extends TestCase {
 		return model2;
 	}
 
-	public void testSaxHandlerBuilder() throws Exception {
+	@Test
+    public void testSaxHandlerBuilder() throws Exception {
 		Document xmlModel = (Document) XmlSourcePersistenceKit.instance().readModel(
 				new ClasspathPersistenceProvider("org/whole/lang/xsd/util/javaee_web_services_client_1_2.xsd"));
 

@@ -34,8 +34,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
@@ -56,9 +58,10 @@ import org.whole.lang.testentities.reflect.TestEntitiesLanguageDeployer;
 /**
  * @author Riccardo Solmi
  */
-public class DataTypeUtilsTest extends TestCase {
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+public class DataTypeUtilsTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(TestEntitiesLanguageDeployer.class);
 	}
 
@@ -68,6 +71,7 @@ public class DataTypeUtilsTest extends TestCase {
 		assertEquals(value, parser.unparse(ed, parser.parse(ed, value)));
 	}
 	
+	@Test
 	public void testNonDataEntityFailure() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createSimpleTestEntity();
@@ -93,6 +97,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testBooleanData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createBooleanTestEntity(true);
@@ -130,6 +135,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testByteData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createByteTestEntity((byte) 27);
@@ -177,6 +183,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testCharData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createCharTestEntity('a');
@@ -219,6 +226,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testDoubleData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createDoubleTestEntity(1.2d);
@@ -229,35 +237,35 @@ public class DataTypeUtilsTest extends TestCase {
 		assertEquals("1.2", DataTypeUtils.getAsPersistenceString(e));
 		
 		DataTypeUtils.setFromPresentationString(e, "12.3d");
-		assertEquals(12.3d, e.wDoubleValue());
+		assertEquals(12.3d, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, "37.32");
-		assertEquals(37.32d, e.wDoubleValue());
+		assertEquals(37.32d, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPersistenceString(e, "23.4d");
-		assertEquals(23.4d, e.wDoubleValue());
+		assertEquals(23.4d, e.wDoubleValue(), .01d);
 
 		DataTypeUtils.setFromPresentationString(e, "200");
-		assertEquals(200d, e.wDoubleValue());
+		assertEquals(200d, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, "2.5f");
-		assertEquals(2.5d, e.wDoubleValue());
+		assertEquals(2.5d, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Double.NaN));
-		assertEquals(Double.NaN, e.wDoubleValue());
+		assertEquals(Double.NaN, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Double.NEGATIVE_INFINITY));
-		assertEquals(Double.NEGATIVE_INFINITY, e.wDoubleValue());
+		assertEquals(Double.NEGATIVE_INFINITY, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Double.POSITIVE_INFINITY));
-		assertEquals(Double.POSITIVE_INFINITY, e.wDoubleValue());
+		assertEquals(Double.POSITIVE_INFINITY, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Double.MIN_VALUE));
-		assertEquals(Double.MIN_VALUE, e.wDoubleValue());
+		assertEquals(Double.MIN_VALUE, e.wDoubleValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Double.MAX_VALUE));
-		assertEquals(Double.MAX_VALUE, e.wDoubleValue());
+		assertEquals(Double.MAX_VALUE, e.wDoubleValue(), .01d);
 
 		e = DataTypeUtils.createFromPresentationString(
 				TestEntitiesEntityDescriptorEnum.DoubleTestEntity,
 				"12.3d");
-		assertEquals(12.3d, e.wDoubleValue());
+		assertEquals(12.3d, e.wDoubleValue(), .01d);
 		e = DataTypeUtils.createFromPersistenceString(
 				TestEntitiesEntityDescriptorEnum.DoubleTestEntity,
 				"23.4d");
-		assertEquals(23.4d, e.wDoubleValue());
+		assertEquals(23.4d, e.wDoubleValue(), .01d);
 		
 		final EntityDescriptor<?> ed = e.wGetEntityDescriptor();
 		IDataTypeParser parser = DataTypeUtils.getDataTypeParser(ed, DataTypeParsers.PRESENTATION);
@@ -268,6 +276,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testFloatData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createFloatTestEntity(1.2f);
@@ -278,35 +287,35 @@ public class DataTypeUtilsTest extends TestCase {
 		assertEquals("1.2", DataTypeUtils.getAsPersistenceString(e));
 		
 		DataTypeUtils.setFromPresentationString(e, "12.3f");
-		assertEquals(12.3f, e.wFloatValue());
+		assertEquals(12.3f, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, "37.32");
-		assertEquals(37.32f, e.wFloatValue());
+		assertEquals(37.32f, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPersistenceString(e, "23.4f");
-		assertEquals(23.4f, e.wFloatValue());
+		assertEquals(23.4f, e.wFloatValue(), .01d);
 
 		DataTypeUtils.setFromPresentationString(e, "200");
-		assertEquals(200f, e.wFloatValue());
+		assertEquals(200f, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, "2.5d");
-		assertEquals(2.5f, e.wFloatValue());
+		assertEquals(2.5f, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Float.NaN));
-		assertEquals(Float.NaN, e.wFloatValue());
+		assertEquals(Float.NaN, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Float.NEGATIVE_INFINITY));
-		assertEquals(Float.NEGATIVE_INFINITY, e.wFloatValue());
+		assertEquals(Float.NEGATIVE_INFINITY, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Float.POSITIVE_INFINITY));
-		assertEquals(Float.POSITIVE_INFINITY, e.wFloatValue());
+		assertEquals(Float.POSITIVE_INFINITY, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Float.MIN_VALUE));
-		assertEquals(Float.MIN_VALUE, e.wFloatValue());
+		assertEquals(Float.MIN_VALUE, e.wFloatValue(), .01d);
 		DataTypeUtils.setFromPresentationString(e, String.valueOf(Float.MAX_VALUE));
-		assertEquals(Float.MAX_VALUE, e.wFloatValue());
+		assertEquals(Float.MAX_VALUE, e.wFloatValue(), .01d);
 
 		e = DataTypeUtils.createFromPresentationString(
 				TestEntitiesEntityDescriptorEnum.FloatTestEntity,
 				"12.3f");
-		assertEquals(12.3f, e.wFloatValue());
+		assertEquals(12.3f, e.wFloatValue(), .01d);
 		e = DataTypeUtils.createFromPersistenceString(
 				TestEntitiesEntityDescriptorEnum.FloatTestEntity,
 				"23.4f");
-		assertEquals(23.4f, e.wFloatValue());
+		assertEquals(23.4f, e.wFloatValue(), .01d);
 		
 		final EntityDescriptor<?> ed = e.wGetEntityDescriptor();
 		IDataTypeParser parser = DataTypeUtils.getDataTypeParser(ed, DataTypeParsers.PRESENTATION);
@@ -317,6 +326,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testIntData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createIntTestEntity(123);
@@ -359,6 +369,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testLongData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createLongTestEntity(123l);
@@ -406,6 +417,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testShortData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createShortTestEntity((short) 123);
@@ -448,6 +460,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testStringData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createStringTestEntity("abc");
@@ -472,6 +485,7 @@ public class DataTypeUtilsTest extends TestCase {
 		assertEquals("ghi", e.wStringValue());
 	}
 
+	@Test
 	public void testDateData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		Calendar c = Calendar.getInstance();
@@ -519,6 +533,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testEnumData() {
 		TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 		IEntity e = ef.createEnumTestEntity(EnumTestEntityEnum.four);
@@ -551,6 +566,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testNullBoxUnbox() throws Exception {
 		assertNull(unbox(box(null, ObjectData), Object.class));
 		assertNull(unbox(box(null, StringData), String.class));
@@ -561,6 +577,7 @@ public class DataTypeUtilsTest extends TestCase {
 		assertNotNull(unbox(box(null, ContainmentTuple), List.class));
 	}
 
+	@Test
 	public void testNullUnboxTpPrimitive() throws Exception {
 		IEntity nullBoxed = box(null, IntData);
 		try {
@@ -570,6 +587,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testDataBoxUnbox() throws Exception {
 		assertEquals(10, unbox(box(10, IntData), int.class));
 		assertEquals(10, ((Long) (unbox(box(10L, DoubleData), long.class))).intValue());
@@ -587,6 +605,7 @@ public class DataTypeUtilsTest extends TestCase {
 		assertEquals(entity, unbox(box(entity, ModelDeclaration), IModelsEntity.class));
 	}
 
+	@Test
 	public void testBoxToIncompatibleEntityType() throws Exception {
 		try {
 			box(true, DoubleData);
@@ -611,6 +630,7 @@ public class DataTypeUtilsTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testUnboxToIncompatibleDataType() throws Exception {
 		try {
 			unbox(BindingManagerFactory.instance.createValue(true), Double.class);

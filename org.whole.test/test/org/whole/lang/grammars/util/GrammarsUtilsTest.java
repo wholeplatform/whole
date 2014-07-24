@@ -20,8 +20,12 @@ package org.whole.lang.grammars.util;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
@@ -57,162 +61,191 @@ import org.whole.lang.util.StringUtils;
 import org.whole.lang.xml.codebase.XmlSourcePersistenceKit;
 import org.whole.lang.xml.factories.XmlEntityFactory;
 import org.whole.lang.xml.model.Element;
+import org.whole.test.KnownFailingTests;
+import org.whole.test.SlowTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class GrammarsUtilsTest extends TestCase {
+@Category(SlowTests.class)
+public class GrammarsUtilsTest {
 	private String testGrammarURI;
 	private String xmlGrammarURI;
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+//    	ReflectionFactory.deployWholePlatform();
+    }
+
+	@Before
+    public void setUp() throws Exception {
+    	ReflectionFactory.deployWholePlatform(); //TODO fix and remove workaround
 		Grammar testGrammar1 = new TestGrammar1().create();
 		testGrammarURI = testGrammar1.getUri().getValue();
-		if (!GrammarsRegistry.instance().containsGrammar(testGrammarURI))
+		if (!GrammarsRegistry.instance().containsGrammar(testGrammarURI)) //TODO fix and remove workaround
 			InterpreterOperation.interpret(testGrammar1);
 		Grammar xmlGrammar = new XmlGrammar().create();
 		xmlGrammarURI = xmlGrammar.getUri().getValue();
-		if (!GrammarsRegistry.instance().containsGrammar(xmlGrammarURI))
+		if (!GrammarsRegistry.instance().containsGrammar(xmlGrammarURI)) //TODO fix and remove workaround
 			InterpreterOperation.interpret(xmlGrammar);
 	}
+	@After
+	public void tearDown() {
+//		Grammar g;
+//		if (testGrammarURI != null && (g = GrammarsRegistry.instance().getGrammar(testGrammarURI)) != null)
+//			GrammarsRegistry.instance().removeGrammar(g);
+//		if (xmlGrammarURI != null && (g = GrammarsRegistry.instance().getGrammar(xmlGrammarURI)) != null)
+//			GrammarsRegistry.instance().removeGrammar(g);
+	}
 
+	@Test
 	public void testNormalizer() throws Exception {
 		Grammar testGrammar = NormalizerOperation.normalize(new TestGrammar().create());
 		Grammar testGrammarNormalized = new TestGrammarNormalized().create();
 
-		assertTrue(Matcher.match(testGrammarNormalized, testGrammar));
+		Assert.assertTrue(Matcher.match(testGrammarNormalized, testGrammar));
 	}
 
+	@Test
 	public void testParseSingleLiteral() {
 		IEntity result = GrammarsUtils.parse(
 				"a literal terminal", testGrammarURI, "SingleLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "SingleLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "SingleLiteral");
 	}
 
+	@Test
 	public void testParseSinglePatternLiteral() {
 		IEntity result = GrammarsUtils.parse(
 				"a1b2C3de", testGrammarURI, "SinglePatternLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "SinglePatternLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "SinglePatternLiteral");
 	}
 
+	@Test
 	public void testParseLiteralSequence() {
 		IEntity result = GrammarsUtils.parse(
 				"BEGINA666,12,23,34END", testGrammarURI, "LiteralSequence");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "LiteralSequence");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "LiteralSequence");
 	}
 
+	@Test
 	public void testParseSingleData() {
 		IEntity result = GrammarsUtils.parse(
 				"a string", testGrammarURI, "SingleData");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "SingleData");
-		assertEquals(result.wStringValue(), "a string");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "SingleData");
+		Assert.assertEquals(result.wStringValue(), "a string");
 	}
 
+	@Test
 	public void testParseDataSequence() {
 		IEntity result = GrammarsUtils.parse(
 				"(A125,732)", testGrammarURI, "DataSequence");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "DataSequence");
-		assertEquals(result.wGet(0).wStringValue(), "A");
-		assertEquals(DataTypeUtils.getAsPersistenceString(result.wGet(1)), "125");
-		assertEquals(DataTypeUtils.getAsPersistenceString(result.wGet(2)), "732");    	
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "DataSequence");
+		Assert.assertEquals(result.wGet(0).wStringValue(), "A");
+		Assert.assertEquals(DataTypeUtils.getAsPersistenceString(result.wGet(1)), "125");
+		Assert.assertEquals(DataTypeUtils.getAsPersistenceString(result.wGet(2)), "732");    	
 	}
 
+	@Test
 	public void testParseDataSequenceWithDatatypes() {
 		IEntity result = GrammarsUtils.parse(
 				"(A125,732)", testGrammarURI, "DataSequenceWithDataTypes");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "DataSequenceWithDataTypes");
-		assertEquals(result.wGet(0).wCharValue(), 'A');
-		assertEquals(result.wGet(1).wIntValue(), 125);
-		assertEquals(result.wGet(2).wIntValue(), 732); 	
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "DataSequenceWithDataTypes");
+		Assert.assertEquals(result.wGet(0).wCharValue(), 'A');
+		Assert.assertEquals(result.wGet(1).wIntValue(), 125);
+		Assert.assertEquals(result.wGet(2).wIntValue(), 732); 	
 	}
 
+	@Test
 	public void testParseOptionalLiteral() {
 		IEntity result1 = GrammarsUtils.parse(
 				"an optional literal terminal", testGrammarURI, "OptionalLiteral");
-		assertNotNull(result1);
-		assertEquals(result1.wGetEntityDescriptor().getName(), "OptionalLiteral");
+		Assert.assertNotNull(result1);
+		Assert.assertEquals(result1.wGetEntityDescriptor().getName(), "OptionalLiteral");
 
 		IEntity result2 = GrammarsUtils.parse(
 				"a literal terminal", testGrammarURI, "OptionalLiteral");
-		assertNotNull(result2);
-		assertEquals(result2.wGetEntityDescriptor().getName(), "OptionalLiteral");
+		Assert.assertNotNull(result2);
+		Assert.assertEquals(result2.wGetEntityDescriptor().getName(), "OptionalLiteral");
 	}
 
+	@Test
 	public void testParseUnparseOptionalConcatenate() {
 		String source = "an optional concatenate";
 
 		IEntity result1 = GrammarsUtils.parse(source, testGrammarURI, "OptionalConcatenate");
-		assertNotNull(result1);
-		assertEquals(result1.wGetEntityDescriptor().getName(), "OptionalConcatenate");
+		Assert.assertNotNull(result1);
+		Assert.assertEquals(result1.wGetEntityDescriptor().getName(), "OptionalConcatenate");
 		
 		StringBuilder sb = new StringBuilder();
 		GrammarsUtils.unparse(result1, sb, testGrammarURI);
-		assertEquals(source, sb.toString());
+		Assert.assertEquals(source, sb.toString());
 
 		IEntity result2 = GrammarsUtils.parse("a concatenate", testGrammarURI, "OptionalConcatenate");
-		assertNotNull(result2);
-		assertEquals(result2.wGetEntityDescriptor().getName(), "OptionalConcatenate");
+		Assert.assertNotNull(result2);
+		Assert.assertEquals(result2.wGetEntityDescriptor().getName(), "OptionalConcatenate");
 		
 		sb.setLength(0);
 		GrammarsUtils.unparse(result2, sb, testGrammarURI);
-		assertEquals(source, sb.toString());
+		Assert.assertEquals(source, sb.toString());
 	}
 
+	@Test
 	public void testParseRepeatedLiteral() {
 		IEntity result;
 		try {
 			result = GrammarsUtils.parse("Message: .", testGrammarURI, "RepeatedLiteral");
-			fail();
+			Assert.fail();
 		} catch (Exception e) {
 		}
 
 		result = GrammarsUtils.parse("Message: bla.", testGrammarURI, "RepeatedLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedLiteral");
 
 		result = GrammarsUtils.parse(
 				"Message: bla bla bla.", testGrammarURI, "RepeatedLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedLiteral");
 
 		try {
 			result = GrammarsUtils.parse("Message: bla bla bla bla.", testGrammarURI, "RepeatedLiteral");
-			fail();
+			Assert.fail();
 		} catch (Exception e) {
 		}
 	}
 
+	@Test
 	public void testParseRepeatedOptionalLiteral() {
 		IEntity result = GrammarsUtils.parse(
 				"Message: .", testGrammarURI, "RepeatedOptionalLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
 
 		result = GrammarsUtils.parse(
 				"Message: bla.", testGrammarURI, "RepeatedOptionalLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
 
 		result = GrammarsUtils.parse(
 				"Message: bla bla bla.", testGrammarURI, "RepeatedOptionalLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedOptionalLiteral");
 
 		try {
 			result = GrammarsUtils.parse(
 				"Message: bla bla bla bla.", testGrammarURI, "RepeatedOptionalLiteral");
-			fail();
+			Assert.fail();
 		} catch (Exception e) {
 		}
 	}
 
+	@Test
 	public void testUnparseXmlElement() {
 		XmlEntityFactory xf = XmlEntityFactory.instance;
 
@@ -226,21 +259,22 @@ public class GrammarsUtilsTest extends TestCase {
 
 		StringBuilder sb = new StringBuilder();
 		GrammarsUtils.unparse(e, sb, xmlGrammarURI);
-		assertEquals("<ns:tag attr=\"val\" attr2=\"val2\">test</ns:tag>", sb.toString());
+		Assert.assertEquals("<ns:tag attr=\"val\" attr2=\"val2\">test</ns:tag>", sb.toString());
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testUnparseXmlDocument() throws Exception {
 		IEntity xmlDocument = XmlSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.xwl")));
 
 		StringBuilder sb = new StringBuilder();
 		GrammarsUtils.unparse(xmlDocument, sb, xmlGrammarURI);
-		assertEquals("FIXME encoding and indentation", sb.toString());
+		Assert.assertEquals("FIXME encoding and indentation", sb.toString());
 	}
 
-
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testParseXmlDocument() throws Exception {
 		InputStream is = getClass().getResourceAsStream("smallSample.xwl");
 		IEntity xmlDocument = XmlSourcePersistenceKit.instance().readModel(
@@ -252,41 +286,43 @@ public class GrammarsUtilsTest extends TestCase {
 		is.close();
 		IEntity xmlDocumentUsingGrammar = GrammarsUtils.parse(source, xmlGrammarURI);
 
-		assertTrue(Matcher.match(xmlDocument, xmlDocumentUsingGrammar));
+		Assert.assertTrue(Matcher.match(xmlDocument, xmlDocumentUsingGrammar));
 	}
 
+	@Test
 	public void testParseRepeatedUnboundedLiteral() {
 		IEntity result = GrammarsUtils.parse(
 				"Message: .", testGrammarURI, "RepeatedUnboundedLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
 
 		result = GrammarsUtils.parse(
 				"Message: bla.", testGrammarURI, "RepeatedUnboundedLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
 
 		result = GrammarsUtils.parse(
 				"Message: bla bla bla bla bla.", testGrammarURI, "RepeatedUnboundedLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "RepeatedUnboundedLiteral");
 	}
 
+	@Test
 	public void testParseChooseLiteral() {
 		IEntity result = GrammarsUtils.parse(
 				"My dog is sleeping.", testGrammarURI, "ChooseLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "ChooseLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "ChooseLiteral");
 
 		result = GrammarsUtils.parse(
 				"My cat is sleeping.", testGrammarURI, "ChooseLiteral");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "ChooseLiteral");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "ChooseLiteral");
 
 		try {
 			result = GrammarsUtils.parse(
 					"My mouse is sleeping.", testGrammarURI, "ChooseLiteral");
-			fail();
+			Assert.fail();
 		} catch (Exception e) {
 		}
 	}
@@ -297,19 +333,21 @@ public class GrammarsUtilsTest extends TestCase {
 		"defghilm,45,b,789.1";
 	}
 
+	@Test
 	public void testParseCSVSimple() {
 		IEntity result = GrammarsUtils.parse(getCSVData(), testGrammarURI, "CSVSimple");
-		assertNotNull(result);
-		assertEquals(result.wGetEntityDescriptor().getName(), "CSVSimple");
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.wGetEntityDescriptor().getName(), "CSVSimple");
 	}
 
+	@Test
 	public void testGrammarToModelMapping() {
 		Model m = new XmlModel().create();
 		Grammar g = new XmlGrammar().create();
 
 		Model m1 = GrammarsUtils.deriveModel(g, true);
 
-		assertTrue(Matcher.match(m, m1));
+		Assert.assertTrue(Matcher.match(m, m1));
 	}
 
 	

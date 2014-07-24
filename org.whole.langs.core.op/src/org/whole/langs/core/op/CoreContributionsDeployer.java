@@ -93,4 +93,9 @@ public class CoreContributionsDeployer extends AbstractContributionDeployer {
 			throw new IllegalStateException(e);
 		}
 	}
+
+	@Override
+	public void undeploy(ReflectionFactory platform) {
+		platform.removeLanguageKit("whole:org.whole.lang.comparisons:ComparisonsPatternsModel");
+	}
 }

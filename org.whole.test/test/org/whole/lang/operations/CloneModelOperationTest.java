@@ -17,8 +17,10 @@
  */
 package org.whole.lang.operations;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.Java5Model;
@@ -28,19 +30,23 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class CloneModelOperationTest extends TestCase {
+public class CloneModelOperationTest {
 	private IEntity javaModel;
 
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-        ReflectionFactory.deployWholePlatform();
+    @Before
+    public void setUp() {
         javaModel = new Java5Model().create();
     }
 
+    @Test
     public void testClone() {
         IEntity javaClone = EntityUtils.clone(javaModel);
-    	assertTrue(Matcher.match(javaModel, javaClone));
+    	Assert.assertTrue(Matcher.match(javaModel, javaClone));
     }
 
 }

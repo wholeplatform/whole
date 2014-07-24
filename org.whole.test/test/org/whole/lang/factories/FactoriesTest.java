@@ -17,8 +17,10 @@
  */
 package org.whole.lang.factories;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.builders.GenericBuilderAdapterOperation;
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.builders.IBuilderFactory;
@@ -58,19 +60,21 @@ import org.whole.lang.testentities.model.CharTestEntity;
 import org.whole.lang.testentities.model.ShortTestEntity;
 import org.whole.lang.testentities.reflect.TestEntitiesEntityDescriptorEnum;
 import org.whole.langs.test.TestLanguagesDeployer;
+import org.whole.test.SlowTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class FactoriesTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        ReflectionFactory.deployWholePlatform();
+@Category(SlowTests.class)
+public class FactoriesTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
         ReflectionFactory.deploy(TestLanguagesDeployer.class);
     }
 
-    public void testCompositeFactoryMethods() {
+    @Test
+	public void testCompositeFactoryMethods() {
     	IEntityRegistry efi = ReflectionFactory.getLanguageKit(PropertiesLanguageKit.URI)
     		.getEntityRegistry(RegistryConfigurations.DEFAULT);
     	PropertiesEntityFactory ef = PropertiesEntityFactory.instance;
@@ -78,39 +82,41 @@ public class FactoriesTest extends TestCase {
     	efi.put(p);
 
     	Entries e1 = ef.createEntries();
-    	assertEquals(2, e1.wSize());
+    	Assert.assertEquals(2, e1.wSize());
     	Entries e2 = ef.createEntries(new Property[0]);
-    	assertEquals(0, e2.wSize());
+    	Assert.assertEquals(0, e2.wSize());
     	Entries e3 = ef.createEntries(ef.create(PropertiesEntityDescriptorEnum.Property, "p1", "v1"));
-    	assertEquals(1, e3.wSize());
+    	Assert.assertEquals(1, e3.wSize());
     }
 
-    public void testDataFactoryMethodsWithPromotions() {
+    @Test
+	public void testDataFactoryMethodsWithPromotions() {
     	TestEntitiesEntityFactory ef = TestEntitiesEntityFactory.instance;
 
     	ByteTestEntity be1 = ef.createByteTestEntity((byte) 23);    	
-    	assertEquals((byte) 23, be1.wByteValue());
+    	Assert.assertEquals((byte) 23, be1.wByteValue());
     	ByteTestEntity be2 = ef.create(TestEntitiesEntityDescriptorEnum.ByteTestEntity,
     			(byte) 23);
-    	assertEquals((byte) 23, be2.wByteValue());
+    	Assert.assertEquals((byte) 23, be2.wByteValue());
 
     	CharTestEntity ce1 = ef.createCharTestEntity('c');    	
-    	assertEquals('c', ce1.wCharValue());
+    	Assert.assertEquals('c', ce1.wCharValue());
     	CharTestEntity ce2 = ef.create(TestEntitiesEntityDescriptorEnum.CharTestEntity,
     			'c');
-    	assertEquals('c', ce2.wCharValue());
+    	Assert.assertEquals('c', ce2.wCharValue());
     	CharTestEntity ce3 = ef.create(TestEntitiesEntityDescriptorEnum.CharTestEntity,
 				(char) 65);
-    	assertEquals(65, ce3.wCharValue());
+    	Assert.assertEquals(65, ce3.wCharValue());
 
     	ShortTestEntity se1 = ef.createShortTestEntity((short) 12345);    	
-    	assertEquals((short) 12345, se1.wShortValue());
+    	Assert.assertEquals((short) 12345, se1.wShortValue());
     	ShortTestEntity se2 = ef.create(TestEntitiesEntityDescriptorEnum.ShortTestEntity,
     			(short) 12345);
-    	assertEquals((short) 12345, se2.wShortValue());
+    	Assert.assertEquals((short) 12345, se2.wShortValue());
     }
 
-    public void testSimpleEntityFactoryMethodWithObjects() {
+    @Test
+	public void testSimpleEntityFactoryMethodWithObjects() {
     	JavaEntityFactory ef = JavaEntityFactory.instance;
     	
     	ef.buildMethodInvocation()
@@ -126,7 +132,8 @@ public class FactoriesTest extends TestCase {
     }
    
 	//TODO replace test language with one having unique constraints
-    public void testUniqueConstraint() {
+    @Test
+	public void testUniqueConstraint() {
     	JavaEntityFactory ef = JavaEntityFactory.instance;
     	JavaEntityFactory sef = JavaEntityFactory.instance(RegistryConfigurations.STRICT);
 
@@ -134,20 +141,21 @@ public class FactoriesTest extends TestCase {
     			ef.createModifier(ModifierEnum._abstract),
     			ef.createModifier(ModifierEnum._abstract));
     	e.wAdd(ef.createModifier(ModifierEnum._abstract));
-    	assertEquals(3, e.wSize());
+    	Assert.assertEquals(3, e.wSize());
 
     	ExtendedModifiers se = sef.createExtendedModifiers(
     			sef.createModifier(ModifierEnum._abstract),
     			sef.createModifier(ModifierEnum._abstract));
     	se.wAdd(ef.createModifier(ModifierEnum._abstract));
-    	assertEquals(3, se.wSize());//TODO was 1
+    	Assert.assertEquals(3, se.wSize());//TODO was 1
     	
-    	assertTrue(Matcher.match(se, e)); //TODO was false
-    	assertFalse(Matcher.match(se, ef.createExtendedModifiers(
+    	Assert.assertTrue(Matcher.match(se, e)); //TODO was false
+    	Assert.assertFalse(Matcher.match(se, ef.createExtendedModifiers(
     			ef.createModifier(ModifierEnum._abstract)))); //TODO was true
     }
 
-    public void testStrictMatch() {
+    @Test
+	public void testStrictMatch() {
     	IEntity model = new Java5Model().create();
     	
     	ModelBuilderOperation op = new ModelBuilderOperation(
@@ -155,17 +163,18 @@ public class FactoriesTest extends TestCase {
     	new Java5Model().apply(op);
     	IEntity strictModel = op.wGetResult();
     	
-    	assertTrue(Matcher.match(model, strictModel));
+    	Assert.assertTrue(Matcher.match(model, strictModel));
 
     	op = new ModelBuilderOperation(RegistryConfigurations.RESOLVER);
     	new Java5Model().apply(op);
     	IEntity resolverModel = op.wGetResult();
     	
-    	assertTrue(Matcher.match(model, resolverModel));
-    	assertTrue(Matcher.match(strictModel, resolverModel));
+    	Assert.assertTrue(Matcher.match(model, resolverModel));
+    	Assert.assertTrue(Matcher.match(strictModel, resolverModel));
     }
 
-    public void testDynamicFactory() {
+    @Test
+	public void testDynamicFactory() {
     	TypeRelations typeRelations = ModelsEntityFactory.instance.createTypeRelations();
     	IEntityFactory ef = GenericEntityFactory.instance(RegistryConfigurations.CUSTOM);
 
@@ -176,7 +185,7 @@ public class FactoriesTest extends TestCase {
     	typeRelations.wAdd(ef.create(edEnum.valueOf("TypeAliasOf")));
 
 //    	PrettyPrinterOperation.prettyPrint(typeRelations);
-    	assertFalse(typeRelations.wIsAdapter());
+    	Assert.assertFalse(typeRelations.wIsAdapter());
 
 
     	ReflectionFactory.deploy(new ModelsLanguageDynamicTestDeployer());
@@ -187,10 +196,11 @@ public class FactoriesTest extends TestCase {
     			ef.create(ModelsEntityDescriptorEnum.SubtypesOf).wGetAdaptee(false));
 
     	PrettyPrinterOperation.prettyPrint(e1);
-    	assertTrue(e1.wIsAdapter());
+    	Assert.assertTrue(e1.wIsAdapter());
     }
 
-    public void testDynamicMatch() {
+    @Test
+	public void testDynamicMatch() {
     	ReflectionFactory.deploy(new ModelsLanguageDynamicTestDeployer());
     	
     	IEntity model = new Java5Model().create();
@@ -200,7 +210,7 @@ public class FactoriesTest extends TestCase {
     	new Java5Model().apply(op);
     	IEntity dynamicModel = op.wGetResult();
     	
-    	assertTrue(Matcher.match(model, dynamicModel));
+    	Assert.assertTrue(Matcher.match(model, dynamicModel));
     }
 
     public static class ModelsDynamicTestLanguageKit extends ModelsLanguageKit {

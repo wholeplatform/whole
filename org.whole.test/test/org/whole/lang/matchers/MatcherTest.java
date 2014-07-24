@@ -20,8 +20,11 @@ package org.whole.lang.matchers;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.artifacts.builders.IArtifactsBuilder;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.reflect.ArtifactsLanguageKit;
@@ -58,21 +61,26 @@ import org.whole.langs.test.TestLanguagesDeployer;
 /**
  * @author Riccardo Solmi
  */
-public class MatcherTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
+public class MatcherTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-        ReflectionFactory.deployWholePlatform();
+    @Before
+    public void setUp() {
 		ReflectionFactory.deploy(TestLanguagesDeployer.class);
 	}
 
-	public void testMatch() {
+    @Test
+    public void testMatch() {
 		ListTestEntity testModel = new TestingModel().create();
 		IEntity tPattern1 = EntityUtils.clone(testModel);
 		assertTrue(Matcher.match(tPattern1, testModel));
 	}
 
-	public void testMatchBindings() {
+    @Test
+    public void testMatchBindings() {
 		IEntity pattern = buildArtifactsPattern(true);
 		IEntity model = buildArtifactsPattern(false);
 		IBindingManager bindings = BindingManagerFactory.instance
@@ -85,7 +93,8 @@ public class MatcherTest extends TestCase {
 		fail();
 	}
 
-	public void testSubstitute() {
+    @Test
+    public void testSubstitute() {
 		SimpleEntity entityPattern = new SimpleEntityPattern().create();
 		IBindingManager bindings = BindingManagerFactory.instance
 				.createBindingManager();
@@ -97,7 +106,8 @@ public class MatcherTest extends TestCase {
 		assertEquals("SE", entityPattern.getName().wStringValue());
 	}
 
-	public void testDataSubstitute() {
+    @Test
+    public void testDataSubstitute() {
 		SimpleEntity entityPattern = new SimpleEntityPattern().create();
 		IBindingManager bindings = BindingManagerFactory.instance
 				.createBindingManager();
@@ -110,7 +120,8 @@ public class MatcherTest extends TestCase {
 				.getName().wGetEntityDescriptor());
 	}
 
-	public void testSubstituteValue() {
+    @Test
+    public void testSubstituteValue() {
 		SimpleEntity entityPattern = new SimpleEntityPattern().create();
 
 		IBindingScope args = BindingManagerFactory.instance.createSimpleScope();
@@ -122,7 +133,8 @@ public class MatcherTest extends TestCase {
 				.getName().wGetEntityDescriptor());
 	}
 
-	public void testMultipleSubstitute() {
+    @Test
+    public void testMultipleSubstitute() {
 		Model modelPattern = new ModelPattern().create();
 		IBindingManager bindings = BindingManagerFactory.instance
 				.createBindingManager();
@@ -143,7 +155,8 @@ public class MatcherTest extends TestCase {
 		assertNotSame(var1, var2);
 	}
 
-	public void testMultipleTypesSubstitute() {
+    @Test
+    public void testMultipleTypesSubstitute() {
 		ClassDeclaration functionPattern = new FunctionPattern().create();
 		IBindingManager bindings = BindingManagerFactory.instance.createBindingManager();
 		bindings.wDefValue("factName", "factorial");
@@ -168,7 +181,8 @@ public class MatcherTest extends TestCase {
 		assertEquals(5, var3.wByteValue());
 	}
 
-	public void testRemoveVars() {
+    @Test
+    public void testRemoveVars() {
 		IEntity pattern = new SimpleEntityPattern().create();
 		
 		Matcher.removeVars(pattern, true);
@@ -182,7 +196,8 @@ public class MatcherTest extends TestCase {
 	    ).visit(pattern);
 	}
 
-	public void testRename() {
+    @Test
+    public void testRename() {
 		Feature featurePattern = new FeaturePattern().create();
 		Variable var = (Variable) featurePattern.getType().wGetAdaptee(false);
 		assertEquals("featureType", var.getVarName().getValue());
@@ -192,7 +207,8 @@ public class MatcherTest extends TestCase {
 		assertEquals("fType", var.getVarName().getValue());
 	}
 
-	public void testRenameMap() {
+    @Test
+    public void testRenameMap() {
 		Feature featurePattern = new FeaturePattern().create();
 		Variable var1 = (Variable) featurePattern.getType().wGetAdaptee(false);
 		Variable var2 = (Variable) featurePattern.getName().wGetAdaptee(false);
@@ -208,7 +224,8 @@ public class MatcherTest extends TestCase {
 		assertEquals("fName", var2.getVarName().getValue());
 	}
 
-	public void testMultipleRename() {
+    @Test
+    public void testMultipleRename() {
 		Model modelPattern = new ModelPattern().create();
 		Variable var1 = (Variable) modelPattern.getDeclarations()
 				.wGet(0).wGet(ModelsFeatureDescriptorEnum.features).wGet(0)
@@ -251,13 +268,15 @@ public class MatcherTest extends TestCase {
 		return op.wGetResult();
 	}
 
-	public void testCompareSimpleEntityWithResolver() {
+	@Test
+    public void testCompareSimpleEntityWithResolver() {
 		SimpleEntity concrete = ModelsEntityFactory.instance.createSimpleEntity();
 		SimpleEntity resolver = CommonsEntityAdapterFactory.createResolver(ModelsEntityDescriptorEnum.SimpleEntity);
 		assertFalse(Matcher.match(concrete, resolver));
 	}
 
-	public void testForceMatch() throws Exception {
+	@Test
+    public void testForceMatch() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		IEntity textModel = ModelsTemplateManager.instance().create("Text model");
 		IEntity modifiedTextModel = new ModifiedTextModel().create();
@@ -272,7 +291,8 @@ public class MatcherTest extends TestCase {
 		}, modifiedTextModel);
 	}
 
-	public void testForceMatchUsingVariables() throws Exception {
+	@Test
+    public void testForceMatchUsingVariables() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		IEntity textModel = ModelsTemplateManager.instance().create("Text model");
 		IEntity modifiedTextModel = new ModifiedTextModel().create();

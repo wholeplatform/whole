@@ -17,8 +17,11 @@
  */
 package org.whole.lang.json;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.builders.ModelBuilderOperation;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.codebase.StringPersistenceProvider;
@@ -38,19 +41,23 @@ import com.fasterxml.jackson.core.JsonGenerator;
 /**
  * @author Riccardo Solmi
  */
-public class JSONPersistenceTest extends TestCase {
+public class JSONPersistenceTest {
 	String sampleString;
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+    @Before
+    public void setUp() throws Exception {
 		IEntity sampleText = TextSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		sampleString = PrettyPrinterOperation.toPrettyPrintString(sampleText);
 	}
 
-	public void testStreamAndBuildParserEquivalence() throws Exception {
+    @Test
+    public void testStreamAndBuildParserEquivalence() throws Exception {
 		IEntity sampleModelByFactory = JSONPersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 
@@ -61,14 +68,16 @@ public class JSONPersistenceTest extends TestCase {
 		assertTrue(Matcher.match(sampleModelByFactory, sampleModelByBuilder));
 	}
 
-	public void testParseAndGenerateWithPrettyPrinter() throws Exception {
+    @Test
+    public void testParseAndGenerateWithPrettyPrinter() throws Exception {
 		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		
 		assertEquals(sampleString, PrettyPrinterOperation.toPrettyPrintString(sampleModel));
 	}
 
-	public void testParseAndGenerateWithBuilderOperation() throws Exception {
+    @Test
+    public void testParseAndGenerateWithBuilderOperation() throws Exception {
 		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		
@@ -84,7 +93,8 @@ public class JSONPersistenceTest extends TestCase {
 		assertEquals(sampleString, pp.getStore());
 	}
 
-	public void testPersistenceKit() throws Exception {
+    @Test
+    public void testPersistenceKit() throws Exception {
 		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		

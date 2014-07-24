@@ -17,8 +17,11 @@
  */
 package org.whole.lang.model;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.editors.codebase.PojoTextualEditor;
 import org.whole.lang.editors.model.Editor;
 import org.whole.lang.editors.model.ViewComponent;
@@ -28,16 +31,20 @@ import org.whole.lang.versions.model.History;
 import org.whole.lang.versions.model.Version;
 import org.whole.lang.versions.reflect.VersionsFeatureDescriptorEnum;
 
-public class AspectAPITest extends TestCase {
+public class AspectAPITest {
 	private Editor editorModel;
 
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-        ReflectionFactory.deployWholePlatform();
+    @Before
+    public void setUp() {
         editorModel = new PojoTextualEditor().create();
     }
 
+    @Test
     public void testToManyFeatureWithReferenceOppositeAdd() {
         History history = VersionsEntityFactory.instance.createHistory();
         Version v1 = VersionsEntityFactory.instance.createVersion();
@@ -55,6 +62,7 @@ public class AspectAPITest extends TestCase {
         assertSame(v1, history.wInverseAdjacents().iterator().next());
     }
 
+    @Test
     public void testReferenceFeatureWithToManyOppositeSet() {
         History history = VersionsEntityFactory.instance.createHistory();
         Version v1 = VersionsEntityFactory.instance.createVersion();
@@ -72,6 +80,7 @@ public class AspectAPITest extends TestCase {
         assertSame(v1, history.wInverseAdjacents().iterator().next());
     }
 
+    @Test
     public void testToManyReferenceFeatureWithToManyReferenceOppositeAdd() {
         History history = VersionsEntityFactory.instance.createHistory();
         Version v1 = VersionsEntityFactory.instance.createVersion();
@@ -108,6 +117,7 @@ public class AspectAPITest extends TestCase {
         assertEquals(1, v4.wInverseAdjacentSize());
     }
 
+    @Test
     public void testAspectualReferenceFeatureWithReferenceOppositeSet() {
         Version vcVersion = VersionsEntityFactory.instance.createVersion();
     	ViewComponent viewComponent = editorModel.getViewComponent();
@@ -118,6 +128,7 @@ public class AspectAPITest extends TestCase {
         assertSame(viewComponent, vcVersion.wGet(VersionsFeatureDescriptorEnum.versionable));
     }
 
+    @Test
     public void testReferenceFeatureWithAspectualReferenceOppositeSet() {
         Version vcVersion = VersionsEntityFactory.instance.createVersion();
     	ViewComponent viewComponent = editorModel.getViewComponent();

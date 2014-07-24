@@ -42,7 +42,7 @@ import org.whole.lang.templates.AbstractTemplateFactory;
  */
 public class BytecodeGeneratorTest {
 	@BeforeClass
-	public static void init() throws Exception {
+	public static void init() {
 		ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(ImpLanguageDeployer.class);
 	}

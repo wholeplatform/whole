@@ -8,8 +8,11 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
@@ -44,26 +47,35 @@ import org.whole.lang.xsd.mapping.samples.QueueInstance;
 import org.whole.lang.xsd.mapping.samples.SepaSctInstance;
 import org.whole.lang.xsd.mapping.samples.SimpleContentInstance;
 import org.whole.lang.xsd.mapping.samples.Xmi20Instance;
+import org.whole.test.KnownFailingTests;
+import org.whole.test.SlowTests;
 
-public class XsdMappingTest extends TestCase {
+public class XsdMappingTest {
 	private final ResourceLoader loader = ResourceLoader.instance("org.whole.lang.xsd.mapping.samples");
 	private final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
+
+	@Before
+	public void setUp() throws Exception {
 		factory.setResourceResolver(new ResourceResolverAdapter(loader));
 	}
 
+	@Test
 	public void testMappingNormalization() throws Exception {
 		MappingStrategy strategy = new ArtifactsMapping().create();
 		MappingStrategy normalizedStrategy = new ArtifactsMappingNormalized().create();
-		assertTrue(Matcher.match(normalizedStrategy, NormalizerOperation.normalize(strategy)));
+		Assert.assertTrue(Matcher.match(normalizedStrategy, NormalizerOperation.normalize(strategy)));
 
 		strategy = new SepaSctMapping().create();
 		normalizedStrategy = new SepaSctMappingNormalized().create();
-		assertTrue(Matcher.match(normalizedStrategy, NormalizerOperation.normalize(strategy)));
+		Assert.assertTrue(Matcher.match(normalizedStrategy, NormalizerOperation.normalize(strategy)));
 	}
 
+	@Test
 	public void testInclusion() throws Exception {
 		InputStream is = loader.getResourceAsStream("books.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -74,6 +86,8 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testXmi20() throws Exception {
 		InputStream is = loader.getResourceAsStream("xmi20.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -88,9 +102,11 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new Xmi20Instance().create(), model));
+		Assert.assertTrue(Matcher.match(new Xmi20Instance().create(), model));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testDatatypes() throws Exception {
 		InputStream is = loader.getResourceAsStream("datatypes.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -105,10 +121,12 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new DatatypesInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new DatatypesInstance().create(), model));
 	}
 
 	//Requires an Internet connection
+	@Category(SlowTests.class)
+	@Test
 	public void testWsBPEL() throws Exception {
 		InputStream is = loader.getResourceAsStream("ws-bpel_executable.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -120,6 +138,8 @@ public class XsdMappingTest extends TestCase {
 	}
 
 	//Requires an Internet connection
+	@Category(SlowTests.class)
+	@Test
 	public void testWsBPELLegacy() throws Exception {
 		InputStream is = loader.getResourceAsStream("wsbpel_2_0.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -130,6 +150,8 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testMaven() throws Exception {
 		InputStream is = loader.getResourceAsStream("maven-v4_0_0.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -144,9 +166,11 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new Maven400Instance().create(), model));
+		Assert.assertTrue(Matcher.match(new Maven400Instance().create(), model));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testFreemind() throws Exception {
 		InputStream is = loader.getResourceAsStream("freemind.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -161,9 +185,11 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new FreemindInstance(model.wGetLanguageKit()).create(), model));
+		Assert.assertTrue(Matcher.match(new FreemindInstance(model.wGetLanguageKit()).create(), model));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testAppEngine() throws Exception {
 		InputStream is = loader.getResourceAsStream("appengine-web.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -178,7 +204,7 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new AppEngineWebInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new AppEngineWebInstance().create(), model));
 
 		is = loader.getResourceAsStream("cron.xsd");
 		ss = new StreamSource(is);
@@ -193,7 +219,7 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new CronInstance(model.wGetLanguageKit()).create(), model));
+		Assert.assertTrue(Matcher.match(new CronInstance(model.wGetLanguageKit()).create(), model));
 
 		is = loader.getResourceAsStream("queue.xsd");
 		ss = new StreamSource(is);
@@ -208,7 +234,7 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new QueueInstance(model.wGetLanguageKit()).create(), model));
+		Assert.assertTrue(Matcher.match(new QueueInstance(model.wGetLanguageKit()).create(), model));
 
 		is = loader.getResourceAsStream("datastore-indexes.xsd");
 		ss = new StreamSource(is);
@@ -223,7 +249,7 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new DatastoreIndexesInstance(model.wGetLanguageKit()).create(), model));
+		Assert.assertTrue(Matcher.match(new DatastoreIndexesInstance(model.wGetLanguageKit()).create(), model));
 
 		is = loader.getResourceAsStream("dos.xsd");
 		ss = new StreamSource(is);
@@ -238,7 +264,7 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new DosInstance(model.wGetLanguageKit()).create(), model));
+		Assert.assertTrue(Matcher.match(new DosInstance(model.wGetLanguageKit()).create(), model));
 
 		is = loader.getResourceAsStream("jdoconfig_2_3.xsd");
 		ss = new StreamSource(is);
@@ -253,9 +279,10 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new JDOConfigInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new JDOConfigInstance().create(), model));
 	}
 
+	@Test
 	public void testChoiceSample() throws Exception {
 		InputStream is = loader.getResourceAsStream("ChoiceSample.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -270,9 +297,11 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new ChoiceSampleInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new ChoiceSampleInstance().create(), model));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testPain() throws Exception {
 		InputStream is = loader.getResourceAsStream("pain.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -287,9 +316,10 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new PainInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new PainInstance().create(), model));
 	}
 
+	@Test
 	public void testECore() throws Exception {
 		InputStream is = loader.getResourceAsStream("ECore.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -301,6 +331,8 @@ public class XsdMappingTest extends TestCase {
 	}
 
 	//Requires an Internet connection
+	@Category(SlowTests.class)
+	@Test
 	public void testDocbook() throws Exception {
 		InputStream is = loader.getResourceAsStream("docbook.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -311,6 +343,8 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testFlex3() throws Exception {
 		InputStream is = loader.getResourceAsStream("flex3.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -321,6 +355,8 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testSCTScf() throws Exception {
 		InputStream is = loader.getResourceAsStream("SepaSct.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -335,10 +371,12 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new SepaSctInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new SepaSctInstance().create(), model));
 	}
 
 	//Requires an Internet connection
+	@Category({SlowTests.class, KnownFailingTests.class})//FIXME remove KnownFailingTests
+	@Test
 	public void testSimpleContent() throws Exception {
 		InputStream is = loader.getResourceAsStream("simpleContent.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -353,9 +391,10 @@ public class XsdMappingTest extends TestCase {
 		pp.getBindings().wDefValue("packageName", "org.whole.lang.xsd.mapping.samples");
 		IEntity model = XsiPersistenceKit.instance().readModel(pp);
 
-		assertTrue(Matcher.match(new SimpleContentInstance().create(), model));
+		Assert.assertTrue(Matcher.match(new SimpleContentInstance().create(), model));
 	}
 
+	@Test
 	public void testMappedEditorsModel() throws Exception {
 		InputStream is = loader.getResourceAsStream("Editors.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -366,6 +405,7 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Test
 	public void testMappedArtifactsModel() throws Exception {
 		InputStream is = loader.getResourceAsStream("Artifacts.xsd");
 		StreamSource ss = new StreamSource(is);
@@ -376,6 +416,7 @@ public class XsdMappingTest extends TestCase {
 		v.validate(new StreamSource(is));
 	}
 
+	@Test
 	public void testModelsToXmlSchemaXXX() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		PathExpression path = new ModelToXmlSchemaQuery().create();
@@ -383,7 +424,7 @@ public class XsdMappingTest extends TestCase {
 		String uri = model.getUri().getValue();
 		ILanguageKit lk = ReflectionFactory.getLanguageKit(uri);
 		IEntity tuple = BehaviorUtils.evaluateFirstResult(path, model, bm);
-		assertNotNull(tuple);
+		Assert.assertNotNull(tuple);
 
 		InterpreterOperation.interpret(tuple.wGet(1));
 		ITemplateManager tm = lk.getTemplateManager();
@@ -393,6 +434,6 @@ public class XsdMappingTest extends TestCase {
 		XsiPersistenceKit.instance().writeModel(entity, pp);
 		IEntity entity2 = XsiPersistenceKit.instance().readModel(pp);
 		boolean matches = Matcher.match(entity, entity2);
-		assertTrue (matches);
+		Assert.assertTrue (matches);
 	}
 }

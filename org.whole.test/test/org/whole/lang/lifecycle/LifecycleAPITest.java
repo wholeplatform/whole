@@ -19,8 +19,11 @@ package org.whole.lang.lifecycle;
 
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.model.IEntity;
@@ -33,19 +36,24 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Riccardo Solmi
  */
-public class LifecycleAPITest extends TestCase {
+public class LifecycleAPITest {
 	Model model;
 	IHistoryManager history;
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+    @Before
+    public void setUp() {
 		model = new XmlModel().create();
 		history = ReflectionFactory.getHistoryManager(model);
 		history.setHistoryEnabled(true);
 	}
 
-	public void testUndoSize() {
+    @Test
+    public void testUndoSize() {
 		assertEquals(0, history.getUndoSize());
 		model.getName().wSetValue("newLangName");
 		assertEquals(1, history.getUndoSize());
@@ -67,7 +75,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(9, history.getUndoSize());
 	}
 
-	public void testUndoCommands() {
+    @Test
+    public void testUndoCommands() {
 		IEntity id = model.wGet(0);
 		id.wSetValue("newLangName");
 
@@ -79,7 +88,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals("newLangName", command.getNewObject());
 	}
 
-	public void testUndo() {
+    @Test
+    public void testUndo() {
 		IEntity id = model.wGet(0);
 		String idVal = id.wStringValue();
 		id.wSetValue("newLangName");
@@ -93,7 +103,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(idVal, model.wGet(0).wStringValue());
 	}
 
-	public void testEnablement() {
+    @Test
+    public void testEnablement() {
 		assertTrue(history.isHistoryEnabled());
 		model.getName().setValue("value 1");
 		history.setHistoryEnabled(true);
@@ -112,12 +123,14 @@ public class LifecycleAPITest extends TestCase {
 
 	}
 
-	public void testStatus() {
+    @Test
+    public void testStatus() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 		assertEquals(transaction.getStatus(), Status.NO_TRANSACTION);
 	}
 
-	public void testIllegalStates() {
+    @Test
+    public void testIllegalStates() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 
 		try {
@@ -139,7 +152,8 @@ public class LifecycleAPITest extends TestCase {
 		}
 	}
 
-	public void testCommit() {
+    @Test
+    public void testCommit() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 
 		IEntity e1 = model.wGet(0);
@@ -164,7 +178,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(c1.getExecutionTime(), c2.getExecutionTime());
 	}
 
-	public void testRollback() {
+    @Test
+    public void testRollback() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 
 		IEntity e1 = model.wGet(0);
@@ -184,7 +199,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(history.getUndoSize(), size);
 	}
 
-	public void testSetRollbackOnly() {
+    @Test
+    public void testSetRollbackOnly() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 
 		IEntity e1 = model.wGet(0);
@@ -215,7 +231,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(history.getUndoSize(), size);
 	}
 
-	public void testUndoRedoTransactionBoundary() {
+    @Test
+    public void testUndoRedoTransactionBoundary() {
 		ITransaction transaction = ReflectionFactory.getTransaction(model);
 
 		IEntity e1 = model.wGet(0);
@@ -252,7 +269,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(history.getUndoSize(), size2);
 	}
 
-	public void testMultipleModelsUndoSingleTransactionBoundary() {
+    @Test
+    public void testMultipleModelsUndoSingleTransactionBoundary() {
 		IEntity tuple = BindingManagerFactory.instance.createTuple(true);
 		tuple.wGetModel().getCompoundModel().setHistoryManager(history, false);
 
@@ -272,7 +290,8 @@ public class LifecycleAPITest extends TestCase {
 		assertEquals(0, tuple.wSize());
 	}
 
-	public void testMultipleModelsUndoCrossTransactionBoundary() {
+    @Test
+    public void testMultipleModelsUndoCrossTransactionBoundary() {
 		IEntity tuple = BindingManagerFactory.instance.createTuple(true);
 		//with a different history manger
 		

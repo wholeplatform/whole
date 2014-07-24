@@ -17,8 +17,10 @@
  */
 package org.whole.lang.xml.builders;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
@@ -34,14 +36,15 @@ import org.whole.lang.xml.codebase.XmlNormalizerBuilderOperation;
 import org.whole.lang.xml.model.Document;
 import org.whole.lang.xml.reflect.XmlEntityDescriptorEnum;
 
-public class XmlNormalizerBuilderTest extends TestCase {
+public class XmlNormalizerBuilderTest {
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-	}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testNormalizationWithoutCDataSectMerge() {
+    @Test
+    public void testNormalizationWithoutCDataSectMerge() {
 		try {
 			// create queries
 			Path findNestedContent = (Path) XmlNormalizerBuilderTemplateManager.instance().create("findNestedContent");
@@ -89,7 +92,8 @@ public class XmlNormalizerBuilderTest extends TestCase {
 		}
 	}
 
-	public void testNormalizationWithCDataSectMerge() {
+    @Test
+    public void testNormalizationWithCDataSectMerge() {
 		try {
 			// create queries
 			Path findNestedContent = (Path) XmlNormalizerBuilderTemplateManager.instance().create("findNestedContent");

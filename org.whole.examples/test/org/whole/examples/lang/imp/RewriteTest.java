@@ -21,7 +21,7 @@ import org.whole.lang.visitors.IVisitor;
  */
 public class RewriteTest {
 	@BeforeClass
-	public static void init() throws Exception {
+	public static void init() {
 		ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(ImpLanguageDeployer.class);
 	}

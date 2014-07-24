@@ -17,8 +17,10 @@
  */
 package org.whole.lang.tests;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
@@ -29,21 +31,26 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.model.TestSuite;
+import org.whole.test.SlowTests;
 
 /**
  * @author Enrico Persiani
  */
-public class TestsInterpreterVisitorTest extends TestCase {
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-	}
+@Category(SlowTests.class)
+public class TestsInterpreterVisitorTest {
+ 
+	@BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Test
 	public void testInterpreter() throws Exception {
 		TestSuite testSuite = new TestSuiteCompleted().create();
-		assertTrue(InterpreterOperation.interpret(testSuite).getResult().wBooleanValue());
+		Assert.assertTrue(InterpreterOperation.interpret(testSuite).getResult().wBooleanValue());
 	}
 
+	@Test
 	public void testLearningInterpreter() throws Exception {
 		TestSuite testSuiteToComplete = new TestSuiteToComplete().create();
 		TestSuite testSuiteCompleted = new TestSuiteCompleted().create();
@@ -51,7 +58,7 @@ public class TestsInterpreterVisitorTest extends TestCase {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("learnMode", true);
 		bm.wDefValue("learnCycles", 2);
-		assertTrue(InterpreterOperation.interpret(testSuiteToComplete, bm).getResult().wBooleanValue());
+		Assert.assertTrue(InterpreterOperation.interpret(testSuiteToComplete, bm).getResult().wBooleanValue());
 
 		// remove timestamps from both the models
 		IEntityIterator<IEntity> iterator = IteratorFactory.descendantOrSelfMatcherIterator()
@@ -69,6 +76,6 @@ public class TestsInterpreterVisitorTest extends TestCase {
 			iterator.remove();
 		}
 
-		assertTrue(Matcher.match(testSuiteCompleted, testSuiteToComplete));
+		Assert.assertTrue(Matcher.match(testSuiteCompleted, testSuiteToComplete));
 	}
 }

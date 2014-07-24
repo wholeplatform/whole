@@ -22,8 +22,12 @@ import java.sql.DriverManager;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
-
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.matchers.Matcher;
@@ -35,26 +39,31 @@ import org.whole.lang.rdb.reflect.RDBFeatureDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Enrico Persiani
  */
-public class DBSchemaTemplateFactoryTest extends TestCase {
+public class DBSchemaTemplateFactoryTest {
 	private Connection connection;
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Before
+    public void setUp() throws Exception {
 		Class.forName("org.h2.Driver");
 		connection = DriverManager.getConnection("jdbc:h2:mem:DBNAME");
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
+	@After
+    public void tearDown() throws Exception {
 		connection.close();
 	}
 
+	@Test
 	public void testRDBSchemaTemplateFactory() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
@@ -71,10 +80,11 @@ public class DBSchemaTemplateFactoryTest extends TestCase {
 		HashMap<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 		comparatorsMap.put(RDBEntityDescriptorEnum.Tables, new OrderedMatcher.SimpleFeatureComparator(RDBFeatureDescriptorEnum.name));
 		
-		assertTrue(OrderedMatcher.match(template, generatedDatabase, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(template, generatedDatabase, comparatorsMap));
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testRDBUtils() throws Exception {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("connection", connection);
@@ -89,8 +99,8 @@ public class DBSchemaTemplateFactoryTest extends TestCase {
 		HashMap<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 		comparatorsMap.put(RDBEntityDescriptorEnum.Tables, new OrderedMatcher.SimpleFeatureComparator(RDBFeatureDescriptorEnum.name));
 
-		assertTrue(OrderedMatcher.match(database, generatedDatabase, comparatorsMap));
+		Assert.assertTrue(OrderedMatcher.match(database, generatedDatabase, comparatorsMap));
 		
-		fail();
+		Assert.fail();
 	}
 }

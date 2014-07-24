@@ -19,9 +19,11 @@ package org.whole.gen;
 
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.gen.lang.reflect.GenOperationsDeployer;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.IEntity;
@@ -33,14 +35,16 @@ import org.whole.lang.reflect.ReflectionFactory;
  * 
  * @author Enrico Persiani
  */
-public class JavaGeneratorTest extends TestCase {
+public class JavaGeneratorTest {
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(GenOperationsDeployer.class);
 	}
 
-	public void testGenerateJava() throws Exception {
+    @Test
+    public void testGenerateJava() throws Exception {
 		IEntity artifactsModel = new ArtifactsModel().create();
 		assertNotNull(artifactsModel);
 

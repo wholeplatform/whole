@@ -22,8 +22,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.artifacts.factories.ArtifactsEntityFactory;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
@@ -41,23 +44,26 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
-public class ResourceArtifactsGeneratorTest extends TestCase {
+public class ResourceArtifactsGeneratorTest {
 	private File workspaceFolder;
 	private IEntity artifacts;
 
 	private Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 	
-	public ResourceArtifactsGeneratorTest() {
-		comparatorsMap.put(ArtifactsEntityDescriptorEnum.Artifacts, new OrderedMatcher.SimpleFeatureComparator(ArtifactsFeatureDescriptorEnum.name));
-	}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
+    @Before
+    public void setUp() {
+		comparatorsMap.put(ArtifactsEntityDescriptorEnum.Artifacts, new OrderedMatcher.SimpleFeatureComparator(ArtifactsFeatureDescriptorEnum.name));
 		workspaceFolder = new File("..");
 		artifacts = new ArtifactsSampleModel().create();
 	}
 
-	public void testGenerateWorkspace() {
+    @Test
+    public void testGenerateWorkspace() {
 		assertTrue(workspaceFolder.exists());
 
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
@@ -69,7 +75,8 @@ public class ResourceArtifactsGeneratorTest extends TestCase {
 		assertTrue(genFolder.exists());
 	}
 
-	public void testCompareArtifacts() {
+    @Test
+    public void testCompareArtifacts() {
 		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance;
 
 		File genFolder = new File("data/gen");

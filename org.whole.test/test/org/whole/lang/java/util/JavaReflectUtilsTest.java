@@ -19,8 +19,10 @@ package org.whole.lang.java.util;
 
 import java.lang.reflect.Method;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.models.model.IModelsEntity;
@@ -33,12 +35,14 @@ import org.whole.lang.util.DataTypeUtils;
 /**
  * @author Enrico Persiani
  */
-public class JavaReflectUtilsTest extends TestCase {
-	public JavaReflectUtilsTest() {
-		ReflectionFactory.deployWholePlatform();
-	}
+public class JavaReflectUtilsTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testGetMethodDescriptor() throws Throwable {
+    @Test
+    public void testGetMethodDescriptor() throws Throwable {
 		assertEquals("append(org.whole.lang.models.model.IModelsEntity)",
 				JavaReflectUtils.getSignature(Sample.class.getMethod("append",
 						new Class<?>[] { IModelsEntity.class })));
@@ -82,7 +86,8 @@ public class JavaReflectUtilsTest extends TestCase {
 								IModelsEntity[].class })));
 	}
 
-	public void testGetConstructorDescriptor() throws Throwable {
+    @Test
+    public void testGetConstructorDescriptor() throws Throwable {
 		assertEquals("Sample()",
 				JavaReflectUtils.getSignature(Sample.class.getConstructor(
 						new Class<?>[0])));
@@ -101,7 +106,8 @@ public class JavaReflectUtilsTest extends TestCase {
 
 	}
 
-	public void testGetMethodUsingClassName() throws Throwable {
+    @Test
+    public void testGetMethodUsingClassName() throws Throwable {
 		ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 		String className = Sample.class.getName();
 
@@ -151,7 +157,8 @@ public class JavaReflectUtilsTest extends TestCase {
 				JavaReflectUtils.getMethod(className, "createSample(java.lang.String, org.whole.lang.models.model.IModelsEntity[])", cl));
 	}
 
-	public void testSignatureWithInnerClassName() throws Throwable {
+    @Test
+    public void testSignatureWithInnerClassName() throws Throwable {
 		ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 		String className = CommonsEntityAdapterFactory.class.getName();
 
@@ -163,7 +170,8 @@ public class JavaReflectUtilsTest extends TestCase {
 						"org.whole.lang.commons.model.QuantifierEnum.Value)", cl));
 	}
 
-	public void testGetConstructorUsingClassName() throws Throwable {
+    @Test
+    public void testGetConstructorUsingClassName() throws Throwable {
 		ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 		String className = Sample.class.getName();
 
@@ -264,7 +272,8 @@ public class JavaReflectUtilsTest extends TestCase {
 		}
 	}
 
-	public void testWideningNarrowing() throws Exception {
+	@Test
+    public void testWideningNarrowing() throws Exception {
 		String className = PrimitiveHelpers.class.getName();
 		ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 

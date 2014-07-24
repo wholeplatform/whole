@@ -21,8 +21,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.grammars.model.Grammar;
 import org.whole.lang.grammars.model.Name;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
@@ -48,14 +50,14 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class RewriteQueriesTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
+public class RewriteQueriesTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
-	}
-
-	public void testDelete1() {
+    @Test
+    public void testDelete1() {
 		Model model = new ModelsModel().create();
 
 		ITemplateManager tm = RewriteQueriesTemplateManager.instance();
@@ -67,7 +69,8 @@ public class RewriteQueriesTest extends TestCase {
 		assertFalse(BehaviorUtils.compileAndLazyEvaluate(query, model).hasNext());
 	}
 
-	public void testDelete2() {
+    @Test
+    public void testDelete2() {
 		Grammar model = new TestXmlGrammar().create();
 
 		ITemplateManager tm = RewriteQueriesTemplateManager.instance();
@@ -80,7 +83,8 @@ public class RewriteQueriesTest extends TestCase {
 			assertTrue(EntityUtils.isResolver(name));
 	}
 
-	public void testDelete3() {
+    @Test
+    public void testDelete3() {
 		Grammar model = new TestXmlGrammar().create();
 
 		ITemplateManager tm = RewriteQueriesTemplateManager.instance();
@@ -94,7 +98,8 @@ public class RewriteQueriesTest extends TestCase {
 			assertTrue(EntityUtils.isResolver(entity));
 	}
 
-	public void testUpdate1() {
+    @Test
+    public void testUpdate1() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -122,7 +127,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate2() {
+    @Test
+    public void testUpdate2() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -142,7 +148,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate3() {
+    @Test
+    public void testUpdate3() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -167,7 +174,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate4() {
+    @Test
+    public void testUpdate4() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -198,7 +206,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate5() {
+    @Test
+    public void testUpdate5() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -229,7 +238,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate6() {
+	@Test
+    public void testUpdate6() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -246,7 +256,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate7() {
+	@Test
+    public void testUpdate7() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -263,7 +274,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate8() {
+	@Test
+    public void testUpdate8() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -282,7 +294,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate9() {
+	@Test
+    public void testUpdate9() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -301,7 +314,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate10() {
+	@Test
+    public void testUpdate10() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -320,7 +334,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testUpdate11() {
+	@Test
+    public void testUpdate11() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 
@@ -341,7 +356,8 @@ public class RewriteQueriesTest extends TestCase {
 		}
 	}
 
-	public void testInsert1() {
+	@Test
+    public void testInsert1() {
 		Model model = new ModelsModel().create();
 		ModelDeclarations declarations = model.getDeclarations();
 

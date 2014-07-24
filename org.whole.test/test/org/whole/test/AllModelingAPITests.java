@@ -19,6 +19,7 @@ package org.whole.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 import org.whole.lang.bindings.BindingManagerTest;
 import org.whole.lang.bindings.JavaBeanBindingManagerTest;
 import org.whole.lang.commands.HistoryInvariantsTest;
@@ -40,12 +41,12 @@ import org.whole.lang.reflect.ReflectiveAPITest;
 /**
  * Runs: 133
  * Errors: 2
- * Failures: 8 (+2 ReflectionFactoryTest works only alone)
+ * Failures: 8
  *
  * @author Riccardo Solmi
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {
+@SuiteClasses( {
 	ReflectiveAPITest.class,
 	DescriptorsTest.class,
 	DynamicModelDefinitionTest.class,

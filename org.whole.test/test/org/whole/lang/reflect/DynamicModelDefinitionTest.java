@@ -17,8 +17,10 @@
  */
 package org.whole.lang.reflect;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
@@ -34,13 +36,13 @@ import org.whole.lang.queries.factories.QueriesEntityFactory;
 /**
  * @author Riccardo Solmi
  */
-public class DynamicModelDefinitionTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        ReflectionFactory.deployWholePlatform();
-        }
+public class DynamicModelDefinitionTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+    @Test
 	public void testFeatureDescriptorEnumDefinition() {
 		DynamicLanguageKit lk = new DynamicLanguageKit();
 		lk.setURI("http://lang.whole.org/DynamicImpl");
@@ -61,6 +63,7 @@ public class DynamicModelDefinitionTest extends TestCase {
 		assertEquals(6, fds.size());
 	}
 
+    @Test
 	public void testEntityDescriptorEnumDefinition() {
 		DynamicLanguageKit lk = new DynamicLanguageKit();
 		lk.setURI("http://lang.whole.org/DynamicImpl");
@@ -105,6 +108,7 @@ public class DynamicModelDefinitionTest extends TestCase {
 		
 	}
 
+    @Test
 	public void testLanguageKitDefinition() {
 		DynamicLanguageKit lk = new DynamicLanguageKit();
 		lk.setURI("http://lang.whole.org/DynamicImpl");
@@ -186,6 +190,7 @@ public class DynamicModelDefinitionTest extends TestCase {
 		assertEquals(lk, p.wGetLanguageKit());
 	}
 
+    @Test
 	public void testTupleDefinition() {
 		DynamicLanguageKit lk = new DynamicLanguageKit();
 		lk.setURI("http://lang.whole.org/QueriesTupleResultLanguage");
@@ -213,6 +218,7 @@ public class DynamicModelDefinitionTest extends TestCase {
 		assertSame(e[1], p.wGet(1));
 	}
 
+    @Test
 	public void testModelsInterpreter() {
 		Model model = new QueriesModel().create();
 		String URI = "http://my/uri/for/queries/lang";

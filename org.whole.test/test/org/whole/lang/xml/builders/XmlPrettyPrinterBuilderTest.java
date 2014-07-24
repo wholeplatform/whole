@@ -26,8 +26,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.BPELModel;
@@ -40,12 +42,12 @@ import org.whole.lang.xml.reflect.XmlLanguageKit;
 import org.whole.lang.xml.util.XmlStoreProducerBuilder;
 import org.whole.lang.xml.util.XmlStoreProducerBuilderOperation;
 
-public class XmlPrettyPrinterBuilderTest extends TestCase {
+public class XmlPrettyPrinterBuilderTest {
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-		}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
 	private void comparePrettyPrints(String filename) throws Exception {
 		IEntity model = XmlSourcePersistenceKit.instance().readModel(
@@ -57,7 +59,8 @@ public class XmlPrettyPrinterBuilderTest extends TestCase {
 		assertEquals(toPrettyPrintString(model), stringWriter.toString());
 	}
 
-	public void testConformanceWithVisitor() throws Exception {
+	@Test
+    public void testConformanceWithVisitor() throws Exception {
 		comparePrettyPrints("read.xml");
 		comparePrettyPrints("../../xsd/util/wsbpel_2_0.xsd");
 		comparePrettyPrints("testwspace.xml");

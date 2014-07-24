@@ -17,8 +17,10 @@
  */
 package org.whole.lang.reflect;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.properties.factories.PropertiesEntityFactory;
 import org.whole.lang.properties.model.Entries;
@@ -28,14 +30,14 @@ import org.whole.lang.properties.reflect.PropertiesFeatureDescriptorEnum;
 /**
  * @author Riccardo Solmi
  */
-public class DescriptorsTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        ReflectionFactory.deployWholePlatform();
-        }
+public class DescriptorsTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-    public void testCompositeEntityDescriptorIndexOf() {
+    @Test
+	public void testCompositeEntityDescriptorIndexOf() {
     	PropertiesEntityFactory ef = PropertiesEntityFactory.instance;
     	Entries e1 = ef.createEntries();
     	EntityDescriptor<?> ed = e1.wGetEntityDescriptor();
@@ -49,7 +51,8 @@ public class DescriptorsTest extends TestCase {
     	assertEquals(0, i3);
     }
 
-    public void testDataEntityDescriptorIndexOf() {
+    @Test
+	public void testDataEntityDescriptorIndexOf() {
     	PropertiesEntityFactory ef = PropertiesEntityFactory.instance;
     	PropertyName e1 = ef.createPropertyName("pn1");
     	EntityDescriptor<?> ed = e1.wGetEntityDescriptor();

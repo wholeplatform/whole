@@ -17,19 +17,20 @@
  */
 package org.whole.gen.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.junit.Test;
 
 /**
  * 
  * @author Enrico Persiani, Riccardo Solmi
  */
-public class JDTUtilsTest extends TestCase {
+public class JDTUtilsTest {
 	private static final String JAVA_EXPRESSION =
 		"\"hello\".length() + 20";
 	private static final String JAVA_STATEMENTS = 
@@ -60,7 +61,8 @@ public class JDTUtilsTest extends TestCase {
 		"imports java.io.Serializable;\n" +
 		"lass MyClass implement Serializable {\n";
 
-	public void testParseExpression() {
+	@Test
+    public void testParseExpression() {
 		try {
 			ASTNode astNode = JDTUtils.parse(JAVA_EXPRESSION);
 			assertTrue(astNode instanceof Expression);
@@ -69,7 +71,8 @@ public class JDTUtilsTest extends TestCase {
 		}
 	}
 
-	public void testParseStatements() {
+	@Test
+    public void testParseStatements() {
 		try {
 			ASTNode astNode = JDTUtils.parse(JAVA_STATEMENTS);
 			assertTrue(astNode instanceof Block);
@@ -78,7 +81,8 @@ public class JDTUtilsTest extends TestCase {
 		}
 	}
 
-	public void testParseInitializer() {
+	@Test
+    public void testParseInitializer() {
 		try {
 			ASTNode astNode = JDTUtils.parse(JAVA_INITIALIZER);
 			assertTrue(astNode instanceof TypeDeclaration);
@@ -87,7 +91,8 @@ public class JDTUtilsTest extends TestCase {
 		}
 	}
 
-	public void testParseClassBodyDeclarations() {
+	@Test
+    public void testParseClassBodyDeclarations() {
 		try {
 			ASTNode astNode = JDTUtils.parse(JAVA_CLASS_BODY_DECLARATIONS);
 			assertTrue(astNode instanceof TypeDeclaration);
@@ -96,7 +101,8 @@ public class JDTUtilsTest extends TestCase {
 		}
 	}
 
-	public void testParseCompilationUnit() {
+	@Test
+    public void testParseCompilationUnit() {
 		try {
 			ASTNode astNode = JDTUtils.parse(JAVA_COMPILATION_UNIT);
 			assertTrue(astNode instanceof CompilationUnit);
@@ -105,7 +111,8 @@ public class JDTUtilsTest extends TestCase {
 		}
 	}
 
-	public void testParseFail() {
+	@Test
+    public void testParseFail() {
 		try {
 			@SuppressWarnings("unused")
 			ASTNode astNode = JDTUtils.parse(JAVA_UNPARSABLE);

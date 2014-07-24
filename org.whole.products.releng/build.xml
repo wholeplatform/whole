@@ -60,7 +60,6 @@
 		<replace dir="${repo.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
 			<include name="*/pom-lw.xml" />
 			<include name="*/pom-ldk.xml" />
-			<include name="org.whole.products.releng/maven-testapp/pom-ldk.xml" />
 		</replace>
 	</target>
 	<target name="set_meta_version" depends="init_version">
@@ -73,7 +72,6 @@
 		<replace dir="${repo.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
 			<include name="*/pom-lw.xml" />
 			<include name="*/pom-ldk.xml" />
-			<include name="org.whole.products.releng/maven-testapp/pom-ldk.xml" />
 		</replace>
 	</target>
 
@@ -192,10 +190,7 @@
 		<antcall target="clean_ldk" />
 	</target>
 
-	<target name="test_ldk" description="Test the released Whole Language Development Kit">
-		<antcall target="set_build_version" />
-		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="test" />
-		<maven basedir="${releng.dir}/maven-testapp" options="-fpom-ldk.xml" goal="clean" />
-		<antcall target="set_meta_version" />
+	<target name="test" description="Test the Whole Language Workbench">
+		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="integration-test"/>
 	</target>
 </project>

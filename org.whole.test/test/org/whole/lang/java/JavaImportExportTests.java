@@ -23,8 +23,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.dom.ASTMatcher;
@@ -33,6 +31,8 @@ import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.NumberLiteral;
 import org.eclipse.jdt.core.dom.StringLiteral;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.gen.lang.reflect.GenOperationsDeployer;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.java.util.JDTTransformerVisitor;
@@ -46,17 +46,18 @@ import org.whole.lang.util.StringUtils;
  * 
  * @author Enrico Persiani
  */
-public class JavaImportExportTests extends TestCase {
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-
+public class JavaImportExportTests {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(GenOperationsDeployer.class);
 	}
 	
 	private int goodCounter = 0;
 	private int wrongCounter = 0;
 	private int badCounter = 0;
-	public void testSourceFolder() {
+	@Test
+    public void testSourceFolder() {
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		File rootFolder = workspaceRoot.getLocation().toFile();
 		performTest(rootFolder);
@@ -64,7 +65,7 @@ public class JavaImportExportTests extends TestCase {
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean performTest(String source) throws Exception {
+    private boolean performTest(String source) throws Exception {
 		CompilationUnit cu = JDTUtils.parseAsCompilationUnit(source);
 		IEntity model = JDTTransformerVisitor.transform(source, cu);
 

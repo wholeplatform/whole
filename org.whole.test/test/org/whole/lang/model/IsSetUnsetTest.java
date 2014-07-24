@@ -19,8 +19,11 @@ package org.whole.lang.model;
 
 import java.util.Date;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.events.DefaultValueFactory;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
@@ -37,19 +40,23 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class IsSetUnsetTest extends TestCase {
+public class IsSetUnsetTest {
 	private IEntityFactory ef;
 	private IEntity e;
 
-	protected void setUp() throws Exception {
-		super.setUp();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
+    @Before
+    public void setUp() {
 		ReflectionFactory.deploy(TestEntitiesLanguageDeployer.class);
         ef = GenericEntityFactory.instance(RegistryConfigurations.RESOLVER);
 	}
 
-	public void testSimpleEntity() {
+    @Test
+    public void testSimpleEntity() {
 		e = GenericEntityFactory.instance(RegistryConfigurations.DEFAULT).create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity);
 		testFeature(e, TestEntitiesFeatureDescriptorEnum.anyEntityValue, ef.create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity));
 		testFeature(e, TestEntitiesFeatureDescriptorEnum.structuralEntityValue, ef.create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity));
@@ -90,7 +97,8 @@ public class IsSetUnsetTest extends TestCase {
 		assertTrue(entity.wIsSet());
 		
 	}
-	public void testDataEntity() {
+	@Test
+    public void testDataEntity() {
 		testDataEntity(ef.create(TestEntitiesEntityDescriptorEnum.BooleanTestEntity));
 		testDataEntity(ef.create(TestEntitiesEntityDescriptorEnum.ByteTestEntity));
 		testDataEntity(ef.create(TestEntitiesEntityDescriptorEnum.CharTestEntity));
@@ -105,7 +113,8 @@ public class IsSetUnsetTest extends TestCase {
 		testDataEntity(ef.create(TestEntitiesEntityDescriptorEnum.ObjectTestEntity));
 	}
 	
-	public void testDataDefaultResolver() {
+	@Test
+    public void testDataDefaultResolver() {
 		IEntity e1, e2;
 
 		e = GenericEntityFactory.instance(RegistryConfigurations.DEFAULT).create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity);
@@ -137,7 +146,8 @@ public class IsSetUnsetTest extends TestCase {
 		assertTrue(EntityUtils.isResolver(e2));
 	}
 
-	public void testUndoRedo() {
+	@Test
+    public void testUndoRedo() {
 		e = ef.create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity);
 		IHistoryManager history = ReflectionFactory.getHistoryManager(e);
 		history.setHistoryEnabled(true);
@@ -152,7 +162,8 @@ public class IsSetUnsetTest extends TestCase {
 		assertTrue(e.wIsSet(feature));
 	}
 	
-	public void testClone() {
+	@Test
+    public void testClone() {
 		e = GenericEntityFactory.instance(RegistryConfigurations.DEFAULT).create(TestEntitiesEntityDescriptorEnum.SimpleTestEntity);
 		IEntity e1 = EntityUtils.clone(e);
 		assertFalse(e1.wIsSet(TestEntitiesFeatureDescriptorEnum.anyEntityValue));		

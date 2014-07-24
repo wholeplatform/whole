@@ -33,7 +33,13 @@ import org.whole.lang.xsd.reflect.XsdLanguageKit;
  * @author Riccardo Solmi
  */
 public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
+	public static final String MEDIAWIKI_URI = "whole:org.whole.lang.mediawiki:MediaWiki";
 	public static final String HTML5_URI = "whole:org.whole.lang.html:HTML5Model";
+
+	@Override
+	public int getDeployLevel() {
+		return super.getDeployLevel()+1;
+	}
 
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(HTML5_URI, "HTML5 model", "org/whole/lang/html/HTML5Model.xwl");
@@ -41,6 +47,7 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.setMetaModelTemplate(JavaScriptLanguageKit.URI, "org.whole.lang.models.codebase.JavaScriptModel");
 		platform.setMetaModelTemplate(JSONLanguageKit.URI, "JSON model", "org/whole/lang/json/JSONModel.xwl");
 		platform.setMetaModelTemplate(MappingLanguageKit.URI, "org.whole.lang.models.codebase.XsdMappingModel");
+		platform.setMetaModelTemplate(MEDIAWIKI_URI, "org.whole.lang.models.codebase.MediaWikiModel");
 		platform.setMetaModelTemplate(PropertiesLanguageKit.URI, "org.whole.lang.models.codebase.PropertiesModel");
 		platform.setMetaModelTemplate(ScriptsLanguageKit.URI, "org.whole.lang.models.codebase.ScriptsModel");
 		platform.setMetaModelTemplate(TextLanguageKit.URI, "org.whole.lang.models.codebase.TextModel");
@@ -54,6 +61,7 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.unsetMetaModelTemplate(JavaScriptLanguageKit.URI);
 		platform.unsetMetaModelTemplate(JSONLanguageKit.URI);
 		platform.unsetMetaModelTemplate(MappingLanguageKit.URI);
+		platform.unsetMetaModelTemplate(MEDIAWIKI_URI);
 		platform.unsetMetaModelTemplate(PropertiesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(ScriptsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TextLanguageKit.URI);

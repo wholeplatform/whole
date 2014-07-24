@@ -17,31 +17,15 @@
  */
 package org.whole.test;
 
+import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.whole.gen.ArtifactsGeneratorTest;
-import org.whole.lang.java.JavaImportExportTests;
 
 /**
- * Run as -> JUnit Plug-in Test in an Eclipse with the Whole Platform installed
- * 
- * To reduce execution time modify the generated launcher to run the test as an headless application:
- * 1. Run -> Debug...
- * 2. Select the generated launcher on the left tree pane
- * 3. Go to the Main tab on the right pane
- * 4. Under Program to Run select Run as application -> [No Application] - Headless Mode
- * 
- * Runs: 3
- * Errors: ?
- * Failures: ?
- *
  * @author Riccardo Solmi
  */
-@RunWith(Suite.class)
-@SuiteClasses( {
-	ArtifactsGeneratorTest.class,
-	JavaImportExportTests.class
-})
-public class AllIDETests {
+@RunWith(MultipleCategories.class)
+@ExcludeCategory( KnownFailingTests.class )
+@SuiteClasses( { AllTests.class })
+public class ContinuousIntegrationTests {
 }

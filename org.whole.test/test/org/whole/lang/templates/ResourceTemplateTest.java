@@ -22,8 +22,11 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.artifacts.builders.IArtifactsBuilder;
 import org.whole.lang.artifacts.model.AttributeEnum;
 import org.whole.lang.artifacts.model.FolderArtifact;
@@ -45,21 +48,23 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
-public class ResourceTemplateTest extends TestCase {
+public class ResourceTemplateTest {
 	private HashMap<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 	
-	public ResourceTemplateTest() {
-		comparatorsMap.put(ArtifactsEntityDescriptorEnum.Artifacts, new OrderedMatcher.SimpleFeatureComparator(ArtifactsFeatureDescriptorEnum.name));
-	}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
-		
+    @Before
+    public void setUp() {
+		comparatorsMap.put(ArtifactsEntityDescriptorEnum.Artifacts, new OrderedMatcher.SimpleFeatureComparator(ArtifactsFeatureDescriptorEnum.name));
+
 		new File("data/testfolder/empty.folder").mkdir();
 	}
 
-	public void testReadArtifacts() {
+    @Test
+    public void testReadArtifacts() {
 		File testfolder = new File("data/testfolder");
 		ResourceTemplate template = new ResourceTemplate(testfolder);
 		ModelBuilderOperation op = new ModelBuilderOperation();
@@ -69,7 +74,8 @@ public class ResourceTemplateTest extends TestCase {
 		assertTrue(OrderedMatcher.match(artifacts, artifactsFromFilesystem, comparatorsMap));
 	}
 
-	public void testSubtreeArtifacts() {
+    @Test
+    public void testSubtreeArtifacts() {
 		File testfolder = new File("data/testfolder");
 		File testsubfolder = new File("data/testfolder/subfolder");
 		ResourceTemplate template = new ResourceTemplate(testfolder);
@@ -96,7 +102,8 @@ public class ResourceTemplateTest extends TestCase {
 		assertTrue(OrderedMatcher.match(testSubFolder, compareTo, comparatorsMap));
 	}
 
-	public void testReadOnlyArtifact() throws IOException {
+    @Test
+    public void testReadOnlyArtifact() throws IOException {
 		IEntity readOnlyMetadata = getMetadataPattern();
 
 		File tempFile = File.createTempFile("whole", null);

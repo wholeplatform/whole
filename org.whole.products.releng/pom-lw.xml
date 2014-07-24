@@ -128,18 +128,18 @@
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
 					<dependencies>
 						<dependency>
 							<groupId>org.eclipse.tycho</groupId>
-							<artifactId>org.eclipse.jdt.core</artifactId>
-							<version>3.9.50.v20140317-1741</version>
+							<artifactId>org.eclipse.tycho.surefire.junit47</artifactId>
+							<version>${tycho-version}</version>
 						</dependency>
-						<dependency>
-							<groupId>org.eclipse.tycho</groupId>
-							<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-							<version>1.0.650.v20140316-1836</version>
-						</dependency>
-					</dependencies>
+    				</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -164,6 +164,18 @@
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<argLine>-Xms256m -Xmx512m</argLine>
+					<testSuite>org.whole.test</testSuite>
+					<testClass>org.whole.test.ContinuousIntegrationTests</testClass>
+					<parallel>both</parallel>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -212,7 +224,7 @@
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>0.20.0</tycho-version>
+		<tycho-version>0.21.0</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>
@@ -223,7 +235,7 @@
 		<asm-version>3.2</asm-version>
 		<joda-time-version>1.6.2</joda-time-version>
 		<rhino-version>1.7R3</rhino-version>
-		<junit-version>4.8.2</junit-version>
+		<junit-version>4.11</junit-version>
 	</properties>
 
 	<!-- update according to org.whole.product.lw.target/LUNA_4_4_x.target -->
@@ -244,4 +256,11 @@
 			<url>http://whole.sourceforge.net/gef-updates</url>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tycho-staged</id>
+			<url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>

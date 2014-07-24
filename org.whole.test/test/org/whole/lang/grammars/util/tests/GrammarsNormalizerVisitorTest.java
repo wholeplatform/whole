@@ -3,11 +3,15 @@ package org.whole.lang.grammars.util.tests;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
+
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
+import org.whole.test.SlowTests;
 
+@Category(SlowTests.class)
 public class GrammarsNormalizerVisitorTest extends TestCase {
 
     protected static IEntity create(String templateName) {

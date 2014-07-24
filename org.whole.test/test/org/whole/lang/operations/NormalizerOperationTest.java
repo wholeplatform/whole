@@ -17,8 +17,10 @@
  */
 package org.whole.lang.operations;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.properties.factories.PropertiesEntityFactory;
 import org.whole.lang.properties.model.Entries;
@@ -33,13 +35,13 @@ import org.whole.lang.xml.reflect.XmlLanguageKit;
 /**
  * @author Riccardo Solmi
  */
-public class NormalizerOperationTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
+public class NormalizerOperationTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-        ReflectionFactory.deployWholePlatform();
-	}
-
+    @Test
     public void testDefaultBehavior() {
     	assertFalse(ReflectionFactory.getLanguageKit(PropertiesLanguageKit.URI)
     			.hasVisitor(NormalizerOperation.ID));
@@ -55,6 +57,7 @@ public class NormalizerOperationTest extends TestCase {
     	assertTrue(Matcher.match(entriesOrig, entries));
     }
 
+    @Test
     public void testXmlBehavior() {
     	assertTrue(ReflectionFactory.getLanguageKit(XmlLanguageKit.URI)
     			.hasVisitor(NormalizerOperation.ID));
@@ -75,5 +78,4 @@ public class NormalizerOperationTest extends TestCase {
 
     	assertTrue(Matcher.match(dataOrig2, data));
     }
-
 }

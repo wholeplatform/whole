@@ -71,12 +71,12 @@ public abstract class TestCase {
     }
 
     @BeforeClass
-    public static void wholePlatformDeploy() {
+    public static void deployWholePlatform() {
     	ReflectionFactory.deployWholePlatform();
     }
 
     @AfterClass
-    public static void wholePlatformUndeploy() {
+    public static void undeployWholePlatform() {
 //    	ReflectionFactory.undeployWholePlatform();
     }
 }

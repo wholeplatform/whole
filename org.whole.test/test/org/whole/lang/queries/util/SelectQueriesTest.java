@@ -20,8 +20,10 @@ package org.whole.lang.queries.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.grammars.model.As;
@@ -64,14 +66,14 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class SelectQueriesTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
+public class SelectQueriesTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
-		}
-
-	public void testSelectPathExpression1() {
+    @Test
+    public void testSelectPathExpression1() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
@@ -84,7 +86,8 @@ public class SelectQueriesTest extends TestCase {
 		assertEquals("DocumentElementINameIContent", names.toString());
 	}
 
-	public void testSelectPathExpression2() {
+    @Test
+    public void testSelectPathExpression2() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar model = new TestXmlGrammar().create();
 
@@ -97,7 +100,8 @@ public class SelectQueriesTest extends TestCase {
 		assertEquals("DocumentElementINameIContent", names.toString());
 	}
 
-	public void testSelectDistinct() {
+    @Test
+    public void testSelectDistinct() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
@@ -111,7 +115,8 @@ public class SelectQueriesTest extends TestCase {
 		assertEquals(22, set.size());
 	}
 
-	public void testSelectTuple1() {
+    @Test
+    public void testSelectTuple1() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
@@ -131,7 +136,8 @@ public class SelectQueriesTest extends TestCase {
 		assertEquals(g.getPhraseStructure().wSize(), count);
 	}
 
-	public void testSelectTemplate1() {
+    @Test
+    public void testSelectTemplate1() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar model = new TestXmlGrammar().create();
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -147,7 +153,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTupleWithTemplates() {
+    @Test
+    public void testSelectTupleWithTemplates() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar model = new TestXmlGrammar().create();
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
@@ -167,7 +174,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithNestedQuery() {
+    @Test
+    public void testSelectTemplateWithNestedQuery() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -179,7 +187,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithNestedRelativeQuery() {
+	@Test
+    public void testSelectTemplateWithNestedRelativeQuery() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -193,7 +202,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithNestedEmptyQuery() {
+	@Test
+    public void testSelectTemplateWithNestedEmptyQuery() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -205,7 +215,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithJavaHelpers() {
+	@Test
+    public void testSelectTemplateWithJavaHelpers() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -222,7 +233,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithFreeVariable() {
+	@Test
+    public void testSelectTemplateWithFreeVariable() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -241,7 +253,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithTwoNestedSimpleQueries() {
+	@Test
+    public void testSelectTemplateWithTwoNestedSimpleQueries() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Grammar g = new TestXmlGrammar().create();
 
@@ -252,7 +265,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateWithTwoNestedSelectQueries() {
+	@Test
+    public void testSelectTemplateWithTwoNestedSelectQueries() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -266,7 +280,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectHelperResultAs() {
+	@Test
+    public void testSelectHelperResultAs() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model model = new XmlModel().create();
 
@@ -284,7 +299,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateFromPattern() {
+	@Test
+    public void testSelectTemplateFromPattern() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		JavaEntityFactory ef = JavaEntityFactory.instance;
 		IfStatement ifStm = ef.createIfStatement(
@@ -309,7 +325,8 @@ public class SelectQueriesTest extends TestCase {
 		assertTrue(Matcher.match(ifStm.getThenStatement(), t.getElseStatement()));
 	}
 
-	public void testSelectTemplateFromPathWithPattern() {
+	@Test
+    public void testSelectTemplateFromPathWithPattern() {
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
 		Model m = new XmlModel().create();
 
@@ -325,7 +342,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateFromPatternWithWhere() {
+	@Test
+    public void testSelectTemplateFromPatternWithWhere() {
 		Model m = new XmlModel().create();
 		Feature feature = (Feature) ((SimpleEntity) m.getDeclarations().wGet(0)).getFeatures().wGet(0);
 
@@ -338,7 +356,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTemplateAs() {
+	@Test
+    public void testSelectTemplateAs() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -356,7 +375,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testSelectTupleOfTemplatesAs() {
+	@Test
+    public void testSelectTupleOfTemplatesAs() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -384,7 +404,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testTemplateFromWhere() {
+	@Test
+    public void testTemplateFromWhere() {
 		Model m = new XmlModel().create();
 		SimpleEntity simpleEntity = (SimpleEntity) m.getDeclarations().wGet(0);
 		
@@ -400,7 +421,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testVariableScopes() {
+	@Test
+    public void testVariableScopes() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -426,7 +448,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testBindingScopes() {
+	@Test
+    public void testBindingScopes() {
 		Model m = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -457,8 +480,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	//FIXME
-	public void testBindingScopes2() {
+	@Test
+    public void testBindingScopes2() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -476,7 +499,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testBindingScopes3() {
+	@Test
+    public void testBindingScopes3() {
 		Model model = new XmlModel().create();
 
 		ITemplateManager tm = SelectQueriesTemplateManager.instance();
@@ -496,7 +520,8 @@ public class SelectQueriesTest extends TestCase {
 		}
 	}
 
-	public void testDeclaredNamesBinding() {
+	@Test
+    public void testDeclaredNamesBinding() {
 		IEntityIterator<IEntity> iterator = DynamicCompilerOperation.compile(
 				SelectQueriesTemplateManager.instance().create("selectDeclaredNamesBinding"),
 				BindingManagerFactory.instance.createArguments()).getResultIterator();

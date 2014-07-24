@@ -21,8 +21,9 @@ import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.creat
 
 import java.io.IOException;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.properties.factories.PropertiesEntityFactory;
 import org.whole.lang.properties.model.Properties;
 import org.whole.lang.properties.model.Property;
@@ -35,12 +36,14 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PropertiesTest extends TestCase {
+public class PropertiesTest {
 
-	protected void setUp() throws Exception {
-        ReflectionFactory.deployWholePlatform();
-	}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Test
 	public void testGetSetProperty() {
 		PropertiesEntityFactory lf = PropertiesEntityFactory.instance;
 
@@ -57,9 +60,10 @@ public class PropertiesTest extends TestCase {
 				}));
 		
 		String prop1Value = PropertiesUtils.getProperty(props, "prop1");
-		assertEquals("value 1", prop1Value);
+		Assert.assertEquals("value 1", prop1Value);
 	}
 
+	@Test
 	public void testTranslate() {
 		java.util.Properties jProps = new java.util.Properties();
 		jProps.setProperty("key1", "value1");
@@ -69,16 +73,17 @@ public class PropertiesTest extends TestCase {
 		
 		try {
 			Properties props = PropertiesUtils.translate(jProps);
-			assertEquals(4, props.getEntries().wSize());
-			assertTrue(EntityUtils.isResolver(props.getDefaults()));
+			Assert.assertEquals(4, props.getEntries().wSize());
+			Assert.assertTrue(EntityUtils.isResolver(props.getDefaults()));
 
 			java.util.Properties jProps3 = PropertiesUtils.translate(props);
-			assertEquals(jProps, jProps3);
+			Assert.assertEquals(jProps, jProps3);
 		} catch (IOException e) {
-			fail();
+			Assert.fail();
 		}
 	}
 
+	@Test
 	public void testLoadAsText() throws IOException {
 		Properties props1 = PropertiesUtils.loadFromText(PropertiesTest.class.getResourceAsStream("plugin.properties"));
 		Properties props2 = PropertiesUtils.loadFromText(PropertiesTest.class.getResourceAsStream("build.properties"));
@@ -87,6 +92,7 @@ public class PropertiesTest extends TestCase {
 		PropertiesUtils.saveToXml(props1, System.out, "comment");
 	}
 
+	@Test
 	public void testSystemProperties() throws IOException {
 		Properties props = (Properties) PropertiesTemplateManager.instance().create("System Properties");
 		PropertiesUtils.saveToText(props, System.out, "comment");

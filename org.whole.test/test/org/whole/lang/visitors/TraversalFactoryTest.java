@@ -23,8 +23,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.java.codebase.Factorial;
@@ -37,20 +40,23 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Riccardo Solmi
  */
-public class TraversalFactoryTest extends TestCase {
+public class TraversalFactoryTest {
 	private GenericTraversalFactory tf;
 	private GenericMatcherFactory mf;
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
-
+    @Before
+    public void setUp() {
 		tf = GenericTraversalFactory.instance;
 		mf = GenericMatcherFactory.instance;
 	}
 
-	public void testTraverseParent() {
+    @Test
+    public void testTraverseParent() {
 		IEntity fact = new Factorial().create();
 		CommonsEntityFactory.instance.createRootFragment(
 				fact.wGetAdapter(CommonsEntityDescriptorEnum.Any));
@@ -69,7 +75,8 @@ public class TraversalFactoryTest extends TestCase {
 		assertEquals(c, c2);
 	}
 
-	public void testMatchDescriptor() {
+    @Test
+    public void testMatchDescriptor() {
 		IEntity fact = new Factorial().create();
 				
 		Set<IEntity> c = new HashSet<IEntity>();
@@ -77,7 +84,8 @@ public class TraversalFactoryTest extends TestCase {
 		assertFalse(c.isEmpty());
 	}
 
-	public void testMatchKind() {
+    @Test
+    public void testMatchKind() {
 		IEntity fact = new Factorial().create();
 				
 		Set<IEntity> c = new HashSet<IEntity>();

@@ -20,8 +20,10 @@ package org.whole.lang.reflect;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.json.reflect.JSONLanguageKit;
@@ -36,22 +38,28 @@ import org.whole.lang.models.reflect.ModelsLanguageKit;
 /**
  * @author Riccardo Solmi
  */
-public class ReflectiveAPITest extends TestCase {
+public class ReflectiveAPITest {
     private Model model;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
+
+	@Before
+    public void setUp() {
         model = new EditorsModel().create();
     }
 
+	@Test
 	public void testMetaModel() {
 		IEntity metaModel = ReflectionFactory.getLanguageKit(JSONLanguageKit.URI, false, null).getMetaModel();
 		IEntity templateModel = ReflectionFactory.getLanguageKit(ModelsLanguageKit.URI, false, null).getTemplateManager().create("JSON model");
 		assertTrue(Matcher.match(metaModel, templateModel));
 	}
 
-    public void testModelEnumerations() {
+	@Test
+	public void testModelEnumerations() {
         EntityDescriptorEnum entitiesEnum = model.wGetEntityDescriptor().getEntityDescriptorEnum();
         ModelsEntityDescriptorEnum mEEnum = ModelsEntityDescriptorEnum.instance;
         assertSame(mEEnum, entitiesEnum);
@@ -61,7 +69,8 @@ public class ReflectiveAPITest extends TestCase {
         assertSame(mFEnum, featuresEnum);
     }
     
-    public void testDescriptorsEnum() {
+	@Test
+	public void testDescriptorsEnum() {
         EntityDescriptorEnum entitiesEnum = model.wGetEntityDescriptor().getEntityDescriptorEnum();
        	FeatureDescriptorEnum featuresEnum = model.wGetEntityDescriptor().getFeatureDescriptorEnum();
        	
@@ -84,7 +93,8 @@ public class ReflectiveAPITest extends TestCase {
 		}
     }
 
-    public void testEntityId() {
+	@Test
+	public void testEntityId() {
     	switch (model.wGetEntityOrd()) {
 		case ModelsEntityDescriptorEnum.Model_ord:
 			break;
@@ -93,7 +103,8 @@ public class ReflectiveAPITest extends TestCase {
     	}
     }
 
-    public void testEntityHasFeature() {
+	@Test
+	public void testEntityHasFeature() {
         List<FeatureDescriptor> modelFeatures = model.wGetEntityDescriptor().getFeatureDescriptorEnum().values();
         
         //TODO for each entity
@@ -111,7 +122,8 @@ public class ReflectiveAPITest extends TestCase {
             assertFalse(m.wContains(fd));
     }
     
-    public void testIterators() {
+	@Test
+	public void testIterators() {
         //TODO for each entity
         Model m = model;
 
@@ -126,7 +138,8 @@ public class ReflectiveAPITest extends TestCase {
         assertSame(m.getDeclarations(), features.get(2));
     }
 
-    public void testGetters() {
+	@Test
+	public void testGetters() {
         Model m = model;
         assertSame(m.getTypeRelations(), m.wGet(ModelsFeatureDescriptorEnum.typeRelations));
         //TODO for each feature

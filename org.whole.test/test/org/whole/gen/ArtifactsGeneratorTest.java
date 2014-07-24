@@ -17,8 +17,8 @@
  */
 package org.whole.gen;
 
-import junit.framework.TestCase;
-
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.gen.lang.reflect.GenOperationsDeployer;
 import org.whole.lang.artifacts.builders.IArtifactsBuilder;
 import org.whole.lang.artifacts.reflect.ArtifactsLanguageKit;
@@ -41,15 +41,16 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
  * 
  * @author Riccardo Solmi
  */
-public class ArtifactsGeneratorTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
+public class ArtifactsGeneratorTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
 		ReflectionFactory.deploy(TemplatesLanguageDeployer.class);
 		ReflectionFactory.deploy(GenOperationsDeployer.class);
 	}
 
-	public void testGenerateArtifacts() {
+    @Test
+    public void testGenerateArtifacts() {
 		IBindingManager env = BindingManagerFactory.instance.createArguments();
 		IEntity artifact = getMetadataPattern();
 
@@ -107,7 +108,8 @@ public class ArtifactsGeneratorTest extends TestCase {
 		return op.wGetResult();
 	}
 
-	public void testGenerate() throws Exception {
+	@Test
+    public void testGenerate() throws Exception {
 		IBindingManager env = BindingManagerFactory.instance.createArguments();
 		env.wDefValue("packageName", "org.whole.lang.templates.codebase");
 

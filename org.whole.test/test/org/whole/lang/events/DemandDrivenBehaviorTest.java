@@ -17,8 +17,11 @@
  */
 package org.whole.lang.events;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.testevents.events.DerivedBehaviorFactory;
 import org.whole.lang.testevents.factories.TestEventsEntityFactory;
@@ -27,22 +30,25 @@ import org.whole.lang.testevents.model.Rectangle;
 import org.whole.lang.testevents.model.Shape;
 import org.whole.lang.testevents.model.TestEvents;
 import org.whole.lang.testevents.reflect.TestEventsLanguageDeployer;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class DemandDrivenBehaviorTest extends TestCase {
+public class DemandDrivenBehaviorTest {
 	private TestEvents model;
 	private Shape rootShape;
 	private Rectangle rect;
 	private Labels labels;
 
-	protected void setUp() throws Exception {
-		super.setUp();
-
-        ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
         ReflectionFactory.deploy(TestEventsLanguageDeployer.class);
+	}
 
+	@Before
+    public void setUp() {
 		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
 		model = tef.createTestEvents();
         rootShape = tef.createCompositeShape(
@@ -54,60 +60,64 @@ public class DemandDrivenBehaviorTest extends TestCase {
 		DerivedBehaviorFactory.deploy(model);
 	}
 
+	@Test
 	public void testDerivedFeatures() {
 		labels.getSimple().wSetValue("aSimpleName");
-		assertEquals(
+		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
-		assertEquals(
+		Assert.assertEquals(
 				"prefix.aSimpleName.suffix",
 				labels.getSimpleDerivedDerived().wStringValue());
 
 		labels.getSimpleDerived().wSetValue("aDerivedName");
-		assertEquals(
+		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
 
 		labels.getSimpleDerived().wUnset();
-		assertEquals(
+		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
 	}
 
+	@Test
 	public void testRederivedFeatures() {
 		labels.getSimple().wSetValue("aSimpleName");
-		assertEquals(
+		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
 
 		labels.getSimple().wSetValue("anotherName");
-		assertEquals(
+		Assert.assertEquals(
 				"anotherName.suffix",
 				labels.getSimpleDerived().wStringValue());
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testSetDerivedFeatures() {
 		labels.getSimple().wSetValue("aSimpleName");
-		assertEquals(
+		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
 
 		labels.getSimpleDerived().wSetValue("aDerivedName");
-		assertEquals(
+		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
 
 		labels.getSimple().wSetValue("anotherName");//FIXME also unset simpleDerived
-		assertEquals(
+		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
 	}
 
+	@Test
 	public void testCircularDerivation() {
 		rect.getBase().wSetValue(5);
 		rect.getHeight().wSetValue(7);
-		assertEquals(35, rect.getArea().wIntValue());
-		assertEquals(24, rect.getPerimeter().wIntValue());		
+		Assert.assertEquals(35, rect.getArea().wIntValue());
+		Assert.assertEquals(24, rect.getPerimeter().wIntValue());		
 	}
 }

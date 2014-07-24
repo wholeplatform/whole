@@ -3,11 +3,15 @@ package org.whole.lang.workflows.visitors.tests;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
+
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
+import org.whole.test.SlowTests;
 
+@Category(SlowTests.class)
 public class WorkflowsStagingTest extends TestCase {
 
     @BeforeClass
@@ -54,7 +58,7 @@ public class WorkflowsStagingTest extends TestCase {
     /**
      *
      */
-    @Test
+	@Test
     public void testModelCreationActivities() {
         bindings().wEnterScope();
         IEntity subject;
@@ -68,7 +72,7 @@ public class WorkflowsStagingTest extends TestCase {
     /**
      *
      */
-    @Test
+	@Test
     public void testLoadModelActivities() {
         bindings().wEnterScope();
         IEntity subject;
@@ -83,7 +87,7 @@ public class WorkflowsStagingTest extends TestCase {
     /**
      *
      */
-    @Test
+	@Test
     public void testGrammarActivities() {
         bindings().wEnterScope();
         IEntity subject;

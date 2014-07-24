@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import junit.framework.TestCase;
-
 import org.eclipse.jdt.core.ITypeRoot;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.java.codebase.JavaClassTemplateFactory;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
@@ -21,15 +23,18 @@ import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.pojo.model.Library;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
+import org.whole.test.KnownFailingTests;
+import org.whole.test.SlowTests;
 
-public class PojoUtilsTest extends TestCase {
+@Category(SlowTests.class)
+public class PojoUtilsTest {
 	private static final Class<?>[] CLASSES = { AbstractPojo1.class, AbstractPojo2.class,
 		ConcretePojo1.class, ConcretePojo2.class, EnumPojo.class, SimplePojo.class};
 
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-		}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
 	@SuppressWarnings("unchecked")
 	private Object createPojo() {
@@ -78,6 +83,8 @@ public class PojoUtilsTest extends TestCase {
 		return misc;
 	}
 
+	@Category(KnownFailingTests.class)//FIXME
+	@Test
 	public void testTranslateFromPojoClasses() {
 		Object simplePojo = createPojo();
 
@@ -92,7 +99,7 @@ public class PojoUtilsTest extends TestCase {
 		IEntity simplePojoModel = PojoUtils.create(simplePojo, normalizedLibrary);
 		Object simplePojoObject = PojoUtils.create(simplePojoModel, normalizedLibrary);
 
-		assertEquals(simplePojoObject, simplePojo);
+		Assert.assertEquals(simplePojoObject, simplePojo);
 	}
 
 //FIXME

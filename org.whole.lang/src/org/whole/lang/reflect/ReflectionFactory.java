@@ -144,11 +144,12 @@ public class ReflectionFactory {
         			"org.whole.langs.legacy.LegacyLanguagesDeployer",
         			"org.whole.langs.db.DBLanguagesDeployer",
         			"org.whole.langs.core.CoreDynamicLanguagesDeployer",
+        			"org.whole.langs.legacy.LegacyDynamicLanguagesDeployer",
         			"org.whole.langs.core.op.WorkflowsInterpreterDeployer",
-        			"org.whole.langs.core.CoreMetaModelsDeployer",
-        			"org.whole.langs.legacy.LegacyMetaModelsDeployer",
         			"org.whole.langs.core.op.CoreOperationsDeployer",
         			"org.whole.langs.legacy.op.LegacyOperationsDeployer",
+        			"org.whole.langs.core.CoreMetaModelsDeployer",
+        			"org.whole.langs.legacy.LegacyMetaModelsDeployer",
         			"org.whole.langs.db.op.DBContributionsDeployer",
         			"org.whole.langs.core.op.CoreContributionsDeployer"
         	);

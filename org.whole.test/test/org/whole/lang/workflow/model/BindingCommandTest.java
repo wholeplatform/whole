@@ -17,8 +17,10 @@
  */
 package org.whole.lang.workflow.model;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.builders.IBuilderOperation;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.commons.builders.ICommonsBuilder;
@@ -32,17 +34,20 @@ import org.whole.lang.templates.AbstractTemplateFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.workflows.builders.IWorkflowsBuilder;
 import org.whole.lang.workflows.reflect.WorkflowsLanguageKit;
+import org.whole.test.SlowTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class BindingCommandTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
+@Category(SlowTests.class)
+public class BindingCommandTest {
 
-		ReflectionFactory.deployWholePlatform();
-	}
+	@BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Test
 	public void testBindingCommand() {
 		IEntity program = new ExampleTest().create();
 
@@ -50,14 +55,14 @@ public class BindingCommandTest extends TestCase {
 		i.reset(program);
 		for (IEntity e : i)
 			if (((InternalIEntity) e).wGetBindingCommand() != NullCommand.instance)
-				fail();
+				Assert.fail();
 
 		program = EntityUtils.clone(program);
 		i = IteratorFactory.<IEntity>descendantOrSelfIterator();
 		i.reset(program);
 		for (IEntity e : i)
 			if (((InternalIEntity) e).wGetBindingCommand() != NullCommand.instance)
-				fail();
+				Assert.fail();
 	}
 
 	public static class ExampleTest extends AbstractTemplateFactory<IEntity> {

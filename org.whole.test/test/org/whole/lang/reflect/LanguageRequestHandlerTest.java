@@ -17,19 +17,23 @@
  */
 package org.whole.lang.reflect;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.testentities.reflect.TestEntitiesLanguageDeployer;
 import org.whole.lang.testentities.reflect.TestEntitiesLanguageKit;
-
-import junit.framework.TestCase;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class LanguageRequestHandlerTest extends TestCase {
+public class LanguageRequestHandlerTest {
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testAddLanguageRequestHandler() {
 		ILanguageRequestHandler handler = ReflectionFactory.getLanguageRequestHandler();
 		ReflectionFactory.addLanguageRequestHandler(handler);
-		assertSame(handler, ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(handler, ReflectionFactory.getLanguageRequestHandler());
 
 		ILanguageRequestHandler handler0 = new AbstractLanguageRequestHandler() {
 			public int getPriority() {
@@ -48,26 +52,28 @@ public class LanguageRequestHandlerTest extends TestCase {
 		};
 		
 		ReflectionFactory.addLanguageRequestHandler(handler0);
-		assertSame(handler0, ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(handler0, ReflectionFactory.getLanguageRequestHandler());
 
 		ReflectionFactory.addLanguageRequestHandler(handler0a);
-		assertSame(handler0, ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(handler0, ReflectionFactory.getLanguageRequestHandler());
 
 		ReflectionFactory.addLanguageRequestHandler(handler10);
-		assertSame(handler10, ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(handler10, ReflectionFactory.getLanguageRequestHandler());
 
 		ReflectionFactory.addLanguageRequestHandler(handler0);
-		assertSame(handler10, ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(handler10, ReflectionFactory.getLanguageRequestHandler());
 
 		ReflectionFactory.addLanguageRequestHandler(
 				LoggerLanguageRequestHandler.instance());
-		assertSame(LoggerLanguageRequestHandler.instance(), ReflectionFactory.getLanguageRequestHandler());
+		Assert.assertSame(LoggerLanguageRequestHandler.instance(), ReflectionFactory.getLanguageRequestHandler());
 	}
 
+	@Test
 	public void testRemoveLanguageRequestHandler() {
 		//TODO
 	}
 
+	@Test
 	public void testDeployLanguage() {
 		ILanguageRequestHandler fakeHandler = new AbstractLanguageRequestHandler() {
 			public boolean deployLanguage(String languageURI) {
@@ -86,20 +92,20 @@ public class LanguageRequestHandlerTest extends TestCase {
 
 		try {
 			ReflectionFactory.getLanguageKit("notExistantURI");
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 
 		ReflectionFactory.addLanguageRequestHandler(fakeHandler);
 		try {
 			ReflectionFactory.getLanguageKit("fakeLanguage");
-			fail();
+			Assert.fail();
 		} catch (IllegalArgumentException e) {
 		}
 
 		ReflectionFactory.undeploy(TestEntitiesLanguageDeployer.class);
 		ReflectionFactory.addLanguageRequestHandler(testHandler);
-		assertNotNull(ReflectionFactory.getLanguageKit(TestEntitiesLanguageKit.URI));
+		Assert.assertNotNull(ReflectionFactory.getLanguageKit(TestEntitiesLanguageKit.URI));
 		ReflectionFactory.removeLanguageRequestHandler(testHandler);
 
 		ReflectionFactory.undeploy(TestEntitiesLanguageDeployer.class);
@@ -107,6 +113,6 @@ public class LanguageRequestHandlerTest extends TestCase {
 				new TestEntitiesLanguageDeployer(),
 				"http://lang.whole.org/TestEntities",
 				"TestEntities"));
-		assertNotNull(ReflectionFactory.getLanguageKit("http://lang.whole.org/TestEntities"));
+		Assert.assertNotNull(ReflectionFactory.getLanguageKit("http://lang.whole.org/TestEntities"));
 	}
 }

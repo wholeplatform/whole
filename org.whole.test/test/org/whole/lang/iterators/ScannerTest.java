@@ -20,8 +20,11 @@ package org.whole.lang.iterators;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.java.codebase.Factorial;
 import org.whole.lang.java.model.MethodDeclaration;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
@@ -29,20 +32,25 @@ import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Riccardo Solmi
  */
-public class ScannerTest extends TestCase {
+public class ScannerTest {
 	private GenericMatcherFactory mf;
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-		ReflectionFactory.deployWholePlatform();
+	@Before
+    public void setUp() {
 		mf = GenericMatcherFactory.instance;
 	}
 
+	@Test
 	public void testNext() {
 		IEntity fact = new Factorial().create();
 
@@ -56,14 +64,15 @@ public class ScannerTest extends TestCase {
 			s.next();
 			s.next();
 			String str = s.nextString();
-			assertEquals(JavaEntityDescriptorEnum.CompilationUnit, e1.wGetEntityDescriptor());
-			assertEquals(JavaEntityDescriptorEnum.PackageDeclaration, e2.wGetEntityDescriptor());
-			assertEquals("Copyright 2004-2014 Riccardo Solmi.", str);
+			Assert.assertEquals(JavaEntityDescriptorEnum.CompilationUnit, e1.wGetEntityDescriptor());
+			Assert.assertEquals(JavaEntityDescriptorEnum.PackageDeclaration, e2.wGetEntityDescriptor());
+			Assert.assertEquals("Copyright 2004-2014 Riccardo Solmi.", str);
 		} catch (Exception e) {
-			fail();
+			Assert.fail();
 		}
 	}
 
+	@Test
 	public void testSkip() {
 		IEntity fact = new Factorial().create();
 
@@ -74,29 +83,32 @@ public class ScannerTest extends TestCase {
 			s.next();
 			String str1 = s.nextString();
 			String str2 = s.nextString();
-			assertEquals("int", str1);
-			assertEquals("false", str2);
+			Assert.assertEquals("int", str1);
+			Assert.assertEquals("false", str2);
 		} catch (Exception e) {
-			fail();
+			Assert.fail();
 		}
 	}
 
+	@Test
 	public void testFindFirst() {
 		IEntity fact = new Factorial().create();
 		
 		IEntity var = Matcher.find(mf.hasTypeMatcher(JavaEntityDescriptorEnum.Block), fact, false);
-		assertNotNull(var);
+		Assert.assertNotNull(var);
 	}
 
+	@Test
 	public void testFindAll() {
 		IEntity fact = new Factorial().create();
 		
 		List<IEntity> c = new ArrayList<IEntity>();
 		Matcher.findAll(mf.hasTypeMatcher(JavaEntityDescriptorEnum.Assignment), fact, c, false);
 		Matcher.findAll(mf.hasTypeMatcher(JavaEntityDescriptorEnum.SingleVariableDeclaration), fact, c, false);
-		assertEquals(3+2, c.size());
+		Assert.assertEquals(3+2, c.size());
 	}
 
+	@Test
 	public void testPatternIterator() {
 		IEntity fact = new Factorial().create();
 		
@@ -110,7 +122,8 @@ public class ScannerTest extends TestCase {
 		}
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testFilterReferencesIterator() {
 		if (true)
 			throw new IllegalStateException("endless loop regression"); //FIXME

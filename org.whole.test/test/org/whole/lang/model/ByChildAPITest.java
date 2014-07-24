@@ -20,8 +20,10 @@ package org.whole.lang.model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
@@ -52,11 +54,12 @@ import org.whole.lang.xsd.model.NamespaceDecls;
 import org.whole.lang.xsd.model.Bounded;
 import org.whole.lang.xsd.model.QName;
 import org.whole.lang.xsd.model.StringData;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Enrico Persiani
  */
-public class ByChildAPITest extends TestCase {
+public class ByChildAPITest {
 
 	private static class TestPropertyChangeListener implements PropertyChangeListener {
 		private IEntity source;
@@ -79,90 +82,89 @@ public class ByChildAPITest extends TestCase {
 			this.oldValue = oldValue;
 		}
 		public void propertyChange(PropertyChangeEvent evt) {
-			assertTrue(source == evt.getSource());
-			assertTrue(fd.getName().equals(evt.getPropertyName()));
-			assertTrue(newValue == evt.getNewValue());
-			assertTrue(oldValue == evt.getOldValue());
+			Assert.assertTrue(source == evt.getSource());
+			Assert.assertTrue(fd.getName().equals(evt.getPropertyName()));
+			Assert.assertTrue(newValue == evt.getNewValue());
+			Assert.assertTrue(oldValue == evt.getOldValue());
 		}
 	}
 
-	protected void setUp() throws Exception {
-		super.setUp();
-
-		ReflectionFactory.deployWholePlatform();
-		}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
 	private void orderedCompositeOperationsEntityTest(IEntity[] entitiesArray, int[] businessEquivalence, IEntity entities) {
 		// test wIndexOf
 		// object identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(entitiesArray[i]) == i);
+			Assert.assertTrue(entities.wIndexOf(entitiesArray[i]) == i);
 
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i])) == businessEquivalence[i]);
+			Assert.assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i])) == businessEquivalence[i]);
 
 		// test wGet
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
 			if (businessEquivalence[i] >= 0)
-				assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])).equals(entitiesArray[businessEquivalence[i]]));
+				Assert.assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])).equals(entitiesArray[businessEquivalence[i]]));
 
 		// test wAdd
 		IEntity composite = GenericEntityFactory.instance.create(entities.wGetEntityDescriptor());
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
-		assertTrue(Matcher.match(composite, entities));
+			Assert.assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
+		Assert.assertTrue(Matcher.match(composite, entities));
 	}
 
 	private void unorderedCompositeOperationsEntityTest(IEntity[] entitiesArray, IEntity entities) {
 		// test wIndexOf
 		// object identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(entitiesArray[i]) >= 0);
+			Assert.assertTrue(entities.wIndexOf(entitiesArray[i]) >= 0);
 
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i]))>= 0);
+			Assert.assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i]))>= 0);
 
 		// test wGet
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])) != null);
+			Assert.assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])) != null);
 
 		// test wAdd
 		IEntity composite = GenericEntityFactory.instance.create(entities.wGetEntityDescriptor());
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
+			Assert.assertTrue(composite.wAdd(EntityUtils.clone(entitiesArray[i])));
 
 		IEntityIterator<IEntity> i = IteratorFactory.childIterator();
 		i.reset(composite);
 		for (IEntity child : i)
-			assertTrue(entities.wContains(child));
-		assertTrue(composite.wSize() == entities.wSize());
+			Assert.assertTrue(entities.wContains(child));
+		Assert.assertTrue(composite.wSize() == entities.wSize());
 	}
 
 	private void mapCompositeOperationsEntityTest(IEntity[] entitiesArray, IEntity entities) {
 		// test wIndexOf
 		// object identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(entitiesArray[i]) >= 0);
+			Assert.assertTrue(entities.wIndexOf(entitiesArray[i]) >= 0);
 
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i]))>= 0);
+			Assert.assertTrue(entities.wIndexOf(EntityUtils.clone(entitiesArray[i]))>= 0);
 
 		// test wGet
 		// business identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])) != null);
+			Assert.assertTrue(entities.wGet(EntityUtils.clone(entitiesArray[i])) != null);
 
 		// test wAdd
 		IEntity composite = GenericEntityFactory.instance.create(entities.wGetEntityDescriptor());
 		for (int i=0; i<entities.wSize(); i++) {
 			try {
 				composite.wAdd(EntityUtils.clone(entitiesArray[i]));
-				fail();
+				Assert.fail();
 			} catch (UnsupportedOperationException e) {
 			}
 		}
@@ -172,13 +174,13 @@ public class ByChildAPITest extends TestCase {
 	private void commonOperationsEntityTest(IEntity[] entitiesArray, IEntity[] valuesArray, IEntity entities) {
 		// test wContains
 		for (int i=0; i<entities.wSize(); i++) {
-			assertTrue(entities.wContains(entitiesArray[i]));
-			assertTrue(entities.wContains(EntityUtils.clone(entitiesArray[i])));
+			Assert.assertTrue(entities.wContains(entitiesArray[i]));
+			Assert.assertTrue(entities.wContains(EntityUtils.clone(entitiesArray[i])));
 		}
 		// test wGet
 		// object identity
 		for (int i=0; i<entities.wSize(); i++)
-			assertTrue(entities.wGet(entitiesArray[i]).equals(valuesArray[i]));
+			Assert.assertTrue(entities.wGet(entitiesArray[i]).equals(valuesArray[i]));
 
 		// test wRemove
 		IEntity composite = GenericEntityFactory.instance.create(entities.wGetEntityDescriptor());
@@ -188,14 +190,14 @@ public class ByChildAPITest extends TestCase {
 
 		IEntity composite2 = EntityUtils.clone(composite);
 		for (int i=refs.length-1; i>=0; i--) {
-			assertTrue(composite.wRemove(refs[i]));
-			assertTrue(composite2.wRemove(refs[i]));
+			Assert.assertTrue(composite.wRemove(refs[i]));
+			Assert.assertTrue(composite2.wRemove(refs[i]));
 		}
-		assertTrue(composite.wSize() == 0);
-		assertTrue(composite2.wSize() == 0);
+		Assert.assertTrue(composite.wSize() == 0);
+		Assert.assertTrue(composite2.wSize() == 0);
 		for (int i=refs.length-1; i>=0; i--) {
-			assertFalse(composite.wRemove(refs[i]));
-			assertFalse(composite2.wRemove(refs[i]));
+			Assert.assertFalse(composite.wRemove(refs[i]));
+			Assert.assertFalse(composite2.wRemove(refs[i]));
 		}
 	}
 
@@ -204,26 +206,26 @@ public class ByChildAPITest extends TestCase {
 		IEntity composite = EntityUtils.clone(entities);
 
 		//TODO workaround for wSet boolean result always true
-//		assertFalse(composite.wSet(composite.wGet(0), CloneModelOperation.clone(composite.wGet(1))));
+//		Assert.assertFalse(composite.wSet(composite.wGet(0), CloneModelOperation.clone(composite.wGet(1))));
 		IEntity oldChild = composite.wGet(0);
 		composite.wSet(composite.wGet(0), EntityUtils.clone(composite.wGet(1)));
-		assertSame(oldChild, composite.wGet(0));
+		Assert.assertSame(oldChild, composite.wGet(0));
 		
 		IEntityIterator<IEntity> i = IteratorFactory.childIterator();
 		i.reset(composite);
 		for (IEntity child : i)
-			assertTrue(entities.wContains(child));
-		assertTrue(composite.wSize() == entities.wSize());
+			Assert.assertTrue(entities.wContains(child));
+		Assert.assertTrue(composite.wSize() == entities.wSize());
 
 		// test child uniqueness with wAdd(child)
 		composite = EntityUtils.clone(entities);
-		assertFalse(composite.wAdd(EntityUtils.clone(composite.wGet(1))));
+		Assert.assertFalse(composite.wAdd(EntityUtils.clone(composite.wGet(1))));
 
 		i = IteratorFactory.childIterator();
 		i.reset(composite);
 		for (IEntity child : i)
-			assertTrue(entities.wContains(child));
-		assertTrue(composite.wSize() == entities.wSize());
+			Assert.assertTrue(entities.wContains(child));
+		Assert.assertTrue(composite.wSize() == entities.wSize());
 	}
 
 	private void propertyChangeEntityTest(IEntity[] entitiesArray, IEntity entities, IEntity prototype) {
@@ -245,6 +247,7 @@ public class ByChildAPITest extends TestCase {
 	}
 
 
+	@Test
 	public void testAbstractUListEntity() {
 		XmlEntityFactory xmlf = XmlEntityFactory.instance(RegistryConfigurations.STRICT);
 
@@ -262,6 +265,7 @@ public class ByChildAPITest extends TestCase {
 		propertyChangeEntityTest(attributesArray, attributes, xmlf.createAttribute(xmlf.createName("attr4"), xmlf.createValue("value4")));
 	}
 
+	@Test
 	public void testAbstractListEntity() {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance;
 
@@ -279,6 +283,7 @@ public class ByChildAPITest extends TestCase {
 		propertyChangeEntityTest(modifiersArray, modifiers, mf.createComponentModifier(ComponentModifierEnum.reference));
 	}
 
+	@Test
 	public void testAbstractSetCompositeEntity() {
 		ModelsEntityFactory mf = ModelsEntityFactory.instance(RegistryConfigurations.STRICT);
 
@@ -295,7 +300,8 @@ public class ByChildAPITest extends TestCase {
 		propertyChangeEntityTest(modifiersArray, modifiers, mf.createComponentModifier(ComponentModifierEnum.unique));
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testAbstractBagCompositeEntity() {
 		MappingEntityFactory mf = MappingEntityFactory.instance(RegistryConfigurations.STRICT);
 
@@ -335,6 +341,7 @@ public class ByChildAPITest extends TestCase {
 //		propertyChangeEntityTest(keysArray, values, infof.createValue("value4"));
 //	}
 
+	@Test
 	public void testAbstractSimpleEntity() {
 		XsdEntityFactory mf = XsdEntityFactory.instance;
 
@@ -353,28 +360,28 @@ public class ByChildAPITest extends TestCase {
 		// test wIndexOf
 		// object identity
 		for (int i=0; i<elementRef.wSize(); i++)
-			assertTrue(elementRef.wIndexOf(featuresArray[i]) == i);
+			Assert.assertTrue(elementRef.wIndexOf(featuresArray[i]) == i);
 
 		// business identity
 		for (int i=0; i<elementRef.wSize(); i++)
-			assertTrue(elementRef.wIndexOf(EntityUtils.clone(featuresArray[i])) == businessEquivalence[i]);
+			Assert.assertTrue(elementRef.wIndexOf(EntityUtils.clone(featuresArray[i])) == businessEquivalence[i]);
 
 		// test wGet
 		// business identity
 		for (int i=0; i<elementRef.wSize(); i++)
 			if (businessEquivalence[i] >= 0)
-				assertTrue(elementRef.wGet(EntityUtils.clone(featuresArray[i])).equals(featuresArray[businessEquivalence[i]]));
+				Assert.assertTrue(elementRef.wGet(EntityUtils.clone(featuresArray[i])).equals(featuresArray[businessEquivalence[i]]));
 
 		// test wContains
 		for (int i=0; i<elementRef.wSize(); i++) {
-			assertTrue(elementRef.wContains(featuresArray[i]));
+			Assert.assertTrue(elementRef.wContains(featuresArray[i]));
 			if (businessEquivalence[i] >= 0)
-				assertTrue(elementRef.wContains(EntityUtils.clone(featuresArray[i])));
+				Assert.assertTrue(elementRef.wContains(EntityUtils.clone(featuresArray[i])));
 		}
 		// test wGet
 		// object identity
 		for (int i=0; i<elementRef.wSize(); i++)
-			assertTrue(elementRef.wGet(featuresArray[i]).equals(featuresArray[i]));
+			Assert.assertTrue(elementRef.wGet(featuresArray[i]).equals(featuresArray[i]));
 
 		// test wRemove
 		IEntity entityCopy = EntityUtils.clone(elementRef);
@@ -384,14 +391,14 @@ public class ByChildAPITest extends TestCase {
 
 		IEntity entitySecondCopy = EntityUtils.clone(entityCopy);
 		for (int i=refs.length-1; i>=0; i--) {
-			assertTrue(entityCopy.wRemove(refs[i]));
+			Assert.assertTrue(entityCopy.wRemove(refs[i]));
 			if (businessEquivalence[i] >= 0)
-				assertTrue(entitySecondCopy.wRemove(refs[i]));
+				Assert.assertTrue(entitySecondCopy.wRemove(refs[i]));
 		}
 		for (int i=refs.length-1; i>=0; i--) {
-			assertFalse(entityCopy.wRemove(refs[i]));
+			Assert.assertFalse(entityCopy.wRemove(refs[i]));
 			if (businessEquivalence[i] >= 0)
-				assertFalse(entitySecondCopy.wRemove(refs[i]));
+				Assert.assertFalse(entitySecondCopy.wRemove(refs[i]));
 		}
 
 		IEntity newEntity = EntityUtils.clone(elementRef);

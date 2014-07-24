@@ -18,8 +18,11 @@
 package org.whole.lang.builders;
 
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.whole.lang.builders.builder.ModelFeaturesBuilder;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.models.codebase.ModelsModel;
@@ -32,13 +35,14 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.util.EntityUtils;
 
-public class ModelFragmentsBuilderTest extends TestCase {
-	protected void setUp() throws Exception {
-		super.setUp();
-		ReflectionFactory.deployWholePlatform();
-	}
+public class ModelFragmentsBuilderTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testModelFeaturesBuilder() {
+    @Test
+    public void testModelFeaturesBuilder() {
 		ITemplateFactory<Model> modelsModel = new ModelsModel();		
 		final Features features = ModelsEntityFactory.instance.createFeatures(0);
 
@@ -56,7 +60,8 @@ public class ModelFragmentsBuilderTest extends TestCase {
 		assertEquals(features.wSize(), count);
 	}
 
-	public void testModelFeaturesBuilderWithFeatureEvents() {
+    @Test
+    public void testModelFeaturesBuilderWithFeatureEvents() {
 		ITemplateFactory<Model> modelsModel = new ModelsModelWithFeatureEvents();		
 		Features features = ModelsEntityFactory.instance.createFeatures(0);
 

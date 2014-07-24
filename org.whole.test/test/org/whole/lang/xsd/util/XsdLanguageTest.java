@@ -24,8 +24,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
@@ -47,18 +50,24 @@ import org.whole.lang.xsd.codebase.XsiPersistenceKit;
 import org.whole.lang.xsd.model.Schema;
 import org.whole.lang.xsd.reflect.XsdEntityDescriptorEnum;
 import org.whole.lang.xsd.reflect.XsdFeatureDescriptorEnum;
+import org.whole.test.KnownFailingTests;
+import org.whole.test.SlowTests;
 
 /**
  * @author Enrico Persiani
  */
-public class XsdLanguageTest extends TestCase {
+public class XsdLanguageTest {
 
 	private Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap = 
 		new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 
-	public XsdLanguageTest() {
-		ReflectionFactory.deployWholePlatform();
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
+	@Before
+    public void setUp() {
 		comparatorsMap.put(XsdEntityDescriptorEnum.NamespaceDecls, 
 				new OrderedMatcher.SimpleFeatureComparator(XsdFeatureDescriptorEnum.uri));
 		comparatorsMap.put(XsdEntityDescriptorEnum.SchemaComponents, 
@@ -95,17 +104,20 @@ public class XsdLanguageTest extends TestCase {
 					new StreamPersistenceProvider(getInputStream(instanceFileName)));
 	}
 
+	@Test
 	public void testXsdNormalization() {
 		try {
 			Schema xsdNormalized1 = NormalizerOperation.normalize(loadXsd("schema-to-normalize.xsd"));
 			Schema xsdNormalized2 = loadXsd("schema-normalized.xsd");
 
-			assertTrue(OrderedMatcher.match(xsdNormalized2, xsdNormalized1, comparatorsMap));
+			Assert.assertTrue(OrderedMatcher.match(xsdNormalized2, xsdNormalized1, comparatorsMap));
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
+	@Category(SlowTests.class)
+	@Test
 	public void testXsdPersistence() {
 		File file = null;
 		try {
@@ -130,47 +142,50 @@ public class XsdLanguageTest extends TestCase {
 				XsdPersistenceKit.instance().readModel(new FilePersistenceProvider(file = f, bm));
 
 		} catch (Exception e) {
-			fail("Cannot load "+file+" cause:\n"+e.getMessage());
+			Assert.fail("Cannot load "+file+" cause:\n"+e.getMessage());
 		}
 	}
 
+	@Test
 	public void testModelToXsdMapping() {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			PathExpression path = new ModelToXmlSchemaQuery().create();
 			Model model = new ArtifactsModel().create();
 
-			assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
+			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
 			IEntity mappedXsd = bm.wGet("schema");
 
 			IEntity xsd = loadXsd("artifacts.xsd");
-			assertTrue(OrderedMatcher.match(xsd, mappedXsd, comparatorsMap));
+			Assert.assertTrue(OrderedMatcher.match(xsd, mappedXsd, comparatorsMap));
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testArtifactsMappedModel() {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			PathExpression path = new ModelToXmlSchemaQuery().create();
 			Model model = new ArtifactsModel().create();
 
-			assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
+			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
 			InterpreterOperation.interpret(bm.wGet("mapping"));
 
 			bm.wDefValue("folderLocation", new File("test/org/whole/lang/xsd/util").getAbsolutePath());
 			bm.wDefValue("packageName", "");
 			IEntity artifacts = XsiPersistenceKit.instance().readModel(new StreamPersistenceProvider(getInputStream("Artifacts.xml"), null, bm));
 			
-			assertTrue(Matcher.match(new Artifacts().create(), artifacts));
+			Assert.assertTrue(Matcher.match(new Artifacts().create(), artifacts));
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-	//FIXME
+	@Category({KnownFailingTests.class, SlowTests.class})
+	@Test
 	public void testBpel20Instance() {
 		try {
 			loadSchemaInstance("wsbpel_2_0.xsd", "wsbpel_2_0.xml", "Div.bpel",
@@ -178,47 +193,51 @@ public class XsdLanguageTest extends TestCase {
 					"SlaveProcess.bpel", "StringMessageReceive.bpel", "Sum.bpel",
 					"SumReceiveProcess.bpel", "Java2BPELException.bpel", "MasterProcess.bpel");
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-    //FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testXslt20Instance() {
-		fail(); // force failure since test is unable to download imported schemas
+		Assert.fail(); // force failure since test is unable to download imported schemas
 		try {
 			loadSchemaInstance("xslt20.xsd", "xslt20.xml");
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-    //FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testJsp21Instance() {
-		fail(); // force failure since test is unable to download imported schemas
+		Assert.fail(); // force failure since test is unable to download imported schemas
 		try {
 			loadSchemaInstance("jsp_2_1.xsd", "jsp_2_1.xml");
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-    //FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testXhtml11Instance() {
-		fail(); // force failure since test is unable to download imported schemas
+		Assert.fail(); // force failure since test is unable to download imported schemas
 		try {
 			loadSchemaInstance("xhtml11.xsd", "xhtml11.xml");
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 
-    //FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testXForms10Instance() {
-		fail(); // force failure since test is unable to download imported schemas
+		Assert.fail(); // force failure since test is unable to download imported schemas
 		try {
 			loadSchemaInstance("XForms-Schema10.xsd", "XForms-Schema10.xml");
 		} catch (Exception e) {
-			fail(e.getMessage());
+			Assert.fail(e.getMessage());
 		}
 	}
 }

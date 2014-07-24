@@ -17,8 +17,10 @@
  */
 package org.whole.lang.builders;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -36,13 +38,14 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 /**
  * @author Enrico Persiani
  */
-public class GenericForwardSpecificBuilderTest extends TestCase {
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-	}
+public class GenericForwardSpecificBuilderTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testMultiLanguage() throws Exception {
+    @Test
+    public void testMultiLanguage() throws Exception {
 		IEntity entity = XmlBuilderPersistenceKit.instance().readModel(
 				new ClasspathPersistenceProvider("org/whole/lang/queries/util/BindVariablesInPathTemplates.xwl"));
 		ModelBuilderOperation mop = new ModelBuilderOperation();

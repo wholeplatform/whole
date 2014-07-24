@@ -20,18 +20,21 @@ package org.whole.lang.util;
 import java.text.ParseException;
 import java.util.Date;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class StringUtilsTest extends TestCase {
+public class StringUtilsTest {
 	private static final int SECONDS_PER_MINUTE = 60;
 	private static final int MILLIS_PER_SECONDS = 1000;
 	private Date date;
 
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		date = new Date();
 	}
 
+	@Test
 	public void testISO8601DateFormatters() throws ParseException {
 		String basicFormat = StringUtils.toBasicISO8601DateTime(date);
 		Date basicDate = StringUtils.fromBasicISO8601DateTime(basicFormat);
@@ -39,21 +42,22 @@ public class StringUtilsTest extends TestCase {
 		String extendedFormat = StringUtils.toExtendedISO8601DateTime(date);
 		Date extendedDate = StringUtils.fromExtendedISO8601DateTime(extendedFormat);
 
-		assertTrue(date.getTime() - basicDate.getTime() < (SECONDS_PER_MINUTE * MILLIS_PER_SECONDS));
-		assertEquals(date.getTime(), extendedDate.getTime());
+		Assert.assertTrue(date.getTime() - basicDate.getTime() < (SECONDS_PER_MINUTE * MILLIS_PER_SECONDS));
+		Assert.assertEquals(date.getTime(), extendedDate.getTime());
 	}
 
+	@Test
 	public void testToOrdinal() {
 		try {
 			StringUtils.toOrdinal(0);
-			fail();
+			Assert.fail();
 		} catch(IllegalArgumentException e) {}
-		assertEquals("1st", StringUtils.toOrdinal(1));
-		assertEquals("2nd", StringUtils.toOrdinal(2));
-		assertEquals("3rd", StringUtils.toOrdinal(3));
-		assertEquals("4th", StringUtils.toOrdinal(4));
-		assertEquals("10th", StringUtils.toOrdinal(10));
-		assertEquals("11th", StringUtils.toOrdinal(11));
-		assertEquals("21st", StringUtils.toOrdinal(21));
+		Assert.assertEquals("1st", StringUtils.toOrdinal(1));
+		Assert.assertEquals("2nd", StringUtils.toOrdinal(2));
+		Assert.assertEquals("3rd", StringUtils.toOrdinal(3));
+		Assert.assertEquals("4th", StringUtils.toOrdinal(4));
+		Assert.assertEquals("10th", StringUtils.toOrdinal(10));
+		Assert.assertEquals("11th", StringUtils.toOrdinal(11));
+		Assert.assertEquals("21st", StringUtils.toOrdinal(21));
 	}
 }

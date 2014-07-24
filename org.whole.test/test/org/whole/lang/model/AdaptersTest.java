@@ -17,26 +17,24 @@
  */
 package org.whole.lang.model;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * @author Riccardo Solmi
  */
-public class AdaptersTest extends TestCase {
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        }
-
-    public void testTwoWay() {
+public class AdaptersTest {
+    @Test
+	public void testTwoWay() {
     	//TODO
     }
 
-    public void testIdemPotent() {
+    @Test
+	public void testIdemPotent() {
     	//TODO
     }
 
-    public void testGenricAutoAdapt() {
+    @Test
+	public void testGenericAutoAdapt() {
     	//TODO
     }
 }

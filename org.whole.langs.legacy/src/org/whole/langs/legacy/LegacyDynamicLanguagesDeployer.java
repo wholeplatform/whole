@@ -35,4 +35,8 @@ public class LegacyDynamicLanguagesDeployer extends AbstractDynamicLanguageDeplo
 			throw new IllegalStateException(e);
 		}
 	}
+
+	public void undeploy(ReflectionFactory platform) {
+		platform.removeLanguageKit(LegacyMetaModelsDeployer.HTML5_URI);
+	}
 }

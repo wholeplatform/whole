@@ -67,6 +67,11 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 	public static final String GRAMMAR_BASED_URI = "http://lang.whole.org/GrammarBased";
 	public static final String STATUS_URI = "whole:org.whole.lang.status:Status";
 
+	@Override
+	public int getDeployLevel() {
+		return super.getDeployLevel()+1;
+	}
+
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(CommonsLanguageKit.URI, new CommonsModel());
 		platform.setMetaModelTemplate(ActionsLanguageKit.URI, new ActionsModel());

@@ -1,5 +1,7 @@
-package org.whole.lang.builders;
+package org.whole.lang.builders.builder;//FIXME workaround to run as JUnit Plug-in Test
 
+import org.whole.lang.builders.GenericBuilderContext;
+import org.whole.lang.builders.GenericIdentityBuilder;
 import org.whole.lang.models.model.Feature;
 import org.whole.lang.models.model.Features;
 import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
@@ -9,7 +11,6 @@ public class ModelFeaturesBuilder extends GenericBuilderContext {
 	public ModelFeaturesBuilder(final Features features) {
 		super(new GenericIdentityBuilder());
 		wSetBuilderStrategy(new GenericIdentityBuilder() {
-
 			@Override
 			public void wEntity_(EntityDescriptor<?> ed) {
 				if (ModelsEntityDescriptorEnum.Feature.equals(ed))

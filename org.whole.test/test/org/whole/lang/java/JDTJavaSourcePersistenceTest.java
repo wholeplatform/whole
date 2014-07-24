@@ -17,8 +17,9 @@
  */
 package org.whole.lang.java;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.java.codebase.JDTJavaSourcePersistenceKit;
 import org.whole.lang.matchers.Matcher;
@@ -29,16 +30,17 @@ import org.whole.lang.reflect.ReflectionFactory;
  *
  * @author Enrico Persiani
  */
-public class JDTJavaSourcePersistenceTest extends TestCase {
-	@Override
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-	}
+public class JDTJavaSourcePersistenceTest {
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
-	public void testReadModel() throws Exception {
+    @Test
+    public void testReadModel() throws Exception {
 		IEntity fromSource = JDTJavaSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("TestSuite.txt")));
 		IEntity fromTemplate = new TestSuiteTemplate().create();
-		assertTrue(Matcher.match(fromSource, fromTemplate));
+		Assert.assertTrue(Matcher.match(fromSource, fromTemplate));
 	}
 }

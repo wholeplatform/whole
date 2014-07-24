@@ -19,8 +19,10 @@ package org.whole.lang.xsd.builders;
 
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderOperation;
@@ -38,21 +40,24 @@ import org.whole.lang.xml.reflect.XmlLanguageKit;
 import org.whole.lang.xsd.codebase.XsdDeployStrategies;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.model.Schema;
+import org.whole.test.KnownFailingTests;
 
 /**
  * @author Enrico Persiani
  */
-public class XsdModelBuilderTest extends TestCase {
+public class XsdModelBuilderTest {
 
-	protected void setUp() throws Exception {
-		ReflectionFactory.deployWholePlatform();
-	}
+    @BeforeClass
+    public static void deployWholePlatform() {
+    	ReflectionFactory.deployWholePlatform();
+    }
 
 	private InputStream getInputStream(String fileName) {
 		return getClass().getResourceAsStream(fileName);
 	}
 
-	//FIXME
+	@Category(KnownFailingTests.class)
+	@Test
 	public void testBuilderAPI() throws Exception {
 		Schema xsdFromInputStream = (Schema) XsdPersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getInputStream("datatypes.xsd")));
@@ -72,6 +77,6 @@ public class XsdModelBuilderTest extends TestCase {
 		
 		Schema xsdFromXmlModel = (Schema) mop.wGetResult();
 		
-		assertTrue(Matcher.match(xsdFromInputStream, xsdFromXmlModel));
+		Assert.assertTrue(Matcher.match(xsdFromInputStream, xsdFromXmlModel));
 	}
 }

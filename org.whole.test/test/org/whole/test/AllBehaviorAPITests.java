@@ -19,6 +19,7 @@ package org.whole.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 import org.whole.gen.JavaGeneratorTest;
 import org.whole.gen.util.JDTUtilsTest;
 import org.whole.lang.builders.GenericForwardSpecificBuilderTest;
@@ -51,7 +52,7 @@ import org.whole.lang.visitors.TraversalFactoryTest;
  * @author Riccardo Solmi
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {
+@SuiteClasses( {
 	StreamAdapterTest.class,
 	StreamEncodingTest.class,
 	StringUtilsTest.class,

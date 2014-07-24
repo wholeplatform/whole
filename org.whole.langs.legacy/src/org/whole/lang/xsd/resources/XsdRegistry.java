@@ -28,6 +28,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.reflect.AbstractLanguageDeployer;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResource;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.resources.URLURIResolver;
@@ -35,6 +37,7 @@ import org.whole.lang.xml.util.InputStreamInput;
 import org.whole.lang.xsd.codebase.MappingStrategyRegistry;
 import org.whole.lang.xsd.codebase.SchemaMapping;
 import org.whole.lang.xsd.model.Schema;
+import org.whole.lang.xsd.util.NamespaceUtils;
 import org.whole.lang.xsd.util.SchemaUtils;
 
 /**
@@ -60,6 +63,12 @@ public class XsdRegistry extends ResourceRegistry<IResource> {
 	}
 	public static void initialize() {
 		instance();
+	}
+	public static void deinitialize() {
+		XsdRegistry registry = SingletonHolder.instance;
+
+		registry.removeSchema(NamespaceUtils.XML_NAMESPACE_URI);
+		registry.removeSchema(NamespaceUtils.XSD_NAMESPACE_URI);
 	}
 
 	protected XsdRegistry() {
@@ -117,7 +126,16 @@ public class XsdRegistry extends ResourceRegistry<IResource> {
 	public boolean removeSchema(String targetNamespace) {
 //		updateSchemaLocation(targetNamespace, null);
 		//FIXME clear location somewhere
-		return removeResource(targetNamespace);
+		boolean removed = removeResource(targetNamespace);
+		if (removed)
+			ReflectionFactory.undeploy(new AbstractLanguageDeployer() {
+				public void deploy(ReflectionFactory platform) {
+				}
+				public void undeploy(ReflectionFactory platform) {
+					platform.removeLanguageKit(targetNamespace);
+				}
+			});
+		return removed;
 //		return schemaMap.remove(targetNamespace) != null;
 	}
 
