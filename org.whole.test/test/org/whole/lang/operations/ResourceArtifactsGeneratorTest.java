@@ -26,7 +26,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.whole.lang.artifacts.factories.ArtifactsEntityFactory;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
@@ -44,6 +46,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Enrico Persiani
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ResourceArtifactsGeneratorTest {
 	private File workspaceFolder;
 	private IEntity artifacts;
@@ -63,7 +66,7 @@ public class ResourceArtifactsGeneratorTest {
 	}
 
     @Test
-    public void testGenerateWorkspace() {
+    public void test1GenerateWorkspace() {
 		assertTrue(workspaceFolder.exists());
 
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
@@ -76,7 +79,7 @@ public class ResourceArtifactsGeneratorTest {
 	}
 
     @Test
-    public void testCompareArtifacts() {
+    public void test2CompareArtifacts() {
 		ArtifactsEntityFactory aef = ArtifactsEntityFactory.instance;
 
 		File genFolder = new File("data/gen");
