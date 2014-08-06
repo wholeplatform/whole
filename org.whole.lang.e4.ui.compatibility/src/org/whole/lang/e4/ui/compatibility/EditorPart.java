@@ -90,7 +90,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 
 		super.createPartControl(parent);
 
-		getContext().get(MPart.class).setElementId(EDITOR_PART_ID);
+		getContext().get(MPart.class).setElementId("org.eclipse.e4.ui.compatibility.editor");
 
 		setPartName(getEditorInput().getName());
 

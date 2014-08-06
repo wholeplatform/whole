@@ -27,7 +27,6 @@ public interface IUIConstants {
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
 
 	// part id
-	public static final String EDITOR_PART_ID = BUNDLE_ID+".part.editor";
 	public static final String DETAILS_PART_ID = BUNDLE_ID+".part.details";
 	public static final String MAP_PART_ID = BUNDLE_ID+".part.map";
 	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
