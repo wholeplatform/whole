@@ -250,7 +250,7 @@
 		<repository>
 			<id>e4tools</id>
 			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/e4tools-luna-updates</url>
+			<url>http://download.eclipse.org/e4/downloads/drops/I20140806-0900/repository</url>
 		</repository>
 		<repository>
 			<id>gef</id>
@@ -258,11 +258,4 @@
 			<url>http://whole.sourceforge.net/gef-updates</url>
 		</repository>
 	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-staged</id>
-			<url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1018/</url>
-		</pluginRepository>
-	</pluginRepositories>
 </project>
