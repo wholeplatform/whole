@@ -8,43 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class InsertAdapter extends AbstractEntityAdapter implements Insert {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public InsertAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public InsertAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public InsertAdapter() {
-	}
+    public InsertAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Insert> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Insert;
-	}
+    public EntityDescriptor<Insert> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Insert;
+    }
 
-	public Placement getPlacement() {
-		return wGet(PatternsFeatureDescriptorEnum.placement).wGetAdapter(
-				PatternsEntityDescriptorEnum.Placement);
-	}
+    public Placement getPlacement() {
+        return wGet(PatternsFeatureDescriptorEnum.placement).wGetAdapter(PatternsEntityDescriptorEnum.Placement);
+    }
 
-	public void setPlacement(Placement placement) {
-		wSet(PatternsFeatureDescriptorEnum.placement, placement);
-	}
+    public void setPlacement(Placement placement) {
+        wSet(PatternsFeatureDescriptorEnum.placement, placement);
+    }
 
-	public PathExpression getPath() {
-		return wGet(PatternsFeatureDescriptorEnum.path).wGetAdapter(
-				PatternsEntityDescriptorEnum.PathExpression);
-	}
+    public PathExpression getPath() {
+        return wGet(PatternsFeatureDescriptorEnum.path).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    }
 
-	public void setPath(PathExpression path) {
-		wSet(PatternsFeatureDescriptorEnum.path, path);
-	}
+    public void setPath(PathExpression path) {
+        wSet(PatternsFeatureDescriptorEnum.path, path);
+    }
 }

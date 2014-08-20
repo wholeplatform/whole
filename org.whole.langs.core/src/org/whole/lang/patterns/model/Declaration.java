@@ -1,7 +1,9 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Declaration extends IPatternsEntity {
+
 }

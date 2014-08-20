@@ -7,34 +7,33 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PointcutStepAdapter extends AbstractEntityAdapter implements
-		PointcutStep {
-	private static final long serialVersionUID = 1;
+public class PointcutStepAdapter extends AbstractEntityAdapter implements PointcutStep {
+    private static final long serialVersionUID = 1;
 
-	public PointcutStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PointcutStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PointcutStepAdapter() {
-	}
+    public PointcutStepAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<PointcutStep> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.PointcutStep;
-	}
+    public EntityDescriptor<PointcutStep> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.PointcutStep;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

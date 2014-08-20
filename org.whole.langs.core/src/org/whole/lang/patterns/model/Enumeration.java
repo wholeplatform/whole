@@ -1,18 +1,25 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
-public interface Enumeration extends IPatternsEntity, Type {
-	public Name getName();
+public interface Enumeration extends IPatternsEntity, PatternOrTypeDeclaration, Type {
 
-	public void setName(Name name);
 
-	public Type getResultType();
+    public Name getName();
 
-	public void setResultType(Type resultType);
+    public void setName(Name name);
 
-	public EnumValues getValues();
+    public Type getResultType();
 
-	public void setValues(EnumValues values);
+    public void setResultType(Type resultType);
+
+    public EnumValues getValues();
+
+    public void setValues(EnumValues values);
+
+    public ResultTypes getSupertypes();
+
+    public void setSupertypes(ResultTypes supertypes);
 }

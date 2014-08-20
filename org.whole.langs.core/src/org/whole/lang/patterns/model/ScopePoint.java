@@ -1,14 +1,17 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface ScopePoint extends IPatternsEntity, VariationPoint {
-	public Declarations getContext();
 
-	public void setContext(Declarations context);
 
-	public Template getTemplate();
+    public Declarations getContext();
 
-	public void setTemplate(Template template);
+    public void setContext(Declarations context);
+
+    public Template getTemplate();
+
+    public void setTemplate(Template template);
 }

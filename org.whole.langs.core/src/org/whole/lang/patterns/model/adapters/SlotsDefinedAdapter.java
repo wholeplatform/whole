@@ -7,26 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SlotsDefinedAdapter extends AbstractEntityAdapter implements
-		SlotsDefined {
-	private static final long serialVersionUID = 1;
+public class SlotsDefinedAdapter extends AbstractEntityAdapter implements SlotsDefined {
+    private static final long serialVersionUID = 1;
 
-	public SlotsDefinedAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SlotsDefinedAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SlotsDefinedAdapter() {
-	}
+    public SlotsDefinedAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<SlotsDefined> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.SlotsDefined;
-	}
+    public EntityDescriptor<SlotsDefined> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.SlotsDefined;
+    }
 }

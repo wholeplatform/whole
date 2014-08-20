@@ -8,74 +8,67 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PatternApplicationImpl extends AbstractSimpleEntity implements
-		PatternApplication {
-	private static final long serialVersionUID = 1;
+public class PatternApplicationImpl extends AbstractSimpleEntity implements PatternApplication {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<PatternApplication> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.PatternApplication;
-	}
+    public EntityDescriptor<PatternApplication> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.PatternApplication;
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.PatternApplication_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.PatternApplication_ord;
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
+    private Name name;
 
-	private Name name;
+    public Name getName() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
+    }
 
-	public Name getName() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
-	}
+    public void setName(Name name) {
+        notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Arguments arguments;
 
-	public void setName(Name name) {
-		notifyChanged(PatternsFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Arguments getArguments() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.arguments, arguments);
+    }
 
-	private Arguments arguments;
+    public void setArguments(Arguments arguments) {
+        notifyChanged(PatternsFeatureDescriptorEnum.arguments, this.arguments, this.arguments = arguments);
+    }
 
-	public Arguments getArguments() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.arguments,
-				arguments);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getName().wGetAdaptee(false);
+            case 1 :
+            return getArguments().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setArguments(Arguments arguments) {
-		notifyChanged(PatternsFeatureDescriptorEnum.arguments, this.arguments,
-				this.arguments = arguments);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
+            break;
+            case 1 :
+            setArguments(value.wGetAdapter(PatternsEntityDescriptorEnum.Arguments));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getName().wGetAdaptee(false);
-		case 1:
-			return getArguments().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
-			break;
-		case 1:
-			setArguments(value
-					.wGetAdapter(PatternsEntityDescriptorEnum.Arguments));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 2;
+    }
 }

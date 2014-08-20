@@ -1,18 +1,21 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface VariableDeclaration extends IPatternsEntity, Declaration {
-	public Name getName();
 
-	public void setName(Name name);
 
-	public Expression getExpression();
+    public Name getName();
 
-	public void setExpression(Expression expression);
+    public void setName(Name name);
 
-	public Type getResultType();
+    public Expression getExpression();
 
-	public void setResultType(Type resultType);
+    public void setExpression(Expression expression);
+
+    public Type getResultType();
+
+    public void setResultType(Type resultType);
 }

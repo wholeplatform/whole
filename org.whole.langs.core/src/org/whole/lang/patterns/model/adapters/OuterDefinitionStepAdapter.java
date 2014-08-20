@@ -7,34 +7,33 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class OuterDefinitionStepAdapter extends AbstractEntityAdapter implements
-		OuterDefinitionStep {
-	private static final long serialVersionUID = 1;
+public class OuterDefinitionStepAdapter extends AbstractEntityAdapter implements OuterDefinitionStep {
+    private static final long serialVersionUID = 1;
 
-	public OuterDefinitionStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public OuterDefinitionStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public OuterDefinitionStepAdapter() {
-	}
+    public OuterDefinitionStepAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<OuterDefinitionStep> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.OuterDefinitionStep;
-	}
+    public EntityDescriptor<OuterDefinitionStep> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.OuterDefinitionStep;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

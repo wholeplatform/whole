@@ -4173,7 +4173,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="8">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="9">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:VoidLiteral/>
@@ -4673,11 +4673,23 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Repetition"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:Names initialCapacity="5">
                             <queries:Name value="elementType"/>
+                            <queries:Name value="patternName"/>
                             <queries:Name value="elementName"/>
+                            <queries:Name value="supertypeName"/>
+                            <queries:Name value="contextType"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="5">
+                        <queries:Block initialCapacity="7">
+                            <queries:Filter>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="name"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VariableTest value="patternName"/>
+                            </queries:Filter>
                             <queries:Filter>
                                 <semantics:FunctionApplication>
                                     <semantics:Name value="name"/>
@@ -4692,15 +4704,18 @@
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:CompositeEntity xmlns:models="http://lang.whole.org/Models">
                                         <models:EntityModifiers initialCapacity="0"/>
-                                        <commons:StageDownFragment>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="name"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        </commons:StageDownFragment>
-                                        <models:Types initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Type"/>
+                                        <commons:VarName value="supertypeName"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:Types>
                                         <models:ComponentModifiers initialCapacity="1">
                                         <models:ComponentModifier value="ordered"/>
                                         </models:ComponentModifiers>
@@ -4719,9 +4734,57 @@
                                     </semantics:FunctionApplication>
                                 </queries:Path>
                                 <queries:SelfStep/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:VariableTest value="supertypeName"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
                                 <queries:TemplateNames/>
                             </queries:Select>
+                            <queries:For>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#AnyType"/>
+                                        </queries:Or>
+                                        <queries:VariableTest value="contextType"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:SubtypesOf xmlns:models="http://lang.whole.org/Models">
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:Types>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ForeignType"/>
+                                        <commons:VarName value="contextType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:SubtypesOf>
+                                    </commons:StageUpFragment>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="atModelTypeRelationsPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                            </queries:For>
                             <queries:If>
                                 <queries:ExpressionTest>
                                     <queries:Filter>
@@ -4773,11 +4836,13 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Choice"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:Names initialCapacity="4">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
+                            <queries:Name value="supertypeName"/>
+                            <queries:Name value="contextType"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="5">
+                        <queries:Block initialCapacity="6">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
                                     <semantics:Name value="name"/>
@@ -4799,7 +4864,13 @@
                                         <commons:VarName value="patternName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <models:Types initialCapacity="0"/>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Type"/>
+                                        <commons:VarName value="supertypeName"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:Types>
                                         <commons:Resolver/>
                                         </models:SimpleEntity>
                                     </commons:StageUpFragment>
@@ -4811,9 +4882,57 @@
                                     </semantics:FunctionApplication>
                                 </queries:Path>
                                 <queries:SelfStep/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:VariableTest value="supertypeName"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
                                 <queries:TemplateNames/>
                             </queries:Select>
+                            <queries:For>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#AnyType"/>
+                                        </queries:Or>
+                                        <queries:VariableTest value="contextType"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:SubtypesOf xmlns:models="http://lang.whole.org/Models">
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:Types>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ForeignType"/>
+                                        <commons:VarName value="contextType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:SubtypesOf>
+                                    </commons:StageUpFragment>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="atModelTypeRelationsPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                            </queries:For>
                             <queries:For>
                                 <queries:Path initialCapacity="2">
                                     <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#types"/>
@@ -4866,12 +4985,14 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Enumeration"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:Names initialCapacity="5">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="enumValue"/>
+                            <queries:Name value="supertypeName"/>
+                            <queries:Name value="contextType"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="3">
+                        <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
                                     <semantics:Name value="name"/>
@@ -4891,7 +5012,13 @@
                                         <commons:VarName value="patternName"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        <models:Types initialCapacity="0"/>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Type"/>
+                                        <commons:VarName value="supertypeName"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:Types>
                                         <models:EnumValues initialCapacity="1">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Models#EnumValue"/>
@@ -4909,16 +5036,180 @@
                                     </semantics:FunctionApplication>
                                 </queries:Path>
                                 <queries:SelfStep/>
-                                <queries:Path initialCapacity="3">
-                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#values"/>
-                                    <queries:ChildStep/>
-                                    <queries:Filter>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:VariableTest value="supertypeName"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#values"/>
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#value"/>
                                         <queries:VariableTest value="enumValue"/>
-                                    </queries:Filter>
-                                </queries:Path>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:Sequence>
                                 <queries:TemplateNames/>
                             </queries:Select>
+                            <queries:For>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#AnyType"/>
+                                        </queries:Or>
+                                        <queries:VariableTest value="contextType"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:SubtypesOf xmlns:models="http://lang.whole.org/Models">
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:Types>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ForeignType"/>
+                                        <commons:VarName value="contextType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:SubtypesOf>
+                                    </commons:StageUpFragment>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="atModelTypeRelationsPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                            </queries:For>
+                            <queries:VoidLiteral/>
+                        </queries:Block>
+                    </queries:Scope>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Data"/>
+                    <queries:Scope>
+                        <queries:Names initialCapacity="5">
+                            <queries:Name value="elementType"/>
+                            <queries:Name value="patternName"/>
+                            <queries:Name value="dataType"/>
+                            <queries:Name value="supertypeName"/>
+                            <queries:Name value="contextType"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="4">
+                            <queries:Filter>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="name"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:VariableTest value="patternName"/>
+                            </queries:Filter>
+                            <queries:Select>
+                                <queries:Path initialCapacity="2">
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:DataEntity xmlns:models="http://lang.whole.org/Models">
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Type"/>
+                                        <commons:VarName value="supertypeName"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:Variable>
+                                        </models:Types>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#DataType"/>
+                                        <commons:VarName value="dataType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:DataEntity>
+                                    </commons:StageUpFragment>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="atModelDeclarationsPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                                <queries:SelfStep/>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Name"/>
+                                        <queries:VariableTest value="supertypeName"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#dataType"/>
+                                        <queries:VariableTest value="dataType"/>
+                                    </queries:Filter>
+                                </queries:Sequence>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                            <queries:For>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#supertypes"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#AnyType"/>
+                                        </queries:Or>
+                                        <queries:VariableTest value="contextType"/>
+                                        </queries:And>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:SubtypesOf xmlns:models="http://lang.whole.org/Models">
+                                        <models:Types initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="patternName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:Types>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#ForeignType"/>
+                                        <commons:VarName value="contextType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </models:SubtypesOf>
+                                    </commons:StageUpFragment>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="atModelTypeRelationsPoint"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                </queries:Path>
+                            </queries:For>
                             <queries:VoidLiteral/>
                         </queries:Block>
                     </queries:Scope>

@@ -1,10 +1,13 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface InsertionPoint extends IPatternsEntity, VariationPoint {
-	public Name getName();
 
-	public void setName(Name name);
+
+    public Name getName();
+
+    public void setName(Name name);
 }

@@ -6,22 +6,21 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class TypesImpl extends AbstractListCompositeEntity<Type> implements
-		Types {
-	private static final long serialVersionUID = 1;
+public class TypesImpl extends AbstractListCompositeEntity<Type> implements Types {
+    private static final long serialVersionUID = 1;
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.Types_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.Types_ord;
+    }
 
-	public EntityDescriptor<Types> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Types;
-	}
+    public EntityDescriptor<Types> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Types;
+    }
 }

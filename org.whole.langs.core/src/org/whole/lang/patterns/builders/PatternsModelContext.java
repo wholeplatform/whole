@@ -4,219 +4,236 @@ import org.whole.lang.contexts.EntityContext;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class PatternsModelContext extends EntityContext {
-	public PatternsModelContext(IEntity root) {
-		super(root);
-	}
 
-	public PatternsModelContext getUri() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.uri);
-	}
+    public PatternsModelContext(IEntity root) {
+        super(root);
+    }
 
-	public void setUri(PatternsModelContext uri) {
-		wSet(PatternsFeatureDescriptorEnum.uri, uri);
-	}
+    public PatternsModelContext getUri() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.uri);
+    }
 
-	public PatternsModelContext getNamespace() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.namespace);
-	}
+    public void setUri(PatternsModelContext uri) {
+        wSet(PatternsFeatureDescriptorEnum.uri, uri);
+    }
 
-	public void setNamespace(PatternsModelContext namespace) {
-		wSet(PatternsFeatureDescriptorEnum.namespace, namespace);
-	}
+    public PatternsModelContext getNamespace() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.namespace);
+    }
 
-	public PatternsModelContext getName() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.name);
-	}
+    public void setNamespace(PatternsModelContext namespace) {
+        wSet(PatternsFeatureDescriptorEnum.namespace, namespace);
+    }
 
-	public void setName(PatternsModelContext name) {
-		wSet(PatternsFeatureDescriptorEnum.name, name);
-	}
+    public PatternsModelContext getName() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.name);
+    }
 
-	public PatternsModelContext getVersion() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.version);
-	}
+    public void setName(PatternsModelContext name) {
+        wSet(PatternsFeatureDescriptorEnum.name, name);
+    }
 
-	public void setVersion(PatternsModelContext version) {
-		wSet(PatternsFeatureDescriptorEnum.version, version);
-	}
+    public PatternsModelContext getVersion() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.version);
+    }
 
-	public PatternsModelContext getPatterns() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.patterns);
-	}
+    public void setVersion(PatternsModelContext version) {
+        wSet(PatternsFeatureDescriptorEnum.version, version);
+    }
 
-	public void setPatterns(PatternsModelContext patterns) {
-		wSet(PatternsFeatureDescriptorEnum.patterns, patterns);
-	}
+    public PatternsModelContext getPatterns() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.patterns);
+    }
 
-	public PatternsModelContext getDeclarations() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.declarations);
-	}
+    public void setPatterns(PatternsModelContext patterns) {
+        wSet(PatternsFeatureDescriptorEnum.patterns, patterns);
+    }
 
-	public void setDeclarations(PatternsModelContext declarations) {
-		wSet(PatternsFeatureDescriptorEnum.declarations, declarations);
-	}
+    public PatternsModelContext getDeclarations() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.declarations);
+    }
 
-	public PatternsModelContext getResultTypes() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.resultTypes);
-	}
+    public void setDeclarations(PatternsModelContext declarations) {
+        wSet(PatternsFeatureDescriptorEnum.declarations, declarations);
+    }
 
-	public void setResultTypes(PatternsModelContext resultTypes) {
-		wSet(PatternsFeatureDescriptorEnum.resultTypes, resultTypes);
-	}
+    public PatternsModelContext getResultTypes() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.resultTypes);
+    }
 
-	public PatternsModelContext getTemplate() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.template);
-	}
+    public void setResultTypes(PatternsModelContext resultTypes) {
+        wSet(PatternsFeatureDescriptorEnum.resultTypes, resultTypes);
+    }
 
-	public void setTemplate(PatternsModelContext template) {
-		wSet(PatternsFeatureDescriptorEnum.template, template);
-	}
+    public PatternsModelContext getTemplate() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.template);
+    }
 
-	public PatternsModelContext getArguments() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.arguments);
-	}
+    public void setTemplate(PatternsModelContext template) {
+        wSet(PatternsFeatureDescriptorEnum.template, template);
+    }
 
-	public void setArguments(PatternsModelContext arguments) {
-		wSet(PatternsFeatureDescriptorEnum.arguments, arguments);
-	}
+    public PatternsModelContext getType() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.type);
+    }
 
-	public PatternsModelContext getResultType() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.resultType);
-	}
+    public void setType(PatternsModelContext type) {
+        wSet(PatternsFeatureDescriptorEnum.type, type);
+    }
 
-	public void setResultType(PatternsModelContext resultType) {
-		wSet(PatternsFeatureDescriptorEnum.resultType, resultType);
-	}
+    public PatternsModelContext getSupertypes() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.supertypes);
+    }
 
-	public PatternsModelContext getOptional() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.optional);
-	}
+    public void setSupertypes(PatternsModelContext supertypes) {
+        wSet(PatternsFeatureDescriptorEnum.supertypes, supertypes);
+    }
 
-	public void setOptional(PatternsModelContext optional) {
-		wSet(PatternsFeatureDescriptorEnum.optional, optional);
-	}
+    public PatternsModelContext getTypes() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.types);
+    }
 
-	public PatternsModelContext getAdapter() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.adapter);
-	}
+    public void setTypes(PatternsModelContext types) {
+        wSet(PatternsFeatureDescriptorEnum.types, types);
+    }
 
-	public void setAdapter(PatternsModelContext adapter) {
-		wSet(PatternsFeatureDescriptorEnum.adapter, adapter);
-	}
+    public PatternsModelContext getResultType() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.resultType);
+    }
 
-	public PatternsModelContext getType() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.type);
-	}
+    public void setResultType(PatternsModelContext resultType) {
+        wSet(PatternsFeatureDescriptorEnum.resultType, resultType);
+    }
 
-	public void setType(PatternsModelContext type) {
-		wSet(PatternsFeatureDescriptorEnum.type, type);
-	}
+    public PatternsModelContext getValues() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.values);
+    }
 
-	public PatternsModelContext getWeaver() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.weaver);
-	}
+    public void setValues(PatternsModelContext values) {
+        wSet(PatternsFeatureDescriptorEnum.values, values);
+    }
 
-	public void setWeaver(PatternsModelContext weaver) {
-		wSet(PatternsFeatureDescriptorEnum.weaver, weaver);
-	}
+    public PatternsModelContext getValue() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.value);
+    }
 
-	public PatternsModelContext getContext() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.context);
-	}
+    public void setValue(PatternsModelContext value) {
+        wSet(PatternsFeatureDescriptorEnum.value, value);
+    }
 
-	public void setContext(PatternsModelContext context) {
-		wSet(PatternsFeatureDescriptorEnum.context, context);
-	}
+    public PatternsModelContext getResult() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.result);
+    }
 
-	public PatternsModelContext getExpression() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.expression);
-	}
+    public void setResult(PatternsModelContext result) {
+        wSet(PatternsFeatureDescriptorEnum.result, result);
+    }
 
-	public void setExpression(PatternsModelContext expression) {
-		wSet(PatternsFeatureDescriptorEnum.expression, expression);
-	}
+    public PatternsModelContext getDataType() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.dataType);
+    }
 
-	public PatternsModelContext getCondition() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.condition);
-	}
+    public void setDataType(PatternsModelContext dataType) {
+        wSet(PatternsFeatureDescriptorEnum.dataType, dataType);
+    }
 
-	public void setCondition(PatternsModelContext condition) {
-		wSet(PatternsFeatureDescriptorEnum.condition, condition);
-	}
+    public PatternsModelContext getArguments() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.arguments);
+    }
 
-	public PatternsModelContext getIterator() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.iterator);
-	}
+    public void setArguments(PatternsModelContext arguments) {
+        wSet(PatternsFeatureDescriptorEnum.arguments, arguments);
+    }
 
-	public void setIterator(PatternsModelContext iterator) {
-		wSet(PatternsFeatureDescriptorEnum.iterator, iterator);
-	}
+    public PatternsModelContext getOptional() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.optional);
+    }
 
-	public PatternsModelContext getApplicationTypes() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.applicationTypes);
-	}
+    public void setOptional(PatternsModelContext optional) {
+        wSet(PatternsFeatureDescriptorEnum.optional, optional);
+    }
 
-	public void setApplicationTypes(PatternsModelContext applicationTypes) {
-		wSet(PatternsFeatureDescriptorEnum.applicationTypes, applicationTypes);
-	}
+    public PatternsModelContext getAdapter() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.adapter);
+    }
 
-	public PatternsModelContext getBody() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.body);
-	}
+    public void setAdapter(PatternsModelContext adapter) {
+        wSet(PatternsFeatureDescriptorEnum.adapter, adapter);
+    }
 
-	public void setBody(PatternsModelContext body) {
-		wSet(PatternsFeatureDescriptorEnum.body, body);
-	}
+    public PatternsModelContext getWeaver() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.weaver);
+    }
 
-	public PatternsModelContext getTypes() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.types);
-	}
+    public void setWeaver(PatternsModelContext weaver) {
+        wSet(PatternsFeatureDescriptorEnum.weaver, weaver);
+    }
 
-	public void setTypes(PatternsModelContext types) {
-		wSet(PatternsFeatureDescriptorEnum.types, types);
-	}
+    public PatternsModelContext getContext() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.context);
+    }
 
-	public PatternsModelContext getValues() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.values);
-	}
+    public void setContext(PatternsModelContext context) {
+        wSet(PatternsFeatureDescriptorEnum.context, context);
+    }
 
-	public void setValues(PatternsModelContext values) {
-		wSet(PatternsFeatureDescriptorEnum.values, values);
-	}
+    public PatternsModelContext getExpression() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.expression);
+    }
 
-	public PatternsModelContext getValue() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.value);
-	}
+    public void setExpression(PatternsModelContext expression) {
+        wSet(PatternsFeatureDescriptorEnum.expression, expression);
+    }
 
-	public void setValue(PatternsModelContext value) {
-		wSet(PatternsFeatureDescriptorEnum.value, value);
-	}
+    public PatternsModelContext getCondition() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.condition);
+    }
 
-	public PatternsModelContext getResult() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.result);
-	}
+    public void setCondition(PatternsModelContext condition) {
+        wSet(PatternsFeatureDescriptorEnum.condition, condition);
+    }
 
-	public void setResult(PatternsModelContext result) {
-		wSet(PatternsFeatureDescriptorEnum.result, result);
-	}
+    public PatternsModelContext getIterator() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.iterator);
+    }
 
-	public PatternsModelContext getPath() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.path);
-	}
+    public void setIterator(PatternsModelContext iterator) {
+        wSet(PatternsFeatureDescriptorEnum.iterator, iterator);
+    }
 
-	public void setPath(PatternsModelContext path) {
-		wSet(PatternsFeatureDescriptorEnum.path, path);
-	}
+    public PatternsModelContext getApplicationTypes() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.applicationTypes);
+    }
 
-	public PatternsModelContext getPlacement() {
-		return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.placement);
-	}
+    public void setApplicationTypes(PatternsModelContext applicationTypes) {
+        wSet(PatternsFeatureDescriptorEnum.applicationTypes, applicationTypes);
+    }
 
-	public void setPlacement(PatternsModelContext placement) {
-		wSet(PatternsFeatureDescriptorEnum.placement, placement);
-	}
+    public PatternsModelContext getBody() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.body);
+    }
+
+    public void setBody(PatternsModelContext body) {
+        wSet(PatternsFeatureDescriptorEnum.body, body);
+    }
+
+    public PatternsModelContext getPath() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.path);
+    }
+
+    public void setPath(PatternsModelContext path) {
+        wSet(PatternsFeatureDescriptorEnum.path, path);
+    }
+
+    public PatternsModelContext getPlacement() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.placement);
+    }
+
+    public void setPlacement(PatternsModelContext placement) {
+        wSet(PatternsFeatureDescriptorEnum.placement, placement);
+    }
 }

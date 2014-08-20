@@ -7,33 +7,33 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class URIAdapter extends AbstractEntityAdapter implements URI {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public URIAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public URIAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public URIAdapter() {
-	}
+    public URIAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<URI> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.URI;
-	}
+    public EntityDescriptor<URI> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.URI;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

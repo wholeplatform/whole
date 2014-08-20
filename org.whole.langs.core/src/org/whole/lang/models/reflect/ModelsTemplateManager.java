@@ -36,7 +36,6 @@ import org.whole.lang.models.codebase.ModelsInfoModel;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.codebase.ORMModel;
 import org.whole.lang.models.codebase.OperationsModel;
-import org.whole.lang.models.codebase.PatternsModel;
 import org.whole.lang.models.codebase.PojoModel;
 import org.whole.lang.models.codebase.PresentationModel;
 import org.whole.lang.models.codebase.ProcessGraphModel;
@@ -124,7 +123,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Tests model", new TestsModel());
 		put("Types model", new TypesModel());
 		put("Libraries model", new LibrariesModel());
-		put("Patterns model", new PatternsModel());
 
 		put("Maps model", new MapsModel());
 		put("Topics model", new TopicsModel());

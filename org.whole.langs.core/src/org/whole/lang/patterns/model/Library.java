@@ -1,26 +1,29 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Library extends IPatternsEntity {
-	public URI getUri();
 
-	public void setUri(URI uri);
 
-	public Namespace getNamespace();
+    public URI getUri();
 
-	public void setNamespace(Namespace namespace);
+    public void setUri(URI uri);
 
-	public Name getName();
+    public Namespace getNamespace();
 
-	public void setName(Name name);
+    public void setNamespace(Namespace namespace);
 
-	public Version getVersion();
+    public Name getName();
 
-	public void setVersion(Version version);
+    public void setName(Name name);
 
-	public Declarations getDeclarations();
+    public Version getVersion();
 
-	public void setDeclarations(Declarations declarations);
+    public void setVersion(Version version);
+
+    public Declarations getDeclarations();
+
+    public void setDeclarations(Declarations declarations);
 }

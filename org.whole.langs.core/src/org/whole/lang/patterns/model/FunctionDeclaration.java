@@ -1,18 +1,21 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface FunctionDeclaration extends IPatternsEntity, Declaration {
-	public ResultTypes getApplicationTypes();
 
-	public void setApplicationTypes(ResultTypes applicationTypes);
 
-	public Name getName();
+    public ResultTypes getApplicationTypes();
 
-	public void setName(Name name);
+    public void setApplicationTypes(ResultTypes applicationTypes);
 
-	public Expression getBody();
+    public Name getName();
 
-	public void setBody(Expression body);
+    public void setName(Name name);
+
+    public Expression getBody();
+
+    public void setBody(Expression body);
 }

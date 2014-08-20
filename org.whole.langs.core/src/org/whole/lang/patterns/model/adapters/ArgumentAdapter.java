@@ -7,25 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class ArgumentAdapter extends AbstractEntityAdapter implements Argument {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public ArgumentAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ArgumentAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ArgumentAdapter() {
-	}
+    public ArgumentAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Argument> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Argument;
-	}
+    public EntityDescriptor<Argument> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Argument;
+    }
 }

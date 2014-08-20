@@ -7,26 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SelectionPointAdapter extends
-		AbstractListEntityAdapter<ConditionPoint> implements SelectionPoint {
-	private static final long serialVersionUID = 1;
+public class SelectionPointAdapter extends AbstractListEntityAdapter<ConditionPoint> implements SelectionPoint {
+    private static final long serialVersionUID = 1;
 
-	public SelectionPointAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SelectionPointAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SelectionPointAdapter() {
-	}
+    public SelectionPointAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<SelectionPoint> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.SelectionPoint;
-	}
+    public EntityDescriptor<SelectionPoint> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.SelectionPoint;
+    }
 }

@@ -8,44 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class EnumValueAdapter extends AbstractEntityAdapter implements
-		EnumValue {
-	private static final long serialVersionUID = 1;
+public class EnumValueAdapter extends AbstractEntityAdapter implements EnumValue {
+    private static final long serialVersionUID = 1;
 
-	public EnumValueAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public EnumValueAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public EnumValueAdapter() {
-	}
+    public EnumValueAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<EnumValue> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.EnumValue;
-	}
+    public EntityDescriptor<EnumValue> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.EnumValue;
+    }
 
-	public Name getValue() {
-		return wGet(PatternsFeatureDescriptorEnum.value).wGetAdapter(
-				PatternsEntityDescriptorEnum.Name);
-	}
+    public Name getValue() {
+        return wGet(PatternsFeatureDescriptorEnum.value).wGetAdapter(PatternsEntityDescriptorEnum.Name);
+    }
 
-	public void setValue(Name value) {
-		wSet(PatternsFeatureDescriptorEnum.value, value);
-	}
+    public void setValue(Name value) {
+        wSet(PatternsFeatureDescriptorEnum.value, value);
+    }
 
-	public Name getResult() {
-		return wGet(PatternsFeatureDescriptorEnum.result).wGetAdapter(
-				PatternsEntityDescriptorEnum.Name);
-	}
+    public Name getResult() {
+        return wGet(PatternsFeatureDescriptorEnum.result).wGetAdapter(PatternsEntityDescriptorEnum.Name);
+    }
 
-	public void setResult(Name result) {
-		wSet(PatternsFeatureDescriptorEnum.result, result);
-	}
+    public void setResult(Name result) {
+        wSet(PatternsFeatureDescriptorEnum.result, result);
+    }
 }

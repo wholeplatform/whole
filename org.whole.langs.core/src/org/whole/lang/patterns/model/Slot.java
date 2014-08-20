@@ -1,26 +1,29 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Slot extends IPatternsEntity, VariationPoint {
-	public Name getName();
 
-	public void setName(Name name);
 
-	public BooleanValue getOptional();
+    public Name getName();
 
-	public void setOptional(BooleanValue optional);
+    public void setName(Name name);
 
-	public PathExpression getAdapter();
+    public BooleanValue getOptional();
 
-	public void setAdapter(PathExpression adapter);
+    public void setOptional(BooleanValue optional);
 
-	public Type getType();
+    public PathExpression getAdapter();
 
-	public void setType(Type type);
+    public void setAdapter(PathExpression adapter);
 
-	public Type getResultType();
+    public Type getType();
 
-	public void setResultType(Type resultType);
+    public void setType(Type type);
+
+    public Type getResultType();
+
+    public void setResultType(Type resultType);
 }

@@ -6,47 +6,46 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class JoinPointStepImpl extends AbstractDataEntity implements
-		JoinPointStep {
-	private static final long serialVersionUID = 1;
-	private String value;
+public class JoinPointStepImpl extends AbstractDataEntity implements JoinPointStep {
+    private static final long serialVersionUID = 1;
+    private String value;
 
-	public String getValue() {
-		return notifyRequested(value);
-	}
+    public String getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(String value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(String value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.JoinPointStep_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.JoinPointStep_ord;
+    }
 
-	public EntityDescriptor<JoinPointStep> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.JoinPointStep;
-	}
+    public EntityDescriptor<JoinPointStep> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.JoinPointStep;
+    }
 
-	public Object wGetValue() {
-		return getValue();
-	}
+    public Object wGetValue() {
+        return getValue();
+    }
 
-	public void wSetValue(Object value) {
-		setValue((String) value);
-	}
+    public void wSetValue(Object value) {
+        setValue((String) value);
+    }
 
-	public String wStringValue() {
-		return getValue();
-	}
+    public String wStringValue() {
+        return getValue();
+    }
 
-	public void wSetValue(String value) {
-		setValue(value);
-	}
+    public void wSetValue(String value) {
+        setValue(value);
+    }
 }

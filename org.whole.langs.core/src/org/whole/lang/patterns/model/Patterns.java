@@ -2,8 +2,9 @@ package org.whole.lang.patterns.model;
 
 import java.util.List;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public interface Patterns extends IPatternsEntity, List<Pattern> {
+public interface Patterns extends IPatternsEntity, List<PatternOrTypeDeclaration> {
+
 }

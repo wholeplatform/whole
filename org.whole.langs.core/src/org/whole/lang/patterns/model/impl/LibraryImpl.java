@@ -8,123 +8,109 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class LibraryImpl extends AbstractSimpleEntity implements Library {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<Library> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Library;
-	}
+    public EntityDescriptor<Library> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Library;
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.Library_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.Library_ord;
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
+    private URI uri;
 
-	private URI uri;
+    public URI getUri() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.uri, uri);
+    }
 
-	public URI getUri() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.uri, uri);
-	}
+    public void setUri(URI uri) {
+        notifyChanged(PatternsFeatureDescriptorEnum.uri, this.uri, this.uri = uri);
+    }
+    private Namespace namespace;
 
-	public void setUri(URI uri) {
-		notifyChanged(PatternsFeatureDescriptorEnum.uri, this.uri,
-				this.uri = uri);
-	}
+    public Namespace getNamespace() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.namespace, namespace);
+    }
 
-	private Namespace namespace;
+    public void setNamespace(Namespace namespace) {
+        notifyChanged(PatternsFeatureDescriptorEnum.namespace, this.namespace, this.namespace = namespace);
+    }
+    private Name name;
 
-	public Namespace getNamespace() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.namespace,
-				namespace);
-	}
+    public Name getName() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
+    }
 
-	public void setNamespace(Namespace namespace) {
-		notifyChanged(PatternsFeatureDescriptorEnum.namespace, this.namespace,
-				this.namespace = namespace);
-	}
+    public void setName(Name name) {
+        notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Version version;
 
-	private Name name;
+    public Version getVersion() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.version, version);
+    }
 
-	public Name getName() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
-	}
+    public void setVersion(Version version) {
+        notifyChanged(PatternsFeatureDescriptorEnum.version, this.version, this.version = version);
+    }
+    private Declarations declarations;
 
-	public void setName(Name name) {
-		notifyChanged(PatternsFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Declarations getDeclarations() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.declarations, declarations);
+    }
 
-	private Version version;
+    public void setDeclarations(Declarations declarations) {
+        notifyChanged(PatternsFeatureDescriptorEnum.declarations, this.declarations, this.declarations = declarations);
+    }
 
-	public Version getVersion() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.version, version);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getUri().wGetAdaptee(false);
+            case 1 :
+            return getNamespace().wGetAdaptee(false);
+            case 2 :
+            return getName().wGetAdaptee(false);
+            case 3 :
+            return getVersion().wGetAdaptee(false);
+            case 4 :
+            return getDeclarations().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setVersion(Version version) {
-		notifyChanged(PatternsFeatureDescriptorEnum.version, this.version,
-				this.version = version);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setUri(value.wGetAdapter(PatternsEntityDescriptorEnum.URI));
+            break;
+            case 1 :
+            setNamespace(value.wGetAdapter(PatternsEntityDescriptorEnum.Namespace));
+            break;
+            case 2 :
+            setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
+            break;
+            case 3 :
+            setVersion(value.wGetAdapter(PatternsEntityDescriptorEnum.Version));
+            break;
+            case 4 :
+            setDeclarations(value.wGetAdapter(PatternsEntityDescriptorEnum.Declarations));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	private Declarations declarations;
-
-	public Declarations getDeclarations() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.declarations,
-				declarations);
-	}
-
-	public void setDeclarations(Declarations declarations) {
-		notifyChanged(PatternsFeatureDescriptorEnum.declarations,
-				this.declarations, this.declarations = declarations);
-	}
-
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getUri().wGetAdaptee(false);
-		case 1:
-			return getNamespace().wGetAdaptee(false);
-		case 2:
-			return getName().wGetAdaptee(false);
-		case 3:
-			return getVersion().wGetAdaptee(false);
-		case 4:
-			return getDeclarations().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setUri(value.wGetAdapter(PatternsEntityDescriptorEnum.URI));
-			break;
-		case 1:
-			setNamespace(value
-					.wGetAdapter(PatternsEntityDescriptorEnum.Namespace));
-			break;
-		case 2:
-			setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
-			break;
-		case 3:
-			setVersion(value.wGetAdapter(PatternsEntityDescriptorEnum.Version));
-			break;
-		case 4:
-			setDeclarations(value
-					.wGetAdapter(PatternsEntityDescriptorEnum.Declarations));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 5;
-	}
+    public int wSize() {
+        return 5;
+    }
 }

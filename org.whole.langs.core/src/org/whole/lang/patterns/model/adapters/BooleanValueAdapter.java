@@ -7,34 +7,33 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class BooleanValueAdapter extends AbstractEntityAdapter implements
-		BooleanValue {
-	private static final long serialVersionUID = 1;
+public class BooleanValueAdapter extends AbstractEntityAdapter implements BooleanValue {
+    private static final long serialVersionUID = 1;
 
-	public BooleanValueAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public BooleanValueAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public BooleanValueAdapter() {
-	}
+    public BooleanValueAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<BooleanValue> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.BooleanValue;
-	}
+    public EntityDescriptor<BooleanValue> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.BooleanValue;
+    }
 
-	public boolean isValue() {
-		return wBooleanValue();
-	}
+    public boolean isValue() {
+        return wBooleanValue();
+    }
 
-	public void setValue(boolean value) {
-		wSetValue(value);
-	}
+    public void setValue(boolean value) {
+        wSetValue(value);
+    }
 }

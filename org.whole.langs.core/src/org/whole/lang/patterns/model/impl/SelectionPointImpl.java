@@ -6,22 +6,21 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SelectionPointImpl extends
-		AbstractListCompositeEntity<ConditionPoint> implements SelectionPoint {
-	private static final long serialVersionUID = 1;
+public class SelectionPointImpl extends AbstractListCompositeEntity<ConditionPoint> implements SelectionPoint {
+    private static final long serialVersionUID = 1;
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.SelectionPoint_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.SelectionPoint_ord;
+    }
 
-	public EntityDescriptor<SelectionPoint> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.SelectionPoint;
-	}
+    public EntityDescriptor<SelectionPoint> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.SelectionPoint;
+    }
 }

@@ -8,71 +8,81 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class RepetitionImpl extends AbstractSimpleEntity implements Repetition {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<Repetition> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Repetition;
-	}
+    public EntityDescriptor<Repetition> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Repetition;
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.Repetition_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.Repetition_ord;
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
+    private Name name;
 
-	private Name name;
+    public Name getName() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
+    }
 
-	public Name getName() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.name, name);
-	}
+    public void setName(Name name) {
+        notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Type type;
 
-	public void setName(Name name) {
-		notifyChanged(PatternsFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Type getType() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.type, type);
+    }
 
-	private Type type;
+    public void setType(Type type) {
+        notifyChanged(PatternsFeatureDescriptorEnum.type, this.type, this.type = type);
+    }
+    private ResultTypes supertypes;
 
-	public Type getType() {
-		return notifyRequested(PatternsFeatureDescriptorEnum.type, type);
-	}
+    public ResultTypes getSupertypes() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.supertypes, supertypes);
+    }
 
-	public void setType(Type type) {
-		notifyChanged(PatternsFeatureDescriptorEnum.type, this.type,
-				this.type = type);
-	}
+    public void setSupertypes(ResultTypes supertypes) {
+        notifyChanged(PatternsFeatureDescriptorEnum.supertypes, this.supertypes, this.supertypes = supertypes);
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getName().wGetAdaptee(false);
-		case 1:
-			return getType().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getName().wGetAdaptee(false);
+            case 1 :
+            return getType().wGetAdaptee(false);
+            case 2 :
+            return getSupertypes().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
-			break;
-		case 1:
-			setType(value.wGetAdapter(PatternsEntityDescriptorEnum.Type));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
+            break;
+            case 1 :
+            setType(value.wGetAdapter(PatternsEntityDescriptorEnum.Type));
+            break;
+            case 2 :
+            setSupertypes(value.wGetAdapter(PatternsEntityDescriptorEnum.ResultTypes));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 3;
+    }
 }

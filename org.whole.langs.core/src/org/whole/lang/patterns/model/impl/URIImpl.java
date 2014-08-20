@@ -6,46 +6,46 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class URIImpl extends AbstractDataEntity implements URI {
-	private static final long serialVersionUID = 1;
-	private String value;
+    private static final long serialVersionUID = 1;
+    private String value;
 
-	public String getValue() {
-		return notifyRequested(value);
-	}
+    public String getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(String value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(String value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return PatternsEntityDescriptorEnum.URI_ord;
-	}
+    public int wGetEntityOrd() {
+        return PatternsEntityDescriptorEnum.URI_ord;
+    }
 
-	public EntityDescriptor<URI> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.URI;
-	}
+    public EntityDescriptor<URI> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.URI;
+    }
 
-	public Object wGetValue() {
-		return getValue();
-	}
+    public Object wGetValue() {
+        return getValue();
+    }
 
-	public void wSetValue(Object value) {
-		setValue((String) value);
-	}
+    public void wSetValue(Object value) {
+        setValue((String) value);
+    }
 
-	public String wStringValue() {
-		return getValue();
-	}
+    public String wStringValue() {
+        return getValue();
+    }
 
-	public void wSetValue(String value) {
-		setValue(value);
-	}
+    public void wSetValue(String value) {
+        setValue(value);
+    }
 }

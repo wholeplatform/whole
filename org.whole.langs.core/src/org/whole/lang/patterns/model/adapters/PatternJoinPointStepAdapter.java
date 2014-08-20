@@ -7,26 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PatternJoinPointStepAdapter extends AbstractEntityAdapter
-		implements PatternJoinPointStep {
-	private static final long serialVersionUID = 1;
+public class PatternJoinPointStepAdapter extends AbstractEntityAdapter implements PatternJoinPointStep {
+    private static final long serialVersionUID = 1;
 
-	public PatternJoinPointStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PatternJoinPointStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PatternJoinPointStepAdapter() {
-	}
+    public PatternJoinPointStepAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<PatternJoinPointStep> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.PatternJoinPointStep;
-	}
+    public EntityDescriptor<PatternJoinPointStep> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.PatternJoinPointStep;
+    }
 }

@@ -7,26 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SequencePointAdapter extends AbstractListEntityAdapter<Template>
-		implements SequencePoint {
-	private static final long serialVersionUID = 1;
+public class SequencePointAdapter extends AbstractListEntityAdapter<Template> implements SequencePoint {
+    private static final long serialVersionUID = 1;
 
-	public SequencePointAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SequencePointAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SequencePointAdapter() {
-	}
+    public SequencePointAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<SequencePoint> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.SequencePoint;
-	}
+    public EntityDescriptor<SequencePoint> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.SequencePoint;
+    }
 }

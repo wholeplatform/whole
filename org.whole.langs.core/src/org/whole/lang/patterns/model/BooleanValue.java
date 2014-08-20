@@ -1,10 +1,13 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface BooleanValue extends IPatternsEntity {
-	public boolean isValue();
 
-	public void setValue(boolean value);
+
+    public boolean isValue();
+
+    public void setValue(boolean value);
 }

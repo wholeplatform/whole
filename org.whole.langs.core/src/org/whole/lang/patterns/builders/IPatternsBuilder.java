@@ -3,345 +3,361 @@ package org.whole.lang.patterns.builders;
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.patterns.model.PlacementEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public interface IPatternsBuilder extends IBuilder {
-	public void visit();
 
-	public void placement();
 
-	public void path();
+    public void visit();
 
-	public void result();
+    public void placement();
 
-	public void value();
+    public void path();
 
-	public void values();
+    public void body();
 
-	public void types();
+    public void applicationTypes();
 
-	public void body();
+    public void iterator();
 
-	public void applicationTypes();
+    public void condition();
 
-	public void iterator();
+    public void expression();
 
-	public void condition();
+    public void context();
 
-	public void expression();
+    public void weaver();
 
-	public void context();
+    public void adapter();
 
-	public void weaver();
+    public void optional();
 
-	public void type();
+    public void arguments();
 
-	public void adapter();
+    public void dataType();
 
-	public void optional();
+    public void result();
 
-	public void resultType();
+    public void value();
 
-	public void arguments();
+    public void values();
 
-	public void template();
+    public void resultType();
 
-	public void resultTypes();
+    public void types();
 
-	public void declarations();
+    public void supertypes();
 
-	public void patterns();
+    public void type();
 
-	public void version();
+    public void template();
 
-	public void name();
+    public void resultTypes();
 
-	public void namespace();
+    public void declarations();
 
-	public void uri();
+    public void patterns();
 
-	public void PatternLanguage();
+    public void version();
 
-	public void PatternLanguage_();
+    public void name();
 
-	public void _PatternLanguage();
+    public void namespace();
 
-	public void Patterns();
+    public void uri();
 
-	public void Patterns_();
+    public void PatternLanguage();
 
-	public void Patterns_(int initialCapacity);
+    public void PatternLanguage_();
 
-	public void _Patterns();
+    public void _PatternLanguage();
 
-	public void Library();
+    public void Patterns();
 
-	public void Library_();
+    public void Patterns_();
 
-	public void _Library();
+    public void Patterns_(int initialCapacity);
 
-	public void Pattern();
+    public void _Patterns();
 
-	public void Pattern_();
+    public void Library();
 
-	public void _Pattern();
+    public void Library_();
 
-	public void PatternApplication();
+    public void _Library();
 
-	public void PatternApplication_();
+    public void Pattern();
 
-	public void _PatternApplication();
+    public void Pattern_();
 
-	public void Arguments();
+    public void _Pattern();
 
-	public void Arguments_();
+    public void Repetition();
 
-	public void Arguments_(int initialCapacity);
+    public void Repetition_();
 
-	public void _Arguments();
+    public void _Repetition();
 
-	public void Binding();
+    public void Choice();
 
-	public void Binding_();
+    public void Choice_();
 
-	public void _Binding();
+    public void _Choice();
 
-	public void VariablePoint();
+    public void Enumeration();
 
-	public void VariablePoint_();
+    public void Enumeration_();
 
-	public void _VariablePoint();
+    public void _Enumeration();
 
-	public void FunctionApplicationPoint();
+    public void EnumValues();
 
-	public void FunctionApplicationPoint_();
+    public void EnumValues_();
 
-	public void _FunctionApplicationPoint();
+    public void EnumValues_(int initialCapacity);
 
-	public void Slot();
+    public void _EnumValues();
 
-	public void Slot_();
+    public void EnumValue();
 
-	public void _Slot();
+    public void EnumValue_();
 
-	public void ResultPoint();
+    public void _EnumValue();
 
-	public void ResultPoint_();
+    public void Data();
 
-	public void _ResultPoint();
+    public void Data_();
 
-	public void JoinPoint();
+    public void _Data();
 
-	public void JoinPoint_();
+    public void DataType();
 
-	public void _JoinPoint();
+    public void DataType(String value);
 
-	public void InsertionPoint();
+    public void PatternApplication();
 
-	public void InsertionPoint_();
+    public void PatternApplication_();
 
-	public void _InsertionPoint();
+    public void _PatternApplication();
 
-	public void ScopePoint();
+    public void Arguments();
 
-	public void ScopePoint_();
+    public void Arguments_();
 
-	public void _ScopePoint();
+    public void Arguments_(int initialCapacity);
 
-	public void TemplatePoint();
+    public void _Arguments();
 
-	public void TemplatePoint_();
+    public void Binding();
 
-	public void _TemplatePoint();
+    public void Binding_();
 
-	public void DerivationPoint();
+    public void _Binding();
 
-	public void DerivationPoint_();
+    public void VariablePoint();
 
-	public void _DerivationPoint();
+    public void VariablePoint_();
 
-	public void SelectionPoint();
+    public void _VariablePoint();
 
-	public void SelectionPoint_();
+    public void FunctionApplicationPoint();
 
-	public void SelectionPoint_(int initialCapacity);
+    public void FunctionApplicationPoint_();
 
-	public void _SelectionPoint();
+    public void _FunctionApplicationPoint();
 
-	public void ConditionPoint();
+    public void Slot();
 
-	public void ConditionPoint_();
+    public void Slot_();
 
-	public void _ConditionPoint();
+    public void _Slot();
 
-	public void IterationPoint();
+    public void ResultPoint();
 
-	public void IterationPoint_();
+    public void ResultPoint_();
 
-	public void _IterationPoint();
+    public void _ResultPoint();
 
-	public void SequencePoint();
+    public void JoinPoint();
 
-	public void SequencePoint_();
+    public void JoinPoint_();
 
-	public void SequencePoint_(int initialCapacity);
+    public void _JoinPoint();
 
-	public void _SequencePoint();
+    public void InsertionPoint();
 
-	public void InlinePoint();
+    public void InsertionPoint_();
 
-	public void InlinePoint_();
+    public void _InsertionPoint();
 
-	public void _InlinePoint();
+    public void ScopePoint();
 
-	public void Declarations();
+    public void ScopePoint_();
 
-	public void Declarations_();
+    public void _ScopePoint();
 
-	public void Declarations_(int initialCapacity);
+    public void TemplatePoint();
 
-	public void _Declarations();
+    public void TemplatePoint_();
 
-	public void FunctionDeclaration();
+    public void _TemplatePoint();
 
-	public void FunctionDeclaration_();
+    public void DerivationPoint();
 
-	public void _FunctionDeclaration();
+    public void DerivationPoint_();
 
-	public void PointcutDeclaration();
+    public void _DerivationPoint();
 
-	public void PointcutDeclaration_();
+    public void SelectionPoint();
 
-	public void _PointcutDeclaration();
+    public void SelectionPoint_();
 
-	public void JoinPointDeclaration();
+    public void SelectionPoint_(int initialCapacity);
 
-	public void JoinPointDeclaration_();
+    public void _SelectionPoint();
 
-	public void _JoinPointDeclaration();
+    public void ConditionPoint();
 
-	public void VariableDeclaration();
+    public void ConditionPoint_();
 
-	public void VariableDeclaration_();
+    public void _ConditionPoint();
 
-	public void _VariableDeclaration();
+    public void IterationPoint();
 
-	public void Types();
+    public void IterationPoint_();
 
-	public void Types_();
+    public void _IterationPoint();
 
-	public void Types_(int initialCapacity);
+    public void SequencePoint();
 
-	public void _Types();
+    public void SequencePoint_();
 
-	public void ResultTypes();
+    public void SequencePoint_(int initialCapacity);
 
-	public void ResultTypes_();
+    public void _SequencePoint();
 
-	public void ResultTypes_(int initialCapacity);
+    public void InlinePoint();
 
-	public void _ResultTypes();
+    public void InlinePoint_();
 
-	public void Repetition();
+    public void _InlinePoint();
 
-	public void Repetition_();
+    public void Declarations();
 
-	public void _Repetition();
+    public void Declarations_();
 
-	public void Choice();
+    public void Declarations_(int initialCapacity);
 
-	public void Choice_();
+    public void _Declarations();
 
-	public void _Choice();
+    public void FunctionDeclaration();
 
-	public void Enumeration();
+    public void FunctionDeclaration_();
 
-	public void Enumeration_();
+    public void _FunctionDeclaration();
 
-	public void _Enumeration();
+    public void PointcutDeclaration();
 
-	public void EnumValues();
+    public void PointcutDeclaration_();
 
-	public void EnumValues_();
+    public void _PointcutDeclaration();
 
-	public void EnumValues_(int initialCapacity);
+    public void JoinPointDeclaration();
 
-	public void _EnumValues();
+    public void JoinPointDeclaration_();
 
-	public void EnumValue();
+    public void _JoinPointDeclaration();
 
-	public void EnumValue_();
+    public void VariableDeclaration();
 
-	public void _EnumValue();
+    public void VariableDeclaration_();
 
-	public void Name();
+    public void _VariableDeclaration();
 
-	public void Name(String value);
+    public void Types();
 
-	public void PatternJoinPointStep();
+    public void Types_();
 
-	public void PatternJoinPointStep_();
+    public void Types_(int initialCapacity);
 
-	public void _PatternJoinPointStep();
+    public void _Types();
 
-	public void JoinPointStep();
+    public void ResultTypes();
 
-	public void JoinPointStep(String value);
+    public void ResultTypes_();
 
-	public void PointcutStep();
+    public void ResultTypes_(int initialCapacity);
 
-	public void PointcutStep(String value);
+    public void _ResultTypes();
 
-	public void SlotStep();
+    public void Name();
 
-	public void SlotStep(String value);
+    public void Name(String value);
 
-	public void OuterDefinitionStep();
+    public void PatternJoinPointStep();
 
-	public void OuterDefinitionStep(String value);
+    public void PatternJoinPointStep_();
 
-	public void Cut();
+    public void _PatternJoinPointStep();
 
-	public void Cut_();
+    public void JoinPointStep();
 
-	public void _Cut();
+    public void JoinPointStep(String value);
 
-	public void Insert();
+    public void PointcutStep();
 
-	public void Insert_();
+    public void PointcutStep(String value);
 
-	public void _Insert();
+    public void SlotStep();
 
-	public void SlotsDefined();
+    public void SlotStep(String value);
 
-	public void SlotsDefined_();
+    public void OuterDefinitionStep();
 
-	public void _SlotsDefined();
+    public void OuterDefinitionStep(String value);
 
-	public void PatternTypeTest();
+    public void Cut();
 
-	public void PatternTypeTest(String value);
+    public void Cut_();
 
-	public void Placement();
+    public void _Cut();
 
-	public void Placement(PlacementEnum.Value value);
+    public void Insert();
 
-	public void Placement(String value);
+    public void Insert_();
 
-	public void URI();
+    public void _Insert();
 
-	public void URI(String value);
+    public void SlotsDefined();
 
-	public void Namespace();
+    public void SlotsDefined_();
 
-	public void Namespace(String value);
+    public void _SlotsDefined();
 
-	public void Version();
+    public void PatternTypeTest();
 
-	public void Version(String value);
+    public void PatternTypeTest(String value);
 
-	public void BooleanValue();
+    public void Placement();
 
-	public void BooleanValue(boolean value);
+    public void Placement(PlacementEnum.Value value);
+
+    public void Placement(String value);
+
+    public void URI();
+
+    public void URI(String value);
+
+    public void Namespace();
+
+    public void Namespace(String value);
+
+    public void Version();
+
+    public void Version(String value);
+
+    public void BooleanValue();
+
+    public void BooleanValue(boolean value);
 }

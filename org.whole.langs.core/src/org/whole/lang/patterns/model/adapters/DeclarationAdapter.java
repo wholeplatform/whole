@@ -7,26 +7,25 @@ import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class DeclarationAdapter extends AbstractEntityAdapter implements
-		Declaration {
-	private static final long serialVersionUID = 1;
+public class DeclarationAdapter extends AbstractEntityAdapter implements Declaration {
+    private static final long serialVersionUID = 1;
 
-	public DeclarationAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public DeclarationAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public DeclarationAdapter() {
-	}
+    public DeclarationAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Declaration> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.Declaration;
-	}
+    public EntityDescriptor<Declaration> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Declaration;
+    }
 }

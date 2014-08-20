@@ -23,6 +23,8 @@ import org.whole.lang.patterns.model.BooleanValue;
 import org.whole.lang.patterns.model.Choice;
 import org.whole.lang.patterns.model.ConditionPoint;
 import org.whole.lang.patterns.model.Cut;
+import org.whole.lang.patterns.model.Data;
+import org.whole.lang.patterns.model.DataType;
 import org.whole.lang.patterns.model.Declarations;
 import org.whole.lang.patterns.model.DerivationPoint;
 import org.whole.lang.patterns.model.EnumValue;
@@ -68,11 +70,13 @@ import org.whole.lang.patterns.model.VariablePoint;
 import org.whole.lang.patterns.model.Version;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.PatternsIdentityDefaultVisitor;
+import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
+import org.whole.lang.ui.editparts.LiteralTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
@@ -246,8 +250,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(Types entity) {
-        super.visit(entity);
-        //part = new TypesPart();
+        part = new CommaSeparatedCompositeFlowPart();
     }
 
     @Override
@@ -258,32 +261,38 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(Repetition entity) {
-        super.visit(entity);
-        //part = new RepetitionPart();
+        part = new RepetitionPart();
     }
 
     @Override
     public void visit(Choice entity) {
-        super.visit(entity);
-        //part = new ChoicePart();
+        part = new ChoicePart();
     }
 
     @Override
     public void visit(Enumeration entity) {
-        super.visit(entity);
-        //part = new EnumerationPart();
+        part = new EnumerationPart();
     }
 
     @Override
     public void visit(EnumValues entity) {
-        super.visit(entity);
-        //part = new EnumValuesPart();
+        part = new EnumValuesPart();
     }
 
     @Override
     public void visit(EnumValue entity) {
         super.visit(entity);
         //part = new EnumValuePart();
+    }
+
+    @Override
+    public void visit(Data entity) {
+    	part = new DataPart();
+    }
+
+    @Override
+    public void visit(DataType entity) {
+    	part = new LiteralTextualEntityPart();
     }
 
     @Override
@@ -314,6 +323,9 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			case PatternsEntityDescriptorEnum.PatternLanguage_ord:
 			case PatternsEntityDescriptorEnum.Library_ord:
 				part = new ModuleNameTextualEntityPart();
+				return;
+			case PatternsEntityDescriptorEnum.EnumValue_ord:
+				part = new LiteralTextualEntityPart();
 				return;
 			}
 		}

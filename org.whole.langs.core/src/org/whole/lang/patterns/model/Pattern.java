@@ -1,18 +1,21 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
-public interface Pattern extends IPatternsEntity, Template {
-	public ResultTypes getResultTypes();
+public interface Pattern extends IPatternsEntity, PatternOrTypeDeclaration, Template {
 
-	public void setResultTypes(ResultTypes resultTypes);
 
-	public Name getName();
+    public ResultTypes getResultTypes();
 
-	public void setName(Name name);
+    public void setResultTypes(ResultTypes resultTypes);
 
-	public Template getTemplate();
+    public Name getName();
 
-	public void setTemplate(Template template);
+    public void setName(Name name);
+
+    public Template getTemplate();
+
+    public void setTemplate(Template template);
 }

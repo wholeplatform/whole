@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class InlinePointAdapter extends AbstractEntityAdapter implements
-		InlinePoint {
-	private static final long serialVersionUID = 1;
+public class InlinePointAdapter extends AbstractEntityAdapter implements InlinePoint {
+    private static final long serialVersionUID = 1;
 
-	public InlinePointAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public InlinePointAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public InlinePointAdapter() {
-	}
+    public InlinePointAdapter() {
+    }
 
-	public void accept(IPatternsVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IPatternsVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<InlinePoint> wGetEntityDescriptor() {
-		return PatternsEntityDescriptorEnum.InlinePoint;
-	}
+    public EntityDescriptor<InlinePoint> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.InlinePoint;
+    }
 
-	public Template getTemplate() {
-		return wGet(PatternsFeatureDescriptorEnum.template).wGetAdapter(
-				PatternsEntityDescriptorEnum.Template);
-	}
+    public Template getTemplate() {
+        return wGet(PatternsFeatureDescriptorEnum.template).wGetAdapter(PatternsEntityDescriptorEnum.Template);
+    }
 
-	public void setTemplate(Template template) {
-		wSet(PatternsFeatureDescriptorEnum.template, template);
-	}
+    public void setTemplate(Template template) {
+        wSet(PatternsFeatureDescriptorEnum.template, template);
+    }
 }

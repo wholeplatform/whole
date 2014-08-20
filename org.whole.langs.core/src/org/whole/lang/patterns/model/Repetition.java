@@ -1,14 +1,21 @@
 package org.whole.lang.patterns.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
-public interface Repetition extends IPatternsEntity, Type {
-	public Name getName();
+public interface Repetition extends IPatternsEntity, PatternOrTypeDeclaration, Type {
 
-	public void setName(Name name);
 
-	public Type getType();
+    public Name getName();
 
-	public void setType(Type type);
+    public void setName(Name name);
+
+    public Type getType();
+
+    public void setType(Type type);
+
+    public ResultTypes getSupertypes();
+
+    public void setSupertypes(ResultTypes supertypes);
 }
