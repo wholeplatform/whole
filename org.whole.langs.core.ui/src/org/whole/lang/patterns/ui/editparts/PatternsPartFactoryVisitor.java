@@ -67,6 +67,10 @@ import org.whole.lang.patterns.model.Types;
 import org.whole.lang.patterns.model.URI;
 import org.whole.lang.patterns.model.VariableDeclaration;
 import org.whole.lang.patterns.model.VariablePoint;
+import org.whole.lang.patterns.model.Variant;
+import org.whole.lang.patterns.model.VariantSelectionPoint;
+import org.whole.lang.patterns.model.VariantSelector;
+import org.whole.lang.patterns.model.Variants;
 import org.whole.lang.patterns.model.Version;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.PatternsIdentityDefaultVisitor;
@@ -224,6 +228,26 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     }
 
     @Override
+    public void visit(VariantSelectionPoint entity) {
+    	part = new VariantSelectionPointPart();
+    }
+
+    @Override
+    public void visit(Variants entity) {
+    	part = new VariantsPart();
+    }
+
+    @Override
+    public void visit(Variant entity) {
+    	part = new VariantPart();
+    }
+
+    @Override
+    public void visit(VariantSelector entity) {
+    	part = new VariantSelectorPart();
+    }
+
+    @Override
     public void visit(Declarations entity) {
         part = new DeclarationsPart();
     }
@@ -302,6 +326,10 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			int parentOrd = parent.wGetEntityDescriptor().getOrdinal();
 			switch (parentOrd) {
 			case PatternsEntityDescriptorEnum.Pattern_ord:
+			case PatternsEntityDescriptorEnum.Repetition_ord:
+			case PatternsEntityDescriptorEnum.Choice_ord:
+			case PatternsEntityDescriptorEnum.Enumeration_ord:
+			case PatternsEntityDescriptorEnum.Data_ord:
 			case PatternsEntityDescriptorEnum.PatternApplication_ord:
 			case PatternsEntityDescriptorEnum.FunctionDeclaration_ord:
 			case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord:
@@ -312,10 +340,15 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 				return;
 			case PatternsEntityDescriptorEnum.VariablePoint_ord:
 			case PatternsEntityDescriptorEnum.VariableDeclaration_ord:
+			case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord:
+			case PatternsEntityDescriptorEnum.Variant_ord:
 				part = new IdentifierTextualEntityPart();
 				return;
 			case PatternsEntityDescriptorEnum.JoinPointDeclaration_ord:
 				part = new JoinPointStepPart();
+				return;
+			case PatternsEntityDescriptorEnum.VariantSelector_ord:
+				part = new VariabilityNamePart();
 				return;
 			case PatternsEntityDescriptorEnum.JoinPoint_ord:
 				part = new ContentTextualEntityPart();
@@ -326,6 +359,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 				return;
 			case PatternsEntityDescriptorEnum.EnumValue_ord:
 				part = new LiteralTextualEntityPart();
+				return;
+			case PatternsEntityDescriptorEnum.Binding_ord:
+			case PatternsEntityDescriptorEnum.Slot_ord:
+			case PatternsEntityDescriptorEnum.InsertionPoint_ord:
+				part = new ContentTextualEntityPart();
 				return;
 			}
 		}

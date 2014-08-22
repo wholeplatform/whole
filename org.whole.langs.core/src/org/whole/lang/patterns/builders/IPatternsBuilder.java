@@ -15,11 +15,17 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void path();
 
+    public void variant();
+
     public void body();
 
     public void applicationTypes();
 
     public void iterator();
+
+    public void variants();
+
+    public void variability();
 
     public void condition();
 
@@ -223,6 +229,26 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _ConditionPoint();
 
+    public void VariantSelectionPoint();
+
+    public void VariantSelectionPoint_();
+
+    public void _VariantSelectionPoint();
+
+    public void Variants();
+
+    public void Variants_();
+
+    public void Variants_(int initialCapacity);
+
+    public void _Variants();
+
+    public void Variant();
+
+    public void Variant_();
+
+    public void _Variant();
+
     public void IterationPoint();
 
     public void IterationPoint_();
@@ -274,6 +300,12 @@ public interface IPatternsBuilder extends IBuilder {
     public void VariableDeclaration_();
 
     public void _VariableDeclaration();
+
+    public void VariantSelector();
+
+    public void VariantSelector_();
+
+    public void _VariantSelector();
 
     public void Types();
 

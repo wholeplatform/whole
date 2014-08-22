@@ -311,6 +311,42 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<ConditionPoint>(create(PatternsEntityDescriptorEnum.ConditionPoint));
     }
 
+    public VariantSelectionPoint createVariantSelectionPoint() {
+        return create(PatternsEntityDescriptorEnum.VariantSelectionPoint);
+    }
+
+    public VariantSelectionPoint createVariantSelectionPoint(Name variability, Variants variants) {
+        return create(PatternsEntityDescriptorEnum.VariantSelectionPoint, variability, variants);
+    }
+
+    public IEntityBuilder<VariantSelectionPoint> buildVariantSelectionPoint() {
+        return new EntityBuilder<VariantSelectionPoint>(create(PatternsEntityDescriptorEnum.VariantSelectionPoint));
+    }
+
+    public Variants createVariants() {
+        return create(PatternsEntityDescriptorEnum.Variants);
+    }
+
+    public Variants createVariants(Variant... entities) {
+        return create(PatternsEntityDescriptorEnum.Variants, (IEntity[]) entities);
+    }
+
+    public Variants createVariants(int initialSize) {
+        return clone(PatternsEntityDescriptorEnum.Variants, initialSize);
+    }
+
+    public Variant createVariant() {
+        return create(PatternsEntityDescriptorEnum.Variant);
+    }
+
+    public Variant createVariant(Name name, Template template) {
+        return create(PatternsEntityDescriptorEnum.Variant, name, template);
+    }
+
+    public IEntityBuilder<Variant> buildVariant() {
+        return new EntityBuilder<Variant>(create(PatternsEntityDescriptorEnum.Variant));
+    }
+
     public IterationPoint createIterationPoint() {
         return create(PatternsEntityDescriptorEnum.IterationPoint);
     }
@@ -401,6 +437,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<VariableDeclaration> buildVariableDeclaration() {
         return new EntityBuilder<VariableDeclaration>(create(PatternsEntityDescriptorEnum.VariableDeclaration));
+    }
+
+    public VariantSelector createVariantSelector() {
+        return create(PatternsEntityDescriptorEnum.VariantSelector);
+    }
+
+    public VariantSelector createVariantSelector(Name variability, Expression variant) {
+        return create(PatternsEntityDescriptorEnum.VariantSelector, variability, variant);
+    }
+
+    public IEntityBuilder<VariantSelector> buildVariantSelector() {
+        return new EntityBuilder<VariantSelector>(create(PatternsEntityDescriptorEnum.VariantSelector));
     }
 
     public Types createTypes() {

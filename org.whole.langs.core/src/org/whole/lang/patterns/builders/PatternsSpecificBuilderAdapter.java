@@ -28,6 +28,10 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(PatternsFeatureDescriptorEnum.path);
     }
 
+    public void variant() {
+        wFeature(PatternsFeatureDescriptorEnum.variant);
+    }
+
     public void body() {
         wFeature(PatternsFeatureDescriptorEnum.body);
     }
@@ -38,6 +42,14 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void iterator() {
         wFeature(PatternsFeatureDescriptorEnum.iterator);
+    }
+
+    public void variants() {
+        wFeature(PatternsFeatureDescriptorEnum.variants);
+    }
+
+    public void variability() {
+        wFeature(PatternsFeatureDescriptorEnum.variability);
     }
 
     public void condition() {
@@ -447,6 +459,46 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.ConditionPoint);
     }
 
+    public void VariantSelectionPoint() {
+        wEntity(PatternsEntityDescriptorEnum.VariantSelectionPoint);
+    }
+
+    public void VariantSelectionPoint_() {
+        wEntity_(PatternsEntityDescriptorEnum.VariantSelectionPoint);
+    }
+
+    public void _VariantSelectionPoint() {
+        _wEntity(PatternsEntityDescriptorEnum.VariantSelectionPoint);
+    }
+
+    public void Variants() {
+        wEntity(PatternsEntityDescriptorEnum.Variants);
+    }
+
+    public void Variants_() {
+        wEntity_(PatternsEntityDescriptorEnum.Variants);
+    }
+
+    public void Variants_(int initialCapacity) {
+        wEntity_(PatternsEntityDescriptorEnum.Variants, initialCapacity);
+    }
+
+    public void _Variants() {
+        _wEntity(PatternsEntityDescriptorEnum.Variants);
+    }
+
+    public void Variant() {
+        wEntity(PatternsEntityDescriptorEnum.Variant);
+    }
+
+    public void Variant_() {
+        wEntity_(PatternsEntityDescriptorEnum.Variant);
+    }
+
+    public void _Variant() {
+        _wEntity(PatternsEntityDescriptorEnum.Variant);
+    }
+
     public void IterationPoint() {
         wEntity(PatternsEntityDescriptorEnum.IterationPoint);
     }
@@ -549,6 +601,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void _VariableDeclaration() {
         _wEntity(PatternsEntityDescriptorEnum.VariableDeclaration);
+    }
+
+    public void VariantSelector() {
+        wEntity(PatternsEntityDescriptorEnum.VariantSelector);
+    }
+
+    public void VariantSelector_() {
+        wEntity_(PatternsEntityDescriptorEnum.VariantSelector);
+    }
+
+    public void _VariantSelector() {
+        _wEntity(PatternsEntityDescriptorEnum.VariantSelector);
     }
 
     public void Types() {

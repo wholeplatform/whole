@@ -107,6 +107,18 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Variants entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Variant entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(IterationPoint entity) {
         stagedVisit(entity);
     }
@@ -136,6 +148,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(VariableDeclaration entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(VariantSelector entity) {
         stagedVisit(entity);
     }
 

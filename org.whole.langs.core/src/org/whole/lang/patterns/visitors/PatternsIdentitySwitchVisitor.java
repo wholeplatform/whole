@@ -87,6 +87,15 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.ConditionPoint_ord :
             visit((ConditionPoint) entity);
             break;
+            case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord :
+            visit((VariantSelectionPoint) entity);
+            break;
+            case PatternsEntityDescriptorEnum.Variants_ord :
+            visit((Variants) entity);
+            break;
+            case PatternsEntityDescriptorEnum.Variant_ord :
+            visit((Variant) entity);
+            break;
             case PatternsEntityDescriptorEnum.IterationPoint_ord :
             visit((IterationPoint) entity);
             break;
@@ -110,6 +119,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             break;
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             visit((VariableDeclaration) entity);
+            break;
+            case PatternsEntityDescriptorEnum.VariantSelector_ord :
+            visit((VariantSelector) entity);
             break;
             case PatternsEntityDescriptorEnum.Types_ord :
             visit((Types) entity);

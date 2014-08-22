@@ -152,6 +152,19 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((VariationPoint) entity);
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        visit((IPatternsEntity) entity);
+        visit((VariationPoint) entity);
+    }
+
+    public void visit(Variants entity) {
+        visit((IPatternsEntity) entity);
+    }
+
+    public void visit(Variant entity) {
+        visit((IPatternsEntity) entity);
+    }
+
     public void visit(IterationPoint entity) {
         visit((IPatternsEntity) entity);
         visit((VariationPoint) entity);
@@ -194,6 +207,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Declaration) entity);
     }
 
+    public void visit(VariantSelector entity) {
+        visit((IPatternsEntity) entity);
+        visit((Declaration) entity);
+    }
+
     public void visit(Types entity) {
         visit((IPatternsEntity) entity);
     }
@@ -212,6 +230,7 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
 
     public void visit(Name entity) {
         visit((IPatternsEntity) entity);
+        visit((Expression) entity);
         visit((ResultType) entity);
     }
 

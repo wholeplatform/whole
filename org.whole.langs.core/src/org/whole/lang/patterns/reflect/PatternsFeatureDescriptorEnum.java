@@ -30,11 +30,14 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int context_ord = 20;
     public static final int expression_ord = 21;
     public static final int condition_ord = 22;
-    public static final int iterator_ord = 23;
-    public static final int applicationTypes_ord = 24;
-    public static final int body_ord = 25;
-    public static final int path_ord = 26;
-    public static final int placement_ord = 27;
+    public static final int variability_ord = 23;
+    public static final int variants_ord = 24;
+    public static final int iterator_ord = 25;
+    public static final int applicationTypes_ord = 26;
+    public static final int body_ord = 27;
+    public static final int variant_ord = 28;
+    public static final int path_ord = 29;
+    public static final int placement_ord = 30;
     public static final PatternsFeatureDescriptorEnum instance = new PatternsFeatureDescriptorEnum();
     public static final FeatureDescriptor uri = instance.valueOf(uri_ord);
     public static final FeatureDescriptor namespace = instance.valueOf(namespace_ord);
@@ -59,9 +62,12 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final FeatureDescriptor context = instance.valueOf(context_ord);
     public static final FeatureDescriptor expression = instance.valueOf(expression_ord);
     public static final FeatureDescriptor condition = instance.valueOf(condition_ord);
+    public static final FeatureDescriptor variability = instance.valueOf(variability_ord);
+    public static final FeatureDescriptor variants = instance.valueOf(variants_ord);
     public static final FeatureDescriptor iterator = instance.valueOf(iterator_ord);
     public static final FeatureDescriptor applicationTypes = instance.valueOf(applicationTypes_ord);
     public static final FeatureDescriptor body = instance.valueOf(body_ord);
+    public static final FeatureDescriptor variant = instance.valueOf(variant_ord);
     public static final FeatureDescriptor path = instance.valueOf(path_ord);
     public static final FeatureDescriptor placement = instance.valueOf(placement_ord);
 
@@ -89,9 +95,12 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
         putFeatureDescriptor(context_ord, "context");
         putFeatureDescriptor(expression_ord, "expression");
         putFeatureDescriptor(condition_ord, "condition");
+        putFeatureDescriptor(variability_ord, "variability");
+        putFeatureDescriptor(variants_ord, "variants");
         putFeatureDescriptor(iterator_ord, "iterator");
         putFeatureDescriptor(applicationTypes_ord, "applicationTypes");
         putFeatureDescriptor(body_ord, "body");
+        putFeatureDescriptor(variant_ord, "variant");
         putFeatureDescriptor(path_ord, "path");
         putFeatureDescriptor(placement_ord, "placement");
     }

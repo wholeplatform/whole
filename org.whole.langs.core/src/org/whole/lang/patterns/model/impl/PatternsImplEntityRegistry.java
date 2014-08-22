@@ -38,6 +38,9 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new DerivationPointImpl());
         put(new SelectionPointImpl());
         put(new ConditionPointImpl());
+        put(new VariantSelectionPointImpl());
+        put(new VariantsImpl());
+        put(new VariantImpl());
         put(new IterationPointImpl());
         put(new SequencePointImpl());
         put(new InlinePointImpl());
@@ -46,6 +49,7 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new PointcutDeclarationImpl());
         put(new JoinPointDeclarationImpl());
         put(new VariableDeclarationImpl());
+        put(new VariantSelectorImpl());
         put(new TypesImpl());
         put(new ResultTypesImpl());
         put(new NameImpl());

@@ -197,6 +197,22 @@ public class PatternsModelContext extends EntityContext {
         wSet(PatternsFeatureDescriptorEnum.condition, condition);
     }
 
+    public PatternsModelContext getVariability() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.variability);
+    }
+
+    public void setVariability(PatternsModelContext variability) {
+        wSet(PatternsFeatureDescriptorEnum.variability, variability);
+    }
+
+    public PatternsModelContext getVariants() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.variants);
+    }
+
+    public void setVariants(PatternsModelContext variants) {
+        wSet(PatternsFeatureDescriptorEnum.variants, variants);
+    }
+
     public PatternsModelContext getIterator() {
         return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.iterator);
     }
@@ -219,6 +235,14 @@ public class PatternsModelContext extends EntityContext {
 
     public void setBody(PatternsModelContext body) {
         wSet(PatternsFeatureDescriptorEnum.body, body);
+    }
+
+    public PatternsModelContext getVariant() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.variant);
+    }
+
+    public void setVariant(PatternsModelContext variant) {
+        wSet(PatternsFeatureDescriptorEnum.variant, variant);
     }
 
     public PatternsModelContext getPath() {

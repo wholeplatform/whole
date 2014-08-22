@@ -147,6 +147,21 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
         wGetVisitor1().visit(entity.getTemplate());
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        wGetVisitor1().visit(entity.getVariability());
+        wGetVisitor1().visit(entity.getVariants());
+    }
+
+    public void visit(Variants entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(Variant entity) {
+        wGetVisitor1().visit(entity.getName());
+        wGetVisitor1().visit(entity.getTemplate());
+    }
+
     public void visit(IterationPoint entity) {
         wGetVisitor1().visit(entity.getIterator());
         wGetVisitor1().visit(entity.getTemplate());
@@ -186,6 +201,11 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
         wGetVisitor1().visit(entity.getName());
         wGetVisitor1().visit(entity.getExpression());
         wGetVisitor1().visit(entity.getResultType());
+    }
+
+    public void visit(VariantSelector entity) {
+        wGetVisitor1().visit(entity.getVariability());
+        wGetVisitor1().visit(entity.getVariant());
     }
 
     public void visit(Types entity) {

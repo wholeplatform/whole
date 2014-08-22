@@ -118,6 +118,18 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Variants entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Variant entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(IterationPoint entity) {
         wGetVisitor1().visit(entity);
     }
@@ -147,6 +159,10 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
     }
 
     public void visit(VariableDeclaration entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(VariantSelector entity) {
         wGetVisitor1().visit(entity);
     }
 

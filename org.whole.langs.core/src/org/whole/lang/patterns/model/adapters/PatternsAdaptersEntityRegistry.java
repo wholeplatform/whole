@@ -41,6 +41,9 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new DerivationPointAdapter());
         put(new SelectionPointAdapter());
         put(new ConditionPointAdapter());
+        put(new VariantSelectionPointAdapter());
+        put(new VariantsAdapter());
+        put(new VariantAdapter());
         put(new IterationPointAdapter());
         put(new SequencePointAdapter());
         put(new InlinePointAdapter());
@@ -49,6 +52,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PointcutDeclarationAdapter());
         put(new JoinPointDeclarationAdapter());
         put(new VariableDeclarationAdapter());
+        put(new VariantSelectorAdapter());
         put(new TypesAdapter());
         put(new ResultTypesAdapter());
         put(new TypeAdapter());

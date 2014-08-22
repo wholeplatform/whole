@@ -59,6 +59,12 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(ConditionPoint entity);
 
+    public void visit(VariantSelectionPoint entity);
+
+    public void visit(Variants entity);
+
+    public void visit(Variant entity);
+
     public void visit(IterationPoint entity);
 
     public void visit(SequencePoint entity);
@@ -74,6 +80,8 @@ public interface IPatternsVisitor extends IVisitor {
     public void visit(JoinPointDeclaration entity);
 
     public void visit(VariableDeclaration entity);
+
+    public void visit(VariantSelector entity);
 
     public void visit(Types entity);
 

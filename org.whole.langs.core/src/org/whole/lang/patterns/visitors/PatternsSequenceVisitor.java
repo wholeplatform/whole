@@ -145,6 +145,21 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Variants entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Variant entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(IterationPoint entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -181,6 +196,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
     }
 
     public void visit(VariableDeclaration entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(VariantSelector entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

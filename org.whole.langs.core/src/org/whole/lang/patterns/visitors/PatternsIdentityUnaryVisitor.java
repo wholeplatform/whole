@@ -97,6 +97,15 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(ConditionPoint entity) {
     }
 
+    public void visit(VariantSelectionPoint entity) {
+    }
+
+    public void visit(Variants entity) {
+    }
+
+    public void visit(Variant entity) {
+    }
+
     public void visit(IterationPoint entity) {
     }
 
@@ -119,6 +128,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     }
 
     public void visit(VariableDeclaration entity) {
+    }
+
+    public void visit(VariantSelector entity) {
     }
 
     public void visit(Types entity) {

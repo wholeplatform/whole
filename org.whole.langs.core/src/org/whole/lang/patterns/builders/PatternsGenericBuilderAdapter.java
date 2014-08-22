@@ -98,6 +98,12 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsFeatureDescriptorEnum.condition_ord :
             specificBuilder.condition();
             break;
+            case PatternsFeatureDescriptorEnum.variability_ord :
+            specificBuilder.variability();
+            break;
+            case PatternsFeatureDescriptorEnum.variants_ord :
+            specificBuilder.variants();
+            break;
             case PatternsFeatureDescriptorEnum.iterator_ord :
             specificBuilder.iterator();
             break;
@@ -106,6 +112,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsFeatureDescriptorEnum.body_ord :
             specificBuilder.body();
+            break;
+            case PatternsFeatureDescriptorEnum.variant_ord :
+            specificBuilder.variant();
             break;
             case PatternsFeatureDescriptorEnum.path_ord :
             specificBuilder.path();
@@ -190,6 +199,15 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ConditionPoint_ord :
             specificBuilder.ConditionPoint();
             break;
+            case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord :
+            specificBuilder.VariantSelectionPoint();
+            break;
+            case PatternsEntityDescriptorEnum.Variants_ord :
+            specificBuilder.Variants();
+            break;
+            case PatternsEntityDescriptorEnum.Variant_ord :
+            specificBuilder.Variant();
+            break;
             case PatternsEntityDescriptorEnum.IterationPoint_ord :
             specificBuilder.IterationPoint();
             break;
@@ -213,6 +231,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration();
+            break;
+            case PatternsEntityDescriptorEnum.VariantSelector_ord :
+            specificBuilder.VariantSelector();
             break;
             case PatternsEntityDescriptorEnum.Types_ord :
             specificBuilder.Types();
@@ -309,6 +330,15 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ConditionPoint_ord :
             specificBuilder.ConditionPoint_();
             break;
+            case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord :
+            specificBuilder.VariantSelectionPoint_();
+            break;
+            case PatternsEntityDescriptorEnum.Variants_ord :
+            specificBuilder.Variants_();
+            break;
+            case PatternsEntityDescriptorEnum.Variant_ord :
+            specificBuilder.Variant_();
+            break;
             case PatternsEntityDescriptorEnum.IterationPoint_ord :
             specificBuilder.IterationPoint_();
             break;
@@ -332,6 +362,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration_();
+            break;
+            case PatternsEntityDescriptorEnum.VariantSelector_ord :
+            specificBuilder.VariantSelector_();
             break;
             case PatternsEntityDescriptorEnum.Types_ord :
             specificBuilder.Types_();
@@ -428,6 +461,15 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.ConditionPoint_ord :
             specificBuilder._ConditionPoint();
             break;
+            case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord :
+            specificBuilder._VariantSelectionPoint();
+            break;
+            case PatternsEntityDescriptorEnum.Variants_ord :
+            specificBuilder._Variants();
+            break;
+            case PatternsEntityDescriptorEnum.Variant_ord :
+            specificBuilder._Variant();
+            break;
             case PatternsEntityDescriptorEnum.IterationPoint_ord :
             specificBuilder._IterationPoint();
             break;
@@ -451,6 +493,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder._VariableDeclaration();
+            break;
+            case PatternsEntityDescriptorEnum.VariantSelector_ord :
+            specificBuilder._VariantSelector();
             break;
             case PatternsEntityDescriptorEnum.Types_ord :
             specificBuilder._Types();
@@ -486,6 +531,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.SelectionPoint_ord :
             specificBuilder.SelectionPoint_(initialCapacity);
+            break;
+            case PatternsEntityDescriptorEnum.Variants_ord :
+            specificBuilder.Variants_(initialCapacity);
             break;
             case PatternsEntityDescriptorEnum.SequencePoint_ord :
             specificBuilder.SequencePoint_(initialCapacity);

@@ -113,6 +113,18 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Variants entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Variant entity) {
+        throw new VisitException();
+    }
+
     public void visit(IterationPoint entity) {
         throw new VisitException();
     }
@@ -142,6 +154,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(VariableDeclaration entity) {
+        throw new VisitException();
+    }
+
+    public void visit(VariantSelector entity) {
         throw new VisitException();
     }
 

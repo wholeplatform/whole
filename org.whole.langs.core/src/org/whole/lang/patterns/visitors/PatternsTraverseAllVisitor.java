@@ -152,6 +152,21 @@ public class PatternsTraverseAllVisitor extends PatternsIdentityUnaryVisitor<IPa
         entity.getTemplate().accept(wGetVisitor1());
     }
 
+    public void visit(VariantSelectionPoint entity) {
+        entity.getVariability().accept(wGetVisitor1());
+        entity.getVariants().accept(wGetVisitor1());
+    }
+
+    public void visit(Variants entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(Variant entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getTemplate().accept(wGetVisitor1());
+    }
+
     public void visit(IterationPoint entity) {
         entity.getIterator().accept(wGetVisitor1());
         entity.getTemplate().accept(wGetVisitor1());
@@ -191,6 +206,11 @@ public class PatternsTraverseAllVisitor extends PatternsIdentityUnaryVisitor<IPa
         entity.getName().accept(wGetVisitor1());
         entity.getExpression().accept(wGetVisitor1());
         entity.getResultType().accept(wGetVisitor1());
+    }
+
+    public void visit(VariantSelector entity) {
+        entity.getVariability().accept(wGetVisitor1());
+        entity.getVariant().accept(wGetVisitor1());
     }
 
     public void visit(Types entity) {
