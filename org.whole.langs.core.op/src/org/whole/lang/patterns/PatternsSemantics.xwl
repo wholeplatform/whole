@@ -1472,7 +1472,19 @@
                                         <queries:Filter>
                                         <queries:DescendantOrSelfStep/>
                                         <queries:Prune>
-                                        <queries:Or initialCapacity="4">
+                                        <queries:Or initialCapacity="5">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariantSelector"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariableDeclaration"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPointDeclaration"/>
                                         <queries:ExpressionTest>
@@ -1484,9 +1496,8 @@
                                         </queries:Filter>
                                         </queries:ExpressionTest>
                                         </queries:And>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionDeclaration"/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariableDeclaration"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
                                         </queries:Or>
                                         </queries:Prune>
                                         </queries:Filter>
@@ -1559,7 +1570,19 @@
                                         <queries:Filter>
                                         <queries:DescendantOrSelfStep/>
                                         <queries:Prune>
-                                        <queries:Or initialCapacity="4">
+                                        <queries:Or initialCapacity="5">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariantSelector"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariableDeclaration"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <queries:Not>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPointDeclaration"/>
                                         <queries:ExpressionTest>
@@ -1571,9 +1594,8 @@
                                         </queries:Filter>
                                         </queries:ExpressionTest>
                                         </queries:And>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionDeclaration"/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariableDeclaration"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
                                         </queries:Or>
                                         </queries:Prune>
                                         </queries:Filter>
