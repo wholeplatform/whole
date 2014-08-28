@@ -44,7 +44,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PatternLanguage"/>
             <models:Types initialCapacity="0"/>
-            <models:Features initialCapacity="5">
+            <models:Features initialCapacity="6">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="URI"/>
@@ -75,6 +75,14 @@
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Patterns"/>
                     <models:SimpleName value="patterns"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Declarations"/>
+                    <models:SimpleName value="declarations"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>

@@ -33,12 +33,13 @@ public class PatternLanguagePart extends AbstractContentPanePart {
 
     protected List<IEntity> getModelSpecificChildren() {
         PatternLanguage entity = getModelEntity();
-        List<IEntity> children = new ArrayList<IEntity>(5);
+        List<IEntity> children = new ArrayList<IEntity>(6);
         children.add(entity.getUri());
         children.add(entity.getNamespace());
         children.add(entity.getName());
         children.add(entity.getVersion());
         children.add(entity.getPatterns());
+        children.add(entity.getDeclarations());
         return children;
     }
 }

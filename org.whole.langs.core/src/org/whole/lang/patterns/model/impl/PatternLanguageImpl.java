@@ -70,6 +70,15 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
     public void setPatterns(Patterns patterns) {
         notifyChanged(PatternsFeatureDescriptorEnum.patterns, this.patterns, this.patterns = patterns);
     }
+    private Declarations declarations;
+
+    public Declarations getDeclarations() {
+        return notifyRequested(PatternsFeatureDescriptorEnum.declarations, declarations);
+    }
+
+    public void setDeclarations(Declarations declarations) {
+        notifyChanged(PatternsFeatureDescriptorEnum.declarations, this.declarations, this.declarations = declarations);
+    }
 
     public IEntity wGet(int index) {
         switch (index) {
@@ -83,6 +92,8 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
             return getVersion().wGetAdaptee(false);
             case 4 :
             return getPatterns().wGetAdaptee(false);
+            case 5 :
+            return getDeclarations().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -105,12 +116,15 @@ public class PatternLanguageImpl extends AbstractSimpleEntity implements Pattern
             case 4 :
             setPatterns(value.wGetAdapter(PatternsEntityDescriptorEnum.Patterns));
             break;
+            case 5 :
+            setDeclarations(value.wGetAdapter(PatternsEntityDescriptorEnum.Declarations));
+            break;
             default :
             throw new IllegalArgumentException();
         }
     }
 
     public int wSize() {
-        return 5;
+        return 6;
     }
 }

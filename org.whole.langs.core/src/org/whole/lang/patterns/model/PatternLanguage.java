@@ -26,4 +26,8 @@ public interface PatternLanguage extends IPatternsEntity {
     public Patterns getPatterns();
 
     public void setPatterns(Patterns patterns);
+
+    public Declarations getDeclarations();
+
+    public void setDeclarations(Declarations declarations);
 }
