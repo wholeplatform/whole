@@ -14,8 +14,7 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.e4.tools.e3x.bridge.feature.feature.group" version="0.0.0"/>
-<!--repository location="http://whole.sourceforge.net/e4tools-luna-updates"/-->
-<repository location="http://download.eclipse.org/e4/downloads/drops/I20140806-0900/repository"/>
+<repository location="http://whole.sourceforge.net/e4tools-updates"/>
 </location>
 </locations>
 </target>

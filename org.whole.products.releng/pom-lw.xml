@@ -250,7 +250,7 @@
 		<repository>
 			<id>e4tools</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/e4/downloads/drops/I20140806-0900/repository</url>
+			<url>http://whole.sourceforge.net/e4tools-updates</url>
 		</repository>
 		<repository>
 			<id>gef</id>
