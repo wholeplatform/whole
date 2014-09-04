@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_2TgSAOWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ide.application" bindingContexts="_2TgSCeWiEeOr3YUCTkHmhA">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_2TgSAeWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.lw.placeholderWindow" toBeRendered="false" visible="false" label="Whole Product" width="500" height="400"/>
+  <handlers xmi:id="_2TgSDeWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.quitCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.QuitHandler" command="_2TgSDOWiEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_2TgSFOWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.saveCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.SaveHandler" command="_2TgSE-WiEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_2TgSF-WiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.aboutCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.AboutHandler" command="_2TgSFuWiEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_dtr_kOWyEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.cut" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CutHandler" command="_XL980OWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_HZZBoOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.copy" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CopyHandler" command="_XnqaUOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OimgAOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.paste" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.PasteHandler" command="_YFgM4OWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_UKVkkOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.delete" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.DeleteHandler" command="_YguwUOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_boAQAOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.selectAll" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.SelectAllHandler" command="_ZAOIsOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_toR-kOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.findReplace" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.FindReplaceHandler" command="_ylqekOWzEeOwa6zyDulOEA"/>
+  <handlers xmi:id="_OPuK0OW0EeOwa6zyDulOEA" elementId="org.eclipse.ui.file.revert" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.RevertHandler" command="_7zccwOWzEeOwa6zyDulOEA"/>
+  <handlers xmi:id="_oKHlYOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.undo" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.UndoHandler" command="_boOyIOW2EeOwa6zyDulOEA"/>
+  <handlers xmi:id="_oN8VcOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.redo" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.RedoHandler" command="_bgFiwOW2EeOwa6zyDulOEA"/>
+  <handlers xmi:id="_4CVB8OW7EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::copyEntityPath" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CopyEntityPathHandler" command="_a-yuMOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_Eac1MOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::copyAsImage" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CopyAsImageHandler" command="_cC2MMOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_Hm_psOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::pasteAs" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.PasteAsHandler" command="_c29JsOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_NiohsOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::replace" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ReplaceEntityHandler" command="_dYg-oOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OcaCUOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::add" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.AddEntityHandler" command="_d4CMMOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OfnuYOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::replaceFragment" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ReplaceFragmentHandler" command="_ekRnIOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OiXgYOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::addFragment" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.AddFragmentHandler" command="_gg8vMOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OklG4OW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::replaceWithDefault" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ReplaceWithDefaultHandler" command="_iRaAMOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_Omo8YOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::import" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ImportHandler" command="_lbL0kOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OoUXYOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::selectNotation" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.SelectNotationHandler" command="_ka4OIOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_OqOb4OW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::actionCall" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ActionCallHandler" command="_vaCqYOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_Or-vYOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::perform" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.PerformHandler" command="_hTYRsOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_Ot4z4OW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::validateModel" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.ValidateModelHandler" command="_wDsrYOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_xSJ5MOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::normalizeModel" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.NormalizeModelHandler" command="_wrrRYOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_xUgpoOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::prettyPrintModel" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.PrettyPrintModelHandler" command="_xGhaUOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_xWWcsOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::interpretModel" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.InterpretModelHandler" command="_xiI_UOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_5Xm9YOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::generateArtifacts" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.GenerateArtifactslHandler" command="_x8YrUOWjEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_5bQuUOW8EeOwa6zyDulOEA" elementId="org.whole.lang.e4.ui.handler::generateJava" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.GenerateJavaHandler" command="_yb1AYOWjEeOr3YUCTkHmhA"/>
+  <bindingTables xmi:id="_2TgSDuWiEeOr3YUCTkHmhA" bindingContext="_2TgSCeWiEeOr3YUCTkHmhA">
+    <bindings xmi:id="_2TgSD-WiEeOr3YUCTkHmhA" keySequence="M1+Q" command="_2TgSDOWiEeOr3YUCTkHmhA"/>
+    <bindings xmi:id="_2TgSEuWiEeOr3YUCTkHmhA" keySequence="M1+O"/>
+    <bindings xmi:id="_2TgSFeWiEeOr3YUCTkHmhA" keySequence="M1+S" command="_2TgSE-WiEeOr3YUCTkHmhA"/>
+    <bindings xmi:id="_2TgSGOWiEeOr3YUCTkHmhA" keySequence="M1+A" command="_2TgSFuWiEeOr3YUCTkHmhA"/>
+    <bindings xmi:id="_l32joOW9EeOwa6zyDulOEA" elementId="" keySequence="M1+Z" command="_boOyIOW2EeOwa6zyDulOEA"/>
+    <bindings xmi:id="_vk0_QOW9EeOwa6zyDulOEA" elementId="" keySequence="M1+SHIFT+Z" command="_bgFiwOW2EeOwa6zyDulOEA"/>
+    <bindings xmi:id="_3cBlAOW9EeOwa6zyDulOEA" elementId="" keySequence="DEL" command="_YguwUOWjEeOr3YUCTkHmhA"/>
+  </bindingTables>
+  <rootContext xmi:id="_2TgSCeWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_2TgSCuWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_2TgSC-WiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <commands xmi:id="_2TgSDOWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
+  <commands xmi:id="_2TgSE-WiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
+  <commands xmi:id="_2TgSFuWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <commands xmi:id="_boOyIOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.undo" commandName="undoCommand"/>
+  <commands xmi:id="_bgFiwOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.redo" commandName="redoCommand"/>
+  <commands xmi:id="_XL980OWjEeOr3YUCTkHmhA" elementId="org.eclipse.ui.edit.cut" commandName="cutCommand"/>
+  <commands xmi:id="_XnqaUOWjEeOr3YUCTkHmhA" elementId="org.eclipse.ui.edit.copy" commandName="copyCommand" description="Generic copy command"/>
+  <commands xmi:id="_YFgM4OWjEeOr3YUCTkHmhA" elementId="org.eclipse.ui.edit.paste" commandName="pasteCommand"/>
+  <commands xmi:id="_YguwUOWjEeOr3YUCTkHmhA" elementId="org.eclipse.ui.edit.delete" commandName="deleteCommand"/>
+  <commands xmi:id="_ZAOIsOWjEeOr3YUCTkHmhA" elementId="org.eclipse.ui.edit.selectAll" commandName="selectAllCommand"/>
+  <commands xmi:id="_ylqekOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.findReplace" commandName="findReplaceCommand"/>
+  <commands xmi:id="_7zccwOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.file.revert" commandName="revertCommand"/>
+  <commands xmi:id="_Zeq_QOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::zoom" commandName="zoomCommand">
+    <parameters xmi:id="_Zeq_QeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::percentage" name="percentage" optional="false"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_Z9CWQOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::align" commandName="alignCommand">
+    <parameters xmi:id="_Z9CWQeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::direction" name="direction" optional="false"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_a-yuMOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::copyEntityPath" commandName="copyEntityPathCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_cC2MMOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::copyAsImage" commandName="copyAsImageCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_c29JsOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::pasteAs" commandName="pasteAsCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_dYg-oOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::replace" commandName="replaceCommand">
+    <parameters xmi:id="_dYg-oeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::entityDescriptor" name="entityDescriptor" optional="false"/>
+    <parameters xmi:id="_dYg-ouWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::featureDescriptor" name="featureDescriptor"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_d4CMMOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::add" commandName="addCommand">
+    <parameters xmi:id="_d4CMMeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::entityDescriptor" name="entityDescriptor" optional="false"/>
+    <parameters xmi:id="_d4CMMuWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::featureDescriptor" name="featureDescriptor"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_ekRnIOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::replaceFragment" commandName="replaceFragmentCommand">
+    <parameters xmi:id="_ekRnIeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::fragmentEntity" name="fragmentEntity" optional="false"/>
+    <parameters xmi:id="_ekRnIuWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::predicateEntity" name="predicateEntity" optional="false"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_gg8vMOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::addFragment" commandName="addFragmentCommand">
+    <parameters xmi:id="_gg8vMeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::fragmentEntity" name="fragmentEntity" optional="false"/>
+    <parameters xmi:id="_gg8vMuWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::predicateEntity" name="predicateEntity" optional="false"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_hTYRsOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::perform" commandName="performCommand">
+    <parameters xmi:id="_hTYRseWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::behaviorEntity" name="behaviorEntity" optional="false"/>
+    <parameters xmi:id="_hTYRsuWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::predicateEntity" name="predicateEntity" optional="false"/>
+    <parameters xmi:id="_hTYRs-WjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::description" name="description"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_iRaAMOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::replaceWithDefault" commandName="replaceWithDefaultCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_ka4OIOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::selectNotation" commandName="selectNotationCommand">
+    <parameters xmi:id="_ka4OIeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::editorKitId" name="editorKitId" optional="false"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_lbL0kOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::import" commandName="importCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_vaCqYOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::actionCall" commandName="actionCallCommand">
+    <parameters xmi:id="_vaCqYeWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::functionUri" name="functionUri" optional="false"/>
+    <parameters xmi:id="_vaCqYuWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::predicateEntity" name="predicateEntity" optional="false"/>
+    <parameters xmi:id="_vaCqY-WjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::analyzing" name="analyzing"/>
+    <parameters xmi:id="_vaCqZOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.parameter::description" name="description"/>
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_wDsrYOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::validateModel" commandName="validateModelCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_wrrRYOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::normalizeModel" commandName="normalizeModelCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_xGhaUOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::prettyPrintModel" commandName="prettyPrintModelCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_xiI_UOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::interpretModel" commandName="interpretModelCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_x8YrUOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::generateArtifacts" commandName="generateArtifactsCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <commands xmi:id="_yb1AYOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.command::generateJava" commandName="generateJavaCommand">
+    <category href="ApplicationNew.e4xmi#_Ewn4kOKSEeOARagCRFc0wg"/>
+  </commands>
+  <addons xmi:id="_2TgSAuWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_2TgSA-WiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_2TgSBOWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_2TgSBeWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_2TgSBuWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_2TgSB-WiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_2TgSCOWiEeOr3YUCTkHmhA" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_6tsI4OWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.addon.ViewerRebuildProcessor" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.addon.ViewerRebuildProcessor"/>
+  <addons xmi:id="_u0NDsO-6EeOVkog4lgBBrw" elementId="org.whole.product.e4.addons.ImportAsModelDialogFactoryAddon" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.addons.ImportAsModelDialogFactoryAddon"/>
+  <categories xmi:id="_O8-iIOWjEeOr3YUCTkHmhA" elementId="org.whole.lang.e4.ui.commands" name="wholeCommands"/>
+</application:Application>

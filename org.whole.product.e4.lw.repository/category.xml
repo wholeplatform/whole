@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://whole.sourceforge.net/whole-e4-updates">
+      Whole Language Workbench
+   </description>
+   <feature url="features/org.whole.product.e4.lw.feature_1.0.0.qualifier.jar" id="org.whole.product.e4.lw.feature" version="1.0.0.qualifier">
+      <category name="Whole Language Workbench 1.0.0.qualifier"/>
+   </feature>
+   <category-def name="Whole Language Workbench 1.0.0.qualifier" label="Whole Language Workbench 1.0.0.qualifier">
+      <description>
+         Whole Language Workbench features with sources.
+      </description>
+   </category-def>
+</site>

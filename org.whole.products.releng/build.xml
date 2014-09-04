@@ -55,9 +55,10 @@
 			<include name="*/META-INF/MANIFEST.MF" />
 			<include name="*/feature.xml" />
 			<include name="*/category.xml" />
-			<include name="org.whole.product.lw.product/whole.product" />
+			<include name="*/*.product" />
 		</replace>
 		<replace dir="${repo.dir}" token="${version.num.old}-SNAPSHOT" value="${version}" summary="on">
+			<include name="*/pom-e4-lw.xml" />
 			<include name="*/pom-lw.xml" />
 			<include name="*/pom-ldk.xml" />
 		</replace>
@@ -67,9 +68,10 @@
 			<include name="*/META-INF/MANIFEST.MF" />
 			<include name="*/feature.xml" />
 			<include name="*/category.xml" />
-			<include name="org.whole.product.lw.product/whole.product" />
+			<include name="*/*.product" />
 		</replace>
 		<replace dir="${repo.dir}" token="${version}" value="${version.num}-SNAPSHOT" summary="on">
+			<include name="*/pom-e4-lw.xml" />
 			<include name="*/pom-lw.xml" />
 			<include name="*/pom-ldk.xml" />
 		</replace>
@@ -92,6 +94,35 @@
 		<zip destfile="${build.dir}/whole-examples-${version}.zip">
 			<zipfileset prefix="whole-examples" dir="${repos.dir}/whole-examples" excludes=".git/**, */bin/**, */target/**, **/.DS_Store" defaultexcludes="no" />
 		</zip>
+	</target>
+
+	<target name="clean_e4_lw">
+		<maven basedir="${releng.dir}" options="-fpom-e4-lw.xml" goal="clean" />
+		<delete dir="${releng.dir}/workspace" />
+	</target>
+	<target name="package_e4_lw" unless="failure">
+		<maven basedir="${releng.dir}" options="-fpom-e4-lw.xml" goal="package" resultproperty="package_e4_lw.result" />
+		<condition property="failure">
+			<not>
+				<equals arg1="${package_e4_lw.result}" arg2="0" />
+			</not>
+		</condition>
+	</target>
+	<target name="move_e4_lw_products" depends="init_build">
+		<move todir="${build.dir}">
+			<fileset dir="${repo.dir}/org.whole.product.e4.lw.repository/target" includes="whole-*.zip" />
+			<fileset dir="${repo.dir}/org.whole.product.e4.lw.product/target/products" includes="whole-*" />
+			<firstmatchmapper>
+				<globmapper from="whole*.gtk.x86_64.tar.gz" to="whole-e4-lw*.tar.gz" />
+				<globmapper from="whole*macosx.cocoa.x86_64.tar.gz" to="whole-e4-lw*osx.tar.gz" />
+				<globmapper from="whole*32.win32.x86_64.zip" to="whole-e4-lw*dows.zip" />
+				<globmapper from="whole-*.zip" to="whole-e4-*.zip" />
+			</firstmatchmapper>
+		</move>
+	</target>
+	<target name="build_e4_lw" depends="package_e4_lw" unless="failure" description="Build Whole Language Workbench e4">
+		<antcall target="move_e4_lw_products" />
+		<antcall target="clean_e4_lw" />
 	</target>
 
 	<target name="clean_lw">
@@ -138,11 +169,11 @@
 		<antcall target="clean_ldk" />
 	</target>
 
-	<target name="clean" depends="clean_lw, clean_ldk" description="Clean">
+	<target name="clean" depends="clean_e4_lw, clean_lw, clean_ldk" description="Clean">
 		<delete dir="${releng.dir}/builds" />
 	</target>
 
-	<target name="package" depends="clean, package_lw, package_ldk" />
+	<target name="package" depends="clean, package_e4_lw, package_lw, package_ldk" />
 
 	<target name="build" depends="zip_whole_sources, zip_examples_sources, set_build_version, build_lw, build_ldk, set_meta_version" description="Generates all distribution archives" />
 

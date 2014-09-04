@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<extension
+			id="product"
+			point="org.eclipse.core.runtime.products">
+		<product
+				name="org.whole.product.e4.lw"
+				application="org.eclipse.e4.ui.workbench.swt.E4Application">
+			<property
+					name="applicationCSS"
+					value="platform:/plugin/org.whole.product.e4.lw/css/default.css">
+			</property>
+			<property
+					name="appName"
+					value="org.whole.product.e4.lw">
+			</property>
+		</product>
+	</extension>
+	<extension
+			id="model"
+			point="org.eclipse.e4.workbench.model">
+		<processor
+				apply="initial"
+				beforefragment="false"
+				class="org.whole.product.e4.lw.processors.E4ModelProcessor">
+		</processor>
+	</extension>
+</plugin>

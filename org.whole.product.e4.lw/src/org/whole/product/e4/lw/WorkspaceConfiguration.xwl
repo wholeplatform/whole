@@ -1,0 +1,753 @@
+<?xml version="1.0"?>
+<artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <artifacts:Projects initialCapacity="1">
+        <artifacts:Project>
+            <artifacts:Name value="BaseProject"/>
+            <artifacts:Natures initialCapacity="1">
+                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            </artifacts:Natures>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <artifacts:Artifacts initialCapacity="5">
+                <artifacts:FolderArtifact>
+                    <artifacts:Name value=".settings"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <artifacts:Artifacts initialCapacity="1">
+                        <artifacts:FileArtifact>
+                            <artifacts:Name value="org.eclipse.jdt.core.prefs"/>
+                            <artifacts:Metadata>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlSourcePersistenceKit"/>
+                            </artifacts:Metadata>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="13">
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="eclipse.preferences.version=1"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.codegen.methodParameters=do not generate"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.compliance=1.7"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.debug.lineNumber=generate"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.debug.localVariable=generate"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.debug.sourceFile=generate"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.problem.assertIdentifier=error"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.problem.enumIdentifier=error"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="org.eclipse.jdt.core.compiler.source=1.7"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value=""/>
+                                    </text:Row>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                        </artifacts:FileArtifact>
+                    </artifacts:Artifacts>
+                </artifacts:FolderArtifact>
+                <artifacts:FolderArtifact>
+                    <artifacts:Name value="bin"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <artifacts:Artifacts initialCapacity="0"/>
+                </artifacts:FolderArtifact>
+                <artifacts:FolderArtifact>
+                    <artifacts:Name value="src"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <artifacts:Artifacts initialCapacity="1">
+                        <artifacts:PackageArtifact>
+                            <artifacts:Name value="org.whole.lang"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <artifacts:Artifacts initialCapacity="2">
+                                <artifacts:FileArtifact>
+                                    <artifacts:NameWithExtension>
+                                        <artifacts:Name value="ExampleModel"/>
+                                        <artifacts:Extension value="java"/>
+                                    </artifacts:NameWithExtension>
+                                    <artifacts:Metadata>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.java.codebase.JavaBuilderPersistenceKit"/>
+                                    </artifacts:Metadata>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Model xmlns:models="http://lang.whole.org/Models">
+                                        <models:SimpleName value="QL"/>
+                                        <models:TypeRelations initialCapacity="1">
+                                        <models:TypeAliasOf>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:EntityType value="http://lang.whole.org/Math#Expression"/>
+                                        </models:TypeAliasOf>
+                                        </models:TypeRelations>
+                                        <models:ModelDeclarations initialCapacity="13">
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Form"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:SimpleName value="questions"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="1">
+                                        <models:EntityModifier value="abstract"/>
+                                        </models:EntityModifiers>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Question"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="4">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Text"/>
+                                        <models:SimpleName value="label"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Type"/>
+                                        <models:SimpleName value="type"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="1">
+                                        <models:FeatureModifier value="optional"/>
+                                        </models:FeatureModifiers>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="expression"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:CompositeEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="SequentialQuestions"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:ComponentModifiers initialCapacity="1">
+                                        <models:ComponentModifier value="ordered"/>
+                                        </models:ComponentModifiers>
+                                        <models:SimpleName value="Questions"/>
+                                        </models:CompositeEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="ConditionalQuestions"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="enablingCondition"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:SimpleName value="questions"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="1">
+                                        <models:EntityModifier value="abstract"/>
+                                        </models:EntityModifiers>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        <models:CompositeEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Names"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:ComponentModifiers initialCapacity="1">
+                                        <models:ComponentModifier value="ordered"/>
+                                        </models:ComponentModifiers>
+                                        <models:SimpleName value="Name"/>
+                                        </models:CompositeEntity>
+                                        <models:DataEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Expression"/>
+                                        </models:Types>
+                                        <models:DataType value="String"/>
+                                        </models:DataEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="EnumValue"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Expression"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="type"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="value"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:DataEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Text"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:DataType value="String"/>
+                                        </models:DataEntity>
+                                        <models:EnumEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="PrimitiveType"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:EnumValues initialCapacity="6">
+                                        <models:EnumValue value="BOOLEAN"/>
+                                        <models:EnumValue value="STRING"/>
+                                        <models:EnumValue value="INTEGER"/>
+                                        <models:EnumValue value="DECIMAL"/>
+                                        <models:EnumValue value="DATE"/>
+                                        <models:EnumValue value="MONEY"/>
+                                        </models:EnumValues>
+                                        </models:EnumEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Range"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="start"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="end"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Enumeration"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="1">
+                                        <models:FeatureModifier value="id"/>
+                                        </models:FeatureModifiers>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Names"/>
+                                        <models:SimpleName value="values"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        </models:ModelDeclarations>
+                                        <models:Namespace value="org.whole.crossexamples.lwc14"/>
+                                        <commons:Resolver/>
+                                        <models:URI value="whole:org.whole.crossexamples.lwc14:QLModel"/>
+                                        </models:Model>
+                                    </commons:StageUpFragment>
+                                </artifacts:FileArtifact>
+                                <artifacts:FileArtifact>
+                                    <artifacts:NameWithExtension>
+                                        <artifacts:Name value="ExampleModel"/>
+                                        <artifacts:Extension value="xwl"/>
+                                    </artifacts:NameWithExtension>
+                                    <artifacts:Metadata>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                    </artifacts:Metadata>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <models:Model xmlns:models="http://lang.whole.org/Models">
+                                        <models:SimpleName value="QL"/>
+                                        <models:TypeRelations initialCapacity="1">
+                                        <models:TypeAliasOf>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:EntityType value="http://lang.whole.org/Math#Expression"/>
+                                        </models:TypeAliasOf>
+                                        </models:TypeRelations>
+                                        <models:ModelDeclarations initialCapacity="13">
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Form"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:SimpleName value="questions"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="1">
+                                        <models:EntityModifier value="abstract"/>
+                                        </models:EntityModifiers>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Question"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="4">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Text"/>
+                                        <models:SimpleName value="label"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Type"/>
+                                        <models:SimpleName value="type"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="1">
+                                        <models:FeatureModifier value="optional"/>
+                                        </models:FeatureModifiers>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="expression"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:CompositeEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="SequentialQuestions"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:ComponentModifiers initialCapacity="1">
+                                        <models:ComponentModifier value="ordered"/>
+                                        </models:ComponentModifiers>
+                                        <models:SimpleName value="Questions"/>
+                                        </models:CompositeEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="ConditionalQuestions"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Questions"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="enablingCondition"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Questions"/>
+                                        <models:SimpleName value="questions"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="1">
+                                        <models:EntityModifier value="abstract"/>
+                                        </models:EntityModifiers>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:Features initialCapacity="0"/>
+                                        </models:SimpleEntity>
+                                        <models:CompositeEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Names"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:ComponentModifiers initialCapacity="1">
+                                        <models:ComponentModifier value="ordered"/>
+                                        </models:ComponentModifiers>
+                                        <models:SimpleName value="Name"/>
+                                        </models:CompositeEntity>
+                                        <models:DataEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Expression"/>
+                                        </models:Types>
+                                        <models:DataType value="String"/>
+                                        </models:DataEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="EnumValue"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Expression"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="type"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="value"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:DataEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Text"/>
+                                        <models:Types initialCapacity="0"/>
+                                        <models:DataType value="String"/>
+                                        </models:DataEntity>
+                                        <models:EnumEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="PrimitiveType"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:EnumValues initialCapacity="6">
+                                        <models:EnumValue value="BOOLEAN"/>
+                                        <models:EnumValue value="STRING"/>
+                                        <models:EnumValue value="INTEGER"/>
+                                        <models:EnumValue value="DECIMAL"/>
+                                        <models:EnumValue value="DATE"/>
+                                        <models:EnumValue value="MONEY"/>
+                                        </models:EnumValues>
+                                        </models:EnumEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Range"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="start"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Expression"/>
+                                        <models:SimpleName value="end"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        <models:SimpleEntity>
+                                        <models:EntityModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Enumeration"/>
+                                        <models:Types initialCapacity="1">
+                                        <models:SimpleName value="Type"/>
+                                        </models:Types>
+                                        <models:Features initialCapacity="2">
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="1">
+                                        <models:FeatureModifier value="id"/>
+                                        </models:FeatureModifiers>
+                                        <models:SimpleName value="Name"/>
+                                        <models:SimpleName value="name"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        <models:Feature>
+                                        <models:FeatureModifiers initialCapacity="0"/>
+                                        <models:SimpleName value="Names"/>
+                                        <models:SimpleName value="values"/>
+                                        <commons:Resolver/>
+                                        </models:Feature>
+                                        </models:Features>
+                                        </models:SimpleEntity>
+                                        </models:ModelDeclarations>
+                                        <models:Namespace value="org.whole.crossexamples.lwc14"/>
+                                        <commons:Resolver/>
+                                        <models:URI value="whole:org.whole.crossexamples.lwc14:QLModel"/>
+                                        </models:Model>
+                                    </commons:StageUpFragment>
+                                </artifacts:FileArtifact>
+                            </artifacts:Artifacts>
+                        </artifacts:PackageArtifact>
+                    </artifacts:Artifacts>
+                </artifacts:FolderArtifact>
+                <artifacts:FileArtifact>
+                    <artifacts:Name value=".classpath"/>
+                    <artifacts:Metadata>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlSourcePersistenceKit"/>
+                    </artifacts:Metadata>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <wxml:Misc initialCapacity="0"/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="classpath"/>
+                                <wxml:Attributes initialCapacity="0"/>
+                                <wxml:Content initialCapacity="4">
+                                    <wxml:Element>
+                                        <wxml:Name value="classpathentry"/>
+                                        <wxml:Attributes initialCapacity="2">
+                                        <wxml:Attribute>
+                                        <wxml:Name value="kind"/>
+                                        <wxml:Value value="src"/>
+                                        </wxml:Attribute>
+                                        <wxml:Attribute>
+                                        <wxml:Name value="path"/>
+                                        <wxml:Value value="src"/>
+                                        </wxml:Attribute>
+                                        </wxml:Attributes>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="classpathentry"/>
+                                        <wxml:Attributes initialCapacity="2">
+                                        <wxml:Attribute>
+                                        <wxml:Name value="kind"/>
+                                        <wxml:Value value="con"/>
+                                        </wxml:Attribute>
+                                        <wxml:Attribute>
+                                        <wxml:Name value="path"/>
+                                        <wxml:Value value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+                                        </wxml:Attribute>
+                                        </wxml:Attributes>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="classpathentry"/>
+                                        <wxml:Attributes initialCapacity="2">
+                                        <wxml:Attribute>
+                                        <wxml:Name value="kind"/>
+                                        <wxml:Value value="con"/>
+                                        </wxml:Attribute>
+                                        <wxml:Attribute>
+                                        <wxml:Name value="path"/>
+                                        <wxml:Value value="org.whole.lang.lite.WHOLELITERT_CONTAINER"/>
+                                        </wxml:Attribute>
+                                        </wxml:Attributes>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="classpathentry"/>
+                                        <wxml:Attributes initialCapacity="2">
+                                        <wxml:Attribute>
+                                        <wxml:Name value="kind"/>
+                                        <wxml:Value value="output"/>
+                                        </wxml:Attribute>
+                                        <wxml:Attribute>
+                                        <wxml:Name value="path"/>
+                                        <wxml:Value value="bin"/>
+                                        </wxml:Attribute>
+                                        </wxml:Attributes>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                </wxml:Content>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                </artifacts:FileArtifact>
+                <artifacts:FileArtifact>
+                    <artifacts:Name value=".project"/>
+                    <artifacts:Metadata>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlSourcePersistenceKit"/>
+                    </artifacts:Metadata>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
+                            <wxml:Prolog>
+                                <wxml:XMLDecl>
+                                    <wxml:Version value="1.0"/>
+                                    <wxml:Encoding value="UTF-8"/>
+                                    <wxml:Standalone value="false"/>
+                                </wxml:XMLDecl>
+                                <commons:Resolver/>
+                                <wxml:Misc initialCapacity="0"/>
+                            </wxml:Prolog>
+                            <wxml:Element>
+                                <wxml:Name value="projectDescription"/>
+                                <wxml:Attributes initialCapacity="0"/>
+                                <wxml:Content initialCapacity="5">
+                                    <wxml:Element>
+                                        <wxml:Name value="name"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="1">
+                                        <wxml:CharData value="BaseProject"/>
+                                        </wxml:Content>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="comment"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="projects"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="0"/>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="buildSpec"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="2">
+                                        <wxml:Element>
+                                        <wxml:Name value="buildCommand"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="2">
+                                        <wxml:Element>
+                                        <wxml:Name value="name"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="1">
+                                        <wxml:CharData value="org.eclipse.jdt.core.javabuilder"/>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        <wxml:Element>
+                                        <wxml:Name value="arguments"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="0"/>
+                                        </wxml:Element>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        <wxml:Element>
+                                        <wxml:Name value="buildCommand"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="2">
+                                        <wxml:Element>
+                                        <wxml:Name value="name"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="1">
+                                        <wxml:CharData value="org.whole.lang.ui.WholeBuilder"/>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        <wxml:Element>
+                                        <wxml:Name value="arguments"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="0"/>
+                                        </wxml:Element>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        </wxml:Content>
+                                    </wxml:Element>
+                                    <wxml:Element>
+                                        <wxml:Name value="natures"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="2">
+                                        <wxml:Element>
+                                        <wxml:Name value="nature"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="1">
+                                        <wxml:CharData value="org.eclipse.jdt.core.javanature"/>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        <wxml:Element>
+                                        <wxml:Name value="nature"/>
+                                        <wxml:Attributes initialCapacity="0"/>
+                                        <wxml:Content initialCapacity="1">
+                                        <wxml:CharData value="org.whole.lang.ui.WholeNature"/>
+                                        </wxml:Content>
+                                        </wxml:Element>
+                                        </wxml:Content>
+                                    </wxml:Element>
+                                </wxml:Content>
+                            </wxml:Element>
+                        </wxml:Document>
+                    </commons:StageUpFragment>
+                </artifacts:FileArtifact>
+            </artifacts:Artifacts>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        </artifacts:Project>
+    </artifacts:Projects>
+</artifacts:Workspace>

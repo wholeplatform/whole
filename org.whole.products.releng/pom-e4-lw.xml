@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.wholeplatform</groupId>
+	<artifactId>org.whole.products.releng</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Whole Platform Application</name>
+	<description>The Whole Platform is a technology for engineering the production of software</description>
+	<url>http://wholeplatform.com</url>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<modules>
+		<module>../org.whole.product.e4.lw.target/pom-e4-lw.xml</module>
+
+		<module>../com.fasterxml.jackson/pom-e4-lw.xml</module>
+		<module>../com.fasterxml.jackson.feature/pom-e4-lw.xml</module>
+		<module>../net.sourceforge.jodatime/pom-e4-lw.xml</module>
+		<module>../net.sourceforge.jodatime.feature/pom-e4-lw.xml</module>
+		<module>../nu.validator.htmlparser/pom-e4-lw.xml</module>
+		<module>../nu.validator.htmlparser.feature/pom-e4-lw.xml</module>
+		<module>../org.beanshell.bsh/pom-e4-lw.xml</module>
+		<module>../org.beanshell.bsh.feature/pom-e4-lw.xml</module>
+		<module>../org.h2/pom-e4-lw.xml</module>
+		<module>../org.h2.feature/pom-e4-lw.xml</module>
+		<module>../org.mozilla.rhino/pom-e4-lw.xml</module>
+		<module>../org.mozilla.rhino.feature/pom-e4-lw.xml</module>
+
+		<module>../org.whole.lang/pom-e4-lw.xml</module>
+		<module>../org.whole.lang.feature/pom-e4-lw.xml</module>
+
+		<module>../org.whole.lang.ui/pom-e4-lw.xml</module>
+		<module>../org.whole.lang.e4.ui/pom-e4-lw.xml</module>
+		<module>../org.whole.lang.ui.notations/pom-e4-lw.xml</module>
+
+		<module>../org.whole.langs.core/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.legacy/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.db/pom-e4-lw.xml</module>
+
+		<module>../org.whole.langs.core.op/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.legacy.op/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.db.op/pom-e4-lw.xml</module>
+
+		<module>../org.whole.standalone/pom-e4-lw.xml</module>
+		<module>../org.whole.standalone.feature/pom-e4-lw.xml</module>
+
+		<module>../org.whole.langs.core.ui/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.legacy.ui/pom-e4-lw.xml</module>
+		<module>../org.whole.langs.db.ui/pom-e4-lw.xml</module>
+
+		<module>../org.whole.lang.gen/pom-e4-lw.xml</module>
+		<module>../org.whole.lang.gen.feature/pom-e4-lw.xml</module>
+
+		<module>../org.whole.rcp/pom-e4-lw.xml</module>
+		<module>../org.whole.rcp.feature/pom-e4-lw.xml</module>
+
+		<module>../org.whole.product.e4.lw/pom-e4-lw.xml</module>
+		<module>../org.whole.product.e4.lw.feature/pom-e4-lw.xml</module>
+		<module>../org.whole.product.e4.lw.product/pom-e4-lw.xml</module>
+		<module>../org.whole.product.e4.lw.repository/pom-e4-lw.xml</module>
+	</modules>
+
+	<build>
+		<sourceDirectory>${basedir}/src</sourceDirectory>
+		<testSourceDirectory>${basedir}/test</testSourceDirectory>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>${wagon-ssh-version}</version>
+			</extension>
+		</extensions>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${jar-version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${source-version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${resources-version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>org.eclipse.tycho.surefire.junit47</artifactId>
+							<version>${tycho-version}</version>
+						</dependency>
+    				</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- enable tycho build extension -->
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<argLine>-Xms256m -Xmx512m</argLine>
+					<testSuite>org.whole.test</testSuite>
+					<testClass>org.whole.test.ContinuousTestingTests</testClass>
+					<!--FIXME GrammarBasedPrettyPrinterVisitorTest and GrammarBasedUnparserVisitorTest fail on travis CI -->
+					<!--testClass>org.whole.test.ContinuousIntegrationTests</testClass-->
+					<parallel>both</parallel>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<target>
+						<artifact>
+							<groupId>com.wholeplatform</groupId>
+							<artifactId>org.whole.product.lw.target</artifactId>
+							<version>1.0.0-SNAPSHOT</version>
+							<classifier>LUNA_4_4_x</classifier>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- tycho requires maven >= 3.0 -->
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk-version>1.8</jdk-version>
+
+		<compiler-version>2.4</compiler-version>
+		<wagon-ssh-version>2.2</wagon-ssh-version>
+		<tycho-version>0.21.0</tycho-version>
+		<assembly-version>2.3</assembly-version>
+		<source-version>2.1.2</source-version>
+		<resources-version>2.5</resources-version>
+		<jar-version>2.4</jar-version>
+
+		<h2-version>1.2.147</h2-version>
+		<bsh-version>2.0b4</bsh-version>
+		<asm-version>3.2</asm-version>
+		<joda-time-version>1.6.2</joda-time-version>
+		<rhino-version>1.7R3</rhino-version>
+		<junit-version>4.11</junit-version>
+	</properties>
+
+	<!-- update according to org.whole.product.lw.target/LUNA_4_4_x.target -->
+	<repositories>
+		<repository>
+			<id>eclipse-luna-updates</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/eclipse/updates/4.4</url>
+		</repository>
+		<repository>
+			<id>e4tools</id>
+			<layout>p2</layout>
+			<url>http://whole.sourceforge.net/e4tools-updates</url>
+		</repository>
+		<repository>
+			<id>gef</id>
+			<layout>p2</layout>
+			<url>http://whole.sourceforge.net/gef-updates</url>
+		</repository>
+	</repositories>
+</project>

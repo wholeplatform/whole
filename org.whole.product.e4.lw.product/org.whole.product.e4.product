@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product	name="%productName"
+			uid="org.whole.product.e4.lw.product"
+			id="org.whole.product.e4.lw.product"
+			application="org.eclipse.e4.ui.workbench.swt.E4Application"
+			version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <launcher name="whole">
+      <linux icon="whole.xpm"/>
+      <macosx icon="whole.icns"/>
+      <solaris/>
+      <win useIco="true">
+         <ico path="whole.ico"/>
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <features>
+      <feature id="org.eclipse.gef.lightweight"/>
+      <feature id="org.eclipse.gef.source"/>
+      <feature id="com.fasterxml.jackson.feature"/>
+      <feature id="net.sourceforge.jodatime.feature"/>
+      <feature id="nu.validator.htmlparser.feature"/>
+      <feature id="org.beanshell.bsh.feature"/>
+      <feature id="org.h2.feature"/>
+      <feature id="org.mozilla.rhino.feature"/>
+      <feature id="org.whole.product.e4.lw.feature"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.e4.rcp"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="3" />
+   </configurations>
+
+</product>
