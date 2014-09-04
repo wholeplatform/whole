@@ -28,7 +28,6 @@
          version="0.0.0"/>
 
    <requires>
-      <import plugin="org.eclipse.platform" version="3.3.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.gef.lightweight" version="3.2.0" match="greaterOrEqual"/>
    </requires>
 
@@ -41,13 +40,6 @@
 
    <plugin
          id="org.whole.lang.e4.ui"
-         download-size="0"
-         install-size="0"
-         version="1.0.0.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.whole.lang.e4.ui.compatibility"
          download-size="0"
          install-size="0"
          version="1.0.0.qualifier"
