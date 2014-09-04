@@ -76,11 +76,11 @@ Export-Package: org.whole.lang.bytecode.util,
  org.whole.langs.legacy
 Require-Bundle: org.whole.lang,
  org.eclipse.core.runtime;bundle-version="3.9.0",
- org.mozilla.rhino;resolution:=optional,
- org.beanshell.bsh;resolution:=optional,
- org.objectweb.asm;bundle-version="3.1.0";resolution:=optional,
- net.sourceforge.jodatime;resolution:=optional,
- com.fasterxml.jackson;resolution:=optional
+ org.mozilla.rhino;visibility:=reexport,
+ org.beanshell.bsh;visibility:=reexport,
+ org.objectweb.asm;bundle-version="3.1.0";visibility:=reexport,
+ net.sourceforge.jodatime;visibility:=reexport,
+ com.fasterxml.jackson;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

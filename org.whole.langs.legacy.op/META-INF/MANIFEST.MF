@@ -13,9 +13,7 @@ Export-Package: org.whole.lang.xsd.codebase,
 Require-Bundle: org.whole.lang,
  org.whole.langs.core,
  org.whole.langs.legacy,
- org.mozilla.rhino;resolution:=optional
-Import-Package: nu.validator.htmlparser.common;resolution:=optional,
- nu.validator.htmlparser.sax;resolution:=optional
+ nu.validator.htmlparser;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
