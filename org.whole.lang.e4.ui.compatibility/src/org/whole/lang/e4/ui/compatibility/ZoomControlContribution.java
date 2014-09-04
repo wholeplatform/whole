@@ -106,10 +106,10 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 	}
 
 	public void widgetSelected(SelectionEvent event) {
-		setZoomAndUpdate(event, true);
+		setZoomAndUpdate(event);
 	}
 	public void widgetDefaultSelected(SelectionEvent event) {
-		setZoomAndUpdate(event, false);
+		setZoomAndUpdate(event);
 	}
 
 	@Override
@@ -124,14 +124,14 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 		update(false);
 	}
 
-	protected void setZoomAndUpdate(SelectionEvent event, boolean force) {
+	protected void setZoomAndUpdate(SelectionEvent event) {
 		if (zoomManager == null)
 			return;
 		
 		zoomManager.setZoomAsText(combo.getSelectionIndex() >= 0 ? 
 				combo.getItem(combo.getSelectionIndex()) : combo.getText());
 		
-		update(false, force);
+		update(false);
 	}
 	protected void setZoomManager(ZoomManager zoomManager) {
 		if (this.zoomManager == zoomManager)
@@ -147,9 +147,6 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 	}
 
 	protected void update(boolean repopulate) {
-		update(repopulate, false);
-	}
-	protected void update(boolean repopulate, boolean force) {
 		if (combo.isDisposed())
 			return;
 
@@ -161,9 +158,8 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 			String zoom = zoomManager.getZoomAsText();
 			int index = combo.indexOf(zoom);
 
-			if (index == -1 || force)
-				combo.setText(zoom);
-			else
+			combo.setText(zoom);
+			if (index != -1)
 				combo.select(index);
 		} else
 			combo.setText("");

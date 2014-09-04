@@ -26,6 +26,8 @@ import org.eclipse.swt.events.GestureListener;
  * @author Enrico Persiani
  */
 public class ZoomGestureListener implements GestureListener {
+	private static final double NEIGHBOURHOOD = 0.1;
+
 	protected ZoomManager zoomManager;
 	protected double initialZoomLevel;
 
@@ -39,16 +41,15 @@ public class ZoomGestureListener implements GestureListener {
 		case SWT.GESTURE_BEGIN:
 			initialZoomLevel = zoomManager.getZoom();
 			break;
+
 		case SWT.GESTURE_MAGNIFY:
 			double targetZoomLevel = initialZoomLevel * e.magnification;
 
-			if (Math.abs((Math.rint(targetZoomLevel) - targetZoomLevel)) < 0.03d)
-				targetZoomLevel = Math.rint(targetZoomLevel);
-			else if (Math.abs((Math.rint(targetZoomLevel + .5d) - targetZoomLevel - .5d)) < 0.03d)
-				targetZoomLevel = Math.rint(targetZoomLevel + .5d) - .5d;
+			for (double zoomLevel : zoomManager.getZoomLevels())
+				if (Math.abs(targetZoomLevel-zoomLevel) <= NEIGHBOURHOOD)
+					targetZoomLevel = zoomLevel;
 
 			zoomManager.setZoom(targetZoomLevel);
-			zoomManager.getViewport().getUpdateManager().performUpdate();
 			break;
 		}
 	}
