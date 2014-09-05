@@ -29,10 +29,10 @@ public class ZoomGestureListener implements GestureListener {
 	protected ZoomManager zoomManager;
 	protected double initialZoomLevel;
 	protected long initialTime;
+	protected boolean magnifying;
 
 	public ZoomGestureListener(ZoomManager zoomManager) {
 		this.zoomManager = zoomManager;
-		this.initialZoomLevel = Double.NaN;
 	}
 
 	public void gesture(GestureEvent e) {
@@ -40,15 +40,17 @@ public class ZoomGestureListener implements GestureListener {
 		case SWT.GESTURE_BEGIN:
 			initialZoomLevel = zoomManager.getZoom();
 			initialTime = e.time & 0xFFFFFFFFL;
+			magnifying = false;
 			break;
 
 		case SWT.GESTURE_MAGNIFY:
 			double targetZoomLevel = initialZoomLevel * e.magnification;
 			zoomManager.setZoom(targetZoomLevel);
+			magnifying = true;
 			break;
 
 		case SWT.GESTURE_END:
-			if ((e.time & 0xFFFFFFFFL) - initialTime < 200) {
+			if (magnifying && (e.time & 0xFFFFFFFFL) - initialTime < 200) {
 				double[] zoomLevels = zoomManager.getZoomLevels();
 
 				if (zoomManager.getZoom() > initialZoomLevel) {
