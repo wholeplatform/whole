@@ -366,7 +366,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
 					Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
 					Method method = uiPluginClass.getMethod("revealPerspective", String.class);
-					method.invoke(null, "org.whole.product.lw.ui.LanguageWorkbenchDebugPerspectiveFactory");
+					method.invoke(null, "org.whole.lang.ui.perspectives.LanguageWorkbenchDebugPerspectiveFactory");
 				} catch (Exception e) {
 					throw new IllegalStateException(e);
 				}
