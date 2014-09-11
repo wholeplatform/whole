@@ -110,10 +110,11 @@ public class GenericMatcher {
 				) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) )
 			throw new MatchException(pattern, model, bindings);
 
-		for (int i=0, size=pattern.wSize(); i<size; i++)
-			if (traversalFilter.include(model, i))
-				pattern.wGet(i).wAccept(this, model.wGet(i));
-    }
+		if (!pattern.wIsEmpty())
+			for (int i=0, size=pattern.wSize(); i<size; i++)
+				if (traversalFilter.include(model, i))
+					pattern.wGet(i).wAccept(this, model.wGet(i));
+	}
 
     public void matchDataEntity(IEntity pattern, IEntity model) {
     	if (!EntityUtils.isData(model) ||
