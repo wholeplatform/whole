@@ -41,7 +41,9 @@ public class ScopeBracketsBorder extends MarginBorder {
 	@SuppressWarnings("unchecked")
 	public void paint(IFigure f, Graphics g, Insets i) {
 		List<IFigure> children = (List<IFigure>) f.getChildren();
-		int heightFirstChild = children.get(0).getBounds().height;
+		Rectangle bounds0 = children.get(0).getBounds();
+		int rightFirstChild = bounds0.right();
+		int bottomFirstChild = bounds0.bottom();
 		int heightLastChild = children.size() < 3 ? 4 : children.get(children.size()-1).getBounds().height;
 
 		Rectangle r = getPaintRectangle(f, i);
@@ -50,19 +52,15 @@ public class ScopeBracketsBorder extends MarginBorder {
 
 		g.setForegroundColor(getDelimiterColor());
 
-//		g.setLineStyle(SWT.LINE_CUSTOM);
-//		g.setLineDash(new int[] {5,2});
-
-		g.drawLine(r.x, r.y, r.right(), r.y);
-		g.drawLine(r.x, r.y, r.x, r.y+heightFirstChild);		
-		g.drawLine(r.right(), r.y, r.right(), r.y+heightFirstChild);		
+		g.drawLine(r.x, r.y, rightFirstChild, r.y);
+		g.drawLine(r.x, r.y, r.x, bottomFirstChild);		
+		g.drawLine(rightFirstChild, r.y, rightFirstChild, bottomFirstChild-4);		
+		g.drawLine(rightFirstChild, bottomFirstChild-4, r.right(), bottomFirstChild-4);
+		g.drawLine(r.right(), bottomFirstChild-4, r.right(), bottomFirstChild);
 
 		g.drawLine(r.x, r.bottom(), r.right(), r.bottom());
 		g.drawLine(r.x, r.bottom(), r.x, r.bottom()-heightLastChild);
 		g.drawLine(r.right(), r.bottom(), r.right(), r.bottom()-heightLastChild);
-		
-//		g.setLineStyle(SWT.LINE_SOLID);
-//		g.setLineDash((int[]) null);
 	}
 	protected Color getDelimiterColor() {
 		return ColorConstants.black;
