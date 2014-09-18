@@ -4,7 +4,7 @@
 			id="product"
 			point="org.eclipse.core.runtime.products">
 		<product
-				name="org.whole.product.e4.lw"
+				name="Whole Language Workbench"
 				application="org.eclipse.e4.ui.workbench.swt.E4Application">
 			<property
 					name="applicationCSS"
