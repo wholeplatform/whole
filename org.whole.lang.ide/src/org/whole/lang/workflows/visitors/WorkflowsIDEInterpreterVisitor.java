@@ -17,7 +17,9 @@
  */
 package org.whole.lang.workflows.visitors;
 
-import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.*;
+import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.ClassPath_ord;
+import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CurrentJavaProject_ord;
+import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.JavaProject_ord;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.BrokenBarrierException;
@@ -43,6 +45,7 @@ import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
+import org.whole.lang.parsers.ParseException;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateFactory;
@@ -183,6 +186,8 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 	public void visit(Parse entity) {
 		try {
 			super.visit(entity);
+		} catch (ParseException e) {
+			throw e;
 		} catch (Exception e) {
 			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
 			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
