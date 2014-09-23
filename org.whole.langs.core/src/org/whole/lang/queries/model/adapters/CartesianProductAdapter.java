@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class CartesianProductAdapter extends
-		AbstractListEntityAdapter<PathExpression> implements CartesianProduct {
-	private static final long serialVersionUID = 1;
+public class CartesianProductAdapter extends AbstractListEntityAdapter<PathExpression> implements CartesianProduct {
+    private static final long serialVersionUID = 1;
 
-	public CartesianProductAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public CartesianProductAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public CartesianProductAdapter() {
-	}
+    public CartesianProductAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<CartesianProduct> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.CartesianProduct;
-	}
+    public EntityDescriptor<CartesianProduct> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.CartesianProduct;
+    }
 }

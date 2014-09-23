@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class DistinctTestAdapter extends AbstractEntityAdapter implements
-		DistinctTest {
-	private static final long serialVersionUID = 1;
+public class DistinctTestAdapter extends AbstractEntityAdapter implements DistinctTest {
+    private static final long serialVersionUID = 1;
 
-	public DistinctTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public DistinctTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public DistinctTestAdapter() {
-	}
+    public DistinctTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<DistinctTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.DistinctTest;
-	}
+    public EntityDescriptor<DistinctTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.DistinctTest;
+    }
 
-	public Comparator getComparator() {
-		return wGet(QueriesFeatureDescriptorEnum.comparator).wGetAdapter(
-				QueriesEntityDescriptorEnum.Comparator);
-	}
+    public Comparator getComparator() {
+        return wGet(QueriesFeatureDescriptorEnum.comparator).wGetAdapter(QueriesEntityDescriptorEnum.Comparator);
+    }
 
-	public void setComparator(Comparator comparator) {
-		wSet(QueriesFeatureDescriptorEnum.comparator, comparator);
-	}
+    public void setComparator(Comparator comparator) {
+        wSet(QueriesFeatureDescriptorEnum.comparator, comparator);
+    }
 }

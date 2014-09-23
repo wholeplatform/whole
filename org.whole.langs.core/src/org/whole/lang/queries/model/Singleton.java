@@ -1,10 +1,13 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Singleton extends IQueriesEntity, Expression {
-	public PathExpression getExpression();
 
-	public void setExpression(PathExpression expression);
+
+    public PathExpression getExpression();
+
+    public void setExpression(PathExpression expression);
 }

@@ -17,21 +17,27 @@
  */
 package org.whole.lang.reflect;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.codebase.QueriesModel;
 import org.whole.lang.models.model.Model;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * @author Riccardo Solmi
@@ -220,7 +226,14 @@ public class DynamicModelDefinitionTest {
 
     @Test
 	public void testModelsInterpreter() {
-		Model model = new QueriesModel().create();
+		Model model;
+		try {
+			model = (Model) XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/queries/QueriesModel.xwl"));
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+
 		String URI = "http://my/uri/for/queries/lang";
 		
 		model.getUri().setValue(URI);
@@ -246,13 +259,13 @@ public class DynamicModelDefinitionTest {
 		FeatureDescriptorEnum fdenum = lk.getFeatureDescriptorEnum();
 
 		assertFalse(qfdenum.equals(fdenum));
-		assertSame(qfdenum.size(), fdenum.size());
+		assertEquals(qfdenum.size(), fdenum.size());
 		for (FeatureDescriptor qfd : qfdenum) {
 			assertEquals(qfd.getOrdinal(), fdenum.valueOf(qfd.getName()).getOrdinal());
 		}
 
 		assertFalse(qedenum.equals(edenum));
-		assertSame(qedenum.size(), edenum.size());
+		assertEquals(qedenum.size(), edenum.size());
 		for (EntityDescriptor<?> qed : qedenum) {
 			EntityDescriptor<?> ed = edenum.valueOf(qed.getName());
 			

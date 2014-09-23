@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class EntityTypeAdapter extends AbstractEntityAdapter implements
-		EntityType {
-	private static final long serialVersionUID = 1;
+public class EntityTypeAdapter extends AbstractEntityAdapter implements EntityType {
+    private static final long serialVersionUID = 1;
 
-	public EntityTypeAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public EntityTypeAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public EntityTypeAdapter() {
-	}
+    public EntityTypeAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<EntityType> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.EntityType;
-	}
+    public EntityDescriptor<EntityType> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.EntityType;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

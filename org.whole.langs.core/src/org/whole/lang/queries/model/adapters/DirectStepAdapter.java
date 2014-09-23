@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class DirectStepAdapter extends AbstractEntityAdapter implements
-		DirectStep {
-	private static final long serialVersionUID = 1;
+public class DirectStepAdapter extends AbstractEntityAdapter implements DirectStep {
+    private static final long serialVersionUID = 1;
 
-	public DirectStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public DirectStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public DirectStepAdapter() {
-	}
+    public DirectStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<DirectStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.DirectStep;
-	}
+    public EntityDescriptor<DirectStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.DirectStep;
+    }
 }

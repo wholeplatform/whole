@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ConstraintsAdapter extends AbstractEntityAdapter implements
-		Constraints {
-	private static final long serialVersionUID = 1;
+public class ConstraintsAdapter extends AbstractEntityAdapter implements Constraints {
+    private static final long serialVersionUID = 1;
 
-	public ConstraintsAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ConstraintsAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ConstraintsAdapter() {
-	}
+    public ConstraintsAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Constraints> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Constraints;
-	}
+    public EntityDescriptor<Constraints> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Constraints;
+    }
 }

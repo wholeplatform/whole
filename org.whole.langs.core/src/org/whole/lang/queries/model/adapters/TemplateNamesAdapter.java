@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class TemplateNamesAdapter extends AbstractEntityAdapter implements
-		TemplateNames {
-	private static final long serialVersionUID = 1;
+public class TemplateNamesAdapter extends AbstractEntityAdapter implements TemplateNames {
+    private static final long serialVersionUID = 1;
 
-	public TemplateNamesAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public TemplateNamesAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public TemplateNamesAdapter() {
-	}
+    public TemplateNamesAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<TemplateNames> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.TemplateNames;
-	}
+    public EntityDescriptor<TemplateNames> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.TemplateNames;
+    }
 }

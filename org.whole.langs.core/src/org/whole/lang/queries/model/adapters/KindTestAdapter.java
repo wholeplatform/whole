@@ -8,33 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.model.KindTestEnum.Value;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class KindTestAdapter extends AbstractEntityAdapter implements KindTest {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public KindTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public KindTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public KindTestAdapter() {
-	}
+    public KindTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<KindTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.KindTest;
-	}
+    public EntityDescriptor<KindTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.KindTest;
+    }
 
-	public Value getValue() {
-		return (Value) wEnumValue();
-	}
+    public Value getValue() {
+        return (Value) wEnumValue();
+    }
 
-	public void setValue(Value value) {
-		wSetValue(value);
-	}
+    public void setValue(Value value) {
+        wSetValue(value);
+    }
 }

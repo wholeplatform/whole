@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class VariableTestAdapter extends AbstractEntityAdapter implements
-		VariableTest {
-	private static final long serialVersionUID = 1;
+public class VariableTestAdapter extends AbstractEntityAdapter implements VariableTest {
+    private static final long serialVersionUID = 1;
 
-	public VariableTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public VariableTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public VariableTestAdapter() {
-	}
+    public VariableTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<VariableTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.VariableTest;
-	}
+    public EntityDescriptor<VariableTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.VariableTest;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

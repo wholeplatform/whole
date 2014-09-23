@@ -7,25 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class LiteralAdapter extends AbstractEntityAdapter implements Literal {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public LiteralAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public LiteralAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public LiteralAdapter() {
-	}
+    public LiteralAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Literal> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Literal;
-	}
+    public EntityDescriptor<Literal> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Literal;
+    }
 }

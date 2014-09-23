@@ -8,34 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import java.util.Date;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class DateLiteralAdapter extends AbstractEntityAdapter implements
-		DateLiteral {
-	private static final long serialVersionUID = 1;
+public class DateLiteralAdapter extends AbstractEntityAdapter implements DateLiteral {
+    private static final long serialVersionUID = 1;
 
-	public DateLiteralAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public DateLiteralAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public DateLiteralAdapter() {
-	}
+    public DateLiteralAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<DateLiteral> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.DateLiteral;
-	}
+    public EntityDescriptor<DateLiteral> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.DateLiteral;
+    }
 
-	public Date getValue() {
-		return wDateValue();
-	}
+    public Date getValue() {
+        return wDateValue();
+    }
 
-	public void setValue(Date value) {
-		wSetValue(value);
-	}
+    public void setValue(Date value) {
+        wSetValue(value);
+    }
 }

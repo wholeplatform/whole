@@ -1,14 +1,17 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Call extends IQueriesEntity, StepExpression {
-	public Name getName();
 
-	public void setName(Name name);
 
-	public Expressions getArguments();
+    public Name getName();
 
-	public void setArguments(Expressions arguments);
+    public void setName(Name name);
+
+    public Expressions getArguments();
+
+    public void setArguments(Expressions arguments);
 }

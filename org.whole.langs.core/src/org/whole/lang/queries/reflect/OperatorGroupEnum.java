@@ -86,10 +86,15 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 			return ASSIGNMENT;
 		case QueriesEntityDescriptorEnum.Addition_ord:
 		case QueriesEntityDescriptorEnum.Subtraction_ord:
+		case QueriesEntityDescriptorEnum.AdditionStep_ord:
+		case QueriesEntityDescriptorEnum.SubtractionStep_ord:
 			return ADDITIVE;
 		case QueriesEntityDescriptorEnum.Multiplication_ord:
 		case QueriesEntityDescriptorEnum.Division_ord:
 		case QueriesEntityDescriptorEnum.Remainder_ord:
+		case QueriesEntityDescriptorEnum.MultiplicationStep_ord:
+		case QueriesEntityDescriptorEnum.DivisionStep_ord:
+		case QueriesEntityDescriptorEnum.RemainderStep_ord:
 			return MULTIPLICATIVE;
 		case QueriesEntityDescriptorEnum.And_ord:
 			return LOGICAL_AND;
@@ -99,11 +104,17 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 			return UNARY;
 		case QueriesEntityDescriptorEnum.Equals_ord:
 		case QueriesEntityDescriptorEnum.NotEquals_ord:
+		case QueriesEntityDescriptorEnum.EqualsStep_ord:
+		case QueriesEntityDescriptorEnum.NotEqualsStep_ord:
 			return EQUALITY;
 		case QueriesEntityDescriptorEnum.LessThan_ord:
 		case QueriesEntityDescriptorEnum.LessOrEquals_ord:
 		case QueriesEntityDescriptorEnum.GreaterThan_ord:
 		case QueriesEntityDescriptorEnum.GreaterOrEquals_ord:
+		case QueriesEntityDescriptorEnum.LessThanStep_ord:
+		case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord:
+		case QueriesEntityDescriptorEnum.GreaterThanStep_ord:
+		case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord:
 			return RELATIONAL;
 		default:
 			return LITERAL;

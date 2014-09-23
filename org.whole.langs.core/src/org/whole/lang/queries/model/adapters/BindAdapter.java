@@ -8,43 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class BindAdapter extends AbstractEntityAdapter implements Bind {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public BindAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public BindAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public BindAdapter() {
-	}
+    public BindAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Bind> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Bind;
-	}
+    public EntityDescriptor<Bind> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Bind;
+    }
 
-	public Name getName() {
-		return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(
-				QueriesEntityDescriptorEnum.Name);
-	}
+    public Name getName() {
+        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.Name);
+    }
 
-	public void setName(Name name) {
-		wSet(QueriesFeatureDescriptorEnum.name, name);
-	}
+    public void setName(Name name) {
+        wSet(QueriesFeatureDescriptorEnum.name, name);
+    }
 
-	public PathExpressionOrPredicate getExpression() {
-		return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(
-				QueriesEntityDescriptorEnum.PathExpressionOrPredicate);
-	}
+    public PathExpressionOrPredicate getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpressionOrPredicate);
+    }
 
-	public void setExpression(PathExpressionOrPredicate expression) {
-		wSet(QueriesFeatureDescriptorEnum.expression, expression);
-	}
+    public void setExpression(PathExpressionOrPredicate expression) {
+        wSet(QueriesFeatureDescriptorEnum.expression, expression);
+    }
 }

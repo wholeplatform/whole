@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PointwiseProductAdapter extends
-		AbstractListEntityAdapter<PathExpression> implements PointwiseProduct {
-	private static final long serialVersionUID = 1;
+public class PointwiseProductAdapter extends AbstractListEntityAdapter<PathExpression> implements PointwiseProduct {
+    private static final long serialVersionUID = 1;
 
-	public PointwiseProductAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PointwiseProductAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PointwiseProductAdapter() {
-	}
+    public PointwiseProductAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<PointwiseProduct> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.PointwiseProduct;
-	}
+    public EntityDescriptor<PointwiseProduct> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.PointwiseProduct;
+    }
 }

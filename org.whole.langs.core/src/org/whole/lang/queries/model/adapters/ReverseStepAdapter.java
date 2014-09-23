@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ReverseStepAdapter extends AbstractEntityAdapter implements
-		ReverseStep {
-	private static final long serialVersionUID = 1;
+public class ReverseStepAdapter extends AbstractEntityAdapter implements ReverseStep {
+    private static final long serialVersionUID = 1;
 
-	public ReverseStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ReverseStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ReverseStepAdapter() {
-	}
+    public ReverseStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<ReverseStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.ReverseStep;
-	}
+    public EntityDescriptor<ReverseStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.ReverseStep;
+    }
 }

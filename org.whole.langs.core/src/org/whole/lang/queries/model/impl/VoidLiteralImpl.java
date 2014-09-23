@@ -6,22 +6,21 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class VoidLiteralImpl extends AbstractSimpleEntity implements
-		VoidLiteral {
-	private static final long serialVersionUID = 1;
+public class VoidLiteralImpl extends AbstractSimpleEntity implements VoidLiteral {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<VoidLiteral> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.VoidLiteral;
-	}
+    public EntityDescriptor<VoidLiteral> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.VoidLiteral;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.VoidLiteral_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.VoidLiteral_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 }

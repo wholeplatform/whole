@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class NamesExpressionAdapter extends AbstractEntityAdapter implements
-		NamesExpression {
-	private static final long serialVersionUID = 1;
+public class NamesExpressionAdapter extends AbstractEntityAdapter implements NamesExpression {
+    private static final long serialVersionUID = 1;
 
-	public NamesExpressionAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public NamesExpressionAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public NamesExpressionAdapter() {
-	}
+    public NamesExpressionAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<NamesExpression> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.NamesExpression;
-	}
+    public EntityDescriptor<NamesExpression> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.NamesExpression;
+    }
 }

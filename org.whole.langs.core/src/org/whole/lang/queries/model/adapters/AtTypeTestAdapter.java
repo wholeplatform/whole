@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class AtTypeTestAdapter extends AbstractEntityAdapter implements
-		AtTypeTest {
-	private static final long serialVersionUID = 1;
+public class AtTypeTestAdapter extends AbstractEntityAdapter implements AtTypeTest {
+    private static final long serialVersionUID = 1;
 
-	public AtTypeTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public AtTypeTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public AtTypeTestAdapter() {
-	}
+    public AtTypeTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<AtTypeTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.AtTypeTest;
-	}
+    public EntityDescriptor<AtTypeTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.AtTypeTest;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

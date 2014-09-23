@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ComparatorAdapter extends AbstractEntityAdapter implements
-		Comparator {
-	private static final long serialVersionUID = 1;
+public class ComparatorAdapter extends AbstractEntityAdapter implements Comparator {
+    private static final long serialVersionUID = 1;
 
-	public ComparatorAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ComparatorAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ComparatorAdapter() {
-	}
+    public ComparatorAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Comparator> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Comparator;
-	}
+    public EntityDescriptor<Comparator> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Comparator;
+    }
 }

@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PruneOrPredicateAdapter extends AbstractEntityAdapter implements
-		PruneOrPredicate {
-	private static final long serialVersionUID = 1;
+public class PruneOrPredicateAdapter extends AbstractEntityAdapter implements PruneOrPredicate {
+    private static final long serialVersionUID = 1;
 
-	public PruneOrPredicateAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PruneOrPredicateAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PruneOrPredicateAdapter() {
-	}
+    public PruneOrPredicateAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<PruneOrPredicate> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.PruneOrPredicate;
-	}
+    public EntityDescriptor<PruneOrPredicate> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.PruneOrPredicate;
+    }
 }

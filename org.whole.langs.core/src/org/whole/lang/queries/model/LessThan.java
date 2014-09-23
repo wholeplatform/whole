@@ -1,14 +1,17 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface LessThan extends IQueriesEntity, Expression {
-	public Expression getExp1();
 
-	public void setExp1(Expression exp1);
 
-	public Expression getExp2();
+    public Expression getExp1();
 
-	public void setExp2(Expression exp2);
+    public void setExp1(Expression exp1);
+
+    public Expression getExp2();
+
+    public void setExp2(Expression exp2);
 }

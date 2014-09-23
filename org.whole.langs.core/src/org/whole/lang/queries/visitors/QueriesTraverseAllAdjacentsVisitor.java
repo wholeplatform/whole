@@ -5,16 +5,16 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.visitors.IVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class QueriesTraverseAllAdjacentsVisitor extends
-		QueriesIdentityUnaryVisitor<IQueriesVisitor> {
-	public QueriesTraverseAllAdjacentsVisitor() {
-		wSetVisitor1(this);
-	}
+public class QueriesTraverseAllAdjacentsVisitor extends QueriesIdentityUnaryVisitor<IQueriesVisitor> {
 
-	public QueriesTraverseAllAdjacentsVisitor(IVisitor visitor1) {
-		super(visitor1);
-	}
+    public QueriesTraverseAllAdjacentsVisitor() {
+        wSetVisitor1(this);
+    }
+
+    public QueriesTraverseAllAdjacentsVisitor(IVisitor visitor1) {
+        super(visitor1);
+    }
 }

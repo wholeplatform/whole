@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class AncestorStepAdapter extends AbstractEntityAdapter implements
-		AncestorStep {
-	private static final long serialVersionUID = 1;
+public class AncestorStepAdapter extends AbstractEntityAdapter implements AncestorStep {
+    private static final long serialVersionUID = 1;
 
-	public AncestorStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public AncestorStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public AncestorStepAdapter() {
-	}
+    public AncestorStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<AncestorStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.AncestorStep;
-	}
+    public EntityDescriptor<AncestorStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.AncestorStep;
+    }
 }

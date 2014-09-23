@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PathExpressionOrPredicateAdapter extends AbstractEntityAdapter
-		implements PathExpressionOrPredicate {
-	private static final long serialVersionUID = 1;
+public class PathExpressionOrPredicateAdapter extends AbstractEntityAdapter implements PathExpressionOrPredicate {
+    private static final long serialVersionUID = 1;
 
-	public PathExpressionOrPredicateAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PathExpressionOrPredicateAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PathExpressionOrPredicateAdapter() {
-	}
+    public PathExpressionOrPredicateAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<PathExpressionOrPredicate> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.PathExpressionOrPredicate;
-	}
+    public EntityDescriptor<PathExpressionOrPredicate> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.PathExpressionOrPredicate;
+    }
 }

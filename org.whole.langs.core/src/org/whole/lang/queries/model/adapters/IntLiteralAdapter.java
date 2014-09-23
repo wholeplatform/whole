@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class IntLiteralAdapter extends AbstractEntityAdapter implements
-		IntLiteral {
-	private static final long serialVersionUID = 1;
+public class IntLiteralAdapter extends AbstractEntityAdapter implements IntLiteral {
+    private static final long serialVersionUID = 1;
 
-	public IntLiteralAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public IntLiteralAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public IntLiteralAdapter() {
-	}
+    public IntLiteralAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<IntLiteral> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.IntLiteral;
-	}
+    public EntityDescriptor<IntLiteral> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.IntLiteral;
+    }
 
-	public int getValue() {
-		return wIntValue();
-	}
+    public int getValue() {
+        return wIntValue();
+    }
 
-	public void setValue(int value) {
-		wSetValue(value);
-	}
+    public void setValue(int value) {
+        wSetValue(value);
+    }
 }

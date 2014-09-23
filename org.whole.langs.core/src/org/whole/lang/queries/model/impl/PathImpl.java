@@ -6,22 +6,21 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PathImpl extends AbstractListCompositeEntity<StepExpression>
-		implements Path {
-	private static final long serialVersionUID = 1;
+public class PathImpl extends AbstractListCompositeEntity<StepExpression> implements Path {
+    private static final long serialVersionUID = 1;
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.Path_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Path_ord;
+    }
 
-	public EntityDescriptor<Path> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Path;
-	}
+    public EntityDescriptor<Path> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Path;
+    }
 }

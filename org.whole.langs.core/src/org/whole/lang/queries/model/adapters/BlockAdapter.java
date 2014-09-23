@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class BlockAdapter extends AbstractListEntityAdapter<PathExpression>
-		implements Block {
-	private static final long serialVersionUID = 1;
+public class BlockAdapter extends AbstractListEntityAdapter<PathExpression> implements Block {
+    private static final long serialVersionUID = 1;
 
-	public BlockAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public BlockAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public BlockAdapter() {
-	}
+    public BlockAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Block> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Block;
-	}
+    public EntityDescriptor<Block> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Block;
+    }
 }

@@ -6,22 +6,21 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class FollowingSiblingStepImpl extends AbstractSimpleEntity implements
-		FollowingSiblingStep {
-	private static final long serialVersionUID = 1;
+public class FollowingSiblingStepImpl extends AbstractSimpleEntity implements FollowingSiblingStep {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<FollowingSiblingStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.FollowingSiblingStep;
-	}
+    public EntityDescriptor<FollowingSiblingStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.FollowingSiblingStep;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.FollowingSiblingStep_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.FollowingSiblingStep_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 }

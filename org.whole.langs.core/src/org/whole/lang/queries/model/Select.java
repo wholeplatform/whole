@@ -1,22 +1,25 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface Select extends IQueriesEntity, PathExpression {
-	public PathExpression getSelectClause();
 
-	public void setSelectClause(PathExpression selectClause);
 
-	public PathExpressionOrPredicate getFromClause();
+    public PathExpression getSelectClause();
 
-	public void setFromClause(PathExpressionOrPredicate fromClause);
+    public void setSelectClause(PathExpression selectClause);
 
-	public PathExpression getWhereClause();
+    public PathExpressionOrPredicate getFromClause();
 
-	public void setWhereClause(PathExpression whereClause);
+    public void setFromClause(PathExpressionOrPredicate fromClause);
 
-	public NamesExpression getClearClause();
+    public PathExpression getWhereClause();
 
-	public void setClearClause(NamesExpression clearClause);
+    public void setWhereClause(PathExpression whereClause);
+
+    public NamesExpression getClearClause();
+
+    public void setClearClause(NamesExpression clearClause);
 }

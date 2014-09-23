@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class IndexTestAdapter extends AbstractEntityAdapter implements
-		IndexTest {
-	private static final long serialVersionUID = 1;
+public class IndexTestAdapter extends AbstractEntityAdapter implements IndexTest {
+    private static final long serialVersionUID = 1;
 
-	public IndexTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public IndexTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public IndexTestAdapter() {
-	}
+    public IndexTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<IndexTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.IndexTest;
-	}
+    public EntityDescriptor<IndexTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.IndexTest;
+    }
 
-	public IntLiteral getIndex() {
-		return wGet(QueriesFeatureDescriptorEnum.index).wGetAdapter(
-				QueriesEntityDescriptorEnum.IntLiteral);
-	}
+    public IntLiteral getIndex() {
+        return wGet(QueriesFeatureDescriptorEnum.index).wGetAdapter(QueriesEntityDescriptorEnum.IntLiteral);
+    }
 
-	public void setIndex(IntLiteral index) {
-		wSet(QueriesFeatureDescriptorEnum.index, index);
-	}
+    public void setIndex(IntLiteral index) {
+        wSet(QueriesFeatureDescriptorEnum.index, index);
+    }
 }

@@ -8,73 +8,67 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class CallImpl extends AbstractSimpleEntity implements Call {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<Call> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Call;
-	}
+    public EntityDescriptor<Call> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Call;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.Call_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Call_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
+    private Name name;
 
-	private Name name;
+    public Name getName() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.name, name);
+    }
 
-	public Name getName() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.name, name);
-	}
+    public void setName(Name name) {
+        notifyChanged(QueriesFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Expressions arguments;
 
-	public void setName(Name name) {
-		notifyChanged(QueriesFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Expressions getArguments() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.arguments, arguments);
+    }
 
-	private Expressions arguments;
+    public void setArguments(Expressions arguments) {
+        notifyChanged(QueriesFeatureDescriptorEnum.arguments, this.arguments, this.arguments = arguments);
+    }
 
-	public Expressions getArguments() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.arguments,
-				arguments);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getName().wGetAdaptee(false);
+            case 1 :
+            return getArguments().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setArguments(Expressions arguments) {
-		notifyChanged(QueriesFeatureDescriptorEnum.arguments, this.arguments,
-				this.arguments = arguments);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setName(value.wGetAdapter(QueriesEntityDescriptorEnum.Name));
+            break;
+            case 1 :
+            setArguments(value.wGetAdapter(QueriesEntityDescriptorEnum.Expressions));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getName().wGetAdaptee(false);
-		case 1:
-			return getArguments().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setName(value.wGetAdapter(QueriesEntityDescriptorEnum.Name));
-			break;
-		case 1:
-			setArguments(value
-					.wGetAdapter(QueriesEntityDescriptorEnum.Expressions));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 2;
+    }
 }

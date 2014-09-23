@@ -8,34 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.visitors.IVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class VisitorTestAdapter extends AbstractEntityAdapter implements
-		VisitorTest {
-	private static final long serialVersionUID = 1;
+public class VisitorTestAdapter extends AbstractEntityAdapter implements VisitorTest {
+    private static final long serialVersionUID = 1;
 
-	public VisitorTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public VisitorTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public VisitorTestAdapter() {
-	}
+    public VisitorTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<VisitorTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.VisitorTest;
-	}
+    public EntityDescriptor<VisitorTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.VisitorTest;
+    }
 
-	public IVisitor getValue() {
-		return (IVisitor) wGetValue();
-	}
+    public IVisitor getValue() {
+        return (IVisitor) wGetValue();
+    }
 
-	public void setValue(IVisitor value) {
-		wSetValue((Object) value);
-	}
+    public void setValue(IVisitor value) {
+        wSetValue((Object) value);
+    }
 }

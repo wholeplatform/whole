@@ -1,10 +1,13 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface IndexTest extends IQueriesEntity, Predicate {
-	public IntLiteral getIndex();
 
-	public void setIndex(IntLiteral index);
+
+    public IntLiteral getIndex();
+
+    public void setIndex(IntLiteral index);
 }

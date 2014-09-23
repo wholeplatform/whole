@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class FollowingStepAdapter extends AbstractEntityAdapter implements
-		FollowingStep {
-	private static final long serialVersionUID = 1;
+public class FollowingStepAdapter extends AbstractEntityAdapter implements FollowingStep {
+    private static final long serialVersionUID = 1;
 
-	public FollowingStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public FollowingStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public FollowingStepAdapter() {
-	}
+    public FollowingStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<FollowingStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.FollowingStep;
-	}
+    public EntityDescriptor<FollowingStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.FollowingStep;
+    }
 }

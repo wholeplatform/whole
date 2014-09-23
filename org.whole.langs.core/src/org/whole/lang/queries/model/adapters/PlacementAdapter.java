@@ -8,34 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.model.PlacementEnum.Value;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class PlacementAdapter extends AbstractEntityAdapter implements
-		Placement {
-	private static final long serialVersionUID = 1;
+public class PlacementAdapter extends AbstractEntityAdapter implements Placement {
+    private static final long serialVersionUID = 1;
 
-	public PlacementAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public PlacementAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public PlacementAdapter() {
-	}
+    public PlacementAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Placement> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Placement;
-	}
+    public EntityDescriptor<Placement> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Placement;
+    }
 
-	public Value getValue() {
-		return (Value) wEnumValue();
-	}
+    public Value getValue() {
+        return (Value) wEnumValue();
+    }
 
-	public void setValue(Value value) {
-		wSetValue(value);
-	}
+    public void setValue(Value value) {
+        wSetValue(value);
+    }
 }

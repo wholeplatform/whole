@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ParenthesizedPredicateAdapter extends AbstractEntityAdapter
-		implements ParenthesizedPredicate {
-	private static final long serialVersionUID = 1;
+public class ParenthesizedPredicateAdapter extends AbstractEntityAdapter implements ParenthesizedPredicate {
+    private static final long serialVersionUID = 1;
 
-	public ParenthesizedPredicateAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ParenthesizedPredicateAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ParenthesizedPredicateAdapter() {
-	}
+    public ParenthesizedPredicateAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<ParenthesizedPredicate> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.ParenthesizedPredicate;
-	}
+    public EntityDescriptor<ParenthesizedPredicate> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.ParenthesizedPredicate;
+    }
 
-	public Predicate getPredicate() {
-		return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(
-				QueriesEntityDescriptorEnum.Predicate);
-	}
+    public Predicate getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    }
 
-	public void setPredicate(Predicate predicate) {
-		wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
-	}
+    public void setPredicate(Predicate predicate) {
+        wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
+    }
 }

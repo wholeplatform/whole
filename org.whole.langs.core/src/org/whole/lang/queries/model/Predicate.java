@@ -1,8 +1,9 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
-public interface Predicate extends IQueriesEntity, PathExpressionOrPredicate,
-		PruneOrPredicate {
+public interface Predicate extends IQueriesEntity, PathExpressionOrPredicate, PruneOrPredicate {
+
 }

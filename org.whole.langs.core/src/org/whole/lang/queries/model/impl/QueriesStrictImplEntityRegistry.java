@@ -1,10 +1,12 @@
 package org.whole.lang.queries.model.impl;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public class QueriesStrictImplEntityRegistry extends QueriesImplEntityRegistry {
-	protected void createPrototypes() {
-		super.createPrototypes();
-	}
+
+    protected void createPrototypes() {
+        super.createPrototypes();
+    }
 }

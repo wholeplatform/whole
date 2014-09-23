@@ -1,14 +1,17 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface IndexRangeTest extends IQueriesEntity, Predicate {
-	public IntLiteral getStartIndex();
 
-	public void setStartIndex(IntLiteral startIndex);
 
-	public IntLiteral getEndIndex();
+    public IntLiteral getStartIndex();
 
-	public void setEndIndex(IntLiteral endIndex);
+    public void setStartIndex(IntLiteral startIndex);
+
+    public IntLiteral getEndIndex();
+
+    public void setEndIndex(IntLiteral endIndex);
 }

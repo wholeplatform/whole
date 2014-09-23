@@ -6,57 +6,57 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class ByteLiteralImpl extends AbstractDataEntity implements ByteLiteral {
-	private static final long serialVersionUID = 1;
-	private byte value;
+    private static final long serialVersionUID = 1;
+    private byte value;
 
-	public byte getValue() {
-		return notifyRequested(value);
-	}
+    public byte getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(byte value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(byte value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.ByteLiteral_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.ByteLiteral_ord;
+    }
 
-	public EntityDescriptor<ByteLiteral> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.ByteLiteral;
-	}
+    public EntityDescriptor<ByteLiteral> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.ByteLiteral;
+    }
 
-	public Object wGetValue() {
-		return new Byte(getValue());
-	}
+    public Object wGetValue() {
+        return new Byte(getValue());
+    }
 
-	public void wSetValue(Object value) {
-		setValue(((Byte) value).byteValue());
-	}
+    public void wSetValue(Object value) {
+        setValue(((Byte) value).byteValue());
+    }
 
-	public String wStringValue() {
-		return toString();
-	}
+    public String wStringValue() {
+        return toString();
+    }
 
-	public void wSetValue(String value) {
-		try {
-			setValue(Byte.valueOf(value).byteValue());
-		} catch (NumberFormatException e) {
-		}
-	}
+    public void wSetValue(String value) {
+        try {
+            setValue(Byte.valueOf(value).byteValue());
+        } catch (NumberFormatException e) {
+        }
+    }
 
-	public byte wByteValue() {
-		return getValue();
-	}
+    public byte wByteValue() {
+        return getValue();
+    }
 
-	public void wSetValue(byte value) {
-		setValue(value);
-	}
+    public void wSetValue(byte value) {
+        setValue(value);
+    }
 }

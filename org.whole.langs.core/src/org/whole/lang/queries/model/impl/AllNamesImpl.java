@@ -6,21 +6,21 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class AllNamesImpl extends AbstractSimpleEntity implements AllNames {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<AllNames> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.AllNames;
-	}
+    public EntityDescriptor<AllNames> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.AllNames;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.AllNames_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.AllNames_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 }

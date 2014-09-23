@@ -8,43 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class EveryAdapter extends AbstractEntityAdapter implements Every {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EveryAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public EveryAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public EveryAdapter() {
-	}
+    public EveryAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Every> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Every;
-	}
+    public EntityDescriptor<Every> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Every;
+    }
 
-	public PathExpression getFromClause() {
-		return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(
-				QueriesEntityDescriptorEnum.PathExpression);
-	}
+    public PathExpression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    }
 
-	public void setFromClause(PathExpression fromClause) {
-		wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
-	}
+    public void setFromClause(PathExpression fromClause) {
+        wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
+    }
 
-	public Predicate getWhereClause() {
-		return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(
-				QueriesEntityDescriptorEnum.Predicate);
-	}
+    public Predicate getWhereClause() {
+        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    }
 
-	public void setWhereClause(Predicate whereClause) {
-		wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
-	}
+    public void setWhereClause(Predicate whereClause) {
+        wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
+    }
 }

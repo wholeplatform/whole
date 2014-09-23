@@ -7,701 +7,769 @@ import org.whole.lang.visitors.IVisitor;
 import java.util.Date;
 import org.whole.lang.queries.model.PlacementEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public interface IQueriesBuilder extends IBuilder {
-	public void visit();
 
-	public void exp2();
 
-	public void exp1();
+    public void visit();
 
-	public void pexp2();
+    public void exp2();
 
-	public void pexp1();
+    public void exp1();
 
-	public void identity();
+    public void pexp2();
 
-	public void expressions();
+    public void pexp1();
 
-	public void names();
+    public void identity();
 
-	public void comparator();
+    public void expressions();
 
-	public void endIndex();
+    public void names();
 
-	public void startIndex();
+    public void comparator();
 
-	public void index();
+    public void endIndex();
 
-	public void localNames();
+    public void startIndex();
 
-	public void arguments();
+    public void index();
 
-	public void bindings();
+    public void localNames();
 
-	public void constraints();
+    public void arguments();
 
-	public void predicate();
+    public void bindings();
 
-	public void expression();
+    public void constraints();
 
-	public void clearClause();
+    public void predicate();
 
-	public void whereClause();
+    public void expression();
 
-	public void selectClause();
+    public void clearClause();
 
-	public void valuesClause();
+    public void whereClause();
 
-	public void placement();
+    public void selectClause();
 
-	public void fromClause();
+    public void valuesClause();
 
-	public void body();
+    public void placement();
 
-	public void parameters();
+    public void fromClause();
 
-	public void name();
+    public void body();
 
-	public void QueryDeclaration();
+    public void parameters();
 
-	public void QueryDeclaration_();
+    public void name();
 
-	public void _QueryDeclaration();
+    public void QueryDeclaration();
 
-	public void Path();
+    public void QueryDeclaration_();
 
-	public void Path_();
+    public void _QueryDeclaration();
 
-	public void Path_(int initialCapacity);
+    public void Path();
 
-	public void _Path();
+    public void Path_();
 
-	public void Delete();
+    public void Path_(int initialCapacity);
 
-	public void Delete_();
+    public void _Path();
 
-	public void _Delete();
+    public void Delete();
 
-	public void CartesianInsert();
+    public void Delete_();
 
-	public void CartesianInsert_();
+    public void _Delete();
 
-	public void _CartesianInsert();
+    public void CartesianInsert();
 
-	public void PointwiseInsert();
+    public void CartesianInsert_();
 
-	public void PointwiseInsert_();
+    public void _CartesianInsert();
 
-	public void _PointwiseInsert();
+    public void PointwiseInsert();
 
-	public void CartesianUpdate();
+    public void PointwiseInsert_();
 
-	public void CartesianUpdate_();
+    public void _PointwiseInsert();
 
-	public void _CartesianUpdate();
+    public void CartesianUpdate();
 
-	public void PointwiseUpdate();
+    public void CartesianUpdate_();
 
-	public void PointwiseUpdate_();
+    public void _CartesianUpdate();
 
-	public void _PointwiseUpdate();
+    public void PointwiseUpdate();
 
-	public void Select();
+    public void PointwiseUpdate_();
 
-	public void Select_();
+    public void _PointwiseUpdate();
 
-	public void _Select();
+    public void Select();
 
-	public void For();
+    public void Select_();
 
-	public void For_();
+    public void _Select();
 
-	public void _For();
+    public void For();
 
-	public void If();
+    public void For_();
 
-	public void If_();
+    public void _For();
 
-	public void _If();
+    public void If();
 
-	public void Do();
+    public void If_();
 
-	public void Do_();
+    public void _If();
 
-	public void _Do();
+    public void Do();
 
-	public void EntityTemplate();
+    public void Do_();
 
-	public void EntityTemplate_();
+    public void _Do();
 
-	public void _EntityTemplate();
+    public void EntityTemplate();
 
-	public void EntityCall();
+    public void EntityTemplate_();
 
-	public void EntityCall_();
+    public void _EntityTemplate();
 
-	public void _EntityCall();
+    public void EntityCall();
 
-	public void Call();
+    public void EntityCall_();
 
-	public void Call_();
+    public void _EntityCall();
 
-	public void _Call();
+    public void Call();
 
-	public void Expressions();
+    public void Call_();
 
-	public void Expressions_();
+    public void _Call();
 
-	public void Expressions_(int initialCapacity);
+    public void Expressions();
 
-	public void _Expressions();
+    public void Expressions_();
 
-	public void Bindings();
+    public void Expressions_(int initialCapacity);
 
-	public void Bindings_();
+    public void _Expressions();
 
-	public void Bindings_(int initialCapacity);
+    public void Bindings();
 
-	public void _Bindings();
+    public void Bindings_();
 
-	public void Bind();
+    public void Bindings_(int initialCapacity);
 
-	public void Bind_();
+    public void _Bindings();
 
-	public void _Bind();
+    public void Bind();
 
-	public void Choose();
+    public void Bind_();
 
-	public void Choose_();
+    public void _Bind();
 
-	public void Choose_(int initialCapacity);
+    public void Choose();
 
-	public void _Choose();
+    public void Choose_();
 
-	public void Block();
+    public void Choose_(int initialCapacity);
 
-	public void Block_();
+    public void _Choose();
 
-	public void Block_(int initialCapacity);
+    public void Block();
 
-	public void _Block();
+    public void Block_();
 
-	public void Sequence();
+    public void Block_(int initialCapacity);
 
-	public void Sequence_();
+    public void _Block();
 
-	public void Sequence_(int initialCapacity);
+    public void Sequence();
 
-	public void _Sequence();
+    public void Sequence_();
 
-	public void Scope();
+    public void Sequence_(int initialCapacity);
 
-	public void Scope_();
+    public void _Sequence();
 
-	public void _Scope();
+    public void Scope();
 
-	public void CartesianProduct();
+    public void Scope_();
 
-	public void CartesianProduct_();
+    public void _Scope();
 
-	public void CartesianProduct_(int initialCapacity);
+    public void CartesianProduct();
 
-	public void _CartesianProduct();
+    public void CartesianProduct_();
 
-	public void PointwiseProduct();
+    public void CartesianProduct_(int initialCapacity);
 
-	public void PointwiseProduct_();
+    public void _CartesianProduct();
 
-	public void PointwiseProduct_(int initialCapacity);
+    public void PointwiseProduct();
 
-	public void _PointwiseProduct();
+    public void PointwiseProduct_();
 
-	public void Filter();
+    public void PointwiseProduct_(int initialCapacity);
 
-	public void Filter_();
+    public void _PointwiseProduct();
 
-	public void _Filter();
+    public void Filter();
 
-	public void AspectStep();
+    public void Filter_();
 
-	public void AspectStep_();
+    public void _Filter();
 
-	public void _AspectStep();
+    public void AspectStep();
 
-	public void AdjacentStep();
+    public void AspectStep_();
 
-	public void AdjacentStep_();
+    public void _AspectStep();
 
-	public void _AdjacentStep();
+    public void AdjacentStep();
 
-	public void ReachableStep();
+    public void AdjacentStep_();
 
-	public void ReachableStep_();
+    public void _AdjacentStep();
 
-	public void _ReachableStep();
+    public void ReachableStep();
 
-	public void ReachableOrSelfStep();
+    public void ReachableStep_();
 
-	public void ReachableOrSelfStep_();
+    public void _ReachableStep();
 
-	public void _ReachableOrSelfStep();
+    public void ReachableOrSelfStep();
 
-	public void InverseAdjacentStep();
+    public void ReachableOrSelfStep_();
 
-	public void InverseAdjacentStep_();
+    public void _ReachableOrSelfStep();
 
-	public void _InverseAdjacentStep();
+    public void InverseAdjacentStep();
 
-	public void InverseReachableStep();
+    public void InverseAdjacentStep_();
 
-	public void InverseReachableStep_();
+    public void _InverseAdjacentStep();
 
-	public void _InverseReachableStep();
+    public void InverseReachableStep();
 
-	public void InverseReachableOrSelfStep();
+    public void InverseReachableStep_();
 
-	public void InverseReachableOrSelfStep_();
+    public void _InverseReachableStep();
 
-	public void _InverseReachableOrSelfStep();
+    public void InverseReachableOrSelfStep();
 
-	public void RootStep();
+    public void InverseReachableOrSelfStep_();
 
-	public void RootStep_();
+    public void _InverseReachableOrSelfStep();
 
-	public void _RootStep();
+    public void RootStep();
 
-	public void FragmentRootStep();
+    public void RootStep_();
 
-	public void FragmentRootStep_();
+    public void _RootStep();
 
-	public void _FragmentRootStep();
+    public void FragmentRootStep();
 
-	public void SelfStep();
+    public void FragmentRootStep_();
 
-	public void SelfStep_();
+    public void _FragmentRootStep();
 
-	public void _SelfStep();
+    public void SelfStep();
 
-	public void FeatureStep();
+    public void SelfStep_();
 
-	public void FeatureStep(String value);
+    public void _SelfStep();
 
-	public void ChildStep();
+    public void FeatureStep();
 
-	public void ChildStep_();
+    public void FeatureStep(String value);
 
-	public void _ChildStep();
+    public void ChildStep();
 
-	public void DescendantStep();
+    public void ChildStep_();
 
-	public void DescendantStep_();
+    public void _ChildStep();
 
-	public void _DescendantStep();
+    public void DescendantStep();
 
-	public void DescendantOrSelfStep();
+    public void DescendantStep_();
 
-	public void DescendantOrSelfStep_();
+    public void _DescendantStep();
 
-	public void _DescendantOrSelfStep();
+    public void DescendantOrSelfStep();
 
-	public void FollowingSiblingStep();
+    public void DescendantOrSelfStep_();
 
-	public void FollowingSiblingStep_();
+    public void _DescendantOrSelfStep();
 
-	public void _FollowingSiblingStep();
+    public void FollowingSiblingStep();
 
-	public void FollowingStep();
+    public void FollowingSiblingStep_();
 
-	public void FollowingStep_();
+    public void _FollowingSiblingStep();
 
-	public void _FollowingStep();
+    public void FollowingStep();
 
-	public void ParentStep();
+    public void FollowingStep_();
 
-	public void ParentStep_();
+    public void _FollowingStep();
 
-	public void _ParentStep();
+    public void ParentStep();
 
-	public void AncestorStep();
+    public void ParentStep_();
 
-	public void AncestorStep_();
+    public void _ParentStep();
 
-	public void _AncestorStep();
+    public void AncestorStep();
 
-	public void AncestorOrSelfStep();
+    public void AncestorStep_();
 
-	public void AncestorOrSelfStep_();
+    public void _AncestorStep();
 
-	public void _AncestorOrSelfStep();
+    public void AncestorOrSelfStep();
 
-	public void PrecedingSiblingStep();
+    public void AncestorOrSelfStep_();
 
-	public void PrecedingSiblingStep_();
+    public void _AncestorOrSelfStep();
 
-	public void _PrecedingSiblingStep();
+    public void PrecedingSiblingStep();
 
-	public void PrecedingStep();
+    public void PrecedingSiblingStep_();
 
-	public void PrecedingStep_();
+    public void _PrecedingSiblingStep();
 
-	public void _PrecedingStep();
+    public void PrecedingStep();
 
-	public void Prune();
+    public void PrecedingStep_();
 
-	public void Prune_();
+    public void _PrecedingStep();
 
-	public void _Prune();
+    public void AdditionStep();
 
-	public void VariableTest();
+    public void AdditionStep_();
 
-	public void VariableTest(String value);
+    public void _AdditionStep();
 
-	public void IndexVariableTest();
+    public void SubtractionStep();
 
-	public void IndexVariableTest(String value);
+    public void SubtractionStep_();
 
-	public void KindTest();
+    public void _SubtractionStep();
 
-	public void KindTest(KindTestEnum.Value value);
+    public void MultiplicationStep();
 
-	public void KindTest(String value);
+    public void MultiplicationStep_();
 
-	public void StageTest();
+    public void _MultiplicationStep();
 
-	public void StageTest(StageTestEnum.Value value);
+    public void DivisionStep();
 
-	public void StageTest(String value);
+    public void DivisionStep_();
 
-	public void StageVariableTest();
+    public void _DivisionStep();
 
-	public void StageVariableTest(String value);
+    public void RemainderStep();
 
-	public void LanguageTest();
+    public void RemainderStep_();
 
-	public void LanguageTest(String value);
+    public void _RemainderStep();
 
-	public void TypeTest();
+    public void EqualsStep();
 
-	public void TypeTest(String value);
+    public void EqualsStep_();
 
-	public void SubtypeTest();
+    public void _EqualsStep();
 
-	public void SubtypeTest(String value);
+    public void NotEqualsStep();
 
-	public void SupertypeTest();
+    public void NotEqualsStep_();
 
-	public void SupertypeTest(String value);
+    public void _NotEqualsStep();
 
-	public void ExtendedSubtypeTest();
+    public void LessThanStep();
 
-	public void ExtendedSubtypeTest(String value);
+    public void LessThanStep_();
 
-	public void ExtendedSupertypeTest();
+    public void _LessThanStep();
 
-	public void ExtendedSupertypeTest(String value);
+    public void LessOrEqualsStep();
 
-	public void AtTypeTest();
+    public void LessOrEqualsStep_();
 
-	public void AtTypeTest(String value);
+    public void _LessOrEqualsStep();
 
-	public void AtFeatureTest();
+    public void GreaterThanStep();
 
-	public void AtFeatureTest(String value);
+    public void GreaterThanStep_();
 
-	public void AtIndexTest();
+    public void _GreaterThanStep();
 
-	public void AtIndexTest(int value);
+    public void GreaterOrEqualsStep();
 
-	public void IndexTest();
+    public void GreaterOrEqualsStep_();
 
-	public void IndexTest_();
+    public void _GreaterOrEqualsStep();
 
-	public void _IndexTest();
+    public void Prune();
 
-	public void IndexRangeTest();
+    public void Prune_();
 
-	public void IndexRangeTest_();
+    public void _Prune();
 
-	public void _IndexRangeTest();
+    public void VariableTest();
 
-	public void VisitorTest();
+    public void VariableTest(String value);
 
-	public void VisitorTest(IVisitor value);
+    public void IndexVariableTest();
 
-	public void VisitorTest(String value);
+    public void IndexVariableTest(String value);
 
-	public void ExpressionTest();
+    public void KindTest();
 
-	public void ExpressionTest_();
+    public void KindTest(KindTestEnum.Value value);
 
-	public void _ExpressionTest();
+    public void KindTest(String value);
 
-	public void DistinctTest();
+    public void StageTest();
 
-	public void DistinctTest_();
+    public void StageTest(StageTestEnum.Value value);
 
-	public void _DistinctTest();
+    public void StageTest(String value);
 
-	public void And();
+    public void StageVariableTest();
 
-	public void And_();
+    public void StageVariableTest(String value);
 
-	public void And_(int initialCapacity);
+    public void LanguageTest();
 
-	public void _And();
+    public void LanguageTest(String value);
 
-	public void Or();
+    public void TypeTest();
 
-	public void Or_();
+    public void TypeTest(String value);
 
-	public void Or_(int initialCapacity);
+    public void SubtypeTest();
 
-	public void _Or();
+    public void SubtypeTest(String value);
 
-	public void Not();
+    public void SupertypeTest();
 
-	public void Not_();
+    public void SupertypeTest(String value);
 
-	public void _Not();
+    public void ExtendedSubtypeTest();
 
-	public void One();
+    public void ExtendedSubtypeTest(String value);
 
-	public void One_();
+    public void ExtendedSupertypeTest();
 
-	public void _One();
+    public void ExtendedSupertypeTest(String value);
 
-	public void Some();
+    public void AtTypeTest();
 
-	public void Some_();
+    public void AtTypeTest(String value);
 
-	public void _Some();
+    public void AtFeatureTest();
 
-	public void Every();
+    public void AtFeatureTest(String value);
 
-	public void Every_();
+    public void AtIndexTest();
 
-	public void _Every();
+    public void AtIndexTest(int value);
 
-	public void ParenthesizedPredicate();
+    public void IndexTest();
 
-	public void ParenthesizedPredicate_();
+    public void IndexTest_();
 
-	public void _ParenthesizedPredicate();
+    public void _IndexTest();
 
-	public void EntityType();
+    public void IndexRangeTest();
 
-	public void EntityType(String value);
+    public void IndexRangeTest_();
 
-	public void TemplateNames();
+    public void _IndexRangeTest();
 
-	public void TemplateNames_();
+    public void VisitorTest();
 
-	public void _TemplateNames();
+    public void VisitorTest(IVisitor value);
 
-	public void AllNames();
+    public void VisitorTest(String value);
 
-	public void AllNames_();
+    public void ExpressionTest();
 
-	public void _AllNames();
+    public void ExpressionTest_();
 
-	public void AddNames();
+    public void _ExpressionTest();
 
-	public void AddNames_();
+    public void DistinctTest();
 
-	public void _AddNames();
+    public void DistinctTest_();
 
-	public void RemoveNames();
+    public void _DistinctTest();
 
-	public void RemoveNames_();
+    public void And();
 
-	public void _RemoveNames();
+    public void And_();
 
-	public void Names();
+    public void And_(int initialCapacity);
 
-	public void Names_();
+    public void _And();
 
-	public void Names_(int initialCapacity);
+    public void Or();
 
-	public void _Names();
+    public void Or_();
 
-	public void Name();
+    public void Or_(int initialCapacity);
 
-	public void Name(String value);
+    public void _Or();
 
-	public void IdentityComparator();
+    public void Not();
 
-	public void IdentityComparator_();
+    public void Not_();
 
-	public void _IdentityComparator();
+    public void _Not();
 
-	public void UnionAll();
+    public void One();
 
-	public void UnionAll_();
+    public void One_();
 
-	public void _UnionAll();
+    public void _One();
 
-	public void Union();
+    public void Some();
 
-	public void Union_();
+    public void Some_();
 
-	public void _Union();
+    public void _Some();
 
-	public void Intersect();
+    public void Every();
 
-	public void Intersect_();
+    public void Every_();
 
-	public void _Intersect();
+    public void _Every();
 
-	public void Except();
+    public void ParenthesizedPredicate();
 
-	public void Except_();
+    public void ParenthesizedPredicate_();
 
-	public void _Except();
+    public void _ParenthesizedPredicate();
 
-	public void VariableRefStep();
+    public void EntityType();
 
-	public void VariableRefStep(String value);
+    public void EntityType(String value);
 
-	public void Singleton();
+    public void TemplateNames();
 
-	public void Singleton_();
+    public void TemplateNames_();
 
-	public void _Singleton();
+    public void _TemplateNames();
 
-	public void PointwiseEquals();
+    public void AllNames();
 
-	public void PointwiseEquals_();
+    public void AllNames_();
 
-	public void _PointwiseEquals();
+    public void _AllNames();
 
-	public void Tuple();
+    public void AddNames();
 
-	public void Tuple_();
+    public void AddNames_();
 
-	public void Tuple_(int initialCapacity);
+    public void _AddNames();
 
-	public void _Tuple();
+    public void RemoveNames();
 
-	public void Addition();
+    public void RemoveNames_();
 
-	public void Addition_();
+    public void _RemoveNames();
 
-	public void _Addition();
+    public void Names();
 
-	public void Subtraction();
+    public void Names_();
 
-	public void Subtraction_();
+    public void Names_(int initialCapacity);
 
-	public void _Subtraction();
+    public void _Names();
 
-	public void Multiplication();
+    public void Name();
 
-	public void Multiplication_();
+    public void Name(String value);
 
-	public void _Multiplication();
+    public void IdentityComparator();
 
-	public void Division();
+    public void IdentityComparator_();
 
-	public void Division_();
+    public void _IdentityComparator();
 
-	public void _Division();
+    public void UnionAll();
 
-	public void Remainder();
+    public void UnionAll_();
 
-	public void Remainder_();
+    public void _UnionAll();
 
-	public void _Remainder();
+    public void Union();
 
-	public void Equals();
+    public void Union_();
 
-	public void Equals_();
+    public void _Union();
 
-	public void _Equals();
+    public void Intersect();
 
-	public void NotEquals();
+    public void Intersect_();
 
-	public void NotEquals_();
+    public void _Intersect();
 
-	public void _NotEquals();
+    public void Except();
 
-	public void LessThan();
+    public void Except_();
 
-	public void LessThan_();
+    public void _Except();
 
-	public void _LessThan();
+    public void VariableRefStep();
 
-	public void LessOrEquals();
+    public void VariableRefStep(String value);
 
-	public void LessOrEquals_();
+    public void Singleton();
 
-	public void _LessOrEquals();
+    public void Singleton_();
 
-	public void GreaterThan();
+    public void _Singleton();
 
-	public void GreaterThan_();
+    public void PointwiseEquals();
 
-	public void _GreaterThan();
+    public void PointwiseEquals_();
 
-	public void GreaterOrEquals();
+    public void _PointwiseEquals();
 
-	public void GreaterOrEquals_();
+    public void Tuple();
 
-	public void _GreaterOrEquals();
+    public void Tuple_();
 
-	public void VoidLiteral();
+    public void Tuple_(int initialCapacity);
 
-	public void VoidLiteral_();
+    public void _Tuple();
 
-	public void _VoidLiteral();
+    public void Addition();
 
-	public void BooleanLiteral();
+    public void Addition_();
 
-	public void BooleanLiteral(boolean value);
+    public void _Addition();
 
-	public void ByteLiteral();
+    public void Subtraction();
 
-	public void ByteLiteral(byte value);
+    public void Subtraction_();
 
-	public void CharLiteral();
+    public void _Subtraction();
 
-	public void CharLiteral(char value);
+    public void Multiplication();
 
-	public void DoubleLiteral();
+    public void Multiplication_();
 
-	public void DoubleLiteral(double value);
+    public void _Multiplication();
 
-	public void FloatLiteral();
+    public void Division();
 
-	public void FloatLiteral(float value);
+    public void Division_();
 
-	public void IntLiteral();
+    public void _Division();
 
-	public void IntLiteral(int value);
+    public void Remainder();
 
-	public void LongLiteral();
+    public void Remainder_();
 
-	public void LongLiteral(long value);
+    public void _Remainder();
 
-	public void ShortLiteral();
+    public void Equals();
 
-	public void ShortLiteral(short value);
+    public void Equals_();
 
-	public void DateLiteral();
+    public void _Equals();
 
-	public void DateLiteral(Date value);
+    public void NotEquals();
 
-	public void DateLiteral(String value);
+    public void NotEquals_();
 
-	public void StringLiteral();
+    public void _NotEquals();
 
-	public void StringLiteral(String value);
+    public void LessThan();
 
-	public void Placement();
+    public void LessThan_();
 
-	public void Placement(PlacementEnum.Value value);
+    public void _LessThan();
 
-	public void Placement(String value);
+    public void LessOrEquals();
+
+    public void LessOrEquals_();
+
+    public void _LessOrEquals();
+
+    public void GreaterThan();
+
+    public void GreaterThan_();
+
+    public void _GreaterThan();
+
+    public void GreaterOrEquals();
+
+    public void GreaterOrEquals_();
+
+    public void _GreaterOrEquals();
+
+    public void VoidLiteral();
+
+    public void VoidLiteral_();
+
+    public void _VoidLiteral();
+
+    public void BooleanLiteral();
+
+    public void BooleanLiteral(boolean value);
+
+    public void ByteLiteral();
+
+    public void ByteLiteral(byte value);
+
+    public void CharLiteral();
+
+    public void CharLiteral(char value);
+
+    public void DoubleLiteral();
+
+    public void DoubleLiteral(double value);
+
+    public void FloatLiteral();
+
+    public void FloatLiteral(float value);
+
+    public void IntLiteral();
+
+    public void IntLiteral(int value);
+
+    public void LongLiteral();
+
+    public void LongLiteral(long value);
+
+    public void ShortLiteral();
+
+    public void ShortLiteral(short value);
+
+    public void DateLiteral();
+
+    public void DateLiteral(Date value);
+
+    public void DateLiteral(String value);
+
+    public void StringLiteral();
+
+    public void StringLiteral(String value);
+
+    public void Placement();
+
+    public void Placement(PlacementEnum.Value value);
+
+    public void Placement(String value);
 }

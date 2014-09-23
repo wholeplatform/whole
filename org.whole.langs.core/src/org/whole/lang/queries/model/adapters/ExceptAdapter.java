@@ -8,43 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class ExceptAdapter extends AbstractEntityAdapter implements Except {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public ExceptAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ExceptAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ExceptAdapter() {
-	}
+    public ExceptAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Except> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Except;
-	}
+    public EntityDescriptor<Except> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Except;
+    }
 
-	public Expressions getExpressions() {
-		return wGet(QueriesFeatureDescriptorEnum.expressions).wGetAdapter(
-				QueriesEntityDescriptorEnum.Expressions);
-	}
+    public Expressions getExpressions() {
+        return wGet(QueriesFeatureDescriptorEnum.expressions).wGetAdapter(QueriesEntityDescriptorEnum.Expressions);
+    }
 
-	public void setExpressions(Expressions expressions) {
-		wSet(QueriesFeatureDescriptorEnum.expressions, expressions);
-	}
+    public void setExpressions(Expressions expressions) {
+        wSet(QueriesFeatureDescriptorEnum.expressions, expressions);
+    }
 
-	public Comparator getComparator() {
-		return wGet(QueriesFeatureDescriptorEnum.comparator).wGetAdapter(
-				QueriesEntityDescriptorEnum.Comparator);
-	}
+    public Comparator getComparator() {
+        return wGet(QueriesFeatureDescriptorEnum.comparator).wGetAdapter(QueriesEntityDescriptorEnum.Comparator);
+    }
 
-	public void setComparator(Comparator comparator) {
-		wSet(QueriesFeatureDescriptorEnum.comparator, comparator);
-	}
+    public void setComparator(Comparator comparator) {
+        wSet(QueriesFeatureDescriptorEnum.comparator, comparator);
+    }
 }

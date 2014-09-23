@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ExpressionTestAdapter extends AbstractEntityAdapter implements
-		ExpressionTest {
-	private static final long serialVersionUID = 1;
+public class ExpressionTestAdapter extends AbstractEntityAdapter implements ExpressionTest {
+    private static final long serialVersionUID = 1;
 
-	public ExpressionTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ExpressionTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ExpressionTestAdapter() {
-	}
+    public ExpressionTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<ExpressionTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.ExpressionTest;
-	}
+    public EntityDescriptor<ExpressionTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.ExpressionTest;
+    }
 
-	public PathExpression getExpression() {
-		return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(
-				QueriesEntityDescriptorEnum.PathExpression);
-	}
+    public PathExpression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    }
 
-	public void setExpression(PathExpression expression) {
-		wSet(QueriesFeatureDescriptorEnum.expression, expression);
-	}
+    public void setExpression(PathExpression expression) {
+        wSet(QueriesFeatureDescriptorEnum.expression, expression);
+    }
 }

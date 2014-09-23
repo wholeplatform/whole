@@ -8,57 +8,57 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.StringUtils;
 import java.util.Date;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class DateLiteralImpl extends AbstractDataEntity implements DateLiteral {
-	private static final long serialVersionUID = 1;
-	private java.util.Date value;
+    private static final long serialVersionUID = 1;
+    private java.util.Date value;
 
-	public java.util.Date getValue() {
-		return notifyRequested(value);
-	}
+    public java.util.Date getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(java.util.Date value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(java.util.Date value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.DateLiteral_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.DateLiteral_ord;
+    }
 
-	public EntityDescriptor<DateLiteral> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.DateLiteral;
-	}
+    public EntityDescriptor<DateLiteral> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.DateLiteral;
+    }
 
-	public Object wGetValue() {
-		return getValue();
-	}
+    public Object wGetValue() {
+        return getValue();
+    }
 
-	public void wSetValue(Object value) {
-		setValue((java.util.Date) value);
-	}
+    public void wSetValue(Object value) {
+        setValue((java.util.Date) value);
+    }
 
-	public String wStringValue() {
-		return StringUtils.toExtendedISO8601DateTime(value);
-	}
+    public String wStringValue() {
+        return StringUtils.toExtendedISO8601DateTime(value);
+    }
 
-	public void wSetValue(String value) {
-		try {
-			setValue(StringUtils.fromExtendedISO8601DateTime(value));
-		} catch (IllegalArgumentException e) {
-		}
-	}
+    public void wSetValue(String value) {
+        try {
+            setValue(StringUtils.fromExtendedISO8601DateTime(value));
+        } catch (IllegalArgumentException e) {
+        }
+    }
 
-	public Date wDateValue() {
-		return value;
-	}
+    public Date wDateValue() {
+        return value;
+    }
 
-	public void wSetValue(Date value) {
-		setValue((Date) value);
-	}
+    public void wSetValue(Date value) {
+        setValue((Date) value);
+    }
 }

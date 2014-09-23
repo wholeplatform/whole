@@ -8,75 +8,67 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class IntersectImpl extends AbstractSimpleEntity implements Intersect {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<Intersect> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Intersect;
-	}
+    public EntityDescriptor<Intersect> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Intersect;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.Intersect_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Intersect_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
+    private Expressions expressions;
 
-	private Expressions expressions;
+    public Expressions getExpressions() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.expressions, expressions);
+    }
 
-	public Expressions getExpressions() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.expressions,
-				expressions);
-	}
+    public void setExpressions(Expressions expressions) {
+        notifyChanged(QueriesFeatureDescriptorEnum.expressions, this.expressions, this.expressions = expressions);
+    }
+    private Comparator comparator;
 
-	public void setExpressions(Expressions expressions) {
-		notifyChanged(QueriesFeatureDescriptorEnum.expressions,
-				this.expressions, this.expressions = expressions);
-	}
+    public Comparator getComparator() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.comparator, comparator);
+    }
 
-	private Comparator comparator;
+    public void setComparator(Comparator comparator) {
+        notifyChanged(QueriesFeatureDescriptorEnum.comparator, this.comparator, this.comparator = comparator);
+    }
 
-	public Comparator getComparator() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.comparator,
-				comparator);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getExpressions().wGetAdaptee(false);
+            case 1 :
+            return getComparator().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setComparator(Comparator comparator) {
-		notifyChanged(QueriesFeatureDescriptorEnum.comparator, this.comparator,
-				this.comparator = comparator);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setExpressions(value.wGetAdapter(QueriesEntityDescriptorEnum.Expressions));
+            break;
+            case 1 :
+            setComparator(value.wGetAdapter(QueriesEntityDescriptorEnum.Comparator));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getExpressions().wGetAdaptee(false);
-		case 1:
-			return getComparator().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setExpressions(value
-					.wGetAdapter(QueriesEntityDescriptorEnum.Expressions));
-			break;
-		case 1:
-			setComparator(value
-					.wGetAdapter(QueriesEntityDescriptorEnum.Comparator));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 2;
+    }
 }

@@ -8,75 +8,67 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class OneImpl extends AbstractSimpleEntity implements One {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<One> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.One;
-	}
+    public EntityDescriptor<One> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.One;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.One_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.One_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
+    private PathExpression fromClause;
 
-	private PathExpression fromClause;
+    public PathExpression getFromClause() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
+    }
 
-	public PathExpression getFromClause() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.fromClause,
-				fromClause);
-	}
+    public void setFromClause(PathExpression fromClause) {
+        notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
+    }
+    private Predicate whereClause;
 
-	public void setFromClause(PathExpression fromClause) {
-		notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause,
-				this.fromClause = fromClause);
-	}
+    public Predicate getWhereClause() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.whereClause, whereClause);
+    }
 
-	private Predicate whereClause;
+    public void setWhereClause(Predicate whereClause) {
+        notifyChanged(QueriesFeatureDescriptorEnum.whereClause, this.whereClause, this.whereClause = whereClause);
+    }
 
-	public Predicate getWhereClause() {
-		return notifyRequested(QueriesFeatureDescriptorEnum.whereClause,
-				whereClause);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getFromClause().wGetAdaptee(false);
+            case 1 :
+            return getWhereClause().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setWhereClause(Predicate whereClause) {
-		notifyChanged(QueriesFeatureDescriptorEnum.whereClause,
-				this.whereClause, this.whereClause = whereClause);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            break;
+            case 1 :
+            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Predicate));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getFromClause().wGetAdaptee(false);
-		case 1:
-			return getWhereClause().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setFromClause(value
-					.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
-			break;
-		case 1:
-			setWhereClause(value
-					.wGetAdapter(QueriesEntityDescriptorEnum.Predicate));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 2;
+    }
 }

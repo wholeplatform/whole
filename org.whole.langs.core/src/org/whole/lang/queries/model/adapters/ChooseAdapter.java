@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ChooseAdapter extends AbstractListEntityAdapter<PathExpression>
-		implements Choose {
-	private static final long serialVersionUID = 1;
+public class ChooseAdapter extends AbstractListEntityAdapter<PathExpression> implements Choose {
+    private static final long serialVersionUID = 1;
 
-	public ChooseAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ChooseAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ChooseAdapter() {
-	}
+    public ChooseAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Choose> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Choose;
-	}
+    public EntityDescriptor<Choose> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Choose;
+    }
 }

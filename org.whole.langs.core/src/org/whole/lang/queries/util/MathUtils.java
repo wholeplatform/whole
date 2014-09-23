@@ -32,6 +32,131 @@ import org.whole.lang.util.WholeMessages;
  * @author Riccardo Solmi
  */
 public class MathUtils {
+	public static IEntityIterator<?> additionStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(addition(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "addition";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> subtractionStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(subtraction(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "subtraction";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> multiplicationStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(multiplication(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "multiplication";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> divisionStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(division(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "division";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> remainderStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(remainder(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "remainder";
+			}
+		}, expression);
+	}
+
+	public static IEntityIterator<?> equalsStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(MathUtils.equals(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "equals";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> notEqualsStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(notEquals(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "notEquals";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> lessThanStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(lessThan(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "lessThan";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> lessOrEqualsStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(lessOrEquals(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "lessOrEquals";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> greaterThanStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(greaterThan(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "greaterThan";
+			}
+		}, expression);
+	}
+	public static IEntityIterator<?> greaterOrEqualsStepIterator(IEntityIterator<?> expression) {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
+				bm.setResult(greaterOrEquals(selfEntity, argsEntities[0]));
+			}
+			@Override
+			public String toString() {
+				return "greaterOrEquals";
+			}
+		}, expression);
+	}
+
+
+
 	public static IEntityIterator<?> additionIterator(IEntityIterator<?> exp1, IEntityIterator<?> exp2) {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... argsEntities) {
@@ -154,6 +279,7 @@ public class MathUtils {
 			}
 		}, exp1, exp2);
 	}
+
 
 	public static IEntity addition(IEntity result1, IEntity result2) {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);

@@ -7,25 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class RootStepAdapter extends AbstractEntityAdapter implements RootStep {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public RootStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public RootStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public RootStepAdapter() {
-	}
+    public RootStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<RootStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.RootStep;
-	}
+    public EntityDescriptor<RootStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.RootStep;
+    }
 }

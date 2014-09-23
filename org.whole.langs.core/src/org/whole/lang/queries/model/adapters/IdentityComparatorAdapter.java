@@ -8,35 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class IdentityComparatorAdapter extends AbstractEntityAdapter implements
-		IdentityComparator {
-	private static final long serialVersionUID = 1;
+public class IdentityComparatorAdapter extends AbstractEntityAdapter implements IdentityComparator {
+    private static final long serialVersionUID = 1;
 
-	public IdentityComparatorAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public IdentityComparatorAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public IdentityComparatorAdapter() {
-	}
+    public IdentityComparatorAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<IdentityComparator> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.IdentityComparator;
-	}
+    public EntityDescriptor<IdentityComparator> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.IdentityComparator;
+    }
 
-	public StepExpression getIdentity() {
-		return wGet(QueriesFeatureDescriptorEnum.identity).wGetAdapter(
-				QueriesEntityDescriptorEnum.StepExpression);
-	}
+    public StepExpression getIdentity() {
+        return wGet(QueriesFeatureDescriptorEnum.identity).wGetAdapter(QueriesEntityDescriptorEnum.StepExpression);
+    }
 
-	public void setIdentity(StepExpression identity) {
-		wSet(QueriesFeatureDescriptorEnum.identity, identity);
-	}
+    public void setIdentity(StepExpression identity) {
+        wSet(QueriesFeatureDescriptorEnum.identity, identity);
+    }
 }

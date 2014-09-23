@@ -21,32 +21,43 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.queries.model.Addition;
+import org.whole.lang.queries.model.AdditionStep;
 import org.whole.lang.queries.model.BooleanLiteral;
 import org.whole.lang.queries.model.ByteLiteral;
 import org.whole.lang.queries.model.CharLiteral;
 import org.whole.lang.queries.model.DateLiteral;
 import org.whole.lang.queries.model.Division;
+import org.whole.lang.queries.model.DivisionStep;
 import org.whole.lang.queries.model.DoubleLiteral;
 import org.whole.lang.queries.model.Equals;
+import org.whole.lang.queries.model.EqualsStep;
 import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.model.FeatureStep;
 import org.whole.lang.queries.model.FloatLiteral;
 import org.whole.lang.queries.model.GreaterOrEquals;
+import org.whole.lang.queries.model.GreaterOrEqualsStep;
 import org.whole.lang.queries.model.GreaterThan;
+import org.whole.lang.queries.model.GreaterThanStep;
 import org.whole.lang.queries.model.IntLiteral;
 import org.whole.lang.queries.model.LessOrEquals;
+import org.whole.lang.queries.model.LessOrEqualsStep;
 import org.whole.lang.queries.model.LessThan;
+import org.whole.lang.queries.model.LessThanStep;
 import org.whole.lang.queries.model.LongLiteral;
 import org.whole.lang.queries.model.Multiplication;
+import org.whole.lang.queries.model.MultiplicationStep;
 import org.whole.lang.queries.model.NotEquals;
+import org.whole.lang.queries.model.NotEqualsStep;
 import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.queries.model.Predicate;
 import org.whole.lang.queries.model.Remainder;
+import org.whole.lang.queries.model.RemainderStep;
 import org.whole.lang.queries.model.SelfStep;
 import org.whole.lang.queries.model.ShortLiteral;
 import org.whole.lang.queries.model.Singleton;
 import org.whole.lang.queries.model.StringLiteral;
 import org.whole.lang.queries.model.Subtraction;
+import org.whole.lang.queries.model.SubtractionStep;
 import org.whole.lang.queries.model.VariableRefStep;
 import org.whole.lang.queries.model.VoidLiteral;
 import org.whole.lang.queries.util.MathUtils;
@@ -81,13 +92,16 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	protected final String stringValue(Expression exp) {
 		return evaluate(exp).wStringValue();
 	}
-
-	@Override
-	public void visit(SelfStep entity) {
+	protected final IEntity getSelfEntity() {
 		IEntity self = getBindings().wGet("self");
 		if (self == null)
 			throw new MissingVariableException("self");
-		setResult(self);
+		return self;
+	}
+
+	@Override
+	public void visit(SelfStep entity) {
+		setResult(getSelfEntity());
 	}
 
 	@Override
@@ -101,9 +115,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 
 	@Override
 	public void visit(FeatureStep entity) {
-		IEntity self = getBindings().wGet("self");
-		if (self == null)
-			throw new MissingVariableException("self");
+		IEntity self = getSelfEntity();
 		String featureName = entity.getValue();
 		FeatureDescriptor fd = self.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
 		if (fd == null || !self.wContains(fd))
@@ -156,6 +168,52 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     public void visit(VoidLiteral entity) {
     	setResult(BindingManagerFactory.instance.createVoid());
     }
+
+    @Override
+	public void visit(AdditionStep entity) {
+		setResult(MathUtils.addition(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+	@Override
+	public void visit(SubtractionStep entity) {
+		setResult(MathUtils.subtraction(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+	@Override
+	public void visit(MultiplicationStep entity) {
+		setResult(MathUtils.multiplication(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+	@Override
+	public void visit(DivisionStep entity) {
+		setResult(MathUtils.division(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+	@Override
+	public void visit(RemainderStep entity) {
+		setResult(MathUtils.remainder(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+
+	@Override
+	public void visit(EqualsStep entity) {
+		setResult(MathUtils.equals(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+    @Override
+	public void visit(NotEqualsStep entity) {
+		setResult(MathUtils.notEquals(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+    @Override
+	public void visit(LessThanStep entity) {
+		setResult(MathUtils.lessThan(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+    @Override
+	public void visit(LessOrEqualsStep entity) {
+		setResult(MathUtils.lessOrEquals(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+    @Override
+	public void visit(GreaterThanStep entity) {
+		setResult(MathUtils.greaterThan(getSelfEntity(), evaluate(entity.getExpression())));
+	}
+	@Override
+	public void visit(GreaterOrEqualsStep entity) {
+		setResult(MathUtils.greaterOrEquals(getSelfEntity(), evaluate(entity.getExpression())));
+	}
 
     @Override
 	public void visit(Addition entity) {

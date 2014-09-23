@@ -1,18 +1,21 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface QueryDeclaration extends IQueriesEntity, PathExpression {
-	public Name getName();
 
-	public void setName(Name name);
 
-	public Names getParameters();
+    public Name getName();
 
-	public void setParameters(Names parameters);
+    public void setName(Name name);
 
-	public PathExpression getBody();
+    public Names getParameters();
 
-	public void setBody(PathExpression body);
+    public void setParameters(Names parameters);
+
+    public PathExpression getBody();
+
+    public void setBody(PathExpression body);
 }

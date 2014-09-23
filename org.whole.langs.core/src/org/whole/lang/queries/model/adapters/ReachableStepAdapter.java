@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class ReachableStepAdapter extends AbstractEntityAdapter implements
-		ReachableStep {
-	private static final long serialVersionUID = 1;
+public class ReachableStepAdapter extends AbstractEntityAdapter implements ReachableStep {
+    private static final long serialVersionUID = 1;
 
-	public ReachableStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public ReachableStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public ReachableStepAdapter() {
-	}
+    public ReachableStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<ReachableStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.ReachableStep;
-	}
+    public EntityDescriptor<ReachableStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.ReachableStep;
+    }
 }

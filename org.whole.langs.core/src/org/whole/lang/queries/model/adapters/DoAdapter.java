@@ -8,34 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class DoAdapter extends AbstractEntityAdapter implements Do {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public DoAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public DoAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public DoAdapter() {
-	}
+    public DoAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Do> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Do;
-	}
+    public EntityDescriptor<Do> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Do;
+    }
 
-	public PathExpression getExpression() {
-		return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(
-				QueriesEntityDescriptorEnum.PathExpression);
-	}
+    public PathExpression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    }
 
-	public void setExpression(PathExpression expression) {
-		wSet(QueriesFeatureDescriptorEnum.expression, expression);
-	}
+    public void setExpression(PathExpression expression) {
+        wSet(QueriesFeatureDescriptorEnum.expression, expression);
+    }
 }

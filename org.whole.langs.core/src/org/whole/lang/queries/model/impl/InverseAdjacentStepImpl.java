@@ -6,22 +6,21 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class InverseAdjacentStepImpl extends AbstractSimpleEntity implements
-		InverseAdjacentStep {
-	private static final long serialVersionUID = 1;
+public class InverseAdjacentStepImpl extends AbstractSimpleEntity implements InverseAdjacentStep {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<InverseAdjacentStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.InverseAdjacentStep;
-	}
+    public EntityDescriptor<InverseAdjacentStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.InverseAdjacentStep;
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.InverseAdjacentStep_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.InverseAdjacentStep_ord;
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 }

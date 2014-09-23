@@ -8,34 +8,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
 public class NotAdapter extends AbstractEntityAdapter implements Not {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public NotAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public NotAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public NotAdapter() {
-	}
+    public NotAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Not> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Not;
-	}
+    public EntityDescriptor<Not> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Not;
+    }
 
-	public Predicate getPredicate() {
-		return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(
-				QueriesEntityDescriptorEnum.Predicate);
-	}
+    public Predicate getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    }
 
-	public void setPredicate(Predicate predicate) {
-		wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
-	}
+    public void setPredicate(Predicate predicate) {
+        wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
+    }
 }

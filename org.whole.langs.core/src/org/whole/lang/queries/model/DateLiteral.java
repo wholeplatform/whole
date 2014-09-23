@@ -1,10 +1,13 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface DateLiteral extends IQueriesEntity, Literal {
-	public java.util.Date getValue();
 
-	public void setValue(java.util.Date value);
+
+    public java.util.Date getValue();
+
+    public void setValue(java.util.Date value);
 }

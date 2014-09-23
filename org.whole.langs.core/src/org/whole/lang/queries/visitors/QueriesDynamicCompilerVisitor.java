@@ -1020,7 +1020,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			setResultPredicate(GenericMatcherFactory.evalTrue(e.wGetAdaptee(false)));
 		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
 			e.accept(this);
-		else if (QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
+		else if (QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor())
+				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
 			setResultPredicate(GenericMatcherFactory.evalTrue(e));
 		else {
 			e.accept(this);
@@ -1266,6 +1267,52 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	entity.accept(this);
     	return getResultIterator();
     }
+
+	@Override
+	public void visit(AdditionStep entity) {
+		setResultIterator(MathUtils.additionStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(SubtractionStep entity) {
+		setResultIterator(MathUtils.subtractionStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(MultiplicationStep entity) {
+		setResultIterator(MathUtils.multiplicationStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(DivisionStep entity) {
+		setResultIterator(MathUtils.divisionStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(RemainderStep entity) {
+		setResultIterator(MathUtils.remainderStepIterator(compile(entity.getExpression())));
+	}
+
+	@Override
+	public void visit(EqualsStep entity) {
+		setResultIterator(MathUtils.equalsStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(NotEqualsStep entity) {
+		setResultIterator(MathUtils.notEqualsStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(LessThanStep entity) {
+		setResultIterator(MathUtils.lessThanStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(LessOrEqualsStep entity) {
+		setResultIterator(MathUtils.lessOrEqualsStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(GreaterThanStep entity) {
+		setResultIterator(MathUtils.greaterThanStepIterator(compile(entity.getExpression())));
+	}
+	@Override
+	public void visit(GreaterOrEqualsStep entity) {
+		setResultIterator(MathUtils.greaterOrEqualsStepIterator(compile(entity.getExpression())));
+	}
 
 	@Override
 	public void visit(Addition entity) {

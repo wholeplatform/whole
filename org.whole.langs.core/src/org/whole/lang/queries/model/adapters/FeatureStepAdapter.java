@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class FeatureStepAdapter extends AbstractEntityAdapter implements
-		FeatureStep {
-	private static final long serialVersionUID = 1;
+public class FeatureStepAdapter extends AbstractEntityAdapter implements FeatureStep {
+    private static final long serialVersionUID = 1;
 
-	public FeatureStepAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public FeatureStepAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public FeatureStepAdapter() {
-	}
+    public FeatureStepAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<FeatureStep> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.FeatureStep;
-	}
+    public EntityDescriptor<FeatureStep> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.FeatureStep;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

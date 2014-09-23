@@ -8,53 +8,49 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class QueryDeclarationAdapter extends AbstractEntityAdapter implements
-		QueryDeclaration {
-	private static final long serialVersionUID = 1;
+public class QueryDeclarationAdapter extends AbstractEntityAdapter implements QueryDeclaration {
+    private static final long serialVersionUID = 1;
 
-	public QueryDeclarationAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public QueryDeclarationAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public QueryDeclarationAdapter() {
-	}
+    public QueryDeclarationAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<QueryDeclaration> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.QueryDeclaration;
-	}
+    public EntityDescriptor<QueryDeclaration> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.QueryDeclaration;
+    }
 
-	public Name getName() {
-		return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(
-				QueriesEntityDescriptorEnum.Name);
-	}
+    public Name getName() {
+        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.Name);
+    }
 
-	public void setName(Name name) {
-		wSet(QueriesFeatureDescriptorEnum.name, name);
-	}
+    public void setName(Name name) {
+        wSet(QueriesFeatureDescriptorEnum.name, name);
+    }
 
-	public Names getParameters() {
-		return wGet(QueriesFeatureDescriptorEnum.parameters).wGetAdapter(
-				QueriesEntityDescriptorEnum.Names);
-	}
+    public Names getParameters() {
+        return wGet(QueriesFeatureDescriptorEnum.parameters).wGetAdapter(QueriesEntityDescriptorEnum.Names);
+    }
 
-	public void setParameters(Names parameters) {
-		wSet(QueriesFeatureDescriptorEnum.parameters, parameters);
-	}
+    public void setParameters(Names parameters) {
+        wSet(QueriesFeatureDescriptorEnum.parameters, parameters);
+    }
 
-	public PathExpression getBody() {
-		return wGet(QueriesFeatureDescriptorEnum.body).wGetAdapter(
-				QueriesEntityDescriptorEnum.PathExpression);
-	}
+    public PathExpression getBody() {
+        return wGet(QueriesFeatureDescriptorEnum.body).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    }
 
-	public void setBody(PathExpression body) {
-		wSet(QueriesFeatureDescriptorEnum.body, body);
-	}
+    public void setBody(PathExpression body) {
+        wSet(QueriesFeatureDescriptorEnum.body, body);
+    }
 }

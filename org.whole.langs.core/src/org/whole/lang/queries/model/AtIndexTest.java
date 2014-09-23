@@ -1,10 +1,13 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface AtIndexTest extends IQueriesEntity, Predicate {
-	public int getValue();
 
-	public void setValue(int value);
+
+    public int getValue();
+
+    public void setValue(int value);
 }

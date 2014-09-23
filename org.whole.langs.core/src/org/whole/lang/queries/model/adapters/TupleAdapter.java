@@ -7,26 +7,25 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class TupleAdapter extends AbstractListEntityAdapter<PathExpression>
-		implements Tuple {
-	private static final long serialVersionUID = 1;
+public class TupleAdapter extends AbstractListEntityAdapter<PathExpression> implements Tuple {
+    private static final long serialVersionUID = 1;
 
-	public TupleAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public TupleAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public TupleAdapter() {
-	}
+    public TupleAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Tuple> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Tuple;
-	}
+    public EntityDescriptor<Tuple> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Tuple;
+    }
 }

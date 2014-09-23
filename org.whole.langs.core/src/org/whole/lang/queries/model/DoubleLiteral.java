@@ -1,10 +1,13 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface DoubleLiteral extends IQueriesEntity, Literal {
-	public double getValue();
 
-	public void setValue(double value);
+
+    public double getValue();
+
+    public void setValue(double value);
 }

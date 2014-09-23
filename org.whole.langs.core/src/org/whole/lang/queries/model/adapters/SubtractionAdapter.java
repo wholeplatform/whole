@@ -8,44 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SubtractionAdapter extends AbstractEntityAdapter implements
-		Subtraction {
-	private static final long serialVersionUID = 1;
+public class SubtractionAdapter extends AbstractEntityAdapter implements Subtraction {
+    private static final long serialVersionUID = 1;
 
-	public SubtractionAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SubtractionAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SubtractionAdapter() {
-	}
+    public SubtractionAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Subtraction> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Subtraction;
-	}
+    public EntityDescriptor<Subtraction> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Subtraction;
+    }
 
-	public Expression getExp1() {
-		return wGet(QueriesFeatureDescriptorEnum.exp1).wGetAdapter(
-				QueriesEntityDescriptorEnum.Expression);
-	}
+    public Expression getExp1() {
+        return wGet(QueriesFeatureDescriptorEnum.exp1).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
+    }
 
-	public void setExp1(Expression exp1) {
-		wSet(QueriesFeatureDescriptorEnum.exp1, exp1);
-	}
+    public void setExp1(Expression exp1) {
+        wSet(QueriesFeatureDescriptorEnum.exp1, exp1);
+    }
 
-	public Expression getExp2() {
-		return wGet(QueriesFeatureDescriptorEnum.exp2).wGetAdapter(
-				QueriesEntityDescriptorEnum.Expression);
-	}
+    public Expression getExp2() {
+        return wGet(QueriesFeatureDescriptorEnum.exp2).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
+    }
 
-	public void setExp2(Expression exp2) {
-		wSet(QueriesFeatureDescriptorEnum.exp2, exp2);
-	}
+    public void setExp2(Expression exp2) {
+        wSet(QueriesFeatureDescriptorEnum.exp2, exp2);
+    }
 }

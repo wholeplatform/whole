@@ -8,44 +8,41 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class EntityTemplateAdapter extends AbstractEntityAdapter implements
-		EntityTemplate {
-	private static final long serialVersionUID = 1;
+public class EntityTemplateAdapter extends AbstractEntityAdapter implements EntityTemplate {
+    private static final long serialVersionUID = 1;
 
-	public EntityTemplateAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public EntityTemplateAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public EntityTemplateAdapter() {
-	}
+    public EntityTemplateAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<EntityTemplate> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.EntityTemplate;
-	}
+    public EntityDescriptor<EntityTemplate> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.EntityTemplate;
+    }
 
-	public EntityType getName() {
-		return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(
-				QueriesEntityDescriptorEnum.EntityType);
-	}
+    public EntityType getName() {
+        return wGet(QueriesFeatureDescriptorEnum.name).wGetAdapter(QueriesEntityDescriptorEnum.EntityType);
+    }
 
-	public void setName(EntityType name) {
-		wSet(QueriesFeatureDescriptorEnum.name, name);
-	}
+    public void setName(EntityType name) {
+        wSet(QueriesFeatureDescriptorEnum.name, name);
+    }
 
-	public Constraints getConstraints() {
-		return wGet(QueriesFeatureDescriptorEnum.constraints).wGetAdapter(
-				QueriesEntityDescriptorEnum.Constraints);
-	}
+    public Constraints getConstraints() {
+        return wGet(QueriesFeatureDescriptorEnum.constraints).wGetAdapter(QueriesEntityDescriptorEnum.Constraints);
+    }
 
-	public void setConstraints(Constraints constraints) {
-		wSet(QueriesFeatureDescriptorEnum.constraints, constraints);
-	}
+    public void setConstraints(Constraints constraints) {
+        wSet(QueriesFeatureDescriptorEnum.constraints, constraints);
+    }
 }

@@ -1,7 +1,9 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface ReachableOrSelfStep extends IQueriesEntity, DirectStep {
+
 }

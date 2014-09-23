@@ -6,22 +6,21 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class NamesImpl extends AbstractListCompositeEntity<Name> implements
-		Names {
-	private static final long serialVersionUID = 1;
+public class NamesImpl extends AbstractListCompositeEntity<Name> implements Names {
+    private static final long serialVersionUID = 1;
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.Names_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Names_ord;
+    }
 
-	public EntityDescriptor<Names> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Names;
-	}
+    public EntityDescriptor<Names> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Names;
+    }
 }

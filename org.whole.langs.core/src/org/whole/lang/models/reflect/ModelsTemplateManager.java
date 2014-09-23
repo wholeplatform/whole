@@ -40,7 +40,6 @@ import org.whole.lang.models.codebase.PojoModel;
 import org.whole.lang.models.codebase.PresentationModel;
 import org.whole.lang.models.codebase.ProcessGraphModel;
 import org.whole.lang.models.codebase.PropertiesModel;
-import org.whole.lang.models.codebase.QueriesModel;
 import org.whole.lang.models.codebase.RDBModel;
 import org.whole.lang.models.codebase.RDFModel;
 import org.whole.lang.models.codebase.SQLModel;
@@ -107,7 +106,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Math model", new MathModel());
 		put("Models model", new ModelsModel());
 		put("Models Info model", new ModelsInfoModel());
-		put("Queries", new QueriesModel());
 		put("Pojo model", new PojoModel());
 		put("ECore model", new ECoreModel());
 		put("Misc model", new MiscModel());
@@ -167,16 +165,5 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 
 		put("Scripts model", new ScriptsModel());
 		put("JavaScript model", new JavaScriptModel());
-
-//		put("import Mbed language", new MbedImporterTemplateFactory(new MbedLanguage()));
-//		put("import Java language", new MbedImporterTemplateFactory(new JavaLanguage()));
-//		put("import Xml language", new MbedImporterTemplateFactory(new XmlLanguage()));
-//		put("import Test language", new MbedImporterTemplateFactory(new TestLanguage()));
-//		put("import Text language", new MbedImporterTemplateFactory(new TextLanguage()));
-//		put("import Scheme language", new MbedImporterTemplateFactory(new SchemeLanguage()));
-//		put("import Operations language", new MbedImporterTemplateFactory(new OperationsLanguage()));
-//		put("import EBNF language", new MbedImporterTemplateFactory(new EBNFLanguage()));
-//		put("import Patterns language", new MbedImporterTemplateFactory(new JavaPatterns()));
-//		put("import Math language", new MbedImporterTemplateFactory(new MathFragment()));
 	}
 }

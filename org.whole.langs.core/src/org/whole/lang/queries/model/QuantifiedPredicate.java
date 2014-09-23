@@ -1,14 +1,17 @@
 package org.whole.lang.queries.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator  Whole
  */
 public interface QuantifiedPredicate extends IQueriesEntity, Predicate {
-	public PathExpression getFromClause();
 
-	public void setFromClause(PathExpression fromClause);
 
-	public Predicate getWhereClause();
+    public PathExpression getFromClause();
 
-	public void setWhereClause(Predicate whereClause);
+    public void setFromClause(PathExpression fromClause);
+
+    public Predicate getWhereClause();
+
+    public void setWhereClause(Predicate whereClause);
 }

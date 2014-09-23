@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class IndexVariableTestAdapter extends AbstractEntityAdapter implements
-		IndexVariableTest {
-	private static final long serialVersionUID = 1;
+public class IndexVariableTestAdapter extends AbstractEntityAdapter implements IndexVariableTest {
+    private static final long serialVersionUID = 1;
 
-	public IndexVariableTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public IndexVariableTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public IndexVariableTestAdapter() {
-	}
+    public IndexVariableTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<IndexVariableTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.IndexVariableTest;
-	}
+    public EntityDescriptor<IndexVariableTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.IndexVariableTest;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

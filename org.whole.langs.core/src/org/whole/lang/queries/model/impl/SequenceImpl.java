@@ -6,22 +6,21 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SequenceImpl extends AbstractListCompositeEntity<PathExpression>
-		implements Sequence {
-	private static final long serialVersionUID = 1;
+public class SequenceImpl extends AbstractListCompositeEntity<PathExpression> implements Sequence {
+    private static final long serialVersionUID = 1;
 
-	public void accept(IQueriesVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return QueriesEntityDescriptorEnum.Sequence_ord;
-	}
+    public int wGetEntityOrd() {
+        return QueriesEntityDescriptorEnum.Sequence_ord;
+    }
 
-	public EntityDescriptor<Sequence> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.Sequence;
-	}
+    public EntityDescriptor<Sequence> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.Sequence;
+    }
 }

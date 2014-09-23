@@ -7,34 +7,33 @@ import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator  Whole
  */
-public class SubtypeTestAdapter extends AbstractEntityAdapter implements
-		SubtypeTest {
-	private static final long serialVersionUID = 1;
+public class SubtypeTestAdapter extends AbstractEntityAdapter implements SubtypeTest {
+    private static final long serialVersionUID = 1;
 
-	public SubtypeTestAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SubtypeTestAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SubtypeTestAdapter() {
-	}
+    public SubtypeTestAdapter() {
+    }
 
-	public void accept(IQueriesVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IQueriesVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<SubtypeTest> wGetEntityDescriptor() {
-		return QueriesEntityDescriptorEnum.SubtypeTest;
-	}
+    public EntityDescriptor<SubtypeTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.SubtypeTest;
+    }
 
-	public String getValue() {
-		return wStringValue();
-	}
+    public String getValue() {
+        return wStringValue();
+    }
 
-	public void setValue(String value) {
-		wSetValue(value);
-	}
+    public void setValue(String value) {
+        wSetValue(value);
+    }
 }

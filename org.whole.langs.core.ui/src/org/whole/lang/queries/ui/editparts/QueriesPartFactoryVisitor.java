@@ -571,6 +571,61 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 	
 	@Override
+	public void visit(AdditionStep entity) {
+		part = new PrefixExpressionPart("+");
+	}
+
+	@Override
+	public void visit(SubtractionStep entity) {
+		part = new PrefixExpressionPart("-");
+	}
+
+	@Override
+	public void visit(MultiplicationStep entity) {
+		part = new PrefixExpressionPart("*");
+	}
+
+	@Override
+	public void visit(DivisionStep entity) {
+		part = new PrefixExpressionPart("/");
+	}
+	
+	@Override
+	public void visit(RemainderStep entity) {
+		part = new PrefixExpressionPart("%");
+	}
+
+	@Override
+	public void visit(EqualsStep entity) {
+		part = new PrefixExpressionPart("==");
+	}
+	
+	@Override
+	public void visit(NotEqualsStep entity) {
+		part = new PrefixExpressionPart("!=");
+	}
+	
+	@Override
+	public void visit(LessThanStep entity) {
+		part = new PrefixExpressionPart("<");
+	}
+	
+	@Override
+	public void visit(LessOrEqualsStep entity) {
+		part = new PrefixExpressionPart("<=");
+	}
+	
+	@Override
+	public void visit(GreaterThanStep entity) {
+		part = new PrefixExpressionPart(">");
+	}
+	
+	@Override
+	public void visit(GreaterOrEqualsStep entity) {
+		part = new PrefixExpressionPart(">=");
+	}
+
+	@Override
 	public void visit(Addition entity) {
 		part = new InfixExpressionPart("+");
 	}
