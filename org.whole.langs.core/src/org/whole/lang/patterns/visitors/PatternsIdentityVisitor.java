@@ -112,6 +112,9 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     public void visit(FunctionDeclaration entity) {
     }
 
+    public void visit(GoalDeclaration entity) {
+    }
+
     public void visit(PointcutDeclaration entity) {
     }
 
@@ -140,6 +143,9 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     }
 
     public void visit(PointcutStep entity) {
+    }
+
+    public void visit(GoalStep entity) {
     }
 
     public void visit(SlotStep entity) {

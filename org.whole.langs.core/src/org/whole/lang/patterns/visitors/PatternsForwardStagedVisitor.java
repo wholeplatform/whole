@@ -139,6 +139,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(GoalDeclaration entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(PointcutDeclaration entity) {
         stagedVisit(entity);
     }
@@ -176,6 +180,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(PointcutStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(GoalStep entity) {
         stagedVisit(entity);
     }
 

@@ -39,7 +39,7 @@
             <models:AnyType/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="62">
+    <models:ModelDeclarations initialCapacity="64">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PatternLanguage"/>
@@ -795,6 +795,35 @@
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="GoalDeclaration"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Declaration"/>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="GoalExpression"/>
+                    <models:SimpleName value="subgoals"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Name"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="body"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PointcutDeclaration"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Declaration"/>
@@ -983,6 +1012,14 @@
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PointcutStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="StepExpression"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="GoalStep"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="StepExpression"/>
             </models:Types>

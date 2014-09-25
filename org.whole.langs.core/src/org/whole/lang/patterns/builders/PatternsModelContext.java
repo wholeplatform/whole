@@ -237,6 +237,14 @@ public class PatternsModelContext extends EntityContext {
         wSet(PatternsFeatureDescriptorEnum.body, body);
     }
 
+    public PatternsModelContext getSubgoals() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.subgoals);
+    }
+
+    public void setSubgoals(PatternsModelContext subgoals) {
+        wSet(PatternsFeatureDescriptorEnum.subgoals, subgoals);
+    }
+
     public PatternsModelContext getVariant() {
         return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.variant);
     }

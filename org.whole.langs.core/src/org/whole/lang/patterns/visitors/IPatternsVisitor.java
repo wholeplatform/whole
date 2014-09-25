@@ -75,6 +75,8 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(FunctionDeclaration entity);
 
+    public void visit(GoalDeclaration entity);
+
     public void visit(PointcutDeclaration entity);
 
     public void visit(JoinPointDeclaration entity);
@@ -94,6 +96,8 @@ public interface IPatternsVisitor extends IVisitor {
     public void visit(JoinPointStep entity);
 
     public void visit(PointcutStep entity);
+
+    public void visit(GoalStep entity);
 
     public void visit(SlotStep entity);
 

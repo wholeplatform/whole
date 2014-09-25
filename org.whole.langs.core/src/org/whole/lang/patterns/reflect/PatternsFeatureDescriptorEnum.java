@@ -35,9 +35,10 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int iterator_ord = 25;
     public static final int applicationTypes_ord = 26;
     public static final int body_ord = 27;
-    public static final int variant_ord = 28;
-    public static final int path_ord = 29;
-    public static final int placement_ord = 30;
+    public static final int subgoals_ord = 28;
+    public static final int variant_ord = 29;
+    public static final int path_ord = 30;
+    public static final int placement_ord = 31;
     public static final PatternsFeatureDescriptorEnum instance = new PatternsFeatureDescriptorEnum();
     public static final FeatureDescriptor uri = instance.valueOf(uri_ord);
     public static final FeatureDescriptor namespace = instance.valueOf(namespace_ord);
@@ -67,6 +68,7 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final FeatureDescriptor iterator = instance.valueOf(iterator_ord);
     public static final FeatureDescriptor applicationTypes = instance.valueOf(applicationTypes_ord);
     public static final FeatureDescriptor body = instance.valueOf(body_ord);
+    public static final FeatureDescriptor subgoals = instance.valueOf(subgoals_ord);
     public static final FeatureDescriptor variant = instance.valueOf(variant_ord);
     public static final FeatureDescriptor path = instance.valueOf(path_ord);
     public static final FeatureDescriptor placement = instance.valueOf(placement_ord);
@@ -100,6 +102,7 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
         putFeatureDescriptor(iterator_ord, "iterator");
         putFeatureDescriptor(applicationTypes_ord, "applicationTypes");
         putFeatureDescriptor(body_ord, "body");
+        putFeatureDescriptor(subgoals_ord, "subgoals");
         putFeatureDescriptor(variant_ord, "variant");
         putFeatureDescriptor(path_ord, "path");
         putFeatureDescriptor(placement_ord, "placement");

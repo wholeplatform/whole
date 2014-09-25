@@ -32,6 +32,8 @@ import org.whole.lang.patterns.model.EnumValues;
 import org.whole.lang.patterns.model.Enumeration;
 import org.whole.lang.patterns.model.FunctionApplicationPoint;
 import org.whole.lang.patterns.model.FunctionDeclaration;
+import org.whole.lang.patterns.model.GoalDeclaration;
+import org.whole.lang.patterns.model.GoalStep;
 import org.whole.lang.patterns.model.IPatternsEntity;
 import org.whole.lang.patterns.model.InlinePoint;
 import org.whole.lang.patterns.model.Insert;
@@ -258,6 +260,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     }
 
     @Override
+    public void visit(GoalDeclaration entity) {
+        part = new GoalDeclarationPart();
+    }
+
+    @Override
     public void visit(PointcutDeclaration entity) {
         part = new PointcutDeclarationPart();
     }
@@ -338,6 +345,9 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			case PatternsEntityDescriptorEnum.PointcutDeclaration_ord:
 				part = new PointcutStepPart();
 				return;
+			case PatternsEntityDescriptorEnum.GoalDeclaration_ord:
+				part = new GoalStepPart();
+				return;
 			case PatternsEntityDescriptorEnum.VariablePoint_ord:
 			case PatternsEntityDescriptorEnum.VariableDeclaration_ord:
 			case PatternsEntityDescriptorEnum.VariantSelectionPoint_ord:
@@ -384,6 +394,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(PointcutStep entity) {
     	part = new PointcutStepPart();
+    }
+
+    @Override
+    public void visit(GoalStep entity) {
+    	part = new GoalStepPart();
     }
 
     @Override

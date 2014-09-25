@@ -49,6 +49,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new InlinePointAdapter());
         put(new DeclarationsAdapter());
         put(new FunctionDeclarationAdapter());
+        put(new GoalDeclarationAdapter());
         put(new PointcutDeclarationAdapter());
         put(new JoinPointDeclarationAdapter());
         put(new VariableDeclarationAdapter());
@@ -64,6 +65,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PatternJoinPointStepAdapter());
         put(new JoinPointStepAdapter());
         put(new PointcutStepAdapter());
+        put(new GoalStepAdapter());
         put(new SlotStepAdapter());
         put(new OuterDefinitionStepAdapter());
         put(new CutAdapter());
@@ -75,6 +77,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new NamespaceAdapter());
         put(new VersionAdapter());
         put(new BooleanValueAdapter());
+        put(new GoalExpressionAdapter());
         put(new ArgumentAdapter());
         put(new PredicateAdapter());
         put(new DeclarationAdapter());

@@ -17,6 +17,8 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void variant();
 
+    public void subgoals();
+
     public void body();
 
     public void applicationTypes();
@@ -283,6 +285,12 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _FunctionDeclaration();
 
+    public void GoalDeclaration();
+
+    public void GoalDeclaration_();
+
+    public void _GoalDeclaration();
+
     public void PointcutDeclaration();
 
     public void PointcutDeclaration_();
@@ -340,6 +348,10 @@ public interface IPatternsBuilder extends IBuilder {
     public void PointcutStep();
 
     public void PointcutStep(String value);
+
+    public void GoalStep();
+
+    public void GoalStep(String value);
 
     public void SlotStep();
 

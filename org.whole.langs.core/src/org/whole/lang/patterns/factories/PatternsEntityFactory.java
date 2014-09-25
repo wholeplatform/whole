@@ -403,6 +403,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<FunctionDeclaration>(create(PatternsEntityDescriptorEnum.FunctionDeclaration));
     }
 
+    public GoalDeclaration createGoalDeclaration() {
+        return create(PatternsEntityDescriptorEnum.GoalDeclaration);
+    }
+
+    public GoalDeclaration createGoalDeclaration(GoalExpression subgoals, Name name, Expression body) {
+        return create(PatternsEntityDescriptorEnum.GoalDeclaration, subgoals, name, body);
+    }
+
+    public IEntityBuilder<GoalDeclaration> buildGoalDeclaration() {
+        return new EntityBuilder<GoalDeclaration>(create(PatternsEntityDescriptorEnum.GoalDeclaration));
+    }
+
     public PointcutDeclaration createPointcutDeclaration() {
         return create(PatternsEntityDescriptorEnum.PointcutDeclaration);
     }
@@ -501,6 +513,14 @@ public class PatternsEntityFactory extends GenericEntityFactory {
 
     public PointcutStep createPointcutStep(String value) {
         return create(PatternsEntityDescriptorEnum.PointcutStep, value);
+    }
+
+    public GoalStep createGoalStep() {
+        return create(PatternsEntityDescriptorEnum.GoalStep);
+    }
+
+    public GoalStep createGoalStep(String value) {
+        return create(PatternsEntityDescriptorEnum.GoalStep, value);
     }
 
     public SlotStep createSlotStep() {

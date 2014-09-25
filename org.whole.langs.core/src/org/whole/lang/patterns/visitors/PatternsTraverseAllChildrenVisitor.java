@@ -193,6 +193,12 @@ public class PatternsTraverseAllChildrenVisitor extends PatternsIdentityUnaryVis
         entity.getBody().accept(wGetVisitor1());
     }
 
+    public void visit(GoalDeclaration entity) {
+        entity.getSubgoals().accept(wGetVisitor1());
+        entity.getName().accept(wGetVisitor1());
+        entity.getBody().accept(wGetVisitor1());
+    }
+
     public void visit(PointcutDeclaration entity) {
         entity.getName().accept(wGetVisitor1());
         entity.getExpression().accept(wGetVisitor1());

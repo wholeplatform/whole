@@ -185,6 +185,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(GoalDeclaration entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(PointcutDeclaration entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -231,6 +236,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
     }
 
     public void visit(PointcutStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(GoalStep entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

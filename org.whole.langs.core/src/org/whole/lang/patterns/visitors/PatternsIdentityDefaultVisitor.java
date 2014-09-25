@@ -192,6 +192,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Declaration) entity);
     }
 
+    public void visit(GoalDeclaration entity) {
+        visit((IPatternsEntity) entity);
+        visit((Declaration) entity);
+    }
+
     public void visit(PointcutDeclaration entity) {
         visit((IPatternsEntity) entity);
         visit((Declaration) entity);
@@ -254,6 +259,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(PointcutStep entity) {
+        visit((IPatternsEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(GoalStep entity) {
         visit((IPatternsEntity) entity);
         visit((StepExpression) entity);
     }

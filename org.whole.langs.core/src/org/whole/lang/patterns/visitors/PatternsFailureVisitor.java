@@ -145,6 +145,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(GoalDeclaration entity) {
+        throw new VisitException();
+    }
+
     public void visit(PointcutDeclaration entity) {
         throw new VisitException();
     }
@@ -182,6 +186,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(PointcutStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(GoalStep entity) {
         throw new VisitException();
     }
 

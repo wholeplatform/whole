@@ -121,6 +121,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(FunctionDeclaration entity) {
     }
 
+    public void visit(GoalDeclaration entity) {
+    }
+
     public void visit(PointcutDeclaration entity) {
     }
 
@@ -149,6 +152,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     }
 
     public void visit(PointcutStep entity) {
+    }
+
+    public void visit(GoalStep entity) {
     }
 
     public void visit(SlotStep entity) {

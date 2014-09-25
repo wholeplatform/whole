@@ -113,6 +113,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsFeatureDescriptorEnum.body_ord :
             specificBuilder.body();
             break;
+            case PatternsFeatureDescriptorEnum.subgoals_ord :
+            specificBuilder.subgoals();
+            break;
             case PatternsFeatureDescriptorEnum.variant_ord :
             specificBuilder.variant();
             break;
@@ -222,6 +225,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.FunctionDeclaration_ord :
             specificBuilder.FunctionDeclaration();
+            break;
+            case PatternsEntityDescriptorEnum.GoalDeclaration_ord :
+            specificBuilder.GoalDeclaration();
             break;
             case PatternsEntityDescriptorEnum.PointcutDeclaration_ord :
             specificBuilder.PointcutDeclaration();
@@ -354,6 +360,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.FunctionDeclaration_ord :
             specificBuilder.FunctionDeclaration_();
             break;
+            case PatternsEntityDescriptorEnum.GoalDeclaration_ord :
+            specificBuilder.GoalDeclaration_();
+            break;
             case PatternsEntityDescriptorEnum.PointcutDeclaration_ord :
             specificBuilder.PointcutDeclaration_();
             break;
@@ -485,6 +494,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.FunctionDeclaration_ord :
             specificBuilder._FunctionDeclaration();
             break;
+            case PatternsEntityDescriptorEnum.GoalDeclaration_ord :
+            specificBuilder._GoalDeclaration();
+            break;
             case PatternsEntityDescriptorEnum.PointcutDeclaration_ord :
             specificBuilder._PointcutDeclaration();
             break;
@@ -563,6 +575,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.PointcutStep_ord :
             specificBuilder.PointcutStep(value);
+            break;
+            case PatternsEntityDescriptorEnum.GoalStep_ord :
+            specificBuilder.GoalStep(value);
             break;
             case PatternsEntityDescriptorEnum.SlotStep_ord :
             specificBuilder.SlotStep(value);

@@ -32,6 +32,10 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(PatternsFeatureDescriptorEnum.variant);
     }
 
+    public void subgoals() {
+        wFeature(PatternsFeatureDescriptorEnum.subgoals);
+    }
+
     public void body() {
         wFeature(PatternsFeatureDescriptorEnum.body);
     }
@@ -567,6 +571,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.FunctionDeclaration);
     }
 
+    public void GoalDeclaration() {
+        wEntity(PatternsEntityDescriptorEnum.GoalDeclaration);
+    }
+
+    public void GoalDeclaration_() {
+        wEntity_(PatternsEntityDescriptorEnum.GoalDeclaration);
+    }
+
+    public void _GoalDeclaration() {
+        _wEntity(PatternsEntityDescriptorEnum.GoalDeclaration);
+    }
+
     public void PointcutDeclaration() {
         wEntity(PatternsEntityDescriptorEnum.PointcutDeclaration);
     }
@@ -681,6 +697,14 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void PointcutStep(String value) {
         wEntity(PatternsEntityDescriptorEnum.PointcutStep, value);
+    }
+
+    public void GoalStep() {
+        wEntity(PatternsEntityDescriptorEnum.GoalStep);
+    }
+
+    public void GoalStep(String value) {
+        wEntity(PatternsEntityDescriptorEnum.GoalStep, value);
     }
 
     public void SlotStep() {
