@@ -70,6 +70,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(FunctionApplicationPoint entity) {
     }
 
+    public void visit(FunctionPoint entity) {
+    }
+
     public void visit(Slot entity) {
     }
 
@@ -155,6 +158,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     }
 
     public void visit(GoalStep entity) {
+    }
+
+    public void visit(FunctionStep entity) {
     }
 
     public void visit(SlotStep entity) {

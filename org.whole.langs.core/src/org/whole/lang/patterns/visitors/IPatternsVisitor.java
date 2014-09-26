@@ -41,6 +41,8 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(FunctionApplicationPoint entity);
 
+    public void visit(FunctionPoint entity);
+
     public void visit(Slot entity);
 
     public void visit(ResultPoint entity);
@@ -98,6 +100,8 @@ public interface IPatternsVisitor extends IVisitor {
     public void visit(PointcutStep entity);
 
     public void visit(GoalStep entity);
+
+    public void visit(FunctionStep entity);
 
     public void visit(SlotStep entity);
 

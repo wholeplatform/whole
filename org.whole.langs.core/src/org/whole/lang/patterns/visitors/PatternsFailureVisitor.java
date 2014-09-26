@@ -77,6 +77,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(FunctionPoint entity) {
+        throw new VisitException();
+    }
+
     public void visit(Slot entity) {
         throw new VisitException();
     }
@@ -190,6 +194,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(GoalStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(FunctionStep entity) {
         throw new VisitException();
     }
 

@@ -211,6 +211,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<FunctionApplicationPoint>(create(PatternsEntityDescriptorEnum.FunctionApplicationPoint));
     }
 
+    public FunctionPoint createFunctionPoint() {
+        return create(PatternsEntityDescriptorEnum.FunctionPoint);
+    }
+
+    public FunctionPoint createFunctionPoint(Name name, ResultType resultType, PathExpression expression) {
+        return create(PatternsEntityDescriptorEnum.FunctionPoint, name, resultType, expression);
+    }
+
+    public IEntityBuilder<FunctionPoint> buildFunctionPoint() {
+        return new EntityBuilder<FunctionPoint>(create(PatternsEntityDescriptorEnum.FunctionPoint));
+    }
+
     public Slot createSlot() {
         return create(PatternsEntityDescriptorEnum.Slot);
     }
@@ -521,6 +533,14 @@ public class PatternsEntityFactory extends GenericEntityFactory {
 
     public GoalStep createGoalStep(String value) {
         return create(PatternsEntityDescriptorEnum.GoalStep, value);
+    }
+
+    public FunctionStep createFunctionStep() {
+        return create(PatternsEntityDescriptorEnum.FunctionStep);
+    }
+
+    public FunctionStep createFunctionStep(String value) {
+        return create(PatternsEntityDescriptorEnum.FunctionStep, value);
     }
 
     public SlotStep createSlotStep() {

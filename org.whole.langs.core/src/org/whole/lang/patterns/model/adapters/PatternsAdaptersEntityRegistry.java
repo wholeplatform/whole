@@ -32,6 +32,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new BindingAdapter());
         put(new VariablePointAdapter());
         put(new FunctionApplicationPointAdapter());
+        put(new FunctionPointAdapter());
         put(new SlotAdapter());
         put(new ResultPointAdapter());
         put(new JoinPointAdapter());
@@ -66,6 +67,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new JoinPointStepAdapter());
         put(new PointcutStepAdapter());
         put(new GoalStepAdapter());
+        put(new FunctionStepAdapter());
         put(new SlotStepAdapter());
         put(new OuterDefinitionStepAdapter());
         put(new CutAdapter());

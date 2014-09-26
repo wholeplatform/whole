@@ -60,6 +60,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord :
             visit((FunctionApplicationPoint) entity);
             break;
+            case PatternsEntityDescriptorEnum.FunctionPoint_ord :
+            visit((FunctionPoint) entity);
+            break;
             case PatternsEntityDescriptorEnum.Slot_ord :
             visit((Slot) entity);
             break;
@@ -146,6 +149,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             break;
             case PatternsEntityDescriptorEnum.GoalStep_ord :
             visit((GoalStep) entity);
+            break;
+            case PatternsEntityDescriptorEnum.FunctionStep_ord :
+            visit((FunctionStep) entity);
             break;
             case PatternsEntityDescriptorEnum.SlotStep_ord :
             visit((SlotStep) entity);

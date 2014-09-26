@@ -107,6 +107,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((VariationPoint) entity);
     }
 
+    public void visit(FunctionPoint entity) {
+        visit((IPatternsEntity) entity);
+        visit((VariationPoint) entity);
+    }
+
     public void visit(Slot entity) {
         visit((IPatternsEntity) entity);
         visit((VariationPoint) entity);
@@ -264,6 +269,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(GoalStep entity) {
+        visit((IPatternsEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(FunctionStep entity) {
         visit((IPatternsEntity) entity);
         visit((StepExpression) entity);
     }

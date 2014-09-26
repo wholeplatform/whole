@@ -82,6 +82,10 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(FunctionPoint entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Slot entity) {
         wGetVisitor1().visit(entity);
     }
@@ -195,6 +199,10 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
     }
 
     public void visit(GoalStep entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(FunctionStep entity) {
         wGetVisitor1().visit(entity);
     }
 

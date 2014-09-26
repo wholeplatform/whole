@@ -31,8 +31,6 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void condition();
 
-    public void expression();
-
     public void context();
 
     public void weaver();
@@ -40,6 +38,8 @@ public interface IPatternsBuilder extends IBuilder {
     public void adapter();
 
     public void optional();
+
+    public void expression();
 
     public void arguments();
 
@@ -174,6 +174,12 @@ public interface IPatternsBuilder extends IBuilder {
     public void FunctionApplicationPoint_();
 
     public void _FunctionApplicationPoint();
+
+    public void FunctionPoint();
+
+    public void FunctionPoint_();
+
+    public void _FunctionPoint();
 
     public void Slot();
 
@@ -352,6 +358,10 @@ public interface IPatternsBuilder extends IBuilder {
     public void GoalStep();
 
     public void GoalStep(String value);
+
+    public void FunctionStep();
+
+    public void FunctionStep(String value);
 
     public void SlotStep();
 

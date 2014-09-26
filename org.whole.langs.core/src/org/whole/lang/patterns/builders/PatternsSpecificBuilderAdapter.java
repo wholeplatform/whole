@@ -60,10 +60,6 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wFeature(PatternsFeatureDescriptorEnum.condition);
     }
 
-    public void expression() {
-        wFeature(PatternsFeatureDescriptorEnum.expression);
-    }
-
     public void context() {
         wFeature(PatternsFeatureDescriptorEnum.context);
     }
@@ -78,6 +74,10 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void optional() {
         wFeature(PatternsFeatureDescriptorEnum.optional);
+    }
+
+    public void expression() {
+        wFeature(PatternsFeatureDescriptorEnum.expression);
     }
 
     public void arguments() {
@@ -349,6 +349,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void _FunctionApplicationPoint() {
         _wEntity(PatternsEntityDescriptorEnum.FunctionApplicationPoint);
+    }
+
+    public void FunctionPoint() {
+        wEntity(PatternsEntityDescriptorEnum.FunctionPoint);
+    }
+
+    public void FunctionPoint_() {
+        wEntity_(PatternsEntityDescriptorEnum.FunctionPoint);
+    }
+
+    public void _FunctionPoint() {
+        _wEntity(PatternsEntityDescriptorEnum.FunctionPoint);
     }
 
     public void Slot() {
@@ -705,6 +717,14 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
 
     public void GoalStep(String value) {
         wEntity(PatternsEntityDescriptorEnum.GoalStep, value);
+    }
+
+    public void FunctionStep() {
+        wEntity(PatternsEntityDescriptorEnum.FunctionStep);
+    }
+
+    public void FunctionStep(String value) {
+        wEntity(PatternsEntityDescriptorEnum.FunctionStep, value);
     }
 
     public void SlotStep() {

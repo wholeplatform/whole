@@ -149,6 +149,14 @@ public class PatternsModelContext extends EntityContext {
         wSet(PatternsFeatureDescriptorEnum.arguments, arguments);
     }
 
+    public PatternsModelContext getExpression() {
+        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.expression);
+    }
+
+    public void setExpression(PatternsModelContext expression) {
+        wSet(PatternsFeatureDescriptorEnum.expression, expression);
+    }
+
     public PatternsModelContext getOptional() {
         return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.optional);
     }
@@ -179,14 +187,6 @@ public class PatternsModelContext extends EntityContext {
 
     public void setContext(PatternsModelContext context) {
         wSet(PatternsFeatureDescriptorEnum.context, context);
-    }
-
-    public PatternsModelContext getExpression() {
-        return (PatternsModelContext) wGet(PatternsFeatureDescriptorEnum.expression);
-    }
-
-    public void setExpression(PatternsModelContext expression) {
-        wSet(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
     public PatternsModelContext getCondition() {

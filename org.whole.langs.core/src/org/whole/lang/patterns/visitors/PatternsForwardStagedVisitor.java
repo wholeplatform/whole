@@ -71,6 +71,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(FunctionPoint entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Slot entity) {
         stagedVisit(entity);
     }
@@ -184,6 +188,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(GoalStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(FunctionStep entity) {
         stagedVisit(entity);
     }
 

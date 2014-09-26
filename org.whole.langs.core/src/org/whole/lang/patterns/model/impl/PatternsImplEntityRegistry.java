@@ -29,6 +29,7 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new BindingImpl());
         put(new VariablePointImpl());
         put(new FunctionApplicationPointImpl());
+        put(new FunctionPointImpl());
         put(new SlotImpl());
         put(new ResultPointImpl());
         put(new JoinPointImpl());
@@ -58,6 +59,7 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new JoinPointStepImpl());
         put(new PointcutStepImpl());
         put(new GoalStepImpl());
+        put(new FunctionStepImpl());
         put(new SlotStepImpl());
         put(new OuterDefinitionStepImpl());
         put(new CutImpl());
