@@ -26,13 +26,13 @@ import org.whole.lang.ui.layout.RowLayout;
  */
 public class QuantifiedPredicateFigure extends ContentPaneFigure {
 	public QuantifiedPredicateFigure(String quantifier) {
-		super(new RowLayout().withSpacing(8));
+		super(new RowLayout().withSpacing(2));
 		initContentPanes(2);
 
-		addKeyword(quantifier);
+		addMath(quantifier);
 		add(createContentPane(0));
-		addKeyword("satisfies");
+		addMath("|");
 		add(createContentPane(1));
-		setBorder(new SquareBracketsBorder(8, 8));
+		setBorder(new SquareBracketsBorder(4, 5));
 	}
 }

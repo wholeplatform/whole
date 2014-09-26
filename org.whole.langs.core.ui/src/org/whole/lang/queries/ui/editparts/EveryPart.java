@@ -31,7 +31,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
  */
 public class EveryPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new QuantifiedPredicateFigure("every");
+		return new QuantifiedPredicateFigure("\u2200");
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
