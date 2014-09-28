@@ -169,12 +169,6 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _VariablePoint();
 
-    public void FunctionApplicationPoint();
-
-    public void FunctionApplicationPoint_();
-
-    public void _FunctionApplicationPoint();
-
     public void FunctionPoint();
 
     public void FunctionPoint_();

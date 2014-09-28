@@ -25,7 +25,6 @@ import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.semantics.model.FunctionApplication;
 import org.whole.lang.semantics.ui.figures.FunctionApplicationFigure;
-import org.whole.lang.semantics.util.SemanticsUtils;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
 
@@ -64,6 +63,6 @@ public class FunctionApplicationPart extends AbstractContentPanePart {
 				!EntityUtils.isResolver(entity.getName()),
 				!EntityUtils.isResolver(entity.getStage()));
 		f.showEnvironments(!EntityUtils.isResolver(entity.getEnvironments()));
-		f.showAsStageDown(SemanticsUtils.inStageDownContext(entity));
+//		f.showAsStageDown(SemanticsUtils.inStageDownContext(entity));
 	}
 }

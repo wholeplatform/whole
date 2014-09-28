@@ -16,26 +16,28 @@ package org.whole.lang.patterns.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.patterns.model.FunctionApplicationPoint;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.patterns.model.FunctionPoint;
+import org.whole.lang.patterns.ui.figures.FunctionPointFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.patterns.ui.figures.FunctionApplicationPointFigure;
 
 /**
  *  @author  Riccardo Solmi
  */
-public class FunctionApplicationPointPart extends AbstractContentPanePart {
+public class FunctionPointPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new FunctionApplicationPointFigure();
+        return new FunctionPointFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-        FunctionApplicationPoint entity = getModelEntity();
-        List<IEntity> children = new ArrayList<IEntity>(2);
+        FunctionPoint entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(3);
         children.add(entity.getResultType());
         children.add(entity.getName());
+        children.add(entity.getExpression());
         return children;
     }
 }

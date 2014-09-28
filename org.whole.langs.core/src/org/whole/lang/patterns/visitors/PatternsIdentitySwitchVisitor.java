@@ -57,9 +57,6 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.VariablePoint_ord :
             visit((VariablePoint) entity);
             break;
-            case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord :
-            visit((FunctionApplicationPoint) entity);
-            break;
             case PatternsEntityDescriptorEnum.FunctionPoint_ord :
             visit((FunctionPoint) entity);
             break;

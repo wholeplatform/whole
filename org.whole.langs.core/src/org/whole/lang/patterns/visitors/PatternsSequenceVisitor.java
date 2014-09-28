@@ -95,11 +95,6 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
     public void visit(FunctionPoint entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

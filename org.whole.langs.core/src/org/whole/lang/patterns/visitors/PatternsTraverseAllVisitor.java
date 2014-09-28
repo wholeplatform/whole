@@ -101,11 +101,6 @@ public class PatternsTraverseAllVisitor extends PatternsIdentityUnaryVisitor<IPa
         entity.getResultType().accept(wGetVisitor1());
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-        entity.getName().accept(wGetVisitor1());
-        entity.getResultType().accept(wGetVisitor1());
-    }
-
     public void visit(FunctionPoint entity) {
         entity.getName().accept(wGetVisitor1());
         entity.getResultType().accept(wGetVisitor1());

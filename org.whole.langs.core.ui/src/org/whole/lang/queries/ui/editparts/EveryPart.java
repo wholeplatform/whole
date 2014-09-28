@@ -17,6 +17,7 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +26,14 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.QuantifiedPredicate;
 import org.whole.lang.queries.ui.figures.QuantifiedPredicateFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class EveryPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new QuantifiedPredicateFigure("\u2200");
+		return new QuantifiedPredicateFigure("\u2200", true);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
@@ -40,5 +42,19 @@ public class EveryPart extends AbstractContentPanePart {
 		list.add(entity.getFromClause());
 		list.add(entity.getWhereClause());
 		return list;
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		super.propertyChangeUI(evt);
+		if (evt.getPropertyName().equals("whereClause"))
+			refreshVisuals();
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		QuantifiedPredicate entity = getModelEntity();
+		QuantifiedPredicateFigure f = (QuantifiedPredicateFigure) getFigure();
+		f.showWhereClause(!EntityUtils.isResolver(entity.getWhereClause()));
 	}
 }

@@ -58,9 +58,6 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     public void visit(VariablePoint entity) {
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-    }
-
     public void visit(FunctionPoint entity) {
     }
 

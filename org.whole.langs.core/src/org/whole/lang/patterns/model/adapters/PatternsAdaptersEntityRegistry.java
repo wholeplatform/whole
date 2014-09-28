@@ -31,7 +31,6 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ArgumentsAdapter());
         put(new BindingAdapter());
         put(new VariablePointAdapter());
-        put(new FunctionApplicationPointAdapter());
         put(new FunctionPointAdapter());
         put(new SlotAdapter());
         put(new ResultPointAdapter());

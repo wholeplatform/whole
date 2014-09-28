@@ -22,34 +22,34 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
-import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
-import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class FunctionApplicationPointFigure extends ContentPaneFigure {
-	public FunctionApplicationPointFigure() {
-		initContentPanes(2);
+public class FunctionPointFigure extends ContentPaneFigure {
+	public FunctionPointFigure() {
+		initContentPanes(3);
 		setLayoutManager(new RowLayout().withSpacing(3).withMargin(2, 3, 2, 3));
 
+		add(createFoldingToggle(0));
 		add(createContentPane(0));
 		add(createContentPane(1));
-		EntityLabel brackets = LabelFactory.createKeyword();
-		brackets.setBorder(new DoubleSquareBracketsBorder());
-		add(brackets);
+		add(createContentPane(2, new DoubleSquareBracketsBorder()));
+
+		clickFoldingToggle(0);
 	}
 
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
-		Rectangle b = getBounds();
+		Rectangle bounds = getBounds();
+		Rectangle nameBounds = getContentPane(1).getBounds();
 		
 		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		g.fillRectangle(nameBounds.x-1, bounds.y, bounds.width - nameBounds.x + bounds.x, bounds.height);
 		g.setForegroundColor(ColorConstants.lightGray);
-		g.fillRectangle(b.x, b.y, b.width, b.height);
-		g.drawRectangle(b.x, b.y, b.width-1, b.height-1);
+		g.drawRectangle(bounds.x, bounds.y, bounds.width-1, bounds.height-1);
 	}
 }

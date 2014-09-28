@@ -172,9 +172,6 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariablePoint_ord :
             specificBuilder.VariablePoint();
             break;
-            case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord :
-            specificBuilder.FunctionApplicationPoint();
-            break;
             case PatternsEntityDescriptorEnum.FunctionPoint_ord :
             specificBuilder.FunctionPoint();
             break;
@@ -309,9 +306,6 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariablePoint_ord :
             specificBuilder.VariablePoint_();
             break;
-            case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord :
-            specificBuilder.FunctionApplicationPoint_();
-            break;
             case PatternsEntityDescriptorEnum.FunctionPoint_ord :
             specificBuilder.FunctionPoint_();
             break;
@@ -445,9 +439,6 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.VariablePoint_ord :
             specificBuilder._VariablePoint();
-            break;
-            case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord :
-            specificBuilder._FunctionApplicationPoint();
             break;
             case PatternsEntityDescriptorEnum.FunctionPoint_ord :
             specificBuilder._FunctionPoint();

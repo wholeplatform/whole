@@ -102,11 +102,6 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((VariationPoint) entity);
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-        visit((IPatternsEntity) entity);
-        visit((VariationPoint) entity);
-    }
-
     public void visit(FunctionPoint entity) {
         visit((IPatternsEntity) entity);
         visit((VariationPoint) entity);

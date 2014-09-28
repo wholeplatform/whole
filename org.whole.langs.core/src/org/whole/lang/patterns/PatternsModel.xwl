@@ -39,7 +39,7 @@
             <models:AnyType/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="66">
+    <models:ModelDeclarations initialCapacity="65">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PatternLanguage"/>
@@ -409,29 +409,6 @@
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="VariablePoint"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="VariationPoint"/>
-            </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Name"/>
-                    <models:SimpleName value="name"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="ResultType"/>
-                    <models:SimpleName value="resultType"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="FunctionApplicationPoint"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="VariationPoint"/>
             </models:Types>

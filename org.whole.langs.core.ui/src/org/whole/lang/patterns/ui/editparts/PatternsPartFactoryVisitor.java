@@ -30,8 +30,9 @@ import org.whole.lang.patterns.model.DerivationPoint;
 import org.whole.lang.patterns.model.EnumValue;
 import org.whole.lang.patterns.model.EnumValues;
 import org.whole.lang.patterns.model.Enumeration;
-import org.whole.lang.patterns.model.FunctionApplicationPoint;
 import org.whole.lang.patterns.model.FunctionDeclaration;
+import org.whole.lang.patterns.model.FunctionPoint;
+import org.whole.lang.patterns.model.FunctionStep;
 import org.whole.lang.patterns.model.GoalDeclaration;
 import org.whole.lang.patterns.model.GoalStep;
 import org.whole.lang.patterns.model.IPatternsEntity;
@@ -145,8 +146,8 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     }
 
     @Override
-    public void visit(FunctionApplicationPoint entity) {
-        part = new FunctionApplicationPointPart();
+    public void visit(FunctionPoint entity) {
+        part = new FunctionPointPart();
     }
 
     @Override
@@ -339,7 +340,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			case PatternsEntityDescriptorEnum.Data_ord:
 			case PatternsEntityDescriptorEnum.PatternApplication_ord:
 			case PatternsEntityDescriptorEnum.FunctionDeclaration_ord:
-			case PatternsEntityDescriptorEnum.FunctionApplicationPoint_ord:
+			case PatternsEntityDescriptorEnum.FunctionPoint_ord:
 				part = new DeclarationTextualEntityPart();
 				return;
 			case PatternsEntityDescriptorEnum.PointcutDeclaration_ord:
@@ -399,6 +400,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(GoalStep entity) {
     	part = new GoalStepPart();
+    }
+
+    @Override
+    public void visit(FunctionStep entity) {
+    	part = new FunctionStepPart();
     }
 
     @Override

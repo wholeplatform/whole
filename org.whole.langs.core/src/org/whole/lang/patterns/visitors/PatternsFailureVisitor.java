@@ -73,10 +73,6 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-        throw new VisitException();
-    }
-
     public void visit(FunctionPoint entity) {
         throw new VisitException();
     }

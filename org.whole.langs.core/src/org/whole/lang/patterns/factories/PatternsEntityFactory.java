@@ -199,18 +199,6 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<VariablePoint>(create(PatternsEntityDescriptorEnum.VariablePoint));
     }
 
-    public FunctionApplicationPoint createFunctionApplicationPoint() {
-        return create(PatternsEntityDescriptorEnum.FunctionApplicationPoint);
-    }
-
-    public FunctionApplicationPoint createFunctionApplicationPoint(Name name, ResultType resultType) {
-        return create(PatternsEntityDescriptorEnum.FunctionApplicationPoint, name, resultType);
-    }
-
-    public IEntityBuilder<FunctionApplicationPoint> buildFunctionApplicationPoint() {
-        return new EntityBuilder<FunctionApplicationPoint>(create(PatternsEntityDescriptorEnum.FunctionApplicationPoint));
-    }
-
     public FunctionPoint createFunctionPoint() {
         return create(PatternsEntityDescriptorEnum.FunctionPoint);
     }

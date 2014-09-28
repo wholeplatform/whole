@@ -67,9 +67,6 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(VariablePoint entity) {
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-    }
-
     public void visit(FunctionPoint entity) {
     }
 

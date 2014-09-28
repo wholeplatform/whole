@@ -673,7 +673,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="46">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="44">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -2089,6 +2089,24 @@
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         <commons:Resolver/>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="joinpoints#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <queries:ChildStep/>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="1">
                                         <commons:StageDownFragment>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="markExecutableStage"/>
@@ -2097,6 +2115,22 @@
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
                                         </commons:StageDownFragment>
+                                        </queries:Expressions>
+                                        <commons:Resolver/>
+                                        </queries:Union>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#VariableTest"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="joinpoints#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Filter>
+                                        </queries:Choose>
                                     </queries:QueryDeclaration>
                                 </commons:StageUpFragment>
                             </queries:Block>
@@ -2114,89 +2148,8 @@
                                         <semantics:AnyType/>
                                         <semantics:AnyType/>
                                     </semantics:FunctionType>
-                                    <commons:StageDownFragment>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="markExecutableStage"/>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                    </commons:StageDownFragment>
-                                </semantics:SemanticFunction>
-                            </commons:StageUpFragment>
-                        </queries:Do>
-                    </queries:Choose>
-                </queries:If>
-                <queries:If>
-                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutDeclaration"/>
-                    <queries:Block initialCapacity="2">
-                        <queries:Path initialCapacity="2">
-                            <queries:Sequence initialCapacity="2">
-                                <queries:Addition>
-                                    <queries:StringLiteral value="joinpoints#"/>
-                                    <queries:Singleton>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                    </queries:Singleton>
-                                </queries:Addition>
-                                <queries:Addition>
-                                    <queries:StringLiteral value="pointcuts#"/>
-                                    <queries:Singleton>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                    </queries:Singleton>
-                                </queries:Addition>
-                            </queries:Sequence>
-                            <queries:Sequence initialCapacity="1">
-                                <queries:PointwiseInsert>
-                                    <queries:Placement value="INTO"/>
-                                    <queries:VariableRefStep value="scopeNamesPoint"/>
-                                    <queries:SelfStep/>
-                                </queries:PointwiseInsert>
-                            </queries:Sequence>
-                        </queries:Path>
-                        <queries:Sequence initialCapacity="2">
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <queries:Filter>
-                                    <queries:Union>
-                                        <queries:Expressions initialCapacity="1">
-                                        <commons:StageDownFragment>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="markExecutableStage"/>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        </commons:StageDownFragment>
-                                        </queries:Expressions>
-                                        <commons:Resolver/>
-                                    </queries:Union>
-                                    <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Queries#VariableTest"/>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="joinpoints#"/>
-                                        <queries:Singleton>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                        </queries:Singleton>
-                                        </queries:Addition>
-                                        </semantics:TypeCast>
-                                    </commons:StageDownFragment>
-                                </queries:Filter>
-                            </commons:StageUpFragment>
-                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                <queries:QueryDeclaration>
-                                    <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="pointcuts#"/>
-                                        <queries:Singleton>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                        </queries:Singleton>
-                                        </queries:Addition>
-                                        </semantics:TypeCast>
-                                    </commons:StageDownFragment>
-                                    <commons:Resolver/>
-                                    <queries:Path initialCapacity="2">
+                                    <queries:Choose initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
                                         <commons:StageDownFragment>
                                         <semantics:TypeCast>
                                         <semantics:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
@@ -2209,11 +2162,38 @@
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         <queries:ChildStep/>
-                                    </queries:Path>
-                                </queries:QueryDeclaration>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:Union>
+                                        <queries:Expressions initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="markExecutableStage"/>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
+                                        </commons:StageDownFragment>
+                                        </queries:Expressions>
+                                        <commons:Resolver/>
+                                        </queries:Union>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#VariableTest"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="joinpoints#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        </queries:Filter>
+                                    </queries:Choose>
+                                </semantics:SemanticFunction>
                             </commons:StageUpFragment>
-                        </queries:Sequence>
-                    </queries:Block>
+                        </queries:Do>
+                    </queries:Choose>
                 </queries:If>
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPointDeclaration"/>
@@ -3432,7 +3412,7 @@
                                     <queries:VariableTest value="selfExpression"/>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <queries:Choose initialCapacity="3">
+                                    <queries:Choose initialCapacity="5">
                                         <queries:If>
                                         <queries:ExpressionTest>
                                         <queries:Path initialCapacity="1">
@@ -3503,6 +3483,49 @@
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfExpression"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Call>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="selfExpression"/>
+                                        <queries:ExtendedSubtypeTest value="http://lang.whole.org/Queries#StepExpression"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Path initialCapacity="2">
+                                        <commons:StageDownFragment>
+                                        <queries:VariableRefStep value="selfExpression"/>
+                                        </commons:StageDownFragment>
+                                        <queries:Call>
+                                        <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
+                                        <queries:VariableRefStep value="functionName"/>
+                                        </semantics:TypeCast>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </queries:Path>
                                         </commons:StageUpFragment>
                                         </queries:If>
                                         <queries:Do>
@@ -3523,140 +3546,6 @@
                                         <commons:Resolver/>
                                         </queries:Call>
                                         </queries:Path>
-                                        </commons:StageUpFragment>
-                                        </queries:Do>
-                                    </queries:Choose>
-                                    <queries:VariableTest value="functionExpression"/>
-                                </queries:Filter>
-                                <queries:Choose initialCapacity="2">
-                                    <queries:If>
-                                        <queries:ExpressionTest>
-                                        <queries:Filter>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
-                                        <queries:KindTest value="RESOLVER"/>
-                                        </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:VariableRefStep value="functionExpression"/>
-                                    </queries:If>
-                                    <queries:Do>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <semantics:TypeCast>
-                                        <commons:StageDownFragment>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
-                                        </commons:StageDownFragment>
-                                        <commons:StageDownFragment>
-                                        <queries:VariableRefStep value="functionExpression"/>
-                                        </commons:StageDownFragment>
-                                        </semantics:TypeCast>
-                                        </commons:StageUpFragment>
-                                    </queries:Do>
-                                </queries:Choose>
-                            </queries:Block>
-                        </queries:Scope>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    </semantics:FunctionApplication>
-                </queries:If>
-                <queries:If>
-                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionApplicationPoint"/>
-                    <semantics:FunctionApplication>
-                        <semantics:Name value="wrapAtExecutableStage"/>
-                        <queries:Scope>
-                            <queries:Names initialCapacity="3">
-                                <queries:Name value="templateStage"/>
-                                <queries:Name value="functionName"/>
-                                <queries:Name value="functionExpression"/>
-                            </queries:Names>
-                            <queries:Block initialCapacity="4">
-                                <queries:Filter>
-                                    <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
-                                    <queries:VariableTest value="templateStage"/>
-                                </queries:Filter>
-                                <queries:Filter>
-                                    <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                    <queries:VariableTest value="functionName"/>
-                                </queries:Filter>
-                                <queries:Filter>
-                                    <queries:Choose initialCapacity="3">
-                                        <queries:If>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriResourcePart"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <semantics:FunctionApplication>
-                                        <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
-                                        <queries:VariableRefStep value="functionName"/>
-                                        </semantics:TypeCast>
-                                        </commons:StageDownFragment>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        </commons:StageUpFragment>
-                                        </queries:If>
-                                        <queries:If>
-                                        <queries:Some>
-                                        <queries:Path initialCapacity="4">
-                                        <queries:Filter>
-                                        <queries:AncestorStep/>
-                                        <queries:Or initialCapacity="2">
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
-                                        </queries:Or>
-                                        </queries:Filter>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#declarations"/>
-                                        <queries:Filter>
-                                        <queries:ChildStep/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionDeclaration"/>
-                                        </queries:Filter>
-                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
-                                        </queries:Path>
-                                        <queries:ExpressionTest>
-                                        <queries:EqualsStep>
-                                        <queries:VariableRefStep value="functionName"/>
-                                        </queries:EqualsStep>
-                                        </queries:ExpressionTest>
-                                        </queries:Some>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <semantics:FunctionApplication>
-                                        <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Semantics#Name"/>
-                                        <queries:Addition>
-                                        <queries:VariableRefStep value="semanticsUri"/>
-                                        <queries:Addition>
-                                        <queries:StringLiteral value="#"/>
-                                        <queries:VariableRefStep value="functionName"/>
-                                        </queries:Addition>
-                                        </queries:Addition>
-                                        </semantics:TypeCast>
-                                        </commons:StageDownFragment>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        <commons:Resolver/>
-                                        </semantics:FunctionApplication>
-                                        </commons:StageUpFragment>
-                                        </queries:If>
-                                        <queries:Do>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <queries:Call>
-                                        <commons:StageDownFragment>
-                                        <semantics:TypeCast>
-                                        <semantics:EntityType value="http://lang.whole.org/Queries#Name"/>
-                                        <queries:VariableRefStep value="functionName"/>
-                                        </semantics:TypeCast>
-                                        </commons:StageDownFragment>
-                                        <commons:Resolver/>
-                                        </queries:Call>
                                         </commons:StageUpFragment>
                                         </queries:Do>
                                     </queries:Choose>
@@ -6868,7 +6757,7 @@
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#JoinPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#InsertionPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariablePoint"/>
-                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionApplicationPoint"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#DerivationPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SelectionPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ConditionPoint"/>

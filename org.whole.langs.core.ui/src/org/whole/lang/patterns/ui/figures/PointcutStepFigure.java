@@ -18,24 +18,48 @@
 package org.whole.lang.patterns.ui.figures;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
+import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.IQualifiedFigure;
 import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.layout.MonoLayout;
+import org.whole.lang.ui.layout.OverLayout;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointcutStepFigure extends ContentPaneFigure {
+public class PointcutStepFigure extends ContentPaneFigure implements IQualifiedFigure {
+	private Label namespaceLabel;
+
 	public PointcutStepFigure() {
-		super(new MonoLayout());
+		super(new RowLayout().withSpacing(2));
 		initContentPanes(1);
 
-		EntityLabel label = LabelFactory.createDeclaration();
-		label.setBorder(new MarginBorder(0,2,0,2));
-		add(createContentPane(0, label));
+		EntityFigure nameFigure = new EntityFigure(new OverLayout());
+		nameFigure.add(createContentPane(0, LabelFactory.createDeclaration()));
+		nameFigure.add(namespaceLabel = LabelFactory.createModule());
+		add(nameFigure);
+		
+		namespaceLabel.setVisible(false);
+		
+		EntityLabel braskets = LabelFactory.createDeclaration();
+		braskets.setBorder(new DoubleSquareBracketsBorder());
+		add(braskets);
+	}
+
+	public void setQualifierName(String name) {
+		if (name != null) {
+			namespaceLabel.setVisible(true);
+			namespaceLabel.setText(name);
+		} else
+			namespaceLabel.setVisible(false);
+	}
+	public Label getNameLabel() {
+		return (Label) getContentPane(0);
 	}
 
 	public void paintFigure(Graphics g) {

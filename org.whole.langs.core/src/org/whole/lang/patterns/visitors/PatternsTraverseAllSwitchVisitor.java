@@ -96,11 +96,6 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
         wGetVisitor1().visit(entity.getResultType());
     }
 
-    public void visit(FunctionApplicationPoint entity) {
-        wGetVisitor1().visit(entity.getName());
-        wGetVisitor1().visit(entity.getResultType());
-    }
-
     public void visit(FunctionPoint entity) {
         wGetVisitor1().visit(entity.getName());
         wGetVisitor1().visit(entity.getResultType());

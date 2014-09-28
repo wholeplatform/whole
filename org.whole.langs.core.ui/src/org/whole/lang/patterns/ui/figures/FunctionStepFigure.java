@@ -17,13 +17,11 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IQualifiedFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.OverLayout;
@@ -32,28 +30,22 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  * @author Riccardo Solmi
  */
-public class GoalStepFigure extends ContentPaneFigure implements IQualifiedFigure {
+public class FunctionStepFigure extends ContentPaneFigure implements IQualifiedFigure {
 	private Label namespaceLabel;
 
-	public GoalStepFigure() {
+	public FunctionStepFigure() {
 		super(new RowLayout().withSpacing(2));
 		initContentPanes(1);
 
 		EntityFigure nameFigure = new EntityFigure(new OverLayout());
-		nameFigure.add(createContentPane(0, LabelFactory.createIdentifier()));
+		nameFigure.add(createContentPane(0, LabelFactory.createDeclaration()));
 		nameFigure.add(namespaceLabel = LabelFactory.createModule());
 		add(nameFigure);
 		
 		namespaceLabel.setVisible(false);
 		
-		EntityLabel braskets = LabelFactory.createIdentifier();
-		braskets.setBorder(new DoubleSquareBracketsBorder() {
-			@Override
-			protected void setBracketsStyle(Graphics g) {
-				g.setLineDash(new int[] {4,1});
-				g.setForegroundColor(FigurePrefs.relationsColor);
-			}
-		});
+		EntityLabel braskets = LabelFactory.createDeclaration();
+		braskets.setBorder(new DoubleSquareBracketsBorder());
 		add(braskets);
 	}
 

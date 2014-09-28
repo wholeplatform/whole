@@ -18,6 +18,7 @@
 package org.whole.lang.queries.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -25,14 +26,27 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class QuantifiedPredicateFigure extends ContentPaneFigure {
-	public QuantifiedPredicateFigure(String quantifier) {
+	protected EntityFigure whereClause;
+	protected boolean forceWhereClause;
+
+	public QuantifiedPredicateFigure(String quantifier, boolean forceWhereClause) {
 		super(new RowLayout().withSpacing(2));
 		initContentPanes(2);
 
 		addMath(quantifier);
 		add(createContentPane(0));
-		addMath("|");
-		add(createContentPane(1));
+		
+		whereClause = new EntityFigure(new RowLayout().withSpacing(2));
+		whereClause.addMath(":");
+		whereClause.add(createContentPane(1));
+		add(whereClause);
+
 		setBorder(new SquareBracketsBorder(4, 5));
+
+		showWhereClause(this.forceWhereClause = forceWhereClause);
+	}
+
+	public void showWhereClause(boolean value) {
+		whereClause.setVisible(forceWhereClause || value);
 	}
 }

@@ -19,12 +19,12 @@ package org.whole.lang.patterns.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.patterns.ui.figures.PointcutStepFigure;
-import org.whole.lang.ui.editparts.AbstractDataEntityPart;
+import org.whole.lang.ui.editparts.FunctionNamePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class PointcutStepPart extends AbstractDataEntityPart {
+public class PointcutStepPart extends FunctionNamePart {
 	public IFigure createFigure() {
 		return new PointcutStepFigure();
 	}

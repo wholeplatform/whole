@@ -85,6 +85,7 @@ import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
+import org.whole.lang.ui.editparts.FunctionNamePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.LanguageTypePart;
 import org.whole.lang.ui.editparts.LiteralDataEntityPart;
@@ -295,7 +296,7 @@ public class SemanticsPartFactoryVisitor extends SemanticsIdentityDefaultVisitor
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(SemanticsEntityDescriptorEnum.FunctionApplication, parent)) {
-				part = new NamePart();
+				part = new FunctionNamePart();
 				return;
 			} else if (Matcher.match(SemanticsEntityDescriptorEnum.RuleName, parent) &&
 					(parent.wGet(SemanticsFeatureDescriptorEnum.sup) == entity ||

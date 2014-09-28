@@ -339,18 +339,6 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.VariablePoint);
     }
 
-    public void FunctionApplicationPoint() {
-        wEntity(PatternsEntityDescriptorEnum.FunctionApplicationPoint);
-    }
-
-    public void FunctionApplicationPoint_() {
-        wEntity_(PatternsEntityDescriptorEnum.FunctionApplicationPoint);
-    }
-
-    public void _FunctionApplicationPoint() {
-        _wEntity(PatternsEntityDescriptorEnum.FunctionApplicationPoint);
-    }
-
     public void FunctionPoint() {
         wEntity(PatternsEntityDescriptorEnum.FunctionPoint);
     }
