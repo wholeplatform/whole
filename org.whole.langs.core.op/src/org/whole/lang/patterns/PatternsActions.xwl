@@ -259,12 +259,13 @@
                         <queries:VariableRefStep value="selectedEntities"/>
                         <queries:ChildStep/>
                     </queries:Path>
-                    <queries:ExpressionTest>
+                    <queries:Some>
                         <queries:Filter>
                             <queries:AncestorStep/>
                             <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                         </queries:Filter>
-                    </queries:ExpressionTest>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
                 </queries:Every>
             </actions:GuardedAction>
             <actions:GuardedAction>
@@ -477,12 +478,13 @@
                         <queries:VariableRefStep value="selectedEntities"/>
                         <queries:ChildStep/>
                     </queries:Path>
-                    <queries:ExpressionTest>
+                    <queries:Some>
                         <queries:Filter>
                             <queries:AncestorStep/>
                             <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                         </queries:Filter>
-                    </queries:ExpressionTest>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
                 </queries:Every>
             </actions:GuardedAction>
             <actions:GuardedAction>
@@ -570,12 +572,13 @@
                         <queries:VariableRefStep value="selectedEntities"/>
                         <queries:ChildStep/>
                     </queries:Path>
-                    <queries:ExpressionTest>
+                    <queries:Some>
                         <queries:Filter>
                             <queries:AncestorStep/>
                             <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                         </queries:Filter>
-                    </queries:ExpressionTest>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </queries:Some>
                 </queries:Every>
             </actions:GuardedAction>
             <actions:GuardedAction>
