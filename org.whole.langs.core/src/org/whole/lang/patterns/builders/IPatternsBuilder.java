@@ -365,6 +365,12 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void OuterDefinitionStep(String value);
 
+    public void PatternInstance();
+
+    public void PatternInstance_();
+
+    public void _PatternInstance();
+
     public void Cut();
 
     public void Cut_();

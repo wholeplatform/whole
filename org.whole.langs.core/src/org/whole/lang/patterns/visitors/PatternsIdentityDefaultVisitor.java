@@ -283,6 +283,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((StepExpression) entity);
     }
 
+    public void visit(PatternInstance entity) {
+        visit((IPatternsEntity) entity);
+        visit((StepExpression) entity);
+    }
+
     public void visit(Cut entity) {
         visit((IPatternsEntity) entity);
         visit((StepExpression) entity);

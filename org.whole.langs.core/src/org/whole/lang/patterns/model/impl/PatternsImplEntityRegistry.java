@@ -61,6 +61,7 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new FunctionStepImpl());
         put(new SlotStepImpl());
         put(new OuterDefinitionStepImpl());
+        put(new PatternInstanceImpl());
         put(new CutImpl());
         put(new InsertImpl());
         put(new SlotsDefinedImpl());

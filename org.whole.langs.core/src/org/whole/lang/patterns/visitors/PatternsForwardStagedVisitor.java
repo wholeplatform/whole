@@ -199,6 +199,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(PatternInstance entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Cut entity) {
         stagedVisit(entity);
     }

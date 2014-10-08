@@ -157,6 +157,9 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     public void visit(OuterDefinitionStep entity) {
     }
 
+    public void visit(PatternInstance entity) {
+    }
+
     public void visit(Cut entity) {
     }
 

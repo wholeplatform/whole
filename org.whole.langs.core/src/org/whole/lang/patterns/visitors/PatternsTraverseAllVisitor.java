@@ -231,6 +231,11 @@ public class PatternsTraverseAllVisitor extends PatternsIdentityUnaryVisitor<IPa
             entity.get(i).accept(wGetVisitor1());
     }
 
+    public void visit(PatternInstance entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getArguments().accept(wGetVisitor1());
+    }
+
     public void visit(Cut entity) {
         entity.getPath().accept(wGetVisitor1());
     }

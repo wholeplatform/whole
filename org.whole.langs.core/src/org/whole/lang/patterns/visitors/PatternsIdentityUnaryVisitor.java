@@ -166,6 +166,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(OuterDefinitionStep entity) {
     }
 
+    public void visit(PatternInstance entity) {
+    }
+
     public void visit(Cut entity) {
     }
 

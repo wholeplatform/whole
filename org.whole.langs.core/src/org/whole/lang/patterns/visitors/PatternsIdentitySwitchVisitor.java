@@ -156,6 +156,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.OuterDefinitionStep_ord :
             visit((OuterDefinitionStep) entity);
             break;
+            case PatternsEntityDescriptorEnum.PatternInstance_ord :
+            visit((PatternInstance) entity);
+            break;
             case PatternsEntityDescriptorEnum.Cut_ord :
             visit((Cut) entity);
             break;

@@ -65,20 +65,21 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int FunctionStep_ord = 53;
     public static final int SlotStep_ord = 54;
     public static final int OuterDefinitionStep_ord = 55;
-    public static final int Cut_ord = 56;
-    public static final int Insert_ord = 57;
-    public static final int SlotsDefined_ord = 58;
-    public static final int PatternTypeTest_ord = 59;
-    public static final int Placement_ord = 60;
-    public static final int URI_ord = 61;
-    public static final int Namespace_ord = 62;
-    public static final int Version_ord = 63;
-    public static final int BooleanValue_ord = 64;
-    public static final int GoalExpression_ord = 65;
-    public static final int Argument_ord = 66;
-    public static final int Predicate_ord = 67;
-    public static final int Declaration_ord = 68;
-    public static final int Expression_ord = 69;
+    public static final int PatternInstance_ord = 56;
+    public static final int Cut_ord = 57;
+    public static final int Insert_ord = 58;
+    public static final int SlotsDefined_ord = 59;
+    public static final int PatternTypeTest_ord = 60;
+    public static final int Placement_ord = 61;
+    public static final int URI_ord = 62;
+    public static final int Namespace_ord = 63;
+    public static final int Version_ord = 64;
+    public static final int BooleanValue_ord = 65;
+    public static final int GoalExpression_ord = 66;
+    public static final int Argument_ord = 67;
+    public static final int Predicate_ord = 68;
+    public static final int Declaration_ord = 69;
+    public static final int Expression_ord = 70;
     public static final PatternsEntityDescriptorEnum instance = new PatternsEntityDescriptorEnum();
     public static final EntityDescriptor<PatternLanguage> PatternLanguage = (EntityDescriptor<PatternLanguage>) instance.valueOf(PatternLanguage_ord);
     public static final EntityDescriptor<Patterns> Patterns = (EntityDescriptor<Patterns>) instance.valueOf(Patterns_ord);
@@ -136,6 +137,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<FunctionStep> FunctionStep = (EntityDescriptor<FunctionStep>) instance.valueOf(FunctionStep_ord);
     public static final EntityDescriptor<SlotStep> SlotStep = (EntityDescriptor<SlotStep>) instance.valueOf(SlotStep_ord);
     public static final EntityDescriptor<OuterDefinitionStep> OuterDefinitionStep = (EntityDescriptor<OuterDefinitionStep>) instance.valueOf(OuterDefinitionStep_ord);
+    public static final EntityDescriptor<PatternInstance> PatternInstance = (EntityDescriptor<PatternInstance>) instance.valueOf(PatternInstance_ord);
     public static final EntityDescriptor<Cut> Cut = (EntityDescriptor<Cut>) instance.valueOf(Cut_ord);
     public static final EntityDescriptor<Insert> Insert = (EntityDescriptor<Insert>) instance.valueOf(Insert_ord);
     public static final EntityDescriptor<SlotsDefined> SlotsDefined = (EntityDescriptor<SlotsDefined>) instance.valueOf(SlotsDefined_ord);
@@ -200,11 +202,11 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putCompositeEntity(Types_ord, "Types", Types.class, false, Type_ord, true, false);
         putCompositeEntity(ResultTypes_ord, "ResultTypes", ResultTypes.class, false, ResultType_ord, true, false);
         putSimpleEntity(Type_ord, "Type", Type.class, true, Choice_ord, Enumeration_ord, ResultType_ord, Repetition_ord, Name_ord);
-        putSimpleEntity(ResultTypeOrPathExpression_ord, "ResultTypeOrPathExpression", ResultTypeOrPathExpression.class, true, Cut_ord, JoinPointStep_ord, PointcutStep_ord, ResultType_ord, Insert_ord, Name_ord, FunctionStep_ord, PathExpression_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord);
+        putSimpleEntity(ResultTypeOrPathExpression_ord, "ResultTypeOrPathExpression", ResultTypeOrPathExpression.class, true, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, ResultType_ord, Insert_ord, Name_ord, FunctionStep_ord, PathExpression_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord);
         putSimpleEntity(ResultType_ord, "ResultType", ResultType.class, true, Name_ord);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
-        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, FunctionStep_ord, Cut_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord, StepExpression_ord);
-        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, FunctionStep_ord, Cut_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord);
+        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, FunctionStep_ord, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord, StepExpression_ord);
+        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, FunctionStep_ord, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord);
         putSimpleEntity(PatternJoinPointStep_ord, "PatternJoinPointStep", PatternJoinPointStep.class, false);
         putDataEntity(JoinPointStep_ord, "JoinPointStep", JoinPointStep.class, false, String.class);
         putDataEntity(PointcutStep_ord, "PointcutStep", PointcutStep.class, false, String.class);
@@ -212,6 +214,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(FunctionStep_ord, "FunctionStep", FunctionStep.class, false, String.class);
         putDataEntity(SlotStep_ord, "SlotStep", SlotStep.class, false, String.class);
         putDataEntity(OuterDefinitionStep_ord, "OuterDefinitionStep", OuterDefinitionStep.class, false, String.class);
+        putSimpleEntity(PatternInstance_ord, "PatternInstance", PatternInstance.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.arguments, Arguments_ord);
         putSimpleEntity(Cut_ord, "Cut", Cut.class, false).withFeature(PatternsFeatureDescriptorEnum.path, PathExpression_ord);
         putSimpleEntity(Insert_ord, "Insert", Insert.class, false).withFeature(PatternsFeatureDescriptorEnum.placement, Placement_ord).withFeature(PatternsFeatureDescriptorEnum.path, PathExpression_ord);
         putSimpleEntity(SlotsDefined_ord, "SlotsDefined", SlotsDefined.class, false);
@@ -225,7 +228,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Argument_ord, "Argument", Argument.class, true, Binding_ord);
         putSimpleEntity(Predicate_ord, "Predicate", Predicate.class, true, SlotsDefined_ord, PatternTypeTest_ord);
         putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true, FunctionDeclaration_ord, VariantSelector_ord, GoalDeclaration_ord, VariableDeclaration_ord, PointcutDeclaration_ord, JoinPointDeclaration_ord);
-        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, ResultPoint_ord, DerivationPoint_ord, InsertionPoint_ord, PointcutStep_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, PathExpression_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, Slot_ord, GoalStep_ord, SequencePoint_ord);
+        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, ResultPoint_ord, DerivationPoint_ord, InsertionPoint_ord, PointcutStep_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, PathExpression_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, Slot_ord, GoalStep_ord, SequencePoint_ord);
     }
 
     protected void initForeignTypeRelations() {

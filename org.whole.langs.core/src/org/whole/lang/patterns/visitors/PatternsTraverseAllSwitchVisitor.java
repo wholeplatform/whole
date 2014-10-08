@@ -226,6 +226,11 @@ public class PatternsTraverseAllSwitchVisitor extends PatternsIdentityUnaryVisit
             wGetVisitor1().visit(entity.get(i));
     }
 
+    public void visit(PatternInstance entity) {
+        wGetVisitor1().visit(entity.getName());
+        wGetVisitor1().visit(entity.getArguments());
+    }
+
     public void visit(Cut entity) {
         wGetVisitor1().visit(entity.getPath());
     }

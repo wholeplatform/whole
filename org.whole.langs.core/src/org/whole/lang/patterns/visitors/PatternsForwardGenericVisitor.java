@@ -210,6 +210,10 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(PatternInstance entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Cut entity) {
         wGetVisitor1().visit(entity);
     }

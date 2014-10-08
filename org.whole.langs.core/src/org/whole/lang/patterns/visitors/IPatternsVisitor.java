@@ -105,6 +105,8 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(OuterDefinitionStep entity);
 
+    public void visit(PatternInstance entity);
+
     public void visit(Cut entity);
 
     public void visit(Insert entity);

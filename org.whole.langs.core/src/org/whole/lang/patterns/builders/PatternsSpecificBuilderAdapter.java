@@ -731,6 +731,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wEntity(PatternsEntityDescriptorEnum.OuterDefinitionStep, value);
     }
 
+    public void PatternInstance() {
+        wEntity(PatternsEntityDescriptorEnum.PatternInstance);
+    }
+
+    public void PatternInstance_() {
+        wEntity_(PatternsEntityDescriptorEnum.PatternInstance);
+    }
+
+    public void _PatternInstance() {
+        _wEntity(PatternsEntityDescriptorEnum.PatternInstance);
+    }
+
     public void Cut() {
         wEntity(PatternsEntityDescriptorEnum.Cut);
     }

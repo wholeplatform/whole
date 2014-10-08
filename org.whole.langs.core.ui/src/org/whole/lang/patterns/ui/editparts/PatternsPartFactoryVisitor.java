@@ -49,6 +49,7 @@ import org.whole.lang.patterns.model.Namespace;
 import org.whole.lang.patterns.model.OuterDefinitionStep;
 import org.whole.lang.patterns.model.Pattern;
 import org.whole.lang.patterns.model.PatternApplication;
+import org.whole.lang.patterns.model.PatternInstance;
 import org.whole.lang.patterns.model.PatternJoinPointStep;
 import org.whole.lang.patterns.model.PatternLanguage;
 import org.whole.lang.patterns.model.PatternTypeTest;
@@ -128,6 +129,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(PatternApplication entity) {
         part = new PatternApplicationPart();
+    }
+
+    @Override
+    public void visit(PatternInstance entity) {
+        part = new PatternInstancePart();
     }
 
     @Override
@@ -339,6 +345,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 			case PatternsEntityDescriptorEnum.Enumeration_ord:
 			case PatternsEntityDescriptorEnum.Data_ord:
 			case PatternsEntityDescriptorEnum.PatternApplication_ord:
+			case PatternsEntityDescriptorEnum.PatternInstance_ord:
 			case PatternsEntityDescriptorEnum.FunctionDeclaration_ord:
 			case PatternsEntityDescriptorEnum.FunctionPoint_ord:
 				part = new DeclarationTextualEntityPart();

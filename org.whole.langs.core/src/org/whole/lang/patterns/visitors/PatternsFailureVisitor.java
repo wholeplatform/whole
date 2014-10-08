@@ -205,6 +205,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(PatternInstance entity) {
+        throw new VisitException();
+    }
+
     public void visit(Cut entity) {
         throw new VisitException();
     }

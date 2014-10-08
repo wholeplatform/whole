@@ -250,6 +250,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder.PatternJoinPointStep();
             break;
+            case PatternsEntityDescriptorEnum.PatternInstance_ord :
+            specificBuilder.PatternInstance();
+            break;
             case PatternsEntityDescriptorEnum.Cut_ord :
             specificBuilder.Cut();
             break;
@@ -384,6 +387,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder.PatternJoinPointStep_();
             break;
+            case PatternsEntityDescriptorEnum.PatternInstance_ord :
+            specificBuilder.PatternInstance_();
+            break;
             case PatternsEntityDescriptorEnum.Cut_ord :
             specificBuilder.Cut_();
             break;
@@ -517,6 +523,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.PatternJoinPointStep_ord :
             specificBuilder._PatternJoinPointStep();
+            break;
+            case PatternsEntityDescriptorEnum.PatternInstance_ord :
+            specificBuilder._PatternInstance();
             break;
             case PatternsEntityDescriptorEnum.Cut_ord :
             specificBuilder._Cut();

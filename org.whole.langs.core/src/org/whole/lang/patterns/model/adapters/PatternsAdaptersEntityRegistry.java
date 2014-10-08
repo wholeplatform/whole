@@ -69,6 +69,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new FunctionStepAdapter());
         put(new SlotStepAdapter());
         put(new OuterDefinitionStepAdapter());
+        put(new PatternInstanceAdapter());
         put(new CutAdapter());
         put(new InsertAdapter());
         put(new SlotsDefinedAdapter());

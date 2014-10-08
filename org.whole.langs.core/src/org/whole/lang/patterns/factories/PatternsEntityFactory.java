@@ -547,6 +547,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.OuterDefinitionStep, value);
     }
 
+    public PatternInstance createPatternInstance() {
+        return create(PatternsEntityDescriptorEnum.PatternInstance);
+    }
+
+    public PatternInstance createPatternInstance(Name name, Arguments arguments) {
+        return create(PatternsEntityDescriptorEnum.PatternInstance, name, arguments);
+    }
+
+    public IEntityBuilder<PatternInstance> buildPatternInstance() {
+        return new EntityBuilder<PatternInstance>(create(PatternsEntityDescriptorEnum.PatternInstance));
+    }
+
     public Cut createCut() {
         return create(PatternsEntityDescriptorEnum.Cut);
     }
