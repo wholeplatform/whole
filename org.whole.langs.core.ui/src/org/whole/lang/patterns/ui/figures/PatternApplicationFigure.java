@@ -17,9 +17,12 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.UnderColumnLayout;
 
@@ -29,7 +32,7 @@ import org.whole.lang.ui.layout.UnderColumnLayout;
 public class PatternApplicationFigure extends ContentPaneFigure {
 	public PatternApplicationFigure() {
 		super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING)
-				.withMargin(1));
+				.withMargin(2, 4, 4, 4));
 		initContentPanes(2);
 		setBorder(new DoubleSquareBracketsBorder());
 
@@ -39,5 +42,20 @@ public class PatternApplicationFigure extends ContentPaneFigure {
 
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
+
+		int oldAlpha = g.getAlpha();
+		g.setAlpha(FigurePrefs.templateLanguageAlpha);
+
+		Rectangle cb = getBounds().getShrinked(6, 1);
+		Rectangle cb0 = getContentPane(0).getBounds();
+		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setForegroundColor(ColorConstants.lightGray);
+
+		g.fillRectangle(cb.x, cb.y, cb.width, cb0.height+2);
+		g.fillRectangle(cb.x, cb.y, 4, cb.height);
+		g.fillRectangle(cb.right()-4, cb.y, 4, cb.height);
+		g.fillRectangle(cb.x, cb.bottom()-4, cb.width, 4);
+		g.setAlpha(oldAlpha);
+		g.drawRectangle(cb.getResized(-1, -1));
 	}
 }
