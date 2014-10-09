@@ -34,13 +34,13 @@ public class PointcutDeclarationImpl extends AbstractSimpleEntity implements Poi
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private Expression expression;
+    private PathExpression expression;
 
-    public Expression getExpression() {
+    public PathExpression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(PathExpression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -61,7 +61,7 @@ public class PointcutDeclarationImpl extends AbstractSimpleEntity implements Poi
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
             break;
             default :
             throw new IllegalArgumentException();

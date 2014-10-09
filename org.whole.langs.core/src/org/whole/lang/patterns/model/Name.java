@@ -4,7 +4,7 @@ package org.whole.lang.patterns.model;
 /**
  *  @generator  Whole
  */
-public interface Name extends IPatternsEntity, Expression, ResultType {
+public interface Name extends IPatternsEntity, ResultType, StepExpression {
 
 
     public String getValue();

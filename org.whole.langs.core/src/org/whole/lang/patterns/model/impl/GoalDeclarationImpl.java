@@ -43,13 +43,13 @@ public class GoalDeclarationImpl extends AbstractSimpleEntity implements GoalDec
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private Expression body;
+    private PathExpression body;
 
-    public Expression getBody() {
+    public PathExpression getBody() {
         return notifyRequested(PatternsFeatureDescriptorEnum.body, body);
     }
 
-    public void setBody(Expression body) {
+    public void setBody(PathExpression body) {
         notifyChanged(PatternsFeatureDescriptorEnum.body, this.body, this.body = body);
     }
 
@@ -75,7 +75,7 @@ public class GoalDeclarationImpl extends AbstractSimpleEntity implements GoalDec
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 2 :
-            setBody(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
+            setBody(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
             break;
             default :
             throw new IllegalArgumentException();

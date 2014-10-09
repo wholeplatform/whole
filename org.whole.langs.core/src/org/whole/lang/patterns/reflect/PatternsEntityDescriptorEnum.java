@@ -55,9 +55,9 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Type_ord = 43;
     public static final int ResultTypeOrPathExpression_ord = 44;
     public static final int ResultType_ord = 45;
-    public static final int Name_ord = 46;
-    public static final int PathExpression_ord = 47;
-    public static final int StepExpression_ord = 48;
+    public static final int PathExpression_ord = 46;
+    public static final int StepExpression_ord = 47;
+    public static final int Name_ord = 48;
     public static final int PatternJoinPointStep_ord = 49;
     public static final int JoinPointStep_ord = 50;
     public static final int PointcutStep_ord = 51;
@@ -79,7 +79,6 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Argument_ord = 67;
     public static final int Predicate_ord = 68;
     public static final int Declaration_ord = 69;
-    public static final int Expression_ord = 70;
     public static final PatternsEntityDescriptorEnum instance = new PatternsEntityDescriptorEnum();
     public static final EntityDescriptor<PatternLanguage> PatternLanguage = (EntityDescriptor<PatternLanguage>) instance.valueOf(PatternLanguage_ord);
     public static final EntityDescriptor<Patterns> Patterns = (EntityDescriptor<Patterns>) instance.valueOf(Patterns_ord);
@@ -127,9 +126,9 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<Type> Type = (EntityDescriptor<Type>) instance.valueOf(Type_ord);
     public static final EntityDescriptor<ResultTypeOrPathExpression> ResultTypeOrPathExpression = (EntityDescriptor<ResultTypeOrPathExpression>) instance.valueOf(ResultTypeOrPathExpression_ord);
     public static final EntityDescriptor<ResultType> ResultType = (EntityDescriptor<ResultType>) instance.valueOf(ResultType_ord);
-    public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance.valueOf(Name_ord);
     public static final EntityDescriptor<PathExpression> PathExpression = (EntityDescriptor<PathExpression>) instance.valueOf(PathExpression_ord);
     public static final EntityDescriptor<StepExpression> StepExpression = (EntityDescriptor<StepExpression>) instance.valueOf(StepExpression_ord);
+    public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance.valueOf(Name_ord);
     public static final EntityDescriptor<PatternJoinPointStep> PatternJoinPointStep = (EntityDescriptor<PatternJoinPointStep>) instance.valueOf(PatternJoinPointStep_ord);
     public static final EntityDescriptor<JoinPointStep> JoinPointStep = (EntityDescriptor<JoinPointStep>) instance.valueOf(JoinPointStep_ord);
     public static final EntityDescriptor<PointcutStep> PointcutStep = (EntityDescriptor<PointcutStep>) instance.valueOf(PointcutStep_ord);
@@ -151,7 +150,6 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<Argument> Argument = (EntityDescriptor<Argument>) instance.valueOf(Argument_ord);
     public static final EntityDescriptor<Predicate> Predicate = (EntityDescriptor<Predicate>) instance.valueOf(Predicate_ord);
     public static final EntityDescriptor<Declaration> Declaration = (EntityDescriptor<Declaration>) instance.valueOf(Declaration_ord);
-    public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance.valueOf(Expression_ord);
 
     private PatternsEntityDescriptorEnum() {
     }
@@ -162,7 +160,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putCompositeEntity(Patterns_ord, "Patterns", Patterns.class, false, PatternOrTypeDeclaration_ord, true, false);
         putSimpleEntity(PatternOrTypeDeclaration_ord, "PatternOrTypeDeclaration", PatternOrTypeDeclaration.class, true, Pattern_ord, Data_ord, Choice_ord, Enumeration_ord, Repetition_ord);
         putSimpleEntity(Library_ord, "Library", Library.class, false).withFeature(PatternsFeatureDescriptorEnum.uri, URI_ord).withFeature(PatternsFeatureDescriptorEnum.namespace, Namespace_ord).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.version, Version_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.declarations, Declarations_ord);
-        putSimpleEntity(Template_ord, "Template", Template.class, true, Pattern_ord, ResultPoint_ord, VariantSelectionPoint_ord, DerivationPoint_ord, InsertionPoint_ord, FunctionPoint_ord, SelectionPoint_ord, ScopePoint_ord, JoinPoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, VariablePoint_ord, InlinePoint_ord, VariationPoint_ord, TemplatePoint_ord, Slot_ord, SequencePoint_ord);
+        putSimpleEntity(Template_ord, "Template", Template.class, true, ResultPoint_ord, DerivationPoint_ord, PointcutStep_ord, InsertionPoint_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, PathExpression_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, GoalStep_ord, Slot_ord, SequencePoint_ord);
         putSimpleEntity(Pattern_ord, "Pattern", Pattern.class, false).withFeature(PatternsFeatureDescriptorEnum.resultTypes, ResultTypes_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.template, Template_ord);
         putSimpleEntity(Repetition_ord, "Repetition", Repetition.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.type, Type_ord).withFeature(PatternsFeatureDescriptorEnum.supertypes, ResultTypes_ord, true, false, false, false, false);
         putSimpleEntity(Choice_ord, "Choice", Choice.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.types, Types_ord).withFeature(PatternsFeatureDescriptorEnum.supertypes, ResultTypes_ord, true, false, false, false, false);
@@ -183,7 +181,7 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(InsertionPoint_ord, "InsertionPoint", InsertionPoint.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord);
         putSimpleEntity(ScopePoint_ord, "ScopePoint", ScopePoint.class, false).withFeature(PatternsFeatureDescriptorEnum.context, Declarations_ord).withFeature(PatternsFeatureDescriptorEnum.template, Template_ord);
         putSimpleEntity(TemplatePoint_ord, "TemplatePoint", TemplatePoint.class, false).withFeature(PatternsFeatureDescriptorEnum.template, Template_ord);
-        putSimpleEntity(DerivationPoint_ord, "DerivationPoint", DerivationPoint.class, false).withFeature(PatternsFeatureDescriptorEnum.expression, Expression_ord).withFeature(PatternsFeatureDescriptorEnum.resultType, ResultType_ord, true, false, false, false, false);
+        putSimpleEntity(DerivationPoint_ord, "DerivationPoint", DerivationPoint.class, false).withFeature(PatternsFeatureDescriptorEnum.expression, PathExpression_ord).withFeature(PatternsFeatureDescriptorEnum.resultType, ResultType_ord, true, false, false, false, false);
         putCompositeEntity(SelectionPoint_ord, "SelectionPoint", SelectionPoint.class, false, ConditionPoint_ord, true, false);
         putSimpleEntity(ConditionPoint_ord, "ConditionPoint", ConditionPoint.class, false).withFeature(PatternsFeatureDescriptorEnum.condition, Predicate_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.template, Template_ord);
         putSimpleEntity(VariantSelectionPoint_ord, "VariantSelectionPoint", VariantSelectionPoint.class, false).withFeature(PatternsFeatureDescriptorEnum.variability, Name_ord).withFeature(PatternsFeatureDescriptorEnum.variants, Variants_ord);
@@ -193,20 +191,20 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putCompositeEntity(SequencePoint_ord, "SequencePoint", SequencePoint.class, false, Template_ord, true, false);
         putSimpleEntity(InlinePoint_ord, "InlinePoint", InlinePoint.class, false).withFeature(PatternsFeatureDescriptorEnum.template, Template_ord);
         putCompositeEntity(Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false);
-        putSimpleEntity(FunctionDeclaration_ord, "FunctionDeclaration", FunctionDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.applicationTypes, ResultTypes_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.body, Expression_ord);
-        putSimpleEntity(GoalDeclaration_ord, "GoalDeclaration", GoalDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.subgoals, GoalExpression_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.body, Expression_ord);
-        putSimpleEntity(PointcutDeclaration_ord, "PointcutDeclaration", PointcutDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, Expression_ord);
-        putSimpleEntity(JoinPointDeclaration_ord, "JoinPointDeclaration", JoinPointDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
-        putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration", VariableDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.resultType, Type_ord, true, false, false, false, false);
-        putSimpleEntity(VariantSelector_ord, "VariantSelector", VariantSelector.class, false).withFeature(PatternsFeatureDescriptorEnum.variability, Name_ord).withFeature(PatternsFeatureDescriptorEnum.variant, Expression_ord);
+        putSimpleEntity(FunctionDeclaration_ord, "FunctionDeclaration", FunctionDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.applicationTypes, ResultTypes_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.body, PathExpression_ord);
+        putSimpleEntity(GoalDeclaration_ord, "GoalDeclaration", GoalDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.subgoals, GoalExpression_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.body, PathExpression_ord);
+        putSimpleEntity(PointcutDeclaration_ord, "PointcutDeclaration", PointcutDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, PathExpression_ord);
+        putSimpleEntity(JoinPointDeclaration_ord, "JoinPointDeclaration", JoinPointDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, PathExpression_ord, true, false, false, false, false);
+        putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration", VariableDeclaration.class, false).withFeature(PatternsFeatureDescriptorEnum.name, Name_ord).withFeature(PatternsFeatureDescriptorEnum.expression, PathExpression_ord, true, false, false, false, false).withFeature(PatternsFeatureDescriptorEnum.resultType, Type_ord, true, false, false, false, false);
+        putSimpleEntity(VariantSelector_ord, "VariantSelector", VariantSelector.class, false).withFeature(PatternsFeatureDescriptorEnum.variability, Name_ord).withFeature(PatternsFeatureDescriptorEnum.variant, PathExpression_ord);
         putCompositeEntity(Types_ord, "Types", Types.class, false, Type_ord, true, false);
         putCompositeEntity(ResultTypes_ord, "ResultTypes", ResultTypes.class, false, ResultType_ord, true, false);
         putSimpleEntity(Type_ord, "Type", Type.class, true, Choice_ord, Enumeration_ord, ResultType_ord, Repetition_ord, Name_ord);
-        putSimpleEntity(ResultTypeOrPathExpression_ord, "ResultTypeOrPathExpression", ResultTypeOrPathExpression.class, true, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, ResultType_ord, Insert_ord, Name_ord, FunctionStep_ord, PathExpression_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord);
+        putSimpleEntity(ResultTypeOrPathExpression_ord, "ResultTypeOrPathExpression", ResultTypeOrPathExpression.class, true, ResultPoint_ord, DerivationPoint_ord, PointcutStep_ord, InsertionPoint_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, PathExpression_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ResultType_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, GoalStep_ord, Slot_ord, SequencePoint_ord);
         putSimpleEntity(ResultType_ord, "ResultType", ResultType.class, true, Name_ord);
+        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, ResultPoint_ord, DerivationPoint_ord, PointcutStep_ord, InsertionPoint_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, GoalStep_ord, Slot_ord, SequencePoint_ord);
+        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, ResultPoint_ord, DerivationPoint_ord, PointcutStep_ord, InsertionPoint_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, GoalStep_ord, Slot_ord, SequencePoint_ord);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
-        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, FunctionStep_ord, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord, StepExpression_ord);
-        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, FunctionStep_ord, Cut_ord, PatternInstance_ord, JoinPointStep_ord, PointcutStep_ord, GoalStep_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, Insert_ord);
         putSimpleEntity(PatternJoinPointStep_ord, "PatternJoinPointStep", PatternJoinPointStep.class, false);
         putDataEntity(JoinPointStep_ord, "JoinPointStep", JoinPointStep.class, false, String.class);
         putDataEntity(PointcutStep_ord, "PointcutStep", PointcutStep.class, false, String.class);
@@ -228,7 +226,6 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Argument_ord, "Argument", Argument.class, true, Binding_ord);
         putSimpleEntity(Predicate_ord, "Predicate", Predicate.class, true, SlotsDefined_ord, PatternTypeTest_ord);
         putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true, FunctionDeclaration_ord, VariantSelector_ord, GoalDeclaration_ord, VariableDeclaration_ord, PointcutDeclaration_ord, JoinPointDeclaration_ord);
-        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, ResultPoint_ord, DerivationPoint_ord, InsertionPoint_ord, PointcutStep_ord, FunctionPoint_ord, Insert_ord, Name_ord, JoinPoint_ord, FunctionStep_ord, PathExpression_ord, VariablePoint_ord, TemplatePoint_ord, PatternJoinPointStep_ord, OuterDefinitionStep_ord, SlotStep_ord, StepExpression_ord, Cut_ord, PatternInstance_ord, VariantSelectionPoint_ord, JoinPointStep_ord, SelectionPoint_ord, ScopePoint_ord, ConditionPoint_ord, IterationPoint_ord, PatternApplication_ord, InlinePoint_ord, VariationPoint_ord, Slot_ord, GoalStep_ord, SequencePoint_ord);
     }
 
     protected void initForeignTypeRelations() {

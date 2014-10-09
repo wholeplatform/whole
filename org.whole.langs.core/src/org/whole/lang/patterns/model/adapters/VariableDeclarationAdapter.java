@@ -38,11 +38,11 @@ public class VariableDeclarationAdapter extends AbstractEntityAdapter implements
         wSet(PatternsFeatureDescriptorEnum.name, name);
     }
 
-    public Expression getExpression() {
-        return wGet(PatternsFeatureDescriptorEnum.expression).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
+    public PathExpression getExpression() {
+        return wGet(PatternsFeatureDescriptorEnum.expression).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(PathExpression expression) {
         wSet(PatternsFeatureDescriptorEnum.expression, expression);
     }
 

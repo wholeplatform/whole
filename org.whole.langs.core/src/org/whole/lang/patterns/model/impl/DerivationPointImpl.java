@@ -25,13 +25,13 @@ public class DerivationPointImpl extends AbstractSimpleEntity implements Derivat
     public void accept(IPatternsVisitor visitor) {
         visitor.visit(this);
     }
-    private Expression expression;
+    private PathExpression expression;
 
-    public Expression getExpression() {
+    public PathExpression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(PathExpression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private ResultType resultType;
@@ -58,7 +58,7 @@ public class DerivationPointImpl extends AbstractSimpleEntity implements Derivat
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
             break;
             case 1 :
             setResultType(value.wGetAdapter(PatternsEntityDescriptorEnum.ResultType));

@@ -4,7 +4,7 @@ package org.whole.lang.patterns.model;
 /**
  *  @generator  Whole
  */
-public interface Pattern extends IPatternsEntity, PatternOrTypeDeclaration, Template {
+public interface Pattern extends IPatternsEntity, PatternOrTypeDeclaration {
 
 
     public ResultTypes getResultTypes();

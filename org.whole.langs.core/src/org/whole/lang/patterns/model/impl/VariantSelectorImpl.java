@@ -34,13 +34,13 @@ public class VariantSelectorImpl extends AbstractSimpleEntity implements Variant
     public void setVariability(Name variability) {
         notifyChanged(PatternsFeatureDescriptorEnum.variability, this.variability, this.variability = variability);
     }
-    private Expression variant;
+    private PathExpression variant;
 
-    public Expression getVariant() {
+    public PathExpression getVariant() {
         return notifyRequested(PatternsFeatureDescriptorEnum.variant, variant);
     }
 
-    public void setVariant(Expression variant) {
+    public void setVariant(PathExpression variant) {
         notifyChanged(PatternsFeatureDescriptorEnum.variant, this.variant, this.variant = variant);
     }
 
@@ -61,7 +61,7 @@ public class VariantSelectorImpl extends AbstractSimpleEntity implements Variant
             setVariability(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setVariant(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
+            setVariant(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
             break;
             default :
             throw new IllegalArgumentException();

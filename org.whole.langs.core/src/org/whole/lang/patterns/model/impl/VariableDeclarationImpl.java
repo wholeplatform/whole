@@ -34,13 +34,13 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements Var
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private Expression expression;
+    private PathExpression expression;
 
-    public Expression getExpression() {
+    public PathExpression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(PathExpression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private Type resultType;
@@ -72,7 +72,7 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements Var
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
             break;
             case 2 :
             setResultType(value.wGetAdapter(PatternsEntityDescriptorEnum.Type));

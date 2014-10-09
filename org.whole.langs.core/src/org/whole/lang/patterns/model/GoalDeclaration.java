@@ -15,7 +15,7 @@ public interface GoalDeclaration extends IPatternsEntity, Declaration {
 
     public void setName(Name name);
 
-    public Expression getBody();
+    public PathExpression getBody();
 
-    public void setBody(Expression body);
+    public void setBody(PathExpression body);
 }

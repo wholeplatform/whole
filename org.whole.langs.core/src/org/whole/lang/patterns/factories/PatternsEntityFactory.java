@@ -279,7 +279,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.DerivationPoint);
     }
 
-    public DerivationPoint createDerivationPoint(Expression expression, ResultType resultType) {
+    public DerivationPoint createDerivationPoint(PathExpression expression, ResultType resultType) {
         return create(PatternsEntityDescriptorEnum.DerivationPoint, expression, resultType);
     }
 
@@ -395,7 +395,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.FunctionDeclaration);
     }
 
-    public FunctionDeclaration createFunctionDeclaration(ResultTypes applicationTypes, Name name, Expression body) {
+    public FunctionDeclaration createFunctionDeclaration(ResultTypes applicationTypes, Name name, PathExpression body) {
         return create(PatternsEntityDescriptorEnum.FunctionDeclaration, applicationTypes, name, body);
     }
 
@@ -407,7 +407,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.GoalDeclaration);
     }
 
-    public GoalDeclaration createGoalDeclaration(GoalExpression subgoals, Name name, Expression body) {
+    public GoalDeclaration createGoalDeclaration(GoalExpression subgoals, Name name, PathExpression body) {
         return create(PatternsEntityDescriptorEnum.GoalDeclaration, subgoals, name, body);
     }
 
@@ -419,7 +419,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.PointcutDeclaration);
     }
 
-    public PointcutDeclaration createPointcutDeclaration(Name name, Expression expression) {
+    public PointcutDeclaration createPointcutDeclaration(Name name, PathExpression expression) {
         return create(PatternsEntityDescriptorEnum.PointcutDeclaration, name, expression);
     }
 
@@ -431,7 +431,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.JoinPointDeclaration);
     }
 
-    public JoinPointDeclaration createJoinPointDeclaration(Name name, Expression expression) {
+    public JoinPointDeclaration createJoinPointDeclaration(Name name, PathExpression expression) {
         return create(PatternsEntityDescriptorEnum.JoinPointDeclaration, name, expression);
     }
 
@@ -443,7 +443,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.VariableDeclaration);
     }
 
-    public VariableDeclaration createVariableDeclaration(Name name, Expression expression, Type resultType) {
+    public VariableDeclaration createVariableDeclaration(Name name, PathExpression expression, Type resultType) {
         return create(PatternsEntityDescriptorEnum.VariableDeclaration, name, expression, resultType);
     }
 
@@ -455,7 +455,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.VariantSelector);
     }
 
-    public VariantSelector createVariantSelector(Name variability, Expression variant) {
+    public VariantSelector createVariantSelector(Name variability, PathExpression variant) {
         return create(PatternsEntityDescriptorEnum.VariantSelector, variability, variant);
     }
 

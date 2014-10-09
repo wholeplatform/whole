@@ -11,7 +11,7 @@ public interface PointcutDeclaration extends IPatternsEntity, Declaration {
 
     public void setName(Name name);
 
-    public Expression getExpression();
+    public PathExpression getExpression();
 
-    public void setExpression(Expression expression);
+    public void setExpression(PathExpression expression);
 }

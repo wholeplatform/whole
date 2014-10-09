@@ -154,9 +154,8 @@
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Pattern"/>
-            <models:Types initialCapacity="2">
+            <models:Types initialCapacity="1">
                 <models:SimpleName value="PatternOrTypeDeclaration"/>
-                <models:SimpleName value="Template"/>
             </models:Types>
             <models:Features initialCapacity="3">
                 <models:Feature>
@@ -349,9 +348,8 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="VariationPoint"/>
-            <models:Types initialCapacity="2">
-                <models:SimpleName value="Template"/>
-                <models:SimpleName value="Expression"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="StepExpression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -619,7 +617,7 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -795,7 +793,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="body"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -824,7 +822,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="body"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -845,7 +843,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -868,7 +866,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -891,7 +889,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -920,7 +918,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="PathExpression"/>
                     <models:SimpleName value="variant"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -971,22 +969,13 @@
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Name"/>
-            <models:Types initialCapacity="2">
-                <models:SimpleName value="Expression"/>
-                <models:SimpleName value="ResultType"/>
-            </models:Types>
-            <models:DataType value="String"/>
-        </models:DataEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="PathExpression"/>
             <models:Types initialCapacity="2">
-                <models:SimpleName value="Expression"/>
+                <models:SimpleName value="Template"/>
                 <models:SimpleName value="ResultTypeOrPathExpression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
@@ -1001,6 +990,15 @@
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Name"/>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="ResultType"/>
+                <models:SimpleName value="StepExpression"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PatternJoinPointStep"/>
