@@ -6,5 +6,5 @@ import java.util.List;
  * @generator Whole
  */
 public interface VariableDeclarationFragments extends IJavaEntity,
-		List<VariableDeclarationFragment> {
+		List<VariableDeclarationFragment>, LambdaParameters {
 }

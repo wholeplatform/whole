@@ -147,6 +147,9 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor
 		case JavaEntityDescriptorEnum.Varargs_ord:
 			visit((Varargs) entity);
 			break;
+		case JavaEntityDescriptorEnum.AnnotatedType_ord:
+			visit((AnnotatedType) entity);
+			break;
 		case JavaEntityDescriptorEnum.ArrayType_ord:
 			visit((ArrayType) entity);
 			break;
@@ -164,6 +167,12 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor
 			break;
 		case JavaEntityDescriptorEnum.WildcardType_ord:
 			visit((WildcardType) entity);
+			break;
+		case JavaEntityDescriptorEnum.UnionType_ord:
+			visit((UnionType) entity);
+			break;
+		case JavaEntityDescriptorEnum.IntersectionType_ord:
+			visit((IntersectionType) entity);
 			break;
 		case JavaEntityDescriptorEnum.UpperBound_ord:
 			visit((UpperBound) entity);
@@ -327,6 +336,9 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor
 		case JavaEntityDescriptorEnum.InstanceofExpression_ord:
 			visit((InstanceofExpression) entity);
 			break;
+		case JavaEntityDescriptorEnum.LambdaExpression_ord:
+			visit((LambdaExpression) entity);
+			break;
 		case JavaEntityDescriptorEnum.MethodInvocation_ord:
 			visit((MethodInvocation) entity);
 			break;
@@ -371,6 +383,18 @@ public abstract class JavaIdentitySwitchVisitor extends AbstractVisitor
 			break;
 		case JavaEntityDescriptorEnum.Modifier_ord:
 			visit((Modifier) entity);
+			break;
+		case JavaEntityDescriptorEnum.ConstructorReference_ord:
+			visit((ConstructorReference) entity);
+			break;
+		case JavaEntityDescriptorEnum.ExpressionMethodReference_ord:
+			visit((ExpressionMethodReference) entity);
+			break;
+		case JavaEntityDescriptorEnum.SuperMethodReference_ord:
+			visit((SuperMethodReference) entity);
+			break;
+		case JavaEntityDescriptorEnum.TypeMethodReference_ord:
+			visit((TypeMethodReference) entity);
 			break;
 		}
 	}

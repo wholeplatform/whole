@@ -11,4 +11,8 @@ public interface TypeParameter extends IJavaEntity {
 	public Types getTypeBounds();
 
 	public void setTypeBounds(Types typeBounds);
+
+	public Annotations getAnnotations();
+
+	public void setAnnotations(Annotations annotations);
 }

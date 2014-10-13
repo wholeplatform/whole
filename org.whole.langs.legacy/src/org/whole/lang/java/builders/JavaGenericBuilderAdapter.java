@@ -153,6 +153,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.SingleVariableDeclaration_ord:
 			specificBuilder.SingleVariableDeclaration();
 			break;
+		case JavaEntityDescriptorEnum.AnnotatedType_ord:
+			specificBuilder.AnnotatedType();
+			break;
 		case JavaEntityDescriptorEnum.ArrayType_ord:
 			specificBuilder.ArrayType();
 			break;
@@ -161,6 +164,12 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.WildcardType_ord:
 			specificBuilder.WildcardType();
+			break;
+		case JavaEntityDescriptorEnum.UnionType_ord:
+			specificBuilder.UnionType();
+			break;
+		case JavaEntityDescriptorEnum.IntersectionType_ord:
+			specificBuilder.IntersectionType();
 			break;
 		case JavaEntityDescriptorEnum.AssertStatement_ord:
 			specificBuilder.AssertStatement();
@@ -282,6 +291,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.InstanceofExpression_ord:
 			specificBuilder.InstanceofExpression();
 			break;
+		case JavaEntityDescriptorEnum.LambdaExpression_ord:
+			specificBuilder.LambdaExpression();
+			break;
 		case JavaEntityDescriptorEnum.MethodInvocation_ord:
 			specificBuilder.MethodInvocation();
 			break;
@@ -314,6 +326,18 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.ExtendedModifiers_ord:
 			specificBuilder.ExtendedModifiers();
+			break;
+		case JavaEntityDescriptorEnum.ConstructorReference_ord:
+			specificBuilder.ConstructorReference();
+			break;
+		case JavaEntityDescriptorEnum.ExpressionMethodReference_ord:
+			specificBuilder.ExpressionMethodReference();
+			break;
+		case JavaEntityDescriptorEnum.SuperMethodReference_ord:
+			specificBuilder.SuperMethodReference();
+			break;
+		case JavaEntityDescriptorEnum.TypeMethodReference_ord:
+			specificBuilder.TypeMethodReference();
 			break;
 		}
 	}
@@ -443,6 +467,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.SingleVariableDeclaration_ord:
 			specificBuilder.SingleVariableDeclaration_();
 			break;
+		case JavaEntityDescriptorEnum.AnnotatedType_ord:
+			specificBuilder.AnnotatedType_();
+			break;
 		case JavaEntityDescriptorEnum.ArrayType_ord:
 			specificBuilder.ArrayType_();
 			break;
@@ -451,6 +478,12 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.WildcardType_ord:
 			specificBuilder.WildcardType_();
+			break;
+		case JavaEntityDescriptorEnum.UnionType_ord:
+			specificBuilder.UnionType_();
+			break;
+		case JavaEntityDescriptorEnum.IntersectionType_ord:
+			specificBuilder.IntersectionType_();
 			break;
 		case JavaEntityDescriptorEnum.AssertStatement_ord:
 			specificBuilder.AssertStatement_();
@@ -572,6 +605,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.InstanceofExpression_ord:
 			specificBuilder.InstanceofExpression_();
 			break;
+		case JavaEntityDescriptorEnum.LambdaExpression_ord:
+			specificBuilder.LambdaExpression_();
+			break;
 		case JavaEntityDescriptorEnum.MethodInvocation_ord:
 			specificBuilder.MethodInvocation_();
 			break;
@@ -604,6 +640,18 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.ExtendedModifiers_ord:
 			specificBuilder.ExtendedModifiers_();
+			break;
+		case JavaEntityDescriptorEnum.ConstructorReference_ord:
+			specificBuilder.ConstructorReference_();
+			break;
+		case JavaEntityDescriptorEnum.ExpressionMethodReference_ord:
+			specificBuilder.ExpressionMethodReference_();
+			break;
+		case JavaEntityDescriptorEnum.SuperMethodReference_ord:
+			specificBuilder.SuperMethodReference_();
+			break;
+		case JavaEntityDescriptorEnum.TypeMethodReference_ord:
+			specificBuilder.TypeMethodReference_();
 			break;
 		}
 	}
@@ -654,6 +702,12 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.Parameters_ord:
 			specificBuilder.Parameters_(initialCapacity);
+			break;
+		case JavaEntityDescriptorEnum.UnionType_ord:
+			specificBuilder.UnionType_(initialCapacity);
+			break;
+		case JavaEntityDescriptorEnum.IntersectionType_ord:
+			specificBuilder.IntersectionType_(initialCapacity);
 			break;
 		case JavaEntityDescriptorEnum.Block_ord:
 			specificBuilder.Block_(initialCapacity);
@@ -807,6 +861,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.SingleVariableDeclaration_ord:
 			specificBuilder._SingleVariableDeclaration();
 			break;
+		case JavaEntityDescriptorEnum.AnnotatedType_ord:
+			specificBuilder._AnnotatedType();
+			break;
 		case JavaEntityDescriptorEnum.ArrayType_ord:
 			specificBuilder._ArrayType();
 			break;
@@ -815,6 +872,12 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.WildcardType_ord:
 			specificBuilder._WildcardType();
+			break;
+		case JavaEntityDescriptorEnum.UnionType_ord:
+			specificBuilder._UnionType();
+			break;
+		case JavaEntityDescriptorEnum.IntersectionType_ord:
+			specificBuilder._IntersectionType();
 			break;
 		case JavaEntityDescriptorEnum.AssertStatement_ord:
 			specificBuilder._AssertStatement();
@@ -936,6 +999,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 		case JavaEntityDescriptorEnum.InstanceofExpression_ord:
 			specificBuilder._InstanceofExpression();
 			break;
+		case JavaEntityDescriptorEnum.LambdaExpression_ord:
+			specificBuilder._LambdaExpression();
+			break;
 		case JavaEntityDescriptorEnum.MethodInvocation_ord:
 			specificBuilder._MethodInvocation();
 			break;
@@ -968,6 +1034,18 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaEntityDescriptorEnum.ExtendedModifiers_ord:
 			specificBuilder._ExtendedModifiers();
+			break;
+		case JavaEntityDescriptorEnum.ConstructorReference_ord:
+			specificBuilder._ConstructorReference();
+			break;
+		case JavaEntityDescriptorEnum.ExpressionMethodReference_ord:
+			specificBuilder._ExpressionMethodReference();
+			break;
+		case JavaEntityDescriptorEnum.SuperMethodReference_ord:
+			specificBuilder._SuperMethodReference();
+			break;
+		case JavaEntityDescriptorEnum.TypeMethodReference_ord:
+			specificBuilder._TypeMethodReference();
 			break;
 		}
 	}
@@ -1078,6 +1156,9 @@ public class JavaGenericBuilderAdapter extends GenericIdentityBuilder {
 			break;
 		case JavaFeatureDescriptorEnum.initializer_ord:
 			specificBuilder.initializer();
+			break;
+		case JavaFeatureDescriptorEnum.varargsAnnotations_ord:
+			specificBuilder.varargsAnnotations();
 			break;
 		case JavaFeatureDescriptorEnum.componentType_ord:
 			specificBuilder.componentType();

@@ -15,6 +15,8 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new JavaSystemSoftwareAdapter());
 		put(new CompilationUnitAdapter());
 		put(new PackageDeclarationAdapter());
+		put(new StatementAdapter());
+		put(new ExpressionAdapter());
 		put(new CommentAdapter());
 		put(new BlockCommentAdapter());
 		put(new LineCommentAdapter());
@@ -62,12 +64,15 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new ParametersAdapter());
 		put(new SingleVariableDeclarationAdapter());
 		put(new VarargsAdapter());
+		put(new AnnotatedTypeAdapter());
 		put(new ArrayTypeAdapter());
 		put(new ParameterizedTypeAdapter());
 		put(new PrimitiveTypeAdapter());
 		put(new QualifiedTypeAdapter());
 		put(new SimpleTypeAdapter());
 		put(new WildcardTypeAdapter());
+		put(new UnionTypeAdapter());
+		put(new IntersectionTypeAdapter());
 		put(new UpperBoundAdapter());
 		put(new AssertStatementAdapter());
 		put(new BlockAdapter());
@@ -123,6 +128,7 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new InfixExpressionAdapter());
 		put(new InfixOperatorAdapter());
 		put(new InstanceofExpressionAdapter());
+		put(new LambdaExpressionAdapter());
 		put(new MethodInvocationAdapter());
 		put(new ParenthesizedExpressionAdapter());
 		put(new PostfixExpressionAdapter());
@@ -138,11 +144,16 @@ public class JavaAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new ExtraDimensionsAdapter());
 		put(new ExtendedModifiersAdapter());
 		put(new ModifierAdapter());
+		put(new MethodReferenceAdapter());
+		put(new ConstructorReferenceAdapter());
+		put(new ExpressionMethodReferenceAdapter());
+		put(new SuperMethodReferenceAdapter());
+		put(new TypeMethodReferenceAdapter());
+		put(new LambdaParametersAdapter());
 		put(new DocElementAdapter());
+		put(new ExpressionOrStatementAdapter());
+		put(new ExtendedModifierAdapter());
 		put(new VariableDeclarationAdapter());
 		put(new TypeAdapter());
-		put(new StatementAdapter());
-		put(new ExpressionAdapter());
-		put(new ExtendedModifierAdapter());
 	}
 }

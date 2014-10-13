@@ -192,6 +192,10 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
 		throw new VisitException();
 	}
 
+	public void visit(AnnotatedType entity) {
+		throw new VisitException();
+	}
+
 	public void visit(ArrayType entity) {
 		throw new VisitException();
 	}
@@ -213,6 +217,14 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(WildcardType entity) {
+		throw new VisitException();
+	}
+
+	public void visit(UnionType entity) {
+		throw new VisitException();
+	}
+
+	public void visit(IntersectionType entity) {
 		throw new VisitException();
 	}
 
@@ -432,6 +444,10 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
 		throw new VisitException();
 	}
 
+	public void visit(LambdaExpression entity) {
+		throw new VisitException();
+	}
+
 	public void visit(MethodInvocation entity) {
 		throw new VisitException();
 	}
@@ -489,6 +505,22 @@ public class JavaFailureVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(Modifier entity) {
+		throw new VisitException();
+	}
+
+	public void visit(ConstructorReference entity) {
+		throw new VisitException();
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		throw new VisitException();
+	}
+
+	public void visit(SuperMethodReference entity) {
+		throw new VisitException();
+	}
+
+	public void visit(TypeMethodReference entity) {
 		throw new VisitException();
 	}
 }

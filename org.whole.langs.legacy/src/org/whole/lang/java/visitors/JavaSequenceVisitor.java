@@ -245,6 +245,11 @@ public class JavaSequenceVisitor extends AbstractBinaryVisitor<IJavaVisitor>
 		wGetVisitor2().visit(entity);
 	}
 
+	public void visit(AnnotatedType entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
 	public void visit(ArrayType entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
@@ -271,6 +276,16 @@ public class JavaSequenceVisitor extends AbstractBinaryVisitor<IJavaVisitor>
 	}
 
 	public void visit(WildcardType entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(UnionType entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(IntersectionType entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
 	}
@@ -545,6 +560,11 @@ public class JavaSequenceVisitor extends AbstractBinaryVisitor<IJavaVisitor>
 		wGetVisitor2().visit(entity);
 	}
 
+	public void visit(LambdaExpression entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
 	public void visit(MethodInvocation entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
@@ -616,6 +636,26 @@ public class JavaSequenceVisitor extends AbstractBinaryVisitor<IJavaVisitor>
 	}
 
 	public void visit(Modifier entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(ConstructorReference entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(SuperMethodReference entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(TypeMethodReference entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
 	}

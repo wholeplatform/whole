@@ -294,6 +294,14 @@ public class JavaModelContext extends EntityContext {
 		wSet(JavaFeatureDescriptorEnum.initializer, initializer);
 	}
 
+	public JavaModelContext getVarargsAnnotations() {
+		return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.varargsAnnotations);
+	}
+
+	public void setVarargsAnnotations(JavaModelContext varargsAnnotations) {
+		wSet(JavaFeatureDescriptorEnum.varargsAnnotations, varargsAnnotations);
+	}
+
 	public JavaModelContext getComponentType() {
 		return (JavaModelContext) wGet(JavaFeatureDescriptorEnum.componentType);
 	}

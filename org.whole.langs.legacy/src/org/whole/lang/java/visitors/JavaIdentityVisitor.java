@@ -148,6 +148,9 @@ public class JavaIdentityVisitor extends AbstractVisitor implements
 	public void visit(Varargs entity) {
 	}
 
+	public void visit(AnnotatedType entity) {
+	}
+
 	public void visit(ArrayType entity) {
 	}
 
@@ -164,6 +167,12 @@ public class JavaIdentityVisitor extends AbstractVisitor implements
 	}
 
 	public void visit(WildcardType entity) {
+	}
+
+	public void visit(UnionType entity) {
+	}
+
+	public void visit(IntersectionType entity) {
 	}
 
 	public void visit(UpperBound entity) {
@@ -328,6 +337,9 @@ public class JavaIdentityVisitor extends AbstractVisitor implements
 	public void visit(InstanceofExpression entity) {
 	}
 
+	public void visit(LambdaExpression entity) {
+	}
+
 	public void visit(MethodInvocation entity) {
 	}
 
@@ -371,5 +383,17 @@ public class JavaIdentityVisitor extends AbstractVisitor implements
 	}
 
 	public void visit(Modifier entity) {
+	}
+
+	public void visit(ConstructorReference entity) {
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+	}
+
+	public void visit(SuperMethodReference entity) {
+	}
+
+	public void visit(TypeMethodReference entity) {
 	}
 }

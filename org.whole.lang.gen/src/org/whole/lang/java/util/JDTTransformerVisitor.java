@@ -49,12 +49,14 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ConditionalExpression;
 import org.eclipse.jdt.core.dom.ConstructorInvocation;
 import org.eclipse.jdt.core.dom.ContinueStatement;
+import org.eclipse.jdt.core.dom.CreationReference;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.EmptyStatement;
 import org.eclipse.jdt.core.dom.EnhancedForStatement;
 import org.eclipse.jdt.core.dom.EnumConstantDeclaration;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.ExpressionMethodReference;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
@@ -65,7 +67,9 @@ import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.InfixExpression;
 import org.eclipse.jdt.core.dom.Initializer;
 import org.eclipse.jdt.core.dom.InstanceofExpression;
+import org.eclipse.jdt.core.dom.IntersectionType;
 import org.eclipse.jdt.core.dom.Javadoc;
+import org.eclipse.jdt.core.dom.LambdaExpression;
 import org.eclipse.jdt.core.dom.LineComment;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MemberRef;
@@ -75,6 +79,10 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.MethodRef;
 import org.eclipse.jdt.core.dom.MethodRefParameter;
 import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.NameQualifiedType;
+import org.eclipse.jdt.core.dom.SuperMethodReference;
+import org.eclipse.jdt.core.dom.TypeMethodReference;
+import org.eclipse.jdt.core.dom.UnionType;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.NullLiteral;
@@ -119,6 +127,7 @@ import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.Arguments;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.ConstructorDeclaration;
+import org.whole.lang.java.model.ConstructorReference;
 import org.whole.lang.java.model.DocElements;
 import org.whole.lang.java.model.Expressions;
 import org.whole.lang.java.model.ExtendedModifiers;
@@ -129,14 +138,16 @@ import org.whole.lang.java.model.ModifierEnum;
 import org.whole.lang.java.model.PrimitiveTypeEnum;
 import org.whole.lang.java.model.TagName;
 import org.whole.lang.java.model.Tags;
+import org.whole.lang.java.model.Type;
 import org.whole.lang.java.model.TypeDeclarations;
-import org.whole.lang.java.model.Types;
 import org.whole.lang.java.model.VariableDeclarationFragments;
 import org.whole.lang.java.parsers.JavaDataTypePersistenceParser;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -300,7 +311,8 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.TypeParameter typeParameter = lf.create(JavaEntityDescriptorEnum.TypeParameter);
 
 		acceptChild(node.getName());
-		typeParameter.setName((org.whole.lang.java.model.SimpleName)name);
+		typeParameter.setName((org.whole.lang.java.model.SimpleName) name);
+		setAnnotations(typeParameter.getAnnotations(), node.modifiers());		
 		Iterator<?> i = node.typeBounds().iterator();
 		while (i.hasNext()) {
 			((ASTNode) i.next()).accept(this);
@@ -316,54 +328,67 @@ public class JDTTransformerVisitor extends ASTVisitor {
 
 		acceptChild(node.getType());
 		parameterizedType.setType(type);
-		Types types;
-		parameterizedType.setTypeArguments(types = lf.create(JavaEntityDescriptorEnum.Types));
-		Iterator<?> i = node.typeArguments().iterator();
-		while (i.hasNext()) {
-			((ASTNode) i.next()).accept(this);
-			types.wAdd(type);
-		}
+		setTypeArguments(parameterizedType.getTypeArguments(), node.typeArguments());
 
 		type = parameterizedType;
 		return false;
 	}
 
+	
+	protected Type conditionalWrapWithAnnotatedType(Type type, List<?> annotations) {
+		if (annotations.isEmpty()) {
+			return type;			
+		} else {
+			org.whole.lang.java.model.AnnotatedType annotatedType = lf.create(JavaEntityDescriptorEnum.AnnotatedType);
+			setAnnotations(annotatedType.getAnnotations(), annotations);
+			annotatedType.setType(type);
+			return annotatedType;
+		}
+	}
 	public boolean visit(WildcardType node) {
 		if (acceptChild(node.getBound())) {
-			type = lf.createWildcardType(type, lf.createUpperBound(node.isUpperBound()));
+			type = conditionalWrapWithAnnotatedType(lf.createWildcardType(type, lf.createUpperBound(node.isUpperBound())),
+					node.annotations());
 		} else {
-			type = lf.createWildcardType();
+			type = conditionalWrapWithAnnotatedType(lf.createWildcardType(),
+					node.annotations());
 		}
 		return false;
 	}
-
 	public boolean visit(SimpleType node) {
 		String name = node.getName().getFullyQualifiedName();
 		if (StringUtils.isQualified(name))
-			type = lf.createQualifiedType(name);
+			type = conditionalWrapWithAnnotatedType(lf.createQualifiedType(name),
+					node.annotations());
 		else
-			type = lf.createSimpleType(name);
+			type = conditionalWrapWithAnnotatedType(lf.createSimpleType(name),
+					node.annotations());
 		return false;
 	}
 	public boolean visit(PrimitiveType node) {
-		type = lf.createPrimitiveType(PrimitiveTypeEnum.instance.valueOf(node.getPrimitiveTypeCode().toString()));
+		type = conditionalWrapWithAnnotatedType(lf.createPrimitiveType(PrimitiveTypeEnum.instance.valueOf(node.getPrimitiveTypeCode().toString())),
+				node.annotations());
+		return true;
+	}
+
+	@Override
+	public boolean visit(NameQualifiedType node) {
+		String name = node.getName().getFullyQualifiedName();
+		String qualifier = node.getQualifier().getFullyQualifiedName();
+
+		type = conditionalWrapWithAnnotatedType(lf.createQualifiedType(qualifier+'.'+name),
+				node.annotations());
 		return true;
 	}
 
 	public boolean visit(ConstructorInvocation node) {
 		org.whole.lang.java.model.ConstructorInvocation construcorCall = lf.create(JavaEntityDescriptorEnum.ConstructorInvocation);
 
-		Types types;
-		construcorCall.setTypeArguments(types = lf.create(JavaEntityDescriptorEnum.Types));
-		Iterator<?> i = node.typeArguments().iterator();
-		while (i.hasNext()) {
-			((ASTNode) i.next()).accept(this);
-			types.wAdd(exp);
-		}
+		setTypeArguments(construcorCall.getTypeArguments(), node.typeArguments());
 
 		Arguments arguments;
 		construcorCall.setArguments(arguments = lf.create(JavaEntityDescriptorEnum.Arguments));
-		i = node.arguments().iterator();
+		Iterator<?> i = node.arguments().iterator();
 		while (i.hasNext()) {
 			((ASTNode) i.next()).accept(this);
 			arguments.wAdd(exp);
@@ -379,17 +404,11 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		if (acceptChild(node.getExpression()))
 			superCall.setExpression(exp);
 
-		Types types;
-		superCall.setTypeArguments(types = lf.create(JavaEntityDescriptorEnum.Types));
-		Iterator<?> i = node.typeArguments().iterator();
-		while (i.hasNext()) {
-			((ASTNode) i.next()).accept(this);
-			types.wAdd(exp);
-		}
+		setTypeArguments(superCall.getTypeArguments(), node.typeArguments());
 
 		Arguments arguments;
 		superCall.setArguments(arguments = lf.create(JavaEntityDescriptorEnum.Arguments));
-		i = node.arguments().iterator();
+		Iterator<?> i = node.arguments().iterator();
 		while (i.hasNext()) {
 			((ASTNode) i.next()).accept(this);
 			arguments.wAdd(exp);
@@ -860,6 +879,24 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		return false;
 	}
 
+	private void setTypeArguments(IEntity typeArguments, List<?> jdtTypeArguments) {
+		IEntity parent = typeArguments.wGetParent();
+		FeatureDescriptor fd = parent.wGetFeatureDescriptor(typeArguments);
+		for (Iterator<?> i = jdtTypeArguments.iterator(); i.hasNext();) {
+			org.eclipse.jdt.core.dom.Type type = (org.eclipse.jdt.core.dom.Type) i.next();
+			acceptChild((org.eclipse.jdt.core.dom.Type) type);
+			parent.wGet(fd).wAdd(this.type);
+		}
+	}
+	private void setAnnotations(IEntity annotations, List<?> jdtAnnotations) {
+		IEntity parent = annotations.wGetParent();
+		FeatureDescriptor fd = parent.wGetFeatureDescriptor(annotations);
+		for (Iterator<?> i = jdtAnnotations.iterator(); i.hasNext();) {
+			Annotation annotation = (Annotation) i.next();
+			acceptChild((Annotation) annotation);
+			parent.wGet(fd).wAdd(exp);
+		}
+	}
 	private void setExtendedModifiers(ExtendedModifiers modifiers, List<?> jdtModifiers) {
 		for (Iterator<?> i = jdtModifiers.iterator(); i.hasNext();) {
 			IExtendedModifier em = (IExtendedModifier) i.next();
@@ -892,6 +929,8 @@ public class JDTTransformerVisitor extends ASTVisitor {
 					modifiers.wAdd(lf.createModifier(ModifierEnum._abstract));
 				if (Modifier.isStrictfp(flags))
 					modifiers.wAdd(lf.createModifier(ModifierEnum.strictftp));
+				if (Modifier.isDefault(flags))
+					modifiers.wAdd(lf.createModifier(ModifierEnum._default));
 			}
 		}
 	}
@@ -925,6 +964,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		NormalAnnotation normalAnnotation = (NormalAnnotation) annotation;
 		acceptChild(normalAnnotation.getTypeName());
 		ann.setTypeName(name);
+		ann.getValues().clear();
 
 		Iterator<?> iterator = normalAnnotation.values().iterator();
 		while (iterator.hasNext()) {
@@ -997,18 +1037,20 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			constructorDecl.setParameters(params = lf.create(JavaEntityDescriptorEnum.Parameters));
 			acceptChildren(node.parameters());
 
-			if (node.thrownExceptions().isEmpty())
+			if (node.thrownExceptionTypes().isEmpty())
 				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Names);
 			else
 				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Names);
 			constructorDecl.setThrownExceptions(thrownExceptions);
-			for (Object child : node.thrownExceptions()) {
+			for (Object child : node.thrownExceptionTypes()) {
 				((ASTNode) child).accept(this);
 				thrownExceptions.wAdd(name);
 			}
 
 			acceptChild(node.getBody());
-			constructorDecl.setBody((org.whole.lang.java.model.Block) stm);			
+			constructorDecl.setBody((org.whole.lang.java.model.Block) stm);
+
+			constructorDecl.getExtraDimensions().wSetValue(node.getExtraDimensions());
 		} else {
 			org.whole.lang.java.model.MethodDeclaration methodDecl;
 			appendBodyDeclaration(methodDecl = lf.create(JavaEntityDescriptorEnum.MethodDeclaration));
@@ -1037,18 +1079,20 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			methodDecl.setParameters(params = lf.create(JavaEntityDescriptorEnum.Parameters));
 			acceptChildren(node.parameters());
 
-			if (node.thrownExceptions().isEmpty())
+			if (node.thrownExceptionTypes().isEmpty())
 				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Names);
 			else
 				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Names);
 			methodDecl.setThrownExceptions(thrownExceptions);
-			for (Object child : node.thrownExceptions()) {
+			for (Object child : node.thrownExceptionTypes()) {
 				((ASTNode) child).accept(this);
 				thrownExceptions.wAdd(name);
 			}
 
 			if (acceptChild(node.getBody()))
 				methodDecl.setBody((org.whole.lang.java.model.Block) stm);			
+
+			methodDecl.getExtraDimensions().wSetValue(node.getExtraDimensions());
 		}
 		return false;
 	}
@@ -1088,6 +1132,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			varDecl.setType(type);
 
 		varDecl.setVarargs(lf.createVarargs(node.isVarargs()));
+		setAnnotations(varDecl.getVarargsAnnotations(), (List<?>) node.varargsAnnotations());
 
 		varDecl.getExtraDimensions().wSetValue(node.getExtraDimensions());
 
@@ -1299,6 +1344,34 @@ public class JDTTransformerVisitor extends ASTVisitor {
 	public void endVisit(ExpressionStatement node) {
 		stm = lf.createExpressionStatement(exp);
 	}
+	
+	@Override
+	public boolean visit(UnionType node) {
+		org.whole.lang.java.model.UnionType unionType = lf.createUnionType(0);
+
+		Iterator<?> iterator = node.types().iterator();
+		while (iterator.hasNext()) {
+			((ASTNode) iterator.next()).accept(this);
+			unionType.wAdd(type);
+		}
+		type = unionType;
+
+		return false;
+	}
+
+	@Override
+	public boolean visit(IntersectionType node) {
+		org.whole.lang.java.model.IntersectionType intersectionType = lf.createIntersectionType(0);
+
+		Iterator<?> iterator = node.types().iterator();
+		while (iterator.hasNext()) {
+			((ASTNode) iterator.next()).accept(this);
+			intersectionType.wAdd(type);
+		}
+		type = intersectionType;
+
+		return false;
+	}
 
 	public boolean visit(Assignment node) {
 		acceptChild(node.getLeftHandSide());
@@ -1344,17 +1417,11 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		acceptChild(node.getName());
 		callExp.setName((org.whole.lang.java.model.SimpleName)name);
 
-		Types types;
-		callExp.setTypeArguments(types = lf.create(JavaEntityDescriptorEnum.Types));
-		Iterator<?> i = node.typeArguments().iterator();
-		while (i.hasNext()) {
-			((ASTNode) i.next()).accept(this);
-			types.wAdd(type);
-		}
+		setTypeArguments(callExp.getTypeArguments(), node.typeArguments());
 
 		Arguments arguments;
 		callExp.setArguments(arguments = lf.create(JavaEntityDescriptorEnum.Arguments));
-		i = node.arguments().iterator();
+		Iterator<?> i = node.arguments().iterator();
 		while (i.hasNext()) {
 			((ASTNode) i.next()).accept(this);
 			arguments.wAdd(exp);
@@ -1417,6 +1484,109 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			instExp.setRightOperand(type);
 
 		exp = instExp;
+		return false;
+	}
+
+	@Override
+	public boolean visit(LambdaExpression node) {
+		//FIXME workaround for type nesting
+		org.whole.lang.java.model.Type type = this.type;
+		org.whole.lang.java.model.Name name = this.name;
+		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
+		org.whole.lang.java.model.Parameters params = this.params;
+		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
+		org.whole.lang.java.model.Block block = this.block;
+		org.whole.lang.java.model.Statement stm = this.stm;
+		org.whole.lang.java.model.VariableDeclarationFragment varFrag = this.varFrag;
+		org.whole.lang.java.model.CatchClauses catchClauses = this.catchClauses;
+		org.whole.lang.java.model.AnonymousClassDeclaration anonymousClassDeclaration = lf.create(JavaEntityDescriptorEnum.AnonymousClassDeclaration);
+	
+		org.whole.lang.java.model.LambdaExpression lambdaExpression = lf.createLambdaExpression();
+
+		this.params = null;
+		if (node.hasParentheses()) {
+			Iterator<?> iterator = node.parameters().iterator();
+			while (iterator.hasNext()) {
+				this.varDecl = null;
+				this.varFrag = null;
+				acceptChild((ASTNode) iterator.next());
+				lambdaExpression.getParameters().wAdd(this.varDecl != null ?
+						this.varDecl : this.varFrag);	
+			}
+			if (EntityUtils.isResolver(lambdaExpression.getParameters()))
+				lambdaExpression.setParameters(lf.createParameters(0));
+		} else {
+			acceptChild((ASTNode) node.parameters().get(0));
+			lambdaExpression.setParameters(this.varFrag);
+		}
+
+		this.exp = null;
+		this.stm = null;
+		acceptChild(node.getBody());
+		lambdaExpression.setBody(this.stm != null ? this.stm : this.exp);
+
+		exp = lambdaExpression;
+
+		//FIXME workaround for type nesting
+		this.type = type;
+		this.name = name;
+		this.typeParameter = typeParameter;
+		this.params = params;
+		this.thrownExceptions = thrownExceptions;
+		this.varDecl = varDecl;
+		this.block = block;
+		this.stm = stm;
+		this.varFrag = varFrag;
+		this.catchClauses = catchClauses;
+		this.anonymousClassDeclaration = anonymousClassDeclaration;
+
+		return false;
+	}
+
+	@Override
+	public boolean visit(CreationReference node) {
+		ConstructorReference constructorReference = lf.createConstructorReference();
+		acceptChild((ASTNode) node.getType());
+		constructorReference.setType(type);
+		setTypeArguments(constructorReference.getTypeArguments(), node.typeArguments());
+		this.exp = constructorReference;
+		return false;
+	}
+
+	@Override
+	public boolean visit(ExpressionMethodReference node) {
+		org.whole.lang.java.model.ExpressionMethodReference expressionMethodReference = lf.createExpressionMethodReference();
+		acceptChild((ASTNode) node.getExpression());
+		expressionMethodReference.setExpression(exp);
+		setTypeArguments(expressionMethodReference.getTypeArguments(), node.typeArguments());
+		acceptChild((ASTNode) node.getName());
+		expressionMethodReference.setName((org.whole.lang.java.model.SimpleName) name);
+		this.exp = expressionMethodReference;
+		return false;
+	}
+
+	@Override
+	public boolean visit(SuperMethodReference node) {
+		org.whole.lang.java.model.SuperMethodReference superMethodReference = lf.createSuperMethodReference();
+		acceptChild((ASTNode) node.getQualifier());
+		superMethodReference.setQualifier(name);
+		setTypeArguments(superMethodReference.getTypeArguments(), node.typeArguments());
+		acceptChild((ASTNode) node.getName());
+		superMethodReference.setName((org.whole.lang.java.model.SimpleName) name);
+		this.exp = superMethodReference;
+		return false;
+	}
+
+	@Override
+	public boolean visit(TypeMethodReference node) {
+		org.whole.lang.java.model.TypeMethodReference typeMethodReference = lf.createTypeMethodReference();
+		acceptChild((ASTNode) node.getType());
+		typeMethodReference.setType(type);
+		setTypeArguments(typeMethodReference.getTypeArguments(), node.typeArguments());
+		acceptChild((ASTNode) node.getName());
+		typeMethodReference.setName((org.whole.lang.java.model.SimpleName) name);
+		this.exp = typeMethodReference;
 		return false;
 	}
 
@@ -1541,6 +1711,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 
 		if (acceptChild(node.getInitializer()))
 			varFrag.setInitializer(exp);
+
 		return false;
 	}
 
@@ -1638,10 +1809,14 @@ public class JDTTransformerVisitor extends ASTVisitor {
 
 	public boolean visit(ArrayType node) {
 		org.whole.lang.java.model.ArrayType at = lf.create(JavaEntityDescriptorEnum.ArrayType);
-		acceptChild(node.getComponentType());
+		acceptChild(node.getElementType());
 		at.setComponentType(type);
 
-		type = at;
+		org.whole.lang.java.model.ArrayType compound = at;
+		for (int i=0, remaining=node.getDimensions()-1; i<remaining; i++)
+			compound = lf.createArrayType(compound);
+
+		type = compound;
 
 		return false;
 	}

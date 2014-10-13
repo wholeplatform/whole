@@ -42,35 +42,36 @@ public class JavaFeatureDescriptorEnum extends FeatureDescriptorEnum {
 	public static final int extraDimensions_ord = 32;
 	public static final int thrownExceptions_ord = 33;
 	public static final int initializer_ord = 34;
-	public static final int componentType_ord = 35;
-	public static final int typeArguments_ord = 36;
-	public static final int bound_ord = 37;
-	public static final int upperBound_ord = 38;
-	public static final int expression_ord = 39;
-	public static final int message_ord = 40;
-	public static final int label_ord = 41;
-	public static final int parameter_ord = 42;
-	public static final int initializers_ord = 43;
-	public static final int updaters_ord = 44;
-	public static final int thenStatement_ord = 45;
-	public static final int elseStatement_ord = 46;
-	public static final int statements_ord = 47;
-	public static final int catchClauses_ord = 48;
-	public static final int _finally_ord = 49;
-	public static final int exception_ord = 50;
-	public static final int typeDeclaration_ord = 51;
-	public static final int array_ord = 52;
-	public static final int index_ord = 53;
-	public static final int dimensions_ord = 54;
-	public static final int leftHandSide_ord = 55;
-	public static final int operator_ord = 56;
-	public static final int rightHandSide_ord = 57;
-	public static final int thenExpression_ord = 58;
-	public static final int elseExpression_ord = 59;
-	public static final int leftOperand_ord = 60;
-	public static final int rightOperand_ord = 61;
-	public static final int extendedOperands_ord = 62;
-	public static final int operand_ord = 63;
+	public static final int varargsAnnotations_ord = 35;
+	public static final int componentType_ord = 36;
+	public static final int typeArguments_ord = 37;
+	public static final int bound_ord = 38;
+	public static final int upperBound_ord = 39;
+	public static final int expression_ord = 40;
+	public static final int message_ord = 41;
+	public static final int label_ord = 42;
+	public static final int parameter_ord = 43;
+	public static final int initializers_ord = 44;
+	public static final int updaters_ord = 45;
+	public static final int thenStatement_ord = 46;
+	public static final int elseStatement_ord = 47;
+	public static final int statements_ord = 48;
+	public static final int catchClauses_ord = 49;
+	public static final int _finally_ord = 50;
+	public static final int exception_ord = 51;
+	public static final int typeDeclaration_ord = 52;
+	public static final int array_ord = 53;
+	public static final int index_ord = 54;
+	public static final int dimensions_ord = 55;
+	public static final int leftHandSide_ord = 56;
+	public static final int operator_ord = 57;
+	public static final int rightHandSide_ord = 58;
+	public static final int thenExpression_ord = 59;
+	public static final int elseExpression_ord = 60;
+	public static final int leftOperand_ord = 61;
+	public static final int rightOperand_ord = 62;
+	public static final int extendedOperands_ord = 63;
+	public static final int operand_ord = 64;
 	public static final JavaFeatureDescriptorEnum instance = new JavaFeatureDescriptorEnum();
 	public static final FeatureDescriptor _package = instance
 			.valueOf(_package_ord);
@@ -134,6 +135,8 @@ public class JavaFeatureDescriptorEnum extends FeatureDescriptorEnum {
 			.valueOf(thrownExceptions_ord);
 	public static final FeatureDescriptor initializer = instance
 			.valueOf(initializer_ord);
+	public static final FeatureDescriptor varargsAnnotations = instance
+			.valueOf(varargsAnnotations_ord);
 	public static final FeatureDescriptor componentType = instance
 			.valueOf(componentType_ord);
 	public static final FeatureDescriptor typeArguments = instance
@@ -226,6 +229,7 @@ public class JavaFeatureDescriptorEnum extends FeatureDescriptorEnum {
 		putFeatureDescriptor(extraDimensions_ord, "extraDimensions");
 		putFeatureDescriptor(thrownExceptions_ord, "thrownExceptions");
 		putFeatureDescriptor(initializer_ord, "initializer");
+		putFeatureDescriptor(varargsAnnotations_ord, "varargsAnnotations");
 		putFeatureDescriptor(componentType_ord, "componentType");
 		putFeatureDescriptor(typeArguments_ord, "typeArguments");
 		putFeatureDescriptor(bound_ord, "bound");

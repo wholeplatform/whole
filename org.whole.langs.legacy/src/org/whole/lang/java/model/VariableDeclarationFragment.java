@@ -4,7 +4,7 @@ package org.whole.lang.java.model;
  * @generator Whole
  */
 public interface VariableDeclarationFragment extends IJavaEntity,
-		VariableDeclaration {
+		VariableDeclaration, LambdaParameters {
 	public SimpleName getName();
 
 	public void setName(SimpleName name);

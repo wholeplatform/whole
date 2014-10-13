@@ -38,7 +38,6 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	protected final IPrettyPrintWriter out;
 	private String typesSeparator = null;
 	private String expressionsSeparator = null;
-	private boolean declaringInterface;
 	
 	public JavaPrettyPrinterVisitor(PrettyPrinterOperation operation) {
 		out = operation.getPrettyPrintWriter();
@@ -268,7 +267,6 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	}
 
 	public void visit(InterfaceDeclaration entity) {
-		declaringInterface = true;
 		out.println();
 		entity.getJavadoc().accept(this);
 		entity.getModifiers().accept(this);
@@ -289,7 +287,6 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getBodyDeclarations().accept(this);
 		out.setRelativeIndentation((-1));
 		out.printlnRaw("}");
-		declaringInterface = false;
 	}
 	public void visit(ClassDeclaration entity) {
 		out.println();
@@ -365,8 +362,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		out.printRaw("@");
 		entity.getTypeName().accept(this);
 		IEntity parent = entity.wGetParent();
-		if (!EntityUtils.isNull(parent) && EntityUtils.isComposite(parent))
+		if (!EntityUtils.isNull(parent) && Matcher.match(JavaEntityDescriptorEnum.ExtendedModifiers, parent))
 			out.println();
+		else
+			out.printRaw(" ");
 	}
 
 	@Override
@@ -377,8 +376,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getValues().accept(this);
 		out.printRaw(")");
 		IEntity parent = entity.wGetParent();
-		if (!EntityUtils.isNull(parent) && EntityUtils.isComposite(parent))
+		if (!EntityUtils.isNull(parent) && Matcher.match(JavaEntityDescriptorEnum.ExtendedModifiers, parent))
 			out.println();
+		else
+			out.printRaw(" ");
 	}
 
 	@Override
@@ -389,8 +390,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getValue().accept(this);
 		out.printRaw(")");
 		IEntity parent = entity.wGetParent();
-		if (!EntityUtils.isNull(parent) && EntityUtils.isComposite(parent))
+		if (!EntityUtils.isNull(parent) && Matcher.match(JavaEntityDescriptorEnum.ExtendedModifiers, parent))
 			out.println();
+		else
+			out.printRaw(" ");
 	}
 
 	@Override
@@ -421,7 +424,23 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			out.printRaw(">");
 		}
 	}
-	
+
+	@Override
+	public void visit(AnnotatedType entity) {
+		Type type = entity.getType();
+		if (Matcher.matchImpl(JavaEntityDescriptorEnum.QualifiedType, type)) {
+			QualifiedType qualifiedType = (QualifiedType) type;
+			out.printRaw(StringUtils.toPackageName(qualifiedType.getValue()));
+			out.printRaw(". ");
+			entity.getAnnotations().accept(this);
+			out.printRaw(StringUtils.toSimpleName(qualifiedType.getValue()));
+		} else {
+			entity.getAnnotations().accept(this);
+			entity.getType().accept(this);
+		}
+			
+	}
+
 	public void visit(WildcardType entity) {
 		out.printRaw("?");
 		if (EntityUtils.isNotResolver(entity.getBound())) {
@@ -515,7 +534,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			entity.getThrownExceptions().accept(this);
 		}
 		
-		if (declaringInterface || entity.getModifiers().wContainsValue(ModifierEnum._abstract))
+		if (EntityUtils.isResolver(entity.getBody()))
 			out.printlnRaw(";");
 		else {
 			out.printlnRaw(" {");
@@ -696,6 +715,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	}
 
 	public void visit(TypeParameter entity) {
+		entity.getAnnotations().accept(this);
 		entity.getName().accept(this);
 		if (!entity.getTypeBounds().wIsEmpty()) {
 			out.printRaw(" ");
@@ -741,6 +761,8 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	public void visit(SingleVariableDeclaration entity) {
 		entity.getModifiers().accept(this);
 		entity.getType().accept(this);
+		out.printRaw(" ");
+		entity.getVarargsAnnotations().accept(this);
 		entity.getVarargs().accept(this);
 		out.printRaw(" ");
 		entity.getName().accept(this);
@@ -773,7 +795,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			entity.getInitializer().accept(this);
 		}
 	}
-	
+
 	public void visit(VariableDeclarationExpression entity) {
 		entity.getModifiers().accept(this);
 		entity.getType().accept(this);
@@ -801,8 +823,11 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	}
 
 	public void visit(Block entity) {
-		boolean printCurlyBraces = Matcher.match(JavaEntityDescriptorEnum.Statements, entity.wGetParent()) ||
-		Matcher.match(JavaEntityDescriptorEnum.Block, entity.wGetParent());
+		IEntity parent =  entity.wGetParent();
+		boolean printCurlyBraces = !EntityUtils.isNull(entity) &&
+				(Matcher.match(JavaEntityDescriptorEnum.Statements, parent) ||
+				Matcher.match(JavaEntityDescriptorEnum.Block, parent) ||
+				Matcher.match(JavaEntityDescriptorEnum.LambdaExpression, parent));
 		if (printCurlyBraces) {
 			out.printlnRaw("{");
 			out.setRelativeIndentation((+1));
@@ -811,7 +836,10 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			entity.get(i).accept(this);
 		if (printCurlyBraces) {
 			out.setRelativeIndentation((-1));
-			out.printlnRaw("}");
+			if (Matcher.match(JavaEntityDescriptorEnum.LambdaExpression, parent))
+				out.printRaw("}");
+			else
+				out.printlnRaw("}");
 		}
 	}
 
@@ -832,6 +860,70 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getLeftOperand().accept(this);
 		out.printRaw(" instanceof ");
 		entity.getRightOperand().accept(this);
+	}
+
+	public void visit(LambdaExpression entity) {
+		LambdaParameters parameters = entity.getParameters();
+		if (EntityUtils.isComposite(parameters)) {
+			out.printRaw("(");
+			parameters.accept(this);
+			out.printRaw(")");
+		} else
+			parameters.accept(this);
+		out.printRaw(" -> ");
+		entity.getBody().accept(this);
+	}
+
+	@Override
+	public void visit(ConstructorReference entity) {
+		entity.getType().accept(this);
+		out.printRaw("::");
+		if (!entity.getTypeArguments().wIsEmpty()) {
+			out.printRaw("<");
+			entity.getTypeArguments().accept(this);
+			out.printRaw(">");
+		}
+		out.printRaw("new");
+	}
+
+	@Override
+	public void visit(ExpressionMethodReference entity) {
+		entity.getExpression().accept(this);
+		out.printRaw("::");
+		if (!entity.getTypeArguments().wIsEmpty()) {
+			out.printRaw("<");
+			entity.getTypeArguments().accept(this);
+			out.printRaw(">");
+		}
+		entity.getName().accept(this);
+	}
+
+	@Override
+	public void visit(SuperMethodReference entity) {
+		Name qualifier = entity.getQualifier();
+		if (EntityUtils.isNotResolver(qualifier)) {
+			qualifier.accept(this);
+			out.printRaw(".");
+		}
+		out.printRaw("super::");
+		if (!entity.getTypeArguments().wIsEmpty()) {
+			out.printRaw("<");
+			entity.getTypeArguments().accept(this);
+			out.printRaw(">");
+		}
+		entity.getName().accept(this);
+	}
+
+	@Override
+	public void visit(TypeMethodReference entity) {
+		entity.getType().accept(this);
+		out.printRaw("super::");
+		if (!entity.getTypeArguments().wIsEmpty()) {
+			out.printRaw("<");
+			entity.getTypeArguments().accept(this);
+			out.printRaw(">");
+		}
+		entity.getName().accept(this);
 	}
 
 	public void visit(MethodInvocation entity) {
@@ -1101,7 +1193,23 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		entity.getLabel().accept(this);
 		out.printlnRaw(";");
 	}
-	
+
+	public void visit(UnionType entity) {
+		for (int i = 0; i < entity.size(); i++) {
+			if (i>0)
+				out.printRaw(" | ");
+			entity.get(i).accept(this);
+		}
+	}
+
+	public void visit(IntersectionType entity) {
+		for (int i = 0; i < entity.size(); i++) {
+			if (i>0)
+				out.printRaw(" & ");
+			entity.get(i).accept(this);
+		}
+	}
+
 	public void visit(Assignment entity) {
 		entity.getLeftHandSide().accept(this);
 		out.printRaw(" ");
@@ -1113,7 +1221,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	public void visit(AssignmentOperator entity) {
 		out.printRaw(JavaDataTypePersistenceParser.instance().unparseEnumValue(entity.wGetEntityDescriptor(), entity.getValue()));
 	}
-	
+
 	public void visit(InfixOperator entity) {
 		out.printRaw(JavaDataTypePersistenceParser.instance().unparseEnumValue(entity.wGetEntityDescriptor(), entity.getValue()));
 	}
@@ -1121,7 +1229,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	public void visit(PostfixOperator entity) {
 		out.printRaw(JavaDataTypePersistenceParser.instance().unparseEnumValue(entity.wGetEntityDescriptor(), entity.getValue()));
 	}
-	
+
 	public void visit(PrefixOperator entity) {
 		out.printRaw(JavaDataTypePersistenceParser.instance().unparseEnumValue(entity.wGetEntityDescriptor(), entity.getValue()));
 	}

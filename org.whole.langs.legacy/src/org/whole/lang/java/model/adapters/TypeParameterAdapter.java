@@ -48,4 +48,13 @@ public class TypeParameterAdapter extends AbstractEntityAdapter implements
 	public void setTypeBounds(Types typeBounds) {
 		wSet(JavaFeatureDescriptorEnum.typeBounds, typeBounds);
 	}
+
+	public Annotations getAnnotations() {
+		return wGet(JavaFeatureDescriptorEnum.annotations).wGetAdapter(
+				JavaEntityDescriptorEnum.Annotations);
+	}
+
+	public void setAnnotations(Annotations annotations) {
+		wSet(JavaFeatureDescriptorEnum.annotations, annotations);
+	}
 }

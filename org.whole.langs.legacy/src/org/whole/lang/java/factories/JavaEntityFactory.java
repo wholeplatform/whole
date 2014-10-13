@@ -476,8 +476,10 @@ public class JavaEntityFactory extends GenericEntityFactory {
 		return create(JavaEntityDescriptorEnum.TypeParameter);
 	}
 
-	public TypeParameter createTypeParameter(SimpleName name, Types typeBounds) {
-		return create(JavaEntityDescriptorEnum.TypeParameter, name, typeBounds);
+	public TypeParameter createTypeParameter(SimpleName name, Types typeBounds,
+			Annotations annotations) {
+		return create(JavaEntityDescriptorEnum.TypeParameter, name, typeBounds,
+				annotations);
 	}
 
 	public IEntityBuilder<TypeParameter> buildTypeParameter() {
@@ -612,9 +614,10 @@ public class JavaEntityFactory extends GenericEntityFactory {
 	public SingleVariableDeclaration createSingleVariableDeclaration(
 			ExtendedModifiers modifiers, Type type, Varargs varargs,
 			SimpleName name, ExtraDimensions extraDimensions,
-			Expression initializer) {
+			Expression initializer, Annotations varargsAnnotations) {
 		return create(JavaEntityDescriptorEnum.SingleVariableDeclaration,
-				modifiers, type, varargs, name, extraDimensions, initializer);
+				modifiers, type, varargs, name, extraDimensions, initializer,
+				varargsAnnotations);
 	}
 
 	public IEntityBuilder<SingleVariableDeclaration> buildSingleVariableDeclaration() {
@@ -628,6 +631,19 @@ public class JavaEntityFactory extends GenericEntityFactory {
 
 	public Varargs createVarargs(boolean value) {
 		return create(JavaEntityDescriptorEnum.Varargs, value);
+	}
+
+	public AnnotatedType createAnnotatedType() {
+		return create(JavaEntityDescriptorEnum.AnnotatedType);
+	}
+
+	public AnnotatedType createAnnotatedType(Annotations annotations, Type type) {
+		return create(JavaEntityDescriptorEnum.AnnotatedType, annotations, type);
+	}
+
+	public IEntityBuilder<AnnotatedType> buildAnnotatedType() {
+		return new EntityBuilder<AnnotatedType>(
+				create(JavaEntityDescriptorEnum.AnnotatedType));
 	}
 
 	public ArrayType createArrayType() {
@@ -688,6 +704,31 @@ public class JavaEntityFactory extends GenericEntityFactory {
 	public IEntityBuilder<WildcardType> buildWildcardType() {
 		return new EntityBuilder<WildcardType>(
 				create(JavaEntityDescriptorEnum.WildcardType));
+	}
+
+	public UnionType createUnionType() {
+		return create(JavaEntityDescriptorEnum.UnionType);
+	}
+
+	public UnionType createUnionType(Type... entities) {
+		return create(JavaEntityDescriptorEnum.UnionType, (IEntity[]) entities);
+	}
+
+	public UnionType createUnionType(int initialSize) {
+		return clone(JavaEntityDescriptorEnum.UnionType, initialSize);
+	}
+
+	public IntersectionType createIntersectionType() {
+		return create(JavaEntityDescriptorEnum.IntersectionType);
+	}
+
+	public IntersectionType createIntersectionType(Type... entities) {
+		return create(JavaEntityDescriptorEnum.IntersectionType,
+				(IEntity[]) entities);
+	}
+
+	public IntersectionType createIntersectionType(int initialSize) {
+		return clone(JavaEntityDescriptorEnum.IntersectionType, initialSize);
 	}
 
 	public UpperBound createUpperBound() {
@@ -1297,6 +1338,21 @@ public class JavaEntityFactory extends GenericEntityFactory {
 				create(JavaEntityDescriptorEnum.InstanceofExpression));
 	}
 
+	public LambdaExpression createLambdaExpression() {
+		return create(JavaEntityDescriptorEnum.LambdaExpression);
+	}
+
+	public LambdaExpression createLambdaExpression(LambdaParameters parameters,
+			ExpressionOrStatement body) {
+		return create(JavaEntityDescriptorEnum.LambdaExpression, parameters,
+				body);
+	}
+
+	public IEntityBuilder<LambdaExpression> buildLambdaExpression() {
+		return new EntityBuilder<LambdaExpression>(
+				create(JavaEntityDescriptorEnum.LambdaExpression));
+	}
+
 	public MethodInvocation createMethodInvocation() {
 		return create(JavaEntityDescriptorEnum.MethodInvocation);
 	}
@@ -1482,5 +1538,65 @@ public class JavaEntityFactory extends GenericEntityFactory {
 
 	public Modifier createModifier(ModifierEnum.Value value) {
 		return create(JavaEntityDescriptorEnum.Modifier, value);
+	}
+
+	public ConstructorReference createConstructorReference() {
+		return create(JavaEntityDescriptorEnum.ConstructorReference);
+	}
+
+	public ConstructorReference createConstructorReference(Type type,
+			Types typeArguments) {
+		return create(JavaEntityDescriptorEnum.ConstructorReference, type,
+				typeArguments);
+	}
+
+	public IEntityBuilder<ConstructorReference> buildConstructorReference() {
+		return new EntityBuilder<ConstructorReference>(
+				create(JavaEntityDescriptorEnum.ConstructorReference));
+	}
+
+	public ExpressionMethodReference createExpressionMethodReference() {
+		return create(JavaEntityDescriptorEnum.ExpressionMethodReference);
+	}
+
+	public ExpressionMethodReference createExpressionMethodReference(
+			Expression expression, Types typeArguments, SimpleName name) {
+		return create(JavaEntityDescriptorEnum.ExpressionMethodReference,
+				expression, typeArguments, name);
+	}
+
+	public IEntityBuilder<ExpressionMethodReference> buildExpressionMethodReference() {
+		return new EntityBuilder<ExpressionMethodReference>(
+				create(JavaEntityDescriptorEnum.ExpressionMethodReference));
+	}
+
+	public SuperMethodReference createSuperMethodReference() {
+		return create(JavaEntityDescriptorEnum.SuperMethodReference);
+	}
+
+	public SuperMethodReference createSuperMethodReference(Name qualifier,
+			Types typeArguments, SimpleName name) {
+		return create(JavaEntityDescriptorEnum.SuperMethodReference, qualifier,
+				typeArguments, name);
+	}
+
+	public IEntityBuilder<SuperMethodReference> buildSuperMethodReference() {
+		return new EntityBuilder<SuperMethodReference>(
+				create(JavaEntityDescriptorEnum.SuperMethodReference));
+	}
+
+	public TypeMethodReference createTypeMethodReference() {
+		return create(JavaEntityDescriptorEnum.TypeMethodReference);
+	}
+
+	public TypeMethodReference createTypeMethodReference(Type type,
+			Types typeArguments, SimpleName name) {
+		return create(JavaEntityDescriptorEnum.TypeMethodReference, type,
+				typeArguments, name);
+	}
+
+	public IEntityBuilder<TypeMethodReference> buildTypeMethodReference() {
+		return new EntityBuilder<TypeMethodReference>(
+				create(JavaEntityDescriptorEnum.TypeMethodReference));
 	}
 }

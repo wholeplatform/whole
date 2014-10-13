@@ -6,5 +6,5 @@ import java.util.List;
  * @generator Whole
  */
 public interface Parameters extends IJavaEntity,
-		List<SingleVariableDeclaration> {
+		List<SingleVariableDeclaration>, LambdaParameters {
 }

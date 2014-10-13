@@ -100,7 +100,7 @@ public class JDTUtils {
 		return (CompilationUnit) parseAs(source, JAVA_FRAGMENT.COMPILATION_UNIT);
 	}
 	public static ASTNode parseAs(String source, JAVA_FRAGMENT f) {
-		ASTParser parser = ASTParser.newParser(AST.JLS4);
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		parser.setKind(f.kind);
 		parser.setSource(source.toCharArray());
 		ASTNode astNode = parser.createAST(null);

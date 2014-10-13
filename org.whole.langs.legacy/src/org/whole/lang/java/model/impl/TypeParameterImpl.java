@@ -49,12 +49,26 @@ public class TypeParameterImpl extends AbstractSimpleEntity implements
 				this.typeBounds = typeBounds);
 	}
 
+	private Annotations annotations;
+
+	public Annotations getAnnotations() {
+		return notifyRequested(JavaFeatureDescriptorEnum.annotations,
+				annotations);
+	}
+
+	public void setAnnotations(Annotations annotations) {
+		notifyChanged(JavaFeatureDescriptorEnum.annotations, this.annotations,
+				this.annotations = annotations);
+	}
+
 	public IEntity wGet(int index) {
 		switch (index) {
 		case 0:
 			return getName().wGetAdaptee(false);
 		case 1:
 			return getTypeBounds().wGetAdaptee(false);
+		case 2:
+			return getAnnotations().wGetAdaptee(false);
 		default:
 			throw new IllegalArgumentException();
 		}
@@ -68,12 +82,16 @@ public class TypeParameterImpl extends AbstractSimpleEntity implements
 		case 1:
 			setTypeBounds(value.wGetAdapter(JavaEntityDescriptorEnum.Types));
 			break;
+		case 2:
+			setAnnotations(value
+					.wGetAdapter(JavaEntityDescriptorEnum.Annotations));
+			break;
 		default:
 			throw new IllegalArgumentException();
 		}
 	}
 
 	public int wSize() {
-		return 2;
+		return 3;
 	}
 }

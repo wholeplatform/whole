@@ -28,4 +28,8 @@ public interface SingleVariableDeclaration extends IJavaEntity,
 	public Expression getInitializer();
 
 	public void setInitializer(Expression initializer);
+
+	public Annotations getVarargsAnnotations();
+
+	public void setVarargsAnnotations(Annotations varargsAnnotations);
 }

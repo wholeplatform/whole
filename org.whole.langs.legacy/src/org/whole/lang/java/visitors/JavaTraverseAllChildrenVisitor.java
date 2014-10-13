@@ -211,6 +211,7 @@ public class JavaTraverseAllChildrenVisitor extends
 	public void visit(TypeParameter entity) {
 		entity.getName().accept(wGetVisitor1());
 		entity.getTypeBounds().accept(wGetVisitor1());
+		entity.getAnnotations().accept(wGetVisitor1());
 	}
 
 	public void visit(Types entity) {
@@ -279,6 +280,12 @@ public class JavaTraverseAllChildrenVisitor extends
 		entity.getName().accept(wGetVisitor1());
 		entity.getExtraDimensions().accept(wGetVisitor1());
 		entity.getInitializer().accept(wGetVisitor1());
+		entity.getVarargsAnnotations().accept(wGetVisitor1());
+	}
+
+	public void visit(AnnotatedType entity) {
+		entity.getAnnotations().accept(wGetVisitor1());
+		entity.getType().accept(wGetVisitor1());
 	}
 
 	public void visit(ArrayType entity) {
@@ -293,6 +300,16 @@ public class JavaTraverseAllChildrenVisitor extends
 	public void visit(WildcardType entity) {
 		entity.getBound().accept(wGetVisitor1());
 		entity.getUpperBound().accept(wGetVisitor1());
+	}
+
+	public void visit(UnionType entity) {
+		for (int i = 0; i < entity.size(); i++)
+			entity.get(i).accept(wGetVisitor1());
+	}
+
+	public void visit(IntersectionType entity) {
+		for (int i = 0; i < entity.size(); i++)
+			entity.get(i).accept(wGetVisitor1());
 	}
 
 	public void visit(AssertStatement entity) {
@@ -487,6 +504,11 @@ public class JavaTraverseAllChildrenVisitor extends
 		entity.getRightOperand().accept(wGetVisitor1());
 	}
 
+	public void visit(LambdaExpression entity) {
+		entity.getParameters().accept(wGetVisitor1());
+		entity.getBody().accept(wGetVisitor1());
+	}
+
 	public void visit(MethodInvocation entity) {
 		entity.getExpression().accept(wGetVisitor1());
 		entity.getTypeArguments().accept(wGetVisitor1());
@@ -544,5 +566,32 @@ public class JavaTraverseAllChildrenVisitor extends
 	public void visit(ExtendedModifiers entity) {
 		for (int i = 0; i < entity.size(); i++)
 			entity.get(i).accept(wGetVisitor1());
+	}
+
+	public void visit(MethodReference entity) {
+		entity.getTypeArguments().accept(wGetVisitor1());
+	}
+
+	public void visit(ConstructorReference entity) {
+		entity.getType().accept(wGetVisitor1());
+		entity.getTypeArguments().accept(wGetVisitor1());
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		entity.getExpression().accept(wGetVisitor1());
+		entity.getTypeArguments().accept(wGetVisitor1());
+		entity.getName().accept(wGetVisitor1());
+	}
+
+	public void visit(SuperMethodReference entity) {
+		entity.getQualifier().accept(wGetVisitor1());
+		entity.getTypeArguments().accept(wGetVisitor1());
+		entity.getName().accept(wGetVisitor1());
+	}
+
+	public void visit(TypeMethodReference entity) {
+		entity.getType().accept(wGetVisitor1());
+		entity.getTypeArguments().accept(wGetVisitor1());
+		entity.getName().accept(wGetVisitor1());
 	}
 }

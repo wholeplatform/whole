@@ -18,6 +18,7 @@ public class ModifierEnum extends EnumType<ModifierEnum.Value> {
 	public static final int _transient_ord = 8;
 	public static final int _volatile_ord = 9;
 	public static final int strictftp_ord = 10;
+	public static final int _default_ord = 11;
 	public static final ModifierEnum instance = new ModifierEnum();
 	public static final Value _public = instance.valueOf(_public_ord);
 	public static final Value _protected = instance.valueOf(_protected_ord);
@@ -31,6 +32,7 @@ public class ModifierEnum extends EnumType<ModifierEnum.Value> {
 	public static final Value _transient = instance.valueOf(_transient_ord);
 	public static final Value _volatile = instance.valueOf(_volatile_ord);
 	public static final Value strictftp = instance.valueOf(strictftp_ord);
+	public static final Value _default = instance.valueOf(_default_ord);
 
 	private ModifierEnum() {
 		enumValue(_public_ord, "public", "_public");
@@ -44,6 +46,7 @@ public class ModifierEnum extends EnumType<ModifierEnum.Value> {
 		enumValue(_transient_ord, "transient", "_transient");
 		enumValue(_volatile_ord, "volatile", "_volatile");
 		enumValue(strictftp_ord, "strictftp");
+		enumValue(_default_ord, "default", "_default");
 	}
 
 	private static final long serialVersionUID = 1;

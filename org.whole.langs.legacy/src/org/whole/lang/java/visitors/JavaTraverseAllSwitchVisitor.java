@@ -206,6 +206,7 @@ public class JavaTraverseAllSwitchVisitor extends
 	public void visit(TypeParameter entity) {
 		wGetVisitor1().visit(entity.getName());
 		wGetVisitor1().visit(entity.getTypeBounds());
+		wGetVisitor1().visit(entity.getAnnotations());
 	}
 
 	public void visit(Types entity) {
@@ -274,6 +275,12 @@ public class JavaTraverseAllSwitchVisitor extends
 		wGetVisitor1().visit(entity.getName());
 		wGetVisitor1().visit(entity.getExtraDimensions());
 		wGetVisitor1().visit(entity.getInitializer());
+		wGetVisitor1().visit(entity.getVarargsAnnotations());
+	}
+
+	public void visit(AnnotatedType entity) {
+		wGetVisitor1().visit(entity.getAnnotations());
+		wGetVisitor1().visit(entity.getType());
 	}
 
 	public void visit(ArrayType entity) {
@@ -288,6 +295,16 @@ public class JavaTraverseAllSwitchVisitor extends
 	public void visit(WildcardType entity) {
 		wGetVisitor1().visit(entity.getBound());
 		wGetVisitor1().visit(entity.getUpperBound());
+	}
+
+	public void visit(UnionType entity) {
+		for (int i = 0; i < entity.size(); i++)
+			wGetVisitor1().visit(entity.get(i));
+	}
+
+	public void visit(IntersectionType entity) {
+		for (int i = 0; i < entity.size(); i++)
+			wGetVisitor1().visit(entity.get(i));
 	}
 
 	public void visit(AssertStatement entity) {
@@ -482,6 +499,11 @@ public class JavaTraverseAllSwitchVisitor extends
 		wGetVisitor1().visit(entity.getRightOperand());
 	}
 
+	public void visit(LambdaExpression entity) {
+		wGetVisitor1().visit(entity.getParameters());
+		wGetVisitor1().visit(entity.getBody());
+	}
+
 	public void visit(MethodInvocation entity) {
 		wGetVisitor1().visit(entity.getExpression());
 		wGetVisitor1().visit(entity.getTypeArguments());
@@ -539,5 +561,32 @@ public class JavaTraverseAllSwitchVisitor extends
 	public void visit(ExtendedModifiers entity) {
 		for (int i = 0; i < entity.size(); i++)
 			wGetVisitor1().visit(entity.get(i));
+	}
+
+	public void visit(MethodReference entity) {
+		wGetVisitor1().visit(entity.getTypeArguments());
+	}
+
+	public void visit(ConstructorReference entity) {
+		wGetVisitor1().visit(entity.getType());
+		wGetVisitor1().visit(entity.getTypeArguments());
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		wGetVisitor1().visit(entity.getExpression());
+		wGetVisitor1().visit(entity.getTypeArguments());
+		wGetVisitor1().visit(entity.getName());
+	}
+
+	public void visit(SuperMethodReference entity) {
+		wGetVisitor1().visit(entity.getQualifier());
+		wGetVisitor1().visit(entity.getTypeArguments());
+		wGetVisitor1().visit(entity.getName());
+	}
+
+	public void visit(TypeMethodReference entity) {
+		wGetVisitor1().visit(entity.getType());
+		wGetVisitor1().visit(entity.getTypeArguments());
+		wGetVisitor1().visit(entity.getName());
 	}
 }

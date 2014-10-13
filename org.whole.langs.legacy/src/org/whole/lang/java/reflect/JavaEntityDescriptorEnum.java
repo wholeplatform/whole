@@ -12,135 +12,146 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 	public static final int JavaSystemSoftware_ord = 0;
 	public static final int CompilationUnit_ord = 1;
 	public static final int PackageDeclaration_ord = 2;
-	public static final int Comment_ord = 3;
-	public static final int BlockComment_ord = 4;
-	public static final int LineComment_ord = 5;
-	public static final int Javadoc_ord = 6;
-	public static final int Tags_ord = 7;
-	public static final int DocElements_ord = 8;
-	public static final int MethodRef_ord = 9;
-	public static final int MethodRefParameters_ord = 10;
-	public static final int MethodRefParameter_ord = 11;
-	public static final int MemberRef_ord = 12;
-	public static final int TextElement_ord = 13;
-	public static final int TagElement_ord = 14;
-	public static final int TagName_ord = 15;
-	public static final int Annotations_ord = 16;
-	public static final int Annotation_ord = 17;
-	public static final int SingleMemberAnnotation_ord = 18;
-	public static final int MarkerAnnotation_ord = 19;
-	public static final int NormalAnnotation_ord = 20;
-	public static final int MemberValuePairs_ord = 21;
-	public static final int MemberValuePair_ord = 22;
-	public static final int ImportDeclarations_ord = 23;
-	public static final int ImportDeclaration_ord = 24;
-	public static final int ImportModifier_ord = 25;
-	public static final int TypeDeclarations_ord = 26;
-	public static final int BodyDeclaration_ord = 27;
-	public static final int AnnotatedBodyDeclaration_ord = 28;
-	public static final int TypeDeclaration_ord = 29;
-	public static final int EnumDeclaration_ord = 30;
-	public static final int EnumConstants_ord = 31;
-	public static final int EnumConstantDeclaration_ord = 32;
-	public static final int Arguments_ord = 33;
-	public static final int AnonymousClassDeclaration_ord = 34;
-	public static final int AnnotationTypeDeclaration_ord = 35;
-	public static final int ClassDeclaration_ord = 36;
-	public static final int InterfaceDeclaration_ord = 37;
-	public static final int TypeParameters_ord = 38;
-	public static final int TypeParameter_ord = 39;
-	public static final int Types_ord = 40;
-	public static final int BodyDeclarations_ord = 41;
-	public static final int AnnotationTypeMemberDeclaration_ord = 42;
-	public static final int Initializer_ord = 43;
-	public static final int FieldDeclaration_ord = 44;
-	public static final int MethodDeclaration_ord = 45;
-	public static final int ConstructorDeclaration_ord = 46;
-	public static final int Parameters_ord = 47;
-	public static final int SingleVariableDeclaration_ord = 48;
-	public static final int Varargs_ord = 49;
-	public static final int ArrayType_ord = 50;
-	public static final int ParameterizedType_ord = 51;
-	public static final int PrimitiveType_ord = 52;
-	public static final int QualifiedType_ord = 53;
-	public static final int SimpleType_ord = 54;
-	public static final int WildcardType_ord = 55;
-	public static final int UpperBound_ord = 56;
-	public static final int AssertStatement_ord = 57;
-	public static final int Block_ord = 58;
-	public static final int BreakStatement_ord = 59;
-	public static final int ConstructorInvocation_ord = 60;
-	public static final int ContinueStatement_ord = 61;
-	public static final int DoStatement_ord = 62;
-	public static final int EmptyStatement_ord = 63;
-	public static final int EnhancedForStatement_ord = 64;
-	public static final int ExpressionStatement_ord = 65;
-	public static final int ForStatement_ord = 66;
-	public static final int Expressions_ord = 67;
-	public static final int IfStatement_ord = 68;
-	public static final int LabeledStatement_ord = 69;
-	public static final int ReturnStatement_ord = 70;
-	public static final int SuperConstructorInvocation_ord = 71;
-	public static final int SwitchCase_ord = 72;
-	public static final int SwitchDefault_ord = 73;
-	public static final int SwitchStatement_ord = 74;
-	public static final int Statements_ord = 75;
-	public static final int SynchronizedStatement_ord = 76;
-	public static final int ThrowStatement_ord = 77;
-	public static final int TryStatement_ord = 78;
-	public static final int CatchClauses_ord = 79;
-	public static final int CatchClause_ord = 80;
-	public static final int TypeDeclarationStatement_ord = 81;
-	public static final int VariableDeclarationStatement_ord = 82;
-	public static final int WhileStatement_ord = 83;
-	public static final int Names_ord = 84;
-	public static final int Name_ord = 85;
-	public static final int SimpleName_ord = 86;
-	public static final int QualifiedName_ord = 87;
-	public static final int NullLiteral_ord = 88;
-	public static final int BooleanLiteral_ord = 89;
-	public static final int ByteLiteral_ord = 90;
-	public static final int CharLiteral_ord = 91;
-	public static final int DoubleLiteral_ord = 92;
-	public static final int FloatLiteral_ord = 93;
-	public static final int IntLiteral_ord = 94;
-	public static final int ShortLiteral_ord = 95;
-	public static final int LongLiteral_ord = 96;
-	public static final int StringLiteral_ord = 97;
-	public static final int TypeLiteral_ord = 98;
-	public static final int ArrayAccess_ord = 99;
-	public static final int ArrayCreation_ord = 100;
-	public static final int ArrayInitializer_ord = 101;
-	public static final int Assignment_ord = 102;
-	public static final int AssignmentOperator_ord = 103;
-	public static final int CastExpression_ord = 104;
-	public static final int ClassInstanceCreation_ord = 105;
-	public static final int ConditionalExpression_ord = 106;
-	public static final int FieldAccess_ord = 107;
-	public static final int InfixExpression_ord = 108;
-	public static final int InfixOperator_ord = 109;
-	public static final int InstanceofExpression_ord = 110;
-	public static final int MethodInvocation_ord = 111;
-	public static final int ParenthesizedExpression_ord = 112;
-	public static final int PostfixExpression_ord = 113;
-	public static final int PostfixOperator_ord = 114;
-	public static final int PrefixExpression_ord = 115;
-	public static final int PrefixOperator_ord = 116;
-	public static final int SuperFieldAccess_ord = 117;
-	public static final int SuperMethodInvocation_ord = 118;
-	public static final int ThisExpression_ord = 119;
-	public static final int VariableDeclarationExpression_ord = 120;
-	public static final int VariableDeclarationFragments_ord = 121;
-	public static final int VariableDeclarationFragment_ord = 122;
-	public static final int ExtraDimensions_ord = 123;
-	public static final int ExtendedModifiers_ord = 124;
-	public static final int Modifier_ord = 125;
-	public static final int DocElement_ord = 126;
-	public static final int VariableDeclaration_ord = 127;
-	public static final int Type_ord = 128;
-	public static final int Statement_ord = 129;
-	public static final int Expression_ord = 130;
-	public static final int ExtendedModifier_ord = 131;
+	public static final int Statement_ord = 3;
+	public static final int Expression_ord = 4;
+	public static final int Comment_ord = 5;
+	public static final int BlockComment_ord = 6;
+	public static final int LineComment_ord = 7;
+	public static final int Javadoc_ord = 8;
+	public static final int Tags_ord = 9;
+	public static final int DocElements_ord = 10;
+	public static final int MethodRef_ord = 11;
+	public static final int MethodRefParameters_ord = 12;
+	public static final int MethodRefParameter_ord = 13;
+	public static final int MemberRef_ord = 14;
+	public static final int TextElement_ord = 15;
+	public static final int TagElement_ord = 16;
+	public static final int TagName_ord = 17;
+	public static final int Annotations_ord = 18;
+	public static final int Annotation_ord = 19;
+	public static final int SingleMemberAnnotation_ord = 20;
+	public static final int MarkerAnnotation_ord = 21;
+	public static final int NormalAnnotation_ord = 22;
+	public static final int MemberValuePairs_ord = 23;
+	public static final int MemberValuePair_ord = 24;
+	public static final int ImportDeclarations_ord = 25;
+	public static final int ImportDeclaration_ord = 26;
+	public static final int ImportModifier_ord = 27;
+	public static final int TypeDeclarations_ord = 28;
+	public static final int BodyDeclaration_ord = 29;
+	public static final int AnnotatedBodyDeclaration_ord = 30;
+	public static final int TypeDeclaration_ord = 31;
+	public static final int EnumDeclaration_ord = 32;
+	public static final int EnumConstants_ord = 33;
+	public static final int EnumConstantDeclaration_ord = 34;
+	public static final int Arguments_ord = 35;
+	public static final int AnonymousClassDeclaration_ord = 36;
+	public static final int AnnotationTypeDeclaration_ord = 37;
+	public static final int ClassDeclaration_ord = 38;
+	public static final int InterfaceDeclaration_ord = 39;
+	public static final int TypeParameters_ord = 40;
+	public static final int TypeParameter_ord = 41;
+	public static final int Types_ord = 42;
+	public static final int BodyDeclarations_ord = 43;
+	public static final int AnnotationTypeMemberDeclaration_ord = 44;
+	public static final int Initializer_ord = 45;
+	public static final int FieldDeclaration_ord = 46;
+	public static final int MethodDeclaration_ord = 47;
+	public static final int ConstructorDeclaration_ord = 48;
+	public static final int Parameters_ord = 49;
+	public static final int SingleVariableDeclaration_ord = 50;
+	public static final int Varargs_ord = 51;
+	public static final int AnnotatedType_ord = 52;
+	public static final int ArrayType_ord = 53;
+	public static final int ParameterizedType_ord = 54;
+	public static final int PrimitiveType_ord = 55;
+	public static final int QualifiedType_ord = 56;
+	public static final int SimpleType_ord = 57;
+	public static final int WildcardType_ord = 58;
+	public static final int UnionType_ord = 59;
+	public static final int IntersectionType_ord = 60;
+	public static final int UpperBound_ord = 61;
+	public static final int AssertStatement_ord = 62;
+	public static final int Block_ord = 63;
+	public static final int BreakStatement_ord = 64;
+	public static final int ConstructorInvocation_ord = 65;
+	public static final int ContinueStatement_ord = 66;
+	public static final int DoStatement_ord = 67;
+	public static final int EmptyStatement_ord = 68;
+	public static final int EnhancedForStatement_ord = 69;
+	public static final int ExpressionStatement_ord = 70;
+	public static final int ForStatement_ord = 71;
+	public static final int Expressions_ord = 72;
+	public static final int IfStatement_ord = 73;
+	public static final int LabeledStatement_ord = 74;
+	public static final int ReturnStatement_ord = 75;
+	public static final int SuperConstructorInvocation_ord = 76;
+	public static final int SwitchCase_ord = 77;
+	public static final int SwitchDefault_ord = 78;
+	public static final int SwitchStatement_ord = 79;
+	public static final int Statements_ord = 80;
+	public static final int SynchronizedStatement_ord = 81;
+	public static final int ThrowStatement_ord = 82;
+	public static final int TryStatement_ord = 83;
+	public static final int CatchClauses_ord = 84;
+	public static final int CatchClause_ord = 85;
+	public static final int TypeDeclarationStatement_ord = 86;
+	public static final int VariableDeclarationStatement_ord = 87;
+	public static final int WhileStatement_ord = 88;
+	public static final int Names_ord = 89;
+	public static final int Name_ord = 90;
+	public static final int SimpleName_ord = 91;
+	public static final int QualifiedName_ord = 92;
+	public static final int NullLiteral_ord = 93;
+	public static final int BooleanLiteral_ord = 94;
+	public static final int ByteLiteral_ord = 95;
+	public static final int CharLiteral_ord = 96;
+	public static final int DoubleLiteral_ord = 97;
+	public static final int FloatLiteral_ord = 98;
+	public static final int IntLiteral_ord = 99;
+	public static final int ShortLiteral_ord = 100;
+	public static final int LongLiteral_ord = 101;
+	public static final int StringLiteral_ord = 102;
+	public static final int TypeLiteral_ord = 103;
+	public static final int ArrayAccess_ord = 104;
+	public static final int ArrayCreation_ord = 105;
+	public static final int ArrayInitializer_ord = 106;
+	public static final int Assignment_ord = 107;
+	public static final int AssignmentOperator_ord = 108;
+	public static final int CastExpression_ord = 109;
+	public static final int ClassInstanceCreation_ord = 110;
+	public static final int ConditionalExpression_ord = 111;
+	public static final int FieldAccess_ord = 112;
+	public static final int InfixExpression_ord = 113;
+	public static final int InfixOperator_ord = 114;
+	public static final int InstanceofExpression_ord = 115;
+	public static final int LambdaExpression_ord = 116;
+	public static final int MethodInvocation_ord = 117;
+	public static final int ParenthesizedExpression_ord = 118;
+	public static final int PostfixExpression_ord = 119;
+	public static final int PostfixOperator_ord = 120;
+	public static final int PrefixExpression_ord = 121;
+	public static final int PrefixOperator_ord = 122;
+	public static final int SuperFieldAccess_ord = 123;
+	public static final int SuperMethodInvocation_ord = 124;
+	public static final int ThisExpression_ord = 125;
+	public static final int VariableDeclarationExpression_ord = 126;
+	public static final int VariableDeclarationFragments_ord = 127;
+	public static final int VariableDeclarationFragment_ord = 128;
+	public static final int ExtraDimensions_ord = 129;
+	public static final int ExtendedModifiers_ord = 130;
+	public static final int Modifier_ord = 131;
+	public static final int MethodReference_ord = 132;
+	public static final int ConstructorReference_ord = 133;
+	public static final int ExpressionMethodReference_ord = 134;
+	public static final int SuperMethodReference_ord = 135;
+	public static final int TypeMethodReference_ord = 136;
+	public static final int LambdaParameters_ord = 137;
+	public static final int DocElement_ord = 138;
+	public static final int ExpressionOrStatement_ord = 139;
+	public static final int ExtendedModifier_ord = 140;
+	public static final int VariableDeclaration_ord = 141;
+	public static final int Type_ord = 142;
 	public static final JavaEntityDescriptorEnum instance = new JavaEntityDescriptorEnum();
 	public static final EntityDescriptor<JavaSystemSoftware> JavaSystemSoftware = (EntityDescriptor<JavaSystemSoftware>) instance
 			.valueOf(JavaSystemSoftware_ord);
@@ -148,6 +159,10 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(CompilationUnit_ord);
 	public static final EntityDescriptor<PackageDeclaration> PackageDeclaration = (EntityDescriptor<PackageDeclaration>) instance
 			.valueOf(PackageDeclaration_ord);
+	public static final EntityDescriptor<Statement> Statement = (EntityDescriptor<Statement>) instance
+			.valueOf(Statement_ord);
+	public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance
+			.valueOf(Expression_ord);
 	public static final EntityDescriptor<Comment> Comment = (EntityDescriptor<Comment>) instance
 			.valueOf(Comment_ord);
 	public static final EntityDescriptor<BlockComment> BlockComment = (EntityDescriptor<BlockComment>) instance
@@ -242,6 +257,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(SingleVariableDeclaration_ord);
 	public static final EntityDescriptor<Varargs> Varargs = (EntityDescriptor<Varargs>) instance
 			.valueOf(Varargs_ord);
+	public static final EntityDescriptor<AnnotatedType> AnnotatedType = (EntityDescriptor<AnnotatedType>) instance
+			.valueOf(AnnotatedType_ord);
 	public static final EntityDescriptor<ArrayType> ArrayType = (EntityDescriptor<ArrayType>) instance
 			.valueOf(ArrayType_ord);
 	public static final EntityDescriptor<ParameterizedType> ParameterizedType = (EntityDescriptor<ParameterizedType>) instance
@@ -254,6 +271,10 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(SimpleType_ord);
 	public static final EntityDescriptor<WildcardType> WildcardType = (EntityDescriptor<WildcardType>) instance
 			.valueOf(WildcardType_ord);
+	public static final EntityDescriptor<UnionType> UnionType = (EntityDescriptor<UnionType>) instance
+			.valueOf(UnionType_ord);
+	public static final EntityDescriptor<IntersectionType> IntersectionType = (EntityDescriptor<IntersectionType>) instance
+			.valueOf(IntersectionType_ord);
 	public static final EntityDescriptor<UpperBound> UpperBound = (EntityDescriptor<UpperBound>) instance
 			.valueOf(UpperBound_ord);
 	public static final EntityDescriptor<AssertStatement> AssertStatement = (EntityDescriptor<AssertStatement>) instance
@@ -364,6 +385,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(InfixOperator_ord);
 	public static final EntityDescriptor<InstanceofExpression> InstanceofExpression = (EntityDescriptor<InstanceofExpression>) instance
 			.valueOf(InstanceofExpression_ord);
+	public static final EntityDescriptor<LambdaExpression> LambdaExpression = (EntityDescriptor<LambdaExpression>) instance
+			.valueOf(LambdaExpression_ord);
 	public static final EntityDescriptor<MethodInvocation> MethodInvocation = (EntityDescriptor<MethodInvocation>) instance
 			.valueOf(MethodInvocation_ord);
 	public static final EntityDescriptor<ParenthesizedExpression> ParenthesizedExpression = (EntityDescriptor<ParenthesizedExpression>) instance
@@ -394,18 +417,28 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 			.valueOf(ExtendedModifiers_ord);
 	public static final EntityDescriptor<Modifier> Modifier = (EntityDescriptor<Modifier>) instance
 			.valueOf(Modifier_ord);
+	public static final EntityDescriptor<MethodReference> MethodReference = (EntityDescriptor<MethodReference>) instance
+			.valueOf(MethodReference_ord);
+	public static final EntityDescriptor<ConstructorReference> ConstructorReference = (EntityDescriptor<ConstructorReference>) instance
+			.valueOf(ConstructorReference_ord);
+	public static final EntityDescriptor<ExpressionMethodReference> ExpressionMethodReference = (EntityDescriptor<ExpressionMethodReference>) instance
+			.valueOf(ExpressionMethodReference_ord);
+	public static final EntityDescriptor<SuperMethodReference> SuperMethodReference = (EntityDescriptor<SuperMethodReference>) instance
+			.valueOf(SuperMethodReference_ord);
+	public static final EntityDescriptor<TypeMethodReference> TypeMethodReference = (EntityDescriptor<TypeMethodReference>) instance
+			.valueOf(TypeMethodReference_ord);
+	public static final EntityDescriptor<LambdaParameters> LambdaParameters = (EntityDescriptor<LambdaParameters>) instance
+			.valueOf(LambdaParameters_ord);
 	public static final EntityDescriptor<DocElement> DocElement = (EntityDescriptor<DocElement>) instance
 			.valueOf(DocElement_ord);
+	public static final EntityDescriptor<ExpressionOrStatement> ExpressionOrStatement = (EntityDescriptor<ExpressionOrStatement>) instance
+			.valueOf(ExpressionOrStatement_ord);
+	public static final EntityDescriptor<ExtendedModifier> ExtendedModifier = (EntityDescriptor<ExtendedModifier>) instance
+			.valueOf(ExtendedModifier_ord);
 	public static final EntityDescriptor<VariableDeclaration> VariableDeclaration = (EntityDescriptor<VariableDeclaration>) instance
 			.valueOf(VariableDeclaration_ord);
 	public static final EntityDescriptor<Type> Type = (EntityDescriptor<Type>) instance
 			.valueOf(Type_ord);
-	public static final EntityDescriptor<Statement> Statement = (EntityDescriptor<Statement>) instance
-			.valueOf(Statement_ord);
-	public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance
-			.valueOf(Expression_ord);
-	public static final EntityDescriptor<ExtendedModifier> ExtendedModifier = (EntityDescriptor<ExtendedModifier>) instance
-			.valueOf(ExtendedModifier_ord);
 
 	private JavaEntityDescriptorEnum() {
 	}
@@ -433,8 +466,37 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(JavaFeatureDescriptorEnum.annotations,
 						Annotations_ord, true, false, false, false, false)
 				.withFeature(JavaFeatureDescriptorEnum.name, Name_ord);
+		putSimpleEntity(Statement_ord, "Statement", Statement.class, true,
+				DoStatement_ord, EmptyStatement_ord, Javadoc_ord,
+				LineComment_ord, WhileStatement_ord, SynchronizedStatement_ord,
+				IfStatement_ord, SwitchStatement_ord,
+				ConstructorInvocation_ord, TryStatement_ord,
+				ReturnStatement_ord, VariableDeclarationStatement_ord,
+				EnhancedForStatement_ord, ThrowStatement_ord, ForStatement_ord,
+				ContinueStatement_ord, Comment_ord, BlockComment_ord,
+				SwitchDefault_ord, BreakStatement_ord, SwitchCase_ord,
+				LabeledStatement_ord, TypeDeclarationStatement_ord,
+				ExpressionStatement_ord, AssertStatement_ord, Block_ord,
+				SuperConstructorInvocation_ord);
+		putSimpleEntity(Expression_ord, "Expression", Expression.class, true,
+				ShortLiteral_ord, BooleanLiteral_ord, SimpleName_ord,
+				MethodInvocation_ord, SuperMethodInvocation_ord, Name_ord,
+				Assignment_ord, ThisExpression_ord, ArrayAccess_ord,
+				TypeLiteral_ord, InstanceofExpression_ord, InfixExpression_ord,
+				NormalAnnotation_ord, IntLiteral_ord, TypeMethodReference_ord,
+				SuperMethodReference_ord, ClassInstanceCreation_ord,
+				ParenthesizedExpression_ord, ExpressionMethodReference_ord,
+				CharLiteral_ord, LongLiteral_ord, FloatLiteral_ord,
+				SingleMemberAnnotation_ord, ConditionalExpression_ord,
+				VariableDeclarationExpression_ord, QualifiedName_ord,
+				SuperFieldAccess_ord, ConstructorReference_ord, Annotation_ord,
+				MarkerAnnotation_ord, StringLiteral_ord, PrefixExpression_ord,
+				ArrayCreation_ord, ByteLiteral_ord, PostfixExpression_ord,
+				MethodReference_ord, DoubleLiteral_ord, CastExpression_ord,
+				FieldAccess_ord, NullLiteral_ord, LambdaExpression_ord,
+				ArrayInitializer_ord);
 		putSimpleEntity(Comment_ord, "Comment", Comment.class, true,
-				BlockComment_ord, LineComment_ord, Javadoc_ord);
+				BlockComment_ord, Javadoc_ord, LineComment_ord);
 		putSimpleEntity(BlockComment_ord, "BlockComment", BlockComment.class,
 				false).withFeature(JavaFeatureDescriptorEnum.docElements,
 				DocElements_ord);
@@ -479,8 +541,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 		putCompositeEntity(Annotations_ord, "Annotations", Annotations.class,
 				false, Annotation_ord, true, false);
 		putSimpleEntity(Annotation_ord, "Annotation", Annotation.class, true,
-				MarkerAnnotation_ord, SingleMemberAnnotation_ord,
-				NormalAnnotation_ord).withFeature(
+				NormalAnnotation_ord, SingleMemberAnnotation_ord,
+				MarkerAnnotation_ord).withFeature(
 				JavaFeatureDescriptorEnum.typeName, Name_ord);
 		putSimpleEntity(SingleMemberAnnotation_ord, "SingleMemberAnnotation",
 				SingleMemberAnnotation.class, false).withFeature(
@@ -514,29 +576,28 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 		putCompositeEntity(TypeDeclarations_ord, "TypeDeclarations",
 				TypeDeclarations.class, false, TypeDeclaration_ord, true, false);
 		putSimpleEntity(BodyDeclaration_ord, "BodyDeclaration",
-				BodyDeclaration.class, true, BlockComment_ord,
-				FieldDeclaration_ord, Comment_ord, TypeDeclaration_ord,
-				AnnotationTypeMemberDeclaration_ord,
-				ConstructorDeclaration_ord, InterfaceDeclaration_ord,
-				AnnotationTypeDeclaration_ord, EnumDeclaration_ord,
-				LineComment_ord, Javadoc_ord, AnnotatedBodyDeclaration_ord,
-				Initializer_ord, ClassDeclaration_ord, MethodDeclaration_ord,
-				EnumConstantDeclaration_ord);
+				BodyDeclaration.class, true, Comment_ord, BlockComment_ord,
+				MethodDeclaration_ord, Javadoc_ord,
+				AnnotationTypeDeclaration_ord, InterfaceDeclaration_ord,
+				LineComment_ord, FieldDeclaration_ord, EnumDeclaration_ord,
+				EnumConstantDeclaration_ord, ClassDeclaration_ord,
+				AnnotationTypeMemberDeclaration_ord, Initializer_ord,
+				ConstructorDeclaration_ord, TypeDeclaration_ord,
+				AnnotatedBodyDeclaration_ord);
 		putSimpleEntity(AnnotatedBodyDeclaration_ord,
 				"AnnotatedBodyDeclaration", AnnotatedBodyDeclaration.class,
-				true, FieldDeclaration_ord, TypeDeclaration_ord,
-				Initializer_ord, ClassDeclaration_ord,
-				AnnotationTypeMemberDeclaration_ord,
-				ConstructorDeclaration_ord, MethodDeclaration_ord,
-				InterfaceDeclaration_ord, EnumConstantDeclaration_ord,
-				EnumDeclaration_ord, AnnotationTypeDeclaration_ord)
+				true, EnumConstantDeclaration_ord, ClassDeclaration_ord,
+				AnnotationTypeMemberDeclaration_ord, Initializer_ord,
+				MethodDeclaration_ord, ConstructorDeclaration_ord,
+				AnnotationTypeDeclaration_ord, InterfaceDeclaration_ord,
+				TypeDeclaration_ord, FieldDeclaration_ord, EnumDeclaration_ord)
 				.withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord,
 						true, false, false, false, false)
 				.withFeature(JavaFeatureDescriptorEnum.modifiers,
 						ExtendedModifiers_ord, true, false, false, false, false);
 		putSimpleEntity(TypeDeclaration_ord, "TypeDeclaration",
-				TypeDeclaration.class, true, ClassDeclaration_ord,
-				InterfaceDeclaration_ord, AnnotationTypeDeclaration_ord,
+				TypeDeclaration.class, true, AnnotationTypeDeclaration_ord,
+				InterfaceDeclaration_ord, ClassDeclaration_ord,
 				EnumDeclaration_ord)
 				.withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord,
 						true, false, false, false, false)
@@ -568,7 +629,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(JavaFeatureDescriptorEnum.modifiers,
 						ExtendedModifiers_ord, true, false, false, false, false)
 				.withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord)
-				.withFeature(JavaFeatureDescriptorEnum.arguments, Arguments_ord)
+				.withFeature(JavaFeatureDescriptorEnum.arguments,
+						Arguments_ord, true, false, false, false, false)
 				.withFeature(
 						JavaFeatureDescriptorEnum.anonymousClassDeclaration,
 						AnonymousClassDeclaration_ord, true, false, false,
@@ -619,10 +681,12 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 		putCompositeEntity(TypeParameters_ord, "TypeParameters",
 				TypeParameters.class, false, TypeParameter_ord, true, false);
 		putSimpleEntity(TypeParameter_ord, "TypeParameter",
-				TypeParameter.class, false).withFeature(
-				JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(
-				JavaFeatureDescriptorEnum.typeBounds, Types_ord, true, false,
-				false, false, false);
+				TypeParameter.class, false)
+				.withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord)
+				.withFeature(JavaFeatureDescriptorEnum.typeBounds, Types_ord,
+						true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.annotations,
+						Annotations_ord, true, false, false, false, false);
 		putCompositeEntity(Types_ord, "Types", Types.class, false, Type_ord,
 				true, false);
 		putCompositeEntity(BodyDeclarations_ord, "BodyDeclarations",
@@ -703,9 +767,16 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(JavaFeatureDescriptorEnum.extraDimensions,
 						ExtraDimensions_ord, true, false, false, false, false)
 				.withFeature(JavaFeatureDescriptorEnum.initializer,
-						Expression_ord, true, false, false, false, false);
+						Expression_ord, true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.varargsAnnotations,
+						Annotations_ord, true, false, false, false, false);
 		putDataEntity(Varargs_ord, "Varargs", Varargs.class, false,
 				boolean.class);
+		putSimpleEntity(AnnotatedType_ord, "AnnotatedType",
+				AnnotatedType.class, false).withFeature(
+				JavaFeatureDescriptorEnum.annotations, Annotations_ord, true,
+				false, false, false, false).withFeature(
+				JavaFeatureDescriptorEnum.type, Type_ord);
 		putSimpleEntity(ArrayType_ord, "ArrayType", ArrayType.class, false)
 				.withFeature(JavaFeatureDescriptorEnum.componentType, Type_ord);
 		putSimpleEntity(ParameterizedType_ord, "ParameterizedType",
@@ -723,6 +794,10 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				false).withFeature(JavaFeatureDescriptorEnum.bound, Type_ord,
 				true, false, false, false, false).withFeature(
 				JavaFeatureDescriptorEnum.upperBound, UpperBound_ord);
+		putCompositeEntity(UnionType_ord, "UnionType", UnionType.class, false,
+				Type_ord, true, false);
+		putCompositeEntity(IntersectionType_ord, "IntersectionType",
+				IntersectionType.class, false, Type_ord, true, false);
 		putDataEntity(UpperBound_ord, "UpperBound", UpperBound.class, false,
 				boolean.class);
 		putSimpleEntity(AssertStatement_ord, "AssertStatement",
@@ -848,8 +923,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(JavaFeatureDescriptorEnum.body, Statement_ord);
 		putCompositeEntity(Names_ord, "Names", Names.class, false, Name_ord,
 				true, false);
-		putSimpleEntity(Name_ord, "Name", Name.class, true, QualifiedName_ord,
-				SimpleName_ord);
+		putSimpleEntity(Name_ord, "Name", Name.class, true, SimpleName_ord,
+				QualifiedName_ord);
 		putDataEntity(SimpleName_ord, "SimpleName", SimpleName.class, false,
 				String.class);
 		putDataEntity(QualifiedName_ord, "QualifiedName", QualifiedName.class,
@@ -944,6 +1019,11 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				InstanceofExpression.class, false).withFeature(
 				JavaFeatureDescriptorEnum.leftOperand, Expression_ord)
 				.withFeature(JavaFeatureDescriptorEnum.rightOperand, Type_ord);
+		putSimpleEntity(LambdaExpression_ord, "LambdaExpression",
+				LambdaExpression.class, false).withFeature(
+				JavaFeatureDescriptorEnum.parameters, LambdaParameters_ord)
+				.withFeature(JavaFeatureDescriptorEnum.body,
+						ExpressionOrStatement_ord);
 		putSimpleEntity(MethodInvocation_ord, "MethodInvocation",
 				MethodInvocation.class, false)
 				.withFeature(JavaFeatureDescriptorEnum.expression,
@@ -1013,46 +1093,84 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
 				false);
 		putDataEntity(Modifier_ord, "Modifier", Modifier.class, false,
 				ModifierEnum.Value.class);
+		putSimpleEntity(MethodReference_ord, "MethodReference",
+				MethodReference.class, true, ExpressionMethodReference_ord,
+				TypeMethodReference_ord, ConstructorReference_ord,
+				SuperMethodReference_ord).withFeature(
+				JavaFeatureDescriptorEnum.typeArguments, Types_ord, true,
+				false, false, false, false);
+		putSimpleEntity(ConstructorReference_ord, "ConstructorReference",
+				ConstructorReference.class, false).withFeature(
+				JavaFeatureDescriptorEnum.type, Type_ord).withFeature(
+				JavaFeatureDescriptorEnum.typeArguments, Types_ord, true,
+				false, false, false, false);
+		putSimpleEntity(ExpressionMethodReference_ord,
+				"ExpressionMethodReference", ExpressionMethodReference.class,
+				false)
+				.withFeature(JavaFeatureDescriptorEnum.expression,
+						Expression_ord)
+				.withFeature(JavaFeatureDescriptorEnum.typeArguments,
+						Types_ord, true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord);
+		putSimpleEntity(SuperMethodReference_ord, "SuperMethodReference",
+				SuperMethodReference.class, false)
+				.withFeature(JavaFeatureDescriptorEnum.qualifier, Name_ord,
+						true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.typeArguments,
+						Types_ord, true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord);
+		putSimpleEntity(TypeMethodReference_ord, "TypeMethodReference",
+				TypeMethodReference.class, false)
+				.withFeature(JavaFeatureDescriptorEnum.type, Type_ord)
+				.withFeature(JavaFeatureDescriptorEnum.typeArguments,
+						Types_ord, true, false, false, false, false)
+				.withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord);
+		putSimpleEntity(LambdaParameters_ord, "LambdaParameters",
+				LambdaParameters.class, true, VariableDeclarationFragment_ord,
+				Parameters_ord, VariableDeclarationFragments_ord);
 		putSimpleEntity(DocElement_ord, "DocElement", DocElement.class, true,
-				Name_ord, TextElement_ord, QualifiedName_ord, SimpleName_ord,
-				MethodRef_ord, TagElement_ord, MemberRef_ord);
-		putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration",
-				VariableDeclaration.class, true,
-				VariableDeclarationFragment_ord, SingleVariableDeclaration_ord);
-		putSimpleEntity(Type_ord, "Type", Type.class, true, QualifiedType_ord,
-				SimpleType_ord, ArrayType_ord, PrimitiveType_ord,
-				WildcardType_ord, ParameterizedType_ord);
-		putSimpleEntity(Statement_ord, "Statement", Statement.class, true,
-				ExpressionStatement_ord, DoStatement_ord, SwitchCase_ord,
-				WhileStatement_ord, ConstructorInvocation_ord, LineComment_ord,
-				SwitchDefault_ord, Javadoc_ord, LabeledStatement_ord,
-				SwitchStatement_ord, ForStatement_ord, ThrowStatement_ord,
-				SynchronizedStatement_ord, Block_ord,
-				SuperConstructorInvocation_ord, BlockComment_ord,
-				ContinueStatement_ord, TypeDeclarationStatement_ord,
-				EnhancedForStatement_ord, BreakStatement_ord, Comment_ord,
-				EmptyStatement_ord, ReturnStatement_ord, IfStatement_ord,
-				VariableDeclarationStatement_ord, TryStatement_ord,
-				AssertStatement_ord);
-		putSimpleEntity(Expression_ord, "Expression", Expression.class, true,
-				SingleMemberAnnotation_ord, ArrayCreation_ord, NullLiteral_ord,
-				MethodInvocation_ord, InstanceofExpression_ord,
-				FloatLiteral_ord, Assignment_ord, SuperFieldAccess_ord,
-				IntLiteral_ord, NormalAnnotation_ord,
-				ConditionalExpression_ord, CastExpression_ord,
-				PrefixExpression_ord, FieldAccess_ord, QualifiedName_ord,
-				SuperMethodInvocation_ord, ArrayAccess_ord,
-				MarkerAnnotation_ord, ClassInstanceCreation_ord,
-				StringLiteral_ord, VariableDeclarationExpression_ord,
-				InfixExpression_ord, SimpleName_ord,
-				ParenthesizedExpression_ord, CharLiteral_ord, TypeLiteral_ord,
-				Name_ord, ByteLiteral_ord, ArrayInitializer_ord,
-				Annotation_ord, DoubleLiteral_ord, PostfixExpression_ord,
-				BooleanLiteral_ord, ThisExpression_ord, ShortLiteral_ord,
-				LongLiteral_ord);
+				MethodRef_ord, TextElement_ord, SimpleName_ord,
+				QualifiedName_ord, TagElement_ord, MemberRef_ord, Name_ord);
+		putSimpleEntity(ExpressionOrStatement_ord, "ExpressionOrStatement",
+				ExpressionOrStatement.class, true, SimpleName_ord,
+				EmptyStatement_ord, Javadoc_ord, MethodInvocation_ord,
+				LineComment_ord, SuperMethodInvocation_ord,
+				SynchronizedStatement_ord, Name_ord, Assignment_ord,
+				ThisExpression_ord, IfStatement_ord, ArrayAccess_ord,
+				SwitchStatement_ord, ConstructorInvocation_ord,
+				TryStatement_ord, InfixExpression_ord, ReturnStatement_ord,
+				VariableDeclarationStatement_ord, NormalAnnotation_ord,
+				IntLiteral_ord, EnhancedForStatement_ord, BlockComment_ord,
+				CharLiteral_ord, LongLiteral_ord, FloatLiteral_ord,
+				SingleMemberAnnotation_ord, ConditionalExpression_ord,
+				QualifiedName_ord, SuperFieldAccess_ord,
+				ConstructorReference_ord, SwitchDefault_ord, SwitchCase_ord,
+				LabeledStatement_ord, MarkerAnnotation_ord, StringLiteral_ord,
+				TypeDeclarationStatement_ord, PrefixExpression_ord,
+				AssertStatement_ord, Block_ord, PostfixExpression_ord,
+				DoubleLiteral_ord, CastExpression_ord, NullLiteral_ord,
+				LambdaExpression_ord, ShortLiteral_ord, DoStatement_ord,
+				BooleanLiteral_ord, WhileStatement_ord, TypeLiteral_ord,
+				InstanceofExpression_ord, TypeMethodReference_ord,
+				ThrowStatement_ord, SuperMethodReference_ord, ForStatement_ord,
+				ContinueStatement_ord, ClassInstanceCreation_ord,
+				ParenthesizedExpression_ord, Comment_ord,
+				ExpressionMethodReference_ord, Statement_ord,
+				VariableDeclarationExpression_ord, Annotation_ord,
+				BreakStatement_ord, Expression_ord, ExpressionStatement_ord,
+				ArrayCreation_ord, ByteLiteral_ord, MethodReference_ord,
+				SuperConstructorInvocation_ord, FieldAccess_ord,
+				ArrayInitializer_ord);
 		putSimpleEntity(ExtendedModifier_ord, "ExtendedModifier",
-				ExtendedModifier.class, true, SingleMemberAnnotation_ord,
-				Modifier_ord, NormalAnnotation_ord, MarkerAnnotation_ord,
+				ExtendedModifier.class, true, NormalAnnotation_ord,
+				MarkerAnnotation_ord, Modifier_ord, SingleMemberAnnotation_ord,
 				Annotation_ord);
+		putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration",
+				VariableDeclaration.class, true, SingleVariableDeclaration_ord,
+				VariableDeclarationFragment_ord);
+		putSimpleEntity(Type_ord, "Type", Type.class, true, ArrayType_ord,
+				ParameterizedType_ord, SimpleType_ord, UnionType_ord,
+				AnnotatedType_ord, WildcardType_ord, IntersectionType_ord,
+				QualifiedType_ord, PrimitiveType_ord);
 	}
 }

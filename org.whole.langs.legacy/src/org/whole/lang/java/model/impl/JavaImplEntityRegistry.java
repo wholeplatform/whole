@@ -57,12 +57,15 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
 		put(new ParametersImpl());
 		put(new SingleVariableDeclarationImpl());
 		put(new VarargsImpl());
+		put(new AnnotatedTypeImpl());
 		put(new ArrayTypeImpl());
 		put(new ParameterizedTypeImpl());
 		put(new PrimitiveTypeImpl());
 		put(new QualifiedTypeImpl());
 		put(new SimpleTypeImpl());
 		put(new WildcardTypeImpl());
+		put(new UnionTypeImpl());
+		put(new IntersectionTypeImpl());
 		put(new UpperBoundImpl());
 		put(new AssertStatementImpl());
 		put(new BlockImpl());
@@ -117,6 +120,7 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
 		put(new InfixExpressionImpl());
 		put(new InfixOperatorImpl());
 		put(new InstanceofExpressionImpl());
+		put(new LambdaExpressionImpl());
 		put(new MethodInvocationImpl());
 		put(new ParenthesizedExpressionImpl());
 		put(new PostfixExpressionImpl());
@@ -132,5 +136,9 @@ public class JavaImplEntityRegistry extends AbstractEntityRegistry {
 		put(new ExtraDimensionsImpl());
 		put(new ExtendedModifiersImpl());
 		put(new ModifierImpl());
+		put(new ConstructorReferenceImpl());
+		put(new ExpressionMethodReferenceImpl());
+		put(new SuperMethodReferenceImpl());
+		put(new TypeMethodReferenceImpl());
 	}
 }

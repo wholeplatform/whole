@@ -95,6 +95,19 @@ public class SingleVariableDeclarationImpl extends AbstractSimpleEntity
 				this.initializer = initializer);
 	}
 
+	private Annotations varargsAnnotations;
+
+	public Annotations getVarargsAnnotations() {
+		return notifyRequested(JavaFeatureDescriptorEnum.varargsAnnotations,
+				varargsAnnotations);
+	}
+
+	public void setVarargsAnnotations(Annotations varargsAnnotations) {
+		notifyChanged(JavaFeatureDescriptorEnum.varargsAnnotations,
+				this.varargsAnnotations,
+				this.varargsAnnotations = varargsAnnotations);
+	}
+
 	public IEntity wGet(int index) {
 		switch (index) {
 		case 0:
@@ -109,6 +122,8 @@ public class SingleVariableDeclarationImpl extends AbstractSimpleEntity
 			return getExtraDimensions().wGetAdaptee(false);
 		case 5:
 			return getInitializer().wGetAdaptee(false);
+		case 6:
+			return getVarargsAnnotations().wGetAdaptee(false);
 		default:
 			throw new IllegalArgumentException();
 		}
@@ -137,12 +152,16 @@ public class SingleVariableDeclarationImpl extends AbstractSimpleEntity
 			setInitializer(value
 					.wGetAdapter(JavaEntityDescriptorEnum.Expression));
 			break;
+		case 6:
+			setVarargsAnnotations(value
+					.wGetAdapter(JavaEntityDescriptorEnum.Annotations));
+			break;
 		default:
 			throw new IllegalArgumentException();
 		}
 	}
 
 	public int wSize() {
-		return 6;
+		return 7;
 	}
 }

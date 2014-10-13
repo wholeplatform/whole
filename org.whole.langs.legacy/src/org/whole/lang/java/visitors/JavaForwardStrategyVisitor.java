@@ -201,6 +201,10 @@ public class JavaForwardStrategyVisitor extends
 		wGetStrategy().visit(entity);
 	}
 
+	public void visit(AnnotatedType entity) {
+		wGetStrategy().visit(entity);
+	}
+
 	public void visit(ArrayType entity) {
 		wGetStrategy().visit(entity);
 	}
@@ -222,6 +226,14 @@ public class JavaForwardStrategyVisitor extends
 	}
 
 	public void visit(WildcardType entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(UnionType entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(IntersectionType entity) {
 		wGetStrategy().visit(entity);
 	}
 
@@ -441,6 +453,10 @@ public class JavaForwardStrategyVisitor extends
 		wGetStrategy().visit(entity);
 	}
 
+	public void visit(LambdaExpression entity) {
+		wGetStrategy().visit(entity);
+	}
+
 	public void visit(MethodInvocation entity) {
 		wGetStrategy().visit(entity);
 	}
@@ -498,6 +514,22 @@ public class JavaForwardStrategyVisitor extends
 	}
 
 	public void visit(Modifier entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(ConstructorReference entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(SuperMethodReference entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(TypeMethodReference entity) {
 		wGetStrategy().visit(entity);
 	}
 }

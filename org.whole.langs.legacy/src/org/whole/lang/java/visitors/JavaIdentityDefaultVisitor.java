@@ -21,7 +21,15 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 		visit((IJavaEntity) entity);
 	}
 
+	public void visit(ExpressionOrStatement entity) {
+	}
+
 	public void visit(Statement entity) {
+		visit((ExpressionOrStatement) entity);
+	}
+
+	public void visit(Expression entity) {
+		visit((ExpressionOrStatement) entity);
 	}
 
 	public void visit(Comment entity) {
@@ -100,9 +108,6 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 	public void visit(Annotation entity) {
 		visit((ExtendedModifier) entity);
 		visit((Expression) entity);
-	}
-
-	public void visit(Expression entity) {
 	}
 
 	public void visit(SingleMemberAnnotation entity) {
@@ -230,8 +235,12 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 		visit((AnnotatedBodyDeclaration) entity);
 	}
 
+	public void visit(LambdaParameters entity) {
+	}
+
 	public void visit(Parameters entity) {
 		visit((IJavaEntity) entity);
+		visit((LambdaParameters) entity);
 	}
 
 	public void visit(VariableDeclaration entity) {
@@ -247,6 +256,11 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(Type entity) {
+	}
+
+	public void visit(AnnotatedType entity) {
+		visit((IJavaEntity) entity);
+		visit((Type) entity);
 	}
 
 	public void visit(ArrayType entity) {
@@ -275,6 +289,16 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(WildcardType entity) {
+		visit((IJavaEntity) entity);
+		visit((Type) entity);
+	}
+
+	public void visit(UnionType entity) {
+		visit((IJavaEntity) entity);
+		visit((Type) entity);
+	}
+
+	public void visit(IntersectionType entity) {
 		visit((IJavaEntity) entity);
 		visit((Type) entity);
 	}
@@ -546,6 +570,11 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 		visit((Expression) entity);
 	}
 
+	public void visit(LambdaExpression entity) {
+		visit((IJavaEntity) entity);
+		visit((Expression) entity);
+	}
+
 	public void visit(MethodInvocation entity) {
 		visit((IJavaEntity) entity);
 		visit((Expression) entity);
@@ -596,11 +625,13 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 
 	public void visit(VariableDeclarationFragments entity) {
 		visit((IJavaEntity) entity);
+		visit((LambdaParameters) entity);
 	}
 
 	public void visit(VariableDeclarationFragment entity) {
 		visit((IJavaEntity) entity);
 		visit((VariableDeclaration) entity);
+		visit((LambdaParameters) entity);
 	}
 
 	public void visit(ExtraDimensions entity) {
@@ -614,5 +645,29 @@ public class JavaIdentityDefaultVisitor extends JavaIdentityVisitor {
 	public void visit(Modifier entity) {
 		visit((IJavaEntity) entity);
 		visit((ExtendedModifier) entity);
+	}
+
+	public void visit(MethodReference entity) {
+		visit((Expression) entity);
+	}
+
+	public void visit(ConstructorReference entity) {
+		visit((IJavaEntity) entity);
+		visit((MethodReference) entity);
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		visit((IJavaEntity) entity);
+		visit((MethodReference) entity);
+	}
+
+	public void visit(SuperMethodReference entity) {
+		visit((IJavaEntity) entity);
+		visit((MethodReference) entity);
+	}
+
+	public void visit(TypeMethodReference entity) {
+		visit((IJavaEntity) entity);
+		visit((MethodReference) entity);
 	}
 }

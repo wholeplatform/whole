@@ -142,6 +142,10 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 		wFeature(JavaFeatureDescriptorEnum.componentType);
 	}
 
+	public void varargsAnnotations() {
+		wFeature(JavaFeatureDescriptorEnum.varargsAnnotations);
+	}
+
 	public void initializer() {
 		wFeature(JavaFeatureDescriptorEnum.initializer);
 	}
@@ -870,6 +874,18 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 		wEntity(JavaEntityDescriptorEnum.Varargs, value);
 	}
 
+	public void AnnotatedType() {
+		wEntity(JavaEntityDescriptorEnum.AnnotatedType);
+	}
+
+	public void AnnotatedType_() {
+		wEntity_(JavaEntityDescriptorEnum.AnnotatedType);
+	}
+
+	public void _AnnotatedType() {
+		_wEntity(JavaEntityDescriptorEnum.AnnotatedType);
+	}
+
 	public void ArrayType() {
 		wEntity(JavaEntityDescriptorEnum.ArrayType);
 	}
@@ -932,6 +948,38 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 
 	public void _WildcardType() {
 		_wEntity(JavaEntityDescriptorEnum.WildcardType);
+	}
+
+	public void UnionType() {
+		wEntity(JavaEntityDescriptorEnum.UnionType);
+	}
+
+	public void UnionType_() {
+		wEntity_(JavaEntityDescriptorEnum.UnionType);
+	}
+
+	public void UnionType_(int initialCapacity) {
+		wEntity_(JavaEntityDescriptorEnum.UnionType, initialCapacity);
+	}
+
+	public void _UnionType() {
+		_wEntity(JavaEntityDescriptorEnum.UnionType);
+	}
+
+	public void IntersectionType() {
+		wEntity(JavaEntityDescriptorEnum.IntersectionType);
+	}
+
+	public void IntersectionType_() {
+		wEntity_(JavaEntityDescriptorEnum.IntersectionType);
+	}
+
+	public void IntersectionType_(int initialCapacity) {
+		wEntity_(JavaEntityDescriptorEnum.IntersectionType, initialCapacity);
+	}
+
+	public void _IntersectionType() {
+		_wEntity(JavaEntityDescriptorEnum.IntersectionType);
 	}
 
 	public void UpperBound() {
@@ -1558,6 +1606,18 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 		_wEntity(JavaEntityDescriptorEnum.InstanceofExpression);
 	}
 
+	public void LambdaExpression() {
+		wEntity(JavaEntityDescriptorEnum.LambdaExpression);
+	}
+
+	public void LambdaExpression_() {
+		wEntity_(JavaEntityDescriptorEnum.LambdaExpression);
+	}
+
+	public void _LambdaExpression() {
+		_wEntity(JavaEntityDescriptorEnum.LambdaExpression);
+	}
+
 	public void MethodInvocation() {
 		wEntity(JavaEntityDescriptorEnum.MethodInvocation);
 	}
@@ -1741,5 +1801,53 @@ public class JavaSpecificBuilderAdapter extends GenericBuilderContext implements
 
 	public void Modifier(String value) {
 		wEntity(JavaEntityDescriptorEnum.Modifier, value);
+	}
+
+	public void ConstructorReference() {
+		wEntity(JavaEntityDescriptorEnum.ConstructorReference);
+	}
+
+	public void ConstructorReference_() {
+		wEntity_(JavaEntityDescriptorEnum.ConstructorReference);
+	}
+
+	public void _ConstructorReference() {
+		_wEntity(JavaEntityDescriptorEnum.ConstructorReference);
+	}
+
+	public void ExpressionMethodReference() {
+		wEntity(JavaEntityDescriptorEnum.ExpressionMethodReference);
+	}
+
+	public void ExpressionMethodReference_() {
+		wEntity_(JavaEntityDescriptorEnum.ExpressionMethodReference);
+	}
+
+	public void _ExpressionMethodReference() {
+		_wEntity(JavaEntityDescriptorEnum.ExpressionMethodReference);
+	}
+
+	public void SuperMethodReference() {
+		wEntity(JavaEntityDescriptorEnum.SuperMethodReference);
+	}
+
+	public void SuperMethodReference_() {
+		wEntity_(JavaEntityDescriptorEnum.SuperMethodReference);
+	}
+
+	public void _SuperMethodReference() {
+		_wEntity(JavaEntityDescriptorEnum.SuperMethodReference);
+	}
+
+	public void TypeMethodReference() {
+		wEntity(JavaEntityDescriptorEnum.TypeMethodReference);
+	}
+
+	public void TypeMethodReference_() {
+		wEntity_(JavaEntityDescriptorEnum.TypeMethodReference);
+	}
+
+	public void _TypeMethodReference() {
+		_wEntity(JavaEntityDescriptorEnum.TypeMethodReference);
 	}
 }

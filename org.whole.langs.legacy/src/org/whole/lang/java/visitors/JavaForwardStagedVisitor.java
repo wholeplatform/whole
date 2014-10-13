@@ -186,6 +186,10 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
 		stagedVisit(entity);
 	}
 
+	public void visit(AnnotatedType entity) {
+		stagedVisit(entity);
+	}
+
 	public void visit(ArrayType entity) {
 		stagedVisit(entity);
 	}
@@ -207,6 +211,14 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(WildcardType entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(UnionType entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(IntersectionType entity) {
 		stagedVisit(entity);
 	}
 
@@ -426,6 +438,10 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
 		stagedVisit(entity);
 	}
 
+	public void visit(LambdaExpression entity) {
+		stagedVisit(entity);
+	}
+
 	public void visit(MethodInvocation entity) {
 		stagedVisit(entity);
 	}
@@ -483,6 +499,22 @@ public class JavaForwardStagedVisitor extends JavaIdentityVisitor {
 	}
 
 	public void visit(Modifier entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(ConstructorReference entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(ExpressionMethodReference entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(SuperMethodReference entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(TypeMethodReference entity) {
 		stagedVisit(entity);
 	}
 }

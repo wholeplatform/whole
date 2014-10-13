@@ -84,4 +84,13 @@ public class SingleVariableDeclarationAdapter extends AbstractEntityAdapter
 	public void setInitializer(Expression initializer) {
 		wSet(JavaFeatureDescriptorEnum.initializer, initializer);
 	}
+
+	public Annotations getVarargsAnnotations() {
+		return wGet(JavaFeatureDescriptorEnum.varargsAnnotations).wGetAdapter(
+				JavaEntityDescriptorEnum.Annotations);
+	}
+
+	public void setVarargsAnnotations(Annotations varargsAnnotations) {
+		wSet(JavaFeatureDescriptorEnum.varargsAnnotations, varargsAnnotations);
+	}
 }

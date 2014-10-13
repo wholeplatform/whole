@@ -72,6 +72,8 @@ public interface IJavaBuilder extends IBuilder {
 
 	public void componentType();
 
+	public void varargsAnnotations();
+
 	public void initializer();
 
 	public void thrownExceptions();
@@ -434,6 +436,12 @@ public interface IJavaBuilder extends IBuilder {
 
 	public void Varargs(boolean value);
 
+	public void AnnotatedType();
+
+	public void AnnotatedType_();
+
+	public void _AnnotatedType();
+
 	public void ArrayType();
 
 	public void ArrayType_();
@@ -465,6 +473,22 @@ public interface IJavaBuilder extends IBuilder {
 	public void WildcardType_();
 
 	public void _WildcardType();
+
+	public void UnionType();
+
+	public void UnionType_();
+
+	public void UnionType_(int initialCapacity);
+
+	public void _UnionType();
+
+	public void IntersectionType();
+
+	public void IntersectionType_();
+
+	public void IntersectionType_(int initialCapacity);
+
+	public void _IntersectionType();
 
 	public void UpperBound();
 
@@ -778,6 +802,12 @@ public interface IJavaBuilder extends IBuilder {
 
 	public void _InstanceofExpression();
 
+	public void LambdaExpression();
+
+	public void LambdaExpression_();
+
+	public void _LambdaExpression();
+
 	public void MethodInvocation();
 
 	public void MethodInvocation_();
@@ -869,4 +899,28 @@ public interface IJavaBuilder extends IBuilder {
 	public void Modifier(ModifierEnum.Value value);
 
 	public void Modifier(String value);
+
+	public void ConstructorReference();
+
+	public void ConstructorReference_();
+
+	public void _ConstructorReference();
+
+	public void ExpressionMethodReference();
+
+	public void ExpressionMethodReference_();
+
+	public void _ExpressionMethodReference();
+
+	public void SuperMethodReference();
+
+	public void SuperMethodReference_();
+
+	public void _SuperMethodReference();
+
+	public void TypeMethodReference();
+
+	public void TypeMethodReference_();
+
+	public void _TypeMethodReference();
 }
