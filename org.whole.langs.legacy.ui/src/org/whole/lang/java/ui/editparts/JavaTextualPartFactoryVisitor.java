@@ -22,6 +22,7 @@ import org.eclipse.gef.EditPart;
 import org.whole.lang.java.model.*;
 import org.whole.lang.java.visitors.JavaIdentityDefaultVisitor;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.AbstractTextualEntityPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.CompositeColumnPart;
@@ -34,6 +35,7 @@ import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.QuotedStringFigure;
+import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
 import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
 
 /** 
@@ -59,6 +61,31 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 
 	public void visit(JavaSystemSoftware entity) {
 		part = new CompositeColumnPart();
+	}
+
+	@Override
+	public void visit(LambdaExpression entity) {
+		part = new LambdaExpressionPart();
+	}
+
+	@Override
+	public void visit(ConstructorReference entity) {
+		part = new ConstructorReferencePart();
+	}
+
+	@Override
+	public void visit(ExpressionMethodReference entity) {
+		part = new ExpressionMethodReferencePart();
+	}
+
+	@Override
+	public void visit(SuperMethodReference entity) {
+		part = new SuperMethodReferencePart();
+	}
+
+	@Override
+	public void visit(TypeMethodReference entity) {
+		part = new TypeMethodReferencePart();
 	}
 
 	public void visit(InstanceofExpression entity) {
@@ -134,6 +161,10 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 		part = new ParameterizedTypePart();
 	}
 
+	@Override
+	public void visit(AnnotatedType entity) {
+		part = new AnnotatedTypePart();
+	}
 	public void visit(SuperConstructorInvocation entity) {
 		part = new SuperConstructorInvocationPart();
 	}
@@ -235,6 +266,26 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 
 	public void visit(TryStatement entity) {
 		part = new TryStatementPart();
+	}
+
+	@Override
+	public void visit(UnionType entity) {
+		part = new AbstractCompositePart() {
+			@Override
+			protected IFigure createFigure() {
+				return new StringSeparatedCompositeRowFigure("|", 8);
+			}
+		};
+	}
+
+	@Override
+	public void visit(IntersectionType entity) {
+		part = new AbstractCompositePart() {
+			@Override
+			protected IFigure createFigure() {
+				return new StringSeparatedCompositeRowFigure("&", 16);
+			}
+		};
 	}
 
 	public void visit(Assignment entity) {
@@ -501,6 +552,9 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 	}
 
 	public void visit(ExtendedModifiers entity) {
+		part = new CompositeRowPart();
+	}
+	public void visit(Annotations entity) {
 		part = new CompositeRowPart();
 	}
 	public void visit(TypeParameters entity) {

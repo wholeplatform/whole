@@ -21,25 +21,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.WildcardType;
-import org.whole.lang.java.ui.figures.WildcardTypeFigure;
+import org.whole.lang.java.model.SuperMethodReference;
+import org.whole.lang.java.ui.figures.SuperMethodReferenceFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class WildcardTypePart extends AbstractContentPanePart {
+public class SuperMethodReferencePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new WildcardTypeFigure();
+		return new SuperMethodReferenceFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		WildcardType entity = getModelEntity();
-		((WildcardTypeFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getBound()));
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getBound());
+		SuperMethodReference entity = getModelEntity();
+		((SuperMethodReferenceFigure) getFigure()).hideTypeArguments(entity.getTypeArguments().wIsEmpty());
+		((SuperMethodReferenceFigure) getFigure()).hideQualifierSeparator(EntityUtils.isResolver(entity.getQualifier()));
+
+		List<IEntity> list = new ArrayList<IEntity>(3);
+		list.add(entity.getQualifier());
+		list.add(entity.getTypeArguments());
+		list.add(entity.getName());
 		return list;
 	}
 }

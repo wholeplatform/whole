@@ -18,32 +18,40 @@
 package org.whole.lang.java.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.LabelFactory;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 /**
- * @author Riccardo Solmi
+ *  @author Enrico Persiani
  */
-public class SingleVariableDeclarationFigure extends ContentPaneFigure {
-	private IFigure varargs;
+public class LambdaExpressionFigure extends ContentPaneFigure {
+	private IFigure f1, f2, f3, f4;
 
-	public SingleVariableDeclarationFigure() {
-		super(new RowLayout().withSpacing(1));
-		initContentPanes(4);
+    public LambdaExpressionFigure() {
+        super(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING));
+        initContentPanes(2);
+        EntityFigure row;
+        add(row = new EntityFigure(new RowLayout().withSpacing(4)));
+        f1 = row.addContentLight("(");
+        row.add(createContentPane(0));
+        f2 = row.addContentLight(")");
+        row.addContentLight("->");
+        f3 = row.addContentLighter("{");
+        add(createContentPane(1, new MarginBorder(0,16,0,0)));
+        f4 = addContentLighter("}");
+    }
 
-		add(createContentPane(0));
-		add(createContentPane(1));
-		varargs = new EntityFigure(new RowLayout().withSpacing(4));
-		varargs.add(LabelFactory.createContentLight("..."));
-		varargs.add(createContentPane(3));
-		add(varargs);
-        addContent(" ");
-		add(createContentPane(2));
+	public void hideParentheses(boolean value) {
+		f1.setVisible(!value);
+		f2.setVisible(!value);
 	}
 
-	public void showVarargs(boolean visible) {
-		varargs.setVisible(visible);
+	public void hideBraces(boolean value) {
+		f3.setVisible(!value);
+		f4.setVisible(!value);
 	}
 }

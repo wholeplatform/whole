@@ -15,31 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.java.ui.editparts;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.whole.lang.java.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.WildcardType;
-import org.whole.lang.java.ui.figures.WildcardTypeFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.util.EntityUtils;
+import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class WildcardTypePart extends AbstractContentPanePart {
-	protected IFigure createFigure() {
-		return new WildcardTypeFigure();
+public class ExpressionMethodReferenceFigure extends ContentPaneFigure {
+	private IFigure f1, f2;
+
+	public ExpressionMethodReferenceFigure() {
+		super(new RowLayout().withSpacing(4));
+		initContentPanes(3);
+		add(createContentPane(0));
+		addContentLight("::");
+		f1 = addContentLight("<");
+		add(createContentPane(1));
+		f2 = addContentLight(">");
+		add(createContentPane(2));
 	}
 
-	protected List<IEntity> getModelSpecificChildren() {
-		WildcardType entity = getModelEntity();
-		((WildcardTypeFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getBound()));
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getBound());
-		return list;
+	public void hideTypeArguments(boolean value) {
+		f1.setVisible(!value);
+		f2.setVisible(!value);
 	}
 }

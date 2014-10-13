@@ -17,33 +17,18 @@
  */
 package org.whole.lang.java.ui.figures;
 
-import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.OverLayout;
 
 /**
- * @author Riccardo Solmi
+ *  @author Enrico Persiani
  */
-public class SingleVariableDeclarationFigure extends ContentPaneFigure {
-	private IFigure varargs;
+public class AnnotatedTypeFigure extends ContentPaneFigure {
 
-	public SingleVariableDeclarationFigure() {
-		super(new RowLayout().withSpacing(1));
-		initContentPanes(4);
-
-		add(createContentPane(0));
+	public AnnotatedTypeFigure() {
+		super(new OverLayout());
+		initContentPanes(2);
 		add(createContentPane(1));
-		varargs = new EntityFigure(new RowLayout().withSpacing(4));
-		varargs.add(LabelFactory.createContentLight("..."));
-		varargs.add(createContentPane(3));
-		add(varargs);
-        addContent(" ");
-		add(createContentPane(2));
-	}
-
-	public void showVarargs(boolean visible) {
-		varargs.setVisible(visible);
+		add(createContentPane(0));
 	}
 }

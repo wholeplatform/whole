@@ -40,13 +40,14 @@ public class SingleVariableDeclarationPart extends AbstractContentPanePart {
 		SingleVariableDeclaration entity = getModelEntity();
 
 		Varargs varargs = entity.getVarargs();
-		((SingleVariableDeclarationFigure) getFigure())
-				.showVarargs(!EntityUtils.isResolver(varargs) && varargs.wBooleanValue());
+		SingleVariableDeclarationFigure figure = (SingleVariableDeclarationFigure) getFigure();
+		figure.showVarargs(!EntityUtils.isResolver(varargs) && varargs.wBooleanValue());
 
-		List<IEntity> list = new ArrayList<IEntity>(3);
+		List<IEntity> list = new ArrayList<IEntity>(4);
 		list.add(entity.getModifiers());
 		list.add(entity.getType());
 		list.add(entity.getName());
+		list.add(entity.getVarargsAnnotations());
 		return list;
 	}
 }

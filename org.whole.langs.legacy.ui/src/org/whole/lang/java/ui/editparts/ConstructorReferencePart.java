@@ -21,25 +21,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.WildcardType;
-import org.whole.lang.java.ui.figures.WildcardTypeFigure;
+import org.whole.lang.java.model.ConstructorReference;
+import org.whole.lang.java.ui.figures.ConstructorReferenceFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.util.EntityUtils;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class WildcardTypePart extends AbstractContentPanePart {
+public class ConstructorReferencePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new WildcardTypeFigure();
+		return new ConstructorReferenceFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		WildcardType entity = getModelEntity();
-		((WildcardTypeFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getBound()));
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getBound());
+		ConstructorReference constructorReference = getModelEntity();
+		((ConstructorReferenceFigure) getFigure()).hideTypeArguments(constructorReference.getTypeArguments().wIsEmpty());
+
+		List<IEntity> list = new ArrayList<IEntity>(2);
+		list.add(constructorReference.getType());
+		list.add(constructorReference.getTypeArguments());
 		return list;
 	}
 }

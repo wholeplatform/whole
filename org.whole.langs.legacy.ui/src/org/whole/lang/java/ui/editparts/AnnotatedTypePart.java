@@ -21,25 +21,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.WildcardType;
-import org.whole.lang.java.ui.figures.WildcardTypeFigure;
+import org.whole.lang.java.model.AnnotatedType;
+import org.whole.lang.java.ui.figures.AnnotatedTypeFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.util.EntityUtils;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class WildcardTypePart extends AbstractContentPanePart {
+public class AnnotatedTypePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new WildcardTypeFigure();
+		return new AnnotatedTypeFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		WildcardType entity = getModelEntity();
-		((WildcardTypeFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getBound()));
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getBound());
+		List<IEntity> list = new ArrayList<IEntity>(2);
+		AnnotatedType entity = getModelEntity();
+		list.add(entity.getAnnotations());
+		list.add(entity.getType());
 		return list;
 	}
 }

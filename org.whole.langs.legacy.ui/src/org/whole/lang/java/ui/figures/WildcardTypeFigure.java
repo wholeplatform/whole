@@ -17,6 +17,7 @@
  */
 package org.whole.lang.java.ui.figures;
 
+import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -24,11 +25,17 @@ import org.whole.lang.ui.layout.RowLayout;
  *  @author Riccardo Solmi
  */
 public class WildcardTypeFigure extends ContentPaneFigure {
+	private IFigure f1;
 
-    public WildcardTypeFigure() {
-        super(new RowLayout().withSpacing(4));
-        initContentPanes(1);
-        addContent("?");
-        add(createContentPane(0));
-    }
+	public WildcardTypeFigure() {
+		super(new RowLayout().withSpacing(4));
+		initContentPanes(1);
+		addContent("?");
+		f1 = addKeyword("extends");
+		add(createContentPane(0));
+	}
+
+	public void hideTypeBounds(boolean value) {
+		f1.setVisible(!value);
+	}
 }

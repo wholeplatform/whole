@@ -21,8 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.java.model.WildcardType;
-import org.whole.lang.java.ui.figures.WildcardTypeFigure;
+import org.whole.lang.java.model.LambdaExpression;
+import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
+import org.whole.lang.java.ui.figures.LambdaExpressionFigure;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
@@ -30,16 +32,20 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class WildcardTypePart extends AbstractContentPanePart {
+public class LambdaExpressionPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new WildcardTypeFigure();
+		return new LambdaExpressionFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		WildcardType entity = getModelEntity();
-		((WildcardTypeFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getBound()));
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getBound());
+		LambdaExpression entity = getModelEntity();
+		
+	    ((LambdaExpressionFigure) getFigure()).hideParentheses(!EntityUtils.isComposite(entity.getParameters()));
+	    ((LambdaExpressionFigure) getFigure()).hideBraces(!Matcher.match(JavaEntityDescriptorEnum.Block, entity.getBody()));
+
+		List<IEntity> list = new ArrayList<IEntity>(2);
+		list.add(entity.getParameters());
+		list.add(entity.getBody());
 		return list;
 	}
 }

@@ -29,10 +29,11 @@ public class TypeParameterFigure extends ContentPaneFigure {
 
     public TypeParameterFigure() {
     	super(new RowLayout().withSpacing(4));
-    	initContentPanes(2);
-        add(createContentPane(0));
+    	initContentPanes(3);
+		add(createContentPane(0));
+		add(createContentPane(1));
         f1 = addKeyword("extends");
-        add(createContentPane(1));
+        add(createContentPane(2));
     }
 
     public void hideTypeBounds(boolean value) {

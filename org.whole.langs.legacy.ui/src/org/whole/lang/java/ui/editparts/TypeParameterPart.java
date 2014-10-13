@@ -39,7 +39,8 @@ public class TypeParameterPart extends AbstractContentPanePart {
 	    TypeParameter entity = getModelEntity();
 		((TypeParameterFigure) getFigure()).hideTypeBounds(EntityUtils.isResolver(entity.getTypeBounds()));
 
-		List<IEntity> list = new ArrayList<IEntity>(2);
+		List<IEntity> list = new ArrayList<IEntity>(3);
+		list.add(entity.getAnnotations());
 		list.add(entity.getName());
 		list.add(entity.getTypeBounds());
 		return list;
