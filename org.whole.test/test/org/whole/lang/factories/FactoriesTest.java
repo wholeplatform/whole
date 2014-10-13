@@ -37,7 +37,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.models.builders.IModelsBuilder;
 import org.whole.lang.models.builders.ModelsGenericBuilderAdapter;
 import org.whole.lang.models.builders.ModelsSpecificBuilderAdapter;
-import org.whole.lang.models.codebase.Java5Model;
+import org.whole.lang.models.codebase.JavaScriptModel;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.TypeRelations;
@@ -156,17 +156,17 @@ public class FactoriesTest {
 
     @Test
 	public void testStrictMatch() {
-    	IEntity model = new Java5Model().create();
+    	IEntity model = new JavaScriptModel().create();
     	
     	ModelBuilderOperation op = new ModelBuilderOperation(
     			RegistryConfigurations.STRICT);
-    	new Java5Model().apply(op);
+    	new JavaScriptModel().apply(op);
     	IEntity strictModel = op.wGetResult();
     	
     	Assert.assertTrue(Matcher.match(model, strictModel));
 
     	op = new ModelBuilderOperation(RegistryConfigurations.RESOLVER);
-    	new Java5Model().apply(op);
+    	new JavaScriptModel().apply(op);
     	IEntity resolverModel = op.wGetResult();
     	
     	Assert.assertTrue(Matcher.match(model, resolverModel));
@@ -203,13 +203,13 @@ public class FactoriesTest {
 	public void testDynamicMatch() {
     	ReflectionFactory.deploy(new ModelsLanguageDynamicTestDeployer());
     	
-    	IEntity model = new Java5Model().create();
+    	IEntity model = new JavaScriptModel().create();
     	
     	ModelBuilderOperation op = new ModelBuilderOperation(
     			RegistryConfigurations.CUSTOM);
-    	new Java5Model().apply(op);
+    	new JavaScriptModel().apply(op);
     	IEntity dynamicModel = op.wGetResult();
-    	
+  
     	Assert.assertTrue(Matcher.match(model, dynamicModel));
     }
 

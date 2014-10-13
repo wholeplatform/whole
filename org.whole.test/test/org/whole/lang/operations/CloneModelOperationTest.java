@@ -21,9 +21,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.whole.lang.java.reflect.JavaLanguageKit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.codebase.Java5Model;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
 
@@ -40,7 +40,7 @@ public class CloneModelOperationTest {
 
     @Before
     public void setUp() {
-        javaModel = new Java5Model().create();
+        javaModel = ReflectionFactory.getMetaModel(JavaLanguageKit.URI);//new JavaModel().create();
     }
 
     @Test

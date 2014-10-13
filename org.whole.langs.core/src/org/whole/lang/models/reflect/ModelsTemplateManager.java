@@ -21,7 +21,6 @@ import org.whole.lang.models.codebase.FramesModel;
 import org.whole.lang.models.codebase.GrammarBasedModel;
 import org.whole.lang.models.codebase.GrammarsModel;
 import org.whole.lang.models.codebase.ILModel;
-import org.whole.lang.models.codebase.Java5Model;
 import org.whole.lang.models.codebase.JavaPatternsModel;
 import org.whole.lang.models.codebase.JavaScriptModel;
 import org.whole.lang.models.codebase.LangGenModel;
@@ -144,7 +143,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("RDF model", new RDFModel());
 		put("TopicMaps model", new TopicMapsModel());
 
-		put("Java5 model", new Java5Model());
 		put("Java Patterns model", new JavaPatternsModel());
 		put("Xml model", new XmlModel());
 		put("Xsd model", new XsdModel());

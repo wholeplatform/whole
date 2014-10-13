@@ -43,7 +43,7 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 
 	public void deploy(ReflectionFactory platform) {
 		platform.setMetaModelTemplate(HTML5_URI, "HTML5 model", "org/whole/lang/html/HTML5Model.xwl");
-		platform.setMetaModelTemplate(JavaLanguageKit.URI, "org.whole.lang.models.codebase.Java5Model");
+		platform.setMetaModelTemplate(JavaLanguageKit.URI, "Java model", "org/whole/lang/java/JavaModel.xwl");
 		platform.setMetaModelTemplate(JavaScriptLanguageKit.URI, "org.whole.lang.models.codebase.JavaScriptModel");
 		platform.setMetaModelTemplate(JSONLanguageKit.URI, "JSON model", "org/whole/lang/json/JSONModel.xwl");
 		platform.setMetaModelTemplate(MappingLanguageKit.URI, "org.whole.lang.models.codebase.XsdMappingModel");
