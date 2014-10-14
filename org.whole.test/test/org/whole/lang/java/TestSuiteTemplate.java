@@ -56,7 +56,7 @@ public class TestSuiteTemplate extends AbstractTemplateFactory<org.whole.lang.ja
         b0.SimpleName("test");
         b0.Parameters_(0);
         b0._Parameters();
-        b1.Resolver();
+        b0.ExtraDimensions(0);
         b1.Resolver();
         b0.Block_(6);
         b0.VariableDeclarationStatement_();
