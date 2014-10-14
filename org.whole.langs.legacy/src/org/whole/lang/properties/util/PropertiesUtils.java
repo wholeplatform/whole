@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
 
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.ScannerIterator;
 import org.whole.lang.matchers.Matcher;
@@ -89,9 +90,11 @@ public class PropertiesUtils {
 		Enumeration<String> names = (Enumeration<String>) jProps.propertyNames();
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();
+			String value = jProps.getProperty(name);
 			entries.wAdd(lf.createProperty(
 					lf.createPropertyName(name),
-					lf.createPropertyValue(jProps.getProperty(name))));
+					//FIXME workaround for null valued property returned from System.getProperties()
+					value != null ? lf.createPropertyValue(value) : CommonsEntityAdapterFactory.createResolver(PropertiesEntityDescriptorEnum.PropertyValue)));
 		}
 
 		return props;
@@ -108,7 +111,9 @@ public class PropertiesUtils {
 		i.reset(props.getEntries());
 		for (Property p : i)
 			try {
-				jProps.setProperty(p.getName().wStringValue(), p.getValue().wStringValue());
+				PropertyValue value = p.getValue();
+				if (!EntityUtils.isResolver(value)) //FIXME workaround for null valued property returned from System.getProperties()
+					jProps.setProperty(p.getName().wStringValue(), value.wStringValue());
 			} catch (IllegalArgumentException e) {
 			}
 
