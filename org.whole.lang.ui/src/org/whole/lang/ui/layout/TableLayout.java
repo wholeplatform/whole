@@ -209,15 +209,17 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 		tableInlining = value;
 		return this;
 	}
+
 	@Override
 	public ITabularLayoutClient getTabularLayoutClient() {
-		return tableInlining ? super.getTabularLayoutClient() : ITabularLayoutClient.NULL_TABULAR_LAYOUT_CLIENT;
+		return tableInlining ? this : ITabularLayoutClient.NULL_TABULAR_LAYOUT_CLIENT;
 	}
 
 	@Override
 	public ITabularLayoutServer getTabularLayoutServer() {
 		return this;
 	}
+
 	private ITabularLayoutServer myTabularLayoutServer;
 	public ITabularLayoutServer getMyTabularLayoutServer() {
 		if (myTabularLayoutServer == null) {

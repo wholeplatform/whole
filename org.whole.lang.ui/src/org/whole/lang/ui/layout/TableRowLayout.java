@@ -29,8 +29,20 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 		withMinorAlignment(Alignment.MATHLINE);
 	}
 
-	public ITabularLayoutServer getTabularLayoutServer() {
+	private boolean rowInlining;
+	public TableRowLayout withRowInlining(boolean value) {
+		rowInlining = value;
 		return this;
+	}
+
+	@Override
+	public ITabularLayoutClient getTabularLayoutClient() {
+		return this;
+	}
+
+	@Override
+	public ITabularLayoutServer getTabularLayoutServer() {
+		return rowInlining ? this : null;
 	}
 
 	private ITabularLayoutServer myTabularLayoutServer;
