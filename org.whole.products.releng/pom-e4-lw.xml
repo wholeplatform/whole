@@ -166,7 +166,7 @@
 					<target>
 						<artifact>
 							<groupId>com.wholeplatform</groupId>
-							<artifactId>org.whole.product.lw.target</artifactId>
+							<artifactId>org.whole.product.e4.lw.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
 							<classifier>LUNA_4_4_x</classifier>
 						</artifact>
