@@ -761,7 +761,8 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	public void visit(SingleVariableDeclaration entity) {
 		entity.getModifiers().accept(this);
 		entity.getType().accept(this);
-		out.printRaw(" ");
+		if (!entity.getVarargsAnnotations().wIsEmpty())
+			out.printRaw(" ");
 		entity.getVarargsAnnotations().accept(this);
 		entity.getVarargs().accept(this);
 		out.printRaw(" ");
