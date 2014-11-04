@@ -55,7 +55,7 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 
 		addClassDeclaration(generator.entityImplName(entityName), AbstractSimpleEntity.class.getName());
 		generator.putEntity(entityName);
-		addImportDeclaration(generator.modelPackage(), true);
+//		addImportDeclaration(generator.modelPackage(), true);
 		addSuperInterface(generator.entityInterfaceQName(entityName));
 		addSerialVersionUID(1L);
 
@@ -205,7 +205,8 @@ public class SimpleEntityImplBuilder extends CompilationUnitBuilder {
 	}
 
 	public void addField(String fType, String fName, String name, boolean isId, boolean isOptional, boolean isReference, boolean isShared, boolean isDerived) {
-		if (StringUtils.isAmbiguous(fType))
+//		if (StringUtils.isAmbiguous(fType))
+		if (!StringUtils.isPrimitiveOrString(fType))
 			addImportDeclaration(generator.modelPackage()+"."+fType);
 		
 		if (isId) {

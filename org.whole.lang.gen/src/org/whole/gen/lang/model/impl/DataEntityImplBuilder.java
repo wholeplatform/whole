@@ -36,7 +36,6 @@ public class DataEntityImplBuilder extends CompilationUnitBuilder {
 
 		addClassDeclaration(generator.entityImplName(entityName), AbstractDataEntity.class.getName());
 		generator.putEntity(entityName);
-		addImportDeclaration(generator.modelPackage(), true);
 		addSuperInterface(generator.entityInterfaceQName(entityName));
 		addSerialVersionUID(1L);
 
