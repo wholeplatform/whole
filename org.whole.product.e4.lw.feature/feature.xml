@@ -4,7 +4,7 @@
       label="%featureName"
       version="1.0.0.qualifier"
       provider-name="%providerName"
-      plugin="org.whole.ide">
+      plugin="org.whole.product.e4.lw">
 
    <description url="http://whole.sourceforge.net">
       %description
@@ -22,6 +22,14 @@
       <update label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
       <discovery label="%updateSiteName" url="http://whole.sourceforge.net/updates"/>
    </url>
+
+   <includes
+         id="org.whole.rcp.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.whole.lang.gen.feature"
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.equinox.app"/>
@@ -49,14 +57,6 @@
       <import plugin="org.whole.product.e4.lw"/>
    </requires>
 
-   <includes
-         id="org.whole.rcp.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.whole.lang.gen.feature"
-         version="0.0.0"/>
-
    <plugin
          id="org.whole.product.e4.lw"
          download-size="0"
@@ -70,4 +70,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 </feature>
