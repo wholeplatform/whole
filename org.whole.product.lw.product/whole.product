@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="%productName" uid="org.whole.product.lw.product" id="org.whole.product.lw.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Whole Language Workbench Product" uid="org.whole.product.lw.product" id="org.whole.product.lw.product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/whole250.png"/>
@@ -220,17 +220,17 @@ Library.
    </plugins>
 
    <features>
-      <feature id="org.eclipse.sdk"/>
-      <feature id="org.eclipse.gef.lightweight"/>
-      <feature id="org.eclipse.gef.source"/>
-      <feature id="com.fasterxml.jackson.feature"/>
-      <feature id="net.sourceforge.jodatime.feature"/>
-      <feature id="nu.validator.htmlparser.feature"/>
-      <feature id="org.beanshell.bsh.feature"/>
-      <feature id="org.h2.feature"/>
-      <feature id="org.mozilla.rhino.feature"/>
-      <feature id="org.whole.product.lw.feature"/>
-      <feature id="org.whole.extras.feature"/>
+      <feature id="org.eclipse.sdk" installMode="root"/>
+      <feature id="org.eclipse.gef.lightweight" installMode="root"/>
+      <feature id="org.eclipse.gef.source" installMode="root"/>
+      <feature id="com.fasterxml.jackson.feature" installMode="root"/>
+      <feature id="net.sourceforge.jodatime.feature" installMode="root"/>
+      <feature id="nu.validator.htmlparser.feature" installMode="root"/>
+      <feature id="org.beanshell.bsh.feature" installMode="root"/>
+      <feature id="org.h2.feature" installMode="root"/>
+      <feature id="org.mozilla.rhino.feature" installMode="root"/>
+      <feature id="org.whole.product.lw.feature" installMode="root"/>
+      <feature id="org.whole.extras.feature" installMode="root"/>
    </features>
 
    <configurations>

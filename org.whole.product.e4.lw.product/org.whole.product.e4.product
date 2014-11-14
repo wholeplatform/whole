@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product	name="%productName"
+<product	name="Whole e4 Language Workbench Product"
 			uid="org.whole.product.e4.lw.product"
 			id="org.whole.product.e4.lw.product"
 			application="org.eclipse.e4.ui.workbench.swt.E4Application"
@@ -26,20 +26,19 @@
       </win>
    </launcher>
 
-
    <features>
-      <feature id="org.eclipse.gef.lightweight"/>
-      <feature id="org.eclipse.gef.source"/>
-      <feature id="com.fasterxml.jackson.feature"/>
-      <feature id="net.sourceforge.jodatime.feature"/>
-      <feature id="nu.validator.htmlparser.feature"/>
-      <feature id="org.beanshell.bsh.feature"/>
-      <feature id="org.h2.feature"/>
-      <feature id="org.mozilla.rhino.feature"/>
-      <feature id="org.whole.product.e4.lw.feature"/>
-      <feature id="org.eclipse.emf.ecore"/>
-      <feature id="org.eclipse.emf.common"/>
-      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.gef.lightweight" installMode="root"/>
+      <feature id="org.eclipse.gef.source" installMode="root"/>
+      <feature id="com.fasterxml.jackson.feature" installMode="root"/>
+      <feature id="net.sourceforge.jodatime.feature" installMode="root"/>
+      <feature id="nu.validator.htmlparser.feature" installMode="root"/>
+      <feature id="org.beanshell.bsh.feature" installMode="root"/>
+      <feature id="org.h2.feature" installMode="root"/>
+      <feature id="org.mozilla.rhino.feature" installMode="root"/>
+      <feature id="org.whole.product.e4.lw.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore" installMode="root"/>
+      <feature id="org.eclipse.emf.common" installMode="root"/>
+      <feature id="org.eclipse.e4.rcp" installMode="root"/>
    </features>
 
    <configurations>
