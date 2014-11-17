@@ -73,6 +73,7 @@
 		<jdk-version>1.8</jdk-version>
 
 		<compiler-version>2.4</compiler-version>
+		<source-version>2.1.2</source-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
 		<resources-version>2.5</resources-version>
 
@@ -108,6 +109,10 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${resources-version}</version>
 				</plugin>
+				<plugin>
+					<artifactId>maven-sources-plugin</artifactId>
+					<version>${sources-version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -127,6 +132,17 @@
 						<exclude>**/JavaCompilerUtils.java</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
