@@ -27,6 +27,37 @@
          id="org.whole.lang.feature"
          version="0.0.0"/>
 
+   <includes
+         id="com.fasterxml.jackson.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="net.sourceforge.jodatime.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="nu.validator.htmlparser.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.beanshell.bsh.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.h2.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.mozilla.rhino.feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.objectweb.asm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
    <plugin
          id="org.whole.langs.legacy"
          download-size="0"

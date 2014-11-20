@@ -63,7 +63,7 @@ public class PlatformLibraryContainerPage extends WizardPage implements IClasspa
 		super("wholePlatformLibraryContainerPage");
 		setTitle("Whole Platform Library"); 
 		setDescription("This read-only container provides Whole Platform Library Jar Files"); 
-		setImageDescriptor(ImageDescriptor.createFromURL(Platform.getBundle("org.whole.product.lw").getEntry("icons/wizards/whole_classpath_container.png")));
+		setImageDescriptor(ImageDescriptor.createFromURL(Platform.getBundle("org.whole.lang.ide").getEntry("icons/wizards/whole_classpath_container.png")));
 		jarImage = JavaUI.getSharedImages().getImage(org.eclipse.jdt.ui.ISharedImages.IMG_OBJS_EXTERNAL_ARCHIVE);
 	}
 

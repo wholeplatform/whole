@@ -215,7 +215,7 @@
 		<antcall target="clean_ldk" />
 	</target>
 
-	<target name="release_ldk_local" depends="clean">
+	<target name="release_ldk_local" depends="clean" description="Release the Whole Language Development Kit locally">
 		<antcall target="set_build_version" />
 		<maven basedir="${releng.dir}" options="-fpom-ldk.xml" goal="install" />
 		<antcall target="set_meta_version" />

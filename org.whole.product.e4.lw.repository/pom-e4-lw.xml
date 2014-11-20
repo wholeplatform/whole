@@ -11,7 +11,7 @@
 		<relativePath>../org.whole.products.releng/pom-e4-lw.xml</relativePath>
 	</parent>
 
-	<artifactId>org.whole.product.lw.repository</artifactId>
+	<artifactId>org.whole.product.e4.lw.repository</artifactId>
 	<packaging>eclipse-repository</packaging>
 
 	<build>
