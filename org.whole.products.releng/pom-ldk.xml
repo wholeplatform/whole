@@ -110,8 +110,8 @@
 					<version>${resources-version}</version>
 				</plugin>
 				<plugin>
-					<artifactId>maven-sources-plugin</artifactId>
-					<version>${sources-version}</version>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${source-version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
