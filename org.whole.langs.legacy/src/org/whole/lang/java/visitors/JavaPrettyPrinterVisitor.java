@@ -1090,10 +1090,13 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 			printCond(printBlockBraces, "} ", "");
 			printKeyword("else");
 			printBlockBraces = EntityUtils.isComposite(entity.getElseStatement());
-			printlnCond(printBlockBraces, " {", "");
-			out.setRelativeIndentation((+1));
+			boolean elseIfRow = Matcher.match(JavaEntityDescriptorEnum.IfStatement, entity.getElseStatement());
+			printCond(printBlockBraces, " {", elseIfRow ? " " : "", !elseIfRow);
+			if (!elseIfRow)
+				out.setRelativeIndentation((+1));
 			entity.getElseStatement().accept(this);
-			out.setRelativeIndentation((-1));
+			if (!elseIfRow)
+				out.setRelativeIndentation((-1));
 		}
 		if (printBlockBraces) {
 			out.printlnRaw("}");
