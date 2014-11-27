@@ -11,7 +11,7 @@ public class MediaWikiModel extends AbstractTemplateFactory<org.whole.lang.model
         b0.SimpleName("MediaWiki");
         b0.TypeRelations_(0);
         b0._TypeRelations();
-        b0.ModelDeclarations_(83);
+        b0.ModelDeclarations_(84);
         b0.SimpleEntity_();
         b0.EntityModifiers_(0);
         b0._EntityModifiers();
@@ -156,7 +156,7 @@ public class MediaWikiModel extends AbstractTemplateFactory<org.whole.lang.model
         b0.Feature_();
         b0.FeatureModifiers_(0);
         b0._FeatureModifiers();
-        b0.SimpleName("InlineText");
+        b0.SimpleName("TableInlineData");
         b0.SimpleName("data");
         b1.Resolver();
         b0._Feature();
@@ -202,9 +202,10 @@ public class MediaWikiModel extends AbstractTemplateFactory<org.whole.lang.model
         b0.EntityModifiers_(0);
         b0._EntityModifiers();
         b0.SimpleName("InlineText");
-        b0.Types_(2);
+        b0.Types_(3);
         b0.SimpleName("SpaceLine");
         b0.SimpleName("ItemBody");
+        b0.SimpleName("TableInlineData");
         b0._Types();
         b0.ComponentModifiers_(1);
         b0.ComponentModifier("ordered");
@@ -354,8 +355,9 @@ public class MediaWikiModel extends AbstractTemplateFactory<org.whole.lang.model
         b0.EntityModifiers_(0);
         b0._EntityModifiers();
         b0.SimpleName("Pre");
-        b0.Types_(1);
+        b0.Types_(2);
         b0.SimpleName("SpecialBlock");
+        b0.SimpleName("TableInlineData");
         b0._Types();
         b0.Features_(1);
         b0.Feature_();
@@ -710,6 +712,16 @@ public class MediaWikiModel extends AbstractTemplateFactory<org.whole.lang.model
         b0._ComponentModifiers();
         b0.SimpleName("TableRow");
         b0._CompositeEntity();
+        b0.SimpleEntity_();
+        b0.EntityModifiers_(1);
+        b0.EntityModifier("abstract");
+        b0._EntityModifiers();
+        b0.SimpleName("TableInlineData");
+        b0.Types_(0);
+        b0._Types();
+        b0.Features_(0);
+        b0._Features();
+        b0._SimpleEntity();
         b0.DataEntity_();
         b0.EntityModifiers_(0);
         b0._EntityModifiers();

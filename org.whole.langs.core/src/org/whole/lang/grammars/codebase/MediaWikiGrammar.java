@@ -789,7 +789,14 @@ public class MediaWikiGrammar extends AbstractTemplateFactory<org.whole.lang.gra
         b0._As();
         b0._Optional();
         b0.As_();
+        b0.Production_();
+        b0.NonTerminal("TableInlineData");
+        b0.Choose_(2);
+        b0.NonTerminal("Pre");
         b0.NonTerminal("InlineText");
+        b0._Choose();
+        b1.Resolver();
+        b0._Production();
         b0.Name("data");
         b0._As();
         b0._Concatenate();
