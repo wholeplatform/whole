@@ -33,6 +33,8 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class CompositeFigure extends EntityFigure {
+	protected CompositeFigure() {
+	}
 	public CompositeFigure(boolean isHorizontal) {
 		this(isHorizontal, true);
 	}
