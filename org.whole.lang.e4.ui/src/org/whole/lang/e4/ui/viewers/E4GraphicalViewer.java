@@ -272,7 +272,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	public void reveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
-			reveal(entityPart);
+		reveal(entityPart);
 	}
 	public void selectAndReveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
