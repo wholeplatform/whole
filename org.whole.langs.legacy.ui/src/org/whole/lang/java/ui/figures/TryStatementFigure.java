@@ -35,13 +35,13 @@ public class TryStatementFigure extends ContentPaneFigure {
 		add(row = new EntityFigure(new RowLayout().withSpacing(4)));
 		row.addKeyword("try");
 		row.addContentLighter("{");
-		add(createContentPane(0), new MarginBorder(0, 20, 0, 0));
+		add(createContentPane(0, new MarginBorder(0, 20, 0, 0)));
 		add(createContentPane(1));
 		add(row = new EntityFigure(new RowLayout().withSpacing(4)));
 		row.addContentLighter("}");
 		row.addKeyword("finally");
 		row.addContentLighter("{");
-		add(createContentPane(2), new MarginBorder(0, 20, 0, 0));
+		add(createContentPane(2, new MarginBorder(0, 20, 0, 0)));
 		addContentLighter("}");
 	}
 }

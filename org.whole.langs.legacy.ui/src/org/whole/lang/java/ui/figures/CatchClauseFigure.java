@@ -39,6 +39,6 @@ public class CatchClauseFigure extends ContentPaneFigure {
         row.add(createContentPane(0));
         row.addContentLight(")");
         row.addContentLighter("{");
-        add(createContentPane(1), new MarginBorder(0, 20, 0, 0));
+        add(createContentPane(1, new MarginBorder(0, 20, 0, 0)));
     }
 }
