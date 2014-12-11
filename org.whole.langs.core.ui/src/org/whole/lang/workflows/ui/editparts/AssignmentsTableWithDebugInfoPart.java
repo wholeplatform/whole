@@ -15,22 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.workflows.ui.figures;
+package org.whole.lang.workflows.ui.editparts;
 
-import org.whole.lang.ui.figures.TableRowFigure;
-import org.whole.lang.ui.layout.TableLayout;
+import org.whole.lang.ui.editparts.TablePart;
+import org.whole.lang.ui.figures.TableFigure;
+import org.whole.lang.workflows.ui.figures.AssignmentsTableWithDebugInfoFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class AssignmentsTableFigure extends TopHeadersTableFigure {
-	public AssignmentsTableFigure() {
-		super(2);
-		getLayoutManager().withRowSpacing(8);
-		
-		TableRowFigure headers = new TableRowFigure();
-		headers.addLabel("Name");
-		headers.addLabel("Value");
-		add(headers, TableLayout.Placement.HEADER);
-	}
+public class AssignmentsTableWithDebugInfoPart extends TablePart {
+	protected TableFigure createFigure() {
+		return new AssignmentsTableWithDebugInfoFigure();
+    }
 }

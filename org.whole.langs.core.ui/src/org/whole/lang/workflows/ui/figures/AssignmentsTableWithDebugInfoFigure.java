@@ -23,12 +23,14 @@ import org.whole.lang.ui.layout.TableLayout;
 /**
  * @author Riccardo Solmi
  */
-public class AssignmentsTableFigure extends TopHeadersTableFigure {
-	public AssignmentsTableFigure() {
-		super(2);
+public class AssignmentsTableWithDebugInfoFigure extends TopHeadersTableFigure {
+	public AssignmentsTableWithDebugInfoFigure() {
+		super(4);
 		getLayoutManager().withRowSpacing(8);
 		
 		TableRowFigure headers = new TableRowFigure();
+		headers.addLabel("Id");
+		headers.addLabel("Type");
 		headers.addLabel("Name");
 		headers.addLabel("Value");
 		add(headers, TableLayout.Placement.HEADER);

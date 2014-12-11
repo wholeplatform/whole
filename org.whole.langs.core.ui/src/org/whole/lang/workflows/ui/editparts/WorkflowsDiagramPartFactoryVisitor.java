@@ -19,6 +19,8 @@ package org.whole.lang.workflows.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
@@ -192,10 +194,16 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 		part = new AssignActivityPart();
 	}
 	public void visit(Assignments entity) {
-		part = new AssignmentsTablePart();
+		if (EntityUtils.hasParent(entity) && !Matcher.match(CommonsEntityDescriptorEnum.RootFragment, entity.wGetParent()))
+			part = new AssignmentsTablePart();
+		else
+			part = new AssignmentsTableWithDebugInfoPart();
 	}
 	public void visit(Assign entity) {
-		part = new AssignPart();
+		if (context instanceof AssignmentsTablePart)
+			part = new AssignPart();
+		else
+			part = new AssignWithDebugInfoPart();
 	}
 
 	public void visit(EmptyActivity entity) {
