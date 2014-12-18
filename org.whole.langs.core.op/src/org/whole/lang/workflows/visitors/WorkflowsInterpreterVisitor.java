@@ -72,7 +72,6 @@ import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -567,7 +566,8 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			throw new UnsupportedOperationException("The Eclipse Workspace is not available");
 
 		try {
-			return new JavaClassTemplateFactory(className);
+			return new JavaClassTemplateFactory(
+					Class.forName(className, false, ReflectionFactory.getClassLoader(getBindings())));
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException(e);
 		}
