@@ -341,16 +341,6 @@ public class JavaJavaModelGeneratorVisitor extends JavaIdentityVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.whole.lang.java.model.IJavaVisitor#visit(org.whole.lang.java.model.impl.MethodDeclaration_ThrownExceptions)
-	 */
-	public void visit(Names entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.whole.lang.java.model.IJavaVisitor#visit(org.whole.lang.java.model.impl.MethodDeclaration_TypeParameters)
 	 */
 	public void visit(TypeParameters entity) {

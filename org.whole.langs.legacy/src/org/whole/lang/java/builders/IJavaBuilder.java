@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.java.builders;
 
 import org.whole.lang.builders.IBuilder;
@@ -8,919 +25,913 @@ import org.whole.lang.java.model.PostfixOperatorEnum;
 import org.whole.lang.java.model.PrefixOperatorEnum;
 import org.whole.lang.java.model.ModifierEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface IJavaBuilder extends IBuilder {
-	public void visit();
 
-	public void operand();
 
-	public void extendedOperands();
+    public void visit();
 
-	public void rightOperand();
+    public void operand();
 
-	public void leftOperand();
+    public void extendedOperands();
 
-	public void elseExpression();
+    public void rightOperand();
 
-	public void thenExpression();
+    public void leftOperand();
 
-	public void rightHandSide();
+    public void elseExpression();
 
-	public void operator();
+    public void thenExpression();
 
-	public void leftHandSide();
+    public void rightHandSide();
 
-	public void dimensions();
+    public void operator();
 
-	public void index();
+    public void leftHandSide();
 
-	public void array();
+    public void dimensions();
 
-	public void typeDeclaration();
+    public void index();
 
-	public void exception();
+    public void array();
 
-	public void _finally();
+    public void typeDeclaration();
 
-	public void catchClauses();
+    public void exception();
 
-	public void statements();
+    public void _finally();
 
-	public void elseStatement();
+    public void catchClauses();
 
-	public void thenStatement();
+    public void statements();
 
-	public void updaters();
+    public void elseStatement();
 
-	public void initializers();
+    public void thenStatement();
 
-	public void parameter();
+    public void updaters();
 
-	public void label();
+    public void initializers();
 
-	public void message();
+    public void parameter();
 
-	public void expression();
+    public void label();
 
-	public void upperBound();
+    public void message();
 
-	public void bound();
+    public void expression();
 
-	public void typeArguments();
+    public void upperBound();
 
-	public void componentType();
+    public void bound();
 
-	public void varargsAnnotations();
+    public void typeArguments();
 
-	public void initializer();
+    public void componentType();
 
-	public void thrownExceptions();
+    public void varargsAnnotations();
 
-	public void extraDimensions();
+    public void initializer();
 
-	public void returnType();
+    public void thrownExceptions();
 
-	public void body();
+    public void extraDimensions();
 
-	public void _default();
+    public void returnType();
 
-	public void typeBounds();
+    public void body();
 
-	public void superclassType();
+    public void _default();
 
-	public void typeParameters();
+    public void typeBounds();
 
-	public void anonymousClassDeclaration();
+    public void superclassType();
 
-	public void arguments();
+    public void typeParameters();
 
-	public void enumConstants();
+    public void anonymousClassDeclaration();
 
-	public void superInterfaceTypes();
+    public void arguments();
 
-	public void bodyDeclarations();
+    public void enumConstants();
 
-	public void modifiers();
+    public void superInterfaceTypes();
 
-	public void _static();
+    public void bodyDeclarations();
 
-	public void onDemand();
+    public void modifiers();
 
-	public void values();
+    public void _static();
 
-	public void value();
+    public void onDemand();
 
-	public void typeName();
+    public void values();
 
-	public void fragments();
+    public void value();
 
-	public void tagName();
+    public void typeName();
 
-	public void varargs();
+    public void fragments();
 
-	public void type();
+    public void tagName();
 
-	public void parameters();
+    public void varargs();
 
-	public void qualifier();
+    public void type();
 
-	public void tags();
+    public void parameters();
 
-	public void text();
+    public void qualifier();
 
-	public void docElements();
+    public void tags();
 
-	public void name();
+    public void text();
 
-	public void annotations();
+    public void docElements();
 
-	public void javadoc();
+    public void name();
 
-	public void types();
+    public void annotations();
 
-	public void imports();
+    public void javadoc();
 
-	public void _package();
+    public void types();
 
-	public void JavaSystemSoftware();
+    public void imports();
 
-	public void JavaSystemSoftware_();
+    public void _package();
 
-	public void JavaSystemSoftware_(int initialCapacity);
+    public void JavaSystemSoftware();
 
-	public void _JavaSystemSoftware();
+    public void JavaSystemSoftware_();
 
-	public void CompilationUnit();
+    public void JavaSystemSoftware_(int initialCapacity);
 
-	public void CompilationUnit_();
+    public void _JavaSystemSoftware();
 
-	public void _CompilationUnit();
+    public void CompilationUnit();
 
-	public void PackageDeclaration();
+    public void CompilationUnit_();
 
-	public void PackageDeclaration_();
+    public void _CompilationUnit();
 
-	public void _PackageDeclaration();
+    public void PackageDeclaration();
 
-	public void BlockComment();
+    public void PackageDeclaration_();
 
-	public void BlockComment_();
+    public void _PackageDeclaration();
 
-	public void _BlockComment();
+    public void BlockComment();
 
-	public void LineComment();
+    public void BlockComment_();
 
-	public void LineComment_();
+    public void _BlockComment();
 
-	public void _LineComment();
+    public void LineComment();
 
-	public void Javadoc();
+    public void LineComment_();
 
-	public void Javadoc_();
+    public void _LineComment();
 
-	public void _Javadoc();
+    public void Javadoc();
 
-	public void Tags();
+    public void Javadoc_();
 
-	public void Tags_();
+    public void _Javadoc();
 
-	public void Tags_(int initialCapacity);
+    public void Tags();
 
-	public void _Tags();
+    public void Tags_();
 
-	public void DocElements();
+    public void Tags_(int initialCapacity);
 
-	public void DocElements_();
+    public void _Tags();
 
-	public void DocElements_(int initialCapacity);
+    public void DocElements();
 
-	public void _DocElements();
+    public void DocElements_();
 
-	public void MethodRef();
+    public void DocElements_(int initialCapacity);
 
-	public void MethodRef_();
+    public void _DocElements();
 
-	public void _MethodRef();
+    public void MethodRef();
 
-	public void MethodRefParameters();
+    public void MethodRef_();
 
-	public void MethodRefParameters_();
+    public void _MethodRef();
 
-	public void MethodRefParameters_(int initialCapacity);
+    public void MethodRefParameters();
 
-	public void _MethodRefParameters();
+    public void MethodRefParameters_();
 
-	public void MethodRefParameter();
+    public void MethodRefParameters_(int initialCapacity);
 
-	public void MethodRefParameter_();
+    public void _MethodRefParameters();
 
-	public void _MethodRefParameter();
+    public void MethodRefParameter();
 
-	public void MemberRef();
+    public void MethodRefParameter_();
 
-	public void MemberRef_();
+    public void _MethodRefParameter();
 
-	public void _MemberRef();
+    public void MemberRef();
 
-	public void TextElement();
+    public void MemberRef_();
 
-	public void TextElement(String value);
+    public void _MemberRef();
 
-	public void TagElement();
+    public void TextElement();
 
-	public void TagElement_();
+    public void TextElement(String value);
 
-	public void _TagElement();
+    public void TagElement();
 
-	public void TagName();
+    public void TagElement_();
 
-	public void TagName(String value);
+    public void _TagElement();
 
-	public void Annotations();
+    public void TagName();
 
-	public void Annotations_();
+    public void TagName(String value);
 
-	public void Annotations_(int initialCapacity);
+    public void Annotations();
 
-	public void _Annotations();
+    public void Annotations_();
 
-	public void SingleMemberAnnotation();
+    public void Annotations_(int initialCapacity);
 
-	public void SingleMemberAnnotation_();
+    public void _Annotations();
 
-	public void _SingleMemberAnnotation();
+    public void SingleMemberAnnotation();
 
-	public void MarkerAnnotation();
+    public void SingleMemberAnnotation_();
 
-	public void MarkerAnnotation_();
+    public void _SingleMemberAnnotation();
 
-	public void _MarkerAnnotation();
+    public void MarkerAnnotation();
 
-	public void NormalAnnotation();
+    public void MarkerAnnotation_();
 
-	public void NormalAnnotation_();
+    public void _MarkerAnnotation();
 
-	public void _NormalAnnotation();
+    public void NormalAnnotation();
 
-	public void MemberValuePairs();
+    public void NormalAnnotation_();
 
-	public void MemberValuePairs_();
+    public void _NormalAnnotation();
 
-	public void MemberValuePairs_(int initialCapacity);
+    public void MemberValuePairs();
 
-	public void _MemberValuePairs();
+    public void MemberValuePairs_();
 
-	public void MemberValuePair();
+    public void MemberValuePairs_(int initialCapacity);
 
-	public void MemberValuePair_();
+    public void _MemberValuePairs();
 
-	public void _MemberValuePair();
+    public void MemberValuePair();
 
-	public void ImportDeclarations();
+    public void MemberValuePair_();
 
-	public void ImportDeclarations_();
+    public void _MemberValuePair();
 
-	public void ImportDeclarations_(int initialCapacity);
+    public void ImportDeclarations();
 
-	public void _ImportDeclarations();
+    public void ImportDeclarations_();
 
-	public void ImportDeclaration();
+    public void ImportDeclarations_(int initialCapacity);
 
-	public void ImportDeclaration_();
+    public void _ImportDeclarations();
 
-	public void _ImportDeclaration();
+    public void ImportDeclaration();
 
-	public void ImportModifier();
+    public void ImportDeclaration_();
 
-	public void ImportModifier(boolean value);
+    public void _ImportDeclaration();
 
-	public void TypeDeclarations();
+    public void ImportModifier();
 
-	public void TypeDeclarations_();
+    public void ImportModifier(boolean value);
 
-	public void TypeDeclarations_(int initialCapacity);
+    public void TypeDeclarations();
 
-	public void _TypeDeclarations();
+    public void TypeDeclarations_();
 
-	public void EnumDeclaration();
+    public void TypeDeclarations_(int initialCapacity);
 
-	public void EnumDeclaration_();
+    public void _TypeDeclarations();
 
-	public void _EnumDeclaration();
+    public void EnumDeclaration();
 
-	public void EnumConstants();
+    public void EnumDeclaration_();
 
-	public void EnumConstants_();
+    public void _EnumDeclaration();
 
-	public void EnumConstants_(int initialCapacity);
+    public void EnumConstants();
 
-	public void _EnumConstants();
+    public void EnumConstants_();
 
-	public void EnumConstantDeclaration();
+    public void EnumConstants_(int initialCapacity);
 
-	public void EnumConstantDeclaration_();
+    public void _EnumConstants();
 
-	public void _EnumConstantDeclaration();
+    public void EnumConstantDeclaration();
 
-	public void Arguments();
+    public void EnumConstantDeclaration_();
 
-	public void Arguments_();
+    public void _EnumConstantDeclaration();
 
-	public void Arguments_(int initialCapacity);
+    public void Arguments();
 
-	public void _Arguments();
+    public void Arguments_();
 
-	public void AnonymousClassDeclaration();
+    public void Arguments_(int initialCapacity);
 
-	public void AnonymousClassDeclaration_();
+    public void _Arguments();
 
-	public void AnonymousClassDeclaration_(int initialCapacity);
+    public void AnonymousClassDeclaration();
 
-	public void _AnonymousClassDeclaration();
+    public void AnonymousClassDeclaration_();
 
-	public void AnnotationTypeDeclaration();
+    public void AnonymousClassDeclaration_(int initialCapacity);
 
-	public void AnnotationTypeDeclaration_();
+    public void _AnonymousClassDeclaration();
 
-	public void _AnnotationTypeDeclaration();
+    public void AnnotationTypeDeclaration();
 
-	public void ClassDeclaration();
+    public void AnnotationTypeDeclaration_();
 
-	public void ClassDeclaration_();
+    public void _AnnotationTypeDeclaration();
 
-	public void _ClassDeclaration();
+    public void ClassDeclaration();
 
-	public void InterfaceDeclaration();
+    public void ClassDeclaration_();
 
-	public void InterfaceDeclaration_();
+    public void _ClassDeclaration();
 
-	public void _InterfaceDeclaration();
+    public void InterfaceDeclaration();
 
-	public void TypeParameters();
+    public void InterfaceDeclaration_();
 
-	public void TypeParameters_();
+    public void _InterfaceDeclaration();
 
-	public void TypeParameters_(int initialCapacity);
+    public void TypeParameters();
 
-	public void _TypeParameters();
+    public void TypeParameters_();
 
-	public void TypeParameter();
+    public void TypeParameters_(int initialCapacity);
 
-	public void TypeParameter_();
+    public void _TypeParameters();
 
-	public void _TypeParameter();
+    public void TypeParameter();
 
-	public void Types();
+    public void TypeParameter_();
 
-	public void Types_();
+    public void _TypeParameter();
 
-	public void Types_(int initialCapacity);
+    public void Types();
 
-	public void _Types();
+    public void Types_();
 
-	public void BodyDeclarations();
+    public void Types_(int initialCapacity);
 
-	public void BodyDeclarations_();
+    public void _Types();
 
-	public void BodyDeclarations_(int initialCapacity);
+    public void BodyDeclarations();
 
-	public void _BodyDeclarations();
+    public void BodyDeclarations_();
 
-	public void AnnotationTypeMemberDeclaration();
+    public void BodyDeclarations_(int initialCapacity);
 
-	public void AnnotationTypeMemberDeclaration_();
+    public void _BodyDeclarations();
 
-	public void _AnnotationTypeMemberDeclaration();
+    public void AnnotationTypeMemberDeclaration();
 
-	public void Initializer();
+    public void AnnotationTypeMemberDeclaration_();
 
-	public void Initializer_();
+    public void _AnnotationTypeMemberDeclaration();
 
-	public void _Initializer();
+    public void Initializer();
 
-	public void FieldDeclaration();
+    public void Initializer_();
 
-	public void FieldDeclaration_();
+    public void _Initializer();
 
-	public void _FieldDeclaration();
+    public void FieldDeclaration();
 
-	public void MethodDeclaration();
+    public void FieldDeclaration_();
 
-	public void MethodDeclaration_();
+    public void _FieldDeclaration();
 
-	public void _MethodDeclaration();
+    public void MethodDeclaration();
 
-	public void ConstructorDeclaration();
+    public void MethodDeclaration_();
 
-	public void ConstructorDeclaration_();
+    public void _MethodDeclaration();
 
-	public void _ConstructorDeclaration();
+    public void ConstructorDeclaration();
 
-	public void Parameters();
+    public void ConstructorDeclaration_();
 
-	public void Parameters_();
+    public void _ConstructorDeclaration();
 
-	public void Parameters_(int initialCapacity);
+    public void Parameters();
 
-	public void _Parameters();
+    public void Parameters_();
 
-	public void SingleVariableDeclaration();
+    public void Parameters_(int initialCapacity);
 
-	public void SingleVariableDeclaration_();
+    public void _Parameters();
 
-	public void _SingleVariableDeclaration();
+    public void SingleVariableDeclaration();
 
-	public void Varargs();
+    public void SingleVariableDeclaration_();
 
-	public void Varargs(boolean value);
+    public void _SingleVariableDeclaration();
 
-	public void AnnotatedType();
+    public void Varargs();
 
-	public void AnnotatedType_();
+    public void Varargs(boolean value);
 
-	public void _AnnotatedType();
+    public void AnnotatedType();
 
-	public void ArrayType();
+    public void AnnotatedType_();
 
-	public void ArrayType_();
+    public void _AnnotatedType();
 
-	public void _ArrayType();
+    public void ArrayType();
 
-	public void ParameterizedType();
+    public void ArrayType_();
 
-	public void ParameterizedType_();
+    public void _ArrayType();
 
-	public void _ParameterizedType();
+    public void ParameterizedType();
 
-	public void PrimitiveType();
+    public void ParameterizedType_();
 
-	public void PrimitiveType(PrimitiveTypeEnum.Value value);
+    public void _ParameterizedType();
 
-	public void PrimitiveType(String value);
+    public void PrimitiveType();
 
-	public void QualifiedType();
+    public void PrimitiveType(PrimitiveTypeEnum.Value value);
 
-	public void QualifiedType(String value);
+    public void PrimitiveType(String value);
 
-	public void SimpleType();
+    public void QualifiedType();
 
-	public void SimpleType(String value);
+    public void QualifiedType(String value);
 
-	public void WildcardType();
+    public void SimpleType();
 
-	public void WildcardType_();
+    public void SimpleType(String value);
 
-	public void _WildcardType();
+    public void WildcardType();
 
-	public void UnionType();
+    public void WildcardType_();
 
-	public void UnionType_();
+    public void _WildcardType();
 
-	public void UnionType_(int initialCapacity);
+    public void UnionType();
 
-	public void _UnionType();
+    public void UnionType_();
 
-	public void IntersectionType();
+    public void UnionType_(int initialCapacity);
 
-	public void IntersectionType_();
+    public void _UnionType();
 
-	public void IntersectionType_(int initialCapacity);
+    public void IntersectionType();
 
-	public void _IntersectionType();
+    public void IntersectionType_();
 
-	public void UpperBound();
+    public void IntersectionType_(int initialCapacity);
 
-	public void UpperBound(boolean value);
+    public void _IntersectionType();
 
-	public void AssertStatement();
+    public void UpperBound();
 
-	public void AssertStatement_();
+    public void UpperBound(boolean value);
 
-	public void _AssertStatement();
+    public void AssertStatement();
 
-	public void Block();
+    public void AssertStatement_();
 
-	public void Block_();
+    public void _AssertStatement();
 
-	public void Block_(int initialCapacity);
+    public void Block();
 
-	public void _Block();
+    public void Block_();
 
-	public void BreakStatement();
+    public void Block_(int initialCapacity);
 
-	public void BreakStatement_();
+    public void _Block();
 
-	public void _BreakStatement();
+    public void BreakStatement();
 
-	public void ConstructorInvocation();
+    public void BreakStatement_();
 
-	public void ConstructorInvocation_();
+    public void _BreakStatement();
 
-	public void _ConstructorInvocation();
+    public void ConstructorInvocation();
 
-	public void ContinueStatement();
+    public void ConstructorInvocation_();
 
-	public void ContinueStatement_();
+    public void _ConstructorInvocation();
 
-	public void _ContinueStatement();
+    public void ContinueStatement();
 
-	public void DoStatement();
+    public void ContinueStatement_();
 
-	public void DoStatement_();
+    public void _ContinueStatement();
 
-	public void _DoStatement();
+    public void DoStatement();
 
-	public void EmptyStatement();
+    public void DoStatement_();
 
-	public void EmptyStatement_();
+    public void _DoStatement();
 
-	public void _EmptyStatement();
+    public void EmptyStatement();
 
-	public void EnhancedForStatement();
+    public void EmptyStatement_();
 
-	public void EnhancedForStatement_();
+    public void _EmptyStatement();
 
-	public void _EnhancedForStatement();
+    public void EnhancedForStatement();
 
-	public void ExpressionStatement();
+    public void EnhancedForStatement_();
 
-	public void ExpressionStatement_();
+    public void _EnhancedForStatement();
 
-	public void _ExpressionStatement();
+    public void ExpressionStatement();
 
-	public void ForStatement();
+    public void ExpressionStatement_();
 
-	public void ForStatement_();
+    public void _ExpressionStatement();
 
-	public void _ForStatement();
+    public void ForStatement();
 
-	public void Expressions();
+    public void ForStatement_();
 
-	public void Expressions_();
+    public void _ForStatement();
 
-	public void Expressions_(int initialCapacity);
+    public void Expressions();
 
-	public void _Expressions();
+    public void Expressions_();
 
-	public void IfStatement();
+    public void Expressions_(int initialCapacity);
 
-	public void IfStatement_();
+    public void _Expressions();
 
-	public void _IfStatement();
+    public void IfStatement();
 
-	public void LabeledStatement();
+    public void IfStatement_();
 
-	public void LabeledStatement_();
+    public void _IfStatement();
 
-	public void _LabeledStatement();
+    public void LabeledStatement();
 
-	public void ReturnStatement();
+    public void LabeledStatement_();
 
-	public void ReturnStatement_();
+    public void _LabeledStatement();
 
-	public void _ReturnStatement();
+    public void ReturnStatement();
 
-	public void SuperConstructorInvocation();
+    public void ReturnStatement_();
 
-	public void SuperConstructorInvocation_();
+    public void _ReturnStatement();
 
-	public void _SuperConstructorInvocation();
+    public void SuperConstructorInvocation();
 
-	public void SwitchCase();
+    public void SuperConstructorInvocation_();
 
-	public void SwitchCase_();
+    public void _SuperConstructorInvocation();
 
-	public void _SwitchCase();
+    public void SwitchCase();
 
-	public void SwitchDefault();
+    public void SwitchCase_();
 
-	public void SwitchDefault_();
+    public void _SwitchCase();
 
-	public void _SwitchDefault();
+    public void SwitchDefault();
 
-	public void SwitchStatement();
+    public void SwitchDefault_();
 
-	public void SwitchStatement_();
+    public void _SwitchDefault();
 
-	public void _SwitchStatement();
+    public void SwitchStatement();
 
-	public void Statements();
+    public void SwitchStatement_();
 
-	public void Statements_();
+    public void _SwitchStatement();
 
-	public void Statements_(int initialCapacity);
+    public void Statements();
 
-	public void _Statements();
+    public void Statements_();
 
-	public void SynchronizedStatement();
+    public void Statements_(int initialCapacity);
 
-	public void SynchronizedStatement_();
+    public void _Statements();
 
-	public void _SynchronizedStatement();
+    public void SynchronizedStatement();
 
-	public void ThrowStatement();
+    public void SynchronizedStatement_();
 
-	public void ThrowStatement_();
+    public void _SynchronizedStatement();
 
-	public void _ThrowStatement();
+    public void ThrowStatement();
 
-	public void TryStatement();
+    public void ThrowStatement_();
 
-	public void TryStatement_();
+    public void _ThrowStatement();
 
-	public void _TryStatement();
+    public void TryStatement();
 
-	public void CatchClauses();
+    public void TryStatement_();
 
-	public void CatchClauses_();
+    public void _TryStatement();
 
-	public void CatchClauses_(int initialCapacity);
+    public void CatchClauses();
 
-	public void _CatchClauses();
+    public void CatchClauses_();
 
-	public void CatchClause();
+    public void CatchClauses_(int initialCapacity);
 
-	public void CatchClause_();
+    public void _CatchClauses();
 
-	public void _CatchClause();
+    public void CatchClause();
 
-	public void TypeDeclarationStatement();
+    public void CatchClause_();
 
-	public void TypeDeclarationStatement_();
+    public void _CatchClause();
 
-	public void _TypeDeclarationStatement();
+    public void TypeDeclarationStatement();
 
-	public void VariableDeclarationStatement();
+    public void TypeDeclarationStatement_();
 
-	public void VariableDeclarationStatement_();
+    public void _TypeDeclarationStatement();
 
-	public void _VariableDeclarationStatement();
+    public void VariableDeclarationStatement();
 
-	public void WhileStatement();
+    public void VariableDeclarationStatement_();
 
-	public void WhileStatement_();
+    public void _VariableDeclarationStatement();
 
-	public void _WhileStatement();
+    public void WhileStatement();
 
-	public void Names();
+    public void WhileStatement_();
 
-	public void Names_();
+    public void _WhileStatement();
 
-	public void Names_(int initialCapacity);
+    public void SimpleName();
 
-	public void _Names();
+    public void SimpleName(String value);
 
-	public void SimpleName();
+    public void QualifiedName();
 
-	public void SimpleName(String value);
+    public void QualifiedName(String value);
 
-	public void QualifiedName();
+    public void NullLiteral();
 
-	public void QualifiedName(String value);
+    public void NullLiteral_();
 
-	public void NullLiteral();
+    public void _NullLiteral();
 
-	public void NullLiteral_();
+    public void BooleanLiteral();
 
-	public void _NullLiteral();
+    public void BooleanLiteral(boolean value);
 
-	public void BooleanLiteral();
+    public void ByteLiteral();
 
-	public void BooleanLiteral(boolean value);
+    public void ByteLiteral(byte value);
 
-	public void ByteLiteral();
+    public void CharLiteral();
 
-	public void ByteLiteral(byte value);
+    public void CharLiteral(char value);
 
-	public void CharLiteral();
+    public void DoubleLiteral();
 
-	public void CharLiteral(char value);
+    public void DoubleLiteral(double value);
 
-	public void DoubleLiteral();
+    public void FloatLiteral();
 
-	public void DoubleLiteral(double value);
+    public void FloatLiteral(float value);
 
-	public void FloatLiteral();
+    public void IntLiteral();
 
-	public void FloatLiteral(float value);
+    public void IntLiteral(int value);
 
-	public void IntLiteral();
+    public void ShortLiteral();
 
-	public void IntLiteral(int value);
+    public void ShortLiteral(short value);
 
-	public void ShortLiteral();
+    public void LongLiteral();
 
-	public void ShortLiteral(short value);
+    public void LongLiteral(long value);
 
-	public void LongLiteral();
+    public void StringLiteral();
 
-	public void LongLiteral(long value);
+    public void StringLiteral(String value);
 
-	public void StringLiteral();
+    public void TypeLiteral();
 
-	public void StringLiteral(String value);
+    public void TypeLiteral_();
 
-	public void TypeLiteral();
+    public void _TypeLiteral();
 
-	public void TypeLiteral_();
+    public void ArrayAccess();
 
-	public void _TypeLiteral();
+    public void ArrayAccess_();
 
-	public void ArrayAccess();
+    public void _ArrayAccess();
 
-	public void ArrayAccess_();
+    public void ArrayCreation();
 
-	public void _ArrayAccess();
+    public void ArrayCreation_();
 
-	public void ArrayCreation();
+    public void _ArrayCreation();
 
-	public void ArrayCreation_();
+    public void ArrayInitializer();
 
-	public void _ArrayCreation();
+    public void ArrayInitializer_();
 
-	public void ArrayInitializer();
+    public void ArrayInitializer_(int initialCapacity);
 
-	public void ArrayInitializer_();
+    public void _ArrayInitializer();
 
-	public void ArrayInitializer_(int initialCapacity);
+    public void Assignment();
 
-	public void _ArrayInitializer();
+    public void Assignment_();
 
-	public void Assignment();
+    public void _Assignment();
 
-	public void Assignment_();
+    public void AssignmentOperator();
 
-	public void _Assignment();
+    public void AssignmentOperator(AssignmentOperatorEnum.Value value);
 
-	public void AssignmentOperator();
+    public void AssignmentOperator(String value);
 
-	public void AssignmentOperator(AssignmentOperatorEnum.Value value);
+    public void CastExpression();
 
-	public void AssignmentOperator(String value);
+    public void CastExpression_();
 
-	public void CastExpression();
+    public void _CastExpression();
 
-	public void CastExpression_();
+    public void ClassInstanceCreation();
 
-	public void _CastExpression();
+    public void ClassInstanceCreation_();
 
-	public void ClassInstanceCreation();
+    public void _ClassInstanceCreation();
 
-	public void ClassInstanceCreation_();
+    public void ConditionalExpression();
 
-	public void _ClassInstanceCreation();
+    public void ConditionalExpression_();
 
-	public void ConditionalExpression();
+    public void _ConditionalExpression();
 
-	public void ConditionalExpression_();
+    public void FieldAccess();
 
-	public void _ConditionalExpression();
+    public void FieldAccess_();
 
-	public void FieldAccess();
+    public void _FieldAccess();
 
-	public void FieldAccess_();
+    public void InfixExpression();
 
-	public void _FieldAccess();
+    public void InfixExpression_();
 
-	public void InfixExpression();
+    public void _InfixExpression();
 
-	public void InfixExpression_();
+    public void InfixOperator();
 
-	public void _InfixExpression();
+    public void InfixOperator(InfixOperatorEnum.Value value);
 
-	public void InfixOperator();
+    public void InfixOperator(String value);
 
-	public void InfixOperator(InfixOperatorEnum.Value value);
+    public void InstanceofExpression();
 
-	public void InfixOperator(String value);
+    public void InstanceofExpression_();
 
-	public void InstanceofExpression();
+    public void _InstanceofExpression();
 
-	public void InstanceofExpression_();
+    public void LambdaExpression();
 
-	public void _InstanceofExpression();
+    public void LambdaExpression_();
 
-	public void LambdaExpression();
+    public void _LambdaExpression();
 
-	public void LambdaExpression_();
+    public void MethodInvocation();
 
-	public void _LambdaExpression();
+    public void MethodInvocation_();
 
-	public void MethodInvocation();
+    public void _MethodInvocation();
 
-	public void MethodInvocation_();
+    public void ParenthesizedExpression();
 
-	public void _MethodInvocation();
+    public void ParenthesizedExpression_();
 
-	public void ParenthesizedExpression();
+    public void _ParenthesizedExpression();
 
-	public void ParenthesizedExpression_();
+    public void PostfixExpression();
 
-	public void _ParenthesizedExpression();
+    public void PostfixExpression_();
 
-	public void PostfixExpression();
+    public void _PostfixExpression();
 
-	public void PostfixExpression_();
+    public void PostfixOperator();
 
-	public void _PostfixExpression();
+    public void PostfixOperator(PostfixOperatorEnum.Value value);
 
-	public void PostfixOperator();
+    public void PostfixOperator(String value);
 
-	public void PostfixOperator(PostfixOperatorEnum.Value value);
+    public void PrefixExpression();
 
-	public void PostfixOperator(String value);
+    public void PrefixExpression_();
 
-	public void PrefixExpression();
+    public void _PrefixExpression();
 
-	public void PrefixExpression_();
+    public void PrefixOperator();
 
-	public void _PrefixExpression();
+    public void PrefixOperator(PrefixOperatorEnum.Value value);
 
-	public void PrefixOperator();
+    public void PrefixOperator(String value);
 
-	public void PrefixOperator(PrefixOperatorEnum.Value value);
+    public void SuperFieldAccess();
 
-	public void PrefixOperator(String value);
+    public void SuperFieldAccess_();
 
-	public void SuperFieldAccess();
+    public void _SuperFieldAccess();
 
-	public void SuperFieldAccess_();
+    public void SuperMethodInvocation();
 
-	public void _SuperFieldAccess();
+    public void SuperMethodInvocation_();
 
-	public void SuperMethodInvocation();
+    public void _SuperMethodInvocation();
 
-	public void SuperMethodInvocation_();
+    public void ThisExpression();
 
-	public void _SuperMethodInvocation();
+    public void ThisExpression_();
 
-	public void ThisExpression();
+    public void _ThisExpression();
 
-	public void ThisExpression_();
+    public void VariableDeclarationExpression();
 
-	public void _ThisExpression();
+    public void VariableDeclarationExpression_();
 
-	public void VariableDeclarationExpression();
+    public void _VariableDeclarationExpression();
 
-	public void VariableDeclarationExpression_();
+    public void VariableDeclarationFragments();
 
-	public void _VariableDeclarationExpression();
+    public void VariableDeclarationFragments_();
 
-	public void VariableDeclarationFragments();
+    public void VariableDeclarationFragments_(int initialCapacity);
 
-	public void VariableDeclarationFragments_();
+    public void _VariableDeclarationFragments();
 
-	public void VariableDeclarationFragments_(int initialCapacity);
+    public void VariableDeclarationFragment();
 
-	public void _VariableDeclarationFragments();
+    public void VariableDeclarationFragment_();
 
-	public void VariableDeclarationFragment();
+    public void _VariableDeclarationFragment();
 
-	public void VariableDeclarationFragment_();
+    public void ExtraDimensions();
 
-	public void _VariableDeclarationFragment();
+    public void ExtraDimensions(int value);
 
-	public void ExtraDimensions();
+    public void ExtendedModifiers();
 
-	public void ExtraDimensions(int value);
+    public void ExtendedModifiers_();
 
-	public void ExtendedModifiers();
+    public void ExtendedModifiers_(int initialCapacity);
 
-	public void ExtendedModifiers_();
+    public void _ExtendedModifiers();
 
-	public void ExtendedModifiers_(int initialCapacity);
+    public void Modifier();
 
-	public void _ExtendedModifiers();
+    public void Modifier(ModifierEnum.Value value);
 
-	public void Modifier();
+    public void Modifier(String value);
 
-	public void Modifier(ModifierEnum.Value value);
+    public void ConstructorReference();
 
-	public void Modifier(String value);
+    public void ConstructorReference_();
 
-	public void ConstructorReference();
+    public void _ConstructorReference();
 
-	public void ConstructorReference_();
+    public void ExpressionMethodReference();
 
-	public void _ConstructorReference();
+    public void ExpressionMethodReference_();
 
-	public void ExpressionMethodReference();
+    public void _ExpressionMethodReference();
 
-	public void ExpressionMethodReference_();
+    public void SuperMethodReference();
 
-	public void _ExpressionMethodReference();
+    public void SuperMethodReference_();
 
-	public void SuperMethodReference();
+    public void _SuperMethodReference();
 
-	public void SuperMethodReference_();
+    public void TypeMethodReference();
 
-	public void _SuperMethodReference();
+    public void TypeMethodReference_();
 
-	public void TypeMethodReference();
-
-	public void TypeMethodReference_();
-
-	public void _TypeMethodReference();
+    public void _TypeMethodReference();
 }

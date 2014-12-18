@@ -2,7 +2,7 @@
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Java"/>
     <models:TypeRelations initialCapacity="0"/>
-    <models:ModelDeclarations initialCapacity="137">
+    <models:ModelDeclarations initialCapacity="136">
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="JavaSystemSoftware"/>
@@ -828,7 +828,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Names"/>
+                    <models:SimpleName value="Types"/>
                     <models:SimpleName value="thrownExceptions"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -883,7 +883,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Names"/>
+                    <models:SimpleName value="Types"/>
                     <models:SimpleName value="thrownExceptions"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1638,15 +1638,6 @@
                 </models:Feature>
             </models:Features>
         </models:SimpleEntity>
-        <models:CompositeEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Names"/>
-            <models:Types initialCapacity="0"/>
-            <models:ComponentModifiers initialCapacity="1">
-                <models:ComponentModifier value="ordered"/>
-            </models:ComponentModifiers>
-            <models:SimpleName value="Name"/>
-        </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>

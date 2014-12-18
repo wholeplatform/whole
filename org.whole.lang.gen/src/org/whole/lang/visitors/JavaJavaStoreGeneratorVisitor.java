@@ -871,19 +871,6 @@ public class JavaJavaStoreGeneratorVisitor extends JavaIdentityVisitor {
 		builder.addSubtree(parentNestingSize, "WhileStatement", callExp);
 	}
 
-	public void visit(Names entity) {
-		int parentNestingSize = builder.initNestingSize();
-		org.eclipse.jdt.core.dom.MethodInvocation callExp = builder
-				.newFactoryInvocation(this, "createNames");
-		org.eclipse.jdt.core.dom.ArrayInitializer initArrayExp = builder
-				.newArrayInitializer();
-		callExp.arguments().add(builder.newArrayCreation("Name", initArrayExp));
-		List list = initArrayExp.expressions();
-		for (int i = 0; i < entity.wSize(); i++)
-			list.add(astOf((IJavaEntity) entity.wGet(i)));
-		builder.addSubtree(parentNestingSize, "Names", callExp);
-	}
-
 	public void visit(SimpleName entity) {
 		int parentNestingSize = builder.initNestingSize();
 		org.eclipse.jdt.core.dom.MethodInvocation callExp = builder

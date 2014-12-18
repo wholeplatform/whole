@@ -1022,8 +1022,8 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b2.Parameters_(0);
                 b2._Parameters();
                 b1.Resolver();
-                b2.Names_(0);
-                b2._Names();
+                b2.Types_(0);
+                b2._Types();
                 b2.Block_(1);
                 b1.StageDownFragment_();
                 b0.Select_();

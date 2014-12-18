@@ -507,10 +507,6 @@ public class JavaTextualPartFactoryVisitor extends JavaIdentityDefaultVisitor im
 		part = new CommaSeparatedCompositeFlowPart();
 	}
 
-	public void visit(Names entity) {
-		part = new CompositeRowPart();
-	}
-
 	public void visit(BodyDeclarations entity) {
 		part = new CompositeColumnWithPlaceholderPart();
 	}

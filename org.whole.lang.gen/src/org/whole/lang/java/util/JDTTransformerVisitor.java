@@ -166,7 +166,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 	private org.whole.lang.java.model.Name name;
 	private org.whole.lang.java.model.TypeParameter typeParameter;
 	private org.whole.lang.java.model.Parameters params;
-	private org.whole.lang.java.model.Names thrownExceptions;
+	private org.whole.lang.java.model.Types thrownExceptions;
 	private org.whole.lang.java.model.SingleVariableDeclaration varDecl;
 	private org.whole.lang.java.model.Block block;
 	private org.whole.lang.java.model.Statement stm;
@@ -473,7 +473,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.Name name = this.name;
 		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
 		org.whole.lang.java.model.Parameters params = this.params;
-		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.Types thrownExceptions = this.thrownExceptions;
 		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
 		org.whole.lang.java.model.Block block = this.block;
 		org.whole.lang.java.model.Statement stm = this.stm;
@@ -623,7 +623,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.Name name = this.name;
 		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
 		org.whole.lang.java.model.Parameters params = this.params;
-		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.Types thrownExceptions = this.thrownExceptions;
 		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
 		org.whole.lang.java.model.Block block = this.block;
 		org.whole.lang.java.model.Statement stm = this.stm;
@@ -721,7 +721,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.Name name = this.name;
 		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
 		org.whole.lang.java.model.Parameters params = this.params;
-		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.Types thrownExceptions = this.thrownExceptions;
 		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
 		org.whole.lang.java.model.Block block = this.block;
 		org.whole.lang.java.model.Statement stm = this.stm;
@@ -810,7 +810,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.Name name = this.name;
 		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
 		org.whole.lang.java.model.Parameters params = this.params;
-		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.Types thrownExceptions = this.thrownExceptions;
 		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
 		org.whole.lang.java.model.Block block = this.block;
 		org.whole.lang.java.model.Statement stm = this.stm;
@@ -1038,13 +1038,13 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			acceptChildren(node.parameters());
 
 			if (node.thrownExceptionTypes().isEmpty())
-				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Names);
+				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Types);
 			else
-				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Names);
+				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Types);
 			constructorDecl.setThrownExceptions(thrownExceptions);
 			for (Object child : node.thrownExceptionTypes()) {
 				((ASTNode) child).accept(this);
-				thrownExceptions.wAdd(name);
+				thrownExceptions.wAdd(type);
 			}
 
 			acceptChild(node.getBody());
@@ -1080,13 +1080,13 @@ public class JDTTransformerVisitor extends ASTVisitor {
 			acceptChildren(node.parameters());
 
 			if (node.thrownExceptionTypes().isEmpty())
-				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Names);
+				thrownExceptions = createResolver(JavaEntityDescriptorEnum.Types);
 			else
-				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Names);
+				thrownExceptions = lf.create(JavaEntityDescriptorEnum.Types);
 			methodDecl.setThrownExceptions(thrownExceptions);
 			for (Object child : node.thrownExceptionTypes()) {
 				((ASTNode) child).accept(this);
-				thrownExceptions.wAdd(name);
+				thrownExceptions.wAdd(type);
 			}
 
 			if (acceptChild(node.getBody()))
@@ -1494,7 +1494,7 @@ public class JDTTransformerVisitor extends ASTVisitor {
 		org.whole.lang.java.model.Name name = this.name;
 		org.whole.lang.java.model.TypeParameter typeParameter = this.typeParameter;
 		org.whole.lang.java.model.Parameters params = this.params;
-		org.whole.lang.java.model.Names thrownExceptions = this.thrownExceptions;
+		org.whole.lang.java.model.Types thrownExceptions = this.thrownExceptions;
 		org.whole.lang.java.model.SingleVariableDeclaration varDecl = this.varDecl;
 		org.whole.lang.java.model.Block block = this.block;
 		org.whole.lang.java.model.Statement stm = this.stm;

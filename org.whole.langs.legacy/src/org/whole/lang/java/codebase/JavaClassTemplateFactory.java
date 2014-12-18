@@ -529,10 +529,10 @@ public class JavaClassTemplateFactory extends AbstractTemplateFactory<Compilatio
 		if (exceptionTypes.length == 0)
 			cb.Resolver();
 		else {
-			jb.Names_();
+			jb.Types_();
 			for (Type exceptionType : exceptionTypes)
-				buildQualifiedName(((Class<?>) exceptionType).getSimpleName());
-			jb._Names();
+				buildType(exceptionType);
+			jb._Types();
 		}
 	}
 	protected void buildTypes(Type[] types) {

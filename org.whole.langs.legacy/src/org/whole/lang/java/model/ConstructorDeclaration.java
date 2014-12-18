@@ -1,31 +1,50 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.java.model;
 
-/** 
- * @generator Whole
+
+/**
+ *  @generator Whole
  */
-public interface ConstructorDeclaration extends IJavaEntity,
-		AnnotatedBodyDeclaration {
-	public TypeParameters getTypeParameters();
+public interface ConstructorDeclaration extends IJavaEntity, AnnotatedBodyDeclaration {
 
-	public void setTypeParameters(TypeParameters typeParameters);
 
-	public SimpleName getName();
+    public TypeParameters getTypeParameters();
 
-	public void setName(SimpleName name);
+    public void setTypeParameters(TypeParameters typeParameters);
 
-	public Parameters getParameters();
+    public SimpleName getName();
 
-	public void setParameters(Parameters parameters);
+    public void setName(SimpleName name);
 
-	public ExtraDimensions getExtraDimensions();
+    public Parameters getParameters();
 
-	public void setExtraDimensions(ExtraDimensions extraDimensions);
+    public void setParameters(Parameters parameters);
 
-	public Names getThrownExceptions();
+    public ExtraDimensions getExtraDimensions();
 
-	public void setThrownExceptions(Names thrownExceptions);
+    public void setExtraDimensions(ExtraDimensions extraDimensions);
 
-	public Block getBody();
+    public Types getThrownExceptions();
 
-	public void setBody(Block body);
+    public void setThrownExceptions(Types thrownExceptions);
+
+    public Block getBody();
+
+    public void setBody(Block body);
 }

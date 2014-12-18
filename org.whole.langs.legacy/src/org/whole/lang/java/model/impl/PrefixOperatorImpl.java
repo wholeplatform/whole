@@ -1,65 +1,81 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.java.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.java.model.*;
+import org.whole.lang.java.model.PrefixOperator;
 import org.whole.lang.java.visitors.IJavaVisitor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.java.model.PrefixOperatorEnum;
 import org.whole.lang.model.EnumValue;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
-public class PrefixOperatorImpl extends AbstractDataEntity implements
-		PrefixOperator {
-	private static final long serialVersionUID = 1;
-	private org.whole.lang.java.model.PrefixOperatorEnum.Value value;
+public class PrefixOperatorImpl extends AbstractDataEntity implements PrefixOperator {
+    private static final long serialVersionUID = 1;
+    private org.whole.lang.java.model.PrefixOperatorEnum.Value value;
 
-	public org.whole.lang.java.model.PrefixOperatorEnum.Value getValue() {
-		return notifyRequested(value);
-	}
+    public org.whole.lang.java.model.PrefixOperatorEnum.Value getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(
-			org.whole.lang.java.model.PrefixOperatorEnum.Value value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(org.whole.lang.java.model.PrefixOperatorEnum.Value value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IJavaVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IJavaVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return JavaEntityDescriptorEnum.PrefixOperator_ord;
-	}
+    public int wGetEntityOrd() {
+        return JavaEntityDescriptorEnum.PrefixOperator_ord;
+    }
 
-	public EntityDescriptor<PrefixOperator> wGetEntityDescriptor() {
-		return JavaEntityDescriptorEnum.PrefixOperator;
-	}
+    public EntityDescriptor<PrefixOperator> wGetEntityDescriptor() {
+        return JavaEntityDescriptorEnum.PrefixOperator;
+    }
 
-	public Object wGetValue() {
-		return getValue();
-	}
+    public Object wGetValue() {
+        return getValue();
+    }
 
-	public void wSetValue(Object value) {
-		setValue((org.whole.lang.java.model.PrefixOperatorEnum.Value) value);
-	}
+    public void wSetValue(Object value) {
+        setValue((org.whole.lang.java.model.PrefixOperatorEnum.Value) value);
+    }
 
-	public String wStringValue() {
-		return toString();
-	}
+    public String wStringValue() {
+        return toString();
+    }
 
-	public void wSetValue(String value) {
-		try {
-			setValue(PrefixOperatorEnum.instance.valueOf(value));
-		} catch (NumberFormatException e) {
-		}
-	}
+    public void wSetValue(String value) {
+        try {
+            setValue(PrefixOperatorEnum.instance.valueOf(value));
+        } catch (NumberFormatException e) {
+        }
+    }
 
-	public EnumValue wEnumValue() {
-		return value;
-	}
+    public EnumValue wEnumValue() {
+        return value;
+    }
 
-	public void wSetValue(EnumValue value) {
-		setValue((org.whole.lang.java.model.PrefixOperatorEnum.Value) value);
-	}
+    public void wSetValue(EnumValue value) {
+        setValue((org.whole.lang.java.model.PrefixOperatorEnum.Value) value);
+    }
 }

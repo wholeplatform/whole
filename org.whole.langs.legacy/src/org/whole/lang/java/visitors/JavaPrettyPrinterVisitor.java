@@ -474,14 +474,6 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 		}
 	}
 
-	public void visit(Names entity) {
-		for (int i = 0; i < entity.size(); i++) {
-			if (i>0)
-				out.printRaw(", ");
-			entity.get(i).accept(this);
-		}
-	}
-
 	@Override
 	public void visit(ExtraDimensions entity) {
 		int extraDimensions = entity.wIntValue();

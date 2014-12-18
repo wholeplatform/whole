@@ -1,199 +1,198 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.java.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.java.model.*;
+import org.whole.lang.java.model.MethodDeclaration;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.java.model.Javadoc;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.java.model.ExtendedModifiers;
+import org.whole.lang.java.model.TypeParameters;
+import org.whole.lang.java.model.Type;
+import org.whole.lang.java.model.SimpleName;
+import org.whole.lang.java.model.Parameters;
+import org.whole.lang.java.model.ExtraDimensions;
+import org.whole.lang.java.model.Types;
+import org.whole.lang.java.model.Block;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
-public class MethodDeclarationImpl extends AbstractSimpleEntity implements
-		MethodDeclaration {
-	private static final long serialVersionUID = 1;
+public class MethodDeclarationImpl extends AbstractSimpleEntity implements MethodDeclaration {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<MethodDeclaration> wGetEntityDescriptor() {
-		return JavaEntityDescriptorEnum.MethodDeclaration;
-	}
+    public EntityDescriptor<MethodDeclaration> wGetEntityDescriptor() {
+        return JavaEntityDescriptorEnum.MethodDeclaration;
+    }
 
-	public int wGetEntityOrd() {
-		return JavaEntityDescriptorEnum.MethodDeclaration_ord;
-	}
+    public int wGetEntityOrd() {
+        return JavaEntityDescriptorEnum.MethodDeclaration_ord;
+    }
 
-	public void accept(IJavaVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IJavaVisitor visitor) {
+        visitor.visit(this);
+    }
+    private Javadoc javadoc;
 
-	private Javadoc javadoc;
+    public Javadoc getJavadoc() {
+        return notifyRequested(JavaFeatureDescriptorEnum.javadoc, javadoc);
+    }
 
-	public Javadoc getJavadoc() {
-		return notifyRequested(JavaFeatureDescriptorEnum.javadoc, javadoc);
-	}
+    public void setJavadoc(Javadoc javadoc) {
+        notifyChanged(JavaFeatureDescriptorEnum.javadoc, this.javadoc, this.javadoc = javadoc);
+    }
+    private ExtendedModifiers modifiers;
 
-	public void setJavadoc(Javadoc javadoc) {
-		notifyChanged(JavaFeatureDescriptorEnum.javadoc, this.javadoc,
-				this.javadoc = javadoc);
-	}
+    public ExtendedModifiers getModifiers() {
+        return notifyRequested(JavaFeatureDescriptorEnum.modifiers, modifiers);
+    }
 
-	private ExtendedModifiers modifiers;
+    public void setModifiers(ExtendedModifiers modifiers) {
+        notifyChanged(JavaFeatureDescriptorEnum.modifiers, this.modifiers, this.modifiers = modifiers);
+    }
+    private TypeParameters typeParameters;
 
-	public ExtendedModifiers getModifiers() {
-		return notifyRequested(JavaFeatureDescriptorEnum.modifiers, modifiers);
-	}
+    public TypeParameters getTypeParameters() {
+        return notifyRequested(JavaFeatureDescriptorEnum.typeParameters, typeParameters);
+    }
 
-	public void setModifiers(ExtendedModifiers modifiers) {
-		notifyChanged(JavaFeatureDescriptorEnum.modifiers, this.modifiers,
-				this.modifiers = modifiers);
-	}
+    public void setTypeParameters(TypeParameters typeParameters) {
+        notifyChanged(JavaFeatureDescriptorEnum.typeParameters, this.typeParameters, this.typeParameters = typeParameters);
+    }
+    private Type returnType;
 
-	private TypeParameters typeParameters;
+    public Type getReturnType() {
+        return notifyRequested(JavaFeatureDescriptorEnum.returnType, returnType);
+    }
 
-	public TypeParameters getTypeParameters() {
-		return notifyRequested(JavaFeatureDescriptorEnum.typeParameters,
-				typeParameters);
-	}
+    public void setReturnType(Type returnType) {
+        notifyChanged(JavaFeatureDescriptorEnum.returnType, this.returnType, this.returnType = returnType);
+    }
+    private SimpleName name;
 
-	public void setTypeParameters(TypeParameters typeParameters) {
-		notifyChanged(JavaFeatureDescriptorEnum.typeParameters,
-				this.typeParameters, this.typeParameters = typeParameters);
-	}
+    public SimpleName getName() {
+        return notifyRequested(JavaFeatureDescriptorEnum.name, name);
+    }
 
-	private Type returnType;
+    public void setName(SimpleName name) {
+        notifyChanged(JavaFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Parameters parameters;
 
-	public Type getReturnType() {
-		return notifyRequested(JavaFeatureDescriptorEnum.returnType, returnType);
-	}
+    public Parameters getParameters() {
+        return notifyRequested(JavaFeatureDescriptorEnum.parameters, parameters);
+    }
 
-	public void setReturnType(Type returnType) {
-		notifyChanged(JavaFeatureDescriptorEnum.returnType, this.returnType,
-				this.returnType = returnType);
-	}
+    public void setParameters(Parameters parameters) {
+        notifyChanged(JavaFeatureDescriptorEnum.parameters, this.parameters, this.parameters = parameters);
+    }
+    private ExtraDimensions extraDimensions;
 
-	private SimpleName name;
+    public ExtraDimensions getExtraDimensions() {
+        return notifyRequested(JavaFeatureDescriptorEnum.extraDimensions, extraDimensions);
+    }
 
-	public SimpleName getName() {
-		return notifyRequested(JavaFeatureDescriptorEnum.name, name);
-	}
+    public void setExtraDimensions(ExtraDimensions extraDimensions) {
+        notifyChanged(JavaFeatureDescriptorEnum.extraDimensions, this.extraDimensions, this.extraDimensions = extraDimensions);
+    }
+    private Types thrownExceptions;
 
-	public void setName(SimpleName name) {
-		notifyChanged(JavaFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Types getThrownExceptions() {
+        return notifyRequested(JavaFeatureDescriptorEnum.thrownExceptions, thrownExceptions);
+    }
 
-	private Parameters parameters;
+    public void setThrownExceptions(Types thrownExceptions) {
+        notifyChanged(JavaFeatureDescriptorEnum.thrownExceptions, this.thrownExceptions, this.thrownExceptions = thrownExceptions);
+    }
+    private Block body;
 
-	public Parameters getParameters() {
-		return notifyRequested(JavaFeatureDescriptorEnum.parameters, parameters);
-	}
+    public Block getBody() {
+        return notifyRequested(JavaFeatureDescriptorEnum.body, body);
+    }
 
-	public void setParameters(Parameters parameters) {
-		notifyChanged(JavaFeatureDescriptorEnum.parameters, this.parameters,
-				this.parameters = parameters);
-	}
+    public void setBody(Block body) {
+        notifyChanged(JavaFeatureDescriptorEnum.body, this.body, this.body = body);
+    }
 
-	private ExtraDimensions extraDimensions;
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getJavadoc().wGetAdaptee(false);
+            case 1 :
+            return getModifiers().wGetAdaptee(false);
+            case 2 :
+            return getTypeParameters().wGetAdaptee(false);
+            case 3 :
+            return getReturnType().wGetAdaptee(false);
+            case 4 :
+            return getName().wGetAdaptee(false);
+            case 5 :
+            return getParameters().wGetAdaptee(false);
+            case 6 :
+            return getExtraDimensions().wGetAdaptee(false);
+            case 7 :
+            return getThrownExceptions().wGetAdaptee(false);
+            case 8 :
+            return getBody().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public ExtraDimensions getExtraDimensions() {
-		return notifyRequested(JavaFeatureDescriptorEnum.extraDimensions,
-				extraDimensions);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setJavadoc(value.wGetAdapter(JavaEntityDescriptorEnum.Javadoc));
+            break;
+            case 1 :
+            setModifiers(value.wGetAdapter(JavaEntityDescriptorEnum.ExtendedModifiers));
+            break;
+            case 2 :
+            setTypeParameters(value.wGetAdapter(JavaEntityDescriptorEnum.TypeParameters));
+            break;
+            case 3 :
+            setReturnType(value.wGetAdapter(JavaEntityDescriptorEnum.Type));
+            break;
+            case 4 :
+            setName(value.wGetAdapter(JavaEntityDescriptorEnum.SimpleName));
+            break;
+            case 5 :
+            setParameters(value.wGetAdapter(JavaEntityDescriptorEnum.Parameters));
+            break;
+            case 6 :
+            setExtraDimensions(value.wGetAdapter(JavaEntityDescriptorEnum.ExtraDimensions));
+            break;
+            case 7 :
+            setThrownExceptions(value.wGetAdapter(JavaEntityDescriptorEnum.Types));
+            break;
+            case 8 :
+            setBody(value.wGetAdapter(JavaEntityDescriptorEnum.Block));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setExtraDimensions(ExtraDimensions extraDimensions) {
-		notifyChanged(JavaFeatureDescriptorEnum.extraDimensions,
-				this.extraDimensions, this.extraDimensions = extraDimensions);
-	}
-
-	private Names thrownExceptions;
-
-	public Names getThrownExceptions() {
-		return notifyRequested(JavaFeatureDescriptorEnum.thrownExceptions,
-				thrownExceptions);
-	}
-
-	public void setThrownExceptions(Names thrownExceptions) {
-		notifyChanged(JavaFeatureDescriptorEnum.thrownExceptions,
-				this.thrownExceptions, this.thrownExceptions = thrownExceptions);
-	}
-
-	private Block body;
-
-	public Block getBody() {
-		return notifyRequested(JavaFeatureDescriptorEnum.body, body);
-	}
-
-	public void setBody(Block body) {
-		notifyChanged(JavaFeatureDescriptorEnum.body, this.body,
-				this.body = body);
-	}
-
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getJavadoc().wGetAdaptee(false);
-		case 1:
-			return getModifiers().wGetAdaptee(false);
-		case 2:
-			return getTypeParameters().wGetAdaptee(false);
-		case 3:
-			return getReturnType().wGetAdaptee(false);
-		case 4:
-			return getName().wGetAdaptee(false);
-		case 5:
-			return getParameters().wGetAdaptee(false);
-		case 6:
-			return getExtraDimensions().wGetAdaptee(false);
-		case 7:
-			return getThrownExceptions().wGetAdaptee(false);
-		case 8:
-			return getBody().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setJavadoc(value.wGetAdapter(JavaEntityDescriptorEnum.Javadoc));
-			break;
-		case 1:
-			setModifiers(value
-					.wGetAdapter(JavaEntityDescriptorEnum.ExtendedModifiers));
-			break;
-		case 2:
-			setTypeParameters(value
-					.wGetAdapter(JavaEntityDescriptorEnum.TypeParameters));
-			break;
-		case 3:
-			setReturnType(value.wGetAdapter(JavaEntityDescriptorEnum.Type));
-			break;
-		case 4:
-			setName(value.wGetAdapter(JavaEntityDescriptorEnum.SimpleName));
-			break;
-		case 5:
-			setParameters(value
-					.wGetAdapter(JavaEntityDescriptorEnum.Parameters));
-			break;
-		case 6:
-			setExtraDimensions(value
-					.wGetAdapter(JavaEntityDescriptorEnum.ExtraDimensions));
-			break;
-		case 7:
-			setThrownExceptions(value
-					.wGetAdapter(JavaEntityDescriptorEnum.Names));
-			break;
-		case 8:
-			setBody(value.wGetAdapter(JavaEntityDescriptorEnum.Block));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 9;
-	}
+    public int wSize() {
+        return 9;
+    }
 }

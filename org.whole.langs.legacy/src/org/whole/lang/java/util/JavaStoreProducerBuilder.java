@@ -142,7 +142,7 @@ public class JavaStoreProducerBuilder implements IBuilder {
 		jb._SingleVariableDeclaration();
 		jb._Parameters();
 		jb.ExtraDimensions();
-		jb.Names();
+		jb.Types();
 		jb.Block_();
 	}
 	public void buildEndCompilationUnit() {
@@ -203,7 +203,7 @@ public class JavaStoreProducerBuilder implements IBuilder {
 			jb._SingleVariableDeclaration();
 			jb._Parameters();
 			jb.ExtraDimensions();
-			jb.Names();
+			jb.Types();
 			jb.Block_();
 
 			builderNameMap.clear();
