@@ -17,6 +17,7 @@
  */
 package org.whole.lang.ide;
 
+import org.whole.lang.java.JavaReflectLibraryDeployer;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
@@ -59,5 +60,7 @@ public class IDEOperationsDeployer extends AbstractLanguageExtensionDeployer {
 					return null;
 			}
 		});
+
+		new JavaReflectLibraryDeployer().deploy(platform);
 	}
 }

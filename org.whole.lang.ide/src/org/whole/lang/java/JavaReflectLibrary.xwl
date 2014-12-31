@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.java:JavaReflectLibrary"/>
+    <semantics:Namespace value="org.whole.lang.java"/>
+    <semantics:Name value="Java Reflect"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="1">
+        <semantics:SemanticFunction>
+            <semantics:Name value="compilationUnit"/>
+            <semantics:FunctionType>
+                <semantics:LegacyType value="STRING"/>
+                <semantics:EntityType value="http://lang.whole.org/Java#CompilationUnit"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="compilationUnitIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.java.JavaReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="compilationUnitIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>
