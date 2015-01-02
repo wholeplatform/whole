@@ -29,7 +29,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -230,8 +229,7 @@ public class JDTUtils {
 	}
 	public static ISourceReference findSourceReference(String className, IJavaProject javaProject) {
 		try {
-			ISourceReference sourceReference = (ISourceReference) javaProject.findType(className);
-			return sourceReference;
+			return javaProject.findType(className).getCompilationUnit();
 		} catch (JavaModelException e) {
 			return null;
 		}
