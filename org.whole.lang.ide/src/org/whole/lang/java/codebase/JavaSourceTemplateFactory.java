@@ -22,9 +22,13 @@ import org.eclipse.jdt.core.ITypeRoot;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.builders.GenericForwardSpecificBuilder;
 import org.whole.lang.builders.IBuilderOperation;
+import org.whole.lang.java.factories.JavaEntityFactory;
 import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.java.util.JDTTransformerVisitor;
 import org.whole.lang.templates.ModelTemplate;
+import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.StringUtils;
 
 /**
  * @author Enrico Persiani
@@ -43,9 +47,15 @@ public class JavaSourceTemplateFactory extends JavaClassTemplateFactory {
 
 	protected void init(String sourceAttachment, String className, IJavaProject javaProject) {
 		try {
-			if (sourceAttachment != null)
+			if (sourceAttachment != null) {
 				compilationUnit = JDTTransformerVisitor.transform(sourceAttachment, JDTUtils.parseAsCompilationUnit(sourceAttachment));
-			else
+				
+				//FIXME workaround for missing package declaration
+				if (EntityUtils.isResolver(compilationUnit.getPackage()) && StringUtils.isQualified(className))
+					compilationUnit.setPackage(JavaEntityFactory.instance.buildPackageDeclaration()
+							.set(JavaFeatureDescriptorEnum.name,
+									JavaEntityFactory.instance.createQualifiedName(StringUtils.toPackageName(className))).getResult());
+			} else
 				this.clazz = Class.forName(className, false, JDTUtils.createClassLoader(javaProject, true));
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException("Cannot load "+className+" class fomr "+javaProject.getElementName()+" Java Project");
