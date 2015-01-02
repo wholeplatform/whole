@@ -4549,7 +4549,12 @@
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
                                         </commons:StageDownFragment>
                                         <commons:StageDownFragment>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="markExecutableStage"/>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#expression"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </semantics:FunctionApplication>
                                         </commons:StageDownFragment>
                                         </semantics:TypeCast>
                                         </commons:StageUpFragment>
