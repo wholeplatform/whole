@@ -199,8 +199,11 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 
 			List<IEntity> featuresToBeShown = new ArrayList<IEntity>(size);
 			for (int i=0; i<size; i++) {
-				if (!model.wGetEntityDescriptor().getEntityFeatureDescriptor(i).isReference())
-					featuresToBeShown.add(model.wGet(i));
+				if (!model.wGetEntityDescriptor().getEntityFeatureDescriptor(i).isReference()) {
+					IEntity child = model.wGet(i);
+					if (!child.wGetLanguageKit().getURI().equals("whole:org.whole.lang.status:Status"))
+						featuresToBeShown.add(child);
+				}
 			}
 			return featuresToBeShown;
 		}

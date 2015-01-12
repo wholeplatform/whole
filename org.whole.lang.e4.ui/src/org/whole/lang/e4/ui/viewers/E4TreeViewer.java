@@ -31,12 +31,13 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.ui.parts.TreeViewer;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.events.MouseAdapter;
@@ -226,6 +227,9 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 	public void setContents(Object contents) {
 		IEntity root = (IEntity) contents;
+		//FIXME workaround since selection is not properly reset
+		if (getContents() != null)
+			setSelection(StructuredSelection.EMPTY);
 		super.setContents(wrapContents(root));
 		updateModelObserver(root);
 	}
@@ -252,6 +256,16 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		if (entityPart != null)
 			select(entityPart);
 	}
+	@Override
+	public void select(List<? extends IEntity> entities) {
+		List<IEntityPart> entityParts = new ArrayList<>();
+		for (int i = entities.size()-1; i >= 0; i--) {
+			IEntityPart entityPart = getEditPartRegistry().get(entities.get(i));
+			if (entityPart != null)
+				entityParts.add(entityPart);
+		}
+		setSelection(new StructuredSelection(entityParts));
+	}
 	public void reveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
 			reveal(entityPart);
@@ -263,6 +277,12 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 			reveal(entityPart);
 			select(entityPart);
 		}
+	}
+	@Override
+	public void selectAndReveal(List<? extends IEntity> entities) {
+		select(entities);
+		if (!entities.isEmpty())
+			reveal(entities.get(0));
 	}
 
 	protected void updateModelObserver(IEntity entity) {

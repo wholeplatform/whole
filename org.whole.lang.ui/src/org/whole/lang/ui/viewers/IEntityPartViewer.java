@@ -17,12 +17,13 @@
  */
 package org.whole.lang.ui.viewers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
@@ -61,7 +62,9 @@ public interface IEntityPartViewer extends EditPartViewer {
 
 	public void reveal(IEntity entity);
 	public void select(IEntity entity);
+	public void select(List<? extends IEntity> entity);
 	public void selectAndReveal(IEntity entity);
+	public void selectAndReveal(List<? extends IEntity> entity);
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited);
 
 	public AbstractKeyHandler getKeyHandler();

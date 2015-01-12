@@ -17,12 +17,15 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
@@ -35,6 +38,8 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 	@Inject
 	protected IEclipseContext context;
 	@Inject
+	protected IEventBroker eventBroker;
+	@Inject
 	protected IEntityPartViewer viewer;
 	@Inject @Named(LINK_TYPE)
 	protected LinkType linkType;
@@ -44,6 +49,8 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 	protected boolean shareEditDomain;
 	@Inject @Named(SYNCHRONIZE_SELECTION)
 	protected boolean synchronizeSelection;
+	@Inject @Named(IGNORABLE_PART_IDS)
+	protected Set<String> ignorablePartIds;
 
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
@@ -51,9 +58,7 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 
 	@Override
 	public void selectionChanged(MPart part, Object selection) {
-		if (part.getElementId().equals(IUIConstants.OUTLINE_PART_ID) ||
-				part.getElementId().equals(IUIConstants.DETAILS_PART_ID) ||
-				part.getElementId().equals(IUIConstants.SAMPLE_PART_ID))
+		if (ignorablePartIds.contains(part.getElementId()))
 			return;
 
 		if (isRelevant(selection))
@@ -103,5 +108,14 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 		Object[] listeners = linkViewerListenerList.getListeners(); 
 		for (int i = 0; i < listeners.length; i++)
 			((ILinkViewerListener) listeners[i]).contentsDerived(viewer, lastSelection, result); 
+	}
+
+	public boolean isSynchronizeSelection() {
+		return synchronizeSelection;
+	}
+	public boolean setSynchronizeSelection(boolean synchronizeSelection) {
+		boolean previousValue = this.synchronizeSelection;
+		this.synchronizeSelection = synchronizeSelection;
+		return previousValue;
 	}
 }

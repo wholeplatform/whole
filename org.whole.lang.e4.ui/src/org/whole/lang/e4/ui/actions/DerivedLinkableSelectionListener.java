@@ -17,6 +17,9 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.eclipse.core.runtime.jobs.Job;
@@ -89,7 +92,12 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 		} else
 			viewer.setContents(lastSelection.wGet("self"));
 
-		if (synchronizeSelection && lastSelection.wIsSet("primarySelectedEntity"))
-			viewer.selectAndReveal(lastSelection.wGet("primarySelectedEntity"));
+		if (isSynchronizeSelection() && lastSelection.wIsSet("primarySelectedEntity")) {
+			IEntity selectedEntities = lastSelection.wGet("selectedEntities");
+			List<IEntity> selection = new ArrayList<>();
+			for (int i=0, size=selectedEntities.wSize(); i<size; i++)
+				selection.add(selectedEntities.wGet(i));
+			viewer.selectAndReveal(selection);
+		}
 	}
 }

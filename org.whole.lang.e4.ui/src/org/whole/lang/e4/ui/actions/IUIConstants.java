@@ -170,6 +170,7 @@ public interface IUIConstants {
 	public static final String TOPIC_REBUILD_VIEWER_CONDITIONAL = "TOPIC_REBUILD_VIEWER_CONDITIONAL";
 	public static final String TOPIC_REBUILD_VIEWER = "TOPIC_REBUILD_VIEWER";
 	public static final String TOPIC_REFRESH_VIEWER = "TOPIC_REFRESH_VIEWER";
+	public static final String TOPIC_SYNC_OULINE_SELECTION = "TOPIC_SYNC_OULINE_SELECTION";
 
 	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
 	public static final String FIND_BUTTON_TEXT = "Find";

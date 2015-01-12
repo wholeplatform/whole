@@ -17,12 +17,16 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.LinkType;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -50,6 +54,12 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, false);
 		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, false);
+
+		Set<String> ignorablePartIds = new HashSet<>();
+		ignorablePartIds.add(IUIConstants.DETAILS_PART_ID);
+		ignorablePartIds.add(IUIConstants.SAMPLE_PART_ID);
+		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, ignorablePartIds);
+
 		return params;
 	}
 

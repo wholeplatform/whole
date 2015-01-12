@@ -27,6 +27,7 @@ public interface ILinkableSelectionListener extends ILinkable, ISelectionListene
 	public static final String FUNCTION_URI = "org.whole.lang.e4.ui.actions.functionUri";
 	public static final String SHARE_EDIT_DOMAIN = "org.whole.lang.e4.ui.actions.shareEditDoman";
 	public static final String SYNCHRONIZE_SELECTION = "org.whole.lang.e4.ui.actions.synchronizeSelection";
+	public static final String IGNORABLE_PART_IDS = "org.whole.lang.e4.ui.actions.ignorablePartIds";
 
 	public void addLinkViewerListener(ILinkViewerListener listener);
 	public void removeLinkViewerListener(ILinkViewerListener listener); 

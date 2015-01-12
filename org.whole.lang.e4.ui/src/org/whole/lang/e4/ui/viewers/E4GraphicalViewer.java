@@ -44,6 +44,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
@@ -270,6 +271,16 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		if (entityPart != null)
 			select(entityPart);
 	}
+	@Override
+	public void select(List<? extends IEntity> entities) {
+		List<IEntityPart> entityParts = new ArrayList<>();
+		for (int i = entities.size()-1; i >= 0; i--) {
+			IEntityPart entityPart = getEditPartRegistry().get(entities.get(i));
+			if (entityPart != null)
+				entityParts.add(entityPart);
+		}
+		setSelection(new StructuredSelection(entityParts));
+	}
 	public void reveal(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
 		reveal(entityPart);
@@ -281,6 +292,12 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			reveal(entityPart);
 			select(entityPart);
 		}
+	}
+	@Override
+	public void selectAndReveal(List<? extends IEntity> entities) {
+		select(entities);
+		if (!entities.isEmpty())
+			reveal(entities.get(0));
 	}
 
 	protected void updateModelObserver(IEntity entity) {

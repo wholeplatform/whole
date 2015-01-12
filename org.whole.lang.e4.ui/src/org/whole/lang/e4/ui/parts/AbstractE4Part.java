@@ -19,7 +19,9 @@ package org.whole.lang.e4.ui.parts;
 
 import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -277,6 +279,18 @@ public abstract class AbstractE4Part {
 	protected void rebuildViewerConditional(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL) String resourceUri) {
 		if (getViewer().getReferencedResources().contains(resourceUri))
 			getViewer().rebuildNotation();
+	}
+
+
+	@Inject
+	@Optional
+	protected void syncOutlineSelection(@UIEventTopic(IUIConstants.TOPIC_SYNC_OULINE_SELECTION) IEntity selectedEntities) {
+		if (!selectedEntities.wIsEmpty() && getViewer().getEditPartRegistry().containsKey(selectedEntities.wGet(0))) {
+			List<IEntity> selection = new ArrayList<>();
+			for (int i=0, size=selectedEntities.wSize(); i<size; i++)
+				selection.add(selectedEntities.wGet(i));
+			viewer.selectAndReveal(selection);
+		}
 	}
 
 	public IEntityPartViewer getViewer() {
