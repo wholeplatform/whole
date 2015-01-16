@@ -89,8 +89,11 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			job.setUser(false);
 			job.setPriority(Job.INTERACTIVE);
 			job.schedule();
-		} else
-			viewer.setContents(lastSelection.wGet("self"));
+		} else {
+			IEntity newContents = lastSelection.wGet("self");
+			if (viewer.getEntityContents() != newContents)
+				viewer.setContents(newContents);
+		}
 
 		if (isSynchronizeSelection() && lastSelection.wIsSet("primarySelectedEntity")) {
 			IEntity selectedEntities = lastSelection.wGet("selectedEntities");

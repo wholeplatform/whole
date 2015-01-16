@@ -297,7 +297,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	public void selectAndReveal(List<? extends IEntity> entities) {
 		select(entities);
 		if (!entities.isEmpty())
-			reveal(entities.get(0));
+			reveal(entities.get(entities.size()-1));
 	}
 
 	protected void updateModelObserver(IEntity entity) {
