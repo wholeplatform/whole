@@ -285,7 +285,7 @@ public abstract class AbstractE4Part {
 	@Inject
 	@Optional
 	protected void syncOutlineSelection(@UIEventTopic(IUIConstants.TOPIC_SYNC_OULINE_SELECTION) IEntity selectedEntities) {
-		if (!selectedEntities.wIsEmpty() && getViewer().getEditPartRegistry().containsKey(selectedEntities.wGet(0))) {
+		if (selectedEntities.wSize()>0 && getViewer().getEditPartRegistry().containsKey(selectedEntities.wGet(0))) {
 			List<IEntity> selection = new ArrayList<>();
 			for (int i=0, size=selectedEntities.wSize(); i<size; i++)
 				selection.add(selectedEntities.wGet(i));
