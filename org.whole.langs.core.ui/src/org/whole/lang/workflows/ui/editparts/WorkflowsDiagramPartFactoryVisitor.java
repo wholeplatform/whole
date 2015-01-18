@@ -29,7 +29,7 @@ import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
-import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
+import org.whole.lang.ui.editparts.VariableDataEntityPart;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.notations.editparts.QuotedStringTextualEntityPart;
@@ -231,7 +231,7 @@ public class WorkflowsDiagramPartFactoryVisitor extends WorkflowsIdentityDefault
 	}
 
 	public void visit(Variable entity) {
-		part = new IdentifierTextualEntityPart();
+		part = new VariableDataEntityPart();
 	}
 
 	@Override
