@@ -21,6 +21,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
@@ -32,7 +33,7 @@ import org.whole.lang.ui.layout.RowLayout;
 public class ExpressionsFigure extends ContentPaneFigure {
 	private StringSeparatedCompositeRowFigure compositeFigure;
 	private IEntityFigure openParenthesis;
-	private IEntityFigure firstOperator;
+	private EntityLabel firstOperator;
 	private IEntityFigure closeParenthesis;
 	private Color color = FigurePrefs.contentLightColor;
 	private Font font = FigurePrefs.contentLightFont;
@@ -41,7 +42,7 @@ public class ExpressionsFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(0));
 		initContentPanes(1);
 		openParenthesis = addContentLighter("[");
-		firstOperator = addContentLight("+");
+		firstOperator = addContent("+");
 		compositeFigure = new StringSeparatedCompositeRowFigure("-", 16) {
 			@Override
 			public Color getLocalForegroundColor() {
@@ -58,7 +59,7 @@ public class ExpressionsFigure extends ContentPaneFigure {
 	}
 
 	public static enum DecorationEnum {
-		UNKNOWN, SEPARATORS, PARENTHESIS, OPERATORS
+		UNKNOWN, SEPARATORS, PARENTHESIS, PLUS_OPERATORS, TIMES_OPERATORS
 	}
 
 	public void setDecoration(DecorationEnum decoration) {
@@ -83,12 +84,22 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			font = FigurePrefs.contentLighterFont;
 			break;
 
-		case OPERATORS:
+		case PLUS_OPERATORS:
+			firstOperator.setVisible(true);
+			firstOperator.setText("+");
 			compositeFigure.setSeparator("+");
 			compositeFigure.getLayoutManager().withSpacing(16);
+			color = FigurePrefs.contentColor;
+			font = FigurePrefs.contentFont;
+			break;
+
+		case TIMES_OPERATORS:
 			firstOperator.setVisible(true);
-			color = FigurePrefs.contentLightColor;
-			font = FigurePrefs.contentLightFont;
+			firstOperator.setText("*");
+			compositeFigure.setSeparator("*");
+			compositeFigure.getLayoutManager().withSpacing(16);
+			color = FigurePrefs.contentColor;
+			font = FigurePrefs.contentFont;
 			break;
 
 		case UNKNOWN:

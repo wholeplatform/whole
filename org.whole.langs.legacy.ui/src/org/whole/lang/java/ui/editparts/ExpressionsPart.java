@@ -21,7 +21,9 @@ import java.beans.PropertyChangeEvent;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.Expressions;
+import org.whole.lang.java.model.InfixOperatorEnum;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
+import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.java.ui.figures.ExpressionsFigure;
 import org.whole.lang.java.ui.figures.ExpressionsFigure.DecorationEnum;
 import org.whole.lang.matchers.Matcher;
@@ -74,7 +76,11 @@ public class ExpressionsPart extends AbstractCompositePart {
 				getFigure().setDecoration(DecorationEnum.SEPARATORS);
 				break;
 			case JavaEntityDescriptorEnum.InfixExpression_ord:
-				getFigure().setDecoration(DecorationEnum.OPERATORS);
+				IEntity operator = parent.wGet(JavaFeatureDescriptorEnum.operator);
+				getFigure().setDecoration(
+						Matcher.matchImpl(JavaEntityDescriptorEnum.InfixOperator, operator) &&
+						operator.wEnumValue().equals(InfixOperatorEnum.plus) ?
+								DecorationEnum.PLUS_OPERATORS : DecorationEnum.TIMES_OPERATORS);
 				break;
 			}
 	}
