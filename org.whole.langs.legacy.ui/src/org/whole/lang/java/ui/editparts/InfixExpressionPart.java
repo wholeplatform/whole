@@ -17,12 +17,15 @@
  */
 package org.whole.lang.java.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.Expressions;
 import org.whole.lang.java.model.InfixExpression;
+import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
+import org.whole.lang.java.reflect.OperatorGroupEnum;
 import org.whole.lang.java.ui.figures.InfixExpressionFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -33,6 +36,30 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class InfixExpressionPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
 		return new InfixExpressionFigure();
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals(JavaFeatureDescriptorEnum.operator.getName()))
+			getParent().refresh();
+		refresh();
+	}
+	protected void refreshVisuals() {
+		InfixExpression entity = getModelEntity();
+		
+		refreshLeftPrecedence(entity, entity.getLeftOperand());
+		refreshRightPrecedence(entity, entity.getRightOperand());
+	}
+
+
+	protected void refreshLeftPrecedence(IEntity expression, IEntity operand) {
+		InfixExpressionFigure fig = (InfixExpressionFigure) getFigure();
+		fig.showLeftParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
+	}
+
+	protected void refreshRightPrecedence(IEntity expression, IEntity operand) {
+		InfixExpressionFigure fig = (InfixExpressionFigure) getFigure();
+		fig.showRightParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

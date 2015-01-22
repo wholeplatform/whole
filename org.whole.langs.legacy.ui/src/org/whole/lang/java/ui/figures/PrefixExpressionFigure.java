@@ -17,19 +17,35 @@
  */
 package org.whole.lang.java.ui.figures;
 
+import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @author Riccardo Solmi
  */
 public class PrefixExpressionFigure extends ContentPaneFigure {
+	protected boolean showParentheses;
 
 	public PrefixExpressionFigure() {
-		super(new RowLayout().withSpacing(0));
+		super(new RowLayout());
 		initContentPanes(2);
-		addContent("");
 		add(createContentPane(0));
 		add(createContentPane(1));
+	}
+
+	public void showParentheses(boolean showParentheses) {
+		getLayoutManager()
+			.withSpacing(showParentheses ? RoundBracketsBorder.HMARGIN+1 : 0)
+			.withMarginRight(showParentheses ? RoundBracketsBorder.HMARGIN+2 : 0);
+		this.showParentheses = showParentheses;
+	}
+
+	protected void paintFigure(Graphics g) {
+		super.paintFigure(g);
+		if (showParentheses)
+			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(1)
+					.getBounds().getExpanded(RoundBracketsBorder.HMARGIN+1, 0));
 	}
 }

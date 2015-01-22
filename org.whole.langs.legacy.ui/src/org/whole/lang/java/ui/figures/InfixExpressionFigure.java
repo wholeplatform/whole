@@ -17,13 +17,18 @@
  */
 package org.whole.lang.java.ui.figures;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.RoundBracketsBorder;
+import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
 
 public class InfixExpressionFigure extends ContentPaneFigure {
 	private IFigure operand;
 	private IFigure extendedOperands;
+	private boolean showLeftParentheses;
+	private boolean showRightParentheses;
 
 	public InfixExpressionFigure() {
 		super(new RowLayout().withSpacing(4));
@@ -42,5 +47,30 @@ public class InfixExpressionFigure extends ContentPaneFigure {
 
 	public void showExtendedOperands(boolean visible) {
 		extendedOperands.setVisible(visible);
+	}
+
+	public void showLeftParentheses(boolean showLeftParentheses) {
+		int margin = showLeftParentheses ? RoundBracketsBorder.HMARGIN+2 : 0;
+		((IEntityLayout) getContentPane(0).getLayoutManager())
+			.withMarginLeft(margin).withMarginRight(margin);
+		this.showLeftParentheses = showLeftParentheses;
+	}
+
+	public void showRightParentheses(boolean showRightParentheses) {
+		int margin = showRightParentheses ? RoundBracketsBorder.HMARGIN+2 : 0;
+		((IEntityLayout) getContentPane(2).getLayoutManager())
+			.withMarginLeft(margin).withMarginRight(margin);
+		this.showRightParentheses = showRightParentheses;
+	}
+
+	protected void paintFigure(Graphics g) {
+		super.paintFigure(g);
+		if (showLeftParentheses)
+			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(0)
+					.getBounds().getShrinked(1, 0));
+
+		if (showRightParentheses)
+			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(2)
+					.getBounds().getShrinked(1, 0));
 	}
 }

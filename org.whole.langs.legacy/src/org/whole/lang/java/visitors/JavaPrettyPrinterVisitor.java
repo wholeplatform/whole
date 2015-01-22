@@ -27,6 +27,7 @@ import org.whole.lang.operations.AbstractOperation;
 import org.whole.lang.operations.IPrettyPrintWriter;
 import org.whole.lang.operations.IdentityWriter;
 import org.whole.lang.operations.PrettyPrinterOperation;
+import org.whole.lang.java.reflect.OperatorGroupEnum;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
 
@@ -71,6 +72,15 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	}
 	private void printlnCond(boolean condition, String trueString, String falseString)  {
 		printCond(condition, trueString, falseString, true);
+	}
+
+	protected void conditionalAddParetheses(Expression expression, Expression operand) {
+		boolean printParentheses = OperatorGroupEnum.hasPrecedence(expression, operand);
+		if (printParentheses)
+			out.printRaw("(");
+		operand.accept(this);
+		if (printParentheses)
+			out.printRaw(")");
 	}
 
 	private boolean isNested(IEntity entity) {
@@ -803,7 +813,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 
 	public void visit(PrefixExpression entity) {
 		entity.getOperator().accept(this);
-		entity.getOperand().accept(this);
+		conditionalAddParetheses(entity, entity.getOperand());
 	}
 
 	@Override
@@ -1042,12 +1052,12 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 	}
 
 	public void visit(InfixExpression entity) {
-		entity.getLeftOperand().accept(this);
+		conditionalAddParetheses(entity, entity.getLeftOperand());
 		out.printRaw(" ");
 		entity.getOperator().accept(this);
 		out.printRaw(" ");
-		entity.getRightOperand().accept(this);
-		
+		conditionalAddParetheses(entity, entity.getRightOperand());
+
 		Expressions operands = entity.getExtendedOperands();
 		if (operands.wIsAdapter())
 			operands.accept(this);
@@ -1058,7 +1068,7 @@ public class JavaPrettyPrinterVisitor extends JavaTraverseAllVisitor {
 				out.printRaw(" ");
 				entity.getOperator().accept(this);
 				out.printRaw(" ");
-				operands.get(i).accept(this);
+				conditionalAddParetheses(entity, operands.get(i));
 			}
 		}
 	}

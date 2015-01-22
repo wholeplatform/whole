@@ -17,13 +17,16 @@
  */
 package org.whole.lang.java.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.PrefixExpression;
+import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.java.ui.figures.PrefixExpressionFigure;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.java.reflect.OperatorGroupEnum;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
@@ -32,6 +35,24 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class PrefixExpressionPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
 		return new PrefixExpressionFigure();
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals(JavaFeatureDescriptorEnum.operator.getName()))
+			getParent().refresh();
+		refresh();
+	}
+	protected void refreshVisuals() {
+		PrefixExpression entity = getModelEntity();
+		IEntity operand = entity.getOperand();
+
+		refreshPrecedence(entity, operand);
+	}
+
+	protected void refreshPrecedence(IEntity expression, IEntity operand) {
+		PrefixExpressionFigure fig = (PrefixExpressionFigure) getFigure();
+		fig.showParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
