@@ -25,14 +25,14 @@ import org.whole.lang.ui.layout.TableLayout;
  */
 public class AssignmentsTableWithDebugInfoFigure extends TopHeadersTableFigure {
 	public AssignmentsTableWithDebugInfoFigure() {
-		super(4);
+		super(3);//4);
 		getLayoutManager().withRowSpacing(8);
 		
 		TableRowFigure headers = new TableRowFigure();
-		headers.addLabel("Id");
-		headers.addLabel("Type");
-		headers.addLabel("Name");
-		headers.addLabel("Value");
+//		headers.addContentLight("Id");
+		headers.addContentLight("Type");
+		headers.addContentLight("Name");
+		headers.addContentLight("Value");
 		add(headers, TableLayout.Placement.HEADER);
 	}
 }

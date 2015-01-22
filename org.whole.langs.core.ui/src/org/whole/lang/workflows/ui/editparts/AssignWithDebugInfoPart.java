@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.ui.editparts.AbstractPart;
@@ -38,11 +37,12 @@ public class AssignWithDebugInfoPart extends AbstractPart {//AbstractContentPane
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Assign entity = getModelEntity();
+		IEntity expression = entity.getExpression().wGetAdaptee(false);
 		List<IEntity> children = new ArrayList<IEntity>(4);
-		children.add(BindingManagerFactory.instance.createValue(
-				Integer.toHexString(entity.getExpression().hashCode())));
+//		children.add(BindingManagerFactory.instance.createValue(
+//				Integer.toHexString(System.identityHashCode(expression))));//FIXME
 		children.add(ModelsEntityFactory.instance.createEntityType(
-				entity.getExpression().wGetAdaptee(false).wGetEntityDescriptor().getURI()));
+				expression.wGetEntityDescriptor().getURI()));
 		children.add(entity.getName());
 		children.add(entity.getExpression());
 		return children;
