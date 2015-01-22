@@ -31,6 +31,7 @@ import org.whole.lang.ui.layout.RowLayout;
  */
 public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 	protected String separator;
+	protected int separatorWidth;
 
 	public StringSeparatedCompositeRowFigure() {
 		this(",", 8);
@@ -46,13 +47,14 @@ public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 
 	public void setSeparator(String separator) {
 		this.separator = separator;
+		this.separatorWidth = FigureUtilities.getFontMetrics(getFont()).getAverageCharWidth() * separator.length();
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
-        int spacing = Math.max(1, getLayoutManager().getSpacing() / 5);
+        int spacing = Math.max(1, (getLayoutManager().getSpacing() - separatorWidth) / 2);
         int separatorAscent = getSeparatorAscent();
 
         if (getLocalFont() != null)

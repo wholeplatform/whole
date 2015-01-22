@@ -29,8 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author Riccardo Solmi
  */
 public class RoundBracketsBorder extends MarginBorder {
-	private static final int HMARGIN = 5;
-	private static final int HSIZE = HMARGIN+1;
+	public static final int HMARGIN = 5;
 	public static final Border PARENTHESIS = new RoundBracketsBorder() {
 		@Override
 		protected void setBracketsStyle(Graphics g) {
@@ -46,26 +45,30 @@ public class RoundBracketsBorder extends MarginBorder {
 	}
 
 	public void paint(IFigure f, Graphics g, Insets i) {
-		Rectangle r = getPaintRectangle(f, i);
-		r.width--;
-		r.height-=2;
-
 		setBracketsStyle(g);
-
-		if (insets.left > 0) {
-			g.drawArc(r.x, r.y, HSIZE, HSIZE*2, 90, 90);
-			if (r.y+HMARGIN < r.bottom()-HMARGIN)
-				g.drawLine(r.x, r.y+HMARGIN, r.x, r.bottom()-HMARGIN);
-			g.drawArc(r.x, r.bottom()-HSIZE*2, HSIZE, HSIZE*2, 180, 90);
-		}
-		if (insets.right > 0) {
-			g.drawArc(r.right()-HSIZE, r.y, HSIZE, HSIZE*2, 0, 90);
-			if (r.y+HMARGIN < r.bottom()-HMARGIN)
-				g.drawLine(r.right(), r.y+HMARGIN, r.right(), r.bottom()-HMARGIN);
-			g.drawArc(r.right()-HSIZE, r.bottom()-HSIZE*2, HSIZE, HSIZE*2, 0, -90);
-		}
+		paintRoundBrackets(g, getPaintRectangle(f, i).resize(-1, -2), insets.left, insets.right);
 	}
 	protected void setBracketsStyle(Graphics g) {
 		g.setForegroundColor(ColorConstants.black);
+	}
+
+	public static void paintRoundBrackets(Graphics g, Rectangle bounds) {
+		paintRoundBrackets(g, bounds, HMARGIN, HMARGIN);
+	}
+	public static void paintRoundBrackets(Graphics g, Rectangle bounds, int leftMargin, int rightMargin) {
+		if (leftMargin > 0) {
+			final int leftSize = leftMargin + 1;
+			g.drawArc(bounds.x, bounds.y, leftSize, leftSize*2, 90, 90);
+			if (bounds.y+leftMargin < bounds.bottom()-leftMargin)
+				g.drawLine(bounds.x, bounds.y+leftMargin, bounds.x, bounds.bottom()-leftMargin);
+			g.drawArc(bounds.x, bounds.bottom()-leftSize*2, leftSize, leftSize*2, 180, 90);
+		}
+		if (rightMargin > 0) {
+			final int rightSize = rightMargin + 1;
+			g.drawArc(bounds.right()-rightSize, bounds.y, rightSize, rightSize*2, 0, 90);
+			if (bounds.y+rightMargin < bounds.bottom()-rightMargin)
+				g.drawLine(bounds.right(), bounds.y+rightMargin, bounds.right(), bounds.bottom()-rightMargin);
+			g.drawArc(bounds.right()-rightSize, bounds.bottom()-rightSize*2, rightSize, rightSize*2, 0, -90);
+		}
 	}
 }
