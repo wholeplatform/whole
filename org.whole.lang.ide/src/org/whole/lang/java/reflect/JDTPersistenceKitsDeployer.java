@@ -17,12 +17,14 @@
  */
 package org.whole.lang.java.reflect;
 
+import org.whole.lang.java.codebase.JDTJavaBuilderPersistenceKit;
 import org.whole.lang.java.codebase.JDTJavaSourcePersistenceKit;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 
 public class JDTPersistenceKitsDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
+		platform.addPersistenceKit("org.whole.lang.java.JavaBuilderEditor", JDTJavaBuilderPersistenceKit.instance());
 		platform.addPersistenceKit("org.whole.lang.java.JavaSourceEditor", JDTJavaSourcePersistenceKit.instance());
 	}
 }

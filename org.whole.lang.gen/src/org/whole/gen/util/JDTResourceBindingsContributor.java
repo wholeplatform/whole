@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
@@ -31,7 +30,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.util.IResourceBindingsContributor;
-import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -60,9 +58,6 @@ public class JDTResourceBindingsContributor implements IResourceBindingsContribu
 					bm.wDefValue("className", StringUtils.toSimpleName(compilationUnitName));
 
 					addSourceFolderBindings(bm, packageFragment.getParent().getCorrespondingResource());
-
-					// perform an incremental build to ensure class files are generated
-					project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, ResourceUtils.getProgressMonitor(bm));
 				} else {
 					for (IPackageFragmentRoot packageFragmentRoot : javaProject.getAllPackageFragmentRoots()) {
 						if (packageFragmentRoot.getKind() == IPackageFragmentRoot.K_SOURCE) {
