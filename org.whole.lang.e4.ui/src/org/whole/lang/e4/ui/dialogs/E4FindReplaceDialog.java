@@ -59,6 +59,7 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.tests.model.IsDef;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
@@ -92,7 +93,8 @@ public class E4FindReplaceDialog extends E4Dialog {
 	@Inject
 	public E4FindReplaceDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		super(shell);
-		setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.RESIZE | SWT.TITLE);
+		setShellStyle(getShellStyle() ^ SWT.APPLICATION_MODAL | SWT.MODELESS);
+		setBlockOnOpen(false);
 		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
 		this.bindings = BindingManagerFactory.instance.createArguments();
 		enableSelectionTracking(true);
@@ -351,9 +353,12 @@ public class E4FindReplaceDialog extends E4Dialog {
 
 	@Inject
 	protected void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager selection,@Named(IServiceConstants.ACTIVE_PART) Object aPart, @Active MPart activePart, MPart part) {
-		if (selection == null || !isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
+		if (getShell() == null || getShell().isDisposed())
 			return;
 
+		if (selection == null || !isSelectionTracking() || selection.wGetValue("viewer") == viewer || selection.wGetValue("viewer") == replaceViewer)
+			return;
+		
 		this.selection = selection.clone();
 		IEntity self = this.selection.wGet("self");
 		iterator.reset(self);
