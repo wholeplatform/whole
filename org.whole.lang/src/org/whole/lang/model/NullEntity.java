@@ -229,9 +229,9 @@ public class NullEntity implements InternalIEntity, Serializable, Cloneable {
 
 	public EntityDescriptor<?> wGetEntityDescriptor(IEntity child) {
 		if (child.wGetParent() == this)
-			return child.wGetEntityDescriptor();
+			return CommonsEntityDescriptorEnum.Any;
 
-		throw new IllegalStateException(WholeMessages.null_model);
+		throw new IllegalArgumentException(WholeMessages.null_model);
 	}
 
 	public EntityDescriptor<?> wGetEntityDescriptor(int index) {

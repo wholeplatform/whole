@@ -20,6 +20,7 @@ package org.whole.lang.util;
 import java.util.Collection;
 import java.util.Date;
 
+import org.whole.lang.commons.model.Any;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -212,8 +213,37 @@ public class EntityUtils {
 		return !DataTypeUtils.getDataKind(entity).isNotAData() ? entity.wGetValue() : defaultValue;
 	}
 
+	public static final EntityDescriptor<?> getFormalEntityDescriptor(IEntity entity) {
+		return entity.wGetParent().wGetEntityDescriptor(entity); //TODO ? replace with getFormalType
+	}
+
+	public static final EntityDescriptor<?> getParentFormalType(IEntity entity) {
+		return entity.wGetParent().wGetEntityDescriptor(entity);
+	}
+	public static final EntityDescriptor<?> getAdjacentsFormalType(IEntity entity) {
+		EntityDescriptor<?> adjacentsFormalType = CommonsEntityDescriptorEnum.Any;
+		for (IEntity inverseAdjacent : entity.wInverseAdjacents()) {
+			EntityDescriptor<?> ed = inverseAdjacent.wGetEntityDescriptor(entity);
+			if (!ed.isExtendedLanguageSupertypeOf(adjacentsFormalType))
+				adjacentsFormalType = ed;
+		}
+		return adjacentsFormalType;
+	}
+	public static final EntityDescriptor<?> getFormalType(IEntity entity) {
+		EntityDescriptor<?> parentFormalType = getParentFormalType(entity);
+		EntityDescriptor<?> adjacentsFormalType = getAdjacentsFormalType(entity);
+		return parentFormalType.isExtendedLanguageSupertypeOf(adjacentsFormalType) ?
+				adjacentsFormalType : parentFormalType;
+	}
+
 	public static final boolean hasParent(IEntity entity) {
 		return !isNull(entity.wGetParent());
+	}
+	public static final boolean hasInverseAdjacents(IEntity entity)  {
+		return entity.wInverseAdjacentSize() > 0;
+	}
+	public static final boolean isReachable(IEntity entity) {
+		return hasParent(entity) || hasInverseAdjacents(entity);
 	}
 
 	public static final IEntity safeGetRootEntity(IEntity entity) {
@@ -250,10 +280,6 @@ public class EntityUtils {
 	}
 	public static final <E extends IEntity> Collection<E> removeAll(Collection<E> entities) {
 		return new RemoveOperation().removeAll(entities);
-	}
-
-	public static final EntityDescriptor<?> getFormalEntityDescriptor(IEntity entity) {
-		return entity.wGetParent().wGetEntityDescriptor(entity);
 	}
 
 	public static boolean isReplaceable(IEntity oldEntity, IEntity newEntity) {

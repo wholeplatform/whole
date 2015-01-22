@@ -20,7 +20,6 @@ package org.whole.lang.queries.iterators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -33,8 +32,7 @@ public class PointwiseUpdateIterator<E extends IEntity> extends AbstractPointwis
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity toLookahead, E nextEntity) {
-		EntityDescriptor<?> toFd = toLookahead.wGetParent().wGetEntityDescriptor(toLookahead);
-		return (E) EntityUtils.convertCloneIfParented(nextEntity, toFd);
+		return (E) EntityUtils.convertCloneIfParented(nextEntity, EntityUtils.getFormalType(toLookahead));
 	}
 
 	protected void doNext(IEntity toEntity, E nextEntity) {

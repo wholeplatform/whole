@@ -20,7 +20,6 @@ package org.whole.lang.queries.iterators;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -33,12 +32,11 @@ public class CartesianUpdateIterator<E extends IEntity> extends AbstractCartesia
 
 	@SuppressWarnings("unchecked")
 	protected E doLookahead(IEntity lastToEntity, E nextEntity) {
-		try {
-			EntityDescriptor<?> toEd = lastToEntity.wGetParent().wGetEntityDescriptor(lastToEntity);
-			return (E) EntityUtils.convertCloneIfParented(nextEntity, toEd);
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
-		}			
+//		try {
+			return (E) EntityUtils.convertCloneIfParented(nextEntity, EntityUtils.getFormalType(lastToEntity));
+//		} catch (ArrayIndexOutOfBoundsException e) {
+//			return null;
+//		}			
 	}
 
 	protected void doNext(IEntity lastToEntity, E nextEntity) {
