@@ -45,14 +45,8 @@ public class PrefixExpressionPart extends AbstractContentPanePart {
 	}
 	protected void refreshVisuals() {
 		PrefixExpression entity = getModelEntity();
-		IEntity operand = entity.getOperand();
-
-		refreshPrecedence(entity, operand);
-	}
-
-	protected void refreshPrecedence(IEntity expression, IEntity operand) {
 		PrefixExpressionFigure fig = (PrefixExpressionFigure) getFigure();
-		fig.showParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
+		fig.showParentheses(OperatorGroupEnum.hasPrecedence(entity, entity.getOperand()));
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

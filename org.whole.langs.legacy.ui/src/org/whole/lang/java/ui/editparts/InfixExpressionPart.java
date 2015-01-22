@@ -47,19 +47,9 @@ public class InfixExpressionPart extends AbstractContentPanePart {
 	protected void refreshVisuals() {
 		InfixExpression entity = getModelEntity();
 		
-		refreshLeftPrecedence(entity, entity.getLeftOperand());
-		refreshRightPrecedence(entity, entity.getRightOperand());
-	}
-
-
-	protected void refreshLeftPrecedence(IEntity expression, IEntity operand) {
 		InfixExpressionFigure fig = (InfixExpressionFigure) getFigure();
-		fig.showLeftParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
-	}
-
-	protected void refreshRightPrecedence(IEntity expression, IEntity operand) {
-		InfixExpressionFigure fig = (InfixExpressionFigure) getFigure();
-		fig.showRightParentheses(OperatorGroupEnum.hasPrecedence(expression, operand));
+		fig.showLeftParentheses(OperatorGroupEnum.hasPrecedence(entity, entity.getLeftOperand()));
+		fig.showRightParentheses(OperatorGroupEnum.hasPrecedence(entity, entity.getRightOperand()));
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
