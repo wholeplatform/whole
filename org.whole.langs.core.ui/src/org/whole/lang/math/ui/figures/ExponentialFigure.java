@@ -32,6 +32,8 @@ public class ExponentialFigure extends ContentPaneFigure {
 
 		addKeyword("e");
 		add(createContentPane(0));
+
+		showBaseParen(false);
 	}
 
     public void showBaseParen(boolean val) {

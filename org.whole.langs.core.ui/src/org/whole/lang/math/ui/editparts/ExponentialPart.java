@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.math.model.Exponential;
+import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.math.ui.figures.ExponentialFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -36,8 +37,17 @@ public class ExponentialPart extends AbstractContentPanePart {
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Exponential entity = getModelEntity();
+		IEntity exp1 = entity.getExpression();
+
+		refreshPrecedence(entity, exp1);
+
 		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getExpression());
+		list.add(exp1);
 		return list;
+	}
+
+	protected void refreshPrecedence(IEntity exp, IEntity exp1) {
+		ExponentialFigure fig = (ExponentialFigure) getFigure();
+		fig.showBaseParen(OperatorGroupEnum.hasPrecedence(exp, exp1));
 	}
 }

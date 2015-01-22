@@ -36,7 +36,14 @@ public class SuffixContentPaneFigure extends ContentPaneFigure {
 		
 		add(createContentPane(0));
 		add(suffix);
+
+		showParen(false);
 	}
+
+    public void showParen(boolean val) {
+    	getContentPane(0).setBorder(
+    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
+    }
 
 	@Override
 	public RowLayout getLayoutManager() {

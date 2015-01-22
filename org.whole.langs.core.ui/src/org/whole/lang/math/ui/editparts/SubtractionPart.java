@@ -39,9 +39,9 @@ public class SubtractionPart extends AbstractContentPanePart {
 		Subtraction entity = getModelEntity();
 		IEntity exp1 = entity.getMinuend();
 		IEntity exp2 = entity.getSubtrahend();
-		
+
 		refreshPrecedence(entity, exp1, exp2);
-		
+
 		List<IEntity> list = new ArrayList<IEntity>(2);
 		list.add(exp1);
 		list.add(exp2);

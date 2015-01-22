@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.math.model.Not;
+import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.figures.LabelFactory;
@@ -37,8 +38,17 @@ public class NotPart extends AbstractContentPanePart {
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Not entity = getModelEntity();
+		IEntity exp1 = entity.getExpression();
+
+		refreshPrecedence(entity, exp1);
+
 		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getExpression());
+		list.add(exp1);
 		return list;
+	}
+
+	protected void refreshPrecedence(IEntity exp, IEntity exp1) {
+		PrefixContentPaneFigure fig = (PrefixContentPaneFigure) getFigure();
+		fig.showParen(OperatorGroupEnum.hasPrecedence(exp, exp1));
 	}
 }

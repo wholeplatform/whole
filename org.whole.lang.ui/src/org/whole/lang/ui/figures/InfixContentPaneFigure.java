@@ -36,5 +36,18 @@ public class InfixContentPaneFigure extends ContentPaneFigure {
 		add(createContentPane(0));
 		add(operator);
 		add(createContentPane(1));
+
+    	showLeftParen(false);
+    	showRightParen(false);
 	}
+
+    public void showLeftParen(boolean val) {
+    	getContentPane(0).setBorder(
+    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
+    }
+    
+    public void showRightParen(boolean val) {
+    	getContentPane(1).setBorder(
+    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
+    }
 }

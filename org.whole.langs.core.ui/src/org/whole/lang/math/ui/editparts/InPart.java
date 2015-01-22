@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.math.model.In;
+import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.figures.InfixContentPaneFigure;
@@ -37,9 +38,20 @@ public class InPart extends AbstractContentPanePart {
 
 	protected List<IEntity> getModelSpecificChildren() {
 		In entity = getModelEntity();
+		IEntity exp1 = entity.getElement();
+		IEntity exp2 = entity.getCollection();
+
+		refreshPrecedence(entity, exp1, exp2);
+
 		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(entity.getElement());
-		list.add(entity.getCollection());
+		list.add(exp1);
+		list.add(exp2);
 		return list;
+	}
+
+	protected void refreshPrecedence(IEntity exp, IEntity exp1, IEntity exp2) {
+		InfixContentPaneFigure fig = (InfixContentPaneFigure) getFigure();
+		fig.showLeftParen(OperatorGroupEnum.hasPrecedence(exp, exp1));
+		fig.showRightParen(OperatorGroupEnum.hasPrecedence(exp, exp2));
 	}
 }

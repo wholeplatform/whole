@@ -42,7 +42,7 @@ public class InfixExpressionFigure extends ContentPaneFigure {
     	getContentPane(0).setBorder(
     			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
     }
-    
+
     public void showRightParen(boolean val) {
     	getContentPane(1).setBorder(
     			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);

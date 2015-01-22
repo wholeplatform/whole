@@ -32,10 +32,17 @@ public class ExponentiationFigure extends ContentPaneFigure {
 
 		add(createContentPane(0));
 		add(createContentPane(1));
+
+		showBaseParen(false);
+		showExponentParen(false);
 	}
 
     public void showBaseParen(boolean val) {
     	getContentPane(0).setBorder(
+    			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
+    }
+    public void showExponentParen(boolean val) {
+    	getContentPane(1).setBorder(
     			val ? RoundBracketsBorder.PARENTHESIS : CompositePlaceHolderBorder.OPTIONAL_HORIZONTAL);
     }
 }

@@ -26,6 +26,6 @@ import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
  */
 public class MultiplicationPart extends CompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new MathCompositeRowFigure("\u2219", 9);
+        return new MathCompositeRowFigure("\u2022", 9);
     }
 }

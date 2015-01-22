@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.math.model.Exponentiation;
+import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.math.ui.figures.ExponentiationFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -36,9 +37,20 @@ public class ExponentiationPart extends AbstractContentPanePart {
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Exponentiation entity = getModelEntity();
+		IEntity exp1 = entity.getBase();
+		IEntity exp2 = entity.getExponent();
+
+		refreshPrecedence(entity, exp1, exp2);
+
 		List<IEntity> list = new ArrayList<IEntity>(2);
-		list.add(entity.getBase());
-		list.add(entity.getExponent());
+		list.add(exp1);
+		list.add(exp2);
 		return list;
+	}
+
+	protected void refreshPrecedence(IEntity exp, IEntity exp1, IEntity exp2) {
+		ExponentiationFigure fig = (ExponentiationFigure) getFigure();
+		fig.showBaseParen(OperatorGroupEnum.hasPrecedence(exp, exp1));
+		fig.showExponentParen(OperatorGroupEnum.hasPrecedence(exp, exp2));
 	}
 }
