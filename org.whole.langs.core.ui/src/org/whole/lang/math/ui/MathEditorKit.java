@@ -18,9 +18,11 @@
 package org.whole.lang.math.ui;
 
 import org.whole.lang.math.reflect.MathLanguageKit;
+import org.whole.lang.math.ui.actions.MathActionFactory;
 import org.whole.lang.math.ui.editparts.MathPartFactoryVisitor;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.ui.editor.AbstractEditorKit;
+import org.whole.lang.ui.editor.IActionFactory;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 
 /**
@@ -49,5 +51,10 @@ public class MathEditorKit extends AbstractEditorKit {
 
 	public boolean canApply(ILanguageKit languageKit) {
 		return languageKit.getURI().equals(MathLanguageKit.URI) && !languageKit.isDynamic();
+	}
+
+	@Override
+	public IActionFactory getActionFactory() {
+		return MathActionFactory.instance();
 	}
 }

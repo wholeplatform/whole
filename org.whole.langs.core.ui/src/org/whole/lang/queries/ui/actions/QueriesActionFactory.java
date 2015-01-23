@@ -36,6 +36,15 @@ public class QueriesActionFactory extends ActionFactory {
 	public Object[][] wrapActions() {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Delete, "Delete", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.CartesianInsert, "Cartesian Insert", wrapIn(1)},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.PointwiseInsert, "Pointwise Insert", wrapIn(1)},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.CartesianUpdate, "Cartesian Update", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.PointwiseUpdate, "Pointwise Update", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Select, "Select", wrapIn(1)},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.For, "For", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.If, "If", wrapIn(1)},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Do, "Do", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Scope, "Scope", wrapIn(1)},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.PathExpression), QueriesEntityDescriptorEnum.Block, "Block", wrapIn(1)},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.StepExpression), QueriesEntityDescriptorEnum.Filter, "Filter", wrapIn0},
@@ -45,6 +54,17 @@ public class QueriesActionFactory extends ActionFactory {
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Predicate), QueriesEntityDescriptorEnum.Not, "Not", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.NamesExpression), QueriesEntityDescriptorEnum.AddNames, "Add Names", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.NamesExpression), QueriesEntityDescriptorEnum.RemoveNames, "Remove Names", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Addition, "Addition", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Subtraction, "Subtraction", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Multiplication, "Multiplication", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Division, "Division", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Remainder, "Division", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Equals, "Equals", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.NotEquals, "NotEquals", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.LessThan, "LessThan", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.LessOrEquals, "LessOrEquals", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.GreaterThan, "GreaterThan", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.GreaterOrEquals, "GreaterOrEquals", wrapIn0},
 		};
 	};
 }
