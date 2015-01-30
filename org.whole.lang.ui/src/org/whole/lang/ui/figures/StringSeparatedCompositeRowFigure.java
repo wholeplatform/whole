@@ -32,6 +32,7 @@ import org.whole.lang.ui.layout.RowLayout;
 public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 	protected String separator;
 	protected int separatorWidth;
+	protected int separatorAscent;
 
 	public StringSeparatedCompositeRowFigure() {
 		this(",", 8);
@@ -48,27 +49,34 @@ public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 	public void setSeparator(String separator) {
 		this.separator = separator;
 		this.separatorWidth = FigureUtilities.getFontMetrics(getFont()).getAverageCharWidth() * separator.length();
+		this.separatorAscent = FigureUtilities.getFontMetrics(getFont()).getHeight()/2;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
-        int spacing = Math.max(1, (getLayoutManager().getSpacing() - separatorWidth) / 2);
-        int separatorAscent = getSeparatorAscent();
+        paintDecorations(g);
+	}
 
+	@SuppressWarnings("unchecked")
+	protected void paintDecorations(Graphics g) {
+		int spacing = Math.max(1, (getLayoutManager().getSpacing() - separatorWidth) / 2);
         if (getLocalFont() != null)
         	g.setFont(getLocalFont());
 
         List<IEntityFigure> children = (List<IEntityFigure>) getChildren();
-        for (int i=0; i<children.size()-1; i++) {
+        for (int i=0; i<children.size(); i++) {
         	IEntityFigure childFigure = children.get(i);
-        	Rectangle childBounds = childFigure.getBounds();
-        	g.drawString(separator, childBounds.right() + spacing, childBounds.y + childFigure.getAscent() - separatorAscent);
+        	paintChildDecorations(g, i, childFigure.getBounds(), childFigure.getAscent(), spacing);
         }
 	}
+	protected void paintChildDecorations(Graphics g, int index, Rectangle childBounds, int childAscent, int spacing) {
+		if (index < getChildren().size()-1)
+			g.drawString(separator, childBounds.right() + spacing, childBounds.y + childAscent - getSeparatorAscent());
+	}
+
 	protected int getSeparatorAscent() {
-		return FigureUtilities.getFontMetrics(getFont()).getHeight()/2;
+		return separatorAscent;
 	}
 
 	@Override

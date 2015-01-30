@@ -19,7 +19,9 @@ package org.whole.lang.java.ui.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -50,14 +52,14 @@ public class InfixExpressionFigure extends ContentPaneFigure {
 	}
 
 	public void showLeftParentheses(boolean showLeftParentheses) {
-		int margin = showLeftParentheses ? RoundBracketsBorder.HMARGIN+2 : 0;
+		int margin = showLeftParentheses ? RoundBracketsBorder.HMARGIN+1 : 0;
 		((IEntityLayout) getContentPane(0).getLayoutManager())
 			.withMarginLeft(margin).withMarginRight(margin);
 		this.showLeftParentheses = showLeftParentheses;
 	}
 
 	public void showRightParentheses(boolean showRightParentheses) {
-		int margin = showRightParentheses ? RoundBracketsBorder.HMARGIN+2 : 0;
+		int margin = showRightParentheses ? RoundBracketsBorder.HMARGIN+1 : 0;
 		((IEntityLayout) getContentPane(2).getLayoutManager())
 			.withMarginLeft(margin).withMarginRight(margin);
 		this.showRightParentheses = showRightParentheses;
@@ -65,12 +67,20 @@ public class InfixExpressionFigure extends ContentPaneFigure {
 
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
+		
+		int spacing = Math.max(1, getLayoutManager().getSpacing()/2);
+
+		Color color = g.getForegroundColor();
+		g.setForegroundColor(FigurePrefs.contentLighterColor);
+
 		if (showLeftParentheses)
 			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(0)
-					.getBounds().getShrinked(1, 0));
+					.getBounds().getShrinked(spacing, 0));
 
 		if (showRightParentheses)
 			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(2)
-					.getBounds().getShrinked(1, 0));
+					.getBounds().getShrinked(spacing, 0));
+		
+		g.setForegroundColor(color);
 	}
 }

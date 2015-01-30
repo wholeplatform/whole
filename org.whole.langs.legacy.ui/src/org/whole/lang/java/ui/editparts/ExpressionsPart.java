@@ -18,12 +18,14 @@
 package org.whole.lang.java.ui.editparts;
 
 import java.beans.PropertyChangeEvent;
+import java.util.BitSet;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.java.model.Expressions;
 import org.whole.lang.java.model.InfixOperatorEnum;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
+import org.whole.lang.java.reflect.OperatorGroupEnum;
 import org.whole.lang.java.ui.figures.ExpressionsFigure;
 import org.whole.lang.java.ui.figures.ExpressionsFigure.DecorationEnum;
 import org.whole.lang.matchers.Matcher;
@@ -67,7 +69,12 @@ public class ExpressionsPart extends AbstractCompositePart {
 		IEntity parent = entity.wGetParent();
 		if (EntityUtils.isNull(parent))
 			getFigure().setDecoration(DecorationEnum.UNKNOWN);
-		else
+		else {
+			BitSet showParentheses = new BitSet(entity.wSize());
+			for (int i = 0; i < entity.wSize(); i++)
+				showParentheses.set(i, OperatorGroupEnum.hasPrecedence(parent, entity.wGet(i)));
+			getFigure().setShowParentheses(showParentheses);
+			
 			switch (parent.wGetEntityDescriptor().getOrdinal()) {
 			case JavaEntityDescriptorEnum.ArrayCreation_ord:
 				getFigure().setDecoration(DecorationEnum.PARENTHESIS);
@@ -83,5 +90,6 @@ public class ExpressionsPart extends AbstractCompositePart {
 								DecorationEnum.PLUS_OPERATORS : DecorationEnum.TIMES_OPERATORS);
 				break;
 			}
+		}
 	}
 }

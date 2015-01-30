@@ -17,6 +17,8 @@
  */
 package org.whole.lang.java.ui.figures;
 
+import java.util.BitSet;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -24,14 +26,15 @@ import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IEntityFigure;
-import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
+import org.whole.lang.ui.figures.ParenthesizedStringSeparatedCompositeRowFigure;
+import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
  *  @author Enrico Persiani
  */
 public class ExpressionsFigure extends ContentPaneFigure {
-	private StringSeparatedCompositeRowFigure compositeFigure;
+	private ParenthesizedStringSeparatedCompositeRowFigure compositeFigure;
 	private IEntityFigure openParenthesis;
 	private EntityLabel firstOperator;
 	private IEntityFigure closeParenthesis;
@@ -39,11 +42,11 @@ public class ExpressionsFigure extends ContentPaneFigure {
 	private Font font = FigurePrefs.contentLightFont;
 
 	public ExpressionsFigure() {
-		super(new RowLayout().withSpacing(0));
+		super(new RowLayout().withSpacing(RoundBracketsBorder.HMARGIN+2));
 		initContentPanes(1);
 		openParenthesis = addContentLighter("[");
 		firstOperator = addContent("+");
-		compositeFigure = new StringSeparatedCompositeRowFigure("-", 16) {
+		compositeFigure = new ParenthesizedStringSeparatedCompositeRowFigure("-", 16) {
 			@Override
 			public Color getLocalForegroundColor() {
 				return color;
@@ -56,6 +59,10 @@ public class ExpressionsFigure extends ContentPaneFigure {
 		};
 		add(createContentPane(0, compositeFigure));
 		closeParenthesis = addContentLighter("]");
+	}
+
+	public void setShowParentheses(BitSet showParentheses) {
+		compositeFigure.setShowParentheses(showParentheses);
 	}
 
 	public static enum DecorationEnum {
@@ -97,7 +104,7 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			firstOperator.setVisible(true);
 			firstOperator.setText("*");
 			compositeFigure.setSeparator("*");
-			compositeFigure.getLayoutManager().withSpacing(16);
+			compositeFigure.getLayoutManager().withSpacing(16 + (RoundBracketsBorder.HMARGIN+2) * 2);
 			color = FigurePrefs.contentColor;
 			font = FigurePrefs.contentFont;
 			break;
