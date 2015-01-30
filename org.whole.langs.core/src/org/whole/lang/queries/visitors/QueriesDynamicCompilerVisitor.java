@@ -277,9 +277,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     					break;
     				}
 
-    				EntityDescriptor<?> ed = getBindings().wIsSet("typeTest") ?
+    				EntityDescriptor<?> ed = getBindings().wIsSet("typeTest") && getBindings().wGet("typeTest").wGetEntityDescriptor().getDataKind().isString() ?
 							CommonsDataTypePersistenceParser.getEntityDescriptor(getBindings().wStringValue("typeTest")) :
-							getBindings().wGet("pattern").wGetEntityDescriptor();
+								getBindings().wIsSet("pattern") ? getBindings().wGet("pattern").wGetEntityDescriptor() : null;
 
 					if (ed == null) {
     					canOptimize = false;
