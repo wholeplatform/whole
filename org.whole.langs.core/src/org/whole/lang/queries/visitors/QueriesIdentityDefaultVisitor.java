@@ -1,9 +1,26 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.queries.visitors;
 
 import org.whole.lang.queries.model.*;
 
 /**
- *  @generator  Whole
+ *  @generator Whole
  */
 public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
 
@@ -143,13 +160,17 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((StepExpression) entity);
     }
 
-    public void visit(AspectStep entity) {
-        visit((IQueriesEntity) entity);
+    public void visit(TraversalStep entity) {
         visit((StepExpression) entity);
     }
 
+    public void visit(AspectStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((TraversalStep) entity);
+    }
+
     public void visit(DirectStep entity) {
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(AdjacentStep entity) {
@@ -168,7 +189,7 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(InverseStep entity) {
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(InverseAdjacentStep entity) {
@@ -188,21 +209,21 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
 
     public void visit(RootStep entity) {
         visit((IQueriesEntity) entity);
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(FragmentRootStep entity) {
         visit((IQueriesEntity) entity);
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(SelfStep entity) {
         visit((IQueriesEntity) entity);
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(ForwardStep entity) {
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(FeatureStep entity) {
@@ -236,7 +257,7 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(ReverseStep entity) {
-        visit((StepExpression) entity);
+        visit((TraversalStep) entity);
     }
 
     public void visit(ParentStep entity) {

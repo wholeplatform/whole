@@ -1,10 +1,27 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.patterns.reflect;
 
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.FeatureDescriptor;
 
 /**
- *  @generator  Whole
+ *  @generator Whole
  */
 public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int uri_ord = 0;
@@ -24,11 +41,11 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int result_ord = 14;
     public static final int dataType_ord = 15;
     public static final int arguments_ord = 16;
-    public static final int optional_ord = 17;
-    public static final int adapter_ord = 18;
-    public static final int weaver_ord = 19;
-    public static final int context_ord = 20;
-    public static final int expression_ord = 21;
+    public static final int expression_ord = 17;
+    public static final int optional_ord = 18;
+    public static final int adapter_ord = 19;
+    public static final int weaver_ord = 20;
+    public static final int context_ord = 21;
     public static final int condition_ord = 22;
     public static final int variability_ord = 23;
     public static final int variants_ord = 24;
@@ -57,11 +74,11 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final FeatureDescriptor result = instance.valueOf(result_ord);
     public static final FeatureDescriptor dataType = instance.valueOf(dataType_ord);
     public static final FeatureDescriptor arguments = instance.valueOf(arguments_ord);
+    public static final FeatureDescriptor expression = instance.valueOf(expression_ord);
     public static final FeatureDescriptor optional = instance.valueOf(optional_ord);
     public static final FeatureDescriptor adapter = instance.valueOf(adapter_ord);
     public static final FeatureDescriptor weaver = instance.valueOf(weaver_ord);
     public static final FeatureDescriptor context = instance.valueOf(context_ord);
-    public static final FeatureDescriptor expression = instance.valueOf(expression_ord);
     public static final FeatureDescriptor condition = instance.valueOf(condition_ord);
     public static final FeatureDescriptor variability = instance.valueOf(variability_ord);
     public static final FeatureDescriptor variants = instance.valueOf(variants_ord);
@@ -91,11 +108,11 @@ public class PatternsFeatureDescriptorEnum extends FeatureDescriptorEnum {
         putFeatureDescriptor(result_ord, "result");
         putFeatureDescriptor(dataType_ord, "dataType");
         putFeatureDescriptor(arguments_ord, "arguments");
+        putFeatureDescriptor(expression_ord, "expression");
         putFeatureDescriptor(optional_ord, "optional");
         putFeatureDescriptor(adapter_ord, "adapter");
         putFeatureDescriptor(weaver_ord, "weaver");
         putFeatureDescriptor(context_ord, "context");
-        putFeatureDescriptor(expression_ord, "expression");
         putFeatureDescriptor(condition_ord, "condition");
         putFeatureDescriptor(variability_ord, "variability");
         putFeatureDescriptor(variants_ord, "variants");

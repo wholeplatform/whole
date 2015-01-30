@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="139">
+    <models:ModelDeclarations initialCapacity="140">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -499,10 +499,20 @@
             </models:Features>
         </models:SimpleEntity>
         <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="TraversalStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="StepExpression"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="AspectStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -512,7 +522,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="DirectStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -546,7 +556,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="InverseStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -578,7 +588,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="RootStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -586,7 +596,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="FragmentRootStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -594,7 +604,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="SelfStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -604,7 +614,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="ForwardStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -662,7 +672,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="ReverseStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="TraversalStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>

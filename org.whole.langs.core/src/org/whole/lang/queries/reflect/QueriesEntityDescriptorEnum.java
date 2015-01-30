@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.queries.reflect;
 
 import org.whole.lang.reflect.EntityDescriptorEnum;
@@ -5,7 +22,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.model.*;
 
 /**
- *  @generator  Whole
+ *  @generator Whole
  */
 @SuppressWarnings("unchecked")
 public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
@@ -37,117 +54,118 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int CartesianProduct_ord = 25;
     public static final int PointwiseProduct_ord = 26;
     public static final int Filter_ord = 27;
-    public static final int AspectStep_ord = 28;
-    public static final int DirectStep_ord = 29;
-    public static final int AdjacentStep_ord = 30;
-    public static final int ReachableStep_ord = 31;
-    public static final int ReachableOrSelfStep_ord = 32;
-    public static final int InverseStep_ord = 33;
-    public static final int InverseAdjacentStep_ord = 34;
-    public static final int InverseReachableStep_ord = 35;
-    public static final int InverseReachableOrSelfStep_ord = 36;
-    public static final int RootStep_ord = 37;
-    public static final int FragmentRootStep_ord = 38;
-    public static final int SelfStep_ord = 39;
-    public static final int ForwardStep_ord = 40;
-    public static final int FeatureStep_ord = 41;
-    public static final int ChildStep_ord = 42;
-    public static final int DescendantStep_ord = 43;
-    public static final int DescendantOrSelfStep_ord = 44;
-    public static final int FollowingSiblingStep_ord = 45;
-    public static final int FollowingStep_ord = 46;
-    public static final int ReverseStep_ord = 47;
-    public static final int ParentStep_ord = 48;
-    public static final int AncestorStep_ord = 49;
-    public static final int AncestorOrSelfStep_ord = 50;
-    public static final int PrecedingSiblingStep_ord = 51;
-    public static final int PrecedingStep_ord = 52;
-    public static final int MathStep_ord = 53;
-    public static final int AdditionStep_ord = 54;
-    public static final int SubtractionStep_ord = 55;
-    public static final int MultiplicationStep_ord = 56;
-    public static final int DivisionStep_ord = 57;
-    public static final int RemainderStep_ord = 58;
-    public static final int EqualsStep_ord = 59;
-    public static final int NotEqualsStep_ord = 60;
-    public static final int LessThanStep_ord = 61;
-    public static final int LessOrEqualsStep_ord = 62;
-    public static final int GreaterThanStep_ord = 63;
-    public static final int GreaterOrEqualsStep_ord = 64;
-    public static final int PruneOrPredicate_ord = 65;
-    public static final int Prune_ord = 66;
-    public static final int Predicate_ord = 67;
-    public static final int VariableTest_ord = 68;
-    public static final int IndexVariableTest_ord = 69;
-    public static final int KindTest_ord = 70;
-    public static final int StageTest_ord = 71;
-    public static final int StageVariableTest_ord = 72;
-    public static final int LanguageTest_ord = 73;
-    public static final int TypeTest_ord = 74;
-    public static final int SubtypeTest_ord = 75;
-    public static final int SupertypeTest_ord = 76;
-    public static final int ExtendedSubtypeTest_ord = 77;
-    public static final int ExtendedSupertypeTest_ord = 78;
-    public static final int AtTypeTest_ord = 79;
-    public static final int AtFeatureTest_ord = 80;
-    public static final int AtIndexTest_ord = 81;
-    public static final int IndexTest_ord = 82;
-    public static final int IndexRangeTest_ord = 83;
-    public static final int VisitorTest_ord = 84;
-    public static final int ExpressionTest_ord = 85;
-    public static final int DistinctTest_ord = 86;
-    public static final int And_ord = 87;
-    public static final int Or_ord = 88;
-    public static final int Not_ord = 89;
-    public static final int QuantifiedPredicate_ord = 90;
-    public static final int One_ord = 91;
-    public static final int Some_ord = 92;
-    public static final int Every_ord = 93;
-    public static final int ParenthesizedPredicate_ord = 94;
-    public static final int EntityType_ord = 95;
-    public static final int NamesExpression_ord = 96;
-    public static final int TemplateNames_ord = 97;
-    public static final int AllNames_ord = 98;
-    public static final int AddNames_ord = 99;
-    public static final int RemoveNames_ord = 100;
-    public static final int Names_ord = 101;
-    public static final int Name_ord = 102;
-    public static final int Expression_ord = 103;
-    public static final int CollectByExpression_ord = 104;
-    public static final int Comparator_ord = 105;
-    public static final int IdentityComparator_ord = 106;
-    public static final int UnionAll_ord = 107;
-    public static final int Union_ord = 108;
-    public static final int Intersect_ord = 109;
-    public static final int Except_ord = 110;
-    public static final int VariableRefStep_ord = 111;
-    public static final int Singleton_ord = 112;
-    public static final int PointwiseEquals_ord = 113;
-    public static final int Tuple_ord = 114;
-    public static final int Addition_ord = 115;
-    public static final int Subtraction_ord = 116;
-    public static final int Multiplication_ord = 117;
-    public static final int Division_ord = 118;
-    public static final int Remainder_ord = 119;
-    public static final int Equals_ord = 120;
-    public static final int NotEquals_ord = 121;
-    public static final int LessThan_ord = 122;
-    public static final int LessOrEquals_ord = 123;
-    public static final int GreaterThan_ord = 124;
-    public static final int GreaterOrEquals_ord = 125;
-    public static final int Literal_ord = 126;
-    public static final int VoidLiteral_ord = 127;
-    public static final int BooleanLiteral_ord = 128;
-    public static final int ByteLiteral_ord = 129;
-    public static final int CharLiteral_ord = 130;
-    public static final int DoubleLiteral_ord = 131;
-    public static final int FloatLiteral_ord = 132;
-    public static final int IntLiteral_ord = 133;
-    public static final int LongLiteral_ord = 134;
-    public static final int ShortLiteral_ord = 135;
-    public static final int DateLiteral_ord = 136;
-    public static final int StringLiteral_ord = 137;
-    public static final int Placement_ord = 138;
+    public static final int TraversalStep_ord = 28;
+    public static final int AspectStep_ord = 29;
+    public static final int DirectStep_ord = 30;
+    public static final int AdjacentStep_ord = 31;
+    public static final int ReachableStep_ord = 32;
+    public static final int ReachableOrSelfStep_ord = 33;
+    public static final int InverseStep_ord = 34;
+    public static final int InverseAdjacentStep_ord = 35;
+    public static final int InverseReachableStep_ord = 36;
+    public static final int InverseReachableOrSelfStep_ord = 37;
+    public static final int RootStep_ord = 38;
+    public static final int FragmentRootStep_ord = 39;
+    public static final int SelfStep_ord = 40;
+    public static final int ForwardStep_ord = 41;
+    public static final int FeatureStep_ord = 42;
+    public static final int ChildStep_ord = 43;
+    public static final int DescendantStep_ord = 44;
+    public static final int DescendantOrSelfStep_ord = 45;
+    public static final int FollowingSiblingStep_ord = 46;
+    public static final int FollowingStep_ord = 47;
+    public static final int ReverseStep_ord = 48;
+    public static final int ParentStep_ord = 49;
+    public static final int AncestorStep_ord = 50;
+    public static final int AncestorOrSelfStep_ord = 51;
+    public static final int PrecedingSiblingStep_ord = 52;
+    public static final int PrecedingStep_ord = 53;
+    public static final int MathStep_ord = 54;
+    public static final int AdditionStep_ord = 55;
+    public static final int SubtractionStep_ord = 56;
+    public static final int MultiplicationStep_ord = 57;
+    public static final int DivisionStep_ord = 58;
+    public static final int RemainderStep_ord = 59;
+    public static final int EqualsStep_ord = 60;
+    public static final int NotEqualsStep_ord = 61;
+    public static final int LessThanStep_ord = 62;
+    public static final int LessOrEqualsStep_ord = 63;
+    public static final int GreaterThanStep_ord = 64;
+    public static final int GreaterOrEqualsStep_ord = 65;
+    public static final int PruneOrPredicate_ord = 66;
+    public static final int Prune_ord = 67;
+    public static final int Predicate_ord = 68;
+    public static final int VariableTest_ord = 69;
+    public static final int IndexVariableTest_ord = 70;
+    public static final int KindTest_ord = 71;
+    public static final int StageTest_ord = 72;
+    public static final int StageVariableTest_ord = 73;
+    public static final int LanguageTest_ord = 74;
+    public static final int TypeTest_ord = 75;
+    public static final int SubtypeTest_ord = 76;
+    public static final int SupertypeTest_ord = 77;
+    public static final int ExtendedSubtypeTest_ord = 78;
+    public static final int ExtendedSupertypeTest_ord = 79;
+    public static final int AtTypeTest_ord = 80;
+    public static final int AtFeatureTest_ord = 81;
+    public static final int AtIndexTest_ord = 82;
+    public static final int IndexTest_ord = 83;
+    public static final int IndexRangeTest_ord = 84;
+    public static final int VisitorTest_ord = 85;
+    public static final int ExpressionTest_ord = 86;
+    public static final int DistinctTest_ord = 87;
+    public static final int And_ord = 88;
+    public static final int Or_ord = 89;
+    public static final int Not_ord = 90;
+    public static final int QuantifiedPredicate_ord = 91;
+    public static final int One_ord = 92;
+    public static final int Some_ord = 93;
+    public static final int Every_ord = 94;
+    public static final int ParenthesizedPredicate_ord = 95;
+    public static final int EntityType_ord = 96;
+    public static final int NamesExpression_ord = 97;
+    public static final int TemplateNames_ord = 98;
+    public static final int AllNames_ord = 99;
+    public static final int AddNames_ord = 100;
+    public static final int RemoveNames_ord = 101;
+    public static final int Names_ord = 102;
+    public static final int Name_ord = 103;
+    public static final int Expression_ord = 104;
+    public static final int CollectByExpression_ord = 105;
+    public static final int Comparator_ord = 106;
+    public static final int IdentityComparator_ord = 107;
+    public static final int UnionAll_ord = 108;
+    public static final int Union_ord = 109;
+    public static final int Intersect_ord = 110;
+    public static final int Except_ord = 111;
+    public static final int VariableRefStep_ord = 112;
+    public static final int Singleton_ord = 113;
+    public static final int PointwiseEquals_ord = 114;
+    public static final int Tuple_ord = 115;
+    public static final int Addition_ord = 116;
+    public static final int Subtraction_ord = 117;
+    public static final int Multiplication_ord = 118;
+    public static final int Division_ord = 119;
+    public static final int Remainder_ord = 120;
+    public static final int Equals_ord = 121;
+    public static final int NotEquals_ord = 122;
+    public static final int LessThan_ord = 123;
+    public static final int LessOrEquals_ord = 124;
+    public static final int GreaterThan_ord = 125;
+    public static final int GreaterOrEquals_ord = 126;
+    public static final int Literal_ord = 127;
+    public static final int VoidLiteral_ord = 128;
+    public static final int BooleanLiteral_ord = 129;
+    public static final int ByteLiteral_ord = 130;
+    public static final int CharLiteral_ord = 131;
+    public static final int DoubleLiteral_ord = 132;
+    public static final int FloatLiteral_ord = 133;
+    public static final int IntLiteral_ord = 134;
+    public static final int LongLiteral_ord = 135;
+    public static final int ShortLiteral_ord = 136;
+    public static final int DateLiteral_ord = 137;
+    public static final int StringLiteral_ord = 138;
+    public static final int Placement_ord = 139;
     public static final QueriesEntityDescriptorEnum instance = new QueriesEntityDescriptorEnum();
     public static final EntityDescriptor<PathExpressionOrPredicate> PathExpressionOrPredicate = (EntityDescriptor<PathExpressionOrPredicate>) instance.valueOf(PathExpressionOrPredicate_ord);
     public static final EntityDescriptor<PathExpression> PathExpression = (EntityDescriptor<PathExpression>) instance.valueOf(PathExpression_ord);
@@ -177,6 +195,7 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<CartesianProduct> CartesianProduct = (EntityDescriptor<CartesianProduct>) instance.valueOf(CartesianProduct_ord);
     public static final EntityDescriptor<PointwiseProduct> PointwiseProduct = (EntityDescriptor<PointwiseProduct>) instance.valueOf(PointwiseProduct_ord);
     public static final EntityDescriptor<Filter> Filter = (EntityDescriptor<Filter>) instance.valueOf(Filter_ord);
+    public static final EntityDescriptor<TraversalStep> TraversalStep = (EntityDescriptor<TraversalStep>) instance.valueOf(TraversalStep_ord);
     public static final EntityDescriptor<AspectStep> AspectStep = (EntityDescriptor<AspectStep>) instance.valueOf(AspectStep_ord);
     public static final EntityDescriptor<DirectStep> DirectStep = (EntityDescriptor<DirectStep>) instance.valueOf(DirectStep_ord);
     public static final EntityDescriptor<AdjacentStep> AdjacentStep = (EntityDescriptor<AdjacentStep>) instance.valueOf(AdjacentStep_ord);
@@ -294,8 +313,8 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
     private static final long serialVersionUID = 1;
 
     protected void initEntityDescriptors() {
-        putSimpleEntity(PathExpressionOrPredicate_ord, "PathExpressionOrPredicate", PathExpressionOrPredicate.class, true, Delete_ord, Or_ord, RootStep_ord, CollectByExpression_ord, DistinctTest_ord, GreaterThan_ord, PrecedingSiblingStep_ord, SubtractionStep_ord, DivisionStep_ord, DescendantStep_ord, FloatLiteral_ord, CartesianInsert_ord, ChildStep_ord, Some_ord, FeatureStep_ord, IndexTest_ord, LessOrEqualsStep_ord, StringLiteral_ord, LanguageTest_ord, GreaterOrEqualsStep_ord, VisitorTest_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, One_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, IndexVariableTest_ord, AspectStep_ord, QuantifiedPredicate_ord, Division_ord, DirectStep_ord, InverseStep_ord, UnionAll_ord, Path_ord, Call_ord, EntityCall_ord, AncestorOrSelfStep_ord, AtTypeTest_ord, ExtendedSupertypeTest_ord, QueryDeclaration_ord, Choose_ord, Expression_ord, Select_ord, StageTest_ord, ExtendedSubtypeTest_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord, Multiplication_ord, DateLiteral_ord, TypeTest_ord, EntityTemplate_ord, InverseReachableStep_ord, ParentStep_ord, Predicate_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, PathExpression_ord, SubtypeTest_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, SupertypeTest_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, KindTest_ord, Addition_ord, CharLiteral_ord, LongLiteral_ord, EqualsStep_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianUpdate_ord, NotEquals_ord, Not_ord, DescendantOrSelfStep_ord, And_ord, Singleton_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, FollowingSiblingStep_ord, ExpressionTest_ord, BooleanLiteral_ord, AtIndexTest_ord, VariableTest_ord, MathStep_ord, GreaterThanStep_ord, AtFeatureTest_ord, IndexRangeTest_ord, StageVariableTest_ord, ForwardStep_ord, FragmentRootStep_ord, Equals_ord, Subtraction_ord, ParenthesizedPredicate_ord, Scope_ord, Filter_ord, Every_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord);
-        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, Delete_ord, Multiplication_ord, DateLiteral_ord, RootStep_ord, EntityTemplate_ord, CollectByExpression_ord, InverseReachableStep_ord, ParentStep_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, SubtractionStep_ord, Addition_ord, DivisionStep_ord, CharLiteral_ord, DescendantStep_ord, LongLiteral_ord, EqualsStep_ord, FloatLiteral_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianInsert_ord, CartesianUpdate_ord, ChildStep_ord, NotEquals_ord, FeatureStep_ord, DescendantOrSelfStep_ord, LessOrEqualsStep_ord, StringLiteral_ord, Singleton_ord, GreaterOrEqualsStep_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, FollowingSiblingStep_ord, BooleanLiteral_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, AspectStep_ord, Division_ord, DirectStep_ord, InverseStep_ord, MathStep_ord, GreaterThanStep_ord, UnionAll_ord, Path_ord, Call_ord, ForwardStep_ord, EntityCall_ord, AncestorOrSelfStep_ord, FragmentRootStep_ord, QueryDeclaration_ord, Equals_ord, Subtraction_ord, Scope_ord, Choose_ord, Filter_ord, Expression_ord, Select_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord);
+        putSimpleEntity(PathExpressionOrPredicate_ord, "PathExpressionOrPredicate", PathExpressionOrPredicate.class, true, Delete_ord, Or_ord, RootStep_ord, CollectByExpression_ord, DistinctTest_ord, GreaterThan_ord, PrecedingSiblingStep_ord, SubtractionStep_ord, DivisionStep_ord, DescendantStep_ord, FloatLiteral_ord, CartesianInsert_ord, ChildStep_ord, Some_ord, FeatureStep_ord, IndexTest_ord, LessOrEqualsStep_ord, StringLiteral_ord, LanguageTest_ord, GreaterOrEqualsStep_ord, VisitorTest_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, One_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, IndexVariableTest_ord, AspectStep_ord, QuantifiedPredicate_ord, Division_ord, DirectStep_ord, InverseStep_ord, UnionAll_ord, Path_ord, Call_ord, EntityCall_ord, AncestorOrSelfStep_ord, TraversalStep_ord, AtTypeTest_ord, ExtendedSupertypeTest_ord, QueryDeclaration_ord, Choose_ord, Expression_ord, Select_ord, StageTest_ord, ExtendedSubtypeTest_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord, Multiplication_ord, DateLiteral_ord, TypeTest_ord, EntityTemplate_ord, InverseReachableStep_ord, ParentStep_ord, Predicate_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, PathExpression_ord, SubtypeTest_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, SupertypeTest_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, KindTest_ord, Addition_ord, CharLiteral_ord, LongLiteral_ord, EqualsStep_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianUpdate_ord, NotEquals_ord, Not_ord, DescendantOrSelfStep_ord, And_ord, Singleton_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, FollowingSiblingStep_ord, ExpressionTest_ord, BooleanLiteral_ord, AtIndexTest_ord, VariableTest_ord, MathStep_ord, GreaterThanStep_ord, AtFeatureTest_ord, IndexRangeTest_ord, StageVariableTest_ord, ForwardStep_ord, FragmentRootStep_ord, Equals_ord, Subtraction_ord, ParenthesizedPredicate_ord, Scope_ord, Filter_ord, Every_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord);
+        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, Delete_ord, Multiplication_ord, DateLiteral_ord, RootStep_ord, EntityTemplate_ord, CollectByExpression_ord, InverseReachableStep_ord, ParentStep_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, SubtractionStep_ord, Addition_ord, DivisionStep_ord, CharLiteral_ord, DescendantStep_ord, LongLiteral_ord, EqualsStep_ord, FloatLiteral_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianInsert_ord, CartesianUpdate_ord, ChildStep_ord, NotEquals_ord, FeatureStep_ord, DescendantOrSelfStep_ord, LessOrEqualsStep_ord, StringLiteral_ord, Singleton_ord, GreaterOrEqualsStep_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, FollowingSiblingStep_ord, BooleanLiteral_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, AspectStep_ord, Division_ord, DirectStep_ord, InverseStep_ord, MathStep_ord, GreaterThanStep_ord, UnionAll_ord, Path_ord, Call_ord, ForwardStep_ord, EntityCall_ord, AncestorOrSelfStep_ord, TraversalStep_ord, FragmentRootStep_ord, QueryDeclaration_ord, Equals_ord, Subtraction_ord, Scope_ord, Choose_ord, Filter_ord, Expression_ord, Select_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord);
         putSimpleEntity(QueryDeclaration_ord, "QueryDeclaration", QueryDeclaration.class, false).withFeature(QueriesFeatureDescriptorEnum.name, Name_ord).withFeature(QueriesFeatureDescriptorEnum.parameters, Names_ord, true, false, false, false, false).withFeature(QueriesFeatureDescriptorEnum.body, PathExpression_ord);
         putCompositeEntity(Path_ord, "Path", Path.class, false, StepExpression_ord, true, false);
         putSimpleEntity(Delete_ord, "Delete", Delete.class, false).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord);
@@ -307,7 +326,7 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(For_ord, "For", For.class, false).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
         putSimpleEntity(If_ord, "If", If.class, false).withFeature(QueriesFeatureDescriptorEnum.predicate, Predicate_ord).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
         putSimpleEntity(Do_ord, "Do", Do.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
-        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, Multiplication_ord, DateLiteral_ord, RootStep_ord, EntityTemplate_ord, CollectByExpression_ord, InverseReachableStep_ord, ParentStep_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, IntLiteral_ord, SubtractionStep_ord, Addition_ord, DivisionStep_ord, CharLiteral_ord, DescendantStep_ord, LongLiteral_ord, EqualsStep_ord, FloatLiteral_ord, Sequence_ord, InverseReachableOrSelfStep_ord, ChildStep_ord, NotEquals_ord, FeatureStep_ord, DescendantOrSelfStep_ord, LessOrEqualsStep_ord, StringLiteral_ord, Singleton_ord, GreaterOrEqualsStep_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, PointwiseEquals_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, FollowingSiblingStep_ord, BooleanLiteral_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, AspectStep_ord, Division_ord, DirectStep_ord, InverseStep_ord, MathStep_ord, GreaterThanStep_ord, UnionAll_ord, Call_ord, ForwardStep_ord, EntityCall_ord, AncestorOrSelfStep_ord, FragmentRootStep_ord, Equals_ord, Subtraction_ord, Scope_ord, Choose_ord, Filter_ord, Expression_ord, ReachableStep_ord, ByteLiteral_ord, CartesianProduct_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord);
+        putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, Multiplication_ord, DateLiteral_ord, RootStep_ord, EntityTemplate_ord, CollectByExpression_ord, InverseReachableStep_ord, ParentStep_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, IntLiteral_ord, SubtractionStep_ord, Addition_ord, DivisionStep_ord, CharLiteral_ord, DescendantStep_ord, LongLiteral_ord, EqualsStep_ord, FloatLiteral_ord, Sequence_ord, InverseReachableOrSelfStep_ord, ChildStep_ord, NotEquals_ord, FeatureStep_ord, DescendantOrSelfStep_ord, LessOrEqualsStep_ord, StringLiteral_ord, Singleton_ord, GreaterOrEqualsStep_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, PointwiseEquals_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, FollowingSiblingStep_ord, BooleanLiteral_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, AspectStep_ord, Division_ord, DirectStep_ord, InverseStep_ord, MathStep_ord, GreaterThanStep_ord, UnionAll_ord, Call_ord, ForwardStep_ord, EntityCall_ord, AncestorOrSelfStep_ord, TraversalStep_ord, FragmentRootStep_ord, Equals_ord, Subtraction_ord, Scope_ord, Choose_ord, Filter_ord, Expression_ord, ReachableStep_ord, ByteLiteral_ord, CartesianProduct_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord);
         putSimpleEntity(EntityTemplate_ord, "EntityTemplate", EntityTemplate.class, false).withFeature(QueriesFeatureDescriptorEnum.name, EntityType_ord).withFeature(QueriesFeatureDescriptorEnum.constraints, Constraints_ord, true, false, false, false, false);
         putSimpleEntity(EntityCall_ord, "EntityCall", EntityCall.class, false).withFeature(QueriesFeatureDescriptorEnum.name, EntityType_ord).withFeature(QueriesFeatureDescriptorEnum.bindings, Bindings_ord, true, false, false, false, false);
         putSimpleEntity(Call_ord, "Call", Call.class, false).withFeature(QueriesFeatureDescriptorEnum.name, Name_ord).withFeature(QueriesFeatureDescriptorEnum.arguments, Expressions_ord, true, false, false, false, false);
@@ -322,6 +341,7 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putCompositeEntity(CartesianProduct_ord, "CartesianProduct", CartesianProduct.class, false, PathExpression_ord, true, false);
         putCompositeEntity(PointwiseProduct_ord, "PointwiseProduct", PointwiseProduct.class, false, PathExpression_ord, true, false);
         putSimpleEntity(Filter_ord, "Filter", Filter.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, StepExpression_ord).withFeature(QueriesFeatureDescriptorEnum.predicate, PruneOrPredicate_ord);
+        putSimpleEntity(TraversalStep_ord, "TraversalStep", TraversalStep.class, true, FollowingStep_ord, FollowingSiblingStep_ord, RootStep_ord, AncestorStep_ord, InverseAdjacentStep_ord, InverseReachableStep_ord, ParentStep_ord, AspectStep_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, DirectStep_ord, InverseStep_ord, ForwardStep_ord, AncestorOrSelfStep_ord, DescendantStep_ord, InverseReachableOrSelfStep_ord, ChildStep_ord, FragmentRootStep_ord, FeatureStep_ord, DescendantOrSelfStep_ord, ReverseStep_ord, ReachableStep_ord, ReachableOrSelfStep_ord, AdjacentStep_ord, SelfStep_ord);
         putSimpleEntity(AspectStep_ord, "AspectStep", AspectStep.class, false);
         putSimpleEntity(DirectStep_ord, "DirectStep", DirectStep.class, true, ReachableStep_ord, AdjacentStep_ord, ReachableOrSelfStep_ord);
         putSimpleEntity(AdjacentStep_ord, "AdjacentStep", AdjacentStep.class, false);

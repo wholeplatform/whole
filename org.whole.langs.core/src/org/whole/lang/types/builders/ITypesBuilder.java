@@ -1,135 +1,154 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.types.builders;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.types.model.LegacyTypeEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface ITypesBuilder extends IBuilder {
-	public void visit();
 
-	public void name();
 
-	public void expressions();
+    public void visit();
 
-	public void cases();
+    public void name();
 
-	public void arguments();
+    public void expressions();
 
-	public void type();
+    public void cases();
 
-	public void domain();
+    public void arguments();
 
-	public void rules();
+    public void type();
 
-	public void checkBefore();
+    public void domain();
 
-	public void TypeSystem();
+    public void rules();
 
-	public void TypeSystem_();
+    public void checkBefore();
 
-	public void _TypeSystem();
+    public void TypeSystem();
 
-	public void TypeRules();
+    public void TypeSystem_();
 
-	public void TypeRules_();
+    public void _TypeSystem();
 
-	public void TypeRules_(int initialCapacity);
+    public void TypeRules();
 
-	public void _TypeRules();
+    public void TypeRules_();
 
-	public void TypeRule();
+    public void TypeRules_(int initialCapacity);
 
-	public void TypeRule_();
+    public void _TypeRules();
 
-	public void _TypeRule();
+    public void TypeRule();
 
-	public void AnyType();
+    public void TypeRule_();
 
-	public void AnyType_();
+    public void _TypeRule();
 
-	public void _AnyType();
+    public void AnyType();
 
-	public void LegacyType();
+    public void AnyType_();
 
-	public void LegacyType(LegacyTypeEnum.Value value);
+    public void _AnyType();
 
-	public void LegacyType(String value);
+    public void LegacyType();
 
-	public void VariableType();
+    public void LegacyType(LegacyTypeEnum.Value value);
 
-	public void VariableType(int value);
+    public void LegacyType(String value);
 
-	public void EntityType();
+    public void VariableType();
 
-	public void EntityType(String value);
+    public void VariableType(int value);
 
-	public void UnionType();
+    public void EntityType();
 
-	public void UnionType_();
+    public void EntityType(String value);
 
-	public void UnionType_(int initialCapacity);
+    public void UnionType();
 
-	public void _UnionType();
+    public void UnionType_();
 
-	public void FeatureType();
+    public void UnionType_(int initialCapacity);
 
-	public void FeatureType(String value);
+    public void _UnionType();
 
-	public void FeatureTableType();
+    public void FeatureType();
 
-	public void FeatureTableType_();
+    public void FeatureType(String value);
 
-	public void _FeatureTableType();
+    public void FeatureTableType();
 
-	public void Arguments();
+    public void FeatureTableType_();
 
-	public void Arguments_();
+    public void _FeatureTableType();
 
-	public void Arguments_(int initialCapacity);
+    public void Arguments();
 
-	public void _Arguments();
+    public void Arguments_();
 
-	public void Cases();
+    public void Arguments_(int initialCapacity);
 
-	public void Cases_();
+    public void _Arguments();
 
-	public void Cases_(int initialCapacity);
+    public void Cases();
 
-	public void _Cases();
+    public void Cases_();
 
-	public void Case();
+    public void Cases_(int initialCapacity);
 
-	public void Case_();
+    public void _Cases();
 
-	public void _Case();
+    public void Case();
 
-	public void OrExpressions();
+    public void Case_();
 
-	public void OrExpressions_();
+    public void _Case();
 
-	public void OrExpressions_(int initialCapacity);
+    public void OrExpressions();
 
-	public void _OrExpressions();
+    public void OrExpressions_();
 
-	public void TypeExpressions();
+    public void OrExpressions_(int initialCapacity);
 
-	public void TypeExpressions_();
+    public void _OrExpressions();
 
-	public void TypeExpressions_(int initialCapacity);
+    public void TypeExpressions();
 
-	public void _TypeExpressions();
+    public void TypeExpressions_();
 
-	public void Subtype();
+    public void TypeExpressions_(int initialCapacity);
 
-	public void Subtype_();
+    public void _TypeExpressions();
 
-	public void _Subtype();
+    public void Subtype();
 
-	public void Supertype();
+    public void Subtype_();
 
-	public void Supertype_();
+    public void _Subtype();
 
-	public void _Supertype();
+    public void Supertype();
+
+    public void Supertype_();
+
+    public void _Supertype();
 }
