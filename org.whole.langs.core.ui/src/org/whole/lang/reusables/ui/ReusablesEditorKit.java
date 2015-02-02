@@ -14,11 +14,13 @@
  */
 package org.whole.lang.reusables.ui;
 
-import org.whole.lang.reusables.reflect.ReusablesLanguageKit;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.ui.editor.AbstractEditorKit;
-import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.reusables.reflect.ReusablesLanguageKit;
+import org.whole.lang.reusables.ui.actions.ReusablesActionFactory;
 import org.whole.lang.reusables.ui.editparts.ReusablesPartFactoryVisitor;
+import org.whole.lang.ui.editor.AbstractEditorKit;
+import org.whole.lang.ui.editor.IActionFactory;
+import org.whole.lang.ui.editparts.IEditPartFactory;
 
 /**
  *  @generator Whole
@@ -46,4 +48,8 @@ public class ReusablesEditorKit extends AbstractEditorKit {
     public boolean canApply(ILanguageKit languageKit) {
         return languageKit.getURI().equals(ReusablesLanguageKit.URI) && !languageKit.isDynamic();
     }
+
+	public IActionFactory getActionFactory() {
+		return ReusablesActionFactory.instance();
+	}
 }

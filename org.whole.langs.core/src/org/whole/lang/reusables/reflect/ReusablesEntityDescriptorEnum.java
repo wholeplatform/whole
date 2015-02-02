@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.reusables.reflect;
 
 import org.whole.lang.reflect.EntityDescriptorEnum;
@@ -5,7 +22,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.model.*;
 
 /**
- *  @generator  Whole
+ *  @generator Whole
  */
 @SuppressWarnings("unchecked")
 public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
@@ -54,7 +71,7 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     private static final long serialVersionUID = 1;
 
     protected void initEntityDescriptors() {
-        putSimpleEntity(Reusable_ord, "Reusable", Reusable.class, true, Reusables_ord);
+        putSimpleEntity(Reusable_ord, "Reusable", Reusable.class, true, Adapt_ord, Reusables_ord, Reuse_ord, Synch_ord);
         putSimpleEntity(Adapt_ord, "Adapt", Adapt.class, false).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
         putSimpleEntity(Reuse_ord, "Reuse", Reuse.class, false, Synch_ord).withFeature(ReusablesFeatureDescriptorEnum.source, Source_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
         putSimpleEntity(Synch_ord, "Synch", Synch.class, false).withFeature(ReusablesFeatureDescriptorEnum.source, Source_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variant, Reusable_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variantRevision, Revision_ord, true, false, false, false, false);
