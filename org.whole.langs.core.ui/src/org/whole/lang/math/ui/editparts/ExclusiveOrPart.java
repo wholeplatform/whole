@@ -18,15 +18,14 @@
 package org.whole.lang.math.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.math.ui.figures.MathCompositeRowFigure;
-import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
+import org.whole.lang.math.ui.figures.ParenthesizedMathCompositeRowFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class ExclusiveOrPart extends CompositeRowWithPlaceholderPart {
+public class ExclusiveOrPart extends ParenthesizedCompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new MathCompositeRowFigure("\u22bb") {
+        return new ParenthesizedMathCompositeRowFigure("\u22bb") {
         	@Override
         	protected int getSeparatorAscent() {
         		return super.getSeparatorAscent()-3;

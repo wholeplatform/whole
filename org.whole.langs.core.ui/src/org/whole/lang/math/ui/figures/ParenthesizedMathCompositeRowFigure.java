@@ -20,17 +20,17 @@ package org.whole.lang.math.ui.figures;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.FigurePrefs;
-import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
+import org.whole.lang.ui.figures.ParenthesizedStringSeparatedCompositeRowFigure;
 import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class MathCompositeRowFigure extends StringSeparatedCompositeRowFigure {
-	public MathCompositeRowFigure(String separator) {
+public class ParenthesizedMathCompositeRowFigure extends ParenthesizedStringSeparatedCompositeRowFigure {
+	public ParenthesizedMathCompositeRowFigure(String separator) {
 		this(separator, 15);
 	}
-	public MathCompositeRowFigure(String separator, int spacing) {
+	public ParenthesizedMathCompositeRowFigure(String separator, int spacing) {
 		super(separator, spacing);
 	}
 

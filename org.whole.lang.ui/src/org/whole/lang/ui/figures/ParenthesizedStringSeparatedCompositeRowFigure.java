@@ -22,6 +22,7 @@ import java.util.BitSet;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
+import org.whole.lang.ui.layout.CompositeEntityLayoutDelegator;
 import org.whole.lang.ui.layout.ICompositeEntityLayout;
 
 /**
@@ -35,15 +36,19 @@ public class ParenthesizedStringSeparatedCompositeRowFigure extends StringSepara
 	}
 	public ParenthesizedStringSeparatedCompositeRowFigure(String separator, ICompositeEntityLayout layout) {
 		super(separator, layout);
+		setLayoutManager(new ExpandableSpacingLayout(getLayoutManager()));
 		setShowParentheses(new BitSet(0));
 	}
 	public ParenthesizedStringSeparatedCompositeRowFigure(String separator, int spacing) {
 		super(separator, spacing);
+		setLayoutManager(new ExpandableSpacingLayout(getLayoutManager()));
 		setShowParentheses(new BitSet(0));
 	}
 
 	public void setShowParentheses(BitSet showParentheses) {
 		this.showParentheses = showParentheses;
+		int spacingExpansion = showParentheses.cardinality() > 0 ? (RoundBracketsBorder.HMARGIN+2) * 2 : 0;
+		((ExpandableSpacingLayout) getLayoutManager()).withSpacingExpansion(spacingExpansion);
 	}
 
 	@Override
@@ -57,5 +62,31 @@ public class ParenthesizedStringSeparatedCompositeRowFigure extends StringSepara
     		RoundBracketsBorder.paintRoundBrackets(g, childBounds.getExpanded(spacing/2-1, 0));
 
 		g.setForegroundColor(color);
+	}
+
+	private class ExpandableSpacingLayout extends CompositeEntityLayoutDelegator<ICompositeEntityLayout> {
+		private int spacing;
+		private int spacingExpansion;
+
+		public ExpandableSpacingLayout(ICompositeEntityLayout delegate) {
+			super(delegate);
+			this.spacing = getSpacing();
+			this.spacingExpansion = 0;
+		}
+
+		private int calculateExpandedSpacing() {
+			return this.spacing + this.spacingExpansion;
+		}
+
+		@Override
+		public ICompositeEntityLayout withSpacing(int spacing) {
+			this.spacing = spacing;
+			return super.withSpacing(calculateExpandedSpacing());
+		}
+
+		public ICompositeEntityLayout withSpacingExpansion(int spacingExpansion) {
+			this.spacingExpansion = spacingExpansion;
+			return super.withSpacing(calculateExpandedSpacing());
+		}
 	}
 }

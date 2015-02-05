@@ -17,14 +17,40 @@
  */
 package org.whole.lang.math.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
+import java.util.BitSet;
+
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.math.ui.figures.ParenthesizedMathCompositeRowFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
 
 /**
  * @author Riccardo Solmi
  */
-public class SubsetPart extends ParenthesizedCompositeRowWithPlaceholderPart {
+public class ParenthesizedCompositeRowWithPlaceholderPart extends CompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new ParenthesizedMathCompositeRowFigure("\u2286", 13);
+        return new ParenthesizedMathCompositeRowFigure("\u2022", 9);
     }
+
+	@Override
+	public ParenthesizedMathCompositeRowFigure getFigure() {
+		return (ParenthesizedMathCompositeRowFigure) super.getFigure();
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		IEntity entity = getModelEntity();
+		BitSet showParentheses = new BitSet(entity.wSize());
+		for (int i = 0; i < entity.wSize(); i++)
+			showParentheses.set(i, OperatorGroupEnum.hasPrecedence(entity, entity.wGet(i)));
+		getFigure().setShowParentheses(showParentheses);
+	}
 }

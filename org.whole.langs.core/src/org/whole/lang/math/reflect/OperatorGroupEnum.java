@@ -31,12 +31,14 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 	public static final int CREATION_CAST_ord = 3; // new clone (type)
 	public static final int MULTIPLICATIVE_ord = 4; // * / %
 	public static final int ADDITIVE_ord = 5; // + -
-	public static final int RELATIONAL_ord = 6; // < > <= >= instanceof
-	public static final int EQUALITY_ord = 7; // == !=
-	public static final int LOGICAL_AND_ord = 8; // &&
-	public static final int LOGICAL_OR_ord = 9; // ||
-	public static final int CONDITIONAL_ord = 10; // ?:
-	public static final int ASSIGNMENT_ord = 11; // =
+	public static final int SUBSET_ord = 6;
+	public static final int RELATIONAL_ord = 7; // < > <= >= instanceof
+	public static final int EQUALITY_ord = 8; // == !=
+	public static final int BITWISE_XOR_ord = 9; // ^
+	public static final int LOGICAL_AND_ord = 10; // &&
+	public static final int LOGICAL_OR_ord = 11; // ||
+	public static final int CONDITIONAL_ord = 12; // ?:
+	public static final int ASSIGNMENT_ord = 13; // =
 
 	public static final OperatorGroupEnum instance = new OperatorGroupEnum();
 
@@ -46,8 +48,10 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 	public static final OperatorGroup CREATION_CAST = instance.valueOf(CREATION_CAST_ord);
 	public static final OperatorGroup MULTIPLICATIVE = instance.valueOf(MULTIPLICATIVE_ord);
 	public static final OperatorGroup ADDITIVE = instance.valueOf(ADDITIVE_ord);
+	public static final OperatorGroup SUBSET = instance.valueOf(SUBSET_ord);
 	public static final OperatorGroup RELATIONAL = instance.valueOf(RELATIONAL_ord);
 	public static final OperatorGroup EQUALITY = instance.valueOf(EQUALITY_ord);
+	public static final OperatorGroup BITWISE_XOR = instance.valueOf(BITWISE_XOR_ord);
 	public static final OperatorGroup LOGICAL_AND = instance.valueOf(LOGICAL_AND_ord);
 	public static final OperatorGroup LOGICAL_OR = instance.valueOf(LOGICAL_OR_ord);
 	public static final OperatorGroup CONDITIONAL = instance.valueOf(CONDITIONAL_ord);
@@ -60,8 +64,10 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 		enumValue(CREATION_CAST_ord, "CREATION_CAST");
 		enumValue(MULTIPLICATIVE_ord, "MULTIPLICATIVE");
 		enumValue(ADDITIVE_ord, "ADDITIVE");
+		enumValue(SUBSET_ord, "SUBSET");
 		enumValue(RELATIONAL_ord, "RELATIONAL");
 		enumValue(EQUALITY_ord, "EQUALITY");
+		enumValue(BITWISE_XOR_ord, "BITWISE_XOR");
 		enumValue(LOGICAL_AND_ord, "LOGICAL_AND");
 		enumValue(LOGICAL_OR_ord, "LOGICAL_OR");
 		enumValue(CONDITIONAL_ord, "CONDITIONAL");
@@ -82,11 +88,17 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 			return LITERAL;
 		case MathEntityDescriptorEnum.Addition_ord:
 		case MathEntityDescriptorEnum.Subtraction_ord:
+		case MathEntityDescriptorEnum.Union_ord:
 			return ADDITIVE;
+		case MathEntityDescriptorEnum.ProperSubset_ord:
+		case MathEntityDescriptorEnum.Subset_ord:
+			return SUBSET;
 		case MathEntityDescriptorEnum.Multiplication_ord:
 		case MathEntityDescriptorEnum.Division_ord:
 		case MathEntityDescriptorEnum.Remainder_ord:
 			return MULTIPLICATIVE;
+		case MathEntityDescriptorEnum.ExclusiveOr_ord:
+			return BITWISE_XOR;
 		case MathEntityDescriptorEnum.And_ord:
 			return LOGICAL_AND;
 		case MathEntityDescriptorEnum.Or_ord:
@@ -105,9 +117,12 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 			return LITERAL;
 		}
 	}
-	
+
 	public static boolean hasPrecedence(IEntity e1, IEntity e2) {
-		return instance.valueOf(e1).hasPrecedence(instance.valueOf(e2));
+		if (!MathLanguageKit.URI.equals(e2.wGetLanguageKit().getURI()))
+			return false;
+		else
+			return instance.valueOf(e1).hasPrecedence(instance.valueOf(e2));
 	}
 
 	private static final long serialVersionUID = 1;

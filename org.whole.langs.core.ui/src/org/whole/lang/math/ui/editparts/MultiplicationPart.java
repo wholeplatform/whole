@@ -18,14 +18,13 @@
 package org.whole.lang.math.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.math.ui.figures.MathCompositeRowFigure;
-import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
+import org.whole.lang.math.ui.figures.ParenthesizedMathCompositeRowFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class MultiplicationPart extends CompositeRowWithPlaceholderPart {
+public class MultiplicationPart extends ParenthesizedCompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new MathCompositeRowFigure("\u2022", 9);
+        return new ParenthesizedMathCompositeRowFigure("\u2022", 9);
     }
 }

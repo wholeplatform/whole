@@ -104,7 +104,7 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			firstOperator.setVisible(true);
 			firstOperator.setText("*");
 			compositeFigure.setSeparator("*");
-			compositeFigure.getLayoutManager().withSpacing(16 + (RoundBracketsBorder.HMARGIN+2) * 2);
+			compositeFigure.getLayoutManager().withSpacing(16);
 			color = FigurePrefs.contentColor;
 			font = FigurePrefs.contentFont;
 			break;

@@ -58,7 +58,7 @@ public class QueriesActionFactory extends ActionFactory {
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Subtraction, "Subtraction", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Multiplication, "Multiplication", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Division, "Division", wrapIn0},
-				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Remainder, "Division", wrapIn0},
+				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Remainder, "Remainder", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.Equals, "Equals", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.NotEquals, "NotEquals", wrapIn0},
 				{ pf.assignableTo(QueriesEntityDescriptorEnum.Expression), QueriesEntityDescriptorEnum.LessThan, "LessThan", wrapIn0},

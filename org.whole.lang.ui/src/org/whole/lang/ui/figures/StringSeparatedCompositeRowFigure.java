@@ -23,6 +23,8 @@ import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontMetrics;
 import org.whole.lang.ui.layout.ICompositeEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -47,9 +49,15 @@ public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 	}
 
 	public void setSeparator(String separator) {
+		FontMetrics fontMetrics = getFontMetrics();
 		this.separator = separator;
-		this.separatorWidth = FigureUtilities.getFontMetrics(getFont()).getAverageCharWidth() * separator.length();
-		this.separatorAscent = FigureUtilities.getFontMetrics(getFont()).getHeight()/2;
+		this.separatorWidth = fontMetrics.getAverageCharWidth() * separator.length();
+		this.separatorAscent = fontMetrics.getHeight()/2;
+	}
+
+	protected FontMetrics getFontMetrics() {
+		Font localFont = getLocalFont();
+		return FigureUtilities.getFontMetrics(localFont != null ? localFont : getFont());
 	}
 
 	protected void paintFigure(Graphics g) {
