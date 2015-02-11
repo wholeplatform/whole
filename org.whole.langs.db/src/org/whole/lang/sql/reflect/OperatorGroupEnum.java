@@ -26,7 +26,6 @@ import org.whole.lang.sql.model.BinaryOperatorEnum;
 import org.whole.lang.sql.model.BooleanBinaryExpression;
 import org.whole.lang.sql.model.BooleanOperator;
 import org.whole.lang.sql.model.BooleanOperatorEnum;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -123,11 +122,12 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 	}
 
 	public static boolean hasUnknownOperator(IEntity entity) {
-		if (!entity.wGetEntityDescriptor().has(SQLFeatureDescriptorEnum.operator))
-			return false;
-		return EntityUtils.isResolver(entity.wGet(SQLFeatureDescriptorEnum.operator));
+		return entity.wGetEntityDescriptor().has(SQLFeatureDescriptorEnum.operator) &&
+				!SQLLanguageKit.URI.equals(entity.wGet(SQLFeatureDescriptorEnum.operator).wGetLanguageKit().getURI());
 	}
 	public static boolean hasPrecedence(IEntity e1, IEntity e2) {
+		if (!SQLLanguageKit.URI.equals(e2.wGetLanguageKit().getURI()))
+			return !e2.wGetEntityKind().isData();
 		if (hasUnknownOperator(e2))
 			return true;
 		else if (hasUnknownOperator(e1))

@@ -120,7 +120,7 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 
 	public static boolean hasPrecedence(IEntity e1, IEntity e2) {
 		if (!MathLanguageKit.URI.equals(e2.wGetLanguageKit().getURI()))
-			return false;
+			return !e2.wGetEntityKind().isData();
 		else
 			return instance.valueOf(e1).hasPrecedence(instance.valueOf(e2));
 	}

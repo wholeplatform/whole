@@ -22,7 +22,6 @@ import org.whole.lang.java.model.InfixOperatorEnum;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.model.EnumValueImpl;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
 
 /**
@@ -161,12 +160,13 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 	}
 
 	public static boolean hasUnknownOperator(IEntity entity) {
-		if (!entity.wGetEntityDescriptor().has(JavaFeatureDescriptorEnum.operator))
-			return false;
-		return EntityUtils.isResolver(entity.wGet(JavaFeatureDescriptorEnum.operator));
+		return entity.wGetEntityDescriptor().has(JavaFeatureDescriptorEnum.operator) &&
+				!JavaLanguageKit.URI.equals(entity.wGet(JavaFeatureDescriptorEnum.operator).wGetLanguageKit().getURI());
 	}
 	public static boolean hasPrecedence(IEntity e1, IEntity e2) {
-		if (hasUnknownOperator(e2))
+		if (!JavaLanguageKit.URI.equals(e2.wGetLanguageKit().getURI()))
+			return !e2.wGetEntityKind().isData();
+		else if (hasUnknownOperator(e2))
 			return true;
 		else if (hasUnknownOperator(e1))
 			return false;
