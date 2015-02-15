@@ -17,6 +17,8 @@
  */
 package org.whole.lang.environment.visitors;
 
+import org.whole.lang.environment.model.Binding;
+import org.whole.lang.environment.model.Bindings;
 import org.whole.lang.environment.model.BooleanData;
 import org.whole.lang.environment.model.ByteData;
 import org.whole.lang.environment.model.CharData;
@@ -26,10 +28,12 @@ import org.whole.lang.environment.model.DoubleData;
 import org.whole.lang.environment.model.FloatData;
 import org.whole.lang.environment.model.IntData;
 import org.whole.lang.environment.model.LongData;
+import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.model.ObjectData;
 import org.whole.lang.environment.model.ShortData;
 import org.whole.lang.environment.model.StringData;
 import org.whole.lang.environment.model.Tuple;
+import org.whole.lang.environment.model.Value;
 import org.whole.lang.environment.model.Void;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.IPrettyPrintWriter;
@@ -133,4 +137,35 @@ public class EnvironmentPrettyPrinterVisitor extends EnvironmentIdentityDefaultV
     	out.printRaw("void");
 	}
 
+    @Override
+    public void visit(Bindings entity) {
+		out.printlnRaw("Bindings {");
+		out.setRelativeIndentation(+1);
+
+		for (int i=0, size=entity.size(); i<size; i++) {
+			if (i>0)
+				out.printlnRaw(", ");
+			entity.get(i).accept(this);
+		}
+
+		out.setRelativeIndentation(-1);
+		out.printlnRaw("}");
+    }
+
+    @Override
+    public void visit(Binding entity) {
+    	entity.getName().accept(this);
+    	out.printRaw(" = ");
+    	entity.getValue().accept(this);
+    }
+
+    @Override
+    public void visit(Name entity) {
+    	out.printRaw(entity.getValue());
+    }
+
+    @Override
+    public void visit(Value entity) {
+    	stagedVisit(entity.getValue());
+    }
 }

@@ -21,7 +21,9 @@ import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
+import org.whole.lang.exceptions.MissingVariableException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.matchers.Matcher;
@@ -34,7 +36,6 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
-import org.whole.lang.visitors.MissingVariableException;
 
 /**
  * @author Riccardo Solmi
@@ -289,5 +290,23 @@ public class BindingManagerFactory {
 	}
 	public boolean isVoid(IEntity entity) {
 		return Matcher.match(getVoidEd(), entity);
+	}
+
+	public IEntity createFlatBindingsModel(IBindingManager bindings) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		IEntity bindingsModel = ef.create(getEdEnum().valueOf("Bindings"));
+
+		Set<String> names = bindings.wNames();
+		for (String name : new TreeSet<String>(names))
+			bindingsModel.wAdd(createBinding(name, bindings.wGet(name)));
+
+		return bindingsModel;				
+	}
+
+	public IEntity createBinding(String name, IEntity value) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		return ef.create(getEdEnum().valueOf("Binding"),
+				ef.create(getEdEnum().valueOf("Name"), name),
+				ef.create(getEdEnum().valueOf("Value"), (Object) value));				
 	}
 }

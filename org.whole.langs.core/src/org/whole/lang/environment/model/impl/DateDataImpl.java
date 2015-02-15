@@ -1,64 +1,81 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.environment.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.environment.model.*;
+import org.whole.lang.environment.model.DateData;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.StringUtils;
 import java.util.Date;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class DateDataImpl extends AbstractDataEntity implements DateData {
-	private static final long serialVersionUID = 1;
-	private java.util.Date value;
+    private static final long serialVersionUID = 1;
+    private java.util.Date value;
 
-	public java.util.Date getValue() {
-		return notifyRequested(value);
-	}
+    public java.util.Date getValue() {
+        return notifyRequested(value);
+    }
 
-	public void setValue(java.util.Date value) {
-		notifyChanged(this.value, this.value = value);
-	}
+    public void setValue(java.util.Date value) {
+        notifyChanged(this.value, this.value = value);
+    }
 
-	public void accept(IEnvironmentVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(IEnvironmentVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public int wGetEntityOrd() {
-		return EnvironmentEntityDescriptorEnum.DateData_ord;
-	}
+    public int wGetEntityOrd() {
+        return EnvironmentEntityDescriptorEnum.DateData_ord;
+    }
 
-	public EntityDescriptor<DateData> wGetEntityDescriptor() {
-		return EnvironmentEntityDescriptorEnum.DateData;
-	}
+    public EntityDescriptor<DateData> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.DateData;
+    }
 
-	public Object wGetValue() {
-		return getValue();
-	}
+    public Object wGetValue() {
+        return getValue();
+    }
 
-	public void wSetValue(Object value) {
-		setValue((java.util.Date) value);
-	}
+    public void wSetValue(Object value) {
+        setValue((java.util.Date) value);
+    }
 
-	public String wStringValue() {
-		return StringUtils.toExtendedISO8601DateTime(value);
-	}
+    public String wStringValue() {
+        return StringUtils.toExtendedISO8601DateTime(value);
+    }
 
-	public void wSetValue(String value) {
-		try {
-			setValue(StringUtils.fromExtendedISO8601DateTime(value));
-		} catch (IllegalArgumentException e) {
-		}
-	}
+    public void wSetValue(String value) {
+        try {
+            setValue(StringUtils.fromExtendedISO8601DateTime(value));
+        } catch (IllegalArgumentException e) {
+        }
+    }
 
-	public Date wDateValue() {
-		return value;
-	}
+    public Date wDateValue() {
+        return value;
+    }
 
-	public void wSetValue(Date value) {
-		setValue((Date) value);
-	}
+    public void wSetValue(Date value) {
+        setValue((Date) value);
+    }
 }

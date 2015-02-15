@@ -31,7 +31,6 @@ import org.whole.lang.models.codebase.ActionsModel;
 import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.models.codebase.CommonsModel;
 import org.whole.lang.models.codebase.EditorsModel;
-import org.whole.lang.models.codebase.EnvironmentModel;
 import org.whole.lang.models.codebase.FramesModel;
 import org.whole.lang.models.codebase.GrammarBasedModel;
 import org.whole.lang.models.codebase.GrammarsModel;
@@ -76,7 +75,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(ArtifactsLanguageKit.URI, new ArtifactsModel());
 		platform.setMetaModelTemplate(ChangesLanguageKit.URI, "Changes model", "org/whole/lang/changes/ChangesModel.xwl");
 		platform.setMetaModelTemplate(EditorsLanguageKit.URI, new EditorsModel());
-		platform.setMetaModelTemplate(EnvironmentLanguageKit.URI, new EnvironmentModel());
+		platform.setMetaModelTemplate(EnvironmentLanguageKit.URI, "Environment model", "org/whole/lang/environment/EnvironmentModel.xwl");
 		platform.setMetaModelTemplate(FramesLanguageKit.URI, new FramesModel());
 		platform.setMetaModelTemplate(GrammarsLanguageKit.URI, new GrammarsModel());
 		platform.setMetaModelTemplate(GRAMMAR_BASED_URI, new GrammarBasedModel());

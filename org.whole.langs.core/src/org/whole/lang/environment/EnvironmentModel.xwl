@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="Environment"/>
+    <models:TypeRelations initialCapacity="2">
+        <models:SupertypesOf>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SupertypesOf>
+        <models:SubtypesOf>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Void"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SubtypesOf>
+    </models:TypeRelations>
+    <models:ModelDeclarations initialCapacity="19">
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Data"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="BooleanData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="boolean"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ByteData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="byte"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="CharData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="char"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DoubleData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="double"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="FloatData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="float"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="IntData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="int"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="LongData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="long"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ShortData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="short"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StringData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DateData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="java.util.Date"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ObjectData"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:DataType value="Object"/>
+        </models:DataEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Tuple"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="2">
+                <models:ComponentModifier value="ordered"/>
+                <models:ComponentModifier value="reference"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Data"/>
+        </models:CompositeEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ContainmentTuple"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Data"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Void"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Data"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Bindings"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Binding"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Binding"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="id"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Name"/>
+                    <models:SimpleName value="name"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Value"/>
+                    <models:SimpleName value="value"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Name"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Value"/>
+            <models:Types initialCapacity="0"/>
+            <models:DataType value="org.whole.lang.model.IEntity"/>
+        </models:DataEntity>
+    </models:ModelDeclarations>
+    <models:Namespace value="org.whole.lang.environment"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <models:URI value="http://lang.whole.org/Environment"/>
+</models:Model>
