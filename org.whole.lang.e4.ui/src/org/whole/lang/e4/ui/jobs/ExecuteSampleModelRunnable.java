@@ -30,6 +30,7 @@ import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ConstantIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -119,20 +120,18 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 			// gracefully terminate execution
 		} catch (Exception e) {
 			if (e.getCause() instanceof MissingVariableException)
-				addMissingVariables(contextModel, (MissingVariableException) e);
+				addMissingVariables(contextModel, (MissingVariableException) e.getCause());
 		} finally {
 			pm.endTask();
 		}
 
 		IEntity variablesModel = null;
 		if (derivedModel != null) {
-			WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
-			variablesModel = ef.createAssignments(0);
+			EnvironmentEntityFactory ef = EnvironmentEntityFactory.instance;
+			variablesModel = ef.createBindings(0);
 			for (String name : new TreeSet<String>(bm.wLocalNames()))
 				if (!initialNames.contains(name))
-					variablesModel.wAdd(ef.createAssign(
-							ef.createVariable(name),
-							EntityUtils.cloneIfParented(BindingUtils.wGet(bm, name)).wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
+					variablesModel.wAdd(ef.createBinding(ef.createName(name), ef.createValue(BindingUtils.wGet(bm, name))));
 
 			final IEntity contents = derivedModel;
 			final IEntity variables = variablesModel;
