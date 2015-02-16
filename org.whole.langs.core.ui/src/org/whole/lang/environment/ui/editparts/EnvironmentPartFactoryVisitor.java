@@ -18,16 +18,23 @@
 package org.whole.lang.environment.ui.editparts;
 
 import org.eclipse.gef.EditPart;
+import org.whole.lang.environment.model.Binding;
+import org.whole.lang.environment.model.Bindings;
 import org.whole.lang.environment.model.ContainmentTuple;
 import org.whole.lang.environment.model.IEnvironmentEntity;
+import org.whole.lang.environment.model.Name;
+import org.whole.lang.environment.model.ObjectData;
+import org.whole.lang.environment.model.StringData;
 import org.whole.lang.environment.model.Tuple;
 import org.whole.lang.environment.model.Void;
 import org.whole.lang.environment.visitors.EnvironmentIdentityDefaultVisitor;
-import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.queries.ui.editparts.TuplePart;
 import org.whole.lang.queries.ui.editparts.VoidLiteralPart;
+import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
-import org.whole.lang.ui.editparts.PlaceHolderPart;
+import org.whole.lang.ui.editparts.ObjectDataEntityPart;
+import org.whole.lang.ui.editparts.VariableDataEntityPart;
+import org.whole.lang.ui.notations.editparts.QuotedStringDataEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 
 /**
@@ -40,12 +47,6 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 		this.context = context;
 		((IEnvironmentEntity) modelEntity).accept(this);
 		return part;
-	}
-
-	@Override
-	public boolean visitAdapter(IEntityAdapter entity) {
-		part = new PlaceHolderPart();
-		return super.visitAdapter(entity);
 	}
 
 	@Override
@@ -66,5 +67,38 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 	@Override
 	public void visit(Void entity) {
 		part = new VoidLiteralPart();
+	}
+
+	@Override
+	public void visit(Bindings entity) {
+		part = new BindingsTablePart();
+	}
+
+	@Override
+	public void visit(Binding entity) {
+		part = new BindingPart();
+	}
+
+	@Override
+	public void visit(Name entity) {
+		part = new VariableDataEntityPart();
+	}
+
+	@Override
+	public void visit(StringData entity) {
+		if (context instanceof BindingPart && context.getChildren().isEmpty()) {
+			part = new ContentLightDataEntityPart();
+			return;
+		}
+		part = new QuotedStringDataEntityPart();
+	}
+
+	@Override
+	public void visit(ObjectData entity) {
+		if (context instanceof BindingPart) {
+			part = new ObjectDataEntityPart();
+			return;
+		}
+		super.visit(entity);
 	}
 }
