@@ -21,7 +21,7 @@ package org.whole.lang.operations;
  * @author Riccardo Solmi
  */
 public class OperationCanceledException extends RuntimeException {
-	private static final long serialVersionUID = -4293563919453376389L;
+	private static final long serialVersionUID = 1L;
 
 	public OperationCanceledException() {
 		super();

@@ -24,8 +24,8 @@ import org.whole.lang.util.WholeMessages;
 /**
  * @author Riccardo Solmi
  */
-public class MissingVariableException extends RuntimeException{
-	private static final long serialVersionUID = 7511663854300331100L;
+public class MissingVariableException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 	protected final String[] variableName;
 
 	public MissingVariableException(String variableName) {

@@ -12,7 +12,6 @@ import org.whole.lang.models.codebase.DataModel;
 import org.whole.lang.models.codebase.ECoreModel;
 import org.whole.lang.models.codebase.EditorsModel;
 import org.whole.lang.models.codebase.EntitiesModel;
-import org.whole.lang.models.codebase.EnvironmentModel;
 import org.whole.lang.models.codebase.FactoriesModel;
 import org.whole.lang.models.codebase.FeatureModelModel;
 import org.whole.lang.models.codebase.FirstOrderLogicModel;
@@ -110,7 +109,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Misc model", new MiscModel());
 		put("Templates model", new TemplatesModel());
 		put("Factories model", new FactoriesModel());
-		put("Environment model", new EnvironmentModel());
 		put("Visitors model", new VisitorsModel());
 		put("Operations model", new OperationsModel());
 		put("Versions model", new VersionsModel());

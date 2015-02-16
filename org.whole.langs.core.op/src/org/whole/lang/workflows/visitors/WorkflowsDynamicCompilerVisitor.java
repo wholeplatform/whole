@@ -135,7 +135,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 //
 //				setResult(bm, resultVariable, resultValue);
 //			}
-//    	}, runnableIterators));
+//    	}, runnableIterators).withDomainEntity(entity));
 //	}
 
 	@Override
@@ -174,7 +174,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, constructor.getDeclaringClass());
 			}
-    	}, runnableIterators));
+    	}, runnableIterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, method.getReturnType());
 			}
-    	}, runnableIterators));
+    	}, runnableIterators).withSourceEntity(entity));
 	}
 
 	@Override
@@ -257,31 +257,31 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				setResult(bm, resultVariable, resultValue, method.getReturnType());
 			}
-    	}, runnableIterators));
+    	}, runnableIterators).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Variable entity) {
 		String varName = entity.getValue();
-    	setResultIterator(varName.equals("self") ?
-    			IteratorFactory.selfIterator() : IteratorFactory.variableIterator(varName));
+    	setResultIterator((varName.equals("self") ?
+    			IteratorFactory.selfIterator() : IteratorFactory.variableIterator(varName)).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(BooleanLiteral entity) {
 		setResultIterator(IteratorFactory.constantIterator(
-				BindingManagerFactory.instance.createValue(entity.isValue()), true));
+				BindingManagerFactory.instance.createValue(entity.isValue()), true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(IntLiteral entity) {
 		setResultIterator(IteratorFactory.constantIterator(
-				BindingManagerFactory.instance.createValue(entity.getValue()), true));
+				BindingManagerFactory.instance.createValue(entity.getValue()), true).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(StringLiteral entity) {
 		setResultIterator(IteratorFactory.constantIterator(
-				BindingManagerFactory.instance.createValue(entity.getValue()), true));
+				BindingManagerFactory.instance.createValue(entity.getValue()), true).withSourceEntity(entity));
 	}
 }

@@ -27,6 +27,15 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public abstract class AbstractCloneableIterator<E extends IEntity> implements IEntityIterator<E> {
+	private IEntity sourceEntity;
+	public IEntityIterator<E> withSourceEntity(IEntity entity) {
+		sourceEntity = entity;
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return sourceEntity;
+	}
+	
 	public IEntityIterator<E> clone() {
 		return clone(new CloneContext());
 	}

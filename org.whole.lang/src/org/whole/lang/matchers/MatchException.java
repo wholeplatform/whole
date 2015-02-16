@@ -24,7 +24,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class MatchException extends RuntimeException {
-	private static final long serialVersionUID = 8465481689578886937L;
+	private static final long serialVersionUID = 1L;
 
 	public final IEntity pattern;
 	public final IEntity model;

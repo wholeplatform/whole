@@ -24,7 +24,7 @@ import org.whole.lang.reflect.EntityDescriptor;
  * @author Riccardo Solmi
  */
 public class SubstituteException extends RuntimeException {
-	private static final long serialVersionUID = -9210409569306199175L;
+	private static final long serialVersionUID = 1L;
 
 	public final Variable variable;
 	public final EntityDescriptor<?> valueType;

@@ -28,7 +28,7 @@ import org.whole.lang.util.BehaviorUtils;
 public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor {
 	@Override
 	public void visit(ICommonsEntity entity) {
-		setResultIterator(IteratorFactory.templateInterpreterIterator(entity));
+		setResultIterator(IteratorFactory.templateInterpreterIterator(entity).withSourceEntity(entity));
 	}
 
 	@Override

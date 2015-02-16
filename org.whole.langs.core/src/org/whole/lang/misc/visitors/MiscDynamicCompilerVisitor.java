@@ -39,7 +39,7 @@ public class MiscDynamicCompilerVisitor extends MiscOperationVisitor {
 				iteratorChain[i] = getResultIterator();
 			}
 
-	    	setResultIterator(IteratorFactory.sequenceIterator(iteratorChain));
+	    	setResultIterator(IteratorFactory.sequenceIterator(iteratorChain).withSourceEntity(entity));
     	}
 	}
 }

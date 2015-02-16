@@ -29,6 +29,9 @@ import org.whole.lang.operations.ICloneable;
  * @author Riccardo Solmi
  */
 public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterable<E>, ICloneable {
+	public IEntityIterator<E> withSourceEntity(IEntity entity);
+	public IEntity getSourceEntity();
+
 	public IEntityIterator<E> clone();
 	public IEntityIterator<E> clone(ICloneContext cc);
 
