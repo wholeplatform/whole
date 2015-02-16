@@ -27,10 +27,11 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
+import org.whole.lang.environment.model.Name;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ConstantIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -45,9 +46,6 @@ import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.MissingVariableException;
-import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
-import org.whole.lang.workflows.model.Variable;
-import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
 
 /**
  * @author Enrico Persiani
@@ -147,14 +145,13 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 
 	protected void addMissingVariables(IEntity contextModel, MissingVariableException e) {
 		String[] varNames = e.getVariableNames();
-		WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
+		EnvironmentEntityFactory ef = EnvironmentEntityFactory.instance;
 
 		for (String varName : varNames) {
-			Variable var = ef.createVariable(varName);
+			Name var = ef.createName(varName);
 			IEntity find = Matcher.find(var, contextModel, false);
 			if (find == null)
-				contextModel.wAdd(ef.createAssign(
-						var, CommonsEntityAdapterFactory.createResolver(WorkflowsEntityDescriptorEnum.Expression)));
+				contextModel.wAdd(ef.createBinding(var, ef.createValue(CommonsEntityFactory.instance.createResolver())));
 		}
 	}
 }
