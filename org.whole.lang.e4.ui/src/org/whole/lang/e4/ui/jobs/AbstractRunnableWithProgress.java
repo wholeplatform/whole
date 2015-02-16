@@ -25,9 +25,14 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.exceptions.WholeIllegalStateException;
+import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.AnimableRunnable;
+import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -59,6 +64,11 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 			final IOperationProgressMonitor pm = new OperationProgressMonitorAdapter(monitor);
 			bm.wDefValue("progressMonitor", pm);
 			run(pm);
+		} catch (WholeRuntimeException|WholeIllegalArgumentException|WholeIllegalStateException e) {
+			if (e.getSourceEntity() != null) {
+				E4Utils.suspendOperation(SuspensionKind.ERROR, e);
+			} else
+				E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
 		} catch (Exception e) {
 			E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
 		} finally {

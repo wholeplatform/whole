@@ -21,8 +21,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -30,6 +33,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MBindingTable;
@@ -54,12 +58,15 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.events.IdentityRequestEventHandler;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -69,6 +76,7 @@ import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.util.ResourceUtils;
+import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
@@ -330,6 +338,61 @@ public class E4Utils {
 			uiPluginClass.getMethod("reportError", Shell.class, String.class, String.class, Throwable.class)
 					.invoke(null, context.get(IServiceConstants.ACTIVE_SHELL), title, message, t);
 		} catch (Exception e) {
+		}
+	}
+
+	public static void suspendOperation(SuspensionKind kind, IWholeRuntimeException e) {
+		suspendOperation(kind, e.asException(), e.getSourceEntity(), e.getBindings());		
+	}
+	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings) {
+		suspendOperation(kind, throwable, sourceEntity, bindings, BindingManagerFactory.instance.createFlatBindingsModel(bindings));
+	}
+	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings, IEntity variablesModel) {
+		if (bindings.wIsSet("breakpointsDisabled") && bindings.wBooleanValue("breakpointsDisabled"))
+			return;
+
+		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
+			if (throwable != null)
+				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+						"Domain behavior error", "Error while executing domain behavior", throwable);
+
+			return;
+		}
+			
+		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		context.get(UISynchronize.class).syncExec(new Runnable() {
+			public void run() {
+				try {
+					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
+					Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
+					Method method = uiPluginClass.getMethod("revealPerspective", String.class);
+					method.invoke(null, "org.whole.lang.ui.perspectives.LanguageWorkbenchDebugPerspectiveFactory");
+				} catch (Exception e) {
+					throw new IllegalStateException(e);
+				}
+
+				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
+				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
+				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
+					IEntity selfEntity = bindings.wGet("self");
+					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
+				}
+			}
+		});
+		CyclicBarrier barrier = new CyclicBarrier(2);
+		IEventBroker eventBroker = context.get(IEventBroker.class);
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
+		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {
+				kind, throwable, sourceEntity, bindings, barrier});
+		try {
+			barrier.await();
+		} catch (InterruptedException e) {
+			throw new IllegalStateException(e);
+		} catch (BrokenBarrierException e) {	
+			// execution terminated
+			throw new OperationCanceledException(e);
+		} finally {
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
 		}
 	}
 

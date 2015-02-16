@@ -31,28 +31,13 @@ import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.pe
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.resource;
 import static org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum.rootResource;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
-
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.factories.CommonsEntityFactory;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.java.util.JavaReflectUtils.JavaSignature;
-import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
 import org.whole.lang.workflows.model.ArtifactsActivity;
-import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.PersistenceActivity;
-import org.whole.lang.workflows.model.Variables;
-import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
-import org.whole.lang.workflows.reflect.WorkflowsFeatureDescriptorEnum;
 
 /**
  * @author Enrico Persiani
@@ -116,51 +101,5 @@ public class WorkflowsUtils {
 		}
 		sb.append(')');
 		return sb.toString();
-	}
-
-	public static IEntity calculateVariables(IOperation operation) {
-		return calculateVariables(operation, null);
-	}
-	public static IEntity calculateVariables(IOperation operation, Variables variables) {
-		IBindingManager bindings = operation.getOperationEnvironment();
-
-		WorkflowsEntityFactory ef = WorkflowsEntityFactory.instance;
-		Assignments assignments = ef.createAssignments(0);
-		List<Integer> voidVars = new ArrayList<Integer>();
-		IEntity expression;
-		int index = 0;
-		if (variables != null && Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables))
-			for (int size=variables.size(); index<size; index++) {
-				String name = variables.get(index).getValue();
-				if (bindings.wIsSet(name)) {
-					if (BindingManagerFactory.instance.isVoid(bindings.wGet(name)))
-						voidVars.add(index);
-
-					expression = CommonsEntityFactory.instance.createStageDownFragment(
-							ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
-				} else
-					expression = CommonsEntityFactory.instance.createResolver();
-				
-				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
-			}
-		else
-			for (String name : new TreeSet<String>(bindings.wNames())) {
-				if (BindingManagerFactory.instance.isVoid(bindings.wGet(name)))
-					voidVars.add(index);
-
-				expression = CommonsEntityFactory.instance.createStageDownFragment(
-						ef.createVariable(name).wGetAdapter(CommonsEntityDescriptorEnum.Any));
-
-				assignments.add(ef.createAssign(ef.createVariable(name), expression.wGetAdapter(WorkflowsEntityDescriptorEnum.Expression)));
-				index++;
-			}
-
-		operation.stagedVisit(assignments, 1);	
-		final IEntity variablesModel = bindings.getResult();
-
-		//FIXME add workaround for missing GenericTemplateInterpreter strategy preserving Voids
-		for (int i : voidVars)
-			variablesModel.wGet(i).wSet(WorkflowsFeatureDescriptorEnum.expression, BindingManagerFactory.instance.createVoid().wGetAdapter(WorkflowsEntityDescriptorEnum.Expression));
-		return variablesModel;
 	}
 }

@@ -21,37 +21,31 @@ import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Cla
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.CurrentJavaProject_ord;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.JavaProject_ord;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jdt.core.IJavaProject;
 import org.whole.gen.util.JDTUtils;
 import org.whole.lang.artifacts.util.WorkspaceResourceOperations;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.parsers.ParseException;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.ui.actions.JavaModelGeneratorAction;
 import org.whole.lang.ui.util.SuspensionKind;
-import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.VisitException;
@@ -76,11 +70,12 @@ import org.whole.lang.workflows.model.SaveModel;
 import org.whole.lang.workflows.model.Task;
 import org.whole.lang.workflows.model.Unparse;
 import org.whole.lang.workflows.model.Variable;
+import org.whole.lang.workflows.model.Variables;
+import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
 import org.whole.lang.workflows.ui.dialogs.AssignmentsDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ConfirmationDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.ITaskDialogFactory;
 import org.whole.lang.workflows.ui.dialogs.TaskDialogHelper;
-import org.whole.lang.workflows.util.WorkflowsUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -130,8 +125,15 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 				return;
 		}
 
-		IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation(), entity.getShowVariables());
-		suspendOperation(SuspensionKind.BREAK, debugEnv, entity, variablesModel);
+		Set<String> includeNames = new TreeSet<String>();
+		Variables variables = entity.getShowVariables();
+		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables)) {
+			for (Variable variable : variables)
+				includeNames.add(variable.getValue());
+
+			suspendOperation(SuspensionKind.BREAK, entity, includeNames);
+		} else
+			suspendOperation(SuspensionKind.BREAK, null, entity);
 	}
 
 	@Override
@@ -139,8 +141,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -149,8 +150,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -159,8 +159,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -168,8 +167,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -177,8 +175,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -189,8 +186,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		} catch (ParseException e) {
 			throw e;
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -198,8 +194,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -208,8 +203,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -217,8 +211,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -226,8 +219,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -236,8 +228,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -246,8 +237,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -255,8 +245,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 	@Override
@@ -264,8 +253,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		try {
 			super.visit(entity);
 		} catch (Exception e) {
-			IEntity variablesModel = WorkflowsUtils.calculateVariables(getOperation());
-			suspendOperation(SuspensionKind.ERROR, e, entity, getBindings(), variablesModel);
+			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
 	}
 
@@ -349,55 +337,12 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		}
 	}
 
-	public static void suspendOperation(SuspensionKind kind, final IBindingManager bindings, IEntity suspendEntity, IEntity variablesModel) {
-		suspendOperation(kind, null, suspendEntity, bindings, variablesModel);
+	protected void suspendOperation(SuspensionKind kind, IEntity suspendEntity, Set<String> includeNames) {
+		E4Utils.suspendOperation(kind, null, suspendEntity, getBindings(),
+				BindingManagerFactory.instance.createFlatBindingsModel(getOperation(), includeNames));
 	}
-	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity onEntity, final IBindingManager bindings, IEntity variablesModel) {
-		if (bindings.wIsSet("breakpointsDisabled") && bindings.wBooleanValue("breakpointsDisabled"))
-			return;
-
-		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
-			if (throwable != null)
-				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
-						"Domain behavior error", "Error while executing domain behavior", throwable);
-
-			return;
-		}
-			
-		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
-		context.get(UISynchronize.class).syncExec(new Runnable() {
-			public void run() {
-				try {
-					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
-					Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
-					Method method = uiPluginClass.getMethod("revealPerspective", String.class);
-					method.invoke(null, "org.whole.lang.ui.perspectives.LanguageWorkbenchDebugPerspectiveFactory");
-				} catch (Exception e) {
-					throw new IllegalStateException(e);
-				}
-
-				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
-				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
-				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
-					IEntity selfEntity = bindings.wGet("self");
-					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
-				}
-			}
-		});
-		CyclicBarrier barrier = new CyclicBarrier(2);
-		IEventBroker eventBroker = context.get(IEventBroker.class);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, EntityUtils.clone(variablesModel));
-		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {
-				kind, throwable, onEntity, bindings, barrier});
-		try {
-			barrier.await();
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		} catch (BrokenBarrierException e) {	
-			// execution terminated
-			throw new OperationCanceledException(e);
-		} finally {
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
-		}
+	protected void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity) {
+		E4Utils.suspendOperation(kind, throwable, sourceEntity, getBindings(),
+				BindingManagerFactory.instance.createFlatBindingsModel(getOperation()));
 	}
 }
