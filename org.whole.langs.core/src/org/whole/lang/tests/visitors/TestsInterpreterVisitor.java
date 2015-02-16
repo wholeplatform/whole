@@ -279,6 +279,8 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			subject.accept(this);
 			entity = getResult();
+		} catch (OperationCanceledException e) {
+			throw e;
 		} catch (RuntimeException e) {
 			if (catchExceptions)
 				// save exception for later evaluation
@@ -286,6 +288,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			else
 				throw e;
 		}
+
 		return entity == null ? NullEntity.instance : entity;
 	}
 	protected IVisitor evaluate(Constraint constraint) {
