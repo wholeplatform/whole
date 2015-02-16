@@ -19,7 +19,7 @@ package org.whole.lang.environment.visitors;
 
 import org.whole.lang.environment.model.*;
 import org.whole.lang.model.adapters.IEntityAdapter;
-import org.whole.lang.exceptions.VisitException;
+import org.whole.lang.visitors.VisitException;
 import org.whole.lang.environment.model.Void;
 
 /**
