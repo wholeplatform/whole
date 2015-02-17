@@ -17,6 +17,7 @@
  */
 package org.whole.gen;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -1275,6 +1276,30 @@ public class CompilationUnitBuilder extends AbstractEntity {
 		
 		addBodyDeclaration(methodDec);
 		return methodDec;
+	}
+	private static Set<String> nocastTypes;
+	private static Set<String> nocastTypes() {
+		if (nocastTypes == null) {
+			nocastTypes = new HashSet<String>();
+			nocastTypes.addAll(Arrays.<String>asList(new String[] {
+					"String","Object","Date"}));
+		}
+		return nocastTypes;
+	}
+	public static boolean needObjectCast(String type) {
+		return !type.startsWith("java.") && !nocastTypes().contains(type);
+	}
+	public void addDataFactoryMethodCase(MethodDeclaration factoryMethod, String fType, String fName, boolean useQualifiedType) {
+		if (fType.endsWith("Enum.Value"))
+			addFactoryMethodCase(factoryMethod, newSimpleQualifiedType(fType), fName);
+		else {
+			Type type = useQualifiedType ? newQualifiedType(fType) : newType(fType);
+			factoryMethod.parameters().add(newSingleVariableDeclaration(type, fName));
+			if (!isInterface)
+				((MethodInvocation)((ReturnStatement)factoryMethod.getBody().statements().get(0)).getExpression()).arguments().add(
+						(type.isSimpleType() || type.isQualifiedType()) && needObjectCast(fType) ?
+						newCastExpression(newQualifiedType("java.lang.Object"), ast.newSimpleName(fName)) : ast.newSimpleName(fName));
+		}
 	}
 	public void addFactoryMethodCase(MethodDeclaration factoryMethod, String fType, String fName, boolean useQualifiedType) {
 		if (fType.endsWith("Enum.Value"))

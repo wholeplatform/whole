@@ -641,7 +641,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
     }
 
     public VisitorTest createVisitorTest(org.whole.lang.visitors.IVisitor value) {
-        return create(QueriesEntityDescriptorEnum.VisitorTest, value);
+        return create(QueriesEntityDescriptorEnum.VisitorTest, (java.lang.Object) value);
     }
 
     public ExpressionTest createExpressionTest() {

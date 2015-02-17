@@ -106,13 +106,17 @@ public class EntityFactoriesBuilder extends AbstractEntity {
 	}
 
 	public void addFactoryMethodCase(String fType, String fName) {
-		addFactoryMethodCase(fType, fName, false);
+		for (int i=0; i<factories.size(); i++) {
+			CompilationUnitBuilder factory = factories.get(i);
+
+			factory.addFactoryMethodCase(factoryMethod[i], fType, fName, false);
+		}
 	}
 	public void addFactoryMethodCase(String fType, String fName, boolean useQualifiedType) {
 		for (int i=0; i<factories.size(); i++) {
 			CompilationUnitBuilder factory = factories.get(i);
-			
-			factory.addFactoryMethodCase(factoryMethod[i], fType, fName, useQualifiedType);
+
+			factory.addDataFactoryMethodCase(factoryMethod[i], fType, fName, useQualifiedType);
 		}
 	}
 

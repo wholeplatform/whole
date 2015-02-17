@@ -202,6 +202,6 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
     }
 
     public Value createValue(org.whole.lang.model.IEntity value) {
-        return create(EnvironmentEntityDescriptorEnum.Value, (Object) value);
+        return create(EnvironmentEntityDescriptorEnum.Value, (java.lang.Object) value);
     }
 }
