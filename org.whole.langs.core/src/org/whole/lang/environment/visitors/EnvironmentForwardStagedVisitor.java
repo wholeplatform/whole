@@ -89,6 +89,10 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(Id entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Name entity) {
         stagedVisit(entity);
     }

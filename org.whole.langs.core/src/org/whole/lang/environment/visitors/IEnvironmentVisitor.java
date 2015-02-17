@@ -59,6 +59,8 @@ public interface IEnvironmentVisitor extends IVisitor {
 
     public void visit(Binding entity);
 
+    public void visit(Id entity);
+
     public void visit(Name entity);
 
     public void visit(Value entity);

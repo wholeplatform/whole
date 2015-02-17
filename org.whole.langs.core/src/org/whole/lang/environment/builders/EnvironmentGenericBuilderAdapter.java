@@ -113,6 +113,9 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.StringData_ord :
             specificBuilder.StringData(value);
             break;
+            case EnvironmentEntityDescriptorEnum.Id_ord :
+            specificBuilder.Id(value);
+            break;
             case EnvironmentEntityDescriptorEnum.Name_ord :
             specificBuilder.Name(value);
             break;

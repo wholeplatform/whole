@@ -109,6 +109,10 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((IEnvironmentEntity) entity);
     }
 
+    public void visit(Id entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
     public void visit(Name entity) {
         visit((IEnvironmentEntity) entity);
     }

@@ -47,6 +47,7 @@ public class EnvironmentAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new VoidAdapter());
         put(new BindingsAdapter());
         put(new BindingAdapter());
+        put(new IdAdapter());
         put(new NameAdapter());
         put(new ValueAdapter());
     }

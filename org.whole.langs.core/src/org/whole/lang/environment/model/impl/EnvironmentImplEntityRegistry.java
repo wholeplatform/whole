@@ -46,6 +46,7 @@ public class EnvironmentImplEntityRegistry extends AbstractEntityRegistry {
         put(new VoidImpl());
         put(new BindingsImpl());
         put(new BindingImpl());
+        put(new IdImpl());
         put(new NameImpl());
         put(new ValueImpl());
     }

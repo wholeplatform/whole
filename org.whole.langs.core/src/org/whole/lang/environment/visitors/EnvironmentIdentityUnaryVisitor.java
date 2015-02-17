@@ -88,6 +88,9 @@ public class EnvironmentIdentityUnaryVisitor<V extends IVisitor>  extends Abstra
     public void visit(Binding entity) {
     }
 
+    public void visit(Id entity) {
+    }
+
     public void visit(Name entity) {
     }
 

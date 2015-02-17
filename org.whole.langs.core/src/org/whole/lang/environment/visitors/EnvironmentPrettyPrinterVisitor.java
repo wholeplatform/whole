@@ -26,6 +26,7 @@ import org.whole.lang.environment.model.ContainmentTuple;
 import org.whole.lang.environment.model.DateData;
 import org.whole.lang.environment.model.DoubleData;
 import org.whole.lang.environment.model.FloatData;
+import org.whole.lang.environment.model.Id;
 import org.whole.lang.environment.model.IntData;
 import org.whole.lang.environment.model.LongData;
 import org.whole.lang.environment.model.Name;
@@ -157,6 +158,11 @@ public class EnvironmentPrettyPrinterVisitor extends EnvironmentIdentityDefaultV
     	entity.getName().accept(this);
     	out.printRaw(" = ");
     	entity.getValue().accept(this);
+    }
+
+    @Override
+    public void visit(Id entity) {
+    	out.printRaw(entity.getValue());
     }
 
     @Override

@@ -217,6 +217,14 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         _wEntity(EnvironmentEntityDescriptorEnum.Binding);
     }
 
+    public void Id() {
+        wEntity(EnvironmentEntityDescriptorEnum.Id);
+    }
+
+    public void Id(String value) {
+        wEntity(EnvironmentEntityDescriptorEnum.Id, value);
+    }
+
     public void Name() {
         wEntity(EnvironmentEntityDescriptorEnum.Name);
     }

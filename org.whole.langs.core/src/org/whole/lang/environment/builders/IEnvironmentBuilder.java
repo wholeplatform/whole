@@ -117,6 +117,10 @@ public interface IEnvironmentBuilder extends IBuilder {
 
     public void _Binding();
 
+    public void Id();
+
+    public void Id(String value);
+
     public void Name();
 
     public void Name(String value);

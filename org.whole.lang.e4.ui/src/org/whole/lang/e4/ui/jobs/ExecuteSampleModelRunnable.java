@@ -27,11 +27,13 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Name;
+import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ConstantIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -151,7 +153,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 			Name var = ef.createName(varName);
 			IEntity find = Matcher.find(var, contextModel, false);
 			if (find == null)
-				contextModel.wAdd(ef.createBinding(var, ef.createValue(CommonsEntityFactory.instance.createResolver())));
+				contextModel.wAdd(ef.createBinding(var, CommonsEntityAdapterFactory.createResolver(EnvironmentEntityDescriptorEnum.Value)));
 		}
 	}
 }

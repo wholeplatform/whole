@@ -95,6 +95,10 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Id entity) {
+        throw new VisitException();
+    }
+
     public void visit(Name entity) {
         throw new VisitException();
     }

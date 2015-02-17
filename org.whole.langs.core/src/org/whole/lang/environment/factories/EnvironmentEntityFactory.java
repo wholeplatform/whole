@@ -181,6 +181,14 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Binding>(create(EnvironmentEntityDescriptorEnum.Binding));
     }
 
+    public Id createId() {
+        return create(EnvironmentEntityDescriptorEnum.Id);
+    }
+
+    public Id createId(String value) {
+        return create(EnvironmentEntityDescriptorEnum.Id, value);
+    }
+
     public Name createName() {
         return create(EnvironmentEntityDescriptorEnum.Name);
     }
@@ -194,6 +202,6 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
     }
 
     public Value createValue(org.whole.lang.model.IEntity value) {
-        return create(EnvironmentEntityDescriptorEnum.Value, value);
+        return create(EnvironmentEntityDescriptorEnum.Value, (Object) value);
     }
 }

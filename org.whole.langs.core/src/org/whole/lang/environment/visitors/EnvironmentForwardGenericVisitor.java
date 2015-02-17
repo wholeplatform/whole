@@ -100,6 +100,10 @@ public class EnvironmentForwardGenericVisitor extends AbstractUnaryVisitor<IVisi
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Id entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Name entity) {
         wGetVisitor1().visit(entity);
     }

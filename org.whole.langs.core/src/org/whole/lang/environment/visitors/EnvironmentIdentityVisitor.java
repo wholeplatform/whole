@@ -79,6 +79,9 @@ public class EnvironmentIdentityVisitor extends AbstractVisitor implements IEnvi
     public void visit(Binding entity) {
     }
 
+    public void visit(Id entity) {
+    }
+
     public void visit(Name entity) {
     }
 

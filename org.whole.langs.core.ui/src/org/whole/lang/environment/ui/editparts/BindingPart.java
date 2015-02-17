@@ -21,8 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Binding;
+import org.whole.lang.environment.model.Value;
+import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.ui.editparts.AbstractPart;
@@ -38,9 +41,10 @@ public class BindingPart extends AbstractPart {
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Binding binding = getModelEntity();
-		IEntity value = binding.getValue().getValue();
+		Value valueEntity = binding.getValue();
+		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
 		List<IEntity> children = new ArrayList<IEntity>(4);
-		children.add(BindingManagerFactory.instance.createValue(Integer.toHexString(System.identityHashCode(value))));
+		children.add(EnvironmentEntityFactory.instance.createId(Integer.toHexString(System.identityHashCode(value))));
 		children.add(ModelsEntityFactory.instance.createEntityType(value.wGetEntityDescriptor().getURI()));
 		children.add(binding.getName());
 		children.add(value);

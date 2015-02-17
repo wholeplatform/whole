@@ -78,6 +78,9 @@ public abstract class EnvironmentIdentitySwitchVisitor extends AbstractVisitor i
             case EnvironmentEntityDescriptorEnum.Binding_ord :
             visit((Binding) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.Id_ord :
+            visit((Id) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
             break;

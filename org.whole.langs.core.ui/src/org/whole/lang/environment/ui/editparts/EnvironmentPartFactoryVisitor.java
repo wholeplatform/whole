@@ -22,6 +22,7 @@ import org.whole.lang.environment.model.Binding;
 import org.whole.lang.environment.model.Bindings;
 import org.whole.lang.environment.model.ContainmentTuple;
 import org.whole.lang.environment.model.IEnvironmentEntity;
+import org.whole.lang.environment.model.Id;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.model.ObjectData;
 import org.whole.lang.environment.model.StringData;
@@ -80,16 +81,17 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 	}
 
 	@Override
+	public void visit(Id entity) {
+		part = new ContentLightDataEntityPart();
+	}
+
+	@Override
 	public void visit(Name entity) {
 		part = new VariableDataEntityPart();
 	}
 
 	@Override
 	public void visit(StringData entity) {
-		if (context instanceof BindingPart && context.getChildren().isEmpty()) {
-			part = new ContentLightDataEntityPart();
-			return;
-		}
 		part = new QuotedStringDataEntityPart();
 	}
 

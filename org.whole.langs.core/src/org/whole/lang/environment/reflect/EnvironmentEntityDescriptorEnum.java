@@ -44,8 +44,9 @@ public class EnvironmentEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Void_ord = 14;
     public static final int Bindings_ord = 15;
     public static final int Binding_ord = 16;
-    public static final int Name_ord = 17;
-    public static final int Value_ord = 18;
+    public static final int Id_ord = 17;
+    public static final int Name_ord = 18;
+    public static final int Value_ord = 19;
     public static final EnvironmentEntityDescriptorEnum instance = new EnvironmentEntityDescriptorEnum();
     public static final EntityDescriptor<Data> Data = (EntityDescriptor<Data>) instance.valueOf(Data_ord);
     public static final EntityDescriptor<BooleanData> BooleanData = (EntityDescriptor<BooleanData>) instance.valueOf(BooleanData_ord);
@@ -64,6 +65,7 @@ public class EnvironmentEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<Void> Void = (EntityDescriptor<Void>) instance.valueOf(Void_ord);
     public static final EntityDescriptor<Bindings> Bindings = (EntityDescriptor<Bindings>) instance.valueOf(Bindings_ord);
     public static final EntityDescriptor<Binding> Binding = (EntityDescriptor<Binding>) instance.valueOf(Binding_ord);
+    public static final EntityDescriptor<Id> Id = (EntityDescriptor<Id>) instance.valueOf(Id_ord);
     public static final EntityDescriptor<Name> Name = (EntityDescriptor<Name>) instance.valueOf(Name_ord);
     public static final EntityDescriptor<Value> Value = (EntityDescriptor<Value>) instance.valueOf(Value_ord);
 
@@ -89,6 +91,7 @@ public class EnvironmentEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Void_ord, "Void", Void.class, false);
         putCompositeEntity(Bindings_ord, "Bindings", Bindings.class, false, Binding_ord, true, false);
         putSimpleEntity(Binding_ord, "Binding", Binding.class, false).withFeature(EnvironmentFeatureDescriptorEnum.name, Name_ord, false, true, false, false, false).withFeature(EnvironmentFeatureDescriptorEnum.value, Value_ord);
+        putDataEntity(Id_ord, "Id", Id.class, false, String.class);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
         putDataEntity(Value_ord, "Value", Value.class, false, org.whole.lang.model.IEntity.class);
     }

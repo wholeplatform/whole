@@ -305,9 +305,9 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                <workflows:Assignments xmlns:workflows="http://lang.whole.org/Workflows" initialCapacity="1">
-                    <workflows:Assign>
-                        <workflows:Variable value="ws"/>
+                <environment:Bindings xmlns:environment="http://lang.whole.org/Environment" initialCapacity="1">
+                    <environment:Binding>
+                        <environment:Name value="ws"/>
                         <commons:StageUpFragment>
                             <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
                                 <commons:Resolver/>
@@ -374,8 +374,8 @@
                                 </commons:StageDownFragment>
                             </artifacts:Workspace>
                         </commons:StageUpFragment>
-                    </workflows:Assign>
-                </workflows:Assignments>
+                    </environment:Binding>
+                </environment:Bindings>
             </commons:StageUpFragment>
         </semantics:SemanticFunction>
     </semantics:SemanticFunctions>
