@@ -25,11 +25,15 @@ import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
+import org.whole.lang.reflect.ISourceable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IBindingScope extends ICloneable {
+public interface IBindingScope extends ICloneable, ISourceable {
+	public IBindingScope withSourceEntity(IEntity entity);
+	public IEntity getSourceEntity();
+
 	public static enum Kind { SCOPE, OUTER_GROUP_ADAPTER, OUTER_SCOPE_ADAPTER, INNER_SCOPE_ADAPTER };
 	
 	public Kind getKind();

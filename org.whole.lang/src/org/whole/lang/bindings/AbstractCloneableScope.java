@@ -17,6 +17,7 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 
@@ -24,6 +25,15 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public abstract class AbstractCloneableScope implements IBindingScope {
+	private IEntity sourceEntity;
+	public IBindingScope withSourceEntity(IEntity entity) {
+		sourceEntity = entity;
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return sourceEntity;
+	}
+
 	public IBindingScope clone() {
 		return clone(new CloneContext());
 	}

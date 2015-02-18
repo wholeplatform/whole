@@ -15,38 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.exceptions;
+package org.whole.lang.reflect;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class WholeIllegalStateException extends IllegalStateException implements IWholeRuntimeException {
-	private static final long serialVersionUID = 1L;
-
-	public WholeIllegalStateException(String message) {
-		super(message);
-	}
-	public WholeIllegalStateException(Throwable cause) {
-		super(cause);
-	}
-	public WholeIllegalStateException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	private IEntity sourceEntity;
-	private IBindingManager bindings;
-	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings) {
-		this.sourceEntity = sourceEntity;
-		this.bindings = bindings;
-		return this;
-	}
-	public IEntity getSourceEntity() {
-		return sourceEntity;
-	}
-	public IBindingManager getBindings() {
-		return bindings;
-	}
+public interface ISourceable {
+	public Object withSourceEntity(IEntity entity);
+	public IEntity getSourceEntity();
 }

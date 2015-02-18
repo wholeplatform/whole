@@ -22,12 +22,22 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.reflect.ISourceable;
 import org.whole.lang.visitors.IVisitor;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractVisitorOperation extends AbstractOperation implements IVisitor {
+public abstract class AbstractVisitorOperation extends AbstractOperation implements IVisitor, ISourceable {
+	private IEntity sourceEntity;
+	public AbstractVisitorOperation withSourceEntity(IEntity entity) {
+		sourceEntity = entity;
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return sourceEntity;
+	}
+
 	private IBindingManager bindings;
 
 	public AbstractVisitorOperation(String name, IBindingManager args, IBindingScope optResultsScope) {

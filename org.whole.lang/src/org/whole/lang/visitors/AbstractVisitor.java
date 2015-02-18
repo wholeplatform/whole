@@ -32,6 +32,15 @@ import org.whole.lang.operations.OperationCanceledException;
  * @author Riccardo Solmi
  */
 public abstract class AbstractVisitor implements IVisitor {
+	private IEntity sourceEntity;
+	public IVisitor withSourceEntity(IEntity entity) {
+		sourceEntity = entity;
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return sourceEntity;
+	}
+
 	private IOperation operation;
 	protected IBindingManager bindings;
 

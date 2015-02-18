@@ -275,7 +275,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 	}
 
 	protected IEntity evaluate(Expression subject, boolean catchExceptions) {
-		IEntity entity = NullEntity.instance;
+		IEntity entity = NullEntity.instance; //null;
 		try {
 			subject.accept(this);
 			entity = getResult();
@@ -289,6 +289,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 				throw e;
 		}
 
+//		return entity == null ? CommonsEntityFactory.instance.createResolver() : entity;
 		return entity == null ? NullEntity.instance : entity;
 	}
 	protected IVisitor evaluate(Constraint constraint) {

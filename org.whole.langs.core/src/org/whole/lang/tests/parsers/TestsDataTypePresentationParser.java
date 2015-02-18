@@ -17,6 +17,7 @@
  */
 package org.whole.lang.tests.parsers;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.parsers.DefaultDataTypePresentationParser;
@@ -42,11 +43,11 @@ public class TestsDataTypePresentationParser extends DefaultDataTypePresentation
 		if (TestsEntityDescriptorEnum.CommentKind_ord == ed.getOrdinal()) {
 			EnumType<?> dataEnumType = ed.getDataEnumType();
 			if (dataEnumType == null)
-				throw new IllegalArgumentException(WholeMessages.no_data_type);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 			
 			EnumValue result = dataEnumType.valueOf(value);
 			if (result == null)
-				throw new IllegalArgumentException(WholeMessages.no_data_type);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		
 			return result;
 		} else

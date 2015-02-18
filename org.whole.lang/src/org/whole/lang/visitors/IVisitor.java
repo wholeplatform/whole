@@ -23,13 +23,17 @@ import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
 import org.whole.lang.operations.IOperation;
+import org.whole.lang.reflect.ISourceable;
 
 
 
 /**
  * @author Riccardo Solmi
  */
-public interface IVisitor extends ICloneable {
+public interface IVisitor extends ICloneable, ISourceable {
+	public IVisitor withSourceEntity(IEntity entity);
+	public IEntity getSourceEntity();
+
 	public IVisitor clone();
 	public IVisitor clone(ICloneContext cc);
 

@@ -17,6 +17,7 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 
@@ -25,6 +26,15 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class BindingManager extends AbstractDelegatingScope implements IBindingManager {
+	public IBindingManager withSourceEntity(IEntity entity) {
+		wDelegateScope().withSourceEntity(entity);
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return wDelegateScope().getSourceEntity();
+	}
+
+
 	private IEnvironmentManager environmentManager;
 
 	protected BindingManager(IEnvironmentManager environmentManager, IBindingScope currentScope) {
@@ -59,10 +69,6 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 
     public IEnvironmentManager wGetEnvironmentManager() {
 		return environmentManager;
-	}
-
-	public IBindingScope wFindScope(String name) {
-		return wTargetScope().wFindScope(name);
 	}
 
 	public void wEnterScope() {

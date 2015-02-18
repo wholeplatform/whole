@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.matchers.Matcher;
@@ -211,7 +212,7 @@ public class BindingManagerFactory {
 	public IEntity createSpecificValue(Object value, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BOOLEAN:
 			return createValue(((Boolean) value).booleanValue());
 		case BYTE:
@@ -242,7 +243,7 @@ public class BindingManagerFactory {
 	public IEntity createSpecificValue(IEntity dataEntity) {
 		switch (DataTypeUtils.getDataKind(dataEntity)) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BOOLEAN:
 			return createValue(dataEntity.wBooleanValue());
 		case BYTE:
@@ -301,6 +302,15 @@ public class BindingManagerFactory {
 		IEntityFactory ef = GenericEntityFactory.instance;
 		IEntity bindingsModel = ef.create(getEdEnum().valueOf("Bindings"));
 
+		//TODO test
+		IEntity sourceEntity = bindings.getSourceEntity();
+		if (sourceEntity == null) {
+			IBindingScope scope = bindings;
+			while ((scope = scope.wEnclosingScope()) != NullScope.instance)
+				if ((sourceEntity = scope.getSourceEntity()) != null)
+					break;
+		}
+
 		Set<String> names = bindings.wNames();
 		for (String name : new TreeSet<String>(names))
 			bindingsModel.wAdd(createBinding(name, bindings.wGet(name)));
@@ -313,6 +323,15 @@ public class BindingManagerFactory {
 	public IEntity createFlatBindingsModel(IBindingManager bindings, Set<String> includeNames) {
 		IEntityFactory ef = GenericEntityFactory.instance;
 		IEntity bindingsModel = ef.create(getEdEnum().valueOf("Bindings"));
+
+		//TODO test
+		IEntity sourceEntity = bindings.getSourceEntity();
+		if (sourceEntity == null) {
+			IBindingScope scope = bindings;
+			while ((scope = scope.wEnclosingScope()) != NullScope.instance)
+				if ((sourceEntity = scope.getSourceEntity()) != null)
+					break;
+		}
 
 		Set<String> names = bindings.wNames();
 		for (String name : new TreeSet<String>(includeNames))

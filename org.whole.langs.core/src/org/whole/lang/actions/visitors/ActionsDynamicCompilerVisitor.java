@@ -86,6 +86,6 @@ public class ActionsDynamicCompilerVisitor extends ActionsIdentityDefaultVisitor
 		}
 
     	setResultIterator(new ActionCallIterator(
-    			entity.getName().getValue(), argumentsIterators));
+    			entity.getName().getValue(), argumentsIterators).withSourceEntity(entity));
 	}
 }

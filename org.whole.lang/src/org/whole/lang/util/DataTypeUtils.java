@@ -27,6 +27,7 @@ import org.whole.lang.builders.IBuilder;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -142,7 +143,7 @@ public class DataTypeUtils {
 		final EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
 		switch (ed.getDataKind()) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BOOLEAN:
 			entity.wSetValue(parser.parseBoolean(ed, value));
 			break;
@@ -185,7 +186,7 @@ public class DataTypeUtils {
 		final EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
 		switch (ed.getDataKind()) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BOOLEAN:
 			return unparser.unparseBoolean(ed, entity.wBooleanValue());
 		case BYTE:
@@ -429,7 +430,7 @@ public class DataTypeUtils {
 		if (parameterType.isInstance(entity))
 			return entity;
 		else
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);
 	}
 	public static IEntity box(Object value, EntityDescriptor<?> ed) {
 		if (value == null) {
@@ -452,7 +453,7 @@ public class DataTypeUtils {
 			else if (CommonsEntityDescriptorEnum.Any.equals(ed))
 				return BindingManagerFactory.instance.createSpecificValue(value);
 			else
-				throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+				throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);
 		}
 	}
 	public static Object toPrimitiveType(IEntity entity, Class<?> primitiveType) {
@@ -484,7 +485,7 @@ public class DataTypeUtils {
 				if (primitiveType.isInstance(value))
 					return value;
 				else
-					throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+					throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);
 			}
 	}
 
@@ -504,13 +505,13 @@ public class DataTypeUtils {
 	public static boolean toBoolean(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BOOLEAN:
 			return entity.wBooleanValue();
 		case OBJECT:
 			return toBoolean(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);
 		}
 	}
 	public static boolean toBoolean(Object value) {
@@ -521,7 +522,7 @@ public class DataTypeUtils {
 		case BOOLEAN:
 			return ((Boolean) value).booleanValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -531,7 +532,7 @@ public class DataTypeUtils {
 	public static byte toByte(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return entity.wByteValue();
 		case CHAR:
@@ -549,7 +550,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toByte(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static byte toByte(Object value) {
@@ -572,7 +573,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).byteValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -582,7 +583,7 @@ public class DataTypeUtils {
 	public static char toChar(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return (char) entity.wByteValue();
 		case CHAR:
@@ -600,7 +601,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toChar(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static char toChar(Object value) {
@@ -623,7 +624,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return (char) ((Short) value).shortValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -633,7 +634,7 @@ public class DataTypeUtils {
 	public static java.math.BigInteger toBigInteger(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return java.math.BigInteger.valueOf(entity.wByteValue());
 		case CHAR:
@@ -651,7 +652,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toBigInteger(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static java.math.BigInteger toBigInteger(Object value) {
@@ -679,7 +680,7 @@ public class DataTypeUtils {
 			else if (value instanceof java.math.BigDecimal)
 				return ((java.math.BigDecimal) value).toBigInteger();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -689,7 +690,7 @@ public class DataTypeUtils {
 	public static java.math.BigDecimal toBigDecimal(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return java.math.BigDecimal.valueOf(entity.wByteValue());
 		case CHAR:
@@ -707,7 +708,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toBigDecimal(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static java.math.BigDecimal toBigDecimal(Object value) {
@@ -735,7 +736,7 @@ public class DataTypeUtils {
 			else if (value instanceof java.math.BigInteger)
 				return new java.math.BigDecimal((java.math.BigInteger) value);
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -745,7 +746,7 @@ public class DataTypeUtils {
 	public static double toDouble(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return entity.wByteValue();
 		case CHAR:
@@ -763,7 +764,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toDouble(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static double toDouble(Object value) {
@@ -786,7 +787,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).shortValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -796,7 +797,7 @@ public class DataTypeUtils {
 	public static float toFloat(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return entity.wByteValue();
 		case CHAR:
@@ -814,7 +815,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toFloat(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static float toFloat(Object value) {
@@ -837,7 +838,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).shortValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -847,7 +848,7 @@ public class DataTypeUtils {
 	public static int toInt(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return entity.wByteValue();
 		case CHAR:
@@ -865,7 +866,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toInt(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static int toInt(Object value) {
@@ -888,7 +889,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).shortValue();			
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -898,7 +899,7 @@ public class DataTypeUtils {
 	public static long toLong(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return entity.wByteValue();
 		case CHAR:
@@ -916,7 +917,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toLong(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static long toLong(Object value) {
@@ -939,7 +940,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).shortValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 
@@ -949,7 +950,7 @@ public class DataTypeUtils {
 	public static short toShort(IEntity entity, DataKinds dataKind) {
 		switch (dataKind) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		case BYTE:
 			return (short) entity.wByteValue();
 		case CHAR:
@@ -967,7 +968,7 @@ public class DataTypeUtils {
 		case OBJECT:
 			return toShort(entity.wGetValue());
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 	public static short toShort(Object value) {
@@ -990,7 +991,7 @@ public class DataTypeUtils {
 		case SHORT:
 			return ((Short) value).shortValue();
 		default:
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);		
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion);		
 		}
 	}
 }

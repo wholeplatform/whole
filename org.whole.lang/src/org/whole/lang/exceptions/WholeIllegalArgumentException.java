@@ -29,6 +29,9 @@ public class WholeIllegalArgumentException extends IllegalArgumentException impl
 	public WholeIllegalArgumentException(String message) {
 		super(message);
 	}
+	public WholeIllegalArgumentException(Throwable cause) {
+		super(cause);
+	}
 	public WholeIllegalArgumentException(String message, Throwable cause) {
 		super(message, cause);
 	}

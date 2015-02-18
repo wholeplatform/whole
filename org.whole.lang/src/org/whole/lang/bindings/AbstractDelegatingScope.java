@@ -87,6 +87,10 @@ public abstract class AbstractDelegatingScope extends AbstractCloneableScope {
 		delegateScope.wUnset(name);
 	}
 
+	public final IBindingScope wFindScope(String name) {
+		return delegateScope.wFindScope(name);
+	}
+
 	public boolean wBooleanValue(String name) {
 		return delegateScope.wBooleanValue(name);
 	}

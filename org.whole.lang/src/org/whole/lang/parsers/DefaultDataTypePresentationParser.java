@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -48,7 +49,7 @@ public class DefaultDataTypePresentationParser extends DefaultDataTypePersistenc
 				try {
 					return mediumDateFormat.parse(value);
 				} catch (ParseException e3) {
-					throw new IllegalArgumentException(WholeMessages.no_data_type);
+					throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 				}
 			}
 		}
@@ -70,7 +71,7 @@ public class DefaultDataTypePresentationParser extends DefaultDataTypePersistenc
 				try {
 					return longTimeFormat.parse(value);
 				} catch (ParseException e3) {
-					throw new IllegalArgumentException(WholeMessages.no_data_type);
+					throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 				}
 			}
 		}
@@ -82,7 +83,7 @@ public class DefaultDataTypePresentationParser extends DefaultDataTypePersistenc
 	public EnumValue parseEnumValue(EntityDescriptor<?> ed, String value) {
 		EnumType<?> dataEnumType = ed.getDataEnumType();
 		if (dataEnumType == null)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		
 		EnumValue result = dataEnumType.valueOf(value);
 		if (result != null)
@@ -93,6 +94,6 @@ public class DefaultDataTypePresentationParser extends DefaultDataTypePersistenc
 			if (enumValue.getName().equalsIgnoreCase(value))
 				return enumValue;
 		}
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 }

@@ -86,6 +86,15 @@ public abstract class AbstractDynamicVariantVisitor extends AbstractVisitor impl
 				new BehaviorVisitor(this, entity));
 	}
 	protected class BehaviorVisitor implements IVisitor {
+		private IEntity sourceEntity;
+		public IVisitor withSourceEntity(IEntity entity) {
+			sourceEntity = entity;
+			return this;
+		}
+		public IEntity getSourceEntity() {
+			return sourceEntity;
+		}
+
 		protected IVisitor contextVisitor;
 		protected IEntity behavior;
 		

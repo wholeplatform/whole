@@ -108,6 +108,7 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 					BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(getBindings()),
 						getBindings().wGetEnvironmentManager());
 			queryBindings.wEnterScope();
+			queryBindings.withSourceEntity(getSourceEntity());
 
 			scopeIterator.setBindings(queryBindings);//was bindings);
 		}

@@ -27,6 +27,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeParser;
 import org.joda.time.format.DateTimeParserBucket;
 import org.joda.time.tz.FixedDateTimeZone;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.parsers.FailureDataTypeParser;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.WholeMessages;
@@ -61,7 +62,7 @@ public abstract class AbstractISO8601DataTypeParser extends FailureDataTypeParse
 			bucket.setZone(UTC);
 
 		if (parser.parseInto(bucket, value, 0) < 0)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 
 		DateTimeZone zone = bucket.getZone();
 		if (zone == null)

@@ -29,6 +29,7 @@ import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityFeatureDescriptorImpl;
@@ -231,7 +232,7 @@ public class NullEntity implements InternalIEntity, Serializable, Cloneable {
 		if (child.wGetParent() == this)
 			return CommonsEntityDescriptorEnum.Any;
 
-		throw new IllegalArgumentException(WholeMessages.null_model);
+		throw new WholeIllegalArgumentException(WholeMessages.null_model);
 	}
 
 	public EntityDescriptor<?> wGetEntityDescriptor(int index) {

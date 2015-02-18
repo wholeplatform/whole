@@ -21,6 +21,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.math.model.AbsoluteValue;
 import org.whole.lang.math.model.Addition;
 import org.whole.lang.math.model.And;
@@ -150,7 +151,7 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 	public static ToKind maxKind(ToKind kind1, IEntity entity) {
 		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(entity);
 		if (dataKinds.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKinds.isObject() && entity.wGetValue() instanceof java.math.BigDecimal)
 			return ToKind.BIG_DECIMAL;
 		else if (dataKinds.isDouble())
@@ -711,9 +712,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new IllegalArgumentException(WholeMessages.no_data);
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
     		else if (!(value &= result.wBooleanValue()))
     			break;
     	}
@@ -726,9 +727,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new IllegalArgumentException(WholeMessages.no_data);
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
     		else if (value |= result.wBooleanValue())
     			break;
     	}
@@ -741,9 +742,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new IllegalArgumentException(WholeMessages.no_data);
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
     		else
     			value ^= result.wBooleanValue();
     	}
@@ -754,9 +755,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		IEntity result = evaluate(entity.getExpression());
 		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
 		if (dataKinds.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
 		else if (!dataKinds.isBoolean())
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
 		else
 			setResult(createBooleanLiteral(!result.wBooleanValue()));
 	}
@@ -767,9 +768,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
 		else if (!dataKind1.isBoolean() || !dataKind2.isBoolean())
-			throw new IllegalArgumentException(WholeMessages.illegal_data_conversion);
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
 		else
 			setResult(createBooleanLiteral(!(result1.wBooleanValue() && !result2.wBooleanValue())));
 	}

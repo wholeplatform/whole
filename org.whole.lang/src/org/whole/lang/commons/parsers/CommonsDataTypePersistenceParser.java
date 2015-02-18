@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.parsers.DefaultDataTypePersistenceParser;
@@ -140,7 +141,7 @@ public class CommonsDataTypePersistenceParser extends DefaultDataTypePersistence
 	public static EntityDescriptor<? extends IEntity> parseEntityDescriptor(String edUri) {
 		EntityDescriptor<?> ed = getEntityDescriptor(edUri, true, null);
 		if (ed == null)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 
 		return ed;
 	}
@@ -151,7 +152,7 @@ public class CommonsDataTypePersistenceParser extends DefaultDataTypePersistence
 	public static FeatureDescriptor parseFeatureDescriptor(String fdUri) {
 		FeatureDescriptor fd = getFeatureDescriptor(fdUri, true, null);
 		if (fd == null)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 
 		return fd;
 	}

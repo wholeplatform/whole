@@ -19,6 +19,7 @@ package org.whole.lang.parsers;
 
 import java.util.Date;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.WholeMessages;
@@ -36,7 +37,7 @@ public class FailureDataTypeParser implements IDataTypeParser {
 	public static Object parseUsing(EntityDescriptor<?> ed, String value, IDataTypeParser parser) {
 		switch (ed.getDataKind()) {
 		case NOT_A_DATA:
-			throw new IllegalArgumentException(WholeMessages.no_data);			
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);			
 		case BOOLEAN:
 			return parser.parseBoolean(ed, value);
 		case BYTE:
@@ -68,7 +69,7 @@ public class FailureDataTypeParser implements IDataTypeParser {
 		try {
 			switch (ed.getDataKind()) {
 			case NOT_A_DATA:
-				throw new IllegalArgumentException(WholeMessages.no_data);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data);
 			case BOOLEAN:
 				return parser.unparseBoolean(ed, ((Boolean) value).booleanValue());
 			case BYTE:
@@ -105,7 +106,7 @@ public class FailureDataTypeParser implements IDataTypeParser {
 				return parser.unparseObject(ed, value);
 			}
 		} catch (ClassCastException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 
@@ -128,98 +129,98 @@ public class FailureDataTypeParser implements IDataTypeParser {
 	}
 
 	public boolean parseBoolean(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public byte parseByte(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public char parseChar(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public Date parseDate(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public double parseDouble(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public EnumValue parseEnumValue(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public float parseFloat(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public int parseInt(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public long parseLong(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public Object parseObject(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public short parseShort(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String parseString(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseBoolean(EntityDescriptor<?> ed, boolean value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseByte(EntityDescriptor<?> ed, byte value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseChar(EntityDescriptor<?> ed, char value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseDate(EntityDescriptor<?> ed, Date value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseDouble(EntityDescriptor<?> ed, double value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseEnumValue(EntityDescriptor<?> ed, EnumValue value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseFloat(EntityDescriptor<?> ed, float value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseInt(EntityDescriptor<?> ed, int value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseLong(EntityDescriptor<?> ed, long value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseObject(EntityDescriptor<?> ed, Object value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseShort(EntityDescriptor<?> ed, short value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public String unparseString(EntityDescriptor<?> ed, String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 }

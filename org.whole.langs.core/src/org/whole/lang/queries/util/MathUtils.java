@@ -19,6 +19,7 @@ package org.whole.lang.queries.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
@@ -287,7 +288,7 @@ public class MathUtils {
 
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isString() || dataKind2.isString())
 			result = BindingManagerFactory.instance.createValue(DataTypeUtils.toString(result1) + DataTypeUtils.toString(result2));
 		else if (dataKind1.isDouble() || dataKind2.isDouble())
@@ -307,7 +308,7 @@ public class MathUtils {
 	
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isDouble() || dataKind2.isDouble())
 			result = BindingManagerFactory.instance.createValue(DataTypeUtils.toDouble(result1) - DataTypeUtils.toDouble(result2));
 		else if (dataKind1.isFloat() || dataKind2.isFloat())
@@ -325,7 +326,7 @@ public class MathUtils {
 	
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isDouble() || dataKind2.isDouble())
 			result = BindingManagerFactory.instance.createValue(DataTypeUtils.toDouble(result1) * DataTypeUtils.toDouble(result2));
 		else if (dataKind1.isFloat() || dataKind2.isFloat())
@@ -343,7 +344,7 @@ public class MathUtils {
 	
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isDouble() || dataKind2.isDouble())
 			result = BindingManagerFactory.instance.createValue(DataTypeUtils.toDouble(result1) / DataTypeUtils.toDouble(result2));
 		else if (dataKind1.isFloat() || dataKind2.isFloat())
@@ -361,7 +362,7 @@ public class MathUtils {
 	
 		IEntity result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isDouble() || dataKind2.isDouble())
 			result = BindingManagerFactory.instance.createValue(DataTypeUtils.toDouble(result1) % DataTypeUtils.toDouble(result2));
 		else if (dataKind1.isFloat() || dataKind2.isFloat())
@@ -382,7 +383,7 @@ public class MathUtils {
 		if (dataKind1.isNotAData() || dataKind2.isNotAData()) {
 			result = false;
 			if (!EntityUtils.isResolver(result1) && !EntityUtils.isResolver(result2))
-				throw new IllegalArgumentException(WholeMessages.no_data);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		} else if (dataKind1.isBoolean() && dataKind2.isBoolean())
 			result = DataTypeUtils.toBoolean(result1) == DataTypeUtils.toBoolean(result2);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
@@ -421,7 +422,7 @@ public class MathUtils {
 	
 		boolean result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isBoolean() && dataKind2.isBoolean())
 			result = DataTypeUtils.toBoolean(result1) != DataTypeUtils.toBoolean(result2);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
@@ -460,7 +461,7 @@ public class MathUtils {
 	
 		boolean result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
 			Object result1value = result1.wGetValue();
 			Object result2value = result2.wGetValue();
@@ -497,7 +498,7 @@ public class MathUtils {
 	
 		boolean result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
 			Object result1value = result1.wGetValue();
 			Object result2value = result2.wGetValue();
@@ -534,7 +535,7 @@ public class MathUtils {
 	
 		boolean result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
 			Object result1value = result1.wGetValue();
 			Object result2value = result2.wGetValue();
@@ -571,7 +572,7 @@ public class MathUtils {
 	
 		boolean result;
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new IllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data);
 		else if (dataKind1.isObject() && dataKind2.isObject()) {
 			Object result1value = result1.wGetValue();
 			Object result2value = result2.wGetValue();

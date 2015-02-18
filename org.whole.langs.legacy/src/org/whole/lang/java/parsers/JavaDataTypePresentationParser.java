@@ -17,6 +17,7 @@
  */
 package org.whole.lang.java.parsers;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.StringUtils;
@@ -42,11 +43,11 @@ public class JavaDataTypePresentationParser extends JavaDataTypePersistenceParse
 			return parseStringLiteral(value);
 		case JavaEntityDescriptorEnum.SimpleType_ord:
 			if (StringUtils.isPrimitive(value) || StringUtils.isQualified(value))
-				throw new IllegalArgumentException(WholeMessages.no_data_type);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 			break;
 		case JavaEntityDescriptorEnum.QualifiedType_ord:
 			if (StringUtils.isPrimitive(value) || !StringUtils.isQualified(value))
-				throw new IllegalArgumentException(WholeMessages.no_data_type);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 			break;
 		}
 		return super.parseString(ed, value);

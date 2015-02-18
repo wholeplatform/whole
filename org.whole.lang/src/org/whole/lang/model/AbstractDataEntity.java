@@ -22,6 +22,7 @@ import java.util.Date;
 
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -79,76 +80,76 @@ public abstract class AbstractDataEntity extends AbstractEntity {
     }
 
 	public boolean wBooleanValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public byte wByteValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public char wCharValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public double wDoubleValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public float wFloatValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public int wIntValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public long wLongValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public short wShortValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public String wStringValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public Date wDateValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public EnumValue wEnumValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public Object wGetValue() {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(boolean value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(byte value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(char value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(double value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(float value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(int value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(long value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(short value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(String value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(Date value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(EnumValue value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public void wSetValue(Object value) {
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public int wHashCode() {

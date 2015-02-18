@@ -18,6 +18,7 @@
 package org.whole.lang.commons.parsers;
 
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.parsers.DefaultDataTypePresentationParser;
@@ -99,7 +100,7 @@ public class CommonsDataTypePresentationParser extends DefaultDataTypePresentati
     		if (ed != null)
     			return ed;
 		}
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public static String unparseEntityDescriptor(EntityDescriptor<?> ed) {
 		return ed.getLanguageKit().getName()+'#'+ed.getName();
@@ -124,7 +125,7 @@ public class CommonsDataTypePresentationParser extends DefaultDataTypePresentati
    			if (fd != null)
    				return fd;
 		}
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public static String unparseFeatureDescriptor(FeatureDescriptor fd) {
 		return fd.getLanguageKit().getName()+'#'+fd.getName();

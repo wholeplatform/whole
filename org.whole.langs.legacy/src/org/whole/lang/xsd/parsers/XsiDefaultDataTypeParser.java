@@ -23,6 +23,7 @@ package org.whole.lang.xsd.parsers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.parsers.DefaultDataTypePersistenceParser;
 import org.whole.lang.parsers.IDataTypeParser;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -48,7 +49,7 @@ public class XsiDefaultDataTypeParser extends DefaultDataTypePersistenceParser {
 		try {
 			return dataType.getConstructor(new Class[] { String.class }).newInstance(new Object[] { value });
 		} catch (Exception e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public String unparseObject(EntityDescriptor<?> ed, Object value) {
@@ -61,7 +62,7 @@ public class XsiDefaultDataTypeParser extends DefaultDataTypePersistenceParser {
 		if ("false".equals(value) || "0".equals(value))
 			return false;
 		else
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 
 	public byte parseByte(EntityDescriptor<?> ed, String value) {
@@ -87,7 +88,7 @@ public class XsiDefaultDataTypeParser extends DefaultDataTypePersistenceParser {
 		else if ("INF".equals(normalizedValue))
 			return Double.POSITIVE_INFINITY;
 		else if (normalizedValue.endsWith("Infinity"))
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		else
 			return super.parseDouble(ed, normalizedValue);
 	}
@@ -112,7 +113,7 @@ public class XsiDefaultDataTypeParser extends DefaultDataTypePersistenceParser {
 		else if ("INF".equals(normalizedValue))
 			return Float.POSITIVE_INFINITY;
 		else if (normalizedValue.endsWith("Infinity"))
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		else
 			return super.parseFloat(ed, normalizedValue);
 	}

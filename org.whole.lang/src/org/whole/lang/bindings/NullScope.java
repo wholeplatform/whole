@@ -31,6 +31,13 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class NullScope implements IBindingScope {
+	public IBindingScope withSourceEntity(IEntity entity) {
+		return this;
+	}
+	public IEntity getSourceEntity() {
+		return null;
+	}
+
 	public static final NullScope instance = new NullScope();
 	protected NullScope() {
 	}

@@ -71,10 +71,6 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 		return this;
 	}
 
-	public IBindingScope wFindScope(String name) {
-		return wEnclosingScope().wFindScope(name);
-	}
-
 	public boolean isChanged() {
 		return !map.isEmpty() || cachedResult != CachedResult.NONE;
 	}

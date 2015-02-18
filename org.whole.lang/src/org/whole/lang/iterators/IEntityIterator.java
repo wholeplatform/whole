@@ -24,11 +24,12 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
+import org.whole.lang.reflect.ISourceable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterable<E>, ICloneable {
+public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterable<E>, ICloneable, ISourceable {
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
 	public IEntity getSourceEntity();
 

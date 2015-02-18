@@ -110,6 +110,7 @@ public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<
 					BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(getBindings()),
 						getBindings().wGetEnvironmentManager());
 			queryBindings.wEnterScope();
+			queryBindings.withSourceEntity(getSourceEntity());
 
 			scopeIterator.setBindings(queryBindings);//was bindings);
 		}

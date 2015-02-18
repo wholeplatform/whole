@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.parsers.DefaultDataTypePresentationParser;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -85,7 +86,7 @@ public class SQLDataTypeParser extends DefaultDataTypePresentationParser {
 		case SQLEntityDescriptorEnum.TimestampValue_ord:
 			return Timestamp.valueOf(value);
 		}
-		throw new IllegalArgumentException(WholeMessages.no_data_type);
+		throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public String unparseObject(EntityDescriptor<?> ed, Object value) {
 		switch (ed.getOrdinal()) {

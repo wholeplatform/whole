@@ -19,6 +19,7 @@ package org.whole.lang.parsers;
 
 import java.util.Date;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.EnumType;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -39,58 +40,58 @@ public class DefaultDataTypePersistenceParser extends FailureDataTypeParser {
 		if ("false".equalsIgnoreCase(value))
 			return false;
 		else
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 	}
 	public byte parseByte(EntityDescriptor<?> ed, String value) {
 		try {
 			return Byte.parseByte(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public char parseChar(EntityDescriptor<?> ed, String value) {
 		if (value.length() > 1)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 			
 		try {
 			return value.charAt(0);
 		} catch (IndexOutOfBoundsException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public double parseDouble(EntityDescriptor<?> ed, String value) {
 		try {
 			return Double.parseDouble(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public float parseFloat(EntityDescriptor<?> ed, String value) {
 		try {
 			return Float.parseFloat(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public int parseInt(EntityDescriptor<?> ed, String value) {
 		try {
 			return Integer.parseInt(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public long parseLong(EntityDescriptor<?> ed, String value) {
 		try {
 			return Long.parseLong(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public short parseShort(EntityDescriptor<?> ed, String value) {
 		try {
 			return Short.parseShort(value);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 	public String parseString(EntityDescriptor<?> ed, String value) {
@@ -102,11 +103,11 @@ public class DefaultDataTypePersistenceParser extends FailureDataTypeParser {
 	public EnumValue parseEnumValue(EntityDescriptor<?> ed, String value) {
 		EnumType<?> dataEnumType = ed.getDataEnumType();
 		if (dataEnumType == null)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		
 		EnumValue result = dataEnumType.valueOf(value);
 		if (result == null)
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		
 		return result;
 	}
@@ -118,7 +119,7 @@ public class DefaultDataTypePersistenceParser extends FailureDataTypeParser {
 					new Class[] { String.class }).newInstance(
 							new Object[] { value });
 		} catch (Exception e) {
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 		}
 	}
 

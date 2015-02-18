@@ -568,7 +568,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	String varName = entity.getValue();
 		declaredNames.add(varName);
 
-    	setResultPredicate(GenericMatcherFactory.instance.asVariableMatcher(varName));
+    	setResultPredicate(GenericMatcherFactory.instance.asVariableMatcher(varName).withSourceEntity(entity));
     }
 
     @Override
@@ -901,21 +901,21 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	entity.getFromClause().accept(this);
     	IEntityIterator<? extends IEntity> fromClause = getResultIterator();
     	entity.getWhereClause().accept(this);
-		setResultPredicate(QueriesMatcherFactory.one(fromClause, getResultPredicate()));
+		setResultPredicate(QueriesMatcherFactory.one(fromClause, getResultPredicate()).withSourceEntity(entity));
     }
     @Override
     public void visit(Some entity) {
     	entity.getFromClause().accept(this);
     	IEntityIterator<? extends IEntity> fromClause = getResultIterator();
     	entity.getWhereClause().accept(this);
-		setResultPredicate(QueriesMatcherFactory.some(fromClause, getResultPredicate()));
+		setResultPredicate(QueriesMatcherFactory.some(fromClause, getResultPredicate()).withSourceEntity(entity));
     }
     @Override
     public void visit(Every entity) {
     	entity.getFromClause().accept(this);
     	IEntityIterator<? extends IEntity> fromClause = getResultIterator();
     	entity.getWhereClause().accept(this);
-		setResultPredicate(QueriesMatcherFactory.all(fromClause, getResultPredicate()));
+		setResultPredicate(QueriesMatcherFactory.all(fromClause, getResultPredicate()).withSourceEntity(entity));
     }
 
     @Override
@@ -923,16 +923,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	Value kind = entity.getValue();
 		switch (kind.getOrdinal()) {
 		case KindTestEnum.IMPL_ord:
-			setResultPredicate(GenericMatcherFactory.instance.isImplMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.isImplMatcher().withSourceEntity(entity));
 			break;
 		case KindTestEnum.FRAGMENT_ord:
-			setResultPredicate(GenericMatcherFactory.instance.isFragmentMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.isFragmentMatcher().withSourceEntity(entity));
 			break;
 		case KindTestEnum.VARIABLE_ord:
-			setResultPredicate(GenericMatcherFactory.instance.isVariableMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.isVariableMatcher().withSourceEntity(entity));
 			break;
 		case KindTestEnum.RESOLVER_ord:
-			setResultPredicate(GenericMatcherFactory.instance.isResolverMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.isResolverMatcher().withSourceEntity(entity));
 			break;
 			//TODO test only remove
 		case KindTestEnum.ADAPTER_ord:
@@ -943,7 +943,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			throw new IllegalArgumentException();
 		default:
 			EntityKinds ekind = EntityKinds.valueOf(kind.getName());
-			setResultPredicate(GenericMatcherFactory.instance.hasKindMatcher(ekind));
+			setResultPredicate(GenericMatcherFactory.instance.hasKindMatcher(ekind).withSourceEntity(entity));
 		}
     }
 
@@ -952,49 +952,49 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     StageTestEnum.Value stage = entity.getValue();
 		switch (stage.getOrdinal()) {
 		case StageTestEnum.HOST_STAGE_ord:
-			setResultPredicate(GenericMatcherFactory.instance.atHostStageMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.atHostStageMatcher().withSourceEntity(entity));
 			break;
 		case StageTestEnum.HOST_STAGE_0_ord:
-			setResultPredicate(GenericMatcherFactory.instance.atStageMatcher(0));
+			setResultPredicate(GenericMatcherFactory.instance.atStageMatcher(0).withSourceEntity(entity));
 			break;
 		case StageTestEnum.TEMPLATE_STAGE_1_ord:
-			setResultPredicate(GenericMatcherFactory.instance.atStageMatcher(1));
+			setResultPredicate(GenericMatcherFactory.instance.atStageMatcher(1).withSourceEntity(entity));
 			break;
 		case StageTestEnum.TEMPLATE_STAGE_ord:
-			setResultPredicate(GenericMatcherFactory.instance.atTemplateStageMatcher());
+			setResultPredicate(GenericMatcherFactory.instance.atTemplateStageMatcher().withSourceEntity(entity));
 			break;
 		}
     }
     @Override
     public void visit(StageVariableTest entity) {
-		setResultPredicate(GenericMatcherFactory.instance.atStageVariableMatcher(entity.getValue()));
+		setResultPredicate(GenericMatcherFactory.instance.atStageVariableMatcher(entity.getValue()).withSourceEntity(entity));
 	}
 
     @Override
     public void visit(LanguageTest entity) {
     	String languageURI = entity.getValue();
-    	setResultPredicate(GenericMatcherFactory.instance.isLanguageMatcher(languageURI));
+    	setResultPredicate(GenericMatcherFactory.instance.isLanguageMatcher(languageURI).withSourceEntity(entity));
     }
 
     @Override
     public void visit(TypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.hasTypeMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.hasTypeMatcher(entity.getValue()).withSourceEntity(entity));
     }
     @Override
     public void visit(SubtypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.isLanguageSubtypeOfMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.isLanguageSubtypeOfMatcher(entity.getValue()).withSourceEntity(entity));
     }
     @Override
     public void visit(SupertypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.isLanguageSupertypeOfMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.isLanguageSupertypeOfMatcher(entity.getValue()).withSourceEntity(entity));
     }
     @Override
     public void visit(ExtendedSubtypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSubtypeOfMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSubtypeOfMatcher(entity.getValue()).withSourceEntity(entity));
     }
     @Override
     public void visit(ExtendedSupertypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSupertypeOfMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.isExtendedLanguageSupertypeOfMatcher(entity.getValue()).withSourceEntity(entity));
     }
 
     @Override
@@ -1005,7 +1005,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			CommonsInterpreterVisitor.evaluateAdapter((IEntityAdapter) e, getOperation());
 
 			IEntity pe = getResult();
-	    	setResultPredicate(GenericMatcherFactory.instance.matchInScope(pe));
+	    	setResultPredicate(GenericMatcherFactory.instance.matchInScope(pe).withSourceEntity(entity));
 
 			IEntityIterator<IEntity> variableIterator = IteratorFactory.descendantOrSelfMatcherIterator()
 					.withPattern(GenericMatcherFactory.instance.isVariableMatcher()).withSourceEntity(entity);
@@ -1015,17 +1015,17 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				declaredNames.add(variable.getVarName().getValue());
 			}
 		} else if (EntityUtils.isSameStageFragment(e)) {
-			setResultPredicate(GenericMatcherFactory.evalTrue(e.wGetAdaptee(false).wGetRoot()));
+			setResultPredicate(GenericMatcherFactory.evalTrue(e.wGetAdaptee(false).wGetRoot()).withSourceEntity(entity));
 		} else if (!e.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
-			setResultPredicate(GenericMatcherFactory.evalTrue(e.wGetAdaptee(false)));
+			setResultPredicate(GenericMatcherFactory.evalTrue(e.wGetAdaptee(false)).withSourceEntity(entity));
 		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
 			e.accept(this);
 		else if (QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor())
 				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
-			setResultPredicate(GenericMatcherFactory.evalTrue(e));
+			setResultPredicate(GenericMatcherFactory.evalTrue(e).withSourceEntity(entity));
 		else {
 			e.accept(this);
-			setResultPredicate(GenericMatcherFactory.instance.match(getResultIterator()));
+			setResultPredicate(GenericMatcherFactory.instance.match(getResultIterator()).withSourceEntity(entity));
 		}
     }
 
@@ -1034,20 +1034,20 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	entity.getPexp1().accept(this);
     	IEntityIterator<? extends IEntity> exp1Iterator = getResultIterator();
     	entity.getPexp2().accept(this);
-    	setResultPredicate(QueriesMatcherFactory.pointwiseEquals(exp1Iterator, getResultIterator()));
+    	setResultPredicate(QueriesMatcherFactory.pointwiseEquals(exp1Iterator, getResultIterator()).withSourceEntity(entity));
     }
 
 	@Override
 	public void visit(AtTypeTest entity) {
-    	setResultPredicate(GenericMatcherFactory.instance.atTypeMatcher(entity.getValue()));
+    	setResultPredicate(GenericMatcherFactory.instance.atTypeMatcher(entity.getValue()).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(AtFeatureTest entity) {
-		setResultPredicate(GenericMatcherFactory.instance.atFeatureMatcher(entity.getValue()));
+		setResultPredicate(GenericMatcherFactory.instance.atFeatureMatcher(entity.getValue()).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(AtIndexTest entity) {
-		setResultPredicate(GenericMatcherFactory.instance.atIndexMatcher(entity.getValue()));
+		setResultPredicate(GenericMatcherFactory.instance.atIndexMatcher(entity.getValue()).withSourceEntity(entity).withSourceEntity(entity));
 	}
 
     @Override
@@ -1061,7 +1061,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		}
 		
     	setResultPredicate(GenericMatcherFactory.instance.matchIteratorIndexVariable(
-    			filterByIndexIterator, varName));
+    			filterByIndexIterator, varName).withSourceEntity(entity));
 
 		updateIndexRange(0, Integer.MAX_VALUE);
     }
@@ -1076,7 +1076,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		
 		int index = entity.getIndex().getValue();
 		setResultPredicate(GenericMatcherFactory.instance.matchIteratorIndex(
-				filterByIndexIterator, index));
+				filterByIndexIterator, index).withSourceEntity(entity));
 		
 		updateIndexRange(index, index);
 	}
@@ -1096,7 +1096,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			endIndexValue = Integer.MAX_VALUE;
 
 		setResultPredicate(GenericMatcherFactory.instance.matchIteratorIndexRange(
-				filterByIndexIterator, startIndexValue, endIndexValue));
+				filterByIndexIterator, startIndexValue, endIndexValue).withSourceEntity(entity));
 
 		updateIndexRange(startIndexValue, endIndexValue);
 	}
@@ -1111,7 +1111,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(VisitorTest entity) {
-		setResultPredicate(entity.getValue());
+		setResultPredicate(entity.getValue().withSourceEntity(entity));
 	}
 
 	@Override
@@ -1124,7 +1124,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			distinctScope = IteratorFactory.distinctScope();
 		
 		distinctScope.withComparator(comparator);
-		setResultPredicate(distinctScope.distinctMatcher());
+		setResultPredicate(distinctScope.distinctMatcher().withSourceEntity(entity));
     	comparator = oldComparator;
 	}
 
@@ -1139,7 +1139,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			entity.get(i).accept(this);
 	    	visitors[i] = getResultPredicate();
 		}
-    	setResultPredicate(GenericTraversalFactory.instance.all(visitors));
+    	setResultPredicate(GenericTraversalFactory.instance.all(visitors).withSourceEntity(entity));
 	}
     @Override
     public void visit(Or entity) {
@@ -1153,13 +1153,13 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			visitors[i] = getResultPredicate();
 			canFilterByIndexResult &= !canFilterByIndex;
 		}
-    	setResultPredicate(GenericTraversalFactory.instance.one(visitors));
+    	setResultPredicate(GenericTraversalFactory.instance.one(visitors).withSourceEntity(entity));
     	canFilterByIndex = canFilterByIndexResult;
     }
     @Override
     public void visit(Not entity) {
     	entity.getPredicate().accept(this);
-    	setResultPredicate(GenericTraversalFactory.instance.not(getResultPredicate()));
+    	setResultPredicate(GenericTraversalFactory.instance.not(getResultPredicate()).withSourceEntity(entity));
     }
 
     @Override

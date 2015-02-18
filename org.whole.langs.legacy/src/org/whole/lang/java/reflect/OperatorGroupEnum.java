@@ -17,6 +17,7 @@
  */
 package org.whole.lang.java.reflect;
 
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.java.model.InfixExpression;
 import org.whole.lang.java.model.InfixOperatorEnum;
 import org.whole.lang.model.EnumType;
@@ -150,7 +151,7 @@ public class OperatorGroupEnum extends EnumType<OperatorGroupEnum.OperatorGroup>
 			case InfixOperatorEnum .conditional_or_ord:
 				return LOGICAL_OR;
 			default:
-				throw new IllegalArgumentException(WholeMessages.no_data);
+				throw new WholeIllegalArgumentException(WholeMessages.no_data);
 			}
 		case JavaEntityDescriptorEnum.Assignment_ord:
 			return ASSIGNMENT;

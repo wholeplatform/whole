@@ -17,6 +17,7 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
 
@@ -26,6 +27,8 @@ import org.whole.lang.operations.ICloneable;
  * @author Riccardo Solmi
  */
 public interface IBindingManager extends IBindingScope, ICloneable {
+	public IBindingManager withSourceEntity(IEntity entity);
+
 	public IBindingManager clone();
 	public IBindingManager clone(ICloneContext cc);
 

@@ -26,6 +26,7 @@ import java.util.TimeZone;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.grammars.model.CompiledPattern;
 import org.whole.lang.grammars.model.Format;
 import org.whole.lang.grammars.model.Pattern;
@@ -81,7 +82,7 @@ public class GrammarsDefaultDataTypeParser extends DefaultDataTypePersistencePar
 						java.util.regex.Pattern.compile(((RegExp) pattern).getValue());
 
 		if (!compiledPattern.matcher(value).matches())
-			throw new IllegalArgumentException(WholeMessages.no_data_type);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data_type);
 
 		return value;
 	}
