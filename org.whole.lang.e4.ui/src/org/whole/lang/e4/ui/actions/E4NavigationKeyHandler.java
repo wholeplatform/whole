@@ -17,7 +17,10 @@
  */
 package org.whole.lang.e4.ui.actions;
 
-import static org.eclipse.draw2d.PositionConstants.*;
+import static org.eclipse.draw2d.PositionConstants.EAST;
+import static org.eclipse.draw2d.PositionConstants.NORTH;
+import static org.eclipse.draw2d.PositionConstants.SOUTH;
+import static org.eclipse.draw2d.PositionConstants.WEST;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -346,7 +349,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 	 * @param	direction	PositionConstants.* indicating the direction in which to traverse
 	 */
 	boolean navigateNextSibling(KeyEvent event, int direction, List<?> list) {
-		IGraphicalEntityPart epStart = (IGraphicalEntityPart) getFocusEntityPart();
+		IEntityPart epStart = getFocusEntityPart();
 		if (epStart instanceof ITextualEntityPart) {
 			ITextualEntityPart textualEntityPart = (ITextualEntityPart) epStart;
 			if ((direction == PositionConstants.WEST && textualEntityPart.getCaretPosition() > 0) ||
@@ -357,7 +360,9 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 				return true;
 			}
 		}
-		IFigure figure = epStart.getFigure();
+		if (!(epStart instanceof IGraphicalEntityPart))
+			return false;
+		IFigure figure = ((IGraphicalEntityPart) epStart).getFigure();
 		Point pStart = getNavigationPoint(figure);
 		figure.translateToAbsolute(pStart);
 		EditPart next = findSibling(list, pStart, direction, epStart); // parent.findSibling(pStart, direction, epStart);
