@@ -31,7 +31,6 @@ import org.whole.lang.reflect.ISourceable;
  */
 public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterable<E>, ICloneable, ISourceable {
 	public IEntityIterator<E> withSourceEntity(IEntity entity);
-	public IEntity getSourceEntity();
 
 	public IEntityIterator<E> clone();
 	public IEntityIterator<E> clone(ICloneContext cc);

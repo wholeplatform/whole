@@ -32,7 +32,6 @@ import org.whole.lang.reflect.ISourceable;
  */
 public interface IBindingScope extends ICloneable, ISourceable {
 	public IBindingScope withSourceEntity(IEntity entity);
-	public IEntity getSourceEntity();
 
 	public static enum Kind { SCOPE, OUTER_GROUP_ADAPTER, OUTER_SCOPE_ADAPTER, INNER_SCOPE_ADAPTER };
 	

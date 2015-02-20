@@ -32,7 +32,6 @@ import org.whole.lang.reflect.ISourceable;
  */
 public interface IVisitor extends ICloneable, ISourceable {
 	public IVisitor withSourceEntity(IEntity entity);
-	public IEntity getSourceEntity();
 
 	public IVisitor clone();
 	public IVisitor clone(ICloneContext cc);
