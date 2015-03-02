@@ -18,6 +18,7 @@
 package org.whole.lang.queries.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.queries.model.Addition;
@@ -64,6 +65,7 @@ import org.whole.lang.queries.util.MathUtils;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
+import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 
 /**
@@ -79,9 +81,15 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     	DynamicCompilerOperation.compile(entity, getBindings());
     }
 
-	protected IEntity evaluate(Expression entity) {
+	protected IEntity evaluateOptional(Expression entity) {
     	entity.accept(this);
     	return getResult();
+    }
+	protected IEntity evaluate(Expression entity) {
+    	IEntity result = evaluateOptional(entity);
+    	if (result == null)
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(entity, getBindings());
+    	return result;
     }
 	protected final boolean booleanValue(Expression exp) {
 		return evaluate(exp).wBooleanValue();
@@ -95,7 +103,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	protected final IEntity getSelfEntity() {
 		IEntity self = getBindings().wGet("self");
 		if (self == null)
-			throw new MissingVariableException("self");
+			throw new MissingVariableException("self").withSourceInfo(getSourceEntity(), getBindings());
 		return self;
 	}
 
@@ -109,7 +117,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 		String varName = entity.getValue();
 		IEntity value = BindingUtils.wGet(getBindings(), varName);
 		if (value == null)
-			throw new MissingVariableException(varName);
+			throw new MissingVariableException(varName).withSourceInfo(getSourceEntity(), getBindings());
 		setResult(value);
 	}
 

@@ -134,9 +134,15 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		return BindingManagerFactory.instance.createValue(value);
 	}
 
-	protected IEntity evaluate(Expression entity) {
+	protected IEntity evaluateOptional(Expression entity) {
     	entity.accept(this);
     	return getResult();
+    }
+	protected IEntity evaluate(Expression entity) {
+    	IEntity result = evaluateOptional(entity);
+    	if (result == null)
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(entity, getBindings());
+    	return result;
     }
 
 	public static enum ToKind {
@@ -148,10 +154,10 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 			return ToKind.BIG_DECIMAL;
 		return kind1.compareTo(kind2) < 0 ? kind2 : kind1;
 	}
-	public static ToKind maxKind(ToKind kind1, IEntity entity) {
+	public ToKind maxKind(ToKind kind1, IEntity entity) {
 		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(entity);
 		if (dataKinds.isNotAData())
-			throw new WholeIllegalArgumentException(WholeMessages.no_data);
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
 		else if (dataKinds.isObject() && entity.wGetValue() instanceof java.math.BigDecimal)
 			return ToKind.BIG_DECIMAL;
 		else if (dataKinds.isDouble())
@@ -577,7 +583,7 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		IEntity result1 = evaluate(entity.getExpression());
 		long lvalue = DataTypeUtils.toLong(result1);
 		if (lvalue < 0l)
-			throw new IllegalArgumentException("Underflow error in factorial");
+			throw new WholeIllegalArgumentException("Underflow error in factorial").withSourceInfo(entity, getBindings());
 		else if (lvalue < 21l)
 			result = createLongLiteral(factorial((int) lvalue));
 		else

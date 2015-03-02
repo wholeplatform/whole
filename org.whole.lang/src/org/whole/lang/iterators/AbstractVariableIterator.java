@@ -55,7 +55,7 @@ public abstract class AbstractVariableIterator<E extends IEntity> extends SelfIt
 			useVar = false;
 			return result;
 		} catch (NoSuchElementException e) {
-			e.initCause(new MissingVariableException(varName));
+			e.initCause(new MissingVariableException(varName).withSourceInfo(getSourceEntity(), getBindings()));
 			throw e;
 		}
 	}

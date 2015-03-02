@@ -67,6 +67,7 @@ import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericTraversalFactory;
 import org.whole.lang.visitors.IVisitor;
+import org.whole.lang.visitors.MissingVariableException;
 
 /**
  * @author Enrico Persiani
@@ -433,7 +434,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		String name = entity.getValue();
 		IEntity result = getBindings().wGet(name);
 		if (result == null)
-			throw BindingManagerFactory.instance.createNoBindingException(name);
+			throw new MissingVariableException(name).withSourceInfo(getSourceEntity(), getBindings());
 		else
 			setResult(result);
 	}

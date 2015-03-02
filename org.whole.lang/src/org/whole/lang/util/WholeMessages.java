@@ -29,4 +29,5 @@ public interface WholeMessages {
 	public String command_illegal_method = "The method is illegal for this command";
 	public String illegal_data_conversion = "Illegal data conversion";
 	public String undefined_variable_reference = "Undefined variable reference: ";
+	public String null_value_argument = "Mandatory argument is without value";
 }

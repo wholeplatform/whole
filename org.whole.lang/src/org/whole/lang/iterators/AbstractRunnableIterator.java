@@ -21,10 +21,12 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.IRunnable;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
@@ -77,8 +79,11 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 		IEntity[] arguments = null;
         if (argsIterators != null) {
         	arguments = new IEntity[argsIterators.length];
-        	for (int i=0; i<argsIterators.length; i++)
+        	for (int i=0; i<argsIterators.length; i++) {
         		arguments[i] = evaluateArgument(argsIterators[i], selfEntity, bm);
+        		if (arguments[i] == null)
+        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(argsIterators[i].getSourceEntity(), bm);
+        	}
         }
         return arguments;
 	}

@@ -24,6 +24,7 @@ import java.util.Set;
 import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.iterators.AbstractLazyCloneableIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
@@ -133,7 +134,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		try {
 			nextEntity = getSelectIterator().next();
 		} catch (NoSuchElementException e) {
-			throw new IllegalStateException("select clause must return a value", e);
+			throw new WholeIllegalStateException("Select clause must return a value", e).withSourceInfo(getSourceEntity(), getBindings());
 		}
 
 		lookaheadScope().wAddAll(getSelectIterator().lookaheadScope());
@@ -152,7 +153,8 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 				unboundedNames.removeAll(namesToBind());
 			else
 				unboundedNames.retainAll(namesToBind());
-			throw new MissingVariableException("Unbounded names in select clause: ", null, unboundedNames.toArray(new String[unboundedNames.size()]));
+			throw new MissingVariableException("Unbounded names in select clause: ", null, unboundedNames.toArray(new String[unboundedNames.size()]))
+					.withSourceInfo(getSourceEntity(), getBindings());
 		}
 
 		if (selfEntityOld != null)

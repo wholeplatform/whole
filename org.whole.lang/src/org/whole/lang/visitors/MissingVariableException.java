@@ -19,12 +19,13 @@ package org.whole.lang.visitors;
 
 import java.util.Arrays;
 
+import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
  */
-public class MissingVariableException extends RuntimeException {
+public class MissingVariableException extends WholeRuntimeException {
 	private static final long serialVersionUID = 1L;
 	protected final String[] variableName;
 

@@ -150,28 +150,28 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
 			switch (adapteeEd.getOrdinal()) {
 			case CommonsEntityDescriptorEnum.Resolver_ord:
-				setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
+				setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(adaptee));
 				return false;
 			case CommonsEntityDescriptorEnum.Variable_ord:
 			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-				throw new MissingVariableException(((Variable) adaptee).getVarName().toString());
+				throw new MissingVariableException(((Variable) adaptee).getVarName().toString()).withSourceInfo(adaptee, getBindings());
 			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(entity));
+				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(adaptee));
 				return false;
 			case CommonsEntityDescriptorEnum.RootFragment_ord:
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(
 						GenericEntityFactory.instance.create(
 								CommonsEntityDescriptorEnum.StageDownFragment,
-								EntityUtils.clone(entity))).withSourceEntity(entity));
+								EntityUtils.clone(entity))).withSourceEntity(adaptee));
 				return false;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
 				if (useTemplateFactorySemantics())
-					setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(entity));
+					setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(adaptee));
 				else {
 					CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());//TODO test
 					setResultIterator(QueriesIteratorFactory.patternMatcherIterator(
-							getResult()).withSourceEntity(entity));
+							getResult()).withSourceEntity(adaptee));
 				}
 				return false;
 			}

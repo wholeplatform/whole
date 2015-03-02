@@ -334,7 +334,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(Variable entity) {
 		IEntity result = getBindings().wGet(entity.getValue());
 		if (result == null)
-			throw new MissingVariableException(entity.getValue());
+			throw new MissingVariableException(entity.getValue()).withSourceInfo(getSourceEntity(), getBindings());
 
 		setResult(result);
 	}
