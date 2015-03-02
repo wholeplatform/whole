@@ -20,7 +20,9 @@ package org.whole.lang.bindings;
 import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.whole.lang.commons.factories.CommonsEntityFactory;
@@ -34,6 +36,7 @@ import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityDescriptorEnum;
+import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
@@ -53,6 +56,12 @@ public class BindingManagerFactory {
 		if (edEnum == null)
 			edEnum = EntityUtils.getEnvironmentLanguageKit().getEntityDescriptorEnum();
 		return edEnum;
+	}
+	private FeatureDescriptorEnum fdEnum;
+	private FeatureDescriptorEnum getFdEnum() {
+		if (fdEnum == null)
+			fdEnum = EntityUtils.getEnvironmentLanguageKit().getFeatureDescriptorEnum();
+		return fdEnum;
 	}
 	private EntityDescriptor<?> voidEd;
 	private EntityDescriptor<?> getVoidEd() {
@@ -295,50 +304,105 @@ public class BindingManagerFactory {
 		return Matcher.match(getVoidEd(), entity);
 	}
 
-	public IEntity createFlatBindingsModel(IOperation operation) {
-		return createFlatBindingsModel(operation.getOperationEnvironment());
-	}
-	public IEntity createFlatBindingsModel(IBindingManager bindings) {
+	public IEntity createContextViewModel(IBindingManager bm, IBindingScope scope) {
 		IEntityFactory ef = GenericEntityFactory.instance;
-		IEntity bindingsModel = ef.create(getEdEnum().valueOf("Bindings"));
+		return ef.create(getEdEnum().valueOf("ContextViewModel"),
+				ef.create(getEdEnum().valueOf("Environments")),
+				ef.create(getEdEnum().valueOf("Bindings")));
+	}
 
-		//TODO test
-		IEntity sourceEntity = bindings.getSourceEntity();
-		if (sourceEntity == null) {
-			IBindingScope scope = bindings;
-			while ((scope = scope.wEnclosingScope()) != NullScope.instance)
-				if ((sourceEntity = scope.getSourceEntity()) != null)
-					break;
-		}
+	public IEntity createSampleViewModel(IEntity behavior, IEntity result) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		return ef.create(getEdEnum().valueOf("SampleViewModel"), behavior, result);
+	}
 
-		Set<String> names = bindings.wNames();
+	public IEntity createVariablesViewModel(IOperation operation, Set<String> includeNames) {
+		return createVariablesViewModel(operation.getOperationEnvironment(), includeNames);
+	}
+	public IEntity createVariablesViewModel(IBindingManager bm, Set<String> includeNames) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		IEntity environments = ef.create(getEdEnum().valueOf("Environments"));
+		
+		environments.wAdd(createEnvironment(bm, "env", includeNames, createFlatScopedBindingsModel(bm)));
+
+		return ef.create(getEdEnum().valueOf("VariablesViewModel"),
+				ef.create(getEdEnum().valueOf("EnvironmentManager"), (Object) bm.wGetEnvironmentManager()),
+				environments);
+	}
+
+	public IEntity createEnvironment(IBindingManager bm, String name, Set<String> includeNames, IEntity bindingsModel) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		return ef.create(getEdEnum().valueOf("Environment"),
+				ef.create(getEdEnum().valueOf("Name"), name),
+				createNames(includeNames),
+				ef.create(getEdEnum().valueOf("BindingManager"), (Object) bm),
+				bindingsModel);
+	}
+
+	public IEntity createNames(Set<String> includeNames) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		IEntity names = ef.create(getEdEnum().valueOf("Names"));
+		
+		for (String name : includeNames)
+			names.wAdd(ef.create(getEdEnum().valueOf("Name"), name));
+		return names;
+	}
+
+	public IEntity createFlatScopedBindingsModel(IBindingManager bm) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		IEntity scopedBindings = ef.create(getEdEnum().valueOf("ScopedBindings"));
+
+		IBindingScope scope = bm;
+		Map<String, IEntity> bindingsMap = new TreeMap<String, IEntity>();
+
+		do {
+			for (String name : scope.wLocalNames()) {
+				IEntity value = scope.wGet(name);
+				if (value == null)
+					continue;
+				if (!bindingsMap.containsKey(name))
+					bindingsMap.put(name, value);
+			}
+			
+			IEntity sourceEntity = scope.getSourceEntity();
+			if (sourceEntity != null || scope.wEnclosingScope() == NullScope.instance) {
+				int i=0;
+				for (Map.Entry<String, IEntity> entry : bindingsMap.entrySet())
+					scopedBindings.wAdd(i++, createBinding(entry.getKey(), entry.getValue()));
+
+				bindingsMap.clear();
+
+				scopedBindings.wAdd(0, ef.create(getEdEnum().valueOf("Scope"),
+						ef.create(getEdEnum().valueOf("BindingScope"), (Object) scope),
+						ef.create(getEdEnum().valueOf("Value"), (Object) scope.getSourceEntity())));
+			}
+		} while ((scope = scope.wEnclosingScope()) != NullScope.instance);
+
+		return scopedBindings;
+	}
+	public IEntity createFlatBindingsModel(IBindingManager bm) {
+		IEntityFactory ef = GenericEntityFactory.instance;
+		IEntity bindings = ef.create(getEdEnum().valueOf("Bindings"));
+
+		Set<String> names = bm.wNames();
 		for (String name : new TreeSet<String>(names))
-			bindingsModel.wAdd(createBinding(name, bindings.wGet(name)));
+			bindings.wAdd(createBinding(name, bm.wGet(name)));
 
-		return bindingsModel;				
+		return bindings;				
 	}
 	public IEntity createFlatBindingsModel(IOperation operation, Set<String> includeNames) {
 		return createFlatBindingsModel(operation.getOperationEnvironment(), includeNames);
 	}
-	public IEntity createFlatBindingsModel(IBindingManager bindings, Set<String> includeNames) {
+	public IEntity createFlatBindingsModel(IBindingManager bm, Set<String> includeNames) {
 		IEntityFactory ef = GenericEntityFactory.instance;
-		IEntity bindingsModel = ef.create(getEdEnum().valueOf("Bindings"));
+		IEntity bindings = ef.create(getEdEnum().valueOf("Bindings"));
 
-		//TODO test
-		IEntity sourceEntity = bindings.getSourceEntity();
-		if (sourceEntity == null) {
-			IBindingScope scope = bindings;
-			while ((scope = scope.wEnclosingScope()) != NullScope.instance)
-				if ((sourceEntity = scope.getSourceEntity()) != null)
-					break;
-		}
-
-		Set<String> names = bindings.wNames();
+		Set<String> names = bm.wNames();
 		for (String name : new TreeSet<String>(includeNames))
-			bindingsModel.wAdd(createBinding(name, names.contains(name) ?
-					bindings.wGet(name) : CommonsEntityFactory.instance.createResolver()));
+			bindings.wAdd(createBinding(name, names.contains(name) ?
+					bm.wGet(name) : CommonsEntityFactory.instance.createResolver()));
 
-		return bindingsModel;				
+		return bindings;				
 	}
 
 	public IEntity createBinding(String name, IEntity value) {

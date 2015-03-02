@@ -24,6 +24,9 @@ import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import java.util.Date;
 import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.bindings.IEnvironmentManager;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 
 /**
  *  @generator Whole
@@ -38,12 +41,60 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         super(strategy, entityContext);
     }
 
+    public void scope() {
+        wFeature(EnvironmentFeatureDescriptorEnum.scope);
+    }
+
     public void value() {
         wFeature(EnvironmentFeatureDescriptorEnum.value);
     }
 
+    public void bindingManager() {
+        wFeature(EnvironmentFeatureDescriptorEnum.bindingManager);
+    }
+
+    public void filter() {
+        wFeature(EnvironmentFeatureDescriptorEnum.filter);
+    }
+
     public void name() {
         wFeature(EnvironmentFeatureDescriptorEnum.name);
+    }
+
+    public void environmentManager() {
+        wFeature(EnvironmentFeatureDescriptorEnum.environmentManager);
+    }
+
+    public void sourceEntity() {
+        wFeature(EnvironmentFeatureDescriptorEnum.sourceEntity);
+    }
+
+    public void sourceFragment() {
+        wFeature(EnvironmentFeatureDescriptorEnum.sourceFragment);
+    }
+
+    public void executionStack() {
+        wFeature(EnvironmentFeatureDescriptorEnum.executionStack);
+    }
+
+    public void focusFrame() {
+        wFeature(EnvironmentFeatureDescriptorEnum.focusFrame);
+    }
+
+    public void result() {
+        wFeature(EnvironmentFeatureDescriptorEnum.result);
+    }
+
+    public void behavior() {
+        wFeature(EnvironmentFeatureDescriptorEnum.behavior);
+    }
+
+    public void bindings() {
+        wFeature(EnvironmentFeatureDescriptorEnum.bindings);
+    }
+
+    public void environments() {
+        wFeature(EnvironmentFeatureDescriptorEnum.environments);
     }
 
     public void visit() {
@@ -189,6 +240,126 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         _wEntity(EnvironmentEntityDescriptorEnum.Void);
     }
 
+    public void ContextViewModel() {
+        wEntity(EnvironmentEntityDescriptorEnum.ContextViewModel);
+    }
+
+    public void ContextViewModel_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.ContextViewModel);
+    }
+
+    public void _ContextViewModel() {
+        _wEntity(EnvironmentEntityDescriptorEnum.ContextViewModel);
+    }
+
+    public void SampleViewModel() {
+        wEntity(EnvironmentEntityDescriptorEnum.SampleViewModel);
+    }
+
+    public void SampleViewModel_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.SampleViewModel);
+    }
+
+    public void _SampleViewModel() {
+        _wEntity(EnvironmentEntityDescriptorEnum.SampleViewModel);
+    }
+
+    public void DebugViewModel() {
+        wEntity(EnvironmentEntityDescriptorEnum.DebugViewModel);
+    }
+
+    public void DebugViewModel_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.DebugViewModel);
+    }
+
+    public void _DebugViewModel() {
+        _wEntity(EnvironmentEntityDescriptorEnum.DebugViewModel);
+    }
+
+    public void ExecutionStack() {
+        wEntity(EnvironmentEntityDescriptorEnum.ExecutionStack);
+    }
+
+    public void ExecutionStack_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.ExecutionStack);
+    }
+
+    public void ExecutionStack_(int initialCapacity) {
+        wEntity_(EnvironmentEntityDescriptorEnum.ExecutionStack, initialCapacity);
+    }
+
+    public void _ExecutionStack() {
+        _wEntity(EnvironmentEntityDescriptorEnum.ExecutionStack);
+    }
+
+    public void ExecutionFrame() {
+        wEntity(EnvironmentEntityDescriptorEnum.ExecutionFrame);
+    }
+
+    public void ExecutionFrame_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.ExecutionFrame);
+    }
+
+    public void _ExecutionFrame() {
+        _wEntity(EnvironmentEntityDescriptorEnum.ExecutionFrame);
+    }
+
+    public void VariablesViewModel() {
+        wEntity(EnvironmentEntityDescriptorEnum.VariablesViewModel);
+    }
+
+    public void VariablesViewModel_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.VariablesViewModel);
+    }
+
+    public void _VariablesViewModel() {
+        _wEntity(EnvironmentEntityDescriptorEnum.VariablesViewModel);
+    }
+
+    public void Environments() {
+        wEntity(EnvironmentEntityDescriptorEnum.Environments);
+    }
+
+    public void Environments_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Environments);
+    }
+
+    public void Environments_(int initialCapacity) {
+        wEntity_(EnvironmentEntityDescriptorEnum.Environments, initialCapacity);
+    }
+
+    public void _Environments() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Environments);
+    }
+
+    public void Environment() {
+        wEntity(EnvironmentEntityDescriptorEnum.Environment);
+    }
+
+    public void Environment_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Environment);
+    }
+
+    public void _Environment() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Environment);
+    }
+
+    public void ScopedBindings() {
+        wEntity(EnvironmentEntityDescriptorEnum.ScopedBindings);
+    }
+
+    public void ScopedBindings_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.ScopedBindings);
+    }
+
+    public void ScopedBindings_(int initialCapacity) {
+        wEntity_(EnvironmentEntityDescriptorEnum.ScopedBindings, initialCapacity);
+    }
+
+    public void _ScopedBindings() {
+        _wEntity(EnvironmentEntityDescriptorEnum.ScopedBindings);
+    }
+
     public void Bindings() {
         wEntity(EnvironmentEntityDescriptorEnum.Bindings);
     }
@@ -217,6 +388,18 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         _wEntity(EnvironmentEntityDescriptorEnum.Binding);
     }
 
+    public void Scope() {
+        wEntity(EnvironmentEntityDescriptorEnum.Scope);
+    }
+
+    public void Scope_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Scope);
+    }
+
+    public void _Scope() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Scope);
+    }
+
     public void Id() {
         wEntity(EnvironmentEntityDescriptorEnum.Id);
     }
@@ -225,12 +408,36 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         wEntity(EnvironmentEntityDescriptorEnum.Id, value);
     }
 
+    public void Names() {
+        wEntity(EnvironmentEntityDescriptorEnum.Names);
+    }
+
+    public void Names_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Names);
+    }
+
+    public void Names_(int initialCapacity) {
+        wEntity_(EnvironmentEntityDescriptorEnum.Names, initialCapacity);
+    }
+
+    public void _Names() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Names);
+    }
+
     public void Name() {
         wEntity(EnvironmentEntityDescriptorEnum.Name);
     }
 
     public void Name(String value) {
         wEntity(EnvironmentEntityDescriptorEnum.Name, value);
+    }
+
+    public void FrameIndex() {
+        wEntity(EnvironmentEntityDescriptorEnum.FrameIndex);
+    }
+
+    public void FrameIndex(int value) {
+        wEntity(EnvironmentEntityDescriptorEnum.FrameIndex, value);
     }
 
     public void Value() {
@@ -243,5 +450,41 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
 
     public void Value(String value) {
         wEntity(EnvironmentEntityDescriptorEnum.Value, value);
+    }
+
+    public void EnvironmentManager() {
+        wEntity(EnvironmentEntityDescriptorEnum.EnvironmentManager);
+    }
+
+    public void EnvironmentManager(IEnvironmentManager value) {
+        wEntity(EnvironmentEntityDescriptorEnum.EnvironmentManager, value);
+    }
+
+    public void EnvironmentManager(String value) {
+        wEntity(EnvironmentEntityDescriptorEnum.EnvironmentManager, value);
+    }
+
+    public void BindingManager() {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingManager);
+    }
+
+    public void BindingManager(IBindingManager value) {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingManager, value);
+    }
+
+    public void BindingManager(String value) {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingManager, value);
+    }
+
+    public void BindingScope() {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingScope);
+    }
+
+    public void BindingScope(IBindingScope value) {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingScope, value);
+    }
+
+    public void BindingScope(String value) {
+        wEntity(EnvironmentEntityDescriptorEnum.BindingScope, value);
     }
 }

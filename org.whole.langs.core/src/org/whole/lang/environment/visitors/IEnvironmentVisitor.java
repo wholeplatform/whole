@@ -55,13 +55,43 @@ public interface IEnvironmentVisitor extends IVisitor {
 
     public void visit(Void entity);
 
+    public void visit(ContextViewModel entity);
+
+    public void visit(SampleViewModel entity);
+
+    public void visit(DebugViewModel entity);
+
+    public void visit(ExecutionStack entity);
+
+    public void visit(ExecutionFrame entity);
+
+    public void visit(VariablesViewModel entity);
+
+    public void visit(Environments entity);
+
+    public void visit(Environment entity);
+
+    public void visit(ScopedBindings entity);
+
     public void visit(Bindings entity);
 
     public void visit(Binding entity);
 
+    public void visit(Scope entity);
+
     public void visit(Id entity);
+
+    public void visit(Names entity);
 
     public void visit(Name entity);
 
+    public void visit(FrameIndex entity);
+
     public void visit(Value entity);
+
+    public void visit(EnvironmentManager entity);
+
+    public void visit(BindingManager entity);
+
+    public void visit(BindingScope entity);
 }

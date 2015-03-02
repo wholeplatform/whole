@@ -35,6 +35,8 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.matchers.Matcher;
@@ -130,131 +132,8 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variables, variables)) {
 			for (Variable variable : variables)
 				includeNames.add(variable.getValue());
-
-			suspendOperation(SuspensionKind.BREAK, entity, includeNames);
-		} else
-			suspendOperation(SuspensionKind.BREAK, null, entity);
-	}
-
-	@Override
-	public void visit(Variable entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
 		}
-	}
-
-	@Override
-	public void visit(CreateEntity entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-
-	@Override
-	public void visit(LoadJavaModel entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(LoadModel entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(SaveModel entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-
-	@Override
-	public void visit(Parse entity) {
-		try {
-			super.visit(entity);
-		} catch (ParseException e) {
-			throw e;
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(Unparse entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-
-	@Override
-	public void visit(DeleteArtifacts entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(LoadArtifacts entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(SaveArtifacts entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-
-	@Override
-	public void visit(InvokeOperation entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-
-	@Override
-	public void visit(CreateJavaClassInstance entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(InvokeJavaClassMethod entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
-	}
-	@Override
-	public void visit(InvokeJavaInstanceMethod entity) {
-		try {
-			super.visit(entity);
-		} catch (Exception e) {
-			suspendOperation(SuspensionKind.ERROR, e, entity);
-		}
+		E4Utils.suspendOperation(SuspensionKind.BREAK, null, entity, debugEnv, includeNames);
 	}
 
 	@Override
@@ -335,14 +214,5 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-	}
-
-	protected void suspendOperation(SuspensionKind kind, IEntity suspendEntity, Set<String> includeNames) {
-		E4Utils.suspendOperation(kind, null, suspendEntity, getBindings(),
-				BindingManagerFactory.instance.createFlatBindingsModel(getOperation(), includeNames));
-	}
-	protected void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity) {
-		E4Utils.suspendOperation(kind, throwable, sourceEntity, getBindings(),
-				BindingManagerFactory.instance.createFlatBindingsModel(getOperation()));
 	}
 }

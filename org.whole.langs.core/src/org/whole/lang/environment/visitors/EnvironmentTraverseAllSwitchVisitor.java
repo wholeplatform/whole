@@ -40,6 +40,53 @@ public class EnvironmentTraverseAllSwitchVisitor extends EnvironmentIdentityUnar
             wGetVisitor1().visit(entity.get(i));
     }
 
+    public void visit(ContextViewModel entity) {
+        wGetVisitor1().visit(entity.getEnvironments());
+        wGetVisitor1().visit(entity.getBindings());
+    }
+
+    public void visit(SampleViewModel entity) {
+        wGetVisitor1().visit(entity.getBehavior());
+        wGetVisitor1().visit(entity.getResult());
+    }
+
+    public void visit(DebugViewModel entity) {
+        wGetVisitor1().visit(entity.getFocusFrame());
+        wGetVisitor1().visit(entity.getExecutionStack());
+    }
+
+    public void visit(ExecutionStack entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(ExecutionFrame entity) {
+        wGetVisitor1().visit(entity.getSourceFragment());
+        wGetVisitor1().visit(entity.getSourceEntity());
+    }
+
+    public void visit(VariablesViewModel entity) {
+        wGetVisitor1().visit(entity.getEnvironmentManager());
+        wGetVisitor1().visit(entity.getEnvironments());
+    }
+
+    public void visit(Environments entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(Environment entity) {
+        wGetVisitor1().visit(entity.getName());
+        wGetVisitor1().visit(entity.getFilter());
+        wGetVisitor1().visit(entity.getBindingManager());
+        wGetVisitor1().visit(entity.getBindings());
+    }
+
+    public void visit(ScopedBindings entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
     public void visit(Bindings entity) {
         for (int i = 0; i < entity.size(); i++)
             wGetVisitor1().visit(entity.get(i));
@@ -48,5 +95,15 @@ public class EnvironmentTraverseAllSwitchVisitor extends EnvironmentIdentityUnar
     public void visit(Binding entity) {
         wGetVisitor1().visit(entity.getName());
         wGetVisitor1().visit(entity.getValue());
+    }
+
+    public void visit(Scope entity) {
+        wGetVisitor1().visit(entity.getScope());
+        wGetVisitor1().visit(entity.getSourceEntity());
+    }
+
+    public void visit(Names entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
     }
 }

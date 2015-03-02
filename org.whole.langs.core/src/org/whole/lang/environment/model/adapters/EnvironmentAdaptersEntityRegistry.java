@@ -45,10 +45,27 @@ public class EnvironmentAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new TupleAdapter());
         put(new ContainmentTupleAdapter());
         put(new VoidAdapter());
+        put(new ContextViewModelAdapter());
+        put(new SampleViewModelAdapter());
+        put(new DebugViewModelAdapter());
+        put(new ExecutionStackAdapter());
+        put(new ExecutionFrameAdapter());
+        put(new VariablesViewModelAdapter());
+        put(new EnvironmentsAdapter());
+        put(new EnvironmentAdapter());
+        put(new BindingsModelAdapter());
+        put(new ScopedBindingsAdapter());
         put(new BindingsAdapter());
         put(new BindingAdapter());
+        put(new ScopeAdapter());
         put(new IdAdapter());
+        put(new NamesAdapter());
         put(new NameAdapter());
+        put(new FrameIndexAdapter());
         put(new ValueAdapter());
+        put(new EnvironmentManagerAdapter());
+        put(new BindingManagerAdapter());
+        put(new BindingScopeAdapter());
+        put(new BindingOrScopeAdapter());
     }
 }

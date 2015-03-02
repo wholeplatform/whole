@@ -18,14 +18,14 @@
 package org.whole.lang.environment.ui.editparts;
 
 import org.whole.lang.environment.ui.figures.BindingsTableFigure;
-import org.whole.lang.ui.editparts.TablePart;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.figures.TableFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class BindingsTablePart extends TablePart {
+public class BindingsTablePart extends AbstractCompositePart {
 	protected TableFigure createFigure() {
-		return new BindingsTableFigure();
+		return new BindingsTableFigure(true);
     }
 }

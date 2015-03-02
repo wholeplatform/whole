@@ -108,6 +108,51 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(ContextViewModel entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(SampleViewModel entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(DebugViewModel entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ExecutionStack entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ExecutionFrame entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(VariablesViewModel entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Environments entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Environment entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ScopedBindings entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Bindings entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -118,7 +163,17 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Scope entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Id entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Names entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
@@ -128,7 +183,27 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(FrameIndex entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Value entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(EnvironmentManager entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(BindingManager entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(BindingScope entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

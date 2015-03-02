@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
@@ -345,9 +346,9 @@ public class E4Utils {
 		suspendOperation(kind, e.asException(), e.getSourceEntity(), e.getBindings());		
 	}
 	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings) {
-		suspendOperation(kind, throwable, sourceEntity, bindings, BindingManagerFactory.instance.createFlatBindingsModel(bindings));
+		suspendOperation(kind, throwable, sourceEntity, bindings, Collections.emptySet());
 	}
-	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings, IEntity variablesModel) {
+	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings, Set<String> includeNames) {
 		if (bindings.wIsSet("breakpointsDisabled") && bindings.wBooleanValue("breakpointsDisabled"))
 			return;
 
@@ -358,7 +359,9 @@ public class E4Utils {
 
 			return;
 		}
-			
+
+		IEntity variablesModel = BindingManagerFactory.instance.createVariablesViewModel(bindings, includeNames);
+
 		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
@@ -379,6 +382,7 @@ public class E4Utils {
 				}
 			}
 		});
+		
 		CyclicBarrier barrier = new CyclicBarrier(2);
 		IEventBroker eventBroker = context.get(IEventBroker.class);
 		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);

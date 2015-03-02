@@ -434,7 +434,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		String name = entity.getValue();
 		IEntity result = getBindings().wGet(name);
 		if (result == null)
-			throw new MissingVariableException(name).withSourceInfo(getSourceEntity(), getBindings());
+			throw new MissingVariableException(name).withSourceInfo(entity, getBindings());
 		else
 			setResult(result);
 	}

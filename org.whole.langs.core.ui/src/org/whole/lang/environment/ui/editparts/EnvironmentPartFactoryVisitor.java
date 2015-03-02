@@ -21,16 +21,29 @@ import org.eclipse.gef.EditPart;
 import org.whole.lang.environment.model.Binding;
 import org.whole.lang.environment.model.Bindings;
 import org.whole.lang.environment.model.ContainmentTuple;
+import org.whole.lang.environment.model.ContextViewModel;
+import org.whole.lang.environment.model.DebugViewModel;
+import org.whole.lang.environment.model.Environment;
+import org.whole.lang.environment.model.Environments;
+import org.whole.lang.environment.model.ExecutionFrame;
+import org.whole.lang.environment.model.ExecutionStack;
 import org.whole.lang.environment.model.IEnvironmentEntity;
 import org.whole.lang.environment.model.Id;
 import org.whole.lang.environment.model.Name;
+import org.whole.lang.environment.model.Names;
 import org.whole.lang.environment.model.ObjectData;
+import org.whole.lang.environment.model.SampleViewModel;
+import org.whole.lang.environment.model.Scope;
+import org.whole.lang.environment.model.ScopedBindings;
 import org.whole.lang.environment.model.StringData;
 import org.whole.lang.environment.model.Tuple;
+import org.whole.lang.environment.model.VariablesViewModel;
 import org.whole.lang.environment.model.Void;
 import org.whole.lang.environment.visitors.EnvironmentIdentityDefaultVisitor;
 import org.whole.lang.queries.ui.editparts.TuplePart;
 import org.whole.lang.queries.ui.editparts.VoidLiteralPart;
+import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
+import org.whole.lang.ui.editparts.CompositeRowPart;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.ObjectDataEntityPart;
@@ -68,6 +81,66 @@ public class EnvironmentPartFactoryVisitor extends EnvironmentIdentityDefaultVis
 	@Override
 	public void visit(Void entity) {
 		part = new VoidLiteralPart();
+	}
+
+	@Override
+	public void visit(ContextViewModel entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(SampleViewModel entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(DebugViewModel entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(ExecutionStack entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(ExecutionFrame entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(VariablesViewModel entity) {
+		part = new VariablesViewModelPart();
+	}
+
+	@Override
+	public void visit(Environments entity) {
+		part = new CompositeRowPart();
+	}
+
+	@Override
+	public void visit(Environment entity) {
+		part = new EnvironmentPart();
+	}
+
+	@Override
+	public void visit(Names entity) {
+		part = new CommaSeparatedCompositeFlowPart();
+	}
+
+	@Override
+	public void visit(ScopedBindings entity) {
+		part = new ScopedBindingsTablePart();
+	}
+
+	@Override
+	public void visit(Scope entity) {
+		part = new ScopePart();
 	}
 
 	@Override

@@ -81,6 +81,42 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(ContextViewModel entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(SampleViewModel entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(DebugViewModel entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ExecutionStack entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ExecutionFrame entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(VariablesViewModel entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Environments entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Environment entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ScopedBindings entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Bindings entity) {
         stagedVisit(entity);
     }
@@ -89,7 +125,15 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(Scope entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Id entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Names entity) {
         stagedVisit(entity);
     }
 
@@ -97,7 +141,23 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(FrameIndex entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Value entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(EnvironmentManager entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(BindingManager entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(BindingScope entity) {
         stagedVisit(entity);
     }
 }

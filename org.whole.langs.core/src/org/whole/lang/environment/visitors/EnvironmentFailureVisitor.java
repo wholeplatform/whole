@@ -87,6 +87,42 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(ContextViewModel entity) {
+        throw new VisitException();
+    }
+
+    public void visit(SampleViewModel entity) {
+        throw new VisitException();
+    }
+
+    public void visit(DebugViewModel entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ExecutionStack entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ExecutionFrame entity) {
+        throw new VisitException();
+    }
+
+    public void visit(VariablesViewModel entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Environments entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Environment entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ScopedBindings entity) {
+        throw new VisitException();
+    }
+
     public void visit(Bindings entity) {
         throw new VisitException();
     }
@@ -95,7 +131,15 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Scope entity) {
+        throw new VisitException();
+    }
+
     public void visit(Id entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Names entity) {
         throw new VisitException();
     }
 
@@ -103,7 +147,23 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(FrameIndex entity) {
+        throw new VisitException();
+    }
+
     public void visit(Value entity) {
+        throw new VisitException();
+    }
+
+    public void visit(EnvironmentManager entity) {
+        throw new VisitException();
+    }
+
+    public void visit(BindingManager entity) {
+        throw new VisitException();
+    }
+
+    public void visit(BindingScope entity) {
         throw new VisitException();
     }
 }

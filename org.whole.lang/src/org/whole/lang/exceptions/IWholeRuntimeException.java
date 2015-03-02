@@ -24,10 +24,24 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IWholeRuntimeException {
-	default public RuntimeException asException() {
-		return (RuntimeException) this;
-	}
 	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings);
 	public IEntity getSourceEntity();
 	public IBindingManager getBindings();
+
+	public IWholeRuntimeException getSourceCause();
+
+	default public RuntimeException asException() {
+		return (RuntimeException) this;
+	}
+	public static RuntimeException asWholeException(Throwable e, IEntity sourceEntity, IBindingManager bm) {
+		if (e instanceof IWholeRuntimeException) {
+			IWholeRuntimeException wre = (IWholeRuntimeException) e;
+			return wre.getSourceEntity() != null ? wre.asException() : wre.withSourceInfo(sourceEntity, bm);
+		} else if (e instanceof IllegalArgumentException)
+			return new WholeIllegalArgumentException(e).withSourceInfo(sourceEntity, bm);
+		else if (e instanceof IllegalStateException)
+			return new WholeIllegalStateException(e).withSourceInfo(sourceEntity, bm);
+		else
+			return new WholeRuntimeException(e).withSourceInfo(sourceEntity, bm);
+	}
 }

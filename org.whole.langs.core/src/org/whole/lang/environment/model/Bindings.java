@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Bindings extends IEnvironmentEntity, List<Binding> {
+public interface Bindings extends IEnvironmentEntity, List<Binding>, BindingsModel {
 
 }

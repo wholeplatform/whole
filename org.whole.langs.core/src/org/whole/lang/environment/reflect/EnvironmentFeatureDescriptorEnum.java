@@ -24,15 +24,51 @@ import org.whole.lang.reflect.FeatureDescriptor;
  *  @generator Whole
  */
 public class EnvironmentFeatureDescriptorEnum extends FeatureDescriptorEnum {
-    public static final int name_ord = 0;
-    public static final int value_ord = 1;
+    public static final int environments_ord = 0;
+    public static final int bindings_ord = 1;
+    public static final int behavior_ord = 2;
+    public static final int result_ord = 3;
+    public static final int focusFrame_ord = 4;
+    public static final int executionStack_ord = 5;
+    public static final int sourceFragment_ord = 6;
+    public static final int sourceEntity_ord = 7;
+    public static final int environmentManager_ord = 8;
+    public static final int name_ord = 9;
+    public static final int filter_ord = 10;
+    public static final int bindingManager_ord = 11;
+    public static final int value_ord = 12;
+    public static final int scope_ord = 13;
     public static final EnvironmentFeatureDescriptorEnum instance = new EnvironmentFeatureDescriptorEnum();
+    public static final FeatureDescriptor environments = instance.valueOf(environments_ord);
+    public static final FeatureDescriptor bindings = instance.valueOf(bindings_ord);
+    public static final FeatureDescriptor behavior = instance.valueOf(behavior_ord);
+    public static final FeatureDescriptor result = instance.valueOf(result_ord);
+    public static final FeatureDescriptor focusFrame = instance.valueOf(focusFrame_ord);
+    public static final FeatureDescriptor executionStack = instance.valueOf(executionStack_ord);
+    public static final FeatureDescriptor sourceFragment = instance.valueOf(sourceFragment_ord);
+    public static final FeatureDescriptor sourceEntity = instance.valueOf(sourceEntity_ord);
+    public static final FeatureDescriptor environmentManager = instance.valueOf(environmentManager_ord);
     public static final FeatureDescriptor name = instance.valueOf(name_ord);
+    public static final FeatureDescriptor filter = instance.valueOf(filter_ord);
+    public static final FeatureDescriptor bindingManager = instance.valueOf(bindingManager_ord);
     public static final FeatureDescriptor value = instance.valueOf(value_ord);
+    public static final FeatureDescriptor scope = instance.valueOf(scope_ord);
 
     private EnvironmentFeatureDescriptorEnum() {
+        putFeatureDescriptor(environments_ord, "environments");
+        putFeatureDescriptor(bindings_ord, "bindings");
+        putFeatureDescriptor(behavior_ord, "behavior");
+        putFeatureDescriptor(result_ord, "result");
+        putFeatureDescriptor(focusFrame_ord, "focusFrame");
+        putFeatureDescriptor(executionStack_ord, "executionStack");
+        putFeatureDescriptor(sourceFragment_ord, "sourceFragment");
+        putFeatureDescriptor(sourceEntity_ord, "sourceEntity");
+        putFeatureDescriptor(environmentManager_ord, "environmentManager");
         putFeatureDescriptor(name_ord, "name");
+        putFeatureDescriptor(filter_ord, "filter");
+        putFeatureDescriptor(bindingManager_ord, "bindingManager");
         putFeatureDescriptor(value_ord, "value");
+        putFeatureDescriptor(scope_ord, "scope");
     }
     private static final long serialVersionUID = 1;
 }

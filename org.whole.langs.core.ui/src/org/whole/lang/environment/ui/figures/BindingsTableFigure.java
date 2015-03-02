@@ -27,16 +27,19 @@ import org.whole.lang.ui.layout.TableLayout;
  * @author Riccardo Solmi
  */
 public class BindingsTableFigure extends TableFigure {
-	public BindingsTableFigure() {
+	public BindingsTableFigure(boolean withHeader) {
 		super(4);
-		getLayoutManager().withRowSpacing(8);
-		
-		TableRowFigure headers = new TableRowFigure();
-		headers.addContentLight("Id");
-		headers.addContentLight("Type");
-		headers.addContentLight("Name");
-		headers.addContentLight("Value");
-		add(headers, TableLayout.Placement.HEADER);
+		getLayoutManager().withRowSpacing(0).withColumnSpacing(8).withMargin(0);
+
+		if (withHeader) {
+			TableRowFigure headers = new TableRowFigure();
+			headers.getLayoutManager().withMargin(16,4,4,4);
+			headers.addContentLight("Id");
+			headers.addContentLight("Type");
+			headers.addContentLight("Name");
+			headers.addContentLight("Value");
+			add(headers, TableLayout.Placement.HEADER);
+		}
 	}
 
 	protected void paintFigure(Graphics g) {
@@ -52,9 +55,9 @@ public class BindingsTableFigure extends TableFigure {
 		g.setForegroundColor(ColorConstants.lightGray);
 		drawColumnSeparators(g);
 		drawRowSeparators(g);
+		drawHeadersRowSeparator(g);
 
 		g.setForegroundColor(ColorConstants.gray);
-		drawHeadersRowSeparator(g);
 		drawTableBorder(g);
 	}
 }

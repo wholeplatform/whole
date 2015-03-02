@@ -39,6 +39,7 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 		super(message, cause);
 	}
 
+//begin same code in: WholeRuntimeException, WholeIllegalStateException and WholeIllegalArgumentException
 	private IEntity sourceEntity;
 	private IBindingManager bindings;
 	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings) {
@@ -46,10 +47,28 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 		this.bindings = bindings;
 		return this;
 	}
+
 	public IEntity getSourceEntity() {
-		return sourceEntity;
+		IWholeRuntimeException sourceCause = getSourceCause();
+		return sourceCause != this ? sourceCause.getSourceEntity() : sourceEntity;
 	}
 	public IBindingManager getBindings() {
-		return bindings;
+		IWholeRuntimeException sourceCause = getSourceCause();
+		return sourceCause != this ? sourceCause.getBindings() : bindings;
 	}
+
+	private IWholeRuntimeException sourceCause;
+	public IWholeRuntimeException getSourceCause() {
+		if (sourceCause == null) {
+			sourceCause = this;
+			Throwable cause = getCause();
+			if (cause instanceof IWholeRuntimeException) {
+				IWholeRuntimeException sourceCauseRec = ((IWholeRuntimeException) cause).getSourceCause();
+				if (sourceCauseRec.getSourceEntity() != null)
+					sourceCause = sourceCauseRec;
+			}
+		}
+		return sourceCause;
+	}
+//end same code
 }

@@ -20,7 +20,6 @@ package org.whole.lang.util;
 import java.util.Collection;
 import java.util.Date;
 
-import org.whole.lang.commons.model.Any;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.factories.GenericEntityFactory;

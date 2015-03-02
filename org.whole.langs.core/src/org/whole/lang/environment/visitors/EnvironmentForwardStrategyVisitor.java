@@ -95,6 +95,42 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
+    public void visit(ContextViewModel entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(SampleViewModel entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(DebugViewModel entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ExecutionStack entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ExecutionFrame entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(VariablesViewModel entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Environments entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Environment entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ScopedBindings entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Bindings entity) {
         wGetStrategy().visit(entity);
     }
@@ -103,7 +139,15 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Scope entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Id entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Names entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -111,7 +155,23 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
+    public void visit(FrameIndex entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Value entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(EnvironmentManager entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(BindingManager entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(BindingScope entity) {
         wGetStrategy().visit(entity);
     }
 }

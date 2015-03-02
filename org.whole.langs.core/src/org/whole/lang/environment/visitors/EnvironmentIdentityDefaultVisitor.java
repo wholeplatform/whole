@@ -101,15 +101,69 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((Data) entity);
     }
 
+    public void visit(ContextViewModel entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(SampleViewModel entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(DebugViewModel entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(ExecutionStack entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(ExecutionFrame entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(VariablesViewModel entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(Environments entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(Environment entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(BindingsModel entity) {
+    }
+
+    public void visit(ScopedBindings entity) {
+        visit((IEnvironmentEntity) entity);
+        visit((BindingsModel) entity);
+    }
+
     public void visit(Bindings entity) {
         visit((IEnvironmentEntity) entity);
+        visit((BindingsModel) entity);
+    }
+
+    public void visit(BindingOrScope entity) {
     }
 
     public void visit(Binding entity) {
         visit((IEnvironmentEntity) entity);
+        visit((BindingOrScope) entity);
+    }
+
+    public void visit(Scope entity) {
+        visit((IEnvironmentEntity) entity);
+        visit((BindingOrScope) entity);
     }
 
     public void visit(Id entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(Names entity) {
         visit((IEnvironmentEntity) entity);
     }
 
@@ -117,7 +171,23 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((IEnvironmentEntity) entity);
     }
 
+    public void visit(FrameIndex entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
     public void visit(Value entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(EnvironmentManager entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(BindingManager entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(BindingScope entity) {
         visit((IEnvironmentEntity) entity);
     }
 }

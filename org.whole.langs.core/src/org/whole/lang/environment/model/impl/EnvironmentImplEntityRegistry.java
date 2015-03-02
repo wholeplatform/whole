@@ -44,10 +44,25 @@ public class EnvironmentImplEntityRegistry extends AbstractEntityRegistry {
         put(new TupleImpl());
         put(new ContainmentTupleImpl());
         put(new VoidImpl());
+        put(new ContextViewModelImpl());
+        put(new SampleViewModelImpl());
+        put(new DebugViewModelImpl());
+        put(new ExecutionStackImpl());
+        put(new ExecutionFrameImpl());
+        put(new VariablesViewModelImpl());
+        put(new EnvironmentsImpl());
+        put(new EnvironmentImpl());
+        put(new ScopedBindingsImpl());
         put(new BindingsImpl());
         put(new BindingImpl());
+        put(new ScopeImpl());
         put(new IdImpl());
+        put(new NamesImpl());
         put(new NameImpl());
+        put(new FrameIndexImpl());
         put(new ValueImpl());
+        put(new EnvironmentManagerImpl());
+        put(new BindingManagerImpl());
+        put(new BindingScopeImpl());
     }
 }

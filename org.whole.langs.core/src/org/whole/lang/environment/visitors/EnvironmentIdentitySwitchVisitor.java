@@ -72,20 +72,65 @@ public abstract class EnvironmentIdentitySwitchVisitor extends AbstractVisitor i
             case EnvironmentEntityDescriptorEnum.Void_ord :
             visit((Void) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.ContextViewModel_ord :
+            visit((ContextViewModel) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.SampleViewModel_ord :
+            visit((SampleViewModel) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.DebugViewModel_ord :
+            visit((DebugViewModel) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
+            visit((ExecutionStack) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.ExecutionFrame_ord :
+            visit((ExecutionFrame) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.VariablesViewModel_ord :
+            visit((VariablesViewModel) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.Environments_ord :
+            visit((Environments) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.Environment_ord :
+            visit((Environment) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.ScopedBindings_ord :
+            visit((ScopedBindings) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.Bindings_ord :
             visit((Bindings) entity);
             break;
             case EnvironmentEntityDescriptorEnum.Binding_ord :
             visit((Binding) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.Scope_ord :
+            visit((Scope) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.Id_ord :
             visit((Id) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.Names_ord :
+            visit((Names) entity);
             break;
             case EnvironmentEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.FrameIndex_ord :
+            visit((FrameIndex) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.Value_ord :
             visit((Value) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.EnvironmentManager_ord :
+            visit((EnvironmentManager) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.BindingManager_ord :
+            visit((BindingManager) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.BindingScope_ord :
+            visit((BindingScope) entity);
             break;
         }
     }

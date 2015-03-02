@@ -36,7 +36,9 @@ import org.whole.lang.ui.figures.TableRowFigure;
  */
 public class BindingPart extends AbstractPart {
 	protected IFigure createFigure() {
-		return new TableRowFigure();
+		TableRowFigure f = new TableRowFigure();
+		f.getLayoutManager().withMargin(4,4,4,4);
+		return f;
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

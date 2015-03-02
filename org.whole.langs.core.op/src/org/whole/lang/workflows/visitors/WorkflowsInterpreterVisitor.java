@@ -48,6 +48,9 @@ import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
+import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.IEntityRegistryProvider;
@@ -68,6 +71,7 @@ import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.operations.ValidatorOperation;
+import org.whole.lang.parsers.ParseException;
 import org.whole.lang.queries.iterators.QueriesIteratorFactory;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -334,7 +338,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(Variable entity) {
 		IEntity result = getBindings().wGet(entity.getValue());
 		if (result == null)
-			throw new MissingVariableException(entity.getValue()).withSourceInfo(getSourceEntity(), getBindings());
+			throw new MissingVariableException(entity.getValue()).withSourceInfo(entity, getBindings());
 
 		setResult(result);
 	}
@@ -388,39 +392,43 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	@Override
 	public void visit(InvokeOperation entity) {
-		IBindingManager bm = getBindings();
-		bm.wEnterScope();
-
-		entity.getBindings().accept(this);
-
-		entity.getModel().accept(this);
-		IEntity model = getResult();
-
-		switch (entity.getOperation().getValue().getOrdinal()) {
-		case OperationEnum.VALIDATOR_ord:
-			ValidatorOperation.validate(model, bm);
-			break;
-		case OperationEnum.NORMALIZER_ord:
-			NormalizerOperation.normalize(model, bm);
-			break;
-		case OperationEnum.PRETTY_PRINTER_ord:
-			PrettyPrinterOperation.prettyPrint(model, bm);
-			break;
-		case OperationEnum.INTERPRETER_ord:
-			InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
-			break;
-		case OperationEnum.ARTIFACTS_GENERATOR_ord:
-			ArtifactsGeneratorOperation.generate(model, bm);
-			break;
-		case OperationEnum.JAVA_COMPILER_ord:
-			performJavaCompilerOperation(model);
+		try {
+			IBindingManager bm = getBindings();
+			bm.wEnterScope();
+	
+			entity.getBindings().accept(this);
+	
+			entity.getModel().accept(this);
+			IEntity model = getResult();
+	
+			switch (entity.getOperation().getValue().getOrdinal()) {
+			case OperationEnum.VALIDATOR_ord:
+				ValidatorOperation.validate(model, bm);
+				break;
+			case OperationEnum.NORMALIZER_ord:
+				NormalizerOperation.normalize(model, bm);
+				break;
+			case OperationEnum.PRETTY_PRINTER_ord:
+				PrettyPrinterOperation.prettyPrint(model, bm);
+				break;
+			case OperationEnum.INTERPRETER_ord:
+				InterpreterOperation.interpret(model, bm, (Reader) null, (Writer) null);
+				break;
+			case OperationEnum.ARTIFACTS_GENERATOR_ord:
+				ArtifactsGeneratorOperation.generate(model, bm);
+				break;
+			case OperationEnum.JAVA_COMPILER_ord:
+				performJavaCompilerOperation(model);
+			}
+	
+			bm.wExitScope();
+	
+			//FIXME workaround
+			if (OperationEnum.NORMALIZER == entity.getOperation().getValue())
+				bm.setResult(model);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
-
-		bm.wExitScope();
-
-		//FIXME workaround
-		if (OperationEnum.NORMALIZER == entity.getOperation().getValue())
-			bm.setResult(model);
 	}
 
 	protected  void performJavaCompilerOperation(IEntity model) {
@@ -465,68 +473,72 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	@Override
 	public void visit(CreateEntity entity) {
-		entity.getEntityName().accept(this);
-		String typeName = getResultString();
-		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
-		if (ed == null)
-			throw new IllegalArgumentException("The requested entity does not exist: "+typeName);
-
-		IEntityRegistryProvider provider = null;
-		switch (entity.getRegistry().getValue().getOrdinal()) {
-		case RegistryEnum.DEFAULT_ord:
-			provider = RegistryConfigurations.DEFAULT;
-			break;
-		case RegistryEnum.RESOLVER_ord:
-			provider = RegistryConfigurations.RESOLVER;
-			break;
-		case RegistryEnum.ADAPTER_ord:
-			provider = RegistryConfigurations.ADAPTER;
-			break;
-		case RegistryEnum.STRICT_ord:
-			provider = RegistryConfigurations.STRICT;
-			break;
-		case RegistryEnum.CUSTOM_ord:
-			provider = RegistryConfigurations.CUSTOM;
-			break;
-		}
-		IEntityFactory ef = GenericEntityFactory.instance(provider);
-		IEntity model;
-
-		Arguments arguments = entity.getArguments();
-		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Assignments, arguments)) {
-			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-			getBindings().wEnterScope(resettableScope);
-
-			arguments.accept(this);
-			for (int i = 0; i < arguments.wSize(); i++) {
-				String name = ((Assignments) arguments).get(i).getName().getValue();
-				FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
-				if (fd != null)
-					getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
+		try {
+			entity.getEntityName().accept(this);
+			String typeName = getResultString();
+			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
+			if (ed == null)
+				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceInfo(entity, getBindings());
+	
+			IEntityRegistryProvider provider = null;
+			switch (entity.getRegistry().getValue().getOrdinal()) {
+			case RegistryEnum.DEFAULT_ord:
+				provider = RegistryConfigurations.DEFAULT;
+				break;
+			case RegistryEnum.RESOLVER_ord:
+				provider = RegistryConfigurations.RESOLVER;
+				break;
+			case RegistryEnum.ADAPTER_ord:
+				provider = RegistryConfigurations.ADAPTER;
+				break;
+			case RegistryEnum.STRICT_ord:
+				provider = RegistryConfigurations.STRICT;
+				break;
+			case RegistryEnum.CUSTOM_ord:
+				provider = RegistryConfigurations.CUSTOM;
+				break;
 			}
-			model = ef.create(ed, getBindings());
-
-			resettableScope.rollback();
-			getBindings().wExitScope();
-		} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
-			IEntity selfEntity = getBindings().wGet("self");
-			if (ed.getEntityKind().isData()) {
-				((Expressions) arguments).get(0).accept(this);
-				model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
-				resetSelfEntity(selfEntity);
-			} else {
-				IEntity[] values = new IEntity[arguments.wSize()];
-				for (int i = 0; i < values.length; i++) {
-					((Expressions) arguments).get(i).accept(this);
-					values[i] = EntityUtils.convertCloneIfReparenting(getResult(), ed.getEntityFeatureDescriptor(i));
-					resetSelfEntity(selfEntity);
+			IEntityFactory ef = GenericEntityFactory.instance(provider);
+			IEntity model;
+	
+			Arguments arguments = entity.getArguments();
+			if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Assignments, arguments)) {
+				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+				getBindings().wEnterScope(resettableScope);
+	
+				arguments.accept(this);
+				for (int i = 0; i < arguments.wSize(); i++) {
+					String name = ((Assignments) arguments).get(i).getName().getValue();
+					FeatureDescriptor fd = ed.getFeatureDescriptorEnum().valueOf(name);
+					if (fd != null)
+						getBindings().wDef(name, EntityUtils.convertCloneIfReparenting(getBindings().wGet(name), ed.getEntityFeatureDescriptor(fd)));
 				}
-				model = ef.create(ed, values);
-			}
-		} else
-			model = ef.create(ed);
-
-		setResult(entity.getModel(), model);
+				model = ef.create(ed, getBindings());
+	
+				resettableScope.rollback();
+				getBindings().wExitScope();
+			} else if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Expressions, arguments)) {
+				IEntity selfEntity = getBindings().wGet("self");
+				if (ed.getEntityKind().isData()) {
+					((Expressions) arguments).get(0).accept(this);
+					model = DataTypeUtils.convertCloneIfParented(getResult(), ed);
+					resetSelfEntity(selfEntity);
+				} else {
+					IEntity[] values = new IEntity[arguments.wSize()];
+					for (int i = 0; i < values.length; i++) {
+						((Expressions) arguments).get(i).accept(this);
+						values[i] = EntityUtils.convertCloneIfReparenting(getResult(), ed.getEntityFeatureDescriptor(i));
+						resetSelfEntity(selfEntity);
+					}
+					model = ef.create(ed, values);
+				}
+			} else
+				model = ef.create(ed);
+	
+			setResult(entity.getModel(), model);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 	@Override
 	public void visit(CreateModel entity) {
@@ -553,9 +565,12 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	@Override
 	public void visit(LoadJavaModel entity) {
-		IEntity model = getJavaTemplateFactory(entity).create();
-
-		setResult(entity.getModel(), model);
+		try {
+			IEntity model = getJavaTemplateFactory(entity).create();
+			setResult(entity.getModel(), model);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 
 	protected ITemplateFactory<CompilationUnit> getJavaTemplateFactory(LoadJavaModel entity) {
@@ -569,80 +584,92 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			return new JavaClassTemplateFactory(
 					Class.forName(className, false, ReflectionFactory.getClassLoader(getBindings())));
 		} catch (ClassNotFoundException e) {
-			throw new IllegalArgumentException(e);
+			throw new WholeIllegalArgumentException(e).withSourceInfo(entity, getBindings());
 		}
 	}
 
 	@Override
 	public void visit(DeleteArtifacts entity) {
-		entity.getModel().accept(this);
-		IArtifactsEntity model = (IArtifactsEntity) getResult();
-
-		entity.getRootResource().accept(this);
-		String resource = getResultString();
-		ResourceKind resourceKind = entity.getRootResourceKind();
-
-		IBindingManager bindings = createArtifactsBindings(resource, resourceKind);
-
-		ArtifactsDeleteVisitor.delete(model, bindings);
+		try {
+			entity.getModel().accept(this);
+			IArtifactsEntity model = (IArtifactsEntity) getResult();
+	
+			entity.getRootResource().accept(this);
+			String resource = getResultString();
+			ResourceKind resourceKind = entity.getRootResourceKind();
+	
+			IBindingManager bindings = createArtifactsBindings(resource, resourceKind);
+	
+			ArtifactsDeleteVisitor.delete(model, bindings);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 
 	@Override
 	public void visit(LoadArtifacts entity) {
-		IArtifactsEntity model = null;
-		Variable variable = entity.getModel();
-		String variableName = variable.getValue();
-		boolean isDefined = getBindings().wIsSet(variableName);
-		if (isDefined) {
-			variable.accept(this);
-			model = (IArtifactsEntity) getResult();
+		try {
+			IArtifactsEntity model = null;
+			Variable variable = entity.getModel();
+			String variableName = variable.getValue();
+			boolean isDefined = getBindings().wIsSet(variableName);
+			if (isDefined) {
+				variable.accept(this);
+				model = (IArtifactsEntity) getResult();
+			}
+	
+			entity.getRootResource().accept(this);
+			String resource = getResultString();
+			ResourceKind resourceKind = entity.getRootResourceKind();
+	
+			Traverse traverse = Traverse.valueOf(
+					DataTypeUtils.getAsPersistenceString(entity.getTraversalStrategy()));
+			Synchronize synchronize = Synchronize.valueOf(
+					DataTypeUtils.getAsPersistenceString(entity.getSynchronizeStrategy()));
+	
+			IPersistenceKit defaultPersistenceKit = getPersistenceKit(entity.getDefaultPersistence());
+	
+			IArtifactsEntity result = ArtifactsSynchronizerVisitor.synchronize(
+					model, traverse, synchronize, createArtifactsBindings(resource, resourceKind),
+					defaultPersistenceKit, true);
+	
+			if (isDefined) {
+				if (EntityUtils.hasParent(model))
+					model.wGetParent().wSet(model, result);
+				getBindings().wSet(variableName, result);
+			} else
+				getBindings().wDef(variableName, result);
+			
+			setResult(result);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
-
-		entity.getRootResource().accept(this);
-		String resource = getResultString();
-		ResourceKind resourceKind = entity.getRootResourceKind();
-
-		Traverse traverse = Traverse.valueOf(
-				DataTypeUtils.getAsPersistenceString(entity.getTraversalStrategy()));
-		Synchronize synchronize = Synchronize.valueOf(
-				DataTypeUtils.getAsPersistenceString(entity.getSynchronizeStrategy()));
-
-		IPersistenceKit defaultPersistenceKit = getPersistenceKit(entity.getDefaultPersistence());
-
-		IArtifactsEntity result = ArtifactsSynchronizerVisitor.synchronize(
-				model, traverse, synchronize, createArtifactsBindings(resource, resourceKind),
-				defaultPersistenceKit, true);
-
-		if (isDefined) {
-			if (EntityUtils.hasParent(model))
-				model.wGetParent().wSet(model, result);
-			getBindings().wSet(variableName, result);
-		} else
-			getBindings().wDef(variableName, result);
-		
-		setResult(result);
 	}
 
 	@Override
 	public void visit(SaveArtifacts entity) {
-		entity.getModel().accept(this);
-		IArtifactsEntity model = (IArtifactsEntity) getResult();
+		try {
+			entity.getModel().accept(this);
+			IArtifactsEntity model = (IArtifactsEntity) getResult();
+	
+			entity.getRootResource().accept(this);
+			String resource = getResultString();
+			ResourceKind resourceKind = entity.getRootResourceKind();
 
-		entity.getRootResource().accept(this);
-		String resource = getResultString();
-		ResourceKind resourceKind = entity.getRootResourceKind();
-
-		Traverse traverse = Traverse.valueOf(
-				DataTypeUtils.getAsPersistenceString(entity.getTraversalStrategy()));
-		Synchronize synchronize = Synchronize.valueOf(
-				DataTypeUtils.getAsPersistenceString(entity.getSynchronizeStrategy()));
-
-		IPersistenceKit defaultPersistenceKit = getPersistenceKit(entity.getDefaultPersistence());
-
-		ArtifactsSynchronizerVisitor.synchronize(
-					model, traverse, synchronize,
-						createArtifactsBindings(resource, resourceKind),
-							defaultPersistenceKit, false);
+			Traverse traverse = Traverse.valueOf(
+					DataTypeUtils.getAsPersistenceString(entity.getTraversalStrategy()));
+			Synchronize synchronize = Synchronize.valueOf(
+					DataTypeUtils.getAsPersistenceString(entity.getSynchronizeStrategy()));
+	
+			IPersistenceKit defaultPersistenceKit = getPersistenceKit(entity.getDefaultPersistence());
+	
+			ArtifactsSynchronizerVisitor.synchronize(
+						model, traverse, synchronize,
+							createArtifactsBindings(resource, resourceKind),
+								defaultPersistenceKit, false);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 
 	protected IBindingManager createArtifactsBindings(String resource, ResourceKind resourceKind) {
@@ -664,33 +691,41 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	@Override
 	public void visit(LoadModel entity) {
-		IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
-
-		IPersistenceProvider provider = getPersistenceProvider(entity, true);
-
 		try {
-			IEntity model = persistenceKit.readModel(provider);
-			setResult(entity.getModel(), model);
+			IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
+	
+			IPersistenceProvider provider = getPersistenceProvider(entity, true);
+	
+			try {
+				IEntity model = persistenceKit.readModel(provider);
+				setResult(entity.getModel(), model);
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Failed to load the resource with the given persistence: "
+						+getResourceString(entity)+", "+getPersistenceId(entity.getPersistence()), e);
+			}
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Failed to load the resource with the given persistence: "
-					+getResourceString(entity)+", "+getPersistenceId(entity.getPersistence()), e);
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
 	}
 	@Override
 	public void visit(SaveModel entity) {
-		IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
-
-		IPersistenceProvider provider = getPersistenceProvider(entity, false);
-
-		entity.getModel().accept(this);
-		IEntity model = getResult();
-
 		try {
-			persistenceKit.writeModel(model, provider);
-			afterWriteModel(entity, provider);
+			IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
+	
+			IPersistenceProvider provider = getPersistenceProvider(entity, false);
+	
+			entity.getModel().accept(this);
+			IEntity model = getResult();
+	
+			try {
+				persistenceKit.writeModel(model, provider);
+				afterWriteModel(entity, provider);
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Failed to save the resource with the given persistence: "
+						+getResourceString(entity)+", "+getPersistenceId(entity.getPersistence()), e);
+			}
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Failed to save the resource with the given persistence: "
-					+getResourceString(entity)+", "+getPersistenceId(entity.getPersistence()), e);
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
 	}
 	protected String getResourceString(PersistenceActivity entity) {
@@ -789,135 +824,157 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 
 	@Override
 	public void visit(Parse entity) {
-		entity.getText().accept(this);
-		CharSequence text = (CharSequence) getResultValue();
-
-		entity.getGrammar().accept(this);
-		IEntity grammarOrUri = getResult();
-		if (!EntityUtils.isData(grammarOrUri)) {
-			stagedVisit(grammarOrUri);
-			grammarOrUri = ((Grammar) grammarOrUri).getUri();
+		try {
+			entity.getText().accept(this);
+			CharSequence text = (CharSequence) getResultValue();
+	
+			entity.getGrammar().accept(this);
+			IEntity grammarOrUri = getResult();
+			if (!EntityUtils.isData(grammarOrUri)) {
+				stagedVisit(grammarOrUri);
+				grammarOrUri = ((Grammar) grammarOrUri).getUri();
+			}
+			String grammarUri = grammarOrUri.wStringValue();
+	
+			IEntity model;
+			if (EntityUtils.isNotResolver(entity.getNt())) {
+				entity.getNt().accept(this);
+				model = GrammarsUtils.parse(text, grammarUri, getResult().wStringValue());
+			} else
+				model = GrammarsUtils.parse(text, grammarUri);
+	
+			setResult(entity.getModel(), model);
+		} catch (ParseException e) {
+			throw e;//FIXME ?
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
-		String grammarUri = grammarOrUri.wStringValue();
-
-		IEntity model;
-		if (EntityUtils.isNotResolver(entity.getNt())) {
-			entity.getNt().accept(this);
-			model = GrammarsUtils.parse(text, grammarUri, getResult().wStringValue());
-		} else
-			model = GrammarsUtils.parse(text, grammarUri);
-
-		setResult(entity.getModel(), model);
 	}
 	@Override
 	public void visit(Unparse entity) {
-		entity.getGrammar().accept(this);
-		IEntity grammarOrUri = getResult();
-		if (!EntityUtils.isData(grammarOrUri)) {
-			stagedVisit(grammarOrUri);
-			grammarOrUri = ((Grammar) grammarOrUri).getUri();
-		}
-		String grammarUri = grammarOrUri.wStringValue();
-
-		entity.getModel().accept(this);
-		IEntity model = getResult();
-
-		Expression text = entity.getText();
-		Appendable appendable = new StringBuilder();
-		boolean hasAppendable = false;
-
-		String variableName = null;
-		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variable, text)) {
-			variableName = ((Variable) text).getValue();
-			if (getBindings().wIsSet(variableName)) {
-				try {
-					appendable = (Appendable) getBindings().wGetValue(variableName);
-					hasAppendable = true;
-				} catch (Exception e) {
-					throw new IllegalArgumentException("The text of an Unparse activity must be an Appendable", e);
-				}
+		try {
+			entity.getGrammar().accept(this);
+			IEntity grammarOrUri = getResult();
+			if (!EntityUtils.isData(grammarOrUri)) {
+				stagedVisit(grammarOrUri);
+				grammarOrUri = ((Grammar) grammarOrUri).getUri();
 			}
-		} else if (EntityUtils.isNotResolver(text)) {
-			text.accept(this);
-			appendable = (Appendable) getResultValue();
-			hasAppendable = true;
+			String grammarUri = grammarOrUri.wStringValue();
+	
+			entity.getModel().accept(this);
+			IEntity model = getResult();
+	
+			Expression text = entity.getText();
+			Appendable appendable = new StringBuilder();
+			boolean hasAppendable = false;
+	
+			String variableName = null;
+			if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Variable, text)) {
+				variableName = ((Variable) text).getValue();
+				if (getBindings().wIsSet(variableName)) {
+					try {
+						appendable = (Appendable) getBindings().wGetValue(variableName);
+						hasAppendable = true;
+					} catch (Exception e) {
+						throw new IllegalArgumentException("The text of an Unparse activity must be an Appendable", e);
+					}
+				}
+			} else if (EntityUtils.isNotResolver(text)) {
+				text.accept(this);
+				appendable = (Appendable) getResultValue();
+				hasAppendable = true;
+			}
+	
+			//TODO if (EntityUtils.isImpl(entity.getNt())) {
+	
+			GrammarsUtils.unparse(model, appendable, grammarUri);
+	
+			IEntity resultEntity = hasAppendable ? BindingManagerFactory.instance.createValue(appendable) :
+					BindingManagerFactory.instance.createValue(appendable.toString());
+	
+			if (variableName != null && !getBindings().wIsSet(variableName))
+				getBindings().wDef(variableName, resultEntity);
+	
+			setResult(resultEntity);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
 		}
-
-		//TODO if (EntityUtils.isImpl(entity.getNt())) {
-
-		GrammarsUtils.unparse(model, appendable, grammarUri);
-
-		IEntity resultEntity = hasAppendable ? BindingManagerFactory.instance.createValue(appendable) :
-				BindingManagerFactory.instance.createValue(appendable.toString());
-
-		if (variableName != null && !getBindings().wIsSet(variableName))
-			getBindings().wDef(variableName, resultEntity);
-
-		setResult(resultEntity);
 	}
 
 	@Override
 	public void visit(CreateJavaClassInstance entity) {
-		entity.getClassName().accept(this);
-		String className = getResultString();
-
-		entity.getConstructor().accept(this);
-		IEntity constructorData = getResult();
-		Constructor<?> constructor;
-		if (DataTypeUtils.getDataKind(constructorData).isString())
-			constructor = JavaReflectUtils.getConstructor(
-					className, constructorData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
-		else
-			constructor = (Constructor<?>) constructorData.wGetValue();
-
-		Object[] arguments = toArguments(constructor.getParameterTypes(),
-				constructor.isVarArgs(), entity.getArguments());
-		Object resultValue = JavaReflectUtils.invokeConstructor(constructor, arguments);
-
-		setResult(entity.getResult(), resultValue, constructor.getDeclaringClass());
+		try {
+			entity.getClassName().accept(this);
+			String className = getResultString();
+	
+			entity.getConstructor().accept(this);
+			IEntity constructorData = getResult();
+			Constructor<?> constructor;
+			if (DataTypeUtils.getDataKind(constructorData).isString())
+				constructor = JavaReflectUtils.getConstructor(
+						className, constructorData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
+			else
+				constructor = (Constructor<?>) constructorData.wGetValue();
+	
+			Object[] arguments = toArguments(constructor.getParameterTypes(),
+					constructor.isVarArgs(), entity.getArguments());
+			Object resultValue = JavaReflectUtils.invokeConstructor(constructor, arguments);
+	
+			setResult(entity.getResult(), resultValue, constructor.getDeclaringClass());
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 	@Override
 	public void visit(InvokeJavaClassMethod entity) {
-		entity.getClassName().accept(this);
-		String className = getResultString();
-
-		entity.getMethod().accept(this);
-		IEntity methodData = getResult();
-		Method method;
-		if (DataTypeUtils.getDataKind(methodData).isString())
-			method = JavaReflectUtils.getMethod(
-					className, methodData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
-		else
-			method = (Method) methodData.wGetValue();
-
-		Object[] arguments = toArguments(method.getParameterTypes(),
-				method.isVarArgs(), entity.getArguments());
-		Object resultValue = JavaReflectUtils.invokeMethod(null, method, arguments);
-
-		setResult(entity.getResult(), resultValue, method.getReturnType());
+		try {
+			entity.getClassName().accept(this);
+			String className = getResultString();
+	
+			entity.getMethod().accept(this);
+			IEntity methodData = getResult();
+			Method method;
+			if (DataTypeUtils.getDataKind(methodData).isString())
+				method = JavaReflectUtils.getMethod(
+						className, methodData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
+			else
+				method = (Method) methodData.wGetValue();
+	
+			Object[] arguments = toArguments(method.getParameterTypes(),
+					method.isVarArgs(), entity.getArguments());
+			Object resultValue = JavaReflectUtils.invokeMethod(null, method, arguments);
+	
+			setResult(entity.getResult(), resultValue, method.getReturnType());
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 
 	@Override
 	public void visit(InvokeJavaInstanceMethod entity) {
-		entity.getClassName().accept(this);
-		String className = getResultString();
-
-		entity.getMethod().accept(this);
-		IEntity methodData = getResult();
-		Method method;
-		if (DataTypeUtils.getDataKind(methodData).isString())
-			method = JavaReflectUtils.getMethod(
-					className, methodData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
-		else
-			method = (Method) methodData.wGetValue();
-
-		Object[] arguments = toArguments(method.getParameterTypes(),
-				method.isVarArgs(), entity.getArguments());
-		Variable object = entity.getObject();
-		Object instance = unbox(method.getDeclaringClass(), object, false);
-		Object resultValue = JavaReflectUtils.invokeMethod(instance, method, arguments);
-
-		setResult(entity.getResult(), resultValue, method.getReturnType());
+		try {
+			entity.getClassName().accept(this);
+			String className = getResultString();
+	
+			entity.getMethod().accept(this);
+			IEntity methodData = getResult();
+			Method method;
+			if (DataTypeUtils.getDataKind(methodData).isString())
+				method = JavaReflectUtils.getMethod(
+						className, methodData.wStringValue(), ReflectionFactory.getClassLoader(getBindings()));
+			else
+				method = (Method) methodData.wGetValue();
+	
+			Object[] arguments = toArguments(method.getParameterTypes(),
+					method.isVarArgs(), entity.getArguments());
+			Variable object = entity.getObject();
+			Object instance = unbox(method.getDeclaringClass(), object, false);
+			Object resultValue = JavaReflectUtils.invokeMethod(instance, method, arguments);
+	
+			setResult(entity.getResult(), resultValue, method.getReturnType());
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, entity, getBindings());
+		}
 	}
 
 	private Object unbox(Class<?> parameterType, Expression expression) {

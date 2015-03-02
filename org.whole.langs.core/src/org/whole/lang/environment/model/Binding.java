@@ -21,7 +21,7 @@ package org.whole.lang.environment.model;
 /**
  *  @generator Whole
  */
-public interface Binding extends IEnvironmentEntity {
+public interface Binding extends IEnvironmentEntity, BindingOrScope {
 
 
     public Name getName();
