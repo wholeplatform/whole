@@ -198,7 +198,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer) {
 		LightweightEditDomain editDomain = viewer.getEditDomain();
-		setEditDomain(editDomain);
+		if (getEditDomain() != editDomain)
+			setEditDomain(editDomain);
 		return editDomain;
 	}
 
