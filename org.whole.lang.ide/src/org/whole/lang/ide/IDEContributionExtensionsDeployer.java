@@ -30,6 +30,9 @@ public class IDEContributionExtensionsDeployer extends AbstractContributionExten
 	public void deploy(ReflectionFactory platform) {
 		try {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/ui/views/DebugPerspectiveSemantics.xwl")));
+
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/ui/views/SamplePerspectiveSemantics.xwl")));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

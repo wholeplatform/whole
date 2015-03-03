@@ -36,18 +36,10 @@ public class ViewDerivationLibraryDeployer extends AbstractFunctionLibraryDeploy
 	public void deploy(ReflectionFactory platform) {
 		putFunctionLibrary(URI);
 
-		putFunctionCode("deriveDetailsViewContents", deriveDetailsViewContentsIterator());
 		putFunctionCode("deriveIndexViewContents", deriveIndexViewContentsIterator());
 		putFunctionCode("deriveMapViewContents", deriveMapViewContentsIterator());
 	}
 
-	public static IEntityIterator<IEntity> deriveDetailsViewContentsIterator() {
-		return IteratorFactory.multiValuedRunnableIterator(new IRunnable() {
-			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-				bm.setResultIterator(IteratorFactory.variableIterator("primarySelectedEntity"));
-			}
-		});
-	}
 	public static IEntityIterator<IEntity> deriveIndexViewContentsIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {

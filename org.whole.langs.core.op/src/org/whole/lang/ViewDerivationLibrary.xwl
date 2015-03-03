@@ -4,24 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="ViewDerivation"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="5">
-        <semantics:SemanticFunction>
-            <semantics:Name value="deriveDetailsViewContents"/>
-            <semantics:FunctionType>
-                <semantics:AnyType/>
-                <semantics:AnyType/>
-            </semantics:FunctionType>
-            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
-                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                    <workflows:Text value="deriveDetailsViewContentsIterator"/>
-                    <commons:Resolver/>
-                    <commons:Resolver/>
-                    <workflows:StringLiteral value="org.whole.lang.ViewDerivationLibraryDeployer"/>
-                    <workflows:StringLiteral value="deriveDetailsViewContentsIterator()"/>
-                    <commons:Resolver/>
-                </workflows:InvokeJavaClassMethod>
-            </commons:StageDownFragment>
-        </semantics:SemanticFunction>
+    <semantics:SemanticFunctions initialCapacity="7">
         <semantics:SemanticFunction>
             <semantics:Name value="deriveIndexViewContents"/>
             <semantics:FunctionType>
@@ -57,26 +40,60 @@
             </commons:StageDownFragment>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
+            <semantics:Name value="deriveDetailsViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="primarySelectedEntity"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="deriveDebugViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:VariableRefStep value="primarySelectedEntity"/>
+                <semantics:FunctionApplication>
+                    <semantics:Name value="whole:org.whole.lang.ui.views:DebugPerspectiveLibrarySemantics#DebugViewModel"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="deriveVariablesViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:VariableRefStep value="primarySelectedEntity"/>
+                <semantics:FunctionApplication>
+                    <semantics:Name value="whole:org.whole.lang.ui.views:DebugPerspectiveLibrarySemantics#VariablesViewModel"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
             <semantics:Name value="deriveContextViewContents"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <semantics:Rules initialCapacity="1">
-                <semantics:ExecutionRule>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:VariableRefStep value="primarySelectedEntity"/>
+                <semantics:FunctionApplication>
+                    <semantics:Name value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics#ContextViewModel"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:AnyType/>
-                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                        <queries:VariableRefStep value="primarySelectedEntity"/>
-                        <semantics:FunctionApplication>
-                            <semantics:Name value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics#ContextViewModel"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </semantics:FunctionApplication>
-                    </queries:Path>
-                </semantics:ExecutionRule>
-            </semantics:Rules>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="deriveSampleViewContents"/>
@@ -84,21 +101,15 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <semantics:Rules initialCapacity="1">
-                <semantics:ExecutionRule>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:VariableRefStep value="primarySelectedEntity"/>
+                <semantics:FunctionApplication>
+                    <semantics:Name value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics#supportsSampleView"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:AnyType/>
-                    <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                        <queries:VariableRefStep value="primarySelectedEntity"/>
-                        <semantics:FunctionApplication>
-                            <semantics:Name value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics#supportsSampleView"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                        </semantics:FunctionApplication>
-                    </queries:Path>
-                </semantics:ExecutionRule>
-            </semantics:Rules>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </semantics:FunctionApplication>
+            </queries:Path>
         </semantics:SemanticFunction>
     </semantics:SemanticFunctions>
 </semantics:SemanticTheory>

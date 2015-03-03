@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang.ui.views:DebugPerspectiveLibrarySemantics"/>
+    <semantics:Namespace value="org.whole.lang.ui.views"/>
+    <semantics:Name value="DebugPerspective"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="2">
+        <semantics:SemanticFunction>
+            <semantics:Name value="DebugViewModel"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <environment:DebugViewModel xmlns:environment="http://lang.whole.org/Environment">
+                    <environment:FrameIndex value="0"/>
+                    <environment:ExecutionStack initialCapacity="1">
+                        <commons:Resolver/>
+                    </environment:ExecutionStack>
+                </environment:DebugViewModel>
+            </commons:StageUpFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="VariablesViewModel"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                <environment:VariablesViewModel xmlns:environment="http://lang.whole.org/Environment">
+                    <commons:Resolver/>
+                    <environment:Environments initialCapacity="1">
+                        <commons:Resolver/>
+                    </environment:Environments>
+                </environment:VariablesViewModel>
+            </commons:StageUpFragment>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>
