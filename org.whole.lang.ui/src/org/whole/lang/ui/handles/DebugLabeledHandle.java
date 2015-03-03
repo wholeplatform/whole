@@ -31,14 +31,15 @@ import org.eclipse.gef.handles.AbstractHandle;
 import org.eclipse.gef.handles.MoveHandleLocator;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.util.SuspensionKind;
 
 /**
  * @author Enrico Persiani
  */
-public class LabeledHandle extends AbstractHandle {
-	public LabeledHandle(String label, GraphicalEditPart owner) {
+public class DebugLabeledHandle extends AbstractHandle {
+	public DebugLabeledHandle(String label, GraphicalEditPart owner, SuspensionKind suspensionKind) {
 		super(owner, new MoveHandleLocator(owner.getFigure()));
-		LineBorder line = new LineBorder(ColorConstants.darkGreen, 3) {
+		LineBorder line = new LineBorder(suspensionKind.isBreak() ? ColorConstants.darkGreen : ColorConstants.red, 3) {
 			@Override
 			public Insets getInsets(IFigure figure) {
 				return new Insets(getWidth()+2);
@@ -49,7 +50,7 @@ public class LabeledHandle extends AbstractHandle {
 			public void paint(IFigure figure, Graphics graphics, Insets insets) {
 				super.paint(figure, graphics, insets);
 				Rectangle bounds = figure.getBounds();
-				graphics.drawImage(WholeImages.INTERPRETER, bounds.x, bounds.y);
+				graphics.drawImage(suspensionKind.isBreak() ? WholeImages.INTERPRETER : WholeImages.ERROR_OVR, bounds.x, bounds.y > 0 ? bounds.y : 0);
 			}
 		};
 		CompoundBorder border = new CompoundBorder(margin, line) {

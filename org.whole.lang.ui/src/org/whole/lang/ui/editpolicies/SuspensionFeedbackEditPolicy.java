@@ -22,7 +22,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
-import org.whole.lang.ui.handles.LabeledHandle;
+import org.whole.lang.ui.handles.DebugLabeledHandle;
 import org.whole.lang.ui.util.SuspensionKind;
 
 /**
@@ -51,7 +51,7 @@ public class SuspensionFeedbackEditPolicy extends AbstractEditPolicy {
 		return LayerManager.Helper.find(getHost()).getLayer(layer);
 	}
 
-	protected LabeledHandle handle;
+	protected DebugLabeledHandle handle;
 	protected void addSuspensionFeedbak() {
 		removeSuspensionFeedback();
 
@@ -60,7 +60,7 @@ public class SuspensionFeedbackEditPolicy extends AbstractEditPolicy {
 
 		IFigure layer = getLayer(LayerConstants.HANDLE_LAYER);
 		String message = throwable != null ? throwable.getLocalizedMessage() : suspensionKind.name().toLowerCase();
-		handle = new LabeledHandle(message, (GraphicalEditPart) getHost());
+		handle = new DebugLabeledHandle(message, (GraphicalEditPart) getHost(), suspensionKind);
 		layer.add(handle);
 	}
 	protected void removeSuspensionFeedback() {

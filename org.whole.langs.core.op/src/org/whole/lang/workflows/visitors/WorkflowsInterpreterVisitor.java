@@ -50,7 +50,6 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.IEntityRegistryProvider;

@@ -77,8 +77,8 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		setSuspensionKind((SuspensionKind) args[0]);
 
 		final Throwable throwable = (Throwable) args[1];
-		final IEntity breakpoint = (IEntity) args[2];
-		IEntity contents = EntityUtils.getCompoundRoot(breakpoint);
+		final IEntity sourceEntity = (IEntity) args[2];
+		IEntity contents = EntityUtils.getCompoundRoot(sourceEntity);
 
 		this.debugEnv = (IBindingManager) args[3];
 		this.barrier = (CyclicBarrier) args[4];
@@ -89,13 +89,14 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		context.get(UISynchronize.class).asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				IEntityPart breakpointPart = getViewer().getEditPartRegistry().get(breakpoint);
-				breakpointPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
+				IEntity adaptee = sourceEntity.wGetAdaptee(false);
+				IEntityPart sourceEntityPart = getViewer().getEditPartRegistry().get(adaptee);
+				sourceEntityPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
 						new SuspensionFeedbackEditPolicy(suspensionKind, throwable));
-				getViewer().reveal(breakpoint);
+				getViewer().reveal(sourceEntity);
 			}
 		});
-		getViewer().reveal(breakpoint);
+		getViewer().reveal(sourceEntity);
 	}
 
 	public void doRun() {

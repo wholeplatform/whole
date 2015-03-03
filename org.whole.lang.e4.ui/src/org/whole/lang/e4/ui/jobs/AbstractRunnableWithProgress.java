@@ -29,7 +29,6 @@ import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
-import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.util.SuspensionKind;
