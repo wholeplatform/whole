@@ -2,7 +2,7 @@
 <semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
     <semantics:URI value="whole:org.whole.lang.ui.views:SamplePerspectiveSemantics"/>
     <semantics:Namespace value="org.whole.lang.ui.views"/>
-    <semantics:Name value="SampleView"/>
+    <semantics:Name value="SamplePerspective"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <semantics:SemanticFunctions initialCapacity="4">
         <semantics:SemanticFunction>

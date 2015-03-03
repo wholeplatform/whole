@@ -17,10 +17,12 @@
  */
 package org.whole.lang.lifecycle;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class RollbackException extends RuntimeException {
+public class RollbackException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public RollbackException() {

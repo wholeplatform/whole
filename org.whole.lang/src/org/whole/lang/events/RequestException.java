@@ -17,9 +17,11 @@
  */
 package org.whole.lang.events;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class RequestException extends RuntimeException {
+public class RequestException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 }

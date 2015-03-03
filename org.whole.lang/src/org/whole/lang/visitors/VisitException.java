@@ -17,10 +17,12 @@
  */
 package org.whole.lang.visitors;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class VisitException extends RuntimeException {
+public class VisitException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = -8279880195846128111L;
 
 	public VisitException() {

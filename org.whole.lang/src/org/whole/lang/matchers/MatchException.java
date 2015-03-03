@@ -18,12 +18,13 @@
 package org.whole.lang.matchers;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
-public class MatchException extends RuntimeException {
+public class MatchException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public final IEntity pattern;

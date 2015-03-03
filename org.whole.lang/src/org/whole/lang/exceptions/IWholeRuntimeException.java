@@ -41,6 +41,8 @@ public interface IWholeRuntimeException {
 			return new WholeIllegalArgumentException(e).withSourceInfo(sourceEntity, bm);
 		else if (e instanceof IllegalStateException)
 			return new WholeIllegalStateException(e).withSourceInfo(sourceEntity, bm);
+		else if (e instanceof IWholeFrameworkException)
+			return ((IWholeFrameworkException) e).asException();
 		else
 			return new WholeRuntimeException(e).withSourceInfo(sourceEntity, bm);
 	}

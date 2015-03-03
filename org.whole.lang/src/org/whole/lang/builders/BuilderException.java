@@ -17,9 +17,11 @@
  */
 package org.whole.lang.builders;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class BuilderException extends RuntimeException {
+public class BuilderException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 }

@@ -17,10 +17,12 @@
  */
 package org.whole.lang.reflect;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class DeployerException extends RuntimeException {
+public class DeployerException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public DeployerException() {

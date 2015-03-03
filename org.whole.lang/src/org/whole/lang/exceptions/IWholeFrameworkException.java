@@ -15,32 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.parsers;
-
-import org.whole.lang.exceptions.IWholeFrameworkException;
+package org.whole.lang.exceptions;
 
 /**
- * @author Enrico Persiani
+ * @author Riccardo Solmi
  */
-public class ParseException extends RuntimeException implements IWholeFrameworkException {
-	private static final long serialVersionUID = 1L;
-	
-	private final Lexer lexer;
-
-	public ParseException(Lexer lexer, String message, Throwable cause) {
-		super(message+", "+lexer.toString(), cause);
-		this.lexer = lexer;
-	}
-	public ParseException(Lexer lexer, String message) {
-		super(message+", "+lexer.toString());
-		this.lexer = lexer;
-	}
-	public ParseException(Lexer lexer) {
-		super(lexer.toString());
-		this.lexer = lexer;
-	}
-
-	public Lexer getLexer() {
-		return lexer;
+public interface IWholeFrameworkException {
+	default public RuntimeException asException() {
+		return (RuntimeException) this;
 	}
 }

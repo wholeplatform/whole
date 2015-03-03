@@ -17,10 +17,12 @@
  */
 package org.whole.lang.operations;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class OperationCanceledException extends RuntimeException {
+public class OperationCanceledException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public OperationCanceledException() {

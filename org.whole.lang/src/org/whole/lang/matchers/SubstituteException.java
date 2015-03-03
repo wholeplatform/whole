@@ -18,12 +18,13 @@
 package org.whole.lang.matchers;
 
 import org.whole.lang.commons.model.Variable;
+import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  * @author Riccardo Solmi
  */
-public class SubstituteException extends RuntimeException {
+public class SubstituteException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public final Variable variable;

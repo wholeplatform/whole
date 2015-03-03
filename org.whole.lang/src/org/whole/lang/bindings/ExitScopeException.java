@@ -17,10 +17,12 @@
  */
 package org.whole.lang.bindings;
 
+import org.whole.lang.exceptions.IWholeFrameworkException;
+
 /**
  * @author Riccardo Solmi
  */
-public class ExitScopeException extends RuntimeException {
+public class ExitScopeException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
 	public ExitScopeException() {
