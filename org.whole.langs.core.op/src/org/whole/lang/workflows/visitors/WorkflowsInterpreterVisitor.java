@@ -337,7 +337,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 	public void visit(Variable entity) {
 		IEntity result = getBindings().wGet(entity.getValue());
 		if (result == null)
-			throw new MissingVariableException(entity.getValue()).withSourceInfo(entity, getBindings());
+			throw new MissingVariableException(entity.getValue()).withSourceEntity(entity).withBindings(getBindings());
 
 		setResult(result);
 	}
@@ -477,7 +477,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			String typeName = getResultString();
 			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.parseEntityDescriptor(typeName);
 			if (ed == null)
-				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceInfo(entity, getBindings());
+				throw new WholeIllegalArgumentException("The requested entity does not exist: "+typeName).withSourceEntity(entity).withBindings(getBindings());
 	
 			IEntityRegistryProvider provider = null;
 			switch (entity.getRegistry().getValue().getOrdinal()) {
@@ -583,7 +583,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			return new JavaClassTemplateFactory(
 					Class.forName(className, false, ReflectionFactory.getClassLoader(getBindings())));
 		} catch (ClassNotFoundException e) {
-			throw new WholeIllegalArgumentException(e).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
 		}
 	}
 

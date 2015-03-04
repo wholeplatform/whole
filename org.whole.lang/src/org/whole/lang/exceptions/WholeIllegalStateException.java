@@ -26,6 +26,9 @@ import org.whole.lang.model.IEntity;
 public class WholeIllegalStateException extends IllegalStateException implements IWholeRuntimeException {
 	private static final long serialVersionUID = 1L;
 
+	public WholeIllegalStateException() {
+		super();
+	}
 	public WholeIllegalStateException(String message) {
 		super(message);
 	}
@@ -39,9 +42,16 @@ public class WholeIllegalStateException extends IllegalStateException implements
 //begin same code in: WholeRuntimeException, WholeIllegalStateException and WholeIllegalArgumentException
 	private IEntity sourceEntity;
 	private IBindingManager bindings;
-	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings) {
+
+	public WholeIllegalStateException withSourceEntity(IEntity sourceEntity) {
 		this.sourceEntity = sourceEntity;
+		return this;
+	}
+	public WholeIllegalStateException withBindings(IBindingManager bindings) {
 		this.bindings = bindings;
+		IWholeRuntimeException sourceCause = getSourceCause();
+		if (sourceCause != this)
+			sourceCause.withBindings(bindings);
 		return this;
 	}
 

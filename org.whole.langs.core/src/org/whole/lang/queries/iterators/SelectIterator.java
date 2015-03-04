@@ -134,7 +134,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		try {
 			nextEntity = getSelectIterator().next();
 		} catch (NoSuchElementException e) {
-			throw new WholeIllegalStateException("Select clause must return a value", e).withSourceInfo(getSourceEntity(), getBindings());
+			throw new WholeIllegalStateException("Select clause must return a value", e).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 		}
 
 		lookaheadScope().wAddAll(getSelectIterator().lookaheadScope());
@@ -153,8 +153,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 				unboundedNames.removeAll(namesToBind());
 			else
 				unboundedNames.retainAll(namesToBind());
-			throw new MissingVariableException("Unbounded names in select clause: ", null, unboundedNames.toArray(new String[unboundedNames.size()]))
-					.withSourceInfo(getSourceEntity(), getBindings());
+			throw new MissingVariableException("Unbounded names in select clause: ", null, unboundedNames.toArray(new String[unboundedNames.size()])).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 		}
 
 		if (selfEntityOld != null)

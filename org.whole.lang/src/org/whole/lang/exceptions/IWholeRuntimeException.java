@@ -24,7 +24,8 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IWholeRuntimeException {
-	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings);
+	public IWholeRuntimeException withSourceEntity(IEntity sourceEntity);
+	public IWholeRuntimeException withBindings(IBindingManager bindings);
 	public IEntity getSourceEntity();
 	public IBindingManager getBindings();
 
@@ -36,14 +37,14 @@ public interface IWholeRuntimeException {
 	public static RuntimeException asWholeException(Throwable e, IEntity sourceEntity, IBindingManager bm) {
 		if (e instanceof IWholeRuntimeException) {
 			IWholeRuntimeException wre = (IWholeRuntimeException) e;
-			return wre.getSourceEntity() != null ? wre.asException() : wre.withSourceInfo(sourceEntity, bm);
+			return wre.getSourceEntity() != null ? wre.asException() : wre.withSourceEntity(sourceEntity).withBindings(bm).asException();
 		} else if (e instanceof IllegalArgumentException)
-			return new WholeIllegalArgumentException(e).withSourceInfo(sourceEntity, bm);
+			return new WholeIllegalArgumentException(e).withSourceEntity(sourceEntity).withBindings(bm);
 		else if (e instanceof IllegalStateException)
-			return new WholeIllegalStateException(e).withSourceInfo(sourceEntity, bm);
+			return new WholeIllegalStateException(e).withSourceEntity(sourceEntity).withBindings(bm);
 		else if (e instanceof IWholeFrameworkException)
 			return ((IWholeFrameworkException) e).asException();
 		else
-			return new WholeRuntimeException(e).withSourceInfo(sourceEntity, bm);
+			return new WholeRuntimeException(e).withSourceEntity(sourceEntity).withBindings(bm);
 	}
 }

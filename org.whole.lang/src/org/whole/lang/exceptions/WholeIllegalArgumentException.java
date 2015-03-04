@@ -39,9 +39,16 @@ public class WholeIllegalArgumentException extends IllegalArgumentException impl
 //begin same code in: WholeRuntimeException, WholeIllegalStateException and WholeIllegalArgumentException
 	private IEntity sourceEntity;
 	private IBindingManager bindings;
-	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings) {
+
+	public WholeIllegalArgumentException withSourceEntity(IEntity sourceEntity) {
 		this.sourceEntity = sourceEntity;
+		return this;
+	}
+	public WholeIllegalArgumentException withBindings(IBindingManager bindings) {
 		this.bindings = bindings;
+		IWholeRuntimeException sourceCause = getSourceCause();
+		if (sourceCause != this)
+			sourceCause.withBindings(bindings);
 		return this;
 	}
 

@@ -257,7 +257,7 @@ public class ImpInterpreterVisitor extends ImpTraverseAllVisitor {
 	public void visit(NameExpression entity) {
 		IEntity value = getBindings().wGet(entity.getValue());
 		if (value == null)
-			throw new MissingVariableException(entity.getValue()).withSourceInfo(entity, getBindings());
+			throw new MissingVariableException(entity.getValue()).withSourceEntity(entity).withBindings(getBindings());
 		setLiteral(value);
 	}
 

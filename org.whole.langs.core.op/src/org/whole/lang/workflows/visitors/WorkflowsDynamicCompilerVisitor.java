@@ -250,7 +250,7 @@ public class WorkflowsDynamicCompilerVisitor extends WorkflowsIdentityDefaultVis
 
 				IEntity instanceEntity = bm.wGet(instanceVariable.getValue());
 				if (instanceEntity == null)
-					throw new MissingVariableException(instanceVariable.getValue()).withSourceInfo(getSourceEntity(), getBindings());
+					throw new MissingVariableException(instanceVariable.getValue()).withSourceEntity(getSourceEntity()).withBindings(getBindings());
 				Object instance = DataTypeUtils.unbox(instanceEntity, method.getDeclaringClass(), false);
 				Object[] arguments = toArguments(method.getParameterTypes(), method.isVarArgs(), argsEntities);
 				Object resultValue = JavaReflectUtils.invokeMethod(instance, method, arguments);

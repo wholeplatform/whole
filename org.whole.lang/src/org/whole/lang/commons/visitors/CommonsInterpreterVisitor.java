@@ -161,6 +161,6 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 			}
 			return value;
 		} else
-			throw new VisitException(new MissingVariableException(varName).withSourceInfo(variable, bm));
+			throw new VisitException(new MissingVariableException(varName).withSourceEntity(variable).withBindings(bm));
 	}
 }

@@ -42,9 +42,16 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 //begin same code in: WholeRuntimeException, WholeIllegalStateException and WholeIllegalArgumentException
 	private IEntity sourceEntity;
 	private IBindingManager bindings;
-	public RuntimeException withSourceInfo(IEntity sourceEntity, IBindingManager bindings) {
+
+	public WholeRuntimeException withSourceEntity(IEntity sourceEntity) {
 		this.sourceEntity = sourceEntity;
+		return this;
+	}
+	public WholeRuntimeException withBindings(IBindingManager bindings) {
 		this.bindings = bindings;
+		IWholeRuntimeException sourceCause = getSourceCause();
+		if (sourceCause != this)
+			sourceCause.withBindings(bindings);
 		return this;
 	}
 

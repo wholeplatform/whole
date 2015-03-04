@@ -140,7 +140,7 @@ public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVis
     	else {
     		IEntity varValue = BindingUtils.wGet(getBindings(), varNameEntity.wStringValue());
     		if (varValue == null)
-    			throw new MissingVariableException(entity.toString()).withSourceInfo(entity, getBindings());
+    			throw new MissingVariableException(entity.toString()).withSourceEntity(entity).withBindings(getBindings());
 
     		setResult(varValue);
     	}
@@ -153,7 +153,7 @@ public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVis
     	else {
     		IEntity varValue = BindingUtils.wGet(getBindings(), entity.getValue());
     		if (varValue == null)
-    			throw new MissingVariableException(entity.toString()).withSourceInfo(entity, getBindings());
+    			throw new MissingVariableException(entity.toString()).withSourceEntity(entity).withBindings(getBindings());
 
     		setResult(varValue);
     	}
@@ -182,7 +182,7 @@ public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVis
 
 			IEntity varValue = bm.wGet(varName);
 			if (varValue == null)
-				throw new MissingVariableException(entity.getVariable().toString()).withSourceInfo(entity, getBindings());
+				throw new MissingVariableException(entity.getVariable().toString()).withSourceEntity(entity).withBindings(getBindings());
 
 			setResult(varValue);
     	} finally {

@@ -82,7 +82,7 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
         	for (int i=0; i<argsIterators.length; i++) {
         		arguments[i] = evaluateArgument(argsIterators[i], selfEntity, bm);
         		if (arguments[i] == null)
-        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(argsIterators[i].getSourceEntity(), bm);
+        			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(argsIterators[i].getSourceEntity()).withBindings(bm);
         	}
         }
         return arguments;

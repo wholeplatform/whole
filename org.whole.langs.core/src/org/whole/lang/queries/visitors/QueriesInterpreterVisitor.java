@@ -88,7 +88,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	protected IEntity evaluate(Expression entity) {
     	IEntity result = evaluateOptional(entity);
     	if (result == null)
-    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(entity, getBindings());
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
     	return result;
     }
 	protected final boolean booleanValue(Expression exp) {
@@ -103,7 +103,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 	protected final IEntity getSelfEntity(IEntity sourceEntity) {
 		IEntity self = getBindings().wGet("self");
 		if (self == null)
-			throw new MissingVariableException("self").withSourceInfo(sourceEntity, getBindings());
+			throw new MissingVariableException("self").withSourceEntity(sourceEntity).withBindings(getBindings());
 		return self;
 	}
 
@@ -118,7 +118,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 		String varName = entity.getValue();
 		IEntity value = BindingUtils.wGet(getBindings(), varName);
 		if (value == null)
-			throw new MissingVariableException(varName).withSourceInfo(entity, getBindings());
+			throw new MissingVariableException(varName).withSourceEntity(entity).withBindings(getBindings());
 		setResult(value);
 	}
 

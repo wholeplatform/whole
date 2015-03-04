@@ -154,7 +154,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				return false;
 			case CommonsEntityDescriptorEnum.Variable_ord:
 			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-				throw new MissingVariableException(((Variable) adaptee).getVarName().toString()).withSourceInfo(adaptee, getBindings());
+				throw new MissingVariableException(((Variable) adaptee).getVarName().toString()).withSourceEntity(adaptee).withBindings(getBindings());
 			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
 				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(adaptee));
 				return false;

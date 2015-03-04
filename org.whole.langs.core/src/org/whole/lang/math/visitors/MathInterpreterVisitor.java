@@ -141,7 +141,7 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 	protected IEntity evaluate(Expression entity) {
     	IEntity result = evaluateOptional(entity);
     	if (result == null)
-    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceInfo(entity, getBindings());
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
     	return result;
     }
 
@@ -157,7 +157,7 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 	public ToKind maxKind(ToKind kind1, IEntity entity) {
 		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(entity);
 		if (dataKinds.isNotAData())
-			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
 		else if (dataKinds.isObject() && entity.wGetValue() instanceof java.math.BigDecimal)
 			return ToKind.BIG_DECIMAL;
 		else if (dataKinds.isDouble())
@@ -583,7 +583,7 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		IEntity result1 = evaluate(entity.getExpression());
 		long lvalue = DataTypeUtils.toLong(result1);
 		if (lvalue < 0l)
-			throw new WholeIllegalArgumentException("Underflow error in factorial").withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException("Underflow error in factorial").withSourceEntity(entity).withBindings(getBindings());
 		else if (lvalue < 21l)
 			result = createLongLiteral(factorial((int) lvalue));
 		else
@@ -718,9 +718,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceEntity(entity).withBindings(getBindings());
     		else if (!(value &= result.wBooleanValue()))
     			break;
     	}
@@ -733,9 +733,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceEntity(entity).withBindings(getBindings());
     		else if (value |= result.wBooleanValue())
     			break;
     	}
@@ -748,9 +748,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
     		IEntity result = evaluate(entity.get(i));
     		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
     		if (dataKinds.isNotAData())
-    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
     		else if (!dataKinds.isBoolean())
-    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
+    			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceEntity(entity).withBindings(getBindings());
     		else
     			value ^= result.wBooleanValue();
     	}
@@ -761,9 +761,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		IEntity result = evaluate(entity.getExpression());
 		DataKinds dataKinds = DataTypeUtils.getUnboxedDataKind(result);
 		if (dataKinds.isNotAData())
-			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
 		else if (!dataKinds.isBoolean())
-			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceEntity(entity).withBindings(getBindings());
 		else
 			setResult(createBooleanLiteral(!result.wBooleanValue()));
 	}
@@ -774,9 +774,9 @@ public class MathInterpreterVisitor extends MathIdentityDefaultVisitor {
 		DataKinds dataKind1 = DataTypeUtils.getUnboxedDataKind(result1);
 		DataKinds dataKind2 = DataTypeUtils.getUnboxedDataKind(result2);
 		if (dataKind1.isNotAData() || dataKind2.isNotAData())
-			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(WholeMessages.no_data).withSourceEntity(entity).withBindings(getBindings());
 		else if (!dataKind1.isBoolean() || !dataKind2.isBoolean())
-			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceInfo(entity, getBindings());
+			throw new WholeIllegalArgumentException(WholeMessages.illegal_data_conversion).withSourceEntity(entity).withBindings(getBindings());
 		else
 			setResult(createBooleanLiteral(!(result1.wBooleanValue() && !result2.wBooleanValue())));
 	}
