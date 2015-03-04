@@ -59,9 +59,7 @@ public class StringPersistenceProvider extends AbstractPersistenceProvider {
 				try {
 					string = toString(getEncoding());
 				} catch (UnsupportedEncodingException e) {
-					IOException throwable = new IOException();
-					throwable.initCause(e);
-					throw throwable;
+					throw new IOException(e);
 				}
 			}
 		};

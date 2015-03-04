@@ -83,9 +83,7 @@ public class IFilePersistenceProvider extends AbstractPersistenceProvider {
 					}
 
 				} catch (CoreException e) {
-					IOException throwable = new IOException();
-					throwable.initCause(e);
-					throw throwable;
+					throw new IOException(e);
 				}
 			}
 		};

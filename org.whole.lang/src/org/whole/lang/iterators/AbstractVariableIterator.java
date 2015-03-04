@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.visitors.MissingVariableException;
 
@@ -55,8 +56,8 @@ public abstract class AbstractVariableIterator<E extends IEntity> extends SelfIt
 			useVar = false;
 			return result;
 		} catch (NoSuchElementException e) {
-			e.initCause(new MissingVariableException(varName).withSourceEntity(getSourceEntity()).withBindings(getBindings()));
-			throw e;
+			throw IWholeRuntimeException.withCause(e,
+					new MissingVariableException(varName).withSourceEntity(getSourceEntity()).withBindings(getBindings()));
 		}
 	}
 

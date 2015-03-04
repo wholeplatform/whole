@@ -69,6 +69,8 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 		if (sourceCause == null) {
 			sourceCause = this;
 			Throwable cause = getCause();
+			while (cause != null && !(cause instanceof IWholeRuntimeException))
+				cause = cause.getCause();
 			if (cause instanceof IWholeRuntimeException) {
 				IWholeRuntimeException sourceCauseRec = ((IWholeRuntimeException) cause).getSourceCause();
 				if (sourceCauseRec.getSourceEntity() != null)

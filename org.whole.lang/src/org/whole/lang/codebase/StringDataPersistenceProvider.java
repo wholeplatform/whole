@@ -71,9 +71,7 @@ public class StringDataPersistenceProvider extends AbstractPersistenceProvider {
 				try {
 					stringData.wSetValue(toString(getEncoding()));
 				} catch (UnsupportedEncodingException e) {
-					IOException throwable = new IOException();
-					throwable.initCause(e);
-					throw throwable;
+					throw new IOException(e);
 				}
 			}
 		};

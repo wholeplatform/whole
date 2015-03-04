@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -50,9 +51,8 @@ public class FailureIterator<E extends IEntity> extends AbstractCloneableIterato
 		return null;
 	}
 	public E next() {
-		NoSuchElementException e = new NoSuchElementException();
-		e.initCause(failure);
-		throw e;
+		throw IWholeRuntimeException.withCause(new NoSuchElementException(failure.toString()),
+				IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null));
 	}
 
 	public void prune() {

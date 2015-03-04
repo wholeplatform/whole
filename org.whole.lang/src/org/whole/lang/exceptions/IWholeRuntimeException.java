@@ -34,6 +34,7 @@ public interface IWholeRuntimeException {
 	default public RuntimeException asException() {
 		return (RuntimeException) this;
 	}
+
 	public static RuntimeException asWholeException(Throwable e, IEntity sourceEntity, IBindingManager bm) {
 		if (e instanceof IWholeRuntimeException) {
 			IWholeRuntimeException wre = (IWholeRuntimeException) e;
@@ -46,5 +47,15 @@ public interface IWholeRuntimeException {
 			return ((IWholeFrameworkException) e).asException();
 		else
 			return new WholeRuntimeException(e).withSourceEntity(sourceEntity).withBindings(bm);
+	}
+
+	public static RuntimeException withCause(RuntimeException e, IEntity sourceEntity, IBindingManager bm) {
+		return withCause(e, new WholeRuntimeException().withSourceEntity(sourceEntity).withBindings(bm));
+	}
+	public static RuntimeException withCause(RuntimeException e, Throwable we) {
+		Throwable cause = e.getCause();
+		if (cause == null)
+			e.initCause(we);
+		return e;
 	}
 }
