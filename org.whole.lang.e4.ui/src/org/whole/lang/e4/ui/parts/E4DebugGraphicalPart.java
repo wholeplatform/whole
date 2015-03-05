@@ -23,11 +23,13 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.di.UISynchronize;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
@@ -68,9 +70,17 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 	}
 
 	@Inject
+	void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
+		if (bm == null || bm.wGetValue("viewer") != getViewer())
+			return;
+
+		//TODO
+	}
+
+	@Inject
 	@Optional
-	private void doBreak(@UIEventTopic(IUIConstants.TOPIC_BREAK_DEBUG) Object[] args) {
-		// release any suspended thread
+	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_DEBUG) Object[] args) {
+		//FIXME workaround release any suspended thread (multiple suspended jobs not yet supported)
 		if (this.barrier != null)
 			doRun();
 

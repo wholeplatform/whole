@@ -71,7 +71,7 @@ public class E4OutlineTreePart extends E4TreePart {
 					return;
 
 				boolean saved = setSynchronizeSelection(false);
-				eventBroker.send(IUIConstants.TOPIC_SYNC_OULINE_SELECTION, bm.wGet("selectedEntities"));
+				eventBroker.send(IUIConstants.TOPIC_SYNC_OUTLINE_SELECTION, bm.wGet("selectedEntities"));
 				setSynchronizeSelection(saved);
 			} else
 				super.selectionChanged(part, selection);

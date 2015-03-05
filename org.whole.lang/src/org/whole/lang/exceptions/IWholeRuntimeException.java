@@ -54,8 +54,11 @@ public interface IWholeRuntimeException {
 	}
 	public static RuntimeException withCause(RuntimeException e, Throwable we) {
 		Throwable cause = e.getCause();
+		while (cause != null && !(cause instanceof IWholeRuntimeException))
+			cause = cause.getCause();
 		if (cause == null)
 			e.initCause(we);
+		//TODO else add lazy complete
 		return e;
 	}
 }

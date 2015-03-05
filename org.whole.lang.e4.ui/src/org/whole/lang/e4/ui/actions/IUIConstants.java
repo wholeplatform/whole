@@ -164,13 +164,13 @@ public interface IUIConstants {
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
 
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
-	public static final String TOPIC_BREAK_DEBUG = "TOPIC_BREAK_DEBUG";
+	public static final String TOPIC_UPDATE_DEBUG = "TOPIC_BREAK_DEBUG";
 	public static final String TOPIC_UPDATE_VARIABLES = "TOPIC_UPDATE_VARIABLES";
 	public static final String TOPIC_UPDATE_SAMPLE_CONTEXT = "TOPIC_UPDATE_SAMPLE_CONTEXT";
 	public static final String TOPIC_REBUILD_VIEWER_CONDITIONAL = "TOPIC_REBUILD_VIEWER_CONDITIONAL";
 	public static final String TOPIC_REBUILD_VIEWER = "TOPIC_REBUILD_VIEWER";
 	public static final String TOPIC_REFRESH_VIEWER = "TOPIC_REFRESH_VIEWER";
-	public static final String TOPIC_SYNC_OULINE_SELECTION = "TOPIC_SYNC_OULINE_SELECTION";
+	public static final String TOPIC_SYNC_OUTLINE_SELECTION = "TOPIC_SYNC_OULINE_SELECTION";
 
 	public static final String FIND_REPLACE_DIALOG_TEXT = "Find/Replace";
 	public static final String FIND_BUTTON_TEXT = "Find";

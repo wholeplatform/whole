@@ -386,7 +386,7 @@ public class E4Utils {
 		CyclicBarrier barrier = new CyclicBarrier(2);
 		IEventBroker eventBroker = context.get(IEventBroker.class);
 		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
-		eventBroker.post(IUIConstants.TOPIC_BREAK_DEBUG, new Object[] {
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_DEBUG, new Object[] {
 				kind, throwable, sourceEntity, bindings, barrier});
 		try {
 			barrier.await();
