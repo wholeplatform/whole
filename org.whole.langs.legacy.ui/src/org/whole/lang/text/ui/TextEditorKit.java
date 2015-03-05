@@ -20,12 +20,12 @@ package org.whole.lang.text.ui;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.text.reflect.TextLanguageKit;
 import org.whole.lang.text.ui.actions.TextActionFactory;
-import org.whole.lang.text.ui.actions.TextKeyHandler;
 import org.whole.lang.text.ui.editparts.TextPartFactoryVisitor;
 import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editor.IActionFactory;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.keys.IKeyHandler;
+import org.whole.lang.ui.keys.TextualKeyHandler;
 
 /** 
  * @author Riccardo Solmi
@@ -58,6 +58,6 @@ public class TextEditorKit extends AbstractEditorKit {
 
 	@Override
 	public IKeyHandler getKeyHandler() {
-		return TextKeyHandler.instance();
+		return TextualKeyHandler.instance();
 	}
 }
