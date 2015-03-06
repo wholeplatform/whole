@@ -19,8 +19,13 @@ package org.whole.lang;
 
 import java.io.File;
 
+
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
+import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.StringPersistenceProvider;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.java.codebase.JavaBuilderPersistenceKit;
@@ -29,7 +34,9 @@ import org.whole.lang.java.util.JavaStoreProducerBuilderOperation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.AbstractFunctionLibraryDeployer;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.IDeployer;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
 import org.whole.lang.util.IRunnable;
@@ -37,6 +44,7 @@ import org.whole.lang.util.StringUtils;
 import org.whole.lang.xml.util.XmlStoreConsumerVisitor;
 import org.whole.lang.xml.util.XmlStoreProducerBuilder;
 import org.whole.lang.xml.util.XmlStoreProducerBuilderOperation;
+
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -55,6 +63,9 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	public void deploy(ReflectionFactory platform) {
 		putFunctionLibrary(URI);
 
+		putFunctionCode("textToModel", textToModelIterator());
+		putFunctionCode("modelToText", modelToTextIterator());
+
 		putFunctionCode("toJavaBuilderCompilationUnit", toJavaBuilderCompilationUnit());
 		putFunctionCode("toJavaBuilderBlock", toJavaBuilderBlock());
 		putFunctionCode("fromJavaBuilderModel", fromJavaBuilderModel());
@@ -62,6 +73,83 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		putFunctionCode("toXmlBuilderDocument", toXmlBuilderDocument());
 		putFunctionCode("toXmlBuilderContent", toXmlBuilderContent());
 		putFunctionCode("fromXmlBuilderModel", fromXmlBuilderModel());
+	}
+
+	public static IEntityIterator<IEntity> textToModelIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(
+				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					StringPersistenceProvider pp = new StringPersistenceProvider(selfEntity.wStringValue());
+					
+					IPersistenceKit persistenceKit = null;
+					try {
+						persistenceKit = derivePersistenceKit(bm, pp);
+					} catch (Exception e) {
+						throw new IllegalArgumentException("Failed to load the persistence kit", e);
+					}
+					try {
+						bm.setResult(persistenceKit.readModel(pp));
+					} catch (Exception e) {
+						throw new IllegalArgumentException("Failed to load the resource with the given persistence: " + persistenceKit.getId(), e);
+					}
+				});
+	}
+	public static IEntityIterator<IEntity> modelToTextIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(
+				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					StringPersistenceProvider pp = new StringPersistenceProvider();
+					pp.getBindings().wDefValue("entityURI", selfEntity.wGetEntityDescriptor().getURI());
+
+					IPersistenceKit persistenceKit = null;
+					try {
+						persistenceKit = derivePersistenceKit(bm, pp);
+					} catch (Exception e) {
+						throw new IllegalArgumentException("Failed to load the persistence kit", e);
+					}
+					try {
+						persistenceKit.writeModel(selfEntity, pp);
+					} catch (Exception e) {
+						throw new IllegalArgumentException("Failed to load the resource with the given persistence: " + persistenceKit.getId(), e);
+					}
+
+					bm.setResult(BindingManagerFactory.instance.createValue(pp.getStore()));
+				});
+	}
+	protected static IPersistenceKit derivePersistenceKit(IBindingManager bm, StringPersistenceProvider pp) {
+		String persistenceKitId = null;
+
+		if (bm.wIsSet("grammarURI")) {
+			pp.getBindings().wDefValue("grammarURI", bm.wStringValue("grammarURI"));
+			persistenceKitId = "org.whole.lang.grammars.codebase.GrammarsPersistenceKit";
+		} else if (bm.wIsSet("persistenceId"))
+			persistenceKitId = bm.wStringValue("persistenceId");
+		
+		if (bm.wIsSet("entityURI")) {
+			String entityURI = bm.wStringValue("entityURI");
+			pp.getBindings().wDefValue("entityURI", entityURI);
+		}
+		if (pp.getBindings().wIsSet("entityURI")) {
+			String entityURI = pp.getBindings().wStringValue("entityURI");
+			String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+			
+			ILanguageKit languageKit = ed.getLanguageKit();
+			
+			if (persistenceKitId == null)
+				for (IPersistenceKit persistenceKit : languageKit.getPersistenceKits())
+					if (!persistenceKit.isGeneric()) {
+						persistenceKitId = persistenceKit.getId();
+						break;
+					}
+			if (persistenceKitId == null)
+				persistenceKitId = languageKit.getDefaultPersistenceKit().getId();
+		}
+
+		if (persistenceKitId == null)
+			persistenceKitId = "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit";
+
+		if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
+			throw new IllegalArgumentException("Missing persistence");
+		return ReflectionFactory.getPersistenceKit(persistenceKitId);
 	}
 
 	public static IEntityIterator<IEntity> toJavaBuilderCompilationUnit() {

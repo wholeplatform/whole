@@ -4,7 +4,34 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Persistence"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="6">
+    <semantics:SemanticFunctions initialCapacity="9">
+        <semantics:SemanticFunction>
+            <semantics:Name value="textToModel"/>
+            <semantics:FunctionType>
+                <semantics:LegacyType value="STRING"/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="modelToText"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:LegacyType value="STRING"/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="fromXmlBuilderModel"/>
+            <semantics:FunctionType>
+                <semantics:UnionType initialCapacity="2">
+                    <semantics:EntityType value="http://lang.whole.org/Xml#Document"/>
+                    <semantics:EntityType value="http://lang.whole.org/Xml#Content"/>
+                </semantics:UnionType>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
+        </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="toJavaBuilderCompilationUnit"/>
             <semantics:FunctionType>
