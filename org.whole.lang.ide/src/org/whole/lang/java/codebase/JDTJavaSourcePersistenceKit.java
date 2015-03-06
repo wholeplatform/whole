@@ -17,15 +17,19 @@
  */
 package org.whole.lang.java.codebase;
 
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.whole.gen.util.JDTUtils;
+import org.whole.gen.util.JDTUtils.JAVA_FRAGMENT;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.IJavaEntity;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.util.JDTTransformerVisitor;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -46,8 +50,9 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 
 	@Override
 	protected IEntity doReadModel(IPersistenceProvider pp) throws Exception {
-		IBindingManager bm = pp.getBindings();
 		String fileStr = StringUtils.readAsString(pp.getInputStream(), pp.getEncoding());
+		IBindingManager bm = pp.getBindings();
+		ASTNode ast = null;
 
 		//TODO remove when parse/unparse are added
 		if (bm.wIsSet("parseFragments") && bm.wBooleanValue("parseFragments")) {
@@ -57,7 +62,48 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 			else if (Matcher.matchImpl(JavaEntityDescriptorEnum.Block, entity))
 				bm.wDef("syntheticRoot", entity);
 			return entity;
-		} else
-	        return JDTTransformerVisitor.transform(fileStr, JDTUtils.parseAsCompilationUnit(fileStr));
+		} else {
+			if (bm.wIsSet("entityURI")) {
+				String entityURI = bm.wStringValue("entityURI");
+				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+				
+				if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
+					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.EXPRESSION);
+				} else if (ed.equals(JavaEntityDescriptorEnum.Block)) {
+					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
+				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
+					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
+				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
+					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
+				} else if (ed.equals(JavaEntityDescriptorEnum.BodyDeclarations)) {
+					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
+				} else if (ed.equals(JavaEntityDescriptorEnum.CompilationUnit))
+					ast = JDTUtils.parseAsCompilationUnit(fileStr);
+			}
+			if (ast == null)
+				ast = JDTUtils.parse(fileStr);
+
+			IEntity result = JDTTransformerVisitor.transform(fileStr, ast);
+
+			if (bm.wIsSet("entityURI")) {
+				String entityURI = bm.wStringValue("entityURI");
+				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+				
+				if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
+					if (!result.wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+						throw new IllegalArgumentException("");
+				} else if (!ed.equals(JavaEntityDescriptorEnum.Block) && ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
+					if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+						throw new IllegalArgumentException("");
+				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
+					if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+						throw new IllegalArgumentException("");
+				}
+			}
+
+			return result;
+		}
 	}
 }
