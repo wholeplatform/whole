@@ -17,6 +17,7 @@
  */
 package org.whole.lang.reflect;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneable;
 import org.whole.lang.resources.FunctionLibraryRegistry;
 
@@ -31,7 +32,10 @@ public abstract class AbstractFunctionLibraryDeployer extends AbstractLanguageEx
 		FunctionLibraryRegistry.instance().getFunctionLibrary(libraryUri, true, null);
 	}
 	protected void putFunctionCode(String functionName, ICloneable functionCode) {
-		FunctionLibraryRegistry.instance().putFunctionCode(
-				libraryUri+"#"+functionName, functionCode);
+		String functionUri = libraryUri+"#"+functionName;
+		IEntity functionModel = FunctionLibraryRegistry.instance().getFunctionModel(functionUri, false, null);
+		if (functionModel != null && functionCode instanceof ISourceable)
+			((ISourceable) functionCode).withSourceEntity(functionModel);
+		FunctionLibraryRegistry.instance().putFunctionCode(functionUri, functionCode);
 	}
 }
