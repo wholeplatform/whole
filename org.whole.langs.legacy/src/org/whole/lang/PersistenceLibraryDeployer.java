@@ -19,7 +19,6 @@ package org.whole.lang;
 
 import java.io.File;
 
-
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.ModelBuilderOperation;
@@ -34,17 +33,16 @@ import org.whole.lang.java.util.JavaStoreProducerBuilderOperation;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.AbstractFunctionLibraryDeployer;
-import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
 import org.whole.lang.util.IRunnable;
+import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 import org.whole.lang.xml.util.XmlStoreConsumerVisitor;
 import org.whole.lang.xml.util.XmlStoreProducerBuilder;
 import org.whole.lang.xml.util.XmlStoreProducerBuilderOperation;
-
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -63,8 +61,8 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 	public void deploy(ReflectionFactory platform) {
 		putFunctionLibrary(URI);
 
-		putFunctionCode("textToModel", textToModelIterator());
-		putFunctionCode("modelToText", modelToTextIterator());
+		putFunctionCode("stringToModel", stringToModelIterator());
+		putFunctionCode("modelToString", modelToStringIterator());
 
 		putFunctionCode("toJavaBuilderCompilationUnit", toJavaBuilderCompilationUnit());
 		putFunctionCode("toJavaBuilderBlock", toJavaBuilderBlock());
@@ -75,7 +73,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		putFunctionCode("fromXmlBuilderModel", fromXmlBuilderModel());
 	}
 
-	public static IEntityIterator<IEntity> textToModelIterator() {
+	public static IEntityIterator<IEntity> stringToModelIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(
 				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					StringPersistenceProvider pp = new StringPersistenceProvider(selfEntity.wStringValue());
@@ -93,7 +91,7 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 					}
 				});
 	}
-	public static IEntityIterator<IEntity> modelToTextIterator() {
+	public static IEntityIterator<IEntity> modelToStringIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(
 				(IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					StringPersistenceProvider pp = new StringPersistenceProvider();
@@ -130,9 +128,9 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		if (pp.getBindings().wIsSet("entityURI")) {
 			String entityURI = pp.getBindings().wStringValue("entityURI");
 			String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-			EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
-			
-			ILanguageKit languageKit = ed.getLanguageKit();
+			ILanguageKit languageKit = ResourceUtils.hasFragmentPart(entityURI) ?
+					CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri).getLanguageKit()
+					: ReflectionFactory.getLanguageKit(entityURI, true, contextUri);;
 			
 			if (persistenceKitId == null)
 				for (IPersistenceKit persistenceKit : languageKit.getPersistenceKits())

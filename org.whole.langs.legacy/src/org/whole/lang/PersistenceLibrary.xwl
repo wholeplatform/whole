@@ -6,7 +6,7 @@
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
     <semantics:SemanticFunctions initialCapacity="9">
         <semantics:SemanticFunction>
-            <semantics:Name value="textToModel"/>
+            <semantics:Name value="stringToModel"/>
             <semantics:FunctionType>
                 <semantics:LegacyType value="STRING"/>
                 <semantics:AnyType/>
@@ -14,7 +14,7 @@
             <queries:VoidLiteral xmlns:queries="http://lang.whole.org/Queries"/>
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
-            <semantics:Name value="modelToText"/>
+            <semantics:Name value="modelToString"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:LegacyType value="STRING"/>

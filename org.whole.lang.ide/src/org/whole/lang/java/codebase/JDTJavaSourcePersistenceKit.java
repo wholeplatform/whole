@@ -30,6 +30,7 @@ import org.whole.lang.java.util.JDTTransformerVisitor;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -65,21 +66,23 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 		} else {
 			if (bm.wIsSet("entityURI")) {
 				String entityURI = bm.wStringValue("entityURI");
-				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
-				
-				if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
-					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.EXPRESSION);
-				} else if (ed.equals(JavaEntityDescriptorEnum.Block)) {
-					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
-				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
-					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
-				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
-					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
-				} else if (ed.equals(JavaEntityDescriptorEnum.BodyDeclarations)) {
-					ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
-				} else if (ed.equals(JavaEntityDescriptorEnum.CompilationUnit))
-					ast = JDTUtils.parseAsCompilationUnit(fileStr);
+				if (ResourceUtils.hasFragmentPart(entityURI)) {
+					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+
+					if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
+						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.EXPRESSION);
+					} else if (ed.equals(JavaEntityDescriptorEnum.Block)) {
+						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
+					} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
+						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.STATEMENTS);
+					} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
+						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
+					} else if (ed.equals(JavaEntityDescriptorEnum.BodyDeclarations)) {
+						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.CLASS_BODY_DECLARATIONS);
+					} else if (ed.equals(JavaEntityDescriptorEnum.CompilationUnit))
+						ast = JDTUtils.parseAsCompilationUnit(fileStr);
+				}
 			}
 			if (ast == null)
 				ast = JDTUtils.parse(fileStr);
@@ -88,19 +91,22 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 
 			if (bm.wIsSet("entityURI")) {
 				String entityURI = bm.wStringValue("entityURI");
-				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
-				
-				if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
-					if (!result.wGetEntityDescriptor().isLanguageSubtypeOf(ed))
-						throw new IllegalArgumentException("");
-				} else if (!ed.equals(JavaEntityDescriptorEnum.Block) && ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
-					if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
-						throw new IllegalArgumentException("");
-				} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
-					if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
-						throw new IllegalArgumentException("");
-				}
+				if (ResourceUtils.hasFragmentPart(entityURI)) {
+					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+					
+					if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
+						if (!result.wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+							throw new IllegalArgumentException("");
+					} else if (!ed.equals(JavaEntityDescriptorEnum.Block) && ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Statement)) {
+						if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+							throw new IllegalArgumentException("");
+					} else if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.BodyDeclaration)) {
+						if (result.wSize() != 1 || !(result = result.wGet(0)).wGetEntityDescriptor().isLanguageSubtypeOf(ed))
+							throw new IllegalArgumentException("");
+					}
+				} else if (result.wGetEntityDescriptor().equals(JavaEntityDescriptorEnum.Block) && result.wSize() == 1)
+					result = result.wGet(0);
 			}
 
 			return result;
