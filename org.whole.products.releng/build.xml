@@ -2,7 +2,7 @@
 <project name="whole" default="build" basedir=".">
 	<property environment="env" />
 	<condition property="maven.home" value="${env.M2_HOME}" else="${M2_HOME}">
-		<isset property="${env.M2_HOME}"/>
+		<isset property="env.M2_HOME"/>
 	</condition>
 	<property name="releng.dir" value="." />
 	<property name="repo.dir" value=".." />
