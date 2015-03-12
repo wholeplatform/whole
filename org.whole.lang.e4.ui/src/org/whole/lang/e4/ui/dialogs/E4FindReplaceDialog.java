@@ -59,7 +59,6 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.iterators.MatcherIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.tests.model.IsDef;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
@@ -93,13 +92,18 @@ public class E4FindReplaceDialog extends E4Dialog {
 	@Inject
 	public E4FindReplaceDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell) {
 		super(shell);
-		setShellStyle(getShellStyle() ^ SWT.APPLICATION_MODAL | SWT.MODELESS);
+		setShellStyle(getShellStyle() ^ SWT.APPLICATION_MODAL);
 		setBlockOnOpen(false);
 		this.iterator = IteratorFactory.descendantOrSelfMatcherIterator();
 		this.bindings = BindingManagerFactory.instance.createArguments();
 		enableSelectionTracking(true);
 		clearFoundEntity();
 		clearFreshTemplate();
+	}
+
+	@Override
+	protected boolean isResizable() {
+		return true;
 	}
 
 	@Override
