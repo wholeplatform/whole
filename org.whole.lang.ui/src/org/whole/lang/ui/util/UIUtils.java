@@ -42,7 +42,6 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
@@ -116,13 +115,11 @@ public class UIUtils {
 	}
 
 	public static Monitor getActiveMonitor() {
-		Display display = Display.getCurrent();
-		Rectangle bounds = display.getBounds();
-		bounds.intersect(display.getActiveShell().getBounds());
-		Point center = new Point(bounds.x+bounds.width/2, bounds.y+bounds.height/2);
+		Display display = Display.getDefault();
+		Point cursorLocation = display.getCursorLocation();
 		Monitor[] monitors = display.getMonitors();
 		for (Monitor monitor : monitors)
-			if (monitor.getBounds().contains(center))
+			if (monitor.getBounds().contains(cursorLocation))
 				return monitor;
 		return display.getPrimaryMonitor();
 	}
