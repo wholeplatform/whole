@@ -45,6 +45,7 @@ import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableEditor;
 import org.eclipse.ui.IWorkbenchPage;
@@ -108,8 +109,10 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		redoAction = new RedoAction(getContext(), REDO_LABEL);
 		redoAction.update();
 
-		IWorkspace workspace = ((FileEditorInput) getEditorInput()).getFile().getWorkspace();
-		workspace.addResourceChangeListener(resourceListener = new ResourceChangeListener());
+		if (getEditorInput() instanceof IFileEditorInput) {
+			IWorkspace workspace = ((IFileEditorInput) getEditorInput()).getFile().getWorkspace();
+			workspace.addResourceChangeListener(resourceListener = new ResourceChangeListener());
+		}
 	}
 
 	@Override
@@ -203,7 +206,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		if (redoAction != null)
 			redoAction.dispose();
 		if (resourceListener != null) {
-			IWorkspace workspace = ((FileEditorInput) getEditorInput()).getFile().getWorkspace();
+			IWorkspace workspace = ((IFileEditorInput) getEditorInput()).getFile().getWorkspace();
 			workspace.removeResourceChangeListener(resourceListener);
 		}
 		super.dispose();
@@ -238,7 +241,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 	public class ResourceChangeListener implements IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
 			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
-				IFile file = ((FileEditorInput) getEditorInput()).getFile();
+				IFile file = ((IFileEditorInput) getEditorInput()).getFile();
 				IResourceDelta member = event.getDelta().findMember(file.getFullPath());
 				if (member == null || member.getKind() != IResourceDelta.REMOVED)
 					return;
