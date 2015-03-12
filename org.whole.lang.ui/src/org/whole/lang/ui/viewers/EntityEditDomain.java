@@ -17,6 +17,10 @@
  */
 package org.whole.lang.ui.viewers;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPartViewer;
@@ -63,9 +67,10 @@ public class EntityEditDomain extends LightweightEditDomain {
 			return true;
 
 		Shell canvasShell = figureCanvas.getShell();
+		Set<Shell> canvasShellDescendants = new HashSet<>(Arrays.asList(canvasShell.getShells()));
 		Point absolutePoint = figureCanvas.toDisplay(mouseEvent.x, mouseEvent.y);
 		for (Shell shell : figureCanvas.getDisplay().getShells()) {
-			if (shell == canvasShell || !shell.isVisible())
+			if (shell == canvasShell || !shell.isVisible() || !canvasShellDescendants.contains(shell))
 				continue;
 
 			if (shell.getBounds().contains(absolutePoint))
