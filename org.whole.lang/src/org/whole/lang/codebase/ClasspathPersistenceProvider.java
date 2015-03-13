@@ -35,11 +35,12 @@ public class ClasspathPersistenceProvider extends AbstractPersistenceProvider {
 	}
 	public ClasspathPersistenceProvider(String resourceClasspath, IBindingManager bm) {
 		super(bm);
-		defineBindings(this.resourceClasspath = resourceClasspath);
+		this.resourceClasspath = resourceClasspath;
+		defineBindings(getBindings());
 	}
 
-	protected void defineBindings(String resourceClasspath) {
-		ResourceUtils.defineResourceBindings(getBindings(), resourceClasspath);
+	public void defineBindings(IBindingManager bm) {
+		ResourceUtils.defineResourceBindings(bm, resourceClasspath);
 	}
 
 	public String getStore() {

@@ -17,15 +17,18 @@
  */
 package org.whole.lang.ui.input;
 
-import org.eclipse.core.resources.IFile;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
  */
 public interface IModelInput {
-	IFile getFile();
+	String getName();
+	String getLocation();
+
+	IPersistenceProvider getPersistenceProvider();
 	IPersistenceKit getPersistenceKit();
 	IPersistenceKit getBasePersistenceKit();
 	String getOverridePersistenceKitId();

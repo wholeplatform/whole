@@ -227,7 +227,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
 				IEntity statusModel = new ErrorStatusTemplate().create();
 				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
-						modelInput.getFile().getName(), modelInput.getPersistenceKit().getDescription());
+						modelInput.getName(), modelInput.getPersistenceKit().getDescription());
 				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);
 				statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(e.getLocalizedMessage());
 				setEntityContents(statusModel);

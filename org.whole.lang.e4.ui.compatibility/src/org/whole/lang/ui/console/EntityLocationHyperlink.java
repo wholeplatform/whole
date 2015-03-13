@@ -25,6 +25,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IHyperlink;
+import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.input.IModelInput;
@@ -53,7 +54,7 @@ public class EntityLocationHyperlink implements IHyperlink {
 				if (partContext == null)
 					continue;
 				IModelInput modelInput = partContext.get(IModelInput.class);
-				if (modelInput != null && modelInput.getFile().equals(file)) {
+				if (modelInput != null && ((IFilePersistenceProvider) modelInput.getPersistenceProvider()).getStore().equals(file)) {
 					partService.activate(part, true);
 					IEntityPartViewer viewer = partContext.get(IEntityPartViewer.class);
 					IEntity entityContents = viewer.getEntityContents();

@@ -17,9 +17,16 @@
  */
 package org.whole.lang.e4.ui.input;
 
+import java.io.File;
+import java.net.URI;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.input.IModelInput;
@@ -28,23 +35,46 @@ import org.whole.lang.ui.input.IModelInput;
  * @author Enrico Persiani
  */
 public class ModelInput implements IModelInput {
-	protected final IFile file;
+	protected final IPersistenceProvider persistenceProvider;
 	protected final String basePersistenceKitId;
 	protected String overridePersistenceKitId;
 	protected Boolean readable;
 
-	public ModelInput(IFile file, String basePersistenceKitId) {
-		if (file == null || basePersistenceKitId == null)
-			throw new NullPointerException();
-		this.file = file;
+	public ModelInput(String location, String basePersistenceKitId) {
+		this(createPersistenceProvider(location), basePersistenceKitId);
+	}
+	public ModelInput(IPersistenceProvider persistenceProvider, String basePersistenceKitId) {
+		this.persistenceProvider = persistenceProvider;
 		this.basePersistenceKitId = basePersistenceKitId;
 		this.overridePersistenceKitId = null;
 		this.readable = null;
 	}
 
 	@Override
-	public IFile getFile() {
-		return file;
+	public String getName() {
+		return getPersistenceProvider() instanceof IFilePersistenceProvider ?
+				((IFilePersistenceProvider) persistenceProvider).getStore().getName() :
+					((FilePersistenceProvider) persistenceProvider).getStore().getName();
+	}
+	@Override
+	public String getLocation() {
+		return getPersistenceProvider() instanceof IFilePersistenceProvider ?
+				((IFilePersistenceProvider) persistenceProvider).getStore().getFullPath().toPortableString() :
+					((FilePersistenceProvider) persistenceProvider).getStore().toURI().toASCIIString();
+	}
+	public static IPersistenceProvider createPersistenceProvider(String location) {
+		try {
+			File file = new File(new URI(location));
+			return new FilePersistenceProvider(file);
+		} catch (Exception e) {
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(location));
+			return new IFilePersistenceProvider(file);
+		}
+	}
+
+	@Override
+	public IPersistenceProvider getPersistenceProvider() {
+		return persistenceProvider;
 	}
 
 	@Override
@@ -71,8 +101,7 @@ public class ModelInput implements IModelInput {
 	@Override
 	public IEntity readModel() throws Exception {
 		try {
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(getFile());
-			IEntity readModel = getPersistenceKit().readModel(pp);
+			IEntity readModel = getPersistenceKit().readModel(getPersistenceProvider());
 			this.readable = true;
 			return readModel;
 		} catch (Exception e) {
@@ -87,8 +116,7 @@ public class ModelInput implements IModelInput {
 			return this.readable;
 
 		try {
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(getFile());
-			getPersistenceKit().readModel(pp);
+			getPersistenceKit().readModel(getPersistenceProvider());
 			return this.readable = true;
 		} catch (Exception e) {
 			return this.readable = false;

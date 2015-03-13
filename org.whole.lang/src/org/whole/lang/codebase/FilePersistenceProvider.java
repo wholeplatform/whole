@@ -38,11 +38,12 @@ public class FilePersistenceProvider extends AbstractPersistenceProvider {
 	}
 	public FilePersistenceProvider(File file, IBindingManager bm) {
 		super(bm);
-		defineBindings(this.file = file);
+		this.file = file;
+		defineBindings(getBindings());
 	}
 
-	protected void defineBindings(File file) {
-		ResourceUtils.defineResourceBindings(getBindings(), file);
+	public void defineBindings(IBindingManager bm) {
+		ResourceUtils.defineResourceBindings(bm, file);
 	}
 
 	public File getStore() {

@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.whole.lang.codebase.BeansPersistenceKit;
 import org.whole.lang.codebase.DataTypePersistenceKit;
+import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.input.IModelInput;
@@ -66,7 +67,8 @@ public class SaveAsModelDialog extends SaveAsDialog {
 		this.context = context;
 
 		this.persistenceKit = getModelInput().getPersistenceKit();
-		setOriginalFile(getModelInput().getFile());
+		if (getModelInput().getPersistenceProvider() instanceof IFilePersistenceProvider)
+			setOriginalFile(((IFilePersistenceProvider) getModelInput().getPersistenceProvider()).getStore());
 	}
 
     protected Control createDialogArea(Composite parent) {

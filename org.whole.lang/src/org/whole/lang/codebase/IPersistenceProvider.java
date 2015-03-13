@@ -29,6 +29,7 @@ public interface IPersistenceProvider {
 	public IPersistenceProvider withDefaultEncoding(String defaultEncoding);
 	public String getEncoding();//TODO derive from getContentEncoding if available
 	public IBindingManager getBindings();
+	public void defineBindings(IBindingManager bm);
 
 	public boolean canReopenStream();
 	public void closeStream() throws Exception;

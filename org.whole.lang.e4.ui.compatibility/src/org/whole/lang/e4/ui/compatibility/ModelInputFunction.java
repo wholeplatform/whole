@@ -17,6 +17,8 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
+import java.io.File;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.content.IContentDescription;
@@ -26,6 +28,9 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IURIEditorInput;
+import org.whole.lang.codebase.FilePersistenceProvider;
+import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.reflect.ReflectionFactory;
 
@@ -37,9 +42,20 @@ public class ModelInputFunction extends ContextFunction {
 	public Object compute(IEclipseContext context) {
 		final IEditorPart editorPart = context.get(IEditorPart.class);
 		final IEditorInput input = context.get(IEditorInput.class);
-		if (input != null && input instanceof IFileEditorInput) {
+		if (input instanceof IFileEditorInput) {
 			IFile file = ((IFileEditorInput) input).getFile();
-			ModelInput modelInput = new ModelInput(file, calculateBasePersistenceKitId(file));
+			IFilePersistenceProvider pp = new IFilePersistenceProvider(file);
+			ModelInput modelInput = new ModelInput(pp, calculateBasePersistenceKitId(file));
+			if (editorPart != null) {
+				String editorId = editorPart.getSite().getId();
+				String overridePersistenceKitId = ReflectionFactory.getPersistenceKitFromEditorId(editorId).getId();
+				modelInput.setOverridePersistenceKitId(overridePersistenceKitId);
+			}
+			return modelInput;
+		} else if (input instanceof IURIEditorInput) {
+			File file = new File(((IURIEditorInput) input).getURI());
+			FilePersistenceProvider pp = new FilePersistenceProvider(file);
+			ModelInput modelInput = new ModelInput(pp, ReflectionFactory.getDefaultPersistenceKit().getId());
 			if (editorPart != null) {
 				String editorId = editorPart.getSite().getId();
 				String overridePersistenceKitId = ReflectionFactory.getPersistenceKitFromEditorId(editorId).getId();

@@ -48,6 +48,9 @@ public abstract class AbstractPersistenceProvider implements IPersistenceProvide
 		}
 	}
 
+	public void defineBindings(IBindingManager bm) {
+	}
+
 	public IPersistenceProvider withDefaultEncoding(String defaultEncoding) {
 		this.defaultEncoding = defaultEncoding;
 		return this;

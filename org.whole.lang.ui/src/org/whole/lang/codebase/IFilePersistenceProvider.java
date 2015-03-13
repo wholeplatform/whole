@@ -42,11 +42,12 @@ public class IFilePersistenceProvider extends AbstractPersistenceProvider {
 	}
 	public IFilePersistenceProvider(IFile file, IBindingManager bm) {
 		super(bm);
-		defineBindings(this.file = file);
+		this.file = file;
+		defineBindings(getBindings());
 	}
 
-	protected void defineBindings(IFile file) {
-		ResourceUtils.defineResourceBindings(getBindings(), file);
+	public void defineBindings(IBindingManager bm) {
+		ResourceUtils.defineResourceBindings(bm, file);
 	}
 
 	public IFile getStore() {

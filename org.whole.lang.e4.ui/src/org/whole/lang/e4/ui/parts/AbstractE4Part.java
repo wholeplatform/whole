@@ -32,8 +32,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -64,6 +62,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IFilePersistenceProvider;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
@@ -214,15 +213,14 @@ public abstract class AbstractE4Part {
 		if (modelInput != null) {
 			part.getPersistedState().put("basePersistenceKitId", modelInput.getBasePersistenceKit().getId());
 			part.getPersistedState().put("overridePersistenceKitId", modelInput.getOverridePersistenceKitId());
-			part.getPersistedState().put("filePath", modelInput.getFile().getFullPath().toPortableString());
+			part.getPersistedState().put("filePath", modelInput.getLocation());
 		}
 	}
 
 	protected void restoreState() {
 		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
 			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(part.getPersistedState().get("filePath")));
-			IModelInput modelInput = new ModelInput(file, basePersistenceKitId);
+			IModelInput modelInput = new ModelInput(part.getPersistedState().get("filePath"), basePersistenceKitId);
 			modelInput.setOverridePersistenceKitId(part.getPersistedState().get("overridePersistenceKitId"));
 			updateModelInput(modelInput);
 		}
@@ -236,7 +234,7 @@ public abstract class AbstractE4Part {
 	public void save() {
 		if (modelInput != null) {
 			workspace.removeResourceChangeListener(resourceListener);
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(modelInput.getFile());
+			IPersistenceProvider pp = modelInput.getPersistenceProvider();
 			try {
 				RootFragment rootFragment = (RootFragment) viewer.getContents().getModel();
 				modelInput.getPersistenceKit().writeModel(rootFragment.wGetRoot(), pp);
@@ -329,9 +327,9 @@ public abstract class AbstractE4Part {
 		context.get(UISynchronize.class).asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				if (viewer.isDirty())
-					reloader.schedule(modelInput.getFile());
-				else
+				if (viewer.isDirty() && modelInput.getPersistenceProvider() instanceof IFilePersistenceProvider) {
+					reloader.schedule(((IFilePersistenceProvider) modelInput.getPersistenceProvider()).getStore());
+				} else
 					viewer.setContents(modelInput, null);
 			}
 		});
@@ -345,15 +343,16 @@ public abstract class AbstractE4Part {
 		}
 
 		public void resourceChanged(IResourceChangeEvent event) {
-			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
-				IFile file = modelInput.getFile();
+			if (modelInput.getPersistenceProvider() instanceof IFilePersistenceProvider && event.getType() == IResourceChangeEvent.POST_CHANGE) {
+				IFile file = ((IFilePersistenceProvider) modelInput.getPersistenceProvider()).getStore();
 				IResourceDelta member = event.getDelta().findMember(file.getFullPath());
 				if (member == null)
 					return;
 
 				if (member.getKind() == IResourceDelta.REMOVED && (member.getFlags() & IResourceDelta.MOVED_TO) != 0) {
-					IFile destination = modelInput.getFile().getWorkspace().getRoot().getFile(member.getMovedToPath());
-					ModelInput newModelInput = new ModelInput(destination, modelInput.getBasePersistenceKit().getId());
+					IFile destination = file.getWorkspace().getRoot().getFile(member.getMovedToPath());
+					IFilePersistenceProvider pp = new IFilePersistenceProvider(destination);
+					ModelInput newModelInput = new ModelInput(pp, modelInput.getBasePersistenceKit().getId());
 					newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
 					updateModelInput(newModelInput);
 					reloadContents();

@@ -76,7 +76,6 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
-import org.whole.lang.ui.util.ResourceUtils;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
@@ -204,7 +203,7 @@ public class E4Utils {
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
-		ResourceUtils.defineResourceBindings(bm, modelInput.getFile());
+		modelInput.getPersistenceProvider().defineBindings(bm);
 		bm.wDefValue("modelInput", modelInput);
 	}
 	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, IEntityTransformer entityTransformer) {
