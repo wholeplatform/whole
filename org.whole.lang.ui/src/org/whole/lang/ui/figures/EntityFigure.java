@@ -35,7 +35,7 @@ import org.whole.lang.ui.treesearch.ITreeSearch;
  * @author Riccardo Solmi
  */
 public class EntityFigure extends Figure implements IEntityFigure {
-	protected EntityFigure() {
+	public EntityFigure() {
 	}
 	public EntityFigure(LayoutManager layout) {
 		this();
