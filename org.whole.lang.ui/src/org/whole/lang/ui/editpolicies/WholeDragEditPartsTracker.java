@@ -26,7 +26,6 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.tools.DragEditPartsTracker;
-import org.eclipse.gef.tools.SelectEditPartTracker;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Cursor;
@@ -116,29 +115,7 @@ public class WholeDragEditPartsTracker extends DragEditPartsTracker {
 			return false;
 	}
 
-	@Override
-	protected boolean handleButtonUp(int button) {
-		// super.handleButtonUp(button);
-		if (stateTransition(STATE_DRAG_IN_PROGRESS, STATE_TERMINAL)) {
-			eraseSourceFeedback();
-			eraseTargetFeedback();
-			performDrag();
-			return true;
-		}
-		if (isInState(STATE_DRAG)) {
-			performSelection();
-			if (getFlag(SelectEditPartTracker.MAX_FLAG))//FLAG_ENABLE_DIRECT_EDIT))
-				performDirectEdit();
-			if (getSourceEditPart().getSelected() != EditPart.SELECTED_NONE)
-				buttonUpReveal(button);
-			setState(STATE_TERMINAL);
-			return true;
-		}
-		return false;
-	}
 	protected void buttonUpReveal(int button) {
-//		if (button == 1)
-//			getCurrentViewer().reveal(getSourceEditPart());
 	}
 
 	@Override
