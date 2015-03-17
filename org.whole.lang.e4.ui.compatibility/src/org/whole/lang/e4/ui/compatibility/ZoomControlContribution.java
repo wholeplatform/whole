@@ -60,10 +60,10 @@ public class ZoomControlContribution extends WorkbenchWindowControlContribution 
 		combo.addSelectionListener(this);
 		combo.addFocusListener(this);
 
-		activePage = getWorkbenchWindow().getActivePage();
-		activePage.addPartListener(this);
-
 		try {
+			activePage = getWorkbenchWindow().getActivePage();
+			activePage.addPartListener(this);
+			
 			setZoomManager((ZoomManager) activePage.getActivePart().getAdapter(ZoomManager.class));
 		} catch (Exception e) {
 		}
