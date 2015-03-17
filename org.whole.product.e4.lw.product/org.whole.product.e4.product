@@ -29,6 +29,7 @@
    <features>
       <feature id="org.eclipse.gef.lightweight" installMode="root"/>
       <feature id="org.eclipse.gef.source" installMode="root"/>
+      <feature id="org.eclipse.draw2d.source" installMode="root"/>
       <feature id="com.fasterxml.jackson.feature" installMode="root"/>
       <feature id="net.sourceforge.jodatime.feature" installMode="root"/>
       <feature id="nu.validator.htmlparser.feature" installMode="root"/>
