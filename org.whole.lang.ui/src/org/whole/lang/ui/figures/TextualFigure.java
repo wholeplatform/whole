@@ -288,11 +288,11 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 			if (startLine == endLine) {
 				// paint single line selection
 				String initialPart = text.substring(CaretUtils.getStartingLinePosition(text, startLine), rangeStart);
-				String finalPart = text.substring(rangeEnd, CaretUtils.getEndingLinePosition(text, endLine));
+				String selectionPart = text.substring(rangeStart, rangeEnd);
 				int initialWidth = getTextWidth(initialPart);
-				int finalWidth = getTextWidth(finalPart);
-				Rectangle selection = bounds.getTranslated(initialWidth, startLine*fontHeight).resize(-initialWidth-finalWidth, 0);
-				selection.height = fontHeight;
+				int selectionWidth = getTextWidth(selectionPart);
+				Rectangle selection = bounds.getTranslated(initialWidth, startLine*fontHeight);
+				selection.setSize(selectionWidth, fontHeight);
 				graphics.fillRectangle(selection);
 			} else {
 				// paint first partial row
