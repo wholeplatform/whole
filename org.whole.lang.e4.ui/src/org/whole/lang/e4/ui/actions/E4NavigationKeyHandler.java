@@ -17,16 +17,14 @@
  */
 package org.whole.lang.e4.ui.actions;
 
-import static org.eclipse.draw2d.PositionConstants.EAST;
-import static org.eclipse.draw2d.PositionConstants.NORTH;
-import static org.eclipse.draw2d.PositionConstants.SOUTH;
-import static org.eclipse.draw2d.PositionConstants.WEST;
+import static org.eclipse.draw2d.PositionConstants.*;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -41,10 +39,12 @@ import org.whole.lang.ui.editor.IGEFEditorKit;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IEditPointProvider;
 import org.whole.lang.ui.util.CaretUpdater;
+import org.whole.lang.ui.util.CaretUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -352,11 +352,23 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 		IEntityPart epStart = getFocusEntityPart();
 		if (epStart instanceof ITextualEntityPart) {
 			ITextualEntityPart textualEntityPart = (ITextualEntityPart) epStart;
+			ITextualFigure textualFigure = textualEntityPart.getTextualFigure();
+			String text = textualFigure.getText();
+			int line = CaretUtils.getLineFromPosition(text, textualEntityPart.getCaretPosition());
+			int lines = CaretUtils.getCaretLines(text);
 			if ((direction == PositionConstants.WEST && textualEntityPart.getCaretPosition() > 0) ||
 					(direction == PositionConstants.EAST && textualEntityPart.getCaretPosition() < textualEntityPart.getCaretPositions())) {
 				int position = textualEntityPart.getCaretPosition() +
 						(direction == PositionConstants.WEST ? -1 : 1);
 				CaretUpdater.sheduleSyncUpdate(getViewer(), textualEntityPart.getModelEntity(), position, true);
+				return true;
+			} else if ((direction == PositionConstants.NORTH && line > 0) ||
+					(direction == PositionConstants.SOUTH && line < lines)) {
+				int dy = FigureUtilities.getFontMetrics(textualFigure.getFont()).getHeight() *
+						(direction == PositionConstants.NORTH ? -1 : 1);
+				Point location = textualFigure.getCaretBounds().getCenter().translate(0, dy);
+				CaretUpdater.sheduleSyncUpdate(getViewer(), textualEntityPart.getModelEntity(), location, true);
+				textualEntityPart.updateCaret(location);
 				return true;
 			}
 		}
