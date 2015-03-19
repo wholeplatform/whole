@@ -88,6 +88,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.WhileStatement;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.whole.gen.lang.LanguageGenerator;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.factories.EntityBuilder;
 import org.whole.lang.factories.IEntityBuilder;
 import org.whole.lang.model.AbstractEntity;
@@ -457,11 +458,24 @@ public class CompilationUnitBuilder extends AbstractEntity {
 
 		if (!isInterface) {
 			Block body = newBlock();
+			TryStatement tryStm = newTryStatement();
+			
 			MethodInvocation callExp = ast.newMethodInvocation();
 			callExp.setExpression(ast.newSimpleName("visitor"));
 			callExp.setName(ast.newSimpleName("visit"));
 			callExp.arguments().add(ast.newThisExpression());
-			body.statements().add(ast.newExpressionStatement(callExp));
+			tryStm.getBody().statements().add(newExpressionStatement(callExp));
+
+			callExp = ast.newMethodInvocation();
+			callExp.setExpression(newSimpleName(IWholeRuntimeException.class.getName()));
+			callExp.setName(ast.newSimpleName("asWholeException"));
+			callExp.arguments().add(newSimpleName("e"));
+			callExp.arguments().add(ast.newThisExpression());
+			callExp.arguments().add(newMethodInvocation(ast.newSimpleName("visitor"), "getBindings"));
+			tryStm.catchClauses().add(newCatchClause(
+					newSingleVariableDeclaration("Exception", "e"), newThrowStatement(callExp)));
+			
+			body.statements().add(tryStm);
 			method.setBody(body);
 		}
 		return method;
