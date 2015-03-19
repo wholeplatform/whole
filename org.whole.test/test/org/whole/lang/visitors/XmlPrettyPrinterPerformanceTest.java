@@ -52,9 +52,9 @@ public class XmlPrettyPrinterPerformanceTest {
 	@Test
 	public void testPerformance() {
 		long millis = System.currentTimeMillis();
-		for (int i=0; i<10; i++)
+		for (int i=0; i<1000; i++)
 			PrettyPrinterOperation.prettyPrint(xmlModel, NullOutputStream.instance());
-		double elapsed = (System.currentTimeMillis() - millis) / 10.0;
+		double elapsed = (System.currentTimeMillis() - millis) / 1000.0;
 		System.out.printf("Elapsed %fs\n", elapsed);
 	}
 }
