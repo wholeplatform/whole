@@ -14,8 +14,11 @@ public class ObjectImpl extends AbstractListCompositeEntity<Pair> implements Obj
     private static final long serialVersionUID = 1;
 
     public void accept(IJSONVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
 
     public int wGetEntityOrd() {
         return JSONEntityDescriptorEnum.Object_ord;

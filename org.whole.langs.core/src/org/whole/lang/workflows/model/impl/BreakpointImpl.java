@@ -23,7 +23,11 @@ public class BreakpointImpl extends AbstractSimpleEntity implements Breakpoint {
 	}
 
 	public void accept(IWorkflowsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Label label;

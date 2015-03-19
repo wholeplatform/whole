@@ -23,8 +23,11 @@ public class StringImpl extends AbstractDataEntity implements String {
     }
 
     public void accept(IJSONVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
 
     public int wGetEntityOrd() {
         return JSONEntityDescriptorEnum.String_ord;

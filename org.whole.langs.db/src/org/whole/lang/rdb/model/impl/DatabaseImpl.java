@@ -23,7 +23,11 @@ public class DatabaseImpl extends AbstractSimpleEntity implements Database {
 	}
 
 	public void accept(IRDBVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private URI uri;

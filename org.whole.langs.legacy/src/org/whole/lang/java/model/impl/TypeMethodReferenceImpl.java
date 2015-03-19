@@ -22,6 +22,7 @@ import org.whole.lang.java.model.TypeMethodReference;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.java.model.Type;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -43,7 +44,11 @@ public class TypeMethodReferenceImpl extends AbstractSimpleEntity implements Typ
     }
 
     public void accept(IJavaVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Type type;
 

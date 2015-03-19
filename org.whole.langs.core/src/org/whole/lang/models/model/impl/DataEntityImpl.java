@@ -23,7 +23,11 @@ public class DataEntityImpl extends AbstractSimpleEntity implements DataEntity {
 	}
 
 	public void accept(IModelsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private EntityModifiers modifiers;

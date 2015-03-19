@@ -22,7 +22,11 @@ public class NatureImpl extends AbstractDataEntity implements Nature {
 	}
 
 	public void accept(IArtifactsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

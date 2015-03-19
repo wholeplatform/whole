@@ -21,6 +21,10 @@ public class TopImpl extends AbstractSimpleEntity implements Top {
 	}
 
 	public void accept(IUnifiedLambdaDeltaVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 }

@@ -23,7 +23,11 @@ public class AndImpl extends AbstractSimpleEntity implements And {
 	}
 
 	public void accept(IGrammarsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Predicate predicate1;

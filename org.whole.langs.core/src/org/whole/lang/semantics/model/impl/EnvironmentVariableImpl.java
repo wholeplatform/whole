@@ -1,83 +1,97 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.semantics.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.semantics.model.*;
+import org.whole.lang.semantics.model.EnvironmentVariable;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
 import org.whole.lang.semantics.visitors.ISemanticsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.semantics.model.LocalIdentifier;
 import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
-public class EnvironmentVariableImpl extends AbstractSimpleEntity implements
-		EnvironmentVariable {
-	private static final long serialVersionUID = 1;
+public class EnvironmentVariableImpl extends AbstractSimpleEntity implements EnvironmentVariable {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<EnvironmentVariable> wGetEntityDescriptor() {
-		return SemanticsEntityDescriptorEnum.EnvironmentVariable;
-	}
+    public EntityDescriptor<EnvironmentVariable> wGetEntityDescriptor() {
+        return SemanticsEntityDescriptorEnum.EnvironmentVariable;
+    }
 
-	public int wGetEntityOrd() {
-		return SemanticsEntityDescriptorEnum.EnvironmentVariable_ord;
-	}
+    public int wGetEntityOrd() {
+        return SemanticsEntityDescriptorEnum.EnvironmentVariable_ord;
+    }
 
-	public void accept(ISemanticsVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(ISemanticsVisitor visitor) {
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
+    }
+    private LocalIdentifier environment;
 
-	private LocalIdentifier environment;
+    public LocalIdentifier getEnvironment() {
+        return notifyRequested(SemanticsFeatureDescriptorEnum.environment, environment);
+    }
 
-	public LocalIdentifier getEnvironment() {
-		return notifyRequested(SemanticsFeatureDescriptorEnum.environment,
-				environment);
-	}
+    public void setEnvironment(LocalIdentifier environment) {
+        notifyChanged(SemanticsFeatureDescriptorEnum.environment, this.environment, this.environment = environment);
+    }
+    private LocalIdentifier variable;
 
-	public void setEnvironment(LocalIdentifier environment) {
-		notifyChanged(SemanticsFeatureDescriptorEnum.environment,
-				this.environment, this.environment = environment);
-	}
+    public LocalIdentifier getVariable() {
+        return notifyRequested(SemanticsFeatureDescriptorEnum.variable, variable);
+    }
 
-	private LocalIdentifier variable;
+    public void setVariable(LocalIdentifier variable) {
+        notifyChanged(SemanticsFeatureDescriptorEnum.variable, this.variable, this.variable = variable);
+    }
 
-	public LocalIdentifier getVariable() {
-		return notifyRequested(SemanticsFeatureDescriptorEnum.variable,
-				variable);
-	}
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getEnvironment().wGetAdaptee(false);
+            case 1 :
+            return getVariable().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setVariable(LocalIdentifier variable) {
-		notifyChanged(SemanticsFeatureDescriptorEnum.variable, this.variable,
-				this.variable = variable);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setEnvironment(value.wGetAdapter(SemanticsEntityDescriptorEnum.LocalIdentifier));
+            break;
+            case 1 :
+            setVariable(value.wGetAdapter(SemanticsEntityDescriptorEnum.LocalIdentifier));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getEnvironment().wGetAdaptee(false);
-		case 1:
-			return getVariable().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setEnvironment(value
-					.wGetAdapter(SemanticsEntityDescriptorEnum.LocalIdentifier));
-			break;
-		case 1:
-			setVariable(value
-					.wGetAdapter(SemanticsEntityDescriptorEnum.LocalIdentifier));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 2;
-	}
+    public int wSize() {
+        return 2;
+    }
 }

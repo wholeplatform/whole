@@ -21,6 +21,9 @@ public class NullImpl extends AbstractSimpleEntity implements Null {
     }
 
     public void accept(IJSONVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
 }

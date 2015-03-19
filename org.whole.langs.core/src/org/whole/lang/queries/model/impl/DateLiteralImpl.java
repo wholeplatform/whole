@@ -20,6 +20,7 @@ package org.whole.lang.queries.model.impl;
 import org.whole.lang.model.AbstractDataEntity;
 import org.whole.lang.queries.model.DateLiteral;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.StringUtils;
@@ -41,7 +42,11 @@ public class DateLiteralImpl extends AbstractDataEntity implements DateLiteral {
     }
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

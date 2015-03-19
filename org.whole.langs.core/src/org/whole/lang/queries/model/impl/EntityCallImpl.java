@@ -22,6 +22,7 @@ import org.whole.lang.queries.model.EntityCall;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.model.EntityType;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -42,7 +43,11 @@ public class EntityCallImpl extends AbstractSimpleEntity implements EntityCall {
     }
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private EntityType name;
 

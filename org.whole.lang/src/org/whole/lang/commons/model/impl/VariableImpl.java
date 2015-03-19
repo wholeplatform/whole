@@ -30,7 +30,11 @@ public class VariableImpl extends AbstractSimpleEntity implements Variable {
     	matcher.matchEntityVariable(this, other);
     }
 	public void accept(ICommonsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private VarType varType;

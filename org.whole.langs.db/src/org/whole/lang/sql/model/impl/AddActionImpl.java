@@ -23,7 +23,11 @@ public class AddActionImpl extends AbstractSimpleEntity implements AddAction {
 	}
 
 	public void accept(ISQLVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private DeclarationOrConstraint declarationOrConstraint;

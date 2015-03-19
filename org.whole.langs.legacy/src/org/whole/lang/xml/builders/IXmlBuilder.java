@@ -1,194 +1,213 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.xml.builders;
 
 import org.whole.lang.builders.IBuilder;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface IXmlBuilder extends IBuilder {
-	public void visit();
 
-	public void nameSpace();
 
-	public void value();
+    public void visit();
 
-	public void content();
+    public void nameSpace();
 
-	public void attributes();
+    public void value();
 
-	public void tag();
+    public void content();
 
-	public void text();
+    public void attributes();
 
-	public void instruction();
+    public void tag();
 
-	public void pubidLiteral();
+    public void text();
 
-	public void systemLiteral();
+    public void instruction();
 
-	public void externalId();
+    public void pubidLiteral();
 
-	public void name();
+    public void systemLiteral();
 
-	public void standalone();
+    public void externalId();
 
-	public void encoding();
+    public void name();
 
-	public void version();
+    public void standalone();
 
-	public void misc();
+    public void encoding();
 
-	public void docTypeDecl();
+    public void version();
 
-	public void xmlDecl();
+    public void misc();
 
-	public void element();
+    public void docTypeDecl();
 
-	public void prolog();
+    public void xmlDecl();
 
-	public void Document();
+    public void element();
 
-	public void Document_();
+    public void prolog();
 
-	public void _Document();
+    public void Document();
 
-	public void Prolog();
+    public void Document_();
 
-	public void Prolog_();
+    public void _Document();
 
-	public void _Prolog();
+    public void Prolog();
 
-	public void XMLDecl();
+    public void Prolog_();
 
-	public void XMLDecl_();
+    public void _Prolog();
 
-	public void _XMLDecl();
+    public void XMLDecl();
 
-	public void Version();
+    public void XMLDecl_();
 
-	public void Version(String value);
+    public void _XMLDecl();
 
-	public void Encoding();
+    public void Version();
 
-	public void Encoding(String value);
+    public void Version(String value);
 
-	public void Standalone();
+    public void Encoding();
 
-	public void Standalone(boolean value);
+    public void Encoding(String value);
 
-	public void DocTypeDecl();
+    public void Standalone();
 
-	public void DocTypeDecl_();
+    public void Standalone(boolean value);
 
-	public void _DocTypeDecl();
+    public void DocTypeDecl();
 
-	public void SystemId();
+    public void DocTypeDecl_();
 
-	public void SystemId_();
+    public void _DocTypeDecl();
 
-	public void _SystemId();
+    public void SystemId();
 
-	public void SystemLiteral();
+    public void SystemId_();
 
-	public void SystemLiteral(String value);
+    public void _SystemId();
 
-	public void PublicId();
+    public void SystemLiteral();
 
-	public void PublicId_();
+    public void SystemLiteral(String value);
 
-	public void _PublicId();
+    public void PublicId();
 
-	public void PubidLiteral();
+    public void PublicId_();
 
-	public void PubidLiteral(String value);
+    public void _PublicId();
 
-	public void Misc();
+    public void PubidLiteral();
 
-	public void Misc_();
+    public void PubidLiteral(String value);
 
-	public void Misc_(int initialCapacity);
+    public void Misc();
 
-	public void _Misc();
+    public void Misc_();
 
-	public void PI();
+    public void Misc_(int initialCapacity);
 
-	public void PI_();
+    public void _Misc();
 
-	public void _PI();
+    public void PI();
 
-	public void Instruction();
+    public void PI_();
 
-	public void Instruction(String value);
+    public void _PI();
 
-	public void Comment();
+    public void Instruction();
 
-	public void Comment_();
+    public void Instruction(String value);
 
-	public void _Comment();
+    public void Comment();
 
-	public void CommentText();
+    public void Comment_();
 
-	public void CommentText(String value);
+    public void _Comment();
 
-	public void Element();
+    public void CommentText();
 
-	public void Element_();
+    public void CommentText(String value);
 
-	public void _Element();
+    public void Element();
 
-	public void Attributes();
+    public void Element_();
 
-	public void Attributes_();
+    public void _Element();
 
-	public void Attributes_(int initialCapacity);
+    public void Attributes();
 
-	public void _Attributes();
+    public void Attributes_();
 
-	public void Attribute();
+    public void Attributes_(int initialCapacity);
 
-	public void Attribute_();
+    public void _Attributes();
 
-	public void _Attribute();
+    public void Attribute();
 
-	public void Name();
+    public void Attribute_();
 
-	public void Name(String value);
+    public void _Attribute();
 
-	public void QualifiedName();
+    public void Name();
 
-	public void QualifiedName_();
+    public void Name(String value);
 
-	public void _QualifiedName();
+    public void QualifiedName();
 
-	public void NameSpace();
+    public void QualifiedName_();
 
-	public void NameSpace(String value);
+    public void _QualifiedName();
 
-	public void Value();
+    public void NameSpace();
 
-	public void Value(String value);
+    public void NameSpace(String value);
 
-	public void Content();
+    public void Value();
 
-	public void Content_();
+    public void Value(String value);
 
-	public void Content_(int initialCapacity);
+    public void Content();
 
-	public void _Content();
+    public void Content_();
 
-	public void CharData();
+    public void Content_(int initialCapacity);
 
-	public void CharData(String value);
+    public void _Content();
 
-	public void CDataSect();
+    public void CharData();
 
-	public void CDataSect_();
+    public void CharData(String value);
 
-	public void CDataSect_(int initialCapacity);
+    public void CDataSect();
 
-	public void _CDataSect();
+    public void CDataSect_();
 
-	public void CDataSectData();
+    public void CDataSect_(int initialCapacity);
 
-	public void CDataSectData(String value);
+    public void _CDataSect();
+
+    public void CDataSectData();
+
+    public void CDataSectData(String value);
 }

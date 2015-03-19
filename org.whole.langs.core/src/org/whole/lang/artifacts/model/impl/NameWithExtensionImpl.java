@@ -24,7 +24,11 @@ public class NameWithExtensionImpl extends AbstractSimpleEntity implements
 	}
 
 	public void accept(IArtifactsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Name name;

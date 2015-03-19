@@ -23,7 +23,11 @@ public class ActionCallImpl extends AbstractSimpleEntity implements ActionCall {
 	}
 
 	public void accept(IActionsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Label name;

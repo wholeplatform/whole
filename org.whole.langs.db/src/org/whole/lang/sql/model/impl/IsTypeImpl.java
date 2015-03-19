@@ -23,7 +23,11 @@ public class IsTypeImpl extends AbstractDataEntity implements IsType {
 	}
 
 	public void accept(ISQLVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

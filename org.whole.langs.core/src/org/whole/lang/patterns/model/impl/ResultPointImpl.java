@@ -22,6 +22,7 @@ import org.whole.lang.patterns.model.ResultPoint;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.model.Type;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -43,7 +44,11 @@ public class ResultPointImpl extends AbstractSimpleEntity implements ResultPoint
     }
 
     public void accept(IPatternsVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Type resultType;
 

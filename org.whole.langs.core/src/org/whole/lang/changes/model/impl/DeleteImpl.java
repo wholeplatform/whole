@@ -23,8 +23,11 @@ public class DeleteImpl extends AbstractSimpleEntity implements Delete {
     }
 
     public void accept(IChangesVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
     private Content content;
 
     public Content getContent() {

@@ -22,6 +22,7 @@ import org.whole.lang.queries.model.AncestorOrSelfStep;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 
 /**
  *  @generator Whole
@@ -38,6 +39,10 @@ public class AncestorOrSelfStepImpl extends AbstractSimpleEntity implements Ance
     }
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 }

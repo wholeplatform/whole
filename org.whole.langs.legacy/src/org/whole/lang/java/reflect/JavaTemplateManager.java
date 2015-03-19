@@ -38,8 +38,7 @@ public class JavaTemplateManager extends AbstractTemplateManager {
 	private JavaTemplateManager() {
 		put("empty", new AbstractTemplateFactory<JavaSystemSoftware>() {
 			public JavaSystemSoftware create() {
-				return GenericEntityFactory.instance
-						.create(JavaEntityDescriptorEnum.JavaSystemSoftware);
+                return GenericEntityFactory.instance.create(JavaEntityDescriptorEnum.JavaSystemSoftware);
 			}
 		});
 		put("Factorial", new Factorial());

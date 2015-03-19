@@ -22,8 +22,11 @@ public class ClipboardImpl extends AbstractDataEntity implements Clipboard {
     }
 
     public void accept(IChangesVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
 
     public int wGetEntityOrd() {
         return ChangesEntityDescriptorEnum.Clipboard_ord;

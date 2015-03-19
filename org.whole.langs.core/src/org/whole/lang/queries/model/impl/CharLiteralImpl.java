@@ -20,6 +20,7 @@ package org.whole.lang.queries.model.impl;
 import org.whole.lang.model.AbstractDataEntity;
 import org.whole.lang.queries.model.CharLiteral;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -39,7 +40,11 @@ public class CharLiteralImpl extends AbstractDataEntity implements CharLiteral {
     }
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

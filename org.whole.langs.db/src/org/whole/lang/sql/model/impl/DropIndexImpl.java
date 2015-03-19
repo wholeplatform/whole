@@ -23,7 +23,11 @@ public class DropIndexImpl extends AbstractSimpleEntity implements DropIndex {
 	}
 
 	public void accept(ISQLVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private IndexName indexName;

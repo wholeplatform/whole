@@ -23,7 +23,11 @@ public class ExcludeImpl extends AbstractSimpleEntity implements Exclude {
 	}
 
 	public void accept(IFramesVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private FeatureName feature;

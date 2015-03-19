@@ -22,6 +22,7 @@ import org.whole.lang.types.model.AnyType;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.types.reflect.TypesEntityDescriptorEnum;
 import org.whole.lang.types.visitors.ITypesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 
 /**
  *  @generator Whole
@@ -38,6 +39,10 @@ public class AnyTypeImpl extends AbstractSimpleEntity implements AnyType {
     }
 
     public void accept(ITypesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 }

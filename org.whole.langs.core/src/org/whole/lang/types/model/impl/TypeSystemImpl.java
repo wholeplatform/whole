@@ -22,6 +22,7 @@ import org.whole.lang.types.model.TypeSystem;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.types.reflect.TypesEntityDescriptorEnum;
 import org.whole.lang.types.visitors.ITypesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.types.model.Operations;
 import org.whole.lang.types.reflect.TypesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -42,7 +43,11 @@ public class TypeSystemImpl extends AbstractSimpleEntity implements TypeSystem {
     }
 
     public void accept(ITypesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Operations checkBefore;
 

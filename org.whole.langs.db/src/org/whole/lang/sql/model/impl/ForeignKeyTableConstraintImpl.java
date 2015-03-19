@@ -24,7 +24,11 @@ public class ForeignKeyTableConstraintImpl extends AbstractSimpleEntity
 	}
 
 	public void accept(ISQLVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private ColumnNames columnNames;

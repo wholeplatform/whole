@@ -23,8 +23,11 @@ public class UnifiedCompareImpl extends AbstractSimpleEntity implements UnifiedC
     }
 
     public void accept(IChangesVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
     private Content unifiedContent;
 
     public Content getUnifiedContent() {

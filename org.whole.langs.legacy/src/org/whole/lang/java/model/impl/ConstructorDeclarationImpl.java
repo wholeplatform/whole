@@ -22,6 +22,7 @@ import org.whole.lang.java.model.ConstructorDeclaration;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.java.model.Javadoc;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -48,7 +49,11 @@ public class ConstructorDeclarationImpl extends AbstractSimpleEntity implements 
     }
 
     public void accept(IJavaVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Javadoc javadoc;
 

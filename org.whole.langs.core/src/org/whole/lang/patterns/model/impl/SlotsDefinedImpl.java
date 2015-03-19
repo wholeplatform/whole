@@ -22,6 +22,7 @@ import org.whole.lang.patterns.model.SlotsDefined;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 
 /**
  *  @generator Whole
@@ -38,6 +39,10 @@ public class SlotsDefinedImpl extends AbstractSimpleEntity implements SlotsDefin
     }
 
     public void accept(IPatternsVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 }

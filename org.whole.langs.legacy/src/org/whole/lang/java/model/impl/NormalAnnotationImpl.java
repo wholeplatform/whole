@@ -22,6 +22,7 @@ import org.whole.lang.java.model.NormalAnnotation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.java.model.Name;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -42,7 +43,11 @@ public class NormalAnnotationImpl extends AbstractSimpleEntity implements Normal
     }
 
     public void accept(IJavaVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Name typeName;
 

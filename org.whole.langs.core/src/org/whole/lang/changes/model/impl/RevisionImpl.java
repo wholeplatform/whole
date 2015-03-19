@@ -23,8 +23,11 @@ public class RevisionImpl extends AbstractSimpleEntity implements Revision {
     }
 
     public void accept(IChangesVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
     private Revisor revisor;
 
     public Revisor getRevisor() {

@@ -24,7 +24,11 @@ public class UnionSelectImpl extends AbstractSimpleEntity implements
 	}
 
 	public void accept(ISQLVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Select simpleSelect;

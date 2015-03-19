@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.math.model.adapters;
 
 import org.whole.lang.model.adapters.AbstractEntityAdapter;
@@ -8,34 +25,33 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.math.reflect.MathEntityDescriptorEnum;
 import org.whole.lang.math.reflect.MathFeatureDescriptorEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class SetAdapter extends AbstractEntityAdapter implements Set {
-	private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-	public SetAdapter(IEntity implementor) {
-		super(implementor);
-	}
+    public SetAdapter(IEntity implementor) {
+        super(implementor);
+    }
 
-	public SetAdapter() {
-	}
+    public SetAdapter() {
+    }
 
-	public void accept(IMathVisitor visitor) {
-		if (visitor.visitAdapter(this))
-			visitor.visit(this);
-	}
+    public void accept(IMathVisitor visitor) {
+        if (visitor.visitAdapter(this))
+            visitor.visit(this);
+    }
 
-	public EntityDescriptor<Set> wGetEntityDescriptor() {
-		return MathEntityDescriptorEnum.Set;
-	}
+    public EntityDescriptor<Set> wGetEntityDescriptor() {
+        return MathEntityDescriptorEnum.Set;
+    }
 
-	public Constructor getElements() {
-		return wGet(MathFeatureDescriptorEnum.elements).wGetAdapter(
-				MathEntityDescriptorEnum.Constructor);
-	}
+    public Constructor getElements() {
+        return wGet(MathFeatureDescriptorEnum.elements).wGetAdapter(MathEntityDescriptorEnum.Constructor);
+    }
 
-	public void setElements(Constructor elements) {
-		wSet(MathFeatureDescriptorEnum.elements, elements);
-	}
+    public void setElements(Constructor elements) {
+        wSet(MathFeatureDescriptorEnum.elements, elements);
+    }
 }

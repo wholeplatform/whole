@@ -24,7 +24,11 @@ public class MappingStrategyImpl extends AbstractSimpleEntity implements
 	}
 
 	public void accept(IMappingVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private URI namespace;

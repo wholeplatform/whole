@@ -20,6 +20,7 @@ package org.whole.lang.types.model.impl;
 import org.whole.lang.model.AbstractDataEntity;
 import org.whole.lang.types.model.VariableType;
 import org.whole.lang.types.visitors.ITypesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.types.reflect.TypesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -39,7 +40,11 @@ public class VariableTypeImpl extends AbstractDataEntity implements VariableType
     }
 
     public void accept(ITypesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

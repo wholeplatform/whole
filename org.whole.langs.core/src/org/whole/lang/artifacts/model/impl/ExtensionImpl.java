@@ -22,7 +22,11 @@ public class ExtensionImpl extends AbstractDataEntity implements Extension {
 	}
 
 	public void accept(IArtifactsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

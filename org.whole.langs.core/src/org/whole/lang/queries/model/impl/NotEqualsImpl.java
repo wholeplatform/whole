@@ -22,6 +22,7 @@ import org.whole.lang.queries.model.NotEquals;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -41,7 +42,11 @@ public class NotEqualsImpl extends AbstractSimpleEntity implements NotEquals {
     }
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Expression exp1;
 

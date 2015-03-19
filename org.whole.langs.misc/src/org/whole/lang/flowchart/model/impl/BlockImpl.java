@@ -23,7 +23,11 @@ public class BlockImpl extends AbstractSimpleEntity implements Block {
 	}
 
 	public void accept(IFlowchartVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Pixels x;

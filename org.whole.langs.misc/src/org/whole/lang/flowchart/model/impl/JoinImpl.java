@@ -23,7 +23,11 @@ public class JoinImpl extends AbstractSimpleEntity implements Join {
 	}
 
 	public void accept(IFlowchartVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Pixels x;

@@ -23,8 +23,11 @@ public class RevisionFrameImpl extends AbstractSimpleEntity implements RevisionF
     }
 
     public void accept(IChangesVisitor visitor) {
-        visitor.visit(this);
-    }
+		try {
+	        visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}    }
     private Revisions baseRevisions;
 
     public Revisions getBaseRevisions() {

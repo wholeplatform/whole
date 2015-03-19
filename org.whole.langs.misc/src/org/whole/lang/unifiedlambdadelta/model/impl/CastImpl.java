@@ -23,7 +23,11 @@ public class CastImpl extends AbstractSimpleEntity implements Cast {
 	}
 
 	public void accept(IUnifiedLambdaDeltaVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Polarity polarity;

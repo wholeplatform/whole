@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.semantics.builders;
 
 import org.whole.lang.builders.IBuilder;
@@ -5,403 +22,405 @@ import org.whole.lang.semantics.model.LegacyTypeEnum;
 import org.whole.lang.semantics.model.BindingOpEnum;
 import org.whole.lang.semantics.model.StageChangeEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface ISemanticsBuilder extends IBuilder {
-	public void visit();
 
-	public void sup();
 
-	public void sub();
+    public void visit();
 
-	public void where();
+    public void sup();
 
-	public void stage();
+    public void sub();
 
-	public void environments();
+    public void where();
 
-	public void arguments();
+    public void stage();
 
-	public void type();
+    public void environments();
 
-	public void environment();
+    public void arguments();
 
-	public void expression();
+    public void type();
 
-	public void op();
+    public void environment();
 
-	public void nestedScope();
+    public void expression();
 
-	public void bindings();
+    public void op();
 
-	public void oldIdentifier();
+    public void nestedScope();
 
-	public void newIdentifier();
+    public void bindings();
 
-	public void identifier();
+    public void oldIdentifier();
 
-	public void time();
+    public void newIdentifier();
 
-	public void index();
+    public void identifier();
 
-	public void variable();
+    public void time();
 
-	public void targetConfiguration();
+    public void index();
 
-	public void sourceConfiguration();
+    public void variable();
 
-	public void conclusion();
+    public void targetConfiguration();
 
-	public void premises();
+    public void sourceConfiguration();
 
-	public void meaning();
+    public void conclusion();
 
-	public void condition();
+    public void premises();
 
-	public void category();
+    public void meaning();
 
-	public void target();
+    public void condition();
 
-	public void source();
+    public void category();
 
-	public void rules();
+    public void target();
 
-	public void signature();
+    public void source();
 
-	public void functions();
+    public void rules();
 
-	public void version();
+    public void signature();
 
-	public void name();
+    public void functions();
 
-	public void namespace();
+    public void version();
 
-	public void uri();
+    public void name();
 
-	public void SemanticTheory();
+    public void namespace();
 
-	public void SemanticTheory_();
+    public void uri();
 
-	public void _SemanticTheory();
+    public void SemanticTheory();
 
-	public void SemanticFunctions();
+    public void SemanticTheory_();
 
-	public void SemanticFunctions_();
+    public void _SemanticTheory();
 
-	public void SemanticFunctions_(int initialCapacity);
+    public void SemanticFunctions();
 
-	public void _SemanticFunctions();
+    public void SemanticFunctions_();
 
-	public void SemanticFunction();
+    public void SemanticFunctions_(int initialCapacity);
 
-	public void SemanticFunction_();
+    public void _SemanticFunctions();
 
-	public void _SemanticFunction();
+    public void SemanticFunction();
 
-	public void Rules();
+    public void SemanticFunction_();
 
-	public void Rules_();
+    public void _SemanticFunction();
 
-	public void Rules_(int initialCapacity);
+    public void Rules();
 
-	public void _Rules();
+    public void Rules_();
 
-	public void InferenceRules();
+    public void Rules_(int initialCapacity);
 
-	public void InferenceRules_();
+    public void _Rules();
 
-	public void InferenceRules_(int initialCapacity);
+    public void InferenceRules();
 
-	public void _InferenceRules();
+    public void InferenceRules_();
 
-	public void AnyType();
+    public void InferenceRules_(int initialCapacity);
 
-	public void AnyType_();
+    public void _InferenceRules();
 
-	public void _AnyType();
+    public void AnyType();
 
-	public void LanguageType();
+    public void AnyType_();
 
-	public void LanguageType(String value);
+    public void _AnyType();
 
-	public void EntityType();
+    public void LanguageType();
 
-	public void EntityType(String value);
+    public void LanguageType(String value);
 
-	public void EnvironmentType();
+    public void EntityType();
 
-	public void EnvironmentType(String value);
+    public void EntityType(String value);
 
-	public void LegacyType();
+    public void EnvironmentType();
 
-	public void LegacyType(LegacyTypeEnum.Value value);
+    public void EnvironmentType(String value);
 
-	public void LegacyType(String value);
+    public void LegacyType();
 
-	public void UnionType();
+    public void LegacyType(LegacyTypeEnum.Value value);
 
-	public void UnionType_();
+    public void LegacyType(String value);
 
-	public void UnionType_(int initialCapacity);
+    public void UnionType();
 
-	public void _UnionType();
+    public void UnionType_();
 
-	public void FunctionType();
+    public void UnionType_(int initialCapacity);
 
-	public void FunctionType_();
+    public void _UnionType();
 
-	public void _FunctionType();
+    public void FunctionType();
 
-	public void SequenceType();
+    public void FunctionType_();
 
-	public void SequenceType_();
+    public void _FunctionType();
 
-	public void _SequenceType();
+    public void SequenceType();
 
-	public void SubtypeType();
+    public void SequenceType_();
 
-	public void SubtypeType_();
+    public void _SequenceType();
 
-	public void _SubtypeType();
+    public void SubtypeType();
 
-	public void SupertypeType();
+    public void SubtypeType_();
 
-	public void SupertypeType_();
+    public void _SubtypeType();
 
-	public void _SupertypeType();
+    public void SupertypeType();
 
-	public void ProductType();
+    public void SupertypeType_();
 
-	public void ProductType_();
+    public void _SupertypeType();
 
-	public void ProductType_(int initialCapacity);
+    public void ProductType();
 
-	public void _ProductType();
+    public void ProductType_();
 
-	public void ExecutionRule();
+    public void ProductType_(int initialCapacity);
 
-	public void ExecutionRule_();
+    public void _ProductType();
 
-	public void _ExecutionRule();
+    public void ExecutionRule();
 
-	public void InferenceRule();
+    public void ExecutionRule_();
 
-	public void InferenceRule_();
+    public void _ExecutionRule();
 
-	public void _InferenceRule();
+    public void InferenceRule();
 
-	public void Premises();
+    public void InferenceRule_();
 
-	public void Premises_();
+    public void _InferenceRule();
 
-	public void Premises_(int initialCapacity);
+    public void Premises();
 
-	public void _Premises();
+    public void Premises_();
 
-	public void Transition();
+    public void Premises_(int initialCapacity);
 
-	public void Transition_();
+    public void _Premises();
 
-	public void _Transition();
+    public void Transition();
 
-	public void Configuration();
+    public void Transition_();
 
-	public void Configuration_();
+    public void _Transition();
 
-	public void Configuration_(int initialCapacity);
+    public void Configuration();
 
-	public void _Configuration();
+    public void Configuration_();
 
-	public void TypedVariable();
+    public void Configuration_(int initialCapacity);
 
-	public void TypedVariable_();
+    public void _Configuration();
 
-	public void _TypedVariable();
+    public void TypedVariable();
 
-	public void StructuredVariable();
+    public void TypedVariable_();
 
-	public void StructuredVariable_();
+    public void _TypedVariable();
 
-	public void _StructuredVariable();
+    public void StructuredVariable();
 
-	public void Variable();
+    public void StructuredVariable_();
 
-	public void Variable(String value);
+    public void _StructuredVariable();
 
-	public void VariableValue();
+    public void Variable();
 
-	public void VariableValue_();
+    public void Variable(String value);
 
-	public void _VariableValue();
+    public void VariableValue();
 
-	public void RenameGroup();
+    public void VariableValue_();
 
-	public void RenameGroup_();
+    public void _VariableValue();
 
-	public void RenameGroup_(int initialCapacity);
+    public void RenameGroup();
 
-	public void _RenameGroup();
+    public void RenameGroup_();
 
-	public void Rename();
+    public void RenameGroup_(int initialCapacity);
 
-	public void Rename_();
+    public void _RenameGroup();
 
-	public void _Rename();
+    public void Rename();
 
-	public void Environments();
+    public void Rename_();
 
-	public void Environments_();
+    public void _Rename();
 
-	public void Environments_(int initialCapacity);
+    public void Environments();
 
-	public void _Environments();
+    public void Environments_();
 
-	public void BindingsScope();
+    public void Environments_(int initialCapacity);
 
-	public void BindingsScope_();
+    public void _Environments();
 
-	public void _BindingsScope();
+    public void BindingsScope();
 
-	public void LocalBindings();
+    public void BindingsScope_();
 
-	public void LocalBindings_();
+    public void _BindingsScope();
 
-	public void LocalBindings_(int initialCapacity);
+    public void LocalBindings();
 
-	public void _LocalBindings();
+    public void LocalBindings_();
 
-	public void LocalBinding();
+    public void LocalBindings_(int initialCapacity);
 
-	public void LocalBinding_();
+    public void _LocalBindings();
 
-	public void _LocalBinding();
+    public void LocalBinding();
 
-	public void BindingOp();
+    public void LocalBinding_();
 
-	public void BindingOp(BindingOpEnum.Value value);
+    public void _LocalBinding();
 
-	public void BindingOp(String value);
+    public void BindingOp();
 
-	public void EnvironmentVariable();
+    public void BindingOp(BindingOpEnum.Value value);
 
-	public void EnvironmentVariable_();
+    public void BindingOp(String value);
 
-	public void _EnvironmentVariable();
+    public void EnvironmentVariable();
 
-	public void TypeCast();
+    public void EnvironmentVariable_();
 
-	public void TypeCast_();
+    public void _EnvironmentVariable();
 
-	public void _TypeCast();
+    public void TypeCast();
 
-	public void FunctionApplication();
+    public void TypeCast_();
 
-	public void FunctionApplication_();
+    public void _TypeCast();
 
-	public void _FunctionApplication();
+    public void FunctionApplication();
 
-	public void StageChange();
+    public void FunctionApplication_();
 
-	public void StageChange(StageChangeEnum.Value value);
+    public void _FunctionApplication();
 
-	public void StageChange(String value);
+    public void StageChange();
 
-	public void OutputBindings();
+    public void StageChange(StageChangeEnum.Value value);
 
-	public void OutputBindings_();
+    public void StageChange(String value);
 
-	public void OutputBindings_(int initialCapacity);
+    public void OutputBindings();
 
-	public void _OutputBindings();
+    public void OutputBindings_();
 
-	public void OutputBinding();
+    public void OutputBindings_(int initialCapacity);
 
-	public void OutputBinding_();
+    public void _OutputBindings();
 
-	public void _OutputBinding();
+    public void OutputBinding();
 
-	public void InputBindings();
+    public void OutputBinding_();
 
-	public void InputBindings_();
+    public void _OutputBinding();
 
-	public void InputBindings_(int initialCapacity);
+    public void InputBindings();
 
-	public void _InputBindings();
+    public void InputBindings_();
 
-	public void InputBinding();
+    public void InputBindings_(int initialCapacity);
 
-	public void InputBinding_();
+    public void _InputBindings();
 
-	public void _InputBinding();
+    public void InputBinding();
 
-	public void InlineTemplate();
+    public void InputBinding_();
 
-	public void InlineTemplate_();
+    public void _InputBinding();
 
-	public void _InlineTemplate();
+    public void InlineTemplate();
 
-	public void ChooseTemplate();
+    public void InlineTemplate_();
 
-	public void ChooseTemplate_();
+    public void _InlineTemplate();
 
-	public void ChooseTemplate_(int initialCapacity);
+    public void ChooseTemplate();
 
-	public void _ChooseTemplate();
+    public void ChooseTemplate_();
 
-	public void WhereTemplate();
+    public void ChooseTemplate_(int initialCapacity);
 
-	public void WhereTemplate_();
+    public void _ChooseTemplate();
 
-	public void _WhereTemplate();
+    public void WhereTemplate();
 
-	public void ForTemplate();
+    public void WhereTemplate_();
 
-	public void ForTemplate_();
+    public void _WhereTemplate();
 
-	public void _ForTemplate();
+    public void ForTemplate();
 
-	public void IfTemplate();
+    public void ForTemplate_();
 
-	public void IfTemplate_();
+    public void _ForTemplate();
 
-	public void _IfTemplate();
+    public void IfTemplate();
 
-	public void IfDefTemplate();
+    public void IfTemplate_();
 
-	public void IfDefTemplate_();
+    public void _IfTemplate();
 
-	public void _IfDefTemplate();
+    public void IfDefTemplate();
 
-	public void ElseTemplate();
+    public void IfDefTemplate_();
 
-	public void ElseTemplate_();
+    public void _IfDefTemplate();
 
-	public void _ElseTemplate();
+    public void ElseTemplate();
 
-	public void RuleName();
+    public void ElseTemplate_();
 
-	public void RuleName_();
+    public void _ElseTemplate();
 
-	public void _RuleName();
+    public void RuleName();
 
-	public void Num();
+    public void RuleName_();
 
-	public void Num(int value);
+    public void _RuleName();
 
-	public void URI();
+    public void Num();
 
-	public void URI(String value);
+    public void Num(int value);
 
-	public void Namespace();
+    public void URI();
 
-	public void Namespace(String value);
+    public void URI(String value);
 
-	public void Name();
+    public void Namespace();
 
-	public void Name(String value);
+    public void Namespace(String value);
 
-	public void Version();
+    public void Name();
 
-	public void Version(String value);
+    public void Name(String value);
+
+    public void Version();
+
+    public void Version(String value);
 }

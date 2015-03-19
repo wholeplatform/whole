@@ -22,7 +22,11 @@ public class IndexImpl extends AbstractDataEntity implements Index {
 	}
 
 	public void accept(IUnifiedLambdaDeltaVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

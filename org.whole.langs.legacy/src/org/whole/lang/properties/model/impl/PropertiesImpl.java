@@ -23,7 +23,11 @@ public class PropertiesImpl extends AbstractSimpleEntity implements Properties {
 	}
 
 	public void accept(IPropertiesVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Comment comment;

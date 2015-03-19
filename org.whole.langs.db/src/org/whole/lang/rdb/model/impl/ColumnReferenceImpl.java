@@ -24,7 +24,11 @@ public class ColumnReferenceImpl extends AbstractSimpleEntity implements
 	}
 
 	public void accept(IRDBVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private StringData source;

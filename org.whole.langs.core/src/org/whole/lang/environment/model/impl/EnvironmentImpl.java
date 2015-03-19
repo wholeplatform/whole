@@ -22,6 +22,7 @@ import org.whole.lang.environment.model.Environment;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -44,7 +45,11 @@ public class EnvironmentImpl extends AbstractSimpleEntity implements Environment
     }
 
     public void accept(IEnvironmentVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private Name name;
 

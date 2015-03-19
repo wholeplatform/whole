@@ -23,7 +23,11 @@ public class FilterRuleImpl extends AbstractSimpleEntity implements FilterRule {
 	}
 
 	public void accept(ITestsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Description description;

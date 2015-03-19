@@ -23,7 +23,11 @@ public class ArrayTypeImpl extends AbstractSimpleEntity implements ArrayType {
 	}
 
 	public void accept(IImpVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Type contentType;

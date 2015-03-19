@@ -20,6 +20,7 @@ package org.whole.lang.java.model.impl;
 import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.java.model.*;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -30,7 +31,11 @@ public class TagsImpl extends AbstractListCompositeEntity<TagElement> implements
     private static final long serialVersionUID = 1;
 
     public void accept(IJavaVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

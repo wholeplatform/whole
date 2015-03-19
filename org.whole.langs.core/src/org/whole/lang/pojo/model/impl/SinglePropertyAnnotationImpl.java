@@ -24,7 +24,11 @@ public class SinglePropertyAnnotationImpl extends AbstractSimpleEntity
 	}
 
 	public void accept(IPojoVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Name name;

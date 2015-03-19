@@ -23,7 +23,11 @@ public class EditorImpl extends AbstractSimpleEntity implements Editor {
 	}
 
 	public void accept(IEditorsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private EditorName editorName;

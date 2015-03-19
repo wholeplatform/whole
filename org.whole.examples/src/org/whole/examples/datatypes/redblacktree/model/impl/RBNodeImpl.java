@@ -23,7 +23,11 @@ public class RBNodeImpl extends AbstractSimpleEntity implements RBNode {
 	}
 
 	public void accept(IRedBlackTreeVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Value value;

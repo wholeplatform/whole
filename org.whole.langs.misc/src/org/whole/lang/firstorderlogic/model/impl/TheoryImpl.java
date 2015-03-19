@@ -23,7 +23,11 @@ public class TheoryImpl extends AbstractSimpleEntity implements Theory {
 	}
 
 	public void accept(IFirstOrderLogicVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Name name;

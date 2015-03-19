@@ -15,7 +15,11 @@ public class FaultHandlersImpl extends
 	private static final long serialVersionUID = 1;
 
 	public void accept(IWorkflowsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

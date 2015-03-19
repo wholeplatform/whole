@@ -23,7 +23,11 @@ public class MetadataImpl extends AbstractSimpleEntity implements Metadata {
 	}
 
 	public void accept(IArtifactsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private Copyright copyright;

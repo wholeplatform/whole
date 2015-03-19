@@ -22,6 +22,7 @@ import org.whole.lang.java.model.ContinueStatement;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.java.visitors.IJavaVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.java.model.SimpleName;
 import org.whole.lang.java.reflect.JavaFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -41,7 +42,11 @@ public class ContinueStatementImpl extends AbstractSimpleEntity implements Conti
     }
 
     public void accept(IJavaVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
     private SimpleName label;
 

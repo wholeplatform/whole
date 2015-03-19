@@ -20,6 +20,7 @@ package org.whole.lang.patterns.model.impl;
 import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.patterns.model.*;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -30,7 +31,11 @@ public class VariantsImpl extends AbstractListCompositeEntity<Variant> implement
     private static final long serialVersionUID = 1;
 
     public void accept(IPatternsVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

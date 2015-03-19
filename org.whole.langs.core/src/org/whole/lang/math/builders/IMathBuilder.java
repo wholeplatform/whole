@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2014 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.math.builders;
 
 import org.whole.lang.builders.IBuilder;
@@ -5,659 +22,661 @@ import java.math.BigInteger;
 import java.math.BigDecimal;
 import org.whole.lang.math.model.ConstantEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface IMathBuilder extends IBuilder {
-	public void visit();
 
-	public void denominator();
 
-	public void numerator();
+    public void visit();
 
-	public void index();
+    public void denominator();
 
-	public void collection();
+    public void numerator();
 
-	public void collection2();
+    public void index();
 
-	public void collection1();
+    public void collection();
 
-	public void rule();
+    public void collection2();
 
-	public void element();
+    public void collection1();
 
-	public void second();
+    public void rule();
 
-	public void first();
+    public void element();
 
-	public void elements();
+    public void second();
 
-	public void bits();
+    public void first();
 
-	public void exp2();
+    public void elements();
 
-	public void exp1();
+    public void bits();
 
-	public void degree();
+    public void exp2();
 
-	public void expression();
+    public void exp1();
 
-	public void exponent();
+    public void degree();
 
-	public void base();
+    public void expression();
 
-	public void divisor();
+    public void exponent();
 
-	public void dividend();
+    public void base();
 
-	public void subtrahend();
+    public void divisor();
 
-	public void minuend();
+    public void dividend();
 
-	public void Addition();
+    public void subtrahend();
 
-	public void Addition_();
+    public void minuend();
 
-	public void Addition_(int initialCapacity);
+    public void Addition();
 
-	public void _Addition();
+    public void Addition_();
 
-	public void Subtraction();
+    public void Addition_(int initialCapacity);
 
-	public void Subtraction_();
+    public void _Addition();
 
-	public void _Subtraction();
+    public void Subtraction();
 
-	public void Multiplication();
+    public void Subtraction_();
 
-	public void Multiplication_();
+    public void _Subtraction();
 
-	public void Multiplication_(int initialCapacity);
+    public void Multiplication();
 
-	public void _Multiplication();
+    public void Multiplication_();
 
-	public void Division();
+    public void Multiplication_(int initialCapacity);
 
-	public void Division_();
+    public void _Multiplication();
 
-	public void _Division();
+    public void Division();
 
-	public void Quotient();
+    public void Division_();
 
-	public void Quotient_();
+    public void _Division();
 
-	public void _Quotient();
+    public void Quotient();
 
-	public void Remainder();
+    public void Quotient_();
 
-	public void Remainder_();
+    public void _Quotient();
 
-	public void _Remainder();
+    public void Remainder();
 
-	public void Exponentiation();
+    public void Remainder_();
 
-	public void Exponentiation_();
+    public void _Remainder();
 
-	public void _Exponentiation();
+    public void Exponentiation();
 
-	public void Root();
+    public void Exponentiation_();
 
-	public void Root_();
+    public void _Exponentiation();
 
-	public void _Root();
+    public void Root();
 
-	public void Minus();
+    public void Root_();
 
-	public void Minus_();
+    public void _Root();
 
-	public void _Minus();
+    public void Minus();
 
-	public void AbsoluteValue();
+    public void Minus_();
 
-	public void AbsoluteValue_();
+    public void _Minus();
 
-	public void _AbsoluteValue();
+    public void AbsoluteValue();
 
-	public void Floor();
+    public void AbsoluteValue_();
 
-	public void Floor_();
+    public void _AbsoluteValue();
 
-	public void _Floor();
+    public void Floor();
 
-	public void Ceiling();
+    public void Floor_();
 
-	public void Ceiling_();
+    public void _Floor();
 
-	public void _Ceiling();
+    public void Ceiling();
 
-	public void Factorial();
+    public void Ceiling_();
 
-	public void Factorial_();
+    public void _Ceiling();
 
-	public void _Factorial();
+    public void Factorial();
 
-	public void GreatestCommonDivisor();
+    public void Factorial_();
 
-	public void GreatestCommonDivisor_();
+    public void _Factorial();
 
-	public void GreatestCommonDivisor_(int initialCapacity);
+    public void GreatestCommonDivisor();
 
-	public void _GreatestCommonDivisor();
+    public void GreatestCommonDivisor_();
 
-	public void LowestCommonMultiple();
+    public void GreatestCommonDivisor_(int initialCapacity);
 
-	public void LowestCommonMultiple_();
+    public void _GreatestCommonDivisor();
 
-	public void LowestCommonMultiple_(int initialCapacity);
+    public void LowestCommonMultiple();
 
-	public void _LowestCommonMultiple();
+    public void LowestCommonMultiple_();
 
-	public void Maximum();
+    public void LowestCommonMultiple_(int initialCapacity);
 
-	public void Maximum_();
+    public void _LowestCommonMultiple();
 
-	public void Maximum_(int initialCapacity);
+    public void Maximum();
 
-	public void _Maximum();
+    public void Maximum_();
 
-	public void Minimum();
+    public void Maximum_(int initialCapacity);
 
-	public void Minimum_();
+    public void _Maximum();
 
-	public void Minimum_(int initialCapacity);
+    public void Minimum();
 
-	public void _Minimum();
+    public void Minimum_();
 
-	public void And();
+    public void Minimum_(int initialCapacity);
 
-	public void And_();
+    public void _Minimum();
 
-	public void And_(int initialCapacity);
+    public void And();
 
-	public void _And();
+    public void And_();
 
-	public void Or();
+    public void And_(int initialCapacity);
 
-	public void Or_();
+    public void _And();
 
-	public void Or_(int initialCapacity);
+    public void Or();
 
-	public void _Or();
+    public void Or_();
 
-	public void ExclusiveOr();
+    public void Or_(int initialCapacity);
 
-	public void ExclusiveOr_();
+    public void _Or();
 
-	public void ExclusiveOr_(int initialCapacity);
+    public void ExclusiveOr();
 
-	public void _ExclusiveOr();
+    public void ExclusiveOr_();
 
-	public void Not();
+    public void ExclusiveOr_(int initialCapacity);
 
-	public void Not_();
+    public void _ExclusiveOr();
 
-	public void _Not();
+    public void Not();
 
-	public void Implies();
+    public void Not_();
 
-	public void Implies_();
+    public void _Not();
 
-	public void _Implies();
+    public void Implies();
 
-	public void BitwiseAnd();
+    public void Implies_();
 
-	public void BitwiseAnd_();
+    public void _Implies();
 
-	public void BitwiseAnd_(int initialCapacity);
+    public void BitwiseAnd();
 
-	public void _BitwiseAnd();
+    public void BitwiseAnd_();
 
-	public void BitwiseOr();
+    public void BitwiseAnd_(int initialCapacity);
 
-	public void BitwiseOr_();
+    public void _BitwiseAnd();
 
-	public void BitwiseOr_(int initialCapacity);
+    public void BitwiseOr();
 
-	public void _BitwiseOr();
+    public void BitwiseOr_();
 
-	public void BitwiseExclusiveOr();
+    public void BitwiseOr_(int initialCapacity);
 
-	public void BitwiseExclusiveOr_();
+    public void _BitwiseOr();
 
-	public void BitwiseExclusiveOr_(int initialCapacity);
+    public void BitwiseExclusiveOr();
 
-	public void _BitwiseExclusiveOr();
+    public void BitwiseExclusiveOr_();
 
-	public void BitwiseNot();
+    public void BitwiseExclusiveOr_(int initialCapacity);
 
-	public void BitwiseNot_();
+    public void _BitwiseExclusiveOr();
 
-	public void _BitwiseNot();
+    public void BitwiseNot();
 
-	public void ShiftLeft();
+    public void BitwiseNot_();
 
-	public void ShiftLeft_();
+    public void _BitwiseNot();
 
-	public void _ShiftLeft();
+    public void ShiftLeft();
 
-	public void ShiftRight();
+    public void ShiftLeft_();
 
-	public void ShiftRight_();
+    public void _ShiftLeft();
 
-	public void _ShiftRight();
+    public void ShiftRight();
 
-	public void ArithmeticShiftRight();
+    public void ShiftRight_();
 
-	public void ArithmeticShiftRight_();
+    public void _ShiftRight();
 
-	public void _ArithmeticShiftRight();
+    public void ArithmeticShiftRight();
 
-	public void Equals();
+    public void ArithmeticShiftRight_();
 
-	public void Equals_();
+    public void _ArithmeticShiftRight();
 
-	public void Equals_(int initialCapacity);
+    public void Equals();
 
-	public void _Equals();
+    public void Equals_();
 
-	public void NotEquals();
+    public void Equals_(int initialCapacity);
 
-	public void NotEquals_();
+    public void _Equals();
 
-	public void _NotEquals();
+    public void NotEquals();
 
-	public void ApproximatelyEqual();
+    public void NotEquals_();
 
-	public void ApproximatelyEqual_();
+    public void _NotEquals();
 
-	public void _ApproximatelyEqual();
+    public void ApproximatelyEqual();
 
-	public void GreaterThan();
+    public void ApproximatelyEqual_();
 
-	public void GreaterThan_();
+    public void _ApproximatelyEqual();
 
-	public void GreaterThan_(int initialCapacity);
+    public void GreaterThan();
 
-	public void _GreaterThan();
+    public void GreaterThan_();
 
-	public void LessThan();
+    public void GreaterThan_(int initialCapacity);
 
-	public void LessThan_();
+    public void _GreaterThan();
 
-	public void LessThan_(int initialCapacity);
+    public void LessThan();
 
-	public void _LessThan();
+    public void LessThan_();
 
-	public void GreaterOrEqual();
+    public void LessThan_(int initialCapacity);
 
-	public void GreaterOrEqual_();
+    public void _LessThan();
 
-	public void GreaterOrEqual_(int initialCapacity);
+    public void GreaterOrEqual();
 
-	public void _GreaterOrEqual();
+    public void GreaterOrEqual_();
 
-	public void LessOrEqual();
+    public void GreaterOrEqual_(int initialCapacity);
 
-	public void LessOrEqual_();
+    public void _GreaterOrEqual();
 
-	public void LessOrEqual_(int initialCapacity);
+    public void LessOrEqual();
 
-	public void _LessOrEqual();
+    public void LessOrEqual_();
 
-	public void FactorOf();
+    public void LessOrEqual_(int initialCapacity);
 
-	public void FactorOf_();
+    public void _LessOrEqual();
 
-	public void _FactorOf();
+    public void FactorOf();
 
-	public void Exponential();
+    public void FactorOf_();
 
-	public void Exponential_();
+    public void _FactorOf();
 
-	public void _Exponential();
+    public void Exponential();
 
-	public void NaturalLogarithm();
+    public void Exponential_();
 
-	public void NaturalLogarithm_();
+    public void _Exponential();
 
-	public void _NaturalLogarithm();
+    public void NaturalLogarithm();
 
-	public void Logarithm();
+    public void NaturalLogarithm_();
 
-	public void Logarithm_();
+    public void _NaturalLogarithm();
 
-	public void _Logarithm();
+    public void Logarithm();
 
-	public void Sine();
+    public void Logarithm_();
 
-	public void Sine_();
+    public void _Logarithm();
 
-	public void _Sine();
+    public void Sine();
 
-	public void Cosine();
+    public void Sine_();
 
-	public void Cosine_();
+    public void _Sine();
 
-	public void _Cosine();
+    public void Cosine();
 
-	public void Tangent();
+    public void Cosine_();
 
-	public void Tangent_();
+    public void _Cosine();
 
-	public void _Tangent();
+    public void Tangent();
 
-	public void Cosecant();
+    public void Tangent_();
 
-	public void Cosecant_();
+    public void _Tangent();
 
-	public void _Cosecant();
+    public void Cosecant();
 
-	public void Secant();
+    public void Cosecant_();
 
-	public void Secant_();
+    public void _Cosecant();
 
-	public void _Secant();
+    public void Secant();
 
-	public void Cotangent();
+    public void Secant_();
 
-	public void Cotangent_();
+    public void _Secant();
 
-	public void _Cotangent();
+    public void Cotangent();
 
-	public void Arcsine();
+    public void Cotangent_();
 
-	public void Arcsine_();
+    public void _Cotangent();
 
-	public void _Arcsine();
+    public void Arcsine();
 
-	public void Arccosine();
+    public void Arcsine_();
 
-	public void Arccosine_();
+    public void _Arcsine();
 
-	public void _Arccosine();
+    public void Arccosine();
 
-	public void Arctangent();
+    public void Arccosine_();
 
-	public void Arctangent_();
+    public void _Arccosine();
 
-	public void _Arctangent();
+    public void Arctangent();
 
-	public void Arccosecant();
+    public void Arctangent_();
 
-	public void Arccosecant_();
+    public void _Arctangent();
 
-	public void _Arccosecant();
+    public void Arccosecant();
 
-	public void Arcsecant();
+    public void Arccosecant_();
 
-	public void Arcsecant_();
+    public void _Arccosecant();
 
-	public void _Arcsecant();
+    public void Arcsecant();
 
-	public void Arccotangent();
+    public void Arcsecant_();
 
-	public void Arccotangent_();
+    public void _Arcsecant();
 
-	public void _Arccotangent();
+    public void Arccotangent();
 
-	public void HyperbolicSine();
+    public void Arccotangent_();
 
-	public void HyperbolicSine_();
+    public void _Arccotangent();
 
-	public void _HyperbolicSine();
+    public void HyperbolicSine();
 
-	public void HyperbolicCosine();
+    public void HyperbolicSine_();
 
-	public void HyperbolicCosine_();
+    public void _HyperbolicSine();
 
-	public void _HyperbolicCosine();
+    public void HyperbolicCosine();
 
-	public void HyperbolicTangent();
+    public void HyperbolicCosine_();
 
-	public void HyperbolicTangent_();
+    public void _HyperbolicCosine();
 
-	public void _HyperbolicTangent();
+    public void HyperbolicTangent();
 
-	public void HyperbolicCosecant();
+    public void HyperbolicTangent_();
 
-	public void HyperbolicCosecant_();
+    public void _HyperbolicTangent();
 
-	public void _HyperbolicCosecant();
+    public void HyperbolicCosecant();
 
-	public void HyperbolicSecant();
+    public void HyperbolicCosecant_();
 
-	public void HyperbolicSecant_();
+    public void _HyperbolicCosecant();
 
-	public void _HyperbolicSecant();
+    public void HyperbolicSecant();
 
-	public void HyperbolicCotangent();
+    public void HyperbolicSecant_();
 
-	public void HyperbolicCotangent_();
+    public void _HyperbolicSecant();
 
-	public void _HyperbolicCotangent();
+    public void HyperbolicCotangent();
 
-	public void HyperbolicArcsine();
+    public void HyperbolicCotangent_();
 
-	public void HyperbolicArcsine_();
+    public void _HyperbolicCotangent();
 
-	public void _HyperbolicArcsine();
+    public void HyperbolicArcsine();
 
-	public void HyperbolicArccosine();
+    public void HyperbolicArcsine_();
 
-	public void HyperbolicArccosine_();
+    public void _HyperbolicArcsine();
 
-	public void _HyperbolicArccosine();
+    public void HyperbolicArccosine();
 
-	public void HyperbolicArctangent();
+    public void HyperbolicArccosine_();
 
-	public void HyperbolicArctangent_();
+    public void _HyperbolicArccosine();
 
-	public void _HyperbolicArctangent();
+    public void HyperbolicArctangent();
 
-	public void HyperbolicArccosecant();
+    public void HyperbolicArctangent_();
 
-	public void HyperbolicArccosecant_();
+    public void _HyperbolicArctangent();
 
-	public void _HyperbolicArccosecant();
+    public void HyperbolicArccosecant();
 
-	public void HyperbolicArcsecant();
+    public void HyperbolicArccosecant_();
 
-	public void HyperbolicArcsecant_();
+    public void _HyperbolicArccosecant();
 
-	public void _HyperbolicArcsecant();
+    public void HyperbolicArcsecant();
 
-	public void HyperbolicArccotangent();
+    public void HyperbolicArcsecant_();
 
-	public void HyperbolicArccotangent_();
+    public void _HyperbolicArcsecant();
 
-	public void _HyperbolicArccotangent();
+    public void HyperbolicArccotangent();
 
-	public void Empty();
+    public void HyperbolicArccotangent_();
 
-	public void Empty_();
+    public void _HyperbolicArccotangent();
 
-	public void _Empty();
+    public void Empty();
 
-	public void Set();
+    public void Empty_();
 
-	public void Set_();
+    public void _Empty();
 
-	public void _Set();
+    public void Set();
 
-	public void OrderedPair();
+    public void Set_();
 
-	public void OrderedPair_();
+    public void _Set();
 
-	public void _OrderedPair();
+    public void OrderedPair();
 
-	public void Tuple();
+    public void OrderedPair_();
 
-	public void Tuple_();
+    public void _OrderedPair();
 
-	public void Tuple_(int initialCapacity);
+    public void Tuple();
 
-	public void _Tuple();
+    public void Tuple_();
 
-	public void List();
+    public void Tuple_(int initialCapacity);
 
-	public void List_();
+    public void _Tuple();
 
-	public void _List();
+    public void List();
 
-	public void Stream();
+    public void List_();
 
-	public void Stream_();
+    public void _List();
 
-	public void _Stream();
+    public void Stream();
 
-	public void Enumeration();
+    public void Stream_();
 
-	public void Enumeration_();
+    public void _Stream();
 
-	public void Enumeration_(int initialCapacity);
+    public void Enumeration();
 
-	public void _Enumeration();
+    public void Enumeration_();
 
-	public void Builder();
+    public void Enumeration_(int initialCapacity);
 
-	public void Builder_();
+    public void _Enumeration();
 
-	public void _Builder();
+    public void Builder();
 
-	public void Union();
+    public void Builder_();
 
-	public void Union_();
+    public void _Builder();
 
-	public void Union_(int initialCapacity);
+    public void Union();
 
-	public void _Union();
+    public void Union_();
 
-	public void Intersection();
+    public void Union_(int initialCapacity);
 
-	public void Intersection_();
+    public void _Union();
 
-	public void Intersection_(int initialCapacity);
+    public void Intersection();
 
-	public void _Intersection();
+    public void Intersection_();
 
-	public void Difference();
+    public void Intersection_(int initialCapacity);
 
-	public void Difference_();
+    public void _Intersection();
 
-	public void _Difference();
+    public void Difference();
 
-	public void In();
+    public void Difference_();
 
-	public void In_();
+    public void _Difference();
 
-	public void _In();
+    public void In();
 
-	public void NotIn();
+    public void In_();
 
-	public void NotIn_();
+    public void _In();
 
-	public void _NotIn();
+    public void NotIn();
 
-	public void Subset();
+    public void NotIn_();
 
-	public void Subset_();
+    public void _NotIn();
 
-	public void Subset_(int initialCapacity);
+    public void Subset();
 
-	public void _Subset();
+    public void Subset_();
 
-	public void ProperSubset();
+    public void Subset_(int initialCapacity);
 
-	public void ProperSubset_();
+    public void _Subset();
 
-	public void ProperSubset_(int initialCapacity);
+    public void ProperSubset();
 
-	public void _ProperSubset();
+    public void ProperSubset_();
 
-	public void NotSubset();
+    public void ProperSubset_(int initialCapacity);
 
-	public void NotSubset_();
+    public void _ProperSubset();
 
-	public void _NotSubset();
+    public void NotSubset();
 
-	public void NotProperSubset();
+    public void NotSubset_();
 
-	public void NotProperSubset_();
+    public void _NotSubset();
 
-	public void _NotProperSubset();
+    public void NotProperSubset();
 
-	public void Cardinality();
+    public void NotProperSubset_();
 
-	public void Cardinality_();
+    public void _NotProperSubset();
 
-	public void _Cardinality();
+    public void Cardinality();
 
-	public void Selector();
+    public void Cardinality_();
 
-	public void Selector_();
+    public void _Cardinality();
 
-	public void _Selector();
+    public void Selector();
 
-	public void Identifier();
+    public void Selector_();
 
-	public void Identifier(String value);
+    public void _Selector();
 
-	public void Boolean();
+    public void Identifier();
 
-	public void Boolean(boolean value);
+    public void Identifier(String value);
 
-	public void ByteInteger();
+    public void Boolean();
 
-	public void ByteInteger(byte value);
+    public void Boolean(boolean value);
 
-	public void ShortInteger();
+    public void ByteInteger();
 
-	public void ShortInteger(short value);
+    public void ByteInteger(byte value);
 
-	public void Integer();
+    public void ShortInteger();
 
-	public void Integer(int value);
+    public void ShortInteger(short value);
 
-	public void LongInteger();
+    public void Integer();
 
-	public void LongInteger(long value);
+    public void Integer(int value);
 
-	public void BigInteger();
+    public void LongInteger();
 
-	public void BigInteger(BigInteger value);
+    public void LongInteger(long value);
 
-	public void BigInteger(String value);
+    public void BigInteger();
 
-	public void Float();
+    public void BigInteger(BigInteger value);
 
-	public void Float(float value);
+    public void BigInteger(String value);
 
-	public void Double();
+    public void Float();
 
-	public void Double(double value);
+    public void Float(float value);
 
-	public void BigDecimal();
+    public void Double();
 
-	public void BigDecimal(BigDecimal value);
+    public void Double(double value);
 
-	public void BigDecimal(String value);
+    public void BigDecimal();
 
-	public void Rational();
+    public void BigDecimal(BigDecimal value);
 
-	public void Rational_();
+    public void BigDecimal(String value);
 
-	public void _Rational();
+    public void Rational();
 
-	public void Constant();
+    public void Rational_();
 
-	public void Constant(ConstantEnum.Value value);
+    public void _Rational();
 
-	public void Constant(String value);
+    public void Constant();
 
-	public void NotANumber();
+    public void Constant(ConstantEnum.Value value);
 
-	public void NotANumber_();
+    public void Constant(String value);
 
-	public void _NotANumber();
+    public void NotANumber();
+
+    public void NotANumber_();
+
+    public void _NotANumber();
 }

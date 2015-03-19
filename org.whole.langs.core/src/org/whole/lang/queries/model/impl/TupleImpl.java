@@ -20,6 +20,7 @@ package org.whole.lang.queries.model.impl;
 import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -30,7 +31,11 @@ public class TupleImpl extends AbstractListCompositeEntity<PathExpression> imple
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {
-        visitor.visit(this);
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
     public int wGetEntityOrd() {

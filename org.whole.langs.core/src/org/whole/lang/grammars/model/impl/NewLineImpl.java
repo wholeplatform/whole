@@ -21,6 +21,10 @@ public class NewLineImpl extends AbstractSimpleEntity implements NewLine {
 	}
 
 	public void accept(IGrammarsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 }
