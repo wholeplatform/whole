@@ -75,11 +75,11 @@
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </patterns:VariableDeclaration>
                         <patterns:JoinPointDeclaration>
-                            <patterns:Name value="functionDefinitionPoint"/>
+                            <patterns:Name value="functionDefinitionsPoint"/>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </patterns:JoinPointDeclaration>
                         <patterns:JoinPointDeclaration>
-                            <patterns:Name value="functionActionPoint"/>
+                            <patterns:Name value="functionActionsPoint"/>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </patterns:JoinPointDeclaration>
                         <patterns:JoinPointDeclaration>
@@ -112,7 +112,9 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </patterns:VariablePoint>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <semantics:SemanticFunctions initialCapacity="8">
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="functionDefinitionsPoint"/>
+                                        <semantics:SemanticFunctions initialCapacity="7">
                                         <semantics:SemanticFunction>
                                         <semantics:Name value="matchFIXME0"/>
                                         <semantics:FunctionType>
@@ -1895,10 +1897,8 @@
                                         </queries:Do>
                                         </queries:Choose>
                                         </semantics:SemanticFunction>
-                                        <patterns:InsertionPoint>
-                                        <patterns:Name value="functionDefinitionPoint"/>
-                                        </patterns:InsertionPoint>
                                         </semantics:SemanticFunctions>
+                                        </patterns:JoinPoint>
                                     </semantics:SemanticTheory>
                                     <actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
                                         <patterns:VariablePoint>
@@ -1926,11 +1926,10 @@
                                         <actions:MenuActions initialCapacity="0"/>
                                         <actions:MenuActions initialCapacity="0"/>
                                         <actions:MenuActions initialCapacity="0"/>
-                                        <actions:MenuActions initialCapacity="1">
-                                        <patterns:InsertionPoint>
-                                        <patterns:Name value="functionActionPoint"/>
-                                        </patterns:InsertionPoint>
-                                        </actions:MenuActions>
+                                        <patterns:JoinPoint>
+                                        <patterns:Name value="functionActionsPoint"/>
+                                        <actions:MenuActions initialCapacity="0"/>
+                                        </patterns:JoinPoint>
                                         <actions:MenuActions initialCapacity="0"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </actions:ContextMenuActions>
@@ -1952,7 +1951,9 @@
                                         <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
                                         <patterns:Name value="CompareEntity"/>
                                     </patterns:Types>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 </patterns:Choice>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </patterns:Repetition>
                             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         </patterns:Slot>
@@ -1965,4 +1966,5 @@
             </patterns:TemplatePoint>
         </patterns:Pattern>
     </patterns:Patterns>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
 </patterns:PatternLanguage>
