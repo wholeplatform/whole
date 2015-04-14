@@ -170,7 +170,7 @@
                                         <workflows:StringLiteral value="actionsModulesIterator()"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     </workflows:InvokeJavaClassMethod>
-                                    <queries:And initialCapacity="2">
+                                    <queries:And initialCapacity="4">
                                         <queries:VariableTest value="moduleResource"/>
                                         <queries:ExpressionTest>
                                         <queries:Filter>
@@ -194,10 +194,8 @@
                                         </queries:And>
                                         </queries:Filter>
                                         </queries:ExpressionTest>
-                                    </queries:And>
-                                </queries:Filter>
-                                <queries:Sequence initialCapacity="3">
-                                    <queries:Filter>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="getEntity"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -208,8 +206,10 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </workflows:InvokeJavaInstanceMethod>
                                         <queries:VariableTest value="actionsModule"/>
-                                    </queries:Filter>
-                                    <queries:Path initialCapacity="3">
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="actionsModule"/>
                                         <queries:ExpressionTest>
@@ -235,18 +235,20 @@
                                         <queries:FeatureStep value="http://lang.whole.org/Actions#name"/>
                                         <queries:VariableTest value="actionName"/>
                                         </queries:Filter>
-                                    </queries:Path>
-                                    <queries:Filter>
-                                        <queries:Addition>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:Addition>
                                         <queries:VariableRefStep value="moduleUri"/>
                                         <queries:Addition>
                                         <queries:StringLiteral value="#"/>
                                         <queries:VariableRefStep value="actionName"/>
                                         </queries:Addition>
-                                        </queries:Addition>
-                                        <queries:VariableTest value="actionUri"/>
-                                    </queries:Filter>
-                                </queries:Sequence>
+                                    </queries:Addition>
+                                    <queries:VariableTest value="actionUri"/>
+                                </queries:Filter>
                                 <queries:TemplateNames/>
                             </queries:Select>
                             <queries:Select>
