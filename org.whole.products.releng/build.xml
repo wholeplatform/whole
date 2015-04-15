@@ -150,6 +150,7 @@
 				<identitymapper />
 			</firstmatchmapper>
 		</move>
+		<unzip src="${build.dir}/whole-updatesite-${version}.zip" dest="${releng.dir}/whole-updates" />
 	</target>
 	<target name="build_lw" depends="package_lw" unless="failure">
 		<antcall target="move_lw_products" />
@@ -173,6 +174,7 @@
 
 	<target name="clean" depends="clean_e4_lw, clean_lw, clean_ldk" description="Clean">
 		<delete dir="${releng.dir}/builds" />
+		<delete dir="${releng.dir}/whole-updates" />
 	</target>
 
 	<target name="package" depends="clean, package_e4_lw, package_lw, package_ldk" />
