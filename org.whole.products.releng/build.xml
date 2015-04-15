@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="whole" default="build" basedir=".">
+<project name="whole-lw" default="build" basedir=".">
 	<property environment="env" />
 	<condition property="maven.home" value="${env.M2_HOME}" else="${M2_HOME}">
 		<isset property="env.M2_HOME"/>
@@ -227,5 +227,19 @@
 
 	<target name="test" description="Test the Whole Language Workbench">
 		<maven basedir="${releng.dir}" options="-fpom-lw.xml" goal="integration-test"/>
+	</target>
+
+	<!-- for external use -->
+	<target name="copy_updatesite" depends="init_release">
+		<fail unless="build.dir" message="Missing build folder" />
+		<fail unless="product.dir" message="Missing product folder" />
+
+		<copy todir="${product.dir}">
+			<fileset dir="${build.dir}" includes="whole-updatesite*.zip" />
+			<firstmatchmapper>
+				<globmapper from="whole-updatesite*" to="whole-lw-updatesite*" />
+				<identitymapper />
+			</firstmatchmapper>
+		</copy>
 	</target>
 </project>
