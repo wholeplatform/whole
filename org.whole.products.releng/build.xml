@@ -150,6 +150,7 @@
 				<identitymapper />
 			</firstmatchmapper>
 		</move>
+		<delete dir="${releng.dir}/whole-updates" />
 		<unzip src="${build.dir}/whole-updatesite-${version}.zip" dest="${releng.dir}/whole-updates" />
 	</target>
 	<target name="build_lw" depends="package_lw" unless="failure">
