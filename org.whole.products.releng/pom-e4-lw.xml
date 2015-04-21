@@ -32,6 +32,8 @@
 		<module>../nu.validator.htmlparser.feature/pom-e4-lw.xml</module>
 		<module>../org.beanshell.bsh/pom-e4-lw.xml</module>
 		<module>../org.beanshell.bsh.feature/pom-e4-lw.xml</module>
+		<module>../org.gradle/pom-e4-lw.xml</module>
+		<module>../org.gradle.feature/pom-e4-lw.xml</module>
 		<module>../org.h2/pom-e4-lw.xml</module>
 		<module>../org.h2.feature/pom-e4-lw.xml</module>
 		<module>../org.mozilla.rhino/pom-e4-lw.xml</module>

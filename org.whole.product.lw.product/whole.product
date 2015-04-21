@@ -228,6 +228,7 @@ Library.
       <feature id="net.sourceforge.jodatime.feature" installMode="root"/>
       <feature id="nu.validator.htmlparser.feature" installMode="root"/>
       <feature id="org.beanshell.bsh.feature" installMode="root"/>
+      <feature id="org.gradle.feature" installMode="root"/>
       <feature id="org.h2.feature" installMode="root"/>
       <feature id="org.mozilla.rhino.feature" installMode="root"/>
       <feature id="org.whole.product.lw.feature" installMode="root"/>

@@ -56,10 +56,11 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("com.fasterxml.jackson");
 		bundles.add("net.sourceforge.jodatime");
 		bundles.add("nu.validator.htmlparser");
-		bundles.add("org.objectweb.asm");
 		bundles.add("org.beanshell.bsh");
+		bundles.add("org.gradle");
 		bundles.add("org.h2");
 		bundles.add("org.mozilla.rhino");
+		bundles.add("org.objectweb.asm");
 
 		BUNDLE_IDS = Collections.unmodifiableSet(bundles);
 	};

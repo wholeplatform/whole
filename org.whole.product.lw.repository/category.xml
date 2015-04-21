@@ -52,6 +52,9 @@
    <feature url="features/org.beanshell.bsh.feature_2.0.0.b4.jar" id="org.beanshell.bsh.feature" version="2.0.0.b4">
       <category name="whole-enabling-features"/>
    </feature>
+   <feature url="features/org.gradle.feature_2.3.jar" id="org.gradle.feature" version="2.3.0">
+      <category name="whole-enabling-features"/>
+   </feature>
    <feature url="features/org.h2.feature_1.2.147.jar" id="org.h2.feature" version="1.2.147">
       <category name="whole-enabling-features"/>
    </feature>

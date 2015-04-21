@@ -1,0 +1,140 @@
+import org.ajoberstar.grgit.*
+import org.apache.maven.cli.MavenCli;
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  
+  dependencies {
+    classpath 'org.ajoberstar:gradle-git:1.1.0'
+	classpath "org.apache.maven:maven-embedder:3.3.1"
+	
+//	classpath 'org.apache.maven.wagon:wagon-http-lightweight:2.4'  
+//	classpath 'org.eclipse.aether:aether-connector-wagon:0.9.0.M2' 
+  }
+}
+
+ext {
+	repoDir = ".."
+	reposDir =  "../.."
+	
+	versionNum = "1.0.0"
+	versionNumOld = "1.0.0"
+	
+	relengDir = "."
+	
+	repo = Grgit.open(new java.io.File(repoDir))
+}
+
+def version = lastCommitVersion()
+
+def buildDir = "${relengDir}/builds/${version}"
+def sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store"
+
+def String lastCommitVersion() {
+	def commits = repo.log(maxCommits: 1)
+	def lastCommit = commits.get(0)
+
+	def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
+	def suffix = dateFormat.format(lastCommit.getDate())
+
+	return "${versionNum}.v${suffix}"
+}
+
+task set_build_version { description 'set the build version' } << {
+	logging.setLevel(LogLevel.INFO)
+	
+	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: version, summary: true) {
+		include(name: "*/META-INF/MANIFEST.MF")
+		include(name: "*/feature.xml")
+		include(name: "*/category.xml")
+		include(name: "*/*.product")
+	}
+	
+	ant.replace(dir: repoDir, token: versionNumOld+"-SNAPSHOT", value: version, summary: true) {
+		include(name: "*/pom-e4-lw.xml")
+		include(name: "*/pom-lw.xml")
+		include(name: "*/pom-ldk.xml")
+	}
+}
+
+task set_meta_version { description 'set the meta version' } << {
+	logging.setLevel(LogLevel.INFO)
+	
+	ant.replace(dir: repoDir, token: version, value: versionNum+".qualifier", summary: true) {
+		include(name: "*/META-INF/MANIFEST.MF")
+		include(name: "*/feature.xml")
+		include(name: "*/category.xml")
+		include(name: "*/*.product")
+	}
+	
+	ant.replace(dir: repoDir, token: version, value: versionNum+"-SNAPSHOT", summary: true) {
+		include(name: "*/pom-e4-lw.xml")
+		include(name: "*/pom-lw.xml")
+		include(name: "*/pom-ldk.xml")
+	}
+}
+
+task init_build << {
+	ant.mkdir(dir: buildDir)
+}
+
+task zip_whole_sources(dependsOn: init_build) << {
+	ant.zip(destfile: "${buildDir}/whole-${version}.zip") {
+		zipfileset(prefix: "whole", dir: "${repoDir}", excludes: sourceExcludes, defaultexcludes: "no")
+	}
+}
+
+task zip_examples_sources(dependsOn: init_build) << {
+	ant.zip(destfile: "${buildDir}/whole-examples-${version}.zip") {
+		zipfileset(prefix: "whole-examples", dir: "${reposDir}/whole-examples", excludes: sourceExcludes, defaultexcludes: "no")
+	}
+}
+
+def launchMaven(String pomDir, String pomName, List<String> phases) {
+	MavenCli cli = new MavenCli()
+	def phs = []
+	phs.add("-f"+pomName)
+	phs.addAll(phases)
+	
+	def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
+	if (execResult != 0) {
+		throw new RuntimeException("Error running pom file ${pomName} located in folder ${pomDir}")
+	}
+}
+
+task clean_e4_lw << {
+	logging.setLevel(LogLevel.INFO)
+	
+	launchMaven(relengDir, "pom-e4-lw.xml", ["clean"])
+	ant.delete(dir: "${relengDir}/workspace")
+}
+
+task package_e4_lw << {
+	logging.setLevel(LogLevel.INFO)
+	
+	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
+}
+
+task move_e4_lw_products(dependsOn: init_build) << {
+	logging.setLevel(LogLevel.INFO)
+	
+	ant.move(toDir: buildDir) {
+		fileset(dir: "${repoDir}/org.whole.product.e4.lw.repository/target", includes: "whole-*.zip")
+		fileset(dir: "${repoDir}/org.whole.product.e4.lw.product/target/products", includes: "whole-*")
+		firstmatchmapper {
+			globmapper(from: "whole*.gtk.x86_64.tar.gz",to: "whole-e4-lw*.tar.gz")
+			globmapper(from: "whole*macosx.cocoa.x86_64.tar.gz", to: "whole-e4-lw*osx.tar.gz")
+			globmapper(from: "whole*32.win32.x86_64.zip", to: "whole-e4-lw*dows.zip")
+			globmapper(from: "whole-*.zip", to: "whole-e4-*.zip")
+		}
+	}
+}
+
+task build_e4_lw(dependsOn: package_e4_lw) << {
+	logging.setLevel(LogLevel.INFO)
+	
+	tasks.move_e4_lw_products.execute()
+	tasks.clean_e4_lw.execute()
+}

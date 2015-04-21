@@ -44,6 +44,10 @@
          version="0.0.0"/>
 
    <includes
+         id="org.gradle.feature"
+         version="0.0.0"/>
+
+   <includes
          id="org.h2.feature"
          version="0.0.0"/>
 
