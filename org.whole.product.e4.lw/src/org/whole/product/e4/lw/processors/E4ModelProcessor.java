@@ -74,7 +74,7 @@ public class E4ModelProcessor {
 
 		MTrimmedWindow window = MBasicFactory.INSTANCE.createTrimmedWindow();
 
-		window.setLabel("Whole Language Workbench");
+		window.setLabel("Whole Language Workbench Window");
 		window.setX(500);
 		window.setY(20);
 		window.setWidth(400);
