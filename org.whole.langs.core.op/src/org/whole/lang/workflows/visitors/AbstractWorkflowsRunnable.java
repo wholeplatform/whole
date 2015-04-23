@@ -57,14 +57,14 @@ public abstract class AbstractWorkflowsRunnable implements IRunnable {
 	}
 
 	protected Object[] toArguments(Class<?>[] parameterTypes, boolean varArgs, IEntity... argsEntities) {
+		int length = parameterTypes.length - (varArgs ? 1 : 0);
 		int expressionsSize = argsEntities.length-2;
-		if (expressionsSize < parameterTypes.length)
+		if (expressionsSize < length)
 			throw new IllegalArgumentException("wrong parameter number");
 		
 		Object[] parameters = new Object[parameterTypes.length];
 		
 		// map simple parameters
-		int length = parameterTypes.length - (varArgs ? 1 : 0);
 		for (int i = 0; i < length; i++)
 			parameters[i] = DataTypeUtils.unbox(argsEntities[2+i], parameterTypes[i], true);
 
