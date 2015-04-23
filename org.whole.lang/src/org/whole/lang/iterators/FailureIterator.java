@@ -17,8 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import java.util.NoSuchElementException;
-
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
@@ -45,14 +43,13 @@ public class FailureIterator<E extends IEntity> extends AbstractCloneableIterato
 	}
 
 	public boolean hasNext() {
-		return false;
+		return true;
 	}
 	public E lookahead() {
-		return null;
+		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 	public E next() {
-		throw IWholeRuntimeException.withCause(new NoSuchElementException(failure.toString()),
-				IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null));
+		throw IWholeRuntimeException.asWholeException(failure, getSourceEntity(), null);
 	}
 
 	public void prune() {

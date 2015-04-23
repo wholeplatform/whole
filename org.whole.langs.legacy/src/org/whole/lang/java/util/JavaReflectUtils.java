@@ -18,7 +18,10 @@
 package org.whole.lang.java.util;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import org.whole.lang.exceptions.WholeRuntimeException;
 
 /**
  * @author Enrico Persiani
@@ -134,6 +137,8 @@ public class JavaReflectUtils {
 	public static Object invokeMethod(Object instance, Method method, Object... arguments) {
 		try {
 			return method.invoke(instance, arguments);
+		} catch (InvocationTargetException e) {
+			throw new WholeRuntimeException(e.getTargetException());
 		} catch (Exception e) {
 			throw new IllegalStateException("method invocation error", e);
 		}
