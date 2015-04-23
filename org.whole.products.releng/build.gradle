@@ -8,10 +8,14 @@ buildscript {
   
   dependencies {
     classpath 'org.ajoberstar:gradle-git:1.1.0'
-	classpath "org.apache.maven:maven-embedder:3.3.1"
+    classpath "org.apache.maven:maven-embedder:3.2.5"
 	
-//	classpath 'org.apache.maven.wagon:wagon-http-lightweight:2.4'  
-//	classpath 'org.eclipse.aether:aether-connector-wagon:0.9.0.M2' 
+	classpath "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114"
+	classpath "org.eclipse.aether:aether-transport-wagon:1.0.2.v20150114"
+	classpath "org.apache.maven.wagon:wagon-http:2.8"
+	classpath "org.apache.maven.wagon:wagon-provider-api:2.8"
+	classpath "org.apache.httpcomponents:httpcore:4.4"
+	 
   }
 }
 
@@ -25,12 +29,10 @@ ext {
 	relengDir = "."
 	
 	repo = Grgit.open(new java.io.File(repoDir))
+	
+	failure = false
+	
 }
-
-def version = lastCommitVersion()
-
-def buildDir = "${relengDir}/builds/${version}"
-def sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store"
 
 def String lastCommitVersion() {
 	def commits = repo.log(maxCommits: 1)
@@ -41,6 +43,12 @@ def String lastCommitVersion() {
 
 	return "${versionNum}.v${suffix}"
 }
+
+def sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
+
+def version = lastCommitVersion()
+def buildDir = "${relengDir}/builds/${version}"
+
 
 task set_build_version { description 'set the build version' } << {
 	logging.setLevel(LogLevel.INFO)
@@ -80,6 +88,10 @@ task init_build << {
 	ant.mkdir(dir: buildDir)
 }
 
+task show_version << {
+	println("${version}")
+}
+
 task zip_whole_sources(dependsOn: init_build) << {
 	ant.zip(destfile: "${buildDir}/whole-${version}.zip") {
 		zipfileset(prefix: "whole", dir: "${repoDir}", excludes: sourceExcludes, defaultexcludes: "no")
@@ -100,22 +112,30 @@ def launchMaven(String pomDir, String pomName, List<String> phases) {
 	
 	def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
 	if (execResult != 0) {
-		throw new RuntimeException("Error running pom file ${pomName} located in folder ${pomDir}")
+		/**
+		 * FIXME: DEV
+		 */
+		throw new RuntimeException("error launching maven directory:$pomDir file:$pomName $phases")
+		failure = true
 	}
 }
 
-task clean_e4_lw << {
-	logging.setLevel(LogLevel.INFO)
-	
+def ignoreFailure() {
+	failure = false;
+}
+
+def clean_e4_lw() {
 	launchMaven(relengDir, "pom-e4-lw.xml", ["clean"])
 	ant.delete(dir: "${relengDir}/workspace")
 }
 
-task package_e4_lw << {
+task package_e4_lw  << {
 	logging.setLevel(LogLevel.INFO)
 	
 	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
 }
+
+package_e4_lw.onlyIf = { !failure }
 
 task move_e4_lw_products(dependsOn: init_build) << {
 	logging.setLevel(LogLevel.INFO)
@@ -132,9 +152,195 @@ task move_e4_lw_products(dependsOn: init_build) << {
 	}
 }
 
-task build_e4_lw(dependsOn: package_e4_lw) << {
+move_e4_lw_products.onlyIf = { !failure }
+
+task build_e4_lw(dependsOn: [package_e4_lw, move_e4_lw_products]) << {
+	clean_e4_lw()
+} 
+build_e4_lw.onlyIf = { !failure } 
+
+move_e4_lw_products.mustRunAfter package_e4_lw
+
+def clean_lw() {
+	launchMaven("${relengDir}", "pom-lw.xml", ["clean"])
+	ant.delete(dir: "${relengDir}/workspace")
+}
+
+task package_lw << {
+	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
+}
+package_lw.onlyIf = { !failure }
+
+task move_lw_products(dependsOn: init_build) << {
 	logging.setLevel(LogLevel.INFO)
 	
-	tasks.move_e4_lw_products.execute()
-	tasks.clean_e4_lw.execute()
+	ant.move(toDir: buildDir) {
+		fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
+		fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
+		firstmatchmapper {
+			globmapper(from:"whole*.gtk.x86_64.tar.gz"          , to:"whole-lw*.tar.gz")
+			globmapper(from:"whole*macosx.cocoa.x86_64.tar.gz"  , to:"whole-lw*osx.tar.gz")
+			globmapper(from:"whole*32.win32.x86_64.zip"         , to:"whole-lw*dows.zip")
+			identitymapper()
+		}
+	}
+	ant.unzip(src: "${buildDir}/whole-updatesite-${version}.zip", dest: "${relengDir}/whole-updates")
+}
+move_lw_products.onlyIf = { !failure }
+
+task build_lw(dependsOn:[package_lw, move_lw_products]) << {
+	clean_lw();
+}
+build_lw.onlyIf = { !failure }
+
+move_lw_products.mustRunAfter package_lw
+
+def clean_ldk() {
+	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
+}
+
+task package_ldk << {
+	launchMaven(relengDir, "pom-ldk.xml", ["package"])
+}
+package_ldk.onlyIf = { !failure }
+
+/**
+ * FIXME
+ * strange behaviour:
+ * build the project (package_ldk)
+ * delete the build artifacts
+ */
+task build_ldk(dependsOn: package_ldk) << {
+	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
+}
+build_ldk.onlyIf = { !failure }
+
+task clean(description:"Clean") << {
+	clean_e4_lw();
+	ignoreFailure();
+	clean_lw();
+	ignoreFailure();
+	clean_ldk();
+	ant.delete(dir: "${relengDir}/builds")
+	ant.delete(dir: "${relengDir}/whole-updates")
+}
+
+/**
+ * FIXME
+ * name was 'package', but 'package' is a groovy keyword
+ */
+task package_all (dependsOn:[package_e4_lw, package_lw, package_ldk], description:"Clean") 
+
+task build (dependsOn:[zip_whole_sources, zip_examples_sources, set_build_version, build_lw, build_ldk, set_meta_version], description:"Generates all distribution archives")
+
+build_lw.mustRunAfter set_build_version
+build_ldk.mustRunAfter build_lw
+set_meta_version.mustRunAfter build_ldk
+
+task release_lw (description:"Release the Whole Language Workbench") << {
+	if (!new File(buildDir).exists) 
+		throw new RuntimeException("Missing build to release on sourceforge") 
+	
+	def frsDir = "/home/frs/project/whole"	
+		
+	ant.unzip(src:"${buildDir}/whole-${version}.zip", dest:"${buildDir}") {
+		patternset(includes:"whole/org.whole.products.releng/readme.txt")
+		flattenmapper()
+	}
+	
+	exec {
+		executable "rsync"
+		args "-ave ssh ${buildDir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frsDir}"
+	}
+	
+	ant.delete(file:"${buildDir}/readme.txt")
+	ant.delete(file:"${buildDir}/.DS_Store", quiet:"true" )
+	
+	exec {
+		executable "rsync"
+		args "-ave ssh ${buildDir} riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"
+	}
+	
+	ant.unzip(src:"${buildDir}/whole-updatesite-${version}.zip", dest:"${buildDir}/${version}" )
+	
+	exec {
+		executable "rsync"
+		args "-ave ssh ${buildDir}/${version} riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"
+	}
+	
+	ant.delete(dir:"${buildDir}/${version}")
+}
+
+release_lw.onlyIf {
+	def f = new File("${relengDir}/builds/${version}")
+	f.exists() && f.isDirectory()
+}
+
+set_build_version.mustRunAfter clean
+
+/**
+ * did not exist in build.xml
+ */
+task ldkMavenDeploy(dependsOn:[clean, set_build_version]) << {
+	launchMaven(relengDir, "pom-ldk.xml", ["deploy"])
+}
+
+task release_ldk(dependsOn:[ldkMavenDeploy, set_meta_version], description:"Release the Whole Language Development Kit") << {
+	clean_ldk();
+} 
+
+release_ldk.onlyIf { !failure }
+
+set_meta_version.mustRunAfter ldkMavenDeploy
+
+task ldkMavenInstall(dependsOn:[clean, set_build_version]) << {
+	launchMaven(relengDir, "pom-ldk.xml", ["install"])
+}
+
+task release_ldk_local(dependsOn:[ldkMavenInstall, set_meta_version], description:"Release the Whole Language Development Kit locally") << {
+	clean_ldk();
+}
+release_ldk_local.onlyIf { !failure }
+
+set_meta_version.mustRunAfter ldkMavenInstall
+
+task test(description:"Test the Whole Language Workbench") << {
+	launchMaven(relengDir, "pom-lw.xml", ["integration-test"])
+} 
+
+task copy_update_site << {
+	if (!new File(buildDir).exists) 
+		throw new RuntimeException("Missing build folder")
+
+	def productDir = hasProperty("productDir") ? getProperty("productDir") : null;	
+		
+	if (productDir == null || !new File(getProperty("productDir")).exists)
+		throw new RuntimeException("Missing product folder")
+
+	ant.copy(toDir:"${product.dir}") {
+		fileset(dir: "${buildDir}", includes: "whole-updatesite*.zip")
+		firstmatchmapper {
+			globmapper(from: "whole-updatesite*",to: "whole-lw-updatesite*")
+			identitymapper()
+		}
+	}	
+}
+
+copy_update_site.onlyIf {
+	def f = new File("${relengDir}/builds/${version}")
+	f.exists() && f.isDirectory()
+}
+
+project.gradle.buildFinished { buildResult ->
+	def execTasks = project.tasks.findAll { it.state.executed }
+	
+	def buildFailure = buildResult.getFailure()
+	
+	if (buildFailure == null && !failure) {
+		println("completed without errors")	
+	} else if (buildFailure != null ) {
+		println("error thrown during build ${buildFailure.message}")
+	} else {
+		println("completed with failure")
+	}
 }
