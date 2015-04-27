@@ -98,6 +98,31 @@ public class BindingUtils {
 		bm.wDef(variable, value);
 	}
 
+//	public static IBindingManager getEnvironment(IBindingManager bm, String variable) {
+//		String environmentName = getEnvironmentName(variable);
+//		if (environmentName != null) {
+//			if (!bm.wIsSet(environmentName)) {
+//				IBindingManager environment = bm.wGetEnvironmentManager().getEnvironment(environmentName);
+//				bm.wDefValue(environmentName, environment);
+//			}
+//			bm = (IBindingManager) bm.wGetValue(environmentName);
+//		}
+//		return bm;
+//	}
+//
+//	public static boolean wIsSet(IBindingManager bm, String variable) {
+//		return getEnvironment(bm, variable).wIsSet(getVariableName(variable));
+//	}
+//	public static IEntity wGet(IBindingManager bm, String variable) {
+//		return getEnvironment(bm, variable).wGet(getVariableName(variable));
+//	}
+//	public static void wSet(IBindingManager bm, String variable, IEntity value) {
+//		getEnvironment(bm, variable).wSet(getVariableName(variable), value);
+//	}
+//	public static void wDef(IBindingManager bm, String variable, IEntity value) {
+//		getEnvironment(bm, variable).wDef(getVariableName(variable), value);
+//	}
+
 	public static IBindingScope wOuterScope(IBindingScope scope, boolean preceding) {
 		IBindingScope precedingScope = scope;
 		switch (scope.getKind()) {
