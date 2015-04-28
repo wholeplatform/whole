@@ -1,4 +1,5 @@
 import org.ajoberstar.grgit.*
+//import org.apache.maven.shared.invoker.*;
 import org.apache.maven.cli.MavenCli;
 
 buildscript {
@@ -7,15 +8,17 @@ buildscript {
   }
   
   dependencies {
-    classpath 'org.ajoberstar:gradle-git:1.1.0'
-    classpath "org.apache.maven:maven-embedder:3.2.5"
+    classpath "org.ajoberstar:gradle-git:1.1.0"
+
+//	classpath "org.apache.maven.shared:maven-invoker:2.2"
+    classpath "org.apache.maven:maven-embedder:3.2.5" //TODO 3.3.1 is not working
 	
+	//Used by maven-embedder
 	classpath "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114"
 	classpath "org.eclipse.aether:aether-transport-wagon:1.0.2.v20150114"
 	classpath "org.apache.maven.wagon:wagon-http:2.8"
 	classpath "org.apache.maven.wagon:wagon-provider-api:2.8"
 	classpath "org.apache.httpcomponents:httpcore:4.4"
-	 
   }
 }
 
@@ -31,7 +34,9 @@ ext {
 	repo = Grgit.open(new java.io.File(repoDir))
 	
 	failure = false
+	validateLdk = false
 	
+	cli = new MavenCli()
 }
 
 def String lastCommitVersion() {
@@ -51,8 +56,6 @@ def buildDir = "${relengDir}/builds/${version}"
 
 
 task set_build_version { description 'set the build version' } << {
-	logging.setLevel(LogLevel.INFO)
-	
 	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: version, summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
@@ -68,8 +71,6 @@ task set_build_version { description 'set the build version' } << {
 }
 
 task set_meta_version { description 'set the meta version' } << {
-	logging.setLevel(LogLevel.INFO)
-	
 	ant.replace(dir: repoDir, token: version, value: versionNum+".qualifier", summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
@@ -104,20 +105,23 @@ task zip_examples_sources(dependsOn: init_build) << {
 	}
 }
 
+//def launchMaven(String pomDir, String pomName, List<String> phases) {
+//	InvocationRequest request = new DefaultInvocationRequest();
+//	request.setPomFile( new File(new File(pomDir), pomName) );
+//	request.setGoals( phases );
+//
+//	Invoker invoker = new DefaultInvoker();
+//	InvocationResult result = invoker.execute( request );
+//	return result.getExitCode();
+//}
 def launchMaven(String pomDir, String pomName, List<String> phases) {
-	MavenCli cli = new MavenCli()
 	def phs = []
 	phs.add("-f"+pomName)
 	phs.addAll(phases)
 	
 	def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
-	if (execResult != 0) {
-		/**
-		 * FIXME: DEV
-		 */
-		throw new RuntimeException("error launching maven directory:$pomDir file:$pomName $phases")
+	if (execResult != 0)
 		failure = true
-	}
 }
 
 def ignoreFailure() {
@@ -130,16 +134,12 @@ def clean_e4_lw() {
 }
 
 task package_e4_lw  << {
-	logging.setLevel(LogLevel.INFO)
-	
 	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
 }
 
 package_e4_lw.onlyIf = { !failure }
 
-task move_e4_lw_products(dependsOn: init_build) << {
-	logging.setLevel(LogLevel.INFO)
-	
+task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
 	ant.move(toDir: buildDir) {
 		fileset(dir: "${repoDir}/org.whole.product.e4.lw.repository/target", includes: "whole-*.zip")
 		fileset(dir: "${repoDir}/org.whole.product.e4.lw.product/target/products", includes: "whole-*")
@@ -150,30 +150,23 @@ task move_e4_lw_products(dependsOn: init_build) << {
 			globmapper(from: "whole-*.zip", to: "whole-e4-*.zip")
 		}
 	}
-}
 
-move_e4_lw_products.onlyIf = { !failure }
-
-task build_e4_lw(dependsOn: [package_e4_lw, move_e4_lw_products]) << {
 	clean_e4_lw()
 } 
 build_e4_lw.onlyIf = { !failure } 
-
-move_e4_lw_products.mustRunAfter package_e4_lw
 
 def clean_lw() {
 	launchMaven("${relengDir}", "pom-lw.xml", ["clean"])
 	ant.delete(dir: "${relengDir}/workspace")
 }
 
-task package_lw << {
+task package_lw(dependsOn: set_build_version) << {
 	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
 }
 package_lw.onlyIf = { !failure }
+package_lw.finalizedBy set_meta_version
 
-task move_lw_products(dependsOn: init_build) << {
-	logging.setLevel(LogLevel.INFO)
-	
+task build_lw(dependsOn:[init_build, package_lw]) << {
 	ant.move(toDir: buildDir) {
 		fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
 		fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
@@ -184,36 +177,27 @@ task move_lw_products(dependsOn: init_build) << {
 			identitymapper()
 		}
 	}
+	ant.delete(dir: "${relengDir}/whole-updates")
 	ant.unzip(src: "${buildDir}/whole-updatesite-${version}.zip", dest: "${relengDir}/whole-updates")
-}
-move_lw_products.onlyIf = { !failure }
 
-task build_lw(dependsOn:[package_lw, move_lw_products]) << {
 	clean_lw();
 }
 build_lw.onlyIf = { !failure }
-
-move_lw_products.mustRunAfter package_lw
 
 def clean_ldk() {
 	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
 }
 
-task package_ldk << {
+task package_ldk(dependsOn: set_build_version) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["package"])
 }
 package_ldk.onlyIf = { !failure }
+package_ldk.finalizedBy set_meta_version
 
-/**
- * FIXME
- * strange behaviour:
- * build the project (package_ldk)
- * delete the build artifacts
- */
 task build_ldk(dependsOn: package_ldk) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
 }
-build_ldk.onlyIf = { !failure }
+build_ldk.onlyIf = { !failure && validateLdk }
 
 task clean(description:"Clean") << {
 	clean_e4_lw();
@@ -225,19 +209,9 @@ task clean(description:"Clean") << {
 	ant.delete(dir: "${relengDir}/whole-updates")
 }
 
-/**
- * FIXME
- * name was 'package', but 'package' is a groovy keyword
- */
-task package_all (dependsOn:[package_e4_lw, package_lw, package_ldk], description:"Clean") 
+task build(dependsOn:[zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description:"Generates all distribution archives")
 
-task build (dependsOn:[zip_whole_sources, zip_examples_sources, set_build_version, build_lw, build_ldk, set_meta_version], description:"Generates all distribution archives")
-
-build_lw.mustRunAfter set_build_version
-build_ldk.mustRunAfter build_lw
-set_meta_version.mustRunAfter build_ldk
-
-task release_lw (description:"Release the Whole Language Workbench") << {
+task release_lw(description:"Release the Whole Language Workbench") << {
 	if (!new File(buildDir).exists) 
 		throw new RuntimeException("Missing build to release on sourceforge") 
 	
@@ -276,33 +250,26 @@ release_lw.onlyIf {
 	f.exists() && f.isDirectory()
 }
 
-set_build_version.mustRunAfter clean
 
-/**
- * did not exist in build.xml
- */
-task ldkMavenDeploy(dependsOn:[clean, set_build_version]) << {
+task deploy_ldk(dependsOn: set_build_version) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["deploy"])
 }
+deploy_ldk.finalizedBy set_meta_version
 
-task release_ldk(dependsOn:[ldkMavenDeploy, set_meta_version], description:"Release the Whole Language Development Kit") << {
+task release_ldk(dependsOn:[clean, deploy_ldk], description:"Release the Whole Language Development Kit") << {
 	clean_ldk();
 } 
-
 release_ldk.onlyIf { !failure }
 
-set_meta_version.mustRunAfter ldkMavenDeploy
-
-task ldkMavenInstall(dependsOn:[clean, set_build_version]) << {
+task install_ldk(dependsOn: set_build_version) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["install"])
 }
+install_ldk.finalizedBy set_meta_version
 
-task release_ldk_local(dependsOn:[ldkMavenInstall, set_meta_version], description:"Release the Whole Language Development Kit locally") << {
+task release_ldk_local(dependsOn:[clean, install_ldk], description:"Release the Whole Language Development Kit locally") << {
 	clean_ldk();
 }
 release_ldk_local.onlyIf { !failure }
-
-set_meta_version.mustRunAfter ldkMavenInstall
 
 task test(description:"Test the Whole Language Workbench") << {
 	launchMaven(relengDir, "pom-lw.xml", ["integration-test"])
@@ -344,3 +311,8 @@ project.gradle.buildFinished { buildResult ->
 		println("completed with failure")
 	}
 }
+
+deploy_ldk.mustRunAfter clean
+install_ldk.mustRunAfter clean
+set_build_version.mustRunAfter zip_whole_sources
+set_build_version.mustRunAfter zip_examples_sources
