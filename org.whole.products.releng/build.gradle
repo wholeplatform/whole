@@ -290,7 +290,7 @@ task copy_update_site << {
 			globmapper(from: "whole-updatesite*",to: "whole-lw-updatesite*")
 			identitymapper()
 		}
-	}	
+	}
 }
 
 copy_update_site.onlyIf {
