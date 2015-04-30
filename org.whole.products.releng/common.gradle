@@ -1,0 +1,78 @@
+import org.ajoberstar.grgit.*
+import org.apache.maven.shared.invoker.*;
+//import org.apache.maven.cli.MavenCli;
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  
+  dependencies {
+    classpath "org.ajoberstar:gradle-git:1.1.0"
+
+	classpath "org.apache.maven.shared:maven-invoker:2.2"
+//    classpath "org.apache.maven:maven-embedder:3.2.5" //TODO 3.3.1 is not working
+	
+	//Used by maven-embedder
+//	classpath "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114"
+//	classpath "org.eclipse.aether:aether-transport-wagon:1.0.2.v20150114"
+//	classpath "org.apache.maven.wagon:wagon-http:2.8"
+//	classpath "org.apache.maven.wagon:wagon-provider-api:2.8"
+//	classpath "org.apache.httpcomponents:httpcore:4.4"
+  }
+}
+
+ext {
+	relengDir = project.projectDir.absolutePath
+	repoDir = "${relengDir}/.."
+	reposDir = "${repoDir}/.."
+
+	repo = Grgit.open(new File(repoDir))
+
+	versionNum = "1.0.0"
+	versionNumOld = "1.0.0"
+
+	failure = false
+
+
+	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
+	
+	lastCommitVersion = { ->
+		def commits = repo.log(maxCommits: 1)
+		def lastCommit = commits.get(0)
+	
+		def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
+		def suffix = dateFormat.format(lastCommit.getDate())
+	
+		"${versionNum}.v${suffix}"
+	}
+
+	//FIXME rename both
+	version = lastCommitVersion()
+	buildDir = "${relengDir}/builds/${version}"
+	
+	launchMaven = { String pomDir, String pomName, List<String> phases ->
+		InvocationRequest request = new DefaultInvocationRequest();
+		request.setPomFile( new File(new File(pomDir), pomName) );
+		request.setGoals( phases );
+	
+		Invoker invoker = new DefaultInvoker();
+		InvocationResult result = invoker.execute( request );
+		return result.getExitCode();
+	}
+	/*
+	launchMaven = { String pomDir, String pomName, List<String> phases ->
+		def cli = new MavenCli()
+		def phs = []
+		phs.add("-f"+pomName)
+		phs.addAll(phases)
+		
+		def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
+		if (execResult != 0)
+			failure = true
+	}
+	*/
+	ignoreFailure = { ->
+		failure = false;
+	}
+}
