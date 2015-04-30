@@ -22,37 +22,56 @@ buildscript {
   }
 }
 
-ext {
-	repoDir = ".."
-	reposDir =  "../.."
-	
-	versionNum = "1.0.0"
-	versionNumOld = "1.0.0"
-	
-	relengDir = "."
-	
-	repo = Grgit.open(new java.io.File(repoDir))
-	
-	failure = false
-	validateLdk = false
-	
-	cli = new MavenCli()
-}
+def relengDir = project.projectDir.absolutePath
+def repoDir = "${relengDir}/.."
+def reposDir = "${repoDir}/.."
 
-def String lastCommitVersion() {
+def versionNum = "1.0.0"
+def versionNumOld = "1.0.0"
+
+def failure = false
+def validateLdk = false
+	
+def repo = Grgit.open(new File(repoDir))
+def cli = new MavenCli()
+
+def lastCommitVersion = { ->
 	def commits = repo.log(maxCommits: 1)
 	def lastCommit = commits.get(0)
 
 	def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
 	def suffix = dateFormat.format(lastCommit.getDate())
 
-	return "${versionNum}.v${suffix}"
+	"${versionNum}.v${suffix}"
 }
 
 def sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
 def version = lastCommitVersion()
 def buildDir = "${relengDir}/builds/${version}"
+
+//def launchMaven(String pomDir, String pomName, List<String> phases) {
+//	InvocationRequest request = new DefaultInvocationRequest();
+//	request.setPomFile( new File(new File(pomDir), pomName) );
+//	request.setGoals( phases );
+//
+//	Invoker invoker = new DefaultInvoker();
+//	InvocationResult result = invoker.execute( request );
+//	return result.getExitCode();
+//}
+def launchMaven = { String pomDir, String pomName, List<String> phases ->
+	def phs = []
+	phs.add("-f"+pomName)
+	phs.addAll(phases)
+	
+	def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
+	if (execResult != 0)
+		failure = true
+}
+
+def ignoreFailure = { ->
+	failure = false;
+}
 
 
 task set_build_version { description 'set the build version' } << {
@@ -105,30 +124,8 @@ task zip_examples_sources(dependsOn: init_build) << {
 	}
 }
 
-//def launchMaven(String pomDir, String pomName, List<String> phases) {
-//	InvocationRequest request = new DefaultInvocationRequest();
-//	request.setPomFile( new File(new File(pomDir), pomName) );
-//	request.setGoals( phases );
-//
-//	Invoker invoker = new DefaultInvoker();
-//	InvocationResult result = invoker.execute( request );
-//	return result.getExitCode();
-//}
-def launchMaven(String pomDir, String pomName, List<String> phases) {
-	def phs = []
-	phs.add("-f"+pomName)
-	phs.addAll(phases)
-	
-	def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
-	if (execResult != 0)
-		failure = true
-}
 
-def ignoreFailure() {
-	failure = false;
-}
-
-def clean_e4_lw() {
+def clean_e4_lw = { ->
 	launchMaven(relengDir, "pom-e4-lw.xml", ["clean"])
 	ant.delete(dir: "${relengDir}/workspace")
 }
@@ -136,7 +133,6 @@ def clean_e4_lw() {
 task package_e4_lw  << {
 	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
 }
-
 package_e4_lw.onlyIf = { !failure }
 
 task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
@@ -155,7 +151,7 @@ task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
 } 
 build_e4_lw.onlyIf = { !failure } 
 
-def clean_lw() {
+def clean_lw = { ->
 	launchMaven("${relengDir}", "pom-lw.xml", ["clean"])
 	ant.delete(dir: "${relengDir}/workspace")
 }
@@ -184,7 +180,7 @@ task build_lw(dependsOn:[init_build, package_lw]) << {
 }
 build_lw.onlyIf = { !failure }
 
-def clean_ldk() {
+def clean_ldk = { ->
 	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
 }
 
@@ -244,7 +240,6 @@ task release_lw(description:"Release the Whole Language Workbench") << {
 	
 	ant.delete(dir:"${buildDir}/${version}")
 }
-
 release_lw.onlyIf {
 	def f = new File("${relengDir}/builds/${version}")
 	f.exists() && f.isDirectory()
@@ -276,7 +271,7 @@ task test(description:"Test the Whole Language Workbench") << {
 } 
 
 task copy_update_site << {
-	if (!new File(buildDir).exists) 
+	if (!new File(buildDir).exists()) 
 		throw new RuntimeException("Missing build folder")
 
 	def productDir = hasProperty("productDir") ? getProperty("productDir") : null;	
@@ -292,7 +287,6 @@ task copy_update_site << {
 		}
 	}
 }
-
 copy_update_site.onlyIf {
 	def f = new File("${relengDir}/builds/${version}")
 	f.exists() && f.isDirectory()
