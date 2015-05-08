@@ -36,8 +36,6 @@ ext {
 
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
-	hasUncommittedChanges = !repo.status().isClean()
-
 	lastCommitVersion = { ->
 		def commits = repo.log(maxCommits: 1)
 		def lastCommit = commits.get(0)
@@ -50,6 +48,9 @@ ext {
 
 	fullVersion = lastCommitVersion()
 	buildArtifactsDir = "${relengDir}/builds/${fullVersion}"
+
+	hasUncommittedChanges = !repo.status().isClean()
+	existsBuildArtifactsDir = new File("${buildArtifactsDir}").exists()
 	
 	launchMaven = { String pomDir, String pomName, List<String> phases ->
 		InvocationRequest request = new DefaultInvocationRequest();

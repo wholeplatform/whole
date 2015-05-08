@@ -79,7 +79,7 @@ def clean_lw = { ->
 task package_lw(dependsOn: set_build_version) << {
 	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
 }
-package_lw.onlyIf = { !failure && (!new File("${buildArtifactsDir}").exists() || hasUncommittedChanges) }
+package_lw.onlyIf = { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
 package_lw.finalizedBy set_meta_version
 
 task build_lw(dependsOn:[init_build, package_lw]) << {
