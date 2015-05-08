@@ -107,7 +107,7 @@ def clean_ldk = { ->
 task package_ldk(dependsOn: set_build_version) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["package"])
 }
-package_ldk.onlyIf = { !failure }
+package_ldk.onlyIf = { !failure && validateLdk }
 package_ldk.finalizedBy set_meta_version
 
 task build_ldk(dependsOn: package_ldk) << {
