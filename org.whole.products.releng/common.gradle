@@ -36,9 +36,7 @@ ext {
 
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
-	hasUncommittedChanges ={ ->
-		!repo.status().isClean()
-	}
+	hasUncommittedChanges = !repo.status().isClean()
 
 	lastCommitVersion = { ->
 		def commits = repo.log(maxCommits: 1)
@@ -94,12 +92,9 @@ project.gradle.buildFinished { buildResult ->
 	}
 }
 
-task has_uncommitted_changes << {
-	println("${hasUncommittedChanges}")
-}
-
-task show_version << {
-	println("${fullVersion}")
+task info << {
+	println("Version: ${fullVersion}")
+	println("Has uncommitted changes: ${hasUncommittedChanges}")
 }
 
 task init_build << {
