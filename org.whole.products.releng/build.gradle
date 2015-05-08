@@ -1,19 +1,16 @@
 apply from: "common.gradle"
-//FIXME rename
-def version = lastCommitVersion()
-def buildDir = "${relengDir}/builds/${version}"
 
 def validateLdk = false
 
 task set_build_version { description 'set the build version' } << {
-	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: version, summary: true) {
+	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: fullVersion, summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
 		include(name: "*/category.xml")
 		include(name: "*/*.product")
 	}
 	
-	ant.replace(dir: repoDir, token: versionNumOld+"-SNAPSHOT", value: version, summary: true) {
+	ant.replace(dir: repoDir, token: versionNumOld+"-SNAPSHOT", value: fullVersion, summary: true) {
 		include(name: "*/pom-e4-lw.xml")
 		include(name: "*/pom-lw.xml")
 		include(name: "*/pom-ldk.xml")
@@ -21,36 +18,28 @@ task set_build_version { description 'set the build version' } << {
 }
 
 task set_meta_version { description 'set the meta version' } << {
-	ant.replace(dir: repoDir, token: version, value: versionNum+".qualifier", summary: true) {
+	ant.replace(dir: repoDir, token: fullVersion, value: versionNum+".qualifier", summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
 		include(name: "*/category.xml")
 		include(name: "*/*.product")
 	}
 	
-	ant.replace(dir: repoDir, token: version, value: versionNum+"-SNAPSHOT", summary: true) {
+	ant.replace(dir: repoDir, token: fullVersion, value: versionNum+"-SNAPSHOT", summary: true) {
 		include(name: "*/pom-e4-lw.xml")
 		include(name: "*/pom-lw.xml")
 		include(name: "*/pom-ldk.xml")
 	}
 }
 
-task init_build << {
-	ant.mkdir(dir: buildDir)
-}
-
-task show_version << {
-	println("${version}")
-}
-
 task zip_whole_sources(dependsOn: init_build) << {
-	ant.zip(destfile: "${buildDir}/whole-${version}.zip") {
+	ant.zip(destfile: "${buildArtifactsDir}/whole-${fullVersion}.zip") {
 		zipfileset(prefix: "whole", dir: "${repoDir}", excludes: sourceExcludes, defaultexcludes: "no")
 	}
 }
 
 task zip_examples_sources(dependsOn: init_build) << {
-	ant.zip(destfile: "${buildDir}/whole-examples-${version}.zip") {
+	ant.zip(destfile: "${buildArtifactsDir}/whole-examples-${fullVersion}.zip") {
 		zipfileset(prefix: "whole-examples", dir: "${reposDir}/whole-examples", excludes: sourceExcludes, defaultexcludes: "no")
 	}
 }
@@ -67,7 +56,7 @@ task package_e4_lw  << {
 package_e4_lw.onlyIf = { !failure }
 
 task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
-	ant.move(toDir: buildDir) {
+	ant.move(toDir: buildArtifactsDir) {
 		fileset(dir: "${repoDir}/org.whole.product.e4.lw.repository/target", includes: "whole-*.zip")
 		fileset(dir: "${repoDir}/org.whole.product.e4.lw.product/target/products", includes: "whole-*")
 		firstmatchmapper {
@@ -90,11 +79,11 @@ def clean_lw = { ->
 task package_lw(dependsOn: set_build_version) << {
 	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
 }
-package_lw.onlyIf = { !failure }
+package_lw.onlyIf = { !failure && (!new File("${buildArtifactsDir}").exists() || hasUncommittedChanges) }
 package_lw.finalizedBy set_meta_version
 
 task build_lw(dependsOn:[init_build, package_lw]) << {
-	ant.move(toDir: buildDir) {
+	ant.move(toDir: buildArtifactsDir, failonerror:false) {
 		fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
 		fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
 		firstmatchmapper {
@@ -105,7 +94,7 @@ task build_lw(dependsOn:[init_build, package_lw]) << {
 		}
 	}
 	ant.delete(dir: "${relengDir}/whole-updates")
-	ant.unzip(src: "${buildDir}/whole-updatesite-${version}.zip", dest: "${relengDir}/whole-updates")
+	ant.unzip(src: "${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest: "${relengDir}/whole-updates")
 
 	clean_lw();
 }
@@ -126,6 +115,10 @@ task build_ldk(dependsOn: package_ldk) << {
 }
 build_ldk.onlyIf = { !failure && validateLdk }
 
+task clean_updates(description:"Clean updates repository") << {
+	ant.delete(dir: "${relengDir}/whole-updates")
+}
+
 task clean(description:"Clean") << {
 	clean_e4_lw();
 	ignoreFailure();
@@ -139,40 +132,40 @@ task clean(description:"Clean") << {
 task build(dependsOn:[zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description:"Generates all distribution archives")
 
 task release_lw(description:"Release the Whole Language Workbench") << {
-	if (!new File(buildDir).exists) 
+	if (!new File(buildArtifactsDir).exists) 
 		throw new RuntimeException("Missing build to release on sourceforge") 
 	
 	def frsDir = "/home/frs/project/whole"	
 		
-	ant.unzip(src:"${buildDir}/whole-${version}.zip", dest:"${buildDir}") {
+	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
 		patternset(includes:"whole/org.whole.products.releng/readme.txt")
 		flattenmapper()
 	}
 	
 	exec {
 		executable "rsync"
-		args "-ave ssh ${buildDir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frsDir}"
+		args "-ave ssh ${buildArtifactsDir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frsDir}"
 	}
 	
-	ant.delete(file:"${buildDir}/readme.txt")
-	ant.delete(file:"${buildDir}/.DS_Store", quiet:"true" )
+	ant.delete(file:"${buildArtifactsDir}/readme.txt")
+	ant.delete(file:"${buildArtifactsDir}/.DS_Store", quiet:"true" )
 	
 	exec {
 		executable "rsync"
-		args "-ave ssh ${buildDir} riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"
+		args "-ave ssh ${buildArtifactsDir} riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"
 	}
 	
-	ant.unzip(src:"${buildDir}/whole-updatesite-${version}.zip", dest:"${buildDir}/${version}" )
+	ant.unzip(src:"${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest:"${buildArtifactsDir}/${fullVersion}" )
 	
 	exec {
 		executable "rsync"
-		args "-ave ssh ${buildDir}/${version} riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"
+		args "-ave ssh ${buildArtifactsDir}/${fullVersion} riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"
 	}
 	
-	ant.delete(dir:"${buildDir}/${version}")
+	ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
 }
 release_lw.onlyIf {
-	def f = new File("${relengDir}/builds/${version}")
+	def f = new File("${relengDir}/builds/${fullVersion}")
 	f.exists() && f.isDirectory()
 }
 
@@ -202,7 +195,7 @@ task test(description:"Test the Whole Language Workbench") << {
 } 
 
 task copy_update_site << {
-	if (!new File(buildDir).exists()) 
+	if (!new File(buildArtifactsDir).exists()) 
 		throw new RuntimeException("Missing build folder")
 
 	def productDir = hasProperty("productDir") ? getProperty("productDir") : null;	
@@ -211,7 +204,7 @@ task copy_update_site << {
 		throw new RuntimeException("Missing product folder")
 
 	ant.copy(toDir:"${product.dir}") {
-		fileset(dir: "${buildDir}", includes: "whole-updatesite*.zip")
+		fileset(dir: "${buildArtifactsDir}", includes: "whole-updatesite*.zip")
 		firstmatchmapper {
 			globmapper(from: "whole-updatesite*",to: "whole-lw-updatesite*")
 			identitymapper()
@@ -219,22 +212,8 @@ task copy_update_site << {
 	}
 }
 copy_update_site.onlyIf {
-	def f = new File("${relengDir}/builds/${version}")
+	def f = new File("${relengDir}/builds/${fullVersion}")
 	f.exists() && f.isDirectory()
-}
-
-project.gradle.buildFinished { buildResult ->
-	def execTasks = project.tasks.findAll { it.state.executed }
-	
-	def buildFailure = buildResult.getFailure()
-	
-	if (buildFailure == null && !failure) {
-		println("completed without errors")	
-	} else if (buildFailure != null ) {
-		println("error thrown during build ${buildFailure.message}")
-	} else {
-		println("completed with failure")
-	}
 }
 
 deploy_ldk.mustRunAfter clean

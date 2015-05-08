@@ -34,9 +34,12 @@ ext {
 
 	failure = false
 
-
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
-	
+
+	hasUncommittedChanges ={ ->
+		!repo.status().isClean()
+	}
+
 	lastCommitVersion = { ->
 		def commits = repo.log(maxCommits: 1)
 		def lastCommit = commits.get(0)
@@ -47,9 +50,8 @@ ext {
 		"${versionNum}.v${suffix}"
 	}
 
-	//FIXME rename both
-	version = lastCommitVersion()
-	buildDir = "${relengDir}/builds/${version}"
+	fullVersion = lastCommitVersion()
+	buildArtifactsDir = "${relengDir}/builds/${fullVersion}"
 	
 	launchMaven = { String pomDir, String pomName, List<String> phases ->
 		InvocationRequest request = new DefaultInvocationRequest();
@@ -72,7 +74,34 @@ ext {
 			failure = true
 	}
 	*/
+
 	ignoreFailure = { ->
 		failure = false;
 	}
+}
+
+project.gradle.buildFinished { buildResult ->
+	def execTasks = project.tasks.findAll { it.state.executed }
+	
+	def buildFailure = buildResult.getFailure()
+	
+	if (buildFailure == null && !failure) {
+		println("Completed without errors")
+	} else if (buildFailure != null ) {
+		println("Error thrown during build ${buildFailure.message}")
+	} else {
+		println("Completed with failure")
+	}
+}
+
+task has_uncommitted_changes << {
+	println("${hasUncommittedChanges}")
+}
+
+task show_version << {
+	println("${fullVersion}")
+}
+
+task init_build << {
+	ant.mkdir(dir: buildArtifactsDir)
 }
