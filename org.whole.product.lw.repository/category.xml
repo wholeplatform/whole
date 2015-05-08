@@ -1,64 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description url="http://whole.sourceforge.net/updates">
-      Installing the Whole Platform features, Eclipse becomes a Language Workbench
-      with model driven editing and metaprogramming support.
-   </description>
-   <feature url="features/org.whole.lang.feature_1.0.0.qualifier.jar" id="org.whole.lang.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.lang.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.standalone.feature_1.0.0.qualifier.jar" id="org.whole.standalone.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.standalone.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.lang.gen.feature_1.0.0.qualifier.jar" id="org.whole.lang.gen.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.lang.gen.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.rcp.feature_1.0.0.qualifier.jar" id="org.whole.rcp.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.rcp.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.ide.feature_1.0.0.qualifier.jar" id="org.whole.ide.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.ide.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.sdk.feature_1.0.0.qualifier.jar" id="org.whole.sdk.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.sdk.feature">
       <category name="whole-sdk"/>
    </feature>
-   <feature url="features/org.whole.product.lw.feature_1.0.0.qualifier.jar" id="org.whole.product.lw.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.product.lw.feature">
       <category name="whole-lw"/>
    </feature>
-   <feature url="features/org.whole.langs.misc.feature_1.0.0.qualifier.jar" id="org.whole.langs.misc.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.langs.misc.feature">
       <category name="whole-extras"/>
    </feature>
-   <feature url="features/org.whole.examples.feature_1.0.0.qualifier.jar" id="org.whole.examples.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.examples.feature">
       <category name="whole-extras"/>
    </feature>
-   <feature url="features/org.whole.test.feature_1.0.0.qualifier.jar" id="org.whole.test.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.test.feature">
       <category name="whole-extras"/>
    </feature>
-   <feature url="features/org.whole.examples.db.feature_1.0.0.qualifier.jar" id="org.whole.examples.db.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.examples.db.feature">
       <category name="whole-extras"/>
    </feature>
-   <feature url="features/org.whole.extras.feature_1.0.0.qualifier.jar" id="org.whole.extras.feature" version="1.0.0.qualifier">
+   <feature id="org.whole.extras.feature">
       <category name="whole-extras"/>
    </feature>
-   <feature url="features/com.fasterxml.jackson.feature_2.3.1.jar" id="com.fasterxml.jackson.feature" version="2.3.1">
+   <feature id="com.fasterxml.jackson.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/net.sourceforge.jodatime.feature_1.6.2.jar" id="net.sourceforge.jodatime.feature" version="1.6.2">
+   <feature id="net.sourceforge.jodatime.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/nu.validator.htmlparser.feature_1.4.0.jar" id="nu.validator.htmlparser.feature" version="1.4.0">
+   <feature id="nu.validator.htmlparser.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/org.beanshell.bsh.feature_2.0.0.b4.jar" id="org.beanshell.bsh.feature" version="2.0.0.b4">
+   <feature id="org.beanshell.bsh.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/org.gradle.feature_2.3.jar" id="org.gradle.feature" version="2.3.0">
+   <feature id="org.gradle.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/org.h2.feature_1.2.147.jar" id="org.h2.feature" version="1.2.147">
+   <feature id="org.h2.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature url="features/org.mozilla.rhino.feature_1.7.0.R3.jar" id="org.mozilla.rhino.feature" version="1.7.0.R3">
+   <feature id="org.mozilla.rhino.feature">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.draw2d">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.draw2d.source">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.gef.source">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.gef.lightweight">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.e4.tools.e3x.bridge.feature">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="org.eclipse.e4.tools.e3x.bridge.feature.source">
       <category name="whole-enabling-features"/>
    </feature>
    <category-def name="whole-lw" label="Whole Language Workbench 1.0.0.qualifier">

@@ -24,21 +24,6 @@
 	<modules>
 		<module>../org.whole.product.lw.target/pom-lw.xml</module>
 
-		<module>../com.fasterxml.jackson/pom-lw.xml</module>
-		<module>../com.fasterxml.jackson.feature/pom-lw.xml</module>
-		<module>../net.sourceforge.jodatime/pom-lw.xml</module>
-		<module>../net.sourceforge.jodatime.feature/pom-lw.xml</module>
-		<module>../nu.validator.htmlparser/pom-lw.xml</module>
-		<module>../nu.validator.htmlparser.feature/pom-lw.xml</module>
-		<module>../org.beanshell.bsh/pom-lw.xml</module>
-		<module>../org.beanshell.bsh.feature/pom-lw.xml</module>
-		<module>../org.gradle/pom-lw.xml</module>
-		<module>../org.gradle.feature/pom-lw.xml</module>
-		<module>../org.h2/pom-lw.xml</module>
-		<module>../org.h2.feature/pom-lw.xml</module>
-		<module>../org.mozilla.rhino/pom-lw.xml</module>
-		<module>../org.mozilla.rhino.feature/pom-lw.xml</module>
-
 		<module>../org.whole.lang/pom-lw.xml</module>
 		<module>../org.whole.lang.feature/pom-lw.xml</module>
 
@@ -228,7 +213,7 @@
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>0.21.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>

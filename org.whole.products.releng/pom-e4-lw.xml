@@ -24,21 +24,6 @@
 	<modules>
 		<module>../org.whole.product.e4.lw.target/pom-e4-lw.xml</module>
 
-		<module>../com.fasterxml.jackson/pom-e4-lw.xml</module>
-		<module>../com.fasterxml.jackson.feature/pom-e4-lw.xml</module>
-		<module>../net.sourceforge.jodatime/pom-e4-lw.xml</module>
-		<module>../net.sourceforge.jodatime.feature/pom-e4-lw.xml</module>
-		<module>../nu.validator.htmlparser/pom-e4-lw.xml</module>
-		<module>../nu.validator.htmlparser.feature/pom-e4-lw.xml</module>
-		<module>../org.beanshell.bsh/pom-e4-lw.xml</module>
-		<module>../org.beanshell.bsh.feature/pom-e4-lw.xml</module>
-		<module>../org.gradle/pom-e4-lw.xml</module>
-		<module>../org.gradle.feature/pom-e4-lw.xml</module>
-		<module>../org.h2/pom-e4-lw.xml</module>
-		<module>../org.h2.feature/pom-e4-lw.xml</module>
-		<module>../org.mozilla.rhino/pom-e4-lw.xml</module>
-		<module>../org.mozilla.rhino.feature/pom-e4-lw.xml</module>
-
 		<module>../org.whole.lang/pom-e4-lw.xml</module>
 		<module>../org.whole.lang.feature/pom-e4-lw.xml</module>
 
@@ -206,7 +191,7 @@
 
 		<compiler-version>2.4</compiler-version>
 		<wagon-ssh-version>2.2</wagon-ssh-version>
-		<tycho-version>0.21.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 		<assembly-version>2.3</assembly-version>
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>

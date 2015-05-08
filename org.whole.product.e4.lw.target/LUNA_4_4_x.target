@@ -9,12 +9,20 @@
 <repository location="http://download.eclipse.org/eclipse/updates/4.4"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="com.fasterxml.jackson.feature.feature.group" version="0.0.0"/>
+<unit id="net.sourceforge.jodatime.feature.feature.group" version="0.0.0"/>
+<unit id="nu.validator.htmlparser.feature.feature.group" version="0.0.0"/>
+<unit id="org.beanshell.bsh.feature.feature.group" version="0.0.0"/>
+<unit id="org.gradle.feature.feature.group" version="0.0.0"/>
+<unit id="org.h2.feature.feature.group" version="0.0.0"/>
+<unit id="org.mozilla.rhino.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.draw2d.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.source.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.gef.lightweight.feature.group" version="0.0.0"/>
-<repository location="http://whole.sourceforge.net/gef-updates"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.e4.tools.e3x.bridge.feature.feature.group" version="0.0.0"/>
-<repository location="http://whole.sourceforge.net/e4tools-updates"/>
+<unit id="org.eclipse.e4.tools.e3x.bridge.feature.source.feature.group" version="0.0.0"/>
+<repository location="http://whole.sourceforge.net/whole-ef-updates/"/>
 </location>
 </locations>
 </target>
