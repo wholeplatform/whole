@@ -2,6 +2,4 @@ language: java
 jdk: oraclejdk8
 script:
   - cd org.whole.products.releng
-  - ant zip_whole_sources
-  - ant set_build_version
-  - mvn -Dtycho.localArtifacts=ignore -fpom-lw.xml integration-test
+  - gradle -i test
