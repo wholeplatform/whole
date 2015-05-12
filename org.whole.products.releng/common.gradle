@@ -6,14 +6,14 @@ buildscript {
   repositories {
     mavenCentral()
   }
-  
+
   dependencies {
     classpath "org.ajoberstar:gradle-git:1.1.0"
 
+    
 	classpath "org.apache.maven.shared:maven-invoker:2.2"
-//    classpath "org.apache.maven:maven-embedder:3.2.5" //TODO 3.3.1 is not working
-	
-	//Used by maven-embedder
+
+//	classpath "org.apache.maven:maven-embedder:3.3.3"
 //	classpath "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114"
 //	classpath "org.eclipse.aether:aether-transport-wagon:1.0.2.v20150114"
 //	classpath "org.apache.maven.wagon:wagon-http:2.8"
@@ -52,27 +52,30 @@ ext {
 	hasUncommittedChanges = !repo.status().isClean()
 	existsBuildArtifactsDir = new File("${buildArtifactsDir}").exists()
 	
-	launchMaven = { String pomDir, String pomName, List<String> phases ->
-		InvocationRequest request = new DefaultInvocationRequest();
-		request.setPomFile( new File(new File(pomDir), pomName) );
-		request.setGoals( phases );
+	launchMaven = { String pomDir, String pomName, List<String> goals ->
+		InvocationRequest request = new DefaultInvocationRequest()
+		request.setPomFile( new File(new File(pomDir), pomName) )
+		request.setGoals( goals )
 	
-		Invoker invoker = new DefaultInvoker();
-		InvocationResult result = invoker.execute( request );
-		return result.getExitCode();
+		def invoker = new DefaultInvoker()
+		def result = invoker.execute( request )
+		if (result.getExitCode() != 0)
+			failure = true
 	}
-	/*
-	launchMaven = { String pomDir, String pomName, List<String> phases ->
+/*
+	launchMaven = { String pomDir, String pomName, List<String> goals ->
+		//FIXME workaround
+		System.setProperty("maven.multiModuleProjectDirectory", pomDir)
 		def cli = new MavenCli()
-		def phs = []
-		phs.add("-f"+pomName)
-		phs.addAll(phases)
-		
-		def execResult = cli.doMain(phs as String[], pomDir, System.out, System.err);
+		def args = []
+		args.add("-f"+pomName)
+		args.addAll(goals)
+
+		def execResult = cli.doMain(args as String[], pomDir, System.out, System.err);
 		if (execResult != 0)
 			failure = true
 	}
-	*/
+*/
 
 	ignoreFailure = { ->
 		failure = false;
