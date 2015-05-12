@@ -53,12 +53,12 @@ ext {
 	existsBuildArtifactsDir = new File("${buildArtifactsDir}").exists()
 	
 	launchMaven = { String pomDir, String pomName, List<String> goals ->
-		InvocationRequest request = new DefaultInvocationRequest()
-		request.setPomFile( new File(new File(pomDir), pomName) )
-		request.setGoals( goals )
+		def request = new DefaultInvocationRequest()
+		request.setPomFile(new File(new File(pomDir), pomName))
+		request.setGoals(goals)
 	
 		def invoker = new DefaultInvoker()
-		def result = invoker.execute( request )
+		def result = invoker.execute(request)
 		if (result.getExitCode() != 0)
 			failure = true
 	}
@@ -97,6 +97,7 @@ project.gradle.buildFinished { buildResult ->
 }
 
 task info << {
+	println("relengDir: ${relengDir}")
 	println("Version: ${fullVersion}")
 	println("Has uncommitted changes: ${hasUncommittedChanges}")
 }
