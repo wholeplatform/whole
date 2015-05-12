@@ -21,7 +21,6 @@ import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 
 import javax.inject.Named;
 
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -32,7 +31,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.StringPersistenceProvider;
-import org.whole.lang.e4.ui.jobs.RunnableJob;
 import org.whole.lang.e4.ui.jobs.ActionCallRunnable;
 import org.whole.lang.reflect.ReflectionFactory;
 
@@ -70,10 +68,7 @@ public class ActionCallHandler {
 
 		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, true);
 		defineBindings(functionUri, predicateXwl, analyzing, actionRunnable.getBindings());
-		final RunnableJob job = new RunnableJob("Executing "+label+" action...", actionRunnable);
-		job.setUser(false);
-		job.setPriority(Job.INTERACTIVE);
-		job.schedule();
+		actionRunnable.asyncExec("Executing "+label+" action...");
 	}
 
 	protected void defineBindings(String functionUri, String predicateXwl, String analyzing, IBindingManager bm) throws Exception {

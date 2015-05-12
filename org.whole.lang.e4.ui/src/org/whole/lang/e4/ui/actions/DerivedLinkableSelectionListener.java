@@ -22,10 +22,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.e4.ui.jobs.DeriveModelRunnable;
-import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
 import org.whole.lang.e4.ui.util.ChangeTracker;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.EntityEditDomain;
@@ -78,17 +76,14 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			return;
 
 		if (functionUri != null) {
-			IRunnableWithProgress runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
+			ISynchronizableRunnable runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
 				@Override
 				protected void updateUI(IEntity result) {
 					super.updateUI(result);
 					fireContentsDerived(result);
 				}
 			};
-			final RunnableJob job = new RunnableJob("Executing "+LABEL+" operation...", runnable);
-			job.setUser(false);
-			job.setPriority(Job.INTERACTIVE);
-			job.schedule();
+			runnable.asyncExec("Executing "+LABEL+" operation...");
 		} else {
 			IEntity newContents = lastSelection.wGet("self");
 			if (viewer.getEntityContents() != newContents)

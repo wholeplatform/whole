@@ -20,9 +20,11 @@ package org.whole.lang.e4.ui.jobs;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -36,7 +38,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-public abstract class AbstractRunnableWithProgress implements IRunnableWithProgress {
+public abstract class AbstractRunnableWithProgress implements ISynchronizableRunnable {
 	protected IEclipseContext context;
 	protected IBindingManager bm;
 	protected String label;
@@ -83,4 +85,29 @@ public abstract class AbstractRunnableWithProgress implements IRunnableWithProgr
 	}
 
 	public abstract void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException;
+
+	public void asyncExec(String message) {
+		RunnableJob job = new RunnableJob(message, this);
+		job.setUser(false);
+		job.setPriority(Job.INTERACTIVE);
+		job.schedule();
+	}
+
+	public synchronized IBindingScope syncExec(long timeout) {
+		new Thread(() -> {
+			run(new NullProgressMonitor());
+			// ensure notify doesn't get called before wait
+			synchronized (this) {
+				notifyAll();
+			}
+		}).start();
+
+		// wait for a notification
+		try {
+			wait(timeout);
+		} catch (InterruptedException e) {
+		}
+
+		return bm;
+	}
 }

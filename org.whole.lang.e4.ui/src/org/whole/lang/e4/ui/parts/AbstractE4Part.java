@@ -158,7 +158,11 @@ public abstract class AbstractE4Part {
 		viewer.setContextMenu(new ContextMenuProvider(viewer) {
 			@Override
 			public void buildContextMenu(IMenuManager menuManager) {
-				contextMenuProvider.populate(menuManager);
+				try {
+					contextMenuProvider.populate(menuManager);
+				} catch (Exception e) {
+					getMenu().setVisible(false);
+				}
 			}
 		});
 

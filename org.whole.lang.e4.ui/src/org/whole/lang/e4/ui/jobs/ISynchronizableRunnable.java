@@ -15,24 +15,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.handler;
+package org.whole.lang.e4.ui.jobs;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
-import org.whole.lang.e4.ui.jobs.InterpretModelRunnable;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.whole.lang.bindings.IBindingScope;
 
 /**
  * @author Enrico Persiani
  */
-public class InterpretModelHandler extends OperationHandler {
-	public boolean isEnabled(IBindingManager bm) {
-		return HandlersBehavior.canInterpretModel(bm);
-	}
-	protected ISynchronizableRunnable createRunnable(IBindingManager bm, IEclipseContext context) {
-		return new InterpretModelRunnable(context, bm, getLabel(bm));
-	}
-	public String getLabel(IBindingManager bm) {
-		return "interpret model";
-	}
+public interface ISynchronizableRunnable extends IRunnableWithProgress {
+	public void asyncExec(String message);
+	public IBindingScope syncExec(long timeout);
 }

@@ -19,17 +19,15 @@ package org.whole.lang.e4.ui.handler;
 
 import javax.inject.Named;
 
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
-import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
 
 /**
  * @author Enrico Persiani
@@ -54,14 +52,10 @@ public abstract class OperationHandler {
 	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
 
-		IRunnableWithProgress runnable = createRunnable(bm, context);
-		final RunnableJob job = new RunnableJob("Executing "+getLabel(bm)+" operation...", runnable);
-		job.setUser(false);
-		job.setPriority(Job.INTERACTIVE);
-		job.schedule();
+		createRunnable(bm, context).asyncExec("Executing "+getLabel(bm)+" operation...");
 	}
 
 	protected abstract boolean isEnabled(IBindingManager bm);
-	protected abstract IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context);
+	protected abstract ISynchronizableRunnable createRunnable(IBindingManager bm, IEclipseContext context);
 	protected abstract String getLabel(IBindingManager bm);
 }

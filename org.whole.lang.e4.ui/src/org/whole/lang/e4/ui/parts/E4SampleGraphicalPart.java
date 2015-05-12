@@ -21,11 +21,9 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
@@ -33,7 +31,7 @@ import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.LinkViewerAdapter;
 import org.whole.lang.e4.ui.jobs.ExecuteSampleModelRunnable;
-import org.whole.lang.e4.ui.jobs.RunnableJob;
+import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
@@ -115,11 +113,8 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 		if (behaviorModel == null)
 			return;
 		else {
-			IRunnableWithProgress runnable = new ExecuteSampleModelRunnable(context, bm, behaviorLabel, contextModel, selfModel, behaviorModel);
-			RunnableJob job = new RunnableJob("Executing "+behaviorLabel+" operation...", runnable);
-			job.setUser(false);
-			job.setPriority(Job.INTERACTIVE);
-			job.schedule();
+			ISynchronizableRunnable runnable = new ExecuteSampleModelRunnable(context, bm, behaviorLabel, contextModel, selfModel, behaviorModel);
+			runnable.asyncExec("Executing "+behaviorLabel+" operation...");
 		}
 	}
 }

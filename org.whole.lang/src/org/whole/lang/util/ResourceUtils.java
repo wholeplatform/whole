@@ -145,6 +145,8 @@ public class ResourceUtils {
 		bm.wDefValue("fileFullPathName", name);
 
 		bm.wDefValue("contextURI", parentFile != null ? parentFile.toURI().toString() : null);//FIXME
+
+		bm.wDefValue("breakpointsDisabled", false);
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, String resourceClasspath) {
@@ -175,6 +177,8 @@ public class ResourceUtils {
 			bm.wDefValue("contextURI", resourceUri.substring(0, resourceUri.length()-resourceClasspath.length()-1));
 		} catch (Exception e) {
 		}
+
+		bm.wDefValue("breakpointsDisabled", false);
 	}
 
 	public static boolean hasFragmentPart(String resourceUri) {

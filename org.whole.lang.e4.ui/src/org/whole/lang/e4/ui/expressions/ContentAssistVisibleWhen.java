@@ -21,14 +21,15 @@ import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Action;
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.GroupAction;
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.SeparatedAction;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
+import org.whole.lang.e4.ui.jobs.ContentAssistRunnable;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.VisitException;
@@ -44,7 +45,12 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		bm.wEnterScope(ts);
-		IEntity[] values = ContentAssistOperation.getContentAssist(bm.wGet("focusEntity"), bm);
+
+		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+		ContentAssistRunnable runnable = new ContentAssistRunnable(context, bm);
+		IEntity result = runnable.syncExec(3000).getResult();
+		IEntity[] values = (IEntity[]) result.wGetValue();
+
 		ts.rollback();
 		bm.wExitScope();
 		if (values.length == 1 && !EntityUtils.isData(values[0])) {

@@ -18,8 +18,8 @@
 package org.whole.lang.e4.ui.handler;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
 import org.whole.lang.e4.ui.jobs.PrettyPrintModelRunnable;
 
 /**
@@ -29,7 +29,7 @@ public class PrettyPrintModelHandler extends OperationHandler {
 	public boolean isEnabled(IBindingManager bm) {
 		return HandlersBehavior.canPrettyPrintModel(bm);
 	}
-	protected IRunnableWithProgress createRunnable(IBindingManager bm, IEclipseContext context) {
+	protected ISynchronizableRunnable createRunnable(IBindingManager bm, IEclipseContext context) {
 		return new PrettyPrintModelRunnable(context, bm, getLabel(bm));
 	}
 	public String getLabel(IBindingManager bm) {
