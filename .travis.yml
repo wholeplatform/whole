@@ -1,6 +1,12 @@
 language: java
 jdk: oraclejdk8
 script:
-  - cd org.whole.products.releng
+  - mkdir .tmp
+  - mv * .git  .gitignore .travis.yml .tmp/
+  - mv .tmp whole
+  - git clone https://github.com/wholeplatform/whole-java-libs.git
+  - git clone https://github.com/wholeplatform/whole-examples.git
+  - git clone https://github.com/wholeplatform/whole-platform-products.git
+  - cd whole/org.whole.products.releng
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
   - gradle -i --daemon integration_test
