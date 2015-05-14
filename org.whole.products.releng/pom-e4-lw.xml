@@ -212,15 +212,5 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/4.4</url>
 		</repository>
-		<repository>
-			<id>e4tools</id>
-			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/e4tools-updates</url>
-		</repository>
-		<repository>
-			<id>gef</id>
-			<layout>p2</layout>
-			<url>http://whole.sourceforge.net/gef-updates</url>
-		</repository>
 	</repositories>
 </project>
