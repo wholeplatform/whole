@@ -3,6 +3,4 @@ jdk: oraclejdk8
 script:
   - cd org.whole.products.releng
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
-  - echo "Maven home: $M2_HOME"
   - gradle -i --daemon integration_test
-#  - mvn -Dtycho.localArtifacts=ignore -fpom-lw.xml integration-test
