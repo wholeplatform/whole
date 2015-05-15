@@ -1,4 +1,9 @@
-import org.ajoberstar.grgit.*
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+
 import org.apache.maven.shared.invoker.*;
 //import org.apache.maven.cli.MavenCli;
 
@@ -8,7 +13,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "org.ajoberstar:gradle-git:1.1.0"
+    classpath "org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r"
 
     
 	classpath "org.apache.maven.shared:maven-invoker:2.2"
@@ -27,7 +32,7 @@ ext {
 	repoDir = "${relengDir}/.."
 	reposDir = "${repoDir}/.."
 
-	repo = Grgit.open(new File(repoDir))
+	repo = new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build()
 
 	versionNum = "1.0.0"
 	versionNumOld = "1.0.0"
@@ -37,19 +42,17 @@ ext {
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
 	lastCommitVersion = { ->
-		def commits = repo.log(maxCommits: 1)
-		def lastCommit = commits.get(0)
+		def lastCommitDate = new Git(repo).log().setMaxCount(1).call().iterator().next().getAuthorIdent().getWhen()
 	
 		def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
-		def suffix = dateFormat.format(lastCommit.getDate())
+		def suffix = dateFormat.format(lastCommitDate)
 	
 		"${versionNum}.v${suffix}"
 	}
-
 	fullVersion = lastCommitVersion()
 	buildArtifactsDir = "${relengDir}/builds/${fullVersion}"
 
-	hasUncommittedChanges = !repo.status().isClean()
+	hasUncommittedChanges = !new Git(repo).status().call().getUncommittedChanges().isEmpty()
 	existsBuildArtifactsDir = new File("${buildArtifactsDir}").exists()
 	
 	launchMaven = { String pomDir, String pomName, List<String> goals ->
