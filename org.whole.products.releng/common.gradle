@@ -54,7 +54,7 @@ ext {
 
 	repoStatus = new Git(repo).status().call()
 	hasUncommittedChanges = !repoStatus.getUncommittedChanges().isEmpty() || !repoStatus.getUntracked().isEmpty()
-	existsBuildArtifactsDir = new File("${buildArtifactsDir}").exists()
+	existsBuildArtifactsDir = new File(buildArtifactsDir).exists()
 	
 	launchMaven = { String pomDir, String pomName, List<String> goals ->
 		def request = new DefaultInvocationRequest()

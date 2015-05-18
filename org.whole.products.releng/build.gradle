@@ -53,7 +53,7 @@ def clean_e4_lw = { ->
 task package_e4_lw  << {
 	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
 }
-package_e4_lw.onlyIf = { !failure }
+package_e4_lw.onlyIf { !failure }
 
 task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
 	ant.move(toDir: buildArtifactsDir) {
@@ -69,7 +69,7 @@ task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
 
 	clean_e4_lw()
 } 
-build_e4_lw.onlyIf = { !failure } 
+build_e4_lw.onlyIf { !failure } 
 
 def clean_lw = { ->
 	launchMaven("${relengDir}", "pom-lw.xml", ["clean"])
@@ -79,7 +79,7 @@ def clean_lw = { ->
 task package_lw(dependsOn: set_build_version) << {
 	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
 }
-package_lw.onlyIf = { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
+package_lw.onlyIf { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
 package_lw.finalizedBy set_meta_version
 
 task build_lw(dependsOn:[init_build, package_lw]) << {
@@ -98,7 +98,7 @@ task build_lw(dependsOn:[init_build, package_lw]) << {
 
 	clean_lw();
 }
-build_lw.onlyIf = { !failure }
+build_lw.onlyIf { !failure }
 
 def clean_ldk = { ->
 	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
@@ -107,13 +107,13 @@ def clean_ldk = { ->
 task package_ldk(dependsOn: set_build_version) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["package"])
 }
-package_ldk.onlyIf = { !failure && validateLdk }
+package_ldk.onlyIf { !failure && validateLdk }
 package_ldk.finalizedBy set_meta_version
 
 task build_ldk(dependsOn: package_ldk) << {
 	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
 }
-build_ldk.onlyIf = { !failure && validateLdk }
+build_ldk.onlyIf { !failure && validateLdk }
 
 task clean_updates(description:"Clean updates repository") << {
 	ant.delete(dir: "${relengDir}/whole-updates")
@@ -132,9 +132,6 @@ task clean(description:"Clean") << {
 task build(dependsOn:[zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description:"Generates all distribution archives")
 
 task release_lw(description:"Release the Whole Language Workbench") << {
-	if (!new File(buildArtifactsDir).exists) 
-		throw new RuntimeException("Missing build to release on sourceforge") 
-	
 	def frsDir = "/home/frs/project/whole"	
 		
 	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
@@ -164,10 +161,7 @@ task release_lw(description:"Release the Whole Language Workbench") << {
 	
 	ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
 }
-release_lw.onlyIf {
-	def f = new File("${relengDir}/builds/${fullVersion}")
-	f.exists() && f.isDirectory()
-}
+release_lw.onlyIf { existsBuildArtifactsDir }
 
 
 task deploy_ldk(dependsOn: set_build_version) << {
@@ -211,10 +205,7 @@ task copy_update_site << {
 		}
 	}
 }
-copy_update_site.onlyIf {
-	def f = new File("${relengDir}/builds/${fullVersion}")
-	f.exists() && f.isDirectory()
-}
+copy_update_site.onlyIf { existsBuildArtifactsDir }
 
 deploy_ldk.mustRunAfter clean
 install_ldk.mustRunAfter clean
