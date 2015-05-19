@@ -22,7 +22,7 @@
 <unit id="org.eclipse.gef.lightweight.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.e4.tools.e3x.bridge.feature.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.e4.tools.e3x.bridge.feature.source.feature.group" version="0.0.0"/>
-<repository location="http://whole.sourceforge.net/whole-ef-updates/"/>
+<repository location="file:../../whole-java-libs/org.whole.product.ef.releng/whole-ef-updates/"/>
 </location>
 </locations>
 </target>

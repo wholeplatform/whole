@@ -1,4 +1,5 @@
 apply from: "common.gradle"
+def efRelengDir = "${reposDir}/whole-java-libs/org.whole.product.ef.releng"
 
 def validateLdk = false
 
@@ -76,7 +77,13 @@ def clean_lw = { ->
 	ant.delete(dir: "${relengDir}/workspace")
 }
 
-task package_lw(dependsOn: set_build_version) << {
+task build_ef(type: GradleBuild) {
+	dir = efRelengDir
+	tasks = ["build"]
+}
+build_ef.onlyIf { !new File("${efRelengDir}/whole-ef-updates").exists() }
+
+task package_lw(dependsOn: [build_ef, set_build_version]) << {
 	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
 }
 package_lw.onlyIf { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
@@ -115,7 +122,12 @@ task build_ldk(dependsOn: package_ldk) << {
 }
 build_ldk.onlyIf { !failure && validateLdk }
 
-task clean_updates(description:"Clean updates repository") << {
+task clean_updates_ef(type: GradleBuild) {
+	dir = efRelengDir
+	tasks = ["clean_updates"]
+}
+
+task clean_updates(dependsOn: clean_updates_ef, description:"Clean updates repository") << {
 	ant.delete(dir: "${relengDir}/whole-updates")
 }
 
