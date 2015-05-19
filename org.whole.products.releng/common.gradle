@@ -56,50 +56,40 @@ ext {
 	hasUncommittedChanges = !repoStatus.getUncommittedChanges().isEmpty() || !repoStatus.getUntracked().isEmpty()
 	existsBuildArtifactsDir = new File(buildArtifactsDir).exists()
 
-	launchMaven = { String pomDir, String pomName, List<String> goals ->
-		def arguments = ['-Dtycho.localArtifacts=ignore', "-f"+pomName]
-		arguments.addAll(goals)
-
+	launchMaven = { String pomDir, String pomName, String goal ->
 		def result = exec {
 			ignoreExitValue = true
 			workingDir = pomDir
 			executable = "mvn"
-			args = arguments
+			args = ['-Dtycho.localArtifacts=ignore', "-f"+pomName, goal]
 		}
-		if (result.getExitValue() != 0)
+		if (result.getExitValue() != 0 && goal != "clean")
 			failure = true
 	}
 /*	
-	launchMaven = { String pomDir, String pomName, List<String> goals ->
+	launchMaven = { String pomDir, String pomName, String goal ->
 		//FIXME missing property
 		def request = new DefaultInvocationRequest()
 		request.setPomFile(new File(new File(pomDir), pomName))
-		request.setGoals(goals)
+		request.setGoals([goal])
 
 		def invoker = new DefaultInvoker()
 		def result = invoker.execute(request)
-		if (result.getExitCode() != 0)
+		if (result.getExitCode() != 0 && goal != "clean")
 			failure = true
 	}
 
-	launchMaven = { String pomDir, String pomName, List<String> goals ->
+	launchMaven = { String pomDir, String pomName, String goal ->
 		//FIXME workaround
 		System.setProperty("maven.multiModuleProjectDirectory", pomDir)
 		System.setProperty("tycho.localArtifacts", "ignore")
 		def cli = new MavenCli()
-		def arguments = []
-		arguments.add("-f"+pomName)
-		arguments.addAll(goals)
 
-		def execResult = cli.doMain(arguments as String[], pomDir, System.out, System.err);
-		if (execResult != 0)
+		def execResult = cli.doMain(["-f"+pomName, goal], pomDir, System.out, System.err);
+		if (execResult != 0 && goal != "clean")
 			failure = true
 	}
 */
-
-	ignoreFailure = { ->
-		failure = false;
-	}
 }
 
 project.gradle.buildFinished { buildResult ->

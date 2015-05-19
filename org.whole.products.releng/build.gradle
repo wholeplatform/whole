@@ -3,7 +3,7 @@ def efRelengDir = "${reposDir}/whole-java-libs/org.whole.product.ef.releng"
 
 def validateLdk = false
 
-task set_build_version { description 'set the build version' } << {
+task set_build_version(description: "Set the build version") << {
 	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: fullVersion, summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
@@ -18,7 +18,7 @@ task set_build_version { description 'set the build version' } << {
 	}
 }
 
-task set_meta_version { description 'set the meta version' } << {
+task set_meta_version(description: "Set the meta version") << {
 	ant.replace(dir: repoDir, token: fullVersion, value: versionNum+".qualifier", summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
 		include(name: "*/feature.xml")
@@ -46,13 +46,13 @@ task zip_examples_sources(dependsOn: init_build) << {
 }
 
 
-def clean_e4_lw = { ->
-	launchMaven(relengDir, "pom-e4-lw.xml", ["clean"])
+task clean_e4_lw << {
+	launchMaven(relengDir, "pom-e4-lw.xml", "clean")
 	ant.delete(dir: "${relengDir}/workspace")
 }
 
 task package_e4_lw  << {
-	launchMaven(relengDir, "pom-e4-lw.xml", ["package"])
+	launchMaven(relengDir, "pom-e4-lw.xml", "package")
 }
 package_e4_lw.onlyIf { !failure }
 
@@ -67,13 +67,12 @@ task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
 			globmapper(from: "whole-*.zip", to: "whole-e4-*.zip")
 		}
 	}
-
-	clean_e4_lw()
 } 
 build_e4_lw.onlyIf { !failure } 
+build_e4_lw.finalizedBy clean_e4_lw
 
-def clean_lw = { ->
-	launchMaven("${relengDir}", "pom-lw.xml", ["clean"])
+task clean_lw << {
+	launchMaven(relengDir, "pom-lw.xml", "clean")
 	ant.delete(dir: "${relengDir}/workspace")
 }
 
@@ -84,12 +83,12 @@ task build_ef(type: GradleBuild) {
 build_ef.onlyIf { !new File("${efRelengDir}/whole-ef-updates").exists() }
 
 task package_lw(dependsOn: [build_ef, set_build_version]) << {
-	launchMaven("${relengDir}", "pom-lw.xml", ["package"])
+	launchMaven(relengDir, "pom-lw.xml", "package")
 }
 package_lw.onlyIf { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
 package_lw.finalizedBy set_meta_version
 
-task build_lw(dependsOn:[init_build, package_lw]) << {
+task build_lw(dependsOn: [init_build, package_lw]) << {
 	ant.move(toDir: buildArtifactsDir, failonerror:false) {
 		fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
 		fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
@@ -102,23 +101,22 @@ task build_lw(dependsOn:[init_build, package_lw]) << {
 	}
 	ant.delete(dir: "${relengDir}/whole-updates")
 	ant.unzip(src: "${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest: "${relengDir}/whole-updates")
-
-	clean_lw();
 }
 build_lw.onlyIf { !failure }
+build_lw.finalizedBy clean_lw
 
-def clean_ldk = { ->
-	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
+task clean_ldk << {
+	launchMaven(relengDir, "pom-ldk.xml", "clean")
 }
 
 task package_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", ["package"])
+	launchMaven(relengDir, "pom-ldk.xml", "package")
 }
 package_ldk.onlyIf { !failure && validateLdk }
 package_ldk.finalizedBy set_meta_version
 
 task build_ldk(dependsOn: package_ldk) << {
-	launchMaven(relengDir, "pom-ldk.xml", ["clean"])
+	launchMaven(relengDir, "pom-ldk.xml", "clean")
 }
 build_ldk.onlyIf { !failure && validateLdk }
 
@@ -127,23 +125,18 @@ task clean_updates_ef(type: GradleBuild) {
 	tasks = ["clean_updates"]
 }
 
-task clean_updates(dependsOn: clean_updates_ef, description:"Clean updates repository") << {
+task clean_updates(dependsOn: clean_updates_ef, description: "Clean updates repository") << {
 	ant.delete(dir: "${relengDir}/whole-updates")
 }
 
-task clean(description:"Clean") << {
-	clean_e4_lw();
-	ignoreFailure();
-	clean_lw();
-	ignoreFailure();
-	clean_ldk();
+task clean(dependsOn: [clean_e4_lw, clean_lw, clean_ldk], description:"Clean") << {
 	ant.delete(dir: "${relengDir}/builds")
 	ant.delete(dir: "${relengDir}/whole-updates")
 }
 
-task build(dependsOn:[zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description:"Generates all distribution archives")
+task build(dependsOn: [zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description: "Generates all distribution archives")
 
-task release_lw(description:"Release the Whole Language Workbench") << {
+task release_lw(description: "Release the Whole Language Workbench") << {
 	def frsDir = "/home/frs/project/whole"	
 		
 	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
@@ -177,27 +170,25 @@ release_lw.onlyIf { existsBuildArtifactsDir }
 
 
 task deploy_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", ["deploy"])
+	launchMaven(relengDir, "pom-ldk.xml", "deploy")
 }
 deploy_ldk.finalizedBy set_meta_version
 
-task release_ldk(dependsOn:[clean, deploy_ldk], description:"Release the Whole Language Development Kit") << {
-	clean_ldk();
-} 
+task release_ldk(dependsOn: [clean, deploy_ldk], description: "Release the Whole Language Development Kit")
 release_ldk.onlyIf { !failure }
+release_ldk.finalizedBy clean_ldk
 
 task install_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", ["install"])
+	launchMaven(relengDir, "pom-ldk.xml", "install")
 }
 install_ldk.finalizedBy set_meta_version
 
-task release_ldk_local(dependsOn:[clean, install_ldk], description:"Release the Whole Language Development Kit locally") << {
-	clean_ldk();
-}
+task release_ldk_local(dependsOn: [clean, install_ldk], description: "Release the Whole Language Development Kit locally")
 release_ldk_local.onlyIf { !failure }
+release_ldk_local.finalizedBy clean_ldk
 
-task integration_test(description:"Test the Whole Language Workbench") << {
-	launchMaven(relengDir, "pom-lw.xml", ["integration-test"])
+task integration_test(description: "Test the Whole Language Workbench") << {
+	launchMaven(relengDir, "pom-lw.xml", "integration-test")
 } 
 
 task copy_update_site << {
