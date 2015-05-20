@@ -78,13 +78,13 @@
 		<resources-version>2.5</resources-version>
 
 		<h2-version>1.2.147</h2-version>
-		<bsh-version>2.0b4</bsh-version>
+		<bsh-version>2.0b5</bsh-version>
 		<asm-version>3.2</asm-version>
 		<joda-time-version>1.6.2</joda-time-version>
-		<rhino-version>1.7R3</rhino-version>
-		<junit-version>4.8.2</junit-version>
+		<rhino-version>1.7.6</rhino-version>
 		<jackson-version>2.3.1</jackson-version>
-		<htmlparser-version>1.4</htmlparser-version>
+		<htmlparser-version>1.4.1</htmlparser-version>
+		<junit-version>4.11</junit-version>
 	</properties>
 
 	<build>

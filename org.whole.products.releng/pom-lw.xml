@@ -218,13 +218,6 @@
 		<source-version>2.1.2</source-version>
 		<resources-version>2.5</resources-version>
 		<jar-version>2.4</jar-version>
-
-		<h2-version>1.2.147</h2-version>
-		<bsh-version>2.0b4</bsh-version>
-		<asm-version>3.2</asm-version>
-		<joda-time-version>1.6.2</joda-time-version>
-		<rhino-version>1.7R3</rhino-version>
-		<junit-version>4.11</junit-version>
 	</properties>
 
 	<!-- update according to org.whole.product.lw.target/LUNA_4_4_x.target -->
