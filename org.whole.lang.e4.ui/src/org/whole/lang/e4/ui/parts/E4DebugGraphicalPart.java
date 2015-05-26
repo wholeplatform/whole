@@ -17,16 +17,17 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -37,12 +38,12 @@ import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.ResumeAction;
 import org.whole.lang.e4.ui.actions.RunAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
+import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editpolicies.SuspensionFeedbackEditPolicy;
 import org.whole.lang.ui.util.SuspensionKind;
-import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
@@ -50,16 +51,53 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class E4DebugGraphicalPart extends E4GraphicalPart {
-	protected CyclicBarrier barrier;
-	protected IBindingManager debugEnv;
-	protected SuspensionKind suspensionKind = SuspensionKind.NONE;
+	protected Deque<ExecutionState> executions = new ConcurrentLinkedDeque<>();
 
 	public SuspensionKind getSuspensionKind() {
-		return suspensionKind;
+		ExecutionState execution = executions.peek();
+		return execution != null ? execution.getSuspensionKind() : SuspensionKind.NONE;
 	}
-	public void setSuspensionKind(SuspensionKind suspensionKind) {
-		this.suspensionKind = suspensionKind;
+
+	protected void updateUI() {
 		updateActions();
+
+		IEventBroker eventBroker = context.get(IEventBroker.class);
+
+		ExecutionState execution = executions.peek();
+		if (execution != null) {
+			final IEntity sourceEntity = execution.getSourceEntity();
+			IEntity contents = EntityUtils.getCompoundRoot(sourceEntity);
+
+			getViewer().setContents(contents);
+			getViewer().setInteractive(contents, false, true, false);
+			//FIXME workaround call reveal twice (async for Linux, the other for Mac)
+			context.get(UISynchronize.class).syncExec(new Runnable() {
+				@Override
+				public void run() {
+					IEntity adaptee = sourceEntity.wGetAdaptee(false);
+					IEntityPart sourceEntityPart = getViewer().getEditPartRegistry().get(adaptee);
+					sourceEntityPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
+							new SuspensionFeedbackEditPolicy(getSuspensionKind(), execution.getThrowable()));
+					getViewer().reveal(sourceEntity);
+				}
+			});
+			getViewer().reveal(sourceEntity);
+			
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, execution.getVariablesModel());
+		} else {
+			getViewer().setEntityContents(createDefaultContents());
+			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+		}
+	}
+
+	protected void pushExecution(ExecutionState execution) {
+		executions.push(execution);
+		updateUI();
+	}
+	protected ExecutionState popExecution() {
+		ExecutionState execution = executions.removeFirst();
+		updateUI();
+		return execution;
 	}
 
 	@Override
@@ -79,67 +117,18 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 
 	@Inject
 	@Optional
-	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_DEBUG) Object[] args) {
-		//FIXME workaround release any suspended thread (multiple suspended jobs not yet supported)
-		if (this.barrier != null)
-			doRun();
-
-		setSuspensionKind((SuspensionKind) args[0]);
-
-		final Throwable throwable = (Throwable) args[1];
-		final IEntity sourceEntity = (IEntity) args[2];
-		IEntity contents = EntityUtils.getCompoundRoot(sourceEntity);
-
-		this.debugEnv = (IBindingManager) args[3];
-		this.barrier = (CyclicBarrier) args[4];
-
-		getViewer().setContents(contents);
-		getViewer().setInteractive(contents, false, true, false);
-		//FIXME workaround call reveal twice (async for Linux, the other for Mac)
-		context.get(UISynchronize.class).asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				IEntity adaptee = sourceEntity.wGetAdaptee(false);
-				IEntityPart sourceEntityPart = getViewer().getEditPartRegistry().get(adaptee);
-				sourceEntityPart.installEditPolicy(SuspensionFeedbackEditPolicy.SUSPENSION_FEEDBACK_ROLE,
-						new SuspensionFeedbackEditPolicy(suspensionKind, throwable));
-				getViewer().reveal(sourceEntity);
-			}
-		});
-		getViewer().reveal(sourceEntity);
+	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_DEBUG) ExecutionState execution) {
+		pushExecution(execution);
 	}
 
 	public void doRun() {
-		if (debugEnv.wIsSet("breakpointsDisabled"))
-			debugEnv.wSetValue("breakpointsDisabled", true);
-		else
-			debugEnv.wDefValue("breakpointsDisabled", true);
-
-		debugEnv = null;
-		doResume();
+		popExecution().disableBeakpoints().resume();
 	}
 	public void doResume() {
-		setSuspensionKind(SuspensionKind.NONE);
-		resetContents();
-		try {
-			CyclicBarrier barrier = this.barrier;
-			this.barrier = null;
-			barrier.await();
-		} catch (InterruptedException e) { 
-		} catch (BrokenBarrierException e) {
-		}
+		popExecution().resume();
 	}
 	public void doTerminate() {
-		setSuspensionKind(SuspensionKind.NONE);
-		resetContents();
-		CyclicBarrier barrier = this.barrier;
-		this.barrier = null;
-		barrier.reset();
-	}
-
-	protected void resetContents() {
-		getViewer().setEditDomain(new EntityEditDomain());
-		getViewer().setEntityContents(createDefaultContents());
+		popExecution().terminate();
 	}
 
 	protected Set<IUpdatableAction> actions = new HashSet<IUpdatableAction>();

@@ -25,8 +25,6 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -60,6 +58,7 @@ import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.IEntityIterator;
@@ -67,7 +66,6 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
-import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -359,8 +357,6 @@ public class E4Utils {
 			return;
 		}
 
-		IEntity variablesModel = BindingManagerFactory.instance.createVariablesViewModel(bindings, includeNames);
-
 		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
@@ -382,21 +378,10 @@ public class E4Utils {
 			}
 		});
 		
-		CyclicBarrier barrier = new CyclicBarrier(2);
 		IEventBroker eventBroker = context.get(IEventBroker.class);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, variablesModel);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_DEBUG, new Object[] {
-				kind, throwable, sourceEntity, bindings, barrier});
-		try {
-			barrier.await();
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
-		} catch (BrokenBarrierException e) {	
-			// execution terminated
-			throw new OperationCanceledException(e);
-		} finally {
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
-		}
+		ExecutionState execution = new ExecutionState(kind, throwable, sourceEntity, bindings, includeNames);
+		eventBroker.post(IUIConstants.TOPIC_UPDATE_DEBUG, execution);
+		execution.pause();
 	}
 
 	public static void openEditor(IEclipseContext context, IFile file, IPersistenceKit persistenceKit) {

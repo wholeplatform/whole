@@ -45,6 +45,6 @@ public class E4VariablesGraphicalPart extends E4GraphicalPart {
 			getViewer().setEntityContents(results);
 			getViewer().setInteractive(results, false, true, false);
 		} else
-			getViewer().setContents(null, createDefaultContents());
+			getViewer().setEntityContents(createDefaultContents());
 	}
 }
