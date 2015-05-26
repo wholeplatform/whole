@@ -49,6 +49,11 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 	}
 
 	@Override
+	protected boolean isTransactional() {
+		return !bm.wBooleanValue("analyzing");
+	}
+
+	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException {
 		IEntity model = bm.wGet("self");
 		boolean analyzing = bm.wBooleanValue("analyzing");

@@ -25,6 +25,7 @@ import org.eclipse.e4.ui.workbench.modeling.ISelectionListener;
 public interface ILinkableSelectionListener extends ILinkable, ISelectionListener {
 	public static final String LINK_TYPE = "org.whole.lang.e4.ui.actions.linkType";
 	public static final String FUNCTION_URI = "org.whole.lang.e4.ui.actions.functionUri";
+	public static final String FUNCTION_IS_TRANSACTIONAL = "org.whole.lang.e4.ui.actions.functionIsTransactional";
 	public static final String SHARE_EDIT_DOMAIN = "org.whole.lang.e4.ui.actions.shareEditDoman";
 	public static final String SYNCHRONIZE_SELECTION = "org.whole.lang.e4.ui.actions.synchronizeSelection";
 	public static final String IGNORABLE_PART_IDS = "org.whole.lang.e4.ui.actions.ignorablePartIds";

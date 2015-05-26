@@ -35,6 +35,11 @@ public class GenerateJavaRunnable extends AbstractRunnableWithProgress {
 	}
 
 	@Override
+	protected boolean isTransactional() {
+		return false;
+	}
+
+	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		pm.beginTask("Generating...", IOperationProgressMonitor.TOTAL_WORK);
 		try {

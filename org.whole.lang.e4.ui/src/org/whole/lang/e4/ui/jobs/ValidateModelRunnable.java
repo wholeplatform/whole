@@ -40,6 +40,11 @@ public class ValidateModelRunnable extends AbstractRunnableWithProgress {
 	}
 
 	@Override
+	protected boolean isTransactional() {
+		return false;
+	}
+
+	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		pm.beginTask("Validating...", IOperationProgressMonitor.TOTAL_WORK);
 		try {

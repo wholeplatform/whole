@@ -76,7 +76,7 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 			return;
 
 		if (functionUri != null) {
-			ISynchronizableRunnable runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri) {
+			ISynchronizableRunnable runnable = new DeriveModelRunnable(context, lastSelection, LABEL, functionUri, functionIsTransactional) {
 				@Override
 				protected void updateUI(IEntity result) {
 					super.updateUI(result);

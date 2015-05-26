@@ -33,10 +33,18 @@ import org.whole.lang.util.BehaviorUtils;
  */
 public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	protected String functionUri;
+	protected boolean functionIsTransactional;
 
-	public DeriveModelRunnable(IEclipseContext context, IBindingManager bm, String label, String functionUri) {
+	public DeriveModelRunnable(IEclipseContext context, IBindingManager bm, String label,
+			String functionUri, boolean functionIsTransactional) {
 		super(context, bm, label, false);
 		this.functionUri = functionUri;
+		this.functionIsTransactional = functionIsTransactional;
+	}
+
+	@Override
+	protected boolean isTransactional() {
+		return this.functionIsTransactional;
 	}
 
 	@Override

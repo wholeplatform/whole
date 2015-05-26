@@ -59,7 +59,6 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	@Override
 	public void run(IProgressMonitor monitor) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		DisabledFeedbackEditPolicy.markDisabled(true, viewer);
 		boolean delayUpdates = delayUpdates(viewer, this.delayUpdates);
 		boolean enableAnimation = AnimableRunnable.enableAnimation(!this.delayUpdates);
 		try {
@@ -76,7 +75,8 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			monitor.done();
 			AnimableRunnable.enableAnimation(enableAnimation);
 			delayUpdates(viewer, delayUpdates);
-			DisabledFeedbackEditPolicy.markDisabled(false, viewer);
+			if (DisabledFeedbackEditPolicy.isDisabled(viewer))
+				DisabledFeedbackEditPolicy.markDisabled(false, viewer);
 		}
 	}
 
@@ -88,7 +88,15 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 
 	public abstract void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException;
 
+	protected boolean isTransactional() {
+		return true;
+	}
+
 	public void asyncExec(String message) {
+		if (isTransactional()) {
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+			DisabledFeedbackEditPolicy.markDisabled(true, viewer);
+		}
 		RunnableJob job = new RunnableJob(message, this);
 		job.setUser(false);
 		job.setPriority(Job.INTERACTIVE);

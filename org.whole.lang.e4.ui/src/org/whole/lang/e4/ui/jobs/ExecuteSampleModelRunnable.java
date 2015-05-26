@@ -28,7 +28,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
-import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
@@ -63,6 +62,11 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 		this.contextModel = contextModel;
 		this.selfModel = selfModel;
 		this.behaviorModel = behaviorModel;
+	}
+
+	@Override
+	protected boolean isTransactional() {
+		return false;
 	}
 
 	@Override

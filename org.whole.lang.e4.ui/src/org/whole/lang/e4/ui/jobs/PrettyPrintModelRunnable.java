@@ -35,6 +35,11 @@ public class PrettyPrintModelRunnable extends AbstractRunnableWithProgress {
 	}
 
 	@Override
+	protected boolean isTransactional() {
+		return false;
+	}
+
+	@Override
 	public void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException {
 		pm.beginTask("Pretty printing...", IOperationProgressMonitor.TOTAL_WORK);
 		try {
