@@ -31,6 +31,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
+import org.whole.lang.ui.editpolicies.DisabledFeedbackEditPolicy;
 import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -58,6 +59,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	@Override
 	public void run(IProgressMonitor monitor) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		DisabledFeedbackEditPolicy.markDisabled(true, viewer);
 		boolean delayUpdates = delayUpdates(viewer, this.delayUpdates);
 		boolean enableAnimation = AnimableRunnable.enableAnimation(!this.delayUpdates);
 		try {
@@ -70,11 +72,11 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 				E4Utils.suspendOperation(SuspensionKind.ERROR, we);
 			} else
 				E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
-
 		} finally {
+			monitor.done();
 			AnimableRunnable.enableAnimation(enableAnimation);
 			delayUpdates(viewer, delayUpdates);
-			monitor.done();
+			DisabledFeedbackEditPolicy.markDisabled(false, viewer);
 		}
 	}
 
@@ -100,7 +102,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			synchronized (this) {
 				notifyAll();
 			}
-		}).start();
+		}, getClass().getSimpleName()+".syncExec(...)").start();
 
 		// wait for a notification
 		try {
