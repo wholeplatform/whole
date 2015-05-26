@@ -246,6 +246,9 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 
 	public boolean navigateModel(KeyEvent event, int direction) {
 		EditPoint focusPoint = getEditPoint();
+		
+		if (!(focusPoint.focus.getParent() instanceof IEntityPart))
+			return false;
 
 		switch (direction) {
 		case NORTH:
