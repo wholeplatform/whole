@@ -2,6 +2,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 //import org.apache.maven.shared.invoker.*;
@@ -41,9 +42,24 @@ ext {
 
 	sourceExcludes = ".git/**, */bin/**, */builds/**, */target/**, **/.DS_Store, */.gradle/**"
 
+	gitClone = { String repoUri, String repoDir ->
+		Git.cloneRepository().setURI(repoUri).setDirectory(new File(repoDir)).call()
+	}
+	gitCheckout = { String repoDir, String checkoutCommit ->
+		def repo = new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build()
+        def commit = new RevWalk(repo).parseCommit(repo.resolve(checkoutCommit))
+		new Git(repo).checkout().setName(commit.getId().getName()).setStartPoint(commit).call()
+	}
+	gitApply = { String repoDir, String patchFile ->
+		def inputStream = new FileInputStream(new File(patchFile))
+		def repo = new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build()
+		new Git(repo).apply().setPatch(inputStream).call()
+		inputStream.close()
+	}
+
 	lastCommitVersion = { ->
 		def lastCommitDate = new Git(repo).log().setMaxCount(1).call().iterator().next().getAuthorIdent().getWhen()
-	
+
 		def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
 		def suffix = dateFormat.format(lastCommitDate)
 	
@@ -56,12 +72,15 @@ ext {
 	hasUncommittedChanges = !repoStatus.getUncommittedChanges().isEmpty() || !repoStatus.getUntracked().isEmpty()
 	existsBuildArtifactsDir = new File(buildArtifactsDir).exists()
 
-	launchMaven = { String pomDir, String pomName, String goal ->
+	launchMaven = { String pomDir, String pomName, String goal, String profile='' ->
 		def result = exec {
 			ignoreExitValue = true
 			workingDir = pomDir
 			executable = "mvn"
-			args = ['-Dtycho.localArtifacts=ignore', "-f"+pomName, goal]
+			if (profile == '')
+				args = ['-Dtycho.localArtifacts=ignore', "-f"+pomName, goal]
+			else
+				args = ['-Dtycho.localArtifacts=ignore', "-f"+pomName, goal, "-P"+profile]
 		}
 		if (result.getExitValue() != 0 && goal != "clean")
 			failure = true
