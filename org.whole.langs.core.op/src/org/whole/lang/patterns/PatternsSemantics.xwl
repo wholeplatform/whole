@@ -673,7 +673,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="45">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="46">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -2926,6 +2926,39 @@
                             </commons:StageDownFragment>
                         </queries:If>
                     </commons:StageUpFragment>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Data"/>
+                    <queries:Block initialCapacity="2">
+                        <queries:Path initialCapacity="2">
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <queries:If>
+                                    <commons:StageDownFragment>
+                                        <semantics:TypeCast>
+                                        <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="modelUri"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="#"/>
+                                        <queries:Singleton>
+                                        <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
+                                        </queries:Singleton>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </semantics:TypeCast>
+                                    </commons:StageDownFragment>
+                                    <queries:SelfStep/>
+                                </queries:If>
+                            </commons:StageUpFragment>
+                            <semantics:FunctionApplication>
+                                <semantics:Name value="atExpandPatternsInplaceBodyPoint"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </semantics:FunctionApplication>
+                        </queries:Path>
+                        <queries:VoidLiteral/>
+                    </queries:Block>
                 </queries:If>
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
