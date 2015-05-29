@@ -1,6 +1,6 @@
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.Status;
-import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
@@ -45,10 +45,19 @@ ext {
 	gitClone = { String repoUri, String repoDir ->
 		Git.cloneRepository().setURI(repoUri).setDirectory(new File(repoDir)).call()
 	}
-	gitCheckout = { String repoDir, String checkoutCommit ->
+	gitCheckout = { String repoDir, String checkoutCommit, String branchName = '' ->
 		def repo = new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build()
         def commit = new RevWalk(repo).parseCommit(repo.resolve(checkoutCommit))
-		new Git(repo).checkout().setName(commit.getId().getName()).setStartPoint(commit).call()
+		if (branchName != '')
+			new Git(repo).checkout().setCreateBranch(true).setName(branchName).setStartPoint(commit).call()
+		else
+			new Git(repo).checkout().setName(commit.getId().getName()).setStartPoint(commit).call()
+	}
+	gitCommit = { String repoDir, String authorName, String authorEmail ->
+			def git = Git.wrap(new FileRepositoryBuilder().setWorkTree(new File(repoDir)).build());
+			git.add().addFilepattern(".").call();
+			def author = new PersonIdent(authorName, authorEmail, new Date(), TimeZone.getDefault());
+			git.commit().setAll(true).setAuthor(author).setMessage("commitMessage").call()
 	}
 	gitApply = { String repoDir, String patchFile ->
 		def inputStream = new FileInputStream(new File(patchFile))
