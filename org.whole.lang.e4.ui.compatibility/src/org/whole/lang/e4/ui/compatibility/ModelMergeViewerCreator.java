@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.compatibility;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.IViewerCreator;
+import org.eclipse.compare.contentmergeviewer.TextMergeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -29,6 +30,9 @@ import org.eclipse.swt.widgets.Composite;
 public class ModelMergeViewerCreator implements IViewerCreator {
 	@Override
 	public Viewer createViewer(Composite parent, CompareConfiguration compareConfiguration) {
-		return new ModelMergeViewer(parent, SWT.NULL, compareConfiguration);
+		if (compareConfiguration.getContainer().getWorkbenchPart() == null)
+			return new TextMergeViewer(parent, compareConfiguration);
+		else
+			return new ModelMergeViewer(parent, SWT.NULL, compareConfiguration);
 	}
 }
