@@ -104,8 +104,7 @@ public class XmlPrettyPrinterVisitor extends XmlIdentityVisitor {
 
     @Override
     public void visit(Standalone entity) {
-    	if (entity.wBooleanValue())
-    		out.printRaw(" standalone=\"yes\"");
+    	out.printRaw(" standalone=\"" + (entity.wBooleanValue() ? "yes" : "no") + "\"");
      }
 
     public void visit(DocTypeDecl entity) {

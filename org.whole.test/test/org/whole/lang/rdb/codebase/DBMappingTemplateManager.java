@@ -118,7 +118,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();
@@ -145,7 +145,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();
@@ -185,7 +185,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();
@@ -281,7 +281,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();
@@ -364,7 +364,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();
@@ -446,7 +446,7 @@ public class DBMappingTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b1.Resolver();

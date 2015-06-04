@@ -216,6 +216,7 @@ public class SaxConsumerHandler extends DefaultHandler implements LexicalHandler
 			builder.XMLDecl_();
 			builder.Version(xmlVersion);
 			builder.Encoding(xmlEncoding);
+			cb.Resolver();
 			builder._XMLDecl();
 		} else
 			cb.Resolver();

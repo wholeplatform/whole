@@ -13,9 +13,9 @@ public class SampleXmlModel extends AbstractTemplateFactory<Document> {
         b0.XMLDecl_();
         b0.Version("1.0");
         b0.Encoding("UTF-8");
-        b0.Standalone(false);
-        b0._XMLDecl();
         org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+        b1.Resolver();
+        b0._XMLDecl();
         b1.Resolver();
         b1.Resolver();
         b0._Prolog();

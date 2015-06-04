@@ -27,7 +27,7 @@ public class XMLDeclFigure extends ContentPaneFigure {
 
     public XMLDeclFigure() {
         super(new RowLayout().withSpacing(4));
-        initContentPanes(2);
+        initContentPanes(3);
         addKeyword("<?xml");
         addContent("version");
         addContentLighter("=\"");
@@ -36,6 +36,10 @@ public class XMLDeclFigure extends ContentPaneFigure {
         addContent("encoding");
         addContentLighter("=\"");
         add(createContentPane(1));
+        addContentLighter("\"");
+        addContent("standalone");
+        addContentLighter("=\"");
+        add(createContentPane(2));
         addContentLighter("\"");
         addKeyword("?>");
     }

@@ -128,7 +128,7 @@ public class MotoGP_TeamsActions extends AbstractTemplateFactory<org.whole.lang.
         b5.XMLDecl_();
         b5.Version("1.0");
         b5.Encoding("UTF-8");
-        b5.Standalone(false);
+        b1.Resolver();
         b5._XMLDecl();
         b1.Resolver();
         b5.Misc_(0);

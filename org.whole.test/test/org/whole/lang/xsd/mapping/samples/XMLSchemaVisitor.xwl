@@ -4,7 +4,7 @@
         <wxml:XMLDecl>
             <wxml:Version value="1.0"/>
             <wxml:Encoding value="UTF-8"/>
-            <wxml:Standalone value="false"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </wxml:XMLDecl>
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         <wxml:Misc initialCapacity="5">

@@ -101,8 +101,8 @@ public class XsiModelTemplate extends AbstractVisitor implements ITemplate {
 			builder.XMLDecl_();
 			builder.Version("1.0");
 			builder.Encoding(encoding);
-			builder.Standalone(false);
-			builder._XMLDecl();
+			cb.Resolver();
+	        builder._XMLDecl();
 			cb.Resolver();
 			cb.Resolver();
 			builder._Prolog();

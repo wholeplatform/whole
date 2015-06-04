@@ -219,7 +219,7 @@
                                         <wxml:XMLDecl>
                                         <wxml:Version value="1.0"/>
                                         <wxml:Encoding value="UTF-8"/>
-                                        <wxml:Standalone value="false"/>
+                                        <commons:Resolver/>
                                         </wxml:XMLDecl>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
@@ -247,7 +247,7 @@
                                         <wxml:XMLDecl>
                                         <wxml:Version value="1.0"/>
                                         <wxml:Encoding value="UTF-8"/>
-                                        <wxml:Standalone value="false"/>
+                                        <commons:Resolver/>
                                         </wxml:XMLDecl>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
@@ -272,7 +272,7 @@
                                         <wxml:XMLDecl>
                                         <wxml:Version value="1.0"/>
                                         <wxml:Encoding value="UTF-8"/>
-                                        <wxml:Standalone value="false"/>
+                                        <commons:Resolver/>
                                         </wxml:XMLDecl>
                                         <commons:Resolver/>
                                         <commons:Resolver/>

@@ -35,10 +35,11 @@ public class XMLDeclPart extends AbstractContentPanePart {
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		List<IEntity> list = new ArrayList<IEntity>(2);
+		List<IEntity> list = new ArrayList<IEntity>(3);
 		XMLDecl xmlDecl = getModelEntity();
 		list.add(xmlDecl.getVersion());
 		list.add(xmlDecl.getEncoding());
+		list.add(xmlDecl.getStandalone());
 		return list;
 	}
 }

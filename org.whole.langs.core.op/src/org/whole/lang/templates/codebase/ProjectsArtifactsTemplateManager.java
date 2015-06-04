@@ -56,7 +56,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b2.Misc();
@@ -135,7 +135,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b2.XMLDecl_();
                 b2.Version("1.0");
                 b2.Encoding("UTF-8");
-                b2.Standalone(false);
+                b1.Resolver();
                 b2._XMLDecl();
                 b1.Resolver();
                 b2.Misc();
@@ -437,7 +437,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b3.XMLDecl_();
                 b3.Version("1.0");
                 b3.Encoding("UTF-8");
-                b3.Standalone(false);
+                b1.Resolver();
                 b3._XMLDecl();
                 b1.Resolver();
                 b3.Misc();
@@ -516,7 +516,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b3.XMLDecl_();
                 b3.Version("1.0");
                 b3.Encoding("UTF-8");
-                b3.Standalone(false);
+                b1.Resolver();
                 b3._XMLDecl();
                 b1.Resolver();
                 b3.Misc();
@@ -677,7 +677,7 @@ public class ProjectsArtifactsTemplateManager extends AbstractTemplateManager {
                 b3.XMLDecl_();
                 b3.Version("1.0");
                 b3.Encoding("UTF-8");
-                b3.Standalone(false);
+                b1.Resolver();
                 b3._XMLDecl();
                 b1.Resolver();
                 b3.Misc_(1);

@@ -404,8 +404,7 @@ public class XmlPrettyPrinterBuilder extends GenericIdentityBuilder implements I
 	}
 
 	public void Standalone(boolean value) {
-		if (value)
-			print(" standalone=\"yes\"");
+		print(" standalone=\"" + (value ? "yes" : "no") + "\"");
 	}
 	public void Standalone() {
 	}
