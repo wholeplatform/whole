@@ -2947,7 +2947,10 @@
                                         </queries:Addition>
                                         </semantics:TypeCast>
                                     </commons:StageDownFragment>
-                                    <queries:SelfStep/>
+                                    <semantics:TypeCast>
+                                        <semantics:EnvType/>
+                                        <commons:Resolver/>
+                                    </semantics:TypeCast>
                                 </queries:If>
                             </commons:StageUpFragment>
                             <semantics:FunctionApplication>
