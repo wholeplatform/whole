@@ -19,21 +19,20 @@ package org.whole.lang.ui.handles;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.handles.AbstractHandle;
-import org.eclipse.gef.handles.MoveHandleLocator;
+import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 
 /**
  * @author Enrico Persiani
  */
-public class DisabledLabeledHandle extends AbstractHandle {
+public class DisabledLabeledHandle extends EntityFigure {
 	public DisabledLabeledHandle(String label, GraphicalEditPart owner) {
-		super(owner, new MoveHandleLocator(owner.getFigure()));
-
 		setOpaque(false);
 		setToolTip(new EntityLabel(label));
+		setBounds(((Viewport) owner.getFigure()).getContents().getBounds());
 	}
 	
 	@Override
