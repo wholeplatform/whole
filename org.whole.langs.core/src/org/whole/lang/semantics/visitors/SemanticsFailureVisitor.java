@@ -58,6 +58,10 @@ public class SemanticsFailureVisitor extends SemanticsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(EnvType entity) {
+        throw new VisitException();
+    }
+
     public void visit(EntityType entity) {
         throw new VisitException();
     }

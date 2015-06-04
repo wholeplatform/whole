@@ -21,7 +21,7 @@ package org.whole.lang.semantics.model;
 /**
  *  @generator Whole
  */
-public interface EntityType extends ISemanticsEntity, Category {
+public interface EntityType extends ISemanticsEntity, Category, CastType {
 
 
     public String getValue();

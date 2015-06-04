@@ -66,6 +66,10 @@ public class SemanticsForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
+    public void visit(EnvType entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(EntityType entity) {
         wGetStrategy().visit(entity);
     }

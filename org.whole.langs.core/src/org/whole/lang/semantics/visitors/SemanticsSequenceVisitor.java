@@ -72,6 +72,11 @@ public class SemanticsSequenceVisitor extends AbstractBinaryVisitor<ISemanticsVi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(EnvType entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(EntityType entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

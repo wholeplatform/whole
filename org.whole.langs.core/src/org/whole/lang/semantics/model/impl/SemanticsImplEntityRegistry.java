@@ -37,6 +37,7 @@ public class SemanticsImplEntityRegistry extends AbstractEntityRegistry {
         put(new InferenceRulesImpl());
         put(new AnyTypeImpl());
         put(new LanguageTypeImpl());
+        put(new EnvTypeImpl());
         put(new EntityTypeImpl());
         put(new EnvironmentTypeImpl());
         put(new LegacyTypeImpl());

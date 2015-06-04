@@ -21,14 +21,6 @@ package org.whole.lang.semantics.model;
 /**
  *  @generator Whole
  */
-public interface TypeCast extends ISemanticsEntity, Expression {
+public interface CastType extends ISemanticsEntity {
 
-
-    public CastType getType();
-
-    public void setType(CastType type);
-
-    public Expression getExpression();
-
-    public void setExpression(Expression expression);
 }

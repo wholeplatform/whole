@@ -25,6 +25,7 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.resources.FunctionLibraryRegistry;
+import org.whole.lang.semantics.model.CastType;
 import org.whole.lang.semantics.model.Expression;
 import org.whole.lang.semantics.model.FunctionApplication;
 import org.whole.lang.semantics.model.FunctionBody;
@@ -112,8 +113,12 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 
 	@Override
 	public void visit(TypeCast entity) {
-		String entityTypeUri = entity.getType().getValue();
-    	IEntityIterator<IEntity> resultIterator = SemanticsUtils.typeCastIterator(entityTypeUri).withSourceEntity(entity);
+		IEntityIterator<IEntity> resultIterator;
+		CastType type = entity.getType();
+		if (Matcher.matchImpl(SemanticsEntityDescriptorEnum.EnvType, type))
+			resultIterator = SemanticsUtils.typeCastIterator().withSourceEntity(entity);
+		else
+			resultIterator = SemanticsUtils.typeCastIterator(type.wStringValue()).withSourceEntity(entity);
 
 		Expression expression = entity.getExpression();
 		if (!EntityUtils.isResolver(expression)) {

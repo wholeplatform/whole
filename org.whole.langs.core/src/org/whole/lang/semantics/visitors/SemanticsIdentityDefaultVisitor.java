@@ -81,9 +81,18 @@ public class SemanticsIdentityDefaultVisitor extends SemanticsIdentityVisitor {
         visit((Category) entity);
     }
 
+    public void visit(CastType entity) {
+    }
+
+    public void visit(EnvType entity) {
+        visit((ISemanticsEntity) entity);
+        visit((CastType) entity);
+    }
+
     public void visit(EntityType entity) {
         visit((ISemanticsEntity) entity);
         visit((Category) entity);
+        visit((CastType) entity);
     }
 
     public void visit(EnvironmentType entity) {

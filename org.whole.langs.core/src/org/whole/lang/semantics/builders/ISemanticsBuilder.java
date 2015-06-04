@@ -144,6 +144,12 @@ public interface ISemanticsBuilder extends IBuilder {
 
     public void LanguageType(String value);
 
+    public void EnvType();
+
+    public void EnvType_();
+
+    public void _EnvType();
+
     public void EntityType();
 
     public void EntityType(String value);

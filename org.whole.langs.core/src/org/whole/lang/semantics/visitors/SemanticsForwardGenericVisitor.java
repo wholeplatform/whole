@@ -63,6 +63,10 @@ public class SemanticsForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(EnvType entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(EntityType entity) {
         wGetVisitor1().visit(entity);
     }

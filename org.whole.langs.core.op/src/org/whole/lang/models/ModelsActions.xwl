@@ -355,7 +355,7 @@
                                     <queries:Filter>
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
-                                        <workflows:Variable xmlns:workflows="http://lang.whole.org/Workflows" value="firstEd"/>
+                                        <queries:VariableRefStep value="firstEd"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>

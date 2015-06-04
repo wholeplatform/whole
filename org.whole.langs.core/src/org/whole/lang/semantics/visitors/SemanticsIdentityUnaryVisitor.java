@@ -60,6 +60,9 @@ public class SemanticsIdentityUnaryVisitor<V extends IVisitor>  extends Abstract
     public void visit(LanguageType entity) {
     }
 
+    public void visit(EnvType entity) {
+    }
+
     public void visit(EntityType entity) {
     }
 

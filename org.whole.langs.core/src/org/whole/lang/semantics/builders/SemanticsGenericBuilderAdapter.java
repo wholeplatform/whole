@@ -171,6 +171,9 @@ public class SemanticsGenericBuilderAdapter extends GenericIdentityBuilder {
             case SemanticsEntityDescriptorEnum.AnyType_ord :
             specificBuilder.AnyType();
             break;
+            case SemanticsEntityDescriptorEnum.EnvType_ord :
+            specificBuilder.EnvType();
+            break;
             case SemanticsEntityDescriptorEnum.UnionType_ord :
             specificBuilder.UnionType();
             break;
@@ -299,6 +302,9 @@ public class SemanticsGenericBuilderAdapter extends GenericIdentityBuilder {
             case SemanticsEntityDescriptorEnum.AnyType_ord :
             specificBuilder.AnyType_();
             break;
+            case SemanticsEntityDescriptorEnum.EnvType_ord :
+            specificBuilder.EnvType_();
+            break;
             case SemanticsEntityDescriptorEnum.UnionType_ord :
             specificBuilder.UnionType_();
             break;
@@ -426,6 +432,9 @@ public class SemanticsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case SemanticsEntityDescriptorEnum.AnyType_ord :
             specificBuilder._AnyType();
+            break;
+            case SemanticsEntityDescriptorEnum.EnvType_ord :
+            specificBuilder._EnvType();
             break;
             case SemanticsEntityDescriptorEnum.UnionType_ord :
             specificBuilder._UnionType();

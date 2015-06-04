@@ -37,66 +37,68 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int Category_ord = 8;
     public static final int AnyType_ord = 9;
     public static final int LanguageType_ord = 10;
-    public static final int EntityType_ord = 11;
-    public static final int EnvironmentType_ord = 12;
-    public static final int LegacyType_ord = 13;
-    public static final int UnionType_ord = 14;
-    public static final int FunctionType_ord = 15;
-    public static final int SequenceType_ord = 16;
-    public static final int SubtypeType_ord = 17;
-    public static final int SupertypeType_ord = 18;
-    public static final int ProductType_ord = 19;
-    public static final int Rule_ord = 20;
-    public static final int ExecutionRule_ord = 21;
-    public static final int InferenceRule_ord = 22;
-    public static final int Premises_ord = 23;
-    public static final int Premise_ord = 24;
-    public static final int ConfigurationOrTransition_ord = 25;
-    public static final int Transition_ord = 26;
-    public static final int Predicate_ord = 27;
-    public static final int Configuration_ord = 28;
-    public static final int ConfigurationItem_ord = 29;
-    public static final int BindingSubject_ord = 30;
-    public static final int Expression_ord = 31;
-    public static final int Identifier_ord = 32;
-    public static final int LocalIdentifier_ord = 33;
-    public static final int Template_ord = 34;
-    public static final int Term_ord = 35;
-    public static final int AbstractVariable_ord = 36;
-    public static final int TypedVariable_ord = 37;
-    public static final int StructuredVariable_ord = 38;
-    public static final int Variable_ord = 39;
-    public static final int VariableValue_ord = 40;
-    public static final int RenameGroup_ord = 41;
-    public static final int Rename_ord = 42;
-    public static final int Environments_ord = 43;
-    public static final int Environment_ord = 44;
-    public static final int BindingsScope_ord = 45;
-    public static final int LocalBindings_ord = 46;
-    public static final int LocalBinding_ord = 47;
-    public static final int BindingOp_ord = 48;
-    public static final int EnvironmentVariable_ord = 49;
-    public static final int TypeCast_ord = 50;
-    public static final int FunctionApplication_ord = 51;
-    public static final int StageChange_ord = 52;
-    public static final int OutputBindings_ord = 53;
-    public static final int OutputBinding_ord = 54;
-    public static final int InputBindings_ord = 55;
-    public static final int InputBinding_ord = 56;
-    public static final int InlineTemplate_ord = 57;
-    public static final int ChooseTemplate_ord = 58;
-    public static final int Case_ord = 59;
-    public static final int WhereTemplate_ord = 60;
-    public static final int ForTemplate_ord = 61;
-    public static final int IfTemplate_ord = 62;
-    public static final int IfDefTemplate_ord = 63;
-    public static final int ElseTemplate_ord = 64;
-    public static final int RuleName_ord = 65;
-    public static final int Num_ord = 66;
-    public static final int URI_ord = 67;
-    public static final int Namespace_ord = 68;
-    public static final int Name_ord = 69;
-    public static final int Version_ord = 70;
+    public static final int CastType_ord = 11;
+    public static final int EnvType_ord = 12;
+    public static final int EntityType_ord = 13;
+    public static final int EnvironmentType_ord = 14;
+    public static final int LegacyType_ord = 15;
+    public static final int UnionType_ord = 16;
+    public static final int FunctionType_ord = 17;
+    public static final int SequenceType_ord = 18;
+    public static final int SubtypeType_ord = 19;
+    public static final int SupertypeType_ord = 20;
+    public static final int ProductType_ord = 21;
+    public static final int Rule_ord = 22;
+    public static final int ExecutionRule_ord = 23;
+    public static final int InferenceRule_ord = 24;
+    public static final int Premises_ord = 25;
+    public static final int Premise_ord = 26;
+    public static final int ConfigurationOrTransition_ord = 27;
+    public static final int Transition_ord = 28;
+    public static final int Predicate_ord = 29;
+    public static final int Configuration_ord = 30;
+    public static final int ConfigurationItem_ord = 31;
+    public static final int BindingSubject_ord = 32;
+    public static final int Expression_ord = 33;
+    public static final int Identifier_ord = 34;
+    public static final int LocalIdentifier_ord = 35;
+    public static final int Template_ord = 36;
+    public static final int Term_ord = 37;
+    public static final int AbstractVariable_ord = 38;
+    public static final int TypedVariable_ord = 39;
+    public static final int StructuredVariable_ord = 40;
+    public static final int Variable_ord = 41;
+    public static final int VariableValue_ord = 42;
+    public static final int RenameGroup_ord = 43;
+    public static final int Rename_ord = 44;
+    public static final int Environments_ord = 45;
+    public static final int Environment_ord = 46;
+    public static final int BindingsScope_ord = 47;
+    public static final int LocalBindings_ord = 48;
+    public static final int LocalBinding_ord = 49;
+    public static final int BindingOp_ord = 50;
+    public static final int EnvironmentVariable_ord = 51;
+    public static final int TypeCast_ord = 52;
+    public static final int FunctionApplication_ord = 53;
+    public static final int StageChange_ord = 54;
+    public static final int OutputBindings_ord = 55;
+    public static final int OutputBinding_ord = 56;
+    public static final int InputBindings_ord = 57;
+    public static final int InputBinding_ord = 58;
+    public static final int InlineTemplate_ord = 59;
+    public static final int ChooseTemplate_ord = 60;
+    public static final int Case_ord = 61;
+    public static final int WhereTemplate_ord = 62;
+    public static final int ForTemplate_ord = 63;
+    public static final int IfTemplate_ord = 64;
+    public static final int IfDefTemplate_ord = 65;
+    public static final int ElseTemplate_ord = 66;
+    public static final int RuleName_ord = 67;
+    public static final int Num_ord = 68;
+    public static final int URI_ord = 69;
+    public static final int Namespace_ord = 70;
+    public static final int Name_ord = 71;
+    public static final int Version_ord = 72;
     public static final SemanticsEntityDescriptorEnum instance = new SemanticsEntityDescriptorEnum();
     public static final EntityDescriptor<SemanticTheory> SemanticTheory = (EntityDescriptor<SemanticTheory>) instance.valueOf(SemanticTheory_ord);
     public static final EntityDescriptor<SemanticFunctions> SemanticFunctions = (EntityDescriptor<SemanticFunctions>) instance.valueOf(SemanticFunctions_ord);
@@ -109,6 +111,8 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<Category> Category = (EntityDescriptor<Category>) instance.valueOf(Category_ord);
     public static final EntityDescriptor<AnyType> AnyType = (EntityDescriptor<AnyType>) instance.valueOf(AnyType_ord);
     public static final EntityDescriptor<LanguageType> LanguageType = (EntityDescriptor<LanguageType>) instance.valueOf(LanguageType_ord);
+    public static final EntityDescriptor<CastType> CastType = (EntityDescriptor<CastType>) instance.valueOf(CastType_ord);
+    public static final EntityDescriptor<EnvType> EnvType = (EntityDescriptor<EnvType>) instance.valueOf(EnvType_ord);
     public static final EntityDescriptor<EntityType> EntityType = (EntityDescriptor<EntityType>) instance.valueOf(EntityType_ord);
     public static final EntityDescriptor<EnvironmentType> EnvironmentType = (EntityDescriptor<EnvironmentType>) instance.valueOf(EnvironmentType_ord);
     public static final EntityDescriptor<LegacyType> LegacyType = (EntityDescriptor<LegacyType>) instance.valueOf(LegacyType_ord);
@@ -186,6 +190,8 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Category_ord, "Category", Category.class, true, EntityType_ord, LegacyType_ord, UnionType_ord, SupertypeType_ord, EnvironmentType_ord, AnyType_ord, SubtypeType_ord, LanguageType_ord);
         putSimpleEntity(AnyType_ord, "AnyType", AnyType.class, false);
         putDataEntity(LanguageType_ord, "LanguageType", LanguageType.class, false, String.class);
+        putSimpleEntity(CastType_ord, "CastType", CastType.class, true, EntityType_ord, EnvType_ord);
+        putSimpleEntity(EnvType_ord, "EnvType", EnvType.class, false);
         putDataEntity(EntityType_ord, "EntityType", EntityType.class, false, String.class);
         putDataEntity(EnvironmentType_ord, "EnvironmentType", EnvironmentType.class, false, String.class);
         putDataEntity(LegacyType_ord, "LegacyType", LegacyType.class, false, LegacyTypeEnum.Value.class);
@@ -225,7 +231,7 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(LocalBinding_ord, "LocalBinding", LocalBinding.class, false).withFeature(SemanticsFeatureDescriptorEnum.op, BindingOp_ord).withFeature(SemanticsFeatureDescriptorEnum.identifier, LocalIdentifier_ord, false, true, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
         putDataEntity(BindingOp_ord, "BindingOp", BindingOp.class, false, BindingOpEnum.Value.class);
         putSimpleEntity(EnvironmentVariable_ord, "EnvironmentVariable", EnvironmentVariable.class, false).withFeature(SemanticsFeatureDescriptorEnum.environment, LocalIdentifier_ord).withFeature(SemanticsFeatureDescriptorEnum.variable, LocalIdentifier_ord);
-        putSimpleEntity(TypeCast_ord, "TypeCast", TypeCast.class, false).withFeature(SemanticsFeatureDescriptorEnum.type, EntityType_ord).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
+        putSimpleEntity(TypeCast_ord, "TypeCast", TypeCast.class, false).withFeature(SemanticsFeatureDescriptorEnum.type, CastType_ord).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
         putSimpleEntity(FunctionApplication_ord, "FunctionApplication", FunctionApplication.class, false).withFeature(SemanticsFeatureDescriptorEnum.name, Name_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.arguments, Expression_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.environments, Environments_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.stage, StageChange_ord, true, false, false, false, false);
         putDataEntity(StageChange_ord, "StageChange", StageChange.class, false, StageChangeEnum.Value.class);
         putCompositeEntity(OutputBindings_ord, "OutputBindings", OutputBindings.class, false, OutputBinding_ord, true, false);
@@ -249,17 +255,9 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
     }
 
     protected void initForeignTypeRelations() {
-//WAS
-		setAssignableFromAll(true, Predicate_ord, Term_ord, Expression_ord, FunctionBody_ord);
-//FIXME xxxTemplate expression -> Term
-//    	setAssignableFromAll(true, Term_ord);
-//    	setAssignableFromForeignType(true,
-//    			"http://lang.whole.org/Queries#PathExpressionOrPredicate", Predicate_ord);
-//    	setAssignableFromForeignType(true,
-//    			"http://lang.whole.org/Queries#PathExpression", Expression_ord, FunctionBody_ord);
-
-		setAssignableToAll(true, Identifier_ord, TypedVariable_ord,
-				FunctionApplication_ord, TypeCast_ord, BindingsScope_ord,
-				Template_ord);
-	}
+        setAssignableFromAll(true, Term_ord);
+        setAssignableFromForeignType(true, "http://lang.whole.org/Queries#PathExpressionOrPredicate", Predicate_ord);
+        setAssignableFromForeignType(true, "http://lang.whole.org/Queries#PathExpression", Expression_ord, FunctionBody_ord);
+        setAssignableToAll(true, Identifier_ord, TypedVariable_ord, FunctionApplication_ord, TypeCast_ord, BindingsScope_ord, Template_ord);
+    }
 }

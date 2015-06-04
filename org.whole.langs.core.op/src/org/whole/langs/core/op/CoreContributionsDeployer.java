@@ -17,8 +17,6 @@
  */
 package org.whole.langs.core.op;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.grammars.GrammarsActions;
 import org.whole.lang.operations.InterpreterOperation;

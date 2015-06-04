@@ -23,19 +23,18 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.semantics.visitors.ISemanticsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
-import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class TypeCastAdapter extends AbstractEntityAdapter implements TypeCast {
+public class CastTypeAdapter extends AbstractEntityAdapter implements CastType {
     private static final long serialVersionUID = 1;
 
-    public TypeCastAdapter(IEntity implementor) {
+    public CastTypeAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public TypeCastAdapter() {
+    public CastTypeAdapter() {
     }
 
     public void accept(ISemanticsVisitor visitor) {
@@ -43,23 +42,7 @@ public class TypeCastAdapter extends AbstractEntityAdapter implements TypeCast {
             visitor.visit(this);
     }
 
-    public EntityDescriptor<TypeCast> wGetEntityDescriptor() {
-        return SemanticsEntityDescriptorEnum.TypeCast;
-    }
-
-    public CastType getType() {
-        return wGet(SemanticsFeatureDescriptorEnum.type).wGetAdapter(SemanticsEntityDescriptorEnum.CastType);
-    }
-
-    public void setType(CastType type) {
-        wSet(SemanticsFeatureDescriptorEnum.type, type);
-    }
-
-    public Expression getExpression() {
-        return wGet(SemanticsFeatureDescriptorEnum.expression).wGetAdapter(SemanticsEntityDescriptorEnum.Expression);
-    }
-
-    public void setExpression(Expression expression) {
-        wSet(SemanticsFeatureDescriptorEnum.expression, expression);
+    public EntityDescriptor<CastType> wGetEntityDescriptor() {
+        return SemanticsEntityDescriptorEnum.CastType;
     }
 }

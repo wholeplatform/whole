@@ -30,6 +30,7 @@ import org.whole.lang.semantics.model.ChooseTemplate;
 import org.whole.lang.semantics.model.Configuration;
 import org.whole.lang.semantics.model.ElseTemplate;
 import org.whole.lang.semantics.model.EntityType;
+import org.whole.lang.semantics.model.EnvType;
 import org.whole.lang.semantics.model.EnvironmentType;
 import org.whole.lang.semantics.model.EnvironmentVariable;
 import org.whole.lang.semantics.model.ExecutionRule;
@@ -85,6 +86,7 @@ import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
+import org.whole.lang.ui.editparts.EnvTypePart;
 import org.whole.lang.ui.editparts.FunctionNamePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.LanguageTypePart;
@@ -231,6 +233,11 @@ public class SemanticsPartFactoryVisitor extends SemanticsIdentityDefaultVisitor
 	@Override
 	public void visit(AnyType entity) {
 		part = new AnyTypePart();
+	}
+
+	@Override
+	public void visit(EnvType entity) {
+		part = new EnvTypePart();
 	}
 
 	@Override

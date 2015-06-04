@@ -38,7 +38,6 @@ import org.whole.lang.models.codebase.MathModel;
 import org.whole.lang.models.codebase.MiscModel;
 import org.whole.lang.models.codebase.ModelsModel;
 import org.whole.lang.models.codebase.PojoModel;
-import org.whole.lang.models.codebase.SemanticsModel;
 import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestsModel;
@@ -86,7 +85,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(PojoLanguageKit.URI, new PojoModel());
 		platform.setMetaModelTemplate(QueriesLanguageKit.URI, "Queries Model", "org/whole/lang/queries/QueriesModel.xwl");
 		platform.setMetaModelTemplate(ReusablesLanguageKit.URI, "Reusables model", "org/whole/lang/reusables/ReusablesModel.xwl");
-		platform.setMetaModelTemplate(SemanticsLanguageKit.URI, new SemanticsModel());
+		platform.setMetaModelTemplate(SemanticsLanguageKit.URI, "Semantics model", "org/whole/lang/semantics/SemanticsModel.xwl");
 		platform.setMetaModelTemplate(STATUS_URI, new StatusModel());
 		platform.setMetaModelTemplate(TestsLanguageKit.URI, new TestsModel());
 		platform.setMetaModelTemplate(TemplatesLanguageKit.URI, new TemplatesModel());

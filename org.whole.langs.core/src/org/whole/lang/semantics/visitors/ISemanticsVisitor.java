@@ -40,6 +40,8 @@ public interface ISemanticsVisitor extends IVisitor {
 
     public void visit(LanguageType entity);
 
+    public void visit(EnvType entity);
+
     public void visit(EntityType entity);
 
     public void visit(EnvironmentType entity);

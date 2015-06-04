@@ -51,6 +51,9 @@ public class SemanticsIdentityVisitor extends AbstractVisitor implements ISemant
     public void visit(LanguageType entity) {
     }
 
+    public void visit(EnvType entity) {
+    }
+
     public void visit(EntityType entity) {
     }
 

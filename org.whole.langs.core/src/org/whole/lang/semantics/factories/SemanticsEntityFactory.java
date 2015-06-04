@@ -112,6 +112,10 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.LanguageType, value);
     }
 
+    public EnvType createEnvType() {
+        return create(SemanticsEntityDescriptorEnum.EnvType);
+    }
+
     public EntityType createEntityType() {
         return create(SemanticsEntityDescriptorEnum.EntityType);
     }
@@ -392,7 +396,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.TypeCast);
     }
 
-    public TypeCast createTypeCast(EntityType type, Expression expression) {
+    public TypeCast createTypeCast(CastType type, Expression expression) {
         return create(SemanticsEntityDescriptorEnum.TypeCast, type, expression);
     }
 

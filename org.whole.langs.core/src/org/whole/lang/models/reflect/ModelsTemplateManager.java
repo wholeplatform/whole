@@ -43,7 +43,6 @@ import org.whole.lang.models.codebase.RDFModel;
 import org.whole.lang.models.codebase.SQLModel;
 import org.whole.lang.models.codebase.SchemeModel;
 import org.whole.lang.models.codebase.ScriptsModel;
-import org.whole.lang.models.codebase.SemanticsModel;
 import org.whole.lang.models.codebase.StatusModel;
 import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestEntities;
@@ -156,7 +155,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Math Presentation model", new MathPresentationModel());
 		put("Scheme model", new SchemeModel());
 
-		put("Semantics model", new SemanticsModel());
 		put("Transformers model", new TransformersModel());
 
 		put("Scripts model", new ScriptsModel());

@@ -270,6 +270,18 @@ public class SemanticsSpecificBuilderAdapter extends GenericBuilderContext imple
         wEntity(SemanticsEntityDescriptorEnum.LanguageType, value);
     }
 
+    public void EnvType() {
+        wEntity(SemanticsEntityDescriptorEnum.EnvType);
+    }
+
+    public void EnvType_() {
+        wEntity_(SemanticsEntityDescriptorEnum.EnvType);
+    }
+
+    public void _EnvType() {
+        _wEntity(SemanticsEntityDescriptorEnum.EnvType);
+    }
+
     public void EntityType() {
         wEntity(SemanticsEntityDescriptorEnum.EntityType);
     }

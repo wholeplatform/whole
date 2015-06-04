@@ -41,6 +41,8 @@ public class SemanticsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new CategoryAdapter());
         put(new AnyTypeAdapter());
         put(new LanguageTypeAdapter());
+        put(new CastTypeAdapter());
+        put(new EnvTypeAdapter());
         put(new EntityTypeAdapter());
         put(new EnvironmentTypeAdapter());
         put(new LegacyTypeAdapter());

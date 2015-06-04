@@ -62,6 +62,13 @@ import org.whole.lang.visitors.VisitException;
 public class SemanticsUtils {
 	public static final String USE_IDENTIFIER_SEMANTICS = "USE_IDENTIFIER_SEMANTICS";
 
+	public static IEntityIterator<IEntity> typeCastIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				bm.setResult(BindingManagerFactory.instance.createSpecificValue(selfEntity));
+			}
+		});
+	}
 	public static IEntityIterator<IEntity> typeCastIterator(final String entityTypeUri) {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {

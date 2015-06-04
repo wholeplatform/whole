@@ -50,6 +50,9 @@ public abstract class SemanticsIdentitySwitchVisitor extends AbstractVisitor imp
             case SemanticsEntityDescriptorEnum.LanguageType_ord :
             visit((LanguageType) entity);
             break;
+            case SemanticsEntityDescriptorEnum.EnvType_ord :
+            visit((EnvType) entity);
+            break;
             case SemanticsEntityDescriptorEnum.EntityType_ord :
             visit((EntityType) entity);
             break;

@@ -52,6 +52,10 @@ public class SemanticsForwardStagedVisitor extends SemanticsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(EnvType entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(EntityType entity) {
         stagedVisit(entity);
     }
