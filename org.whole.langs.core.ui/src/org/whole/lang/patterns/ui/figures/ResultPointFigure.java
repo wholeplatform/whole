@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
-import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.TableRowLayout;
 
 
 /**
@@ -34,7 +34,7 @@ public class ResultPointFigure extends ContentPaneFigure {
 	public static final int HM = 3;
 
 	public ResultPointFigure() {
-		super(new RowLayout().withSpacing(12).withMargin(2,HM,2,2));
+		super(new TableRowLayout().withSpacing(12).withMargin(2,HM,2,2));
 		initContentPanes(2);
 		
 		add(createContentPane(0));
@@ -46,25 +46,25 @@ public class ResultPointFigure extends ContentPaneFigure {
 
 		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
 		Rectangle b = getBounds();
-		Rectangle b0 = getContentPane(0).getBounds();
-		g.fillRectangle(b0.right()+SP, b.y, b.width-b0.width-1-SP, b.height);
+		Rectangle b1 = getContentPane(1).getBounds();
+		g.fillRectangle(b1.x-SP-8, b.y, b1.width-1+SP+8, b.height);
 
     	int oldAlpha = g.getAlpha();
 		g.setAlpha(100);
     	g.setBackgroundColor(FigurePrefs.relationsColor);
-        g.fillRectangle(b0.right()+SP, b.y, 8, b.height-1);
+        g.fillRectangle(b1.x-SP-8, b.y, 8, b.height-1);
         g.setAlpha(oldAlpha);
 
 		g.setForegroundColor(ColorConstants.lightGray);
-		g.drawRectangle(b0.right()+SP, b.y, b.width-b0.width-HM-1-SP, b.height-1);
+		g.drawRectangle(b1.x-SP-8, b.y, b1.width+HM-2+SP+8, b.height-1);
 
 		g.setLineStyle(SWT.LINE_CUSTOM);
 		g.setLineDash(new int[] {1,3});
 		g.setForegroundColor(ColorConstants.gray);
 		Rectangle.SINGLETON.setLocation(b.x, b.y);
-		Rectangle.SINGLETON.setSize(b0.width+HM+SP, b.height);
+		Rectangle.SINGLETON.setSize(b1.x-SP-8 - b.x, b.height);
 		g.setClip(Rectangle.SINGLETON);
-		g.drawRectangle(b.x, b.y, b0.width+HM+SP, b.height-1);
+		g.drawRectangle(b.x, b.y, b1.x-SP-8 - b.x, b.height-1);
 		g.setClip(b);
 	}
 }

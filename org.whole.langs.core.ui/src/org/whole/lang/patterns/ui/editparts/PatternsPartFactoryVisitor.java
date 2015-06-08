@@ -227,8 +227,7 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
 
     @Override
     public void visit(SequencePoint entity) {
-        super.visit(entity);
-        //part = new SequencePointPart();
+        part = new SequencePointPart();
     }
 
     @Override
