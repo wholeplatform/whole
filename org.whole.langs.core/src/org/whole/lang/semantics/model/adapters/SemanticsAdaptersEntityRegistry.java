@@ -63,11 +63,11 @@ public class SemanticsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ConfigurationAdapter());
         put(new ConfigurationItemAdapter());
         put(new BindingSubjectAdapter());
+        put(new TermAdapter());
         put(new ExpressionAdapter());
         put(new IdentifierAdapter());
         put(new LocalIdentifierAdapter());
         put(new TemplateAdapter());
-        put(new TermAdapter());
         put(new AbstractVariableAdapter());
         put(new TypedVariableAdapter());
         put(new StructuredVariableAdapter());

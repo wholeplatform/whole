@@ -485,8 +485,20 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
+            <models:SimpleName value="Term"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="ConfigurationItem"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
             <models:SimpleName value="Expression"/>
-            <models:Types initialCapacity="0"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Term"/>
+            </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>
@@ -517,16 +529,6 @@
             <models:SimpleName value="Template"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Expression"/>
-            </models:Types>
-            <models:Features initialCapacity="0"/>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
-            <models:SimpleName value="Term"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="ConfigurationItem"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -782,7 +784,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="Term"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -911,7 +913,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="Term"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -937,7 +939,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="Term"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>

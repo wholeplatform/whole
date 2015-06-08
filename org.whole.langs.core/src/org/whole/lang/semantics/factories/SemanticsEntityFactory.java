@@ -396,7 +396,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.TypeCast);
     }
 
-    public TypeCast createTypeCast(CastType type, Expression expression) {
+    public TypeCast createTypeCast(CastType type, Term expression) {
         return create(SemanticsEntityDescriptorEnum.TypeCast, type, expression);
     }
 
@@ -476,7 +476,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.InlineTemplate);
     }
 
-    public InlineTemplate createInlineTemplate(Expression expression) {
+    public InlineTemplate createInlineTemplate(Term expression) {
         return create(SemanticsEntityDescriptorEnum.InlineTemplate, expression);
     }
 
@@ -496,7 +496,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.WhereTemplate);
     }
 
-    public WhereTemplate createWhereTemplate(Expression expression, InputBindings where) {
+    public WhereTemplate createWhereTemplate(Term expression, InputBindings where) {
         return create(SemanticsEntityDescriptorEnum.WhereTemplate, expression, where);
     }
 
@@ -508,7 +508,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.ForTemplate);
     }
 
-    public ForTemplate createForTemplate(Expression expression, Expression condition) {
+    public ForTemplate createForTemplate(Term expression, Expression condition) {
         return create(SemanticsEntityDescriptorEnum.ForTemplate, expression, condition);
     }
 
@@ -520,7 +520,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.IfTemplate);
     }
 
-    public IfTemplate createIfTemplate(Expression expression, Predicate condition) {
+    public IfTemplate createIfTemplate(Term expression, Predicate condition) {
         return create(SemanticsEntityDescriptorEnum.IfTemplate, expression, condition);
     }
 
@@ -532,7 +532,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.IfDefTemplate);
     }
 
-    public IfDefTemplate createIfDefTemplate(Expression expression) {
+    public IfDefTemplate createIfDefTemplate(Term expression) {
         return create(SemanticsEntityDescriptorEnum.IfDefTemplate, expression);
     }
 
@@ -540,7 +540,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.ElseTemplate);
     }
 
-    public ElseTemplate createElseTemplate(Expression expression) {
+    public ElseTemplate createElseTemplate(Term expression) {
         return create(SemanticsEntityDescriptorEnum.ElseTemplate, expression);
     }
 

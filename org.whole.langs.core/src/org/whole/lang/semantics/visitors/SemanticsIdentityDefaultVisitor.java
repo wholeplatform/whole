@@ -169,7 +169,12 @@ public class SemanticsIdentityDefaultVisitor extends SemanticsIdentityVisitor {
         visit((ConfigurationOrTransition) entity);
     }
 
+    public void visit(Term entity) {
+        visit((ConfigurationItem) entity);
+    }
+
     public void visit(Expression entity) {
+        visit((Term) entity);
     }
 
     public void visit(Identifier entity) {
@@ -186,10 +191,6 @@ public class SemanticsIdentityDefaultVisitor extends SemanticsIdentityVisitor {
 
     public void visit(Template entity) {
         visit((Expression) entity);
-    }
-
-    public void visit(Term entity) {
-        visit((ConfigurationItem) entity);
     }
 
     public void visit(AbstractVariable entity) {

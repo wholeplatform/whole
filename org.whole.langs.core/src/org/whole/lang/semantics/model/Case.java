@@ -24,7 +24,7 @@ package org.whole.lang.semantics.model;
 public interface Case extends ISemanticsEntity {
 
 
-    public Expression getExpression();
+    public Term getExpression();
 
-    public void setExpression(Expression expression);
+    public void setExpression(Term expression);
 }

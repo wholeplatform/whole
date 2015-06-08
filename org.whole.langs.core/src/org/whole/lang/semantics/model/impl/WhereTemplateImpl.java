@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
 import org.whole.lang.semantics.visitors.ISemanticsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.semantics.model.Expression;
+import org.whole.lang.semantics.model.Term;
 import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.semantics.model.InputBindings;
@@ -49,13 +49,13 @@ public class WhereTemplateImpl extends AbstractSimpleEntity implements WhereTemp
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Expression expression;
+    private Term expression;
 
-    public Expression getExpression() {
+    public Term getExpression() {
         return notifyRequested(SemanticsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(Term expression) {
         notifyChanged(SemanticsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private InputBindings where;
@@ -82,7 +82,7 @@ public class WhereTemplateImpl extends AbstractSimpleEntity implements WhereTemp
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setExpression(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));
+            setExpression(value.wGetAdapter(SemanticsEntityDescriptorEnum.Term));
             break;
             case 1 :
             setWhere(value.wGetAdapter(SemanticsEntityDescriptorEnum.InputBindings));

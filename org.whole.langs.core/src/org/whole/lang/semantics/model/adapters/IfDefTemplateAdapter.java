@@ -47,11 +47,11 @@ public class IfDefTemplateAdapter extends AbstractEntityAdapter implements IfDef
         return SemanticsEntityDescriptorEnum.IfDefTemplate;
     }
 
-    public Expression getExpression() {
-        return wGet(SemanticsFeatureDescriptorEnum.expression).wGetAdapter(SemanticsEntityDescriptorEnum.Expression);
+    public Term getExpression() {
+        return wGet(SemanticsFeatureDescriptorEnum.expression).wGetAdapter(SemanticsEntityDescriptorEnum.Term);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(Term expression) {
         wSet(SemanticsFeatureDescriptorEnum.expression, expression);
     }
 }

@@ -24,7 +24,7 @@ package org.whole.lang.semantics.model;
 public interface InlineTemplate extends ISemanticsEntity, Template {
 
 
-    public Expression getExpression();
+    public Term getExpression();
 
-    public void setExpression(Expression expression);
+    public void setExpression(Term expression);
 }

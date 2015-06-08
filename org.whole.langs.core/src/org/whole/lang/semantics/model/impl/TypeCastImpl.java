@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.semantics.model.CastType;
 import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.semantics.model.Expression;
+import org.whole.lang.semantics.model.Term;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class TypeCastImpl extends AbstractSimpleEntity implements TypeCast {
     public void setType(CastType type) {
         notifyChanged(SemanticsFeatureDescriptorEnum.type, this.type, this.type = type);
     }
-    private Expression expression;
+    private Term expression;
 
-    public Expression getExpression() {
+    public Term getExpression() {
         return notifyRequested(SemanticsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(Expression expression) {
+    public void setExpression(Term expression) {
         notifyChanged(SemanticsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -85,7 +85,7 @@ public class TypeCastImpl extends AbstractSimpleEntity implements TypeCast {
             setType(value.wGetAdapter(SemanticsEntityDescriptorEnum.CastType));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));
+            setExpression(value.wGetAdapter(SemanticsEntityDescriptorEnum.Term));
             break;
             default :
             throw new IllegalArgumentException();

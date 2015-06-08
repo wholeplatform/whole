@@ -28,7 +28,7 @@ public interface TypeCast extends ISemanticsEntity, Expression {
 
     public void setType(CastType type);
 
-    public Expression getExpression();
+    public Term getExpression();
 
-    public void setExpression(Expression expression);
+    public void setExpression(Term expression);
 }

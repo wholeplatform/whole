@@ -33,6 +33,7 @@ import org.whole.lang.semantics.model.ISemanticsEntity;
 import org.whole.lang.semantics.model.Name;
 import org.whole.lang.semantics.model.SemanticFunction;
 import org.whole.lang.semantics.model.SemanticTheory;
+import org.whole.lang.semantics.model.Term;
 import org.whole.lang.semantics.model.TypeCast;
 import org.whole.lang.semantics.reflect.SemanticsEntityDescriptorEnum;
 import org.whole.lang.semantics.util.SemanticsUtils;
@@ -120,11 +121,11 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 		else
 			resultIterator = SemanticsUtils.typeCastIterator(type.wStringValue()).withSourceEntity(entity);
 
-		Expression expression = entity.getExpression();
+		Term expression = entity.getExpression();
 		if (!EntityUtils.isResolver(expression)) {
     		expression.accept(this);
     		IEntityIterator<?> expressionIterator = getResultIterator();
-    		
+
     		if (!expressionIterator.getClass().equals(SelfIterator.class))
     			resultIterator = IteratorFactory.forIterator(expressionIterator, resultIterator).withSourceEntity(entity);
     	}
