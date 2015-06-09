@@ -70,8 +70,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 
 			getViewer().setContents(contents);
 			getViewer().setInteractive(contents, false, true, false);
-			//FIXME workaround call reveal twice (async for Linux, the other for Mac)
-			context.get(UISynchronize.class).syncExec(new Runnable() {
+			context.get(UISynchronize.class).asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					IEntity adaptee = sourceEntity.wGetAdaptee(false);
@@ -81,8 +80,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 					getViewer().reveal(sourceEntity);
 				}
 			});
-			getViewer().reveal(sourceEntity);
-			
+
 			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, execution.getVariablesModel());
 		} else {
 			getViewer().setEntityContents(createDefaultContents());
