@@ -63,8 +63,9 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 	protected boolean calculateEnabled(IBindingManager bm) {
 		try {
 			bm.wEnterScope();
+			defineCaretBindings(bm);
 			IEntity result = BehaviorUtils.apply(getEnablementUri(), bm.wGet("self"), bm);
-			return result.wBooleanValue();
+			return result != null && result.wBooleanValue();
 		} finally {
 			bm.wExitScope();
 		}
@@ -76,37 +77,22 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		IEntity text = bm.wGet("focusEntity");
-		ITextualEntityPart targetPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(text);
 
 		boolean enableAnimation = AnimableRunnable.enableAnimation(false);
 		ModelTextCommand mtc = new ModelTextCommand(text);
 		try {
-			mtc.setLabel("split on caret");
+			mtc.setLabel(getText());
 			mtc.setViewer(viewer);
 			mtc.begin();
 
-			
-			String textToSplit = DataTypeUtils.getAsPresentationString(text);
-
-			int start = targetPart.getSelectionStart();
-			int end = targetPart.getSelectionEnd();
-			if (start == -1 || end == -1)
-				start = end = targetPart.getCaretPosition();
-
-			String leftText = textToSplit.substring(0, start);
-			String selectedText = textToSplit.substring(start, end);
-			String rightText = textToSplit.substring(end);
-
 			try {
 				bm.wEnterScope();
-				bm.wDefValue("leftText", leftText);
-				bm.wDefValue("selectedText", selectedText);
-				bm.wDefValue("rightText", rightText);
+				defineCaretBindings(bm);
 
 				IEntity newText = BehaviorUtils.apply(getBehaviorUri(), bm.wGet("self"), bm);
 
 				mtc.setNewSelectedEntity(newText);
-				mtc.setNewPosition(0);
+				mtc.setNewPosition(bm.wIntValue("caretPosition"));
 
 			} finally {
 				bm.wExitScope();
@@ -124,5 +110,29 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 		} finally {
 			AnimableRunnable.enableAnimation(enableAnimation);
 		}
+	}
+	
+	protected void defineCaretBindings(IBindingManager bm) {
+		IEntity text = bm.wGet("focusEntity");
+		String textToSplit = DataTypeUtils.getAsPresentationString(text);
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		ITextualEntityPart targetPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(text);
+
+		int start = targetPart.getSelectionStart();
+		int end = targetPart.getSelectionEnd();
+		if (start == -1 || end == -1)
+			start = end = targetPart.getCaretPosition();
+
+		String leftText = textToSplit.substring(0, start);
+		String selectedText = textToSplit.substring(start, end);
+		String rightText = textToSplit.substring(end);
+
+		bm.wDefValue("leftText", leftText);
+		bm.wDefValue("selectedText", selectedText);
+		bm.wDefValue("rightText", rightText);
+		bm.wDefValue("caretPositions", targetPart.getCaretPositions());
+		bm.wDefValue("caretPosition", targetPart.getCaretPosition());
+		bm.wDefValue("caretPositionStart", start);
+		bm.wDefValue("caretPositionEnd", end);
 	}
 }

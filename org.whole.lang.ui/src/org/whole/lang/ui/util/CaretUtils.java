@@ -32,6 +32,10 @@ import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Caret;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
  * @author Enrico Persiani
@@ -121,6 +125,13 @@ public class CaretUtils {
 		return lines;
 	}
 
+	public static int getCaretPositions(IEntityPartViewer viewer, IEntity entity) {
+		IEntityPart entityPart = viewer.getEditPartRegistry().get(entity);
+		if (!(entityPart instanceof ITextualEntityPart))
+			throw new IllegalArgumentException("the entity part is not textual");
+		ITextualEntityPart targetPart = (ITextualEntityPart) entityPart;
+		return targetPart.getCaretPositions();
+	}
 	public static int getCaretLine(Point proximityPoint, org.eclipse.draw2d.geometry.Rectangle labelBounds, Dimension caretSize) {
 		return  (proximityPoint.y - labelBounds.y) / caretSize.height;
 	}
