@@ -20,6 +20,7 @@ package org.whole.lang.queries.iterators;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.AbstractDelegatingIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
@@ -65,7 +66,11 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		if (nextEntity == null)
 			return null;
 
-		nextEntity = doLookahead(toLookahead, nextEntity);
+		try {
+			nextEntity = doLookahead(toLookahead, nextEntity);
+		} catch(Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bindings);
+		}
 
 		return nextEntity;
 	}
@@ -79,7 +84,11 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		super.next();
 		IEntity toEntity = toIterator.next();
 
-		doNext(toEntity, result);
+		try {
+			doNext(toEntity, result);
+		} catch(Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bindings);
+		}
 
 		nextEntity = null;
 		return result;

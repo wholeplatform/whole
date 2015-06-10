@@ -23,7 +23,6 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -88,7 +87,7 @@ public class AspectIterator extends AbstractCloneableIterator<IEntity> {
 
     public void set(IEntity entity) {
     	if (lastFeatureDescriptor == null)
-    		throw new WholeIllegalStateException().withSourceEntity(getSourceEntity());
+    		throw new IllegalStateException();
     	
     	this.entity.wSet(lastFeatureDescriptor, entity);
     }
@@ -97,7 +96,7 @@ public class AspectIterator extends AbstractCloneableIterator<IEntity> {
 	}
     public void remove() {
     	if (lastFeatureDescriptor == null)
-    		throw new WholeIllegalStateException().withSourceEntity(getSourceEntity());
+    		throw new IllegalStateException();
     	
     	entity.wRemove(lastFeatureDescriptor);
 		lastFeatureDescriptor = null;

@@ -22,7 +22,6 @@ import java.util.Iterator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
-import org.whole.lang.exceptions.WholeIllegalStateException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.util.IDataTypeWrapper;
@@ -100,21 +99,21 @@ public class CollectionIterator<E extends IEntity> extends AbstractCloneableIter
 
     public void set(E entity) {
     	if (lastEntity == null)
-    		throw new WholeIllegalStateException().withSourceEntity(getSourceEntity());
+    		throw new IllegalStateException();
 
     	lastEntity.wGetParent().wSet(lastEntity, entity);
     	lastEntity = entity;
     }
 	public void add(E value) {
     	if (lastEntity == null)
-    		throw new WholeIllegalStateException().withSourceEntity(getSourceEntity());
+    		throw new IllegalStateException();
 
 		IEntity parentEntity = lastEntity.wGetParent();
 		parentEntity.wAdd(parentEntity.wIndexOf(lastEntity), value);        
 	}
 	public void remove() {
     	if (lastEntity == null)
-    		throw new WholeIllegalStateException().withSourceEntity(getSourceEntity());
+    		throw new IllegalStateException();
 
     	lastEntity.wGetParent().wRemove(lastEntity);
     	lastEntity = null;
