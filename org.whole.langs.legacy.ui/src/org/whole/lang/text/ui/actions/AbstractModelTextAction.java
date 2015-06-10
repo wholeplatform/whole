@@ -29,6 +29,8 @@ import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.commands.ModelTextCommand;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.editparts.ModelObserver;
+import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
@@ -61,6 +63,11 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 	}
 
 	protected boolean calculateEnabled(IBindingManager bm) {
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		if (!Tools.TEXTUAL.isActive(viewer) ||
+				!(ModelObserver.getObserver(bm.wGet("focusEntity"), viewer.getEditPartRegistry()) instanceof ITextualEntityPart))
+			return false;
+
 		try {
 			bm.wEnterScope();
 			defineCaretBindings(bm);
@@ -116,7 +123,7 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 		IEntity text = bm.wGet("focusEntity");
 		String textToSplit = DataTypeUtils.getAsPresentationString(text);
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		ITextualEntityPart targetPart = (ITextualEntityPart) viewer.getEditPartRegistry().get(text);
+		ITextualEntityPart targetPart = (ITextualEntityPart) ModelObserver.getObserver(text, viewer.getEditPartRegistry());
 
 		int start = targetPart.getSelectionStart();
 		int end = targetPart.getSelectionEnd();
