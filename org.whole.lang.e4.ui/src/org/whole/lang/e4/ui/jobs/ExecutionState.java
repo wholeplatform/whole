@@ -47,7 +47,7 @@ public class ExecutionState {
 		this.includeNames = includeNames;
 		this.barrier = new CyclicBarrier(2);
 	}
-	
+
 	public SuspensionKind getSuspensionKind() {
 		return suspensionKind;
 	}
@@ -75,7 +75,8 @@ public class ExecutionState {
 			throw new IllegalStateException(e);
 		} catch (BrokenBarrierException e) {	
 			// execution terminated
-			throw new OperationCanceledException(e);
+			if (getSuspensionKind().isBreak())
+				throw new OperationCanceledException();
 		}
 		return this;
 	}
