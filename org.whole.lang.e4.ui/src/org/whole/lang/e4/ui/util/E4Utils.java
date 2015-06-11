@@ -346,13 +346,21 @@ public class E4Utils {
 		suspendOperation(kind, throwable, sourceEntity, bindings, Collections.emptySet());
 	}
 	public static void suspendOperation(SuspensionKind kind, Throwable throwable, IEntity sourceEntity, final IBindingManager bindings, Set<String> includeNames) {
-		if (bindings.wIsSet("breakpointsDisabled") && bindings.wBooleanValue("breakpointsDisabled"))
+		if (bindings.wIsSet("debug#reportModeEnabled") && !bindings.wBooleanValue("debug#reportModeEnabled"))
+			return;
+		if (bindings.wIsSet("debug#debugModeEnabled") && !bindings.wBooleanValue("debug#debugModeEnabled")) {
+			if (kind.isError())
+				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+						"Domain behavior error", "Error while executing domain behavior", throwable);
+			
+			return;
+		}
+		if (kind.isBreak() && bindings.wIsSet("debug#breakpointsEnabled") && !bindings.wBooleanValue("debug#breakpointsEnabled"))
 			return;
 
 		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
-			if (throwable != null)
-				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
-						"Domain behavior error", "Error while executing domain behavior", throwable);
+			E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+						"Domain behavior error", "Attempted suspension in UI thread", throwable);
 
 			return;
 		}

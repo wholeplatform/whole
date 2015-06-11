@@ -52,7 +52,7 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 		pm.beginTask("Deriving...", IOperationProgressMonitor.TOTAL_WORK);
 		try {
 			bm.wEnterScope();
-			bm.wDefValue("breakpointsDisabled", true);
+			bm.wDefValue("debug#reportModeEnabled", false);
 			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
 			if (result != null) {
 				context.get(UISynchronize.class).asyncExec(new Runnable() {

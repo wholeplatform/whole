@@ -63,7 +63,9 @@ public class ResourceUtils {
 		bm.wDefValue("workspaceLocation", container.getWorkspace().getRoot().getLocation().toString());
 		bm.wDefValue("contextURI", "platform:/resource/"+project.getName());
 
-		bm.wDefValue("breakpointsDisabled", false);
+		bm.wDefValue("debug#reportModeEnabled", true);
+		bm.wDefValue("debug#debugModeEnabled", true);
+		bm.wDefValue("debug#breakpointsEnabled", true);
 
 		for (IResourceBindingsContributor contributor : ResourceBindingsContributorExtensions.instance().getContributors())
 			try {

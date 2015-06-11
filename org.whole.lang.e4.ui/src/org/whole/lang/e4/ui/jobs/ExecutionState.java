@@ -61,10 +61,10 @@ public class ExecutionState {
 	}
 	
 	public ExecutionState disableBeakpoints() {
-		if (bindings.wIsSet("breakpointsDisabled"))
-			bindings.wSetValue("breakpointsDisabled", true);
+		if (bindings.wIsSet("debug#breakpointsEnabled"))
+			bindings.wSetValue("debug#breakpointsEnabled", true);
 		else
-			bindings.wDefValue("breakpointsDisabled", true);
+			bindings.wDefValue("debug#breakpointsEnabled", true);
 		return this;
 	}
 

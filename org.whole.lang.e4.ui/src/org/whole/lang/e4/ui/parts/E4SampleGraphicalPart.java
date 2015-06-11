@@ -82,7 +82,7 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 					IEntity primarySelectedEntity = selection.wGet("primarySelectedEntity");
 					IEntity model = EntityUtils.getCompoundRoot(primarySelectedEntity);
 					bm = selection.clone();
-					bm.wDefValue("breakpointsDisabled", true);
+					bm.wDefValue("debug#reportModeEnabled", false);
 					BehaviorUtils.evaluate(contextModel, 0, bm);
 
 					ITransactionScope transactionScope = BindingManagerFactory.instance.createTransactionScope();

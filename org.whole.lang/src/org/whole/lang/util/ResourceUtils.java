@@ -146,7 +146,9 @@ public class ResourceUtils {
 
 		bm.wDefValue("contextURI", parentFile != null ? parentFile.toURI().toString() : null);//FIXME
 
-		bm.wDefValue("breakpointsDisabled", false);
+		bm.wDefValue("debug#reportModeEnabled", true);
+		bm.wDefValue("debug#debugModeEnabled", true);
+		bm.wDefValue("debug#breakpointsEnabled", true);
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, String resourceClasspath) {
@@ -178,7 +180,9 @@ public class ResourceUtils {
 		} catch (Exception e) {
 		}
 
-		bm.wDefValue("breakpointsDisabled", false);
+		bm.wDefValue("debug#reportModeEnabled", true);
+		bm.wDefValue("debug#debugModeEnabled", true);
+		bm.wDefValue("debug#breakpointsEnabled", true);
 	}
 
 	public static boolean hasFragmentPart(String resourceUri) {

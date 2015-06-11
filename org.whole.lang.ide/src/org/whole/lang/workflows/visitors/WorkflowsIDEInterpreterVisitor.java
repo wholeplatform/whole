@@ -35,15 +35,12 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.java.codebase.JavaSourceTemplateFactory;
 import org.whole.lang.java.model.CompilationUnit;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.operations.PrettyPrinterOperation;
-import org.whole.lang.parsers.ParseException;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.templates.ITemplateFactory;
 import org.whole.lang.ui.actions.JavaModelGeneratorAction;
@@ -55,22 +52,10 @@ import org.whole.lang.workflows.model.Assignments;
 import org.whole.lang.workflows.model.Breakpoint;
 import org.whole.lang.workflows.model.ClassProvider;
 import org.whole.lang.workflows.model.Condition;
-import org.whole.lang.workflows.model.CreateEntity;
-import org.whole.lang.workflows.model.CreateJavaClassInstance;
-import org.whole.lang.workflows.model.DeleteArtifacts;
-import org.whole.lang.workflows.model.InvokeJavaClassMethod;
-import org.whole.lang.workflows.model.InvokeJavaInstanceMethod;
-import org.whole.lang.workflows.model.InvokeOperation;
-import org.whole.lang.workflows.model.LoadArtifacts;
 import org.whole.lang.workflows.model.LoadJavaModel;
-import org.whole.lang.workflows.model.LoadModel;
-import org.whole.lang.workflows.model.Parse;
 import org.whole.lang.workflows.model.ResourceKind;
 import org.whole.lang.workflows.model.ResourceKindEnum;
-import org.whole.lang.workflows.model.SaveArtifacts;
-import org.whole.lang.workflows.model.SaveModel;
 import org.whole.lang.workflows.model.Task;
-import org.whole.lang.workflows.model.Unparse;
 import org.whole.lang.workflows.model.Variable;
 import org.whole.lang.workflows.model.Variables;
 import org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum;
@@ -117,8 +102,9 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 		IBindingManager debugEnv = getBindings();
 
 		if (entity.getDisabled().wBooleanValue() ||
-				//FIXME the following check is performed also in suspendOperation
-				(debugEnv.wIsSet("breakpointsDisabled") && debugEnv.wBooleanValue("breakpointsDisabled")))
+				(debugEnv.wIsSet("debug#reportModeEnabled") && !debugEnv.wBooleanValue("debug#reportModeEnabled")) ||
+				(debugEnv.wIsSet("debug#debugModeEnabled") && !debugEnv.wBooleanValue("debug#debugModeEnabled")) ||
+				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))
 			return;
 
 		Condition condition = entity.getCondition();
