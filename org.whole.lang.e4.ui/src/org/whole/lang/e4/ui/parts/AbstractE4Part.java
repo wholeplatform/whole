@@ -159,7 +159,8 @@ public abstract class AbstractE4Part {
 			@Override
 			public void buildContextMenu(IMenuManager menuManager) {
 				try {
-					contextMenuProvider.populate(menuManager);
+					if (!getViewer().getEditDomain().isDisabled())
+						contextMenuProvider.populate(menuManager);
 				} catch (Exception e) {
 					getMenu().setVisible(false);
 				}

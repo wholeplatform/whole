@@ -17,6 +17,10 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.whole.lang.e4.ui.util.E4Utils;
 
 /**
@@ -36,6 +40,17 @@ public interface IUIConstants {
 	public static final String VARIABLES_PART_ID = BUNDLE_ID+".part.variables";
 	public static final String CONTEXT_PART_ID = BUNDLE_ID+".part.context";
 	public static final String SAMPLE_PART_ID = BUNDLE_ID+".part.sample";
+
+	public static final Set<String> DERIVED_PARTS_ID_SET = new HashSet<>(Arrays.asList(
+		OUTLINE_PART_ID,
+		DETAILS_PART_ID,
+		MAP_PART_ID,
+		INDEX_PART_ID,
+		DEBUG_PART_ID,
+		VARIABLES_PART_ID,
+		CONTEXT_PART_ID,
+		SAMPLE_PART_ID
+	));
 
 	// context menu id
 	public static final String CONTEXT_MENU_ID = BUNDLE_ID+".context.menu";

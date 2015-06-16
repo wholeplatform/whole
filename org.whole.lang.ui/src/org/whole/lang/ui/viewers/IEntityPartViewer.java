@@ -41,6 +41,7 @@ public interface IEntityPartViewer extends EditPartViewer {
 	public CommandStack getCommandStack();
 	public boolean isDirty();
 
+	public EntityEditDomain getEditDomain();
 	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer);
 
 	public IEntity getEntityContents();

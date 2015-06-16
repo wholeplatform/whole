@@ -28,7 +28,6 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
-import org.whole.lang.ui.editpolicies.DisabledFeedbackEditPolicy;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -42,7 +41,7 @@ public abstract class OperationHandler {
 		try {
 			bm.wEnterScope(ts);
 			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-			return !DisabledFeedbackEditPolicy.isDisabled(viewer) && isEnabled(bm);
+			return !viewer.getEditDomain().isDisabled() && isEnabled(bm);
 		} catch (Exception e) {
 			return false;
 		} finally {

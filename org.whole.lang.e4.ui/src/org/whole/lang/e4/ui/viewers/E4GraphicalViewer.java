@@ -196,10 +196,17 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		return getCommandStack().isDirty();
 	}
 
+	@Override
+	public EntityEditDomain getEditDomain() {
+		return (EntityEditDomain) super.getEditDomain();
+	}
 	public LightweightEditDomain linkEditDomain(IEntityPartViewer viewer) {
-		LightweightEditDomain editDomain = viewer.getEditDomain();
-		if (getEditDomain() != editDomain)
-			setEditDomain(editDomain);
+		EntityEditDomain editDomain = getEditDomain();
+		if (editDomain != null)
+			editDomain.removeViewer(this);
+
+		editDomain = viewer.getEditDomain();
+		editDomain.addViewer(this);
 		return editDomain;
 	}
 
@@ -296,9 +303,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	@Override
 	public void selectAndReveal(List<? extends IEntity> entities) {
-		select(entities);
 		if (!entities.isEmpty())
 			reveal(entities.get(entities.size()-1));
+		select(entities);
 	}
 
 	protected void updateModelObserver(IEntity entity) {
@@ -468,10 +475,6 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			firePartFocusChanged(oldPart, (IEntityPart) part);
 	}
 
-	@Override
-	public EntityEditDomain getEditDomain() {
-		return (EntityEditDomain) super.getEditDomain();
-	}
 	@Override
 	protected LightweightSystem createLightweightSystem() {
 		LightweightSystem lws = super.createLightweightSystem();

@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.e4.ui.draw2d.DelayableUpdateManager;
@@ -31,7 +32,6 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
-import org.whole.lang.ui.editpolicies.DisabledFeedbackEditPolicy;
 import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -75,9 +75,14 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			monitor.done();
 			AnimableRunnable.enableAnimation(enableAnimation);
 			delayUpdates(viewer, delayUpdates);
-			if (DisabledFeedbackEditPolicy.isDisabled(viewer))
-				DisabledFeedbackEditPolicy.markDisabled(false, viewer);
+			if (isTransactional())
+				context.get(UISynchronize.class).syncExec(new Runnable() {
+					public void run() {
+						viewer.getEditDomain().setDisabled(false);
+					}
+				});
 		}
+		return;
 	}
 
 	protected boolean delayUpdates(IEntityPartViewer viewer, boolean enable) {
@@ -95,7 +100,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	public void asyncExec(String message) {
 		if (isTransactional()) {
 			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-			DisabledFeedbackEditPolicy.markDisabled(true, viewer);
+			viewer.getEditDomain().setDisabled(true);
 		}
 		RunnableJob job = new RunnableJob(message, this);
 		job.setUser(false);
@@ -105,7 +110,13 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 
 	public synchronized IBindingScope syncExec(long timeout) {
 		new Thread(() -> {
-			run(new NullProgressMonitor());
+			UISynchronize uiSynchronize = context.get(UISynchronize.class);
+			context.set(UISynchronize.class, NoUISynchronize.instance);
+			try {
+				run(new NullProgressMonitor());
+			} finally {
+				context.set(UISynchronize.class, uiSynchronize);
+			}
 			// ensure notify doesn't get called before wait
 			synchronized (this) {
 				notifyAll();
@@ -119,5 +130,15 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		}
 
 		return bm;
+	}
+
+	private static final class NoUISynchronize extends UISynchronize {
+		public static NoUISynchronize instance = new NoUISynchronize();
+		@Override
+		public void syncExec(Runnable runnable) {
+		}
+		@Override
+		public void asyncExec(Runnable runnable) {
+		}
 	}
 }

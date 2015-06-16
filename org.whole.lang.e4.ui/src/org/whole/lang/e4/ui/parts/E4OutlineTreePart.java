@@ -54,7 +54,7 @@ public class E4OutlineTreePart extends E4TreePart {
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, true);
 		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, true);
-		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, Collections.singleton(IUIConstants.OUTLINE_PART_ID));
+		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, IUIConstants.DERIVED_PARTS_ID_SET);
 		return params;
 	}
 

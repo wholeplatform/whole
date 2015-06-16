@@ -53,7 +53,9 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 
 		ts.rollback();
 		bm.wExitScope();
-		if (values.length == 1 && !EntityUtils.isData(values[0])) {
+		if (values == null)
+			return false;
+		else if (values.length == 1 && !EntityUtils.isData(values[0])) {
 			IEntity value = Matcher.find(new IsConcreteAction(Action), values[0], false);
 			return value != null;
 		} else

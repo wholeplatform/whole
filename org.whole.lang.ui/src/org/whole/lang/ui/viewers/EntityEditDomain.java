@@ -39,7 +39,8 @@ public class EntityEditDomain extends LightweightEditDomain {
 		super.addViewer(viewer);
 
 		// configures a new command stack
-		setCommandStack(new HistoryCommandStack(viewer));
+		if (getViewers().isEmpty())
+			setCommandStack(new HistoryCommandStack(viewer));
 
 		// disables system specific drag detect strategy
 		viewer.getControl().setDragDetect(false);
