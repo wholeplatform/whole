@@ -35,12 +35,15 @@ import org.eclipse.swt.widgets.Shell;
  * @author Enrico Persiani
  */
 public class EntityEditDomain extends LightweightEditDomain {
-	public void addViewer(IEntityPartViewer viewer) {
+	@Override
+	public void addViewer(EditPartViewer viewer) {
+		boolean isFirstViewer = getViewers().isEmpty();
+
 		super.addViewer(viewer);
 
 		// configures a new command stack
-		if (getViewers().isEmpty())
-			setCommandStack(new HistoryCommandStack(viewer));
+		if (isFirstViewer)
+			setCommandStack(new HistoryCommandStack((IEntityPartViewer) viewer));
 
 		// disables system specific drag detect strategy
 		viewer.getControl().setDragDetect(false);
