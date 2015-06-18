@@ -66,7 +66,7 @@ public class ActionCallHandler {
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
 
-		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, true);
+		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label);
 		defineBindings(functionUri, predicateXwl, analyzing, actionRunnable.getBindings());
 		actionRunnable.asyncExec("Executing "+label+" action...");
 	}

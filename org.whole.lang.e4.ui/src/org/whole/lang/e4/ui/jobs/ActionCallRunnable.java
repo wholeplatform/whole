@@ -44,13 +44,18 @@ import org.whole.lang.util.EntityUtils;
  */
 public class ActionCallRunnable extends AbstractRunnableWithProgress {
 
-	public ActionCallRunnable(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
-		super(context, bm, label, delayUpdates);
+	public ActionCallRunnable(IEclipseContext context, IBindingManager bm, String label) {
+		super(context, bm, label, false);
 	}
 
 	@Override
 	protected boolean isTransactional() {
 		return !bm.wBooleanValue("analyzing");
+	}
+	
+	@Override
+	protected boolean delayUpdates(IEntityPartViewer viewer, boolean enable) {
+		return super.delayUpdates(viewer, enable || isTransactional());
 	}
 
 	@Override
