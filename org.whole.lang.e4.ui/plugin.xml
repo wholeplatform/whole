@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension
+			point="org.whole.lang.ui.resourceBindingsContributors">
+		<resourceBindingsContributor
+			class="org.whole.lang.e4.ui.util.E4ResourceBindingsContributor"
+			id="E4ResourceBindingsContributor"/>
+	</extension>
+</plugin>
