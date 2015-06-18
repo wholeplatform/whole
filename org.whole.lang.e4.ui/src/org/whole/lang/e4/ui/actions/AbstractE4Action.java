@@ -27,7 +27,7 @@ import org.whole.lang.ui.actions.IUpdatableAction;
  */
 public abstract class AbstractE4Action extends Action implements IUpdatableAction {
 	private IEclipseContext context;
-	
+
 	public IEclipseContext getContext() {
 		return context;
 	}

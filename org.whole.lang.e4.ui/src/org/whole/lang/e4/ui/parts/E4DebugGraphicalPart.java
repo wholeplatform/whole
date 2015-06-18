@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.ResumeAction;
-import org.whole.lang.e4.ui.actions.RunAction;
+import org.whole.lang.e4.ui.actions.BreakpointsDisableAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.model.IEntity;
@@ -119,8 +119,8 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		pushExecution(execution);
 	}
 
-	public void doRun() {
-		popExecution().disableBeakpoints().resume();
+	public void doBreakpointsDisable(boolean disable) {
+		part.getPersistedState().put("debug#breakpointsEnabled", Boolean.toString(!disable));
 	}
 	public void doResume() {
 		popExecution().resume();
@@ -135,11 +135,11 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 			action.update();
 	}
 
-	protected RunAction runAction;
-	public IAction getRunAction(IEclipseContext context) {
-		if (runAction == null)
-			actions.add(runAction = new RunAction(context, this));
-		return runAction;
+	protected BreakpointsDisableAction breakpointsDisableAction;
+	public IAction getBreakpoiontsDisableAction(IEclipseContext context) {
+		if (breakpointsDisableAction == null)
+			actions.add(breakpointsDisableAction = new BreakpointsDisableAction(context, this));
+		return breakpointsDisableAction;
 	}
 
 	protected ResumeAction resumeAction;

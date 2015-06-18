@@ -137,7 +137,7 @@ public interface IUIConstants {
 
 	public static final String CLEAR_CONTENTS_URI = E4Utils.createPlatformPuginURI("icons/actions/clear_contents.gif");
 
-	public static final String DEBUG_RUN_URI = E4Utils.createPlatformPuginURI("icons/actions/run.gif");
+	public static final String DEBUG_BREAKPOINTS_DISABLED_URI = E4Utils.createPlatformPuginURI("icons/actions/skip_brkp.gif");
 	public static final String DEBUG_RESUME_URI = E4Utils.createPlatformPuginURI("icons/actions/resume.gif");
 	public static final String DEBUG_TERMINATE_URI = E4Utils.createPlatformPuginURI("icons/actions/terminate.gif");
 

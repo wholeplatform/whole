@@ -60,14 +60,6 @@ public class ExecutionState {
 		return throwable;
 	}
 	
-	public ExecutionState disableBeakpoints() {
-		if (bindings.wIsSet("debug#breakpointsEnabled"))
-			bindings.wSetValue("debug#breakpointsEnabled", true);
-		else
-			bindings.wDefValue("debug#breakpointsEnabled", true);
-		return this;
-	}
-
 	public ExecutionState pause() {
 		try {
 			barrier.await();

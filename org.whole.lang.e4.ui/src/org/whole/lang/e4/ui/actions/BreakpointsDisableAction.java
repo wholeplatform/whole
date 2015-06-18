@@ -28,17 +28,24 @@ import org.whole.lang.e4.ui.parts.E4DebugGraphicalPart;
 /**
  * @author Enrico Persiani
  */
-public class RunAction extends AbstractDebugAction {
-	public RunAction(IEclipseContext context, E4DebugGraphicalPart debugPart) {
+public class BreakpointsDisableAction extends AbstractDebugAction {
+
+	public BreakpointsDisableAction(IEclipseContext context, E4DebugGraphicalPart debugPart) {
 		super(context, debugPart, DEBUG_RUN_LABEL);
+		setChecked(false);
 		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_RUN_URI)));
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(DEBUG_BREAKPOINTS_DISABLED_URI)));
 		} catch (Exception e) {
 		}
 	}
 	
 	@Override
 	public void run() {
-		debugPart.doRun();
+		debugPart.doBreakpointsDisable(isChecked());
+	}
+
+	@Override
+	public void update() {
+		setEnabled(true);
 	}
 }
