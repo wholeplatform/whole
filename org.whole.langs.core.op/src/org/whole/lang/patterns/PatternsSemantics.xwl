@@ -2089,8 +2089,8 @@
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         <commons:Resolver/>
+                                        <queries:Path initialCapacity="3">
                                         <queries:Choose initialCapacity="2">
-                                        <queries:Path initialCapacity="2">
                                         <commons:StageDownFragment>
                                         <semantics:TypeCast>
                                         <semantics:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
@@ -2102,8 +2102,6 @@
                                         </queries:Addition>
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
-                                        <queries:ChildStep/>
-                                        </queries:Path>
                                         <queries:Filter>
                                         <queries:Union>
                                         <queries:Expressions initialCapacity="1">
@@ -2131,6 +2129,9 @@
                                         </commons:StageDownFragment>
                                         </queries:Filter>
                                         </queries:Choose>
+                                        <queries:ChildStep/>
+                                        <queries:SelfStep/>
+                                        </queries:Path>
                                     </queries:QueryDeclaration>
                                 </commons:StageUpFragment>
                             </queries:Block>
@@ -2148,8 +2149,8 @@
                                         <semantics:AnyType/>
                                         <semantics:AnyType/>
                                     </semantics:FunctionType>
-                                    <queries:Choose initialCapacity="2">
-                                        <queries:Path initialCapacity="2">
+                                    <queries:Path initialCapacity="3">
+                                        <queries:Choose initialCapacity="2">
                                         <commons:StageDownFragment>
                                         <semantics:TypeCast>
                                         <semantics:EntityType value="http://lang.whole.org/Queries#VariableRefStep"/>
@@ -2161,8 +2162,6 @@
                                         </queries:Addition>
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
-                                        <queries:ChildStep/>
-                                        </queries:Path>
                                         <queries:Filter>
                                         <queries:Union>
                                         <queries:Expressions initialCapacity="1">
@@ -2189,7 +2188,10 @@
                                         </semantics:TypeCast>
                                         </commons:StageDownFragment>
                                         </queries:Filter>
-                                    </queries:Choose>
+                                        </queries:Choose>
+                                        <queries:ChildStep/>
+                                        <queries:SelfStep/>
+                                    </queries:Path>
                                 </semantics:SemanticFunction>
                             </commons:StageUpFragment>
                         </queries:Do>
