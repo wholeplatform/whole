@@ -145,7 +145,7 @@ public class WholeResizableEditPolicy extends ResizableEditPolicy {
 
 	@Override
 	protected IFigure createDragSourceFeedbackFigure() {
-		IFigure figure = new FeedbackImageFigure(WholeNonResizableEditPolicy.createFeedbackImage((IGraphicalEntityPart) getHost(), FeedbackImageFigure.ALPHA, false, true)) {
+		IFigure figure = new FeedbackImageFigure(WholeNonResizableEditPolicy.createFeedbackImage((IGraphicalEntityPart) getHost(), FeedbackImageFigure.ALPHA, true, FitToScreenStrategy.instance())) {
 			@Override
 			protected void paintFigure(Graphics graphics) {
 				Rectangle area = getClientArea();

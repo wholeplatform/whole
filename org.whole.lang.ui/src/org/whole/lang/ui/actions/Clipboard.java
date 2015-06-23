@@ -28,15 +28,13 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editpolicies.FailWithFeedbackStrategy;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy;
 import org.whole.lang.ui.util.ClipboardUtils;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -152,7 +150,9 @@ public class Clipboard {
 
 	protected File imageFile;
 	public void setImageContents(IGraphicalEntityPart entityPart) {
-		Image image = WholeNonResizableEditPolicy.createFeedbackImage(entityPart, 255, false, false);
+		Image image = WholeNonResizableEditPolicy.createFeedbackImage(entityPart, 255, false, FailWithFeedbackStrategy.instance());
+		if (image == null)
+			return;
 		ImageData imageData = image.getImageData();
 		try {
 			// delete any previously created temporary file

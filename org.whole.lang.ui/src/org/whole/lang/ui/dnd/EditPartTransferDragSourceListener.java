@@ -24,6 +24,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editpolicies.FitToScreenStrategy;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy.FeedbackImageFigure;
 import org.whole.lang.ui.util.ClipboardUtils;
@@ -52,7 +53,7 @@ public class EditPartTransferDragSourceListener extends AbstractSelectionTransfe
 			event.doit = false;
 		else
 			event.image = dragSourceImage = WholeNonResizableEditPolicy.createFeedbackImage(
-					(IGraphicalEntityPart) selectedEditParts.get(0), FeedbackImageFigure.ALPHA, true, true);
+					(IGraphicalEntityPart) selectedEditParts.get(0), FeedbackImageFigure.ALPHA, true, FitToScreenStrategy.instance());
 
 		// this is an hack to allow drop enablement calculations
 		// see the selected entities before the final drop event

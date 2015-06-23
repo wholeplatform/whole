@@ -24,6 +24,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
+import org.whole.lang.ui.editpolicies.FitToMemoryStrategy;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy;
 import org.whole.lang.ui.util.ClipboardUtils;
 
@@ -37,7 +38,7 @@ public class PNGImageFileTransferDragSourceListener extends AbstractFileTransfer
 
 	protected File createFile(IEntityPart entityPart) throws Exception {
 		Image image = WholeNonResizableEditPolicy.createFeedbackImage(
-				(IGraphicalEntityPart) entityPart, 255, false, false);
+				(IGraphicalEntityPart) entityPart, 255, false, FitToMemoryStrategy.instance());
 		ImageData imageData = image.getImageData();
 		File file = ClipboardUtils.createTempImageFile(imageData);
 		image.dispose();

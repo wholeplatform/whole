@@ -56,7 +56,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.figures.FigurePrefs;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -183,7 +182,7 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 	}
 	@Override
 	protected IFigure createDragSourceFeedbackFigure() {
-		IFigure figure = new FeedbackImageFigure(createFeedbackImage((IGraphicalEntityPart) getHost(), FeedbackImageFigure.ALPHA, false, true));
+		IFigure figure = new FeedbackImageFigure(createFeedbackImage((IGraphicalEntityPart) getHost(), FeedbackImageFigure.ALPHA, true, FitToScreenStrategy.instance()));
 		figure.setBounds(getInitialFeedbackBounds());
 		addFeedback(figure);
 		return figure;
@@ -195,22 +194,18 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 			((ImageFigure) figure).getImage().dispose();
 	};
 	
-	public static Image createFeedbackImage(IGraphicalEntityPart part, int alpha, boolean fitToScreenSize, boolean withBorder) {
+	public static Image createFeedbackImage(IGraphicalEntityPart part, int alpha, boolean withBorder, IConstraintDimensionStrategy strategy) {
 		IFigure figure = part.getFigure();
 		Rectangle figureBounds = figure.getBounds();
 		Control figureCanvas = part.getViewer().getControl();				
 		double scale = ((ScalableRootEditPart) part.getViewer().getRootEditPart()).getZoomManager().getZoom();
 
 		// calculate feedback maximum dimension
-		Dimension dimension = new Dimension((int) Math.round(figureBounds.width*scale),
-				(int) Math.round(figureBounds.height*scale));
+		Dimension dimension = strategy.constraintDimensions(new Dimension((int) Math.round(figureBounds.width*scale),
+				(int) Math.round(figureBounds.height*scale)));
 
-		if (fitToScreenSize) {
-			org.eclipse.swt.graphics.Rectangle monitorBounds = UIUtils.getActiveMonitor().getBounds();
-			Dimension maxDimension = new Dimension(monitorBounds.width/3, monitorBounds.height/3);
-			if (dimension.getArea() > maxDimension.getArea())
-				dimension.intersect(maxDimension);
-		}
+		if (dimension == null)
+			return null;
 
 		Image img = new Image(null, dimension.width, dimension.height);
 		img.setBackground(ColorConstants.white);
