@@ -52,6 +52,10 @@ public interface IEnvironmentBuilder extends IBuilder {
 
     public void focusFrame();
 
+    public void jobs();
+
+    public void focusJob();
+
     public void result();
 
     public void behavior();
@@ -148,6 +152,20 @@ public interface IEnvironmentBuilder extends IBuilder {
 
     public void _DebugViewModel();
 
+    public void Jobs();
+
+    public void Jobs_();
+
+    public void Jobs_(int initialCapacity);
+
+    public void _Jobs();
+
+    public void Job();
+
+    public void Job_();
+
+    public void _Job();
+
     public void ExecutionStack();
 
     public void ExecutionStack_();
@@ -226,9 +244,9 @@ public interface IEnvironmentBuilder extends IBuilder {
 
     public void Name(String value);
 
-    public void FrameIndex();
+    public void Index();
 
-    public void FrameIndex(int value);
+    public void Index(int value);
 
     public void Value();
 

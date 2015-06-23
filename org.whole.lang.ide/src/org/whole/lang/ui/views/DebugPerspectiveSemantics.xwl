@@ -13,10 +13,15 @@
             </semantics:FunctionType>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <environment:DebugViewModel xmlns:environment="http://lang.whole.org/Environment">
-                    <environment:FrameIndex value="0"/>
-                    <environment:ExecutionStack initialCapacity="1">
-                        <commons:Resolver/>
-                    </environment:ExecutionStack>
+                    <environment:Index value="0"/>
+                    <environment:Jobs initialCapacity="1">
+                        <environment:Job>
+                            <environment:Index value="0"/>
+                            <environment:ExecutionStack initialCapacity="1">
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </environment:ExecutionStack>
+                        </environment:Job>
+                    </environment:Jobs>
                 </environment:DebugViewModel>
             </commons:StageUpFragment>
         </semantics:SemanticFunction>

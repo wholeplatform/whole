@@ -185,12 +185,36 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
         return create(EnvironmentEntityDescriptorEnum.DebugViewModel);
     }
 
-    public DebugViewModel createDebugViewModel(FrameIndex focusFrame, ExecutionStack executionStack) {
-        return create(EnvironmentEntityDescriptorEnum.DebugViewModel, focusFrame, executionStack);
+    public DebugViewModel createDebugViewModel(Index focusJob, Jobs jobs) {
+        return create(EnvironmentEntityDescriptorEnum.DebugViewModel, focusJob, jobs);
     }
 
     public IEntityBuilder<DebugViewModel> buildDebugViewModel() {
         return new EntityBuilder<DebugViewModel>(create(EnvironmentEntityDescriptorEnum.DebugViewModel));
+    }
+
+    public Jobs createJobs() {
+        return create(EnvironmentEntityDescriptorEnum.Jobs);
+    }
+
+    public Jobs createJobs(Job... entities) {
+        return create(EnvironmentEntityDescriptorEnum.Jobs, (IEntity[]) entities);
+    }
+
+    public Jobs createJobs(int initialSize) {
+        return clone(EnvironmentEntityDescriptorEnum.Jobs, initialSize);
+    }
+
+    public Job createJob() {
+        return create(EnvironmentEntityDescriptorEnum.Job);
+    }
+
+    public Job createJob(Index focusFrame, ExecutionStack executionStack) {
+        return create(EnvironmentEntityDescriptorEnum.Job, focusFrame, executionStack);
+    }
+
+    public IEntityBuilder<Job> buildJob() {
+        return new EntityBuilder<Job>(create(EnvironmentEntityDescriptorEnum.Job));
     }
 
     public ExecutionStack createExecutionStack() {
@@ -329,12 +353,12 @@ public class EnvironmentEntityFactory extends GenericEntityFactory {
         return create(EnvironmentEntityDescriptorEnum.Name, value);
     }
 
-    public FrameIndex createFrameIndex() {
-        return create(EnvironmentEntityDescriptorEnum.FrameIndex);
+    public Index createIndex() {
+        return create(EnvironmentEntityDescriptorEnum.Index);
     }
 
-    public FrameIndex createFrameIndex(int value) {
-        return create(EnvironmentEntityDescriptorEnum.FrameIndex, value);
+    public Index createIndex(int value) {
+        return create(EnvironmentEntityDescriptorEnum.Index, value);
     }
 
     public Value createValue() {

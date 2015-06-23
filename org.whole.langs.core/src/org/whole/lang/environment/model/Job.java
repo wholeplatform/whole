@@ -21,14 +21,14 @@ package org.whole.lang.environment.model;
 /**
  *  @generator Whole
  */
-public interface DebugViewModel extends IEnvironmentEntity {
+public interface Job extends IEnvironmentEntity {
 
 
-    public Index getFocusJob();
+    public Index getFocusFrame();
 
-    public void setFocusJob(Index focusJob);
+    public void setFocusFrame(Index focusFrame);
 
-    public Jobs getJobs();
+    public ExecutionStack getExecutionStack();
 
-    public void setJobs(Jobs jobs);
+    public void setExecutionStack(ExecutionStack executionStack);
 }

@@ -51,6 +51,16 @@ public class EnvironmentTraverseAllChildrenVisitor extends EnvironmentIdentityUn
     }
 
     public void visit(DebugViewModel entity) {
+        entity.getFocusJob().accept(wGetVisitor1());
+        entity.getJobs().accept(wGetVisitor1());
+    }
+
+    public void visit(Jobs entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(Job entity) {
         entity.getFocusFrame().accept(wGetVisitor1());
         entity.getExecutionStack().accept(wGetVisitor1());
     }

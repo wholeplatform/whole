@@ -27,14 +27,14 @@ import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class FrameIndexAdapter extends AbstractEntityAdapter implements FrameIndex {
+public class IndexAdapter extends AbstractEntityAdapter implements Index {
     private static final long serialVersionUID = 1;
 
-    public FrameIndexAdapter(IEntity implementor) {
+    public IndexAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public FrameIndexAdapter() {
+    public IndexAdapter() {
     }
 
     public void accept(IEnvironmentVisitor visitor) {
@@ -42,8 +42,8 @@ public class FrameIndexAdapter extends AbstractEntityAdapter implements FrameInd
             visitor.visit(this);
     }
 
-    public EntityDescriptor<FrameIndex> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.FrameIndex;
+    public EntityDescriptor<Index> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Index;
     }
 
     public int getValue() {

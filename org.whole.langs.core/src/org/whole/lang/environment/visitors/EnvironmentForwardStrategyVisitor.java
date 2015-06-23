@@ -107,6 +107,14 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Jobs entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Job entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(ExecutionStack entity) {
         wGetStrategy().visit(entity);
     }
@@ -155,7 +163,7 @@ public class EnvironmentForwardStrategyVisitor extends GenericForwardStrategyVis
         wGetStrategy().visit(entity);
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
         wGetStrategy().visit(entity);
     }
 

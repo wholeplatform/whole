@@ -51,6 +51,16 @@ public class EnvironmentTraverseAllSwitchVisitor extends EnvironmentIdentityUnar
     }
 
     public void visit(DebugViewModel entity) {
+        wGetVisitor1().visit(entity.getFocusJob());
+        wGetVisitor1().visit(entity.getJobs());
+    }
+
+    public void visit(Jobs entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(Job entity) {
         wGetVisitor1().visit(entity.getFocusFrame());
         wGetVisitor1().visit(entity.getExecutionStack());
     }

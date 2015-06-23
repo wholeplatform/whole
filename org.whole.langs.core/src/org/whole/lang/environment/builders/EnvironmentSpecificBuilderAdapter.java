@@ -81,6 +81,14 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         wFeature(EnvironmentFeatureDescriptorEnum.focusFrame);
     }
 
+    public void jobs() {
+        wFeature(EnvironmentFeatureDescriptorEnum.jobs);
+    }
+
+    public void focusJob() {
+        wFeature(EnvironmentFeatureDescriptorEnum.focusJob);
+    }
+
     public void result() {
         wFeature(EnvironmentFeatureDescriptorEnum.result);
     }
@@ -276,6 +284,34 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         _wEntity(EnvironmentEntityDescriptorEnum.DebugViewModel);
     }
 
+    public void Jobs() {
+        wEntity(EnvironmentEntityDescriptorEnum.Jobs);
+    }
+
+    public void Jobs_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Jobs);
+    }
+
+    public void Jobs_(int initialCapacity) {
+        wEntity_(EnvironmentEntityDescriptorEnum.Jobs, initialCapacity);
+    }
+
+    public void _Jobs() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Jobs);
+    }
+
+    public void Job() {
+        wEntity(EnvironmentEntityDescriptorEnum.Job);
+    }
+
+    public void Job_() {
+        wEntity_(EnvironmentEntityDescriptorEnum.Job);
+    }
+
+    public void _Job() {
+        _wEntity(EnvironmentEntityDescriptorEnum.Job);
+    }
+
     public void ExecutionStack() {
         wEntity(EnvironmentEntityDescriptorEnum.ExecutionStack);
     }
@@ -432,12 +468,12 @@ public class EnvironmentSpecificBuilderAdapter extends GenericBuilderContext imp
         wEntity(EnvironmentEntityDescriptorEnum.Name, value);
     }
 
-    public void FrameIndex() {
-        wEntity(EnvironmentEntityDescriptorEnum.FrameIndex);
+    public void Index() {
+        wEntity(EnvironmentEntityDescriptorEnum.Index);
     }
 
-    public void FrameIndex(int value) {
-        wEntity(EnvironmentEntityDescriptorEnum.FrameIndex, value);
+    public void Index(int value) {
+        wEntity(EnvironmentEntityDescriptorEnum.Index, value);
     }
 
     public void Value() {

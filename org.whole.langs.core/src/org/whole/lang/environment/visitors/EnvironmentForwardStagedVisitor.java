@@ -93,6 +93,14 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
+    public void visit(Jobs entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Job entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(ExecutionStack entity) {
         stagedVisit(entity);
     }
@@ -141,7 +149,7 @@ public class EnvironmentForwardStagedVisitor extends EnvironmentIdentityVisitor 
         stagedVisit(entity);
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
         stagedVisit(entity);
     }
 

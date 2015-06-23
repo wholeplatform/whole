@@ -123,6 +123,16 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(Jobs entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Job entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(ExecutionStack entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -183,7 +193,7 @@ public class EnvironmentSequenceVisitor extends AbstractBinaryVisitor<IEnvironme
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

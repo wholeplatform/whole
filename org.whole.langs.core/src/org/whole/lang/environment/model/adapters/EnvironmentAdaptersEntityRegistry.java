@@ -48,6 +48,8 @@ public class EnvironmentAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ContextViewModelAdapter());
         put(new SampleViewModelAdapter());
         put(new DebugViewModelAdapter());
+        put(new JobsAdapter());
+        put(new JobAdapter());
         put(new ExecutionStackAdapter());
         put(new ExecutionFrameAdapter());
         put(new VariablesViewModelAdapter());
@@ -61,7 +63,7 @@ public class EnvironmentAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new IdAdapter());
         put(new NamesAdapter());
         put(new NameAdapter());
-        put(new FrameIndexAdapter());
+        put(new IndexAdapter());
         put(new ValueAdapter());
         put(new EnvironmentManagerAdapter());
         put(new BindingManagerAdapter());

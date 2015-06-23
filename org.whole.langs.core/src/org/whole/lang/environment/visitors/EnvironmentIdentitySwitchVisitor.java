@@ -81,6 +81,12 @@ public abstract class EnvironmentIdentitySwitchVisitor extends AbstractVisitor i
             case EnvironmentEntityDescriptorEnum.DebugViewModel_ord :
             visit((DebugViewModel) entity);
             break;
+            case EnvironmentEntityDescriptorEnum.Jobs_ord :
+            visit((Jobs) entity);
+            break;
+            case EnvironmentEntityDescriptorEnum.Job_ord :
+            visit((Job) entity);
+            break;
             case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
             visit((ExecutionStack) entity);
             break;
@@ -117,8 +123,8 @@ public abstract class EnvironmentIdentitySwitchVisitor extends AbstractVisitor i
             case EnvironmentEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
             break;
-            case EnvironmentEntityDescriptorEnum.FrameIndex_ord :
-            visit((FrameIndex) entity);
+            case EnvironmentEntityDescriptorEnum.Index_ord :
+            visit((Index) entity);
             break;
             case EnvironmentEntityDescriptorEnum.Value_ord :
             visit((Value) entity);

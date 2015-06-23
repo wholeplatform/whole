@@ -47,6 +47,8 @@ public class EnvironmentImplEntityRegistry extends AbstractEntityRegistry {
         put(new ContextViewModelImpl());
         put(new SampleViewModelImpl());
         put(new DebugViewModelImpl());
+        put(new JobsImpl());
+        put(new JobImpl());
         put(new ExecutionStackImpl());
         put(new ExecutionFrameImpl());
         put(new VariablesViewModelImpl());
@@ -59,7 +61,7 @@ public class EnvironmentImplEntityRegistry extends AbstractEntityRegistry {
         put(new IdImpl());
         put(new NamesImpl());
         put(new NameImpl());
-        put(new FrameIndexImpl());
+        put(new IndexImpl());
         put(new ValueImpl());
         put(new EnvironmentManagerImpl());
         put(new BindingManagerImpl());

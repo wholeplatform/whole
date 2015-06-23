@@ -92,8 +92,8 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.IntData_ord :
             specificBuilder.IntData(value);
             break;
-            case EnvironmentEntityDescriptorEnum.FrameIndex_ord :
-            specificBuilder.FrameIndex(value);
+            case EnvironmentEntityDescriptorEnum.Index_ord :
+            specificBuilder.Index(value);
             break;
         }
     }
@@ -164,6 +164,12 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.DebugViewModel_ord :
             specificBuilder.DebugViewModel();
             break;
+            case EnvironmentEntityDescriptorEnum.Jobs_ord :
+            specificBuilder.Jobs();
+            break;
+            case EnvironmentEntityDescriptorEnum.Job_ord :
+            specificBuilder.Job();
+            break;
             case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
             specificBuilder.ExecutionStack();
             break;
@@ -217,6 +223,12 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.DebugViewModel_ord :
             specificBuilder.DebugViewModel_();
             break;
+            case EnvironmentEntityDescriptorEnum.Jobs_ord :
+            specificBuilder.Jobs_();
+            break;
+            case EnvironmentEntityDescriptorEnum.Job_ord :
+            specificBuilder.Job_();
+            break;
             case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
             specificBuilder.ExecutionStack_();
             break;
@@ -258,6 +270,9 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             case EnvironmentEntityDescriptorEnum.ContainmentTuple_ord :
             specificBuilder.ContainmentTuple_(initialCapacity);
             break;
+            case EnvironmentEntityDescriptorEnum.Jobs_ord :
+            specificBuilder.Jobs_(initialCapacity);
+            break;
             case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
             specificBuilder.ExecutionStack_(initialCapacity);
             break;
@@ -295,6 +310,12 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case EnvironmentEntityDescriptorEnum.DebugViewModel_ord :
             specificBuilder._DebugViewModel();
+            break;
+            case EnvironmentEntityDescriptorEnum.Jobs_ord :
+            specificBuilder._Jobs();
+            break;
+            case EnvironmentEntityDescriptorEnum.Job_ord :
+            specificBuilder._Job();
             break;
             case EnvironmentEntityDescriptorEnum.ExecutionStack_ord :
             specificBuilder._ExecutionStack();
@@ -342,6 +363,12 @@ public class EnvironmentGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case EnvironmentFeatureDescriptorEnum.result_ord :
             specificBuilder.result();
+            break;
+            case EnvironmentFeatureDescriptorEnum.focusJob_ord :
+            specificBuilder.focusJob();
+            break;
+            case EnvironmentFeatureDescriptorEnum.jobs_ord :
+            specificBuilder.jobs();
             break;
             case EnvironmentFeatureDescriptorEnum.focusFrame_ord :
             specificBuilder.focusFrame();

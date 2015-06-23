@@ -15,7 +15,7 @@
             <models:AnyType/>
         </models:SubtypesOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="36">
+    <models:ModelDeclarations initialCapacity="38">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -188,7 +188,35 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="FrameIndex"/>
+                    <models:SimpleName value="Index"/>
+                    <models:SimpleName value="focusJob"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Jobs"/>
+                    <models:SimpleName value="jobs"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Jobs"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="1">
+                <models:ComponentModifier value="ordered"/>
+            </models:ComponentModifiers>
+            <models:SimpleName value="Job"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Job"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Index"/>
                     <models:SimpleName value="focusFrame"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -388,7 +416,7 @@
         </models:DataEntity>
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="FrameIndex"/>
+            <models:SimpleName value="Index"/>
             <models:Types initialCapacity="0"/>
             <models:DataType value="int"/>
         </models:DataEntity>

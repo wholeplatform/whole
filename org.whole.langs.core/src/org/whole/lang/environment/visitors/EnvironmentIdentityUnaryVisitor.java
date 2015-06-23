@@ -91,6 +91,12 @@ public class EnvironmentIdentityUnaryVisitor<V extends IVisitor>  extends Abstra
     public void visit(DebugViewModel entity) {
     }
 
+    public void visit(Jobs entity) {
+    }
+
+    public void visit(Job entity) {
+    }
+
     public void visit(ExecutionStack entity) {
     }
 
@@ -127,7 +133,7 @@ public class EnvironmentIdentityUnaryVisitor<V extends IVisitor>  extends Abstra
     public void visit(Name entity) {
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
     }
 
     public void visit(Value entity) {

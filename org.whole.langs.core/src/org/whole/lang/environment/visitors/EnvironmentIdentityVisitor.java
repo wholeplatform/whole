@@ -82,6 +82,12 @@ public class EnvironmentIdentityVisitor extends AbstractVisitor implements IEnvi
     public void visit(DebugViewModel entity) {
     }
 
+    public void visit(Jobs entity) {
+    }
+
+    public void visit(Job entity) {
+    }
+
     public void visit(ExecutionStack entity) {
     }
 
@@ -118,7 +124,7 @@ public class EnvironmentIdentityVisitor extends AbstractVisitor implements IEnvi
     public void visit(Name entity) {
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
     }
 
     public void visit(Value entity) {

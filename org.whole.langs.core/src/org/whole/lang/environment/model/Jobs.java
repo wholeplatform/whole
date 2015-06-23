@@ -17,14 +17,11 @@
  */
 package org.whole.lang.environment.model;
 
+import java.util.List;
 
 /**
  *  @generator Whole
  */
-public interface FrameIndex extends IEnvironmentEntity {
+public interface Jobs extends IEnvironmentEntity, List<Job> {
 
-
-    public int getValue();
-
-    public void setValue(int value);
 }

@@ -17,25 +17,24 @@
  */
 package org.whole.lang.environment.model.adapters;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.model.adapters.AbstractListEntityAdapter;
 import org.whole.lang.environment.model.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
-import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class DebugViewModelAdapter extends AbstractEntityAdapter implements DebugViewModel {
+public class JobsAdapter extends AbstractListEntityAdapter<Job> implements Jobs {
     private static final long serialVersionUID = 1;
 
-    public DebugViewModelAdapter(IEntity implementor) {
+    public JobsAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public DebugViewModelAdapter() {
+    public JobsAdapter() {
     }
 
     public void accept(IEnvironmentVisitor visitor) {
@@ -43,23 +42,7 @@ public class DebugViewModelAdapter extends AbstractEntityAdapter implements Debu
             visitor.visit(this);
     }
 
-    public EntityDescriptor<DebugViewModel> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.DebugViewModel;
-    }
-
-    public Index getFocusJob() {
-        return wGet(EnvironmentFeatureDescriptorEnum.focusJob).wGetAdapter(EnvironmentEntityDescriptorEnum.Index);
-    }
-
-    public void setFocusJob(Index focusJob) {
-        wSet(EnvironmentFeatureDescriptorEnum.focusJob, focusJob);
-    }
-
-    public Jobs getJobs() {
-        return wGet(EnvironmentFeatureDescriptorEnum.jobs).wGetAdapter(EnvironmentEntityDescriptorEnum.Jobs);
-    }
-
-    public void setJobs(Jobs jobs) {
-        wSet(EnvironmentFeatureDescriptorEnum.jobs, jobs);
+    public EntityDescriptor<Jobs> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Jobs;
     }
 }

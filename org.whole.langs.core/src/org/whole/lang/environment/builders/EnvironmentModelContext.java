@@ -62,6 +62,22 @@ public class EnvironmentModelContext extends EntityContext {
         wSet(EnvironmentFeatureDescriptorEnum.result, result);
     }
 
+    public EnvironmentModelContext getFocusJob() {
+        return (EnvironmentModelContext) wGet(EnvironmentFeatureDescriptorEnum.focusJob);
+    }
+
+    public void setFocusJob(EnvironmentModelContext focusJob) {
+        wSet(EnvironmentFeatureDescriptorEnum.focusJob, focusJob);
+    }
+
+    public EnvironmentModelContext getJobs() {
+        return (EnvironmentModelContext) wGet(EnvironmentFeatureDescriptorEnum.jobs);
+    }
+
+    public void setJobs(EnvironmentModelContext jobs) {
+        wSet(EnvironmentFeatureDescriptorEnum.jobs, jobs);
+    }
+
     public EnvironmentModelContext getFocusFrame() {
         return (EnvironmentModelContext) wGet(EnvironmentFeatureDescriptorEnum.focusFrame);
     }

@@ -28,14 +28,14 @@ import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class DebugViewModelAdapter extends AbstractEntityAdapter implements DebugViewModel {
+public class JobAdapter extends AbstractEntityAdapter implements Job {
     private static final long serialVersionUID = 1;
 
-    public DebugViewModelAdapter(IEntity implementor) {
+    public JobAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public DebugViewModelAdapter() {
+    public JobAdapter() {
     }
 
     public void accept(IEnvironmentVisitor visitor) {
@@ -43,23 +43,23 @@ public class DebugViewModelAdapter extends AbstractEntityAdapter implements Debu
             visitor.visit(this);
     }
 
-    public EntityDescriptor<DebugViewModel> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.DebugViewModel;
+    public EntityDescriptor<Job> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Job;
     }
 
-    public Index getFocusJob() {
-        return wGet(EnvironmentFeatureDescriptorEnum.focusJob).wGetAdapter(EnvironmentEntityDescriptorEnum.Index);
+    public Index getFocusFrame() {
+        return wGet(EnvironmentFeatureDescriptorEnum.focusFrame).wGetAdapter(EnvironmentEntityDescriptorEnum.Index);
     }
 
-    public void setFocusJob(Index focusJob) {
-        wSet(EnvironmentFeatureDescriptorEnum.focusJob, focusJob);
+    public void setFocusFrame(Index focusFrame) {
+        wSet(EnvironmentFeatureDescriptorEnum.focusFrame, focusFrame);
     }
 
-    public Jobs getJobs() {
-        return wGet(EnvironmentFeatureDescriptorEnum.jobs).wGetAdapter(EnvironmentEntityDescriptorEnum.Jobs);
+    public ExecutionStack getExecutionStack() {
+        return wGet(EnvironmentFeatureDescriptorEnum.executionStack).wGetAdapter(EnvironmentEntityDescriptorEnum.ExecutionStack);
     }
 
-    public void setJobs(Jobs jobs) {
-        wSet(EnvironmentFeatureDescriptorEnum.jobs, jobs);
+    public void setExecutionStack(ExecutionStack executionStack) {
+        wSet(EnvironmentFeatureDescriptorEnum.executionStack, executionStack);
     }
 }

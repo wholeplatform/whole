@@ -113,6 +113,14 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((IEnvironmentEntity) entity);
     }
 
+    public void visit(Jobs entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
+    public void visit(Job entity) {
+        visit((IEnvironmentEntity) entity);
+    }
+
     public void visit(ExecutionStack entity) {
         visit((IEnvironmentEntity) entity);
     }
@@ -171,7 +179,7 @@ public class EnvironmentIdentityDefaultVisitor extends EnvironmentIdentityVisito
         visit((IEnvironmentEntity) entity);
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
         visit((IEnvironmentEntity) entity);
     }
 

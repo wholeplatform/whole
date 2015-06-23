@@ -99,6 +99,14 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Jobs entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Job entity) {
+        throw new VisitException();
+    }
+
     public void visit(ExecutionStack entity) {
         throw new VisitException();
     }
@@ -147,7 +155,7 @@ public class EnvironmentFailureVisitor extends EnvironmentIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(FrameIndex entity) {
+    public void visit(Index entity) {
         throw new VisitException();
     }
 

@@ -18,7 +18,7 @@
 package org.whole.lang.environment.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.environment.model.FrameIndex;
+import org.whole.lang.environment.model.Index;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class FrameIndexImpl extends AbstractDataEntity implements FrameIndex {
+public class IndexImpl extends AbstractDataEntity implements Index {
     private static final long serialVersionUID = 1;
     private int value;
 
@@ -48,11 +48,11 @@ public class FrameIndexImpl extends AbstractDataEntity implements FrameIndex {
     }
 
     public int wGetEntityOrd() {
-        return EnvironmentEntityDescriptorEnum.FrameIndex_ord;
+        return EnvironmentEntityDescriptorEnum.Index_ord;
     }
 
-    public EntityDescriptor<FrameIndex> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.FrameIndex;
+    public EntityDescriptor<Index> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Index;
     }
 
     public Object wGetValue() {

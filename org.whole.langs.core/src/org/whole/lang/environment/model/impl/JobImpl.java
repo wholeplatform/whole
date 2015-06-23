@@ -18,7 +18,7 @@
 package org.whole.lang.environment.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.environment.model.DebugViewModel;
+import org.whole.lang.environment.model.Job;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
@@ -26,20 +26,20 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.environment.model.Index;
 import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.environment.model.Jobs;
+import org.whole.lang.environment.model.ExecutionStack;
 
 /**
  *  @generator Whole
  */
-public class DebugViewModelImpl extends AbstractSimpleEntity implements DebugViewModel {
+public class JobImpl extends AbstractSimpleEntity implements Job {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<DebugViewModel> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.DebugViewModel;
+    public EntityDescriptor<Job> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Job;
     }
 
     public int wGetEntityOrd() {
-        return EnvironmentEntityDescriptorEnum.DebugViewModel_ord;
+        return EnvironmentEntityDescriptorEnum.Job_ord;
     }
 
     public void accept(IEnvironmentVisitor visitor) {
@@ -49,31 +49,31 @@ public class DebugViewModelImpl extends AbstractSimpleEntity implements DebugVie
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Index focusJob;
+    private Index focusFrame;
 
-    public Index getFocusJob() {
-        return notifyRequested(EnvironmentFeatureDescriptorEnum.focusJob, focusJob);
+    public Index getFocusFrame() {
+        return notifyRequested(EnvironmentFeatureDescriptorEnum.focusFrame, focusFrame);
     }
 
-    public void setFocusJob(Index focusJob) {
-        notifyChanged(EnvironmentFeatureDescriptorEnum.focusJob, this.focusJob, this.focusJob = focusJob);
+    public void setFocusFrame(Index focusFrame) {
+        notifyChanged(EnvironmentFeatureDescriptorEnum.focusFrame, this.focusFrame, this.focusFrame = focusFrame);
     }
-    private Jobs jobs;
+    private ExecutionStack executionStack;
 
-    public Jobs getJobs() {
-        return notifyRequested(EnvironmentFeatureDescriptorEnum.jobs, jobs);
+    public ExecutionStack getExecutionStack() {
+        return notifyRequested(EnvironmentFeatureDescriptorEnum.executionStack, executionStack);
     }
 
-    public void setJobs(Jobs jobs) {
-        notifyChanged(EnvironmentFeatureDescriptorEnum.jobs, this.jobs, this.jobs = jobs);
+    public void setExecutionStack(ExecutionStack executionStack) {
+        notifyChanged(EnvironmentFeatureDescriptorEnum.executionStack, this.executionStack, this.executionStack = executionStack);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getFocusJob().wGetAdaptee(false);
+            return getFocusFrame().wGetAdaptee(false);
             case 1 :
-            return getJobs().wGetAdaptee(false);
+            return getExecutionStack().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -82,10 +82,10 @@ public class DebugViewModelImpl extends AbstractSimpleEntity implements DebugVie
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setFocusJob(value.wGetAdapter(EnvironmentEntityDescriptorEnum.Index));
+            setFocusFrame(value.wGetAdapter(EnvironmentEntityDescriptorEnum.Index));
             break;
             case 1 :
-            setJobs(value.wGetAdapter(EnvironmentEntityDescriptorEnum.Jobs));
+            setExecutionStack(value.wGetAdapter(EnvironmentEntityDescriptorEnum.ExecutionStack));
             break;
             default :
             throw new IllegalArgumentException();

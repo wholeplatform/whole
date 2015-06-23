@@ -15,51 +15,34 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.environment.model.adapters;
+package org.whole.lang.environment.model.impl;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.environment.model.*;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.environment.visitors.IEnvironmentVisitor;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
-import org.whole.lang.environment.reflect.EnvironmentFeatureDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  *  @generator Whole
  */
-public class DebugViewModelAdapter extends AbstractEntityAdapter implements DebugViewModel {
+public class JobsImpl extends AbstractListCompositeEntity<Job> implements Jobs {
     private static final long serialVersionUID = 1;
 
-    public DebugViewModelAdapter(IEntity implementor) {
-        super(implementor);
-    }
-
-    public DebugViewModelAdapter() {
-    }
-
     public void accept(IEnvironmentVisitor visitor) {
-        if (visitor.visitAdapter(this))
+        try {
             visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
     }
 
-    public EntityDescriptor<DebugViewModel> wGetEntityDescriptor() {
-        return EnvironmentEntityDescriptorEnum.DebugViewModel;
+    public int wGetEntityOrd() {
+        return EnvironmentEntityDescriptorEnum.Jobs_ord;
     }
 
-    public Index getFocusJob() {
-        return wGet(EnvironmentFeatureDescriptorEnum.focusJob).wGetAdapter(EnvironmentEntityDescriptorEnum.Index);
-    }
-
-    public void setFocusJob(Index focusJob) {
-        wSet(EnvironmentFeatureDescriptorEnum.focusJob, focusJob);
-    }
-
-    public Jobs getJobs() {
-        return wGet(EnvironmentFeatureDescriptorEnum.jobs).wGetAdapter(EnvironmentEntityDescriptorEnum.Jobs);
-    }
-
-    public void setJobs(Jobs jobs) {
-        wSet(EnvironmentFeatureDescriptorEnum.jobs, jobs);
+    public EntityDescriptor<Jobs> wGetEntityDescriptor() {
+        return EnvironmentEntityDescriptorEnum.Jobs;
     }
 }
