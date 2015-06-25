@@ -20,6 +20,7 @@ package org.whole.lang.ui.dnd;
 import java.io.File;
 
 import org.eclipse.gef.EditPartViewer;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.util.ClipboardUtils;
 
@@ -32,6 +33,6 @@ public class XmlBuilderFileTransferDragSourceListener extends AbstractFileTransf
 	}
 
 	protected File createFile(IEntityPart entityPart) throws Exception {
-		return ClipboardUtils.createTempXmlBuilderFile(entityPart.getModelEntity());
+		return ClipboardUtils.createTempXmlBuilderFile((IEntity) entityPart.getModelEntity());
 	}
 }

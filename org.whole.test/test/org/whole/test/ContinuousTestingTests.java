@@ -17,6 +17,7 @@
  */
 package org.whole.test;
 
+import org.junit.experimental.categories.Categories;
 import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
@@ -24,8 +25,8 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * @author Riccardo Solmi
  */
-@RunWith(MultipleCategories.class)
+@RunWith(Categories.class)
 @ExcludeCategory( SlowTests.class )
-@SuiteClasses( { ContinuousIntegrationTests.class })
+@SuiteClasses({ ContinuousIntegrationTests.class })
 public class ContinuousTestingTests {
 }

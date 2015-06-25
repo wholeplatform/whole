@@ -36,9 +36,9 @@
 							<artifacts>
 								<artifact>
 									<!-- note: the file name must be ${classifier}.target -->
-									<file>LUNA_4_4_x.target</file>
+									<file>MARS_4_5_x.target</file>
 									<type>target</type>
-									<classifier>LUNA_4_4_x</classifier>
+									<classifier>MARS_4_5_x</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>

@@ -43,7 +43,7 @@ public class DnDOverCompositeRequest extends PartRequest {
 		this.compositePrevChild = compositePrevChild;
 	}
 	public DnDOverCompositeRequest(String requestType, IEntityPart overCompositePart, IEntityPart dndChild, IEntityPart compositePrevChild) {
-		this(requestType, overCompositePart, dndChild.getModelEntity(), compositePrevChild);
+		this(requestType, overCompositePart, (IEntity) dndChild.getModelEntity(), compositePrevChild);
 		this.dndChild = dndChild;
 	}
 

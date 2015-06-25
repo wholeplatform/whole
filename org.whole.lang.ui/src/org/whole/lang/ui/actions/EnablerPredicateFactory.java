@@ -19,6 +19,7 @@ package org.whole.lang.ui.actions;
 
 import java.util.Iterator;
 
+import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.enablerpredicate.AssignableToPredicate;
@@ -85,7 +86,7 @@ public class EnablerPredicateFactory {
 	public IEnablerPredicate isResolver() {
 		return new IEnablerPredicate() {
 			public boolean evaluate(IEntityPart selectedPart, Object userdata) {
-				return EntityUtils.isResolver(selectedPart.getModelEntity());
+				return EntityUtils.isResolver((IEntity) selectedPart.getModelEntity());
 			}
 			public String toString() {
 				return "isResolver";

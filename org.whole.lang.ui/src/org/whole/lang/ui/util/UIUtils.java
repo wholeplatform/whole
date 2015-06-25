@@ -109,7 +109,7 @@ public class UIUtils {
 		if (parent != null && EntityUtils.isFragment(parent))
 			editorKit = ((Fragment) parent).getRootEntity().wGetEditorKit();
 		else
-			editorKit = ReflectionFactory.getEditorKit(selectedPart.getModelEntity());
+			editorKit = ReflectionFactory.getEditorKit((IEntity) selectedPart.getModelEntity());
 
 		return editorKit;
 	}
