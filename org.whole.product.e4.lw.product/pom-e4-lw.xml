@@ -38,6 +38,9 @@
 						<product>
 							<id>org.whole.product.e4.lw.product</id>
 							<rootFolder>whole</rootFolder>
+							<rootFolders>
+								<macosx>whole.app</macosx>
+							</rootFolders>
 							<archiveFileName>whole-${unqualifiedVersion}.${buildQualifier}</archiveFileName>
 						</product>
 					</products>

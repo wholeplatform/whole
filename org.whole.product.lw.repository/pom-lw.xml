@@ -21,7 +21,11 @@
 				<artifactId>tycho-p2-repository-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					 <finalName>whole-updatesite-${unqualifiedVersion}.${buildQualifier}</finalName>
+					<includeAllDependencies>true</includeAllDependencies>
+					<profileProperties>
+						<macosx-bundled>true</macosx-bundled>
+					</profileProperties>
+					<finalName>whole-updatesite-${unqualifiedVersion}.${buildQualifier}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
