@@ -26,7 +26,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author Riccardo Solmi
  */
 @RunWith(Categories.class)
-@ExcludeCategory( SlowTests.class )
-@SuiteClasses({ ContinuousIntegrationTests.class })
+//FIXME workaround, should have extended ContinuousIntegrationTests suite
+// but it is not compatible with the JUnit shipped with tycho
+// (see org.eclipse.tycho.surefire.junit47 in pom.xml)
+@ExcludeCategory({ KnownFailingTests.class, SlowTests.class })
+@SuiteClasses({ AllTests.class })
 public class ContinuousTestingTests {
 }

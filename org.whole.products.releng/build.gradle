@@ -187,7 +187,7 @@ task release_ldk_local(dependsOn: [clean, install_ldk], description: "Release th
 release_ldk_local.onlyIf { !failure }
 release_ldk_local.finalizedBy clean_ldk
 
-task integration_test(description: "Test the Whole Language Workbench") << {
+task integration_test(dependsOn: [build_ef], description: "Test the Whole Language Workbench") << {
 	launchMaven(relengDir, "pom-lw.xml", "integration-test")
 } 
 

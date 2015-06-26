@@ -163,7 +163,7 @@
 					<testClass>org.whole.test.ContinuousTestingTests</testClass>
 					<!--FIXME GrammarBasedPrettyPrinterVisitorTest and GrammarBasedUnparserVisitorTest fail on travis CI -->
 					<!--testClass>org.whole.test.ContinuousIntegrationTests</testClass-->
-					<parallel>both</parallel>
+					<!--parallel>both</parallel-->
 				</configuration>
 			</plugin>
 
