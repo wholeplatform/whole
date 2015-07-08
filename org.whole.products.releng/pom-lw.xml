@@ -223,7 +223,7 @@
 	<!-- update according to org.whole.product.lw.target/MARS_4_5_x.target -->
 	<repositories>
 		<repository>
-			<id>eclipse-luna-updates</id>
+			<id>eclipse-mars-updates</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/4.5</url>
 		</repository>
