@@ -31,7 +31,7 @@
 							<id>org.whole.product.lw.product</id>
 							<rootFolder>whole</rootFolder>
 							<rootFolders>
-								<macosx>whole.app</macosx>
+								<macosx>whole-lw.app</macosx>
 							</rootFolders>
 							<archiveFileName>whole-${unqualifiedVersion}.${buildQualifier}</archiveFileName>
 						</product>

@@ -39,7 +39,7 @@
 							<id>org.whole.product.e4.lw.product</id>
 							<rootFolder>whole</rootFolder>
 							<rootFolders>
-								<macosx>whole.app</macosx>
+								<macosx>whole-e4-lw.app</macosx>
 							</rootFolders>
 							<archiveFileName>whole-${unqualifiedVersion}.${buildQualifier}</archiveFileName>
 						</product>
