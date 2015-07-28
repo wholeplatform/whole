@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -155,7 +156,8 @@ public class WorkspaceTemplate extends ResourceTemplate {
 		ab.Name(directoryName);
 		getBindings().wDefValue("file", directory.getLocation().toFile());
 		getBindings().wDefValue("fileName", directoryName);
-		if (directory.getResourceAttributes().isReadOnly())
+		ResourceAttributes resourceAttributes = directory.getResourceAttributes();
+		if (resourceAttributes != null && resourceAttributes.isReadOnly())
 			buildMetadata("readonly");
 		else
 			buildMetadata();
