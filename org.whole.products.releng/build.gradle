@@ -44,6 +44,7 @@ task zip_examples_sources(dependsOn: init_build) << {
 		zipfileset(prefix: "whole-examples", dir: "${reposDir}/whole-examples", excludes: sourceExcludes, defaultexcludes: "no")
 	}
 }
+zip_examples_sources.onlyIf { new File("${reposDir}/whole-examples").exists() }
 
 
 task clean_e4_lw << {
