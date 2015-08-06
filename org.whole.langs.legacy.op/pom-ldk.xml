@@ -28,7 +28,7 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>nu.validator.htmlparser</groupId>
+			<groupId>nu.validator</groupId>
 			<artifactId>htmlparser</artifactId>
 			<scope>provided</scope>
 		</dependency>

@@ -1,8 +1,6 @@
 apply from: "common.gradle"
 def efRelengDir = "${reposDir}/whole-java-libs/org.whole.product.ef.releng"
 
-def validateLdk = false
-
 task set_build_version(description: "Set the build version") << {
 	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: fullVersion, summary: true) {
 		include(name: "*/META-INF/MANIFEST.MF")
@@ -111,15 +109,15 @@ task clean_ldk << {
 }
 
 task package_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", "package")
+	launchMaven(relengDir, "pom-ldk.xml", "install")
 }
-package_ldk.onlyIf { !failure && validateLdk }
+package_ldk.onlyIf { !failure }
 package_ldk.finalizedBy set_meta_version
 
 task build_ldk(dependsOn: package_ldk) << {
 	launchMaven(relengDir, "pom-ldk.xml", "clean")
 }
-build_ldk.onlyIf { !failure && validateLdk }
+build_ldk.onlyIf { !failure }
 
 task clean_updates_ef(type: GradleBuild) {
 	dir = efRelengDir

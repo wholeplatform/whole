@@ -56,7 +56,7 @@
 				<version>${jackson-version}</version>
 			</dependency>
 			<dependency>
-				<groupId>nu.validator.htmlparser</groupId>
+				<groupId>nu.validator</groupId>
 				<artifactId>htmlparser</artifactId>
 				<version>${htmlparser-version}</version>
 			</dependency>

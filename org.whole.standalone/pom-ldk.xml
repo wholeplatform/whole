@@ -58,7 +58,7 @@
 			<artifactId>jackson-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>nu.validator.htmlparser</groupId>
+			<groupId>nu.validator</groupId>
 			<artifactId>htmlparser</artifactId>
 		</dependency>
 
