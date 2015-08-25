@@ -44,7 +44,7 @@ public class XmlUtils {
 
 	/* see "Namespaces in XML 1.0 (Second Edition)" */
 	public static final String NAME_START_CHARS =
-		":a-z_A-Z" +
+		"\\:a-z_A-Z" +
 		"\u00C0-\u00D6" +				// U+C0-U+D6
 		"\u00D8-\u00F6" +				// U+D8-U+F6
 		"\u00F8-\u02FF" +				// U+F8-U+2FF
@@ -59,7 +59,7 @@ public class XmlUtils {
 		"\uD800\uDC00-\uDB7F\uDFFF"; 	// U+10000-U+EFFFF
 
 	public static final String NAME_CHARS =
-		"-\\.0-9" +
+		".-0-9" +
 		"\u00B7" +						// U+B7
 		"\u0300-\u036F" +				// U+300-U+36F
 		"\u203F-\u2040" +				// U+203F-U+2040
