@@ -59,7 +59,7 @@ public class XmlUtils {
 		"\uD800\uDC00-\uDB7F\uDFFF"; 	// U+10000-U+EFFFF
 
 	public static final String NAME_CHARS =
-		".-0-9" +
+		".\\-0-9" +
 		"\u00B7" +						// U+B7
 		"\u0300-\u036F" +				// U+300-U+36F
 		"\u203F-\u2040" +				// U+203F-U+2040
