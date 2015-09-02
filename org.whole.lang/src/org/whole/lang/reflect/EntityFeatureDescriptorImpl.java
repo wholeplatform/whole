@@ -68,7 +68,7 @@ public class EntityFeatureDescriptorImpl implements FeatureDescriptor {
 	}
 
 	public boolean isEntityFeatureDescriptor() {
-		return false;
+		return true;
 	}
 	public FeatureDescriptor getFeatureDescriptor() {
 		return featureDescriptor;
