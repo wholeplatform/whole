@@ -28,10 +28,6 @@ import org.whole.lang.reflect.FeatureDescriptor;
 
 /**
  * @author Riccardo Solmi
- * 
- * sequence(
- *   traverseAllChildren(collect(clone, map)),
- *   traverseAllAdjacents(ifThenElse(isNotMapped(map), nullify, identity)))
  */
 public class CloneOperation {
 	protected Map<IEntity, IEntity> entityCloneMap = new HashMap<IEntity, IEntity>(1024);
@@ -39,7 +35,7 @@ public class CloneOperation {
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> E clone(E entity) {
 		//TODO disable undo history on entityClone
-		E entityClone = (E) cloneDescendantTree(entity);
+		E entityClone = (E) applyRules(entity);
 		updateAdjacencyGraph();
 		return entityClone;
 	}
@@ -48,33 +44,44 @@ public class CloneOperation {
 		//TODO disable undo history on entityClone
 		Collection<E> clonedEntities = new ArrayList<E>(entities.size());
 	     for (E entity : entities)
-	    	 clonedEntities.add((E) cloneDescendantTree(entity));
+	    	 clonedEntities.add((E) applyRules(entity));
 		updateAdjacencyGraph();
 		return clonedEntities;
 	}
 
-	protected void cloneAndUpdate(IEntity entityClone, int index) {
-		entityClone.wSet(index, cloneDescendantTree(entityClone.wGet(index)));
+	protected IEntity applyRules(IEntity entity) {
+		return applyClone(entity);
 	}
-	protected void cloneAndUpdate(IEntity entityClone, FeatureDescriptor fd) {
-		entityClone.wSet(fd, cloneDescendantTree(entityClone.wGet(fd)));
-	}
-
-	protected IEntity cloneDescendantTree(IEntity entity) {
-		IEntity entityClone = entityCloneMap.get(entity);
-		if (entityClone == null) {
-			entityClone = ((InternalIEntity) entity).wShallowClone();
-			entityCloneMap.put(entity, entityClone);
-
-			for (int i=entityClone.wSize()-1; i>=0; i--)
-				cloneAndUpdate(entityClone, i);
-
-			for (FeatureDescriptor fd : entity.wGetAspectualFeatureDescriptors())
-				if (!fd.isReference())
-					cloneAndUpdate(entityClone, fd);
-		}
+	protected IEntity applyClone(IEntity entity) {
+		IEntity entityClone = ((InternalIEntity) entity).wShallowClone();
+		setCopy(entity, entityClone);
+		setChildrenAndAspects(entity, entityClone);
 		return entityClone;
 	}
+
+	protected void setCopy(IEntity entity, IEntity entityClone) {
+		entityCloneMap.put(entity, entityClone);
+	}
+	protected void setChildrenAndAspects(IEntity entity, IEntity entityClone) {
+		setChildren(entity, entityClone);
+		setAspects(entity, entityClone);
+	}
+	protected void setChildren(IEntity entity, IEntity entityClone) {
+		for (int index=0; index<entity.wSize(); index++)
+			entityClone.wSet(index, applyIfNeeded(entity.wGet(index)));
+	}
+	protected void setAspects(IEntity entity, IEntity entityClone) {
+		for (FeatureDescriptor fd : entity.wGetAspectualFeatureDescriptors())
+			if (!fd.isReference())
+				entityClone.wSet(fd, applyIfNeeded(entityClone.wGet(fd)));
+	}
+	protected IEntity applyIfNeeded(IEntity entity) {
+		IEntity entityClone = entityCloneMap.get(entity);
+		if (entityClone == null)
+			entityClone = applyRules(entity);
+		return entityClone;
+	}
+
 	protected void updateAdjacencyGraph() {
 		for (Map.Entry<IEntity, IEntity> entry : entityCloneMap.entrySet()) {
 			IEntity entity = entry.getKey();

@@ -25,7 +25,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.CloneOperation;
+import org.whole.lang.operations.CloneOperationOld;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.queries.iterators.Placement;
 import org.whole.lang.queries.iterators.QueriesIteratorFactory;
@@ -36,7 +36,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Enrico Persiani
  */
-public class EvaluateCloneOperation extends CloneOperation {
+public class EvaluateCloneOperation extends CloneOperationOld {
 	protected IOperation operation;
 	protected Predicate<IEntity> shouldEvaluate;
 	protected boolean updateAdjacencyGraph;
