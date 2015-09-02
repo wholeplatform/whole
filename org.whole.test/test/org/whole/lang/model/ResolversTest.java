@@ -61,7 +61,6 @@ public class ResolversTest {
 		//TODO
 	}
 
-	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntitySetParent() {
 		Sequence sequence = qf.createSequence(0);
@@ -76,7 +75,7 @@ public class ResolversTest {
 		Filter filter = qf.createFilter();
 		filter.wSet(QueriesFeatureDescriptorEnum.expression, EntityUtils.clone(pathExpression));
 		
-		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, filter.getExpression()));
+		Assert.assertTrue(Matcher.match(QueriesEntityDescriptorEnum.StepExpression, filter.getExpression()));
 	}
 
 	@Test

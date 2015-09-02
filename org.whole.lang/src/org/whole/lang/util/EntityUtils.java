@@ -310,7 +310,9 @@ public class EntityUtils {
 		return convertCloneIfReparenting(value, toType, false);
 	}
 	public static final IEntity convertCloneIfReparenting(IEntity value, FeatureDescriptor toEFd) {
-		return convertCloneIfReparenting(value, toEFd.getEntityDescriptor(), toEFd.isReference());
+		return toEFd.isEntityFeatureDescriptor() ?
+				convertCloneIfReparenting(value, toEFd.getEntityDescriptor(), toEFd.isReference()) :
+				cloneIfReparenting(value, false);
 	}
 	public static final IEntity convertCloneIfReparenting(IEntity value, EntityDescriptor<?> toEd, boolean isToReference) {
 		//FIXME (workaround) force conversion semantics for data types

@@ -24,7 +24,7 @@ import org.junit.runners.Suite.SuiteClasses;
 /**
  * Runs: 500
  * Errors: 5
- * Failures: 19
+ * Failures: 18
  *
  * @author Riccardo Solmi
  */

@@ -41,7 +41,7 @@ import org.whole.lang.reflect.ReflectiveAPITest;
 /**
  * Runs: 133
  * Errors: 2
- * Failures: 8
+ * Failures: 7
  *
  * @author Riccardo Solmi
  */
