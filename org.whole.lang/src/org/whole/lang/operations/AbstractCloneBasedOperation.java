@@ -29,7 +29,7 @@ import org.whole.lang.visitors.IVisitor;
 /**
  * @author Riccardo Solmi
  */
-public class AbstractCloneBasedOperation extends AbstractOperation {
+public abstract class AbstractCloneBasedOperation extends AbstractOperation {
 	protected GenericCloneVisitor defaultCloneVisitor = createCloneVisitor();
 
 	@SuppressWarnings("unchecked")

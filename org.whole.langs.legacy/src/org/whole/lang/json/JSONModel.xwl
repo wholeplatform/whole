@@ -1,7 +1,14 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="JSON"/>
-    <models:TypeRelations initialCapacity="0"/>
+    <models:TypeRelations initialCapacity="1">
+        <models:SupertypesOf>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Value"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SupertypesOf>
+    </models:TypeRelations>
     <models:ModelDeclarations initialCapacity="10">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
