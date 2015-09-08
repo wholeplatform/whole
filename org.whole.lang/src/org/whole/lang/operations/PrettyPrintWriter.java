@@ -225,7 +225,7 @@ public class PrettyPrintWriter implements IPrettyPrintWriter {
 	public class WriterAdapter extends Writer {
 		@Override
 	    public void write(char[] cbuf, int off, int len) throws IOException {
-	         PrettyPrintWriter.this.append(String.valueOf(cbuf), off, len);
+	         PrettyPrintWriter.this.append(String.valueOf(cbuf), off, off+len);
 	    }
 		@Override
 	    public void write(int c) throws IOException {
@@ -236,7 +236,7 @@ public class PrettyPrintWriter implements IPrettyPrintWriter {
 			PrettyPrintWriter.this.append(str);
 	    }
 	    public void write(String str, int off, int len) throws IOException {
-	    	PrettyPrintWriter.this.append(str, off, len);
+	    	PrettyPrintWriter.this.append(str, off, off+len);
 	    }
 
 		@Override
