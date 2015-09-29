@@ -114,7 +114,7 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 		if (prefSize == null) {
 			Dimension d = calculateLabelSize(getTextSize());
 			Insets insets = getInsets();
-			prefSize = new BaselinedDimension(d, insets.left, (d.height+insets.getHeight())/2, false);
+			prefSize = new BaselinedDimension(d, insets.left, getAscent(), false);
 			prefSize.expand(insets.getWidth(), insets.getHeight());
 			if (getLayoutManager() != null)
 				prefSize.union(getLayoutManager().getPreferredSize(this, wHint, hHint));
@@ -159,7 +159,7 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 		return getInsets().left;
 	}
 	public int getAscent() {
-		return (getPreferredSize().height+getInsets().getHeight())/2;
+		return getInsets().top+getTextLocation().y+getTextSize().height/2;
 	}
 
 	public ITabularLayoutClient getTabularLayoutClient() {
