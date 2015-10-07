@@ -19,23 +19,28 @@ package org.whole.lang.util;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * @author Riccardo Solmi
  */
 public class CompositeUtils {
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	public static <T> T[] resize(T[] array, int length, Supplier<T> fillElementSupplier) {
+		Class<T> componentType = (Class<T>) array.getClass().getComponentType();
+		T[] newArray = (T[]) Array.newInstance(componentType, length);
+		System.arraycopy(array, 0, newArray, 0, Math.min(array.length, newArray.length));
+		if (array.length < newArray.length)
+			Arrays.fill(newArray, array.length, newArray.length, fillElementSupplier.get());
+		return newArray;
+	}
 	public static <T> T[] grow(T[] array, int length, T fillElement) {
-    	Class<T> componentType = (Class<T>) array.getClass().getComponentType();
-    	T[] newArray = (T[]) Array.newInstance(componentType, length);
-    	System.arraycopy(array, 0, newArray, 0, array.length);
-        Arrays.fill(newArray, array.length, newArray.length, fillElement);
-    	return newArray;
-    }
-    public static boolean[] grow(boolean[] array, int length, boolean fillElement) {
-    	boolean[] newArray = new boolean[length];
-    	System.arraycopy(array, 0, newArray, 0, array.length);
-        Arrays.fill(newArray, array.length, newArray.length, fillElement);
-        return newArray;
-    }
+		return resize(array, length, () -> fillElement);
+	}
+	public static boolean[] grow(boolean[] array, int length, boolean fillElement) {
+		boolean[] newArray = new boolean[length];
+		System.arraycopy(array, 0, newArray, 0, array.length);
+		Arrays.fill(newArray, array.length, newArray.length, fillElement);
+		return newArray;
+	}
 }
