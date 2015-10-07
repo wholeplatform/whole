@@ -59,8 +59,8 @@ public class FlowLayout extends AbstractCompositeEntityLayout {
 		lineWidth = 0;
 		for (int i=0; i<childSize.length; i++)
 			if (isChildVisible(i)) {
-				if (isFirst || lineWidth + getSpacingBefore(i) + childSize[i].width <= maxWidth) {
-					lineWidth += (isFirst ? 0 : getSpacingBefore(i)) + childSize[i].width;
+				if (isFirst || lineWidth + getSpacingBefore(i) + getSpacing() + childSize[i].width <= maxWidth) {
+					lineWidth += (isFirst ? 0 : getSpacingBefore(i) + getSpacing()) + childSize[i].width;
 					isFirst = false;
 				} else {
 					figWidth = Math.max(figWidth, lineWidth);
@@ -80,8 +80,8 @@ public class FlowLayout extends AbstractCompositeEntityLayout {
 		case MATHLINE:
 			for (int i=0; i<childSize.length; i++)
 				if (isChildVisible(i)) {
-					if (isFirst || lineWidth + getSpacingBefore(i) + childSize[i].width <= maxWidth) {
-						lineWidth += (isFirst ? 0 : getSpacingBefore(i)) + childSize[i].width;
+					if (isFirst || lineWidth + getSpacingBefore(i) + getSpacing() + childSize[i].width <= maxWidth) {
+						lineWidth += (isFirst ? 0 : getSpacingBefore(i) + getSpacing()) + childSize[i].width;
 						isFirst = false;
 					} else {
 						lineWidth = childSize[i].width;
