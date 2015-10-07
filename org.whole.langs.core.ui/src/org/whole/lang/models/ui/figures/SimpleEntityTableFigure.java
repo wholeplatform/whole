@@ -18,8 +18,10 @@
 package org.whole.lang.models.ui.figures;
 
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.ViewportTrackingEntityFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
@@ -29,12 +31,20 @@ import org.whole.lang.ui.layout.UnderColumnLayout;
  */
 public class SimpleEntityTableFigure extends ContentPaneFigure {
 	public SimpleEntityTableFigure() {
-		super(new TableRowLayout());
+		super(new TableRowLayout() {
+			@Override
+			protected void setLocation(Rectangle area, int[] x, int[] y) {
+				super.setLocation(area, x, y);
+				y[1] = area.y;
+				childSize[1].width = getColumnWidth(1);
+				childSize[1].height = figAscent+figDescent; 
+			}
+		});
 		initContentPanes(4);
 
 		add(createContentPane(2));
 
-		EntityFigure type = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING));
+		EntityFigure type = new ViewportTrackingEntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING));
 		type.add(createContentPane(1, new MarginBorder(0,4,0,0)));
 		type.add(createContentPane(0));
 		add(type);

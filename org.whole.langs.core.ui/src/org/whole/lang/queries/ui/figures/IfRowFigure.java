@@ -17,7 +17,12 @@
  */
 package org.whole.lang.queries.ui.figures;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.ViewportTrackingEntityFigure;
+import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 
 /**
@@ -25,10 +30,22 @@ import org.whole.lang.ui.layout.TableRowLayout;
  */
 public class IfRowFigure extends ContentPaneFigure {
 	public IfRowFigure() {
-		super(new TableRowLayout());
+		super(new TableRowLayout() {
+			@Override
+			protected void setLocation(Rectangle area, int[] x, int[] y) {
+				super.setLocation(area, x, y);
+				y[0] = area.y;
+				childSize[0].width = getColumnWidth(0);
+				childSize[0].height = figAscent+figDescent; 
+			}
+		});
 		initContentPanes(2);
 		
-		add(createContentPane(0));
+		EntityFigure type = new ViewportTrackingEntityFigure(new MonoLayout()
+				.withMinorAlignment(Alignment.LEADING)
+				.withMajorAlignment(Alignment.CENTER));
+		type.add(createContentPane(0));
+		add(type);
 
 		add(createContentPane(1));
 	}
