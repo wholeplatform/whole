@@ -131,11 +131,11 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 	public Dimension getPreferredCellSize(int cellIndex, int wHint, int hHint) {
 		Rectangle r = getCellBounds(cellIndex);
 		int columnIndex = cellIndex - getStartingCellIndex();
-		return columnIndex < getCells() ? new Dimension(r.width, r.height): IEntityFigure.PLACE_HOLDER_DIMENSION;
+		return columnIndex < getCells() && childFigure[columnIndex].isVisible() ? new Dimension(r.width, r.height): IEntityFigure.PLACE_HOLDER_DIMENSION;
 	}
 	public Rectangle getCellBounds(int cellIndex) {
 		int columnIndex = cellIndex - getStartingCellIndex();
-		return columnIndex < getCells() ? getColumnBounds(columnIndex) : IEntityFigure.PLACE_HOLDER_BOUNDS;
+		return columnIndex < getCells() && childFigure[columnIndex].isVisible() ? getColumnBounds(columnIndex) : IEntityFigure.PLACE_HOLDER_BOUNDS;
 	}
 	public int getCellSpacingBefore(int cellIndex) {
 		int columnIndex = cellIndex - getStartingCellIndex();

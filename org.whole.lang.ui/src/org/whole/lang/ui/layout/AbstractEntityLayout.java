@@ -18,8 +18,6 @@
 package org.whole.lang.ui.layout;
 
 import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -91,7 +89,7 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	public void invalidate() {
 		minimumSize = null;
 		preferredSize = null;
-		preferredCache.clear();
+//		preferredCache.clear();
 	}
 	protected void invalidate(IFigure child) {
 		invalidate();
@@ -154,8 +152,8 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 //		return calculateSize(container, wHint, hHint, false); //FIXME ?
 	}
 
-	private SizeKey preferredSizeKey = new SizeKey(null, -1, -1);
-	private Map<SizeKey, BaselinedDimension> preferredCache = new WeakHashMap<AbstractEntityLayout.SizeKey, BaselinedDimension>();
+//	private SizeKey preferredSizeKey = new SizeKey(null, -1, -1);
+//	private Map<SizeKey, BaselinedDimension> preferredCache = new WeakHashMap<AbstractEntityLayout.SizeKey, BaselinedDimension>();
 	protected BaselinedDimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
 //FIXME faster code with minor problems
 //		BaselinedDimension dimension = preferredCache.get(preferredSizeKey.setProperties(container, wHint, hHint));
@@ -368,11 +366,11 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	}
 	public Dimension getPreferredCellSize(int cellIndex, int wHint, int hHint) {
 		int childIndex = cellIndex - getStartingCellIndex();
-		return childIndex < getCells() ? childFigure[childIndex].getPreferredSize(wHint, hHint) : IEntityFigure.PLACE_HOLDER_DIMENSION;
+		return childIndex < getCells() && childFigure[childIndex].isVisible() ? childFigure[childIndex].getPreferredSize(wHint, hHint) : IEntityFigure.PLACE_HOLDER_DIMENSION;
 	}
 	public Rectangle getCellBounds(int cellIndex) {
 		int childIndex = cellIndex - getStartingCellIndex();
-		return childIndex < getCells() ? childFigure[childIndex].getBounds() : IEntityFigure.PLACE_HOLDER_BOUNDS;
+		return childIndex < getCells() && childFigure[childIndex].isVisible() ? childFigure[childIndex].getBounds() : IEntityFigure.PLACE_HOLDER_BOUNDS;
 	}
 	public int getCellSpacingBefore(int cellIndex) {
 		return getPreferredCellSpacingBefore(cellIndex);
