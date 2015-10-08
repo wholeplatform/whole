@@ -64,11 +64,19 @@ public class ViewportTrackingEntityFigure extends EntityFigure {
 
 	protected Rectangle[] childrenBounds;
 	protected Rectangle compositeBounds = null;
+	@SuppressWarnings("unchecked")
 	@Override
 	public void invalidate() {
 		if (childrenBounds == null)
 			childrenBounds = new Rectangle[0];
-		
+
+		List<IFigure> children = getChildren();
+		for (int i = 0; i < childrenBounds.length; i++) {
+			Rectangle.SINGLETON.setBounds(childrenBounds[i]);
+			Rectangle.SINGLETON.translate(getBounds().x, getBounds().y);
+			children.get(i).setBounds(Rectangle.SINGLETON);
+		}
+
 		int size = getChildren().size();
 		if (childrenBounds.length != size)
 			childrenBounds = CompositeUtils.resize(childrenBounds, size, () -> new Rectangle());
@@ -88,6 +96,7 @@ public class ViewportTrackingEntityFigure extends EntityFigure {
 		for (int i = 0; i < childrenBounds.length; i++) {
 			Rectangle.SINGLETON.setBounds(childrenBounds[i]);
 			Rectangle.SINGLETON.translate(amount);
+			Rectangle.SINGLETON.translate(getBounds().x, getBounds().y);
 			children.get(i).setBounds(Rectangle.SINGLETON);
 		}
 		getViewport().validate();
@@ -112,12 +121,16 @@ public class ViewportTrackingEntityFigure extends EntityFigure {
 		if (compositeBounds == null) {
 			List<IFigure> children = getChildren();
 			compositeBounds = new Rectangle(children.get(0).getBounds());
+			compositeBounds.translate(-bounds.x, -bounds.y);
 			for (int i = 0; i < childrenBounds.length; i++) {
 				childrenBounds[i].setBounds(children.get(i).getBounds());
+				childrenBounds[i].translate(-bounds.x, -bounds.y);
 				compositeBounds.union(childrenBounds[i]);
 			}
 		}
 
+		Rectangle compositeBounds = Rectangle.SINGLETON.setBounds(this.compositeBounds);
+		compositeBounds.translate(getBounds().x, getBounds().y);
 		int minDX = bounds.x - compositeBounds.x;
 		int minDY = bounds.y - compositeBounds.y;
 		int maxDX = bounds.right() - compositeBounds.right();
