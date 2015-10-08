@@ -70,10 +70,9 @@ public class ViewportTrackingEntityFigure extends EntityFigure {
 			childrenBounds = new Rectangle[0];
 		
 		int size = getChildren().size();
-		if (childrenBounds.length != size) {
+		if (childrenBounds.length != size)
 			childrenBounds = CompositeUtils.resize(childrenBounds, size, () -> new Rectangle());
-			compositeBounds = null;
-		}
+		compositeBounds = null;
 
 		super.invalidate();
 	}
