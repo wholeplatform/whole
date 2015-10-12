@@ -69,12 +69,13 @@ public class ViewportTrackingEntityFigure extends EntityFigure {
 	public void invalidate() {
 		if (childrenBounds == null)
 			childrenBounds = new Rectangle[0];
-
-		List<IFigure> children = getChildren();
-		for (int i = 0; i < childrenBounds.length; i++) {
-			Rectangle.SINGLETON.setBounds(childrenBounds[i]);
-			Rectangle.SINGLETON.translate(getBounds().x, getBounds().y);
-			children.get(i).setBounds(Rectangle.SINGLETON);
+		else if (compositeBounds != null) {
+			List<IFigure> children = getChildren();
+			for (int i = 0; i < childrenBounds.length; i++) {
+				Rectangle.SINGLETON.setBounds(childrenBounds[i]);
+				Rectangle.SINGLETON.translate(getBounds().x, getBounds().y);
+				children.get(i).setBounds(Rectangle.SINGLETON);
+			}
 		}
 
 		int size = getChildren().size();
