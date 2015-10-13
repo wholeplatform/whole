@@ -21,7 +21,6 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.PaintFigureHelper;
-import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.MonoLayout;
 
 /**
@@ -29,7 +28,7 @@ import org.whole.lang.ui.layout.MonoLayout;
  */
 public class JoinFigure extends NodeFigure {
 	public JoinFigure() {
-		setLayoutManager(new MonoLayout().withMargin(5).withMajorAlignment(Alignment.CENTER));
+		setLayoutManager(new MonoLayout().withMargin(5));
 	}
 
 	public void paintFigure(Graphics g) {

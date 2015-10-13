@@ -54,7 +54,7 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 		this(LabelFactory.createContent());
 	}
 	public TextualFigure(Label label) {
-		this(label, new MonoLayout().withMajorAlignment(Alignment.CENTER));
+		this(label, new MonoLayout().withMinorAlignment(Alignment.CENTER).withMajorAlignment(Alignment.CENTER));
 	}
 	public TextualFigure(Label label, LayoutManager manager) {
 		setLayoutManager(manager);

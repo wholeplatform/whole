@@ -164,7 +164,7 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 		return contentPane;
 	}
 	public IFigure createContentPane(int paneIndex) {
-		return createContentPane(paneIndex, new EntityFigure(new MonoLayout().withMinorAlignment(Alignment.LEADING)) {
+		return createContentPane(paneIndex, new EntityFigure(new MonoLayout()) {
 			public ITabularLayoutServer getTabularLayoutServer() {
 				return getParent() instanceof IEntityFigure ? ((IEntityFigure) getParent()).getTabularLayoutServer() : null;
 			}

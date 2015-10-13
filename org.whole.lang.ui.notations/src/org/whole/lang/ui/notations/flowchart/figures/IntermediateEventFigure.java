@@ -32,7 +32,7 @@ import org.whole.lang.ui.layout.MonoLayout;
  */
 public class IntermediateEventFigure extends NodeFigure {
 	public IntermediateEventFigure(Image eventImage) {
-		setLayoutManager(new MonoLayout().withMargin(5).withMajorAlignment(Alignment.CENTER));
+		setLayoutManager(new MonoLayout().withMargin(5).withMinorAlignment(Alignment.CENTER).withMajorAlignment(Alignment.CENTER));
 		addLabel(eventImage);
 	}
 	protected ConnectionAnchor[] createAnchors() {

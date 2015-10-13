@@ -317,6 +317,11 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 			return ((EntityFigure) childFigure[childIndex]).getMajorAutoresizeWeight();
 		return 0f;
 	}
+	public float getMinorAutoresizeWeight(int childIndex) {
+		if (childFigure[childIndex] instanceof EntityFigure)
+			return ((EntityFigure) childFigure[childIndex]).getMinorAutoresizeWeight();
+		return 0f;
+	}
 
 	public boolean isOrdered() {
 		return false;

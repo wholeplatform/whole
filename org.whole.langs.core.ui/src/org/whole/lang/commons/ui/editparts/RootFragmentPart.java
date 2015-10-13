@@ -43,6 +43,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.StackLayout;
 
 
@@ -135,7 +136,7 @@ public class RootFragmentPart extends AbstractFragmentPart implements LayerConst
 			}
 		};
 		
-		f.setLayoutManager(new StackLayout().withMargin(5));
+		f.setLayoutManager(new StackLayout().withMargin(5).withMinorAlignment(Alignment.CENTER));
 		f.setBackgroundColor(FigureUtilities.lighter(ColorConstants.gray));
 		f.setOpaque(false);
 		f.addLayoutListener(LayoutAnimator.getDefault());

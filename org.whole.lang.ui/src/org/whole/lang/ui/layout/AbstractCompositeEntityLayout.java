@@ -31,7 +31,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 public abstract class AbstractCompositeEntityLayout extends AbstractEntityLayout implements ICompositeEntityLayout {
 	private int spacing;
 	private Alignment majorAlignment = Alignment.LEADING;
-	private Alignment minorAlignment = Alignment.CENTER;
+	private Alignment minorAlignment = Alignment.LEADING;
 	private boolean reversed;
 
 	public Alignment getMajorAlignment() {

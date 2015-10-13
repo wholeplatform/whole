@@ -32,7 +32,7 @@ import org.whole.lang.ui.layout.MonoLayout;
  */
 public class ConditionFigure extends EntityFigure {
 	public ConditionFigure() {
-		setLayoutManager(new MonoLayout().withMargin(20).withMajorAlignment(Alignment.CENTER));
+		setLayoutManager(new MonoLayout().withMargin(20).withMinorAlignment(Alignment.CENTER).withMajorAlignment(Alignment.CENTER));
 	}
 
 	public void paintFigure(Graphics g) {

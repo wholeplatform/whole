@@ -18,6 +18,7 @@
 package org.whole.lang.ui.layout;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.IEntityFigure;
 
@@ -70,11 +71,6 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 		ITabularLayoutServer tls = (parent instanceof IEntityFigure) ? ((IEntityFigure) parent).getTabularLayoutServer() : null;
 		if (tls != null)
 			myTabularLayoutServer = tls;
-	}
-
-	public void invalidate() {
-		super.invalidate();
-//		getMyTabularLayoutServer().invalidateTable();
 	}
 
 	private int startingCellIndex;
@@ -163,16 +159,20 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 		int xi = calculateXLocation(area, getMajorAlignment());
 		for (int i=0; i<children; i++)
 			if (isChildVisible(i)) {
+				int columnWidth = getColumnWidth(i);
+				int widthStretching = (int) ((columnWidth - childSize[i].width) * getMajorAutoresizeWeight(i));
+				int heightStretching = (int) ((figAscent+figDescent - childSize[i].height) * getMinorAutoresizeWeight(i));
+
 				switch (getColumnAlignment(i)) {
 				case FILL:
 				case LEADING:
 					x[i] = xi;
 					break;
 				case TRAILING:
-					x[i] = xi + getColumnWidth(i) - getPreferredColumnWith(i);
+					x[i] = xi + columnWidth - getPreferredColumnWith(i) - widthStretching;
 					break;
 				case CENTER:
-					x[i] = xi + (getColumnWidth(i) - getPreferredColumnWith(i))/2;
+					x[i] = xi + (columnWidth - getPreferredColumnWith(i) - widthStretching)/2;
 					break;
 				}
 				switch (getMinorAlignment()) {
@@ -181,18 +181,35 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 					y[i] = area.y;
 					break;
 				case CENTER:
-					y[i] = area.y + figAscent-childSize[i].height/2;
+					y[i] = area.y + figAscent-childSize[i].height/2-heightStretching/2;
 					break;
 				case MATHLINE:
-					y[i] = area.y + figAscent-ascent(i);
+					y[i] = area.y + figAscent-ascent(i);//-heightStretching/2;//TODO ??
 					break;
 				case TRAILING:
-					y[i] = area.y + figAscent-ascent(i)-descent(i);
+					y[i] = area.y + figAscent-ascent(i)-descent(i)-heightStretching;
 					break;
 				}
+				childSize[i].width += widthStretching;//(int) (widthStretching*getMajorAutoresizeWeight(i));
+				childSize[i].height += heightStretching;//(int) (heightStretching*getMinorAutoresizeWeight(i));
 
-				xi += getColumnWidth(i) + getColumnSpacingBefore(i+1);
+				xi += columnWidth + getColumnSpacingBefore(i+1);
 			}
 	}
 
+	public void invalidate() {
+		super.invalidate();
+//		getMyTabularLayoutServer().invalidateTable();
+
+		if (childFigure != null)
+			for (IFigure cf : childFigure) 
+				if (cf != null && cf.isShowing()) {
+					LayoutManager layoutManager = cf.getLayoutManager();
+					if (layoutManager instanceof IEntityLayout) {
+						IEntityLayout el = (IEntityLayout) layoutManager;
+						if (el.getMajorAutoresizeWeight() != 0.0f || el.getMinorAutoresizeWeight() != 0.0f)
+							cf.invalidate();
+					}
+				}
+	}
 }

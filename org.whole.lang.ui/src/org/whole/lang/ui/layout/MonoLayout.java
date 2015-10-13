@@ -23,6 +23,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author Riccardo Solmi
  */
 public class MonoLayout extends AbstractCompositeEntityLayout {
+	{
+		withMinorAlignment(Alignment.LEADING);
+	}
+
 	@Override
 	protected int getIndent() {
 		return isChild0Visible() ? indent(0) : 0;

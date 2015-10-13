@@ -55,7 +55,7 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 		this(LabelFactory.createContent());
 	}
 	public TextualNodeFigure(Label label) {
-		this(label, new MonoLayout().withMajorAlignment(Alignment.CENTER));
+		this(label, new MonoLayout().withMinorAlignment(Alignment.CENTER).withMajorAlignment(Alignment.CENTER));
 	}
 	public TextualNodeFigure(Label label, LayoutManager manager) {
 		setLayoutManager(manager);
