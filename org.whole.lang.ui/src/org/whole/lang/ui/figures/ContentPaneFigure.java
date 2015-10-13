@@ -29,17 +29,17 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.Toggle;
-import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
 import org.whole.lang.ui.layout.MonoLayout;
+import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.ui.util.AnimableRunnable;
 
 /**
  * @author Riccardo Solmi
  */
 public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
-	protected IFigure[] contentPanes = null;
+	protected IEntityFigure[] contentPanes = null;
 	protected int[] toggleIndexOfContentPane;
 	private List<Toggle> foldingToggles = Collections.emptyList();
 
@@ -156,24 +156,33 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	}
 
 	public void initContentPanes(int size) {
-		contentPanes = new IFigure[size];
+		contentPanes = new IEntityFigure[size];
 	}
-	public IFigure createContentPane(int paneIndex, Border border) {
-		IFigure contentPane = createContentPane(paneIndex);
+	public IEntityFigure createContentPane(int paneIndex) {
+		return createContentPane(paneIndex, ViewportTracking.NONE);
+	}
+	public IEntityFigure createContentPane(int paneIndex, Border border) {
+		IEntityFigure contentPane = createContentPane(paneIndex);
 		contentPane.setBorder(border);
 		return contentPane;
 	}
-	public IFigure createContentPane(int paneIndex) {
-		return createContentPane(paneIndex, new EntityFigure(new MonoLayout()) {
+	public IEntityFigure createContentPane(int paneIndex, ViewportTracking viewportTracking) {
+		MonoLayout monoLayout = new MonoLayout();
+		if (viewportTracking.isHorizontal())
+			monoLayout.withMinorAutoresizeWeight(1.0f);
+		if (viewportTracking.isVertical())
+			monoLayout.withMajorAutoresizeWeight(1.0f);
+
+		return createContentPane(paneIndex, new EntityFigure(monoLayout) {
 			public ITabularLayoutServer getTabularLayoutServer() {
 				return getParent() instanceof IEntityFigure ? ((IEntityFigure) getParent()).getTabularLayoutServer() : null;
 			}
 			public ITabularLayoutClient getTabularLayoutClient() {
 				return ((IEntityFigure) getChildren().get(0)).getTabularLayoutClient();
 			}
-		});
+		}.withViewportTracking(viewportTracking));
 	}
-	public IFigure createContentPane(int paneIndex, IFigure figure) {
+	public IEntityFigure createContentPane(int paneIndex, IEntityFigure figure) {
 		return contentPanes[paneIndex] = figure;
 	}
 	public IFigure createNestedContentPanes(int firstPaneIndex, IEntityFigure figure) {
@@ -191,7 +200,7 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	public int getContentPanesSize() {
 		return contentPanes != null ? contentPanes.length : 1;
 	}
-	public IFigure getContentPane(int paneIndex) {
+	public IEntityFigure getContentPane(int paneIndex) {
 		return contentPanes != null ? contentPanes[paneIndex] : this;
 	}
 }

@@ -18,8 +18,8 @@
 package org.whole.lang.math.ui.figures;
 
 import org.eclipse.draw2d.Border;
-import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.OverQualifiedFigure;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
@@ -38,7 +38,7 @@ public class FixedApplicationCompositeFigure extends ContentPaneFigure {
 
 		setLayoutManager(new RowLayout().withSpacing(border != null ? 1 : 8));
 		add(new OverQualifiedFigure("Math", name));
-		IFigure compositeFigure = new StringSeparatedCompositeRowFigure(
+		IEntityFigure compositeFigure = new StringSeparatedCompositeRowFigure(
 				separator, new FlowLayout().withMarginLeft(5).withMarginRight(5).withSpacing(8));
 		if (border != null)
 			compositeFigure.setBorder(border);

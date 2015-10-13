@@ -20,10 +20,11 @@ package org.whole.lang.models.ui.figures;
 import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.ViewportTrackingEntityFigure;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
+import org.whole.lang.ui.layout.ViewportTracking;
 
 /**
  * @author Riccardo Solmi
@@ -35,9 +36,9 @@ public class SimpleEntityTableFigure extends ContentPaneFigure {
 
 		add(createContentPane(2));
 
-		EntityFigure type = new ViewportTrackingEntityFigure(new UnderColumnLayout()
+		IEntityFigure type = new EntityFigure(new UnderColumnLayout()
 				.withMinorAlignment(Alignment.LEADING)
-				.withAutoresizeWeight(1f));
+				.withAutoresizeWeight(1f)).withViewportTracking(ViewportTracking.BOTH);
 		type.add(createContentPane(1, new MarginBorder(0,4,0,0)));
 		type.add(createContentPane(0));
 		add(type);

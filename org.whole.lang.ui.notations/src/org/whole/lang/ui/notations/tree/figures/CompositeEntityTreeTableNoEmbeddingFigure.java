@@ -30,6 +30,7 @@ import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -56,7 +57,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 		add(createContentPane(0, createCompositeFigure()));
 	}
 
-	protected IFigure createCompositeFigure() {
+	protected IEntityFigure createCompositeFigure() {
 		CompositeFigure figure = new CompositeFigure(false);
 		figure.getLayoutManager().withSpacing(2)
 				.withMarginLeft(DrawUtils.SPACING*2).withMarginRight(4);

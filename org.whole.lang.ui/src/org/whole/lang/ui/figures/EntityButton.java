@@ -137,7 +137,7 @@ public class EntityButton extends Clickable implements IEntityFigure {
 	public int getContentPanesSize() {
 		return 1;
 	}
-	public IFigure getContentPane(int paneIndex) {
+	public IEntityFigure getContentPane(int paneIndex) {
 		return paneIndex == 0 ? this : null;
 	}
 	public void setContentPaneVisible(int paneIndex, boolean visible) {

@@ -15,22 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.ui.figures;
-
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.TableRowLayout;
-import org.whole.lang.ui.layout.ViewportTracking;
+package org.whole.lang.ui.layout;
 
 /**
  * @author Riccardo Solmi
  */
-public class IfRowFigure extends ContentPaneFigure {
-	public IfRowFigure() {
-		super(new TableRowLayout().withMinorAlignment(Alignment.LEADING));
-		initContentPanes(2);
-		
-		add(createContentPane(0, ViewportTracking.BOTH));
-		add(createContentPane(1));
+public enum ViewportTracking {
+	NONE, HORIZONTAL, VERTICAL, BOTH;
+
+	public boolean isHorizontal() {
+		return equals(HORIZONTAL) || equals(BOTH);
+	}
+	public boolean isVertical() {
+		return equals(VERTICAL) || equals(BOTH);
 	}
 }

@@ -17,8 +17,8 @@
  */
 package org.whole.lang.queries.ui.figures;
 
-import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.IQualifiedFigure;
 import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
 import org.whole.lang.ui.layout.RowLayout;
@@ -41,7 +41,7 @@ public class AssignableTypeTestFigure extends ContentPaneFigure implements IQual
 		entityTypeFigure.setQualifierName(name);
 	}
 	
-	public Label getNameLabel() {
+	public EntityLabel getNameLabel() {
 		return entityTypeFigure.getNameLabel();
 	}
 }

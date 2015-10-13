@@ -17,19 +17,18 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.layout.OverLayout;
 
 /**
  * @author Riccardo Solmi
  */
 public class OverQualifiedDataEntityFigure extends ContentPaneFigure implements IQualifiedFigure {
-	private Label qualifierLabel;
+	private EntityLabel qualifierLabel;
 
 	public OverQualifiedDataEntityFigure() {
 		this(LabelFactory.createModule(), LabelFactory.createDeclaration());
 	}
-	public OverQualifiedDataEntityFigure(Label qualifierLabel, Label nameLabel) {
+	public OverQualifiedDataEntityFigure(EntityLabel qualifierLabel, EntityLabel nameLabel) {
 		super(new OverLayout());
 		initContentPanes(1);
 		
@@ -47,7 +46,7 @@ public class OverQualifiedDataEntityFigure extends ContentPaneFigure implements 
 			qualifierLabel.setVisible(false);
 	}
 
-	public Label getNameLabel() {
-		return (Label) getContentPane(0);
+	public EntityLabel getNameLabel() {
+		return (EntityLabel) getContentPane(0);
 	}
 }

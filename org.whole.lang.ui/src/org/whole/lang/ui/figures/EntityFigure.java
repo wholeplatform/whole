@@ -19,6 +19,7 @@ package org.whole.lang.ui.figures;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.TreeSearch;
@@ -27,6 +28,7 @@ import org.whole.lang.ui.layout.EntityLayoutAdapter;
 import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
+import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
 import org.whole.lang.ui.treesearch.ITreeSearch;
 
@@ -133,12 +135,31 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		return getLayoutManager().getMinorAutoresizeWeight();
 	}
 
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public EntityFigure withViewportTracking(ViewportTracking viewportTracking) {
+		viewportTrackingStrategy = viewportTracking == ViewportTracking.NONE ?
+				IViewportTrackingStrategy.IDENTITY : new ViewportTrackingStrategy(this, viewportTracking);
+		return this;
+	}
+
+	@Override
+	public void invalidate() {
+		viewportTrackingStrategy.onInvalidate();
+
+		super.invalidate();
+	}
+	@Override
+	protected void paintChildren(Graphics graphics) {
+		viewportTrackingStrategy.onPaintChildren(graphics);
+
+		super.paintChildren(graphics);
+	}
 
 	//TODO begin AbstractContentPaneFigure
 		public int getContentPanesSize() {
 			return 1;
 		}
-		public IFigure getContentPane(int paneIndex) {
+		public IEntityFigure getContentPane(int paneIndex) {
 			return paneIndex == 0 ? this : null;
 		}
 		public void setContentPaneVisible(int paneIndex, boolean visible) {

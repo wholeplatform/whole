@@ -19,10 +19,10 @@ package org.whole.lang.ui.notations.flowchart.figures;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.AnchorFactory;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -48,7 +48,7 @@ public class WhileControlFigure extends NodeFigure {
 				AnchorFactory.createTopOrBottomMiddleAnchor(this)};
 	}
 
-	public IFigure createContentPane(int index) {
+	public IEntityFigure createContentPane(int index) {
 		if (index == 0)
 			return contentPanes[0] = new ConditionFigure();
 

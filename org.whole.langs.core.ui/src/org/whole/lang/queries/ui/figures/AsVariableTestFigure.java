@@ -17,9 +17,9 @@
  */
 package org.whole.lang.queries.ui.figures;
 
-import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.IQualifiedFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.OverLayout;
@@ -29,7 +29,7 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class AsVariableTestFigure extends ContentPaneFigure implements IQualifiedFigure{
-	private Label environmentLabel;
+	private EntityLabel environmentLabel;
 
 	public AsVariableTestFigure(String label) {
 		super(new RowLayout().withSpacing(4));
@@ -53,7 +53,7 @@ public class AsVariableTestFigure extends ContentPaneFigure implements IQualifie
 		} else
 			environmentLabel.setVisible(false);
 	}
-	public Label getNameLabel() {
-		return (Label) getContentPane(0);
+	public EntityLabel getNameLabel() {
+		return (EntityLabel) getContentPane(0);
 	}
 }

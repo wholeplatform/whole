@@ -18,7 +18,6 @@
 package org.whole.lang.patterns.ui.figures;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Label;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.EntityFigure;
@@ -33,7 +32,7 @@ import org.whole.lang.ui.layout.RowLayout;
  * @author Riccardo Solmi
  */
 public class PointcutStepFigure extends ContentPaneFigure implements IQualifiedFigure {
-	private Label namespaceLabel;
+	private EntityLabel namespaceLabel;
 
 	public PointcutStepFigure() {
 		super(new RowLayout().withSpacing(2));
@@ -58,8 +57,8 @@ public class PointcutStepFigure extends ContentPaneFigure implements IQualifiedF
 		} else
 			namespaceLabel.setVisible(false);
 	}
-	public Label getNameLabel() {
-		return (Label) getContentPane(0);
+	public EntityLabel getNameLabel() {
+		return (EntityLabel) getContentPane(0);
 	}
 
 	public void paintFigure(Graphics g) {

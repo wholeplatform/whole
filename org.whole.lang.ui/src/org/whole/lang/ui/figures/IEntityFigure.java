@@ -43,7 +43,7 @@ public interface IEntityFigure extends IFigure {
 	public ITabularLayoutClient getTabularLayoutClient();
 
 	public int getContentPanesSize();
-	public IFigure getContentPane(int paneIndex);
+	public IEntityFigure getContentPane(int paneIndex);
 	public void setContentPaneVisible(int paneIndex, boolean visible);
 
 	public boolean isInteractiveEdit();

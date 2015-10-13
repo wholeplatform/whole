@@ -17,12 +17,21 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Graphics;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IQualifiedFigure extends IFigure {
-	public void setQualifierName(String name);
-	public EntityLabel getNameLabel();
+public interface IViewportTrackingStrategy {
+	public static IViewportTrackingStrategy IDENTITY = new IViewportTrackingStrategy() {
+		@Override
+		public void onInvalidate() {
+		}
+		@Override
+		public void onPaintChildren(Graphics graphics) {
+		}		
+	};
+
+	void onInvalidate();
+	void onPaintChildren(Graphics graphics);
 }

@@ -19,7 +19,6 @@ package org.whole.lang.ui.notations.tree.figures;
 
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -27,6 +26,7 @@ import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -52,7 +52,7 @@ public class DataEntityTreeTableFigure extends NodeFigure {
 		add(createContentPane(0, createDataFigure()));
 	}
 
-	protected IFigure createDataFigure() {
+	protected IEntityFigure createDataFigure() {
 		EntityLabel figure = LabelFactory.createLiteral();
 		figure.setBorder(new MarginBorder(1, 5, 1, 5));
 		return figure;
