@@ -17,15 +17,18 @@
  */
 package org.whole.lang.json;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.lang.builders.ModelBuilderOperation;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.codebase.StringPersistenceProvider;
-import org.whole.lang.json.codebase.JSONPersistenceKit;
+import org.whole.lang.json.codebase.JSONLDPersistenceKit;
+import org.whole.lang.json.codebase.JSONSourcePersistenceKit;
 import org.whole.lang.json.util.JSONGeneratorBuilderOperation;
 import org.whole.lang.json.util.JSONParserTemplateFactory;
 import org.whole.lang.matchers.Matcher;
@@ -34,6 +37,7 @@ import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.templates.ModelTemplate;
 import org.whole.lang.text.codebase.TextSourcePersistenceKit;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -41,8 +45,14 @@ import com.fasterxml.jackson.core.JsonGenerator;
 /**
  * @author Riccardo Solmi
  */
-public class JSONPersistenceTest {
+public class JSONPersistencesTest {
 	String sampleString;
+	String[] models = new String[] {
+			"org/whole/lang/queries/QueriesModel.xwl",
+			"org/whole/lang/html/HTML5Actions.xwl",
+			"org/whole/lang/javascript/JavaScriptSemantics.xwl",
+			"org/whole/lang/patterns/PatternsSemantics.xwl"
+	};
 
     @BeforeClass
     public static void deployWholePlatform() {
@@ -58,7 +68,7 @@ public class JSONPersistenceTest {
 
     @Test
     public void testStreamAndBuildParserEquivalence() throws Exception {
-		IEntity sampleModelByFactory = JSONPersistenceKit.instance().readModel(
+		IEntity sampleModelByFactory = JSONSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 
 		ModelBuilderOperation op = new ModelBuilderOperation();
@@ -70,7 +80,7 @@ public class JSONPersistenceTest {
 
     @Test
     public void testParseAndGenerateWithPrettyPrinter() throws Exception {
-		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
+		IEntity sampleModel = JSONSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		
 		assertEquals(sampleString, PrettyPrinterOperation.toPrettyPrintString(sampleModel));
@@ -78,7 +88,7 @@ public class JSONPersistenceTest {
 
     @Test
     public void testParseAndGenerateWithBuilderOperation() throws Exception {
-		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
+		IEntity sampleModel = JSONSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		
 
@@ -95,11 +105,27 @@ public class JSONPersistenceTest {
 
     @Test
     public void testPersistenceKit() throws Exception {
-		IEntity sampleModel = JSONPersistenceKit.instance().readModel(
+		IEntity sampleModel = JSONSourcePersistenceKit.instance().readModel(
 				new StreamPersistenceProvider(getClass().getResourceAsStream("sample.json")));
 		
 		StringPersistenceProvider pp = new StringPersistenceProvider();
-		JSONPersistenceKit.instance().writeModel(sampleModel, pp);
+		JSONSourcePersistenceKit.instance().writeModel(sampleModel, pp);
 		assertEquals(sampleString, pp.getStore());
+	}
+
+    @Test
+    public void testJSONLDPersistence() throws Exception {
+		StringPersistenceProvider pp = new StringPersistenceProvider();
+
+		for (String modelPath : models) {
+	    	IEntity sourceModel = XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider(modelPath));
+	
+	    	pp.delete();
+			JSONLDPersistenceKit.instance().writeModel(sourceModel, pp);
+			IEntity targetModel = JSONLDPersistenceKit.instance().readModel(pp);
+
+			assertTrue(Matcher.forceMatch(sourceModel, targetModel));
+		}
 	}
 }

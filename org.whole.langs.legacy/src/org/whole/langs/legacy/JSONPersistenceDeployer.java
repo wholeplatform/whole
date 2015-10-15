@@ -17,7 +17,8 @@
  */
 package org.whole.langs.legacy;
 
-import org.whole.lang.json.codebase.JSONPersistenceKit;
+import org.whole.lang.json.codebase.JSONLDPersistenceKit;
+import org.whole.lang.json.codebase.JSONSourcePersistenceKit;
 import org.whole.lang.json.reflect.JSONLanguageKit;
 import org.whole.lang.json.visitors.JSONPrettyPrinterVisitor;
 import org.whole.lang.operations.IOperation;
@@ -36,6 +37,7 @@ public class JSONPersistenceDeployer extends AbstractLanguageDeployer {
 			}
 		});
 
-		platform.addPersistenceKit("org.whole.lang.json.JSONSourceEditor", JSONPersistenceKit.instance());
+		platform.addPersistenceKit("org.whole.lang.json.JSONSourceEditor", JSONSourcePersistenceKit.instance());
+		platform.addPersistenceKit("org.whole.lang.json.JSONLDEditor", JSONLDPersistenceKit.instance());
 	}
 }

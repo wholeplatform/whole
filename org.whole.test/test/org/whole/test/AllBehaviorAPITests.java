@@ -31,7 +31,7 @@ import org.whole.lang.iterators.ScannerTest;
 import org.whole.lang.java.JDTJavaSourcePersistenceTest;
 import org.whole.lang.java.codebase.JavaClassTemplateFactoryTest;
 import org.whole.lang.java.util.JavaReflectUtilsTest;
-import org.whole.lang.json.JSONPersistenceTest;
+import org.whole.lang.json.JSONPersistencesTest;
 import org.whole.lang.matchers.MatcherTest;
 import org.whole.lang.matchers.tests.GenericMatcherTestSuite;
 import org.whole.lang.operations.CloneModelOperationTest;
@@ -45,7 +45,7 @@ import org.whole.lang.util.StringUtilsTest;
 import org.whole.lang.visitors.TraversalFactoryTest;
 
 /**
- * Runs: 122
+ * Runs: 123
  * Errors: 1
  * Failures: 0
  * 
@@ -76,7 +76,7 @@ import org.whole.lang.visitors.TraversalFactoryTest;
 	JDTUtilsTest.class,
 	JDTJavaSourcePersistenceTest.class,
 	PersistenceTest.class,
-	JSONPersistenceTest.class,
+	JSONPersistencesTest.class,
 	PushPullOperationsTest.class
 })
 public class AllBehaviorAPITests {

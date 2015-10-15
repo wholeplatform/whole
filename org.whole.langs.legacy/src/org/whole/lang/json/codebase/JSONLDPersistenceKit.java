@@ -17,9 +17,10 @@
  */
 package org.whole.lang.json.codebase;
 
-import org.whole.lang.codebase.AbstractSpecificPersistenceKit;
+import org.whole.lang.codebase.AbstractGenericPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.json.reflect.JSONLanguageKit;
+import org.whole.lang.json.util.JSONLDEntityDecoder;
+import org.whole.lang.json.util.JSONLDEntityEncoder;
 import org.whole.lang.json.util.JSONParserTemplateFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -31,37 +32,30 @@ import com.fasterxml.jackson.core.JsonParser.Feature;
 /**
  * @author Riccardo Solmi
  */
-public class JSONSourcePersistenceKit extends AbstractSpecificPersistenceKit {
+public class JSONLDPersistenceKit extends AbstractGenericPersistenceKit {
 	private static class SingletonHolder {
-		private static final JSONSourcePersistenceKit instance = new JSONSourcePersistenceKit();
+		private static final JSONLDPersistenceKit instance = new JSONLDPersistenceKit();
 	}
-	public static final JSONSourcePersistenceKit instance() {
+	public static final JSONLDPersistenceKit instance() {
 		return SingletonHolder.instance;
 	}
-	private JSONSourcePersistenceKit() {
-		super("JSON", "json", JSONLanguageKit.URI);
-	}
-
-	public boolean isMultilanguage() {
-		return false;
+	private JSONLDPersistenceKit() {
+		super("JSON-LD", "jsonld");
 	}
 
 	protected IEntity doReadModel(IPersistenceProvider pp) throws Exception {
 		JsonFactory factory = new JsonFactory();
-		//factory.enable(JsonParser.Feature.ALLOW_COMMENTS);
 		JsonParser parser = factory.createParser(pp.getInputStream());
 		parser.disable(Feature.AUTO_CLOSE_SOURCE);
 		try {
-			return new JSONParserTemplateFactory(parser).create();
+			return new JSONLDEntityDecoder().clone(new JSONParserTemplateFactory(parser).create());
 		} finally {
 			parser.close();
 		}
 	}
 
 	protected void doWriteModel(IEntity model, IPersistenceProvider pp) throws Exception {
-		if (!model.wGetLanguageKit().getURI().equals(JSONLanguageKit.URI))
-			throw new IllegalArgumentException("A JSON model is required. Was: "+model.wGetLanguageKit());
-
-		PrettyPrinterOperation.prettyPrint(model, pp.getOutputStream(), pp.getEncoding());
+		PrettyPrinterOperation.prettyPrint(
+				new JSONLDEntityEncoder().clone(model), pp.getOutputStream(), pp.getEncoding());
 	}
 }
