@@ -38,8 +38,8 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -254,7 +254,17 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		IEntity root = (IEntity) contents;
 		super.setContents(wrapContents(root));
 		updateModelObserver(root);
+		invalidateTree();
 	}
+
+	protected void invalidateTree() {
+		RootEditPart rootPart = (RootEditPart) super.getRootEditPart();
+		rootPart.getFigure().invalidateTree();
+		rootPart.getFigure().validate();
+		getFigureCanvas().getViewport().invalidateTree();
+		getFigureCanvas().getViewport().validate();
+	}
+
 	public boolean hasContents() {
 		return !CoreMetaModelsDeployer.STATUS_URI.equals(getEntityContents().wGetLanguageKit().getURI());
 	}
@@ -357,6 +367,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	public void rebuildNotation(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
 		entityPart.rebuild();
+		invalidateTree();
 	}
 
 	// End Block Shared With E4TreeViewer
