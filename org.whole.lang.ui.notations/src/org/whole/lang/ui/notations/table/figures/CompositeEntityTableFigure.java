@@ -19,7 +19,6 @@ package org.whole.lang.ui.notations.table.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -56,16 +55,6 @@ public class CompositeEntityTableFigure extends ContentPaneFigure {
 			tableFigure.add(createTableHeadersRow(eed), TableLayout.Placement.HEADER);
 		initColumnAlignments(tableFigure.getLayoutManager(), eed);
 		add(createContentPane(0, tableFigure));
-	}
-
-	@Override
-	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 0) {
-			IFigure contentPane = getContentPane(paneIndex);
-			boolean visible = !contentPane.isVisible();
-			contentPane.setVisible(visible);
-		} else
-			super.toggleVisibility(paneIndex);
 	}
 
 	protected TableFigure createTableFigure(int columns) {
@@ -120,6 +109,7 @@ public class CompositeEntityTableFigure extends ContentPaneFigure {
 		case SHORT:
 			tableLayout.withColumnAlignment(i, Alignment.TRAILING);
 			break;
+		default:
 		}
 	}
 

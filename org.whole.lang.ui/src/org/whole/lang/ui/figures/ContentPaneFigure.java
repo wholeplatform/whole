@@ -18,13 +18,13 @@
 package org.whole.lang.ui.figures;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.Border;
+import org.eclipse.draw2d.ButtonModel;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
 import org.eclipse.draw2d.LayoutManager;
@@ -34,13 +34,16 @@ import org.whole.lang.ui.layout.ITabularLayoutServer;
 import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.ui.util.AnimableRunnable;
+import org.whole.lang.util.CompositeUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
+	public static final int[] EMPTY_INT_ARRAY = new int[0];
+
 	protected IEntityFigure[] contentPanes = null;
-	protected int[] toggleIndexOfContentPane;
+	protected int[] toggleIndexOfContentPane = EMPTY_INT_ARRAY;
 	private List<Toggle> foldingToggles = Collections.emptyList();
 
 	protected ContentPaneFigure() {
@@ -73,13 +76,16 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	}
 
 	protected int toggleIndexOf(int paneIndex) {
-		return toggleIndexOfContentPane == null ? -1 : toggleIndexOfContentPane[paneIndex];
+		return paneIndex >= toggleIndexOfContentPane.length ? -1 : toggleIndexOfContentPane[paneIndex];
 	}
 	protected void bindFoldingToggle(int toggleIndex, int... paneIndexes) {
-		if (toggleIndexOfContentPane == null && paneIndexes.length > 0) {
-			toggleIndexOfContentPane = new int[contentPanes.length];
-			Arrays.fill(toggleIndexOfContentPane, -1);
-		}
+		int maxIndex = contentPanes.length-1;
+		for (int i = 0; i < paneIndexes.length; i++)
+			if (paneIndexes[i] > maxIndex)
+				maxIndex = paneIndexes[i];
+
+		toggleIndexOfContentPane = CompositeUtils.grow(toggleIndexOfContentPane, maxIndex+1, -1);
+
 		for (int paneIndex : paneIndexes)
 			if (paneIndex >= 0 && paneIndex < toggleIndexOfContentPane.length)
 				toggleIndexOfContentPane[paneIndex] = toggleIndex;
@@ -105,7 +111,13 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 	}
 
 	public void clickFoldingToggle(final int toggleIndex) {
-		getFoldingToggle(toggleIndex).doClick();
+		ButtonModel model = getFoldingToggle(toggleIndex).getModel();
+		model.setSelected(!model.isSelected());
+		for (int i = toggleIndexOfContentPane.length-1; i >= 0; i--)
+			if (toggleIndexOfContentPane[i] == toggleIndex) {
+				toggleVisibility(i);
+				break;
+			}
 	}
 
 //	public void add(IFigure figure, Object constraint, int index) {

@@ -77,14 +77,14 @@ public class SynchFigure extends ContentPaneFigure {
 
         Toggle toggleFigure = new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND);
 		toggleFigure.setBorder(new MarginBorder(1, 2, 1, 3));
-		add(createFoldingToggle(toggleFigure, 5, 0, 2));
+		add(createFoldingToggle(toggleFigure, 7, 0, 1, 2, 3, 4, 6));
 
 		clickFoldingToggle(0);
     }
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 5) {
+		if (paneIndex == 7) {
 			boolean isVisible = configurationFigure.isVisible();
 			configurationFigure.setVisible(!isVisible);
 			getContentPane(6).setVisible(!isVisible);

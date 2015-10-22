@@ -44,7 +44,7 @@ public class RepeatFigure extends ContentPaneFigure {
 		super(new OverLayout(false, true).withSpacing(6));
 		initContentPanes(4);
 		
-		EntityFigure row = new EntityFigure(new RowLayout().withAutoresizeWeight(1f));
+		EntityFigure row = new EntityFigure(new RowLayout().withMajorAutoresizeWeight(1f));
 		row.addContentLight("[");
 		row.add(createContentPane(0));
 		row.addContentLight("..");

@@ -57,8 +57,7 @@ public abstract class AbstractEntityRegistry implements IEntityRegistry {
 
 	public void put(IEntity prototype) {
 		int index = prototype.wGetEntityDescriptor().getOrdinal();
-		if (index >= registry.length)
-			registry = CompositeUtils.grow(registry, index+1, null);
+		registry = CompositeUtils.grow(registry, index+1, null);
 		registry[index] = prototype;
 	}
 

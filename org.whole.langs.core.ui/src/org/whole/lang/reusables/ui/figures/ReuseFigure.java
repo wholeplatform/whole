@@ -79,7 +79,7 @@ public class ReuseFigure extends ContentPaneFigure {
         EntityFigure actionsFigure = new EntityFigure(new ColumnLayout().withSpacing(4));
         Toggle toggleFigure = new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND);
 		toggleFigure.setBorder(new MarginBorder(1, 2, 1, 3));
-		actionsFigure.add(createFoldingToggle(toggleFigure, 5, 0, 2));
+		actionsFigure.add(createFoldingToggle(toggleFigure, 4, 0, 2));//5, 0, 2));
 		actionsFigure.add(new EntityButton(linkListener));
         add(actionsFigure);
 
@@ -88,7 +88,7 @@ public class ReuseFigure extends ContentPaneFigure {
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 5) {
+		if (paneIndex == 4) {//5) {
 			boolean isVisible = configurationFigure.isVisible();
 			configurationFigure.setVisible(!isVisible);
 //			getContentPane(4).setVisible(!isVisible);

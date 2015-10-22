@@ -37,17 +37,17 @@ public abstract class ManagedContentPaneFigure extends ContentPaneFigure {
 	}
 
 	protected Toggle createVisibilityToggle() {
-		return createFoldingToggle(new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), 1);
+		return createFoldingToggle(new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), getVisibilityPaneIndex());
 	}
 	protected void initVisibilityToggle() {
 		if (visibilityManager.isChildrenVisibilityInitiallyEnabled())
-			clickFoldingToggle(1);
+			clickFoldingToggle(toggleIndexOf(getVisibilityPaneIndex()));
 	}
 	protected Toggle getVisibilityToggle() {
-		return getFoldingToggle(1);
+		return getFoldingToggle(toggleIndexOf(getVisibilityPaneIndex()));
 	}
 	protected int getVisibilityPaneIndex() {
-		return 1;
+		return getContentPanesSize();
 	}
 
 	public void setContentPaneVisible(int paneIndex, boolean visible) {

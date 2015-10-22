@@ -153,18 +153,18 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 		initVisibilityToggle();
 	}
 
-//
-	private int visibilityToggleIndex;
-	protected int getVisibilityToggleIndex() {
-		return visibilityToggleIndex;
+
+	private int visibilityTag;
+	protected int getVisibilityTag() {
+		return visibilityTag;
 	}
-	protected Toggle createVisibilityToggle(int toggleIndex) {
+	protected Toggle createVisibilityToggle(int tag) {
 		return createFoldingToggle(
-				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), visibilityToggleIndex = toggleIndex);
+				new EntityToggle(WholeImages.ARROW_COLLAPSE, WholeImages.ARROW_EXPAND), visibilityTag = tag);
 	}
 	protected void initVisibilityToggle() {
 		if (visibilityManager!=null && visibilityManager.isChildrenVisibilityInitiallyEnabled())
-			clickFoldingToggle(1);
+			clickFoldingToggle(toggleIndexOf(getVisibilityTag()));
 	}
 	public void setContentPaneVisible(int paneIndex, boolean visible) {
 		((IFigure) features.getChildren().get(paneIndex)).setVisible(visible);
@@ -189,7 +189,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == getVisibilityToggleIndex()) {
+		if (paneIndex == getVisibilityTag()) {
 			int visibleSize = contentPanes.length;
 			if (getFoldingToggle(1).isSelected())
 				for (int i=0, size=contentPanes.length; i<size; i++) {
@@ -203,14 +203,14 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 					setContentPaneVisible(i, true);
 
 			((ICompositeEntityLayout) getLayoutManager()).withSpacing(DrawUtils.SPACING + DrawUtils.EDGE_SPACING * visibleSize);
-		} else if (paneIndex < 0 || paneIndex >= getContentPanesSize()) {
+		} else if (paneIndex == getContentPanesSize()) {
 			boolean visible = getFeaturesFigure().isVisible();
 			getContentsFigure().setVisible(!visible);
 			getFeaturesFigure().setVisible(!visible);			
 		} else
 			super.toggleVisibility(paneIndex);
 	}
-//
+
 
 	protected IFigure createFeaturesOutline(EntityDescriptor<?> ed, ActionListener linkListener) {
 		int featureNum = ed.childFeatureSize();

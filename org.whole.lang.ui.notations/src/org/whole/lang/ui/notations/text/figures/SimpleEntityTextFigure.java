@@ -47,7 +47,7 @@ public class SimpleEntityTextFigure extends ManagedContentPaneFigure {
 			return;
 		}
 		EntityFigure typeRow = new EntityFigure(new RowLayout().withSpacing(3));
-		typeRow.add(createFoldingToggle(0));
+		typeRow.add(createFoldingToggle(getVisibilityPaneIndex()+1));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.addContentLight("{");
 		typeRow.add(createVisibilityToggle());
@@ -86,7 +86,7 @@ public class SimpleEntityTextFigure extends ManagedContentPaneFigure {
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 0) {
+		if (paneIndex == getVisibilityPaneIndex()+1) {
 			boolean visible = !childrenFigure.isVisible();
 			delimiter1.setVisible(!visible);
 			childrenFigure.setVisible(visible);

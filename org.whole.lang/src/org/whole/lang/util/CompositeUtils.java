@@ -27,6 +27,9 @@ import java.util.function.Supplier;
 public class CompositeUtils {
 	@SuppressWarnings("unchecked")
 	public static <T> T[] resize(T[] array, int length, Supplier<T> fillElementSupplier) {
+		if (array.length == length)
+			return array;
+
 		Class<T> componentType = (Class<T>) array.getClass().getComponentType();
 		T[] newArray = (T[]) Array.newInstance(componentType, length);
 		System.arraycopy(array, 0, newArray, 0, Math.min(array.length, newArray.length));
@@ -34,13 +37,34 @@ public class CompositeUtils {
 			Arrays.fill(newArray, array.length, newArray.length, fillElementSupplier.get());
 		return newArray;
 	}
+	public static int[] resize(int[] array, int length, Supplier<Integer> fillElementSupplier) {
+		if (array.length == length)
+			return array;
+		
+		int[] newArray = new int[length];
+		System.arraycopy(array, 0, newArray, 0, Math.min(array.length, newArray.length));
+		if (array.length < newArray.length)
+			Arrays.fill(newArray, array.length, newArray.length, fillElementSupplier.get());
+		return newArray;
+	}
+	public static boolean[] resize(boolean[] array, int length, Supplier<Boolean> fillElementSupplier) {
+		if (array.length == length)
+			return array;
+
+		boolean[] newArray = new boolean[length];
+		System.arraycopy(array, 0, newArray, 0, Math.min(array.length, newArray.length));
+		if (array.length < newArray.length)
+			Arrays.fill(newArray, array.length, newArray.length, fillElementSupplier.get());
+		return newArray;
+	}
+
 	public static <T> T[] grow(T[] array, int length, T fillElement) {
-		return resize(array, length, () -> fillElement);
+		return array.length >= length ? array : resize(array, length, () -> fillElement);
+	}
+	public static int[] grow(int[] array, int length, int fillElement) {
+		return array.length >= length ? array : resize(array, length, () -> fillElement);
 	}
 	public static boolean[] grow(boolean[] array, int length, boolean fillElement) {
-		boolean[] newArray = new boolean[length];
-		System.arraycopy(array, 0, newArray, 0, array.length);
-		Arrays.fill(newArray, array.length, newArray.length, fillElement);
-		return newArray;
+		return array.length >= length ? array : resize(array, length, () -> fillElement);
 	}
 }

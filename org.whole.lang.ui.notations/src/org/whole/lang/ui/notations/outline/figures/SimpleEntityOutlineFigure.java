@@ -52,7 +52,7 @@ public class SimpleEntityOutlineFigure extends ManagedContentPaneFigure {
 		initContentPanes(childSize);
 
 		EntityFigure typeRow = new EntityFigure(new RowLayout().withSpacing(4));
-		typeRow.add(createFoldingToggle(0));
+		typeRow.add(createFoldingToggle(getVisibilityPaneIndex()+1));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.add(createVisibilityToggle());
 		add(typeRow);
@@ -85,7 +85,7 @@ public class SimpleEntityOutlineFigure extends ManagedContentPaneFigure {
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 0)
+		if (paneIndex == getVisibilityPaneIndex()+1)
 			childrenFigure.setVisible(!childrenFigure.isVisible());
 		else
 			super.toggleVisibility(paneIndex);

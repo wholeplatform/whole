@@ -53,7 +53,7 @@ public class SimpleEntityTableFigure extends ManagedContentPaneFigure {
 			add(typeRow);
 			return;
 		}
-		typeRow.add(createFoldingToggle(0));
+		typeRow.add(createFoldingToggle(getVisibilityPaneIndex()+1));
 		typeRow.addDeclaration(ed.getName());
 		typeRow.add(createVisibilityToggle());
 		add(typeRow);
@@ -86,7 +86,7 @@ public class SimpleEntityTableFigure extends ManagedContentPaneFigure {
 
 	@Override
 	protected void toggleVisibility(int paneIndex) {
-		if (paneIndex == 0)
+		if (paneIndex == getVisibilityPaneIndex()+1)
 			childrenFigure.setVisible(!childrenFigure.isVisible());
 		else
 			super.toggleVisibility(paneIndex);

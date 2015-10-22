@@ -147,8 +147,7 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 	}
 
 	public TableLayout withColumnAlignment(int columnIndex, Alignment alignment) {
-		if (columnAlignment.length <= columnIndex)
-			columnAlignment = CompositeUtils.grow(columnAlignment, columnIndex+1, null);
+		columnAlignment = CompositeUtils.grow(columnAlignment, columnIndex+1, null);
 		columnAlignment[columnIndex] = alignment;
 		return this;
 	}
