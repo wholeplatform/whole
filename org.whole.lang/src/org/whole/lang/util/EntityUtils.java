@@ -17,8 +17,11 @@
  */
 package org.whole.lang.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.comparators.IEntityComparator;
@@ -489,5 +492,11 @@ public class EntityUtils {
 	}
 	public static IEntity mapEntity(IEntity entity, IEntity toModel) {
 		return getEntity(toModel, getLocation(entity));
+	}
+	public static List<IEntity> mapEntities(List<IEntity> entities, IEntity toModel) {
+		return entities.stream()
+				.map((entity) -> mapEntity(entity, toModel))
+				.filter((entity) -> entity != null)
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 }

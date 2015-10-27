@@ -39,6 +39,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -285,37 +286,36 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 
 	public void select(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		select(entity, true);
+	}
+	public void select(IEntity entity, boolean propagate) {
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
 		if (entityPart != null)
-			select(entityPart);
+			select(entityPart, propagate);
 	}
 	@Override
 	public void select(List<? extends IEntity> entities) {
+		select(entities, true);
+	}
+	@Override
+	public void select(List<? extends IEntity> entities, boolean propagate) {
 		List<IEntityPart> entityParts = new ArrayList<>();
 		for (int i = entities.size()-1; i >= 0; i--) {
-			IEntityPart entityPart = getEditPartRegistry().get(entities.get(i));
+			IEntityPart entityPart = ModelObserver.getObserver(entities.get(i), getEditPartRegistry());
 			if (entityPart != null)
 				entityParts.add(entityPart);
 		}
-		setSelection(new StructuredSelection(entityParts));
+		setSelection(new StructuredSelection(entityParts), propagate);
 	}
 	public void reveal(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
 		reveal(entityPart);
 	}
 	public void selectAndReveal(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
-
-		if (entityPart != null) {
-			reveal(entityPart);
-			select(entityPart);
-		}
+		selectAndReveal(entity, true);
 	}
-	@Override
 	public void selectAndReveal(List<? extends IEntity> entities) {
-		if (!entities.isEmpty())
-			reveal(entities.get(entities.size()-1));
-		select(entities);
+		selectAndReveal(entities, true);
 	}
 
 	protected void updateModelObserver(IEntity entity) {
@@ -364,16 +364,37 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		setContents(getContents().getModel());
 	}
 
+	// End Block Shared With E4TreeViewer
+
+	public void selectAndReveal(IEntity entity, boolean propagate) {
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+
+		if (entityPart != null) {
+			getControl().getDisplay().syncExec(() -> reveal(entityPart));
+			select(entityPart, propagate);
+		}
+	}
+	public void selectAndReveal(List<? extends IEntity> entities, boolean propagate) {
+		if (!entities.isEmpty())
+			getControl().getDisplay().syncExec(() -> {
+				reveal(entities.get(0));
+				entities.subList(1, entities.size()).stream().forEach((entity) -> {
+					IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+					if (!((IGraphicalEntityPart) entityPart).getFigure().isShowing())
+						reveal(entityPart);
+				});
+			});
+		select(entities, propagate);
+	}
+
 	public void rebuildNotation(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
 		entityPart.rebuild();
 		invalidateTree();
 	}
 
-	// End Block Shared With E4TreeViewer
-
 	public void refreshNotation(IEntity entity) {
-		refreshNotation(((IGraphicalEntityPart) getEditPartRegistry().get(entity)).getFigure());
+		refreshNotation(((IGraphicalEntityPart) ModelObserver.getObserver(entity, getEditPartRegistry())).getFigure());
 	}
 	public void refreshNotation() {
 		if (getFigureCanvas() != null)

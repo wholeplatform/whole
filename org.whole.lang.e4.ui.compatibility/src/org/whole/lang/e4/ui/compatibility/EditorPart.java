@@ -101,7 +101,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 				setDirtyState(viewer.isDirty());
 			}
 		});
-		getSelectionSynchronizer().addViewer(viewer);
 
 		undoAction = new UndoAction(getContext(), UNDO_LABEL);
 		undoAction.update();
@@ -211,23 +210,6 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		}
 		super.dispose();
 	}
-
-	protected SelectionSynchronizer synchronizer;
-	protected SelectionSynchronizer getSelectionSynchronizer() {
-		if (synchronizer == null) {
-			synchronizer = new SelectionSynchronizer() {
-				@Override
-				protected EditPart convert(EditPartViewer viewer, EditPart part) {
-					EditPart mappedPart = super.convert(viewer, part);
-					if (mappedPart instanceof GraphicalEditPart &&!((GraphicalEditPart)mappedPart).getFigure().isShowing())
-						mappedPart = null;
-					return mappedPart;
-				}
-			};
-		}
-		return synchronizer;
-	}
-
 
 	@Override
 	public void saveState(IMemento memento) {

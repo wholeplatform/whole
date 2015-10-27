@@ -19,6 +19,7 @@ package org.whole.lang.e4.ui.viewers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +38,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.ui.parts.TreeViewer;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -145,6 +148,19 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		if (widget != null && !widget.isDisposed())
 			super.deselect(editpart);
 	}
+	
+	@Override
+	public void setSelection(ISelection newSelection, boolean propagate) {
+		// the underlying TreeViewer keeps an unordered selection
+		// at least, we have to preserve the old child ordering
+		List<IEntityPart> previousParts = new ArrayList<>(((IStructuredSelection) getSelection()).toList());
+		List<IEntityPart> newParts = new ArrayList<>(((IStructuredSelection) newSelection).toList());
+		previousParts.retainAll(newParts);
+		newParts.removeAll(previousParts);
+		List<IEntityPart> orderedParts = new LinkedList<>(newParts);
+		orderedParts.addAll(previousParts);
+		super.setSelection(new StructuredSelection(orderedParts), propagate);
+	}
 
 	// Begin Block Shared With E4GraphicalViewer
 	public IEclipseContext getContext() {
@@ -242,9 +258,10 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		updateModelObserver(root);
 	}
 	public boolean hasContents() {
-		return CoreMetaModelsDeployer.STATUS_URI.equals(getEntityContents().wGetLanguageKit().getURI());
+		return !CoreMetaModelsDeployer.STATUS_URI.equals(getEntityContents().wGetLanguageKit().getURI());
 	}
 
+	@SuppressWarnings("unchecked")
 	public Map<IEntity, IEntityPart> getEditPartRegistry() {
 		return super.getEditPartRegistry();
 	}
@@ -260,37 +277,36 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	public void select(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		select(entity, true);
+	}
+	public void select(IEntity entity, boolean propagate) {
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
 		if (entityPart != null)
-			select(entityPart);
+			select(entityPart, propagate);
 	}
 	@Override
 	public void select(List<? extends IEntity> entities) {
+		select(entities, true);
+	}
+	@Override
+	public void select(List<? extends IEntity> entities, boolean propagate) {
 		List<IEntityPart> entityParts = new ArrayList<>();
 		for (int i = entities.size()-1; i >= 0; i--) {
-			IEntityPart entityPart = getEditPartRegistry().get(entities.get(i));
+			IEntityPart entityPart = ModelObserver.getObserver(entities.get(i), getEditPartRegistry());
 			if (entityPart != null)
 				entityParts.add(entityPart);
 		}
-		setSelection(new StructuredSelection(entityParts));
+		setSelection(new StructuredSelection(entityParts), propagate);
 	}
 	public void reveal(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
 			reveal(entityPart);
 	}
 	public void selectAndReveal(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
-
-		if (entityPart != null) {
-			reveal(entityPart);
-			select(entityPart);
-		}
+		selectAndReveal(entity, true);
 	}
-	@Override
 	public void selectAndReveal(List<? extends IEntity> entities) {
-		if (!entities.isEmpty())
-			reveal(entities.get(entities.size()-1));
-		select(entities);
+		selectAndReveal(entities, true);
 	}
 
 	protected void updateModelObserver(IEntity entity) {
@@ -340,11 +356,26 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		setContents(getContents().getModel());
 	}
 
+	// End Block Shared With E4GraphicalViewer
+
+	public void selectAndReveal(IEntity entity, boolean propagate) {
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+
+		if (entityPart != null) {
+			reveal(entityPart);
+			select(entityPart, propagate);
+		}
+	}
+	public void selectAndReveal(List<? extends IEntity> entities, boolean propagate) {
+		if (!entities.isEmpty())
+			reveal(entities.get(entities.size()-1));
+		select(entities, propagate);
+	}
+
 	public void rebuildNotation(IEntity entity) {
 		IEntityPart entityPart = getEditPartRegistry().get(entity);
 		entityPart.rebuild();
 	}
-	// End Block Shared With E4GraphicalViewer
 	
 	public void refreshNotation() {
 		// do nothing

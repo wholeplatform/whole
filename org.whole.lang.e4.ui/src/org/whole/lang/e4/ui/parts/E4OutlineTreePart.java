@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
@@ -29,7 +29,9 @@ import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.LinkType;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -60,19 +62,13 @@ public class E4OutlineTreePart extends E4TreePart {
 
 	public static class OutlineDerivedLinkableSelectionListener extends DerivedLinkableSelectionListener {
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void selectionChanged(MPart part, Object selection) {
-			if (part.getElementId().equals(IUIConstants.OUTLINE_PART_ID)) {
-				if (!isSynchronizeSelection() || !(selection instanceof IBindingManager))
-					return;
-
-				IBindingManager bm = (IBindingManager) selection;
-				if (!bm.wIsSet("primarySelectedEntity"))
-					return;
-
-				boolean saved = setSynchronizeSelection(false);
-				eventBroker.send(IUIConstants.TOPIC_SYNC_OUTLINE_SELECTION, bm.wGet("selectedEntities"));
-				setSynchronizeSelection(saved);
+			if (lastSelection != null && part.getElementId().equals(IUIConstants.OUTLINE_PART_ID) && selection instanceof IBindingManager) {
+				IEntityPartViewer lastLinkedViewer = (IEntityPartViewer) lastSelection.wGetValue("viewer");
+				List<IEntity> selectedEntities = (List<IEntity>) ((IBindingManager) selection).wGet("selectedEntities");
+				lastLinkedViewer.selectAndReveal(EntityUtils.mapEntities(selectedEntities, lastLinkedViewer.getEntityContents()), false);
 			} else
 				super.selectionChanged(part, selection);
 		}

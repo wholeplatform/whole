@@ -63,9 +63,13 @@ public interface IEntityPartViewer extends EditPartViewer {
 
 	public void reveal(IEntity entity);
 	public void select(IEntity entity);
+	public void select(IEntity entity, boolean propagate);
 	public void select(List<? extends IEntity> entity);
+	public void select(List<? extends IEntity> entities, boolean propagate);
 	public void selectAndReveal(IEntity entity);
+	public void selectAndReveal(IEntity entity, boolean propagate);
 	public void selectAndReveal(List<? extends IEntity> entity);
+	public void selectAndReveal(List<? extends IEntity> entity, boolean propagate);
 	public void setInteractive(IEntity entity, boolean edit, boolean browse, boolean inherited);
 
 	public AbstractKeyHandler getKeyHandler();
