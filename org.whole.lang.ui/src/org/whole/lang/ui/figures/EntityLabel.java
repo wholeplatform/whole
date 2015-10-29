@@ -21,12 +21,15 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.layout.BaselinedDimension;
+import org.whole.lang.ui.layout.EntityLayoutAdapter;
+import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
 import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
@@ -51,7 +54,7 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 	}
 
 
-//TODO begin code duplicated in EntityFigure, EntityButton, EntityToggle, EntityLabel
+//TODO begin code duplicated in EntityRectangleFigure, EntityFigure, EntityButton, EntityToggle, EntityLabel
 	public static final int
 	FLAG_INTERACTIVE_EDIT = Figure.MAX_FLAG << 1, //enables selection, dnD, delete
 	FLAG_INTERACTIVE_BROWSE = Figure.MAX_FLAG << 2, //enables text editing and clickables
@@ -152,6 +155,25 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 //		return null;
 //	}
 
+	@Override
+	public IEntityLayout getLayoutManager() {
+		return (IEntityLayout) super.getLayoutManager();
+	}
+	@Override
+	public void setLayoutManager(LayoutManager manager) {
+		if (!(manager instanceof IEntityLayout))
+			manager = new EntityLayoutAdapter(manager) {
+				public int getIndent(IFigure container) {
+					return ((IEntityFigure) container).getIndent();
+				}
+				public int getAscent(IFigure container) {
+					return ((IEntityFigure) container).getAscent();
+				}
+			};
+
+		super.setLayoutManager(manager);
+	}
+
 	public ITabularLayoutServer getTabularLayoutServer() {
 		return null;
 	}
@@ -159,7 +181,7 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 		return getInsets().left;
 	}
 	public int getAscent() {
-		return getInsets().top+getTextLocation().y+getTextSize().height/2;
+		return getInsets().top + Math.max(0, getTextLocation().y) + calculateLabelSize(getTextSize()).height/2;
 	}
 
 	public ITabularLayoutClient getTabularLayoutClient() {

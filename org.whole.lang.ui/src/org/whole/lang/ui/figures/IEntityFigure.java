@@ -20,6 +20,7 @@ package org.whole.lang.ui.figures;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
 
@@ -39,6 +40,7 @@ public interface IEntityFigure extends IFigure {
 	public int getIndent();
 	public int getAscent();
 
+	public IEntityLayout getLayoutManager();
 	public ITabularLayoutServer getTabularLayoutServer();
 	public ITabularLayoutClient getTabularLayoutClient();
 

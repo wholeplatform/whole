@@ -179,7 +179,7 @@ public class ContentPaneFigure extends EntityFigure implements IFoldableFigure {
 		return contentPane;
 	}
 	public IEntityFigure createContentPane(int paneIndex, ViewportTracking viewportTracking) {
-		MonoLayout monoLayout = new MonoLayout();
+		MonoLayout monoLayout = new MonoLayout().withInheritedAlignment();
 		if (viewportTracking.isHorizontal())
 			monoLayout.withMinorAutoresizeWeight(1.0f);
 		if (viewportTracking.isVertical())

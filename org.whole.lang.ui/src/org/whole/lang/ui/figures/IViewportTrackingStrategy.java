@@ -24,13 +24,27 @@ import org.eclipse.draw2d.Graphics;
  */
 public interface IViewportTrackingStrategy {
 	public static IViewportTrackingStrategy IDENTITY = new IViewportTrackingStrategy() {
-		@Override
+		public int getIndent() {
+			return 0;
+		}
+		public void setIndent(int indent) {
+		}
+		public int getAscent() {
+			return 0;
+		}
+		public void setAscent(int ascent) {
+		}
+
 		public void onInvalidate() {
 		}
-		@Override
 		public void onPaintChildren(Graphics graphics) {
 		}		
 	};
+
+	public int getIndent();
+	public void setIndent(int indent);
+	public int getAscent();
+	public void setAscent(int ascent);
 
 	void onInvalidate();
 	void onPaintChildren(Graphics graphics);

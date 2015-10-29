@@ -25,6 +25,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 
 /**
  * @author Riccardo Solmi
@@ -33,7 +34,7 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	protected int marginLeft, marginRight, marginTop, marginBottom;
 	protected float majorAutoresizeWeight, minorAutoresizeWeight;
 
-	protected IFigure[] childFigure;
+	protected IEntityFigure[] childFigure;
 	protected BaselinedDimension[] childSize; //childSize[i] is null when the child i is not visible
 
 	private Dimension cachedPreferredHint = new Dimension(-1, -1);
@@ -45,6 +46,14 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	protected int figAscent;
 	protected int figDescent;
 
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public AbstractEntityLayout withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy) {
+		this.viewportTrackingStrategy = viewportTrackingStrategy;
+		return this;
+	}
+	public IViewportTrackingStrategy getViewportTrackingStrategy() {
+		return viewportTrackingStrategy;
+	}
 
 	public Object getConstraint(IFigure child) {
 		return null;
@@ -201,9 +210,9 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 	}
 	protected abstract void setAscentDescentWidth(int wHint, int hHint);
 
-	protected IFigure[] getChildren(IFigure container) {
+	protected IEntityFigure[] getChildren(IFigure container) {
 		List<?> children = container.getChildren();
-		return children.toArray(new IFigure[children.size()]);
+		return children.toArray(new IEntityFigure[children.size()]);
 	}
 
 	protected BaselinedDimension getChildSize(IFigure child, int wHint, int hHint, boolean preferred) {
@@ -250,10 +259,10 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 			calculatePreferredSize(container, -1, -1);
 		
 		Rectangle area = container.getClientArea();
-		area.x += getMarginLeft();
-		area.y += getMarginTop();
-		area.width -= (getMarginLeft()+getMarginRight());
-		area.height -= (getMarginTop()+getMarginBottom());
+		area.x += getMarginLeft() + getViewportTrackingStrategy().getIndent();
+		area.y += getMarginTop() + getViewportTrackingStrategy().getAscent();
+		area.width -= (getMarginLeft()+getViewportTrackingStrategy().getIndent()+getMarginRight());
+		area.height -= (getMarginTop()+getViewportTrackingStrategy().getAscent()+getMarginBottom());
 
 		int size = childFigure.length;
 		int[] x = new int[size];
@@ -313,13 +322,21 @@ public abstract class AbstractEntityLayout implements IEntityLayout {
 		return minorAutoresizeWeight;
 	}
 	public float getMajorAutoresizeWeight(int childIndex) {
-		if (childFigure[childIndex] instanceof EntityFigure)
-			return ((EntityFigure) childFigure[childIndex]).getMajorAutoresizeWeight();
+		if (childFigure[childIndex] instanceof EntityFigure) {
+			EntityFigure childEntityFigure = (EntityFigure) childFigure[childIndex];
+			return isHorizontal() && childEntityFigure.getLayoutManager().isHorizontal() ?
+					childEntityFigure.getMajorAutoresizeWeight() :
+						childEntityFigure.getMinorAutoresizeWeight();
+		}
 		return 0f;
 	}
 	public float getMinorAutoresizeWeight(int childIndex) {
-		if (childFigure[childIndex] instanceof EntityFigure)
-			return ((EntityFigure) childFigure[childIndex]).getMinorAutoresizeWeight();
+		if (childFigure[childIndex] instanceof EntityFigure) {
+			EntityFigure childEntityFigure = (EntityFigure) childFigure[childIndex];
+			return isHorizontal() && childEntityFigure.getLayoutManager().isHorizontal() ?
+					childEntityFigure.getMinorAutoresizeWeight() :
+						childEntityFigure.getMajorAutoresizeWeight();
+		}
 		return 0f;
 	}
 

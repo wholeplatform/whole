@@ -16,19 +16,23 @@ package org.whole.lang.patterns.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
+import org.whole.lang.ui.layout.ViewportTracking;
 
 /**
  *  @author  Riccardo Solmi
  */
 public class PatternFigure extends ContentPaneFigure {
     public PatternFigure() {
-        super(new TableRowLayout());
+        super(new TableRowLayout().withMinorAlignment(Alignment.MATHLINE));
         initContentPanes(3);
 
         add(createContentPane(0));
-        EntityFigure nameFigure = new EntityFigure(new RowLayout().withSpacing(4));
+        EntityFigure nameFigure = new EntityFigure(
+        		new RowLayout().withSpacing(4).withAutoresizeWeight(1f))
+        		.withViewportTracking(ViewportTracking.BOTH);
         nameFigure.add(createFoldingToggle(2));
         nameFigure.add(createContentPane(1));
         add(nameFigure);

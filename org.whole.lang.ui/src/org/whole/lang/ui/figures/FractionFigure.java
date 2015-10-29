@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.draw2d.RectangleFigure;
 import org.whole.lang.ui.layout.FractionLayout;
 
 
@@ -30,6 +29,6 @@ public class FractionFigure extends EntityFigure {
 	}
 	public FractionFigure(FractionLayout layout) {
 		super(layout);
-		add(new RectangleFigure());
+		add(new EntityRectangleFigure());
 	}
 }

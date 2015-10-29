@@ -19,6 +19,7 @@ package org.whole.lang.ui.layout;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 
 /**
  * @author Enrico Persiani
@@ -32,6 +33,15 @@ public class EntityLayoutDelegator<D extends IEntityLayout> implements IEntityLa
 	
 	protected D getDelegate() {
 		return delegate;
+	}
+
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public EntityLayoutDelegator<D> withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy) {
+		this.viewportTrackingStrategy = viewportTrackingStrategy;
+		return this;
+	}
+	public IViewportTrackingStrategy getViewportTrackingStrategy() {
+		return viewportTrackingStrategy;
 	}
 
 	public Object getConstraint(IFigure child) {

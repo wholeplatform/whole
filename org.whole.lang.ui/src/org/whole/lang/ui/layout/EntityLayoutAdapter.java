@@ -20,6 +20,7 @@ package org.whole.lang.ui.layout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 
 /**
  * @author Riccardo Solmi
@@ -35,12 +36,23 @@ public abstract class EntityLayoutAdapter implements IEntityLayout {
 		return layout.getConstraint(child);
 	}
 
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public EntityLayoutAdapter withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy) {
+		this.viewportTrackingStrategy = viewportTrackingStrategy;
+		return this;
+	}
+	public IViewportTrackingStrategy getViewportTrackingStrategy() {
+		return viewportTrackingStrategy;
+	}
+
 	public BaselinedDimension getMinimumSize(IFigure container, int wHint, int hHint) {
-		return new BaselinedDimension(layout.getMinimumSize(container, wHint, hHint));
+		return new BaselinedDimension(layout.getMinimumSize(container, wHint, hHint),
+				getIndent(container), getAscent(container), false);
 	}
 
 	public BaselinedDimension getPreferredSize(IFigure container, int wHint, int hHint) {
-		return new BaselinedDimension(layout.getPreferredSize(container, wHint, hHint));
+		return new BaselinedDimension(layout.getPreferredSize(container, wHint, hHint),
+				getIndent(container), getAscent(container), false);
 	}
 
 	public void invalidate() {

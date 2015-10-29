@@ -27,7 +27,7 @@ import org.whole.lang.ui.layout.ViewportTracking;
  */
 public class FunctionDeclarationFigure extends ContentPaneFigure {
     public FunctionDeclarationFigure() {
-        super(new TableRowLayout().withMinorAlignment(Alignment.LEADING));
+        super(new TableRowLayout().withMinorAlignment(Alignment.MATHLINE));
         initContentPanes(3);
 
         add(createContentPane(0));

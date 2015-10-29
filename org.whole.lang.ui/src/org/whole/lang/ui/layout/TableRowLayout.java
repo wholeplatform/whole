@@ -18,7 +18,6 @@
 package org.whole.lang.ui.layout;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.IEntityFigure;
 
@@ -175,6 +174,12 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 					x[i] = xi + (columnWidth - getPreferredColumnWith(i) - widthStretching)/2;
 					break;
 				}
+				if (widthStretching > 0) {
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(
+							getColumnAlignment(i).equals(Alignment.MATHLINE) ? x[i] - xi : 0);
+					x[i] = xi;
+				}
+
 				switch (getMinorAlignment()) {
 				case FILL:
 				case LEADING:
@@ -190,8 +195,14 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 					y[i] = area.y + figAscent-ascent(i)-descent(i)-heightStretching;
 					break;
 				}
-				childSize[i].width += widthStretching;//(int) (widthStretching*getMajorAutoresizeWeight(i));
-				childSize[i].height += heightStretching;//(int) (heightStretching*getMinorAutoresizeWeight(i));
+				if (heightStretching > 0) {
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(
+							getMinorAlignment().equals(Alignment.MATHLINE) ? y[i] - area.y : 0);
+					y[i] = area.y;
+				}
+
+				childSize[i].width += widthStretching;
+				childSize[i].height += heightStretching;
 
 				xi += columnWidth + getColumnSpacingBefore(i+1);
 			}
@@ -202,14 +213,11 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 //		getMyTabularLayoutServer().invalidateTable();
 
 		if (childFigure != null)
-			for (IFigure cf : childFigure) 
+			for (IEntityFigure cf : childFigure) 
 				if (cf != null && cf.isShowing()) {
-					LayoutManager layoutManager = cf.getLayoutManager();
-					if (layoutManager instanceof IEntityLayout) {
-						IEntityLayout el = (IEntityLayout) layoutManager;
-						if (el.getMajorAutoresizeWeight() != 0.0f || el.getMinorAutoresizeWeight() != 0.0f)
-							cf.invalidate();
-					}
+					IEntityLayout el = cf.getLayoutManager();
+					if (el != null && (el.getMajorAutoresizeWeight() != 0.0f || el.getMinorAutoresizeWeight() != 0.0f))
+						cf.invalidate();
 				}
 	}
 }

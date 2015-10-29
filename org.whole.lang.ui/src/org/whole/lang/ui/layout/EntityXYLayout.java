@@ -20,11 +20,21 @@ package org.whole.lang.ui.layout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 
 /**
  * @author Riccardo Solmi
  */
 public class EntityXYLayout extends XYLayout implements IEntityLayout {
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public EntityXYLayout withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy) {
+		this.viewportTrackingStrategy = viewportTrackingStrategy;
+		return this;
+	}
+	public IViewportTrackingStrategy getViewportTrackingStrategy() {
+		return viewportTrackingStrategy;
+	}
+
 	private BaselinedDimension preferredSize;
 	
 	public int getIndent(IFigure container) {

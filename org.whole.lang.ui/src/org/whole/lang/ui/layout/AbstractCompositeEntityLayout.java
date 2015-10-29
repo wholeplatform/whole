@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IEntityFigure;
 
 
 /**
@@ -106,11 +107,11 @@ public abstract class AbstractCompositeEntityLayout extends AbstractEntityLayout
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected IFigure[] getChildren(IFigure container) {
+	protected IEntityFigure[] getChildren(IFigure container) {
 		if (isReversed()) {
-			List<IFigure> children = new ArrayList<IFigure>(container.getChildren());
+			List<IEntityFigure> children = new ArrayList<IEntityFigure>(container.getChildren());
 			Collections.reverse(children);
-			return children.toArray(new IFigure[children.size()]);
+			return children.toArray(new IEntityFigure[children.size()]);
 		} else
 			return super.getChildren(container);
 	}
@@ -119,7 +120,8 @@ public abstract class AbstractCompositeEntityLayout extends AbstractEntityLayout
 		int xi;
 		switch (alignment) {
 		case MATHLINE:
-			//TODO
+//			xi = area.x + getIndent();
+//			break;
 		default:
 		case FILL:
 		case LEADING:
@@ -138,7 +140,8 @@ public abstract class AbstractCompositeEntityLayout extends AbstractEntityLayout
 		int yi;
 		switch (alignment) {
 		case MATHLINE:
-			//TODO
+//			yi = area.y + figAscent;
+//			break;
 		default:
 		case FILL:
 		case LEADING:

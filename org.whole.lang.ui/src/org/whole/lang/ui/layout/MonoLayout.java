@@ -24,7 +24,29 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class MonoLayout extends AbstractCompositeEntityLayout {
 	{
-		withMinorAlignment(Alignment.LEADING);
+		withMajorAlignment(Alignment.MATHLINE);
+	}
+
+	public MonoLayout withInheritedAlignment() {
+//		withMajorAlignment(null).withMinorAlignment(null);
+		return this;
+	}
+
+	@Override
+	public Alignment getMinorAlignment() {
+		if (super.getMinorAlignment() == null)
+			return isChild0Visible() && childFigure[0].getLayoutManager() instanceof ICompositeEntityLayout ?
+					((ICompositeEntityLayout) childFigure[0].getLayoutManager()).getMinorAlignment() : Alignment.LEADING;
+
+		return super.getMinorAlignment();
+	}
+	@Override
+	public Alignment getMajorAlignment() {
+		if (super.getMajorAlignment() == null)
+			return isChild0Visible() && childFigure[0].getLayoutManager() instanceof ICompositeEntityLayout ?
+					((ICompositeEntityLayout) childFigure[0].getLayoutManager()).getMajorAlignment() : Alignment.LEADING;
+
+		return super.getMajorAlignment();
 	}
 
 	@Override
@@ -33,7 +55,7 @@ public class MonoLayout extends AbstractCompositeEntityLayout {
 	}
 
 	public boolean isHorizontal() {
-		return true;
+		return false;
 	}
 
 	@Override

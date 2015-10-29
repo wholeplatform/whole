@@ -34,6 +34,8 @@ import org.whole.lang.util.CompositeUtils;
 public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 	protected IEntityFigure hostFigure;
 	protected ViewportTracking viewportTracking;
+	protected int ascent;
+	protected int indent;
 
 	public ViewportTrackingStrategy(IEntityFigure hostFigure) {
 		this(hostFigure, ViewportTracking.BOTH);
@@ -41,6 +43,19 @@ public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 	public ViewportTrackingStrategy(IEntityFigure hostFigure, ViewportTracking viewportTracking) {
 		this.hostFigure = hostFigure;
 		this.viewportTracking = viewportTracking;
+	}
+
+	public int getIndent() {
+		return indent;
+	}
+	public void setIndent(int indent) {
+		this.indent = indent;
+	}
+	public int getAscent() {
+		return ascent;
+	}
+	public void setAscent(int ascent) {
+		this.ascent = ascent;
 	}
 
 	protected Viewport viewport;

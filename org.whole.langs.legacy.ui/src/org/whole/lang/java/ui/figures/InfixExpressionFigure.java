@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
-import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.RowLayout;
 
 public class InfixExpressionFigure extends ContentPaneFigure {
@@ -53,14 +52,14 @@ public class InfixExpressionFigure extends ContentPaneFigure {
 
 	public void showLeftParentheses(boolean showLeftParentheses) {
 		int margin = showLeftParentheses ? RoundBracketsBorder.HMARGIN+1 : 0;
-		((IEntityLayout) getContentPane(0).getLayoutManager())
+		getContentPane(0).getLayoutManager()
 			.withMarginLeft(margin).withMarginRight(margin);
 		this.showLeftParentheses = showLeftParentheses;
 	}
 
 	public void showRightParentheses(boolean showRightParentheses) {
 		int margin = showRightParentheses ? RoundBracketsBorder.HMARGIN+1 : 0;
-		((IEntityLayout) getContentPane(2).getLayoutManager())
+		getContentPane(2).getLayoutManager()
 			.withMarginLeft(margin).withMarginRight(margin);
 		this.showRightParentheses = showRightParentheses;
 	}

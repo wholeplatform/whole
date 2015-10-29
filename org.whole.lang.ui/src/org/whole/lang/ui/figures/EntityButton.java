@@ -20,9 +20,12 @@ package org.whole.lang.ui.figures;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.Clickable;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.WholeImages;
+import org.whole.lang.ui.layout.EntityLayoutAdapter;
+import org.whole.lang.ui.layout.IEntityLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 import org.whole.lang.ui.layout.ITabularLayoutServer;
 import org.whole.lang.ui.treesearch.DelegatingInteractiveTreeSearch;
@@ -56,7 +59,7 @@ public class EntityButton extends Clickable implements IEntityFigure {
 			/*getModel().*/addActionListener(action);
 	}
 
-//TODO begin code duplicated in EntityFigure, EntityButton, EntityToggle, EntityLabel
+//TODO begin code duplicated in EntityRectangleFigure, EntityFigure, EntityButton, EntityToggle, EntityLabel
 	//NB use Clickable.MAX_FLAG instead of Figure.MAX_FLAG
 	public static final int
 	FLAG_INTERACTIVE_EDIT = Clickable.MAX_FLAG << 1, //enables selection, dnD, delete
@@ -124,6 +127,25 @@ public class EntityButton extends Clickable implements IEntityFigure {
 	}
 	public int getAscent() {
 		return contents.getAscent();
+	}
+
+	@Override
+	public IEntityLayout getLayoutManager() {
+		return (IEntityLayout) super.getLayoutManager();
+	}
+	@Override
+	public void setLayoutManager(LayoutManager manager) {
+		if (!(manager instanceof IEntityLayout))
+			manager = new EntityLayoutAdapter(manager) {
+				public int getIndent(IFigure container) {
+					return ((IEntityFigure) container).getIndent();
+				}
+				public int getAscent(IFigure container) {
+					return ((IEntityFigure) container).getAscent();
+				}
+			};
+
+		super.setLayoutManager(manager);
 	}
 
 	public ITabularLayoutServer getTabularLayoutServer() {

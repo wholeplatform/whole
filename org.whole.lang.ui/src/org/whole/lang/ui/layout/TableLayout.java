@@ -35,7 +35,7 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 		withMinorAlignment(Alignment.LEADING);
 	}
 
-	private IFigure headerRowFigure;
+	private IEntityFigure headerRowFigure;
 	private int columnSpacing;
 	private int columns;
 	private int[] columnWidth;
@@ -66,23 +66,23 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 		
 		switch ((Placement) constraint) {
 		case HEADER:
-			headerRowFigure = child;
+			headerRowFigure = (IEntityFigure) child;
 			break;
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected IFigure[] getChildren(IFigure container) {
+	protected IEntityFigure[] getChildren(IFigure container) {
 		if (headerRowFigure == null)
 			return super.getChildren(container);
 		else {
-			List<IFigure> children = container.getChildren();
+			List<IEntityFigure> children = container.getChildren();
 			int size = children.size();
 			if (size == 1)
-				return new IFigure[0];
+				return new IEntityFigure[0];
 
-			IFigure[] figures = new IFigure[size];
+			IEntityFigure[] figures = new IEntityFigure[size];
 			figures[0] = headerRowFigure;
 
 			for (int i=0,j=1; i<size; i++)

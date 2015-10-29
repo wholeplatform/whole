@@ -27,6 +27,7 @@ import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -40,7 +41,7 @@ import org.whole.lang.ui.notations.figures.DrawUtils;
  */
 public class ContextMenuActionsFigure extends ContentPaneFigure {
 	protected EntityFigure menuFigure;
-	protected IFigure[] itemFigure, actionFigure;
+	protected IEntityFigure[] itemFigure, actionFigure;
 
 	private static final int MENU_SEPARATOR_SIZE = 7;
 	private static final String[] MENU_NAMES = {
@@ -52,8 +53,8 @@ public class ContextMenuActionsFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(26));
 		final int MENUS = MENU_NAMES.length; //should be the same as WholeMenu.values().length;
 		initContentPanes(MENUS);
-		itemFigure = new IFigure[MENUS];
-		actionFigure = new IFigure[MENUS];
+		itemFigure = new IEntityFigure[MENUS];
+		actionFigure = new IEntityFigure[MENUS];
 
 		menuFigure = new EntityFigure(new TableLayout(2).withColumnSpacing(24).withMargin(6, 20, 9, 0)) {
 			protected void paintFigure(Graphics g) {
@@ -76,7 +77,7 @@ public class ContextMenuActionsFigure extends ContentPaneFigure {
 			menuFigure.add(itemFigure[i] = createMenuRow(MENU_NAMES[i], i));
 			actionsFigure.add(actionFigure[i] = createContentPane(i));
 			if (i == 0) {
-				((IEntityLayout) itemFigure[i].getLayoutManager()).withMarginBottom(MENU_SEPARATOR_SIZE);
+				itemFigure[i].getLayoutManager().withMarginBottom(MENU_SEPARATOR_SIZE);
 				actionFigure[i].setBorder(new MarginBorder(6, 10, 9, 20) {
 					public void paint(IFigure f, Graphics g, Insets i) {
 						g.pushState();

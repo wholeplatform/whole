@@ -18,9 +18,9 @@
 package org.whole.lang.semantics.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityRectangleFigure;
 import org.whole.lang.ui.layout.FractionLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
@@ -43,7 +43,7 @@ public class InferenceRuleFigure extends ContentPaneFigure {
 		EntityFigure inferenceFigure = new EntityFigure(new FractionLayout().withSpacing(2));
 		inferenceFigure.add(createContentPane(1));
 		inferenceFigure.add(createContentPane(2));		
-		inferenceFigure.add(fractionFigure = new RectangleFigure());
+		inferenceFigure.add(fractionFigure = new EntityRectangleFigure());
 		ruleFigure.add(inferenceFigure);
 
 		whenClauseFigure = new EntityFigure(new RowLayout().withMarginLeft(16).withSpacing(8));

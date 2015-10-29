@@ -44,7 +44,7 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		setLayoutManager(layout);
 	}
 
-//TODO begin code duplicated in EntityFigure, EntityButton, EntityToggle, EntityLabel
+//TODO begin code duplicated in EntityRectangleFigure, EntityFigure, EntityButton, EntityToggle, EntityLabel
 	public static final int
 	FLAG_INTERACTIVE_EDIT = Figure.MAX_FLAG << 1, //enables selection, dnD, delete
 	FLAG_INTERACTIVE_BROWSE = Figure.MAX_FLAG << 2, //enables text editing and clickables
@@ -135,22 +135,21 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		return getLayoutManager().getMinorAutoresizeWeight();
 	}
 
-	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
 	public EntityFigure withViewportTracking(ViewportTracking viewportTracking) {
-		viewportTrackingStrategy = viewportTracking == ViewportTracking.NONE ?
-				IViewportTrackingStrategy.IDENTITY : new ViewportTrackingStrategy(this, viewportTracking);
+		getLayoutManager().withViewportTrackingStrategy(viewportTracking == ViewportTracking.NONE ?
+				IViewportTrackingStrategy.IDENTITY : new ViewportTrackingStrategy(this, viewportTracking));
 		return this;
 	}
 
 	@Override
 	public void invalidate() {
-		viewportTrackingStrategy.onInvalidate();
+		getLayoutManager().getViewportTrackingStrategy().onInvalidate();
 
 		super.invalidate();
 	}
 	@Override
 	protected void paintChildren(Graphics graphics) {
-		viewportTrackingStrategy.onPaintChildren(graphics);
+		getLayoutManager().getViewportTrackingStrategy().onPaintChildren(graphics);
 
 		super.paintChildren(graphics);
 	}

@@ -20,6 +20,7 @@ package org.whole.lang.ui.layout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 
 /**
  * @author Riccardo Solmi
@@ -36,6 +37,9 @@ public interface IEntityLayout extends LayoutManager {
 	public int getBaseline(int childIndex);
 	public Rectangle getBounds(int childIndex);
 
+	public IEntityLayout withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy);
+	public IViewportTrackingStrategy getViewportTrackingStrategy();
+	
 	public IEntityLayout withAutoresizeWeight(float weight); //TODO del
 	public IEntityLayout withMajorAutoresizeWeight(float weight);
 	public IEntityLayout withMinorAutoresizeWeight(float weight);

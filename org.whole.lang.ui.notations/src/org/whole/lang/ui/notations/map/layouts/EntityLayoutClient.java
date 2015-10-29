@@ -21,6 +21,7 @@ import org.eclipse.draw2d.AbstractLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.IViewportTrackingStrategy;
 import org.whole.lang.ui.layout.BaselinedDimension;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.ICompositeEntityLayout;
@@ -80,6 +81,15 @@ public class EntityLayoutClient extends AbstractLayout implements IEntityLayout,
 	}
 	protected Dimension calculatePreferredSize(IFigure container, int hint, int hint2) {
 		throw new IllegalStateException();
+	}
+
+	protected IViewportTrackingStrategy viewportTrackingStrategy = IViewportTrackingStrategy.IDENTITY;
+	public EntityLayoutClient withViewportTrackingStrategy(IViewportTrackingStrategy viewportTrackingStrategy) {
+		this.viewportTrackingStrategy = viewportTrackingStrategy;
+		return this;
+	}
+	public IViewportTrackingStrategy getViewportTrackingStrategy() {
+		return viewportTrackingStrategy;
 	}
 
 	public boolean isHorizontal() {
