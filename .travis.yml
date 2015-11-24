@@ -11,4 +11,4 @@ script:
   - cd whole/org.whole.products.releng
   - export MAVEN_OPTS="-Xms512M -Xmx1024M"
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
-  - gradle --daemon integration_test
+  - gradle --quiet --daemon integration_test
