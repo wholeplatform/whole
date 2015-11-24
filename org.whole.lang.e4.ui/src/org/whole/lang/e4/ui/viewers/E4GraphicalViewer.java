@@ -39,7 +39,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.ExposeHelper;
 import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;

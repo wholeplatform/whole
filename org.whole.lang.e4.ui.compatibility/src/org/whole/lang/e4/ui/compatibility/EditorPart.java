@@ -34,14 +34,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
@@ -74,6 +70,7 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
 /**
  * @author Enrico Persiani
  */
+@SuppressWarnings("restriction")
 public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersistableEditor, IGotoMarker {
 	protected CommandStackListener listener;
 	protected UndoAction undoAction;
@@ -183,15 +180,15 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public Object getAdapter(Class adapter) {
+	public  <T> T getAdapter(Class<T> adapter) {
 		if (adapter == GraphicalViewer.class)
-			return getComponent().getViewer();
+			return (T) getComponent().getViewer();
 		else if (adapter == ZoomManager.class)
-			return getComponent().getViewer().getProperty(ZoomManager.class.toString());
+			return (T) getComponent().getViewer().getProperty(ZoomManager.class.toString());
 		else if (adapter == CommandStack.class)
-			return getComponent().getViewer().getCommandStack();
+			return (T) getComponent().getViewer().getCommandStack();
 		else
 			return super.getAdapter(adapter);
 	}
