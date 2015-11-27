@@ -125,14 +125,14 @@ public class CommandFactory implements ICommandFactory {
 	protected final ICommandFactory orphanFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {
 			DnDOverCompositeRequest orderedRequest = (DnDOverCompositeRequest) request;
-			IEntityPart dnDChild = orderedRequest.getDnDChild();
+			IEntityPart dnDChild = orderedRequest.iterator().next();
 			return removeFeature.create(new DeletePartRequest(PartRequest.DELETE, dnDChild));
 		}
 	};
 	protected final ICommandFactory orphanIndexedFeature = new ICommandFactory() {
 		public Command create(PartRequest request) {
 			DnDOverCompositeRequest orderedRequest = (DnDOverCompositeRequest) request;
-			IEntityPart dnDChild = orderedRequest.getDnDChild();
+			IEntityPart dnDChild = orderedRequest.iterator().next();
 			return removeIndexedFeature.create(new DeletePartRequest(PartRequest.DELETE, dnDChild));
 		}
 	};

@@ -47,10 +47,6 @@ public class DnDOverCompositeRequest extends PartRequest {
 		this.dndChild = dndChild;
 	}
 
-	@Deprecated
-	public IEntityPart getDnDChild() {
-		return dndChild;
-	}
 	public IEntity getDnDChildEntity() {
 		return dndChildEntity;
 	}
