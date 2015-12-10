@@ -61,13 +61,13 @@ public class ActionCallHandler {
 	@Execute
 	public void execute(@Named(FUNCTION_URI_PARAMETER_ID) String functionUri,
 			@Named(PREDICATE_XWL_PARAMETER_ID) String predicateXwl,
-			@Optional @Named(ANALYSING_PARAMETER_ID) String analyzing,
+			@Optional @Named(ANALYSING_PARAMETER_ID) String analysing,
 			@Optional @Named(DESCRIPTION_PARAMETER_ID) String label,
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEclipseContext context) throws Exception {
 
-		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label);
-		defineBindings(functionUri, predicateXwl, analyzing, actionRunnable.getBindings());
+		ActionCallRunnable actionRunnable = new ActionCallRunnable(context, bm, label, !Boolean.parseBoolean(analysing));
+		defineBindings(functionUri, predicateXwl, analysing, actionRunnable.getBindings());
 		actionRunnable.asyncExec("Executing "+label+" action...");
 	}
 

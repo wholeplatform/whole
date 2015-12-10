@@ -68,6 +68,8 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		} catch (Exception e) {
 			IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e);
 			if (we.getSourceEntity() != null) {
+				if (this.delayUpdates)
+					delayUpdates(viewer, !this.delayUpdates);
 				E4Utils.suspendOperation(SuspensionKind.ERROR, we);
 			} else
 				E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
