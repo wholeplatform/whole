@@ -162,6 +162,12 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		super.setSelection(new StructuredSelection(orderedParts), propagate);
 	}
 
+	@Override
+	public void setEditDomain(LightweightEditDomain editdomain) {
+		if (getControl() != null)
+			super.setEditDomain(editdomain);
+	}
+
 	// Begin Block Shared With E4GraphicalViewer
 	public IEclipseContext getContext() {
 		return context;
