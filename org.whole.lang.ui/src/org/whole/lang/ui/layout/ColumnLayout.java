@@ -93,13 +93,20 @@ public class ColumnLayout extends AbstractCompositeEntityLayout {
 		int yi = calculateYLocation(area, getMajorAlignment());
 	
 		int children = childSize.length;
-		if (getMinorAutoresizeWeight()>0)
+		float stretching = 0;
+		if (getMajorAutoresizeWeight()>0) {
+			boolean isFirst = true;
+			stretching = area.height;
 			for (int i=0; i<children; i++)
-				if (isChildVisible(i))
-					childSize[i].width += (area.width-childSize[i].width)*getMinorAutoresizeWeight();
-
+				if (isChildVisible(i)) {
+					stretching -= (isFirst ? 0 : getSpacingBefore(i)) + childSize[i].height;
+					isFirst = false;
+				}
+		}
 		for (int i=0; i<children; i++)
 			if (isChildVisible(i)) {
+				int widthStretching = (int) ((figWidth - childSize[i].width) * getMinorAutoresizeWeight(i));
+
 				switch (getMinorAlignment()) {
 				case FILL:
 					childSize[i].width = area.width;
@@ -110,13 +117,23 @@ public class ColumnLayout extends AbstractCompositeEntityLayout {
 					x[i] = area.x + figIndent-indent(i);
 					break;
 				case CENTER:
-					x[i] = area.x + (area.width - childSize[i].width)/2;
+					x[i] = area.x + (area.width - childSize[i].width)/2-widthStretching/2;
 					break;
 				case TRAILING:
-					x[i] = area.right() - childSize[i].width;
+					x[i] = area.right() - childSize[i].width-widthStretching;
 					break;
 				}
 				y[i] = yi;
+
+				if (widthStretching > 0) {
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(
+							getMinorAlignment().equals(Alignment.MATHLINE) ? x[i] - area.x : 0);
+					x[i] = area.x;
+				}
+
+				childSize[i].height += (int) (stretching*getMajorAutoresizeWeight(i));
+				childSize[i].width += widthStretching;
+
 				yi += childSize[i].height + getSpacingBefore(i+1);
 			}
 	}

@@ -115,6 +115,8 @@ public class RowLayout extends AbstractCompositeEntityLayout {
 		}
 		for (int i=0; i<children; i++)
 			if (isChildVisible(i)) {
+				int heightStretching = (int) ((figAscent+figDescent - childSize[i].height) * getMinorAutoresizeWeight(i));
+
 				x[i] = xi;
 				switch (getMinorAlignment()) {
 				case FILL:
@@ -122,17 +124,24 @@ public class RowLayout extends AbstractCompositeEntityLayout {
 					y[i] = area.y;
 					break;
 				case CENTER:
-					y[i] = area.y + figAscent-childSize[i].height/2;
+					y[i] = area.y + figAscent-childSize[i].height/2-heightStretching/2;
 					break;
 				case MATHLINE:
 					y[i] = area.y + figAscent-ascent(i);
 					break;
 				case TRAILING:
-					y[i] = area.y + figAscent-ascent(i)-descent(i);
+					y[i] = area.y + figAscent-ascent(i)-descent(i)-heightStretching;
 					break;
 				}
+				if (heightStretching > 0) {
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(
+							getMinorAlignment().equals(Alignment.MATHLINE) ? y[i] - area.y : 0);
+					y[i] = area.y;
+				}
+
 				childSize[i].width += (int) (stretching*getMajorAutoresizeWeight(i));
-				
+				childSize[i].height += heightStretching;
+
 				xi += childSize[i].width + getSpacingBefore(i+1);
 			}
 	}
