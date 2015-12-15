@@ -33,7 +33,7 @@ public class EnvironmentFigure extends ContentPaneFigure {
 //	protected EntityFigure node;
 //	protected EntityFigure header;
 
-	public EnvironmentFigure(ActionListener action) {
+	public EnvironmentFigure(ActionListener action, boolean scoped) {
 		super(new ColumnLayout().withMinorAlignment(Alignment.LEADING)
 				.withSpacing(4).withMargin(4));
 		initContentPanes(3);
@@ -47,6 +47,8 @@ public class EnvironmentFigure extends ContentPaneFigure {
 		add(createContentPane(1));
 		add(createContentPane(2));
 		
+		if (!scoped)
+			clickFoldingToggle(0);
 //		node = new EntityFigure(new ColumnLayout().withMargin(0, 2, 5, 2));
 //		
 //		header = new EntityFigure(new RowLayout().withSpacing(8).withMargin(6, 4, 4, 12));

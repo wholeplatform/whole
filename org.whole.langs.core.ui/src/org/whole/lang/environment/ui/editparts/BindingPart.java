@@ -25,20 +25,58 @@ import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Binding;
 import org.whole.lang.environment.model.Value;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
+import org.whole.lang.environment.ui.figures.BidingFigure;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.factories.ModelsEntityFactory;
-import org.whole.lang.ui.editparts.AbstractPart;
-import org.whole.lang.ui.figures.TableRowFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class BindingPart extends AbstractPart {
+public class BindingPart extends AbstractContentPanePart {
+	private static final int STRING_LENGTH_LIMIT = 64;
+	private static final int COMPOSITE_SIZE_LIMIT = 4;
+	private static final int DESCENDANTS_COUNT_LIMIT = 16;
+
 	protected IFigure createFigure() {
-		TableRowFigure f = new TableRowFigure();
-		f.getLayoutManager().withMargin(4,4,4,4);
-		return f;
+		return new BidingFigure();
+	}
+
+	protected void refreshVisuals() {
+		Binding binding = getModelEntity();
+		Value valueEntity = binding.getValue();
+		IEntity value = Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Value, valueEntity) ? valueEntity.getValue() : valueEntity.wGetAdaptee(true);
+		BidingFigure fig = (BidingFigure) getFigure();
+		if (fig.getFoldingToggle(0).getModel().isSelected() == isShowValue(value))
+			fig.clickFoldingToggle(0);
+	}
+
+	public boolean isShowValue(IEntity value) {
+		boolean showValue = false;
+		switch (value.wGetEntityKind()) {
+		case DATA:
+			showValue = !value.wGetEntityDescriptor().getDataKind().isString() || value.wStringValue().length() < STRING_LENGTH_LIMIT;
+			break;
+
+		case COMPOSITE:
+			if (value.wSize() > COMPOSITE_SIZE_LIMIT)
+				break;
+		default:
+			IEntityIterator<IEntity> iterator = IteratorFactory.descendantIterator();
+			iterator.reset(value);
+			for (int i = 0; i < DESCENDANTS_COUNT_LIMIT; i++) {
+				if (!iterator.hasNext()) {
+					showValue = true;
+					break;
+				} else
+					iterator.next();
+			}
+			break;
+		}
+		return showValue;
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

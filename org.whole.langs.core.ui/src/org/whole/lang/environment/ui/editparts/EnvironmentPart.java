@@ -39,6 +39,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
  */
 public class EnvironmentPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
+		Environment entity = getModelEntity();
 		return new EnvironmentFigure(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				Environment entity = getModelEntity();
@@ -57,7 +58,7 @@ public class EnvironmentPart extends AbstractContentPanePart {
 					command.rollback();
 				}
 			}
-		});
+		}, Matcher.matchImpl(EnvironmentEntityDescriptorEnum.ScopedBindings, entity.getBindings()));
 	}
 
 	@Override

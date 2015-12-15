@@ -32,7 +32,7 @@ public class ScopeFigure extends TableRowFigure {
 		addContentLight("Id");
 		addContentLight("Type");
 		addContentLight("Name");
-		addContentLight("Value");
+		addContentLight("  Value");
 	}
 
 	protected void paintFigure(Graphics g) {
