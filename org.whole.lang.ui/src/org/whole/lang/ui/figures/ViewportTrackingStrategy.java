@@ -21,10 +21,13 @@ import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayeredPane;
+import org.eclipse.draw2d.ScalableFigure;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.ViewportUtilities;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.LayerConstants;
 import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.util.CompositeUtils;
 
@@ -113,7 +116,9 @@ public class ViewportTrackingStrategy implements IViewportTrackingStrategy {
 			return translateAmount;
 
 		Viewport viewport = getViewport();
-		Rectangle clientArea = viewport.getClientArea();
+		LayeredPane layeredPane = (LayeredPane) viewport.getContents();
+		ScalableFigure scalableLayeredPane = (ScalableFigure) layeredPane.getLayer(LayerConstants.SCALABLE_LAYERS);
+		Rectangle clientArea = viewport.getClientArea().scale(1/scalableLayeredPane.getScale());
 
 		Rectangle bounds = hostFigure.getBounds();
 		if (!bounds.intersects(clientArea))
