@@ -149,6 +149,7 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 			figAscent = figHeight;
 			figDescent = 0;
 			break;
+		case MATHLINE:
 		}
 	}
 
@@ -173,12 +174,14 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 				case CENTER:
 					x[i] = xi + (columnWidth - getPreferredColumnWith(i) - widthStretching)/2;
 					break;
+				case MATHLINE:
 				}
 				if (widthStretching > 0) {
 					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(
 							getColumnAlignment(i).equals(Alignment.MATHLINE) ? x[i] - xi : 0);
 					x[i] = xi;
-				}
+				} else if (childFigure[i].getLayoutManager() != null)
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(0);
 
 				switch (getMinorAlignment()) {
 				case FILL:
@@ -199,7 +202,8 @@ public class TableRowLayout extends AbstractCompositeEntityLayout implements ITa
 					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(
 							getMinorAlignment().equals(Alignment.MATHLINE) ? y[i] - area.y : 0);
 					y[i] = area.y;
-				}
+				} else if (childFigure[i].getLayoutManager() != null)
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(0);
 
 				childSize[i].width += widthStretching;
 				childSize[i].height += heightStretching;

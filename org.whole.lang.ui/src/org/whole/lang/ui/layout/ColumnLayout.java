@@ -129,7 +129,8 @@ public class ColumnLayout extends AbstractCompositeEntityLayout {
 					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(
 							getMinorAlignment().equals(Alignment.MATHLINE) ? x[i] - area.x : 0);
 					x[i] = area.x;
-				}
+				} else if (childFigure[i].getLayoutManager() != null)
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setIndent(0);
 
 				childSize[i].height += (int) (stretching*getMajorAutoresizeWeight(i));
 				childSize[i].width += widthStretching;

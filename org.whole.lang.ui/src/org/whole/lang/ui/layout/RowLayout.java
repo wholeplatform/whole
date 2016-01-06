@@ -137,7 +137,8 @@ public class RowLayout extends AbstractCompositeEntityLayout {
 					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(
 							getMinorAlignment().equals(Alignment.MATHLINE) ? y[i] - area.y : 0);
 					y[i] = area.y;
-				}
+				} else if (childFigure[i].getLayoutManager() != null)
+					childFigure[i].getLayoutManager().getViewportTrackingStrategy().setAscent(0);
 
 				childSize[i].width += (int) (stretching*getMajorAutoresizeWeight(i));
 				childSize[i].height += heightStretching;
