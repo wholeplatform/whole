@@ -19,6 +19,7 @@ package org.whole.lang.environment.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -38,7 +39,7 @@ public class BindingsTableFigure extends TableFigure {
 			headers.addContentLight("Id");
 			headers.addContentLight("Type");
 			headers.addContentLight("Name");
-			headers.addContentLight("  Value");
+			headers.addContentLight("Value").setBorder(new MarginBorder(0, 26, 0, 0));;
 			add(headers, TableLayout.Placement.HEADER);
 		}
 	}
@@ -65,7 +66,7 @@ public class BindingsTableFigure extends TableFigure {
 			g.setAlpha(getBackgroundAlpha()/2);
 			Rectangle tb = getTableBounds();
 			Rectangle cb = l.getColumnBounds(3);
-			g.fillRectangle(cb.x, tb.y, 16, tb.height);
+			g.fillRectangle(cb.x, tb.y, 26, tb.height);
 			g.setAlpha(oldAlpha);
 		}
 

@@ -17,8 +17,11 @@
  */
 package org.whole.lang.environment.ui.figures;
 
+import org.eclipse.draw2d.ChangeEvent;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityToggle;
+import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -37,10 +40,15 @@ public class BidingFigure extends ContentPaneFigure {
 		add(createContentPane(0));
 		add(createContentPane(1));
 		add(createContentPane(2, ViewportTracking.BOTH));
-		IEntityFigure valueFigure = new EntityFigure(new RowLayout().withSpacing(5).withMinorAutoresizeWeight(1.0f));
+		IEntityFigure valueFigure = new EntityFigure(new RowLayout().withSpacing(8));
 		IEntityFigure toggleFigure = new EntityFigure(new MonoLayout().withAutoresizeWeight(1.0f))
 				.withViewportTracking(ViewportTracking.HORIZONTAL);
-		toggleFigure.add(createFoldingToggle(3));
+
+		EyeFigure eye = new EyeFigure();
+		EntityToggle entityToggle = new EntityToggle(eye, null);
+		entityToggle.addChangeListener((ChangeEvent event) -> eye.setClosed(entityToggle.isSelected()));
+		toggleFigure.add(createFoldingToggle(entityToggle, 3));
+
 		valueFigure.add(toggleFigure);
 		valueFigure.add(createContentPane(3));
 		add(valueFigure);
