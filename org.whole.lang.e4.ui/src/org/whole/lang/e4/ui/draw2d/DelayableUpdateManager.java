@@ -30,14 +30,14 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class DelayableUpdateManager extends DeferredUpdateManager {
 	public static final String PROPERTY_DELAY_UPDATES = "DelayUpdates";
 
-	private final IEntityPartViewer Viewer;
+	private final IEntityPartViewer viewer;
 	private boolean hasDelayedUpdates;
 
 	public DelayableUpdateManager(IEntityPartViewer e4GraphicalViewer) {
-		this.Viewer = e4GraphicalViewer;
+		this.viewer = e4GraphicalViewer;
 
 		hasDelayedUpdates = false;
-		this.Viewer.addPropertyChangeListener(new PropertyChangeListener() {
+		this.viewer.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (!PROPERTY_DELAY_UPDATES.equals(evt.getPropertyName()))
 					return;
@@ -59,7 +59,7 @@ public class DelayableUpdateManager extends DeferredUpdateManager {
 		});
 	}
 	protected void queueWork() {
-		Object value = this.Viewer.getProperty(PROPERTY_DELAY_UPDATES);
+		Object value = this.viewer.getProperty(PROPERTY_DELAY_UPDATES);
 		if (value != null && ((Boolean) value).booleanValue())
 			hasDelayedUpdates = true;
 		else
