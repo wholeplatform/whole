@@ -44,19 +44,19 @@ public class DelayableUpdateManager extends DeferredUpdateManager {
 
 				boolean oldValue = evt.getOldValue() != null ? ((Boolean) evt.getOldValue()).booleanValue() : false;
 				boolean newValue = evt.getNewValue() != null ? ((Boolean) evt.getNewValue()).booleanValue() : false;
-				if (hasDelayedUpdates && newValue != oldValue) {
-					hasDelayedUpdates = false;
-					executeDelayedUpdates();
+				if (newValue != oldValue) {
+					if (hasDelayedUpdates) {
+						hasDelayedUpdates = false;
+						executeDelayedUpdates();
+					}
+					if (oldValue)
+						Display.getDefault().asyncExec( () -> viewer.rebuildNotation());
 				}
 			}
 		});
 	}
 	protected void executeDelayedUpdates() {
-		Display.getDefault().asyncExec(new Runnable() {
-			public void run() {
-				DelayableUpdateManager.super.queueWork();
-			}
-		});
+		Display.getDefault().asyncExec( () -> super.queueWork());
 	}
 	protected void queueWork() {
 		Boolean value = (Boolean) this.viewer.getProperty(PROPERTY_DELAY_UPDATES);

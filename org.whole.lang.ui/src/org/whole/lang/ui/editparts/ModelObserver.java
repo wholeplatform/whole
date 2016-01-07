@@ -25,6 +25,8 @@ import java.util.Map;
 
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.ui.draw2d.DelayableUpdateManager;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
 
@@ -33,11 +35,11 @@ import org.whole.lang.util.EntityUtils;
  */
 public class ModelObserver implements PropertyChangeListener {
 	private ICompoundModel model;
-	private Map<IEntity, IEntityPart> editPartRegistry;
+	private IEntityPartViewer viewer;
 
-	public ModelObserver(ICompoundModel model, Map<IEntity, IEntityPart> editPartRegistry) {
+	public ModelObserver(ICompoundModel model, IEntityPartViewer viewer) {
 		this.model = model;
-		this.editPartRegistry = editPartRegistry;
+		this.viewer = viewer;
 		model.addEventListener(this);
 	}
 
@@ -50,8 +52,12 @@ public class ModelObserver implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
+		Boolean value = (Boolean) this.viewer.getProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES);
+		if (value != null && value.booleanValue())
+			return;
+
     	IEntity entity = (IEntity) event.getSource();
-    	IEntityPart entityPart = getObserver(entity, editPartRegistry);
+    	IEntityPart entityPart = getObserver(entity, viewer.getEditPartRegistry());
     	if (entityPart != null) {
     		fireBeforeUpdateEvent(entityPart);
     		entityPart.propertyChange(event);

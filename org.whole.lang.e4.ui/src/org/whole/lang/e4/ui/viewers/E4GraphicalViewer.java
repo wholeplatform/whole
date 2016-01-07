@@ -324,7 +324,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			modelObserver = null;
 		}
 		if (modelObserver == null)
-			modelObserver = new ModelObserver(model, (Map<IEntity, IEntityPart>) getEditPartRegistry());		
+			modelObserver = new ModelObserver(model, this);		
 	}
 	public void addEntityPartListener(EntityPartListener listener) {
 		modelObserver.addEntityPartListener(listener);
