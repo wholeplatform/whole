@@ -25,7 +25,6 @@ import java.util.List;
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.Toggle;
 import org.eclipse.gef.AccessibleEditPart;
@@ -54,6 +53,7 @@ import org.whole.lang.ui.editpolicies.WholeContainerEditPolicy;
 import org.whole.lang.ui.editpolicies.WholeDragEditPartsTracker;
 import org.whole.lang.ui.editpolicies.WholeLayoutEditPolicy;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.EntityToggle;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.IFoldableFigure;
@@ -210,7 +210,7 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 		if (decorations == null || !(decorations instanceof DecorationFigure))
 			getFigure().setToolTip(decorations = new DecorationFigure());
 		
-		decorations.add(new Label(tooltip, getDecorationImage(kind)));
+		decorations.add(new EntityLabel(tooltip, getDecorationImage(kind)));
 	}
 	public void deleteDecorations(boolean deep) {
 		IFigure decorations = getFigure().getToolTip();
