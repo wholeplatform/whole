@@ -323,7 +323,7 @@ public class BindingManagerFactory {
 		IEntityFactory ef = GenericEntityFactory.instance;
 		IEntity environments = ef.create(getEdEnum().valueOf("Environments"));
 		
-		environments.wAdd(createEnvironment(bm, "env", includeNames, createFlatScopedBindingsModel(bm)));
+		environments.wAdd(createEnvironment(bm, "env", includeNames, createFlatBindingsModel(bm)));
 
 		return ef.create(getEdEnum().valueOf("VariablesViewModel"),
 				ef.create(getEdEnum().valueOf("EnvironmentManager"), (Object) bm.wGetEnvironmentManager()),
