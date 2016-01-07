@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.e4.ui.draw2d;
+package org.whole.lang.ui.draw2d;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -59,8 +59,8 @@ public class DelayableUpdateManager extends DeferredUpdateManager {
 		});
 	}
 	protected void queueWork() {
-		Object value = this.viewer.getProperty(PROPERTY_DELAY_UPDATES);
-		if (value != null && ((Boolean) value).booleanValue())
+		Boolean value = (Boolean) this.viewer.getProperty(PROPERTY_DELAY_UPDATES);
+		if (value != null && value.booleanValue())
 			hasDelayedUpdates = true;
 		else
 			super.queueWork();
