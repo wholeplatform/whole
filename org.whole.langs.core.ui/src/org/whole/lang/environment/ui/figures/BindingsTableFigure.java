@@ -19,8 +19,7 @@ package org.whole.lang.environment.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.TableLayout;
@@ -30,7 +29,7 @@ import org.whole.lang.ui.layout.TableLayout;
  */
 public class BindingsTableFigure extends TableFigure {
 	public BindingsTableFigure(boolean withHeader) {
-		super(4);
+		super(5);
 		getLayoutManager().withRowSpacing(0).withColumnSpacing(8).withMargin(0);
 
 		if (withHeader) {
@@ -39,7 +38,8 @@ public class BindingsTableFigure extends TableFigure {
 			headers.addContentLight("Id");
 			headers.addContentLight("Type");
 			headers.addContentLight("Name");
-			headers.addContentLight("Value").setBorder(new MarginBorder(0, 26, 0, 0));;
+			headers.add(new EyeFigure());
+			headers.addContentLight("Value");
 			add(headers, TableLayout.Placement.HEADER);
 		}
 	}
@@ -54,21 +54,14 @@ public class BindingsTableFigure extends TableFigure {
 		drawAlternateRowsBackground(g, 0, 255);
 		drawAlternateRowsBackground(g, 1, 255);
 
+		g.setBackgroundColor(ColorConstants.lightGray);
+		drawAlternateColumnsBackground(g, 3);
+
 		g.setForegroundColor(ColorConstants.lightGray);
-		drawColumnSeparators(g);
+		for (int i = 1; i < 4; i++)
+			drawColumnSeparatorBefore(g, i);
 		drawRowSeparators(g);
 		drawHeadersRowSeparator(g);
-
-		TableLayout l = getLayoutManager();
-		if (l.rows()>0) {
-			g.setBackgroundColor(ColorConstants.darkGray);
-			int oldAlpha = g.getAlpha();
-			g.setAlpha(getBackgroundAlpha()/2);
-			Rectangle tb = getTableBounds();
-			Rectangle cb = l.getColumnBounds(3);
-			g.fillRectangle(cb.x, tb.y, 26, tb.height);
-			g.setAlpha(oldAlpha);
-		}
 
 		g.setForegroundColor(ColorConstants.gray);
 		drawTableBorder(g);

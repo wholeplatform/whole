@@ -19,8 +19,8 @@ package org.whole.lang.environment.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 
 /**
@@ -33,7 +33,8 @@ public class ScopeFigure extends TableRowFigure {
 		addContentLight("Id");
 		addContentLight("Type");
 		addContentLight("Name");
-		addContentLight("Value").setBorder(new MarginBorder(0, 26, 0, 0));
+		add(new EyeFigure());
+		addContentLight("Value");
 	}
 
 	protected void paintFigure(Graphics g) {

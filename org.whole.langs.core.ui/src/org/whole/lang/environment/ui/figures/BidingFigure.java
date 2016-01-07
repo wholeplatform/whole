@@ -24,7 +24,6 @@ import org.whole.lang.ui.figures.EntityToggle;
 import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.MonoLayout;
-import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.ViewportTracking;
 
@@ -40,18 +39,16 @@ public class BidingFigure extends ContentPaneFigure {
 		add(createContentPane(0));
 		add(createContentPane(1));
 		add(createContentPane(2, ViewportTracking.BOTH));
-		IEntityFigure valueFigure = new EntityFigure(new RowLayout().withSpacing(8));
 		IEntityFigure toggleFigure = new EntityFigure(new MonoLayout().withAutoresizeWeight(1.0f))
-				.withViewportTracking(ViewportTracking.HORIZONTAL);
+				.withViewportTracking(ViewportTracking.BOTH);
 
 		EyeFigure eye = new EyeFigure();
 		EntityToggle entityToggle = new EntityToggle(eye, null);
 		entityToggle.addChangeListener((ChangeEvent event) -> eye.setClosed(entityToggle.isSelected()));
 		toggleFigure.add(createFoldingToggle(entityToggle, 3));
 
-		valueFigure.add(toggleFigure);
-		valueFigure.add(createContentPane(3));
-		add(valueFigure);
+		add(toggleFigure);
+		add(createContentPane(3));
 		clickFoldingToggle(0);
 	}
 }
