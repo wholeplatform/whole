@@ -86,6 +86,15 @@ public abstract class AbstractStyledLayout extends AbstractEntityLayout implemen
 	public void invalidateTargetAnchors() {
 		targetAnchors = null;
 	}
+	
+	@Override
+	public void invalidate() {
+		super.invalidate();
+		
+		if (childFigure != null)
+			for (IEntityFigure child : childFigure)
+				child.invalidate();
+	}
 
 	@SuppressWarnings("unchecked")
 	public void paintConnections(Graphics graphics) {

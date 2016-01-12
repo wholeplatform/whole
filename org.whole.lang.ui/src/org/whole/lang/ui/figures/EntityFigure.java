@@ -143,13 +143,15 @@ public class EntityFigure extends Figure implements IEntityFigure {
 
 	@Override
 	public void invalidate() {
-		getLayoutManager().getViewportTrackingStrategy().onInvalidate();
+		if (getLayoutManager() != null)
+			getLayoutManager().getViewportTrackingStrategy().onInvalidate();
 
 		super.invalidate();
 	}
 	@Override
 	protected void paintChildren(Graphics graphics) {
-		getLayoutManager().getViewportTrackingStrategy().onPaintChildren(graphics);
+		if (getLayoutManager() != null)
+			getLayoutManager().getViewportTrackingStrategy().onPaintChildren(graphics);
 
 		super.paintChildren(graphics);
 	}

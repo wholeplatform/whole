@@ -82,7 +82,6 @@ public abstract class AbstractStyledFigure extends NodeFigure implements IStyled
 	@Override
 	public void setLayoutManager(LayoutManager manager) {
 		assert manager instanceof IStyledLayout;
-		invalidateTree();
 		super.setLayoutManager(manager);
 	}
 
