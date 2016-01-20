@@ -23,14 +23,10 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Toggle;
-import org.eclipse.gef.EditPart;
-import org.whole.lang.events.IChangeEventHandler;
-import org.whole.lang.events.IdentityDefaultChangeEventHandler;
 import org.whole.lang.features.ui.figures.FeatureFigure;
 import org.whole.lang.features.ui.layouts.FeatureTreeDownLayout;
 import org.whole.lang.frames.model.Feature;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
@@ -39,43 +35,6 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class FeatureDownPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
 		return new FeatureFigure(new FeatureTreeDownLayout());
-	}
-
-
-	protected IChangeEventHandler childObserver;
-	
-//	private EditPartListener childListener;
-	@Override
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		super.addChildVisual(childEditPart, index);
-
-		if (childObserver == null) {
-			//TODO implement all methods
-			childObserver = new IdentityDefaultChangeEventHandler() {
-				private static final long serialVersionUID = 1L;
-			    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, Object oldValue, Object newValue) {
-			    	getViewer().getControl().getDisplay().asyncExec(new Runnable() {
-						public void run() {
-					    	refreshVisuals();
-						}
-					});
-			    }
-			};
-		}
-		((IEntity) childEditPart.getModel()).wAddChangeEventHandler(childObserver);
-		
-//		childEditPart.addEditPartListener(childListener = new EditPartListener.Stub() {
-//			public void childAdded(EditPart child, int index) {
-//				refreshVisuals();
-//			}
-//		});
-	}
-	@Override
-	protected void removeChildVisual(EditPart childEditPart) {
-		((IEntity) childEditPart.getModel()).wRemoveChangeEventHandler(childObserver);
-
-//		childEditPart.removeEditPartListener(childListener);
-		super.removeChildVisual(childEditPart);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

@@ -94,7 +94,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.whole.langs.core,
  org.whole.langs.core.op,
  org.whole.langs.legacy,
- org.whole.lang.ui.notations
+ org.whole.lang.ui.notations,
+ org.eclipse.e4.core.services,
+ org.eclipse.e4.ui.services,
+ org.eclipse.e4.ui.di
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

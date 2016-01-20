@@ -140,7 +140,7 @@ public class FramesPartFactoryVisitor extends FramesIdentityDefaultVisitor imple
 		part = new FramePart();
 
 		if (framesChangeEventHandler == null) {
-			framesChangeEventHandler = new FramesChangeEventHandler(((IEntityPart) context).getViewer());
+			framesChangeEventHandler = new FramesChangeEventHandler(((IEntityPart) context).getViewer().getContext());
 			entity.wGetModel().getCompoundModel().addChangeEventHandler(framesChangeEventHandler);
 		}
 	}

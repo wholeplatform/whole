@@ -17,14 +17,11 @@
  */
 package org.whole.lang.frames.events;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.events.IdentityChangeEventHandler;
-import org.whole.lang.frames.model.Frame;
-import org.whole.lang.frames.reflect.FramesEntityDescriptorEnum;
 import org.whole.lang.frames.reflect.FramesFeatureDescriptorEnum;
 import org.whole.lang.frames.util.FramesUtils;
 import org.whole.lang.matchers.GenericMatcherFactory;
@@ -32,50 +29,30 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
-import org.whole.lang.visitors.GenericIdentityVisitor;
-import org.whole.lang.visitors.VisitException;
 
 /**
  * @author Riccardo Solmi
  */
 public class FramesChangeEventHandler extends IdentityChangeEventHandler {
 	private static final long serialVersionUID = 1L;
-	protected final IEntityPartViewer viewer;
+	protected final IEclipseContext context;
+	
 
-	public FramesChangeEventHandler(IEntityPartViewer viewer) {
-		this.viewer = viewer;
+	public FramesChangeEventHandler(IEclipseContext context) {
+		this.context = context;
 	}
 
 	public void resfreshNotation(final IEntity source) {
+		EntityEditDomain editDomain = context.get(IEntityPartViewer.class).getEditDomain();
+		if (editDomain.isDisabled() || !isVariabilityDescendant(source))
+			return;
+
+		UISynchronize uiSynchronize = context.get(UISynchronize.class);
+		uiSynchronize.syncExec(() -> editDomain.setDisabled(true));
 		FramesUtils.updateSubset(source);
-
-		//TODO test also enablers in VariationPoints
-
-		if (isVariabilityDescendant(source)) {
-			Display display = Display.getDefault();
-			display.asyncExec(new Runnable() {
-				public void run() {
-					Frame frame = Matcher.findAncestor(FramesEntityDescriptorEnum.Frame, source);
-					//GenericMatcherFactory mf = GenericMatcherFactory.instance;
-					//FIXME VariationPoint not working due to Adapters
-					Collection<IEntity> c = Matcher.findAll(
-							//mf.assignable(FramesEntityDescriptorEnum.VariationPoint),
-							new GenericIdentityVisitor() {
-								public void visit(IEntity entity) {
-									if (!FramesEntityDescriptorEnum.VariationPoint
-											.isLanguageSupertypeOf(entity.wGetAdaptee(false).wGetEntityDescriptor()))
-										throw new VisitException();
-								}
-							},
-							frame.getContent(),
-							new HashSet<IEntity>(), false);
-
-					for (IEntity e : c)
-						viewer.rebuildNotation(e);
-				}
-			});
-		}
+		uiSynchronize.asyncExec(() -> editDomain.setDisabled(false));
 	}
 
 	public boolean isVariabilityDescendant(IEntity source) {

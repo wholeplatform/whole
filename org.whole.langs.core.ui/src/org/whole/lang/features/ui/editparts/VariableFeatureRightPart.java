@@ -21,6 +21,10 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
@@ -34,6 +38,7 @@ import org.whole.lang.frames.reflect.FramesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.util.DataTypeUtils;
 
 /**
@@ -44,17 +49,29 @@ public class VariableFeatureRightPart extends AbstractContentPanePart {
 		return new VariableFeatureRightFigure(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				VariableFeature entity = getModelEntity();
-				ModelTransactionCommand command = new ModelTransactionCommand(entity);
-				try {
-					command.begin();
-					entity.setValue(FramesEntityFactory.instance.createVariableValue(
-							((Toggle) event.getSource()).isSelected() ?
-									VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED));
-					command.commit();
-					getViewer().getEditDomain().getCommandStack().execute(command);
-				} catch (Exception e) {
-					command.rollback();
-				}
+				EntityEditDomain editDomain = getViewer().getEditDomain();
+				
+				Job job = new Job("") {
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						ModelTransactionCommand command = new ModelTransactionCommand(entity);
+						try {					
+							command.begin();
+							entity.setValue(FramesEntityFactory.instance.createVariableValue(
+									((Toggle) event.getSource()).isSelected() ?
+											VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED));
+							command.commit();
+							editDomain.getCommandStack().execute(command);
+							return Status.OK_STATUS;
+						} catch (Exception e) {
+							command.rollback();
+							return Status.CANCEL_STATUS;
+						}
+					}
+				};
+				job.setUser(false);
+				job.setPriority(Job.INTERACTIVE);
+				job.schedule();
 			}
 		});
 	}
