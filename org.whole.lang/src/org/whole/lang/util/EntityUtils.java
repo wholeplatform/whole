@@ -410,6 +410,15 @@ public class EntityUtils {
 		return initialMerger;
 	}
 
+	public static boolean isAncestorOrSelf(IEntity ancestorEntity, IEntity entity) {
+		if (ancestorEntity == entity)
+			return true;
+
+		IEntity ancestor = entity.wGetParent();
+		while (!isNull(ancestor) && ancestorEntity != ancestor)
+			ancestor = ancestor.wGetParent();
+		return !isNull(ancestor);
+	}
 	public static IEntity getCompoundRoot(IEntity entity) {
     	IEntity fragment = entity.wGetModel().getFragment();
 		IEntity root = fragment != null ? fragment.wGetRoot() : entity;
