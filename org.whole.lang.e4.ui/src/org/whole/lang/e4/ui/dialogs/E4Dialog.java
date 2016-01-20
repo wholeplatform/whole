@@ -82,20 +82,20 @@ public class E4Dialog extends Dialog {
 
 	@Inject
 	@Optional
-	protected void refreshViewer(@UIEventTopic(IUIConstants.TOPIC_REFRESH_VIEWER) IEntity results) {
-		if (results != null)
-			getViewer().refreshNotation(results);
-		else
+	protected void refreshViewer(@UIEventTopic(IUIConstants.TOPIC_REFRESH_VIEWER) IEntity source) {
+		if (source == null)
 			getViewer().refreshNotation();
+		else if (source.wGetModel() == getViewer().getEntityContents().wGetModel())
+			getViewer().refreshNotation(source);
 	}
 
 	@Inject
 	@Optional
-	protected void rebuildViewer(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER) IEntity results) {
-		if (results != null)
-			getViewer().rebuildNotation(results);
-		else
+	protected void rebuildViewer(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER) IEntity source) {
+		if (source == null)
 			getViewer().rebuildNotation();
+		else if (source.wGetModel() == getViewer().getEntityContents().wGetModel())
+			getViewer().rebuildNotation(source);
 	}
 
 	@Inject
