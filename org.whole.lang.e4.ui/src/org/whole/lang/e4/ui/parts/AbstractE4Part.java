@@ -144,9 +144,9 @@ public abstract class AbstractE4Part {
 
 		E4KeyHandler keyHandler = new E4KeyHandler(context);
 		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		context.set(IEntityPartViewer.class, viewer);
 		viewer.setKeyHandler(keyHandler);
 		viewer.setContents(modelInput, createDefaultContents());		
-		context.set(IEntityPartViewer.class, viewer);
 
 		actionRegistry = ContextInjectionFactory.make(ActionRegistry.class, context);
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());

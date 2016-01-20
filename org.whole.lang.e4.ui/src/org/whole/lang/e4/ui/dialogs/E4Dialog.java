@@ -147,9 +147,9 @@ public class E4Dialog extends Dialog {
 
 		E4KeyHandler keyHandler = new E4KeyHandler(context);
 		keyHandler.setParent(new E4NavigationKeyHandler(context));
+		context.set(IEntityPartViewer.class, viewer);
 		viewer.setKeyHandler(keyHandler);
 		viewer.setEntityContents(createDefaultContents());
-		context.set(IEntityPartViewer.class, viewer);
 
 		actionRegistry = ContextInjectionFactory.make(ActionRegistry.class, context);
 		actionRegistry.registerWorkbenchActions();
