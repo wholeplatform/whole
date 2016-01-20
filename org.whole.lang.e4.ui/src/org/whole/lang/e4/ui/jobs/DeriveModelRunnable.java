@@ -37,7 +37,7 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 
 	public DeriveModelRunnable(IEclipseContext context, IBindingManager bm, String label,
 			String functionUri, boolean functionIsTransactional) {
-		super(context, bm, label, false);
+		super(context, bm, label);
 		this.functionUri = functionUri;
 		this.functionIsTransactional = functionIsTransactional;
 	}

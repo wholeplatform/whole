@@ -45,7 +45,7 @@ import org.whole.lang.util.EntityUtils;
 public class ActionCallRunnable extends AbstractRunnableWithProgress {
 
 	public ActionCallRunnable(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
-		super(context, bm, label, delayUpdates);
+		super(context, bm, label);
 	}
 
 	@Override

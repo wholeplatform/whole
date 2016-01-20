@@ -34,7 +34,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class InterpretModelRunnable extends AbstractRunnableWithProgress {
 
 	public InterpretModelRunnable(IEclipseContext context, IBindingManager bm, String label) {
-		super(context, bm, label, false);
+		super(context, bm, label);
 	}
 
 	@Override

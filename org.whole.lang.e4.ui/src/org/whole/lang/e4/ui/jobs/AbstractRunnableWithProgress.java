@@ -31,8 +31,6 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
-import org.whole.lang.ui.draw2d.DelayableUpdateManager;
-import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -43,13 +41,11 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	protected IEclipseContext context;
 	protected IBindingManager bm;
 	protected String label;
-	protected boolean delayUpdates;
 
-	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label, boolean delayUpdates) {
+	public AbstractRunnableWithProgress(IEclipseContext context, IBindingManager bm, String label) {
 		this.context = context;
 		this.bm = bm.clone();
 		this.label = label;
-		this.delayUpdates = delayUpdates;
 	}
 
 	public IBindingManager getBindings() {
@@ -59,8 +55,6 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	@Override
 	public void run(IProgressMonitor monitor) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		boolean delayUpdates = delayUpdates(viewer, this.delayUpdates);
-		boolean enableAnimation = AnimableRunnable.enableAnimation(!this.delayUpdates);
 		try {
 			final IOperationProgressMonitor pm = new OperationProgressMonitorAdapter(monitor);
 			bm.wDefValue("progressMonitor", pm);
@@ -68,29 +62,15 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 		} catch (Exception e) {
 			IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e);
 			if (we.getSourceEntity() != null) {
-				if (this.delayUpdates)
-					delayUpdates(viewer, !this.delayUpdates);
 				E4Utils.suspendOperation(SuspensionKind.ERROR, we);
 			} else
 				E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
 		} finally {
 			monitor.done();
-			AnimableRunnable.enableAnimation(enableAnimation);
-			delayUpdates(viewer, delayUpdates);
 			if (isTransactional())
-				context.get(UISynchronize.class).syncExec(new Runnable() {
-					public void run() {
-						viewer.getEditDomain().setDisabled(false);
-					}
-				});
+				context.get(UISynchronize.class).syncExec(() -> viewer.getEditDomain().setDisabled(false));
 		}
 		return;
-	}
-
-	protected boolean delayUpdates(IEntityPartViewer viewer, boolean enable) {
-		Boolean oldDelayUpdates = (Boolean) viewer.getProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES);
-		viewer.setProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES, enable);
-		return oldDelayUpdates != null && oldDelayUpdates;
 	}
 
 	public abstract void run(IOperationProgressMonitor pm) throws InvocationTargetException, InterruptedException;

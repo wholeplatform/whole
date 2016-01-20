@@ -36,7 +36,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class ContentAssistRunnable extends AbstractRunnableWithProgress {
 
 	public ContentAssistRunnable(IEclipseContext context, IBindingManager bm) {
-		super(context, bm, "generate content assist", false);
+		super(context, bm, "generate content assist");
 	}
 
 	@Override

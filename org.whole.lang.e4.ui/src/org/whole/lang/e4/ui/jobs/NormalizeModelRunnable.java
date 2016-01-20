@@ -34,7 +34,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 public class NormalizeModelRunnable extends AbstractRunnableWithProgress {
 
 	public NormalizeModelRunnable(IEclipseContext context, IBindingManager bm, String label) {
-		super(context, bm, label, true);
+		super(context, bm, label);
 	}
 
 	@Override

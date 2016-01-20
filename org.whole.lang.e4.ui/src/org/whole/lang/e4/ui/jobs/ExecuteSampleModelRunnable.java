@@ -58,7 +58,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 
 	public ExecuteSampleModelRunnable(IEclipseContext context, IBindingManager bm, String label,
 			IEntity contextModel, IEntity selfModel, IEntity behaviorModel) {
-		super(context, bm, label, false);
+		super(context, bm, label);
 		this.contextModel = contextModel;
 		this.selfModel = selfModel;
 		this.behaviorModel = behaviorModel;

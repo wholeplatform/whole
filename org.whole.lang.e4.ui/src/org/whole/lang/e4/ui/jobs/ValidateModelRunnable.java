@@ -36,7 +36,7 @@ import org.whole.lang.ui.util.MarkerUtils;
 public class ValidateModelRunnable extends AbstractRunnableWithProgress {
 
 	public ValidateModelRunnable(IEclipseContext context, IBindingManager bm, String label) {
-		super(context, bm, label, false);
+		super(context, bm, label);
 	}
 
 	@Override

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.gef.LightweightEditDomain;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.EntityUtils;
 
@@ -36,11 +36,13 @@ import org.whole.lang.util.EntityUtils;
 public class ModelObserver implements PropertyChangeListener {
 	private ICompoundModel model;
 	private IEntityPartViewer viewer;
+	private boolean needsRebuildNotation;
 
 	public ModelObserver(ICompoundModel model, IEntityPartViewer viewer) {
 		this.model = model;
 		this.viewer = viewer;
 		model.addEventListener(this);
+		viewer.getEditDomain().addPropertyChangeListener(this);
 	}
 
 	public void dispose() {
@@ -52,17 +54,27 @@ public class ModelObserver implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
-		Boolean value = (Boolean) this.viewer.getProperty(DelayableUpdateManager.PROPERTY_DELAY_UPDATES);
-		if (value != null && value.booleanValue())
-			return;
+		if (event.getSource() == this.viewer.getEditDomain()) {
+			if (LightweightEditDomain.PROPERTY_DISABLED.equals(event.getPropertyName()) &&
+					Boolean.FALSE.equals(event.getNewValue())) {
+				if (this.needsRebuildNotation)
+					this.viewer.getControl().getDisplay().asyncExec( () -> viewer.rebuildNotation());
+				this.needsRebuildNotation = false;
+			}
+		} else { // event.getSource() == this.model
+			if (this.viewer.getEditDomain().isDisabled()) {
+				this.needsRebuildNotation = true;
+				return;
+			}
 
-    	IEntity entity = (IEntity) event.getSource();
-    	IEntityPart entityPart = getObserver(entity, viewer.getEditPartRegistry());
-    	if (entityPart != null) {
-    		fireBeforeUpdateEvent(entityPart);
-    		entityPart.propertyChange(event);
-    		fireAfterUpdateEvent(entityPart);
-    	}
+	    	IEntity entity = (IEntity) event.getSource();
+	    	IEntityPart entityPart = getObserver(entity, viewer.getEditPartRegistry());
+	    	if (entityPart != null) {
+	    		fireBeforeUpdateEvent(entityPart);
+	    		entityPart.propertyChange(event);
+	    		fireAfterUpdateEvent(entityPart);
+	    	}
+		}
 	}
 
 	public static IEntityPart getShowingObserver(IEntity entity, Map<IEntity, IEntityPart> mapping) {

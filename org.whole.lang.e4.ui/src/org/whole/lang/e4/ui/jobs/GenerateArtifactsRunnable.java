@@ -31,7 +31,7 @@ import org.whole.lang.operations.OperationCanceledException;
 public class GenerateArtifactsRunnable extends AbstractRunnableWithProgress {
 
 	public GenerateArtifactsRunnable(IEclipseContext context, IBindingManager bm, String label) {
-		super(context, bm, label, false);
+		super(context, bm, label);
 	}
 
 	@Override

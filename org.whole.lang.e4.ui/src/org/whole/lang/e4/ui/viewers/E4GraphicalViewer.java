@@ -73,7 +73,6 @@ import org.whole.lang.ui.dnd.FileTransferDropTargetListener;
 import org.whole.lang.ui.dnd.TextTransferDragSourceListener;
 import org.whole.lang.ui.dnd.TextTransferDropTargetListener;
 import org.whole.lang.ui.dnd.XmlBuilderFileTransferDragSourceListener;
-import org.whole.lang.ui.draw2d.DelayableUpdateManager;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
@@ -519,13 +518,6 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		super.setFocus(part);
 		if (oldPart != part)
 			firePartFocusChanged(oldPart, (IEntityPart) part);
-	}
-
-	@Override
-	protected LightweightSystem createLightweightSystem() {
-		LightweightSystem lws = super.createLightweightSystem();
-		lws.setUpdateManager(new DelayableUpdateManager(this));
-		return lws;
 	}
 
 	//	private ResourceManager resourceManager;
