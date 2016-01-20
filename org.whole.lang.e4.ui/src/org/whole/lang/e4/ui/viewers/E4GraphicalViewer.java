@@ -96,6 +96,7 @@ import org.whole.lang.ui.treesearch.NonInteractiveConditional;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.ui.viewers.ZoomGestureListener;
+import org.whole.lang.util.EntityUtils;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
@@ -360,7 +361,8 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 		modelInputListeners.remove(listener);
 	}
 	public void rebuildNotation() {
-		setContents(getContents().getModel());
+		RootFragment rootFragment = (RootFragment) getContents().getModel();
+		rebuildNotation(rootFragment.getRootEntity().wGetAdaptee(true));
 	}
 
 	// End Block Shared With E4TreeViewer
@@ -388,12 +390,25 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 
 	public void rebuildNotation(IEntity entity) {
 		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+		if (entityPart == null) {
+			if (EntityUtils.isAncestorOrSelf(entity, getEntityContents()))
+				entityPart = ModelObserver.getObserver(getEntityContents(), getEditPartRegistry());
+			else
+				return;
+		}
 		entityPart.rebuild();
 		invalidateTree();
 	}
 
 	public void refreshNotation(IEntity entity) {
-		refreshNotation(((IGraphicalEntityPart) ModelObserver.getObserver(entity, getEditPartRegistry())).getFigure());
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+		if (entityPart == null) {
+			if (EntityUtils.isAncestorOrSelf(entity, getEntityContents()))
+				entityPart = ModelObserver.getObserver(getEntityContents(), getEditPartRegistry());
+			else
+				return;
+		}
+		refreshNotation(((IGraphicalEntityPart) entityPart).getFigure());
 	}
 	public void refreshNotation() {
 		if (getFigureCanvas() != null)

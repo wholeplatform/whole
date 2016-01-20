@@ -71,6 +71,7 @@ import org.whole.lang.ui.input.IModelInputListener;
 import org.whole.lang.ui.keys.AbstractKeyHandler;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.util.EntityUtils;
 import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
@@ -359,7 +360,8 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	public void rebuildNotation() {
-		setContents(getContents().getModel());
+		RootFragment rootFragment = (RootFragment) getContents().getModel();
+		rebuildNotation(rootFragment.getRootEntity().wGetAdaptee(true));
 	}
 
 	// End Block Shared With E4GraphicalViewer
@@ -379,7 +381,14 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 
 	public void rebuildNotation(IEntity entity) {
-		IEntityPart entityPart = getEditPartRegistry().get(entity);
+		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
+		if (entityPart == null) {
+			if (EntityUtils.isAncestorOrSelf(entity, getEntityContents()))
+				entityPart = ModelObserver.getObserver(getEntityContents(), getEditPartRegistry());
+			else
+				return;
+		}
+
 		entityPart.rebuild();
 	}
 	
