@@ -248,14 +248,6 @@ public class E4Utils {
 			}
 		});
 	}
-	public static void rebuildNotation(final IEntityPartViewer viewer) {
-		viewer.getContext().get(UISynchronize.class).syncExec(new Runnable() {
-			@Override
-			public void run() {
-				viewer.rebuildNotation();
-			}
-		});
-	}
 	public static void revealPart(final IEclipseContext context, final String partId) {
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			@Override
