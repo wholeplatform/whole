@@ -48,5 +48,6 @@ public interface IImportAsModelDialog {
 	public void setMessage(String message);
 
 	public boolean show();
+	public boolean isConfirmed();
 	public boolean validate();
 }

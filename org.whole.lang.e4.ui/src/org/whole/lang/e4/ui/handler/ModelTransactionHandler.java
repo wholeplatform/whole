@@ -27,6 +27,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.e4.ui.jobs.EntityEditDomainJob;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -52,24 +53,26 @@ public abstract class ModelTransactionHandler {
 	@Execute
 	public void execute(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
-		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-		try {
-			bm.wEnterScope(ts);
-			mtc.setLabel(getLabel(bm));
-			mtc.begin();
-			run(bm);
-			mtc.commit();
-			if (mtc.canUndo())
-				commandStack.execute(mtc);
-		} catch (RuntimeException e) {
-			mtc.rollback();
-			throw e;
-		} finally {
-			ts.rollback();
-			bm.wExitScope();
-		}
+		EntityEditDomainJob.asyncExec(getLabel(bm), viewer.getEditDomain(), (monitor) -> {
+			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+			ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
+			ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+			try {
+				bm.wEnterScope(ts);
+				mtc.setLabel(getLabel(bm));
+				mtc.begin();
+				run(bm);
+				mtc.commit();
+				if (mtc.canUndo())
+					commandStack.execute(mtc);
+			} catch (RuntimeException e) {
+				mtc.rollback();
+				throw e;
+			} finally {
+				ts.rollback();
+				bm.wExitScope();
+			}
+		});
 	}
 
 	public abstract boolean isEnabled(IBindingManager bm);

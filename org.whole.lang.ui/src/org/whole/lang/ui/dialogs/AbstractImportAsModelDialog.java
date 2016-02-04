@@ -35,6 +35,7 @@ public abstract class AbstractImportAsModelDialog implements IImportAsModelDialo
 	protected boolean forceAdding;
 	protected String title;
 	protected String message;
+	protected boolean confirmed;
 
 	public AbstractImportAsModelDialog(Shell shell, IImportAsModelDialogFactory factory, String title, String message, boolean enableForceAdding) {
 		this.factory = factory;
@@ -46,6 +47,7 @@ public abstract class AbstractImportAsModelDialog implements IImportAsModelDialo
 		this.stage = CommonsEntityDescriptorEnum.SameStageFragment;
 		this.enableForceAdding = enableForceAdding;
 		this.forceAdding = false;
+		this.confirmed = false;
 	}
 
 	public IImportAsModelDialogFactory getFactory() {
@@ -96,10 +98,13 @@ public abstract class AbstractImportAsModelDialog implements IImportAsModelDialo
 	}
 
 	public boolean show() {
-		boolean confirm = openDialog();
-		if (confirm)
+		if (this.confirmed = openDialog())
 			factory.setDefaults(getPersistenceKit(), getStage());				
-		return confirm;
+		return this.confirmed;
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
 	}
 
 	public boolean validate() {

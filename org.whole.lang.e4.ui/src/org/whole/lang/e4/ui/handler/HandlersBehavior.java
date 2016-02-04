@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.actions.iterators.ActionCallIterator;
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -41,6 +42,7 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.jobs.RunnableWithResult;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.IEntityIterator;
@@ -88,7 +90,7 @@ public class HandlersBehavior {
 
 		handlerService.activateHandler(COPY_ENTITY_PATH_COMMAND_ID, new CopyEntityPathHandler());
 		handlerService.activateHandler(COPY_AS_IMAGE_COMMAND_ID, new CopyAsImageHandler());
-		handlerService.activateHandler(PASTE_AS_COMMAND_ID, new PasteAsHandler());
+		handlerService.activateHandler(PASTE_AS_COMMAND_ID, new PasteAsHandler());//FIXME
 
 		handlerService.activateHandler(REPLACE_COMMAND_ID, new ReplaceEntityHandler());
 		handlerService.activateHandler(ADD_COMMAND_ID, new AddEntityHandler());
@@ -235,25 +237,37 @@ public class HandlersBehavior {
 	}
 	public static void pasteAs(IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		Shell shell = viewer.getControl().getShell();
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
-		IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
-				.createImplicitElementImportAsModelDialog(
-						shell, "Paste As", EntityUtils.isComposite(focusEntity));
-		if (!dialog.show())
+
+		RunnableWithResult<IImportAsModelDialog> dialogRunnable = RunnableWithResult.create(() -> {
+			Shell shell = viewer.getControl().getShell();
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
+					.createImplicitElementImportAsModelDialog(
+							shell, "Paste As", EntityUtils.isComposite(focusEntity));
+			dialog.show();
+			return dialog;
+		});
+
+		Display display = viewer.getControl().getDisplay();
+		display.syncExec(dialogRunnable);
+		IImportAsModelDialog dialog = dialogRunnable.get();
+		if (!dialog.isConfirmed())
 			return;
-		
+
 		IPersistenceKit persistenceKit = dialog.getPersistenceKit();
-		IEntity entity = CommonsEntityFactory.instance.createResolver();
-		try {
-			entity = ClipboardUtils.parseClipboardContents(persistenceKit, bm);
-		} catch (Exception e) {
-			IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
-			E4Utils.reportError(context, "Write Model errors", "Parse failed using the selected persistence.", e);
-			return;
-		}
-		
+		RunnableWithResult<IEntity> entityRunnable = RunnableWithResult.create(() -> {
+			try {
+				return ClipboardUtils.parseClipboardContents(persistenceKit, bm);
+			} catch (Exception e) {
+				IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+				E4Utils.reportError(context, "Write Model errors", "Parse failed using the selected persistence.", e);
+				return CommonsEntityFactory.instance.createResolver();
+			}
+		});
+		display.syncExec(entityRunnable);
+		IEntity entity = entityRunnable.get();
+
 		boolean adding = dialog.isForceAdding();
 		IEntityIterator<IEntity> iterator;
 		if (bm.wIsSet("syntheticRoot")) {
@@ -352,13 +366,20 @@ public class HandlersBehavior {
 	}
 	public static void importEntity(IBindingManager bm) {
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		Shell shell = viewer.getControl().getShell();
-
 		IEntity focusEntity = bm.wGet("focusEntity");
-		IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
-		IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
-				.createImportAsModelDialog(shell, "Import model", EntityUtils.isComposite(focusEntity));
-		if (!dialog.show())
+		
+		RunnableWithResult<IImportAsModelDialog> runnable = RunnableWithResult.create(() -> {
+			Shell shell = viewer.getControl().getShell();
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
+					.createImportAsModelDialog(shell, "Import model", EntityUtils.isComposite(focusEntity));
+			dialog.show();
+			return dialog;
+		});
+
+		viewer.getControl().getDisplay().syncExec(runnable);
+		IImportAsModelDialog dialog = runnable.get();
+		if (!dialog.isConfirmed())
 			return;
 
 		Object[] files = dialog.getSelection();

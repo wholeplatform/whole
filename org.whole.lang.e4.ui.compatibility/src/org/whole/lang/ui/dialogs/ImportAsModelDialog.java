@@ -54,9 +54,10 @@ public class ImportAsModelDialog extends AbstractImportAsModelDialog {
 	}
 
 	public boolean validate() {
+		dialog.setPersistenceKit(getPersistenceKit());
 		return dialog.validate();
 	}
-
+	
 	@Override
 	protected boolean openDialog() {
 		return dialog.open() == Window.OK;
@@ -73,6 +74,9 @@ public class ImportAsModelDialog extends AbstractImportAsModelDialog {
 			this.status = createErrorStatus("undefined");
 		}
 
+		public void setPersistenceKit(IPersistenceKit persistenceKit) {
+			this.persistenceKit = persistenceKit;
+		}
 
 		@Override
 		protected void addControls(Composite group) {
