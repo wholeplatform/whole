@@ -30,6 +30,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.e4.ui.jobs.EntityEditDomainJob;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -60,25 +61,29 @@ public abstract class TypedModelTransactionHandler {
 			@Optional @Named(FD_URI_PARAMETER_ID) String fdUri,
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEntityPartViewer viewer) throws Exception {
-		CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-		ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
-		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-		try {
-			bm.wEnterScope(ts);
-			defineBindings(edUri, fdUri, bm);
-			mtc.setLabel(getLabel(bm));
-			mtc.begin();
-			run(bm);
-			mtc.commit();
-			if (mtc.canUndo())
-				commandStack.execute(mtc);
-		} catch (RuntimeException e) {
-			mtc.rollback();
-			throw e;
-		} finally {
-			ts.rollback();
-			bm.wExitScope();
-		}
+
+		defineBindings(edUri, fdUri, bm);
+
+		EntityEditDomainJob.asyncExec(getLabel(bm), viewer.getEditDomain(), (monitor) -> {
+			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
+			ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
+			ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+			try {
+				bm.wEnterScope(ts);
+				mtc.setLabel(getLabel(bm));
+				mtc.begin();
+				TypedModelTransactionHandler.this.run(bm);
+				mtc.commit();
+				if (mtc.canUndo())
+					commandStack.execute(mtc);
+			} catch (RuntimeException e) {
+				mtc.rollback();
+				throw e;
+			} finally {
+				ts.rollback();
+				bm.wExitScope();
+			}
+		});
 	}
 
 	protected void defineBindings(String edUri, String fdUri, IBindingManager bm) {
