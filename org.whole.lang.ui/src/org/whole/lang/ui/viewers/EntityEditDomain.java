@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.EditPartViewer;
@@ -34,7 +35,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * @author Enrico Persiani
  */
-public class EntityEditDomain extends LightweightEditDomain {
+public class EntityEditDomain extends LightweightEditDomain implements ISchedulingRule {
 	@Override
 	public void addViewer(EditPartViewer viewer) {
 		boolean isFirstViewer = getViewers().isEmpty();
@@ -95,5 +96,15 @@ public class EntityEditDomain extends LightweightEditDomain {
 		event.stateMask = SWT.NONE;
 		event.doit = true;
 		getActiveTool().keyDown(new KeyEvent(event),viewer);
+	}
+
+	@Override
+	public boolean contains(ISchedulingRule rule) {
+		return this == rule;
+	}
+
+	@Override
+	public boolean isConflicting(ISchedulingRule rule) {
+		return contains(rule);
 	}
 }
