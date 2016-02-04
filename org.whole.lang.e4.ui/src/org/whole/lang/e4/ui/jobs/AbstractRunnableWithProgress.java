@@ -21,7 +21,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
@@ -32,6 +31,7 @@ import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.SuspensionKind;
+import org.whole.lang.ui.viewers.EntityEditDomain;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -80,14 +80,13 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	}
 
 	public void asyncExec(String message) {
-		if (isTransactional()) {
-			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-			viewer.getEditDomain().setDisabled(true);
-		}
-		RunnableJob job = new RunnableJob(message, this);
-		job.setUser(false);
-		job.setPriority(Job.INTERACTIVE);
-		job.schedule();
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		EntityEditDomain editDomain = viewer.getEditDomain();
+
+		if (isTransactional())
+			editDomain.setDisabled(true);
+
+		EntityEditDomainJob.asyncExec(message, editDomain, this);
 	}
 
 	public synchronized IBindingScope syncExec(long timeout) {
