@@ -54,13 +54,15 @@ public class HistoryCommandStack extends CommandStack {
 		if (isLegacyCommand(command) && command.canExecute())
 			mtCommand = toModelTransactionCommand(command);
 		else if (!(command instanceof ModelTransactionCommand)) {
-			super.execute(command);
+			viewer.getControl().getDisplay().syncExec(
+					() -> super.execute(command));
 			return;
 		} else
 			mtCommand = (ModelTransactionCommand) command;
 
 		if (mtCommand.canUndo())
-			super.execute(mtCommand);
+			viewer.getControl().getDisplay().syncExec(
+					() -> super.execute(mtCommand));
 	}
 
 	protected IHistoryManager getHistoryManager() {
