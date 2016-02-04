@@ -28,15 +28,12 @@ import org.whole.lang.reflect.EntityDescriptor;
  * @author Enrico Persiani
  */
 public interface IImportAsModelDialogFactory {
-	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title);
 	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title, boolean enableForceAdding);
-	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title);
 	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title, boolean enableForceAdding);
-	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title);
 	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title, boolean enableForceAdding);
 	
 	public void setDefaults(IPersistenceKit defaultPersistenceKit, EntityDescriptor<?> defaultStage);
 	public Combo addPersistenceCombo(final IImportAsModelDialog dialog, Composite group, String label);
 	public Button addForceAdditionButton(final IImportAsModelDialog dialog, Composite group, String label);
 	public Combo addStageCombo(final IImportAsModelDialog dialog, Composite group, String label);
-}
+	}

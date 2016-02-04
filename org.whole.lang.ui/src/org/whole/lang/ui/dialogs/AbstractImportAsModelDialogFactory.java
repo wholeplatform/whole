@@ -31,7 +31,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -61,16 +60,6 @@ public abstract class AbstractImportAsModelDialogFactory implements IImportAsMod
 		dialog.setPersistenceKit(defaultPersistenceKit);
 		dialog.setStage(defaultStage);
 		return dialog;
-	}
-
-	public IImportAsModelDialog createImportAsModelDialog(Shell shell, String title) {
-		return createImportAsModelDialog(shell, title, false);
-	}
-	public IImportAsModelDialog createElementListImportAsModelDialog(Shell shell, String title) {
-		return createElementListImportAsModelDialog(shell, title, false);
-	}
-	public IImportAsModelDialog createImplicitElementImportAsModelDialog(Shell shell, String title) {
-		return createImplicitElementImportAsModelDialog(shell, title, false);
 	}
 
 	public Combo addStageCombo(final IImportAsModelDialog dialog, Composite group, String label) {
@@ -108,7 +97,8 @@ public abstract class AbstractImportAsModelDialogFactory implements IImportAsMod
 		
 		persistenceCombo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				dialog.setPersistenceKit(persistenceKits.get(persistenceCombo.getSelectionIndex()));
+				IPersistenceKit persistenceKit = persistenceKits.get(persistenceCombo.getSelectionIndex());
+				dialog.setPersistenceKit(persistenceKit);
 				dialog.validate();
 			}
 		});

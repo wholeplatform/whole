@@ -91,7 +91,7 @@ public class TextTransferDropTargetListener extends AbstractTransferDropTargetLi
 		String text = (String) getCurrentEvent().data; 
 
 		Shell shell = getViewer().getControl().getShell();
-		IImportAsModelDialog dialog = factory.createImplicitElementImportAsModelDialog(shell, "Drop As");
+		IImportAsModelDialog dialog = factory.createImplicitElementImportAsModelDialog(shell, "Drop As", false);
 		if (!dialog.show())
 			return null;
 

@@ -93,7 +93,7 @@ public class FileTransferDropTargetListener extends AbstractTransferDropTargetLi
 		List<EditPart> editParts = new ArrayList<EditPart>();
 
 		Shell shell = getViewer().getControl().getShell();
-		IImportAsModelDialog dialog = factory.createElementListImportAsModelDialog(shell, "DnD Import");
+		IImportAsModelDialog dialog = factory.createElementListImportAsModelDialog(shell, "DnD Import", false);
 		String[] fileNames = new String[filePaths.length];
 		for (int i=0; i<fileNames.length; i++)
 			fileNames[i] = filePaths[i].substring(filePaths[i].lastIndexOf(File.separatorChar)+1);
