@@ -21,14 +21,11 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.draw2d.ActionEvent;
 import org.eclipse.draw2d.ActionListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Toggle;
+import org.whole.lang.e4.ui.jobs.EntityEditDomainJob;
 import org.whole.lang.features.ui.figures.VariableFeatureRightFigure;
 import org.whole.lang.frames.factories.FramesEntityFactory;
 import org.whole.lang.frames.model.VariableFeature;
@@ -50,28 +47,21 @@ public class VariableFeatureRightPart extends AbstractContentPanePart {
 			public void actionPerformed(ActionEvent event) {
 				VariableFeature entity = getModelEntity();
 				EntityEditDomain editDomain = getViewer().getEditDomain();
-				
-				Job job = new Job("") {
-					@Override
-					protected IStatus run(IProgressMonitor monitor) {
-						ModelTransactionCommand command = new ModelTransactionCommand(entity);
-						try {					
-							command.begin();
-							entity.setValue(FramesEntityFactory.instance.createVariableValue(
-									((Toggle) event.getSource()).isSelected() ?
-											VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED));
-							command.commit();
-							editDomain.getCommandStack().execute(command);
-							return Status.OK_STATUS;
-						} catch (Exception e) {
-							command.rollback();
-							return Status.CANCEL_STATUS;
-						}
+
+				EntityEditDomainJob.asyncExec("select feature", editDomain, (monitor) -> {
+					ModelTransactionCommand command = new ModelTransactionCommand(entity);
+					try {					
+						command.begin();
+						entity.setValue(FramesEntityFactory.instance.createVariableValue(
+								((Toggle) event.getSource()).isSelected() ?
+										VariableValueEnum.SELECTED : VariableValueEnum.NOT_SELECTED));
+						command.commit();
+						editDomain.getCommandStack().execute(command);
+					} catch (Exception e) {
+						command.rollback();
+						throw e;
 					}
-				};
-				job.setUser(false);
-				job.setPriority(Job.INTERACTIVE);
-				job.schedule();
+				});
 			}
 		});
 	}
