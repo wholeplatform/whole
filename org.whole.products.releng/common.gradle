@@ -86,7 +86,7 @@ ext {
 			ignoreExitValue = true
 			workingDir = pomDir
 			executable = "mvn"
-			environment = [ M2_HOME: "$System.env.M2_HOME", MAVEN_OPTS: "$System.env.MAVEN_OPTS" ]
+			environment = [ HOME: "$System.env.HOME", M2_HOME: "$System.env.M2_HOME", MAVEN_OPTS: "$System.env.MAVEN_OPTS" ]
 			if (profile == '')
 				args = ['-Dtycho.localArtifacts=ignore', "-f"+pomName, goal]
 			else
