@@ -1,3 +1,7 @@
+# to test the build locally use the following command:
+#
+# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && cat .travis.yml | grep "  - " | sed 's/  - //' | sh -x ; popd
+
 sudo: false
 language: java
 jdk: oraclejdk8
