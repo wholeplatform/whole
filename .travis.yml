@@ -13,7 +13,7 @@ script:
   - git clone https://github.com/wholeplatform/whole-examples.git
   - git clone https://github.com/wholeplatform/whole-platform-products.git
   - cd whole/org.whole.products.releng
-  - export MAVEN_OPTS="-Xms512M -Xmx3G -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
+  - export MAVEN_OPTS="-Xms512M -Xmx1024M"
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
   - echo -e "Configuring Maven with:\nMAVEN_OPTS=$MAVEN_OPTS\nM2_HOME=$M2_HOME"
   - gradle --quiet --daemon integration_test
