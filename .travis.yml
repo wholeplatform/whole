@@ -1,6 +1,6 @@
 # to test the build locally use the following command:
 #
-# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && cat .travis.yml | grep "  - " | sed 's/  - //' | sh -x ; popd
+# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && grep "  - " .travis.yml | sed 's/  - //' | sh -x ; popd
 
 sudo: false
 language: java
@@ -16,4 +16,4 @@ script:
   - export MAVEN_OPTS="-Xms512M -Xmx1024M -Dtycho.disableP2Mirrors=true"
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
   - echo -e "Configuring Maven with:\nMAVEN_OPTS=$MAVEN_OPTS\nM2_HOME=$M2_HOME"
-  - gradle --quiet --daemon integration_test
+  - gradle --quiet integration_test
