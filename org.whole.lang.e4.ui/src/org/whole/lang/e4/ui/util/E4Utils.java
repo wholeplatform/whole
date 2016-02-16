@@ -384,6 +384,17 @@ public class E4Utils {
 		execution.pause();
 	}
 
+	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		context.get(UISynchronize.class).syncExec(runnable);
+		return runnable;
+	}
+	public static <R extends Runnable> R asyncExec(IBindingManager bindings, R runnable) {
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		context.get(UISynchronize.class).asyncExec(runnable);
+		return runnable;
+	}
+
 	public static void openEditor(IEclipseContext context, IFile file, IPersistenceKit persistenceKit) {
 		try {
 			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();

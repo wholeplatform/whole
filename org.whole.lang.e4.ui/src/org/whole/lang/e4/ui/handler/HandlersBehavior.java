@@ -143,16 +143,18 @@ public class HandlersBehavior {
 		return isValidEntityPartSelection(bm, false);
 	}
 	public static void copy(IBindingManager bm) {
-		String selectedText;
-		if (bm.wIsSet("selectedText") && !(selectedText = bm.wStringValue("selectedText")).isEmpty())
-			Clipboard.instance().setTextContents(selectedText);
-		else {
-			IEntity selectedEntities = bm.wGet("selectedEntities");
-			IEntity tuple = BindingManagerFactory.instance.createTuple(true);
-			for (int i=0, size=selectedEntities.wSize(); i<size; i++)
-				tuple.wAdd(EntityUtils.clone(selectedEntities.wGet(i)));
-			Clipboard.instance().setEntityContents(tuple);
-		}
+		E4Utils.syncExec(bm, () -> {
+			String selectedText;
+			if (bm.wIsSet("selectedText") && !(selectedText = bm.wStringValue("selectedText")).isEmpty())
+				Clipboard.instance().setTextContents(selectedText);
+			else {
+				IEntity selectedEntities = bm.wGet("selectedEntities");
+				IEntity tuple = BindingManagerFactory.instance.createTuple(true);
+				for (int i=0, size=selectedEntities.wSize(); i<size; i++)
+					tuple.wAdd(EntityUtils.clone(selectedEntities.wGet(i)));
+				Clipboard.instance().setEntityContents(tuple);
+			}
+		});
 	}
 	public static boolean canCopyEntityPath(IBindingManager bm) {
 		return isValidFocusEntityPart(bm);
@@ -179,10 +181,12 @@ public class HandlersBehavior {
 		return viewer.getEditPartRegistry().get(focusEntity) instanceof IGraphicalEntityPart;
 	}
 	public static void copyAsImage(IBindingManager bm) {
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity focusEntity = bm.wGet("focusEntity");
-		IEntityPart part = viewer.getEditPartRegistry().get(focusEntity);
-		Clipboard.instance().setImageContents((IGraphicalEntityPart) part);
+		E4Utils.syncExec(bm, () -> {
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+			IEntity focusEntity = bm.wGet("focusEntity");
+			IEntityPart part = viewer.getEditPartRegistry().get(focusEntity);
+			Clipboard.instance().setImageContents((IGraphicalEntityPart) part);
+		});
 	}
 
 	public static boolean canPaste(IBindingManager bm) {
@@ -208,9 +212,13 @@ public class HandlersBehavior {
 		return false;
 	}
 	public static void paste(IBindingManager bm) {
-		if (Clipboard.instance().getInternalOrNativeEntityContents() != null) {
+		RunnableWithResult<IEntity> runnable = E4Utils.syncExec(bm, RunnableWithResult.create(() -> {
+			return Clipboard.instance().getInternalOrNativeEntityContents();
+		}));
+
+		if (runnable.get() != null) {
 			IEntityIterator<IEntity> iterator = IteratorFactory.childReverseIterator();
-			iterator.reset(Clipboard.instance().getInternalOrNativeEntityContents());
+			iterator.reset(runnable.get());
 	
 			IEntity focusEntity = bm.wGet("focusEntity");
 			while (iterator.hasNext()) {
@@ -249,9 +257,7 @@ public class HandlersBehavior {
 			return dialog;
 		});
 
-		Display display = viewer.getControl().getDisplay();
-		display.syncExec(dialogRunnable);
-		IImportAsModelDialog dialog = dialogRunnable.get();
+		IImportAsModelDialog dialog = E4Utils.syncExec(bm, dialogRunnable).get();
 		if (!dialog.isConfirmed())
 			return;
 
@@ -265,8 +271,7 @@ public class HandlersBehavior {
 				return CommonsEntityFactory.instance.createResolver();
 			}
 		});
-		display.syncExec(entityRunnable);
-		IEntity entity = entityRunnable.get();
+		IEntity entity = E4Utils.syncExec(bm, entityRunnable).get();
 
 		boolean adding = dialog.isForceAdding();
 		IEntityIterator<IEntity> iterator;
@@ -345,10 +350,12 @@ public class HandlersBehavior {
 		return ((IEntityFigure) contents.getFigure()).isInteractiveEdit();
 	}
 	public static void selectAll(IBindingManager bm) {
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity entityContents = viewer.getEntityContents();
-		IEntityPart contents = viewer.getEditPartRegistry().get(entityContents);
-		viewer.setSelection(new StructuredSelection(contents));
+		E4Utils.syncExec(bm, () -> {
+			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+			IEntity entityContents = viewer.getEntityContents();
+			IEntityPart contents = viewer.getEditPartRegistry().get(entityContents);
+			viewer.setSelection(new StructuredSelection(contents));
+		});
 	}
 
 	public static boolean canReplaceWithDefault(IBindingManager bm) {
@@ -377,7 +384,7 @@ public class HandlersBehavior {
 			return dialog;
 		});
 
-		viewer.getControl().getDisplay().syncExec(runnable);
+		E4Utils.syncExec(bm, runnable);
 		IImportAsModelDialog dialog = runnable.get();
 		if (!dialog.isConfirmed())
 			return;

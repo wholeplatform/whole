@@ -32,7 +32,7 @@ public class GrammarsResourceBindingsContributor implements IResourceBindingsCon
 	public void addResourceBindings(IBindingManager bindings) {
 		Collection<Grammar> grammars = GrammarsRegistry.instance().grammars();
 		if (!grammars.isEmpty()) {
-			IGrammarProvider provider = new DialogGrammarProvider();
+			IGrammarProvider provider = new DialogGrammarProvider(bindings);
 			bindings.wDefValue("grammarProvider", provider);
 		}
 	}

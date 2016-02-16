@@ -24,8 +24,9 @@ import java.util.Iterator;
 
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
 import org.whole.lang.grammars.codebase.IGrammarProvider;
 import org.whole.lang.grammars.model.Grammar;
@@ -35,10 +36,13 @@ import org.whole.lang.grammars.util.GrammarsUtils;
  * @author Enrico Persiani
  */
 public class DialogGrammarProvider extends ElementListSelectionDialog implements IGrammarProvider {
-	public DialogGrammarProvider() {
+	protected IBindingManager bindings;
+
+	public DialogGrammarProvider(IBindingManager bindings) {
 		super(null, new GrammarLabelProvider());
 		setTitle("Choose a grammar"); 
 		setMessage("Available grammars:");
+		this.bindings = bindings;
 	}
 
 	public String getGrammarUri(String languageURI) {
@@ -60,11 +64,7 @@ public class DialogGrammarProvider extends ElementListSelectionDialog implements
 		setElements(grammarsArray);
 		setInitialElementSelections(Collections.singletonList(grammarsArray[0]));
 
-		Display.getDefault().syncExec(new Runnable() {
-			public void run() {
-				open();
-			}
-		});
+		E4Utils.syncExec(bindings, this::open);
 		if (getReturnCode() == Window.OK) {
 			Object[] selectedElements = getResult();
 			return ((Grammar) selectedElements[0]).getUri().getValue();
