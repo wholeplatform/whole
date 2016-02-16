@@ -165,7 +165,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 			IDE.setDefaultEditor(file, ReflectionFactory.getEditorIdFromPersistenceKit(persistenceKit));
 
 			// update model input
-			getContext().set(IModelInput.class, new ModelInput(pp, persistenceKit.getId()));
+			getContext().set(IModelInput.class, new ModelInput(getContext(), pp, persistenceKit.getId()));
 
 			// update editor input
 			setInputWithNotify(new FileEditorInput(file));

@@ -23,10 +23,12 @@ import java.net.URI;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.input.IModelInput;
@@ -40,14 +42,17 @@ public class ModelInput implements IModelInput {
 	protected String overridePersistenceKitId;
 	protected Boolean readable;
 
-	public ModelInput(String location, String basePersistenceKitId) {
-		this(createPersistenceProvider(location), basePersistenceKitId);
+	public ModelInput(IEclipseContext context, String location, String basePersistenceKitId) {
+		this(context, createPersistenceProvider(location), basePersistenceKitId);
+		
 	}
-	public ModelInput(IPersistenceProvider persistenceProvider, String basePersistenceKitId) {
+	public ModelInput(IEclipseContext context, IPersistenceProvider persistenceProvider, String basePersistenceKitId) {
 		this.persistenceProvider = persistenceProvider;
 		this.basePersistenceKitId = basePersistenceKitId;
 		this.overridePersistenceKitId = null;
 		this.readable = null;
+		E4Utils.defineResourceBindings(this.persistenceProvider.getBindings(), this);
+		this.persistenceProvider.getBindings().wDefValue("eclipseContext", context);
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class ModelInputFunction extends ContextFunction {
 		if (input instanceof IFileEditorInput) {
 			IFile file = ((IFileEditorInput) input).getFile();
 			IFilePersistenceProvider pp = new IFilePersistenceProvider(file);
-			ModelInput modelInput = new ModelInput(pp, calculateBasePersistenceKitId(file));
+			ModelInput modelInput = new ModelInput(context, pp, calculateBasePersistenceKitId(file));
 			if (editorPart != null) {
 				String editorId = editorPart.getSite().getId();
 				String overridePersistenceKitId = ReflectionFactory.getPersistenceKitFromEditorId(editorId).getId();
@@ -55,7 +55,7 @@ public class ModelInputFunction extends ContextFunction {
 		} else if (input instanceof IURIEditorInput) {
 			File file = new File(((IURIEditorInput) input).getURI());
 			FilePersistenceProvider pp = new FilePersistenceProvider(file);
-			ModelInput modelInput = new ModelInput(pp, ReflectionFactory.getDefaultPersistenceKit().getId());
+			ModelInput modelInput = new ModelInput(context, pp, ReflectionFactory.getDefaultPersistenceKit().getId());
 			if (editorPart != null) {
 				String editorId = editorPart.getSite().getId();
 				String overridePersistenceKitId = ReflectionFactory.getPersistenceKitFromEditorId(editorId).getId();

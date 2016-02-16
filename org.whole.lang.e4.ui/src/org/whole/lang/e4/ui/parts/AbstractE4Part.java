@@ -225,7 +225,7 @@ public abstract class AbstractE4Part {
 	protected void restoreState() {
 		if (part.getPersistedState().containsKey("basePersistenceKitId")) {
 			String basePersistenceKitId = part.getPersistedState().get("basePersistenceKitId");
-			IModelInput modelInput = new ModelInput(part.getPersistedState().get("filePath"), basePersistenceKitId);
+			IModelInput modelInput = new ModelInput(context, part.getPersistedState().get("filePath"), basePersistenceKitId);
 			modelInput.setOverridePersistenceKitId(part.getPersistedState().get("overridePersistenceKitId"));
 			updateModelInput(modelInput);
 		}
@@ -357,7 +357,7 @@ public abstract class AbstractE4Part {
 				if (member.getKind() == IResourceDelta.REMOVED && (member.getFlags() & IResourceDelta.MOVED_TO) != 0) {
 					IFile destination = file.getWorkspace().getRoot().getFile(member.getMovedToPath());
 					IFilePersistenceProvider pp = new IFilePersistenceProvider(destination);
-					ModelInput newModelInput = new ModelInput(pp, modelInput.getBasePersistenceKit().getId());
+					ModelInput newModelInput = new ModelInput(context, pp, modelInput.getBasePersistenceKit().getId());
 					newModelInput.setOverridePersistenceKitId(modelInput.getOverridePersistenceKitId());
 					updateModelInput(newModelInput);
 					reloadContents();
