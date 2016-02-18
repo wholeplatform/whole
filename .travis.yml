@@ -17,4 +17,4 @@ script:
   - cd whole/org.whole.products.releng
   - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
   - echo -e "Configuring Maven with:\nMAVEN_OPTS=$MAVEN_OPTS\nM2_HOME=$M2_HOME"
-  - gradle --quiet integration_test
+  - gradle --quiet integration_test build
