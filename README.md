@@ -1,3 +1,4 @@
+[![Build Status](https://codeship.com/projects/94cb74b0-b878-0133-7bf0-760ebe6d65b0/status?branch=master)](https://codeship.com/projects/135142)
 [![Build Status](https://travis-ci.org/wholeplatform/whole.svg?branch=master)](https://travis-ci.org/wholeplatform/whole)
 
 [Whole Platform](http://wholeplatform.com) Language Workbench
@@ -20,7 +21,7 @@ The languages bundled with the Whole Platform include:
 
 ## License
 
-The Whole Platform is Copyright 2004-2015 Riccardo Solmi.
+The Whole Platform is Copyright 2004-2016 Riccardo Solmi.
 All rights reserved.
 The Whole Platform is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published
