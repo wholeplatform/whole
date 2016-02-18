@@ -1,6 +1,6 @@
 # to test the build locally use the following command:
 #
-# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && grep "  - " .travis.yml | sed 's/  - //' | sh -x ; popd
+# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && grep -A 999 '^script:' .travis.yml | tail -n +2 | sed 's/  - //' | sh -x ; popd
 
 sudo: false
 language: java
