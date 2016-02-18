@@ -136,33 +136,33 @@ task clean(dependsOn: [clean_e4_lw, clean_lw, clean_ldk], description:"Clean") <
 task build(dependsOn: [zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description: "Generates all distribution archives")
 
 task release_lw(description: "Release the Whole Language Workbench") << {
-	def frsDir = "/home/frs/project/whole"	
-		
+	def frsDir = "/home/frs/project/whole"
+
 	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
 		patternset(includes:"whole/org.whole.products.releng/readme.txt")
 		flattenmapper()
 	}
-	
+
 	exec {
-		executable "rsync"
-		args "-ave ssh ${buildArtifactsDir}/readme.txt riccardo_solmi@frs.sourceforge.net:${frsDir}"
+		executable = "rsync"
+		args = ["-ave", "ssh", "${buildArtifactsDir}/readme.txt", "riccardo_solmi@frs.sourceforge.net:${frsDir}"]
 	}
-	
+
 	ant.delete(file:"${buildArtifactsDir}/readme.txt")
 	ant.delete(file:"${buildArtifactsDir}/.DS_Store", quiet:"true" )
-	
+
 	exec {
-		executable "rsync"
-		args "-ave ssh ${buildArtifactsDir} riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"
+		executable = "rsync"
+		args = ["-ave", "ssh", "${buildArtifactsDir}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"]
 	}
-	
+
 	ant.unzip(src:"${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest:"${buildArtifactsDir}/${fullVersion}" )
-	
+
 	exec {
-		executable "rsync"
-		args "-ave ssh ${buildArtifactsDir}/${fullVersion} riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"
+		executable = "rsync"
+		args = ["-ave", "ssh", "${buildArtifactsDir}/${fullVersion}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"]
 	}
-	
+
 	ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
 }
 release_lw.onlyIf { existsBuildArtifactsDir }
