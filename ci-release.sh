@@ -3,6 +3,6 @@
 
 CI_BUILD_DIR=$(pwd)
 cd .ci-build/whole/org.whole.products.releng
-gradle --quiet release
+gradle --quiet release_lw release_ldk
 cd $CI_BUILD_DIR
 
