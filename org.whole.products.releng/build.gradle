@@ -178,6 +178,16 @@ task release_lw(description: "Release the Whole Language Workbench") << {
 		executable = "curl"
 		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=linux&default=others", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-linux.tar.gz"]
 	}
+
+	ant.echo(message: "Options Indexes\nRedirect 302 /updates http://sourceforge.net/projects/whole/files/updates/${fullVersion}\n", file: "${buildArtifactsDir}/.htaccess")
+
+	exec {
+		executable = "rsync"
+		args = ["-ave", "ssh", "${buildArtifactsDir}/.htaccess", "riccardo_solmi@web.sourceforge.net:/home/project-web/whole/htdocs"]
+	}
+
+	ant.delete(dir:"${buildArtifactsDir}/.htaccess")
+
 }
 release_lw.onlyIf { existsBuildArtifactsDir }
 
