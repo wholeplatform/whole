@@ -1,20 +1,14 @@
-# to test the build locally use the following command:
-#
-# test -d whole-ci || git clone https://github.com/wholeplatform/whole.git whole-ci && pushd whole-ci && grep -A 999 '^script:' .travis.yml | tail -n +2 | sed 's/  - //' | sh -x ; popd
+# To test the ci build locally use the following command:
+# sh -x ci-build.sh
 
-sudo: false
-language: java
-jdk: oraclejdk8
-before_install:
-  - echo "MAVEN_OPTS='-Xmx2g'" > ~/.mavenrc
-script:
-  - mkdir .tmp
-  - mv * .git  .gitignore .travis.yml .tmp/
-  - mv .tmp whole
-  - git clone https://github.com/wholeplatform/whole-java-libs.git
-  - git clone https://github.com/wholeplatform/whole-examples.git
-  - git clone https://github.com/wholeplatform/whole-platform-products.git
-  - cd whole/org.whole.products.releng
-  - export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
-  - echo -e "Configuring Maven with:\nMAVEN_OPTS=$MAVEN_OPTS\nM2_HOME=$M2_HOME"
-  - gradle --quiet integration_test build
+mkdir -p .ci-build/whole
+cp -a * .git .gitignore .ci-build/whole/
+pushd .ci-build
+git clone https://github.com/wholeplatform/whole-java-libs.git
+git clone https://github.com/wholeplatform/whole-examples.git
+git clone https://github.com/wholeplatform/whole-platform-products.git
+cd whole/org.whole.products.releng
+export M2_HOME=$(mvn -v | grep "^Maven home:" | sed "s/^[^\/]*//")
+echo -e "Configuring Maven with:\nMAVEN_OPTS=$MAVEN_OPTS\nM2_HOME=$M2_HOME"
+gradle --quiet integration_test build
+popd
