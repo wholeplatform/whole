@@ -137,6 +137,7 @@ task build(dependsOn: [zip_whole_sources, zip_examples_sources, build_lw, build_
 
 task release_lw(description: "Release the Whole Language Workbench") << {
 	def frsDir = "/home/frs/project/whole"
+	def apiKey = "$System.env.sourceforgeApiKey"
 
 	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
 		patternset(includes:"whole/org.whole.products.releng/readme.txt")
@@ -164,6 +165,19 @@ task release_lw(description: "Release the Whole Language Workbench") << {
 	}
 
 	ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
+
+	exec {
+		executable = "curl"
+		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=windows", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-windows.zip"]
+	}
+	exec {
+		executable = "curl"
+		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=mac", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-osx.tar.gz"]
+	}
+	exec {
+		executable = "curl"
+		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=linux&default=others", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-linux.tar.gz"]
+	}
 }
 release_lw.onlyIf { existsBuildArtifactsDir }
 

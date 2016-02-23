@@ -70,6 +70,7 @@ ext {
 		def lastCommitDate = new Git(repo).log().setMaxCount(1).call().iterator().next().getAuthorIdent().getWhen()
 
 		def dateFormat = new java.text.SimpleDateFormat("yyyyMMdd-HHmm")
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
 		def suffix = dateFormat.format(lastCommitDate)
 	
 		"${versionNum}.v${suffix}"
