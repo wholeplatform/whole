@@ -114,10 +114,9 @@ task package_ldk(dependsOn: set_build_version) << {
 package_ldk.onlyIf { !failure }
 package_ldk.finalizedBy set_meta_version
 
-task build_ldk(dependsOn: package_ldk) << {
-	launchMaven(relengDir, "pom-ldk.xml", "clean")
-}
+task build_ldk(dependsOn: package_ldk)
 build_ldk.onlyIf { !failure }
+build_ldk.finalizedBy clean_ldk
 
 task clean_updates_ef(type: GradleBuild) {
 	dir = efRelengDir
@@ -197,7 +196,7 @@ task deploy_ldk(dependsOn: set_build_version) << {
 }
 deploy_ldk.finalizedBy set_meta_version
 
-task release_ldk(dependsOn: [clean, deploy_ldk], description: "Release the Whole Language Development Kit")
+task release_ldk(dependsOn: deploy_ldk, description: "Release the Whole Language Development Kit")
 release_ldk.onlyIf { !failure }
 release_ldk.finalizedBy clean_ldk
 
@@ -206,13 +205,16 @@ task install_ldk(dependsOn: set_build_version) << {
 }
 install_ldk.finalizedBy set_meta_version
 
-task release_ldk_local(dependsOn: [clean, install_ldk], description: "Release the Whole Language Development Kit locally")
+task release_ldk_local(dependsOn: install_ldk, description: "Release the Whole Language Development Kit locally")
 release_ldk_local.onlyIf { !failure }
 release_ldk_local.finalizedBy clean_ldk
 
+task release(dependsOn: [release_lw, release_ldk], description: "Releases all the Whole Platform products")
+
+
 task integration_test(dependsOn: [build_ef], description: "Test the Whole Language Workbench") << {
 	launchMaven(relengDir, "pom-lw.xml", "integration-test")
-} 
+}
 
 task copy_update_site << {
 	if (!new File(buildArtifactsDir).exists()) 
