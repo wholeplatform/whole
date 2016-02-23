@@ -1,6 +1,7 @@
 # To test the ci build locally use the following command:
 # sh -x ci-build.sh
 
+rm -rf .ci-build
 mkdir -p .ci-build/whole
 cp -a * .git .gitignore .ci-build/whole/
 CI_BUILD_DIR=$(pwd)
