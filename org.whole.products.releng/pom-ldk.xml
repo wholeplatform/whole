@@ -179,7 +179,7 @@
 	<distributionManagement>
 		<repository>
 			<id>WholeRepositoryServer</id>
-			<url>sftp://web.sourceforge.net/home/project-web/whole/htdocs/maven</url>
+			<url>sftp://riccardo_solmi@web.sourceforge.net/home/project-web/whole/htdocs/maven</url>
 		</repository>
 	</distributionManagement>
 </project>
