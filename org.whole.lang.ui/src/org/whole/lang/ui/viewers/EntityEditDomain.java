@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.gef.LightweightEditDomain;
@@ -100,7 +101,7 @@ public class EntityEditDomain extends LightweightEditDomain implements IScheduli
 
 	@Override
 	public boolean contains(ISchedulingRule rule) {
-		return this == rule;
+		return this == rule || rule instanceof IResource;
 	}
 
 	@Override
