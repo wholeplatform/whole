@@ -70,6 +70,8 @@ import org.whole.lang.workflows.ui.dialogs.TaskDialogHelper;
 public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor {
 	@Override
 	public void visit(Task entity) {
+		entity.getLabel().accept(this);
+		String title = PrettyPrinterOperation.toPrettyPrintString(getResult());
 		entity.getDescription().accept(this);
 		String description = PrettyPrinterOperation.toPrettyPrintString(getResult());
 
@@ -90,7 +92,7 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 			assignments = (Assignments) getResult();
 		}
 
-		if (!TaskDialogHelper.showTaskDialog(factory, "Task", description, assignments, getBindings()))
+		if (!TaskDialogHelper.showTaskDialog(factory, title, description, assignments, getBindings()))
 			throw new OperationCanceledException(new VisitException("task not completed: "+description));
 
 		assignments.accept(this);
