@@ -21,46 +21,27 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.jobs.RunnableWithResult;
+import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.workflows.model.Assignments;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
  */
 public class TaskDialogHelper {
-	private static class UIRunnable implements Runnable {
-		private final ITaskDialogFactory factory;
-		private final String message;
-		private final Assignments assignments;
-		private final IBindingManager bindings;
-		private final String title;
-		private boolean confirmation;
-
-		private UIRunnable(ITaskDialogFactory factory, String title,
-				String message, Assignments assignments, IBindingManager bindings) {
-			this.factory = factory;
-			this.title = title;
-			this.message = message;
-			this.assignments = assignments;
-			this.bindings = bindings;
-		}
-
-		public void run() {
+	public static boolean showTaskDialog(ITaskDialogFactory factory, String title, String message, 
+			Assignments assignments, IBindingManager bindings) {
+		
+		RunnableWithResult<Boolean> runnable = RunnableWithResult.create(() -> {
 			Shell activeShell = Display.getCurrent().getActiveShell();
+			if (bindings.wIsSet("viewer"))
+				activeShell = ((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getShell();
 			Dialog dialog = factory.createDialog(activeShell, title,
 					message, assignments, bindings);
 
-			confirmation = dialog.open() == Dialog.OK;
-		}
-
-		public boolean getConfirmation() {
-			return confirmation;
-		}
-	}
-
-	public static boolean showTaskDialog(ITaskDialogFactory factory, String title, String message, 
-			Assignments assignments, IBindingManager bindings) {
-		UIRunnable runnable = new UIRunnable(factory, title, message, assignments, bindings);
-		Display.getDefault().syncExec(runnable);
-		return runnable.getConfirmation();
+			return dialog.open() == Dialog.OK; 
+		});
+		return E4Utils.syncExec(bindings, runnable).get();
 	}
 }
