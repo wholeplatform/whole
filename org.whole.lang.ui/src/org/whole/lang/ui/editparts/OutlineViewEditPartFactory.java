@@ -30,7 +30,6 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.operations.IDecorationManager.DecorationKind;
@@ -69,7 +68,7 @@ public class OutlineViewEditPartFactory implements EditPartFactory {
 		}
 
 		public void propertyChange(final PropertyChangeEvent event) {
-	    	Display.getDefault().syncExec(new Runnable() {
+	    	getViewer().getControl().getDisplay().syncExec(new Runnable() {
 	    		public void run() {
 	    			propertyChangeUI(event);
 	    		}
