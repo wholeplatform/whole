@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2015 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2016 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -253,7 +253,7 @@ public class MatcherTest {
 		b0.FileArtifact_();
 		cb.Resolver();
 		b0.Metadata_();
-		b0.Copyright("Copyright 2004-2015 Riccardo Solmi.");
+		b0.Copyright("Copyright 2004-2016 Riccardo Solmi.");
 		if (isPattern)
 			cb.Variable("licenseText", ArtifactsEntityDescriptorEnum.License, QuantifierEnum.MANDATORY);
 		else

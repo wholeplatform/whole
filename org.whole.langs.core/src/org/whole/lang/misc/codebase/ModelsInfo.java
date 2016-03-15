@@ -23,7 +23,7 @@ public class ModelsInfo extends AbstractTemplateFactory<Misc> {
 		b1.PackageArtifact_();
 		b1.Name("org.whole.lang.models");
 		b1.Metadata_();
-		b1.Copyright("Copyright 2004-2015 Riccardo Solmi.");
+		b1.Copyright("Copyright 2004-2016 Riccardo Solmi.");
 		b1
 				.License("* All rights reserved. This program and the accompanying materials\n* are made available under the terms of the GNU Lesser General Public License\n* which accompanies this distribution, and is available at\n* http://www.gnu.org/copyleft/lesser.html");
 		b1.Author("Riccardo Solmi");

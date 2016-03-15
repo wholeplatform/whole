@@ -15,7 +15,7 @@ public class Factorial extends AbstractTemplateFactory<org.whole.lang.java.model
         org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
         b1.Resolver();
         b0.DocElements_(5);
-        b0.TextElement("Copyright 2004-2015 Riccardo Solmi.");
+        b0.TextElement("Copyright 2004-2016 Riccardo Solmi.");
         b0.TextElement("All rights reserved. This program and the accompanying materials ");
         b0.TextElement("are made available under the terms of the GNU Lesser General Public License");
         b0.TextElement("which accompanies this distribution, and is available at");

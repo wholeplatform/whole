@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-2015 Riccardo Solmi. All rights reserved.
+ * Copyright 2004-2016 Riccardo Solmi. All rights reserved.
  * This file is part of the Whole Platform.
  *
  * The Whole Platform is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 package org.whole.lang.exceptions;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.matchers.SubstituteException;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -75,7 +76,8 @@ public class WholeRuntimeException extends RuntimeException implements IWholeRun
 				IWholeRuntimeException sourceCauseRec = ((IWholeRuntimeException) cause).getSourceCause();
 				if (sourceCauseRec.getSourceEntity() != null)
 					sourceCause = sourceCauseRec;
-			}
+			} else if (getCause() instanceof SubstituteException)
+				sourceCause.withSourceEntity(((SubstituteException) getCause()).variable);
 		}
 		return sourceCause;
 	}
