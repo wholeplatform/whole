@@ -36,7 +36,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.FontMetrics;
@@ -149,7 +148,8 @@ public class UIUtils {
 				fontRegistry.put(OPEN_SYMBOL_MEDIUM, new FontData[]{new FontData("OpenSymbol", 14, SWT.NONE)} );
 				fontRegistry.put(OPEN_SYMBOL_LARGE, new FontData[]{new FontData("OpenSymbol", 21, SWT.NONE)} );
 			} else
-				throw new SWTException("Device.loadFont failed");				
+				return; // FIXME workaround font not loading on some mac os x 10.11.4 configurations
+				//throw new SWTException("Device.loadFont failed");				
 
 //			url = getBundle().getEntry("/fonts/STIXMath-Regular.otf");
 //			fontPath = new Path(FileLocator.toFileURL(url).getPath());
