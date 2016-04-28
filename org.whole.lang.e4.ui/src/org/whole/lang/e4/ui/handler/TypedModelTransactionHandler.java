@@ -62,14 +62,13 @@ public abstract class TypedModelTransactionHandler {
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm,
 			IEntityPartViewer viewer) throws Exception {
 
-		defineBindings(edUri, fdUri, bm);
-
-		EntityEditDomainJob.asyncExec(getLabel(bm), viewer.getEditDomain(), (monitor) -> {
+		EntityEditDomainJob.asyncExec("replacing entity...", viewer.getEditDomain(), (monitor) -> {
 			CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 			ModelTransactionCommand mtc = new ModelTransactionCommand(bm.wGet("focusEntity"));
 			ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 			try {
 				bm.wEnterScope(ts);
+				defineBindings(edUri, fdUri, bm);
 				mtc.setLabel(getLabel(bm));
 				mtc.begin();
 				TypedModelTransactionHandler.this.run(bm);
