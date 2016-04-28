@@ -18,9 +18,6 @@ Additional examples are available as a separate archive.
 Import the zip files into the Eclipse's workspace using the
 "Existing Projects into Workspace" import wizard.
 
-See http://sourceforge.net/apps/mediawiki/whole/index.php?title=Whole_Platform_Installation
-for additional details.
-
 Outline of the SourceForge Whole Platform Files hierarchy
 
 builds/<version>
