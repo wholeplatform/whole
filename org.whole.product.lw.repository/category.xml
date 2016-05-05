@@ -57,19 +57,49 @@
    <feature id="org.mozilla.rhino.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature id="org.eclipse.draw2d">
-      <category name="whole-enabling-features"/>
-   </feature>
-   <feature id="org.eclipse.draw2d.source">
-      <category name="whole-enabling-features"/>
-   </feature>
-   <feature id="org.eclipse.gef.source">
-      <category name="whole-enabling-features"/>
-   </feature>
-   <feature id="org.eclipse.gef.lightweight">
-      <category name="whole-enabling-features"/>
-   </feature>
+    <feature id="org.eclipse.draw2d">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.draw2d.source">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.draw2d.sdk">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.source">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.lightweight">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.sdk">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.examples">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.examples.source">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.zest">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.zest.source">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.zest.sdk">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.gef.all">
+        <category name="whole-enabling-features"/>
+    </feature>
    <feature id="org.eclipse.e4.core.tools.feature">
+      <category name="whole-enabling-features"/>
+   </feature>
+   <feature id="com.github.jai.imageio.core.feature">
       <category name="whole-enabling-features"/>
    </feature>
    <category-def name="whole-lw" label="Whole Language Workbench 1.0.0.qualifier">
