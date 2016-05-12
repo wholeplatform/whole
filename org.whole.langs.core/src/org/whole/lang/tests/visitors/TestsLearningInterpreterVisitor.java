@@ -160,7 +160,7 @@ public class TestsLearningInterpreterVisitor extends TestsInterpreterVisitor {
 						}
 
 						// wrap SubjectStatement with a UsingFilter
-						SubjectStatement statement = BehaviorUtils.evaluateFirstResult(createFindAncestorSubjectStatement(), adapter);
+						SubjectStatement statement = BehaviorUtils.evaluateFirstResult(createFindAncestorSubjectStatement(), adapter, getBindings());
 						UsingFilter usingFilter = createUsingFilter(filterName);
 						statement.wGetParent().wSet(statement, usingFilter);
 						usingFilter.setSubjectStatement(statement);

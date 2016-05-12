@@ -20,6 +20,7 @@ package org.whole.lang.grammars.visitors;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.grammarbased.GrammarsToGrammarBasedQuery;
 import org.whole.lang.grammarbased.ui.editparts.GrammarBasedPartFactory;
 import org.whole.lang.grammars.codebase.GrammarsRegistry;
@@ -43,13 +44,13 @@ public class GrammarsUIInterpreterVisitor extends GrammarsInterpreterVisitor {
 		// ensure grammar normalized
 		entity = GrammarsRegistry.instance().getGrammar(entity.getUri().getValue());
 		GrammarBasedPartFactory.instance().putConfigurations(
-				entity.getUri().getValue(), createConfigurations(createGrammarBased(entity)));
+				entity.getUri().getValue(), createConfigurations(createGrammarBased(entity, getBindings())));
 	}
 
-	public static IEntity createGrammarBased(Grammar entity) {
+	public static IEntity createGrammarBased(Grammar entity, IBindingManager bm) {
 		Grammar g = entity;//FIXME ensure normalized: NormalizerOperation.normalize(entity);
 		PathExpression pathExpression = new GrammarsToGrammarBasedQuery().create();
-		IEntity grammarBased = BehaviorUtils.evaluateFirstResult(pathExpression, g);
+		IEntity grammarBased = BehaviorUtils.evaluateFirstResult(pathExpression, g, bm);
 		return NormalizerOperation.normalize(grammarBased);
 	}
 
