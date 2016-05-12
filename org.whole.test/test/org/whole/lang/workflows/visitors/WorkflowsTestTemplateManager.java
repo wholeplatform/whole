@@ -1358,7 +1358,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b2.LiteralTerminal_();
                 b2.RegExp("\\p{javaWhitespace}*");
                 b2.Category("SEPARATOR");
-                b2.Literal(" ");
+                b2.Literal("");
                 b2._LiteralTerminal();
                 b2.Productions_(0);
                 b2._Productions();
@@ -1441,7 +1441,7 @@ public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
                 b3.LiteralTerminal_();
                 b3.RegExp("\\p{javaWhitespace}*");
                 b3.Category("SEPARATOR");
-                b3.Literal(" ");
+                b3.Literal("");
                 b3._LiteralTerminal();
                 b3.Productions_(0);
                 b3._Productions();

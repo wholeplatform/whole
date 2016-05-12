@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.whole.lang.grammars.GrammarsActions;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.models.codebase.XmlModel;
@@ -35,6 +35,7 @@ import org.whole.lang.models.model.SimpleName;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 import org.whole.test.SlowTests;
 
 /**
@@ -72,9 +73,10 @@ public class ModelInvariantsTest {
 	}
 
     @Test
-	public void testUniqueFragmentModel() {
+	public void testUniqueFragmentModel() throws Exception {
 		IEntityIterator<IEntity> i = IteratorFactory.descendantOrSelfIterator();
-		i.reset(new GrammarsActions().create());
+		i.reset(XmlBuilderPersistenceKit.instance().readModel(
+				new ClasspathPersistenceProvider("org/whole/lang/grammars/GrammarsActions.xwl")));
 		for (IEntity e : i) {
 			Logger.getLogger("org.whole.test").info(StringUtils.transientId(e));
 			

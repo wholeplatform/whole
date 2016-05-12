@@ -77,6 +77,7 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	private String name;
 
 	private String delimiter = "";
+	private boolean delimited = false;
 	private String space = " ";
 	private String newLine = "\n";
 	private String indent = "    ";
@@ -97,6 +98,10 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 		return DataTypeUtils.getAsPersistenceString(entity);
 	}
 
+	protected void appendDelimiter() {
+		delimited = true;
+		append(delimiter);
+	}
 	protected void append(CharSequence csq) {
 		final int csqLength = csq.length();
 		if (csqLength == 0)
@@ -170,6 +175,9 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 
 		if (!appendModelEntityAsFragment())
 			nameProductionMap.get(model.wGetEntityDescriptor().getName()).accept(this);
+
+		if (delimited)
+			appendDelimiter();
 	}
 
 	@Override
@@ -185,11 +193,8 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	@Override
 	public void visit(Concatenate entity) {
 		if (!appendModelEntityAsFragment())
-			for (int i = 0; i < entity.wSize(); i++) {
-				if (i>0)
-					append(delimiter);
+			for (int i = 0; i < entity.wSize(); i++)
 				((Rule) entity.wGet(i)).accept(this);
-			}
 	}
 
 	@Override
@@ -297,11 +302,13 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 
 	@Override
 	public void visit(LiteralTerminal entity) {
+		appendDelimiter();
 		entity.getLiteral().accept(this);
 	}
 
 	@Override
 	public void visit(DataTerminal entity) {
+		appendDelimiter();
 		if (!appendModelEntityAsFragment())
 			entity.getFormat().accept(this);
 	}

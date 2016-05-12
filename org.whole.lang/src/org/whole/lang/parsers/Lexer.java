@@ -34,6 +34,7 @@ public class Lexer implements Iterator<String> {
 	protected Matcher matcher;
 	protected Pattern tokenPattern;
 	protected Pattern delimPattern;
+	protected boolean delimited = false;
 	protected String lookahead;
 	protected int lookaheadPosition = -1;
 
@@ -62,7 +63,7 @@ public class Lexer implements Iterator<String> {
 
 	public boolean hitEnd() {
 		int endPosition = position;
-		if (delimPattern != null) { 
+		if (delimited) { 
 			matcher.usePattern(delimPattern);
 			if (!matcher.region(position, getEndPosition()).lookingAt())
 				return false;
@@ -132,6 +133,8 @@ public class Lexer implements Iterator<String> {
 		            		.matches())
 		            	return null;
 				}
+
+				delimited = true;
 	 		} else if (!matcher.usePattern(tokenPattern).region(position, getEndPosition()).lookingAt())
 				return null;
 		} catch (Exception e) {
@@ -160,10 +163,6 @@ public class Lexer implements Iterator<String> {
 		lookahead = null;
 		lookaheadPosition = -1;
 		return token;
-	}
-
-	public void remove() {
-		throw new UnsupportedOperationException();
 	}
 
 	protected int findHorizonPosition(int startPosition, Pattern pattern) {

@@ -1219,7 +1219,7 @@
                             <grammars:LiteralTerminal>
                                 <grammars:RegExp value="\p{javaWhitespace}*"/>
                                 <grammars:Category value="SEPARATOR"/>
-                                <grammars:Literal value=" "/>
+                                <grammars:Literal value=""/>
                             </grammars:LiteralTerminal>
                             <grammars:Productions initialCapacity="0"/>
                             <grammars:Productions initialCapacity="3">
@@ -1295,7 +1295,7 @@
                             <grammars:LiteralTerminal>
                                 <grammars:RegExp value="\p{javaWhitespace}*"/>
                                 <grammars:Category value="SEPARATOR"/>
-                                <grammars:Literal value=" "/>
+                                <grammars:Literal value=""/>
                             </grammars:LiteralTerminal>
                             <grammars:Productions initialCapacity="0"/>
                             <grammars:Productions initialCapacity="2">
