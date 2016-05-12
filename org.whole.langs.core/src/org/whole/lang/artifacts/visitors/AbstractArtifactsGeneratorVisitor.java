@@ -88,7 +88,7 @@ public abstract class AbstractArtifactsGeneratorVisitor extends ArtifactsTravers
 					pk.writeModel(model, pp);
 					contentsWritten = true;
 				} catch (Exception inner) {
-					// do nothing
+					throw new IllegalStateException(inner);
 				}
 		}
 		try {
