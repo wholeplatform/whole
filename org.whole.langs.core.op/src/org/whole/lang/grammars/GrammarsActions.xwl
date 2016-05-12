@@ -1,0 +1,1717 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.grammars:GrammarsActions"/>
+    <actions:Namespace value="org.whole.lang.grammars"/>
+    <actions:Name value="GrammarsActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="http://lang.whole.org/Grammars"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Normalize"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="23">
+                <queries:QueryDeclaration>
+                    <queries:Name value="addTokenName"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="tokenName"/>
+                        <queries:Name value="toNonTerminalType"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="4">
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:VariableTest value="tokenName"/>
+                        </queries:Filter>
+                        <queries:Filter>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Grammars#NonTerminal"/>
+                                    <commons:VarName value="tokenName"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                            </commons:StageUpFragment>
+                            <queries:VariableTest value="toNonTerminalType"/>
+                        </queries:Filter>
+                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="update token name set"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:Variable value="tokenSet"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$TokenSet"/>
+                            <workflows:StringLiteral value="add(org.whole.lang.grammars.model.NonTerminal)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:Variable value="toNonTerminalType"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaInstanceMethod>
+                        <queries:VariableRefStep value="toNonTerminalType"/>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="inTokenSet"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:ExpressionTest>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="is contained in token name set"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="tokenSet"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$TokenSet"/>
+                                <workflows:StringLiteral value="contains(java.lang.String)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="self"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="isTokenNonTerminal"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="NonTerminal"/>
+                            <queries:ExpressionTest>
+                                <queries:Call>
+                                    <queries:Name value="inTokenSet"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                            </queries:ExpressionTest>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="isProductionNonTerminal"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="NonTerminal"/>
+                            <queries:Not>
+                                <queries:ExpressionTest>
+                                    <queries:Call>
+                                        <queries:Name value="inTokenSet"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:ExpressionTest>
+                            </queries:Not>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="extractTokens"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Block initialCapacity="3">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="getTokenByTerminal"/>
+                            <queries:Names initialCapacity="1">
+                                <queries:Name value="term"/>
+                            </queries:Names>
+                            <queries:Block initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:VariableTest value="term"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="Grammar"/>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="lexicalStructure"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:VariableTest value="term"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:Block>
+                        </queries:QueryDeclaration>
+                        <queries:QueryDeclaration>
+                            <queries:Name value="extractToken"/>
+                            <queries:Names initialCapacity="1">
+                                <queries:Name value="freshName"/>
+                            </queries:Names>
+                            <queries:Block initialCapacity="2">
+                                <queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="calculate next token fresh name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers"/>
+                                        <workflows:StringLiteral value="nextTokenFreshName(org.whole.lang.util.FreshNameGenerator)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="freshNameGenerator"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <queries:VariableTest value="freshName"/>
+                                </queries:Filter>
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="Grammar"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="lexicalStructure"/>
+                                    </queries:Path>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:Call>
+                                        <queries:Name value="addTokenName"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:VariableRefStep value="freshName"/>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </grammars:Production>
+                                    </commons:StageUpFragment>
+                                </queries:PointwiseInsert>
+                            </queries:Block>
+                        </queries:QueryDeclaration>
+                        <queries:CartesianUpdate>
+                            <queries:Filter>
+                                <queries:DescendantStep/>
+                                <queries:Or initialCapacity="2">
+                                    <queries:TypeTest value="LiteralTerminal"/>
+                                    <queries:SubtypeTest value="EpsilonRule"/>
+                                </queries:Or>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <queries:Choose initialCapacity="2">
+                                    <queries:Call>
+                                        <queries:Name value="getTokenByTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                    <queries:Call>
+                                        <queries:Name value="extractToken"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:Choose>
+                                <queries:FeatureStep value="name"/>
+                            </queries:Path>
+                        </queries:CartesianUpdate>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="allNonTokenChildren"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Choose initialCapacity="2">
+                        <queries:Path initialCapacity="2">
+                            <queries:Choose initialCapacity="2">
+                                <queries:Path initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:TypeTest value="Concatenate"/>
+                                    </queries:Filter>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <queries:Path initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="Split"/>
+                                        <queries:TypeTest value="When"/>
+                                        </queries:Or>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="rule"/>
+                                </queries:Path>
+                            </queries:Choose>
+                            <queries:Call>
+                                <queries:Name value="allNonTokenChildren"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:Path>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:Not>
+                                <queries:ExpressionTest>
+                                    <queries:Call>
+                                        <queries:Name value="isTokenNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:ExpressionTest>
+                            </queries:Not>
+                        </queries:Filter>
+                    </queries:Choose>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="effectiveParent"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Path initialCapacity="2">
+                        <queries:ParentStep/>
+                        <queries:Choose initialCapacity="2">
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="Split"/>
+                                        <queries:TypeTest value="When"/>
+                                    </queries:Or>
+                                </queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="effectiveParent"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                            </queries:Path>
+                            <queries:SelfStep/>
+                        </queries:Choose>
+                    </queries:Path>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="isInlineConcatenate"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="Concatenate"/>
+                            <queries:Or initialCapacity="2">
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="effectiveParent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:TypeTest value="Concatenate"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:Not>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:TypeTest value="As"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:Not>
+                            </queries:Or>
+                        </queries:And>
+                    </queries:Filter>
+                </queries:QueryDeclaration>
+                <queries:Filter>
+                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="create token name set"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$TokenSet"/>
+                        <workflows:StringLiteral value="TokenSet(org.whole.lang.model.IEntity)"/>
+                        <workflows:Expressions initialCapacity="1">
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="lexicalStructure"/>
+                                <queries:Union>
+                                    <queries:Expressions initialCapacity="1">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:ChildStep/>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:Path>
+                                    </queries:Expressions>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Union>
+                            </queries:Path>
+                        </workflows:Expressions>
+                    </workflows:CreateJavaClassInstance>
+                    <queries:VariableTest value="tokenSet"/>
+                </queries:Filter>
+                <queries:Filter>
+                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                        <workflows:Text value="create type fresh name generator"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                        <workflows:StringLiteral value="FreshNameGenerator(java.util.Collection)"/>
+                        <workflows:Expressions initialCapacity="1">
+                            <workflows:Variable value="tokenSet"/>
+                        </workflows:Expressions>
+                    </workflows:CreateJavaClassInstance>
+                    <queries:VariableTest value="freshNameGenerator"/>
+                </queries:Filter>
+                <queries:Filter>
+                    <queries:UnionAll>
+                        <queries:Expressions initialCapacity="0"/>
+                    </queries:UnionAll>
+                    <queries:VariableTest value="newProductions"/>
+                </queries:Filter>
+                <queries:QueryDeclaration>
+                    <queries:Name value="collectNonTerminalNames"/>
+                    <queries:Names initialCapacity="0"/>
+                    <queries:For>
+                        <queries:Path initialCapacity="2">
+                            <queries:Filter>
+                                <queries:DescendantStep/>
+                                <queries:TypeTest value="http://lang.whole.org/Grammars#Production"/>
+                            </queries:Filter>
+                            <queries:FeatureStep value="http://lang.whole.org/Grammars#name"/>
+                        </queries:Path>
+                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="update bound names"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:Variable value="freshNameGenerator"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                            <workflows:StringLiteral value="addBoundName(java.lang.String)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:Variable value="self"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaInstanceMethod>
+                    </queries:For>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="bottomUp"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Sequence initialCapacity="3">
+                        <queries:Delete>
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:TypeTest value="Concatenate"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:KindTest value="RESOLVER"/>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:Delete>
+                        <queries:Path initialCapacity="2">
+                            <queries:ChildStep/>
+                            <queries:Call>
+                                <queries:Name value="bottomUp"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:Path>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:SubtypeTest value="Rule"/>
+                                <queries:Not>
+                                    <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="Split"/>
+                                        <queries:TypeTest value="When"/>
+                                    </queries:Or>
+                                </queries:Not>
+                            </queries:And>
+                        </queries:Filter>
+                    </queries:Sequence>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="removeUglyAs"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Choose initialCapacity="2">
+                        <queries:If>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="As"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:TypeTest value="Optional"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                            </queries:And>
+                            <queries:Choose initialCapacity="2">
+                                <queries:CartesianUpdate>
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <grammars:Optional>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Rule"/>
+                                        <commons:VarName value="rule"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:Optional>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Name"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:As>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Optional xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Rule"/>
+                                        <commons:VarName value="rule"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:Optional>
+                                    </commons:StageUpFragment>
+                                </queries:CartesianUpdate>
+                                <queries:CartesianUpdate>
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <grammars:When>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Predicate"/>
+                                        <commons:VarName value="predicate"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Rule"/>
+                                        <commons:VarName value="rule"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:When>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Name"/>
+                                        <commons:VarName value="name"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:As>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:When xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Predicate"/>
+                                        <commons:VarName value="predicate"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Grammars#Rule"/>
+                                        <commons:VarName value="rule"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </grammars:When>
+                                    </commons:StageUpFragment>
+                                </queries:CartesianUpdate>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:SelfStep/>
+                    </queries:Choose>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="addAsRules"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Block initialCapacity="2">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="needsAsRules"/>
+                            <queries:Names initialCapacity="1">
+                                <queries:Name value="count"/>
+                            </queries:Names>
+                            <queries:Choose initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:DescendantStep/>
+                                    <queries:TypeTest value="As"/>
+                                </queries:Filter>
+                                <queries:Block initialCapacity="4">
+                                    <queries:QueryDeclaration>
+                                        <queries:Name value="isInlineChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:Choose initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Optional"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="Split"/>
+                                        <queries:TypeTest value="When"/>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Concatenate"/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isTokenNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isTokenNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                        </queries:Choose>
+                                    </queries:QueryDeclaration>
+                                    <queries:Filter>
+                                        <queries:IntLiteral value="0"/>
+                                        <queries:VariableTest value="count"/>
+                                    </queries:Filter>
+                                    <queries:For>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineChild"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                        <queries:CartesianUpdate>
+                                        <queries:VariableRefStep value="count"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="count"/>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:Addition>
+                                        </queries:CartesianUpdate>
+                                    </queries:For>
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:GreaterThan>
+                                        <queries:Subtraction>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="get concatenate size"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.model.IEntity"/>
+                                        <workflows:StringLiteral value="wSize()"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableRefStep value="count"/>
+                                        </queries:Subtraction>
+                                        <queries:IntLiteral value="1"/>
+                                        </queries:GreaterThan>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                </queries:Block>
+                            </queries:Choose>
+                        </queries:QueryDeclaration>
+                        <queries:Choose initialCapacity="3">
+                            <queries:Block initialCapacity="3">
+                                <queries:Filter>
+                                    <queries:BooleanLiteral value="false"/>
+                                    <queries:VariableTest value="variableTest"/>
+                                </queries:Filter>
+                                <queries:VariableRefStep value="variableTest"/>
+                                <queries:If>
+                                    <queries:And initialCapacity="4">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="Optional"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:AtFeatureTest value="rule"/>
+                                        <queries:Not>
+                                        <queries:TypeTest value="As"/>
+                                        </queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:DescendantOrSelfStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isProductionNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Sequence initialCapacity="1">
+                                        <queries:CartesianUpdate>
+                                        <queries:SelfStep/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Path initialCapacity="3">
+                                        <queries:ParentStep/>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="As"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:Path>
+                                        <queries:StringLiteral value="$fresh_name$"/>
+                                        </queries:Choose>
+                                        </commons:StageDownFragment>
+                                        </grammars:As>
+                                        </commons:StageUpFragment>
+                                        </queries:CartesianUpdate>
+                                        </queries:Sequence>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:SelfStep/>
+                                        </queries:Sequence>
+                                    </queries:Path>
+                                </queries:If>
+                            </queries:Block>
+                            <queries:If>
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="Concatenate"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="needsAsRules"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:For>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="allNonTokenChildren"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:Not>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="As"/>
+                                        <queries:TypeTest value="Optional"/>
+                                        </queries:Or>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        <queries:CartesianUpdate>
+                                        <queries:SelfStep/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:StringLiteral value="$fresh_name$"/>
+                                        </commons:StageDownFragment>
+                                        </grammars:As>
+                                        </commons:StageUpFragment>
+                                        </queries:CartesianUpdate>
+                                    </queries:For>
+                                    <queries:SelfStep/>
+                                </queries:Sequence>
+                            </queries:If>
+                            <queries:SelfStep/>
+                        </queries:Choose>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="addNestedProductions"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Block initialCapacity="4">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="ancestorInProduction"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:Path initialCapacity="2">
+                                <queries:ParentStep/>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:TypeTest value="Production"/>
+                                        <queries:SelfStep/>
+                                    </queries:If>
+                                    <queries:Do>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:SelfStep/>
+                                        <queries:Call>
+                                        <queries:Name value="ancestorInProduction"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Sequence>
+                                    </queries:Do>
+                                </queries:Choose>
+                            </queries:Path>
+                        </queries:QueryDeclaration>
+                        <queries:QueryDeclaration>
+                            <queries:Name value="calculateProductionName"/>
+                            <queries:Names initialCapacity="2">
+                                <queries:Name value="inheritedName"/>
+                                <queries:Name value="ntName"/>
+                            </queries:Names>
+                            <queries:Block initialCapacity="3">
+                                <queries:Filter>
+                                    <queries:Choose initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="ancestorInProduction"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:TypeTest value="As"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Name xmlns:grammars="http://lang.whole.org/Grammars" value="$fresh_name$"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:StringLiteral value="$fresh_ntname$"/>
+                                    </queries:Choose>
+                                    <queries:VariableTest value="inheritedName"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="to upper caps"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.StringUtils"/>
+                                        <workflows:StringLiteral value="toUpperCap(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="inheritedName"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <queries:VariableTest value="ntName"/>
+                                </queries:Filter>
+                                <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="next fresh non terminal"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:Variable value="freshNameGenerator"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                    <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="ntName"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaInstanceMethod>
+                            </queries:Block>
+                        </queries:QueryDeclaration>
+                        <queries:QueryDeclaration>
+                            <queries:Name value="needsProduction"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:Block initialCapacity="1">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:Or initialCapacity="1">
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="effectiveParent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:Or initialCapacity="4">
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Concatenate"/>
+                                        <queries:Not>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineConcatenate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="effectiveParent"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:TypeTest value="Production"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Or>
+                                        </queries:Not>
+                                        </queries:And>
+                                        <queries:TypeTest value="Choose"/>
+                                        <queries:TypeTest value="Repeat"/>
+                                        <queries:TypeTest value="Optional"/>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Or initialCapacity="4">
+                                        <queries:TypeTest value="Choose"/>
+                                        <queries:TypeTest value="DataTerminal"/>
+                                        <queries:TypeTest value="Repeat"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Concatenate"/>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineConcatenate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:And>
+                                        </queries:Or>
+                                        </queries:And>
+                                    </queries:Or>
+                                </queries:Filter>
+                            </queries:Block>
+                        </queries:QueryDeclaration>
+                        <queries:Choose initialCapacity="3">
+                            <queries:If>
+                                <queries:Or initialCapacity="1">
+                                    <queries:And initialCapacity="3">
+                                        <queries:Or initialCapacity="1">
+                                        <queries:TypeTest value="As"/>
+                                        </queries:Or>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="Choose"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:Not>
+                                        <queries:One>
+                                        <queries:Call>
+                                        <queries:Name value="allNonTokenChildren"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isProductionNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:One>
+                                        </queries:Not>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:And>
+                                </queries:Or>
+                                <queries:CartesianUpdate>
+                                    <queries:FeatureStep value="rule"/>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:Call>
+                                        <queries:Name value="calculateProductionName"/>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </grammars:Production>
+                                    </commons:StageUpFragment>
+                                </queries:CartesianUpdate>
+                            </queries:If>
+                            <queries:If>
+                                <queries:And initialCapacity="1">
+                                    <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="needsProduction"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                                <queries:CartesianUpdate>
+                                    <queries:SelfStep/>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Production xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:Call>
+                                        <queries:Name value="calculateProductionName"/>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:Resolver/>
+                                        </grammars:Production>
+                                    </commons:StageUpFragment>
+                                </queries:CartesianUpdate>
+                            </queries:If>
+                            <queries:SelfStep/>
+                        </queries:Choose>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="completeAndExtractNestedProduction"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <queries:Block initialCapacity="4">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="effectiveRule"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="rule"/>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:Not>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:TypeTest value="Split"/>
+                                        <queries:TypeTest value="When"/>
+                                        </queries:Or>
+                                        </queries:Not>
+                                    </queries:Filter>
+                                    <queries:Call>
+                                        <queries:Name value="effectiveRule"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:Choose>
+                            </queries:Path>
+                        </queries:QueryDeclaration>
+                        <queries:QueryDeclaration>
+                            <queries:Name value="getInlineConcatenateType"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isInlineConcatenate"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:DescendantStep/>
+                                    <queries:Or initialCapacity="3">
+                                        <queries:TypeTest value="Choose"/>
+                                        <queries:TypeTest value="DataTerminal"/>
+                                        <queries:TypeTest value="Repeat"/>
+                                    </queries:Or>
+                                </queries:Filter>
+                            </queries:Path>
+                        </queries:QueryDeclaration>
+                        <queries:QueryDeclaration>
+                            <queries:Name value="getTokenProduction"/>
+                            <queries:Names initialCapacity="1">
+                                <queries:Name value="nonTerminal"/>
+                            </queries:Names>
+                            <queries:Block initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:SelfStep/>
+                                    <queries:VariableTest value="nonTerminal"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="3">
+                                    <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="Grammar"/>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="lexicalStructure"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:VariableTest value="nonTerminal"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:Block>
+                        </queries:QueryDeclaration>
+                        <queries:Choose initialCapacity="2">
+                            <queries:If>
+                                <queries:TypeTest value="Production"/>
+                                <queries:Block initialCapacity="2">
+                                    <queries:CartesianUpdate>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Call>
+                                        <queries:Name value="effectiveRule"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:Filter>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:SelfStep/>
+                                        <queries:Call>
+                                        <queries:Name value="getInlineConcatenateType"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Sequence>
+                                        <queries:Or initialCapacity="2">
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="DataTerminal"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="format"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="IMPL"/>
+                                        <queries:VariableTest value="format"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isTokenNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Call>
+                                        <queries:Name value="getTokenProduction"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="rule"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="DataTerminal"/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="format"/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:KindTest value="IMPL"/>
+                                        <queries:VariableTest value="format"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Or>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="template"/>
+                                        <queries:KindTest value="RESOLVER"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="derive data type from format"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers"/>
+                                        <workflows:StringLiteral value="calculateDataType(org.whole.lang.grammars.model.Format)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="format"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaClassMethod>
+                                    </queries:CartesianUpdate>
+                                    <queries:If>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <queries:PointwiseEquals>
+                                        <queries:ParentStep/>
+                                        <queries:VariableRefStep value="ps"/>
+                                        </queries:PointwiseEquals>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Block initialCapacity="2">
+                                        <queries:PointwiseInsert>
+                                        <queries:Placement value="INTO"/>
+                                        <queries:VariableRefStep value="newProductions"/>
+                                        <queries:SelfStep/>
+                                        </queries:PointwiseInsert>
+                                        <queries:CartesianUpdate>
+                                        <queries:SelfStep/>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:CartesianUpdate>
+                                        </queries:Block>
+                                        <queries:Call>
+                                        <queries:Name value="addAsRules"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Path>
+                                    </queries:If>
+                                </queries:Block>
+                            </queries:If>
+                            <queries:SelfStep/>
+                        </queries:Choose>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="renameFreshNonTerminalNames"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="alphaRenameMap"/>
+                        <queries:Name value="freshNtName"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="5">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="replaceFreshNames"/>
+                            <queries:Names initialCapacity="1">
+                                <queries:Name value="name"/>
+                            </queries:Names>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:For>
+                                    <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#name"/>
+                                        <queries:VariableTest value="name"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="matches $fresh_ntname$"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="matches(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="\$fresh_ntname\$\d*"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:ExpressionTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="matches $fresh_ntname$"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="matches(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="\$fresh_ntname\$\d*"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Block initialCapacity="2">
+                                        <queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="calculate fresh non terminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="freshNameGenerator"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                        <workflows:StringLiteral value="nextFreshName(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="Production"/>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        </queries:Path>
+                                        </commons:SameStageFragment>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        <queries:VariableTest value="freshNtName"/>
+                                        </queries:Filter>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="perform alpha rename"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="alphaRenameMap"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$AlphaRenameMap"/>
+                                        <workflows:StringLiteral value="rename(java.lang.String, java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:Variable value="self"/>
+                                        <workflows:Variable value="freshNtName"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                    </queries:Block>
+                                </queries:For>
+                                <queries:If>
+                                    <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="3">
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#name"/>
+                                        <queries:VariableTest value="name"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="matches $fresh_ntname$"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="name"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="matches(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="\$fresh_ntname\$\d*"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        <queries:FeatureStep value="http://lang.whole.org/Grammars#rule"/>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="NonTerminal"/>
+                                        <queries:ExpressionTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="matches $fresh_ntname$"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="matches(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="\$fresh_ntname\$\d*"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:ExpressionTest>
+                                    <queries:Call>
+                                        <queries:Name value="replaceFreshNames"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                </queries:If>
+                            </queries:Sequence>
+                        </queries:QueryDeclaration>
+                        <queries:Filter>
+                            <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="create alpha rename map"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$AlphaRenameMap"/>
+                                <workflows:StringLiteral value="AlphaRenameMap()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:CreateJavaClassInstance>
+                            <queries:VariableTest value="alphaRenameMap"/>
+                        </queries:Filter>
+                        <queries:Path initialCapacity="2">
+                            <queries:Filter>
+                                <queries:DescendantStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:TypeTest value="NonTerminal"/>
+                                    <queries:ExpressionTest>
+                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                        <workflows:Text value="matches $fresh_ntname$"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="matches(java.lang.String)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:StringLiteral value="\$fresh_ntname\$\d*"/>
+                                        </workflows:Expressions>
+                                        </workflows:InvokeJavaInstanceMethod>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                            <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="update alpha rename map"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:Variable value="alphaRenameMap"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers$AlphaRenameMap"/>
+                                <workflows:StringLiteral value="add(org.whole.lang.grammars.model.NonTerminal)"/>
+                                <workflows:Expressions initialCapacity="1">
+                                    <workflows:Variable value="self"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaInstanceMethod>
+                        </queries:Path>
+                        <queries:Call>
+                            <queries:Name value="replaceFreshNames"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                        <queries:SelfStep/>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="addAsRulesInTopLevelProductions"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="featureNameGenerator"/>
+                        <queries:Name value="featureName"/>
+                        <queries:Name value="asName"/>
+                        <queries:Name value="ntName"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:For>
+                            <queries:Path initialCapacity="3">
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:TypeTest value="Production"/>
+                                </queries:Filter>
+                                <queries:FeatureStep value="rule"/>
+                                <queries:Filter>
+                                    <queries:Call>
+                                        <queries:Name value="allNonTokenChildren"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Call>
+                                    <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isProductionNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                    </queries:ExpressionTest>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:CartesianUpdate>
+                                <queries:SelfStep/>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <grammars:As xmlns:grammars="http://lang.whole.org/Grammars">
+                                        <commons:StageDownFragment>
+                                        <queries:SelfStep/>
+                                        </commons:StageDownFragment>
+                                        <commons:StageDownFragment>
+                                        <queries:StringLiteral value="$fresh_name$"/>
+                                        </commons:StageDownFragment>
+                                    </grammars:As>
+                                </commons:StageUpFragment>
+                            </queries:CartesianUpdate>
+                        </queries:For>
+                        <queries:SelfStep/>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="renameFreshAsNames"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="featureNameGenerator"/>
+                        <queries:Name value="featureName"/>
+                        <queries:Name value="asName"/>
+                        <queries:Name value="ntName"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="4">
+                        <queries:Filter>
+                            <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="create feature fresh name generator"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.util.FreshNameGenerator"/>
+                                <workflows:StringLiteral value="FreshNameGenerator()"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </workflows:CreateJavaClassInstance>
+                            <queries:VariableTest value="featureNameGenerator"/>
+                        </queries:Filter>
+                        <queries:For>
+                            <queries:Path initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:DescendantOrSelfStep/>
+                                    <queries:TypeTest value="As"/>
+                                </queries:Filter>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="name"/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:Not>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Name xmlns:grammars="http://lang.whole.org/Grammars" value="$fresh_name$"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        </queries:Not>
+                                        <queries:VariableTest value="asName"/>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                            <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="update the feature fresh name generator"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers"/>
+                                <workflows:StringLiteral value="addBoundName(org.whole.lang.util.FreshNameGenerator, java.lang.String)"/>
+                                <workflows:Expressions initialCapacity="2">
+                                    <workflows:Variable value="featureNameGenerator"/>
+                                    <workflows:Variable value="asName"/>
+                                </workflows:Expressions>
+                            </workflows:InvokeJavaClassMethod>
+                        </queries:For>
+                        <queries:For>
+                            <queries:Filter>
+                                <queries:DescendantOrSelfStep/>
+                                <queries:And initialCapacity="3">
+                                    <queries:TypeTest value="As"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="name"/>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <grammars:Name xmlns:grammars="http://lang.whole.org/Grammars" value="$fresh_name$"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                    <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:Filter>
+                                        <queries:DescendantStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Call>
+                                        <queries:Name value="isProductionNonTerminal"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:ExpressionTest>
+                                        </queries:Filter>
+                                        <queries:VariableTest value="ntName"/>
+                                        </queries:Filter>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                            <queries:CartesianUpdate>
+                                <queries:FeatureStep value="name"/>
+                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="generate fresh feature name"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.grammars.GrammarsActionsHelpers"/>
+                                    <workflows:StringLiteral value="nextFeatureFreshName(org.whole.lang.util.FreshNameGenerator, java.lang.String)"/>
+                                    <workflows:Expressions initialCapacity="2">
+                                        <workflows:Variable value="featureNameGenerator"/>
+                                        <workflows:Variable value="ntName"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                            </queries:CartesianUpdate>
+                        </queries:For>
+                        <queries:SelfStep/>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:PointwiseUpdate>
+                    <queries:Filter>
+                        <queries:FeatureStep value="startSymbol"/>
+                        <queries:KindTest value="RESOLVER"/>
+                    </queries:Filter>
+                    <queries:Path initialCapacity="3">
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:Filter>
+                            <queries:ChildStep/>
+                            <queries:IndexTest>
+                                <queries:IntLiteral value="0"/>
+                            </queries:IndexTest>
+                        </queries:Filter>
+                        <queries:FeatureStep value="name"/>
+                    </queries:Path>
+                </queries:PointwiseUpdate>
+                <queries:Path initialCapacity="2">
+                    <queries:Filter>
+                        <queries:FeatureStep value="phraseStructure"/>
+                        <queries:VariableTest value="ps"/>
+                    </queries:Filter>
+                    <queries:Sequence initialCapacity="7">
+                        <queries:Call>
+                            <queries:Name value="collectNonTerminalNames"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                        <queries:Call>
+                            <queries:Name value="extractTokens"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                        <queries:Path initialCapacity="5">
+                            <queries:Call>
+                                <queries:Name value="bottomUp"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                            <queries:Call>
+                                <queries:Name value="removeUglyAs"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                            <queries:Call>
+                                <queries:Name value="addAsRules"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                            <queries:Call>
+                                <queries:Name value="addNestedProductions"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                            <queries:Call>
+                                <queries:Name value="completeAndExtractNestedProduction"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:Path>
+                        <queries:CartesianInsert>
+                            <queries:Placement value="INTO"/>
+                            <queries:VariableRefStep value="ps"/>
+                            <queries:Path initialCapacity="2">
+                                <queries:VariableRefStep value="newProductions"/>
+                                <queries:ChildStep/>
+                            </queries:Path>
+                        </queries:CartesianInsert>
+                        <queries:Call>
+                            <queries:Name value="renameFreshNonTerminalNames"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                        <queries:Call>
+                            <queries:Name value="addAsRulesInTopLevelProductions"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </queries:Call>
+                        <queries:Path initialCapacity="3">
+                            <queries:ChildStep/>
+                            <queries:FeatureStep value="rule"/>
+                            <queries:Call>
+                                <queries:Name value="renameFreshAsNames"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:Path>
+                    </queries:Sequence>
+                </queries:Path>
+                <queries:SelfStep/>
+            </queries:Block>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Generate artifacts"/>
+            <queries:Select xmlns:queries="http://lang.whole.org/Queries">
+                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                    <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                        <commons:Resolver/>
+                        <artifacts:Projects initialCapacity="1">
+                            <artifacts:Project>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Artifacts#ProjectName"/>
+                                    <commons:VarName value="projectName"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <artifacts:Natures initialCapacity="1">
+                                    <commons:Resolver/>
+                                </artifacts:Natures>
+                                <commons:Resolver/>
+                                <artifacts:Artifacts initialCapacity="1">
+                                    <artifacts:FolderArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#FolderName"/>
+                                        <commons:VarName value="sourceFolderName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#PackageName"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="modelName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="xwl"/>
+                                        </artifacts:NameWithExtension>
+                                        <artifacts:Metadata>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <artifacts:PersistenceKitId value="org.whole.lang.xml.codebase.XmlBuilderPersistenceKit"/>
+                                        </artifacts:Metadata>
+                                        <commons:StageUpFragment>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#Model"/>
+                                        <commons:VarName value="model"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                    </artifacts:FolderArtifact>
+                                </artifacts:Artifacts>
+                                <commons:Resolver/>
+                            </artifacts:Project>
+                        </artifacts:Projects>
+                    </artifacts:Workspace>
+                </commons:StageUpFragment>
+                <queries:Filter>
+                    <queries:SelfStep/>
+                    <queries:ExpressionTest>
+                        <queries:Filter>
+                            <queries:FeatureStep value="targetLanguage"/>
+                            <queries:TypeTest value="http://lang.whole.org/Grammars#LanguageDescriptor"/>
+                        </queries:Filter>
+                    </queries:ExpressionTest>
+                </queries:Filter>
+                <queries:Sequence initialCapacity="3">
+                    <queries:Path initialCapacity="2">
+                        <queries:FeatureStep value="targetLanguage"/>
+                        <queries:Filter>
+                            <queries:FeatureStep value="name"/>
+                            <queries:VariableTest value="languageName"/>
+                        </queries:Filter>
+                    </queries:Path>
+                    <queries:Filter>
+                        <queries:Addition>
+                            <queries:VariableRefStep value="languageName"/>
+                            <queries:StringLiteral value="Model"/>
+                        </queries:Addition>
+                        <queries:VariableTest value="modelName"/>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="derive model"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="org.whole.lang.grammars.util.GrammarsUtils"/>
+                            <workflows:StringLiteral value="deriveModel(org.whole.lang.grammars.model.Grammar, boolean)"/>
+                            <workflows:Expressions initialCapacity="2">
+                                <workflows:Variable value="self"/>
+                                <workflows:BooleanLiteral value="true"/>
+                            </workflows:Expressions>
+                        </workflows:InvokeJavaClassMethod>
+                        <queries:VariableTest value="model"/>
+                    </queries:Filter>
+                </queries:Sequence>
+                <queries:TemplateNames/>
+            </queries:Select>
+        </actions:SimpleAction>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>
