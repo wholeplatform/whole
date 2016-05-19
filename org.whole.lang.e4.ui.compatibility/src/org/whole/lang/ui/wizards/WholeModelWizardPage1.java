@@ -135,12 +135,15 @@ public class WholeModelWizardPage1 extends WizardNewFileCreationPage {
 	}
 
 	protected void fireLanguageSelected(ILanguageKit languageKit) {
-		setFileName("ModelExample" + exampleCount + "." + languageKit.getDefaultFileExtension());
-		
+		String name = getFileName();
+		if (name == null || name.isEmpty())
+			name = "ModelExample" + exampleCount;
+		setFileName(StringUtils.replaceExtension(name, languageKit.getDefaultFileExtension()));
+
 		templateFactory = languageKit.getTemplateManager();
 		templates = templateFactory.names().toArray(new String[0]);
 		templateCombo.setItems(templates);
-		templateCombo.select(0);
+		templateCombo.select(templates.length-1);
 
 		persistenceKits = new ArrayList<IPersistenceKit>(languageKit.getPersistenceKits());
 		saveAsCombo.setItems(new String[0]);
