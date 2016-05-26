@@ -44,9 +44,7 @@ public class CompositeEntityTreeTableFigure extends NodeFigure {
 	public CompositeEntityTreeTableFigure(EntityDescriptor<?> ed, boolean isRightToLeft) {
 		this.isRightToLeft = isRightToLeft;
 
-		setLayoutManager(new ColumnLayout().withAutoresizeWeight(1f)
-				//.setMarginLeft(4)
-				);
+		setLayoutManager(new ColumnLayout().withAutoresizeWeight(1f));
 		initContentPanes(1);
 
 		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createFoldingToggle(0));
@@ -94,6 +92,7 @@ public class CompositeEntityTreeTableFigure extends NodeFigure {
 		case LONG:
 		case SHORT:
 			tableLayout.withColumnAlignment(i, Alignment.TRAILING);
+		default:
 			break;
 		}
 	}

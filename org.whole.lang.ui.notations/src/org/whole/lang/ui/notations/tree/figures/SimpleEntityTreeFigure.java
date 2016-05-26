@@ -215,7 +215,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 	protected IFigure createFeaturesOutline(EntityDescriptor<?> ed, ActionListener linkListener) {
 		int featureNum = ed.childFeatureSize();
 		IFigure featuresOutline = new EntityFigure(new ColumnLayout()
-				.withAutoresizeWeight(1.0f)
+				.withAutoresizeWeight(1.0f).withMarginBottom(2)
 				.withMinorAlignment(isRightToLeft() ? Alignment.LEADING : Alignment.TRAILING));
 
 		featureToggles = new Toggle[featureNum];

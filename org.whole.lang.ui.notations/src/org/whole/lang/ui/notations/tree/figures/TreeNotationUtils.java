@@ -17,8 +17,13 @@
  */
 package org.whole.lang.ui.notations.tree.figures;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Toggle;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -29,7 +34,37 @@ public class TreeNotationUtils {
 		EntityFigure titleFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2, 4, 2, 12));
 		if (toggle != null)
 			titleFigure.add(toggle);
+		
 		titleFigure.addDeclaration(title);
 		return titleFigure;
 	}
+
+	public static EntityFigure createTitleFigureWithAlpha(String title, Toggle toggle) {
+		EntityFigure titleFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2, 4, 2, 12));
+		if (toggle != null)
+			titleFigure.add(toggle);
+		
+		EntityLabel label = new EntityLabel() {
+			public Color getLocalForegroundColor() {
+				return FigurePrefs.declarationsColor;
+			}	
+			public Font getLocalFont() {
+				return FigurePrefs.declarationsFont;
+			}
+			@Override
+			protected void paintFigure(Graphics g) {
+				int oldAlpha = g.getAlpha();
+				g.setAlpha(60);
+				
+				super.paintFigure(g);
+
+				g.setAlpha(oldAlpha);
+
+			}
+		};
+		label.setText(title);
+		titleFigure.add(label);
+		return titleFigure;
+	}
+
 }

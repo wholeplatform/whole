@@ -46,12 +46,10 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 	public CompositeEntityTreeTableNoEmbeddingFigure(EntityDescriptor<?> ed, boolean isRightToLeft) {
 		this.isRightToLeft = isRightToLeft;
 
-		setLayoutManager(new ColumnLayout()//.setStretchingWidthFactor(1)
-				//.setMarginLeft(4)
-				);
+		setLayoutManager(new ColumnLayout());
 		initContentPanes(1);
 
-		titleFigure = TreeNotationUtils.createTitleFigure(ed.getName(), createFoldingToggle(0));
+		titleFigure = TreeNotationUtils.createTitleFigureWithAlpha(ed.getName(), createFoldingToggle(0));
 
 		add(titleFigure);
 		add(createContentPane(0, createCompositeFigure()));
@@ -102,7 +100,10 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 				g.setForegroundColor(FigurePrefs.relationsColor);
 				DrawUtils.drawHorizontalTree(g, start, DrawUtils.SPACING, end);			
 			}
-	
+
+			int oldAlpha = g.getAlpha();
+			g.setAlpha(60);
+
 			Rectangle b = getBounds();
 			Rectangle titleBounds = titleFigure.getBounds();
 			g.setForegroundColor(FigurePrefs.blueColor);
@@ -114,15 +115,22 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 
 			g.setClip(tb);
 			tb = tb.getResized(0, 4);
+
+			g.setAlpha(oldAlpha);
 		}
+
+		int oldAlpha = g.getAlpha();
+		g.setAlpha(60);
 
 		g.setForegroundColor(FigurePrefs.blueColor);
 		g.drawRoundRectangle(tb.getResized(-1, -1), 8, 8);
 
-		int oldAlpha = g.getAlpha();
-		g.setAlpha(60);
+//		int oldAlpha = g.getAlpha();
+//		g.setAlpha(60);
 		g.setBackgroundColor(FigurePrefs.blueColor);
 		g.fillRoundRectangle(tb, 8, 8);
+//		g.setAlpha(oldAlpha);
+
 		g.setAlpha(oldAlpha);
 	}
 }

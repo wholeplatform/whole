@@ -63,11 +63,10 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 				ed.getName(), createFoldingToggle(255));
 
 		tableFigure = createTableFigure(2);
-		tableFigure.getLayoutManager().withColumnAlignment(0, Alignment.TRAILING);
+		tableFigure.getLayoutManager().withColumnAlignment(0, Alignment.TRAILING)
+		.withMarginTop(2).withMarginBottom(2).withMajorAutoresizeWeight(1);
 
-		nodeFigure = new EntityFigure(new ColumnLayout().withAutoresizeWeight(1)
-				//.setMarginBottom(8)
-				) {
+		nodeFigure = new EntityFigure(new ColumnLayout()) {
 			protected void paintFigure(Graphics g) {
 				super.paintFigure(g);
 				
@@ -93,7 +92,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 		nodeFigure.add(titleFigure);
 		nodeFigure.add(tableFigure);
 
-		contentsFigure = new EntityFigure(new ColumnLayout().withSpacing(8));
+		contentsFigure = new EntityFigure(new ColumnLayout().withSpacing(8).withMarginLeft(2));
 
 		for (int i=0; i<childSize; i++) {
 			TableRowFigure row = new TableRowFigure();
@@ -191,12 +190,13 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 			if (contentPane.isVisible()) {
 				start[size] = getFoldingToggle(i+1).getBounds().getRight();
 				start[size].x = nodeRight;
-				IFigure targetFigure = (IFigure) contentPane.getChildren().get(0);
+				List<IFigure> children = contentPane.getChildren();
+				IFigure targetFigure = children.isEmpty() ? null : (IFigure) children.get(0);
 				if (targetFigure instanceof INodeFigure) {
 					end[size] = ((INodeFigure) targetFigure).getTargetAnchor(0).getLocation(null);
 					translateToRelative(end[size]);
 				} else
-					end[size] = targetFigure.getBounds().getLeft();
+					end[size] = targetFigure == null ? start[size] : targetFigure.getBounds().getLeft();
 				size++;
 			}
 		}
