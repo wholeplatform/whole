@@ -80,6 +80,10 @@ public class RoundedTitleTabBorder extends AbstractLabeledBorder {
 			graphics.setForegroundColor(getBorderColor());
 		graphics.setBackgroundColor(ColorConstants.lightGray);
 
+		int oldAlpha = graphics.getAlpha();
+		if (Style.DASHED.equals(style))
+			graphics.setAlpha(60);
+
 		// part of the round border outside the tab
 		int titleWidth = textExtents.width + labelHeight +1;
 		Rectangle rect = tempRect.getResized(-titleWidth, 0);
@@ -110,15 +114,18 @@ public class RoundedTitleTabBorder extends AbstractLabeledBorder {
 		graphics.setBackgroundColor(borderColor);
 		graphics.setClip(tempRect);
 		graphics.drawRoundRectangle(tempRect.getResized(-1,+4), 8, 8);
-		int oldAlpha = graphics.getAlpha();
+		int oldAlpha1 = graphics.getAlpha();
 		graphics.setAlpha(60);
 		graphics.fillRoundRectangle(tempRect.getResized(0,+4), 8, 8);
-		graphics.setAlpha(oldAlpha);
+		graphics.setAlpha(oldAlpha1);
 
 		// draw label
 		graphics.setFont(getFont(figure));
 		graphics.setForegroundColor(getTextColor());
 		graphics.drawString(getLabel(), tempRect.x + labelHalfHeight, tempRect.y);
+
+		if (Style.DASHED.equals(style))
+			graphics.setAlpha(oldAlpha);
 	}
 
 	public Color getBorderColor() {
