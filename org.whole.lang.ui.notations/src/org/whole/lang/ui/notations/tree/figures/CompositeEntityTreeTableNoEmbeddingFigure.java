@@ -65,7 +65,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 	protected IEntityFigure createCompositeFigure() {
 		CompositeFigure figure = new CompositeFigure(false);
 		figure.getLayoutManager().withSpacing(4)
-				.withMarginLeft(DrawUtils.SPACING*2).withMarginRight(4);
+				.withMarginLeft(DrawUtils.SPACING*2).withMarginRight(2);
 		figure.setBorder(null);
 		return figure;
 	}
