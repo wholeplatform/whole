@@ -29,6 +29,6 @@ public class CompositeEntityTreeTableNoEmbeddingPart extends CompositeEntityTree
 	}
 
 	protected IFigure createFigure() {
-		return new CompositeEntityTreeTableNoEmbeddingFigure(getModelEntity().wGetEntityDescriptor(), isReversed());
+		return new CompositeEntityTreeTableNoEmbeddingFigure(isReversed());//, getModelEntity().wGetEntityDescriptor().getName());
 	}
 }
