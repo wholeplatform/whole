@@ -350,7 +350,7 @@ public class E4Utils {
 		if (kind.isBreak() && bindings.wIsSet("debug#breakpointsEnabled") && !bindings.wBooleanValue("debug#breakpointsEnabled"))
 			return;
 
-		if (((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
+		if (bindings.wIsSet("viewer") && ((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
 			E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
 						"Domain behavior error", "Attempted suspension in UI thread", throwable);
 

@@ -48,6 +48,12 @@ public class CommonsPartFactoryVisitor implements IEditPartFactory {
 			return new StageDownFragmentPart();
 		case CommonsEntityDescriptorEnum.StageUpFragment_ord:
 			return new StageUpFragmentPart();
+		case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+			return new TemplateFragmentPart();
+		case CommonsEntityDescriptorEnum.BaseFragment_ord:
+			return new BaseFragmentPart();
+		case CommonsEntityDescriptorEnum.Phase_ord:
+			return new VariableDataEntityPart();
 		case CommonsEntityDescriptorEnum.Variable_ord:
 			return new VariablePart();
 		case CommonsEntityDescriptorEnum.InlineVariable_ord:
