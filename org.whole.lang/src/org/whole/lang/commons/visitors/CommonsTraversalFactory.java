@@ -34,8 +34,7 @@ public class CommonsTraversalFactory extends GenericTraversalFactory {
 	}
 
 	public IBinaryVisitor sequence(IVisitor visitor1, IVisitor visitor2) {
-		return new CommonsSequenceVisitor(ensureSpecific(visitor1),
-				ensureSpecific(visitor2));
+		return new CommonsSequenceVisitor(ensureSpecific(visitor1), ensureSpecific(visitor2));
 	}
 
 	public IUnaryVisitor traverseAll(IVisitor visitor1) {

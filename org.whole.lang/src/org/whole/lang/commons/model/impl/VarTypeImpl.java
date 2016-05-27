@@ -1,11 +1,12 @@
 package org.whole.lang.commons.model.impl;
 
-import org.whole.lang.commons.model.VarType;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.visitors.ICommonsVisitor;
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.model.EnumValue;
+import org.whole.lang.commons.model.VarType;
+import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.model.EnumValue;
 
 /** 
  * @generator Whole
@@ -23,19 +24,20 @@ public class VarTypeImpl extends AbstractDataEntity implements VarType {
 		notifyChanged(this.value, this.value = value);
 	}
 
-	public EntityDescriptor<VarType> wGetEntityDescriptor() {
-		return CommonsEntityDescriptorEnum.VarType;
-	}
-	public int wGetEntityOrd() {
-		return CommonsEntityDescriptorEnum.VarType_ord;
-	}
-
 	public void accept(ICommonsVisitor visitor) {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
+	}
+
+	public int wGetEntityOrd() {
+		return CommonsEntityDescriptorEnum.VarType_ord;
+	}
+
+	public EntityDescriptor<VarType> wGetEntityDescriptor() {
+		return CommonsEntityDescriptorEnum.VarType;
 	}
 
 	public Object wGetValue() {

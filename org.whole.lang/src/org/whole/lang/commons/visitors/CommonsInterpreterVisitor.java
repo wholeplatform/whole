@@ -25,6 +25,7 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -86,6 +87,14 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 				return false;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
 				op.stagedVisit(entity.wGetRoot(), +1);
+				return false;
+			case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+				op.stagedVisit(entity.wGetRoot(), +1,
+						EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
+				return false;
+			case CommonsEntityDescriptorEnum.BaseFragment_ord:
+				op.stagedVisit(entity.wGetRoot(), -1,
+						EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
 				return false;
 			case CommonsEntityDescriptorEnum.Variable_ord:
 			case CommonsEntityDescriptorEnum.InlineVariable_ord:

@@ -25,28 +25,25 @@ import org.whole.lang.reflect.FeatureDescriptor;
  */
 public class CommonsFeatureDescriptorEnum extends FeatureDescriptorEnum {
 	public static final int rootEntity_ord = 0;
-	public static final int varType_ord = 1;
-	public static final int varName_ord = 2;
-	public static final int quantifier_ord = 3;
-    public static final int composite_element_ord = 4;
-	public static final int data_value_ord = 5;
+	public static final int phase_ord = 1;
+	public static final int varType_ord = 2;
+	public static final int varName_ord = 3;
+	public static final int quantifier_ord = 4;
+    public static final int composite_element_ord = 5;
+	public static final int data_value_ord = 6;
 	
 	public static final CommonsFeatureDescriptorEnum instance = new CommonsFeatureDescriptorEnum();
-	public static final FeatureDescriptor rootEntity = instance
-			.valueOf(rootEntity_ord);
-	public static final FeatureDescriptor varType = instance
-			.valueOf(varType_ord);
-	public static final FeatureDescriptor varName = instance
-			.valueOf(varName_ord);
-	public static final FeatureDescriptor quantifier = instance
-			.valueOf(quantifier_ord);
-	public static final FeatureDescriptor composite_element = instance
-			.valueOf(composite_element_ord);
-	public static final FeatureDescriptor data_value = instance
-			.valueOf(data_value_ord);
+	public static final FeatureDescriptor rootEntity = instance.valueOf(rootEntity_ord);
+	public static final FeatureDescriptor phase = instance.valueOf(phase_ord);
+	public static final FeatureDescriptor varType = instance.valueOf(varType_ord);
+	public static final FeatureDescriptor varName = instance.valueOf(varName_ord);
+	public static final FeatureDescriptor quantifier = instance.valueOf(quantifier_ord);
+	public static final FeatureDescriptor composite_element = instance.valueOf(composite_element_ord);
+	public static final FeatureDescriptor data_value = instance.valueOf(data_value_ord);
 
 	private CommonsFeatureDescriptorEnum() {
 		putFeatureDescriptor(rootEntity_ord, "rootEntity");
+		putFeatureDescriptor(phase_ord, "phase");
 		putFeatureDescriptor(varType_ord, "varType");
 		putFeatureDescriptor(varName_ord, "varName");
 		putFeatureDescriptor(quantifier_ord, "quantifier");

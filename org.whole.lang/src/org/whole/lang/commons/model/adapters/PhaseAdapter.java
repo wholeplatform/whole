@@ -6,19 +6,18 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.commons.visitors.ICommonsVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 
 /** 
  * @generator Whole
  */
-public class FragmentAdapter extends AbstractEntityAdapter implements Fragment {
+public class PhaseAdapter extends AbstractEntityAdapter implements Phase {
 	private static final long serialVersionUID = 1;
 
-	public FragmentAdapter(IEntity implementor) {
+	public PhaseAdapter(IEntity implementor) {
 		super(implementor);
 	}
 
-	public FragmentAdapter() {
+	public PhaseAdapter() {
 	}
 
 	public void accept(ICommonsVisitor visitor) {
@@ -26,15 +25,15 @@ public class FragmentAdapter extends AbstractEntityAdapter implements Fragment {
 			visitor.visit(this);
 	}
 
-	public EntityDescriptor<Fragment> wGetEntityDescriptor() {
-		return CommonsEntityDescriptorEnum.Fragment;
+	public EntityDescriptor<Phase> wGetEntityDescriptor() {
+		return CommonsEntityDescriptorEnum.Phase;
 	}
 
-	public Any getRootEntity() {
-		return wGet(CommonsFeatureDescriptorEnum.rootEntity).wGetAdapter(CommonsEntityDescriptorEnum.Any);
+	public String getValue() {
+		return wStringValue();
 	}
 
-	public void setRootEntity(Any rootEntity) {
-		wSet(CommonsFeatureDescriptorEnum.rootEntity, rootEntity);
+	public void setValue(String value) {
+		wSetValue(value);
 	}
 }

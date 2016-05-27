@@ -19,6 +19,7 @@ package org.whole.lang.commons.factories;
 
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
 import org.whole.lang.factories.RegistryConfigurations;
@@ -65,19 +66,31 @@ public class CommonsEntityAdapterFactory {
 		return createVariable(ed, name, ed);
 	}
 	public static <E extends IEntity> E createVariable(EntityDescriptor<E> ed, String name, EntityDescriptor<?> type) {
-		return CommonsEntityFactory.instance.createVariable(name, type).wGetAdapter(ed);
+		return CommonsEntityFactory.instance.buildVariable()
+				.set(CommonsFeatureDescriptorEnum.varType, CommonsEntityFactory.instance.createVarType(type))
+				.set(CommonsFeatureDescriptorEnum.varName, CommonsEntityFactory.instance.createVarName(name))
+				.getResult().wGetAdapter(ed);
 	}
 	public static <E extends IEntity> E createVariable(EntityDescriptor<E> ed, String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
-		return CommonsEntityFactory.instance.createVariable(name, type, quantifier).wGetAdapter(ed);
+		return CommonsEntityFactory.instance.createVariable(
+				CommonsEntityFactory.instance.createVarType(type),
+				CommonsEntityFactory.instance.createVarName(name),
+				CommonsEntityFactory.instance.createQuantifier(quantifier)).wGetAdapter(ed);
 	}
 
 	public static <E extends IEntity> E createInlineVariable(EntityDescriptor<E> ed, String name) {
 		return createInlineVariable(ed, name, ed);
 	}
 	public static <E extends IEntity> E createInlineVariable(EntityDescriptor<E> ed, String name, EntityDescriptor<?> type) {
-		return CommonsEntityFactory.instance.createInlineVariable(name, type).wGetAdapter(ed);
+		return CommonsEntityFactory.instance.buildInlineVariable()
+				.set(CommonsFeatureDescriptorEnum.varType, CommonsEntityFactory.instance.createVarType(type))
+				.set(CommonsFeatureDescriptorEnum.varName, CommonsEntityFactory.instance.createVarName(name))
+				.getResult().wGetAdapter(ed);
 	}
 	public static <E extends IEntity> E createInlineVariable(EntityDescriptor<E> ed, String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
-		return CommonsEntityFactory.instance.createInlineVariable(name, type, quantifier).wGetAdapter(ed);
+		return CommonsEntityFactory.instance.createInlineVariable(
+				CommonsEntityFactory.instance.createVarType(type),
+				CommonsEntityFactory.instance.createVarName(name),
+				CommonsEntityFactory.instance.createQuantifier(quantifier)).wGetAdapter(ed);
 	}
 }

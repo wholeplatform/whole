@@ -8,8 +8,7 @@ import org.whole.lang.visitors.IVisitor;
 /** 
  * @generator Whole
  */
-public class CommonsTraverseAllAdjacentsVisitor extends
-		CommonsIdentityUnaryVisitor<ICommonsVisitor> {
+public class CommonsTraverseAllAdjacentsVisitor extends CommonsIdentityUnaryVisitor<ICommonsVisitor> {
 	public CommonsTraverseAllAdjacentsVisitor() {
 		wSetVisitor1(this);
 	}

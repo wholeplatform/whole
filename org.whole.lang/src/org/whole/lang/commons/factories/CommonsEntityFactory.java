@@ -17,36 +17,31 @@
  */
 package org.whole.lang.commons.factories;
 
-import org.whole.lang.commons.model.Any;
-import org.whole.lang.commons.model.InlineVariable;
-import org.whole.lang.commons.model.Multiplexer;
-import org.whole.lang.commons.model.Quantifier;
-import org.whole.lang.commons.model.QuantifierEnum;
-import org.whole.lang.commons.model.Resolver;
-import org.whole.lang.commons.model.RootFragment;
-import org.whole.lang.commons.model.SameStageFragment;
-import org.whole.lang.commons.model.StageDownFragment;
-import org.whole.lang.commons.model.StageUpFragment;
-import org.whole.lang.commons.model.VarName;
-import org.whole.lang.commons.model.VarType;
-import org.whole.lang.commons.model.Variable;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.factories.IEntityRegistryProvider;
+import org.whole.lang.commons.model.*;
 import org.whole.lang.factories.RegistryConfigurations;
+import org.whole.lang.factories.IEntityRegistryProvider;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.factories.IEntityBuilder;
+import org.whole.lang.factories.EntityBuilder;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.EntityDescriptor;
 
-/**
- * @author Riccardo Solmi
+/** 
+ * @generator Whole
  */
 public class CommonsEntityFactory extends GenericEntityFactory {
 	public static final CommonsEntityFactory instance = instance(RegistryConfigurations.DEFAULT);
+
 	public static CommonsEntityFactory instance(IEntityRegistryProvider provider) {
 		return new CommonsEntityFactory(provider);
 	}
+
 	protected CommonsEntityFactory(IEntityRegistryProvider provider) {
 		super(provider);
+	}
+
+	public Resolver createResolver() {
+		return create(CommonsEntityDescriptorEnum.Resolver);
 	}
 
 	public RootFragment createRootFragment() {
@@ -81,8 +76,36 @@ public class CommonsEntityFactory extends GenericEntityFactory {
 		return create(CommonsEntityDescriptorEnum.StageDownFragment, rootEntity);
 	}
 
-	public Resolver createResolver() {
-		return create(CommonsEntityDescriptorEnum.Resolver);
+	public TemplateFragment createTemplateFragment() {
+		return create(CommonsEntityDescriptorEnum.TemplateFragment);
+	}
+
+	public TemplateFragment createTemplateFragment(Phase phase, Any rootEntity) {
+		return create(CommonsEntityDescriptorEnum.TemplateFragment, phase, rootEntity);
+	}
+
+	public IEntityBuilder<TemplateFragment> buildTemplateFragment() {
+		return new EntityBuilder<TemplateFragment>(create(CommonsEntityDescriptorEnum.TemplateFragment));
+	}
+
+	public BaseFragment createBaseFragment() {
+		return create(CommonsEntityDescriptorEnum.BaseFragment);
+	}
+
+	public BaseFragment createBaseFragment(Phase phase, Any rootEntity) {
+		return create(CommonsEntityDescriptorEnum.BaseFragment, phase, rootEntity);
+	}
+
+	public IEntityBuilder<BaseFragment> buildBaseFragment() {
+		return new EntityBuilder<BaseFragment>(create(CommonsEntityDescriptorEnum.BaseFragment));
+	}
+
+	public Phase createPhase() {
+		return create(CommonsEntityDescriptorEnum.Phase);
+	}
+
+	public Phase createPhase(String value) {
+		return create(CommonsEntityDescriptorEnum.Phase, value);
 	}
 
 	public Multiplexer createMultiplexer() {
@@ -90,8 +113,7 @@ public class CommonsEntityFactory extends GenericEntityFactory {
 	}
 
 	public Multiplexer createMultiplexer(Any... entities) {
-		return create(CommonsEntityDescriptorEnum.Multiplexer,
-				(IEntity[]) entities);
+		return create(CommonsEntityDescriptorEnum.Multiplexer, (IEntity[]) entities);
 	}
 
 	public Multiplexer createMultiplexer(int initialSize) {
@@ -102,39 +124,24 @@ public class CommonsEntityFactory extends GenericEntityFactory {
 		return create(CommonsEntityDescriptorEnum.Variable);
 	}
 
-	public Variable createVariable(String name) {
-		return createVariable(name, CommonsEntityDescriptorEnum.Resolver);
-	}
-	public Variable createVariable(String name, EntityDescriptor<?> type) {
-		return create(CommonsEntityDescriptorEnum.Variable, createVarType(type), createVarName(name));
-	}
-	public Variable createVariable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
-		return create(CommonsEntityDescriptorEnum.Variable, createVarType(type), createVarName(name), createQuantifier(quantifier));
-	}
-	public Variable createVariable(VarType type, VarName name) {
-		return create(CommonsEntityDescriptorEnum.Variable, type, name);
+	public Variable createVariable(VarType varType, VarName varName, Quantifier quantifier) {
+		return create(CommonsEntityDescriptorEnum.Variable, varType, varName, quantifier);
 	}
 
-	public Variable createVariable(VarType varType, VarName varName,
-			Quantifier quantifier) {
-		return create(CommonsEntityDescriptorEnum.Variable, varType, varName,
-				quantifier);
+	public IEntityBuilder<Variable> buildVariable() {
+		return new EntityBuilder<Variable>(create(CommonsEntityDescriptorEnum.Variable));
 	}
 
-	public InlineVariable createInlineVariable(String name) {
-		return createInlineVariable(name, CommonsEntityDescriptorEnum.Resolver);
+	public InlineVariable createInlineVariable() {
+		return create(CommonsEntityDescriptorEnum.InlineVariable);
 	}
-	public InlineVariable createInlineVariable(String name, EntityDescriptor<?> type) {
-		return create(CommonsEntityDescriptorEnum.InlineVariable, createVarType(type), createVarName(name));
+
+	public InlineVariable createInlineVariable(VarType varType, VarName varName, Quantifier quantifier) {
+		return create(CommonsEntityDescriptorEnum.InlineVariable, varType, varName, quantifier);
 	}
-	public InlineVariable createInlineVariable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
-		return create(CommonsEntityDescriptorEnum.InlineVariable, createVarType(type), createVarName(name), createQuantifier(quantifier));
-	}
-	public InlineVariable createInlineVariable(VarType type, VarName name) {
-		return create(CommonsEntityDescriptorEnum.InlineVariable, type, name);
-	}
-	public InlineVariable createInlineVariable(VarType type, VarName name, Quantifier quantifier) {
-		return create(CommonsEntityDescriptorEnum.InlineVariable, type, name, quantifier);
+
+	public IEntityBuilder<InlineVariable> buildInlineVariable() {
+		return new EntityBuilder<InlineVariable>(create(CommonsEntityDescriptorEnum.InlineVariable));
 	}
 
 	public VarName createVarName() {
@@ -149,8 +156,8 @@ public class CommonsEntityFactory extends GenericEntityFactory {
 		return create(CommonsEntityDescriptorEnum.VarType);
 	}
 
-	public VarType createVarType(org.whole.lang.reflect.EntityDescriptor value) {
-		return create(CommonsEntityDescriptorEnum.VarType, value);
+	public VarType createVarType(org.whole.lang.reflect.EntityDescriptor<?> value) {
+		return create(CommonsEntityDescriptorEnum.VarType, (java.lang.Object) value);
 	}
 
 	public Quantifier createQuantifier() {

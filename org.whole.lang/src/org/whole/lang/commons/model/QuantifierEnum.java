@@ -35,18 +35,12 @@ public class QuantifierEnum extends EnumType<QuantifierEnum.Value> {
 	public static final QuantifierEnum instance = new QuantifierEnum();
 	public static final Value OPTIONAL = instance.valueOf(OPTIONAL_ord);
 	public static final Value MANDATORY = instance.valueOf(MANDATORY_ord);
-	public static final Value ZERO_OR_MORE_GREEDY = instance
-			.valueOf(ZERO_OR_MORE_GREEDY_ord);
-	public static final Value ONE_OR_MORE_GREEDY = instance
-			.valueOf(ONE_OR_MORE_GREEDY_ord);
-	public static final Value ZERO_OR_MORE_RELUCTANT = instance
-			.valueOf(ZERO_OR_MORE_RELUCTANT_ord);
-	public static final Value ONE_OR_MORE_RELUCTANT = instance
-			.valueOf(ONE_OR_MORE_RELUCTANT_ord);
-	public static final Value ZERO_OR_MORE_POSSESSIVE = instance
-			.valueOf(ZERO_OR_MORE_POSSESSIVE_ord);
-	public static final Value ONE_OR_MORE_POSSESSIVE = instance
-			.valueOf(ONE_OR_MORE_POSSESSIVE_ord);
+	public static final Value ZERO_OR_MORE_GREEDY = instance.valueOf(ZERO_OR_MORE_GREEDY_ord);
+	public static final Value ONE_OR_MORE_GREEDY = instance.valueOf(ONE_OR_MORE_GREEDY_ord);
+	public static final Value ZERO_OR_MORE_RELUCTANT = instance.valueOf(ZERO_OR_MORE_RELUCTANT_ord);
+	public static final Value ONE_OR_MORE_RELUCTANT = instance.valueOf(ONE_OR_MORE_RELUCTANT_ord);
+	public static final Value ZERO_OR_MORE_POSSESSIVE = instance.valueOf(ZERO_OR_MORE_POSSESSIVE_ord);
+	public static final Value ONE_OR_MORE_POSSESSIVE = instance.valueOf(ONE_OR_MORE_POSSESSIVE_ord);
 
 	private QuantifierEnum() {
 		enumValue(OPTIONAL_ord, "OPTIONAL");

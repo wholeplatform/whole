@@ -8,13 +8,16 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class CommonsForwardGenericVisitor extends
-		AbstractUnaryVisitor<IVisitor> implements ICommonsVisitor {
+public class CommonsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor> implements ICommonsVisitor {
 	public CommonsForwardGenericVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}
 
 	public void visit(IEntity entity) {
+		wGetVisitor1().visit(entity);
+	}
+
+	public void visit(Resolver entity) {
 		wGetVisitor1().visit(entity);
 	}
 
@@ -34,7 +37,15 @@ public class CommonsForwardGenericVisitor extends
 		wGetVisitor1().visit(entity);
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		wGetVisitor1().visit(entity);
+	}
+
+	public void visit(BaseFragment entity) {
+		wGetVisitor1().visit(entity);
+	}
+
+	public void visit(Phase entity) {
 		wGetVisitor1().visit(entity);
 	}
 

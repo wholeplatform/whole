@@ -4,6 +4,7 @@ import org.whole.lang.commons.model.AbstractFragment;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 
@@ -27,7 +28,7 @@ public class StageDownFragmentImpl extends AbstractFragment implements StageDown
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 }

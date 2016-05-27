@@ -8,10 +8,12 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public abstract class CommonsIdentitySwitchVisitor extends AbstractVisitor
-		implements ICommonsVisitor {
+public abstract class CommonsIdentitySwitchVisitor extends AbstractVisitor implements ICommonsVisitor {
 	public void visit(IEntity entity) {
 		switch (entity.wGetEntityOrd()) {
+		case CommonsEntityDescriptorEnum.Resolver_ord:
+			visit((Resolver) entity);
+			break;
 		case CommonsEntityDescriptorEnum.RootFragment_ord:
 			visit((RootFragment) entity);
 			break;
@@ -24,8 +26,14 @@ public abstract class CommonsIdentitySwitchVisitor extends AbstractVisitor
 		case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 			visit((StageDownFragment) entity);
 			break;
-		case CommonsEntityDescriptorEnum.Resolver_ord:
-			visit((Resolver) entity);
+		case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+			visit((TemplateFragment) entity);
+			break;
+		case CommonsEntityDescriptorEnum.BaseFragment_ord:
+			visit((BaseFragment) entity);
+			break;
+		case CommonsEntityDescriptorEnum.Phase_ord:
+			visit((Phase) entity);
 			break;
 		case CommonsEntityDescriptorEnum.Multiplexer_ord:
 			visit((Multiplexer) entity);

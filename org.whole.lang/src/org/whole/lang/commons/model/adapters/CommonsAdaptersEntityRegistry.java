@@ -13,12 +13,15 @@ public class CommonsAdaptersEntityRegistry extends AbstractEntityRegistry {
 
 	protected void createPrototypes() {
 		put(new AnyAdapter());
+		put(new ResolverAdapter());
 		put(new FragmentAdapter());
 		put(new RootFragmentAdapter());
 		put(new SameStageFragmentAdapter());
 		put(new StageUpFragmentAdapter());
 		put(new StageDownFragmentAdapter());
-		put(new ResolverAdapter());
+		put(new TemplateFragmentAdapter());
+		put(new BaseFragmentAdapter());
+		put(new PhaseAdapter());
 		put(new MultiplexerAdapter());
 		put(new VariableAdapter());
 		put(new InlineVariableAdapter());

@@ -7,9 +7,8 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class CommonsForwardStrategyVisitor extends
-		GenericForwardStrategyVisitor<ICommonsVisitor> implements
-		ICommonsVisitor {
+public class CommonsForwardStrategyVisitor extends GenericForwardStrategyVisitor<ICommonsVisitor>
+		implements ICommonsVisitor {
 	public CommonsForwardStrategyVisitor() {
 		this(new CommonsIdentityVisitor());
 	}
@@ -20,6 +19,10 @@ public class CommonsForwardStrategyVisitor extends
 
 	public void visit(IEntity entity) {
 		((ICommonsEntity) entity).accept(this);
+	}
+
+	public void visit(Resolver entity) {
+		wGetStrategy().visit(entity);
 	}
 
 	public void visit(RootFragment entity) {
@@ -38,7 +41,15 @@ public class CommonsForwardStrategyVisitor extends
 		wGetStrategy().visit(entity);
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(BaseFragment entity) {
+		wGetStrategy().visit(entity);
+	}
+
+	public void visit(Phase entity) {
 		wGetStrategy().visit(entity);
 	}
 

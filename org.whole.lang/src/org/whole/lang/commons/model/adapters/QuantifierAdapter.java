@@ -11,8 +11,7 @@ import org.whole.lang.commons.model.QuantifierEnum.Value;
 /** 
  * @generator Whole
  */
-public class QuantifierAdapter extends AbstractEntityAdapter implements
-		Quantifier {
+public class QuantifierAdapter extends AbstractEntityAdapter implements Quantifier {
 	private static final long serialVersionUID = 1;
 
 	public QuantifierAdapter(IEntity implementor) {

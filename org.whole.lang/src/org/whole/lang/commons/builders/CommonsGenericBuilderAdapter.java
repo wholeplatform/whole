@@ -17,12 +17,14 @@
  */
 package org.whole.lang.commons.builders;
 
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.*;
 import org.whole.lang.builders.GenericIdentityBuilder;
-import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.contexts.IEntityContext;
-import org.whole.lang.model.EnumValue;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.model.EnumValue;
+import org.whole.lang.commons.model.QuantifierEnum.Value;
 
 /**
  * @author Riccardo Solmi
@@ -44,48 +46,57 @@ public class CommonsGenericBuilderAdapter extends GenericIdentityBuilder {
 
 	public void wEntity(EntityDescriptor<?> entityDesc) {
 		switch (entityDesc.getOrdinal()) {
-		case RootFragment_ord:
-			specificBuilder.RootFragment();
-			break;
-		case SameStageFragment_ord:
-			specificBuilder.SameStageFragment();
-			break;
-		case StageUpFragment_ord:
-			specificBuilder.StageUpFragment();
-			break;
-		case StageDownFragment_ord:
-			specificBuilder.StageDownFragment();
-			break;
-		case Resolver_ord:
+		case CommonsEntityDescriptorEnum.Resolver_ord:
 			specificBuilder.Resolver();
 			break;
-		case Any_ord:
-			specificBuilder.Any();
+		case CommonsEntityDescriptorEnum.RootFragment_ord:
+			specificBuilder.RootFragment();
+			break;
+		case CommonsEntityDescriptorEnum.SameStageFragment_ord:
+			specificBuilder.SameStageFragment();
+			break;
+		case CommonsEntityDescriptorEnum.StageUpFragment_ord:
+			specificBuilder.StageUpFragment();
+			break;
+		case CommonsEntityDescriptorEnum.StageDownFragment_ord:
+			specificBuilder.StageDownFragment();
+			break;
+		case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+			specificBuilder.TemplateFragment();
+			break;
+		case CommonsEntityDescriptorEnum.BaseFragment_ord:
+			specificBuilder.BaseFragment();
 			break;
 		}
 	}
 
 	public void wEntity_(EntityDescriptor<?> entityDesc) {
 		switch (entityDesc.getOrdinal()) {
-		case RootFragment_ord:
+		case CommonsEntityDescriptorEnum.RootFragment_ord:
 			specificBuilder.RootFragment_();
 			break;
-		case SameStageFragment_ord:
+		case CommonsEntityDescriptorEnum.SameStageFragment_ord:
 			specificBuilder.SameStageFragment_();
 			break;
-		case StageUpFragment_ord:
+		case CommonsEntityDescriptorEnum.StageUpFragment_ord:
 			specificBuilder.StageUpFragment_();
 			break;
-		case StageDownFragment_ord:
+		case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 			specificBuilder.StageDownFragment_();
 			break;
-		case Multiplexer_ord:
+		case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+			specificBuilder.TemplateFragment_();
+			break;
+		case CommonsEntityDescriptorEnum.BaseFragment_ord:
+			specificBuilder.BaseFragment_();
+			break;
+		case CommonsEntityDescriptorEnum.Multiplexer_ord:
 			specificBuilder.Multiplexer_();
 			break;
-		case Variable_ord:
+		case CommonsEntityDescriptorEnum.Variable_ord:
 			specificBuilder.Variable_();
 			break;
-		case InlineVariable_ord:
+		case CommonsEntityDescriptorEnum.InlineVariable_ord:
 			specificBuilder.InlineVariable_();
 			break;
 		}
@@ -93,53 +104,82 @@ public class CommonsGenericBuilderAdapter extends GenericIdentityBuilder {
 
 	public void _wEntity(EntityDescriptor<?> entityDesc) {
 		switch (entityDesc.getOrdinal()) {
-		case RootFragment_ord:
+		case CommonsEntityDescriptorEnum.RootFragment_ord:
 			specificBuilder._RootFragment();
 			break;
-		case SameStageFragment_ord:
+		case CommonsEntityDescriptorEnum.SameStageFragment_ord:
 			specificBuilder._SameStageFragment();
 			break;
-		case StageUpFragment_ord:
+		case CommonsEntityDescriptorEnum.StageUpFragment_ord:
 			specificBuilder._StageUpFragment();
 			break;
-		case StageDownFragment_ord:
+		case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 			specificBuilder._StageDownFragment();
 			break;
-		case Multiplexer_ord:
+		case CommonsEntityDescriptorEnum.TemplateFragment_ord:
+			specificBuilder._TemplateFragment();
+			break;
+		case CommonsEntityDescriptorEnum.BaseFragment_ord:
+			specificBuilder._BaseFragment();
+			break;
+		case CommonsEntityDescriptorEnum.Multiplexer_ord:
 			specificBuilder._Multiplexer();
 			break;
-		case Variable_ord:
+		case CommonsEntityDescriptorEnum.Variable_ord:
 			specificBuilder._Variable();
 			break;
-		case InlineVariable_ord:
+		case CommonsEntityDescriptorEnum.InlineVariable_ord:
 			specificBuilder._InlineVariable();
 			break;
 		}
 	}
 
-	public void wEntity_(EntityDescriptor<?> entityDesc, int initialCapacity) {
-		switch (entityDesc.getOrdinal()) {
-		case Multiplexer_ord:
-			specificBuilder.Multiplexer_(initialCapacity);
+	public void wFeature(FeatureDescriptor featureDesc) {
+		switch (featureDesc.getOrdinal()) {
+		case CommonsFeatureDescriptorEnum.rootEntity_ord:
+			specificBuilder.rootEntity();
+			break;
+		case CommonsFeatureDescriptorEnum.phase_ord:
+			specificBuilder.phase();
+			break;
+		case CommonsFeatureDescriptorEnum.varType_ord:
+			specificBuilder.varType();
+			break;
+		case CommonsFeatureDescriptorEnum.varName_ord:
+			specificBuilder.varName();
+			break;
+		case CommonsFeatureDescriptorEnum.quantifier_ord:
+			specificBuilder.quantifier();
 			break;
 		}
 	}
 
 	public void wEntity(EntityDescriptor<?> entityDesc, String value) {
 		switch (entityDesc.getOrdinal()) {
-		case VarName_ord:
+		case CommonsEntityDescriptorEnum.Phase_ord:
+			specificBuilder.Phase(value);
+			break;
+		case CommonsEntityDescriptorEnum.VarName_ord:
 			specificBuilder.VarName(value);
+			break;
+		}
+	}
+
+	public void wEntity_(EntityDescriptor<?> entityDesc, int initialCapacity) {
+		switch (entityDesc.getOrdinal()) {
+		case CommonsEntityDescriptorEnum.Multiplexer_ord:
+			specificBuilder.Multiplexer_(initialCapacity);
 			break;
 		}
 	}
 
 	public void wEntity(EntityDescriptor<?> entityDesc, EnumValue value) {
 		switch (entityDesc.getOrdinal()) {
-		case VarType_ord:
+		case CommonsEntityDescriptorEnum.VarType_ord:
 			specificBuilder.VarType((EntityDescriptor<?>) value);
 			break;
-		case Quantifier_ord:
-			specificBuilder.Quantifier((QuantifierEnum.Value) value);
+		case CommonsEntityDescriptorEnum.Quantifier_ord:
+			specificBuilder.Quantifier((Value) value);
 			break;
 		}
 	}

@@ -17,23 +17,24 @@
  */
 package org.whole.lang.commons.model.impl;
 
-import org.whole.lang.commons.model.InlineVariable;
-import org.whole.lang.commons.model.Quantifier;
-import org.whole.lang.commons.model.VarName;
-import org.whole.lang.commons.model.VarType;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.commons.visitors.ICommonsVisitor;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.model.IEntity;
+import org.whole.lang.commons.model.InlineVariable;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.matchers.GenericMatcher;
+import org.whole.lang.commons.model.VarType;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.commons.model.VarName;
+import org.whole.lang.commons.model.Quantifier;
+
 
 /**
  * @author Riccardo Solmi
  */
-public class InlineVariableImpl extends AbstractSimpleEntity implements
-		InlineVariable {
+public class InlineVariableImpl extends AbstractSimpleEntity implements InlineVariable {
 	private static final long serialVersionUID = 1;
 
 	public EntityDescriptor<InlineVariable> wGetEntityDescriptor() {
@@ -48,7 +49,11 @@ public class InlineVariableImpl extends AbstractSimpleEntity implements
     	matcher.matchEntityVariable(this, other);
     }
 	public void accept(ICommonsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	private VarType varType;
@@ -58,8 +63,7 @@ public class InlineVariableImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setVarType(VarType varType) {
-		notifyChanged(CommonsFeatureDescriptorEnum.varType, this.varType,
-				this.varType = varType);
+		notifyChanged(CommonsFeatureDescriptorEnum.varType, this.varType, this.varType = varType);
 	}
 
 	private VarName varName;
@@ -69,20 +73,17 @@ public class InlineVariableImpl extends AbstractSimpleEntity implements
 	}
 
 	public void setVarName(VarName varName) {
-		notifyChanged(CommonsFeatureDescriptorEnum.varName, this.varName,
-				this.varName = varName);
+		notifyChanged(CommonsFeatureDescriptorEnum.varName, this.varName, this.varName = varName);
 	}
 
 	private Quantifier quantifier;
 
 	public Quantifier getQuantifier() {
-		return notifyRequested(CommonsFeatureDescriptorEnum.quantifier,
-				quantifier);
+		return notifyRequested(CommonsFeatureDescriptorEnum.quantifier, quantifier);
 	}
 
 	public void setQuantifier(Quantifier quantifier) {
-		notifyChanged(CommonsFeatureDescriptorEnum.quantifier, this.quantifier,
-				this.quantifier = quantifier);
+		notifyChanged(CommonsFeatureDescriptorEnum.quantifier, this.quantifier, this.quantifier = quantifier);
 	}
 
 	public IEntity wGet(int index) {
@@ -107,8 +108,7 @@ public class InlineVariableImpl extends AbstractSimpleEntity implements
 			setVarName(value.wGetAdapter(CommonsEntityDescriptorEnum.VarName));
 			break;
 		case 2:
-			setQuantifier(value
-					.wGetAdapter(CommonsEntityDescriptorEnum.Quantifier));
+			setQuantifier(value.wGetAdapter(CommonsEntityDescriptorEnum.Quantifier));
 			break;
 		default:
 			throw new IllegalArgumentException();

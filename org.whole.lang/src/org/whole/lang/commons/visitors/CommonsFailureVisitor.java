@@ -12,6 +12,10 @@ public class CommonsFailureVisitor extends CommonsIdentityVisitor {
 		throw new VisitException();
 	}
 
+	public void visit(Resolver entity) {
+		throw new VisitException();
+	}
+
 	public void visit(RootFragment entity) {
 		throw new VisitException();
 	}
@@ -28,7 +32,15 @@ public class CommonsFailureVisitor extends CommonsIdentityVisitor {
 		throw new VisitException();
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		throw new VisitException();
+	}
+
+	public void visit(BaseFragment entity) {
+		throw new VisitException();
+	}
+
+	public void visit(Phase entity) {
 		throw new VisitException();
 	}
 

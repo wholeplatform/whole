@@ -7,8 +7,7 @@ import org.whole.lang.commons.model.*;
 /** 
  * @generator Whole
  */
-public class CommonsTraverseAllSwitchVisitor extends
-		CommonsIdentityUnaryVisitor<IVisitor> {
+public class CommonsTraverseAllSwitchVisitor extends CommonsIdentityUnaryVisitor<IVisitor> {
 	public CommonsTraverseAllSwitchVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}
@@ -30,6 +29,16 @@ public class CommonsTraverseAllSwitchVisitor extends
 	}
 
 	public void visit(StageDownFragment entity) {
+		wGetVisitor1().visit(entity.getRootEntity());
+	}
+
+	public void visit(TemplateFragment entity) {
+		wGetVisitor1().visit(entity.getPhase());
+		wGetVisitor1().visit(entity.getRootEntity());
+	}
+
+	public void visit(BaseFragment entity) {
+		wGetVisitor1().visit(entity.getPhase());
 		wGetVisitor1().visit(entity.getRootEntity());
 	}
 

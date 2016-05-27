@@ -11,8 +11,7 @@ import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class StageDownFragmentAdapter extends AbstractEntityAdapter implements
-		StageDownFragment {
+public class StageDownFragmentAdapter extends AbstractEntityAdapter implements StageDownFragment {
 	private static final long serialVersionUID = 1;
 
 	public StageDownFragmentAdapter(IEntity implementor) {
@@ -32,8 +31,7 @@ public class StageDownFragmentAdapter extends AbstractEntityAdapter implements
 	}
 
 	public Any getRootEntity() {
-		return wGet(CommonsFeatureDescriptorEnum.rootEntity).wGetAdapter(
-				CommonsEntityDescriptorEnum.Any);
+		return wGet(CommonsFeatureDescriptorEnum.rootEntity).wGetAdapter(CommonsEntityDescriptorEnum.Any);
 	}
 
 	public void setRootEntity(Any rootEntity) {

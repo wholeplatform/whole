@@ -6,7 +6,6 @@ import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.models.codebase.BPELModel;
 import org.whole.lang.models.codebase.BPMModel;
 import org.whole.lang.models.codebase.ClassModel;
-import org.whole.lang.models.codebase.CommonsModel;
 import org.whole.lang.models.codebase.DBCFGModel;
 import org.whole.lang.models.codebase.DataModel;
 import org.whole.lang.models.codebase.ECoreModel;
@@ -97,7 +96,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("SQL model", new SQLModel());
 		put("DBCFG model", new DBCFGModel());
 
-		put("Commons", new CommonsModel());
 		put("Actions", new ActionsModel());
 		put("Artifacts model", new ArtifactsModel());
 		put("Math model", new MathModel());

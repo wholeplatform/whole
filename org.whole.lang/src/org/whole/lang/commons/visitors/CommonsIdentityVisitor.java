@@ -7,10 +7,12 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class CommonsIdentityVisitor extends AbstractVisitor implements
-		ICommonsVisitor {
+public class CommonsIdentityVisitor extends AbstractVisitor implements ICommonsVisitor {
 	public void visit(IEntity entity) {
 		((ICommonsEntity) entity).accept(this);
+	}
+
+	public void visit(Resolver entity) {
 	}
 
 	public void visit(RootFragment entity) {
@@ -25,7 +27,13 @@ public class CommonsIdentityVisitor extends AbstractVisitor implements
 	public void visit(StageDownFragment entity) {
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+	}
+
+	public void visit(BaseFragment entity) {
+	}
+
+	public void visit(Phase entity) {
 	}
 
 	public void visit(Multiplexer entity) {

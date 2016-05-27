@@ -12,11 +12,14 @@ public class CommonsImplEntityRegistry extends AbstractEntityRegistry {
 	}
 
 	protected void createPrototypes() {
+		put(new ResolverImpl());
 		put(new RootFragmentImpl());
 		put(new SameStageFragmentImpl());
 		put(new StageUpFragmentImpl());
 		put(new StageDownFragmentImpl());
-		put(new ResolverImpl());
+		put(new TemplateFragmentImpl());
+		put(new BaseFragmentImpl());
+		put(new PhaseImpl());
 		put(new MultiplexerImpl());
 		put(new VariableImpl());
 		put(new InlineVariableImpl());

@@ -12,6 +12,11 @@ public class CommonsIdentityDefaultVisitor extends CommonsIdentityVisitor {
 	public void visit(Any entity) {
 	}
 
+	public void visit(Resolver entity) {
+		visit((ICommonsEntity) entity);
+		visit((Any) entity);
+	}
+
 	public void visit(Fragment entity) {
 		visit((Any) entity);
 	}
@@ -36,7 +41,17 @@ public class CommonsIdentityDefaultVisitor extends CommonsIdentityVisitor {
 		visit((Fragment) entity);
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		visit((ICommonsEntity) entity);
+		visit((Fragment) entity);
+	}
+
+	public void visit(BaseFragment entity) {
+		visit((ICommonsEntity) entity);
+		visit((Fragment) entity);
+	}
+
+	public void visit(Phase entity) {
 		visit((ICommonsEntity) entity);
 		visit((Any) entity);
 	}

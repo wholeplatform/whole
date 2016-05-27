@@ -17,24 +17,13 @@
  */
 package org.whole.lang.commons.builders;
 
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.Any;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.InlineVariable;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.Multiplexer;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.Quantifier;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.Resolver;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.RootFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.SameStageFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.StageDownFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.StageUpFragment;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.VarName;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.VarType;
-import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.Variable;
-
 import org.whole.lang.builders.GenericBuilderContext;
 import org.whole.lang.builders.IBuilder;
-import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.contexts.IEntityContext;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.commons.model.QuantifierEnum;
 
 /**
  * @author Riccardo Solmi
@@ -43,75 +32,139 @@ public class CommonsSpecificBuilderAdapter extends GenericBuilderContext impleme
 	public CommonsSpecificBuilderAdapter(IBuilder strategy) {
 		super(strategy);
 	}
+
 	public CommonsSpecificBuilderAdapter(IBuilder strategy, IEntityContext entityContext) {
 		super(strategy, entityContext);
 	}
 
-	public void RootFragment() {
-		wEntity(RootFragment);
-	}
-	public void RootFragment_() {
-		wEntity_(RootFragment);
-	}
-	public void _RootFragment() {
-		_wEntity(RootFragment);
+	public void quantifier() {
+		wFeature(CommonsFeatureDescriptorEnum.quantifier);
 	}
 
-	public void SameStageFragment() {
-		wEntity(SameStageFragment);
-	}
-	public void SameStageFragment_() {
-		wEntity_(SameStageFragment);
-	}
-	public void _SameStageFragment() {
-		_wEntity(SameStageFragment);
+	public void varName() {
+		wFeature(CommonsFeatureDescriptorEnum.varName);
 	}
 
-	public void StageUpFragment() {
-		wEntity(StageUpFragment);
-	}
-	public void StageUpFragment_() {
-		wEntity_(StageUpFragment);
-	}
-	public void _StageUpFragment() {
-		_wEntity(StageUpFragment);
+	public void varType() {
+		wFeature(CommonsFeatureDescriptorEnum.varType);
 	}
 
-	public void StageDownFragment() {
-		wEntity(StageDownFragment);
-	}
-	public void StageDownFragment_() {
-		wEntity_(StageDownFragment);
-	}
-	public void _StageDownFragment() {
-		_wEntity(StageDownFragment);
+	public void phase() {
+		wFeature(CommonsFeatureDescriptorEnum.phase);
 	}
 
-	public void Any() {
-		wEntity(Any);
+	public void rootEntity() {
+		wFeature(CommonsFeatureDescriptorEnum.rootEntity);
+	}
+
+	public void visit() {
 	}
 
 	public void Resolver() {
-		wEntity(Resolver);
+		wEntity(CommonsEntityDescriptorEnum.Resolver);
 	}
+
 //	public void Resolver_() {
-//		wEntity_(Resolver);
-//	}
-//	public void _Resolver() {
-//		_wEntity(Resolver);
+//		wEntity_(CommonsEntityDescriptorEnum.Resolver);
 //	}
 
+//	public void _Resolver() {
+//		_wEntity(CommonsEntityDescriptorEnum.Resolver);
+//	}
+	public void RootFragment() {
+		wEntity(CommonsEntityDescriptorEnum.RootFragment);
+	}
+
+	public void RootFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.RootFragment);
+	}
+
+	public void _RootFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.RootFragment);
+	}
+
+	public void SameStageFragment() {
+		wEntity(CommonsEntityDescriptorEnum.SameStageFragment);
+	}
+
+	public void SameStageFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.SameStageFragment);
+	}
+
+	public void _SameStageFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.SameStageFragment);
+	}
+
+	public void StageUpFragment() {
+		wEntity(CommonsEntityDescriptorEnum.StageUpFragment);
+	}
+
+	public void StageUpFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.StageUpFragment);
+	}
+
+	public void _StageUpFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.StageUpFragment);
+	}
+
+	public void StageDownFragment() {
+		wEntity(CommonsEntityDescriptorEnum.StageDownFragment);
+	}
+
+	public void StageDownFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.StageDownFragment);
+	}
+
+	public void _StageDownFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.StageDownFragment);
+	}
+
+	public void TemplateFragment() {
+		wEntity(CommonsEntityDescriptorEnum.TemplateFragment);
+	}
+
+	public void TemplateFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.TemplateFragment);
+	}
+
+	public void _TemplateFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.TemplateFragment);
+	}
+
+	public void BaseFragment() {
+		wEntity(CommonsEntityDescriptorEnum.BaseFragment);
+	}
+
+	public void BaseFragment_() {
+		wEntity_(CommonsEntityDescriptorEnum.BaseFragment);
+	}
+
+	public void _BaseFragment() {
+		_wEntity(CommonsEntityDescriptorEnum.BaseFragment);
+	}
+
+	public void Phase() {
+		wEntity(CommonsEntityDescriptorEnum.Phase);
+	}
+
+	public void Phase(String value) {
+		wEntity(CommonsEntityDescriptorEnum.Phase, value);
+	}
+
 	public void Multiplexer() {
-		wEntity(Multiplexer);
+		wEntity(CommonsEntityDescriptorEnum.Multiplexer);
 	}
+
 	public void Multiplexer_() {
-		wEntity_(Multiplexer);
+		wEntity_(CommonsEntityDescriptorEnum.Multiplexer);
 	}
+
 	public void Multiplexer_(int initialCapacity) {
-		wEntity_(Multiplexer, initialCapacity);
+		wEntity_(CommonsEntityDescriptorEnum.Multiplexer, initialCapacity);
 	}
+
 	public void _Multiplexer() {
-		_wEntity(Multiplexer);
+		_wEntity(CommonsEntityDescriptorEnum.Multiplexer);
 	}
 
 	public void Variable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
@@ -129,10 +182,11 @@ public class CommonsSpecificBuilderAdapter extends GenericBuilderContext impleme
 		_Variable();
 	}
 	public void Variable_() {
-		wEntity_(Variable);
+		wEntity_(CommonsEntityDescriptorEnum.Variable);
 	}
+
 	public void _Variable() {
-		_wEntity(Variable);
+		_wEntity(CommonsEntityDescriptorEnum.Variable);
 	}
 
 	public void InlineVariable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier) {
@@ -150,29 +204,32 @@ public class CommonsSpecificBuilderAdapter extends GenericBuilderContext impleme
 		_InlineVariable();
 	}
 	public void InlineVariable_() {
-		wEntity_(InlineVariable);
-	}
-	public void _InlineVariable() {
-		_wEntity(InlineVariable);
+		wEntity_(CommonsEntityDescriptorEnum.InlineVariable);
 	}
 
-	public void VarName(String name) {
-		wEntity(VarName, name);
+	public void _InlineVariable() {
+		_wEntity(CommonsEntityDescriptorEnum.InlineVariable);
 	}
-	public void VarType(EntityDescriptor<?> type) {
-		wEntity(VarType, (Object) type);
+
+	public void VarName(String value) {
+		wEntity(CommonsEntityDescriptorEnum.VarName, value);
 	}
-	public void VarType(String type) {
-		wEntity(VarType, type);
+	public void VarType(EntityDescriptor<?> value) {
+		wEntity(CommonsEntityDescriptorEnum.VarType, (Object) value);
+	}
+	public void VarType(String value) {
+		wEntity(CommonsEntityDescriptorEnum.VarType, value);
 	}
 
 	public void Quantifier() {
-		wEntity(Quantifier);
+		wEntity(CommonsEntityDescriptorEnum.Quantifier);
 	}
+
 	public void Quantifier(QuantifierEnum.Value value) {
-		wEntity(Quantifier, value);
+		wEntity(CommonsEntityDescriptorEnum.Quantifier, value);
 	}
+
 	public void Quantifier(String value) {
-		wEntity(Quantifier, value);
+		wEntity(CommonsEntityDescriptorEnum.Quantifier, value);
 	}
 }

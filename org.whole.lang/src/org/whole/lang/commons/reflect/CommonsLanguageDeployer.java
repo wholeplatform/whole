@@ -45,22 +45,16 @@ import org.whole.lang.visitors.IVisitorFactory;
 public class CommonsLanguageDeployer extends AbstractLanguageDeployer {
 	public void deploy(ReflectionFactory platform) {
 		platform.addLanguageKit(new CommonsLanguageKit());
-		platform.addOperationFactory(CommonsLanguageKit.URI,
-				GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new CommonsGenericBuilderAdapter(
-								(ICommonsBuilder) strategy, entityContext);
-					}
-				});
-		platform.addOperationFactory(CommonsLanguageKit.URI,
-				SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new CommonsSpecificBuilderAdapter(strategy,
-								entityContext);
-					}
-				});
+		platform.addOperationFactory(CommonsLanguageKit.URI, GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
+			public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+				return new CommonsGenericBuilderAdapter((ICommonsBuilder) strategy, entityContext);
+			}
+		});
+		platform.addOperationFactory(CommonsLanguageKit.URI, SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
+			public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+				return new CommonsSpecificBuilderAdapter(strategy, entityContext);
+			}
+		});
 		platform.addOperationFactory(CommonsLanguageKit.URI, ContentAssistOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {

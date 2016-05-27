@@ -25,25 +25,70 @@ import org.whole.lang.reflect.EntityDescriptor;
  * @author Riccardo Solmi
  */
 public interface ICommonsBuilder extends IBuilder {
+	public void visit();
+
+	public void quantifier();
+
+	public void varName();
+
+	public void varType();
+
+	public void phase();
+
+	public void rootEntity();
+
+	public void Resolver();
+
+//	public void Resolver_();
+
+//	public void _Resolver();
+
 	public void RootFragment();
+
 	public void RootFragment_();
+
 	public void _RootFragment();
+
 	public void SameStageFragment();
+
 	public void SameStageFragment_();
+
 	public void _SameStageFragment();
+
 	public void StageUpFragment();
+
 	public void StageUpFragment_();
+
 	public void _StageUpFragment();
+
 	public void StageDownFragment();
+
 	public void StageDownFragment_();
+
 	public void _StageDownFragment();
 
-	public void Any();
-	public void Resolver();
-//	public void Resolver_();
-//	public void _Resolver();
+	public void TemplateFragment();
+
+	public void TemplateFragment_();
+
+	public void _TemplateFragment();
+
+	public void BaseFragment();
+
+	public void BaseFragment_();
+
+	public void _BaseFragment();
+
+	public void Phase();
+
+	public void Phase(String value);
+
+	public void Multiplexer();
+
 	public void Multiplexer_();
+
 	public void Multiplexer_(int initialCapacity);
+
 	public void _Multiplexer();
 
 	public void Variable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier);
@@ -53,11 +98,16 @@ public interface ICommonsBuilder extends IBuilder {
 	public void InlineVariable(String name, EntityDescriptor<?> type, QuantifierEnum.Value quantifier);
 	public void InlineVariable(String name, String type, String quantifier);
 	public void InlineVariable_();
+
 	public void _InlineVariable();
-	public void VarName(String name);
+	public void VarName(String value);
+
 	public void VarType(EntityDescriptor<?> type);
-	public void VarType(String type);
+	public void VarType(String value);
+
 	public void Quantifier();
+
 	public void Quantifier(QuantifierEnum.Value value);
+
 	public void Quantifier(String value);
 }

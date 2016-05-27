@@ -40,6 +40,8 @@ public abstract class AbstractOperation implements IOperation {
     private final IEnvironmentManager environmentManager;
 	private final IBindingManager operationEnvironment;
 	private final IBindingScope resultsScope, argumentsScope;
+	private String phase = null;
+	private boolean templatePhase = false;
 	private int stage = 0;
 	protected Map<String, IVisitor[]> stagedVisitorsMap; // uri -> stagedVisitors[2]
 	protected IVisitor[] stagedDefaultVisitors = new IVisitor[2];
@@ -134,11 +136,19 @@ public abstract class AbstractOperation implements IOperation {
     	return oldValue;
     }
 
+	public final String getPhase() {
+		return phase;
+	}
+	public final void setPhase(String phase) {
+		this.phase = phase;
+	}
+
 	public final int getStage() {
 		return stage;
 	}
 	public final void setStage(int stage) {
-		this.stage = stage;
+		if (!templatePhase)
+			this.stage = stage;
 	}
 
 	public IVisitor getVisitor(IEntity entity, int absoluteStage) {
@@ -201,16 +211,16 @@ public abstract class AbstractOperation implements IOperation {
 	public final void stagedVisit(IEntity entity) {
 		stagedVisit(entity, 0);
 	}
-	public void stagedVisit(IEntity entity, int relativeStage) {
+	public void stagedVisit(IEntity entity, int stageShift) {
 		boolean isOperationChanged = getEnvironmentManager().getCurrentOperation() != this;
 		if (isOperationChanged)
 			getEnvironmentManager().enterOperation(this);
 
 		int oldAbsoluteStage = getStage();
-		if (relativeStage == 0)
+		if (stageShift == 0 || templatePhase)
 		    getVisitor(entity, oldAbsoluteStage).visit(entity);
 		else {
-			int absoluteStage = oldAbsoluteStage + relativeStage;
+			int absoluteStage = oldAbsoluteStage + stageShift;
 			setStage(absoluteStage);
 		    getVisitor(entity, absoluteStage).visit(entity);
 		    setStage(oldAbsoluteStage);
@@ -219,16 +229,37 @@ public abstract class AbstractOperation implements IOperation {
 		if (isOperationChanged)
 			getEnvironmentManager().exitOperation();
 	}
-	public void stagedDefaultVisit(IEntity entity, int relativeStage) {
+	public static int PHASE_SHIFT = 100;
+	public void stagedVisit(IEntity entity, int stageShift, String phase) {
+		String outerPhase = getPhase();
+		int outerStage = getStage();
+		boolean samePhase = (phase == null && phase == outerPhase) || (phase != null && phase.equals(outerPhase));
+		boolean outerTemplate = outerStage > 0;
+//		boolean innerTemplate = stageShift > 0;
+
+		if (samePhase)
+			stagedVisit(entity, stageShift);
+		else if (outerTemplate) {
+			boolean outerTemplatePhase = templatePhase;
+			templatePhase = true;
+			stagedVisit(entity);
+			templatePhase = outerTemplatePhase;
+		} else {
+			setPhase(phase);
+			stagedVisit(entity, stageShift*PHASE_SHIFT);			
+			setPhase(outerPhase);
+		}
+	}
+	public void stagedDefaultVisit(IEntity entity, int stageShift) {
 		boolean isOperationChanged = getEnvironmentManager().getCurrentOperation() != this;
 		if (isOperationChanged)
 			getEnvironmentManager().enterOperation(this);
 
 		int oldAbsoluteStage = getStage();
-		if (relativeStage == 0)
+		if (stageShift == 0 || templatePhase)
 			getDefaultVisitor(entity, oldAbsoluteStage).visit(entity);
 		else {
-			int absoluteStage = oldAbsoluteStage + relativeStage;
+			int absoluteStage = oldAbsoluteStage + stageShift;
 			setStage(absoluteStage);
 			getDefaultVisitor(entity, absoluteStage).visit(entity);
 		    setStage(oldAbsoluteStage);

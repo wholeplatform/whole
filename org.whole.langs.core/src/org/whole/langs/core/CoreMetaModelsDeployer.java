@@ -29,7 +29,6 @@ import org.whole.lang.math.reflect.MathLanguageKit;
 import org.whole.lang.misc.reflect.MiscLanguageKit;
 import org.whole.lang.models.codebase.ActionsModel;
 import org.whole.lang.models.codebase.ArtifactsModel;
-import org.whole.lang.models.codebase.CommonsModel;
 import org.whole.lang.models.codebase.EditorsModel;
 import org.whole.lang.models.codebase.FramesModel;
 import org.whole.lang.models.codebase.GrammarBasedModel;
@@ -69,7 +68,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 	}
 
 	public void deploy(ReflectionFactory platform) {
-		platform.setMetaModelTemplate(CommonsLanguageKit.URI, new CommonsModel());
+		platform.setMetaModelTemplate(CommonsLanguageKit.URI, "Commons model", "org/whole/lang/commons/CommonsModel.xwl");
 		platform.setMetaModelTemplate(ActionsLanguageKit.URI, new ActionsModel());
 		platform.setMetaModelTemplate(ArtifactsLanguageKit.URI, new ArtifactsModel());
 		platform.setMetaModelTemplate(ChangesLanguageKit.URI, "Changes model", "org/whole/lang/changes/ChangesModel.xwl");

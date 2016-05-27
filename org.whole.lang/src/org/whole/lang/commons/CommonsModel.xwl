@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<models:Model xmlns:models="http://lang.whole.org/Models">
+    <models:SimpleName value="Commons"/>
+    <models:TypeRelations initialCapacity="2">
+        <models:SupertypesOf>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SupertypesOf>
+        <models:SubtypesOf>
+            <models:Types initialCapacity="8">
+                <models:SimpleName value="SameStageFragment"/>
+                <models:SimpleName value="StageDownFragment"/>
+                <models:SimpleName value="StageUpFragment"/>
+                <models:SimpleName value="Variable"/>
+                <models:SimpleName value="InlineVariable"/>
+                <models:SimpleName value="Resolver"/>
+                <models:SimpleName value="TemplateFragment"/>
+                <models:SimpleName value="BaseFragment"/>
+            </models:Types>
+            <models:AnyType/>
+        </models:SubtypesOf>
+    </models:TypeRelations>
+    <models:ModelDeclarations initialCapacity="16">
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Any"/>
+            <models:Types initialCapacity="0"/>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Resolver"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Fragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Any"/>
+                    <models:SimpleName value="rootEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="RootFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="SameStageFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StageUpFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StageDownFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="TemplateFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Phase"/>
+                    <models:SimpleName value="phase"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Any"/>
+                    <models:SimpleName value="rootEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="BaseFragment"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Fragment"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Phase"/>
+                    <models:SimpleName value="phase"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Any"/>
+                    <models:SimpleName value="rootEntity"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Phase"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:CompositeEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="relationship"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Multiplexer"/>
+            <models:Types initialCapacity="0"/>
+            <models:ComponentModifiers initialCapacity="0"/>
+            <models:SimpleName value="Any"/>
+        </models:CompositeEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Variable"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="VarType"/>
+                    <models:SimpleName value="varType"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="VarName"/>
+                    <models:SimpleName value="varName"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Quantifier"/>
+                    <models:SimpleName value="quantifier"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="InlineVariable"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Variable"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="VarName"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="VarType"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:DataType value="org.whole.lang.reflect.EntityDescriptor"/>
+        </models:DataEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Quantifier"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Any"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="8">
+                <models:EnumValue value="OPTIONAL"/>
+                <models:EnumValue value="MANDATORY"/>
+                <models:EnumValue value="ZERO_OR_MORE_GREEDY"/>
+                <models:EnumValue value="ONE_OR_MORE_GREEDY"/>
+                <models:EnumValue value="ZERO_OR_MORE_RELUCTANT"/>
+                <models:EnumValue value="ONE_OR_MORE_RELUCTANT"/>
+                <models:EnumValue value="ZERO_OR_MORE_POSSESSIVE"/>
+                <models:EnumValue value="ONE_OR_MORE_POSSESSIVE"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+    </models:ModelDeclarations>
+    <models:Namespace value="org.whole.lang.commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <models:URI value="http://lang.whole.org/Commons"/>
+</models:Model>

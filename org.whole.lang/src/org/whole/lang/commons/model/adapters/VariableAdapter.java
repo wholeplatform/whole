@@ -31,8 +31,7 @@ public class VariableAdapter extends AbstractEntityAdapter implements Variable {
 	}
 
 	public VarType getVarType() {
-		return wGet(CommonsFeatureDescriptorEnum.varType).wGetAdapter(
-				CommonsEntityDescriptorEnum.VarType);
+		return wGet(CommonsFeatureDescriptorEnum.varType).wGetAdapter(CommonsEntityDescriptorEnum.VarType);
 	}
 
 	public void setVarType(VarType varType) {
@@ -40,8 +39,7 @@ public class VariableAdapter extends AbstractEntityAdapter implements Variable {
 	}
 
 	public VarName getVarName() {
-		return wGet(CommonsFeatureDescriptorEnum.varName).wGetAdapter(
-				CommonsEntityDescriptorEnum.VarName);
+		return wGet(CommonsFeatureDescriptorEnum.varName).wGetAdapter(CommonsEntityDescriptorEnum.VarName);
 	}
 
 	public void setVarName(VarName varName) {
@@ -49,8 +47,7 @@ public class VariableAdapter extends AbstractEntityAdapter implements Variable {
 	}
 
 	public Quantifier getQuantifier() {
-		return wGet(CommonsFeatureDescriptorEnum.quantifier).wGetAdapter(
-				CommonsEntityDescriptorEnum.Quantifier);
+		return wGet(CommonsFeatureDescriptorEnum.quantifier).wGetAdapter(CommonsEntityDescriptorEnum.Quantifier);
 	}
 
 	public void setQuantifier(Quantifier quantifier) {

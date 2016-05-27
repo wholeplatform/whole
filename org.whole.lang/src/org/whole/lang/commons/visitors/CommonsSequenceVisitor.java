@@ -9,13 +9,17 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class CommonsSequenceVisitor extends
-		AbstractBinaryVisitor<ICommonsVisitor> implements ICommonsVisitor {
+public class CommonsSequenceVisitor extends AbstractBinaryVisitor<ICommonsVisitor> implements ICommonsVisitor {
 	public CommonsSequenceVisitor(IVisitor visitor1, IVisitor visitor2) {
 		super(visitor1, visitor2);
 	}
 
 	public void visit(IEntity entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(Resolver entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
 	}
@@ -40,7 +44,17 @@ public class CommonsSequenceVisitor extends
 		wGetVisitor2().visit(entity);
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(BaseFragment entity) {
+		wGetVisitor1().visit(entity);
+		wGetVisitor2().visit(entity);
+	}
+
+	public void visit(Phase entity) {
 		wGetVisitor1().visit(entity);
 		wGetVisitor2().visit(entity);
 	}

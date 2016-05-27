@@ -17,13 +17,14 @@
  */
 package org.whole.lang.commons.model.impl;
 
-import org.whole.lang.commons.model.Quantifier;
-import org.whole.lang.commons.model.QuantifierEnum;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.visitors.ICommonsVisitor;
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.model.EnumValue;
+import org.whole.lang.commons.model.Quantifier;
+import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.commons.model.QuantifierEnum;
+import org.whole.lang.model.EnumValue;
 
 /**
  * @author Riccardo Solmi
@@ -42,7 +43,11 @@ public class QuantifierImpl extends AbstractDataEntity implements Quantifier {
 	}
 
 	public void accept(ICommonsVisitor visitor) {
-		visitor.visit(this);
+		try {
+			visitor.visit(this);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public int wGetEntityOrd() {

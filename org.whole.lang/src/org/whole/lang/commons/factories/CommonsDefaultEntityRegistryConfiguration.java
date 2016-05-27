@@ -14,6 +14,7 @@ public class CommonsDefaultEntityRegistryConfiguration extends AbstractEntityReg
 		super.apply(er);
 		CommonsEntityFactory ef = CommonsEntityFactory.instance(er);
 
+		er.put(ef.createPhase("phase"));
 		er.put(ef.createVarName("varName"));
 		er.put(ef.createVarType(CommonsEntityDescriptorEnum.Any));
 		er.put(ef.createQuantifier(QuantifierEnum.MANDATORY));
@@ -23,5 +24,7 @@ public class CommonsDefaultEntityRegistryConfiguration extends AbstractEntityReg
 		er.put(ef.createStageUpFragment(ef.createResolver()));
 		er.put(ef.createSameStageFragment(ef.createResolver()));
 		er.put(ef.createStageDownFragment(ef.createResolver()));
+		er.put(ef.createBaseFragment(ef.createResolver().wGetAdapter(CommonsEntityDescriptorEnum.Phase), ef.createResolver()));
+		er.put(ef.createTemplateFragment(ef.createResolver().wGetAdapter(CommonsEntityDescriptorEnum.Phase), ef.createResolver()));
 	}
 }

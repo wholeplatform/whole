@@ -7,6 +7,8 @@ import org.whole.lang.commons.model.*;
  * @generator Whole
  */
 public interface ICommonsVisitor extends IVisitor {
+	public void visit(Resolver entity);
+
 	public void visit(RootFragment entity);
 
 	public void visit(SameStageFragment entity);
@@ -15,7 +17,11 @@ public interface ICommonsVisitor extends IVisitor {
 
 	public void visit(StageDownFragment entity);
 
-	public void visit(Resolver entity);
+	public void visit(TemplateFragment entity);
+
+	public void visit(BaseFragment entity);
+
+	public void visit(Phase entity);
 
 	public void visit(Multiplexer entity);
 

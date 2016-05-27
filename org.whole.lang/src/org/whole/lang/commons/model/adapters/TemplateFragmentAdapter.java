@@ -11,14 +11,14 @@ import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class FragmentAdapter extends AbstractEntityAdapter implements Fragment {
+public class TemplateFragmentAdapter extends AbstractEntityAdapter implements TemplateFragment {
 	private static final long serialVersionUID = 1;
 
-	public FragmentAdapter(IEntity implementor) {
+	public TemplateFragmentAdapter(IEntity implementor) {
 		super(implementor);
 	}
 
-	public FragmentAdapter() {
+	public TemplateFragmentAdapter() {
 	}
 
 	public void accept(ICommonsVisitor visitor) {
@@ -26,8 +26,16 @@ public class FragmentAdapter extends AbstractEntityAdapter implements Fragment {
 			visitor.visit(this);
 	}
 
-	public EntityDescriptor<Fragment> wGetEntityDescriptor() {
-		return CommonsEntityDescriptorEnum.Fragment;
+	public EntityDescriptor<TemplateFragment> wGetEntityDescriptor() {
+		return CommonsEntityDescriptorEnum.TemplateFragment;
+	}
+
+	public Phase getPhase() {
+		return wGet(CommonsFeatureDescriptorEnum.phase).wGetAdapter(CommonsEntityDescriptorEnum.Phase);
+	}
+
+	public void setPhase(Phase phase) {
+		wSet(CommonsFeatureDescriptorEnum.phase, phase);
 	}
 
 	public Any getRootEntity() {

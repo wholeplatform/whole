@@ -34,8 +34,10 @@ public interface IOperation {
 	public IBindingScope getResultsScope();
 //	public IBindingScope getArgumentsScope();
 
+	public String getPhase();
 	public int getStage();
 	public void stagedVisit(IEntity entity, int relativeStage);
+	public void stagedVisit(IEntity entity, int relativeStage, String phase);
 	public void stagedDefaultVisit(IEntity entity, int relativeStage);
 
     public boolean isCanceled();

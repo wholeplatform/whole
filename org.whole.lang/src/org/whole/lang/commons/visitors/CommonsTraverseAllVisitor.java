@@ -8,8 +8,7 @@ import org.whole.lang.visitors.IVisitor;
 /** 
  * @generator Whole
  */
-public class CommonsTraverseAllVisitor extends
-		CommonsIdentityUnaryVisitor<ICommonsVisitor> {
+public class CommonsTraverseAllVisitor extends CommonsIdentityUnaryVisitor<ICommonsVisitor> {
 	public CommonsTraverseAllVisitor() {
 		wSetVisitor1(this);
 	}
@@ -35,6 +34,16 @@ public class CommonsTraverseAllVisitor extends
 	}
 
 	public void visit(StageDownFragment entity) {
+		entity.getRootEntity().accept(wGetVisitor1());
+	}
+
+	public void visit(TemplateFragment entity) {
+		entity.getPhase().accept(wGetVisitor1());
+		entity.getRootEntity().accept(wGetVisitor1());
+	}
+
+	public void visit(BaseFragment entity) {
+		entity.getPhase().accept(wGetVisitor1());
 		entity.getRootEntity().accept(wGetVisitor1());
 	}
 

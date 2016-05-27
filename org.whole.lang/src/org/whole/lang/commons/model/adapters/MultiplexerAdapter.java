@@ -10,8 +10,7 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class MultiplexerAdapter extends AbstractCollectionEntityAdapter<Any>
-		implements Multiplexer {
+public class MultiplexerAdapter extends AbstractCollectionEntityAdapter<Any> implements Multiplexer {
 	private static final long serialVersionUID = 1;
 
 	public MultiplexerAdapter(IEntity implementor) {

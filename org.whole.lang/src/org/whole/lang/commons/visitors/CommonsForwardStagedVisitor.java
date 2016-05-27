@@ -6,6 +6,10 @@ import org.whole.lang.commons.model.*;
  * @generator Whole
  */
 public class CommonsForwardStagedVisitor extends CommonsIdentityVisitor {
+	public void visit(Resolver entity) {
+		stagedVisit(entity);
+	}
+
 	public void visit(RootFragment entity) {
 		stagedVisit(entity);
 	}
@@ -22,7 +26,15 @@ public class CommonsForwardStagedVisitor extends CommonsIdentityVisitor {
 		stagedVisit(entity);
 	}
 
-	public void visit(Resolver entity) {
+	public void visit(TemplateFragment entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(BaseFragment entity) {
+		stagedVisit(entity);
+	}
+
+	public void visit(Phase entity) {
 		stagedVisit(entity);
 	}
 

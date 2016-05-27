@@ -24,6 +24,7 @@ import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.FragmentModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -60,7 +61,11 @@ public class RootFragmentImpl extends AbstractFragment implements RootFragment
     }
 
 	public void accept(ICommonsVisitor visitor) {
-		visitor.visit((RootFragment) this);
+		try {
+			visitor.visit((RootFragment) this);
+		} catch (Exception e) {
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+		}
 	}
 
 	public void setRootEntity(Any rootEntity) {
