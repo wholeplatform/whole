@@ -32,6 +32,7 @@ import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani
@@ -59,7 +60,8 @@ public class SelectNotationHandler {
 		ModelTransactionCommand command = new ModelTransactionCommand(focusEntity);
 		try {
 			command.begin();
-			viewer.rebuildNotation(focusEntity);
+			IEntity fragmentRoot = EntityUtils.getLanguageFragmentRoot(focusEntity);
+			viewer.rebuildNotation(fragmentRoot);
 			command.commit();
 			if (command.canUndo())
 				viewer.getEditDomain().getCommandStack().execute(command);

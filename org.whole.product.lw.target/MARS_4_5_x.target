@@ -18,9 +18,19 @@
 <unit id="org.mozilla.rhino.feature.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.draw2d.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.draw2d.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.gef.source.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.gef.lightweight.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.examples.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.examples.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.zest.source.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.gef.all.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.e4.core.tools.feature.feature.group" version="0.0.0"/>
+<unit id="com.github.jai.imageio.core.feature.feature.group" version="1.3.1"/>
 <repository location="file:../../whole-java-libs/org.whole.product.ef.releng/whole-ef-updates/"/>
 </location>
 </locations>
