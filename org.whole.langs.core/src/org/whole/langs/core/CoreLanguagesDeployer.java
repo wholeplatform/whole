@@ -34,6 +34,7 @@ import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.reflect.IDeployer;
 import org.whole.lang.reusables.reflect.ReusablesLanguageDeployer;
 import org.whole.lang.semantics.reflect.SemanticsLanguageDeployer;
+import org.whole.lang.syntaxtrees.reflect.SyntaxTreesLanguageDeployer;
 import org.whole.lang.templates.reflect.TemplatesLanguageDeployer;
 import org.whole.lang.tests.reflect.TestsLanguageDeployer;
 import org.whole.lang.types.reflect.TypesLanguageDeployer;
@@ -66,6 +67,7 @@ public class CoreLanguagesDeployer extends AbstractSuiteDeployer {
 			QueriesLanguageDeployer.class,
 			ReusablesLanguageDeployer.class,
 			SemanticsLanguageDeployer.class,
+			SyntaxTreesLanguageDeployer.class,
 			TemplatesLanguageDeployer.class,
 			TestsLanguageDeployer.class,
 			TypesLanguageDeployer.class,

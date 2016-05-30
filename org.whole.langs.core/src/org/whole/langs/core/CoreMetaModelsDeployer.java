@@ -50,6 +50,7 @@ import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.reflect.ReusablesLanguageKit;
 import org.whole.lang.semantics.reflect.SemanticsLanguageKit;
+import org.whole.lang.syntaxtrees.reflect.SyntaxTreesLanguageKit;
 import org.whole.lang.templates.reflect.TemplatesLanguageKit;
 import org.whole.lang.tests.reflect.TestsLanguageKit;
 import org.whole.lang.types.reflect.TypesLanguageKit;
@@ -86,6 +87,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.setMetaModelTemplate(ReusablesLanguageKit.URI, "Reusables model", "org/whole/lang/reusables/ReusablesModel.xwl");
 		platform.setMetaModelTemplate(SemanticsLanguageKit.URI, "Semantics model", "org/whole/lang/semantics/SemanticsModel.xwl");
 		platform.setMetaModelTemplate(STATUS_URI, new StatusModel());
+		platform.setMetaModelTemplate(SyntaxTreesLanguageKit.URI, "Syntax Trees Model", "org/whole/lang/syntaxtrees/SyntaxTreesModel.xwl");
 		platform.setMetaModelTemplate(TestsLanguageKit.URI, new TestsModel());
 		platform.setMetaModelTemplate(TemplatesLanguageKit.URI, new TemplatesModel());
 		platform.setMetaModelTemplate(TypesLanguageKit.URI, new TypesModel());
@@ -111,6 +113,7 @@ public class CoreMetaModelsDeployer extends AbstractLanguageExtensionDeployer {
 		platform.unsetMetaModelTemplate(ReusablesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(SemanticsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(STATUS_URI);
+		platform.unsetMetaModelTemplate(SyntaxTreesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TestsLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TemplatesLanguageKit.URI);
 		platform.unsetMetaModelTemplate(TypesLanguageKit.URI);
