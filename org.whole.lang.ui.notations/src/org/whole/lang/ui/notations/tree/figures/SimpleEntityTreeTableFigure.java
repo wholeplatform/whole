@@ -38,8 +38,10 @@ import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
+import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableLayout;
+import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 import org.whole.lang.ui.notations.tree.editparts.IEmbeddingStrategy;
 
@@ -116,7 +118,9 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 			tableFigure.add(row);
 		}
 
-		add(nodeFigure);
+		EntityFigure trackingFigure = new EntityFigure(new MonoLayout().withAutoresizeWeight(1f)).withViewportTracking(ViewportTracking.VERTICAL);
+		trackingFigure.add(nodeFigure);
+		add(trackingFigure);
 		add(contentsFigure);
 
 		setLayoutManager(new RowLayout().withMargin(2, 4, 2, 0).withSpacing(
@@ -167,16 +171,27 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 	}
 
 	@Override
+	protected ConnectionAnchor[] createSourceAnchors() {
+		// TODO
+		return super.createSourceAnchors();
+	}
+
+	@Override
 	protected ConnectionAnchor[] createTargetAnchors() {
 		return new ConnectionAnchor[] {
 			AnchorFactory.createFixedAnchor(nodeFigure, isRightToLeft() ? 1.0 : 0, 0.5)
 		};
 	}
 
-	@SuppressWarnings("unchecked")
-	protected void paintFigure(Graphics g) {
-		super.paintFigure(g);
+	@Override
+	public void paintClientArea(Graphics graphics) {
+		super.paintClientArea(graphics);
+		paintConnections(graphics);
+		graphics.restoreState();
+	}
 
+	@SuppressWarnings("unchecked")
+	protected void paintConnections(Graphics g) {
 		g.setForegroundColor(FigurePrefs.relationsColor);
 
 		List<IFigure> contentPanes = contentsFigure.getChildren();

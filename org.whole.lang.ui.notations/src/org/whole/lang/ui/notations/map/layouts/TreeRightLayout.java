@@ -26,6 +26,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class TreeRightLayout extends AbstractHorizontalTreeLayout {
 	public Point getRootPoint() {
+//FIXME skip tracking figure wrapper (if present?)
+//		return ((IEntityFigure) childFigure[0].getChildren().get(0)).getBounds().getRight();
 		return childFigure[0].getBounds().getRight();
 	}
 	protected Point getChildPoint2(int index, IFigure childFigure) {

@@ -46,8 +46,10 @@ import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.ICompositeEntityLayout;
+import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.RoundedTitleTabLayout;
 import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.ViewportTracking;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 
 public class SimpleEntityTreeFigure extends NodeFigure {
@@ -147,7 +149,9 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 		for(int i=0; i<featureNum; i++)
 			contents.add(createContentPane(i));
 
-		add(outline);
+		EntityFigure trackingFigure = new EntityFigure(new MonoLayout().withMajorAlignment(Alignment.CENTER).withAutoresizeWeight(1f)).withViewportTracking(ViewportTracking.VERTICAL);
+		trackingFigure.add(outline);
+		add(trackingFigure);
 		add(contents);
 
 		initVisibilityToggle();
@@ -273,13 +277,6 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 	}
 
 	@Override
-	public void paintFigure(Graphics g) {
-        super.paintFigure(g);
-
-        
-	}
-
-	@Override
 	public void paintClientArea(Graphics graphics) {
 		super.paintClientArea(graphics);
 		paintConnections(graphics);
@@ -287,9 +284,9 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 	}
 
 	protected void paintConnections(Graphics graphics) {
-		// paint connections
-		graphics.setForegroundColor(FigurePrefs.relationsColor);
 		if (contents.isVisible()) {
+			graphics.setForegroundColor(FigurePrefs.relationsColor);
+
 			int egdeXOffset = DrawUtils.SPACING - DrawUtils.EDGE_SPACING;
 			ConnectionAnchor[] srcAnchors = getSourceAnchors();
 			int i;

@@ -49,6 +49,11 @@ public class FeatureFigure extends StyledFigure {
 		shapeFigure.add(createFoldingToggle(1));
 		
 		add(shapeFigure);
+//TODO add view tracking support (FIXME connections painting)
+//		EntityFigure trackingFigure = new EntityFigure(new MonoLayout().withMajorAlignment(Alignment.CENTER).withAutoresizeWeight(1f)).withViewportTracking(ViewportTracking.VERTICAL);
+//		trackingFigure.add(shapeFigure);
+//		add(trackingFigure);
+
 		add(createContentPane(1));		
 	}
 

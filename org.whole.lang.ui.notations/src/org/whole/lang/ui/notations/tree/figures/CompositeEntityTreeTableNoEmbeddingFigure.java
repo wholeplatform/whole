@@ -75,16 +75,26 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 	}
 
 	@Override
+	protected ConnectionAnchor[] createSourceAnchors() {
+		// TODO
+		return super.createSourceAnchors();
+	}
+
+	@Override
 	protected ConnectionAnchor[] createTargetAnchors() {
 		return new ConnectionAnchor[] {
 			AnchorFactory.createFixedAnchor(getContentPane(0), isRightToLeft() ? 1.0 : 0, 0.5)
 		};
 	}
 
+	@Override
+	public void paintClientArea(Graphics graphics) {
+		super.paintClientArea(graphics);
+		paintConnections(graphics);
+		graphics.restoreState();
+	}
 	@SuppressWarnings("unchecked")
-	protected void paintFigure(Graphics g) {
-		super.paintFigure(g);
-
+	protected void paintConnections(Graphics g) {
 		List<IFigure> children = getContentPane(0).getChildren();
 		int childrenSize = children.size();
 		if (childrenSize > 0) {
@@ -104,6 +114,10 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 			g.setForegroundColor(FigurePrefs.relationsColor);
 			DrawUtils.drawHorizontalTree(g, start, DrawUtils.SPACING, end);			
 		}
+	}
+
+	protected void paintFigure(Graphics g) {
+		super.paintFigure(g);
 
 		Rectangle b = getBounds();
 		Rectangle tb = null;
@@ -117,7 +131,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 		} else
 			b = b.getResized(-1, -1);
 
-		if (titleFigure != null || childrenSize == 0) {
+		if (titleFigure != null || getContentPane(0).getChildren().isEmpty()) {
 			g.setForegroundColor(FigurePrefs.blueColor);
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(new int[] {4,2});

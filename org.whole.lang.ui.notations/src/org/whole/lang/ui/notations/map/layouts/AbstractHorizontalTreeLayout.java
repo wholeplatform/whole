@@ -20,6 +20,7 @@ package org.whole.lang.ui.notations.map.layouts;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.notations.figures.DrawUtils;
 
 /**
@@ -42,7 +43,19 @@ public abstract class AbstractHorizontalTreeLayout extends AbstractStyledLayout 
 		int height2 = v2 ? childSize[1].height : 0;
 
 		y[1] = area.y;
-		y[0] = area.y + Math.max(height2 - childSize[0].height, 0)/2;
+//		y[0] = area.y + Math.max(height2 - childSize[0].height, 0)/2;
+
+		int heightStretching = (int) ((figAscent+figDescent - childSize[0].height) * getMinorAutoresizeWeight(0));
+
+		y[0] = area.y + Math.max(height2 - childSize[0].height, 0)/2-heightStretching/2;
+		if (heightStretching > 0) {
+			childFigure[0].getLayoutManager().getViewportTrackingStrategy().setAscent(
+					getMinorAlignment().equals(Alignment.MATHLINE) ? y[0] - area.y : 0);
+			y[0] = area.y;
+		} else if (childFigure[0].getLayoutManager() != null)
+			childFigure[0].getLayoutManager().getViewportTrackingStrategy().setAscent(0);
+
+		childSize[0].height += heightStretching;
 	}
 
 	public void paintConnections(Graphics graphics, Point... childrenPoints) {
