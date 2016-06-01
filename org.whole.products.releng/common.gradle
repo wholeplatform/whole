@@ -130,8 +130,10 @@ project.gradle.buildFinished { buildResult ->
 		println("Completed without errors")
 	} else if (buildFailure != null ) {
 		println("Error thrown during build ${buildFailure.message}")
+		throw new GradleException("Completed with nested failure")
 	} else {
-		println("Completed with failure")
+		println("Completed with nested failure")
+		throw new GradleException("Completed with nested failure")
 	}
 }
 
