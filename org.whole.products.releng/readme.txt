@@ -12,6 +12,7 @@ Simply, unpack and run the application.
 
 To add the Whole Platform to an existing Eclipse installation
 use the Update site or the Update site Archive.
+(http://whole.sourceforge.net/updates points to the last version)
 
 The Whole Platform sources are distributed with several bundled examples.
 Additional examples are available as a separate archive.
