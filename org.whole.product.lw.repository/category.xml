@@ -105,10 +105,7 @@
    <feature id="org.antlr.antlr4.feature">
       <category name="whole-enabling-features"/>
    </feature>
-   <feature id="org.antlr.antlr4-runtime.feature">
-      <category name="whole-enabling-features"/>
-   </feature>
-   <feature id="net.java.dev.jna.jna.feature">
+   <feature id="net.java.dev.jna.feature">
       <category name="whole-enabling-features"/>
    </feature>
    <feature id="ca.weblite.java-objc-bridge.feature">

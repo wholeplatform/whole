@@ -32,8 +32,7 @@
 <unit id="org.eclipse.e4.core.tools.feature.feature.group" version="0.0.0"/>
 <unit id="com.github.jai.imageio.core.feature.feature.group" version="0.0.0"/>
 <unit id="org.antlr.antlr4.feature.feature.group" version="0.0.0"/>
-<unit id="org.antlr.antlr4-runtime.feature.feature.group" version="0.0.0"/>
-<unit id="net.java.dev.jna.jna.feature.feature.group" version="0.0.0"/>
+<unit id="net.java.dev.jna.feature.feature.group" version="0.0.0"/>
 <unit id="ca.weblite.java-objc-bridge.feature.feature.group" version="0.0.0"/>
 <repository location="file:../../whole-java-libs/org.whole.product.ef.releng/whole-ef-updates/"/>
 </location>
