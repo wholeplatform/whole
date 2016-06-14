@@ -33,7 +33,6 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ArtifactsGeneratorOperation;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.templates.reflect.TemplatesLanguageDeployer;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
@@ -45,7 +44,6 @@ public class ArtifactsGeneratorTest {
     @BeforeClass
     public static void deployWholePlatform() {
     	ReflectionFactory.deployWholePlatform();
-		ReflectionFactory.deploy(TemplatesLanguageDeployer.class);
 		ReflectionFactory.deploy(GenOperationsDeployer.class);
 	}
 
@@ -111,6 +109,8 @@ public class ArtifactsGeneratorTest {
 	@Test
     public void testGenerate() throws Exception {
 		IBindingManager env = BindingManagerFactory.instance.createArguments();
+		env.wDefValue("projectName", "testProject");
+		env.wDefValue("sourceFolderName", "src");
 		env.wDefValue("packageName", "org.whole.lang.templates.codebase");
 
 		IEntity templates = XmlBuilderPersistenceKit.instance().readModel(
