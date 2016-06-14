@@ -22,6 +22,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.whole.gen.ArtifactsGeneratorTest;
 import org.whole.lang.java.JavaImportExportTests;
+import org.whole.lang.ui.image.ImagesGeneratorTest;
 
 /**
  * Run as -> JUnit Plug-in Test in an Eclipse with the Whole Platform installed
@@ -41,7 +42,8 @@ import org.whole.lang.java.JavaImportExportTests;
 @RunWith(Suite.class)
 @SuiteClasses( {
 	ArtifactsGeneratorTest.class,
-	JavaImportExportTests.class
+	JavaImportExportTests.class,
+	ImagesGeneratorTest.class,
 })
 public class AllIDETests {
 }

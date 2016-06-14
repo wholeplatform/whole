@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Whole Logo-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="128" height="128" id="svg2">
+    <g id="layer1">
+        <rect id="sfondo" x="0" y="0" width="128" height="128" rx="8" ry="8" style="fill:#4488BB"/>
+        <rect id="vrect" x="12" y="16" width="34" height="96" rx="32" ry="8" style="fill:none;stroke:#ffffff;stroke-width:8.0"/>
+        <rect id="hrect" x="64" y="46" width="53" height="36" rx="8" ry="32" style="fill:none;stroke:#ffffff;stroke-width:8.0"/>
+        <path d="M 64,28 L 100,64 L 64,100 L 28,64 L 64,28 z" id="path" style="fill:none;stroke:#ffffff;stroke-width:1"/>
+        <rect id="vrect" x="12" y="16" width="34" height="96" rx="32" ry="8" style="fill:none;stroke:#ffffff;stroke-width:8.0"/>
+        <rect id="hrect" x="64" y="46" width="53" height="36" rx="8" ry="32" style="fill:none;stroke:#ffffff;stroke-width:8.0"/>
+        <path d="M 64,28 L 100,64 L 64,100 L 28,64 L 64,28 z" id="path" style="fill:none;stroke:#ffffff;stroke-width:1"/>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Whole Logo-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="500" height="330" id="svg2">
+    <g id="layer1">
+        <rect id="sfondo" x="0" y="0" width="500" height="330" style="fill:#4488BB"/>
+        <text x="10" y="42" font-family="Optima" font-size="38" style="fill:#ffffff">Whole Language Workbench</text>
+        <g id="layer2" transform="translate(125, 35)">
+            <rect id="vrect" x="24" y="32" width="65" height="186" rx="60" ry="15" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <rect id="hrect" x="125" y="89" width="102" height="71" rx="15" ry="60" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <path d="M 125,54 L 196,125 L 125,196 L 54,125 L 125,54 z" id="path" style="fill:none;stroke:#ffffff;stroke-width:1"/>
+            <rect id="vrect" x="24" y="32" width="65" height="186" rx="60" ry="15" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <rect id="hrect" x="125" y="89" width="102" height="71" rx="15" ry="60" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <path d="M 125,54 L 196,125 L 125,196 L 54,125 L 125,54 z" id="path" style="fill:none;stroke:#ffffff;stroke-width:1"/>
+            <rect id="vrect" x="24" y="32" width="65" height="186" rx="60" ry="15" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <rect id="hrect" x="125" y="89" width="102" height="71" rx="15" ry="60" style="fill:none;stroke:#ffffff;stroke-width:12.0"/>
+            <path d="M 125,54 L 196,125 L 125,196 L 54,125 L 125,54 z" id="path" style="fill:none;stroke:#ffffff;stroke-width:1"/>
+        </g>
+        <text x="10" y="288" font-family="Trebuchet MS" font-size="10" style="fill:#ffffff">Copyright Riccardo Solmi 2004-2016. All rights reserved.</text>
+        <text x="10" y="298" font-family="Trebuchet MS" font-size="10" style="fill:#ffffff">Java and all Java related trademarks and logos are trademarks or registered trademarks of Oracle, Inc.</text>
+        <text x="10" y="308" font-family="Trebuchet MS" font-size="10" style="fill:#ffffff">in the U.S., other countries, or both. Eclipse is a trademark of the Eclipse Foundation, Inc.</text>
+    </g>
+</svg>
