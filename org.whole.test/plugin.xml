@@ -9,5 +9,16 @@
             id="org.whole.lang.testentities.reflect.TestEntitiesLanguageDeployer">
       </deployer>
    </extension>
-
+   <extension
+         id="org.whole.lang.ui.image.ImagesGenerator"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="org.whole.lang.ui.image.ImagesGenerator">
+         </run>
+      </application>
+   </extension>
 </plugin>
