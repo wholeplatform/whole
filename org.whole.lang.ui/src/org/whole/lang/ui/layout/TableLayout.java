@@ -281,7 +281,7 @@ public class TableLayout extends AbstractCompositeEntityLayout implements ITabul
 
 	public Rectangle getCellBounds(int columnIndex, int rowIndex) {
 		Rectangle bounds = getRow(rowIndex).getTabularLayoutClient().getCellBounds(columnIndex);
-		return bounds == IEntityFigure.PLACE_HOLDER_BOUNDS ? bounds : bounds.getTranslated(-getColumnSpacingBefore(columnIndex)/2, -getRowSpacingBefore(rowIndex)/2).resize(getColumnSpacingBefore(columnIndex+1), (getRowSpacingBefore(rowIndex)+getRowSpacingBefore(rowIndex+1))/2);
+		return bounds == IEntityFigure.PLACE_HOLDER_BOUNDS ? bounds : bounds.getTranslated(-getColumnSpacingBefore(columnIndex)/2, -getRowSpacingBefore(rowIndex)/2).resize((getColumnSpacingBefore(columnIndex)+getColumnSpacingBefore(columnIndex+1))/2, (getRowSpacingBefore(rowIndex)+getRowSpacingBefore(rowIndex+1))/2);
 	}
 	public Rectangle getColumnBounds(int columnIndex) {
 		Rectangle columnBounds = new Rectangle();
