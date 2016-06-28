@@ -27,11 +27,14 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 /**
  * @author Riccardo Solmi
  */
 public class FeedbackEditPolicyStrategy {
+	protected static final int FEEDBACK_LINE_WIDTH = 2;
+
 	public static FeedbackEditPolicyStrategy instance = new FeedbackEditPolicyStrategy();
 
 	protected FeedbackEditPolicyStrategy() {
@@ -39,7 +42,7 @@ public class FeedbackEditPolicyStrategy {
 
 	public IFigure createFeedbackFigure() {
 		Polyline figure = new Polyline();
-		figure.setLineWidth(2);
+		figure.setLineWidth(FEEDBACK_LINE_WIDTH);
 		figure.setForegroundColor(ColorConstants.gray);
 		figure.addPoint(new Point(0, 0));
 		figure.addPoint(new Point(10, 10));
@@ -56,20 +59,18 @@ public class FeedbackEditPolicyStrategy {
 		getFeedbackIndexFor(host, location, isHorizontal, feedbackArea);
 
 		int x;
-		if (feedbackArea.x == hostBounds.x) {
-			if (feedbackArea.right() == hostBounds.right())
-				x = feedbackArea.x + feedbackArea.width/2;
-			else
-				x = feedbackArea.right() - 2;
-		} else if (feedbackArea.right() == hostBounds.right())
-			x = feedbackArea.x + 2;
+		boolean empty = host.getChildren().isEmpty();
+		if (!empty && feedbackArea.x == hostBounds.x)
+			x = feedbackArea.right() - FEEDBACK_LINE_WIDTH; //before first child
+		else if (!empty && feedbackArea.right() == hostBounds.right())
+			x = feedbackArea.x + FEEDBACK_LINE_WIDTH; //after last child
 		else
 			x = feedbackArea.x + feedbackArea.width/2;
 
 		Point p1 = new Point(x, feedbackArea.y);
 		p1 = transposer.t(p1);
 		feedbackFigure.translateToRelative(p1);
-		
+
 		Point p2 = new Point(x, feedbackArea.bottom());
 		p2 = transposer.t(p2);
 		feedbackFigure.translateToRelative(p2);
@@ -92,7 +93,12 @@ public class FeedbackEditPolicyStrategy {
 
 		List<?> children = host.getChildren();
 		if (children.isEmpty() || location == null) {
-			feedbackArea.setBounds(hostBounds);
+			if (host instanceof AbstractGraphicalEditPart) {
+				IFigure compositePane = ((AbstractGraphicalEditPart) host).getContentPane();
+				Rectangle compositeBounds = transposer.t(getAbsoluteBounds(compositePane));
+				feedbackArea.setBounds(compositeBounds);
+			} else
+				feedbackArea.setBounds(hostBounds);
 			return -1;
 		}
 
