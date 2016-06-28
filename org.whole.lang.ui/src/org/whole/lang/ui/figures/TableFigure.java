@@ -120,6 +120,20 @@ public class TableFigure extends ContentPaneFigure {
 		g.drawLine(r.x, r.bottom()-1, r.right()-1, r.bottom()-1);
 	}
 
+	protected void drawColumnBackground(Graphics g, int index) {
+		drawColumnBackground(g, index, getBackgroundAlpha());
+	}
+	protected void drawColumnBackground(Graphics g, int index, int alpha) {
+		TableLayout l = getLayoutManager();
+		if (l.rows()>0) {
+			int oldAlpha = g.getAlpha();
+			g.setAlpha(alpha);
+			Rectangle tb = getTableBounds();
+			Rectangle cb = l.getColumnBounds(index);
+			g.fillRectangle(cb.x, tb.y, cb.width, tb.height);
+			g.setAlpha(oldAlpha);
+		}
+	}
 	protected void drawAlternateColumnsBackground(Graphics g, int startIndex) {
 		drawAlternateColumnsBackground(g, startIndex, getBackgroundAlpha());
 	}
@@ -131,7 +145,7 @@ public class TableFigure extends ContentPaneFigure {
 			Rectangle tb = getTableBounds();
 			for (int r=startIndex; r<l.columns(); r+=2) {
 				Rectangle cb = l.getColumnBounds(r);
-				g.fillRectangle(cb.x, tb.y, cb.width+1, tb.height);
+				g.fillRectangle(cb.x, tb.y, cb.width, tb.height);
 			}
 			g.setAlpha(oldAlpha);
 		}
