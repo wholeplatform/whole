@@ -23,13 +23,6 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.Set;
 
-import org.whole.lang.commons.model.InlineVariable;
-import org.whole.lang.commons.model.Resolver;
-import org.whole.lang.commons.model.RootFragment;
-import org.whole.lang.commons.model.SameStageFragment;
-import org.whole.lang.commons.model.StageDownFragment;
-import org.whole.lang.commons.model.StageUpFragment;
-import org.whole.lang.commons.model.Variable;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -50,20 +43,6 @@ public class SimpleEntityDescriptor<E extends IEntity> extends AbstractEntityDes
 	}
 
     public final EntityKinds getEntityKind() {
-//    	Class<E> entityType = getEntityType();
-//    	if (entityType.getPackage().equals(Resolver.class.getPackage())) {
-//			if (Resolver.class.equals(entityType))
-//	    		return EntityKinds.RESOLVER;
-//	    	if (Variable.class.equals(entityType) || InlineVariable.class.equals(entityType))
-//	    		return EntityKinds.VARIABLE;
-//	    	if (SameStageFragment.class.equals(entityType) || RootFragment.class.equals(entityType))
-//	    		return EntityKinds.SAME_STAGE_FRAGMENT;
-//	    	if (StageUpFragment.class.equals(entityType))
-//	    		return EntityKinds.STAGE_UP_FRAGMENT;
-//	    	if (StageDownFragment.class.equals(entityType))
-//	    		return EntityKinds.STAGE_DOWN_FRAGMENT;
-//    	}
-    	
     	return EntityKinds.SIMPLE;
     }
 

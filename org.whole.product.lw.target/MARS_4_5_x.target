@@ -4,9 +4,9 @@
 <target name="MARS_4_5_x" sequenceNumber="26">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<repository location="http://download.eclipse.org/releases/mars"/>
 <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
 <unit id="org.eclipse.equinox.sdk.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/mars"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="com.fasterxml.jackson.feature.feature.group" version="0.0.0"/>
