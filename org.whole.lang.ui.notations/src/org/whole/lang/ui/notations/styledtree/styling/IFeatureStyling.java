@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.notations.styledtree.styling;
 
+import org.whole.lang.ui.layout.Alignment;
+
 /**
  * @author Riccardo Solmi
  */
@@ -24,4 +26,5 @@ public interface IFeatureStyling {
 	public String getName();
 	public boolean isEmbedded();
 	public boolean isVisible();
+	public Alignment getAlignment();
 }

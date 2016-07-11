@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.notations.styledtree.styling;
 
+import org.whole.lang.ui.layout.Alignment;
+
 /**
  * @author Riccardo Solmi
  */
@@ -24,11 +26,16 @@ public class FeatureStyling implements IFeatureStyling {
 	protected String name;
 	protected boolean embedded;
 	protected boolean visible;
+	protected Alignment alignment;
 
 	public FeatureStyling(String name, boolean embedded, boolean visible) {
+		this(name, embedded, visible, Alignment.LEADING);
+	}
+	public FeatureStyling(String name, boolean embedded, boolean visible, Alignment alignment) {
 		this.name = name;
 		this.embedded = embedded;
 		this.visible = visible;
+		this.alignment = alignment;
 	}
 
 	public String getName() {
@@ -41,5 +48,9 @@ public class FeatureStyling implements IFeatureStyling {
 
 	public boolean isVisible() {
 		return visible;
+	}
+
+	public Alignment getAlignment() {
+		return alignment;
 	}
 }

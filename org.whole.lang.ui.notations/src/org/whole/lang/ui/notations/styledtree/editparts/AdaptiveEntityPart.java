@@ -27,6 +27,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.notations.styledtree.figures.CompositeTableFigure;
 import org.whole.lang.ui.notations.styledtree.figures.DataNodeFigure;
 import org.whole.lang.ui.notations.styledtree.figures.NodeWithCompositeBranchFigure;
 import org.whole.lang.ui.notations.styledtree.figures.SimpleTableNodeWithBranchesFigure;
@@ -34,6 +35,7 @@ import org.whole.lang.ui.notations.styledtree.styling.IEntityStyling;
 import org.whole.lang.ui.notations.styledtree.styling.INotationStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IStyledPart;
 import org.whole.lang.ui.notations.styledtree.styling.IStylingFactory;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 
 /**
@@ -84,7 +86,10 @@ public class AdaptiveEntityPart extends AbstractContentPanePart implements IStyl
 			return new SimpleTableNodeWithBranchesFigure(true, entityStyling);
 		case COMPOSITE:
 		default:
-			return new NodeWithCompositeBranchFigure(entityStyling);
+			if (entityStyling.getLayoutStyle().equals(LayoutStyle.TABLE))
+				return new CompositeTableFigure(entityStyling);
+			else
+				return new NodeWithCompositeBranchFigure(entityStyling);
 		}
 	}
 

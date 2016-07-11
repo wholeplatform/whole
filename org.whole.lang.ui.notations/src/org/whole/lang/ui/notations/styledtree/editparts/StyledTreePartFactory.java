@@ -21,12 +21,14 @@ import org.eclipse.gef.EditPart;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.LiteralDataEntityPart;
 import org.whole.lang.ui.editparts.LiteralTextualEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
+import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.notations.styledtree.styling.EntityStyling;
 import org.whole.lang.ui.notations.styledtree.styling.FeatureStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IEntityStyling;
@@ -34,6 +36,7 @@ import org.whole.lang.ui.notations.styledtree.styling.IFeatureStyling;
 import org.whole.lang.ui.notations.styledtree.styling.INotationStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IStylingFactory;
 import org.whole.lang.ui.notations.styledtree.styling.NotationStyling;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
@@ -62,10 +65,41 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 		IFeatureStyling[] featuresStyling = new IFeatureStyling[ed.childFeatureSize()];
 		int i = 0;
 		for (FeatureDescriptor fd : ed.getEntityFeatureDescriptors())
-			featuresStyling[i++] = new FeatureStyling(fd.getName(), !fd.getEntityDescriptor().getDataKind().isNotAData(), true);
+			featuresStyling[i++] = new FeatureStyling(
+					fd.getName(), !fd.getEntityDescriptor().getDataKind().isNotAData(), true, getAlignment(fd.getEntityDescriptor()));
 
-		IEntityStyling entityStyling = new EntityStyling(ed.getURI(), ed.getEntityKind(), featuresStyling);
+		IEntityStyling entityStyling = new EntityStyling(ed.getURI(), ed.getEntityKind(), getLayoutStyle(ed), featuresStyling);
 		return entityStyling;
+	}
+	public static Alignment getAlignment(EntityDescriptor<?> columnEntityDescriptor) {
+		switch (columnEntityDescriptor.getDataKind()) {
+		case BOOLEAN:
+		case BYTE:
+		case CHAR:
+		case DOUBLE:
+		case FLOAT:
+		case INT:
+		case LONG:
+		case SHORT:
+			return Alignment.TRAILING;
+		default:
+			return Alignment.LEADING;
+		}
+	}
+	public static LayoutStyle getLayoutStyle(EntityDescriptor<?> ed) {
+		EntityKinds kind = ed.getEntityKind();
+		switch (kind) {
+		case SIMPLE:
+			return LayoutStyle.TABLE;
+		case COMPOSITE:
+			EntityDescriptor<?> ced = ed.getEntityDescriptor(0);
+			if (ced.isPolymorphic() || ced.getEntityKind().isComposite())
+				return LayoutStyle.TREE;
+			else
+				return LayoutStyle.TABLE;
+		default:
+			return LayoutStyle.TREE;
+		}
 	}
 
 	public String getTypeIdentifier(IEntity entity) {
@@ -91,7 +125,7 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 
 			switch (ed.getEntityKind()) {
 			case SIMPLE:
-				return new SimpleEntityStyledTreePart(entityStyling);
+				return new SimpleEntityStyledTreePart(this, entityStyling);
 			case COMPOSITE:
 				return new CompositeEntityStyledTreePart(entityStyling);
 			default:

@@ -19,9 +19,11 @@ package org.whole.lang.ui.notations.styledtree.styling;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
@@ -45,21 +47,26 @@ public class NotationStyling implements INotationStyling {
 	}
 
 	public boolean isEmbedded(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
+		return getEmbeddingLayoutStyle(stylingFactory, contextPart, entity).isPresent();
+	}
+	public Optional<LayoutStyle> getEmbeddingLayoutStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
 		//FIXME contextPart is not properly virtualized
 		try {
 		if (!(contextPart instanceof IStyledPart))
-			return false;
+			return Optional.empty();
 
 		IEntity parentEntity = stylingFactory.getParentEntity(entity);
 		IEntityPart parentContextPart = stylingFactory.getParentPart(contextPart);
 		if (parentContextPart.getModelEntity() != parentEntity)
-			return false;
+			return Optional.empty();
 
 		IEntityStyling parentEntityStyling = getEntityStyling(stylingFactory, parentContextPart, parentEntity);
-		return parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));
+		boolean embedChild = parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));
+		return embedChild ? Optional.of(parentEntityStyling.getLayoutStyle()) : Optional.empty();
 		} catch (Exception e) {
 			//FIXME
-			return false;
+			return Optional.empty();
 		}
 	}
+
 }

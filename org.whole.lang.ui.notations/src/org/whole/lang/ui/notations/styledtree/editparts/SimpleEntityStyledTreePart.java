@@ -20,25 +20,32 @@ package org.whole.lang.ui.notations.styledtree.editparts;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.notations.styledtree.figures.SimpleTableNodeWithBranchesFigure;
+import org.whole.lang.ui.notations.styledtree.figures.SimpleTableRowFigure;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 import org.whole.lang.ui.notations.styledtree.styling.IEntityStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IFeatureStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IStyledPart;
+import org.whole.lang.ui.notations.styledtree.styling.IStylingFactory;
 
 
 /**
  * @author Riccardo Solmi
  */
 public class SimpleEntityStyledTreePart extends AbstractContentPanePart implements IStyledPart {
+	protected IStylingFactory stylingFactory;
 	protected IEntityStyling entityStyling;
 
-	public SimpleEntityStyledTreePart(IEntityStyling entityStyling) {
+	public SimpleEntityStyledTreePart(IStylingFactory stylingFactory, IEntityStyling entityStyling) {
+		this.stylingFactory = stylingFactory;
 		this.entityStyling = entityStyling;
 	}
 
@@ -47,7 +54,11 @@ public class SimpleEntityStyledTreePart extends AbstractContentPanePart implemen
 	}
 
 	protected IFigure createFigure() {
-		return new SimpleTableNodeWithBranchesFigure(false, entityStyling);
+		Optional<LayoutStyle> embeddingLayoutStyle = entityStyling.getNotationStyling().getEmbeddingLayoutStyle(stylingFactory, (IEntityPart) getParent(), getModelEntity());
+		if (embeddingLayoutStyle.filter(ls -> ls.equals(LayoutStyle.TABLE)).isPresent())
+			return new SimpleTableRowFigure(entityStyling);
+		else
+			return new SimpleTableNodeWithBranchesFigure(false, entityStyling);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

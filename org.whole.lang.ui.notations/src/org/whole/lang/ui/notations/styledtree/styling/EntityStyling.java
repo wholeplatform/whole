@@ -30,13 +30,20 @@ public class EntityStyling implements IEntityStyling {
 
 	protected String typeIdentifier;
 	protected EntityKinds kind;
+	protected LayoutStyle layoutStyle;
 	protected IFeatureStyling[] featuresStyling;
 	private int embeddedFeaturesSize;
 
 	public EntityStyling(String typeIdentifier, EntityKinds kind, IFeatureStyling... featuresStyling) {
+		this(
+				typeIdentifier, kind,
+				kind.equals(EntityKinds.SIMPLE) ? LayoutStyle.TABLE : LayoutStyle.TREE,
+				featuresStyling);
+	}
+	public EntityStyling(String typeIdentifier, EntityKinds kind, LayoutStyle layoutStyle, IFeatureStyling... featuresStyling) {
 		this.typeIdentifier = typeIdentifier;
 		this.kind = kind;
-		this.layoutStyle = kind.equals(EntityKinds.SIMPLE) ? LayoutStyle.TABLE : LayoutStyle.TREE;
+		this.layoutStyle = layoutStyle;
 		this.featuresStyling = featuresStyling;
 		for (IFeatureStyling fs : featuresStyling)
 			if (fs.isEmbedded())
@@ -65,7 +72,6 @@ public class EntityStyling implements IEntityStyling {
 	public static enum LayoutStyle {
 		TABLE, COLUMN, TREE
 	}
-	protected LayoutStyle layoutStyle;
 	public LayoutStyle getLayoutStyle() {
 		return layoutStyle;
 	}
