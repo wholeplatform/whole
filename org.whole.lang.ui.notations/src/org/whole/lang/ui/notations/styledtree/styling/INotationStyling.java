@@ -32,6 +32,8 @@ public interface INotationStyling {
 
 	public IEntityStyling getEntityStyling(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
 
+	//TODO remove
 	public boolean isEmbedded(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
+	//TODO return EmbeddingStyle: None|TableCell|TableRow
 	public Optional<LayoutStyle> getEmbeddingLayoutStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
 }

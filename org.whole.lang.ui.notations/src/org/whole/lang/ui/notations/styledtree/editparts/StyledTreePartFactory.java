@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.notations.styledtree.editparts;
 
+import java.util.List;
+
 import org.eclipse.gef.EditPart;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
@@ -62,14 +64,19 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 		return createEntityStyling(contextPart, entity.wGetEntityDescriptor());
 	}
 	public static IEntityStyling createEntityStyling(IEntityPart contextPart, EntityDescriptor<?> ed) {
-		IFeatureStyling[] featuresStyling = new IFeatureStyling[ed.childFeatureSize()];
+		EntityKinds kind = ed.getEntityKind();
+		LayoutStyle layoutStyle = getLayoutStyle(ed);
+		return new EntityStyling(ed.getURI(), kind, layoutStyle, getFeaturesStyling(
+				(kind.isComposite() && layoutStyle.equals(LayoutStyle.TABLE) ? ed.getEntityDescriptor(0) : ed)
+						.getEntityFeatureDescriptors()));
+	}
+	public static IFeatureStyling[] getFeaturesStyling(List<FeatureDescriptor> efDescriptors) {
+		IFeatureStyling[] featuresStyling = new IFeatureStyling[efDescriptors.size()];
 		int i = 0;
-		for (FeatureDescriptor fd : ed.getEntityFeatureDescriptors())
+		for (FeatureDescriptor fd : efDescriptors)
 			featuresStyling[i++] = new FeatureStyling(
 					fd.getName(), !fd.getEntityDescriptor().getDataKind().isNotAData(), true, getAlignment(fd.getEntityDescriptor()));
-
-		IEntityStyling entityStyling = new EntityStyling(ed.getURI(), ed.getEntityKind(), getLayoutStyle(ed), featuresStyling);
-		return entityStyling;
+		return featuresStyling;
 	}
 	public static Alignment getAlignment(EntityDescriptor<?> columnEntityDescriptor) {
 		switch (columnEntityDescriptor.getDataKind()) {

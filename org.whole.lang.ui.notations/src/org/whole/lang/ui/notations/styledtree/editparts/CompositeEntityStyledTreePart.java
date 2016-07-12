@@ -75,12 +75,15 @@ public class CompositeEntityStyledTreePart extends AbstractCompositePart impleme
 						protected void paintFigure(Graphics g) {
 							super.paintFigure(g);
 
+							
 							g.setBackgroundColor(ColorConstants.lightGray);
-							drawHeadersRowBackground(g);
-
 							g.setForegroundColor(ColorConstants.lightGray);
+
+							if (getLayoutManager().hasHeaderRow()) {
+								drawHeadersRowBackground(g);
+								drawHeadersRowSeparator(g);								
+							}
 							drawColumnSeparators(g);
-							drawHeadersRowSeparator(g);
 							
 							int oldAlpha = g.getAlpha();
 							g.setAlpha(80);
@@ -91,15 +94,16 @@ public class CompositeEntityStyledTreePart extends AbstractCompositePart impleme
 						}
 					};
 
-					TableRowFigure tableHeaderFigure = new TableRowFigure();
-					TableLayout tableLayout = tableFigure.getLayoutManager();		
-					int i=0;
-					for (IFeatureStyling fs : featuresStyling) {
-						tableHeaderFigure.addLabel(fs.getName());
-						tableLayout.withColumnAlignment(i++, fs.getAlignment());
+					if (featuresStyling.length > 0) {
+						TableRowFigure tableHeaderFigure = new TableRowFigure();
+						TableLayout tableLayout = tableFigure.getLayoutManager();		
+						int i=0;
+						for (IFeatureStyling fs : featuresStyling) {
+							tableHeaderFigure.addLabel(fs.getName());
+							tableLayout.withColumnAlignment(i++, fs.getAlignment());
+						}
+						tableFigure.add(tableHeaderFigure, TableLayout.Placement.HEADER);
 					}
-					tableFigure.add(tableHeaderFigure, TableLayout.Placement.HEADER);
-
 					return createContentPane(getChildrenPaneIndex(), tableFigure);
 				}				
 			};

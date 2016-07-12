@@ -57,8 +57,8 @@ public class NotationStyling implements INotationStyling {
 
 		IEntity parentEntity = stylingFactory.getParentEntity(entity);
 		IEntityPart parentContextPart = stylingFactory.getParentPart(contextPart);
-		if (parentContextPart.getModelEntity() != parentEntity)
-			return Optional.empty();
+//		if (parentContextPart.getModelEntity() != parentEntity)
+//			return Optional.empty();
 
 		IEntityStyling parentEntityStyling = getEntityStyling(stylingFactory, parentContextPart, parentEntity);
 		boolean embedChild = parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));

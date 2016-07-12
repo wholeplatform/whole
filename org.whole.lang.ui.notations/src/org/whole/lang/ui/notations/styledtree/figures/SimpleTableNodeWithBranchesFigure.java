@@ -118,7 +118,7 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 				g.setClip(oldClip);
 				g.setAlpha(oldAlpha);
 				g.setForegroundColor(FigurePrefs.blueColor);
-				g.drawLine(bf.x, bf.y, bf.right(), bf.y);
+				g.drawLine(bf.x, bf.y, bf.right(), bf.y);//FIXME right when without children
 				
 //				g.setForegroundColor(FigurePrefs.blueColor);
 				g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);

@@ -72,8 +72,10 @@ public class CompositeTableFigure extends NodeFigure {
 		super.paintFigure(g);
 		
 		Rectangle b = getBounds();
+		Rectangle tableBounds = tableFigure.getBounds();
 		g.setForegroundColor(FigurePrefs.blueColor);
 		g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
+		g.drawLine(b.x, tableBounds.y, b.right(), tableBounds.y);
 
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(60);
