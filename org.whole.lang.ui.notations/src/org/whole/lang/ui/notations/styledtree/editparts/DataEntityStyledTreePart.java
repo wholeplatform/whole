@@ -24,14 +24,17 @@ import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.notations.styledtree.figures.DataNodeFigure;
 import org.whole.lang.ui.notations.styledtree.styling.IEntityStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IStyledPart;
+import org.whole.lang.ui.notations.styledtree.styling.IStylingFactory;
 
 /**
  * @author Riccardo Solmi
  */
 public class DataEntityStyledTreePart extends AbstractDataEntityPart implements IStyledPart {
+	protected IStylingFactory stylingFactory;
 	protected IEntityStyling entityStyling;
 
-	public DataEntityStyledTreePart(IEntityStyling entityStyling) {
+	public DataEntityStyledTreePart(IStylingFactory stylingFactory, IEntityStyling entityStyling) {
+		this.stylingFactory = stylingFactory;
 		this.entityStyling = entityStyling;
 		setFlag(FLAG_REVERSED, false);
 	}

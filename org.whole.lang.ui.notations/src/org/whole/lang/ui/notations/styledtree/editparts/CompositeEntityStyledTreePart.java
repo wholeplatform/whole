@@ -37,15 +37,18 @@ import org.whole.lang.ui.notations.styledtree.figures.NodeWithCompositeBranchFig
 import org.whole.lang.ui.notations.styledtree.styling.IEntityStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IFeatureStyling;
 import org.whole.lang.ui.notations.styledtree.styling.IStyledPart;
+import org.whole.lang.ui.notations.styledtree.styling.IStylingFactory;
 import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
  */
 public class CompositeEntityStyledTreePart extends AbstractCompositePart implements IStyledPart {
+	protected IStylingFactory stylingFactory;
 	protected IEntityStyling entityStyling;
 
-	public CompositeEntityStyledTreePart(IEntityStyling entityStyling) {
+	public CompositeEntityStyledTreePart(IStylingFactory stylingFactory, IEntityStyling entityStyling) {
+		this.stylingFactory = stylingFactory;
 		this.entityStyling = entityStyling;
 		setFlag(FLAG_REVERSED, false);
 	}
@@ -59,7 +62,7 @@ public class CompositeEntityStyledTreePart extends AbstractCompositePart impleme
 	}
 
 	protected IFigure createFigure() {
-		if (entityStyling.getLayoutStyle().equals(LayoutStyle.TABLE)) {
+		if (entityStyling.getLayoutStyle().equals(LayoutStyle.COMPOSITE_TABLE)) {
 			return new CompositeTableFigure(entityStyling) {
 				protected int getChildrenPaneIndex() {
 					return 0;

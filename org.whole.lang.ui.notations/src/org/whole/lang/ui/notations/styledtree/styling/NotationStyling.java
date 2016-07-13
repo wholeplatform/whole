@@ -19,11 +19,9 @@ package org.whole.lang.ui.notations.styledtree.styling;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
@@ -46,14 +44,11 @@ public class NotationStyling implements INotationStyling {
 		return entityStylingMap.put(typeIdentifier, styling);
 	}
 
-	public boolean isEmbedded(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
-		return getEmbeddingLayoutStyle(stylingFactory, contextPart, entity).isPresent();
-	}
-	public Optional<LayoutStyle> getEmbeddingLayoutStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
+	public EmbeddingStyle getEmbeddingStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
 		//FIXME contextPart is not properly virtualized
 		try {
 		if (!(contextPart instanceof IStyledPart))
-			return Optional.empty();
+			return EmbeddingStyle.NONE;
 
 		IEntity parentEntity = stylingFactory.getParentEntity(entity);
 		IEntityPart parentContextPart = stylingFactory.getParentPart(contextPart);
@@ -62,10 +57,20 @@ public class NotationStyling implements INotationStyling {
 
 		IEntityStyling parentEntityStyling = getEntityStyling(stylingFactory, parentContextPart, parentEntity);
 		boolean embedChild = parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));
-		return embedChild ? Optional.of(parentEntityStyling.getLayoutStyle()) : Optional.empty();
-		} catch (Exception e) {
+		if (embedChild) {
+			switch (parentEntityStyling.getLayoutStyle()) {
+			case SIMPLE_TABLE:
+				return EmbeddingStyle.TABLE_CELL;
+			case COMPOSITE_TABLE:
+				return EmbeddingStyle.TABLE_ROW;
+			default:
+				return EmbeddingStyle.NONE;
+			}
+		} else
+			return EmbeddingStyle.NONE;
+			} catch (Exception e) {
 			//FIXME
-			return Optional.empty();
+			return EmbeddingStyle.NONE;
 		}
 	}
 

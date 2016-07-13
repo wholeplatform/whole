@@ -17,11 +17,8 @@
  */
 package org.whole.lang.ui.notations.styledtree.styling;
 
-import java.util.Optional;
-
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
@@ -32,8 +29,9 @@ public interface INotationStyling {
 
 	public IEntityStyling getEntityStyling(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
 
-	//TODO remove
-	public boolean isEmbedded(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
-	//TODO return EmbeddingStyle: None|TableCell|TableRow
-	public Optional<LayoutStyle> getEmbeddingLayoutStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
+	public EmbeddingStyle getEmbeddingStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
+
+	public enum EmbeddingStyle {
+		NONE, TABLE_CELL, TABLE_ROW
+	}
 }

@@ -37,7 +37,7 @@ public class EntityStyling implements IEntityStyling {
 	public EntityStyling(String typeIdentifier, EntityKinds kind, IFeatureStyling... featuresStyling) {
 		this(
 				typeIdentifier, kind,
-				kind.equals(EntityKinds.SIMPLE) ? LayoutStyle.TABLE : LayoutStyle.TREE,
+				kind.equals(EntityKinds.SIMPLE) ? LayoutStyle.SIMPLE_TABLE : LayoutStyle.TREE,
 				featuresStyling);
 	}
 	public EntityStyling(String typeIdentifier, EntityKinds kind, LayoutStyle layoutStyle, IFeatureStyling... featuresStyling) {
@@ -70,7 +70,7 @@ public class EntityStyling implements IEntityStyling {
 
 	//for simple and composite entities
 	public static enum LayoutStyle {
-		TABLE, COLUMN, TREE
+		SIMPLE_TABLE, COMPOSITE_TABLE, COLUMN, TREE
 	}
 	public LayoutStyle getLayoutStyle() {
 		return layoutStyle;
@@ -80,19 +80,21 @@ public class EntityStyling implements IEntityStyling {
 		switch (getKind()) {
 		case COMPOSITE:
 			switch (layoutStyle) {
-			case TABLE:
+			case COMPOSITE_TABLE:
 			case COLUMN:
 				return true;
 			case TREE:
+			default:
 				return false;
 			}
 		case SIMPLE:
 			switch (layoutStyle) {
-			case TABLE:
+			case SIMPLE_TABLE:
 				return index > -1 && index < featuresStyling.length ? featuresStyling[index].isEmbedded() : false;
 			case COLUMN:
 				return true;
 			case TREE:
+			default:
 				return false;
 			}
 		case DATA: default:

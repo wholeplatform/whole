@@ -67,7 +67,7 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 		EntityKinds kind = ed.getEntityKind();
 		LayoutStyle layoutStyle = getLayoutStyle(ed);
 		return new EntityStyling(ed.getURI(), kind, layoutStyle, getFeaturesStyling(
-				(kind.isComposite() && layoutStyle.equals(LayoutStyle.TABLE) ? ed.getEntityDescriptor(0) : ed)
+				(kind.isComposite() && layoutStyle.equals(LayoutStyle.COMPOSITE_TABLE) ? ed.getEntityDescriptor(0) : ed)
 						.getEntityFeatureDescriptors()));
 	}
 	public static IFeatureStyling[] getFeaturesStyling(List<FeatureDescriptor> efDescriptors) {
@@ -97,13 +97,13 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 		EntityKinds kind = ed.getEntityKind();
 		switch (kind) {
 		case SIMPLE:
-			return LayoutStyle.TABLE;
+			return LayoutStyle.SIMPLE_TABLE;
 		case COMPOSITE:
 			EntityDescriptor<?> ced = ed.getEntityDescriptor(0);
 			if (ced.isPolymorphic() || ced.getEntityKind().isComposite())
 				return LayoutStyle.TREE;
 			else
-				return LayoutStyle.TABLE;
+				return LayoutStyle.COMPOSITE_TABLE;
 		default:
 			return LayoutStyle.TREE;
 		}
@@ -134,18 +134,21 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 			case SIMPLE:
 				return new SimpleEntityStyledTreePart(this, entityStyling);
 			case COMPOSITE:
-				return new CompositeEntityStyledTreePart(entityStyling);
+				return new CompositeEntityStyledTreePart(this, entityStyling);
 			default:
 			case DATA:
-				if (notationStyling.isEmbedded(this, contextPart, entity)) {
+				switch (notationStyling.getEmbeddingStyle(this, contextPart, entity)) {
+				case TABLE_CELL:
 					switch (ed.getDataKind()) {//TODO replace with styling features
 					case STRING:
 						return new LiteralTextualEntityPart();
 					default:
 						return new LiteralDataEntityPart();
 					}
-				} else
-					return new DataEntityStyledTreePart(entityStyling);
+				case NONE:
+				default:
+					return new DataEntityStyledTreePart(this, entityStyling);
+				}
 			}
 		}
 	}

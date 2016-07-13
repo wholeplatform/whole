@@ -78,15 +78,18 @@ public class AdaptiveEntityPart extends AbstractContentPanePart implements IStyl
 		
 		switch (entityStyling.getKind()) {
 		case DATA:
-			if (notationStyling.isEmbedded(stylingFactory, (IEntityPart) getParent(), getModelEntity()))
-				return new DataNodeFigure(entityStyling);//TODO
-			else
+			switch (notationStyling.getEmbeddingStyle(stylingFactory, (IEntityPart) getParent(), getModelEntity())) {
+			case TABLE_CELL:
+				//TODO
+			case NONE:
+			default:
 				return new DataNodeFigure(entityStyling);
+			}
 		case SIMPLE:
 			return new SimpleTableNodeWithBranchesFigure(true, entityStyling);
 		case COMPOSITE:
 		default:
-			if (entityStyling.getLayoutStyle().equals(LayoutStyle.TABLE))
+			if (entityStyling.getLayoutStyle().equals(LayoutStyle.COMPOSITE_TABLE))
 				return new CompositeTableFigure(entityStyling);
 			else
 				return new NodeWithCompositeBranchFigure(entityStyling);
