@@ -177,7 +177,7 @@
 							<groupId>com.wholeplatform</groupId>
 							<artifactId>org.whole.product.lw.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>MARS_4_5_x</classifier>
+							<classifier>NEON_4_6_x</classifier>
 						</artifact>
 					</target>
 					<environments>
@@ -220,12 +220,12 @@
 		<jar-version>2.4</jar-version>
 	</properties>
 
-	<!-- update according to org.whole.product.lw.target/MARS_4_5_x.target -->
+	<!-- update according to org.whole.product.lw.target/NEON_4_6_x.target -->
 	<repositories>
 		<repository>
-			<id>eclipse-mars-updates</id>
+			<id>eclipse-neon-updates</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.5</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.6</url>
 		</repository>
 	</repositories>
 </project>

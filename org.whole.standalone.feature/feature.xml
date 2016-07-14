@@ -28,27 +28,27 @@
          version="0.0.0"/>
 
    <includes
-         id="com.fasterxml.jackson.feature"
+         id="com.fasterxml.jackson"
          version="0.0.0"/>
 
    <includes
-         id="net.sourceforge.jodatime.feature"
+         id="net.sourceforge.jodatime"
          version="0.0.0"/>
 
    <includes
-         id="nu.validator.htmlparser.feature"
+         id="nu.validator.htmlparser"
          version="0.0.0"/>
 
    <includes
-         id="org.beanshell.bsh.feature"
+         id="org.beanshell.bsh"
          version="0.0.0"/>
 
    <includes
-         id="org.h2.feature"
+         id="org.h2"
          version="0.0.0"/>
 
    <includes
-         id="org.mozilla.rhino.feature"
+         id="org.mozilla.rhino"
          version="0.0.0"/>
 
    <plugin

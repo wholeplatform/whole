@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
+    <category-def name="whole-enabling-features" label="Whole Platform Enabling Features 1.0.0.qualifier">
+        <description>
+            Provide functionalities required by one or more of the Whole features.
+        </description>
+    </category-def>
+    <category-def name="whole-lw" label="Whole Language Workbench 1.0.0.qualifier">
+        <description>
+            Whole Language Workbench including the Platform SDK.
+        </description>
+    </category-def>
+    <category-def name="whole-sdk" label="Whole Platform SDK 1.0.0.qualifier">
+        <description>
+            Whole Platform features including portions of the Platform ranging from the Language Framework to the full Language Workbench with sources.
+        </description>
+    </category-def>
+    <category-def name="whole-extras" label="Whole Platform Extras 1.0.0.qualifier">
+        <description>
+            Whole Platform optional features: languages, operations, examples and tests.
+        </description>
+    </category-def>
     <feature id="org.whole.lang.feature">
         <category name="whole-sdk" />
     </feature>
@@ -36,105 +56,112 @@
     <feature id="org.whole.extras.feature">
         <category name="whole-extras" />
     </feature>
-    <feature id="com.fasterxml.jackson.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="net.sourceforge.jodatime.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="nu.validator.htmlparser.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="org.beanshell.bsh.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="org.gradle.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="org.h2.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <feature id="org.mozilla.rhino.feature">
-        <category name="whole-enabling-features" />
+    <feature id="org.eclipse.e4.core.tools.feature">
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.draw2d">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.draw2d.source">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.draw2d.sdk">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.source">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.lightweight">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.sdk">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.examples">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.examples.source">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.zest">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.zest.source">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.zest.sdk">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.gef.all">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.eclipse.e4.core.tools.feature">
-        <category name="whole-enabling-features" />
+    <feature id="org.apache.httpcomponents.httpclient">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.httpcomponents.httpcore">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.beanshell.bsh">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.buildship">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.h2">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="com.fasterxml.jackson">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="javax.ws.rs.api">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="jersey.container.servlet">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.jgit">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="net.sourceforge.jodatime">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.mozilla.rhino">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="nu.validator.htmlparser">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="javax.websocket.api">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.jetty.servlet">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.jetty.websocket.server.impl">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.eclipse.jetty.websocket.client.impl">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="com.github.jai.imageio.core">
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.scout.rt.batik.dependency">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.scout.rt.batik.dependency.source">
-        <category name="whole-enabling-features" />
+        <category name="whole-enabling-features"/>
     </feature>
-    <feature id="com.github.jai.imageio.core.feature">
-        <category name="whole-enabling-features" />
+    <feature id="org.antlr.antlr4">
+        <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.antlr.antlr4.feature">
-        <category name="whole-enabling-features" />
+    <feature id="net.java.dev.jna">
+        <category name="whole-enabling-features"/>
     </feature>
-    <feature id="net.java.dev.jna.feature">
-        <category name="whole-enabling-features" />
+    <feature id="ca.weblite.java-objc-bridge">
+        <category name="whole-enabling-features"/>
     </feature>
-    <feature id="ca.weblite.java-objc-bridge.feature">
-        <category name="whole-enabling-features" />
-    </feature>
-    <category-def name="whole-lw" label="Whole Language Workbench 1.0.0.qualifier">
-        <description>
-            Whole Language Workbench including the Platform SDK.
-        </description>
-    </category-def>
-    <category-def name="whole-sdk" label="Whole Platform SDK 1.0.0.qualifier">
-        <description>
-            Whole Platform features including portions of the Platform ranging from the Language Framework to the full Language Workbench with sources.
-        </description>
-    </category-def>
-    <category-def name="whole-extras" label="Whole Platform Extras 1.0.0.qualifier">
-        <description>
-            Whole Platform optional features: languages, operations, examples and tests.
-        </description>
-    </category-def>
-    <category-def name="whole-enabling-features" label="Whole Platform Enabling Features 1.0.0.qualifier">
-        <description>
-            Provide functionalities required by one or more of the Whole features.
-        </description>
-    </category-def>
 </site>

@@ -26,7 +26,7 @@
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import feature="org.whole.ide.feature" version="1.0.0.qualifier"/>
-      <import feature="org.h2.feature" version="1.0.78" match="compatible"/>
+      <import feature="org.h2" version="0.0.0"/>
    </requires>
 
    <plugin

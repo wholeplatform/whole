@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="NEON_4_6_x" sequenceNumber="26">
+    <locations>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+            <repository location="http://download.eclipse.org/releases/neon"/>
+            <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
+            <unit id="org.eclipse.equinox.sdk.feature.group" version="0.0.0"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+            <repository location="file:../../whole-java-libs/org.whole.product.ef.releng/whole-ef-updates/"/>
+            <unit id="org.eclipse.e4.core.tools.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.buildship.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jgit.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.scout.rt.batik.dependency.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.scout.rt.batik.dependency.source.feature.group" version="0.0.0"/>
+            <unit id="org.apache.httpcomponents.httpclient.feature.group" version="0.0.0"/>
+            <unit id="org.apache.httpcomponents.httpcore.feature.group" version="0.0.0"/>
+            <unit id="org.beanshell.bsh.feature.group" version="0.0.0"/>
+            <unit id="org.h2.feature.group" version="0.0.0"/>
+            <unit id="com.fasterxml.jackson.feature.group" version="0.0.0"/>
+            <unit id="javax.ws.rs.api.feature.group" version="0.0.0"/>
+            <unit id="jersey.container.servlet.feature.group" version="0.0.0"/>
+            <unit id="net.sourceforge.jodatime.feature.group" version="0.0.0"/>
+            <unit id="org.mozilla.rhino.feature.group" version="0.0.0"/>
+            <unit id="nu.validator.htmlparser.feature.group" version="0.0.0"/>
+            <unit id="javax.websocket.api.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jetty.servlet.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jetty.websocket.server.impl.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.jetty.websocket.client.impl.feature.group" version="0.0.0"/>
+            <unit id="com.github.jai.imageio.core.feature.group" version="0.0.0"/>
+            <unit id="org.antlr.antlr4.feature.group" version="0.0.0"/>
+            <unit id="net.java.dev.jna.feature.group" version="0.0.0"/>
+            <unit id="ca.weblite.java-objc-bridge.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.draw2d.source.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.draw2d.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.source.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.lightweight.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.examples.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.examples.source.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.zest.source.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gef.all.feature.group" version="0.0.0"/>
+        </location>
+    </locations>
+</target>

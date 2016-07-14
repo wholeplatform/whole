@@ -224,13 +224,12 @@ Library.
       <feature id="org.eclipse.gef.lightweight" installMode="root"/>
       <feature id="org.eclipse.gef.source" installMode="root"/>
       <feature id="org.eclipse.draw2d.source" installMode="root"/>
-      <feature id="com.fasterxml.jackson.feature" installMode="root"/>
-      <feature id="net.sourceforge.jodatime.feature" installMode="root"/>
-      <feature id="nu.validator.htmlparser.feature" installMode="root"/>
-      <feature id="org.beanshell.bsh.feature" installMode="root"/>
-      <feature id="org.gradle.feature" installMode="root"/>
-      <feature id="org.h2.feature" installMode="root"/>
-      <feature id="org.mozilla.rhino.feature" installMode="root"/>
+      <feature id="com.fasterxml.jackson" installMode="root"/>
+      <feature id="net.sourceforge.jodatime" installMode="root"/>
+      <feature id="nu.validator.htmlparser" installMode="root"/>
+      <feature id="org.beanshell.bsh" installMode="root"/>
+      <feature id="org.h2" installMode="root"/>
+      <feature id="org.mozilla.rhino" installMode="root"/>
       <feature id="org.whole.product.lw.feature" installMode="root"/>
       <feature id="org.whole.extras.feature" installMode="root"/>
    </features>

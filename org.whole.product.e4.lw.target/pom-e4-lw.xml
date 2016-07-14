@@ -36,9 +36,9 @@
 							<artifacts>
 								<artifact>
 									<!-- note: the file name must be ${classifier}.target -->
-									<file>MARS_4_5_x.target</file>
+									<file>NEON_4_6_x.target</file>
 									<type>target</type>
-									<classifier>MARS_4_5_x</classifier>
+									<classifier>NEON_4_6_x</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
