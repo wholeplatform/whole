@@ -60,7 +60,7 @@ public class ImagesGenerator implements IApplication {
 			generator.write(osOtik);
 		}
 
-		try (Reader reader = getSplResource("splash_as.svg");
+		try (Reader reader = getSplResource("splash_lw.svg");
 				OutputStream os = new FileOutputStream("../../whole/org.whole.product.lw/splash.bmp")) {
 			IImageGenerator generator = new SplashBMPGenerator();
 			generator.addImage(toBufferedImage(reader));
