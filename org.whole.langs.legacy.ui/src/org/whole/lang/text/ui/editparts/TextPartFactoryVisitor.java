@@ -38,8 +38,8 @@ import org.whole.lang.text.visitors.TextIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
-import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
+import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
@@ -118,6 +118,7 @@ public class TextPartFactoryVisitor extends TextIdentityDefaultVisitor implement
 			if (Matcher.match(TextEntityDescriptorEnum.Row, parent)) {
 					part = new AbstractCompositePart() {
 					    protected IFigure createFigure() {
+//					    	CompositeFigure f = new CompositeFigure(new FlowLayout().withMinorSpacing(7).withSpacing(5)) {
 					    	CompositeFigure f = new CompositeFigure(true) {
 					        	protected void paintFigure(Graphics g) {
 					        		super.paintFigure(g);
@@ -146,6 +147,11 @@ public class TextPartFactoryVisitor extends TextIdentityDefaultVisitor implement
 					return;
 			}
 		}
+//		part = new AbstractCompositePart() {
+//		    protected IFigure createFigure() {
+//		    	return new CompositeFigure(new FlowLayout().withMinorSpacing(7).withSpacing(5));
+//		    }
+//		};
 		part = new CompositeRowWithPlaceholderPart();
 	}
 
