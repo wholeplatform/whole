@@ -114,11 +114,6 @@ public class JDTUtils {
 			!(astNode instanceof Block && ((Block) astNode).statements().isEmpty());
 	}
 
-    public static ClassLoader getIDEClassLoader(IBindingManager bm, boolean override) {
-    	IJavaProject javaProject = (IJavaProject) bm.wGetValue("javaProject");
-    	return javaProject != null ? JDTUtils.createClassLoader(javaProject, override) : ReflectionFactory.getClassLoader(bm);
-    }
-
 	public static String asString(ASTNode astNode) {
 		return astNode.toString();
 	}
