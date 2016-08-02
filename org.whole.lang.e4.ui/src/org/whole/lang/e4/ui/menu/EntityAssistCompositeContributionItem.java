@@ -94,7 +94,12 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		actionContainer.addSeparator();
 
-		boolean hasActions = fillEntityAssistMenu(actionContainer, focusEntity, focusEntity.wGetLanguageKit());
+		IEntity targetEntity = getTargetEntity(focusEntity);
+		IEntity targetParent = targetEntity.wGetParent();
+		ILanguageKit targetLanguageKit = EntityUtils.isResolver(targetEntity) && !EntityUtils.isNull(targetParent) ?
+				targetParent.wGetLanguageKit() : targetEntity.wGetLanguageKit();
+
+		boolean hasActions = fillEntityAssistMenu(actionContainer, focusEntity, targetLanguageKit);
 		
 		return hasExtendedActions || hasActions;
 	}
