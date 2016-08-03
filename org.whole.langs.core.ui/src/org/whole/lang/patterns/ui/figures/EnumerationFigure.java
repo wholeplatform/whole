@@ -17,7 +17,6 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.layout.RowLayout;
@@ -32,8 +31,9 @@ public class EnumerationFigure extends ContentPaneFigure {
 		initContentPanes(4);
 
 		add(createContentPane(0));
-		add(createContentPane(1, new MarginBorder(0,13,0,0)));
-
+		add(createContentPane(1));
+		addLabel("");
+        
 		EntityFigure row = new EntityFigure(new RowLayout());
 		row.add(createContentPane(2));
 		row.add(createContentPane(3));

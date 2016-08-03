@@ -17,7 +17,6 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
@@ -37,7 +36,8 @@ public class RepetitionFigure extends ContentPaneFigure {
 		initContentPanes(3);
 
 		add(createContentPane(0));
-		add(createContentPane(1, new MarginBorder(0,13,0,0)));
+		add(createContentPane(1));
+		addLabel("");
 
 		EntityFigure row = new EntityFigure(new RowLayout());
 		row.add(createContentPane(2));

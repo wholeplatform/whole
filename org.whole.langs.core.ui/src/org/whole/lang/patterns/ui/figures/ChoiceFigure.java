@@ -17,7 +17,6 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
-import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.TypeRelationBorder;
 import org.whole.lang.ui.layout.TableRowLayout;
@@ -31,7 +30,8 @@ public class ChoiceFigure extends ContentPaneFigure {
 		initContentPanes(3);
 
 		add(createContentPane(0));
-		add(createContentPane(1, new MarginBorder(0,13,0,0)));
-		add(createContentPane(2, new TypeRelationBorder(false, false)));
+		add(createContentPane(1));
+		addLabel("");
+        add(createContentPane(2, new TypeRelationBorder(false, false)));
 	}
 }

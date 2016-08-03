@@ -20,6 +20,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.TableLayout;
@@ -30,16 +31,17 @@ import org.whole.lang.ui.layout.TableLayout;
 public class PatternsFigure extends TableFigure {
 
     public PatternsFigure() {
-        super(new TableLayout(3).withColumnSpacing(10).withRowSpacing(10).withMarginTop(5).withMarginBottom(5).withMarginLeft(5));
+        super(new TableLayout(4).withColumnSpacing(10).withRowSpacing(10).withMarginTop(5).withMarginBottom(5).withMarginLeft(5));
         setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
         TableRowFigure headers = new TableRowFigure();
         Color color = ColorConstants.gray;
         EntityLabel label = new EntityLabel("Types");
         label.setForegroundColor(color);
         headers.add(label);
-        label = new EntityLabel("    Pattern");
+        label = new EntityLabel("Pattern");
         label.setForegroundColor(color);
         headers.add(label);
+        headers.add(new EyeFigure());
         label = new EntityLabel("Translation");
         label.setForegroundColor(color);
         headers.add(label);
@@ -60,9 +62,11 @@ public class PatternsFigure extends TableFigure {
         Rectangle tb = getTableBounds();
         Rectangle cb1 = l.getColumnBounds(0);
         graphics.fillRectangle(cb1.x, tb.y, cb1.width, tb.height);
+        drawColumnSeparatorBefore(graphics, 3);
         graphics.setAlpha(oldAlpha);
         graphics.setForegroundColor(ColorConstants.lightGray);
         drawRowSeparators(graphics);
         drawHeadersRowSeparator(graphics);
+        drawTableBottomBorder(graphics);
     }
 }
