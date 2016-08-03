@@ -27,6 +27,7 @@ public class VariableDeclarationFigure extends ContentPaneFigure {
         initContentPanes(3);
         add(createContentPane(0));
         add(createContentPane(1));
+        addLabel("");
         add(createContentPane(2));
     }
 }

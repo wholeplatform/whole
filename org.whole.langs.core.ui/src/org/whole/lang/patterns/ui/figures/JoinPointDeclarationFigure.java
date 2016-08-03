@@ -27,6 +27,7 @@ public class JoinPointDeclarationFigure extends ContentPaneFigure {
         initContentPanes(2);
         addLabel("");
         add(createContentPane(0));
+        addLabel("");
         add(createContentPane(1));
     }
 }

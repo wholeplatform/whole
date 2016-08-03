@@ -54,7 +54,7 @@ public class ScopeBracketsBorder extends MarginBorder {
 
 		g.drawLine(r.x, r.y, rightFirstChild, r.y);
 		g.drawLine(r.x, r.y, r.x, bottomFirstChild);		
-		g.drawLine(rightFirstChild, r.y, rightFirstChild, bottomFirstChild-4);		
+		g.drawLine(rightFirstChild, r.y, rightFirstChild, bottomFirstChild);		
 		g.drawLine(rightFirstChild, bottomFirstChild-4, r.right(), bottomFirstChild-4);
 		g.drawLine(r.right(), bottomFirstChild-4, r.right(), bottomFirstChild);
 

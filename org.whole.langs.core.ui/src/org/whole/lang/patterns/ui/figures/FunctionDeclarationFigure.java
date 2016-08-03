@@ -14,11 +14,14 @@
  */
 package org.whole.lang.patterns.ui.figures;
 
+import org.eclipse.draw2d.ChangeEvent;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityToggle;
+import org.whole.lang.ui.figures.EyeFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.Alignment;
-import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.ViewportTracking;
 
@@ -31,12 +34,16 @@ public class FunctionDeclarationFigure extends ContentPaneFigure {
         initContentPanes(3);
 
         add(createContentPane(0));
-        IEntityFigure nameFigure = new EntityFigure(
-        		new RowLayout().withSpacing(4).withAutoresizeWeight(1f))
-        		.withViewportTracking(ViewportTracking.BOTH);
-        nameFigure.add(createFoldingToggle(2));
-        nameFigure.add(createContentPane(1));
-        add(nameFigure);
+        add(createContentPane(1, ViewportTracking.BOTH));
+
+		IEntityFigure toggleFigure = new EntityFigure(new MonoLayout().withAutoresizeWeight(1.0f))
+				.withViewportTracking(ViewportTracking.VERTICAL);
+		EyeFigure eye = new EyeFigure();
+		EntityToggle entityToggle = new EntityToggle(eye, null);
+		entityToggle.addChangeListener((ChangeEvent event) -> eye.setClosed(entityToggle.isSelected()));
+		toggleFigure.add(createFoldingToggle(entityToggle, 2));
+		add(toggleFigure);
+
         add(createContentPane(2));
 
         clickFoldingToggle(0);
