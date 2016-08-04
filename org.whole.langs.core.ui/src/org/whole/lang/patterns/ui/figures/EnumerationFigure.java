@@ -32,7 +32,7 @@ public class EnumerationFigure extends ContentPaneFigure {
 
 		add(createContentPane(0));
 		add(createContentPane(1));
-		addLabel("");
+		addEmptyLabel();
         
 		EntityFigure row = new EntityFigure(new RowLayout());
 		row.add(createContentPane(2));

@@ -49,7 +49,7 @@ public class SpaceFigure extends RuleFractionFigure {
 				y[getDivisorIndex()] -= 7;
 			}
 		});
-		addLabel("");
+		addEmptyLabel();
 		EntityLabel symbol = new EntityLabel("\u2334");
 		symbol.setFont(UIUtils.getOpenSymbolLargeFont());
 		symbol.setForegroundColor(ColorConstants.lightGray);

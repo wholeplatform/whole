@@ -169,11 +169,7 @@ public class EntityFigure extends Figure implements IEntityFigure {
 	//TODO end
 
 
-		public IEntityFigure add(IEntityFigure child) {
-			super.add(child);
-			return child;
-		}
-		public EntityLabel add(EntityLabel child) {
+		public <F extends IEntityFigure> F add(F child) {
 			super.add(child);
 			return child;
 		}
@@ -227,6 +223,9 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		}
 		public EntityLabel addLabel(Image image) {
 			return add(new EntityLabel(image));
+		}
+		public EntityLabel addEmptyLabel() {
+			return add(LabelFactory.createEmptyLabel());
 		}
 
 		public ITabularLayoutServer getTabularLayoutServer() {

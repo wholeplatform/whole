@@ -36,7 +36,7 @@ public class ParseFigure extends AbstractActivityWithTableFigure {
 
 		TableRowFigure headers = new TableRowFigure();
 		headers.addLabel("model");
-		headers.addLabel("");
+		headers.addEmptyLabel();
 		headers.addLabel("text");
 		headers.addLabel("grammar");
 		headers.addLabel("nt");

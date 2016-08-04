@@ -38,7 +38,7 @@ public class NewLineFigure extends RuleFractionFigure {
 				return 0;
 			}
 		});
-		addLabel("");
+		addEmptyLabel();
 		EntityLabel symbol = new EntityLabel("\u21a9");
 		symbol.setFont(UIUtils.getOpenSymbolMediumFont());
 		symbol.setForegroundColor(ColorConstants.lightGray);

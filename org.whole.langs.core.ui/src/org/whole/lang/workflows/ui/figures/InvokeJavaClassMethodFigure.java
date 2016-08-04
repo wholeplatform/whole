@@ -52,7 +52,7 @@ public class InvokeJavaClassMethodFigure extends AbstractActivityWithTableFigure
 		EntityFigure invokeFigure = new EntityFigure(new RowLayout());
 		invokeFigure.add(createContentPane(4));
 		invokeFigure.addContentLight(" = ");
-		methodLabel = (Label) invokeFigure.addLabel("");
+		methodLabel = invokeFigure.addEmptyLabel();
 		invokeFigure.addContentLight("(");
 		invokeFigure.add(createContentPane(3));
 		invokeFigure.addContentLight(")");

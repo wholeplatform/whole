@@ -30,7 +30,7 @@ public class ArgumentsTableRowFigure extends ContentPaneFigure {
 	public ArgumentsTableRowFigure() {
 		initContentPanes(1);
 		setLayoutManager(new TableRowLayout());
-		addLabel("");
+		addEmptyLabel();
 //		TableRowFigure argumentsFigure = new TableRowFigure();
 //		argumentsFigure.setStartingCellIndex(1);
 //FIXME

@@ -20,8 +20,8 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.VariantSelector;
-import org.whole.lang.patterns.ui.figures.VariantSelectorFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.NoTypeNameValueTableRowFigure;
 
 /**
  *  @author  Riccardo Solmi
@@ -29,7 +29,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class VariantSelectorPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new VariantSelectorFigure();
+        return new NoTypeNameValueTableRowFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {

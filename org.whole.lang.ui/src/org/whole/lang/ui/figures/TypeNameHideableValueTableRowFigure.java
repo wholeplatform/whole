@@ -12,15 +12,9 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.patterns.ui.figures;
+package org.whole.lang.ui.figures;
 
 import org.eclipse.draw2d.ChangeEvent;
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.EntityToggle;
-import org.whole.lang.ui.figures.EyeFigure;
-import org.whole.lang.ui.figures.IEntityFigure;
-import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.MonoLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.ViewportTracking;
@@ -28,9 +22,9 @@ import org.whole.lang.ui.layout.ViewportTracking;
 /**
  *  @author  Riccardo Solmi
  */
-public class PatternFigure extends ContentPaneFigure {
-    public PatternFigure() {
-        super(new TableRowLayout().withMinorAlignment(Alignment.MATHLINE));
+public class TypeNameHideableValueTableRowFigure extends ContentPaneFigure {
+    public TypeNameHideableValueTableRowFigure() {
+        super(new TableRowLayout());
         initContentPanes(3);
 
         add(createContentPane(0));
@@ -44,8 +38,16 @@ public class PatternFigure extends ContentPaneFigure {
 		toggleFigure.add(createFoldingToggle(entityToggle, 2));
 		add(toggleFigure);
 
-        add(createContentPane(2));
+        addWithPlaceHolder(createValueFigure(2));
 
         clickFoldingToggle(0);
     }
+    protected IEntityFigure createValueFigure(int paneIndex) {
+    	return createContentPane(paneIndex);
+    }
+
+	@Override
+	public TableRowLayout getLayoutManager() {
+		return (TableRowLayout) super.getLayoutManager();
+	}
 }

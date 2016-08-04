@@ -297,4 +297,8 @@ public class LabelFactory {
 		label.setIcon(image);
 		return label;
 	}
+
+	public static EntityLabel createEmptyLabel() {
+		return new EntityLabel();
+	}
 }

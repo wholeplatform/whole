@@ -16,11 +16,12 @@ package org.whole.lang.patterns.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.patterns.model.VariableDeclaration;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.patterns.model.VariableDeclaration;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.patterns.ui.figures.VariableDeclarationFigure;
+import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
 
 /**
  *  @author  Riccardo Solmi
@@ -28,7 +29,7 @@ import org.whole.lang.patterns.ui.figures.VariableDeclarationFigure;
 public class VariableDeclarationPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new VariableDeclarationFigure();
+        return new TypeNameValueTableRowFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {

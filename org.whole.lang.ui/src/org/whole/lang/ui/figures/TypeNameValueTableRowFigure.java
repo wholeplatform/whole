@@ -12,7 +12,7 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.patterns.ui.figures;
+package org.whole.lang.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.TableRowLayout;
@@ -20,14 +20,22 @@ import org.whole.lang.ui.layout.TableRowLayout;
 /**
  *  @author  Riccardo Solmi
  */
-public class PointcutDeclarationFigure extends ContentPaneFigure {
+public class TypeNameValueTableRowFigure extends ContentPaneFigure {
+    public TypeNameValueTableRowFigure() {
+        super(new TableRowLayout());
+        initContentPanes(3);
 
-	public PointcutDeclarationFigure() {
-		super(new TableRowLayout());
-		initContentPanes(2);
-		addLabel("");
-		add(createContentPane(0));
-		addLabel("");
-		add(createContentPane(1));
+        add(createContentPane(0));
+        add(createContentPane(1));
+        addEmptyLabel();
+        add(createValueFigure(2));
+    }
+    protected IEntityFigure createValueFigure(int paneIndex) {
+    	return createContentPane(paneIndex);
+    }
+
+	@Override
+	public TableRowLayout getLayoutManager() {
+		return (TableRowLayout) super.getLayoutManager();
 	}
 }

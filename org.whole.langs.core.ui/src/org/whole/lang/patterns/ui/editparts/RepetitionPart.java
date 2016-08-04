@@ -21,17 +21,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Repetition;
-import org.whole.lang.patterns.ui.figures.RepetitionFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
+import org.whole.lang.ui.layout.RowLayout;
+import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class RepetitionPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
-    	return new RepetitionFigure();
+    	return new TypeNameValueTableRowFigure() {
+    		@Override
+    		protected IEntityFigure createValueFigure(int paneIndex) {
+    			EntityFigure row = new EntityFigure(new RowLayout());
+    			row.add(createContentPane(paneIndex));
+    			row.add(new EntityLabel("\u2026") {
+    				public Color getLocalForegroundColor() {
+    					return FigurePrefs.contentLighterColor;
+    				}	
+    				public Font getLocalFont() {
+    					return UIUtils.getOpenSymbolMediumFont();
+    				}
+    			});
+    			row.addContentLight(" ordered");
+    			return row;
+			}
+    	};
     }
 
 	protected List<IEntity> getModelSpecificChildren() {

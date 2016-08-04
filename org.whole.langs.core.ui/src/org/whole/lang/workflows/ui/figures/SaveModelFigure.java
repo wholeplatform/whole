@@ -42,7 +42,7 @@ public class SaveModelFigure extends AbstractActivityWithTableFigure {
 		contentFigure.add(row);
 
 		row = new TableRowFigure();
-		row.addLabel("");
+		row.addEmptyLabel();
 		row.addMath(" \u2193");
 		contentFigure.add(row);
 

@@ -23,15 +23,15 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Data;
-import org.whole.lang.patterns.ui.figures.DataFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
 
 /**
  * @author Riccardo Solmi
  */
 public class DataPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
-    	return new DataFigure();
+    	return new TypeNameValueTableRowFigure();
     }
 
 	protected List<IEntity> getModelSpecificChildren() {

@@ -148,10 +148,10 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 			row.addLabel(featuresStyling[i].getName());
 			if (featuresStyling[i].isEmbedded()) {
 				row.add(createContentPane(typePaneShift+i));
-//				row.addLabel("");
+//				row.addEmptyLabel();
 			} else {
 				if (entityStyling.getEmbeddedFeaturesSize() > 0)
-					row.addLabel("");//TODO placeholder
+					row.addEmptyLabel();
 				row.add(featureToggles[ti++] = createFoldingToggle(new EntityToggle(WholeImages.ROUND_EXPAND, WholeImages.ROUND_COLLAPSE), typePaneShift+i));
 				contentsFigure.add(createContentPane(typePaneShift+i));
 			}

@@ -53,7 +53,7 @@ public class CreateJavaClassInstanceFigure extends AbstractActivityWithTableFigu
 		invokeFigure.add(createContentPane(4));
 		invokeFigure.addContentLight(" = ");
 		invokeFigure.addKeyword("new ");
-		constructorLabel = (Label) invokeFigure.addLabel("");
+		constructorLabel = invokeFigure.addEmptyLabel();
 		invokeFigure.addContentLight("(");
 		invokeFigure.add(createContentPane(3));
 		invokeFigure.addContentLight(")");

@@ -16,11 +16,12 @@ package org.whole.lang.patterns.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.patterns.model.JoinPointDeclaration;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.patterns.model.JoinPointDeclaration;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.patterns.ui.figures.JoinPointDeclarationFigure;
+import org.whole.lang.ui.figures.NoTypeNameValueTableRowFigure;
 
 /**
  *  @author  Riccardo Solmi
@@ -28,7 +29,7 @@ import org.whole.lang.patterns.ui.figures.JoinPointDeclarationFigure;
 public class JoinPointDeclarationPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new JoinPointDeclarationFigure();
+        return new NoTypeNameValueTableRowFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {

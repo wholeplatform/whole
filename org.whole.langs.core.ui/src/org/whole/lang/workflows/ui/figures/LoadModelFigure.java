@@ -42,7 +42,7 @@ public class LoadModelFigure extends AbstractActivityWithTableFigure {
 		contentFigure.add(row);
 
 		row = new TableRowFigure();
-		row.addLabel("");
+		row.addEmptyLabel();
 		row.addMath(" \u2191");
 		contentFigure.add(row);
 
