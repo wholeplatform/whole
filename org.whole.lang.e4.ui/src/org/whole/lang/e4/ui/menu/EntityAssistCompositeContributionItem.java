@@ -90,30 +90,29 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 	protected boolean fillItems(IItemContainer<MenuManager, ImageDescriptor> menuContainer, IItemContainer<IAction, ImageDescriptor> actionContainer, IBindingManager bm) {
 		IEntity focusEntity = bm.wGet("focusEntity");
-		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, focusEntity);
-
-		actionContainer.addSeparator();
-
 		IEntity targetEntity = getTargetEntity(focusEntity);
 		IEntity targetParent = targetEntity.wGetParent();
 		ILanguageKit targetLanguageKit = EntityUtils.isResolver(targetEntity) && !EntityUtils.isNull(targetParent) ?
 				targetParent.wGetLanguageKit() : targetEntity.wGetLanguageKit();
+				
+		boolean hasExtendedActions = fillExtendedEntityAssistMenu(menuContainer, focusEntity, targetLanguageKit);
+
+		actionContainer.addSeparator();
 
 		boolean hasActions = fillEntityAssistMenu(actionContainer, focusEntity, targetLanguageKit);
 		
 		return hasExtendedActions || hasActions;
 	}
 
-	protected boolean fillExtendedEntityAssistMenu(IItemContainer<MenuManager, ImageDescriptor> container, IEntity selectedEntity) {
-		ILanguageKit selectedEntityLanguageKit = selectedEntity.wGetLanguageKit();
+	protected boolean fillExtendedEntityAssistMenu(IItemContainer<MenuManager, ImageDescriptor> container, IEntity focusEntity, ILanguageKit targetLanguageKit) {
 		List<MenuManager> menus = new ArrayList<MenuManager>();
 		IResourceRegistry<ILanguageKit> registry = ReflectionFactory.getLanguageKitRegistry();
 		for (ILanguageKit languageKit : registry.getResources(false, ResourceUtils.SIMPLE_COMPARATOR)) {
-			if (languageKit.equals(selectedEntityLanguageKit))
+			if (languageKit.equals(targetLanguageKit))
 				continue;
 			String label = ResourceUtils.SIMPLE_NAME_PROVIDER.toString(registry, languageKit);
 			MenuManager languageMenu = new MenuManager(label, languageIcon, null);
-			if (fillEntityAssistMenu(ActionContainer.create(languageMenu), selectedEntity, languageKit))
+			if (fillEntityAssistMenu(ActionContainer.create(languageMenu), focusEntity, languageKit))
 				menus.add(languageMenu);
 		}
 		HierarchicalFillMenuStrategy.instance(FullMenuNameStrategy.instance())
@@ -123,10 +122,10 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		return menus.size() > 0;
 	}
 
-	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity selectedEntity, ILanguageKit lk) {
+	protected boolean fillEntityAssistMenu(IItemContainer<IAction, ImageDescriptor> container, IEntity focusEntity, ILanguageKit lk) {
 		boolean hasActions = false;
 
-		final IEntity targetEntity = getTargetEntity(selectedEntity).wGetAdaptee(false);
+		final IEntity targetEntity = getTargetEntity(focusEntity).wGetAdaptee(false);
 		if (EntityUtils.isComposite(targetEntity)) {
 			List<IAction> addActions = new ArrayList<IAction>();
 
@@ -178,8 +177,8 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		return hasActions;
 	}
 
-	protected IEntity getTargetEntity(IEntity selectedEntity) {
-		return selectedEntity;
+	protected IEntity getTargetEntity(IEntity focusEntity) {
+		return focusEntity;
 	}
 
 	protected IUpdatableAction getAddEntityAction(EntityDescriptor<?> ed) {
@@ -218,11 +217,11 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 
 		return wrapActions;
 	}
-	protected boolean isWrappable(IEntity selectedEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
+	protected boolean isWrappable(IEntity targetEntity, EntityDescriptor<?> ed, IEnablerPredicate predicate) {
 		return (predicate == EnablerPredicateFactory.instance.alwaysTrue() ||
 				((AssignableToPredicate) predicate).getEntityDescriptor()
-						.isPlatformSupertypeOf(selectedEntity.wGetEntityDescriptor()) ) && 
-							EntityUtils.isReplaceable(selectedEntity, ed);
+						.isPlatformSupertypeOf(targetEntity.wGetEntityDescriptor()) ) && 
+							EntityUtils.isReplaceable(targetEntity, ed);
 	}
 	protected IEntity getBehavior(EntityDescriptor<?> ed, IEntityTransformer transformer) {
 		return E4Utils.wrapToBehavior(ed, transformer);
