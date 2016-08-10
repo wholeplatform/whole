@@ -361,6 +361,7 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 
 	public void rebuildNotation() {
 		RootFragment rootFragment = (RootFragment) getContents().getModel();
+		//FIXME should be rebuildNotation(rootFragment)
 		rebuildNotation(rootFragment.getRootEntity().wGetAdaptee(true));
 	}
 

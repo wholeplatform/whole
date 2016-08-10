@@ -361,7 +361,7 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	}
 	public void rebuildNotation() {
 		RootFragment rootFragment = (RootFragment) getContents().getModel();
-		rebuildNotation(rootFragment.getRootEntity().wGetAdaptee(true));
+		rebuildNotation(rootFragment);
 	}
 
 	// End Block Shared With E4TreeViewer
