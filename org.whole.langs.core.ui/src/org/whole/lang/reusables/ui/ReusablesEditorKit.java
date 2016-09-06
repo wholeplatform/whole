@@ -46,7 +46,7 @@ public class ReusablesEditorKit extends AbstractEditorKit {
     }
 
     public boolean canApply(ILanguageKit languageKit) {
-        return languageKit.getURI().equals(ReusablesLanguageKit.URI) && !languageKit.isDynamic();
+        return languageKit.getURI().equals(ReusablesLanguageKit.URI) && isStaticAndCurrent(languageKit);
     }
 
 	public IActionFactory getActionFactory() {

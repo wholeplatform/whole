@@ -50,7 +50,7 @@ public class MathEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(MathLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(MathLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 
 	@Override

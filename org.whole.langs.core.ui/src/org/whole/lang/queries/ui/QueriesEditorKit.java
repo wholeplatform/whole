@@ -50,7 +50,7 @@ public class QueriesEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(QueriesLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(QueriesLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 
 	public IActionFactory getActionFactory() {

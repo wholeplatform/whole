@@ -47,6 +47,6 @@ public class PropertiesTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(PropertiesLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(PropertiesLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

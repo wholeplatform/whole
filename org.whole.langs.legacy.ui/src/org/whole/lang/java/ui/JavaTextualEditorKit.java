@@ -55,6 +55,6 @@ public class JavaTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(JavaLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(JavaLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

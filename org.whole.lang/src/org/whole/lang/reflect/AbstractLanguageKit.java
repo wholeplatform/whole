@@ -71,6 +71,9 @@ public abstract class AbstractLanguageKit extends Resource implements InternalIL
 	public boolean isDynamic() {
 		return false;
 	}
+	public boolean isCurrent() {
+		return ReflectionFactory.getLanguageKit(getURI(), false, null) == this;
+	}
 
 	public IEntity getMetaModel() {
 		if (getMetaModelTemplate() == null)

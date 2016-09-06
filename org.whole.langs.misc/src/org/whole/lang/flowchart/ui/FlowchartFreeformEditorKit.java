@@ -52,6 +52,6 @@ public class FlowchartFreeformEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(FlowchartLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(FlowchartLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

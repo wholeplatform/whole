@@ -44,6 +44,6 @@ public class JavaScriptEditorKit extends AbstractEditorKit {
     }
 
     public boolean canApply(ILanguageKit languageKit) {
-        return languageKit.getURI().equals(JavaScriptLanguageKit.URI) && !languageKit.isDynamic();
+        return languageKit.getURI().equals(JavaScriptLanguageKit.URI) && isStaticAndCurrent(languageKit);
     }
 }

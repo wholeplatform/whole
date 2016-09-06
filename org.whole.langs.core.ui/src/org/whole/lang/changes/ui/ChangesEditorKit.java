@@ -44,6 +44,6 @@ public class ChangesEditorKit extends AbstractEditorKit {
     }
 
     public boolean canApply(ILanguageKit languageKit) {
-        return languageKit.getURI().equals(ChangesLanguageKit.URI) && !languageKit.isDynamic();
+        return languageKit.getURI().equals(ChangesLanguageKit.URI) && isStaticAndCurrent(languageKit);
     }
 }

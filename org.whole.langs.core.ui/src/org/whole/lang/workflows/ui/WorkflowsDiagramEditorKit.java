@@ -53,6 +53,6 @@ public class WorkflowsDiagramEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(WorkflowsLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(WorkflowsLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

@@ -49,7 +49,7 @@ public class FramesEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(FramesLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(FramesLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 
 	public IActionFactory getActionFactory() {

@@ -47,6 +47,6 @@ public class ModelsTabularEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(ModelsLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(ModelsLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

@@ -47,6 +47,6 @@ public class MiscEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(MiscLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(MiscLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

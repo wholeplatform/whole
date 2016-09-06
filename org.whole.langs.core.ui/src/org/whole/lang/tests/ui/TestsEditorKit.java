@@ -49,6 +49,6 @@ public class TestsEditorKit extends AbstractEditorKit {
     }
 
     public boolean canApply(ILanguageKit languageKit) {
-        return languageKit.getURI().equals(TestsLanguageKit.URI) && !languageKit.isDynamic();
+        return languageKit.getURI().equals(TestsLanguageKit.URI) && isStaticAndCurrent(languageKit);
     }
 }

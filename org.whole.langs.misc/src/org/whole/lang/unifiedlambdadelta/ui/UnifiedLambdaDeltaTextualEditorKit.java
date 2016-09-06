@@ -44,6 +44,6 @@ public class UnifiedLambdaDeltaTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(UnifiedLambdaDeltaLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(UnifiedLambdaDeltaLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

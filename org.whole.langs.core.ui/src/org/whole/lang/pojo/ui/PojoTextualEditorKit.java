@@ -47,6 +47,6 @@ public class PojoTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(PojoLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(PojoLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

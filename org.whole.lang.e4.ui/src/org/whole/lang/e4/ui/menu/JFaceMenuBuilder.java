@@ -36,6 +36,7 @@ import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.IEditorKit;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
@@ -153,7 +154,9 @@ public class JFaceMenuBuilder extends AbstractUIBuilder<IContributionItem, IMenu
 
 		IEntity focusEntity = bm.wGet("focusEntity");
 		IEditorKit selectedEditorKit = focusEntity.wGetEditorKit();
-		for (IEditorKit editorKit : focusEntity.wGetLanguageKit().getEditorKits()) {
+		for (IEditorKit editorKit : ReflectionFactory.getEditorKits(focusEntity.wGetLanguageKit().getURI())) {
+			if (!editorKit.canApply(focusEntity.wGetLanguageKit()))
+				continue;
 			IUpdatableAction action = actionRegistry.getSelectNotationAction(editorKit);
 			action.setChecked(editorKit == selectedEditorKit);
 			menu.add(action);

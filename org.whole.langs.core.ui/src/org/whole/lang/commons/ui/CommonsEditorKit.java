@@ -46,7 +46,7 @@ public class CommonsEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(CommonsLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(CommonsLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 
 	@Override

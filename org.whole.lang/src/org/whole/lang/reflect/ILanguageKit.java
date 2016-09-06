@@ -40,6 +40,7 @@ import org.whole.lang.visitors.IVisitorFactory;
  */
 public interface ILanguageKit extends IResource {
 	public boolean isDynamic();
+	public boolean isCurrent();
 
 	public IEntity getMetaModel();
 	public ITemplateFactory<?> getMetaModelTemplate();

@@ -43,6 +43,6 @@ public class EditorsTextualEditorKit extends AbstractEditorKit {
 	}
 
 	public boolean canApply(ILanguageKit languageKit) {
-		return languageKit.getURI().equals(EditorsLanguageKit.URI) && !languageKit.isDynamic();
+		return languageKit.getURI().equals(EditorsLanguageKit.URI) && isStaticAndCurrent(languageKit);
 	}
 }

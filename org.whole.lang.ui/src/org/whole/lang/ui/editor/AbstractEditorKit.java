@@ -73,4 +73,8 @@ public abstract class AbstractEditorKit implements IGEFEditorKit, Serializable {
 	public boolean isGeneric() {
 		return false;
 	}
+
+	protected boolean isStaticAndCurrent(ILanguageKit languageKit) {
+		return !languageKit.isDynamic() && languageKit.isCurrent();
+	}
 }
