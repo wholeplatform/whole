@@ -75,6 +75,16 @@ public abstract class AbstractEditorKit implements IGEFEditorKit, Serializable {
 	}
 
 	protected boolean isStaticAndCurrent(ILanguageKit languageKit) {
-		return !languageKit.isDynamic() && languageKit.isCurrent();
+		if (languageKit.isDynamic() || !languageKit.isCurrent())
+			return false;
+
+    	try {
+    		Class<?> lkClass = Class.forName(languageKit.getClass().getName(), true, getClass().getClassLoader());
+    		if (lkClass != languageKit.getClass()) 
+        		return false;
+    	} catch (ClassNotFoundException e) {
+ 		}
+
+		return true;
 	}
 }
