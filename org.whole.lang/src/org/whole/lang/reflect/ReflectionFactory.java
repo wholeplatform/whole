@@ -172,10 +172,14 @@ public class ReflectionFactory {
 		return platformClassLoader;
 	}
 	public static void setUserClassLoader(ClassLoader classLoader) {
-		if (platformClassLoader instanceof OrderedClassLoader)
-			((OrderedClassLoader) platformClassLoader).setUserClassLoader(classLoader);
-		else
-			platformClassLoader = new OrderedClassLoader(getPlatformClassLoader(), classLoader);
+    	try {
+    		Class<?> rfClass = Class.forName(ReflectionFactory.instance.getClass().getName(), true, classLoader);
+    		if (rfClass != ReflectionFactory.instance.getClass()) 
+        		throw new IllegalArgumentException("Inconsistent class loaders hierarchy");
+    		platformClassLoader = classLoader;
+    	} catch (ClassNotFoundException e) {
+    		platformClassLoader = new OrderedClassLoader(getPlatformClassLoader(), classLoader);
+		}
 	}
 	public static class OrderedClassLoader extends ClassLoader {
 		private ClassLoader userClassLoader;
