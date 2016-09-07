@@ -354,24 +354,23 @@ public class ReflectionFactory {
     }
 
     public void addEditorKit(String editorId) {
-		if (!editorKitsMap.containsKey(editorId)) {
 			IEditorKit editorKit = instantiateClass(editorId);
 			addEditorKit(editorKit);
-		}
 	}
 	public void addEditorKit(IEditorKit editorKit) {
-		if (!editorKitsMap.containsKey(editorKit.getId())) {
-			editorKitsMap.put(editorKit.getId(), editorKit);
-			editorKitsSet.add(editorKit);
-			// update language kits
-			for (ILanguageKit languageKit : getLanguageKits(true))
-				if (editorKit.canApply(languageKit))
-					((InternalILanguageKit) languageKit).addEditorKit(editorKit);
-		}
+    	if (editorKitsMap.containsKey(editorKit.getId()))
+    		removeEditorKit(editorKit.getId());
+		
+		editorKitsMap.put(editorKit.getId(), editorKit);
+		editorKitsSet.add(editorKit);
+		// update language kits
+		for (ILanguageKit languageKit : getLanguageKits(true))
+			if (editorKit.canApply(languageKit))
+				((InternalILanguageKit) languageKit).addEditorKit(editorKit);
 	}
 
 	public synchronized void removeEditorKit(String id) {
-        IEditorKit old = (IEditorKit) editorKitsMap.remove(id);
+        IEditorKit old = editorKitsMap.remove(id);
         if (old != null) {
 //            fileExtensionEditorKitMap.remove(old.getFileExtension());
             editorKitsSet.remove(old);

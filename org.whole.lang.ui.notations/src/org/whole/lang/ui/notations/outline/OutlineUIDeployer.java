@@ -19,8 +19,6 @@ package org.whole.lang.ui.notations.outline;
 
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.ui.notations.table.TableEditorKit;
-import org.whole.lang.ui.notations.text.TextEditorKit;
 
 /** 
  * @author Riccardo Solmi
@@ -28,13 +26,9 @@ import org.whole.lang.ui.notations.text.TextEditorKit;
 public class OutlineUIDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
 		platform.addEditorKit(OutlineEditorKit.ID);
-		platform.addEditorKit(TextEditorKit.ID);
-		platform.addEditorKit(TableEditorKit.ID);
 	}
 
 	public void undeploy(ReflectionFactory platform) {
 		platform.removeEditorKit(OutlineEditorKit.ID);
-		platform.removeEditorKit(TextEditorKit.ID);
-		platform.removeEditorKit(TableEditorKit.ID);
 	}
 }
