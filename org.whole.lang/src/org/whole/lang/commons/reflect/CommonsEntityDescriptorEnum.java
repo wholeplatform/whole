@@ -84,7 +84,7 @@ public class CommonsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(CommonsFeatureDescriptorEnum.rootEntity, Any_ord);
 		putDataEntity(Phase_ord, "Phase", Phase.class, false, String.class);
 		putCompositeEntity(
-		Multiplexer_ord, "Multiplexer", Multiplexer.class, true, Any_ord, false, false, false);
+		Multiplexer_ord, "Multiplexer", Multiplexer.class, true, Any_ord, false, false);
 		putSimpleEntity(Variable_ord, "Variable", Variable.class, false, InlineVariable_ord)
 				.withFeature(CommonsFeatureDescriptorEnum.varType, VarType_ord)
 				.withFeature(CommonsFeatureDescriptorEnum.varName, VarName_ord)

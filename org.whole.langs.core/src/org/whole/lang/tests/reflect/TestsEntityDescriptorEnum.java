@@ -195,7 +195,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestsFeatureDescriptorEnum.testCases,
 						TestCases_ord);
 		putCompositeEntity(
-		FilterFamilies_ord, "FilterFamilies", FilterFamilies.class, false, FilterFamily_ord, true, true, false);
+		FilterFamilies_ord, "FilterFamilies", FilterFamilies.class, false, FilterFamily_ord, true, true);
 		putSimpleEntity(FilterFamily_ord, "FilterFamily", FilterFamily.class,
 				false)
 				.withFeature(TestsFeatureDescriptorEnum.packageName,
@@ -207,7 +207,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestsFeatureDescriptorEnum.filterRules,
 						FilterRules_ord);
 		putCompositeEntity(
-		FilterRules_ord, "FilterRules", FilterRules.class, false, FilterRule_ord, true, true, false);
+		FilterRules_ord, "FilterRules", FilterRules.class, false, FilterRule_ord, true, true);
 		putSimpleEntity(FilterRule_ord, "FilterRule", FilterRule.class, false)
 				.withFeature(TestsFeatureDescriptorEnum.description,
 						Description_ord, true, false, false, false, false)
@@ -215,7 +215,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false)
 				.withFeature(TestsFeatureDescriptorEnum.body, Statement_ord);
 		putCompositeEntity(
-		TestCases_ord, "TestCases", TestCases.class, false, TestCase_ord, true, true, false);
+		TestCases_ord, "TestCases", TestCases.class, false, TestCase_ord, true, true);
 		putSimpleEntity(TestCase_ord, "TestCase", TestCase.class, false)
 				.withFeature(TestsFeatureDescriptorEnum.packageName,
 						PackageName_ord, true, true, false, false, false)
@@ -235,7 +235,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestsFeatureDescriptorEnum.name, Name_ord, false,
 						true, false, false, false);
 		putCompositeEntity(
-		Aspects_ord, "Aspects", Aspects.class, false, Aspect_ord, true, true, false);
+		Aspects_ord, "Aspects", Aspects.class, false, Aspect_ord, true, true);
 		putSimpleEntity(Aspect_ord, "Aspect", Aspect.class, true,
 				BeforeTest_ord, AfterTest_ord, BeforeTestCase_ord,
 				AfterTestCase_ord)
@@ -271,7 +271,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false)
 				.withFeature(TestsFeatureDescriptorEnum.body, Statement_ord);
 		putCompositeEntity(
-		Tests_ord, "Tests", Tests.class, false, Test_ord, true, true, false);
+		Tests_ord, "Tests", Tests.class, false, Test_ord, true, true);
 		putSimpleEntity(Test_ord, "Test", Test.class, false)
 				.withFeature(TestsFeatureDescriptorEnum.description,
 						Description_ord, true, false, false, false, false)
@@ -280,7 +280,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestsFeatureDescriptorEnum.body,
 						TestStatements_ord);
 		putCompositeEntity(
-		TestStatements_ord, "TestStatements", TestStatements.class, false, TestStatement_ord, true, false, false);
+		TestStatements_ord, "TestStatements", TestStatements.class, false, TestStatement_ord, true, false);
 		putSimpleEntity(TestStatement_ord, "TestStatement",
 				TestStatement.class, true, Comment_ord, UsingFilter_ord,
 				AssertThat_ord, AssumeThat_ord, Statement_ord,
@@ -351,9 +351,9 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(Not_ord, "Not", Not.class, false).withFeature(
 				TestsFeatureDescriptorEnum.constraint, Constraint_ord);
 		putCompositeEntity(
-		AllOf_ord, "AllOf", AllOf.class, false, Constraint_ord, true, false, false);
+		AllOf_ord, "AllOf", AllOf.class, false, Constraint_ord, true, false);
 		putCompositeEntity(
-		AnyOf_ord, "AnyOf", AnyOf.class, false, Constraint_ord, true, false, false);
+		AnyOf_ord, "AnyOf", AnyOf.class, false, Constraint_ord, true, false);
 		putSimpleEntity(Expression_ord, "Expression", Expression.class, true,
 				StringLiteral_ord, IntLiteral_ord, DataName_ord, Sequence_ord,
 				BooleanLiteral_ord);
@@ -366,7 +366,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(DataName_ord, "DataName", DataName.class, false,
 				String.class);
 		putCompositeEntity(
-		Sequence_ord, "Sequence", Sequence.class, false, Expression_ord, false, false, false);
+		Sequence_ord, "Sequence", Sequence.class, false, Expression_ord, false, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
 		putDataEntity(PackageName_ord, "PackageName", PackageName.class, false,
 				String.class);

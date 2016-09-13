@@ -411,7 +411,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(XMLLanguageType_ord, "XMLLanguageType",
 				XMLLanguageType.class, true);
 		putCompositeEntity(
-		SchemaDirectives_ord, "SchemaDirectives", SchemaDirectives.class, false, SchemaDirective_ord, true, false, false);
+		SchemaDirectives_ord, "SchemaDirectives", SchemaDirectives.class, false, SchemaDirective_ord, true, false);
 		putSimpleEntity(SchemaDirective_ord, "SchemaDirective",
 				SchemaDirective.class, true, Redefine_ord, Import_ord,
 				Include_ord, Annotation_ord)
@@ -448,7 +448,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 						RedefineComponents_ord, true, false, false, false,
 						false);
 		putCompositeEntity(
-		RedefineComponents_ord, "RedefineComponents", RedefineComponents.class, false, RedefineComponent_ord, true, false, false);
+		RedefineComponents_ord, "RedefineComponents", RedefineComponents.class, false, RedefineComponent_ord, true, false);
 		putSimpleEntity(RedefineComponent_ord, "RedefineComponent",
 				RedefineComponent.class, true, ModelGroupDef_ord,
 				SimpleTypeDef_ord, ComplexTypeDef_ord, AttributeGroupDef_ord,
@@ -475,7 +475,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 						Attributes_ord, true, false, false, false, false)
 				.withFeature(XsdFeatureDescriptorEnum.list, AnnotationList_ord);
 		putCompositeEntity(
-		AnnotationList_ord, "AnnotationList", AnnotationList.class, false, AnnotationType_ord, false, false, false);
+		AnnotationList_ord, "AnnotationList", AnnotationList.class, false, AnnotationType_ord, false, false);
 		putSimpleEntity(AnnotationType_ord, "AnnotationType",
 				AnnotationType.class, true, Documentation_ord, Appinfo_ord)
 				.withFeature(XsdFeatureDescriptorEnum.namespaces,
@@ -518,11 +518,11 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 						false);
 		putSimpleEntity(AnyContent_ord, "AnyContent", AnyContent.class, true);
 		putCompositeEntity(
-		AnnotationContents_ord, "AnnotationContents", AnnotationContents.class, false, AnnotationContent_ord, false, false, false);
+		AnnotationContents_ord, "AnnotationContents", AnnotationContents.class, false, AnnotationContent_ord, false, false);
 		putSimpleEntity(AnnotationContent_ord, "AnnotationContent",
 				AnnotationContent.class, true, MixedText_ord, AnyContent_ord);
 		putCompositeEntity(
-		SchemaComponents_ord, "SchemaComponents", SchemaComponents.class, false, SchemaComponent_ord, true, false, false);
+		SchemaComponents_ord, "SchemaComponents", SchemaComponents.class, false, SchemaComponent_ord, true, false);
 		putSimpleEntity(SchemaComponent_ord, "SchemaComponent",
 				SchemaComponent.class, true, AttributeUseDecl_ord,
 				ElementDecl_ord, AttributeGroupDef_ord, Annotation_ord,
@@ -596,7 +596,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.annotation,
 						Annotation_ord, true, false, false, false, false);
 		putCompositeEntity(
-		IdentityConstraintDefs_ord, "IdentityConstraintDefs", IdentityConstraintDefs.class, false, IdentityConstraintDef_ord, true, false, false);
+		IdentityConstraintDefs_ord, "IdentityConstraintDefs", IdentityConstraintDefs.class, false, IdentityConstraintDef_ord, true, false);
 		putSimpleEntity(XPathExpression_ord, "XPathExpression",
 				XPathExpression.class, true, Field_ord, Selector_ord)
 				.withFeature(XsdFeatureDescriptorEnum.namespaces,
@@ -609,7 +609,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.annotation,
 						Annotation_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Fields_ord, "Fields", Fields.class, false, Field_ord, false, false, false);
+		Fields_ord, "Fields", Fields.class, false, Field_ord, false, false);
 		putSimpleEntity(Selector_ord, "Selector", Selector.class, false)
 				.withFeature(XsdFeatureDescriptorEnum.namespaces,
 						NamespaceDecls_ord, true, false, false, false, false)
@@ -705,7 +705,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.annotation,
 						Annotation_ord, true, false, false, false, false);
 		putCompositeEntity(
-		SimpleTypeDefs_ord, "SimpleTypeDefs", SimpleTypeDefs.class, false, SimpleTypeDef_ord, true, false, false);
+		SimpleTypeDefs_ord, "SimpleTypeDefs", SimpleTypeDefs.class, false, SimpleTypeDef_ord, true, false);
 		putSimpleEntity(SimpleTypeDef_ord, "SimpleTypeDef",
 				SimpleTypeDef.class, false)
 				.withFeature(XsdFeatureDescriptorEnum.namespaces,
@@ -768,7 +768,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.simpleTypeDef,
 						SimpleTypeDef_ord, true, false, false, false, false);
 		putCompositeEntity(
-		AttributeUseOrGroups_ord, "AttributeUseOrGroups", AttributeUseOrGroups.class, false, AttributeUseOrGroup_ord, true, false, false);
+		AttributeUseOrGroups_ord, "AttributeUseOrGroups", AttributeUseOrGroups.class, false, AttributeUseOrGroup_ord, true, false);
 		putSimpleEntity(AttributeUseOrGroup_ord, "AttributeUseOrGroup",
 				AttributeUseOrGroup.class, true, AttributeUseDecl_ord,
 				AttributeGroupRef_ord, AttributeUse_ord, AttributeUseRef_ord);
@@ -904,7 +904,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.annotation,
 						Annotation_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Particles_ord, "Particles", Particles.class, false, Particle_ord, true, false, false);
+		Particles_ord, "Particles", Particles.class, false, Particle_ord, true, false);
 		putSimpleEntity(Particle_ord, "Particle", Particle.class, true,
 				Any_ord, ModelGroupWithParticles_ord, Choice_ord,
 				ElementDecl_ord, ModelGroup_ord, ModelGroupRef_ord,
@@ -964,7 +964,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.facets, Facets_ord, true,
 						false, false, false, false);
 		putCompositeEntity(
-		Facets_ord, "Facets", Facets.class, false, Facet_ord, true, false, false);
+		Facets_ord, "Facets", Facets.class, false, Facet_ord, true, false);
 		putSimpleEntity(Facet_ord, "Facet", Facet.class, true,
 				MaxInclusive_ord, IntegerFacet_ord, TotalDigits_ord,
 				Enumeration_ord, MinExclusive_ord, StringFacet_ord,
@@ -1364,7 +1364,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(Occurrence_ord, "Occurrence", Occurrence.class, true,
 				Bounded_ord, Unbounded_ord);
 		putCompositeEntity(
-		MemberTypes_ord, "MemberTypes", MemberTypes.class, false, QName_ord, false, false, false);
+		MemberTypes_ord, "MemberTypes", MemberTypes.class, false, QName_ord, false, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
 		putDataEntity(QName_ord, "QName", QName.class, false, String.class);
 		putDataEntity(AnyURI_ord, "AnyURI", AnyURI.class, false, String.class);
@@ -1374,7 +1374,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				false, false).withFeature(XsdFeatureDescriptorEnum.uri,
 				AnyURI_ord);
 		putCompositeEntity(
-		NamespaceDecls_ord, "NamespaceDecls", NamespaceDecls.class, false, NamespaceDecl_ord, true, false, false);
+		NamespaceDecls_ord, "NamespaceDecls", NamespaceDecls.class, false, NamespaceDecl_ord, true, false);
 		putSimpleEntity(NSContainer_ord, "NSContainer", NSContainer.class,
 				true, Key_ord, AttributeGroupDef_ord, ElementDecl_ord,
 				Unique_ord, Facet_ord, SimpleRestriction_ord, ElementRef_ord,
@@ -1404,7 +1404,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(XsdFeatureDescriptorEnum.attributes,
 						Attributes_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, false, false, false);
+		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, false, false);
 		putSimpleEntity(Attribute_ord, "Attribute", Attribute.class, true);
 		putSimpleEntity(NamedComponent_ord, "NamedComponent",
 				NamedComponent.class, true, Key_ord, ElementDecl_ord,
@@ -1460,7 +1460,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(OtherNamespaceSpecs_ord, "OtherNamespaceSpecs",
 				OtherNamespaceSpecs.class, false);
 		putCompositeEntity(
-		NamespaceSpecsList_ord, "NamespaceSpecsList", NamespaceSpecsList.class, false, NamespaceSpec_ord, false, false, false);
+		NamespaceSpecsList_ord, "NamespaceSpecsList", NamespaceSpecsList.class, false, NamespaceSpec_ord, false, false);
 		putSimpleEntity(NamespaceSpec_ord, "NamespaceSpec",
 				NamespaceSpec.class, true, AnyURI_ord, LocalNamespaceSpec_ord,
 				TargetNamespaceSpec_ord);
@@ -1474,7 +1474,7 @@ public class XsdEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(DerivationAll_ord, "DerivationAll",
 				DerivationAll.class, false);
 		putCompositeEntity(
-		DerivationList_ord, "DerivationList", DerivationList.class, false, DerivationControl_ord, false, false, false);
+		DerivationList_ord, "DerivationList", DerivationList.class, false, DerivationControl_ord, false, false);
 		putDataEntity(DerivationControl_ord, "DerivationControl",
 				DerivationControl.class, false,
 				DerivationControlEnum.Value.class);

@@ -206,7 +206,7 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 		public void visit(CompositeEntity entity) {
 			String name = entity.getName().wStringValue();
 
-			boolean isOrdered = false, isUnique = false, isOptional = false;
+			boolean isOrdered = false, isUnique = false;
 			IEntityIterator<ComponentModifier> i = IteratorFactory.<ComponentModifier>childIterator();
 			i.reset(entity.getComponentModifiers());
 			for (ComponentModifier modifier : i)
@@ -217,15 +217,12 @@ public class ModelsInterpreterVisitor extends ModelsIdentityDefaultVisitor {
 				case ComponentModifierEnum.unique_ord:
 					isUnique = true;
 					break;
-				case ComponentModifierEnum.optional_ord:
-					isOptional = true;
-					break;
 				}
 
 			org.whole.lang.models.model.EntityModifiers modifiers = entity.getModifiers();
 			entityDescriptorEnum.addCompositeEntity(name, modelInfo.entityImplName(name),
 					modifiers.wContainsValue(EntityModifierEnum.relationship),
-					isOrdered, isUnique, isOptional);
+					isOrdered, isUnique);
 		}
 
 		@Override

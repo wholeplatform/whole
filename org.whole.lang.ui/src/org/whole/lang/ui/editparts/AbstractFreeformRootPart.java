@@ -133,7 +133,6 @@ public abstract class AbstractFreeformRootPart extends AbstractPart {
 
 
 	public IEntity getParentModelEntity() {
-		Object parent = getParent().getModel();
-		return parent instanceof IEntity ? (IEntity)parent : null;
+		return super.getParentPartModelEntity();
 	}
 }

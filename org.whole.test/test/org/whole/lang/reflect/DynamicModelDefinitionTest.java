@@ -93,7 +93,7 @@ public class DynamicModelDefinitionTest {
 		assertEquals("two", e3.getName());
 		assertEquals(2, e3.getOrdinal());
 		
-		EntityDescriptor<?> e4 = eds.addCompositeEntity("list", "list", false, true, false, false);
+		EntityDescriptor<?> e4 = eds.addCompositeEntity("list", "list", false, true, false);
 		e4.withFeature(CommonsFeatureDescriptorEnum.composite_element, e2.getOrdinal());
 		assertEquals("list", e4.getName());
 		assertEquals(3, e4.getOrdinal());
@@ -131,7 +131,7 @@ public class DynamicModelDefinitionTest {
 		final EntityDescriptor<?> ExpressionDesc = eds.addSimpleEntity("Expression", "Expression", true);
 		final EntityDescriptor<?> StatementDesc = eds.addSimpleEntity("Statement", "Statement", true);
 
-		EntityDescriptor<?> bs = eds.addCompositeEntity("BlockStatement", "BlockStatement", false, true, false, false);
+		EntityDescriptor<?> bs = eds.addCompositeEntity("BlockStatement", "BlockStatement", false, true, false);
 		bs.withFeature(CommonsFeatureDescriptorEnum.composite_element, StatementDesc.getOrdinal());
 
 		EntityDescriptor<?> ifs = eds.addSimpleEntity("IfStatement", "IfStatement", false)
@@ -204,7 +204,7 @@ public class DynamicModelDefinitionTest {
 		lk.setName("QueriesTupleResultLanguage");
 		EntityDescriptorEnum eds = lk.getEntityDescriptorEnum();
 		EntityDescriptor<?> any = eds.addSimpleEntity("Any", "Any", true);
-		EntityDescriptor<?> gtd = eds.addCompositeEntity("GenericTuple", "GenericTuple", false, true, false, false);
+		EntityDescriptor<?> gtd = eds.addCompositeEntity("GenericTuple", "GenericTuple", false, true, false);
 		gtd.withFeature(CommonsFeatureDescriptorEnum.composite_element, any.getOrdinal());
 		eds.setAssignableFromAll(true, any.getOrdinal());
 		

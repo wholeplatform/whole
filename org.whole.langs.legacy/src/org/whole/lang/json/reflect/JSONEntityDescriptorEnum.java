@@ -57,11 +57,11 @@ public class JSONEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initEntityDescriptors() {
         putSimpleEntity(Value_ord, "Value", Value.class, true, Bool_ord, Decimal_ord, String_ord, Array_ord, Int_ord, Object_ord, Null_ord);
         putCompositeEntity(
-		Object_ord, "Object", Object.class, false, Pair_ord, true, false, false);
+		Object_ord, "Object", Object.class, false, Pair_ord, true, false);
         putSimpleEntity(Pair_ord, "Pair", Pair.class, false).withFeature(JSONFeatureDescriptorEnum.name, Name_ord).withFeature(JSONFeatureDescriptorEnum.value, Value_ord);
         putDataEntity(Name_ord, "Name", Name.class, false, java.lang.String.class);
         putCompositeEntity(
-		Array_ord, "Array", Array.class, false, Value_ord, true, false, false);
+		Array_ord, "Array", Array.class, false, Value_ord, true, false);
         putDataEntity(String_ord, "String", String.class, false, java.lang.String.class);
         putDataEntity(Decimal_ord, "Decimal", Decimal.class, false, double.class);
         putDataEntity(Int_ord, "Int", Int.class, false, long.class);

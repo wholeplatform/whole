@@ -109,7 +109,7 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.namespace, Namespace_ord)
 				.withFeature(RDBFeatureDescriptorEnum.schemas, Schemas_ord);
 		putCompositeEntity(
-		Schemas_ord, "Schemas", Schemas.class, false, Schema_ord, false, true, false);
+		Schemas_ord, "Schemas", Schemas.class, false, Schema_ord, false, true);
 		putSimpleEntity(Schema_ord, "Schema", Schema.class, false)
 				.withFeature(RDBFeatureDescriptorEnum.name, StringData_ord,
 						true, true, false, false, false)
@@ -118,7 +118,7 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.tables, Tables_ord, true,
 						false, false, false, false);
 		putCompositeEntity(
-		Tables_ord, "Tables", Tables.class, false, Table_ord, false, true, false);
+		Tables_ord, "Tables", Tables.class, false, Table_ord, false, true);
 		putSimpleEntity(Table_ord, "Table", Table.class, false)
 				.withFeature(RDBFeatureDescriptorEnum.name, StringData_ord,
 						false, true, false, false, false)
@@ -134,7 +134,7 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.remarks, StringData_ord,
 						true, false, false, false, false);
 		putCompositeEntity(
-		Columns_ord, "Columns", Columns.class, false, Column_ord, true, true, false);
+		Columns_ord, "Columns", Columns.class, false, Column_ord, true, true);
 		putSimpleEntity(Column_ord, "Column", Column.class, false)
 				.withFeature(RDBFeatureDescriptorEnum.name, StringData_ord,
 						false, true, false, false, false)
@@ -160,9 +160,9 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.columnNames,
 						ColumnNames_ord);
 		putCompositeEntity(
-		ColumnNames_ord, "ColumnNames", ColumnNames.class, false, StringData_ord, true, true, false);
+		ColumnNames_ord, "ColumnNames", ColumnNames.class, false, StringData_ord, true, true);
 		putCompositeEntity(
-		ForeignKeys_ord, "ForeignKeys", ForeignKeys.class, false, ForeignKey_ord, true, false, false);
+		ForeignKeys_ord, "ForeignKeys", ForeignKeys.class, false, ForeignKey_ord, true, false);
 		putSimpleEntity(ForeignKey_ord, "ForeignKey", ForeignKey.class, false)
 				.withFeature(RDBFeatureDescriptorEnum.name, StringData_ord,
 						true, true, false, false, false)
@@ -177,13 +177,13 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.columnReferences,
 						ColumnReferences_ord);
 		putCompositeEntity(
-		ColumnReferences_ord, "ColumnReferences", ColumnReferences.class, false, ColumnReference_ord, true, false, false);
+		ColumnReferences_ord, "ColumnReferences", ColumnReferences.class, false, ColumnReference_ord, true, false);
 		putSimpleEntity(ColumnReference_ord, "ColumnReference",
 				ColumnReference.class, false).withFeature(
 				RDBFeatureDescriptorEnum.source, StringData_ord).withFeature(
 				RDBFeatureDescriptorEnum.target, StringData_ord);
 		putCompositeEntity(
-		Indices_ord, "Indices", Indices.class, false, Index_ord, true, false, false);
+		Indices_ord, "Indices", Indices.class, false, Index_ord, true, false);
 		putSimpleEntity(Index_ord, "Index", Index.class, false)
 				.withFeature(RDBFeatureDescriptorEnum.name, StringData_ord,
 						false, true, false, false, false)
@@ -195,7 +195,7 @@ public class RDBEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(RDBFeatureDescriptorEnum.columnIndices,
 						ColumnIndices_ord);
 		putCompositeEntity(
-		ColumnIndices_ord, "ColumnIndices", ColumnIndices.class, false, ColumnIndex_ord, true, true, false);
+		ColumnIndices_ord, "ColumnIndices", ColumnIndices.class, false, ColumnIndex_ord, true, true);
 		putSimpleEntity(ColumnIndex_ord, "ColumnIndex", ColumnIndex.class,
 				false).withFeature(RDBFeatureDescriptorEnum.name,
 				StringData_ord, false, true, false, false, false).withFeature(

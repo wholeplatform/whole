@@ -101,7 +101,7 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(ArtifactsFeatureDescriptorEnum.projects,
 						Projects_ord);
 		putCompositeEntity(
-		Projects_ord, "Projects", Projects.class, false, Project_ord, true, true, false);
+		Projects_ord, "Projects", Projects.class, false, Project_ord, true, true);
 		putSimpleEntity(Project_ord, "Project", Project.class, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.name,
 						ProjectName_ord, false, true, false, false, false)
@@ -114,7 +114,7 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(ArtifactsFeatureDescriptorEnum.locationURI,
 						LocationURI_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Artifacts_ord, "Artifacts", Artifacts.class, false, Artifact_ord, true, false, false);
+		Artifacts_ord, "Artifacts", Artifacts.class, false, Artifact_ord, true, false);
 		putSimpleEntity(PackageArtifact_ord, "PackageArtifact",
 				PackageArtifact.class, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.name,
@@ -139,7 +139,7 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(ArtifactsFeatureDescriptorEnum.content,
 						Content_ord);
 		putCompositeEntity(
-		Natures_ord, "Natures", Natures.class, false, Nature_ord, true, false, false);
+		Natures_ord, "Natures", Natures.class, false, Nature_ord, true, false);
 		putDataEntity(Nature_ord, "Nature", Nature.class, false, String.class);
 		putDataEntity(LocationURI_ord, "LocationURI", LocationURI.class, false,
 				String.class);
@@ -167,7 +167,7 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(Extension_ord, "Extension", Extension.class, false,
 				String.class);
 		putCompositeEntity(
-		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, false, true, false);
+		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, false, true);
 		putDataEntity(Attribute_ord, "Attribute", Attribute.class, false,
 				AttributeEnum.Value.class);
 		putDataEntity(PersistenceKitId_ord, "PersistenceKitId",

@@ -87,19 +87,19 @@ public class SchemeEntityDescriptorEnum extends EntityDescriptorEnum {
 
 	protected void initEntityDescriptors() {
 		putCompositeEntity(
-		Definitions_ord, "Definitions", Definitions.class, false, Definition_ord, true, false, false);
+		Definitions_ord, "Definitions", Definitions.class, false, Definition_ord, true, false);
 		putSimpleEntity(Definition_ord, "Definition", Definition.class, false)
 				.withFeature(SchemeFeatureDescriptorEnum.name, Name_ord)
 				.withFeature(SchemeFeatureDescriptorEnum.expression,
 						SchemeExpression_ord);
 		putCompositeEntity(
-		Branches_ord, "Branches", Branches.class, false, Branch_ord, true, false, false);
+		Branches_ord, "Branches", Branches.class, false, Branch_ord, true, false);
 		putSimpleEntity(Branch_ord, "Branch", Branch.class, false).withFeature(
 				SchemeFeatureDescriptorEnum.test, SchemeExpression_ord)
 				.withFeature(SchemeFeatureDescriptorEnum.body,
 						SchemeExpression_ord);
 		putCompositeEntity(
-		SchemeExpressions_ord, "SchemeExpressions", SchemeExpressions.class, false, SchemeExpression_ord, true, false, false);
+		SchemeExpressions_ord, "SchemeExpressions", SchemeExpressions.class, false, SchemeExpression_ord, true, false);
 		putSimpleEntity(SchemeExpression_ord, "SchemeExpression",
 				SchemeExpression.class, true, OrExpression_ord,
 				AndExpression_ord, IntValue_ord, IdExpression_ord,
@@ -156,7 +156,7 @@ public class SchemeEntityDescriptorEnum extends EntityDescriptorEnum {
 						ConstExpression_ord).withFeature(
 						SchemeFeatureDescriptorEnum.cdr, ConstExpression_ord);
 		putCompositeEntity(
-		Names_ord, "Names", Names.class, false, Name_ord, true, false, false);
+		Names_ord, "Names", Names.class, false, Name_ord, true, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
 		putDataEntity(SchemeEnvironment_ord, "SchemeEnvironment",
 				SchemeEnvironment.class, false,

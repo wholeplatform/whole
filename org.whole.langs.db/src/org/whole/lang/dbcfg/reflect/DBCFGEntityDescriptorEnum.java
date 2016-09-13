@@ -80,7 +80,7 @@ public class DBCFGEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(DBCFGFeatureDescriptorEnum.dataSourceIndex,
 						Index_ord);
 		putCompositeEntity(
-		JDBCDrivers_ord, "JDBCDrivers", JDBCDrivers.class, false, JDBCDriver_ord, false, true, false);
+		JDBCDrivers_ord, "JDBCDrivers", JDBCDrivers.class, false, JDBCDriver_ord, false, true);
 		putSimpleEntity(JDBCDriver_ord, "JDBCDriver", JDBCDriver.class, false)
 				.withFeature(DBCFGFeatureDescriptorEnum.driverName,
 						DriverName_ord, false, true, false, false, false)
@@ -89,9 +89,9 @@ public class DBCFGEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(DBCFGFeatureDescriptorEnum.files, Files_ord)
 				.withFeature(DBCFGFeatureDescriptorEnum.dialect, Dialect_ord);
 		putCompositeEntity(
-		Files_ord, "Files", Files.class, false, FilePath_ord, false, false, false);
+		Files_ord, "Files", Files.class, false, FilePath_ord, false, false);
 		putCompositeEntity(
-		DataSources_ord, "DataSources", DataSources.class, false, DataSource_ord, true, false, false);
+		DataSources_ord, "DataSources", DataSources.class, false, DataSource_ord, true, false);
 		putSimpleEntity(DataSource_ord, "DataSource", DataSource.class, false)
 				.withFeature(DBCFGFeatureDescriptorEnum.driverName,
 						DriverName_ord)

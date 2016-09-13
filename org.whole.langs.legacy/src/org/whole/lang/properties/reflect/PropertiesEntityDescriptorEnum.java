@@ -43,7 +43,7 @@ public class PropertiesEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(PropertiesFeatureDescriptorEnum.entries,
 						Entries_ord);
 		putCompositeEntity(
-		Entries_ord, "Entries", Entries.class, false, Property_ord, false, true, false);
+		Entries_ord, "Entries", Entries.class, false, Property_ord, false, true);
 		putSimpleEntity(Property_ord, "Property", Property.class, false)
 				.withFeature(PropertiesFeatureDescriptorEnum.name,
 						PropertyName_ord, false, true, false, false, false)

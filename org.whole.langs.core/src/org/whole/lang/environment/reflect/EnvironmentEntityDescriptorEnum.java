@@ -124,33 +124,33 @@ public class EnvironmentEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(StringData_ord, "StringData", StringData.class, false, String.class);
         putDataEntity(DateData_ord, "DateData", DateData.class, false, java.util.Date.class);
         putDataEntity(ObjectData_ord, "ObjectData", ObjectData.class, false, Object.class);
-        putCompositeEntity(Tuple_ord, "Tuple", Tuple.class, false, Data_ord, true, false, false, true, false, false);
+        putCompositeEntity(Tuple_ord, "Tuple", Tuple.class, false, Data_ord, true, false, true, false, false);
         putCompositeEntity(
-		ContainmentTuple_ord, "ContainmentTuple", ContainmentTuple.class, false, Data_ord, true, false, false);
+		ContainmentTuple_ord, "ContainmentTuple", ContainmentTuple.class, false, Data_ord, true, false);
         putSimpleEntity(Void_ord, "Void", Void.class, false);
         putSimpleEntity(ContextViewModel_ord, "ContextViewModel", ContextViewModel.class, false).withFeature(EnvironmentFeatureDescriptorEnum.environments, Environments_ord).withFeature(EnvironmentFeatureDescriptorEnum.bindings, Bindings_ord);
         putSimpleEntity(SampleViewModel_ord, "SampleViewModel", SampleViewModel.class, false).withFeature(EnvironmentFeatureDescriptorEnum.behavior, Data_ord).withFeature(EnvironmentFeatureDescriptorEnum.result, Data_ord);
         putSimpleEntity(DebugViewModel_ord, "DebugViewModel", DebugViewModel.class, false).withFeature(EnvironmentFeatureDescriptorEnum.focusJob, Index_ord).withFeature(EnvironmentFeatureDescriptorEnum.jobs, Jobs_ord);
         putCompositeEntity(
-		Jobs_ord, "Jobs", Jobs.class, false, Job_ord, true, false, false);
+		Jobs_ord, "Jobs", Jobs.class, false, Job_ord, true, false);
         putSimpleEntity(Job_ord, "Job", Job.class, false).withFeature(EnvironmentFeatureDescriptorEnum.focusFrame, Index_ord).withFeature(EnvironmentFeatureDescriptorEnum.executionStack, ExecutionStack_ord);
         putCompositeEntity(
-		ExecutionStack_ord, "ExecutionStack", ExecutionStack.class, false, ExecutionFrame_ord, true, false, false);
+		ExecutionStack_ord, "ExecutionStack", ExecutionStack.class, false, ExecutionFrame_ord, true, false);
         putSimpleEntity(ExecutionFrame_ord, "ExecutionFrame", ExecutionFrame.class, false).withFeature(EnvironmentFeatureDescriptorEnum.sourceFragment, Data_ord).withFeature(EnvironmentFeatureDescriptorEnum.sourceEntity, Value_ord);
         putSimpleEntity(VariablesViewModel_ord, "VariablesViewModel", VariablesViewModel.class, false).withFeature(EnvironmentFeatureDescriptorEnum.environmentManager, EnvironmentManager_ord).withFeature(EnvironmentFeatureDescriptorEnum.environments, Environments_ord);
         putCompositeEntity(
-		Environments_ord, "Environments", Environments.class, false, Environment_ord, true, false, false);
+		Environments_ord, "Environments", Environments.class, false, Environment_ord, true, false);
         putSimpleEntity(Environment_ord, "Environment", Environment.class, false).withFeature(EnvironmentFeatureDescriptorEnum.name, Name_ord, true, false, false, false, false).withFeature(EnvironmentFeatureDescriptorEnum.filter, Names_ord, true, false, false, false, false).withFeature(EnvironmentFeatureDescriptorEnum.bindingManager, BindingManager_ord).withFeature(EnvironmentFeatureDescriptorEnum.bindings, BindingsModel_ord);
         putSimpleEntity(BindingsModel_ord, "BindingsModel", BindingsModel.class, true, Bindings_ord, ScopedBindings_ord);
         putCompositeEntity(
-		ScopedBindings_ord, "ScopedBindings", ScopedBindings.class, false, BindingOrScope_ord, true, false, false);
+		ScopedBindings_ord, "ScopedBindings", ScopedBindings.class, false, BindingOrScope_ord, true, false);
         putCompositeEntity(
-		Bindings_ord, "Bindings", Bindings.class, false, Binding_ord, true, false, false);
+		Bindings_ord, "Bindings", Bindings.class, false, Binding_ord, true, false);
         putSimpleEntity(Binding_ord, "Binding", Binding.class, false).withFeature(EnvironmentFeatureDescriptorEnum.name, Name_ord, false, true, false, false, false).withFeature(EnvironmentFeatureDescriptorEnum.value, Value_ord);
         putSimpleEntity(Scope_ord, "Scope", Scope.class, false).withFeature(EnvironmentFeatureDescriptorEnum.scope, BindingScope_ord).withFeature(EnvironmentFeatureDescriptorEnum.sourceEntity, Value_ord);
         putDataEntity(Id_ord, "Id", Id.class, false, String.class);
         putCompositeEntity(
-		Names_ord, "Names", Names.class, false, Name_ord, true, false, false);
+		Names_ord, "Names", Names.class, false, Name_ord, true, false);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
         putDataEntity(Index_ord, "Index", Index.class, false, int.class);
         putDataEntity(Value_ord, "Value", Value.class, false, org.whole.lang.model.IEntity.class);

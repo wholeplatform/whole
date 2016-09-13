@@ -186,16 +186,16 @@ public class FirstOrderLogicEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(FirstOrderLogicFeatureDescriptorEnum.assertions,
 						Assertions_ord);
 		putCompositeEntity(
-		ImportTheories_ord, "ImportTheories", ImportTheories.class, false, ImportDeclaration_ord, true, false, false);
+		ImportTheories_ord, "ImportTheories", ImportTheories.class, false, ImportDeclaration_ord, true, false);
 		putSimpleEntity(ImportDeclaration_ord, "ImportDeclaration",
 				ImportDeclaration.class, false).withFeature(
 				FirstOrderLogicFeatureDescriptorEnum.language, TheoryName_ord)
 				.withFeature(FirstOrderLogicFeatureDescriptorEnum.alias,
 						Name_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false, false);
+		Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false);
 		putCompositeEntity(
-		Assertions_ord, "Assertions", Assertions.class, false, Assertion_ord, true, false, false);
+		Assertions_ord, "Assertions", Assertions.class, false, Assertion_ord, true, false);
 		putSimpleEntity(EntityName_ord, "EntityName", EntityName.class, false)
 				.withFeature(FirstOrderLogicFeatureDescriptorEnum.language,
 						LanguageName_ord).withFeature(
@@ -245,7 +245,7 @@ public class FirstOrderLogicEntityDescriptorEnum extends EntityDescriptorEnum {
 				FirstOrderLogicFeatureDescriptorEnum.parameters,
 				Parameters_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Parameters_ord, "Parameters", Parameters.class, false, VariableDeclaration_ord, true, false, false);
+		Parameters_ord, "Parameters", Parameters.class, false, VariableDeclaration_ord, true, false);
 		putSimpleEntity(VariableDeclaration_ord, "VariableDeclaration",
 				VariableDeclaration.class, false).withFeature(
 				FirstOrderLogicFeatureDescriptorEnum.name, Name_ord)
@@ -279,7 +279,7 @@ public class FirstOrderLogicEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(FirstOrderLogicFeatureDescriptorEnum.proof,
 						Formulae_ord);
 		putCompositeEntity(
-		Formulae_ord, "Formulae", Formulae.class, false, Formula_ord, true, false, false);
+		Formulae_ord, "Formulae", Formulae.class, false, Formula_ord, true, false);
 		putSimpleEntity(PredicateApplication_ord, "PredicateApplication",
 				PredicateApplication.class, false).withFeature(
 				FirstOrderLogicFeatureDescriptorEnum.predicate, Predicate_ord)
@@ -332,7 +332,7 @@ public class FirstOrderLogicEntityDescriptorEnum extends EntityDescriptorEnum {
 						FirstOrderLogicFeatureDescriptorEnum.formula,
 						Formula_ord);
 		putCompositeEntity(
-		Arguments_ord, "Arguments", Arguments.class, false, Term_ord, true, false, false);
+		Arguments_ord, "Arguments", Arguments.class, false, Term_ord, true, false);
 		putDataEntity(SimplePredicate_ord, "SimplePredicate",
 				SimplePredicate.class, false, String.class);
 		putSimpleEntity(QualifiedPredicate_ord, "QualifiedPredicate",

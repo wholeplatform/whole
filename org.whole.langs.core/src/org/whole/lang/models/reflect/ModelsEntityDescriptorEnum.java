@@ -128,7 +128,7 @@ public class ModelsEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false, false)
 				.withFeature(ModelsFeatureDescriptorEnum.uri, URI_ord);
 		putCompositeEntity(
-		ModelDeclarations_ord, "ModelDeclarations", ModelDeclarations.class, false, ModelDeclaration_ord, true, false, false);
+		ModelDeclarations_ord, "ModelDeclarations", ModelDeclarations.class, false, ModelDeclaration_ord, true, false);
 		putSimpleEntity(ModelDeclaration_ord, "ModelDeclaration",
 				ModelDeclaration.class, true, EnumEntity_ord, SimpleEntity_ord,
 				CompositeEntity_ord, MapEntity_ord, DataEntity_ord)
@@ -187,11 +187,11 @@ public class ModelsEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false, false)
 				.withFeature(ModelsFeatureDescriptorEnum.values, EnumValues_ord);
 		putCompositeEntity(
-		EntityModifiers_ord, "EntityModifiers", EntityModifiers.class, false, EntityModifier_ord, false, true, false);
+		EntityModifiers_ord, "EntityModifiers", EntityModifiers.class, false, EntityModifier_ord, false, true);
 		putDataEntity(EntityModifier_ord, "EntityModifier",
 				EntityModifier.class, false, EntityModifierEnum.Value.class);
 		putCompositeEntity(
-		Features_ord, "Features", Features.class, false, Feature_ord, true, false, false);
+		Features_ord, "Features", Features.class, false, Feature_ord, true, false);
 		putSimpleEntity(Feature_ord, "Feature", Feature.class, false)
 				.withFeature(ModelsFeatureDescriptorEnum.modifiers,
 						FeatureModifiers_ord, true, false, false, false, false)
@@ -200,24 +200,24 @@ public class ModelsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(ModelsFeatureDescriptorEnum.oppositeName,
 						SimpleName_ord, true, false, false, false, false);
 		putCompositeEntity(
-		FeatureModifiers_ord, "FeatureModifiers", FeatureModifiers.class, false, FeatureModifier_ord, false, true, false);
+		FeatureModifiers_ord, "FeatureModifiers", FeatureModifiers.class, false, FeatureModifier_ord, false, true);
 		putDataEntity(FeatureModifier_ord, "FeatureModifier",
 				FeatureModifier.class, false, FeatureModifierEnum.Value.class);
 		putCompositeEntity(
-		ComponentModifiers_ord, "ComponentModifiers", ComponentModifiers.class, false, ComponentModifier_ord, false, true, false);
+		ComponentModifiers_ord, "ComponentModifiers", ComponentModifiers.class, false, ComponentModifier_ord, false, true);
 		putDataEntity(ComponentModifier_ord, "ComponentModifier",
 				ComponentModifier.class, false,
 				ComponentModifierEnum.Value.class);
 		putDataEntity(DataType_ord, "DataType", DataType.class, false,
 				String.class);
 		putCompositeEntity(
-		EnumValues_ord, "EnumValues", EnumValues.class, false, EnumValue_ord, true, true, false);
+		EnumValues_ord, "EnumValues", EnumValues.class, false, EnumValue_ord, true, true);
 		putDataEntity(EnumValue_ord, "EnumValue", EnumValue.class, false,
 				String.class);
 		putCompositeEntity(
-		Types_ord, "Types", Types.class, false, Type_ord, true, false, false);
+		Types_ord, "Types", Types.class, false, Type_ord, true, false);
 		putCompositeEntity(
-		TypeRelations_ord, "TypeRelations", TypeRelations.class, false, TypeRelation_ord, true, false, false);
+		TypeRelations_ord, "TypeRelations", TypeRelations.class, false, TypeRelation_ord, true, false);
 		putSimpleEntity(TypeRelation_ord, "TypeRelation", TypeRelation.class,
 				true, SupertypesOf_ord, SubtypesOf_ord, TypeAliasOf_ord);
 		putSimpleEntity(SupertypesOf_ord, "SupertypesOf", SupertypesOf.class,

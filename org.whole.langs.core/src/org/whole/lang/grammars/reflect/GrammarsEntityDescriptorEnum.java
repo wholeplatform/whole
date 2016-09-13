@@ -179,7 +179,7 @@ public class GrammarsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(GrammarsFeatureDescriptorEnum.newLineLiteral,
 						Literal_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Productions_ord, "Productions", Productions.class, false, Production_ord, true, true, false);
+		Productions_ord, "Productions", Productions.class, false, Production_ord, true, true);
 		putSimpleEntity(Production_ord, "Production", Production.class, false)
 				.withFeature(GrammarsFeatureDescriptorEnum.name,
 						NonTerminal_ord, false, true, false, false, false)
@@ -245,9 +245,9 @@ public class GrammarsEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false, false)
 				.withFeature(GrammarsFeatureDescriptorEnum.rule, Rule_ord);
 		putCompositeEntity(
-		Concatenate_ord, "Concatenate", Concatenate.class, false, Rule_ord, true, false, false);
+		Concatenate_ord, "Concatenate", Concatenate.class, false, Rule_ord, true, false);
 		putCompositeEntity(
-		Choose_ord, "Choose", Choose.class, false, Rule_ord, true, false, false);
+		Choose_ord, "Choose", Choose.class, false, Rule_ord, true, false);
 		putSimpleEntity(When_ord, "When", When.class, false).withFeature(
 				GrammarsFeatureDescriptorEnum.predicate, Predicate_ord)
 				.withFeature(GrammarsFeatureDescriptorEnum.rule, Rule_ord);

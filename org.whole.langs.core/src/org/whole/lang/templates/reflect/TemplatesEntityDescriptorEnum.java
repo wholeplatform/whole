@@ -47,7 +47,7 @@ public class TemplatesEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TemplatesFeatureDescriptorEnum.templates,
 						Templates_ord);
 		putCompositeEntity(
-		Templates_ord, "Templates", Templates.class, false, TemplateFactory_ord, true, false, false);
+		Templates_ord, "Templates", Templates.class, false, TemplateFactory_ord, true, false);
 		putSimpleEntity(TemplateFactory_ord, "TemplateFactory",
 				TemplateFactory.class, false)
 				.withFeature(TemplatesFeatureDescriptorEnum.name,
@@ -57,7 +57,7 @@ public class TemplatesEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TemplatesFeatureDescriptorEnum.template,
 						Template_ord);
 		putCompositeEntity(
-		Names_ord, "Names", Names.class, false, Name_ord, false, true, false);
+		Names_ord, "Names", Names.class, false, Name_ord, false, true);
 		putSimpleEntity(QualifiedName_ord, "QualifiedName",
 				QualifiedName.class, false).withFeature(
 				TemplatesFeatureDescriptorEnum.qualifier, SimpleName_ord,

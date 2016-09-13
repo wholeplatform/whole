@@ -318,7 +318,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(WorkflowsFeatureDescriptorEnum.faultHandlers,
 						FaultHandlers_ord, true, false, false, false, false);
 		putCompositeEntity(
-		FaultHandlers_ord, "FaultHandlers", FaultHandlers.class, false, FaultHandler_ord, true, true, false);
+		FaultHandlers_ord, "FaultHandlers", FaultHandlers.class, false, FaultHandler_ord, true, true);
 		putSimpleEntity(FaultHandler_ord, "FaultHandler", FaultHandler.class,
 				false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.name, Name_ord)
@@ -331,7 +331,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(WorkflowsFeatureDescriptorEnum.flowObject,
 						FlowObject_ord);
 		putCompositeEntity(
-		EventHandlers_ord, "EventHandlers", EventHandlers.class, false, EventHandler_ord, true, false, false);
+		EventHandlers_ord, "EventHandlers", EventHandlers.class, false, EventHandler_ord, true, false);
 		putSimpleEntity(EventHandler_ord, "EventHandler", EventHandler.class,
 				false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.name, Name_ord,
@@ -353,7 +353,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 						WorkflowsFeatureDescriptorEnum.flowObjects,
 						FlowObjects_ord);
 		putCompositeEntity(
-		FlowObjects_ord, "FlowObjects", FlowObjects.class, false, FlowObject_ord, true, false, false);
+		FlowObjects_ord, "FlowObjects", FlowObjects.class, false, FlowObject_ord, true, false);
 		putSimpleEntity(ForeachLoop_ord, "ForeachLoop", ForeachLoop.class,
 				false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.label, Label_ord,
@@ -395,7 +395,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(SwitchType_ord, "SwitchType", SwitchType.class, false,
 				SwitchTypeEnum.Value.class);
 		putCompositeEntity(
-		ConditionalCases_ord, "ConditionalCases", ConditionalCases.class, false, ConditionalCase_ord, true, false, false);
+		ConditionalCases_ord, "ConditionalCases", ConditionalCases.class, false, ConditionalCase_ord, true, false);
 		putSimpleEntity(ConditionalCase_ord, "ConditionalCase",
 				ConditionalCase.class, false)
 				.withFeature(WorkflowsFeatureDescriptorEnum.label, Label_ord,
@@ -474,7 +474,7 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(ConditionTest_ord, "ConditionTest", ConditionTest.class,
 				false, ConditionTestEnum.Value.class);
 		putCompositeEntity(
-		Variables_ord, "Variables", Variables.class, false, Variable_ord, true, false, false);
+		Variables_ord, "Variables", Variables.class, false, Variable_ord, true, false);
 		putSimpleEntity(Activity_ord, "Activity", Activity.class, true,
 				SaveArtifacts_ord, CreateModel_ord, InvokeJavaClassMethod_ord,
 				DeleteArtifacts_ord, LoadModel_ord, CreateEntity_ord,
@@ -762,16 +762,16 @@ public class WorkflowsEntityDescriptorEnum extends EntityDescriptorEnum {
 				true, Text_ord);
 		putDataEntity(Text_ord, "Text", Text.class, false, String.class);
 		putCompositeEntity(
-		Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false, false);
+		Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false);
 		putSimpleEntity(Arguments_ord, "Arguments", Arguments.class, true,
 				Expressions_ord, Assignments_ord);
 		putCompositeEntity(
-		Assignments_ord, "Assignments", Assignments.class, false, Assign_ord, true, false, false);
+		Assignments_ord, "Assignments", Assignments.class, false, Assign_ord, true, false);
 		putSimpleEntity(Assign_ord, "Assign", Assign.class, false).withFeature(
 				WorkflowsFeatureDescriptorEnum.name, Variable_ord).withFeature(
 				WorkflowsFeatureDescriptorEnum.expression, Expression_ord);
 		putCompositeEntity(
-		Expressions_ord, "Expressions", Expressions.class, false, Expression_ord, true, false, false);
+		Expressions_ord, "Expressions", Expressions.class, false, Expression_ord, true, false);
 		putDataEntity(Signature_ord, "Signature", Signature.class, false,
 				String.class);
 		putSimpleEntity(Declaration_ord, "Declaration", Declaration.class, true);

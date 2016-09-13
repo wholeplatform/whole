@@ -24,7 +24,7 @@ public class MiscEntityDescriptorEnum extends EntityDescriptorEnum {
 
 	protected void initEntityDescriptors() {
 		putCompositeEntity(
-		Misc_ord, "Misc", Misc.class, false, Any_ord, true, false, false);
+		Misc_ord, "Misc", Misc.class, false, Any_ord, true, false);
 		putSimpleEntity(Any_ord, "Any", Any.class, true);
 	}
 

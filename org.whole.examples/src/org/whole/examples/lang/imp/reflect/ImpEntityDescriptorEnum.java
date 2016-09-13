@@ -181,7 +181,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 						Parameters_ord, true, false, false, false, false)
 				.withFeature(ImpFeatureDescriptorEnum.body, Statement_ord);
 		putCompositeEntity(
-		Parameters_ord, "Parameters", Parameters.class, false, Parameter_ord, true, false, false);
+		Parameters_ord, "Parameters", Parameters.class, false, Parameter_ord, true, false);
 		putSimpleEntity(Parameter_ord, "Parameter", Parameter.class, false)
 				.withFeature(ImpFeatureDescriptorEnum.type, Type_ord)
 				.withFeature(ImpFeatureDescriptorEnum.name, Name_ord);
@@ -231,7 +231,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(ImpFeatureDescriptorEnum.arrayExp, Expression_ord)
 				.withFeature(ImpFeatureDescriptorEnum.trueBody, Statement_ord);
 		putCompositeEntity(
-		BlockStatement_ord, "BlockStatement", BlockStatement.class, false, Statement_ord, true, false, false);
+		BlockStatement_ord, "BlockStatement", BlockStatement.class, false, Statement_ord, true, false);
 		putSimpleEntity(PrintStatement_ord, "PrintStatement",
 				PrintStatement.class, false).withFeature(
 				ImpFeatureDescriptorEnum.exp, Expression_ord);
@@ -259,7 +259,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 				ImpFeatureDescriptorEnum.arguments, Arguments_ord, true, false,
 				false, false, false);
 		putCompositeEntity(
-		Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false, false);
+		Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false);
 		putSimpleEntity(AssignmentExpression_ord, "AssignmentExpression",
 				AssignmentExpression.class, false).withFeature(
 				ImpFeatureDescriptorEnum.name, Name_ord).withFeature(
@@ -284,7 +284,7 @@ public class ImpEntityDescriptorEnum extends EntityDescriptorEnum {
 				IntLiteral_ord).withFeature(
 				ImpFeatureDescriptorEnum.upperBound, IntLiteral_ord);
 		putCompositeEntity(
-		ArrayLiteral_ord, "ArrayLiteral", ArrayLiteral.class, false, Literal_ord, true, false, false);
+		ArrayLiteral_ord, "ArrayLiteral", ArrayLiteral.class, false, Literal_ord, true, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
 		putDataEntity(NameExpression_ord, "NameExpression",
 				NameExpression.class, false, String.class);

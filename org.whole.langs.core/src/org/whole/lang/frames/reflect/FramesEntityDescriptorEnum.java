@@ -271,7 +271,7 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 						Relations_ord, true, false, false, false, false)
 				.withFeature(FramesFeatureDescriptorEnum.content, Content_ord);
 		putCompositeEntity(
-		Variants_ord, "Variants", Variants.class, false, VariationPoint_ord, true, false, false);
+		Variants_ord, "Variants", Variants.class, false, VariationPoint_ord, true, false);
 		putSimpleEntity(Content_ord, "Content", Content.class, true, Empty_ord,
 				IterationPoint_ord, SelectionPoint_ord, InlineContent_ord,
 				ConditionPoint_ord, IncludePoint_ord, JoinPoint_ord,
@@ -318,7 +318,7 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 				false).withFeature(FramesFeatureDescriptorEnum.resource,
 				ResourceIdentifier_ord);
 		putCompositeEntity(
-		Relations_ord, "Relations", Relations.class, false, Relation_ord, true, false, false);
+		Relations_ord, "Relations", Relations.class, false, Relation_ord, true, false);
 		putSimpleEntity(Relation_ord, "Relation", Relation.class, true,
 				MutuallyExclude_ord, Exclude_ord, Pointcut_ord,
 				MutuallyRequire_ord, Require_ord);
@@ -340,13 +340,13 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 						FramesFeatureDescriptorEnum.excludedFeatures,
 						FeatureNames_ord);
 		putCompositeEntity(
-		MutuallyRequire_ord, "MutuallyRequire", MutuallyRequire.class, false, FeatureName_ord, false, false, false);
+		MutuallyRequire_ord, "MutuallyRequire", MutuallyRequire.class, false, FeatureName_ord, false, false);
 		putCompositeEntity(
-		MutuallyExclude_ord, "MutuallyExclude", MutuallyExclude.class, false, FeatureName_ord, false, false, false);
+		MutuallyExclude_ord, "MutuallyExclude", MutuallyExclude.class, false, FeatureName_ord, false, false);
 		putCompositeEntity(
-		FeatureNames_ord, "FeatureNames", FeatureNames.class, false, FeatureName_ord, false, false, false);
+		FeatureNames_ord, "FeatureNames", FeatureNames.class, false, FeatureName_ord, false, false);
 		putCompositeEntity(
-		Advices_ord, "Advices", Advices.class, false, Advice_ord, true, false, false);
+		Advices_ord, "Advices", Advices.class, false, Advice_ord, true, false);
 		putSimpleEntity(Advice_ord, "Advice", Advice.class, true, Before_ord,
 				Into_ord, After_ord, Around_ord)
 				.withFeature(FramesFeatureDescriptorEnum.joinpoints,
@@ -369,13 +369,13 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 						JoinpointExpression_ord).withFeature(
 						FramesFeatureDescriptorEnum.content, Content_ord);
 		putCompositeEntity(
-		Features_ord, "Features", Features.class, false, Feature_ord, true, false, false);
+		Features_ord, "Features", Features.class, false, Feature_ord, true, false);
 		putCompositeEntity(
-		Subfeatures_ord, "Subfeatures", Subfeatures.class, false, Subfeature_ord, true, false, false);
+		Subfeatures_ord, "Subfeatures", Subfeatures.class, false, Subfeature_ord, true, false);
 		putCompositeEntity(
-		VariableFeatures_ord, "VariableFeatures", VariableFeatures.class, false, VariableFeature_ord, true, false, false);
+		VariableFeatures_ord, "VariableFeatures", VariableFeatures.class, false, VariableFeature_ord, true, false);
 		putCompositeEntity(
-		SolitaryFeatures_ord, "SolitaryFeatures", SolitaryFeatures.class, false, SolitaryFeature_ord, true, false, false);
+		SolitaryFeatures_ord, "SolitaryFeatures", SolitaryFeatures.class, false, SolitaryFeature_ord, true, false);
 		putSimpleEntity(Subfeature_ord, "Subfeature", Subfeature.class, true,
 				VariableFeature_ord, CloneGroup_ord, FeatureReference_ord,
 				Attribute_ord, SubsetGroup_ord, SolitaryFeature_ord,
@@ -431,7 +431,7 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(VariableValue_ord, "VariableValue", VariableValue.class,
 				false, VariableValueEnum.Value.class);
 		putCompositeEntity(
-		Resources_ord, "Resources", Resources.class, false, Resource_ord, true, false, false);
+		Resources_ord, "Resources", Resources.class, false, Resource_ord, true, false);
 		putSimpleEntity(ResourceIdentifier_ord, "ResourceIdentifier",
 				ResourceIdentifier.class, true, Resource_ord, URI_ord);
 		putSimpleEntity(Resource_ord, "Resource", Resource.class, false)
@@ -488,16 +488,16 @@ public class FramesEntityDescriptorEnum extends EntityDescriptorEnum {
 				IntValue_ord).withFeature(FramesFeatureDescriptorEnum.max,
 				IntValue_ord, true, false, false, false, false);
 		putCompositeEntity(
-		Annotations_ord, "Annotations", Annotations.class, false, Annotation_ord, true, false, false);
+		Annotations_ord, "Annotations", Annotations.class, false, Annotation_ord, true, false);
 		putSimpleEntity(Annotation_ord, "Annotation", Annotation.class, true,
 				Stakeholders_ord, CustomAnnotation_ord, Description_ord,
 				BindingTime_ord, Categories_ord, Priority_ord);
 		putDataEntity(Description_ord, "Description", Description.class, false,
 				String.class);
 		putCompositeEntity(
-		Categories_ord, "Categories", Categories.class, false, Name_ord, true, false, false);
+		Categories_ord, "Categories", Categories.class, false, Name_ord, true, false);
 		putCompositeEntity(
-		Stakeholders_ord, "Stakeholders", Stakeholders.class, false, Name_ord, true, false, false);
+		Stakeholders_ord, "Stakeholders", Stakeholders.class, false, Name_ord, true, false);
 		putDataEntity(Priority_ord, "Priority", Priority.class, false,
 				int.class);
 		putDataEntity(BindingTime_ord, "BindingTime", BindingTime.class, false,

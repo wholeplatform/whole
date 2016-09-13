@@ -263,10 +263,10 @@ public class MathEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Expression_ord, "Expression", Expression.class, true, HyperbolicArctangent_ord, Arcsecant_ord, HyperbolicArcsecant_ord, Or_ord, Subset_ord, Rational_ord, Ceiling_ord, Exponential_ord, DecimalNumber_ord, NaturalLogarithm_ord, HyperbolicTangent_ord, GreaterThan_ord, BitwiseExclusiveOr_ord, Arcsine_ord, Boolean_ord, Selector_ord, RelationalExpression_ord, AbsoluteValue_ord, Root_ord, ShiftLeft_ord, LowestCommonMultiple_ord, Float_ord, HyperbolicSecant_ord, BitwiseExpression_ord, Minus_ord, Cosecant_ord, Intersection_ord, LessOrEqual_ord, GreatestCommonDivisor_ord, Minimum_ord, Set_ord, In_ord, NotIn_ord, Secant_ord, Union_ord, Remainder_ord, HyperbolicArcsine_ord, LogicExpression_ord, Division_ord, Arccosine_ord, GreaterOrEqual_ord, Tangent_ord, ArithmeticExpression_ord, ProperSubset_ord, HyperbolicCosine_ord, HyperbolicArccosecant_ord, HyperbolicCotangent_ord, Tuple_ord, ShiftRight_ord, Multiplication_ord, ByteInteger_ord, Sine_ord, Arccosecant_ord, Difference_ord, ShortInteger_ord, NotANumber_ord, Maximum_ord, LessThan_ord, Identifier_ord, Implies_ord, TrigonometricExpression_ord, Arctangent_ord, List_ord, Stream_ord, Cotangent_ord, Addition_ord, Cardinality_ord, NotSubset_ord, OrderedPair_ord, LongInteger_ord, ShiftExpression_ord, Sequence_ord, Double_ord, NotEquals_ord, Not_ord, BitwiseOr_ord, And_ord, BitwiseAnd_ord, Collection_ord, BigInteger_ord, HyperbolicCosecant_ord, BitwiseNot_ord, HyperbolicArccosine_ord, Cosine_ord, NotProperSubset_ord, Variable_ord, Constant_ord, HyperbolicSine_ord, Exponentiation_ord, ApproximatelyEqual_ord, Factorial_ord, Empty_ord, Number_ord, Logarithm_ord, CollectionExpression_ord, HyperbolicArccotangent_ord, ArithmeticShiftRight_ord, Floor_ord, Arccotangent_ord, BigDecimal_ord, Integer_ord, Equals_ord, FactorOf_ord, Subtraction_ord, IntegerNumber_ord, Quotient_ord, ExclusiveOr_ord);
         putSimpleEntity(ArithmeticExpression_ord, "ArithmeticExpression", ArithmeticExpression.class, true, Floor_ord, GreatestCommonDivisor_ord, Addition_ord, Multiplication_ord, AbsoluteValue_ord, Root_ord, Ceiling_ord, LowestCommonMultiple_ord, Exponentiation_ord, Remainder_ord, Factorial_ord, Subtraction_ord, Division_ord, Quotient_ord, Minus_ord);
         putCompositeEntity(
-		Addition_ord, "Addition", Addition.class, false, Expression_ord, true, false, false);
+		Addition_ord, "Addition", Addition.class, false, Expression_ord, true, false);
         putSimpleEntity(Subtraction_ord, "Subtraction", Subtraction.class, false).withFeature(MathFeatureDescriptorEnum.minuend, Expression_ord).withFeature(MathFeatureDescriptorEnum.subtrahend, Expression_ord);
         putCompositeEntity(
-		Multiplication_ord, "Multiplication", Multiplication.class, false, Expression_ord, true, false, false);
+		Multiplication_ord, "Multiplication", Multiplication.class, false, Expression_ord, true, false);
         putSimpleEntity(Division_ord, "Division", Division.class, false).withFeature(MathFeatureDescriptorEnum.dividend, Expression_ord).withFeature(MathFeatureDescriptorEnum.divisor, Expression_ord);
         putSimpleEntity(Quotient_ord, "Quotient", Quotient.class, false).withFeature(MathFeatureDescriptorEnum.dividend, Expression_ord).withFeature(MathFeatureDescriptorEnum.divisor, Expression_ord);
         putSimpleEntity(Remainder_ord, "Remainder", Remainder.class, false).withFeature(MathFeatureDescriptorEnum.dividend, Expression_ord).withFeature(MathFeatureDescriptorEnum.divisor, Expression_ord);
@@ -278,29 +278,29 @@ public class MathEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Ceiling_ord, "Ceiling", Ceiling.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(Factorial_ord, "Factorial", Factorial.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
         putCompositeEntity(
-		GreatestCommonDivisor_ord, "GreatestCommonDivisor", GreatestCommonDivisor.class, false, Expression_ord, true, false, false);
+		GreatestCommonDivisor_ord, "GreatestCommonDivisor", GreatestCommonDivisor.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		LowestCommonMultiple_ord, "LowestCommonMultiple", LowestCommonMultiple.class, false, Expression_ord, true, false, false);
+		LowestCommonMultiple_ord, "LowestCommonMultiple", LowestCommonMultiple.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		Maximum_ord, "Maximum", Maximum.class, false, Expression_ord, true, false, false);
+		Maximum_ord, "Maximum", Maximum.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		Minimum_ord, "Minimum", Minimum.class, false, Expression_ord, true, false, false);
+		Minimum_ord, "Minimum", Minimum.class, false, Expression_ord, true, false);
         putSimpleEntity(LogicExpression_ord, "LogicExpression", LogicExpression.class, true, ProperSubset_ord, NotProperSubset_ord, Not_ord, Or_ord, Implies_ord, Subset_ord, In_ord, NotSubset_ord, And_ord, NotIn_ord, ExclusiveOr_ord);
         putCompositeEntity(
-		And_ord, "And", And.class, false, Expression_ord, true, false, false);
+		And_ord, "And", And.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		Or_ord, "Or", Or.class, false, Expression_ord, true, false, false);
+		Or_ord, "Or", Or.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		ExclusiveOr_ord, "ExclusiveOr", ExclusiveOr.class, false, Expression_ord, true, false, false);
+		ExclusiveOr_ord, "ExclusiveOr", ExclusiveOr.class, false, Expression_ord, true, false);
         putSimpleEntity(Not_ord, "Not", Not.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(Implies_ord, "Implies", Implies.class, false).withFeature(MathFeatureDescriptorEnum.exp1, Expression_ord).withFeature(MathFeatureDescriptorEnum.exp2, Expression_ord);
         putSimpleEntity(BitwiseExpression_ord, "BitwiseExpression", BitwiseExpression.class, true, ShiftRight_ord, ShiftLeft_ord, BitwiseOr_ord, BitwiseExclusiveOr_ord, BitwiseAnd_ord, ShiftExpression_ord, BitwiseNot_ord, ArithmeticShiftRight_ord);
         putCompositeEntity(
-		BitwiseAnd_ord, "BitwiseAnd", BitwiseAnd.class, false, Expression_ord, true, false, false);
+		BitwiseAnd_ord, "BitwiseAnd", BitwiseAnd.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		BitwiseOr_ord, "BitwiseOr", BitwiseOr.class, false, Expression_ord, true, false, false);
+		BitwiseOr_ord, "BitwiseOr", BitwiseOr.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		BitwiseExclusiveOr_ord, "BitwiseExclusiveOr", BitwiseExclusiveOr.class, false, Expression_ord, true, false, false);
+		BitwiseExclusiveOr_ord, "BitwiseExclusiveOr", BitwiseExclusiveOr.class, false, Expression_ord, true, false);
         putSimpleEntity(BitwiseNot_ord, "BitwiseNot", BitwiseNot.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(ShiftExpression_ord, "ShiftExpression", ShiftExpression.class, true, ShiftRight_ord, ShiftLeft_ord, ArithmeticShiftRight_ord).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord).withFeature(MathFeatureDescriptorEnum.bits, Expression_ord);
         putSimpleEntity(ShiftLeft_ord, "ShiftLeft", ShiftLeft.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord).withFeature(MathFeatureDescriptorEnum.bits, Expression_ord);
@@ -308,17 +308,17 @@ public class MathEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(ArithmeticShiftRight_ord, "ArithmeticShiftRight", ArithmeticShiftRight.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord).withFeature(MathFeatureDescriptorEnum.bits, Expression_ord);
         putSimpleEntity(RelationalExpression_ord, "RelationalExpression", RelationalExpression.class, true, LessOrEqual_ord, Equals_ord, LessThan_ord, FactorOf_ord, GreaterThan_ord, GreaterOrEqual_ord, ApproximatelyEqual_ord, NotEquals_ord);
         putCompositeEntity(
-		Equals_ord, "Equals", Equals.class, false, Expression_ord, true, false, false);
+		Equals_ord, "Equals", Equals.class, false, Expression_ord, true, false);
         putSimpleEntity(NotEquals_ord, "NotEquals", NotEquals.class, false).withFeature(MathFeatureDescriptorEnum.exp1, Expression_ord).withFeature(MathFeatureDescriptorEnum.exp2, Expression_ord);
         putSimpleEntity(ApproximatelyEqual_ord, "ApproximatelyEqual", ApproximatelyEqual.class, false).withFeature(MathFeatureDescriptorEnum.exp1, Expression_ord).withFeature(MathFeatureDescriptorEnum.exp2, Expression_ord);
         putCompositeEntity(
-		GreaterThan_ord, "GreaterThan", GreaterThan.class, false, Expression_ord, true, false, false);
+		GreaterThan_ord, "GreaterThan", GreaterThan.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		LessThan_ord, "LessThan", LessThan.class, false, Expression_ord, true, false, false);
+		LessThan_ord, "LessThan", LessThan.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		GreaterOrEqual_ord, "GreaterOrEqual", GreaterOrEqual.class, false, Expression_ord, true, false, false);
+		GreaterOrEqual_ord, "GreaterOrEqual", GreaterOrEqual.class, false, Expression_ord, true, false);
         putCompositeEntity(
-		LessOrEqual_ord, "LessOrEqual", LessOrEqual.class, false, Expression_ord, true, false, false);
+		LessOrEqual_ord, "LessOrEqual", LessOrEqual.class, false, Expression_ord, true, false);
         putSimpleEntity(FactorOf_ord, "FactorOf", FactorOf.class, false).withFeature(MathFeatureDescriptorEnum.exp1, Expression_ord).withFeature(MathFeatureDescriptorEnum.exp2, Expression_ord);
         putSimpleEntity(Exponential_ord, "Exponential", Exponential.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(NaturalLogarithm_ord, "NaturalLogarithm", NaturalLogarithm.class, false).withFeature(MathFeatureDescriptorEnum.expression, Expression_ord);
@@ -355,24 +355,24 @@ public class MathEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(Sequence_ord, "Sequence", Sequence.class, true, List_ord, Stream_ord, Tuple_ord, OrderedPair_ord);
         putSimpleEntity(OrderedPair_ord, "OrderedPair", OrderedPair.class, false).withFeature(MathFeatureDescriptorEnum.first, Expression_ord).withFeature(MathFeatureDescriptorEnum.second, Expression_ord);
         putCompositeEntity(
-		Tuple_ord, "Tuple", Tuple.class, false, Expression_ord, true, false, false);
+		Tuple_ord, "Tuple", Tuple.class, false, Expression_ord, true, false);
         putSimpleEntity(List_ord, "List", List.class, false).withFeature(MathFeatureDescriptorEnum.elements, Constructor_ord);
         putSimpleEntity(Stream_ord, "Stream", Stream.class, false).withFeature(MathFeatureDescriptorEnum.elements, Constructor_ord);
         putSimpleEntity(Constructor_ord, "Constructor", Constructor.class, true, Enumeration_ord, Builder_ord);
         putCompositeEntity(
-		Enumeration_ord, "Enumeration", Enumeration.class, false, Expression_ord, true, false, false);
+		Enumeration_ord, "Enumeration", Enumeration.class, false, Expression_ord, true, false);
         putSimpleEntity(Builder_ord, "Builder", Builder.class, false).withFeature(MathFeatureDescriptorEnum.element, Expression_ord).withFeature(MathFeatureDescriptorEnum.rule, Expression_ord);
         putCompositeEntity(
-		Union_ord, "Union", Union.class, false, CollectionExpression_ord, true, false, false);
+		Union_ord, "Union", Union.class, false, CollectionExpression_ord, true, false);
         putCompositeEntity(
-		Intersection_ord, "Intersection", Intersection.class, false, CollectionExpression_ord, true, false, false);
+		Intersection_ord, "Intersection", Intersection.class, false, CollectionExpression_ord, true, false);
         putSimpleEntity(Difference_ord, "Difference", Difference.class, false).withFeature(MathFeatureDescriptorEnum.collection1, CollectionExpression_ord).withFeature(MathFeatureDescriptorEnum.collection2, CollectionExpression_ord);
         putSimpleEntity(In_ord, "In", In.class, false).withFeature(MathFeatureDescriptorEnum.element, Expression_ord).withFeature(MathFeatureDescriptorEnum.collection, CollectionExpression_ord);
         putSimpleEntity(NotIn_ord, "NotIn", NotIn.class, false).withFeature(MathFeatureDescriptorEnum.element, Expression_ord).withFeature(MathFeatureDescriptorEnum.collection, CollectionExpression_ord);
         putCompositeEntity(
-		Subset_ord, "Subset", Subset.class, false, CollectionExpression_ord, true, false, false);
+		Subset_ord, "Subset", Subset.class, false, CollectionExpression_ord, true, false);
         putCompositeEntity(
-		ProperSubset_ord, "ProperSubset", ProperSubset.class, false, CollectionExpression_ord, true, false, false);
+		ProperSubset_ord, "ProperSubset", ProperSubset.class, false, CollectionExpression_ord, true, false);
         putSimpleEntity(NotSubset_ord, "NotSubset", NotSubset.class, false).withFeature(MathFeatureDescriptorEnum.collection1, CollectionExpression_ord).withFeature(MathFeatureDescriptorEnum.collection2, CollectionExpression_ord);
         putSimpleEntity(NotProperSubset_ord, "NotProperSubset", NotProperSubset.class, false).withFeature(MathFeatureDescriptorEnum.collection1, CollectionExpression_ord).withFeature(MathFeatureDescriptorEnum.collection2, CollectionExpression_ord);
         putSimpleEntity(Cardinality_ord, "Cardinality", Cardinality.class, false).withFeature(MathFeatureDescriptorEnum.collection, CollectionExpression_ord);

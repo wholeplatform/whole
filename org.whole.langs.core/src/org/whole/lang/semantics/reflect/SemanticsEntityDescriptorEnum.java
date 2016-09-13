@@ -181,13 +181,13 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initEntityDescriptors() {
         putSimpleEntity(SemanticTheory_ord, "SemanticTheory", SemanticTheory.class, false).withFeature(SemanticsFeatureDescriptorEnum.uri, URI_ord).withFeature(SemanticsFeatureDescriptorEnum.namespace, Namespace_ord).withFeature(SemanticsFeatureDescriptorEnum.name, Name_ord).withFeature(SemanticsFeatureDescriptorEnum.version, Version_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.functions, SemanticFunctions_ord);
         putCompositeEntity(
-		SemanticFunctions_ord, "SemanticFunctions", SemanticFunctions.class, false, SemanticFunction_ord, true, false, false);
+		SemanticFunctions_ord, "SemanticFunctions", SemanticFunctions.class, false, SemanticFunction_ord, true, false);
         putSimpleEntity(SemanticFunction_ord, "SemanticFunction", SemanticFunction.class, false).withFeature(SemanticsFeatureDescriptorEnum.name, Name_ord).withFeature(SemanticsFeatureDescriptorEnum.signature, FunctionType_ord).withFeature(SemanticsFeatureDescriptorEnum.rules, FunctionBody_ord);
         putSimpleEntity(FunctionBody_ord, "FunctionBody", FunctionBody.class, true, InferenceRules_ord, Rules_ord);
         putCompositeEntity(
-		Rules_ord, "Rules", Rules.class, false, Rule_ord, true, false, false);
+		Rules_ord, "Rules", Rules.class, false, Rule_ord, true, false);
         putCompositeEntity(
-		InferenceRules_ord, "InferenceRules", InferenceRules.class, false, InferenceRule_ord, true, false, false);
+		InferenceRules_ord, "InferenceRules", InferenceRules.class, false, InferenceRule_ord, true, false);
         putSimpleEntity(SignatureOrSequence_ord, "SignatureOrSequence", SignatureOrSequence.class, true, LegacyType_ord, UnionType_ord, Category_ord, FunctionType_ord, ProductType_ord, SequenceType_ord, SubtypeType_ord, LanguageType_ord, EntityType_ord, TypedVariable_ord, SupertypeType_ord, EnvironmentType_ord, Signature_ord, AnyType_ord);
         putSimpleEntity(Signature_ord, "Signature", Signature.class, true, LegacyType_ord, EntityType_ord, UnionType_ord, TypedVariable_ord, SupertypeType_ord, Category_ord, EnvironmentType_ord, FunctionType_ord, ProductType_ord, SubtypeType_ord, AnyType_ord, LanguageType_ord);
         putSimpleEntity(Category_ord, "Category", Category.class, true, EntityType_ord, LegacyType_ord, UnionType_ord, SupertypeType_ord, EnvironmentType_ord, AnyType_ord, SubtypeType_ord, LanguageType_ord);
@@ -199,24 +199,24 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(EnvironmentType_ord, "EnvironmentType", EnvironmentType.class, false, String.class);
         putDataEntity(LegacyType_ord, "LegacyType", LegacyType.class, false, LegacyTypeEnum.Value.class);
         putCompositeEntity(
-		UnionType_ord, "UnionType", UnionType.class, false, Category_ord, true, false, false);
+		UnionType_ord, "UnionType", UnionType.class, false, Category_ord, true, false);
         putSimpleEntity(FunctionType_ord, "FunctionType", FunctionType.class, false).withFeature(SemanticsFeatureDescriptorEnum.source, SignatureOrSequence_ord).withFeature(SemanticsFeatureDescriptorEnum.target, SignatureOrSequence_ord);
         putSimpleEntity(SequenceType_ord, "SequenceType", SequenceType.class, false).withFeature(SemanticsFeatureDescriptorEnum.signature, Signature_ord);
         putSimpleEntity(SubtypeType_ord, "SubtypeType", SubtypeType.class, false).withFeature(SemanticsFeatureDescriptorEnum.category, EntityType_ord);
         putSimpleEntity(SupertypeType_ord, "SupertypeType", SupertypeType.class, false).withFeature(SemanticsFeatureDescriptorEnum.category, Category_ord);
         putCompositeEntity(
-		ProductType_ord, "ProductType", ProductType.class, false, Signature_ord, true, false, false);
+		ProductType_ord, "ProductType", ProductType.class, false, Signature_ord, true, false);
         putSimpleEntity(Rule_ord, "Rule", Rule.class, true, ExecutionRule_ord);
         putSimpleEntity(ExecutionRule_ord, "ExecutionRule", ExecutionRule.class, false).withFeature(SemanticsFeatureDescriptorEnum.name, Name_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.condition, Predicate_ord).withFeature(SemanticsFeatureDescriptorEnum.meaning, Expression_ord);
         putSimpleEntity(InferenceRule_ord, "InferenceRule", InferenceRule.class, false).withFeature(SemanticsFeatureDescriptorEnum.name, RuleName_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.premises, Premises_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.conclusion, Transition_ord).withFeature(SemanticsFeatureDescriptorEnum.condition, Predicate_ord, true, false, false, false, false);
         putCompositeEntity(
-		Premises_ord, "Premises", Premises.class, false, Premise_ord, true, false, false);
+		Premises_ord, "Premises", Premises.class, false, Premise_ord, true, false);
         putSimpleEntity(Premise_ord, "Premise", Premise.class, true, Transition_ord, InferenceRule_ord);
         putSimpleEntity(ConfigurationOrTransition_ord, "ConfigurationOrTransition", ConfigurationOrTransition.class, true, Configuration_ord, Transition_ord);
         putSimpleEntity(Transition_ord, "Transition", Transition.class, false).withFeature(SemanticsFeatureDescriptorEnum.sourceConfiguration, Configuration_ord).withFeature(SemanticsFeatureDescriptorEnum.targetConfiguration, ConfigurationOrTransition_ord);
         putSimpleEntity(Predicate_ord, "Predicate", Predicate.class, true, LegacyType_ord, EntityType_ord, UnionType_ord, TypedVariable_ord, SupertypeType_ord, Category_ord, EnvironmentType_ord, AbstractVariable_ord, StructuredVariable_ord, SubtypeType_ord, AnyType_ord, LanguageType_ord);
         putCompositeEntity(
-		Configuration_ord, "Configuration", Configuration.class, false, ConfigurationItem_ord, true, false, false);
+		Configuration_ord, "Configuration", Configuration.class, false, ConfigurationItem_ord, true, false);
         putSimpleEntity(ConfigurationItem_ord, "ConfigurationItem", ConfigurationItem.class, true, UnionType_ord, Category_ord, Variable_ord, FunctionApplication_ord, AbstractVariable_ord, LocalIdentifier_ord, StructuredVariable_ord, BindingsScope_ord, LanguageType_ord, Template_ord, Identifier_ord, IfDefTemplate_ord, WhereTemplate_ord, ChooseTemplate_ord, OutputBindings_ord, AnyType_ord, IfTemplate_ord, LegacyType_ord, VariableValue_ord, Term_ord, ForTemplate_ord, SubtypeType_ord, EntityType_ord, TypedVariable_ord, SupertypeType_ord, EnvironmentType_ord, Expression_ord, Environment_ord, EnvironmentVariable_ord, TypeCast_ord, InlineTemplate_ord);
         putSimpleEntity(BindingSubject_ord, "BindingSubject", BindingSubject.class, true, RenameGroup_ord, Identifier_ord, Variable_ord, VariableValue_ord, EnvironmentVariable_ord, LocalIdentifier_ord, StructuredVariable_ord);
         putSimpleEntity(Term_ord, "Term", Term.class, true, Variable_ord, VariableValue_ord, FunctionApplication_ord, LocalIdentifier_ord, ForTemplate_ord, StructuredVariable_ord, BindingsScope_ord, Template_ord, Identifier_ord, Expression_ord, IfDefTemplate_ord, WhereTemplate_ord, ChooseTemplate_ord, Environment_ord, OutputBindings_ord, EnvironmentVariable_ord, TypeCast_ord, IfTemplate_ord, InlineTemplate_ord);
@@ -230,14 +230,14 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(Variable_ord, "Variable", Variable.class, false, String.class);
         putSimpleEntity(VariableValue_ord, "VariableValue", VariableValue.class, false).withFeature(SemanticsFeatureDescriptorEnum.identifier, Identifier_ord);
         putCompositeEntity(
-		RenameGroup_ord, "RenameGroup", RenameGroup.class, false, Rename_ord, true, false, false);
+		RenameGroup_ord, "RenameGroup", RenameGroup.class, false, Rename_ord, true, false);
         putSimpleEntity(Rename_ord, "Rename", Rename.class, false).withFeature(SemanticsFeatureDescriptorEnum.newIdentifier, LocalIdentifier_ord).withFeature(SemanticsFeatureDescriptorEnum.oldIdentifier, LocalIdentifier_ord);
         putCompositeEntity(
-		Environments_ord, "Environments", Environments.class, false, Environment_ord, true, false, false);
+		Environments_ord, "Environments", Environments.class, false, Environment_ord, true, false);
         putSimpleEntity(Environment_ord, "Environment", Environment.class, true, BindingsScope_ord);
         putSimpleEntity(BindingsScope_ord, "BindingsScope", BindingsScope.class, false).withFeature(SemanticsFeatureDescriptorEnum.identifier, LocalIdentifier_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.bindings, LocalBindings_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.nestedScope, BindingsScope_ord, true, false, false, false, false);
         putCompositeEntity(
-		LocalBindings_ord, "LocalBindings", LocalBindings.class, false, LocalBinding_ord, false, true, false);
+		LocalBindings_ord, "LocalBindings", LocalBindings.class, false, LocalBinding_ord, false, true);
         putSimpleEntity(LocalBinding_ord, "LocalBinding", LocalBinding.class, false).withFeature(SemanticsFeatureDescriptorEnum.op, BindingOp_ord).withFeature(SemanticsFeatureDescriptorEnum.identifier, LocalIdentifier_ord, false, true, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
         putDataEntity(BindingOp_ord, "BindingOp", BindingOp.class, false, BindingOpEnum.Value.class);
         putSimpleEntity(EnvironmentVariable_ord, "EnvironmentVariable", EnvironmentVariable.class, false).withFeature(SemanticsFeatureDescriptorEnum.environment, LocalIdentifier_ord).withFeature(SemanticsFeatureDescriptorEnum.variable, LocalIdentifier_ord);
@@ -245,14 +245,14 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(FunctionApplication_ord, "FunctionApplication", FunctionApplication.class, false).withFeature(SemanticsFeatureDescriptorEnum.name, Name_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.arguments, Expression_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.environments, Environments_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.stage, StageChange_ord, true, false, false, false, false);
         putDataEntity(StageChange_ord, "StageChange", StageChange.class, false, StageChangeEnum.Value.class);
         putCompositeEntity(
-		OutputBindings_ord, "OutputBindings", OutputBindings.class, false, OutputBinding_ord, true, false, false);
+		OutputBindings_ord, "OutputBindings", OutputBindings.class, false, OutputBinding_ord, true, false);
         putSimpleEntity(OutputBinding_ord, "OutputBinding", OutputBinding.class, false).withFeature(SemanticsFeatureDescriptorEnum.identifier, BindingSubject_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord);
         putCompositeEntity(
-		InputBindings_ord, "InputBindings", InputBindings.class, false, InputBinding_ord, true, false, false);
+		InputBindings_ord, "InputBindings", InputBindings.class, false, InputBinding_ord, true, false);
         putSimpleEntity(InputBinding_ord, "InputBinding", InputBinding.class, false).withFeature(SemanticsFeatureDescriptorEnum.identifier, BindingSubject_ord, true, false, false, false, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(InlineTemplate_ord, "InlineTemplate", InlineTemplate.class, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Term_ord);
         putCompositeEntity(
-		ChooseTemplate_ord, "ChooseTemplate", ChooseTemplate.class, false, Case_ord, true, false, false);
+		ChooseTemplate_ord, "ChooseTemplate", ChooseTemplate.class, false, Case_ord, true, false);
         putSimpleEntity(Case_ord, "Case", Case.class, true, ForTemplate_ord, ElseTemplate_ord, IfDefTemplate_ord, IfTemplate_ord, WhereTemplate_ord).withFeature(SemanticsFeatureDescriptorEnum.expression, Term_ord);
         putSimpleEntity(WhereTemplate_ord, "WhereTemplate", WhereTemplate.class, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Term_ord).withFeature(SemanticsFeatureDescriptorEnum.where, InputBindings_ord);
         putSimpleEntity(ForTemplate_ord, "ForTemplate", ForTemplate.class, false).withFeature(SemanticsFeatureDescriptorEnum.expression, Term_ord).withFeature(SemanticsFeatureDescriptorEnum.condition, Expression_ord);

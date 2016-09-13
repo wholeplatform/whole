@@ -75,13 +75,13 @@ public class ChangesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(RevisionFrame_ord, "RevisionFrame", RevisionFrame.class, false).withFeature(ChangesFeatureDescriptorEnum.baseRevisions, Revisions_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.leftRevisions, Revisions_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.rightRevisions, Revisions_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.baseContent, Content_ord).withFeature(ChangesFeatureDescriptorEnum.leftContent, Content_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.rightContent, Content_ord, true, false, false, false, false);
         putSimpleEntity(RevisionTrack_ord, "RevisionTrack", RevisionTrack.class, false).withFeature(ChangesFeatureDescriptorEnum.revisions, Revisions_ord).withFeature(ChangesFeatureDescriptorEnum.compare, ContentCompare_ord);
         putCompositeEntity(
-		Revisions_ord, "Revisions", Revisions.class, false, Revision_ord, true, false, false);
+		Revisions_ord, "Revisions", Revisions.class, false, Revision_ord, true, false);
         putSimpleEntity(Revision_ord, "Revision", Revision.class, false).withFeature(ChangesFeatureDescriptorEnum.revisor, Revisor_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.changes, RevisionChanges_ord);
         putCompositeEntity(
-		RevisionChanges_ord, "RevisionChanges", RevisionChanges.class, false, RevisionChange_ord, true, false, false);
+		RevisionChanges_ord, "RevisionChanges", RevisionChanges.class, false, RevisionChange_ord, true, false);
         putSimpleEntity(RevisionChange_ord, "RevisionChange", RevisionChange.class, false).withFeature(ChangesFeatureDescriptorEnum.sides, ChangeSides_ord, ChangesFeatureDescriptorEnum.revisions, false, false, true, false, false);
-        putCompositeEntity(ChangeSides_ord, "ChangeSides", ChangeSides.class, true, ChangeSide_ord, false, true, false, true, false, false);
-        putCompositeEntity(ChangeRevisions_ord, "ChangeRevisions", ChangeRevisions.class, true, RevisionChange_ord, false, true, false, true, false, false);
+        putCompositeEntity(ChangeSides_ord, "ChangeSides", ChangeSides.class, true, ChangeSide_ord, false, true, true, false, false);
+        putCompositeEntity(ChangeRevisions_ord, "ChangeRevisions", ChangeRevisions.class, true, RevisionChange_ord, false, true, true, false, false);
         putSimpleEntity(ContentCompare_ord, "ContentCompare", ContentCompare.class, true, UnifiedCompare_ord, SideBySideCompare_ord);
         putSimpleEntity(UnifiedCompare_ord, "UnifiedCompare", UnifiedCompare.class, false).withFeature(ChangesFeatureDescriptorEnum.unifiedContent, Content_ord);
         putSimpleEntity(SideBySideCompare_ord, "SideBySideCompare", SideBySideCompare.class, false).withFeature(ChangesFeatureDescriptorEnum.baseContent, Content_ord, true, false, false, false, false).withFeature(ChangesFeatureDescriptorEnum.firstRevisedContent, Content_ord).withFeature(ChangesFeatureDescriptorEnum.secondRevisedContent, Content_ord);
@@ -90,7 +90,7 @@ public class ChangesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(ChangeSide_ord, "ChangeSide", ChangeSide.class, true, Delete_ord, Replace_ord, Comment_ord, Cut_ord, Wrap_ord, Copy_ord, Relate_ord, Paste_ord, Insert_ord).withFeature(ChangesFeatureDescriptorEnum.revisions, ChangeRevisions_ord, ChangesFeatureDescriptorEnum.sides, true, false, true, false, false);
         putSimpleEntity(Change_ord, "Change", Change.class, true, Changes_ord, Delete_ord, Replace_ord, Comment_ord, Cut_ord, Wrap_ord, Copy_ord, Relate_ord, Paste_ord, Insert_ord);
         putCompositeEntity(
-		Changes_ord, "Changes", Changes.class, false, Change_ord, true, false, false);
+		Changes_ord, "Changes", Changes.class, false, Change_ord, true, false);
         putSimpleEntity(Relate_ord, "Relate", Relate.class, false).withFeature(ChangesFeatureDescriptorEnum.content, Content_ord).withFeature(ChangesFeatureDescriptorEnum.revisions, ChangeRevisions_ord, ChangesFeatureDescriptorEnum.sides, true, false, true, false, false);
         putSimpleEntity(Cut_ord, "Cut", Cut.class, false).withFeature(ChangesFeatureDescriptorEnum.content, Content_ord).withFeature(ChangesFeatureDescriptorEnum.clipboard, Clipboard_ord).withFeature(ChangesFeatureDescriptorEnum.revisions, ChangeRevisions_ord, ChangesFeatureDescriptorEnum.sides, true, false, true, false, false);
         putSimpleEntity(Copy_ord, "Copy", Copy.class, false).withFeature(ChangesFeatureDescriptorEnum.content, Content_ord).withFeature(ChangesFeatureDescriptorEnum.clipboard, Clipboard_ord).withFeature(ChangesFeatureDescriptorEnum.revisions, ChangeRevisions_ord, ChangesFeatureDescriptorEnum.sides, true, false, true, false, false);

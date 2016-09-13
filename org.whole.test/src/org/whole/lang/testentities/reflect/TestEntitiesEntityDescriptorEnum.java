@@ -120,13 +120,13 @@ public class TestEntitiesEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestEntitiesFeatureDescriptorEnum.objectValue,
 						ObjectTestEntity_ord);
 		putCompositeEntity(
-		ListTestEntity_ord, "ListTestEntity", ListTestEntity.class, false, ITestEntity_ord, true, false, false);
+		ListTestEntity_ord, "ListTestEntity", ListTestEntity.class, false, ITestEntity_ord, true, false);
 		putCompositeEntity(
-		UListTestEntity_ord, "UListTestEntity", UListTestEntity.class, false, IStructuralEntity_ord, true, true, false);
+		UListTestEntity_ord, "UListTestEntity", UListTestEntity.class, false, IStructuralEntity_ord, true, true);
 		putCompositeEntity(
-		SetTestEntity_ord, "SetTestEntity", SetTestEntity.class, false, ITestEntity_ord, false, true, false);
+		SetTestEntity_ord, "SetTestEntity", SetTestEntity.class, false, ITestEntity_ord, false, true);
 		putCompositeEntity(
-		BagTestEntity_ord, "BagTestEntity", BagTestEntity.class, false, ITestEntity_ord, false, false, false);
+		BagTestEntity_ord, "BagTestEntity", BagTestEntity.class, false, ITestEntity_ord, false, false);
 		putMapEntity(MapTestEntity_ord, "MapTestEntity", MapTestEntity.class,
 				false, ITestEntity_ord, IStructuralEntity_ord);
 		putDataEntity(BooleanTestEntity_ord, "BooleanTestEntity",
