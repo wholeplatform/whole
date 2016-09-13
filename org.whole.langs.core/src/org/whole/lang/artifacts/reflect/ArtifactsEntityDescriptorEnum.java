@@ -100,8 +100,8 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 						Metadata_ord, true, false, false, false, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.projects,
 						Projects_ord);
-		putCompositeEntity(Projects_ord, "Projects", Projects.class, false,
-				Project_ord, true, true);
+		putCompositeEntity(
+		Projects_ord, "Projects", Projects.class, false, Project_ord, true, true, false);
 		putSimpleEntity(Project_ord, "Project", Project.class, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.name,
 						ProjectName_ord, false, true, false, false, false)
@@ -113,8 +113,8 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 						Artifacts_ord)
 				.withFeature(ArtifactsFeatureDescriptorEnum.locationURI,
 						LocationURI_ord, true, false, false, false, false);
-		putCompositeEntity(Artifacts_ord, "Artifacts", Artifacts.class, false,
-				Artifact_ord, true, false);
+		putCompositeEntity(
+		Artifacts_ord, "Artifacts", Artifacts.class, false, Artifact_ord, true, false, false);
 		putSimpleEntity(PackageArtifact_ord, "PackageArtifact",
 				PackageArtifact.class, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.name,
@@ -138,8 +138,8 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 						Metadata_ord, true, false, false, false, false)
 				.withFeature(ArtifactsFeatureDescriptorEnum.content,
 						Content_ord);
-		putCompositeEntity(Natures_ord, "Natures", Natures.class, false,
-				Nature_ord, true, false);
+		putCompositeEntity(
+		Natures_ord, "Natures", Natures.class, false, Nature_ord, true, false, false);
 		putDataEntity(Nature_ord, "Nature", Nature.class, false, String.class);
 		putDataEntity(LocationURI_ord, "LocationURI", LocationURI.class, false,
 				String.class);
@@ -166,8 +166,8 @@ public class ArtifactsEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(Author_ord, "Author", Author.class, false, String.class);
 		putDataEntity(Extension_ord, "Extension", Extension.class, false,
 				String.class);
-		putCompositeEntity(Attributes_ord, "Attributes", Attributes.class,
-				false, Attribute_ord, false, true);
+		putCompositeEntity(
+		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, false, true, false);
 		putDataEntity(Attribute_ord, "Attribute", Attribute.class, false,
 				AttributeEnum.Value.class);
 		putDataEntity(PersistenceKitId_ord, "PersistenceKitId",

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 
 /**
  * @author Riccardo Solmi
@@ -45,15 +46,11 @@ public class NotationStyling implements INotationStyling {
 	}
 
 	public EmbeddingStyle getEmbeddingStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
-		//FIXME contextPart is not properly virtualized
-		try {
 		if (!(contextPart instanceof IStyledPart))
 			return EmbeddingStyle.NONE;
 
 		IEntity parentEntity = stylingFactory.getParentEntity(entity);
 		IEntityPart parentContextPart = stylingFactory.getParentPart(contextPart);
-//		if (parentContextPart.getModelEntity() != parentEntity)
-//			return Optional.empty();
 
 		IEntityStyling parentEntityStyling = getEntityStyling(stylingFactory, parentContextPart, parentEntity);
 		boolean embedChild = parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));
@@ -68,10 +65,51 @@ public class NotationStyling implements INotationStyling {
 			}
 		} else
 			return EmbeddingStyle.NONE;
-			} catch (Exception e) {
-			//FIXME
-			return EmbeddingStyle.NONE;
+	}
+
+	public boolean isEmbedded(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
+		if (!(contextPart instanceof IStyledPart))
+			return false;
+
+		IEntityStyling entityStyling = getEntityStyling(stylingFactory, contextPart, entity);
+		LayoutStyle layoutStyle = entityStyling.getLayoutStyle();
+		
+		IEntity parentEntity = stylingFactory.getParentEntity(entity);
+		IEntityPart parentContextPart = stylingFactory.getParentPart(contextPart);
+
+		IEntityStyling parentEntityStyling = getEntityStyling(stylingFactory, parentContextPart, parentEntity);
+		boolean embedChild = parentEntityStyling.embedChild(entity.wGetParent().wIndexOf(entity));
+		if (embedChild)
+			return true;
+		else {
+			LayoutStyle parentLayoutStyle = parentEntityStyling.getLayoutStyle();
+			switch (parentLayoutStyle) {
+			case COLUMN:
+			case COMPOSITE_TABLE:
+				return embedChild;
+			case TABLE_CELL:
+			case TABLE_ROW:
+				return true;
+			case TREE:
+				return false;
+			case SIMPLE_TABLE:
+			default:
+				return isEmbedded(stylingFactory, parentContextPart, parentEntity);
+			}
 		}
 	}
 
+	public LayoutStyle getLayoutStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
+		IEntityStyling entityStyling = getEntityStyling(stylingFactory, contextPart, entity);
+		LayoutStyle layoutStyle = entityStyling.getLayoutStyle();
+		switch (layoutStyle) {
+		case SIMPLE_TABLE:
+		case COMPOSITE_TABLE:
+			EmbeddingStyle embeddingStyle = getEmbeddingStyle(stylingFactory, contextPart, entity);
+			return embeddingStyle.equals(EmbeddingStyle.NONE) ? layoutStyle :
+				embeddingStyle.equals(EmbeddingStyle.TABLE_CELL) ? LayoutStyle.TABLE_CELL : LayoutStyle.TABLE_ROW;
+		default:
+			return layoutStyle;
+		}
+	}
 }

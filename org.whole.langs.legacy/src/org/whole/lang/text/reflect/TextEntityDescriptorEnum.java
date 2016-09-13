@@ -41,15 +41,15 @@ public class TextEntityDescriptorEnum extends EntityDescriptorEnum {
 	private static final long serialVersionUID = 1;
 
 	protected void initEntityDescriptors() {
-		putCompositeEntity(Document_ord, "Document", Document.class, false,
-				IRow_ord, true, false);
+		putCompositeEntity(
+		Document_ord, "Document", Document.class, false, IRow_ord, true, false, false);
 		putDataEntity(Indent_ord, "Indent", Indent.class, false, int.class);
 		putDataEntity(RowSeparator_ord, "RowSeparator", RowSeparator.class,
 				false, String.class);
 		putDataEntity(TextSeparator_ord, "TextSeparator", TextSeparator.class,
 				false, String.class);
-		putCompositeEntity(Row_ord, "Row", Row.class, false, IText_ord, true,
-				false);
+		putCompositeEntity(
+		Row_ord, "Row", Row.class, false, IText_ord, true, false, false);
 		putDataEntity(Text_ord, "Text", Text.class, false, String.class);
 		putSimpleEntity(IText_ord, "IText", IText.class, true, Text_ord,
 				TextSeparator_ord, Row_ord);

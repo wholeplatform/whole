@@ -317,7 +317,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
     private static final long serialVersionUID = 1;
 
     protected void initEntityDescriptors() {
-        putCompositeEntity(JavaSystemSoftware_ord, "JavaSystemSoftware", JavaSystemSoftware.class, false, CompilationUnit_ord, true, false);
+        putCompositeEntity(
+		JavaSystemSoftware_ord, "JavaSystemSoftware", JavaSystemSoftware.class, false, CompilationUnit_ord, true, false, false);
         putSimpleEntity(CompilationUnit_ord, "CompilationUnit", CompilationUnit.class, false).withFeature(JavaFeatureDescriptorEnum._package, PackageDeclaration_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.imports, ImportDeclarations_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.types, TypeDeclarations_ord);
         putSimpleEntity(PackageDeclaration_ord, "PackageDeclaration", PackageDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.annotations, Annotations_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, Name_ord);
         putSimpleEntity(Statement_ord, "Statement", Statement.class, true, DoStatement_ord, EmptyStatement_ord, Javadoc_ord, LineComment_ord, WhileStatement_ord, SynchronizedStatement_ord, IfStatement_ord, SwitchStatement_ord, ConstructorInvocation_ord, TryStatement_ord, ReturnStatement_ord, VariableDeclarationStatement_ord, EnhancedForStatement_ord, ThrowStatement_ord, ForStatement_ord, ContinueStatement_ord, Comment_ord, BlockComment_ord, SwitchDefault_ord, BreakStatement_ord, SwitchCase_ord, LabeledStatement_ord, TypeDeclarationStatement_ord, ExpressionStatement_ord, AssertStatement_ord, Block_ord, SuperConstructorInvocation_ord);
@@ -326,47 +327,61 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(BlockComment_ord, "BlockComment", BlockComment.class, false).withFeature(JavaFeatureDescriptorEnum.docElements, DocElements_ord);
         putSimpleEntity(LineComment_ord, "LineComment", LineComment.class, false).withFeature(JavaFeatureDescriptorEnum.text, TextElement_ord);
         putSimpleEntity(Javadoc_ord, "Javadoc", Javadoc.class, false).withFeature(JavaFeatureDescriptorEnum.tags, Tags_ord);
-        putCompositeEntity(Tags_ord, "Tags", Tags.class, false, TagElement_ord, true, false);
-        putCompositeEntity(DocElements_ord, "DocElements", DocElements.class, false, DocElement_ord, true, false);
+        putCompositeEntity(
+		Tags_ord, "Tags", Tags.class, false, TagElement_ord, true, false, false);
+        putCompositeEntity(
+		DocElements_ord, "DocElements", DocElements.class, false, DocElement_ord, true, false, false);
         putSimpleEntity(MethodRef_ord, "MethodRef", MethodRef.class, false).withFeature(JavaFeatureDescriptorEnum.qualifier, Name_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.parameters, MethodRefParameters_ord, true, false, false, false, false);
-        putCompositeEntity(MethodRefParameters_ord, "MethodRefParameters", MethodRefParameters.class, false, MethodRefParameter_ord, true, false);
+        putCompositeEntity(
+		MethodRefParameters_ord, "MethodRefParameters", MethodRefParameters.class, false, MethodRefParameter_ord, true, false, false);
         putSimpleEntity(MethodRefParameter_ord, "MethodRefParameter", MethodRefParameter.class, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.varargs, Varargs_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord, true, false, false, false, false);
         putSimpleEntity(MemberRef_ord, "MemberRef", MemberRef.class, false).withFeature(JavaFeatureDescriptorEnum.qualifier, Name_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord);
         putDataEntity(TextElement_ord, "TextElement", TextElement.class, false, String.class);
         putSimpleEntity(TagElement_ord, "TagElement", TagElement.class, false).withFeature(JavaFeatureDescriptorEnum.tagName, TagName_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.fragments, DocElements_ord);
         putDataEntity(TagName_ord, "TagName", TagName.class, false, String.class);
-        putCompositeEntity(Annotations_ord, "Annotations", Annotations.class, false, Annotation_ord, true, false);
+        putCompositeEntity(
+		Annotations_ord, "Annotations", Annotations.class, false, Annotation_ord, true, false, false);
         putSimpleEntity(Annotation_ord, "Annotation", Annotation.class, true, NormalAnnotation_ord, SingleMemberAnnotation_ord, MarkerAnnotation_ord).withFeature(JavaFeatureDescriptorEnum.typeName, Name_ord);
         putSimpleEntity(SingleMemberAnnotation_ord, "SingleMemberAnnotation", SingleMemberAnnotation.class, false).withFeature(JavaFeatureDescriptorEnum.typeName, Name_ord).withFeature(JavaFeatureDescriptorEnum.value, Expression_ord);
         putSimpleEntity(MarkerAnnotation_ord, "MarkerAnnotation", MarkerAnnotation.class, false).withFeature(JavaFeatureDescriptorEnum.typeName, Name_ord);
         putSimpleEntity(NormalAnnotation_ord, "NormalAnnotation", NormalAnnotation.class, false).withFeature(JavaFeatureDescriptorEnum.typeName, Name_ord).withFeature(JavaFeatureDescriptorEnum.values, MemberValuePairs_ord);
-        putCompositeEntity(MemberValuePairs_ord, "MemberValuePairs", MemberValuePairs.class, false, MemberValuePair_ord, true, false);
+        putCompositeEntity(
+		MemberValuePairs_ord, "MemberValuePairs", MemberValuePairs.class, false, MemberValuePair_ord, true, false, false);
         putSimpleEntity(MemberValuePair_ord, "MemberValuePair", MemberValuePair.class, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.value, Expression_ord);
-        putCompositeEntity(ImportDeclarations_ord, "ImportDeclarations", ImportDeclarations.class, false, ImportDeclaration_ord, true, false);
+        putCompositeEntity(
+		ImportDeclarations_ord, "ImportDeclarations", ImportDeclarations.class, false, ImportDeclaration_ord, true, false, false);
         putSimpleEntity(ImportDeclaration_ord, "ImportDeclaration", ImportDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.name, Name_ord).withFeature(JavaFeatureDescriptorEnum.onDemand, ImportModifier_ord).withFeature(JavaFeatureDescriptorEnum._static, ImportModifier_ord);
         putDataEntity(ImportModifier_ord, "ImportModifier", ImportModifier.class, false, boolean.class);
-        putCompositeEntity(TypeDeclarations_ord, "TypeDeclarations", TypeDeclarations.class, false, TypeDeclaration_ord, true, false);
+        putCompositeEntity(
+		TypeDeclarations_ord, "TypeDeclarations", TypeDeclarations.class, false, TypeDeclaration_ord, true, false, false);
         putSimpleEntity(BodyDeclaration_ord, "BodyDeclaration", BodyDeclaration.class, true, Comment_ord, BlockComment_ord, MethodDeclaration_ord, Javadoc_ord, AnnotationTypeDeclaration_ord, InterfaceDeclaration_ord, LineComment_ord, FieldDeclaration_ord, EnumDeclaration_ord, EnumConstantDeclaration_ord, ClassDeclaration_ord, AnnotationTypeMemberDeclaration_ord, Initializer_ord, ConstructorDeclaration_ord, TypeDeclaration_ord, AnnotatedBodyDeclaration_ord);
         putSimpleEntity(AnnotatedBodyDeclaration_ord, "AnnotatedBodyDeclaration", AnnotatedBodyDeclaration.class, true, EnumConstantDeclaration_ord, ClassDeclaration_ord, AnnotationTypeMemberDeclaration_ord, Initializer_ord, MethodDeclaration_ord, ConstructorDeclaration_ord, AnnotationTypeDeclaration_ord, InterfaceDeclaration_ord, TypeDeclaration_ord, FieldDeclaration_ord, EnumDeclaration_ord).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false);
         putSimpleEntity(TypeDeclaration_ord, "TypeDeclaration", TypeDeclaration.class, true, AnnotationTypeDeclaration_ord, InterfaceDeclaration_ord, ClassDeclaration_ord, EnumDeclaration_ord).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.bodyDeclarations, BodyDeclarations_ord);
         putSimpleEntity(EnumDeclaration_ord, "EnumDeclaration", EnumDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.superInterfaceTypes, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.enumConstants, EnumConstants_ord).withFeature(JavaFeatureDescriptorEnum.bodyDeclarations, BodyDeclarations_ord);
-        putCompositeEntity(EnumConstants_ord, "EnumConstants", EnumConstants.class, false, EnumConstantDeclaration_ord, true, false);
+        putCompositeEntity(
+		EnumConstants_ord, "EnumConstants", EnumConstants.class, false, EnumConstantDeclaration_ord, true, false, false);
         putSimpleEntity(EnumConstantDeclaration_ord, "EnumConstantDeclaration", EnumConstantDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.arguments, Arguments_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.anonymousClassDeclaration, AnonymousClassDeclaration_ord, true, false, false, false, false);
-        putCompositeEntity(Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false);
-        putCompositeEntity(AnonymousClassDeclaration_ord, "AnonymousClassDeclaration", AnonymousClassDeclaration.class, false, BodyDeclaration_ord, true, false);
+        putCompositeEntity(
+		Arguments_ord, "Arguments", Arguments.class, false, Expression_ord, true, false, false);
+        putCompositeEntity(
+		AnonymousClassDeclaration_ord, "AnonymousClassDeclaration", AnonymousClassDeclaration.class, false, BodyDeclaration_ord, true, false, false);
         putSimpleEntity(AnnotationTypeDeclaration_ord, "AnnotationTypeDeclaration", AnnotationTypeDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.bodyDeclarations, BodyDeclarations_ord);
         putSimpleEntity(ClassDeclaration_ord, "ClassDeclaration", ClassDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.typeParameters, TypeParameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.superclassType, Type_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.superInterfaceTypes, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.bodyDeclarations, BodyDeclarations_ord);
         putSimpleEntity(InterfaceDeclaration_ord, "InterfaceDeclaration", InterfaceDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.typeParameters, TypeParameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.superInterfaceTypes, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.bodyDeclarations, BodyDeclarations_ord);
-        putCompositeEntity(TypeParameters_ord, "TypeParameters", TypeParameters.class, false, TypeParameter_ord, true, false);
+        putCompositeEntity(
+		TypeParameters_ord, "TypeParameters", TypeParameters.class, false, TypeParameter_ord, true, false, false);
         putSimpleEntity(TypeParameter_ord, "TypeParameter", TypeParameter.class, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.typeBounds, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.annotations, Annotations_ord, true, false, false, false, false);
-        putCompositeEntity(Types_ord, "Types", Types.class, false, Type_ord, true, false);
-        putCompositeEntity(BodyDeclarations_ord, "BodyDeclarations", BodyDeclarations.class, false, BodyDeclaration_ord, true, false);
+        putCompositeEntity(
+		Types_ord, "Types", Types.class, false, Type_ord, true, false, false);
+        putCompositeEntity(
+		BodyDeclarations_ord, "BodyDeclarations", BodyDeclarations.class, false, BodyDeclaration_ord, true, false, false);
         putSimpleEntity(AnnotationTypeMemberDeclaration_ord, "AnnotationTypeMemberDeclaration", AnnotationTypeMemberDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum._default, Expression_ord, true, false, false, false, false);
         putSimpleEntity(Initializer_ord, "Initializer", Initializer.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.body, Block_ord);
         putSimpleEntity(FieldDeclaration_ord, "FieldDeclaration", FieldDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.fragments, VariableDeclarationFragments_ord, true, false, false, false, false);
         putSimpleEntity(MethodDeclaration_ord, "MethodDeclaration", MethodDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.typeParameters, TypeParameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.returnType, Type_ord).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.parameters, Parameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.extraDimensions, ExtraDimensions_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.thrownExceptions, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.body, Block_ord, true, false, false, false, false);
         putSimpleEntity(ConstructorDeclaration_ord, "ConstructorDeclaration", ConstructorDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.javadoc, Javadoc_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.typeParameters, TypeParameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.parameters, Parameters_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.extraDimensions, ExtraDimensions_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.thrownExceptions, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.body, Block_ord);
-        putCompositeEntity(Parameters_ord, "Parameters", Parameters.class, false, SingleVariableDeclaration_ord, true, false);
+        putCompositeEntity(
+		Parameters_ord, "Parameters", Parameters.class, false, SingleVariableDeclaration_ord, true, false, false);
         putSimpleEntity(SingleVariableDeclaration_ord, "SingleVariableDeclaration", SingleVariableDeclaration.class, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.varargs, Varargs_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.extraDimensions, ExtraDimensions_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.initializer, Expression_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.varargsAnnotations, Annotations_ord, true, false, false, false, false);
         putDataEntity(Varargs_ord, "Varargs", Varargs.class, false, boolean.class);
         putSimpleEntity(AnnotatedType_ord, "AnnotatedType", AnnotatedType.class, false).withFeature(JavaFeatureDescriptorEnum.annotations, Annotations_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord);
@@ -376,11 +391,14 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(QualifiedType_ord, "QualifiedType", QualifiedType.class, false, String.class);
         putDataEntity(SimpleType_ord, "SimpleType", SimpleType.class, false, String.class);
         putSimpleEntity(WildcardType_ord, "WildcardType", WildcardType.class, false).withFeature(JavaFeatureDescriptorEnum.bound, Type_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.upperBound, UpperBound_ord);
-        putCompositeEntity(UnionType_ord, "UnionType", UnionType.class, false, Type_ord, true, false);
-        putCompositeEntity(IntersectionType_ord, "IntersectionType", IntersectionType.class, false, Type_ord, true, false);
+        putCompositeEntity(
+		UnionType_ord, "UnionType", UnionType.class, false, Type_ord, true, false, false);
+        putCompositeEntity(
+		IntersectionType_ord, "IntersectionType", IntersectionType.class, false, Type_ord, true, false, false);
         putDataEntity(UpperBound_ord, "UpperBound", UpperBound.class, false, boolean.class);
         putSimpleEntity(AssertStatement_ord, "AssertStatement", AssertStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.message, Expression_ord, true, false, false, false, false);
-        putCompositeEntity(Block_ord, "Block", Block.class, false, Statement_ord, true, false);
+        putCompositeEntity(
+		Block_ord, "Block", Block.class, false, Statement_ord, true, false, false);
         putSimpleEntity(BreakStatement_ord, "BreakStatement", BreakStatement.class, false).withFeature(JavaFeatureDescriptorEnum.label, SimpleName_ord, true, false, false, false, false);
         putSimpleEntity(ConstructorInvocation_ord, "ConstructorInvocation", ConstructorInvocation.class, false).withFeature(JavaFeatureDescriptorEnum.typeArguments, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.arguments, Arguments_ord, true, false, false, false, false);
         putSimpleEntity(ContinueStatement_ord, "ContinueStatement", ContinueStatement.class, false).withFeature(JavaFeatureDescriptorEnum.label, SimpleName_ord, true, false, false, false, false);
@@ -389,7 +407,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(EnhancedForStatement_ord, "EnhancedForStatement", EnhancedForStatement.class, false).withFeature(JavaFeatureDescriptorEnum.parameter, SingleVariableDeclaration_ord).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.body, Statement_ord);
         putSimpleEntity(ExpressionStatement_ord, "ExpressionStatement", ExpressionStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(ForStatement_ord, "ForStatement", ForStatement.class, false).withFeature(JavaFeatureDescriptorEnum.initializers, Expressions_ord).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.updaters, Expressions_ord).withFeature(JavaFeatureDescriptorEnum.body, Statement_ord);
-        putCompositeEntity(Expressions_ord, "Expressions", Expressions.class, false, Expression_ord, true, false);
+        putCompositeEntity(
+		Expressions_ord, "Expressions", Expressions.class, false, Expression_ord, true, false, false);
         putSimpleEntity(IfStatement_ord, "IfStatement", IfStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.thenStatement, Statement_ord).withFeature(JavaFeatureDescriptorEnum.elseStatement, Statement_ord, true, false, false, false, false);
         putSimpleEntity(LabeledStatement_ord, "LabeledStatement", LabeledStatement.class, false).withFeature(JavaFeatureDescriptorEnum.label, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.body, Statement_ord);
         putSimpleEntity(ReturnStatement_ord, "ReturnStatement", ReturnStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord, true, false, false, false, false);
@@ -397,11 +416,13 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(SwitchCase_ord, "SwitchCase", SwitchCase.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(SwitchDefault_ord, "SwitchDefault", SwitchDefault.class, false);
         putSimpleEntity(SwitchStatement_ord, "SwitchStatement", SwitchStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.statements, Statements_ord);
-        putCompositeEntity(Statements_ord, "Statements", Statements.class, false, Statement_ord, true, false);
+        putCompositeEntity(
+		Statements_ord, "Statements", Statements.class, false, Statement_ord, true, false, false);
         putSimpleEntity(SynchronizedStatement_ord, "SynchronizedStatement", SynchronizedStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord).withFeature(JavaFeatureDescriptorEnum.body, Block_ord);
         putSimpleEntity(ThrowStatement_ord, "ThrowStatement", ThrowStatement.class, false).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord);
         putSimpleEntity(TryStatement_ord, "TryStatement", TryStatement.class, false).withFeature(JavaFeatureDescriptorEnum.body, Block_ord).withFeature(JavaFeatureDescriptorEnum.catchClauses, CatchClauses_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum._finally, Block_ord);
-        putCompositeEntity(CatchClauses_ord, "CatchClauses", CatchClauses.class, false, CatchClause_ord, true, false);
+        putCompositeEntity(
+		CatchClauses_ord, "CatchClauses", CatchClauses.class, false, CatchClause_ord, true, false, false);
         putSimpleEntity(CatchClause_ord, "CatchClause", CatchClause.class, false).withFeature(JavaFeatureDescriptorEnum.exception, SingleVariableDeclaration_ord).withFeature(JavaFeatureDescriptorEnum.body, Block_ord);
         putSimpleEntity(TypeDeclarationStatement_ord, "TypeDeclarationStatement", TypeDeclarationStatement.class, false).withFeature(JavaFeatureDescriptorEnum.typeDeclaration, TypeDeclaration_ord);
         putSimpleEntity(VariableDeclarationStatement_ord, "VariableDeclarationStatement", VariableDeclarationStatement.class, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.fragments, VariableDeclarationFragments_ord, true, false, false, false, false);
@@ -422,7 +443,8 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(TypeLiteral_ord, "TypeLiteral", TypeLiteral.class, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord);
         putSimpleEntity(ArrayAccess_ord, "ArrayAccess", ArrayAccess.class, false).withFeature(JavaFeatureDescriptorEnum.array, Expression_ord).withFeature(JavaFeatureDescriptorEnum.index, Expression_ord);
         putSimpleEntity(ArrayCreation_ord, "ArrayCreation", ArrayCreation.class, false).withFeature(JavaFeatureDescriptorEnum.type, ArrayType_ord).withFeature(JavaFeatureDescriptorEnum.dimensions, Expressions_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.initializer, ArrayInitializer_ord, true, false, false, false, false);
-        putCompositeEntity(ArrayInitializer_ord, "ArrayInitializer", ArrayInitializer.class, false, Expression_ord, true, false);
+        putCompositeEntity(
+		ArrayInitializer_ord, "ArrayInitializer", ArrayInitializer.class, false, Expression_ord, true, false, false);
         putSimpleEntity(Assignment_ord, "Assignment", Assignment.class, false).withFeature(JavaFeatureDescriptorEnum.leftHandSide, Expression_ord).withFeature(JavaFeatureDescriptorEnum.operator, AssignmentOperator_ord).withFeature(JavaFeatureDescriptorEnum.rightHandSide, Expression_ord);
         putDataEntity(AssignmentOperator_ord, "AssignmentOperator", AssignmentOperator.class, false, AssignmentOperatorEnum.Value.class);
         putSimpleEntity(CastExpression_ord, "CastExpression", CastExpression.class, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.expression, Expression_ord);
@@ -443,10 +465,12 @@ public class JavaEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(SuperMethodInvocation_ord, "SuperMethodInvocation", SuperMethodInvocation.class, false).withFeature(JavaFeatureDescriptorEnum.qualifier, Name_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.typeArguments, Types_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.arguments, Arguments_ord, true, false, false, false, false);
         putSimpleEntity(ThisExpression_ord, "ThisExpression", ThisExpression.class, false).withFeature(JavaFeatureDescriptorEnum.qualifier, Name_ord, true, false, false, false, false);
         putSimpleEntity(VariableDeclarationExpression_ord, "VariableDeclarationExpression", VariableDeclarationExpression.class, false).withFeature(JavaFeatureDescriptorEnum.modifiers, ExtendedModifiers_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.fragments, VariableDeclarationFragments_ord);
-        putCompositeEntity(VariableDeclarationFragments_ord, "VariableDeclarationFragments", VariableDeclarationFragments.class, false, VariableDeclarationFragment_ord, true, false);
+        putCompositeEntity(
+		VariableDeclarationFragments_ord, "VariableDeclarationFragments", VariableDeclarationFragments.class, false, VariableDeclarationFragment_ord, true, false, false);
         putSimpleEntity(VariableDeclarationFragment_ord, "VariableDeclarationFragment", VariableDeclarationFragment.class, false).withFeature(JavaFeatureDescriptorEnum.name, SimpleName_ord).withFeature(JavaFeatureDescriptorEnum.extraDimensions, ExtraDimensions_ord, true, false, false, false, false).withFeature(JavaFeatureDescriptorEnum.initializer, Expression_ord, true, false, false, false, false);
         putDataEntity(ExtraDimensions_ord, "ExtraDimensions", ExtraDimensions.class, false, int.class);
-        putCompositeEntity(ExtendedModifiers_ord, "ExtendedModifiers", ExtendedModifiers.class, false, ExtendedModifier_ord, true, false);
+        putCompositeEntity(
+		ExtendedModifiers_ord, "ExtendedModifiers", ExtendedModifiers.class, false, ExtendedModifier_ord, true, false, false);
         putDataEntity(Modifier_ord, "Modifier", Modifier.class, false, ModifierEnum.Value.class);
         putSimpleEntity(MethodReference_ord, "MethodReference", MethodReference.class, true, ExpressionMethodReference_ord, TypeMethodReference_ord, ConstructorReference_ord, SuperMethodReference_ord).withFeature(JavaFeatureDescriptorEnum.typeArguments, Types_ord, true, false, false, false, false);
         putSimpleEntity(ConstructorReference_ord, "ConstructorReference", ConstructorReference.class, false).withFeature(JavaFeatureDescriptorEnum.type, Type_ord).withFeature(JavaFeatureDescriptorEnum.typeArguments, Types_ord, true, false, false, false, false);

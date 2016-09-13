@@ -350,8 +350,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 	private static final long serialVersionUID = 1;
 
 	protected void initEntityDescriptors() {
-		putCompositeEntity(SQLStatements_ord, "SQLStatements",
-				SQLStatements.class, false, SQLStatement_ord, true, false);
+		putCompositeEntity(
+		SQLStatements_ord, "SQLStatements", SQLStatements.class, false, SQLStatement_ord, true, false, false);
 		putSimpleEntity(SelectSQLStatement_ord, "SelectSQLStatement",
 				SelectSQLStatement.class, true, Select_ord, UnionSelect_ord);
 		putSimpleEntity(SQLStatement_ord, "SQLStatement", SQLStatement.class,
@@ -446,9 +446,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 						IndexDeclarations_ord);
 		putSimpleEntity(UniqueIndex_ord, "UniqueIndex", UniqueIndex.class,
 				false);
-		putCompositeEntity(IndexDeclarations_ord, "IndexDeclarations",
-				IndexDeclarations.class, false, IndexDeclaration_ord, false,
-				true);
+		putCompositeEntity(
+		IndexDeclarations_ord, "IndexDeclarations", IndexDeclarations.class, false, IndexDeclaration_ord, false, true, false);
 		putSimpleEntity(IndexDeclaration_ord, "IndexDeclaration",
 				IndexDeclaration.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.columnName,
@@ -473,19 +472,18 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 						DeclarationOrConstraint_ord);
 		putDataEntity(SelectType_ord, "SelectType", SelectType.class, false,
 				SelectTypeEnum.Value.class);
-		putCompositeEntity(ColumnNames_ord, "ColumnNames", ColumnNames.class,
-				false, ColumnName_ord, true, true);
-		putCompositeEntity(ColumnExpressions_ord, "ColumnExpressions",
-				ColumnExpressions.class, false, ColumnExpression_ord, true,
-				true);
+		putCompositeEntity(
+		ColumnNames_ord, "ColumnNames", ColumnNames.class, false, ColumnName_ord, true, true, false);
+		putCompositeEntity(
+		ColumnExpressions_ord, "ColumnExpressions", ColumnExpressions.class, false, ColumnExpression_ord, true, true, false);
 		putSimpleEntity(ColumnExpression_ord, "ColumnExpression",
 				ColumnExpression.class, false).withFeature(
 				SQLFeatureDescriptorEnum.expression, SQLExpression_ord)
 				.withFeature(SQLFeatureDescriptorEnum.alias, Alias_ord, true,
 						false, false, false, false);
 		putDataEntity(Alias_ord, "Alias", Alias.class, false, String.class);
-		putCompositeEntity(FromClauses_ord, "FromClauses", FromClauses.class,
-				false, FromClause_ord, true, true);
+		putCompositeEntity(
+		FromClauses_ord, "FromClauses", FromClauses.class, false, FromClause_ord, true, true, false);
 		putDataEntity(SimpleFromClause_ord, "SimpleFromClause",
 				SimpleFromClause.class, false, String.class);
 		putSimpleEntity(InnerJoinFromClause_ord, "InnerJoinFromClause",
@@ -526,13 +524,13 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(SQLFeatureDescriptorEnum.type, IsType_ord);
 		putDataEntity(IsType_ord, "IsType", IsType.class, false,
 				IsTypeEnum.Value.class);
-		putCompositeEntity(Values_ord, "Values", Values.class, false,
-				SQLExpressions_ord, true, false);
+		putCompositeEntity(
+		Values_ord, "Values", Values.class, false, SQLExpressions_ord, true, false, false);
 		putSimpleEntity(ParenthesizedExpression_ord, "ParenthesizedExpression",
 				ParenthesizedExpression.class, false).withFeature(
 				SQLFeatureDescriptorEnum.expression, SQLExpression_ord);
-		putCompositeEntity(SQLExpressions_ord, "SQLExpressions",
-				SQLExpressions.class, false, SQLExpression_ord, true, false);
+		putCompositeEntity(
+		SQLExpressions_ord, "SQLExpressions", SQLExpressions.class, false, SQLExpression_ord, true, false, false);
 		putSimpleEntity(NullValue_ord, "NullValue", NullValue.class, false);
 		putDataEntity(ArrayValue_ord, "ArrayValue", ArrayValue.class, false,
 				Object.class);
@@ -579,8 +577,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 				SQLFeatureDescriptorEnum.whenClauses, WhenClauses_ord)
 				.withFeature(SQLFeatureDescriptorEnum.elseClause,
 						SQLExpression_ord, true, false, false, false, false);
-		putCompositeEntity(WhenClauses_ord, "WhenClauses", WhenClauses.class,
-				false, WhenClause_ord, true, false);
+		putCompositeEntity(
+		WhenClauses_ord, "WhenClauses", WhenClauses.class, false, WhenClause_ord, true, false, false);
 		putSimpleEntity(WhenClause_ord, "WhenClause", WhenClause.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.condition,
 						BooleanExpression_ord).withFeature(
@@ -598,8 +596,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(Subquery_ord, "Subquery", Subquery.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.query,
 						SelectSQLStatement_ord);
-		putCompositeEntity(InValueList_ord, "InValueList", InValueList.class,
-				false, SQLExpression_ord, true, false);
+		putCompositeEntity(
+		InValueList_ord, "InValueList", InValueList.class, false, SQLExpression_ord, true, false, false);
 		putSimpleEntity(BinaryExpression_ord, "BinaryExpression",
 				BinaryExpression.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.leftExpr,
@@ -631,9 +629,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 						SQLExpressions_ord);
 		putDataEntity(FunctionName_ord, "FunctionName", FunctionName.class,
 				false, String.class);
-		putCompositeEntity(OrderByColumnExpressions_ord,
-				"OrderByColumnExpressions", OrderByColumnExpressions.class,
-				false, OrderByColumnExpression_ord, true, false);
+		putCompositeEntity(
+		OrderByColumnExpressions_ord, "OrderByColumnExpressions", OrderByColumnExpressions.class, false, OrderByColumnExpression_ord, true, false, false);
 		putSimpleEntity(OrderByColumnExpression_ord, "OrderByColumnExpression",
 				OrderByColumnExpression.class, false).withFeature(
 				SQLFeatureDescriptorEnum.expression, SQLExpression_ord)
@@ -641,16 +638,15 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false, false);
 		putDataEntity(OrderType_ord, "OrderType", OrderType.class, false,
 				OrderTypeEnum.Value.class);
-		putCompositeEntity(SetClauses_ord, "SetClauses", SetClauses.class,
-				false, SetClause_ord, false, true);
+		putCompositeEntity(
+		SetClauses_ord, "SetClauses", SetClauses.class, false, SetClause_ord, false, true, false);
 		putSimpleEntity(SetClause_ord, "SetClause", SetClause.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.columnName,
 						ColumnName_ord, false, true, false, false, false)
 				.withFeature(SQLFeatureDescriptorEnum.expression,
 						SQLExpression_ord);
-		putCompositeEntity(DeclarationOrConstraints_ord,
-				"DeclarationOrConstraints", DeclarationOrConstraints.class,
-				false, DeclarationOrConstraint_ord, false, true);
+		putCompositeEntity(
+		DeclarationOrConstraints_ord, "DeclarationOrConstraints", DeclarationOrConstraints.class, false, DeclarationOrConstraint_ord, false, true, false);
 		putSimpleEntity(DeclarationOrConstraint_ord, "DeclarationOrConstraint",
 				DeclarationOrConstraint.class, true, UniqueTableConstraint_ord,
 				ForeignKeyTableConstraint_ord, PrimaryKeyTableConstraint_ord,
@@ -670,9 +666,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(SQLFeatureDescriptorEnum.precision, IntValue_ord,
 						true, false, false, false, false);
 		putDataEntity(Type_ord, "Type", Type.class, false, String.class);
-		putCompositeEntity(ColumnConstraints_ord, "ColumnConstraints",
-				ColumnConstraints.class, false, ColumnConstraint_ord, false,
-				true);
+		putCompositeEntity(
+		ColumnConstraints_ord, "ColumnConstraints", ColumnConstraints.class, false, ColumnConstraint_ord, false, true, false);
 		putSimpleEntity(ColumnConstraint_ord, "ColumnConstraint",
 				ColumnConstraint.class, true, ForeignKeyColumnConstraint_ord,
 				SimpleColumnConstraint_ord);
@@ -722,8 +717,8 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 				DeferrableEnum.Value.class);
 		putDataEntity(DeferCheck_ord, "DeferCheck", DeferCheck.class, false,
 				DeferCheckEnum.Value.class);
-		putCompositeEntity(StoredProcedures_ord, "StoredProcedures",
-				StoredProcedures.class, false, StoredProcedure_ord, false, true);
+		putCompositeEntity(
+		StoredProcedures_ord, "StoredProcedures", StoredProcedures.class, false, StoredProcedure_ord, false, true, false);
 		putSimpleEntity(StoredProcedure_ord, "StoredProcedure",
 				StoredProcedure.class, false)
 				.withFeature(SQLFeatureDescriptorEnum.name, Name_ord, false,
@@ -736,11 +731,10 @@ public class SQLEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(ProcedureDeclaration_ord, "ProcedureDeclaration",
 				ProcedureDeclaration.class, true, VariableDeclaration_ord,
 				SimpleVariableDeclaration_ord, DeclareCursor_ord);
-		putCompositeEntity(ProcedureDeclarations_ord, "ProcedureDeclarations",
-				ProcedureDeclarations.class, false, ProcedureDeclaration_ord,
-				false, true);
-		putCompositeEntity(ProcedureStatements_ord, "ProcedureStatements",
-				ProcedureStatements.class, false, SQLStatement_ord, false, true);
+		putCompositeEntity(
+		ProcedureDeclarations_ord, "ProcedureDeclarations", ProcedureDeclarations.class, false, ProcedureDeclaration_ord, false, true, false);
+		putCompositeEntity(
+		ProcedureStatements_ord, "ProcedureStatements", ProcedureStatements.class, false, SQLStatement_ord, false, true, false);
 		putSimpleEntity(DeclareCursor_ord, "DeclareCursor",
 				DeclareCursor.class, false).withFeature(
 				SQLFeatureDescriptorEnum.name, Name_ord).withFeature(

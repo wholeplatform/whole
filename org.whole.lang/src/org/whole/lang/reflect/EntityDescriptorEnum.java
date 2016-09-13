@@ -257,34 +257,34 @@ public class EntityDescriptorEnum extends EnumType<EntityDescriptor<?>> implemen
 	protected <E extends IEntity> EntityDescriptor<E> putCompositeEntity(
 			int ordinal, String name, Class<E> type,
 			boolean isRelationship, int elementEdOrdinal,
-			boolean isOrdered, boolean isUnique) {
+			boolean isOrdered, boolean isUnique, boolean isOptional) {
 		return putCompositeEntity(
-				ordinal, name, name, type, isRelationship, elementEdOrdinal, isOrdered, isUnique);
+				ordinal, name, name, type, isRelationship, elementEdOrdinal, isOrdered, isUnique, isOptional);
 	}
 	protected <E extends IEntity> EntityDescriptor<E> putCompositeEntity(
 			int ordinal, String name, String implName, Class<E> type,
 			boolean isRelationship, int elementEdOrdinal,
-			boolean isOrdered, boolean isUnique) {
+			boolean isOrdered, boolean isUnique, boolean isOptional) {
 		return putCompositeEntity(ordinal, name, implName, type,
 				isRelationship, elementEdOrdinal,
-				isOrdered, isUnique, false, false, false);
+				isOrdered, isUnique, isOptional, false, false, false);
 	}
 	protected <E extends IEntity> EntityDescriptor<E> putCompositeEntity(
 			int ordinal, String name, Class<E> type,
 			boolean isRelationship, int elementEdOrdinal,
-			boolean isOrdered, boolean isUnique, boolean isReference, boolean isDerived, boolean isShared) {
+			boolean isOrdered, boolean isUnique, boolean isOptional, boolean isReference, boolean isDerived, boolean isShared) {
 		return putCompositeEntity(ordinal, name, name, type,
 				isRelationship, elementEdOrdinal, isOrdered, isUnique,
-				isReference, isDerived, isShared);
+				isOptional, isReference, isDerived, isShared);
 	}
 	protected <E extends IEntity> EntityDescriptor<E> putCompositeEntity(
 			int ordinal, String name, String implName, Class<E> type,
 			boolean isRelationship, int elementEdOrdinal,
-			boolean isOrdered, boolean isUnique, boolean isReference, boolean isDerived, boolean isShared) {
+			boolean isOrdered, boolean isUnique, boolean isOptional, boolean isReference, boolean isDerived, boolean isShared) {
 		assert (valueOf(name) == null);
 		EntityDescriptor<E> ed = new CompositeEntityDescriptor<E>(ordinal, name, implName, type,
 				isRelationship, isOrdered, isUnique,
-				elementEdOrdinal, isReference, isDerived, isShared);
+				elementEdOrdinal, isOptional, isReference, isDerived, isShared);
 		putEnumValue(ed);
 		return ed;
 	}
@@ -322,8 +322,8 @@ public class EntityDescriptorEnum extends EnumType<EntityDescriptor<?>> implemen
 	}
 
 	public EntityDescriptor<? extends IEntity> addCompositeEntity(String name, String implName, boolean isRelationship,
-			boolean isOrdered, boolean isUnique) {
-		return putCompositeEntity(size(), name, implName, IEntity.class, isRelationship, 0, isOrdered, isUnique, false, false, false);
+			boolean isOrdered, boolean isUnique, boolean isOptional) {
+		return putCompositeEntity(size(), name, implName, IEntity.class, isRelationship, 0, isOrdered, isUnique, isOptional, false, false, false);
 	}
 
 	public EntityDescriptor<? extends IEntity> addDataEntity(String name, String implName, boolean isRelationship, Class<?> dataType) {

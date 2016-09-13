@@ -63,10 +63,10 @@ public class FlowchartEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(FlowchartFeatureDescriptorEnum.nodes, Nodes_ord)
 				.withFeature(FlowchartFeatureDescriptorEnum.transitions,
 						Transitions_ord);
-		putCompositeEntity(Nodes_ord, "Nodes", Nodes.class, false, Node_ord,
-				false, true);
-		putCompositeEntity(Transitions_ord, "Transitions", Transitions.class,
-				true, Transition_ord, false, true);
+		putCompositeEntity(
+		Nodes_ord, "Nodes", Nodes.class, false, Node_ord, false, true, false);
+		putCompositeEntity(
+		Transitions_ord, "Transitions", Transitions.class, true, Transition_ord, false, true, false);
 		putSimpleEntity(Transition_ord, "Transition", Transition.class, true,
 				SimpleTransition_ord, LabeledTransition_ord).withFeature(
 				FlowchartFeatureDescriptorEnum.source, Node_ord, false, false,

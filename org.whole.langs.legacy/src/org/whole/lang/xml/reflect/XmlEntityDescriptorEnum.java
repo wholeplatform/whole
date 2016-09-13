@@ -106,21 +106,25 @@ public class XmlEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(SystemLiteral_ord, "SystemLiteral", SystemLiteral.class, false, String.class);
         putSimpleEntity(PublicId_ord, "PublicId", PublicId.class, false).withFeature(XmlFeatureDescriptorEnum.pubidLiteral, PubidLiteral_ord).withFeature(XmlFeatureDescriptorEnum.systemLiteral, SystemLiteral_ord);
         putDataEntity(PubidLiteral_ord, "PubidLiteral", PubidLiteral.class, false, String.class);
-        putCompositeEntity(Misc_ord, "Misc", Misc.class, false, IMisc_ord, true, false);
+        putCompositeEntity(
+		Misc_ord, "Misc", Misc.class, false, IMisc_ord, true, false, false);
         putSimpleEntity(PI_ord, "PI", PI.class, false).withFeature(XmlFeatureDescriptorEnum.name, IName_ord).withFeature(XmlFeatureDescriptorEnum.instruction, Instruction_ord);
         putDataEntity(Instruction_ord, "Instruction", Instruction.class, false, String.class);
         putSimpleEntity(Comment_ord, "Comment", Comment.class, false).withFeature(XmlFeatureDescriptorEnum.text, CommentText_ord);
         putDataEntity(CommentText_ord, "CommentText", CommentText.class, false, String.class);
         putSimpleEntity(Element_ord, "Element", Element.class, false).withFeature(XmlFeatureDescriptorEnum.tag, IName_ord).withFeature(XmlFeatureDescriptorEnum.attributes, Attributes_ord, true, false, false, false, false).withFeature(XmlFeatureDescriptorEnum.content, IContent_ord, true, false, false, false, false);
-        putCompositeEntity(Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, true, true);
+        putCompositeEntity(
+		Attributes_ord, "Attributes", Attributes.class, false, Attribute_ord, true, true, false);
         putSimpleEntity(Attribute_ord, "Attribute", Attribute.class, false).withFeature(XmlFeatureDescriptorEnum.name, IName_ord, false, true, false, false, false).withFeature(XmlFeatureDescriptorEnum.value, Value_ord);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
         putSimpleEntity(QualifiedName_ord, "QualifiedName", QualifiedName.class, false).withFeature(XmlFeatureDescriptorEnum.nameSpace, NameSpace_ord, false, true, false, false, false).withFeature(XmlFeatureDescriptorEnum.name, Name_ord, false, true, false, false, false);
         putDataEntity(NameSpace_ord, "NameSpace", NameSpace.class, false, String.class);
         putDataEntity(Value_ord, "Value", Value.class, false, String.class);
-        putCompositeEntity(Content_ord, "Content", Content.class, false, IContent_ord, true, false);
+        putCompositeEntity(
+		Content_ord, "Content", Content.class, false, IContent_ord, true, false, false);
         putDataEntity(CharData_ord, "CharData", CharData.class, false, String.class);
-        putCompositeEntity(CDataSect_ord, "CDataSect", CDataSect.class, false, CDataSectData_ord, true, false);
+        putCompositeEntity(
+		CDataSect_ord, "CDataSect", CDataSect.class, false, CDataSectData_ord, true, false, false);
         putDataEntity(CDataSectData_ord, "CDataSectData", CDataSectData.class, false, String.class);
         putSimpleEntity(IContent_ord, "IContent", IContent.class, true, Comment_ord, PI_ord, CharData_ord, CDataSect_ord, Content_ord, Element_ord);
         putSimpleEntity(IExternalId_ord, "IExternalId", IExternalId.class, true, PublicId_ord, SystemId_ord);

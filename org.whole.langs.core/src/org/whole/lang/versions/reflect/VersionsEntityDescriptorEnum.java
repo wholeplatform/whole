@@ -65,10 +65,10 @@ public class VersionsEntityDescriptorEnum extends EntityDescriptorEnum {
 						false, false, true, false, false).withFeature(
 						VersionsFeatureDescriptorEnum.predecessors,
 						VersionsRefs_ord, true, false, true, false, false);
-		putCompositeEntity(Versions_ord, "Versions", Versions.class, true,
-				Version_ord, false, true);
+		putCompositeEntity(
+		Versions_ord, "Versions", Versions.class, true, Version_ord, false, true, false);
 		putCompositeEntity(VersionsRefs_ord, "VersionsRefs",
-				VersionsRefs.class, true, Version_ord, false, true, true,
+				VersionsRefs.class, true, Version_ord, false, true, false, true,
 				false, false);
 		putDataEntity(VersionLabel_ord, "VersionLabel", VersionLabel.class,
 				true, String.class);

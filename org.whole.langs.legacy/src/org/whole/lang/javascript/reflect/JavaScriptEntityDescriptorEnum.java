@@ -311,8 +311,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(Program_ord, "Program", Program.class, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.statements,
 						Statements_ord);
-		putCompositeEntity(Statements_ord, "Statements", Statements.class,
-				false, Statement_ord, true, false);
+		putCompositeEntity(
+		Statements_ord, "Statements", Statements.class, false, Statement_ord, true, false, false);
 		putSimpleEntity(Comment_ord, "Comment", Comment.class, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.kind,
 						CommentKind_ord).withFeature(
@@ -354,8 +354,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 				JavaScriptFeatureDescriptorEnum.destructuring, BooleanData_ord)
 				.withFeature(JavaScriptFeatureDescriptorEnum.properties,
 						ObjectProperties_ord);
-		putCompositeEntity(ObjectProperties_ord, "ObjectProperties",
-				ObjectProperties.class, false, ObjectProperty_ord, true, false);
+		putCompositeEntity(
+		ObjectProperties_ord, "ObjectProperties", ObjectProperties.class, false, ObjectProperty_ord, true, false, false);
 		putSimpleEntity(ObjectProperty_ord, "ObjectProperty",
 				ObjectProperty.class, false).withFeature(
 				JavaScriptFeatureDescriptorEnum.key, LiteralOrIdentifier_ord)
@@ -416,8 +416,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 				JavaScriptFeatureDescriptorEnum.labels, Labels_ord)
 				.withFeature(JavaScriptFeatureDescriptorEnum.body,
 						Statement_ord);
-		putCompositeEntity(Labels_ord, "Labels", Labels.class, false,
-				Label_ord, true, false);
+		putCompositeEntity(
+		Labels_ord, "Labels", Labels.class, false, Label_ord, true, false, false);
 		putSimpleEntity(Label_ord, "Label", Label.class, false).withFeature(
 				JavaScriptFeatureDescriptorEnum.name, Identifier_ord);
 		putSimpleEntity(Targeting_ord, "Targeting", Targeting.class, true,
@@ -442,8 +442,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 				JavaScriptFeatureDescriptorEnum.expression, Expression_ord)
 				.withFeature(JavaScriptFeatureDescriptorEnum.cases,
 						SwitchCases_ord);
-		putCompositeEntity(SwitchCases_ord, "SwitchCases", SwitchCases.class,
-				false, SwitchCase_ord, true, false);
+		putCompositeEntity(
+		SwitchCases_ord, "SwitchCases", SwitchCases.class, false, SwitchCase_ord, true, false, false);
 		putSimpleEntity(SwitchCase_ord, "SwitchCase", SwitchCase.class, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.test,
 						Expression_ord, true, false, false, false, false)
@@ -464,8 +464,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 						CatchClauses_ord, true, false, false, false, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum._finally,
 						Statements_ord, true, false, false, false, false);
-		putCompositeEntity(CatchClauses_ord, "CatchClauses",
-				CatchClauses.class, false, CatchClause_ord, true, false);
+		putCompositeEntity(
+		CatchClauses_ord, "CatchClauses", CatchClauses.class, false, CatchClause_ord, true, false, false);
 		putSimpleEntity(CatchClause_ord, "CatchClause", CatchClause.class,
 				false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.param,
@@ -546,9 +546,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 				false).withFeature(JavaScriptFeatureDescriptorEnum.variables,
 				VariableInitializers_ord).withFeature(
 				JavaScriptFeatureDescriptorEnum.body, Statement_ord);
-		putCompositeEntity(VariableInitializers_ord, "VariableInitializers",
-				VariableInitializers.class, false, VariableInitializer_ord,
-				true, false);
+		putCompositeEntity(
+		VariableInitializers_ord, "VariableInitializers", VariableInitializers.class, false, VariableInitializer_ord, true, false, false);
 		putSimpleEntity(VariableInitializer_ord, "VariableInitializer",
 				VariableInitializer.class, false).withFeature(
 				JavaScriptFeatureDescriptorEnum.id, Expression_ord)
@@ -615,8 +614,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 		putSimpleEntity(XmlLiteral_ord, "XmlLiteral", XmlLiteral.class, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.fragments,
 						XmlFragments_ord);
-		putCompositeEntity(XmlFragments_ord, "XmlFragments",
-				XmlFragments.class, false, XmlFragment_ord, true, false);
+		putCompositeEntity(
+		XmlFragments_ord, "XmlFragments", XmlFragments.class, false, XmlFragment_ord, true, false, false);
 		putSimpleEntity(XmlFragment_ord, "XmlFragment", XmlFragment.class,
 				true, XmlExpression_ord, XmlString_ord);
 		putSimpleEntity(XmlString_ord, "XmlString", XmlString.class, false)
@@ -636,8 +635,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 						Expressions_ord, true, false, false, false, false)
 				.withFeature(JavaScriptFeatureDescriptorEnum.body,
 						FunctionBody_ord);
-		putCompositeEntity(Expressions_ord, "Expressions", Expressions.class,
-				false, Expression_ord, true, false);
+		putCompositeEntity(
+		Expressions_ord, "Expressions", Expressions.class, false, Expression_ord, true, false, false);
 		putSimpleEntity(ParenthesizedExpression_ord, "ParenthesizedExpression",
 				ParenthesizedExpression.class, false).withFeature(
 				JavaScriptFeatureDescriptorEnum.expression, Expression_ord);
@@ -739,9 +738,8 @@ public class JavaScriptEntityDescriptorEnum extends EntityDescriptorEnum {
 						ComprehensionBlocks_ord)
 				.withFeature(JavaScriptFeatureDescriptorEnum.filter,
 						Expression_ord, true, false, false, false, false);
-		putCompositeEntity(ComprehensionBlocks_ord, "ComprehensionBlocks",
-				ComprehensionBlocks.class, false, ComprehensionBlock_ord, true,
-				false);
+		putCompositeEntity(
+		ComprehensionBlocks_ord, "ComprehensionBlocks", ComprehensionBlocks.class, false, ComprehensionBlock_ord, true, false, false);
 		putSimpleEntity(ComprehensionBlock_ord, "ComprehensionBlock",
 				ComprehensionBlock.class, true, ForEachComprehensionBlock_ord,
 				ForInComprehensionBlock_ord).withFeature(

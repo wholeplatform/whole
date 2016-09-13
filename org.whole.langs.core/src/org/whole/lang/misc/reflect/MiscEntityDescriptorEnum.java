@@ -23,8 +23,8 @@ public class MiscEntityDescriptorEnum extends EntityDescriptorEnum {
 	private static final long serialVersionUID = 1;
 
 	protected void initEntityDescriptors() {
-		putCompositeEntity(Misc_ord, "Misc", Misc.class, false, Any_ord, true,
-				false);
+		putCompositeEntity(
+		Misc_ord, "Misc", Misc.class, false, Any_ord, true, false, false);
 		putSimpleEntity(Any_ord, "Any", Any.class, true);
 	}
 

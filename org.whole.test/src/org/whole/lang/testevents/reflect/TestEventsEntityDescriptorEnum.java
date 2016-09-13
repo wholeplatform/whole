@@ -43,8 +43,8 @@ public class TestEventsEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(TestEventsFeatureDescriptorEnum.maxHeight, Val_ord)
 				.withFeature(TestEventsFeatureDescriptorEnum.numShapes, Val_ord)
 				.withFeature(TestEventsFeatureDescriptorEnum.shape, Shape_ord);
-		putCompositeEntity(CompositeShape_ord, "CompositeShape",
-				CompositeShape.class, false, Shape_ord, false, true);
+		putCompositeEntity(
+		CompositeShape_ord, "CompositeShape", CompositeShape.class, false, Shape_ord, false, true, false);
 		putSimpleEntity(Rectangle_ord, "Rectangle", Rectangle.class, false)
 				.withFeature(TestEventsFeatureDescriptorEnum.base, Val_ord)
 				.withFeature(TestEventsFeatureDescriptorEnum.height, Val_ord)

@@ -82,7 +82,8 @@ public class TypesEntityDescriptorEnum extends EntityDescriptorEnum {
 
     protected void initEntityDescriptors() {
         putSimpleEntity(TypeSystem_ord, "TypeSystem", TypeSystem.class, false).withFeature(TypesFeatureDescriptorEnum.checkBefore, Operations_ord).withFeature(TypesFeatureDescriptorEnum.rules, TypeRules_ord);
-        putCompositeEntity(TypeRules_ord, "TypeRules", TypeRules.class, false, TypeRule_ord, true, false);
+        putCompositeEntity(
+		TypeRules_ord, "TypeRules", TypeRules.class, false, TypeRule_ord, true, false, false);
         putSimpleEntity(TypeRule_ord, "TypeRule", TypeRule.class, false).withFeature(TypesFeatureDescriptorEnum.domain, DomainType_ord).withFeature(TypesFeatureDescriptorEnum.type, Type_ord);
         putSimpleEntity(Type_ord, "Type", Type.class, true, LegacyType_ord, EntityType_ord, UnionType_ord, FeatureType_ord, BasicType_ord, DomainType_ord, VariableType_ord, FeatureTableType_ord, ArgumentType_ord, AnyType_ord);
         putSimpleEntity(ArgumentType_ord, "ArgumentType", ArgumentType.class, true, FeatureType_ord);
@@ -92,15 +93,20 @@ public class TypesEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(VariableType_ord, "VariableType", VariableType.class, false, int.class);
         putSimpleEntity(DomainType_ord, "DomainType", DomainType.class, true, EntityType_ord, UnionType_ord);
         putDataEntity(EntityType_ord, "EntityType", EntityType.class, false, String.class);
-        putCompositeEntity(UnionType_ord, "UnionType", UnionType.class, false, EntityType_ord, true, false);
+        putCompositeEntity(
+		UnionType_ord, "UnionType", UnionType.class, false, EntityType_ord, true, false, false);
         putDataEntity(FeatureType_ord, "FeatureType", FeatureType.class, false, String.class);
         putSimpleEntity(FeatureTableType_ord, "FeatureTableType", FeatureTableType.class, false).withFeature(TypesFeatureDescriptorEnum.arguments, Arguments_ord).withFeature(TypesFeatureDescriptorEnum.cases, Cases_ord);
-        putCompositeEntity(Arguments_ord, "Arguments", Arguments.class, false, ArgumentType_ord, true, false);
-        putCompositeEntity(Cases_ord, "Cases", Cases.class, false, Case_ord, true, false);
+        putCompositeEntity(
+		Arguments_ord, "Arguments", Arguments.class, false, ArgumentType_ord, true, false, false);
+        putCompositeEntity(
+		Cases_ord, "Cases", Cases.class, false, Case_ord, true, false, false);
         putSimpleEntity(Case_ord, "Case", Case.class, false).withFeature(TypesFeatureDescriptorEnum.type, BasicType_ord).withFeature(TypesFeatureDescriptorEnum.expressions, Expressions_ord);
         putSimpleEntity(Expressions_ord, "Expressions", Expressions.class, true, TypeExpressions_ord, OrExpressions_ord);
-        putCompositeEntity(OrExpressions_ord, "OrExpressions", OrExpressions.class, false, TypeExpressions_ord, true, false);
-        putCompositeEntity(TypeExpressions_ord, "TypeExpressions", TypeExpressions.class, false, TypeExpression_ord, true, false);
+        putCompositeEntity(
+		OrExpressions_ord, "OrExpressions", OrExpressions.class, false, TypeExpressions_ord, true, false, false);
+        putCompositeEntity(
+		TypeExpressions_ord, "TypeExpressions", TypeExpressions.class, false, TypeExpression_ord, true, false, false);
         putSimpleEntity(TypeExpression_ord, "TypeExpression", TypeExpression.class, true, LegacyType_ord, BasicType_ord, VariableType_ord, Supertype_ord, Subtype_ord, AnyType_ord);
         putSimpleEntity(Subtype_ord, "Subtype", Subtype.class, false).withFeature(TypesFeatureDescriptorEnum.name, VariableType_ord, true, false, false, false, false).withFeature(TypesFeatureDescriptorEnum.type, VariableType_ord);
         putSimpleEntity(Supertype_ord, "Supertype", Supertype.class, false).withFeature(TypesFeatureDescriptorEnum.name, VariableType_ord, true, false, false, false, false).withFeature(TypesFeatureDescriptorEnum.type, VariableType_ord);

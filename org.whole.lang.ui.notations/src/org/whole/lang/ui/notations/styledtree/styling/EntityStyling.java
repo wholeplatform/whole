@@ -70,7 +70,7 @@ public class EntityStyling implements IEntityStyling {
 
 	//for simple and composite entities
 	public static enum LayoutStyle {
-		SIMPLE_TABLE, COMPOSITE_TABLE, COLUMN, TREE
+		SIMPLE_TABLE, COMPOSITE_TABLE, COLUMN, TREE, TABLE_CELL, TABLE_ROW
 	}
 	public LayoutStyle getLayoutStyle() {
 		return layoutStyle;

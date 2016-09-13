@@ -54,7 +54,8 @@ public class SyntaxTreesEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initEntityDescriptors() {
         putSimpleEntity(Node_ord, "Node", Node.class, true, Error_ord, Data_ord, Rule_ord, Terminal_ord, Literal_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.name, Name_ord);
         putSimpleEntity(Rule_ord, "Rule", Rule.class, false).withFeature(SyntaxTreesFeatureDescriptorEnum.name, Name_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.children, Nodes_ord, true, false, false, false, false);
-        putCompositeEntity(Nodes_ord, "Nodes", Nodes.class, false, Node_ord, true, false);
+        putCompositeEntity(
+		Nodes_ord, "Nodes", Nodes.class, false, Node_ord, true, false, false);
         putSimpleEntity(Terminal_ord, "Terminal", Terminal.class, false, Error_ord, Data_ord, Literal_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.name, Name_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.text, Text_ord);
         putSimpleEntity(Literal_ord, "Literal", Literal.class, false).withFeature(SyntaxTreesFeatureDescriptorEnum.name, Name_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.text, Text_ord);
         putSimpleEntity(Data_ord, "Data", Data.class, false).withFeature(SyntaxTreesFeatureDescriptorEnum.name, Name_ord).withFeature(SyntaxTreesFeatureDescriptorEnum.text, Text_ord);

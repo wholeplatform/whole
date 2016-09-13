@@ -122,10 +122,10 @@ public class MappingEntityDescriptorEnum extends EntityDescriptorEnum {
 						Mappings_ord)
 				.withFeature(MappingFeatureDescriptorEnum.dataTypes,
 						DataTypes_ord);
-		putCompositeEntity(Mappings_ord, "Mappings", Mappings.class, false,
-				Mapping_ord, false, false);
-		putCompositeEntity(Types_ord, "Types", Types.class, false, URI_ord,
-				false, true);
+		putCompositeEntity(
+		Mappings_ord, "Mappings", Mappings.class, false, Mapping_ord, false, false, false);
+		putCompositeEntity(
+		Types_ord, "Types", Types.class, false, URI_ord, false, true, false);
 		putSimpleEntity(Mapping_ord, "Mapping", Mapping.class, true,
 				MixedStructuralMapping_ord, TypeMapping_ord,
 				ElementMapping_ord, StructuralMapping_ord,
@@ -225,8 +225,8 @@ public class MappingEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(MappingFeatureDescriptorEnum.contextEntityType,
 						URI_ord)
 				.withFeature(MappingFeatureDescriptorEnum.unionTypes, Types_ord);
-		putCompositeEntity(DataTypes_ord, "DataTypes", DataTypes.class, false,
-				DataType_ord, false, false);
+		putCompositeEntity(
+		DataTypes_ord, "DataTypes", DataTypes.class, false, DataType_ord, false, false, false);
 		putSimpleEntity(DataType_ord, "DataType", DataType.class, true,
 				CustomDataType_ord, EnumDataType_ord).withFeature(
 				MappingFeatureDescriptorEnum.entityType, URI_ord);
@@ -234,8 +234,8 @@ public class MappingEntityDescriptorEnum extends EntityDescriptorEnum {
 				false).withFeature(MappingFeatureDescriptorEnum.entityType,
 				URI_ord).withFeature(MappingFeatureDescriptorEnum.enumValues,
 				EnumValues_ord);
-		putCompositeEntity(EnumValues_ord, "EnumValues", EnumValues.class,
-				false, EnumValue_ord, false, false);
+		putCompositeEntity(
+		EnumValues_ord, "EnumValues", EnumValues.class, false, EnumValue_ord, false, false, false);
 		putSimpleEntity(EnumValue_ord, "EnumValue", EnumValue.class, false)
 				.withFeature(MappingFeatureDescriptorEnum.enumValue, Value_ord)
 				.withFeature(MappingFeatureDescriptorEnum.value, Value_ord);

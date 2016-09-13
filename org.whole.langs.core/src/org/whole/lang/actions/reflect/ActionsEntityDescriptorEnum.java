@@ -168,10 +168,10 @@ public class ActionsEntityDescriptorEnum extends EntityDescriptorEnum {
 						MenuActions_ord)
 				.withFeature(ActionsFeatureDescriptorEnum.valueAssistActions,
 						SimpleAction_ord, true, false, false, false, false);
-		putCompositeEntity(MenuActions_ord, "MenuActions", MenuActions.class,
-				false, Action_ord, true, false);
-		putCompositeEntity(Actions_ord, "Actions", Actions.class, false,
-				Action_ord, true, false);
+		putCompositeEntity(
+		MenuActions_ord, "MenuActions", MenuActions.class, false, Action_ord, true, false, false);
+		putCompositeEntity(
+		Actions_ord, "Actions", Actions.class, false, Action_ord, true, false, false);
 		putSimpleEntity(Action_ord, "Action", Action.class, true,
 				GuardedAction_ord, PerformAction_ord, CustomAction_ord,
 				FactoryAction_ord, GroupAction_ord, TemplateAction_ord,

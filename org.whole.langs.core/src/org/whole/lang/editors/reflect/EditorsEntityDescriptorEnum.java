@@ -143,9 +143,8 @@ public class EditorsEntityDescriptorEnum extends EntityDescriptorEnum {
 				ControllerComponent.class, false).withFeature(
 				EditorsFeatureDescriptorEnum.declarations,
 				ControllerDeclarations_ord);
-		putCompositeEntity(ControllerDeclarations_ord,
-				"ControllerDeclarations", ControllerDeclarations.class, false,
-				ControllerDeclaration_ord, false, false);
+		putCompositeEntity(
+		ControllerDeclarations_ord, "ControllerDeclarations", ControllerDeclarations.class, false, ControllerDeclaration_ord, false, false, false);
 		putSimpleEntity(PartDeclaration_ord, "PartDeclaration",
 				PartDeclaration.class, false)
 				.withFeature(EditorsFeatureDescriptorEnum.partName,
@@ -166,17 +165,16 @@ public class EditorsEntityDescriptorEnum extends EntityDescriptorEnum {
 				EditorsFeatureDescriptorEnum.partName, GenericPartName_ord)
 				.withFeature(EditorsFeatureDescriptorEnum.entityNames,
 						EntityNames_ord);
-		putCompositeEntity(EntityFeatures_ord, "EntityFeatures",
-				EntityFeatures.class, false, FeatureName_ord, false, false);
+		putCompositeEntity(
+		EntityFeatures_ord, "EntityFeatures", EntityFeatures.class, false, FeatureName_ord, false, false, false);
 		putDataEntity(GenericPartName_ord, "GenericPartName",
 				GenericPartName.class, false, GenericPartNameEnum.Value.class);
 		putSimpleEntity(ViewComponent_ord, "ViewComponent",
 				ViewComponent.class, false)
 				.withFeature(EditorsFeatureDescriptorEnum.declarations,
 						ViewDeclarations_ord);
-		putCompositeEntity(ViewDeclarations_ord, "ViewDeclarations",
-				ViewDeclarations.class, false, ViewDeclaration_ord, false,
-				false);
+		putCompositeEntity(
+		ViewDeclarations_ord, "ViewDeclarations", ViewDeclarations.class, false, ViewDeclaration_ord, false, false, false);
 		putSimpleEntity(SimpleFigureDeclaration_ord, "SimpleFigureDeclaration",
 				SimpleFigureDeclaration.class, false).withFeature(
 				EditorsFeatureDescriptorEnum.name, FigureName_ord).withFeature(
@@ -186,10 +184,10 @@ public class EditorsEntityDescriptorEnum extends EntityDescriptorEnum {
 				EditorsFeatureDescriptorEnum.expandedFigure, TextualFigure_ord)
 				.withFeature(EditorsFeatureDescriptorEnum.collapsedFigure,
 						TextualFigure_ord);
-		putCompositeEntity(TextualFigure_ord, "TextualFigure",
-				TextualFigure.class, false, Row_ord, true, false);
-		putCompositeEntity(Row_ord, "Row", Row.class, false, RowElement_ord,
-				false, false);
+		putCompositeEntity(
+		TextualFigure_ord, "TextualFigure", TextualFigure.class, false, Row_ord, true, false, false);
+		putCompositeEntity(
+		Row_ord, "Row", Row.class, false, RowElement_ord, false, false, false);
 		putSimpleEntity(ChildPlace_ord, "ChildPlace", ChildPlace.class, false);
 		putSimpleEntity(Indent_ord, "Indent", Indent.class, false);
 		putSimpleEntity(FoldingToggle_ord, "FoldingToggle",
@@ -206,8 +204,8 @@ public class EditorsEntityDescriptorEnum extends EntityDescriptorEnum {
 				DelimiterToken.class, false, String.class);
 		putDataEntity(ParenthesisToken_ord, "ParenthesisToken",
 				ParenthesisToken.class, false, String.class);
-		putCompositeEntity(EntityNames_ord, "EntityNames", EntityNames.class,
-				false, EntityName_ord, false, true);
+		putCompositeEntity(
+		EntityNames_ord, "EntityNames", EntityNames.class, false, EntityName_ord, false, true, false);
 		putDataEntity(Identifier_ord, "Identifier", Identifier.class, false,
 				String.class);
 		putSimpleEntity(EntityName_ord, "EntityName", EntityName.class, true,

@@ -316,7 +316,8 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(PathExpressionOrPredicate_ord, "PathExpressionOrPredicate", PathExpressionOrPredicate.class, true, Delete_ord, Or_ord, RootStep_ord, CollectByExpression_ord, DistinctTest_ord, GreaterThan_ord, PrecedingSiblingStep_ord, SubtractionStep_ord, DivisionStep_ord, DescendantStep_ord, FloatLiteral_ord, CartesianInsert_ord, ChildStep_ord, Some_ord, FeatureStep_ord, IndexTest_ord, LessOrEqualsStep_ord, StringLiteral_ord, LanguageTest_ord, GreaterOrEqualsStep_ord, VisitorTest_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, One_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, IndexVariableTest_ord, AspectStep_ord, QuantifiedPredicate_ord, Division_ord, DirectStep_ord, InverseStep_ord, UnionAll_ord, Path_ord, Call_ord, EntityCall_ord, AncestorOrSelfStep_ord, TraversalStep_ord, AtTypeTest_ord, ExtendedSupertypeTest_ord, QueryDeclaration_ord, Choose_ord, Expression_ord, Select_ord, StageTest_ord, ExtendedSubtypeTest_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord, Multiplication_ord, DateLiteral_ord, TypeTest_ord, EntityTemplate_ord, InverseReachableStep_ord, ParentStep_ord, Predicate_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, PathExpression_ord, SubtypeTest_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, SupertypeTest_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, KindTest_ord, Addition_ord, CharLiteral_ord, LongLiteral_ord, EqualsStep_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianUpdate_ord, NotEquals_ord, Not_ord, DescendantOrSelfStep_ord, And_ord, Singleton_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, FollowingSiblingStep_ord, ExpressionTest_ord, BooleanLiteral_ord, AtIndexTest_ord, VariableTest_ord, MathStep_ord, GreaterThanStep_ord, AtFeatureTest_ord, IndexRangeTest_ord, StageVariableTest_ord, ForwardStep_ord, FragmentRootStep_ord, Equals_ord, Subtraction_ord, ParenthesizedPredicate_ord, Scope_ord, Filter_ord, Every_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord);
         putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, Delete_ord, Multiplication_ord, DateLiteral_ord, RootStep_ord, EntityTemplate_ord, CollectByExpression_ord, InverseReachableStep_ord, ParentStep_ord, VariableRefStep_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, Literal_ord, GreaterOrEquals_ord, IntLiteral_ord, PointwiseInsert_ord, StepExpression_ord, SubtractionStep_ord, Addition_ord, DivisionStep_ord, CharLiteral_ord, DescendantStep_ord, LongLiteral_ord, EqualsStep_ord, FloatLiteral_ord, For_ord, Do_ord, Sequence_ord, InverseReachableOrSelfStep_ord, CartesianInsert_ord, CartesianUpdate_ord, ChildStep_ord, NotEquals_ord, FeatureStep_ord, DescendantOrSelfStep_ord, LessOrEqualsStep_ord, StringLiteral_ord, Singleton_ord, GreaterOrEqualsStep_ord, LessOrEquals_ord, Block_ord, ReverseStep_ord, RemainderStep_ord, ReachableOrSelfStep_ord, DoubleLiteral_ord, If_ord, PointwiseEquals_ord, AdjacentStep_ord, Except_ord, SelfStep_ord, NotEqualsStep_ord, LessThanStep_ord, AdditionStep_ord, ShortLiteral_ord, FollowingStep_ord, FollowingSiblingStep_ord, BooleanLiteral_ord, AncestorStep_ord, InverseAdjacentStep_ord, Union_ord, Remainder_ord, AspectStep_ord, Division_ord, DirectStep_ord, InverseStep_ord, MathStep_ord, GreaterThanStep_ord, UnionAll_ord, Path_ord, Call_ord, ForwardStep_ord, EntityCall_ord, AncestorOrSelfStep_ord, TraversalStep_ord, FragmentRootStep_ord, QueryDeclaration_ord, Equals_ord, Subtraction_ord, Scope_ord, Choose_ord, Filter_ord, Expression_ord, Select_ord, ReachableStep_ord, ByteLiteral_ord, PointwiseUpdate_ord, CartesianProduct_ord, PointwiseProduct_ord, Tuple_ord, MultiplicationStep_ord);
         putSimpleEntity(QueryDeclaration_ord, "QueryDeclaration", QueryDeclaration.class, false).withFeature(QueriesFeatureDescriptorEnum.name, Name_ord).withFeature(QueriesFeatureDescriptorEnum.parameters, Names_ord, true, false, false, false, false).withFeature(QueriesFeatureDescriptorEnum.body, PathExpression_ord);
-        putCompositeEntity(Path_ord, "Path", Path.class, false, StepExpression_ord, true, false);
+        putCompositeEntity(
+		Path_ord, "Path", Path.class, false, StepExpression_ord, true, false, false);
         putSimpleEntity(Delete_ord, "Delete", Delete.class, false).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord);
         putSimpleEntity(CartesianInsert_ord, "CartesianInsert", CartesianInsert.class, false).withFeature(QueriesFeatureDescriptorEnum.placement, Placement_ord).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.valuesClause, PathExpression_ord);
         putSimpleEntity(PointwiseInsert_ord, "PointwiseInsert", PointwiseInsert.class, false).withFeature(QueriesFeatureDescriptorEnum.placement, Placement_ord).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.valuesClause, PathExpression_ord);
@@ -331,15 +332,22 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(EntityCall_ord, "EntityCall", EntityCall.class, false).withFeature(QueriesFeatureDescriptorEnum.name, EntityType_ord).withFeature(QueriesFeatureDescriptorEnum.bindings, Bindings_ord, true, false, false, false, false);
         putSimpleEntity(Call_ord, "Call", Call.class, false).withFeature(QueriesFeatureDescriptorEnum.name, Name_ord).withFeature(QueriesFeatureDescriptorEnum.arguments, Expressions_ord, true, false, false, false, false);
         putSimpleEntity(Constraints_ord, "Constraints", Constraints.class, true, Bindings_ord, Expressions_ord);
-        putCompositeEntity(Expressions_ord, "Expressions", Expressions.class, false, PathExpression_ord, true, false);
-        putCompositeEntity(Bindings_ord, "Bindings", Bindings.class, false, Bind_ord, true, false);
+        putCompositeEntity(
+		Expressions_ord, "Expressions", Expressions.class, false, PathExpression_ord, true, false, false);
+        putCompositeEntity(
+		Bindings_ord, "Bindings", Bindings.class, false, Bind_ord, true, false, false);
         putSimpleEntity(Bind_ord, "Bind", Bind.class, false).withFeature(QueriesFeatureDescriptorEnum.name, Name_ord).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpressionOrPredicate_ord, true, false, false, false, false);
-        putCompositeEntity(Choose_ord, "Choose", Choose.class, false, PathExpression_ord, true, false);
-        putCompositeEntity(Block_ord, "Block", Block.class, false, PathExpression_ord, true, false);
-        putCompositeEntity(Sequence_ord, "Sequence", Sequence.class, false, PathExpression_ord, true, false);
+        putCompositeEntity(
+		Choose_ord, "Choose", Choose.class, false, PathExpression_ord, true, false, false);
+        putCompositeEntity(
+		Block_ord, "Block", Block.class, false, PathExpression_ord, true, false, false);
+        putCompositeEntity(
+		Sequence_ord, "Sequence", Sequence.class, false, PathExpression_ord, true, false, false);
         putSimpleEntity(Scope_ord, "Scope", Scope.class, false).withFeature(QueriesFeatureDescriptorEnum.localNames, Names_ord).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
-        putCompositeEntity(CartesianProduct_ord, "CartesianProduct", CartesianProduct.class, false, PathExpression_ord, true, false);
-        putCompositeEntity(PointwiseProduct_ord, "PointwiseProduct", PointwiseProduct.class, false, PathExpression_ord, true, false);
+        putCompositeEntity(
+		CartesianProduct_ord, "CartesianProduct", CartesianProduct.class, false, PathExpression_ord, true, false, false);
+        putCompositeEntity(
+		PointwiseProduct_ord, "PointwiseProduct", PointwiseProduct.class, false, PathExpression_ord, true, false, false);
         putSimpleEntity(Filter_ord, "Filter", Filter.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, StepExpression_ord).withFeature(QueriesFeatureDescriptorEnum.predicate, PruneOrPredicate_ord);
         putSimpleEntity(TraversalStep_ord, "TraversalStep", TraversalStep.class, true, FollowingStep_ord, FollowingSiblingStep_ord, RootStep_ord, AncestorStep_ord, InverseAdjacentStep_ord, InverseReachableStep_ord, ParentStep_ord, AspectStep_ord, PrecedingSiblingStep_ord, PrecedingStep_ord, DirectStep_ord, InverseStep_ord, ForwardStep_ord, AncestorOrSelfStep_ord, DescendantStep_ord, InverseReachableOrSelfStep_ord, ChildStep_ord, FragmentRootStep_ord, FeatureStep_ord, DescendantOrSelfStep_ord, ReverseStep_ord, ReachableStep_ord, ReachableOrSelfStep_ord, AdjacentStep_ord, SelfStep_ord);
         putSimpleEntity(AspectStep_ord, "AspectStep", AspectStep.class, false);
@@ -401,8 +409,10 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(VisitorTest_ord, "VisitorTest", VisitorTest.class, false, org.whole.lang.visitors.IVisitor.class);
         putSimpleEntity(ExpressionTest_ord, "ExpressionTest", ExpressionTest.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
         putSimpleEntity(DistinctTest_ord, "DistinctTest", DistinctTest.class, false).withFeature(QueriesFeatureDescriptorEnum.comparator, Comparator_ord, true, false, false, false, false);
-        putCompositeEntity(And_ord, "And", And.class, false, Predicate_ord, true, false);
-        putCompositeEntity(Or_ord, "Or", Or.class, false, Predicate_ord, true, false);
+        putCompositeEntity(
+		And_ord, "And", And.class, false, Predicate_ord, true, false, false);
+        putCompositeEntity(
+		Or_ord, "Or", Or.class, false, Predicate_ord, true, false, false);
         putSimpleEntity(Not_ord, "Not", Not.class, false).withFeature(QueriesFeatureDescriptorEnum.predicate, Predicate_ord);
         putSimpleEntity(QuantifiedPredicate_ord, "QuantifiedPredicate", QuantifiedPredicate.class, true, Every_ord, Some_ord, One_ord).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.whereClause, Predicate_ord, true, false, false, false, false);
         putSimpleEntity(One_ord, "One", One.class, false).withFeature(QueriesFeatureDescriptorEnum.fromClause, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.whereClause, Predicate_ord, true, false, false, false, false);
@@ -415,7 +425,8 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(AllNames_ord, "AllNames", AllNames.class, false);
         putSimpleEntity(AddNames_ord, "AddNames", AddNames.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, NamesExpression_ord).withFeature(QueriesFeatureDescriptorEnum.names, Names_ord);
         putSimpleEntity(RemoveNames_ord, "RemoveNames", RemoveNames.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, NamesExpression_ord).withFeature(QueriesFeatureDescriptorEnum.names, Names_ord);
-        putCompositeEntity(Names_ord, "Names", Names.class, false, Name_ord, true, false);
+        putCompositeEntity(
+		Names_ord, "Names", Names.class, false, Name_ord, true, false, false);
         putDataEntity(Name_ord, "Name", Name.class, false, String.class);
         putSimpleEntity(Expression_ord, "Expression", Expression.class, true, ShortLiteral_ord, Multiplication_ord, DateLiteral_ord, BooleanLiteral_ord, CollectByExpression_ord, Union_ord, VariableRefStep_ord, Remainder_ord, VoidLiteral_ord, LessThan_ord, Intersect_ord, GreaterThan_ord, Literal_ord, GreaterOrEquals_ord, Division_ord, IntLiteral_ord, UnionAll_ord, Addition_ord, CharLiteral_ord, LongLiteral_ord, FloatLiteral_ord, NotEquals_ord, Equals_ord, Subtraction_ord, StringLiteral_ord, Singleton_ord, LessOrEquals_ord, ByteLiteral_ord, DoubleLiteral_ord, PointwiseEquals_ord, Tuple_ord, Except_ord);
         putSimpleEntity(CollectByExpression_ord, "CollectByExpression", CollectByExpression.class, true, Intersect_ord, Union_ord, Except_ord).withFeature(QueriesFeatureDescriptorEnum.expressions, Expressions_ord).withFeature(QueriesFeatureDescriptorEnum.comparator, Comparator_ord, true, false, false, false, false);
@@ -428,7 +439,8 @@ public class QueriesEntityDescriptorEnum extends EntityDescriptorEnum {
         putDataEntity(VariableRefStep_ord, "VariableRefStep", VariableRefStep.class, false, String.class);
         putSimpleEntity(Singleton_ord, "Singleton", Singleton.class, false).withFeature(QueriesFeatureDescriptorEnum.expression, PathExpression_ord);
         putSimpleEntity(PointwiseEquals_ord, "PointwiseEquals", PointwiseEquals.class, false).withFeature(QueriesFeatureDescriptorEnum.pexp1, PathExpression_ord).withFeature(QueriesFeatureDescriptorEnum.pexp2, PathExpression_ord);
-        putCompositeEntity(Tuple_ord, "Tuple", Tuple.class, false, PathExpression_ord, true, false);
+        putCompositeEntity(
+		Tuple_ord, "Tuple", Tuple.class, false, PathExpression_ord, true, false, false);
         putSimpleEntity(Addition_ord, "Addition", Addition.class, false).withFeature(QueriesFeatureDescriptorEnum.exp1, Expression_ord).withFeature(QueriesFeatureDescriptorEnum.exp2, Expression_ord);
         putSimpleEntity(Subtraction_ord, "Subtraction", Subtraction.class, false).withFeature(QueriesFeatureDescriptorEnum.exp1, Expression_ord).withFeature(QueriesFeatureDescriptorEnum.exp2, Expression_ord);
         putSimpleEntity(Multiplication_ord, "Multiplication", Multiplication.class, false).withFeature(QueriesFeatureDescriptorEnum.exp1, Expression_ord).withFeature(QueriesFeatureDescriptorEnum.exp2, Expression_ord);

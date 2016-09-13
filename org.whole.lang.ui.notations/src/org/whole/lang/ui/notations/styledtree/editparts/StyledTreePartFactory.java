@@ -137,6 +137,10 @@ public class StyledTreePartFactory implements IEditPartFactory, IStylingFactory 
 				return new CompositeEntityStyledTreePart(this, entityStyling);
 			default:
 			case DATA:
+				//TODO test
+				if (entity.wGetEntityDescriptor().getName().equals("SimpleName") &&
+						entity.wGetParent().wGetEntityDescriptor().getName().equals("Feature"))
+					entity.wGetEntityDescriptor();
 				switch (notationStyling.getEmbeddingStyle(this, contextPart, entity)) {
 				case TABLE_CELL:
 					switch (ed.getDataKind()) {//TODO replace with styling features

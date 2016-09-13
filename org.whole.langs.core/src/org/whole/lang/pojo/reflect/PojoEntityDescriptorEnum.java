@@ -172,8 +172,8 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 						LanguageURI_ord)
 				.withFeature(PojoFeatureDescriptorEnum.declarations,
 						Declarations_ord);
-		putCompositeEntity(Declarations_ord, "Declarations",
-				Declarations.class, false, Declaration_ord, true, false);
+		putCompositeEntity(
+		Declarations_ord, "Declarations", Declarations.class, false, Declaration_ord, true, false, false);
 		putSimpleEntity(Declaration_ord, "Declaration", Declaration.class,
 				true, FactoryDeclaration_ord, PojoDeclaration_ord,
 				DataTypeDeclaration_ord, ProductDeclaration_ord,
@@ -229,8 +229,8 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(PojoFeatureDescriptorEnum.prefix, Name_ord)
 				.withFeature(PojoFeatureDescriptorEnum.factoryMethods,
 						FactoryMethods_ord);
-		putCompositeEntity(FactoryMethods_ord, "FactoryMethods",
-				FactoryMethods.class, false, FactoryMethod_ord, true, false);
+		putCompositeEntity(
+		FactoryMethods_ord, "FactoryMethods", FactoryMethods.class, false, FactoryMethod_ord, true, false, false);
 		putSimpleEntity(FactoryMethod_ord, "FactoryMethod",
 				FactoryMethod.class, false)
 				.withFeature(PojoFeatureDescriptorEnum.productType,
@@ -240,13 +240,13 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false, false)
 				.withFeature(PojoFeatureDescriptorEnum.parameters,
 						Parameters_ord);
-		putCompositeEntity(Constructors_ord, "Constructors",
-				Constructors.class, false, Constructor_ord, true, false);
+		putCompositeEntity(
+		Constructors_ord, "Constructors", Constructors.class, false, Constructor_ord, true, false, false);
 		putSimpleEntity(Constructor_ord, "Constructor", Constructor.class,
 				false).withFeature(PojoFeatureDescriptorEnum.parameters,
 				Parameters_ord);
-		putCompositeEntity(Parameters_ord, "Parameters", Parameters.class,
-				false, Parameter_ord, true, false);
+		putCompositeEntity(
+		Parameters_ord, "Parameters", Parameters.class, false, Parameter_ord, true, false, false);
 		putSimpleEntity(Parameter_ord, "Parameter", Parameter.class, false)
 				.withFeature(PojoFeatureDescriptorEnum.annotations,
 						Annotations_ord, true, false, false, false, false)
@@ -255,8 +255,8 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 				.withFeature(PojoFeatureDescriptorEnum.name, Name_ord)
 				.withFeature(PojoFeatureDescriptorEnum.template, Name_ord,
 						true, false, false, false, false);
-		putCompositeEntity(Properties_ord, "Properties", Properties.class,
-				false, Property_ord, true, false);
+		putCompositeEntity(
+		Properties_ord, "Properties", Properties.class, false, Property_ord, true, false, false);
 		putSimpleEntity(Property_ord, "Property", Property.class, false)
 				.withFeature(PojoFeatureDescriptorEnum.annotations,
 						Annotations_ord, true, false, false, false, false)
@@ -265,8 +265,8 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 						true, false, false, false)
 				.withFeature(PojoFeatureDescriptorEnum.template, Name_ord,
 						true, false, false, false, false);
-		putCompositeEntity(ReferenceTypes_ord, "ReferenceTypes",
-				ReferenceTypes.class, false, ReferenceType_ord, true, false);
+		putCompositeEntity(
+		ReferenceTypes_ord, "ReferenceTypes", ReferenceTypes.class, false, ReferenceType_ord, true, false, false);
 		putDataEntity(ReferenceType_ord, "ReferenceType", ReferenceType.class,
 				false, String.class);
 		putDataEntity(PrimitiveType_ord, "PrimitiveType", PrimitiveType.class,
@@ -284,13 +284,13 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 		putDataEntity(CollectionInterface_ord, "CollectionInterface",
 				CollectionInterface.class, false,
 				CollectionInterfaceEnum.Value.class);
-		putCompositeEntity(Names_ord, "Names", Names.class, false, Name_ord,
-				true, false);
+		putCompositeEntity(
+		Names_ord, "Names", Names.class, false, Name_ord, true, false, false);
 		putDataEntity(Name_ord, "Name", Name.class, false, String.class);
 		putDataEntity(LanguageURI_ord, "LanguageURI", LanguageURI.class, false,
 				String.class);
-		putCompositeEntity(Annotations_ord, "Annotations", Annotations.class,
-				false, Annotation_ord, true, false);
+		putCompositeEntity(
+		Annotations_ord, "Annotations", Annotations.class, false, Annotation_ord, true, false, false);
 		putSimpleEntity(Annotation_ord, "Annotation", Annotation.class, true,
 				MultiplePropertiesAnnotation_ord, Modifier_ord,
 				SinglePropertyAnnotation_ord, MarkerAnnotation_ord,
@@ -315,14 +315,14 @@ public class PojoEntityDescriptorEnum extends EntityDescriptorEnum {
 				PojoFeatureDescriptorEnum.name, Name_ord).withFeature(
 				PojoFeatureDescriptorEnum.propertyValuePairs,
 				PropertyValuePairs_ord);
-		putCompositeEntity(PropertyValuePairs_ord, "PropertyValuePairs",
-				PropertyValuePairs.class, false, Constructors_ord, true, false);
+		putCompositeEntity(
+		PropertyValuePairs_ord, "PropertyValuePairs", PropertyValuePairs.class, false, Constructors_ord, true, false, false);
 		putSimpleEntity(PropertyValuePair_ord, "PropertyValuePair",
 				PropertyValuePair.class, false).withFeature(
 				PojoFeatureDescriptorEnum.name, Name_ord).withFeature(
 				PojoFeatureDescriptorEnum.value, PropertyValue_ord);
-		putCompositeEntity(ArrayData_ord, "ArrayData", ArrayData.class, false,
-				PropertyValue_ord, true, false);
+		putCompositeEntity(
+		ArrayData_ord, "ArrayData", ArrayData.class, false, PropertyValue_ord, true, false, false);
 		putDataEntity(BooleanData_ord, "BooleanData", BooleanData.class, false,
 				boolean.class);
 		putDataEntity(ByteData_ord, "ByteData", ByteData.class, false,

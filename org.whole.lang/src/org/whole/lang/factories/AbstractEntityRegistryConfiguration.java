@@ -102,7 +102,8 @@ public abstract class AbstractEntityRegistryConfiguration implements IEntityRegi
 				child = EntityUtils.clone(child);
 				prototype.wSet(i, child);
 
-				if (fed.getEntityKind().isComposite())
+				if (fed.getEntityKind().isComposite() &&
+						!fed.getEntityFeatureDescriptor(0).isOptional())
 					try {
 						child.wAdd(CommonsEntityAdapterFactory.createResolver(
 								fed.getEntityDescriptor(0)));//TODO enforceRec
@@ -110,6 +111,15 @@ public abstract class AbstractEntityRegistryConfiguration implements IEntityRegi
 						//FIXME workaround for Map entity
 					}
 			}
+		} else if (ed.getEntityKind().isComposite() &&
+				!ed.getEntityFeatureDescriptor(0).isOptional()) {
+			//FIXME
+//			try {
+//				prototype.wAdd(CommonsEntityAdapterFactory.createResolver(
+//						ed.getEntityDescriptor(0)));//TODO enforceRec
+//			} catch (UnsupportedOperationException e) {
+//				//FIXME workaround for Map entity
+//			}
 		}
 	}
 }
