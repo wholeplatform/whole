@@ -43,6 +43,7 @@ import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.keys.IKeyHandler;
 import org.whole.lang.ui.tools.EditPoint;
 import org.whole.lang.ui.tools.IEditPointProvider;
+import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.util.CaretUpdater;
 import org.whole.lang.ui.util.CaretUtils;
 
@@ -448,7 +449,7 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 		if (event.keyCode == SWT.INSERT) {
 			toggleInsertMode();
 			return true;
-		} else if (event.character == ' ') {
+		} else if (event.character == ' ' && !Tools.TEXTUAL.isActive(getViewer())) {
 			processSelect(event);
 			return true;
 		} else if (acceptConnection(event)) {
