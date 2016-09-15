@@ -25,7 +25,6 @@ import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
@@ -105,25 +104,15 @@ public class RootFragmentPart extends AbstractFragmentPart implements LayerConst
 				IEntity rootEntity = ((RootFragment) getModelEntity()).getRootEntity().wGetAdaptee(false);
 				if (rootEntity.wGetParent() instanceof RootFragment) {	
 					clipArea = graphics.getClip(new Rectangle()).expand(1,1);
-					graphics.setForegroundColor(ColorConstants.gray);
-					graphics.drawLine(r2.x, r2.y, r2.x, r2.bottom());
-					graphics.drawLine(r2.x, r2.y, r2.right(), r2.y);
-					graphics.drawLine(r2.right() + 1, r2.y + 3, r2.right() + 1, r2.bottom() + 1);
-					graphics.drawLine(r2.x + 3, r2.bottom() + 1, r2.right() + 1, r2.bottom() + 1);
-	
+					int oldAlpha = graphics.getAlpha();
+					graphics.setAlpha(60);
 					graphics.setForegroundColor(ColorConstants.darkGray);
-					graphics.drawLine(r2.right(), r2.y + 1, r2.right(), r2.bottom());
-					graphics.drawLine(r2.x + 1, r2.bottom(), r2.right(), r2.bottom());
-	
+					graphics.setLineWidth(1);
+					graphics.drawRectangle(r2.getTranslated(-1, -1).resize(1, 1));
 					graphics.setForegroundColor(ColorConstants.lightGray);
-					graphics.drawLine(r2.right() + 2, r2.y + 3, r2.right() + 2, r2.bottom() + 1);
-					Point.SINGLETON.setLocation(r2.right() + 1, r2.y + 2);
-					if (clipArea.contains(Point.SINGLETON))
-						graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
-					graphics.drawLine(r2.x + 3, r2.bottom() + 2, r2.right() + 1, r2.bottom() + 2);
-					Point.SINGLETON.setLocation(r2.x + 2, r2.bottom() + 1);
-					if (clipArea.contains(Point.SINGLETON))
-						graphics.drawPoint(Point.SINGLETON.x, Point.SINGLETON.y);
+					graphics.setLineWidth(5);
+					graphics.drawRoundRectangle(r2.getTranslated(-4, -4).resize(7, 7), 10, 10);
+					graphics.setAlpha(oldAlpha);
 				} else {
 					graphics.setForegroundColor(ColorConstants.lightGray);
 					graphics.drawRectangle(r2.x-1, r2.y-1, r2.width+1, r2.height+1);
