@@ -17,14 +17,18 @@
  */
 package org.whole.lang.ui.editparts;
 
-import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.figures.LanguageTypeFigure;
+import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.util.ResourceUtils;
 
 /**
  * @author Riccardo Solmi
  */
-public class LanguageTypePart extends AbastractLanguageDataEntityPart {
-	public IFigure createFigure() {
-		return new LanguageTypeFigure();
+public abstract class AbastractLanguageDataEntityPart extends AbstractDataEntityPart {
+	@Override
+	protected void refreshVisuals() {
+//no		super.refreshVisuals();
+		String uri = getModelEntity().wStringValue();
+		getLabel().setText(ReflectionFactory.hasLanguageKit(uri, true, null) ?
+				ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null)) : uri);
 	}
 }

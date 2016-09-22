@@ -55,21 +55,24 @@ import org.whole.lang.grammars.model.Unbounded;
 import org.whole.lang.grammars.model.Version;
 import org.whole.lang.grammars.model.When;
 import org.whole.lang.grammars.reflect.GrammarsEntityDescriptorEnum;
+import org.whole.lang.grammars.reflect.GrammarsFeatureDescriptorEnum;
 import org.whole.lang.grammars.visitors.GrammarsIdentityDefaultVisitor;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
-import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
-import org.whole.lang.ui.editparts.LiteralDataEntityPart;
-import org.whole.lang.ui.editparts.IEditPartFactory;
-import org.whole.lang.ui.editparts.IFragmentPart;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
+import org.whole.lang.ui.editparts.DeclarationTextualEntityPart;
+import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.IFragmentPart;
+import org.whole.lang.ui.editparts.LanguageURINamespacePart;
+import org.whole.lang.ui.editparts.LiteralDataEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.notations.editparts.QuotedAsNeededStringDataEntityPart;
 import org.whole.lang.ui.notations.editparts.QuotedAsNeededStringTextualEntityPart;
 import org.whole.lang.ui.notations.text.editparts.DefaultTextualPartFactory;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -97,7 +100,11 @@ public class GrammarsPartFactoryVisitor extends GrammarsIdentityDefaultVisitor i
 
 	@Override
 	public void visit(URI entity) {
-		part = new ContentTextualEntityPart();
+		IEntity parent = entity.wGetParent();
+		if (EntityUtils.hasParent(entity) && Matcher.match(GrammarsEntityDescriptorEnum.Grammar, parent) && parent.wGet(GrammarsFeatureDescriptorEnum.targetLanguage) == entity)
+			part = new LanguageURINamespacePart();
+		else
+			part = new ContentTextualEntityPart();
 	}
 	@Override
 	public void visit(Namespace entity) {

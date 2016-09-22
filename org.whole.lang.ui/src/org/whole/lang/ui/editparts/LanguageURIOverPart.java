@@ -18,13 +18,13 @@
 package org.whole.lang.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.figures.LanguageTypeFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class LanguageTypePart extends AbastractLanguageDataEntityPart {
+public class LanguageURIOverPart extends AbastractLanguageDataEntityPart {
 	public IFigure createFigure() {
-		return new LanguageTypeFigure();
+		return LabelFactory.createModule();
 	}
 }

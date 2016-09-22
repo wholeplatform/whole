@@ -32,13 +32,15 @@ import org.whole.lang.actions.model.ToolbarActions;
 import org.whole.lang.actions.model.URI;
 import org.whole.lang.actions.model.Version;
 import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
+import org.whole.lang.actions.reflect.ActionsFeatureDescriptorEnum;
 import org.whole.lang.actions.visitors.ActionsIdentityDefaultVisitor;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
-import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.ContentDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
+import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.LanguageURINamespacePart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
@@ -115,7 +117,11 @@ public class ActionsPartFactoryVisitor extends ActionsIdentityDefaultVisitor imp
 	}
 
 	public void visit(URI entity) {
-		part = new ContentTextualEntityPart();
+		IEntity parent = entity.wGetParent();
+		if (EntityUtils.hasParent(entity) && Matcher.match(ActionsEntityDescriptorEnum.LanguageActionFactory, parent) && parent.wGet(ActionsFeatureDescriptorEnum.targetLanguage) == entity)
+			part = new LanguageURINamespacePart();
+		else
+			part = new ContentTextualEntityPart();
 	}
 	public void visit(Namespace entity) {
 		part = new ModuleNamespaceTextualEntityPart();
