@@ -446,16 +446,18 @@ public class E4NavigationKeyHandler extends E4KeyHandler implements IEditPointPr
 	}
 
 	public boolean keyPressed(KeyEvent event) {
+		//FIXME workaround (whent textual tool is enabled
+		// inhibit navigation actions that use printable chars)
 		if (event.keyCode == SWT.INSERT) {
 			toggleInsertMode();
 			return true;
 		} else if (event.character == ' ' && !Tools.TEXTUAL.isActive(getViewer())) {
 			processSelect(event);
 			return true;
-		} else if (acceptConnection(event)) {
+		} else if (acceptConnection(event) && !Tools.TEXTUAL.isActive(getViewer())) {
 			navigateConnections(event);
 			return true;
-		} else if (acceptLeaveConnection(event)) {
+		} else if (acceptLeaveConnection(event) && !Tools.TEXTUAL.isActive(getViewer())) {
 			navigateOutOfConnection(event);
 			return true;
 		}
