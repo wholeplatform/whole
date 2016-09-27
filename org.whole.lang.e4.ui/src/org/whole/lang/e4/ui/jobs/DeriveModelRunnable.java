@@ -74,7 +74,7 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 		IEntityPartViewer paletteViewer = context.get(IEntityPartViewer.class);
 		if (result != null)
 			paletteViewer.setContents(result);
-		else if (!functionWithNoResult)
+		else if (functionWithNoResult)
 			paletteViewer.setContents(null, E4Utils.createEmptyStatusContents());
 	}
 }

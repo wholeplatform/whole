@@ -17,8 +17,13 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.viewers.E4PaletteGraphicalViewer;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -27,7 +32,15 @@ public class E4PaletteGraphicalPart extends AbstractE4DerivedGraphicalPart {
 	protected String getDerivationFunction() {
 		return "whole:org.whole.lang:ViewDerivationLibrary#derivePaletteViewContents";
 	}
-	
+
+	protected IEntityPartViewer createEntityViewer(Composite parent) {
+		IEclipseContext params = EclipseContextFactory.create();
+		params.set("parent", parent);
+		IEntityPartViewer viewer = ContextInjectionFactory.make(E4PaletteGraphicalViewer.class, context, params);
+		setSelectionLinkable(createSelectionLinkable(viewer));
+		return viewer;
+	}
+
 	@Override
 	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
 		params = super.configureSelectionLinkable(params);
