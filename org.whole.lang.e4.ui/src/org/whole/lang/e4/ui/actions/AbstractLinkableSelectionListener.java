@@ -47,6 +47,8 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 	protected String functionUri;	
 	@Optional @Inject @Named(FUNCTION_IS_TRANSACTIONAL)
 	protected boolean functionIsTransactional;	
+	@Optional @Inject @Named(FUNCTION_WITH_NO_RESULT)
+	protected boolean functionWithNoResult;	
 	@Inject @Named(SHARE_EDIT_DOMAIN)
 	protected boolean shareEditDomain;
 	@Inject @Named(SYNCHRONIZE_SELECTION)
@@ -56,7 +58,7 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 
 	protected IEntityPartViewer linkedViewer;
 	protected IBindingManager lastSelection;
-	protected ListenerList linkViewerListenerList = new ListenerList();
+	protected ListenerList<ILinkViewerListener> linkViewerListenerList = new ListenerList<>();
 
 	@Override
 	public void selectionChanged(MPart part, Object selection) {

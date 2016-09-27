@@ -83,7 +83,6 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.dialogs.ImportAsModelDialogFactory;
@@ -251,7 +250,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 	}
 
 	protected IEntity createDefaultContents() {
-		return new ErrorStatusTemplate().create();
+		return E4Utils.createErrorStatusContents();
 	}
 
 	protected IEntity createMergeModel() {

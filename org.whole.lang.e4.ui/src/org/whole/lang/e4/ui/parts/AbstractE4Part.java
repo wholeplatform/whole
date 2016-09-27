@@ -76,7 +76,6 @@ import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.ui.IUIProvider;
 import org.whole.lang.ui.dialogs.LazyConfirmationDialogReloader;
 import org.whole.lang.ui.editparts.IEntityPart;
@@ -209,7 +208,7 @@ public abstract class AbstractE4Part {
 	}
 
 	protected IEntity createDefaultContents() {
-		return new EmptyStatusTemplate().create();
+		return E4Utils.createEmptyStatusContents();
 	}
 
 	@PersistState

@@ -59,7 +59,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.editparts.EntityPartListener;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IPartFocusListener;
@@ -239,7 +238,7 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 			} catch (Exception e) {
 				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
 				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
-				IEntity statusModel = new ErrorStatusTemplate().create();
+				IEntity statusModel = E4Utils.createErrorStatusContents();
 				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
 						modelInput.getName(), modelInput.getPersistenceKit().getDescription());
 				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);

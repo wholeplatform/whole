@@ -17,6 +17,8 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 
 /**
  * @author Enrico Persiani
@@ -24,5 +26,12 @@ package org.whole.lang.e4.ui.parts;
 public class E4PaletteGraphicalPart extends AbstractE4DerivedGraphicalPart {
 	protected String getDerivationFunction() {
 		return "whole:org.whole.lang:ViewDerivationLibrary#derivePaletteViewContents";
+	}
+	
+	@Override
+	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
+		params = super.configureSelectionLinkable(params);
+		params.set(ILinkableSelectionListener.FUNCTION_WITH_NO_RESULT, true);
+		return params;
 	}
 }

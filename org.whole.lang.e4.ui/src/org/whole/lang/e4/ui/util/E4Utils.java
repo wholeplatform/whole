@@ -70,6 +70,8 @@ import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.status.codebase.EmptyStatusTemplate;
+import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editpolicies.IHilightable;
@@ -89,6 +91,13 @@ import org.whole.lang.util.NullOutputStream;
  * @author Enrico Persiani
  */
 public class E4Utils {
+	public static IEntity createEmptyStatusContents() {
+		return new EmptyStatusTemplate().create();
+	}
+
+	public static IEntity createErrorStatusContents() {
+		return new ErrorStatusTemplate().create();
+	}
 
 	public static MCommand findCommand(String commandId, MApplication application) {
 		for (MCommand command : application.getCommands())

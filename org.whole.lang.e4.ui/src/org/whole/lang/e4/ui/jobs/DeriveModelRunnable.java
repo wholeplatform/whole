@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationCanceledException;
@@ -34,12 +35,14 @@ import org.whole.lang.util.BehaviorUtils;
 public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	protected String functionUri;
 	protected boolean functionIsTransactional;
+	protected boolean functionWithNoResult;
 
 	public DeriveModelRunnable(IEclipseContext context, IBindingManager bm, String label,
-			String functionUri, boolean functionIsTransactional) {
+			String functionUri, boolean functionIsTransactional, boolean functionWithNoResult) {
 		super(context, bm, label);
 		this.functionUri = functionUri;
 		this.functionIsTransactional = functionIsTransactional;
+		this.functionWithNoResult = functionWithNoResult;
 	}
 
 	@Override
@@ -54,13 +57,11 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 			bm.wEnterScope();
 			bm.wDefValue("debug#reportModeEnabled", false);
 			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
-			if (result != null) {
-				context.get(UISynchronize.class).asyncExec(new Runnable() {
-					public void run() {
-						updateUI(result);
-					}
-				});
-			}
+			context.get(UISynchronize.class).asyncExec(new Runnable() {
+				public void run() {
+					updateUI(result);
+				}
+			});
 		} catch (OperationCanceledException e) {
 			// gracefully terminate execution
 		} finally {
@@ -70,6 +71,10 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	}
 	
 	protected void updateUI(IEntity result) {
-		context.get(IEntityPartViewer.class).setContents(result);
+		IEntityPartViewer paletteViewer = context.get(IEntityPartViewer.class);
+		if (result != null)
+			paletteViewer.setContents(result);
+		else if (!functionWithNoResult)
+			paletteViewer.setContents(null, E4Utils.createEmptyStatusContents());
 	}
 }
