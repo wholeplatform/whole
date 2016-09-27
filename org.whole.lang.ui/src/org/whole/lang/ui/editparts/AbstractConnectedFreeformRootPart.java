@@ -43,11 +43,13 @@ import org.whole.lang.ui.editpolicies.WholeFreeformLayoutEditPolicy;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.EntityXYLayout;
+import org.whole.lang.ui.requests.DnDOverCompositeRequest;
+import org.whole.lang.ui.requests.PartRequest;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractFreeformRootPart extends AbstractPart {
+public abstract class AbstractConnectedFreeformRootPart extends AbstractPart {
 	IFigure pane;
 	protected IFigure createFigure() {
 //		Figure figure = new FreeformLayer();
@@ -95,8 +97,18 @@ public abstract class AbstractFreeformRootPart extends AbstractPart {
 
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.CONTAINER_ROLE, new WholeContainerEditPolicy(getCommandFactory()));
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new WholeFreeformLayoutEditPolicy((XYLayout) getContentPane().getLayoutManager(), getCommandFactory()));
     	installEditPolicy(EditPolicy.COMPONENT_ROLE, new WholeComponentEditPolicy(getCommandFactory()));
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new WholeFreeformLayoutEditPolicy((XYLayout) getContentPane().getLayoutManager(), getCommandFactory()) {
+			protected DnDOverCompositeRequest createDnDOverCompositeRequest(IEntity entity) {
+				return new DnDOverCompositeRequest(PartRequest.MOVE_ADD_CHILD, (IEntityPart) getHost(), entity, null) {
+					@Override
+					public IEntity getModelEntity() {
+						IEntity modelEntity = super.getModelEntity().wGet(0); //FIXME workaround to get nodes composite
+						return modelEntity;
+					}
+				};
+			}
+		});
     	installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
     }
 

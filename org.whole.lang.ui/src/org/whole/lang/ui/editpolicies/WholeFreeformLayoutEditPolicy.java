@@ -43,7 +43,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi, Enrico Persiani
  */
 public class WholeFreeformLayoutEditPolicy extends XYLayoutEditPolicy {
-	private ICommandFactory commandFactory;
+	protected ICommandFactory commandFactory;
 
 	public WholeFreeformLayoutEditPolicy(XYLayout xyLayout, ICommandFactory commandFactory) {
 		setXyLayout(xyLayout);
@@ -87,15 +87,13 @@ public class WholeFreeformLayoutEditPolicy extends XYLayoutEditPolicy {
 	protected Command getConstrainedCompositeAddCommand(IEntity entity, Rectangle constraint) {
 		CompoundCommand compound = new CompoundCommand();
 		compound.add(createChangeConstraintCommand(entity, constraint));		
-		compound.add(commandFactory.create(new DnDOverCompositeRequest(PartRequest.MOVE_ADD_CHILD, (IEntityPart) getHost(), entity, null) {
-			@Override
-			public IEntity getModelEntity() {
-				IEntity modelEntity = super.getModelEntity().wGet(0); //FIXME workaround
-				return modelEntity;
-			}
-		}));
+		compound.add(commandFactory.create(createDnDOverCompositeRequest(entity)));
 		return compound;
 	}
+	protected DnDOverCompositeRequest createDnDOverCompositeRequest(IEntity entity) {
+		return new DnDOverCompositeRequest(PartRequest.MOVE_ADD_CHILD, (IEntityPart) getHost(), entity, null);
+	}
+
 	protected Command getCompoundConstrainedCompositeAddCommand(ChangeBoundsRequest request) {
 		CompoundCommand command = new CompoundCommand();
 		for (Object editPart : request.getEditParts()) {
@@ -106,6 +104,7 @@ public class WholeFreeformLayoutEditPolicy extends XYLayoutEditPolicy {
 		}
 		return command.unwrap();
 	}
+
 	protected Object getConstraintFor(ChangeBoundsRequest request) {
 		IFigure figure = getLayoutContainer();
 

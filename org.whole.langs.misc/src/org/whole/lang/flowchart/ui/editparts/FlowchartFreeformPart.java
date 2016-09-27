@@ -28,12 +28,12 @@ import org.eclipse.gef.Request;
 import org.whole.lang.flowchart.model.Flowchart;
 import org.whole.lang.flowchart.model.Nodes;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractFreeformRootPart;
+import org.whole.lang.ui.editparts.AbstractConnectedFreeformRootPart;
 
 /**
  * @author Riccardo Solmi
  */
-public class FlowchartFreeformPart extends AbstractFreeformRootPart {
+public class FlowchartFreeformPart extends AbstractConnectedFreeformRootPart {
 	@SuppressWarnings("unchecked")
 	public Flowchart getModelEntity() {
 		return (Flowchart) getModel();
