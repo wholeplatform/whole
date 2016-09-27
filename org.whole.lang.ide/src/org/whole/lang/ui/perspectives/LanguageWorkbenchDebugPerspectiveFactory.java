@@ -74,6 +74,7 @@ public class LanguageWorkbenchDebugPerspectiveFactory implements IPerspectiveFac
 		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.CONTEXT_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.PALETTE_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.SAMPLE_PART_ID);

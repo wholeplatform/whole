@@ -4,7 +4,21 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="ViewDerivation"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="7">
+    <semantics:SemanticFunctions initialCapacity="8">
+        <semantics:SemanticFunction>
+            <semantics:Name value="derivePaletteViewContents"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <queries:Path xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:FeatureStep value="whole:org.whole.lang.boards:BoardsModel#objects"/>
+                <queries:Filter>
+                    <queries:ChildStep/>
+                    <queries:SubtypeTest value="whole:org.whole.lang.boards:BoardsModel#Palette"/>
+                </queries:Filter>
+            </queries:Path>
+        </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="deriveIndexViewContents"/>
             <semantics:FunctionType>

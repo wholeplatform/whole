@@ -34,6 +34,7 @@ public interface IUIConstants {
 	public static final String DETAILS_PART_ID = BUNDLE_ID+".part.details";
 	public static final String MAP_PART_ID = BUNDLE_ID+".part.map";
 	public static final String INDEX_PART_ID = BUNDLE_ID+".part.index";
+	public static final String PALETTE_PART_ID = BUNDLE_ID+".part.palette";
 	public static final String RESULTS_PART_ID = BUNDLE_ID+".part.results";
 	public static final String OUTLINE_PART_ID = BUNDLE_ID+".part.outline";
 	public static final String DEBUG_PART_ID = BUNDLE_ID+".part.debug";
@@ -46,6 +47,7 @@ public interface IUIConstants {
 		DETAILS_PART_ID,
 		MAP_PART_ID,
 		INDEX_PART_ID,
+		PALETTE_PART_ID,
 		DEBUG_PART_ID,
 		VARIABLES_PART_ID,
 		CONTEXT_PART_ID,

@@ -28,6 +28,7 @@ public class LanguageWorkbenchExplorePerspectiveFactory extends LanguageWorkbenc
 	public static String ID = LanguageWorkbenchExplorePerspectiveFactory.class.getName();
 
 	protected void addTopRightViews(IFolderLayout folder) {
+		folder.addView(IUIConstants.PALETTE_PART_ID);
 		folder.addView(IUIConstants.MAP_PART_ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
@@ -41,6 +42,7 @@ public class LanguageWorkbenchExplorePerspectiveFactory extends LanguageWorkbenc
 		super.addShowViewShortcuts(layout);
 		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
+		layout.addShowViewShortcut(IUIConstants.PALETTE_PART_ID);
 		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
 	}
 }
