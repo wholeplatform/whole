@@ -28,6 +28,7 @@ import org.eclipse.gef.dnd.AbstractTransferDragSourceListener;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.Transfer;
+import org.whole.lang.model.IEntity;
 
 /**
  * @author Enrico Persiani
@@ -41,12 +42,12 @@ public abstract class AbstractSelectionTransferDragSourceListener extends Abstra
 		super(viewer);
 	}
 
-	protected List<Object> modelSelection;
+	protected List<IEntity> modelSelection;
 
 	protected void storeSelection(List<EditPart> selectedEditParts) {
-		modelSelection = new ArrayList<Object>(selectedEditParts.size());
+		modelSelection = new ArrayList<IEntity>(selectedEditParts.size());
 		for (EditPart editPart : selectedEditParts)
-			modelSelection.add(editPart.getModel());
+			modelSelection.add((IEntity) editPart.getModel());
 	}
 	
 	protected void restoreSelection() {
@@ -55,9 +56,9 @@ public abstract class AbstractSelectionTransferDragSourceListener extends Abstra
 
 	@SuppressWarnings("unchecked")
 	protected List<EditPart> getSelectedEditParts() {
-		Map<Object, EditPart> editPartRegistry = getViewer().getEditPartRegistry();
 		List<EditPart> selectedParts = new ArrayList<EditPart>(modelSelection.size());
-		for (Object model : modelSelection) {
+		Map<IEntity, EditPart> editPartRegistry = getViewer().getEditPartRegistry();
+		for (IEntity model : modelSelection) {
 			EditPart editPart = editPartRegistry.get(model);
 			if (editPart != null)
 				selectedParts.add(editPart);
