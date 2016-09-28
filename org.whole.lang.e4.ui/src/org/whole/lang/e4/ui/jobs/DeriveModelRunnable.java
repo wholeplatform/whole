@@ -57,7 +57,11 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 			bm.wEnterScope();
 			bm.wDefValue("debug#reportModeEnabled", false);
 			final IEntity result = BehaviorUtils.apply(functionUri, bm.wGet("self"), bm);
-			context.get(UISynchronize.class).asyncExec(new Runnable() {
+			UISynchronize synchronize = context.get(UISynchronize.class);
+			if (synchronize == null)
+				return;
+
+			synchronize.asyncExec(new Runnable() {
 				public void run() {
 					updateUI(result);
 				}
