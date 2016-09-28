@@ -71,10 +71,13 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	}
 	
 	protected void updateUI(IEntity result) {
-		IEntityPartViewer paletteViewer = context.get(IEntityPartViewer.class);
+		IEntityPartViewer viewer = context.get(IEntityPartViewer.class);
+		if (viewer == null)
+			return;
+
 		if (result != null)
-			paletteViewer.setContents(result);
+			viewer.setContents(result);
 		else if (functionWithNoResult)
-			paletteViewer.setContents(null, E4Utils.createEmptyStatusContents());
+			viewer.setContents(null, E4Utils.createEmptyStatusContents());
 	}
 }
