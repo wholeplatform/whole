@@ -108,9 +108,8 @@ public abstract class AbstractE4Part {
 	@PostConstruct
 	public void createPartControl(Composite parent) {
 		restoreState();
-		
-		if (E4Utils.isLegacyApplication())
-			HandlersBehavior.registerHandlers(handlerService);
+
+		registerHandlers();
 
 		parent.setLayout(new FillLayout());
 		viewer = createEntityViewer(parent);
@@ -151,20 +150,7 @@ public abstract class AbstractE4Part {
 		actionRegistry.registerKeyActions(viewer.getKeyHandler());
 		context.set(ActionRegistry.class, actionRegistry);
 
-		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
-		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
-
-		viewer.setContextMenu(new ContextMenuProvider(viewer) {
-			@Override
-			public void buildContextMenu(IMenuManager menuManager) {
-				try {
-					if (!getViewer().getEditDomain().isDisabled())
-						contextMenuProvider.populate(menuManager);
-				} catch (Exception e) {
-					getMenu().setVisible(false);
-				}
-			}
-		});
+		configureContextMenu();
 
 		if (!E4Utils.isLegacyApplication())
 			viewer.getCommandStack().addCommandStackListener(new CommandStackListener() {
@@ -181,6 +167,11 @@ public abstract class AbstractE4Part {
 		});
 	}
 
+	protected void registerHandlers() {
+		if (E4Utils.isLegacyApplication())
+			HandlersBehavior.registerHandlers(handlerService);
+	}
+
 	protected abstract IEntityPartViewer createEntityViewer(Composite parent);
 
 	protected void updateSelection(IBindingManager bm) {
@@ -189,6 +180,23 @@ public abstract class AbstractE4Part {
 		selectionService.setSelection(bm);
 		//FIXME workaround selectionService.setSelection(bm); doesn't update the ACTIVE_SELECTION in the active context
 		context.set(IServiceConstants.ACTIVE_SELECTION, bm);
+	}
+	
+	protected void configureContextMenu() {
+		JFaceMenuBuilder uiBuilder = ContextInjectionFactory.make(JFaceMenuBuilder.class, context);
+		contextMenuProvider = new PopupMenuProvider<IContributionItem, IMenuManager>(uiBuilder);
+
+		viewer.setContextMenu(new ContextMenuProvider(viewer) {
+			@Override
+			public void buildContextMenu(IMenuManager menuManager) {
+				try {
+					if (!getViewer().getEditDomain().isDisabled())
+						contextMenuProvider.populate(menuManager);
+				} catch (Exception e) {
+					getMenu().setVisible(false);
+				}
+			}
+		});
 	}
 
 	@Optional @Inject
