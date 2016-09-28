@@ -160,17 +160,19 @@ public class HandlersBehavior {
 		return isValidFocusEntityPart(bm);
 	}
 	public static void copyEntityPath(IBindingManager bm) {
-		IEntity focusEntity = bm.wGet("focusEntity");
-		try {
-			Class<?> queryUtilsClass = Class.forName("org.whole.lang.queries.util.QueriesUtils",
-					true, ReflectionFactory.getClassLoader(bm));
-			Method createRootPathMethod = queryUtilsClass.getMethod("createRootPath", new Class[] {IEntity.class});
-			IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, focusEntity);
-			Clipboard.instance().setEntityContents(BindingManagerFactory.instance.createTuple(true, entityPath));
-		} catch (Exception e) {
-			String location = EntityUtils.getLocation(focusEntity);
-			Clipboard.instance().setTextContents(location);
-		}
+		E4Utils.syncExec(bm, () -> {
+			IEntity focusEntity = bm.wGet("focusEntity");
+			try {
+				Class<?> queryUtilsClass = Class.forName("org.whole.lang.queries.util.QueriesUtils",
+						true, ReflectionFactory.getClassLoader(bm));
+				Method createRootPathMethod = queryUtilsClass.getMethod("createRootPath", new Class[] {IEntity.class});
+				IEntity entityPath = (IEntity) createRootPathMethod.invoke(null, focusEntity);
+				Clipboard.instance().setEntityContents(BindingManagerFactory.instance.createTuple(true, entityPath));
+			} catch (Exception e) {
+				String location = EntityUtils.getLocation(focusEntity);
+				Clipboard.instance().setTextContents(location);
+			}
+		});
 	}
 	public static boolean canCopyAsImage(IBindingManager bm) {
 		if (!isValidFocusEntityPart(bm))
