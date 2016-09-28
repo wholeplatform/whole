@@ -23,6 +23,8 @@ import org.eclipse.gef.dnd.SimpleObjectTransfer;
  * @author Enrico Persiani
  */
 public class EditPartsTransfer extends SimpleObjectTransfer {
+	public static final String PROPERTY_FORCE_DND_COPY = "forceDNDCopy";
+
 	private static class SingletonHolder {
 		private static final EditPartsTransfer instance = new EditPartsTransfer();
 	}

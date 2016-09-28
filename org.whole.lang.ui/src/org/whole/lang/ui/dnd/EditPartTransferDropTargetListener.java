@@ -35,6 +35,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.whole.lang.ui.commands.DnDCompoundCommand;
+import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -146,9 +148,13 @@ public class EditPartTransferDropTargetListener extends AbstractTransferDropTarg
 		for (int i = 0; i < event.dataTypes.length; i++)
 			if (getTransfer().isSupportedType(event.dataTypes[i]))
 				event.data = EditPartsTransfer.instance().getObject();
-		if (event.data != null && !((List<?>) event.data).isEmpty() &&
-				((EditPart) ((List<?>) event.data).get(0)).getViewer() == getViewer())
-			return false;
+		if (event.data != null && !((List<?>) event.data).isEmpty()) {
+			IEntityPartViewer sourceViewer = ((IEntityPart) ((List<?>) event.data).get(0)).getViewer();
+			if (sourceViewer == getViewer())
+				return false;
+			else if (Boolean.TRUE.equals(sourceViewer.getProperty(EditPartsTransfer.PROPERTY_FORCE_DND_COPY)))
+				event.detail = DND.DROP_COPY;
+		}
 
 		return super.isEnabled(event);
 	}

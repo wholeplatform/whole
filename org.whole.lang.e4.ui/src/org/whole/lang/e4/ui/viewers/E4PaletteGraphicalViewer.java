@@ -18,6 +18,7 @@
 package org.whole.lang.e4.ui.viewers;
 
 import org.whole.lang.ui.dnd.EditPartTransferDragSourceListener;
+import org.whole.lang.ui.dnd.EditPartsTransfer;
 import org.whole.lang.ui.tools.Tools;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 
@@ -26,6 +27,8 @@ import org.whole.lang.ui.viewers.EntityEditDomain;
  */
 public class E4PaletteGraphicalViewer extends E4GraphicalViewer {
 	protected void configureViewer(EntityEditDomain domain) {
+		setProperty(EditPartsTransfer.PROPERTY_FORCE_DND_COPY, true);
+
 		addDragSourceListener(new EditPartTransferDragSourceListener(this));
 
 		Tools.PANNING.ensureActive(domain);
