@@ -32,5 +32,7 @@ public class E4PaletteGraphicalViewer extends E4GraphicalViewer {
 		addDragSourceListener(new EditPartTransferDragSourceListener(this));
 
 		Tools.PANNING.ensureActive(domain);
+		
+		getControl().setDragDetect(true);
 	}
 }
