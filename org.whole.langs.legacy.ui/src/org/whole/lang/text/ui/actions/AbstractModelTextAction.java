@@ -21,20 +21,18 @@ import java.net.URL;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.AbstractE4Action;
 import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.jobs.FunctionRunnable;
+import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
+import org.whole.lang.e4.ui.jobs.TextualFunctionRunnable;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.commands.ModelTextCommand;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.tools.Tools;
-import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
-import org.whole.lang.util.BehaviorUtils;
-import org.whole.lang.util.DataTypeUtils;
 
 /**
  * @author Enrico Persiani
@@ -68,78 +66,17 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 				!(ModelObserver.getObserver(bm.wGet("focusEntity"), viewer.getEditPartRegistry()) instanceof ITextualEntityPart))
 			return false;
 
-		try {
-			bm.wEnterScope();
-			defineCaretBindings(bm);
-			IEntity result = BehaviorUtils.apply(getEnablementUri(), bm.wGet("self"), bm);
-			return result != null && result.wBooleanValue();
-		} finally {
-			bm.wExitScope();
-		}
+		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+		ISynchronizableRunnable runnable = new FunctionRunnable(context, bm, getText(), getEnablementUri());
+		IEntity result = runnable.syncExec(3000).getResult();
+		return result != null && result.wBooleanValue();
 	}
 
 	@Override
 	public void run() {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		IBindingManager bm = (IBindingManager) selectionService.getSelection();
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		IEntity text = bm.wGet("focusEntity");
-
-		boolean enableAnimation = AnimableRunnable.enableAnimation(false);
-		ModelTextCommand mtc = new ModelTextCommand(text);
-		try {
-			mtc.setLabel(getText());
-			mtc.setViewer(viewer);
-			mtc.begin();
-
-			try {
-				bm.wEnterScope();
-				defineCaretBindings(bm);
-
-				IEntity newText = BehaviorUtils.apply(getBehaviorUri(), bm.wGet("self"), bm);
-
-				mtc.setNewSelectedEntity(newText);
-				mtc.setNewPosition(bm.wIntValue("caretPosition"));
-
-			} finally {
-				bm.wExitScope();
-			}
-
-
-			mtc.commit();
-			if (mtc.canUndo()) {
-				CommandStack commandStack = viewer.getEditDomain().getCommandStack();
-				commandStack.execute(mtc);
-			}
-		} catch (RuntimeException e) {
-			mtc.rollback();
-			throw e;
-		} finally {
-			AnimableRunnable.enableAnimation(enableAnimation);
-		}
-	}
-	
-	protected void defineCaretBindings(IBindingManager bm) {
-		IEntity text = bm.wGet("focusEntity");
-		String textToSplit = DataTypeUtils.getAsPresentationString(text);
-		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
-		ITextualEntityPart targetPart = (ITextualEntityPart) ModelObserver.getObserver(text, viewer.getEditPartRegistry());
-
-		int start = targetPart.getSelectionStart();
-		int end = targetPart.getSelectionEnd();
-		if (start == -1 || end == -1)
-			start = end = targetPart.getCaretPosition();
-
-		String leftText = textToSplit.substring(0, start);
-		String selectedText = textToSplit.substring(start, end);
-		String rightText = textToSplit.substring(end);
-
-		bm.wDefValue("leftText", leftText);
-		bm.wDefValue("selectedText", selectedText);
-		bm.wDefValue("rightText", rightText);
-		bm.wDefValue("caretPositions", targetPart.getCaretPositions());
-		bm.wDefValue("caretPosition", targetPart.getCaretPosition());
-		bm.wDefValue("caretPositionStart", start);
-		bm.wDefValue("caretPositionEnd", end);
+		ISynchronizableRunnable runnable = new TextualFunctionRunnable(getContext(), bm, getText(), getBehaviorUri());
+		runnable.syncExec(3000);
 	}
 }

@@ -153,6 +153,10 @@ public interface IUIConstants {
 	public static final String NEWLINE_LABEL = "Newline on Caret";
 	public static final String BACKSPACE_LABEL = "Backspace";
 	public static final String DELETE_LABEL = "Delete";
+	public static final String LEFT_LABEL = "Left";
+	public static final String RIGHT_LABEL = "Right";
+	public static final String UP_LABEL = "Up";
+	public static final String DOWN_LABEL = "Down";
 
 	public static final String REMOVE_LABEL = "Remove";
 	public static final String DEFAULT_LABEL = "Default";

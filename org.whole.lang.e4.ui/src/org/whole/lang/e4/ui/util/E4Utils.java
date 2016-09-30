@@ -74,6 +74,7 @@ import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
 import org.whole.lang.ui.util.SuspensionKind;
@@ -174,7 +175,8 @@ public class E4Utils {
 		if (viewer != null) {
 			bm.wDef("self", EntityUtils.getCompoundRoot(viewer.getEntityContents()));
 			bm.wDefValue("viewer", viewer);
-			bm.wDef("focusEntity", viewer.getFocusEntityPart().getModelEntity());
+			IEntityPart focusEntityPart = viewer.getFocusEntityPart();
+			bm.wDef("focusEntity", focusEntityPart.getModelEntity());
 		}
 		bm.wDef("selectedEntities", selectedEntities);
 		IEntityIterator<IEntity> iterator = IteratorFactory.childIterator();
@@ -208,11 +210,35 @@ public class E4Utils {
 			}
 		}
 	}
+	public static void defineCaretBindings(IBindingManager bm) {
+		IEntity text = bm.wGet("focusEntity");
+		String textToSplit = DataTypeUtils.getAsPresentationString(text);
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		ITextualEntityPart targetPart = (ITextualEntityPart) ModelObserver.getObserver(text, viewer.getEditPartRegistry());
+		
+		int start = targetPart.getSelectionStart();
+		int end = targetPart.getSelectionEnd();
+		if (start == -1 || end == -1)
+			start = end = targetPart.getCaretPosition();
+		
+		String leftText = textToSplit.substring(0, start);
+		String selectedText = textToSplit.substring(start, end);
+		String rightText = textToSplit.substring(end);
+		
+		bm.wDefValue("leftText", leftText);
+		bm.wDefValue("selectedText", selectedText);
+		bm.wDefValue("rightText", rightText);
+		bm.wDefValue("caretPositions", targetPart.getCaretPositions());
+		bm.wDefValue("caretPosition", targetPart.getCaretPosition());
+		bm.wDefValue("caretPositionStart", start);
+		bm.wDefValue("caretPositionEnd", end);
+	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
 		modelInput.getPersistenceProvider().defineBindings(bm);
 		bm.wDefValue("modelInput", modelInput);
 	}
+
 	public static IEntity wrapToBehavior(EntityDescriptor<?> ed, IEntityTransformer entityTransformer) {
 		return wrapToBehavior(ed, null, entityTransformer);
 	}
