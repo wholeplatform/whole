@@ -22,9 +22,7 @@ import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.GroupAc
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.SeparatedAction;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.jobs.ContentAssistRunnable;
 import org.whole.lang.matchers.GenericMatcherFactory;
@@ -43,16 +41,10 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 		if (!HandlersBehavior.isValidFocusEntityPart(bm))
 			return false;
 
-		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(ts);
-
 		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
 		ContentAssistRunnable runnable = new ContentAssistRunnable(context, bm);
 		IEntity result = runnable.syncExec(3000).getResult();
 		IEntity[] values = (IEntity[]) result.wGetValue();
-
-		ts.rollback();
-		bm.wExitScope();
 		if (values == null)
 			return false;
 		else if (values.length == 1 && !EntityUtils.isData(values[0])) {
