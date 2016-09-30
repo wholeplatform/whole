@@ -57,16 +57,32 @@ public class TextActionFactory extends ActionFactory {
 		KeyStroke deleteKeyStroke = KeyStroke.getInstance(deleteKey);
 		KeySequence deleteKeySequence = KeySequence.getInstance(deleteKeyStroke);
 
+		int arrowLeftKey = keyLookup.formalKeyLookup(IKeyLookup.ARROW_LEFT_NAME);
+		KeyStroke arrowLeftKeyStroke = KeyStroke.getInstance(arrowLeftKey);
+		KeySequence arrowLeftKeySequence = KeySequence.getInstance(arrowLeftKeyStroke);
+
+		int arrowRightKey = keyLookup.formalKeyLookup(IKeyLookup.ARROW_RIGHT_NAME);
+		KeyStroke arrowRightKeyStroke = KeyStroke.getInstance(arrowRightKey);
+		KeySequence arrowRightKeySequence = KeySequence.getInstance(arrowRightKeyStroke);
+
+		int arrowUpKey = keyLookup.formalKeyLookup(IKeyLookup.ARROW_UP_NAME);
+		KeyStroke arrowUpKeyStroke = KeyStroke.getInstance(arrowUpKey);
+		KeySequence arrowUpKeySequence = KeySequence.getInstance(arrowUpKeyStroke);
+
+		int arrowDownKey = keyLookup.formalKeyLookup(IKeyLookup.ARROW_DOWN_NAME);
+		KeyStroke arrowDownKeyStroke = KeyStroke.getInstance(arrowDownKey);
+		KeySequence arrowDownKeySequence = KeySequence.getInstance(arrowDownKeyStroke);
+
 		return new Object[][] {
 				{ ctrltSpaceKeySequence, TextEntityDescriptorEnum.Text, SplitOnCaretAction.class },
 				{ returnKeySequence, TextEntityDescriptorEnum.Text, NewlineAction.class },
 				{ backspaceKeySequence, TextEntityDescriptorEnum.Text, BackspaceAction.class },
 				{ deleteKeySequence, TextEntityDescriptorEnum.Text, DeleteAction.class },
 
-//				{ leftKeySequence, TextEntityDescriptorEnum.Text, LeftTextualAction.class },
-//				{ rightKeySequence, TextEntityDescriptorEnum.Text, RightTextualAction.class },
-//				{ upKeySequence, TextEntityDescriptorEnum.Text, UpTextualAction.class },
-//				{ downKeySequence, TextEntityDescriptorEnum.Text, DownTextualAction.class },
+				{ arrowLeftKeySequence, TextEntityDescriptorEnum.Text, ArrowLeftAction.class },
+				{ arrowRightKeySequence, TextEntityDescriptorEnum.Text, ArrowRightAction.class },
+				{ arrowUpKeySequence, TextEntityDescriptorEnum.Text, ArrowUpAction.class },
+				{ arrowDownKeySequence, TextEntityDescriptorEnum.Text, ArrowDownAction.class },
 		}; 
 	}
 }
