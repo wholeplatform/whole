@@ -20,7 +20,6 @@ package org.whole.lang.e4.ui.jobs;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
@@ -90,26 +89,16 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 	}
 
 	public synchronized IBindingScope syncExec(long timeout) {
-		new Thread(() -> {
-			UISynchronize uiSynchronize = context.get(UISynchronize.class);
-			context.set(UISynchronize.class, NoUISynchronize.instance);
-			try {
-				run(new NullProgressMonitor());
-			} finally {
-				context.set(UISynchronize.class, uiSynchronize);
-			}
-			// ensure notify doesn't get called before wait
-			synchronized (this) {
-				notifyAll();
-			}
-		}, getClass().getSimpleName()+".syncExec(...)").start();
+		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
+		EntityEditDomain editDomain = viewer.getEditDomain();
 
-		// wait for a notification
+		UISynchronize uiSynchronize = context.get(UISynchronize.class);
 		try {
-			wait(timeout);
-		} catch (InterruptedException e) {
+			context.set(UISynchronize.class, NoUISynchronize.instance);
+			EntityEditDomainJob.syncExec("boh", editDomain, this);
+		} finally {
+			context.set(UISynchronize.class, uiSynchronize);
 		}
-
 		return bm;
 	}
 

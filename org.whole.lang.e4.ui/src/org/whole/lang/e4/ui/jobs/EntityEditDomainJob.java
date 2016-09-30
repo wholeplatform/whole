@@ -59,4 +59,19 @@ public class EntityEditDomainJob extends Job {
 		job.setPriority(Job.INTERACTIVE);
 		job.schedule();
 	}
+	
+	public static void syncExec(String name, EntityEditDomain editDomain, IRunnableWithProgress runnable) {
+		EntityEditDomainJob job = new EntityEditDomainJob(name, runnable);
+		job.setRule(editDomain);
+		job.setUser(false);
+		job.setPriority(Job.INTERACTIVE);
+		job.schedule();
+		try {
+			job.join(3000, null);
+		} catch (OperationCanceledException e) {
+			// terminate gracefully
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
+	}
 }
