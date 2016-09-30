@@ -40,7 +40,7 @@ public class TextEditorKit extends AbstractEditorKit {
 	}
 
 	public String getName() {
-		return "Text";
+		return "Text textual";
 	}
 
 	public IEditPartFactory getPartFactory() {
