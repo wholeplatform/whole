@@ -20,6 +20,7 @@ package org.whole.lang.ui.layout;
 import java.util.Arrays;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.util.CompositeUtils;
 
 /**
  * @author Riccardo Solmi
@@ -32,27 +33,95 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 		withMinorAlignment(Alignment.LEADING);
 	}
 
-	private int maxRows;
-	private int maxColumns;
+	private int maxRows = -1;
+	private int maxColumns = -1;
 	private int[] cellX;
 	private int[] cellY;
 	private int[] columnIndent;
 	private int[] columnRightIndent;
 	private int[] rowAscent;
 	private int[] rowDescent;
-	//TODO custom spacing and alignment
-	private Alignment[] rowAlignment;
-	private Alignment[] columnAlignment;
+	private Alignment[] rowAlignment = new Alignment[0];
+	private Alignment[] columnAlignment = new Alignment[0];
+	private int[] rowSpacing = new int[0];
+	private int[] columnSpacing = new int[0];
+	private int defaultColumnSpacing;
 
-	public GridLayout() {
-		this(-1, -1);
-	}
-	public GridLayout(int maxRows) {
-		this(maxRows, -1);
-	}
-	public GridLayout(int maxRows, int maxColumns) {
+	public GridLayout withMaxRows(int maxRows) {
 		this.maxRows = maxRows;
+		return this;
+	}
+	public GridLayout withMaxColumns(int maxColumns) {
 		this.maxColumns = maxColumns;
+		return this;
+	}
+
+	public GridLayout withRowAlignment(int rowIndex, Alignment alignment) {
+		rowAlignment = CompositeUtils.grow(rowAlignment, rowIndex+1, null);
+		rowAlignment[rowIndex] = alignment;
+		return this;
+	}
+	public GridLayout withRowAlignment(Alignment defaultAlignment) {
+		withMajorAlignment(defaultAlignment);
+		return this;
+	}
+	public Alignment getRowAlignment(int rowIndex) {
+		return rowIndex < rowAlignment.length && rowAlignment[rowIndex] != null ?
+				rowAlignment[rowIndex] : getRowAlignment();
+	}
+	public Alignment getRowAlignment() {
+		return getMajorAlignment();
+	}
+
+	public GridLayout withColumnAlignment(int columnIndex, Alignment alignment) {
+		columnAlignment = CompositeUtils.grow(columnAlignment, columnIndex+1, null);
+		columnAlignment[columnIndex] = alignment;
+		return this;
+	}
+	public GridLayout withColumnAlignment(Alignment defaultAlignment) {
+		withMinorAlignment(defaultAlignment);
+		return this;
+	}
+	public Alignment getColumnAlignment(int columnIndex) {
+		return columnIndex < columnAlignment.length && columnAlignment[columnIndex] != null ?
+				columnAlignment[columnIndex] : getColumnAlignment();
+	}
+	public Alignment getColumnAlignment() {
+		return getMinorAlignment();
+	}
+
+	public GridLayout withRowSpacingAfter(int rowIndex, int spacing) {
+		rowSpacing = CompositeUtils.grow(rowSpacing, rowIndex+1, -1);
+		rowSpacing[rowIndex] = spacing;
+		return this;
+	}
+	public GridLayout withRowSpacing(int spacing) {
+		withSpacing(spacing);
+		return this;
+	}
+	public int getRowSpacingAfter(int rowIndex) {
+		return rowIndex < rowSpacing.length && rowSpacing[rowIndex] != -1 ?
+				rowSpacing[rowIndex] : getRowSpacing();
+	}
+	public int getRowSpacing() {
+		return getSpacing();
+	}
+
+	public GridLayout withColumnSpacingAfter(int columnIndex, int spacing) {
+		columnSpacing = CompositeUtils.grow(columnSpacing, columnIndex+1, -1);
+		columnSpacing[columnIndex] = spacing;
+		return this;
+	}
+	public GridLayout withColumnSpacing(int spacing) {
+		this.defaultColumnSpacing = spacing;
+		return this;
+	}
+	public int getColumnSpacingAfter(int columnIndex) {
+		return columnIndex < columnSpacing.length && columnSpacing[columnIndex] != -1 ?
+				columnSpacing[columnIndex] : getColumnSpacing();
+	}
+	public int getColumnSpacing() {
+		return defaultColumnSpacing;
 	}
 
 	public int rows() {
@@ -61,6 +130,7 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 	public int columns() {
 		return columnIndent != null ? columnIndent.length : 0;
 	}
+
 	public Rectangle cellBounds(int c, int r) {
 		Rectangle rectangle = Rectangle.SINGLETON;
 		rectangle.setLocation(cellX[c], cellY[r]);
@@ -89,6 +159,8 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 	protected void initData(int childrenSize) {
 		int rows = 0;
 		int columns = 0;
+
+		//FIXME visibility of rows and columns
 		if (childrenSize > 0) {
 			if (maxRows > 0) {
 				rows = Math.min(maxRows, childrenSize);
@@ -139,6 +211,7 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 
 				hintsSensitive |= childSize[i].hintsSensitive;
 				int ci = childSize[i].getIndent();
+				//FIXME f(alignment)
 				columnIndent[c] = Math.max(columnIndent[c], ci);
 				columnRightIndent[c] = Math.max(columnRightIndent[c], childSize[i].width-ci);
 				rowAscent[r] = Math.max(rowAscent[r], childSize[i].getAscent());
@@ -148,11 +221,11 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 		figWidth =
 				Arrays.stream(columnIndent).sum() +
 				Arrays.stream(columnRightIndent).sum() +
-				getSpacing()*(columns()-1);
+				getColumnSpacing()*(columns()-1);//FIXME
 		figHeight =
 				Arrays.stream(rowAscent).sum() +
 				Arrays.stream(rowDescent).sum() + 
-				getSpacing()*(rows()-1);
+				getRowSpacing()*(rows()-1);//FIXME
 
 		//TODO add withAscentAlignment, withAscentTarget and withIndentAlignment
 		figAscent = figHeight / 2;
@@ -176,16 +249,35 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 				c = i / rows();
 				r = i % rows();
 
-				cellX[c] = area.x +
-						Arrays.stream(columnIndent).limit(c).sum() +
-						Arrays.stream(columnRightIndent).limit(c).sum() +
-						getSpacing()*c;
-				cellY[r] = area.y +
-						Arrays.stream(rowAscent).limit(r).sum() +
-						Arrays.stream(rowDescent).limit(r).sum() +
-						getSpacing()*r;
+				int columnIndentSum=0;
+				int columnRightIndentSum=0;
+				int columnSpacingSum=0;
+				int rowAscentSum=0;
+				int rowDescentSum=0;
+				int rowSpacingSum=0;
 
-				switch (getMinorAlignment()) {
+				//FIXME visibility row/column
+				for (int j=0; j<c; j++) {
+					columnIndentSum += columnIndent[j];
+					columnRightIndentSum += columnRightIndent[j];
+					columnSpacingSum += getColumnSpacingAfter(j);
+				}
+				for (int j=0; j<r; j++) {
+					rowAscentSum += rowAscent[j];
+					rowDescentSum += rowDescent[j];
+					rowSpacingSum += getRowSpacingAfter(j);
+				}
+
+				cellX[c] = area.x + columnIndentSum + columnRightIndentSum + columnSpacingSum;
+//						Arrays.stream(columnIndent).limit(c).sum() +
+//						Arrays.stream(columnRightIndent).limit(c).sum() +
+//						getSpacing()*c;
+				cellY[r] = area.y + rowAscentSum + rowDescentSum + rowSpacingSum;
+//						Arrays.stream(rowAscent).limit(r).sum() +
+//						Arrays.stream(rowDescent).limit(r).sum() +
+//						getSpacing()*r;
+
+				switch (getColumnAlignment(c)) {
 				case FILL:
 					childSize[i].width = columnIndent[c]+columnRightIndent[c];
 				case LEADING:
@@ -202,7 +294,7 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 					break;
 				}
 
-				switch (getMajorAlignment()) {
+				switch (getRowAlignment(r)) {
 				case FILL:
 					childSize[i].height = rowAscent[r]+rowDescent[r];
 				case LEADING:
