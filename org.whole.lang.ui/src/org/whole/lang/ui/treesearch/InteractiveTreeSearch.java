@@ -50,7 +50,8 @@ public class InteractiveTreeSearch implements ITreeSearch {
 
 	public boolean accept(IFigure figure) {
 		boolean value = peekInheritedInteractiveEdit(figure);
-		inheritedInteractiveStack.clear(inheritedInteractiveStack.length()-1);
+		if (inheritedInteractiveStack.length() > 0)
+			inheritedInteractiveStack.clear(inheritedInteractiveStack.length()-1);
 		return value;
 	}
 
