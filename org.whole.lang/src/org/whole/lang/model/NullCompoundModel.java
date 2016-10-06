@@ -85,6 +85,9 @@ public class NullCompoundModel implements ICompoundModel, Serializable, IHistory
     }
 
 
+    public boolean isHistoryEvent() {
+    	return false;
+    }
 	public boolean isHistoryEnabled() {
 		return false;
 	}

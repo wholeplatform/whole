@@ -28,6 +28,7 @@ public interface IHistoryManager extends ITransaction {
 	public boolean equals(IHistoryManager other);
 	public IHistoryManager mergeHistory(IHistoryManager target); 
 
+	public boolean isHistoryEvent();
 	public boolean isHistoryEnabled();
 	public boolean setHistoryEnabled(boolean value);
 

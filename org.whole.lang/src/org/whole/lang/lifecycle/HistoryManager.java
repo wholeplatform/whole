@@ -195,11 +195,13 @@ public class HistoryManager extends IdentityChangeEventHandler implements IHisto
 	protected void discard(int beginIndex) {
 		disposeRedoCommands();
 		boolean isEnabled = setHistoryEnabled(false);
+		setHistoryEvent(true);
 		while (lastExecutedIndex >= beginIndex) {
 			ICommand command = history.remove(lastExecutedIndex--);
 			command.undo();
 			command.dispose();
 		}
+		setHistoryEvent(false);
 		setHistoryEnabled(isEnabled, true);
 	}
 
@@ -208,6 +210,14 @@ public class HistoryManager extends IdentityChangeEventHandler implements IHisto
 			throw new IllegalStateException();
 
 		setStatus(Status.MARKED_ROLLBACK);
+	}
+
+	private boolean historyEvent = false;
+	public boolean isHistoryEvent() {
+		return historyEvent;
+	}
+	public boolean setHistoryEvent(boolean value) {
+		return historyEvent = value;
 	}
 
 	private boolean historyEnabled = false;
@@ -332,7 +342,9 @@ public class HistoryManager extends IdentityChangeEventHandler implements IHisto
 			throw new IllegalStateException();
 
 		boolean isEnabled = setHistoryEnabled(false);
+		setHistoryEvent(true);
 		history.get(lastExecutedIndex--).undo();
+		setHistoryEvent(false);
 		setHistoryEnabled(isEnabled, true);
 	}
 	public void redo() {
@@ -340,7 +352,9 @@ public class HistoryManager extends IdentityChangeEventHandler implements IHisto
 			throw new IllegalStateException();
 		
 		boolean isEnabled = setHistoryEnabled(false);
+		setHistoryEvent(true);
 		history.get(++lastExecutedIndex).redo();
+		setHistoryEvent(false);
 		setHistoryEnabled(isEnabled, true);
 	}
 

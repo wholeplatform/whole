@@ -124,6 +124,12 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
     }
 
 
+    public boolean isHistoryEvent() {
+		if (historyManager != this)
+			return historyManager.isHistoryEvent();
+
+		return false;
+    }
 	public boolean isHistoryEnabled() {
 		if (historyManager != this)
 			return historyManager.isHistoryEnabled();
