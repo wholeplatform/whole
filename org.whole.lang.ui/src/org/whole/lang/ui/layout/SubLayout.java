@@ -24,8 +24,14 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * @author Riccardo Solmi
  */
 public class SubLayout extends AbstractEntityLayout {
+	protected int shift = 3;
+	public SubLayout withVerticalShift(int shift) {
+		this.shift = shift;
+		return this;
+	}
+
 	protected void setAscentDescentWidth(int wHint, int hHint) {
-		figAscent = Math.max(ascent(0), ascent(1)-descent(0));
+		figAscent = Math.max(ascent(0), ascent(1)+shift-descent(0));
 		figDescent = descent(0)+descent(1);
 		figWidth = childSize[0].width + childSize[1].width;
 	}
@@ -35,6 +41,6 @@ public class SubLayout extends AbstractEntityLayout {
 		y[0] = area.y+Math.max(figAscent-ascent(0), 0);
 		
 		x[1] = area.x+childSize[0].width;
-		y[1] = area.y+figAscent+1+descent(0)-ascent(1);
+		y[1] = area.y+figAscent-(ascent(1)+shift-descent(0));
 	}
 }
