@@ -187,6 +187,13 @@ public class Matcher {
 	public static boolean matchAtFeature(FeatureDescriptor fd, IEntity model) {
 		return EntityUtils.hasParent(model) && fd.equals(model.wGetParent().wGetFeatureDescriptor(model));
 	}
+	public static boolean matchAtEntityFeature(FeatureDescriptor efd, IEntity model) {
+		return matchAtEntityFeature(efd.getParentEntityDescriptor(), efd, model);
+	}
+	public static boolean matchAtEntityFeature(EntityDescriptor<?> ed, FeatureDescriptor fd, IEntity model) {
+		IEntity parent = model.wGetParent();
+		return !EntityUtils.isNull(parent) && isAssignableAsIsFrom(ed, parent) && fd.equals(parent.wGetFeatureDescriptor(model));
+	}
 
 	public static boolean isAssignableAsIsFrom(EntityDescriptor<?> descriptor, IEntity model) {
 		return descriptor.isLanguageSupertypeOf(model.wGetEntityDescriptor());
