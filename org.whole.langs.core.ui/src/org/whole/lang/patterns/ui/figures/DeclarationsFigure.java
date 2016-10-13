@@ -70,8 +70,7 @@ public class DeclarationsFigure extends TableFigure {
         graphics.setAlpha(getBackgroundAlpha());
         Rectangle tb = getTableBounds();
         Rectangle cb1 = l.getColumnBounds(1);
-        graphics.fillRectangle(cb1.x, tb.y, cb1.width, tb.height);
-        drawColumnSeparatorBefore(graphics, 3);
+        graphics.fillRectangle(cb1.x, tb.y, cb1.width+l.getColumnBounds(2).width, tb.height);
         graphics.setAlpha(oldAlpha);
         graphics.setForegroundColor(ColorConstants.lightGray);
         drawRowSeparators(graphics);

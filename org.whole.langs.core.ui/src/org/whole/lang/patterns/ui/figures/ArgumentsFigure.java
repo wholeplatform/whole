@@ -20,6 +20,7 @@ package org.whole.lang.patterns.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
 
@@ -40,10 +41,9 @@ public class ArgumentsFigure extends TableFigure {
 		if (l.rows() == 0)
 			return;
 
-		g.setBackgroundColor(ColorConstants.lightGray);
-		drawAlternateColumnsBackground(g, 0);
+		g.setBackgroundColor(FigurePrefs.modulesColor);
+		drawColumnBackground(g, 0);
 		g.setForegroundColor(ColorConstants.lightGray);
 		drawHeadersRowSeparator(g);
-		drawColumnSeparators(g);
 	}
 }
