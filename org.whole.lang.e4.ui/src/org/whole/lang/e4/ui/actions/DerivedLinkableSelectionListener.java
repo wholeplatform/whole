@@ -80,7 +80,8 @@ public class DerivedLinkableSelectionListener extends AbstractLinkableSelectionL
 				@Override
 				protected void updateUI(IEntity result) {
 					super.updateUI(result);
-					fireContentsDerived(result);
+					if (result != null)
+						fireContentsDerived(result);
 				}
 			};
 			runnable.asyncExec("Executing "+LABEL+" operation...");
