@@ -65,11 +65,11 @@ public class DeclarationsFigure extends TableFigure {
         
         graphics.setBackgroundColor(ColorConstants.gray);
         drawHeadersRowBackground(graphics);
-        graphics.setBackgroundColor(ColorConstants.lightGray);
+        graphics.setBackgroundColor(FigurePrefs.modulesColor);
         int oldAlpha = graphics.getAlpha();
         graphics.setAlpha(getBackgroundAlpha());
         Rectangle tb = getTableBounds();
-        Rectangle cb1 = l.getColumnBounds(0);
+        Rectangle cb1 = l.getColumnBounds(1);
         graphics.fillRectangle(cb1.x, tb.y, cb1.width, tb.height);
         drawColumnSeparatorBefore(graphics, 3);
         graphics.setAlpha(oldAlpha);
