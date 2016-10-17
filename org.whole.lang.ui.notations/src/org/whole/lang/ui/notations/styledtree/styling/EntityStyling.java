@@ -28,6 +28,7 @@ import org.whole.lang.util.ResourceUtils;
 public class EntityStyling implements IEntityStyling {
 	private INotationStyling notationStyling;
 
+	protected TypeStyle typeStyle;
 	protected String typeIdentifier;
 	protected EntityKinds kind;
 	protected LayoutStyle layoutStyle;
@@ -57,6 +58,12 @@ public class EntityStyling implements IEntityStyling {
 		this.notationStyling = notationStyling;
 	}
 
+	public static enum TypeStyle {
+		QUALIFIED_NAME, SIMPLE_NAME, LABEL, HANDLE, HIDDEN //SMART_NAME qualified if parent has a foreign type
+	}
+	public TypeStyle getTypeStyle() {
+		return typeStyle;
+	}
 	public String getTypeIdentifier() {
 		return typeIdentifier;
 	}

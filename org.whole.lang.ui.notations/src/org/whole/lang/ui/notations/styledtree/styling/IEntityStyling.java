@@ -19,6 +19,7 @@ package org.whole.lang.ui.notations.styledtree.styling;
 
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
+import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.TypeStyle;
 
 /**
  * @author Riccardo Solmi
@@ -26,9 +27,10 @@ import org.whole.lang.ui.notations.styledtree.styling.EntityStyling.LayoutStyle;
 public interface IEntityStyling {
 	public INotationStyling getNotationStyling();
 
+	//TODO ? move to notation styling
+	public TypeStyle getTypeStyle();
 	public String getTypeIdentifier();
 	public String getTypeLabel();
-	//TODO add getTypeStyle();
 
 	public EntityKinds getKind();//TODO ? merge with layoutStyle
 	public LayoutStyle getLayoutStyle();
