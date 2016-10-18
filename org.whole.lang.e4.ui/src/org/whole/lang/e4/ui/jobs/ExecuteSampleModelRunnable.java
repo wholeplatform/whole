@@ -55,11 +55,14 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 	protected IEntity contextModel;
 	protected IEntity selfModel;
 	protected IEntity behaviorModel;
+	protected IBindingManager selfBindings;
 
-	public ExecuteSampleModelRunnable(IEclipseContext context, IBindingManager bm, String label,
-			IEntity contextModel, IEntity selfModel, IEntity behaviorModel) {
-		super(context, bm, label);
+	public ExecuteSampleModelRunnable(IEclipseContext context, String label,
+			IEntity contextModel, IBindingManager selfBindings, IEntity selfModel,
+			IBindingManager behaviorBindings, IEntity behaviorModel) {
+		super(context, behaviorBindings, label);
 		this.contextModel = contextModel;
+		this.selfBindings = selfBindings;
 		this.selfModel = selfModel;
 		this.behaviorModel = behaviorModel;
 	}
@@ -83,14 +86,9 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 
 		IEntity derivedModel = null;
 		try {
-			//TODO investigate this workaround
-			if (bm.wGet("self") != selfEntity)
-				bm.wDef("self", selfEntity);
 			IEntityIterator<?> iterator = BehaviorUtils.lazyEvaluate(behaviorModel, 0, bm);
-			if (bm.wGet("self") != selfEntity)
-				bm.wDef("self", selfEntity);
+			iterator.setBindings(selfBindings);
 			iterator.reset(selfEntity);
-			iterator.setBindings(bm);
 
 			if (iterator.getClass().equals(ConstantIterator.class)) {
 				IEntity result = iterator.next();
