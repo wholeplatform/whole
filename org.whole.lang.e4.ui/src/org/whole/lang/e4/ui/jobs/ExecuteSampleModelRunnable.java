@@ -90,6 +90,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 			if (bm.wGet("self") != selfEntity)
 				bm.wDef("self", selfEntity);
 			iterator.reset(selfEntity);
+			iterator.setBindings(bm);
 
 			if (iterator.getClass().equals(ConstantIterator.class)) {
 				IEntity result = iterator.next();

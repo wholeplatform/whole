@@ -41,6 +41,8 @@ public class TextualFunctionRunnable extends FunctionRunnable {
 
 				mtc.setNewSelectedEntity(newText);
 				mtc.setNewPosition(bm.wIntValue("caretPosition"));
+				//FIXME add textual selection viariables updates
+				// see E4Utils.defineCaretBindings()
 
 			} finally {
 				bm.wExitScope();
