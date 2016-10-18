@@ -52,7 +52,8 @@ public class E4ContextGraphicalPart extends AbstractE4DerivedGraphicalPart {
 					IEntity primarySelectedEntity = selection.wGet("primarySelectedEntity");
 					IEntity model = EntityUtils.getCompoundRoot(primarySelectedEntity);
 					IEntity selfModel = EntityUtils.mapEntity(primarySelectedEntity, EntityUtils.clone(model));
-					IEntity sampleContext = BindingManagerFactory.instance.createTuple(result, selfModel);
+					IEntity selfBindings = BindingManagerFactory.instance.createValue(selection.clone());
+					IEntity sampleContext = BindingManagerFactory.instance.createTuple(result, selfModel, selfBindings);
 					//TODO test
 //					if (Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Bindings, result))
 //						result.wAdd(BindingManagerFactory.instance.createBinding("self", selfModel));

@@ -28,6 +28,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.handler.*;
+import org.whole.lang.e4.ui.jobs.ShowingPolicy;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
 import org.whole.lang.e4.ui.menu.PopupMenuProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
@@ -53,7 +54,7 @@ public class E4PaletteGraphicalPart extends AbstractE4DerivedGraphicalPart {
 	@Override
 	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
 		params = super.configureSelectionLinkable(params);
-		params.set(ILinkableSelectionListener.FUNCTION_WITH_NO_RESULT, true);
+		params.set(ILinkableSelectionListener.RESULTS_SHOWING_POLICY, ShowingPolicy.OPTIONAL);
 		return params;
 	}
 

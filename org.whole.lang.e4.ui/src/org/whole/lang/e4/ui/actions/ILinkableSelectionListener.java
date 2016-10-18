@@ -26,7 +26,7 @@ public interface ILinkableSelectionListener extends ILinkable, ISelectionListene
 	public static final String LINK_TYPE = "org.whole.lang.e4.ui.actions.linkType";
 	public static final String FUNCTION_URI = "org.whole.lang.e4.ui.actions.functionUri";
 	public static final String FUNCTION_IS_TRANSACTIONAL = "org.whole.lang.e4.ui.actions.functionIsTransactional";
-	public static final String FUNCTION_WITH_NO_RESULT = "org.whole.lang.e4.ui.actions.functionWithNoResult";
+	public static final String RESULTS_SHOWING_POLICY = "org.whole.lang.e4.ui.actions.resultsShowingPolicy";
 	public static final String SHARE_EDIT_DOMAIN = "org.whole.lang.e4.ui.actions.shareEditDoman";
 	public static final String SYNCHRONIZE_SELECTION = "org.whole.lang.e4.ui.actions.synchronizeSelection";
 	public static final String IGNORABLE_PART_IDS = "org.whole.lang.e4.ui.actions.ignorablePartIds";

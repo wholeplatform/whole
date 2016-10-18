@@ -28,6 +28,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.e4.ui.jobs.ShowingPolicy;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -47,8 +48,8 @@ public abstract class AbstractLinkableSelectionListener implements ILinkableSele
 	protected String functionUri;	
 	@Optional @Inject @Named(FUNCTION_IS_TRANSACTIONAL)
 	protected boolean functionIsTransactional;	
-	@Optional @Inject @Named(FUNCTION_WITH_NO_RESULT)
-	protected boolean functionWithNoResult;	
+	@Optional @Inject @Named(RESULTS_SHOWING_POLICY)
+	protected ShowingPolicy resultShowingPolicy;	
 	@Inject @Named(SHARE_EDIT_DOMAIN)
 	protected boolean shareEditDomain;
 	@Inject @Named(SYNCHRONIZE_SELECTION)

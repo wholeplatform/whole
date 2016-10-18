@@ -35,14 +35,14 @@ import org.whole.lang.util.BehaviorUtils;
 public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 	protected String functionUri;
 	protected boolean functionIsTransactional;
-	protected boolean functionWithNoResult;
+	protected ShowingPolicy resultShowingPolicy;
 
 	public DeriveModelRunnable(IEclipseContext context, IBindingManager bm, String label,
-			String functionUri, boolean functionIsTransactional, boolean functionWithNoResult) {
+			String functionUri, boolean functionIsTransactional, ShowingPolicy resultShowingPolicy) {
 		super(context, bm, label);
 		this.functionUri = functionUri;
 		this.functionIsTransactional = functionIsTransactional;
-		this.functionWithNoResult = functionWithNoResult;
+		this.resultShowingPolicy = resultShowingPolicy;
 	}
 
 	@Override
@@ -79,9 +79,25 @@ public class DeriveModelRunnable extends AbstractRunnableWithProgress {
 		if (viewer == null)
 			return;
 
-		if (result != null)
-			viewer.setContents(result);
-		else if (functionWithNoResult)
+		switch (resultShowingPolicy) {
+		case MANDATORY:
+			if (result != null)
+				viewer.setContents(result);
+			else
+				viewer.setContents(null, E4Utils.createErrorStatusContents("missing mandatory results", "review derivation code"));
+			break;
+
+		case OPTIONAL:
+			if (result != null)
+				viewer.setContents(result);
+			else
+				viewer.setContents(null, E4Utils.createEmptyStatusContents());
+			break;
+
+		default:
+		case IGNORABLE:
 			viewer.setContents(null, E4Utils.createEmptyStatusContents());
+			break;
+		}
 	}
 }

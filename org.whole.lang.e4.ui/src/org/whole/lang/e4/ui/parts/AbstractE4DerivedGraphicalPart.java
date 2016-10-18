@@ -25,6 +25,7 @@ import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.actions.LinkType;
+import org.whole.lang.e4.ui.jobs.ShowingPolicy;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
@@ -49,7 +50,7 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
 		params.set(ILinkableSelectionListener.FUNCTION_URI, getDerivationFunction());
 		params.set(ILinkableSelectionListener.FUNCTION_IS_TRANSACTIONAL, false);
-		params.set(ILinkableSelectionListener.FUNCTION_WITH_NO_RESULT, false);
+		params.set(ILinkableSelectionListener.RESULTS_SHOWING_POLICY, ShowingPolicy.MANDATORY);
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, false);
 		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, false);
