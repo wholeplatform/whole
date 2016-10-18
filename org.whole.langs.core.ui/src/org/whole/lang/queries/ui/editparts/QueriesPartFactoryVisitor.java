@@ -35,6 +35,7 @@ import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.EntityTypePart;
+import org.whole.lang.ui.editparts.FeatureTypePart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
 import org.whole.lang.ui.editparts.KeywordDataEntityPart;
 import org.whole.lang.ui.editparts.PlaceHolderPart;
@@ -309,7 +310,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(FeatureStep entity) {
-		part = new FeatureStepPart();
+		part = new FeatureTypePart();
 	}
 
 	@Override

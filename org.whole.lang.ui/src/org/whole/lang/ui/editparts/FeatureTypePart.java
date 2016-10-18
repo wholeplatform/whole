@@ -15,17 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.queries.ui.editparts;
+package org.whole.lang.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.queries.ui.figures.FeatureStepFigure;
-import org.whole.lang.ui.editparts.EntityTypePart;
+import org.whole.lang.ui.figures.LabelFactory;
+import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
 
 /**
  * @author Riccardo Solmi
  */
-public class FeatureStepPart extends EntityTypePart {
+public class FeatureTypePart extends EntityTypePart {
 	public IFigure createFigure() {
-		return new FeatureStepFigure();
+		return new OverQualifiedDataEntityFigure(LabelFactory.createModule(), LabelFactory.createContent());
 	}
 }

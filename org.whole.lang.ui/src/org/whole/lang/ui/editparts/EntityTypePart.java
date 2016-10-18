@@ -31,6 +31,6 @@ public class EntityTypePart extends AbstractOverQualifiedDataEntityPart {
 			if (ReflectionFactory.hasLanguageKit(uri, true, null))
 				return ResourceUtils.getSimpleName(ReflectionFactory.getLanguageKit(uri, false, null));
 		}
-		return uri;
+		return "???";
 	}
 }
