@@ -229,14 +229,9 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 				setEntityContents(this.modelInput.readModel());
 				fireModelInputChanged(oldModelInput, this.modelInput);
 			} catch (Exception e) {
-				ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
-				FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
-				IEntity statusModel = E4Utils.createErrorStatusContents();
 				String errorMessage = String.format("Unable to open \"%s\" using \"%s\" persistence kit",
 						modelInput.getName(), modelInput.getPersistenceKit().getDescription());
-				statusModel.wGet(fdEnum.valueOf("error")).wSetValue(errorMessage);
-				statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(e.getLocalizedMessage());
-				setEntityContents(statusModel);
+				setEntityContents(E4Utils.createErrorStatusContents(errorMessage, e.getLocalizedMessage()));
 			}
 		} else
 			setEntityContents(defaultContents);

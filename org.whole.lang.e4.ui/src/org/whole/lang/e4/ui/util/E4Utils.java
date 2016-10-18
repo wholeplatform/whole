@@ -69,6 +69,8 @@ import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.reflect.FeatureDescriptorEnum;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.status.codebase.EmptyStatusTemplate;
 import org.whole.lang.status.codebase.ErrorStatusTemplate;
@@ -87,17 +89,30 @@ import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IEntityTransformer;
 import org.whole.lang.util.NullInputStream;
 import org.whole.lang.util.NullOutputStream;
+import org.whole.langs.core.CoreMetaModelsDeployer;
 
 /**
  * @author Enrico Persiani
  */
 public class E4Utils {
+	public static boolean isStatusEntity(IEntity entity) {
+		return "whole:org.whole.lang.status:Status".equals(entity.wGetLanguageKit().getURI());
+	}
+
 	public static IEntity createEmptyStatusContents() {
 		return new EmptyStatusTemplate().create();
 	}
 
 	public static IEntity createErrorStatusContents() {
 		return new ErrorStatusTemplate().create();
+	}
+	public static IEntity createErrorStatusContents(String error, String cause) {
+		ILanguageKit languageKit = ReflectionFactory.getLanguageKit(CoreMetaModelsDeployer.STATUS_URI, false, null);
+		FeatureDescriptorEnum fdEnum = languageKit.getFeatureDescriptorEnum();
+		IEntity statusModel = createErrorStatusContents();
+		statusModel.wGet(fdEnum.valueOf("error")).wSetValue(error);
+		statusModel.wGet(fdEnum.valueOf("cause")).wSetValue(cause);
+		return statusModel;
 	}
 
 	public static MCommand findCommand(String commandId, MApplication application) {
