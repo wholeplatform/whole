@@ -290,7 +290,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			iterator.set(replacement);
 			command.commit();
 		} catch (Exception e) {
-			command.rollback();
+			command.rollbackIfNeeded();
 		} finally {
 			clearFoundEntity();
 		}
@@ -329,7 +329,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 			} while (findNext(true));
 			command.commit();
 		} catch (Exception e) {
-			command.rollback();
+			command.rollbackIfNeeded();
 		} finally {
 			clearFoundEntity();
 		}

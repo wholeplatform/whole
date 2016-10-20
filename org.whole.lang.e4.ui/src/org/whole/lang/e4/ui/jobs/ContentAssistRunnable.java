@@ -54,9 +54,9 @@ public class ContentAssistRunnable extends AbstractRunnableWithProgress {
 			if (mtc.canUndo())
 				commandStack.execute(mtc);
 		} catch (OperationCanceledException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 			throw e;
 		} finally {
 			bm.setResult(BindingManagerFactory.instance.createValue(contentAssist));

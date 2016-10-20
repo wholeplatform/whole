@@ -66,7 +66,7 @@ public class SelectNotationHandler {
 			if (command.canUndo())
 				viewer.getEditDomain().getCommandStack().execute(command);
 		} catch (Exception e) {
-			command.rollback();
+			command.rollbackIfNeeded();
 		}
 			
 		synchronize.asyncExec(new Runnable() {

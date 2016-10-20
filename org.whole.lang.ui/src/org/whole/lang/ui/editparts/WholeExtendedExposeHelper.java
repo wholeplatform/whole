@@ -57,6 +57,10 @@ public class WholeExtendedExposeHelper implements ExtendedExposeHelper {
 		List<IFoldableFigure> result = new ArrayList<IFoldableFigure>(1);
 		IFigure foldableFigure = figure;
 		do {
+			//FIXME ? workaround
+			if (foldableFigure == null)
+				break;
+
 			foldableFigure = foldableFigure.getParent();
 			if (foldableFigure instanceof IFoldableFigure)
 				result.add((IFoldableFigure) foldableFigure);

@@ -55,7 +55,7 @@ public class EnvironmentPart extends AbstractContentPanePart {
 					command.commit();
 					getViewer().getEditDomain().getCommandStack().execute(command);
 				} catch (Exception e) {
-					command.rollback();
+					command.rollbackIfNeeded();
 				}
 			}
 		}, Matcher.matchImpl(EnvironmentEntityDescriptorEnum.ScopedBindings, entity.getBindings()));

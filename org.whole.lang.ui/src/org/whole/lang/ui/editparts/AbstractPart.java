@@ -341,7 +341,7 @@ public abstract class AbstractPart extends AbstractGraphicalEditPart implements 
 //			}
 		try {
 			refreshChildren();
-		} catch (NullPointerException e) {
+		} catch (NullPointerException|IndexOutOfBoundsException e) {
 			//FIXME rewrite a more fine grained children refresh logic
 		}
 	}

@@ -48,7 +48,7 @@ public class TreeDirectEditPolicy extends AbstractEditPolicy {
 			if (mtc.canUndo())
 				getTreeEntityPart().getViewer().getEditDomain().getCommandStack().execute(mtc);
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 		} finally {
 		}
 

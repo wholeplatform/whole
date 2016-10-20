@@ -53,7 +53,8 @@ public class TextTransactionCommand extends ModelTransactionCommand {
 			}
 			animated = false;
 		} catch (Exception e) {
-			rollback();
+			command.restoreInitialSelection();
+			rollbackIfNeeded();
 		}
 	}
 

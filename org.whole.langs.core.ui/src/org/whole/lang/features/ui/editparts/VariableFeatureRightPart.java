@@ -58,7 +58,7 @@ public class VariableFeatureRightPart extends AbstractContentPanePart {
 						command.commit();
 						editDomain.getCommandStack().execute(command);
 					} catch (Exception e) {
-						command.rollback();
+						command.rollbackIfNeeded();
 						throw e;
 					}
 				});

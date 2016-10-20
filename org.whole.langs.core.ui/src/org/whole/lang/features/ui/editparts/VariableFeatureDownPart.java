@@ -53,7 +53,7 @@ public class VariableFeatureDownPart extends AbstractContentPanePart {
 					command.commit();
 					getViewer().getEditDomain().getCommandStack().execute(command);
 				} catch (Exception e) {
-					command.rollback();
+					command.rollbackIfNeeded();
 				}
 			}
 		});

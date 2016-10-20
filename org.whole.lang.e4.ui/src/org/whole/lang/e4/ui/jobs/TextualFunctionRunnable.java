@@ -55,7 +55,7 @@ public class TextualFunctionRunnable extends FunctionRunnable {
 				commandStack.execute(mtc);
 			}
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 			throw e;
 		} finally {
 			AnimableRunnable.enableAnimation(enableAnimation);

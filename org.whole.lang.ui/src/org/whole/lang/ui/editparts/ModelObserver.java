@@ -67,6 +67,10 @@ public class ModelObserver implements PropertyChangeListener {
 				return;
 			}
 
+			//FIXME ? workaround
+			if (!(event.getSource() instanceof IEntity))
+				return;
+
 	    	IEntity entity = (IEntity) event.getSource();
 	    	IEntityPart entityPart = getObserver(entity, viewer.getEditPartRegistry());
 	    	if (entityPart != null) {

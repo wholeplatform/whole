@@ -76,7 +76,7 @@ public abstract class TypedModelTransactionHandler {
 				if (mtc.canUndo())
 					commandStack.execute(mtc);
 			} catch (RuntimeException e) {
-				mtc.rollback();
+				mtc.rollbackIfNeeded();
 				throw e;
 			} finally {
 				ts.rollback();

@@ -125,7 +125,7 @@ public abstract class ReplaceWithResourceAction extends AbstractE4Action {
 				commandStack.execute(mtc);
 			}
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 			throw e;
 		}
 	}

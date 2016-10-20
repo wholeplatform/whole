@@ -94,9 +94,9 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 				});
 			}
 		} catch (OperationCanceledException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 			throw e;
 		} finally {
 			pm.endTask();

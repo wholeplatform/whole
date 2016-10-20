@@ -52,7 +52,7 @@ public class MergeModelsTransactionCommand extends ModelTransactionCommand {
 			}, getModel());
 			commit();
 		} catch (RuntimeException e) {
-			rollback();
+			rollbackIfNeeded();
 			throw e;
 		}
 	}

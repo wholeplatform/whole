@@ -51,9 +51,9 @@ public class NormalizeModelRunnable extends AbstractRunnableWithProgress {
 			if (mtc.canUndo())
 				commandStack.execute(mtc);
 		} catch (OperationCanceledException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 		} catch (RuntimeException e) {
-			mtc.rollback();
+			mtc.rollbackIfNeeded();
 			throw e;
 		} finally {
 			pm.endTask();

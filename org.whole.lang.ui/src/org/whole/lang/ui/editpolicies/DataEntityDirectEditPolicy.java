@@ -69,7 +69,7 @@ public class DataEntityDirectEditPolicy extends DirectEditPolicy {
 			command.commit();
 			return command;
 		} catch (Exception e) {
-			command.rollback();
+			command.rollbackIfNeeded();
 			return UnexecutableCommand.INSTANCE;
 		}
 	}

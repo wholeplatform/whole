@@ -96,7 +96,7 @@ public class HistoryCommandStack extends CommandStack {
 			mtCommand.commit();
 			return mtCommand;
 		} catch (Exception e) {
-			mtCommand.rollback();
+			mtCommand.rollbackIfNeeded();
 		}
 
 		return mtCommand;
