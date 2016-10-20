@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
@@ -116,13 +118,22 @@ public class TestsLearningInterpreterVisitor extends TestsInterpreterVisitor {
 	public void visit(TestSuite entity) {
 		if (isLearning()) {
 			Map<IEntity, List<IEntity>> learntMap = getLearntMap();
+			
+			IEntity result = null;
 			for (int cycle = 1; cycle <= learnCycles(); cycle++) {
-				getBindings().wDefValue("learnCycle", cycle);
 				printWriter().printf("*** Learning cycle %d ***\n\n", cycle);
-				getBindings().wEnterScope();
-				super.visit(entity);
-				getBindings().wExitScope();
+				ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+				getBindings().wEnterScope(resettableScope);	
+				try {
+					getBindings().wDefValue("learnCycle", cycle);
+					super.visit(entity);
+					result = getBindings().getResult();
+				} finally {
+					resettableScope.rollback();
+					getBindings().wExitScope();
+				}
 			}
+			getBindings().setResult(result);
 
 			FilterFamily filterFamily = getFilterFamily(entity);
 			FilterRules filterRules = filterFamily.getFilterRules();
@@ -154,16 +165,31 @@ public class TestsLearningInterpreterVisitor extends TestsInterpreterVisitor {
 						} else {
 							// add the filter rule to the filter family
 							filterName = fnGen.nextFreshName(GENERATED_FILTER_NAME);
-							getBindings().wDefValue("filterName", filterName);
-							Matcher.substitute(filterRule, getBindings(), false);
-							filterRules.wAdd(filterRule);
+							ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+							getBindings().wEnterScope(resettableScope);	
+							try {
+								getBindings().wDefValue("filterName", filterName);
+								Matcher.substitute(filterRule, getBindings(), false);
+								filterRules.wAdd(filterRule);
+							} finally {
+								resettableScope.rollback();
+								getBindings().wExitScope();
+							}
+
 						}
 
 						// wrap SubjectStatement with a UsingFilter
-						SubjectStatement statement = BehaviorUtils.evaluateFirstResult(createFindAncestorSubjectStatement(), adapter, getBindings());
-						UsingFilter usingFilter = createUsingFilter(filterName);
-						statement.wGetParent().wSet(statement, usingFilter);
-						usingFilter.setSubjectStatement(statement);
+						ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+						getBindings().wEnterScope(resettableScope);	
+						try {
+							SubjectStatement statement = BehaviorUtils.evaluateFirstResult(createFindAncestorSubjectStatement(), adapter, getBindings());
+							UsingFilter usingFilter = createUsingFilter(filterName);
+							statement.wGetParent().wSet(statement, usingFilter);
+							usingFilter.setSubjectStatement(statement);
+						} finally {
+							resettableScope.rollback();
+							getBindings().wExitScope();
+						}
 					}
 				}
 
