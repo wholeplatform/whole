@@ -56,7 +56,7 @@ public abstract class AbstractLanguageKit extends Resource implements InternalIL
 	private SortedSet<IPersistenceKit> persistenceKitsSet = new TreeSet<IPersistenceKit>();
 	private Map<String, IBuilderFactory> builderMap = new TreeMap<String, IBuilderFactory>();
     private Map<String, IVisitorFactory> visitorMap = new TreeMap<String, IVisitorFactory>();
-    private IChangeEventHandler eventHandler = IdentityChangeEventHandler.instance;
+    private IChangeEventHandler reactionsHandler = IdentityChangeEventHandler.instance;
     private IEditorKit defaultEditorKit;
     private String defaultExtension;
     transient private IEntityRegistry[] entityRegistry;
@@ -136,14 +136,7 @@ public abstract class AbstractLanguageKit extends Resource implements InternalIL
 	}
 
 	public IFragmentModel createFragmentModel() {
-		IFragmentModel fragmentModel;
-		if (editorKitsSet.isEmpty())
-			fragmentModel = new FragmentModel(this, null);
-		else
-			fragmentModel = new FragmentModel(this, getDefaultEditorKit());			
-
-		fragmentModel.getCompoundModel().addChangeEventHandler(eventHandler);
-		return fragmentModel;
+		return new FragmentModel(this, editorKitsSet.isEmpty() ? null : getDefaultEditorKit());
 	}
 
 	public final IEntityRegistry getEntityRegistry(RegistryConfigurations registryConfig) {
@@ -223,8 +216,14 @@ public abstract class AbstractLanguageKit extends Resource implements InternalIL
     	return DefaultDataTypePresentationParser.instance;
     }
 
-	public void addLanguageAdapter(IChangeEventHandler eventHandler) {
-		this.eventHandler = this.eventHandler.addChangeEventHandler(eventHandler);
+	public void addReactionsHandler(IChangeEventHandler eventHandler) {
+		this.reactionsHandler = this.reactionsHandler.addChangeEventHandler(eventHandler);
+	}
+	public void removeReactionsHandler(IChangeEventHandler eventHandler) {
+		this.reactionsHandler = this.reactionsHandler.removeChangeEventHandler(eventHandler);
+	}
+	public IChangeEventHandler getReactionsHandler() {
+		return reactionsHandler;
 	}
 
     public void addBuilderFactory(String operationId, IBuilderFactory builderFactory) {

@@ -63,7 +63,9 @@ public interface ILanguageKit extends IResource {
     public IDataTypeParser getDataTypeParser(DataTypeParsers kind);
 	public ITemplateManager getTemplateManager();
 	
-	public void addLanguageAdapter(IChangeEventHandler eventHandler);
+	public void addReactionsHandler(IChangeEventHandler eventHandler);
+	public void removeReactionsHandler(IChangeEventHandler eventHandler);
+	public IChangeEventHandler getReactionsHandler();
 	
 	public void addBuilderFactory(String operationId, IBuilderFactory builderFactory);
 	public boolean hasBuilder(String name);

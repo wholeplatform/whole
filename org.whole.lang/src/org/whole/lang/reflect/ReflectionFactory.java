@@ -340,16 +340,16 @@ public class ReflectionFactory {
     		languageRequestHandler = languageRequestHandler.removeLanguageRequestHandler(handler);
     }
 
-    public void addLanguageAdapter(String languageURI, IChangeEventHandler languageAdapter) {
-    	ILanguageKit languageKit = getLanguageKit(languageURI);
-    	languageKit.addLanguageAdapter(languageAdapter);
+    public void addReactionsHandler(String languageURI, IChangeEventHandler languageAdapter) {
+    	ILanguageKit languageKit = getLanguageKit(languageURI, false, null);
+    	languageKit.addReactionsHandler(languageAdapter);
     }
     public void addOperationFactory(String languageURI, String operationId, IVisitorFactory visitorFactory) {
-    	ILanguageKit languageKit = getLanguageKit(languageURI);
+    	ILanguageKit languageKit = getLanguageKit(languageURI, false, null);
     	languageKit.addVisitorFactory(operationId, visitorFactory);
     }
     public void addOperationFactory(String languageURI, String operationId, IBuilderFactory builderFactory) {
-    	ILanguageKit languageKit = getLanguageKit(languageURI);
+    	ILanguageKit languageKit = getLanguageKit(languageURI, false, null);
     	languageKit.addBuilderFactory(operationId, builderFactory);
     }
 

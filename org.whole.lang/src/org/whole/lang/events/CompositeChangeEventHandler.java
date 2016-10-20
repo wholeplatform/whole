@@ -39,10 +39,8 @@ public class CompositeChangeEventHandler implements IChangeEventHandler {
     public CompositeChangeEventHandler() {
     	handlers = new IChangeEventHandler[0];
     }
-    public CompositeChangeEventHandler(IChangeEventHandler eventHandler1, IChangeEventHandler eventHandler2) {
-    	handlers = new IChangeEventHandler[2];
-    	handlers[0] = eventHandler1;
-    	handlers[1] = eventHandler2;
+    public CompositeChangeEventHandler(IChangeEventHandler... eventHandlers) {
+    	handlers = eventHandlers;
     }
 
     public boolean hasSharingEventHandler() {
@@ -71,18 +69,7 @@ public class CompositeChangeEventHandler implements IChangeEventHandler {
         return handler;
     }
   
-/*
-    public int indexOf(IEventHandler eventHandler) {
-        return handlers.indexOf(eventHandler);
-    }
-    public void add(int index, IEventHandler eventHandler) {
-        handlers.add(index, eventHandler);
-    }
-    public void remove(IEventHandler eventHandler) {
-        handlers.remove(eventHandler);
-    }
-*/
-    public void set(int index, IChangeEventHandler eventHandler) {
+    public void setChangeEventHandler(int index, IChangeEventHandler eventHandler) {
         handlers[index] = eventHandler;
     }
 

@@ -58,13 +58,16 @@ public class PropertyChangeEventHandler extends IdentityDefaultChangeEventHandle
     }
 
     public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, Object oldValue, Object newValue) {
-        PropertyChangeEvent event = new PropertyChangeEvent(source, featureDesc.getName(), oldValue, newValue);
+        if (eventListeners.isEmpty())
+        	return;
+
+    	PropertyChangeEvent event = new PropertyChangeEvent(source, featureDesc.getName(), oldValue, newValue);
 
 		Object[] targets;
     	synchronized (this) {
    	        targets = eventListeners.toArray();
     	}
 	    for (int i = 0; i < targets.length; i++)
-	        ((PropertyChangeListener)targets[i]).propertyChange(event);
+	        ((PropertyChangeListener) targets[i]).propertyChange(event);
     }
 }

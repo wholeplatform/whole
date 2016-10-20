@@ -28,7 +28,9 @@ import org.whole.lang.commands.NullCommand;
 import org.whole.lang.events.CompositeChangeEventHandler;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
+import org.whole.lang.events.IdentityChangeEventHandler;
 import org.whole.lang.events.IdentityRequestEventHandler;
+import org.whole.lang.events.MappingChangeEventHandler;
 import org.whole.lang.events.PropertyChangeEventHandler;
 import org.whole.lang.lifecycle.HistoryManager;
 import org.whole.lang.lifecycle.IHistoryManager;
@@ -52,7 +54,10 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
     }
 
 	public CompoundModel() {
-		super();
+		super(
+				IdentityChangeEventHandler.instance, // placeholder for HistoryManager
+				IdentityChangeEventHandler.instance, // placeholder for propertyChangeEventHandler
+				new MappingChangeEventHandler.LanguageReactionsChangeEventMapper());
 		historyManager = this;
 	}
 
@@ -113,7 +118,7 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 	}
 	protected PropertyChangeEventHandler getPropertyChangeEventHandler() {
     	if (propertyChangeEventHandler == null)
-    		addChangeEventHandler(propertyChangeEventHandler = new PropertyChangeEventHandler());
+    		setChangeEventHandler(1, propertyChangeEventHandler = new PropertyChangeEventHandler());
 		return propertyChangeEventHandler;
 	}
 	public synchronized void addEventListener(PropertyChangeListener l) {
@@ -150,9 +155,8 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 		setHistoryManager(new HistoryManager());
 	}
 	protected void setHistoryManager(IHistoryManager historyManager) {
-		removeChangeEventHandler((IChangeEventHandler) this.historyManager);
 		this.historyManager = historyManager;
-		addChangeEventHandler((IChangeEventHandler) this.historyManager);
+		setChangeEventHandler(0, (IChangeEventHandler) this.historyManager);
 	}
 
 	public int getHistoryCapacity() {

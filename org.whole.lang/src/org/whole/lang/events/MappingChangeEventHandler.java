@@ -30,46 +30,48 @@ public abstract class MappingChangeEventHandler extends DelegatingChangeEventHan
 	private static final long serialVersionUID = 1L;
     private Map<Object, IChangeEventHandler> eventHandlerMap = new HashMap<Object, IChangeEventHandler>();
 
-    protected final IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor featureDesc) {
-        IChangeEventHandler eventHandler = eventHandlerMap.get(getKey(source, featureDesc));
+    protected final IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
+        IChangeEventHandler eventHandler = eventHandlerMap.get(getKey(source, fd));
         if (eventHandler == null)
-            eventHandler = IdentityChangeEventHandler.instance;
+            eventHandler = onDemandEventHandler(source, fd);
         return eventHandler;
     }
 
-    protected abstract Object getKey(IEntity source, FeatureDescriptor featureDesc);
+    protected abstract Object getKey(IEntity source, FeatureDescriptor fd);
+
+    protected IChangeEventHandler onDemandEventHandler(IEntity source, FeatureDescriptor fd) {
+        return IdentityChangeEventHandler.instance;
+    }
 
     public void put(Object key, IChangeEventHandler eventHandler) {
         eventHandlerMap.put(key, eventHandler);
     }
 
-    public static class EntityInstance extends MappingChangeEventHandler {
+
+    public static class LanguageReactionsChangeEventMapper extends LanguageChangeEventMapper {
     	private static final long serialVersionUID = 1L;
-        protected final Object getKey(IEntity source, FeatureDescriptor featureDesc) {
-            return source;
+
+    	protected final IChangeEventHandler onDemandEventHandler(IEntity source, FeatureDescriptor fd) {
+            IChangeEventHandler reactionsHandler = source.wGetEntityDescriptor().getLanguageKit().getReactionsHandler();
+            reactionsHandler.cloneChangeEventHandler(IdentityChangeEventHandler.instance);
+            put(getKey(source, fd), reactionsHandler);
+            return reactionsHandler;
         }
-    };
-    public static class EntityClass extends MappingChangeEventHandler {
-    	private static final long serialVersionUID = 1L;
-        protected final Object getKey(IEntity source, FeatureDescriptor featureDesc) {
-            return source.getClass();
-        }
-    };
-    public static final MappingChangeEventHandler newEntityTypesEventHandler() {
-        return new MappingChangeEventHandler() {
-        	private static final long serialVersionUID = 1L;
-	        protected final Object getKey(IEntity source, FeatureDescriptor featureDesc) {
-	            return source.getClass().getInterfaces()[0];
-	        }
-	    };
-    };
-    public static final MappingChangeEventHandler newFeatureNameEventHandler() {
-        return new MappingChangeEventHandler() {
-        	private static final long serialVersionUID = 1L;
-	        protected final Object getKey(IEntity source, FeatureDescriptor featureDesc) {
-	            return featureDesc.getName();
-	        }
-	    };
     };
 
+    public static class LanguageChangeEventMapper extends MappingChangeEventHandler {
+    	private static final long serialVersionUID = 1L;
+
+    	protected final Object getKey(IEntity source, FeatureDescriptor fd) {
+            return source.wGetEntityDescriptor().getLanguageKit();
+        }
+    };
+
+    public static class EntiyDescriptorChangeEventMapper extends MappingChangeEventHandler {
+    	private static final long serialVersionUID = 1L;
+
+    	protected final Object getKey(IEntity source, FeatureDescriptor fd) {
+            return source.wGetEntityDescriptor();
+        }
+    };
 }
