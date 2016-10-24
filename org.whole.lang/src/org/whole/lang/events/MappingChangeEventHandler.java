@@ -20,6 +20,7 @@ package org.whole.lang.events;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 
@@ -30,7 +31,7 @@ public abstract class MappingChangeEventHandler extends DelegatingChangeEventHan
 	private static final long serialVersionUID = 1L;
     private Map<Object, IChangeEventHandler> eventHandlerMap = new HashMap<Object, IChangeEventHandler>();
 
-    protected final IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
+    protected IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
         IChangeEventHandler eventHandler = eventHandlerMap.get(getKey(source, fd));
         if (eventHandler == null)
             eventHandler = onDemandEventHandler(source, fd);
@@ -50,6 +51,15 @@ public abstract class MappingChangeEventHandler extends DelegatingChangeEventHan
 
     public static class LanguageReactionsChangeEventMapper extends LanguageChangeEventMapper {
     	private static final long serialVersionUID = 1L;
+
+    	@Override
+        protected IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
+    		ICompoundModel compoundModel = source.wGetModel().getCompoundModel();
+    		if (!compoundModel.isHistoryEnabled() || compoundModel.isHistoryEvent())
+    			return IdentityChangeEventHandler.instance;
+    		else
+    			return super.getEventHandler(source, fd);
+    	}
 
     	protected final IChangeEventHandler onDemandEventHandler(IEntity source, FeatureDescriptor fd) {
             IChangeEventHandler reactionsHandler = source.wGetEntityDescriptor().getLanguageKit().getReactionsHandler();

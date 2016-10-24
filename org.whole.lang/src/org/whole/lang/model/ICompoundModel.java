@@ -36,7 +36,10 @@ public interface ICompoundModel {
 
 	public IHistoryManager getHistoryManager();
 	public void setHistoryManager(IHistoryManager historyManager, boolean mergeHistory);
-    
+	public boolean isHistoryEvent();
+	public boolean isHistoryEnabled();
+
+	
     public void addEventListener(PropertyChangeListener l);
     public void removeEventListener(PropertyChangeListener l);
 }
