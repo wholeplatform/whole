@@ -314,6 +314,15 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
       <editor
+            name="XML Builder Entities Persistence"
+            extensions="xwl,xml"
+            icon="icons/editors/xml_builder.gif"
+            default="false"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.entities.XmlBuilderEntitiesEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
+      </editor>
+      <editor
             name="Text Editor (Whole)"
             extensions="text,txt,csv,flf"
             icon="icons/editors/text_source.gif"
