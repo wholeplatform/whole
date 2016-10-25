@@ -72,7 +72,6 @@ public class XmlLanguageDeployer extends AbstractLanguageDeployer {
 			}
 		});
 
-//		platform.addPersistenceKit("org.whole.lang.xml.E3XmlBuilderEditor", XmlBuilderPersistenceKit.instance());
 		platform.addPersistenceKit("org.whole.lang.xml.XmlBuilderEditor", XmlBuilderPersistenceKit.instance());
 		platform.addPersistenceKit("org.whole.lang.xml.XmlSourceEditor", XmlSourcePersistenceKit.instance());
 	}

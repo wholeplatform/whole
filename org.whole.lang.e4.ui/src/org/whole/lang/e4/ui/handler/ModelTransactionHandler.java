@@ -28,6 +28,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.jobs.EntityEditDomainJob;
+import org.whole.lang.lifecycle.RollbackException;
 import org.whole.lang.ui.commands.ModelTransactionCommand;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -65,6 +66,8 @@ public abstract class ModelTransactionHandler {
 				mtc.commit();
 				if (mtc.canUndo())
 					commandStack.execute(mtc);
+			} catch (RollbackException e) {
+				//rollback done
 			} catch (RuntimeException e) {
 				mtc.rollbackIfNeeded();
 				throw e;
