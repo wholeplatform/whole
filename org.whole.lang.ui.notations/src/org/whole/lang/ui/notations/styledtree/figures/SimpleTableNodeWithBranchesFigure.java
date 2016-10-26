@@ -67,11 +67,13 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 		initContentPanes(typePaneShift+featuresStyling.length);
 
 		tableFigure = new TableFigure(new TableLayout(3).withColumnAlignment(0, Alignment.TRAILING)
-				.withColumnSpacing(10).withMarginTop(2).withMarginBottom(2)) {
+				.withColumnSpacing(8).withMarginTop(2).withMarginBottom(2)) {
 			protected void paintFigure(Graphics g) {
 				super.paintFigure(g);
 
-				Rectangle b = getBounds().getResized(-WholeImages.ROUND_EXPAND.getBounds().width/2, 0);
+				Rectangle b = getBounds();
+				if (entityStyling.getEmbeddedFeaturesSize() < featuresStyling.length)
+					b = b.getResized(-WholeImages.ROUND_EXPAND.getBounds().width/2, 0);
 				g.setClip(b);
 
 				g.setBackgroundColor(ColorConstants.lightGray);
@@ -104,23 +106,26 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 			protected void paintFigure(Graphics g) {
 				super.paintFigure(g);
 				
-				Rectangle b = getBounds().getResized(-WholeImages.ROUND_EXPAND.getBounds().width/2, 0);
+				Rectangle b = getBounds();
+				int gap = 0;
+				if (entityStyling.getEmbeddedFeaturesSize() < featuresStyling.length)
+					b = b.getResized(gap = -WholeImages.ROUND_EXPAND.getBounds().width/2, 0);
 
-				//TODO workaround fill the table left gap
 				int oldAlpha = g.getAlpha();
 				g.setBackgroundColor(ColorConstants.lightGray);
-				Rectangle bf = b.getResized(-tableFigure.getBounds().width +6, -titleFigure.getBounds().height);
+				Rectangle bf = b.getResized(-tableFigure.getBounds().width -gap+2, -titleFigure.getBounds().height);
 				bf.y += titleFigure.getBounds().height;
-				Rectangle oldClip = g.getClip(new Rectangle());
-				g.setAlpha(60);
-				g.setClip(bf);
-				g.fillRoundRectangle(bf, 8, 8);
-				g.setClip(oldClip);
-				g.setAlpha(oldAlpha);
+				if (bf.width > 1) {
+					Rectangle oldClip = g.getClip(new Rectangle());
+					g.setAlpha(60);
+					g.setClip(bf);
+					g.fillRoundRectangle(bf, 8, 8);
+					g.setClip(oldClip);
+					g.setAlpha(oldAlpha);
+					g.setForegroundColor(FigurePrefs.blueColor);
+					g.drawLine(bf.x, bf.y, bf.right()-1, bf.y);
+				}
 				g.setForegroundColor(FigurePrefs.blueColor);
-				g.drawLine(bf.x, bf.y, bf.right(), bf.y);//FIXME right when without children
-				
-//				g.setForegroundColor(FigurePrefs.blueColor);
 				g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
 
 //				int oldAlpha = g.getAlpha();
@@ -148,7 +153,7 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 			row.addLabel(featuresStyling[i].getName());
 			if (featuresStyling[i].isEmbedded()) {
 				row.add(createContentPane(typePaneShift+i));
-//				row.addEmptyLabel();
+				row.addEmptyLabel();
 			} else {
 				if (entityStyling.getEmbeddedFeaturesSize() > 0)
 					row.addEmptyLabel();
