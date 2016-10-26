@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<semantics:SemanticTheory xmlns:semantics="http://lang.whole.org/Semantics">
+    <semantics:URI value="whole:org.whole.lang:NotationsLibrary"/>
+    <semantics:Namespace value="org.whole.lang"/>
+    <semantics:Name value="Notations"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <semantics:SemanticFunctions initialCapacity="10">
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityPart"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityPartIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityPartIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityPartIsGraphical"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityPartIsGraphicalIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityPartIsGraphicalIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityPartIsTextual"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityPartIsTextualIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityPartIsTextualIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretLeftText"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretLeftTextIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretLeftTextIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretSelectedText"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretSelectedTextIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretSelectedTextIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretRightText"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretRightTextIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretRightTextIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretPositions"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretPositionsIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretPositionsIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretPosition"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretPositionIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretPositionIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretPositionStart"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretPositionStartIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretPositionStartIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="caretPositionEnd"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="caretPositionEndIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="caretPositionEndIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+    </semantics:SemanticFunctions>
+</semantics:SemanticTheory>

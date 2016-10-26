@@ -18,6 +18,7 @@
 package org.whole.lang.ui.notations;
 
 import org.whole.lang.reflect.IDeployer;
+import org.whole.lang.NotationsLibraryDeployer;
 import org.whole.lang.reflect.AbstractSuiteDeployer;
 import org.whole.lang.ui.notations.outline.OutlineUIDeployer;
 import org.whole.lang.ui.notations.table.TableUIDeployer;
@@ -35,6 +36,7 @@ public class NotationUIDeployer extends AbstractSuiteDeployer {
 	@SuppressWarnings("unchecked")
 	public NotationUIDeployer() {
 		super(
+			NotationsLibraryDeployer.class,
 			OutlineUIDeployer.class,
 			TableUIDeployer.class,
 			TextUIDeployer.class,
