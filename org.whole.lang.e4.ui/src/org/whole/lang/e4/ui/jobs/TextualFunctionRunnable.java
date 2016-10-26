@@ -8,6 +8,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.IOperationProgressMonitor;
+import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.commands.ModelTextCommand;
 import org.whole.lang.ui.util.AnimableRunnable;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -44,16 +45,19 @@ public class TextualFunctionRunnable extends FunctionRunnable {
 				//FIXME add textual selection viariables updates
 				// see E4Utils.defineCaretBindings()
 
+			} catch (OperationCanceledException e) {
+				throw e;
 			} finally {
 				bm.wExitScope();
 			}
-
 
 			mtc.commit();
 			if (mtc.canUndo()) {
 				CommandStack commandStack = viewer.getEditDomain().getCommandStack();
 				commandStack.execute(mtc);
 			}
+		} catch (OperationCanceledException e) {
+			mtc.rollbackIfNeeded();
 		} catch (RuntimeException e) {
 			mtc.rollbackIfNeeded();
 			throw e;
