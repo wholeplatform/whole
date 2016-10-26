@@ -314,12 +314,12 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
       <editor
-            name="XML Builder Entities Persistence"
+            name="XML Adaptive Builder Persistence"
             extensions="xwl,xml"
             icon="icons/editors/xml_builder.gif"
             default="false"
             class="org.whole.lang.e4.ui.compatibility.EditorPart"
-            id="org.whole.lang.entities.XmlBuilderEntitiesEditor">
+            id="org.whole.lang.entities.XmlAdaptiveBuilderEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.xmlWhole"/>
       </editor>
       <editor

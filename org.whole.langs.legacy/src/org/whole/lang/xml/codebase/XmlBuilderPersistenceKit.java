@@ -43,7 +43,7 @@ public class XmlBuilderPersistenceKit extends AbstractGenericPersistenceKit {
 		return SingletonHolder.instance;
 	}
 	private XmlBuilderPersistenceKit() {
-		super("XML (Whole Template Builder)", "xwl");
+		super("XML (Whole Builder Persistence)", "xwl");
 	}
 
 	protected void doInitDefaultEncoding(IEntity model, IPersistenceProvider pp) throws Exception {

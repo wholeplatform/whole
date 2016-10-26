@@ -50,7 +50,7 @@ public class JavaBuilderPersistenceKit extends AbstractGenericPersistenceKit {
 		return SingletonHolder.instance;
 	}
 	protected JavaBuilderPersistenceKit() {
-		super("Java (Whole Template Builder)", "java");
+		super("Java (Whole Builder Persistence)", "java");
 	}
 
 	@SuppressWarnings("unchecked")
