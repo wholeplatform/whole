@@ -61,6 +61,13 @@ public class NodeFigure extends ContentPaneFigure implements INodeFigure {
 		return targetAnchors;
 	}
 
+	@Override
+	public void invalidate() {
+		invalidateAnchors();
+
+		super.invalidate();
+	}
+
 	protected void invalidateAnchors() {
 		invalidateSourceAnchors();
 		invalidateTargetAnchors();
