@@ -19,7 +19,6 @@ package org.whole.lang.e4.ui.handler;
 
 import javax.inject.Named;
 
-import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -33,12 +32,6 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
  * @author Enrico Persiani
  */
 public class RevertHandler {
-
-	@CanExecute
-	public boolean canExecute(EPartService partService) {
-		return partService.getActivePart().isDirty();
-	}
-
 	@Execute
 	public void execute(EPartService partService, IModelInput modelInput, 
 			@Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
