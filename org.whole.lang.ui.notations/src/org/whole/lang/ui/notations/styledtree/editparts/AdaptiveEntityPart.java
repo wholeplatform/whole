@@ -62,6 +62,10 @@ public class AdaptiveEntityPart extends AbstractContentPanePart implements IStyl
 
 	@Override
 	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("notation#rebuild")) {
+			rebuild();
+			return;
+		}
 		FeatureDescriptor fd = getModelEntity().wGetEntityDescriptor().getFeatureDescriptorEnum().valueOf(evt.getPropertyName());
 		if (typeFeature.equals(fd)) {
 			entityStyling = null;
