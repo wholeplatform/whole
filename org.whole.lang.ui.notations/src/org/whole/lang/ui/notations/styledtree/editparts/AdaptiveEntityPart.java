@@ -65,7 +65,7 @@ public class AdaptiveEntityPart extends AbstractContentPanePart implements IStyl
 		FeatureDescriptor fd = getModelEntity().wGetEntityDescriptor().getFeatureDescriptorEnum().valueOf(evt.getPropertyName());
 		if (typeFeature.equals(fd)) {
 			entityStyling = null;
-			setFigure(createFigure());
+			rebuild();
 			return;
 		}
 
