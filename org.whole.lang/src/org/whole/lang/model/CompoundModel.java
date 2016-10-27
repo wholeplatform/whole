@@ -116,7 +116,7 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
 	protected boolean hasPropertyChangeEventHandler() {
 		return propertyChangeEventHandler != null;
 	}
-	protected PropertyChangeEventHandler getPropertyChangeEventHandler() {
+	public PropertyChangeEventHandler getPropertyChangeEventHandler() {
     	if (propertyChangeEventHandler == null)
     		setChangeEventHandler(1, propertyChangeEventHandler = new PropertyChangeEventHandler());
 		return propertyChangeEventHandler;
@@ -126,6 +126,9 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
     }
     public synchronized void removeEventListener(PropertyChangeListener l) {
 		getPropertyChangeEventHandler().removeEventListener(l);
+    }
+    public void fireNotationEvent(IEntity source, String name, Object data) {
+    	getPropertyChangeEventHandler().notifyEvent(source, name, data);
     }
 
 

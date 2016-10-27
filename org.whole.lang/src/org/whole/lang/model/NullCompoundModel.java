@@ -76,7 +76,14 @@ public class NullCompoundModel implements ICompoundModel, Serializable, IHistory
 	public void setHistoryManager(IHistoryManager historyManager, boolean mergeHistory) {
 		throw new IllegalStateException(WholeMessages.null_model);		
 	}
-    
+
+	public IChangeEventHandler getPropertyChangeEventHandler() {
+		throw new IllegalStateException(WholeMessages.null_model);
+    }
+	public void fireNotationEvent(IEntity source, String name, Object data) {
+		throw new IllegalStateException(WholeMessages.null_model);
+    }
+
     public void addEventListener(PropertyChangeListener l) {
 		throw new IllegalStateException(WholeMessages.null_model);
     }

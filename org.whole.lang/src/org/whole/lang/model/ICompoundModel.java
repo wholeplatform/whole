@@ -39,7 +39,8 @@ public interface ICompoundModel {
 	public boolean isHistoryEvent();
 	public boolean isHistoryEnabled();
 
-	
+	public IChangeEventHandler getPropertyChangeEventHandler();
+	public void fireNotationEvent(IEntity source, String name, Object data);
     public void addEventListener(PropertyChangeListener l);
     public void removeEventListener(PropertyChangeListener l);
 }
