@@ -45,6 +45,10 @@ public class NotationStyling implements INotationStyling {
 		return entityStylingMap.put(typeIdentifier, styling);
 	}
 
+	public void invalidateEntityStyling(String entityId) {
+		entityStylingMap.remove(entityId);
+	}
+
 	public EmbeddingStyle getEmbeddingStyle(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity) {
 		if (!(contextPart instanceof IStyledPart))
 			return EmbeddingStyle.NONE;

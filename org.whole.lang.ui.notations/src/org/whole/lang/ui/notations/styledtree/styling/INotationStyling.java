@@ -26,6 +26,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 public interface INotationStyling {
 	public IEntityStyling addEntityStyling(IEntityStyling styling);
 	public IEntityStyling addEntityStyling(String entityId, IEntityStyling styling);
+	public void invalidateEntityStyling(String entityId);
 
 	public IEntityStyling getEntityStyling(IStylingFactory stylingFactory, IEntityPart contextPart, IEntity entity);
 
