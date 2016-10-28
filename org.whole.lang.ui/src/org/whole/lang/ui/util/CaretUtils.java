@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Caret;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.ITextualEntityPart;
+import org.whole.lang.ui.figures.ITextualFigure;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /** 
@@ -176,4 +177,12 @@ public class CaretUtils {
 		return -1;
 	}
 	// end of multiline positioning methods
+
+	public static org.eclipse.draw2d.geometry.Rectangle getAbsoluteCaretBounds(IEntityPartViewer viewer, ITextualEntityPart targetPart) {
+		ITextualFigure textualFigure = targetPart.getTextualFigure();
+		Viewport viewport = ((FigureCanvas) viewer.getControl()).getViewport();
+		org.eclipse.draw2d.geometry.Rectangle caretBounds = textualFigure.getCaretBounds().getCopy();
+		viewport.getContents().translateToRelative(caretBounds);
+		return caretBounds;
+	}
 }

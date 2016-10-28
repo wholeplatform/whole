@@ -79,6 +79,7 @@ import org.whole.lang.ui.editparts.ITextualEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
 import org.whole.lang.ui.editpolicies.IHilightable;
 import org.whole.lang.ui.input.IModelInput;
+import org.whole.lang.ui.util.CaretUtils;
 import org.whole.lang.ui.util.SuspensionKind;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 import org.whole.lang.util.BehaviorUtils;
@@ -247,6 +248,7 @@ public class E4Utils {
 		bm.wDefValue("caretPosition", targetPart.getCaretPosition());
 		bm.wDefValue("caretPositionStart", start);
 		bm.wDefValue("caretPositionEnd", end);
+		bm.wDefValue("caretBounds", CaretUtils.getAbsoluteCaretBounds(viewer, targetPart));
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
