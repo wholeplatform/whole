@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.ui"/>
     <semantics:Name value="CaretActions"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="16">
+    <semantics:SemanticFunctions initialCapacity="17">
         <semantics:SemanticFunction>
             <semantics:Name value="splitOnCaretEnabled"/>
             <semantics:FunctionType>
@@ -836,15 +836,7 @@
                             <queries:Name value="typeURI"/>
                             <queries:Name value="movedEntities"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="3">
-                            <workflows:Breakpoint xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="breakpoint"/>
-                                <workflows:BooleanLiteral value="false"/>
-                                <workflows:IntLiteral value="0"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <workflows:ConditionTest value="TRUE"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            </workflows:Breakpoint>
+                        <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
                                     <queries:If>
@@ -1489,6 +1481,59 @@
         </semantics:SemanticFunction>
         <semantics:SemanticFunction>
             <semantics:Name value="arrowUp"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <semantics:Rules initialCapacity="1">
+                <semantics:ExecutionRule>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <semantics:AnyType/>
+                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                        <queries:Names initialCapacity="1">
+                            <queries:Name value="aboveEntity"/>
+                        </queries:Names>
+                        <queries:Block initialCapacity="3">
+                            <queries:Path initialCapacity="3">
+                                <queries:VariableRefStep value="caretBounds"/>
+                                <semantics:FunctionApplication>
+                                    <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestAbove"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#modelEntity"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableTest value="aboveEntity"/>
+                                </queries:Filter>
+                            </queries:Path>
+                            <queries:PointwiseUpdate>
+                                <queries:VariableRefStep value="caretPosition"/>
+                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="CaretUtils.getCaretPositions()"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="org.whole.lang.ui.util.CaretUtils"/>
+                                    <workflows:StringLiteral value="getCaretPositions(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
+                                    <workflows:Expressions initialCapacity="2">
+                                        <workflows:Variable value="viewer"/>
+                                        <workflows:Variable value="aboveEntity"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                            </queries:PointwiseUpdate>
+                            <queries:VariableRefStep value="aboveEntity"/>
+                        </queries:Block>
+                    </queries:Scope>
+                </semantics:ExecutionRule>
+            </semantics:Rules>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="_arrowUp"/>
             <semantics:FunctionType>
                 <semantics:AnyType/>
                 <semantics:AnyType/>
