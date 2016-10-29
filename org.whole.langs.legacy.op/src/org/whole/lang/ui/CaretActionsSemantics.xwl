@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang.ui"/>
     <semantics:Name value="CaretActions"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="17">
+    <semantics:SemanticFunctions initialCapacity="16">
         <semantics:SemanticFunction>
             <semantics:Name value="splitOnCaretEnabled"/>
             <semantics:FunctionType>
@@ -1397,85 +1397,35 @@
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
-                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
-                            <queries:Name value="hasPrecedingSiblingWithSameType"/>
-                        </queries:Names>
-                        <queries:Block initialCapacity="2">
-                            <queries:QueryDeclaration>
-                                <queries:Name value="hasPrecedingSiblingWithSameType"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <queries:CartesianProduct initialCapacity="2">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:PrecedingSiblingStep/>
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        </queries:Filter>
-                                        <queries:Filter>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        <queries:VariableTest value="type"/>
-                                        </queries:Filter>
-                                    </queries:Path>
+                    <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="caretBounds"/>
                                     <queries:Filter>
                                         <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestAbove"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:VariableTest value="type"/>
-                                    </queries:Filter>
-                                </queries:CartesianProduct>
-                            </queries:QueryDeclaration>
-                            <queries:Choose initialCapacity="2">
-                                <queries:If>
-                                    <queries:ExpressionTest>
-                                        <queries:Filter>
-                                        <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:And initialCapacity="2">
-                                        <queries:KindTest value="DATA"/>
                                         <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
-                                        <queries:Filter>
-                                        <queries:ParentStep/>
-                                        <queries:And initialCapacity="3">
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
-                                        <queries:Filter>
-                                        <queries:ParentStep/>
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Call>
-                                        <queries:Name value="hasPrecedingSiblingWithSameType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </queries:Call>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
                                         </queries:ExpressionTest>
-                                        </queries:And>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
-                                        </queries:And>
-                                        </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:BooleanLiteral value="true"/>
-                                </queries:If>
-                                <queries:Do>
-                                    <queries:BooleanLiteral value="false"/>
-                                </queries:Do>
-                            </queries:Choose>
-                        </queries:Block>
-                    </queries:Scope>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:ExpressionTest>
+                            <queries:BooleanLiteral value="true"/>
+                        </queries:If>
+                        <queries:Do>
+                            <queries:BooleanLiteral value="false"/>
+                        </queries:Do>
+                    </queries:Choose>
                 </semantics:ExecutionRule>
             </semantics:Rules>
         </semantics:SemanticFunction>
@@ -1490,18 +1440,22 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:Names initialCapacity="2">
                             <queries:Name value="aboveEntity"/>
+                            <queries:Name value="aboveEntityPart"/>
                         </queries:Names>
                         <queries:Block initialCapacity="3">
                             <queries:Path initialCapacity="3">
                                 <queries:VariableRefStep value="caretBounds"/>
-                                <semantics:FunctionApplication>
-                                    <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestAbove"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </semantics:FunctionApplication>
+                                <queries:Filter>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestAbove"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableTest value="aboveEntityPart"/>
+                                </queries:Filter>
                                 <queries:Filter>
                                     <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#modelEntity"/>
@@ -1515,109 +1469,18 @@
                             <queries:PointwiseUpdate>
                                 <queries:VariableRefStep value="caretPosition"/>
                                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="CaretUtils.getCaretPositions()"/>
+                                    <workflows:Text value="CaretUtils.calculateCaretPosition()"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <workflows:StringLiteral value="org.whole.lang.ui.util.CaretUtils"/>
-                                    <workflows:StringLiteral value="getCaretPositions(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
+                                    <workflows:StringLiteral value="calculateCaretPosition(org.whole.lang.ui.editparts.ITextualEntityPart, int)"/>
                                     <workflows:Expressions initialCapacity="2">
-                                        <workflows:Variable value="viewer"/>
-                                        <workflows:Variable value="aboveEntity"/>
+                                        <workflows:Variable value="aboveEntityPart"/>
+                                        <workflows:Variable value="caretHorizontalLocation"/>
                                     </workflows:Expressions>
                                 </workflows:InvokeJavaClassMethod>
                             </queries:PointwiseUpdate>
                             <queries:VariableRefStep value="aboveEntity"/>
-                        </queries:Block>
-                    </queries:Scope>
-                </semantics:ExecutionRule>
-            </semantics:Rules>
-        </semantics:SemanticFunction>
-        <semantics:SemanticFunction>
-            <semantics:Name value="_arrowUp"/>
-            <semantics:FunctionType>
-                <semantics:AnyType/>
-                <semantics:AnyType/>
-            </semantics:FunctionType>
-            <semantics:Rules initialCapacity="1">
-                <semantics:ExecutionRule>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <semantics:AnyType/>
-                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="6">
-                            <queries:Name value="focusEntityContainer"/>
-                            <queries:Name value="focusEntityType"/>
-                            <queries:Name value="focusEntityURI"/>
-                            <queries:Name value="beforeEntityContainer"/>
-                            <queries:Name value="beforeEntity"/>
-                            <queries:Name value="caretEntity"/>
-                        </queries:Names>
-                        <queries:Block initialCapacity="5">
-                            <queries:Path initialCapacity="2">
-                                <queries:VariableRefStep value="focusEntity"/>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:VariableTest value="focusEntityContainer"/>
-                                </queries:Filter>
-                            </queries:Path>
-                            <queries:Path initialCapacity="3">
-                                <queries:VariableRefStep value="focusEntity"/>
-                                <queries:Filter>
-                                    <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:VariableTest value="focusEntityType"/>
-                                </queries:Filter>
-                                <queries:Filter>
-                                    <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:VariableTest value="focusEntityURI"/>
-                                </queries:Filter>
-                            </queries:Path>
-                            <queries:Path initialCapacity="3">
-                                <queries:VariableRefStep value="focusEntityContainer"/>
-                                <queries:Filter>
-                                    <queries:PrecedingSiblingStep/>
-                                    <queries:And initialCapacity="2">
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        <queries:VariableTest value="beforeEntityContainer"/>
-                                    </queries:And>
-                                </queries:Filter>
-                                <queries:Filter>
-                                    <queries:ChildStep/>
-                                    <queries:And initialCapacity="2">
-                                        <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:FollowingSiblingStep/>
-                                        </queries:ExpressionTest>
-                                        </queries:Not>
-                                        <queries:VariableTest value="beforeEntity"/>
-                                    </queries:And>
-                                </queries:Filter>
-                            </queries:Path>
-                            <queries:PointwiseUpdate>
-                                <queries:VariableRefStep value="caretPosition"/>
-                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="beforeEntity.getCaretPositions()"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    <workflows:StringLiteral value="org.whole.lang.ui.util.CaretUtils"/>
-                                    <workflows:StringLiteral value="getCaretPositions(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
-                                    <workflows:Expressions initialCapacity="2">
-                                        <workflows:Variable value="viewer"/>
-                                        <workflows:Variable value="beforeEntity"/>
-                                    </workflows:Expressions>
-                                </workflows:InvokeJavaClassMethod>
-                            </queries:PointwiseUpdate>
-                            <queries:VariableRefStep value="beforeEntity"/>
                         </queries:Block>
                     </queries:Scope>
                 </semantics:ExecutionRule>
@@ -1633,85 +1496,35 @@
                 <semantics:ExecutionRule>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
-                    <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
-                            <queries:Name value="hasFollowingSiblingWithSameType"/>
-                        </queries:Names>
-                        <queries:Block initialCapacity="2">
-                            <queries:QueryDeclaration>
-                                <queries:Name value="hasFollowingSiblingWithSameType"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <queries:CartesianProduct initialCapacity="2">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:FollowingSiblingStep/>
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        </queries:Filter>
-                                        <queries:Filter>
-                                        <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </semantics:FunctionApplication>
-                                        <queries:VariableTest value="type"/>
-                                        </queries:Filter>
-                                    </queries:Path>
+                    <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                        <queries:If>
+                            <queries:ExpressionTest>
+                                <queries:Path initialCapacity="2">
+                                    <queries:VariableRefStep value="caretBounds"/>
                                     <queries:Filter>
                                         <semantics:FunctionApplication>
-                                        <semantics:Name value="whole:org.whole.lang:ReflectLibrary#instanceType"/>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestBelow"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:VariableTest value="type"/>
-                                    </queries:Filter>
-                                </queries:CartesianProduct>
-                            </queries:QueryDeclaration>
-                            <queries:Choose initialCapacity="2">
-                                <queries:If>
-                                    <queries:ExpressionTest>
-                                        <queries:Filter>
-                                        <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:And initialCapacity="2">
-                                        <queries:KindTest value="DATA"/>
                                         <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
-                                        <queries:Filter>
-                                        <queries:ParentStep/>
-                                        <queries:And initialCapacity="3">
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
-                                        <queries:Filter>
-                                        <queries:ParentStep/>
-                                        <queries:KindTest value="COMPOSITE"/>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
-                                        <queries:Call>
-                                        <queries:Name value="hasFollowingSiblingWithSameType"/>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        </queries:Call>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
                                         </queries:ExpressionTest>
-                                        </queries:And>
-                                        </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
-                                        </queries:And>
-                                        </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:BooleanLiteral value="true"/>
-                                </queries:If>
-                                <queries:Do>
-                                    <queries:BooleanLiteral value="false"/>
-                                </queries:Do>
-                            </queries:Choose>
-                        </queries:Block>
-                    </queries:Scope>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:ExpressionTest>
+                            <queries:BooleanLiteral value="true"/>
+                        </queries:If>
+                        <queries:Do>
+                            <queries:BooleanLiteral value="false"/>
+                        </queries:Do>
+                    </queries:Choose>
                 </semantics:ExecutionRule>
             </semantics:Rules>
         </semantics:SemanticFunction>
@@ -1726,57 +1539,47 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="5">
-                            <queries:Name value="focusEntityContainer"/>
-                            <queries:Name value="afterEntityContainer"/>
-                            <queries:Name value="afterEntity"/>
-                            <queries:Name value="afterEntityType"/>
-                            <queries:Name value="afterEntityURI"/>
+                        <queries:Names initialCapacity="2">
+                            <queries:Name value="belowEntity"/>
+                            <queries:Name value="belowEntityPart"/>
                         </queries:Names>
-                        <queries:Block initialCapacity="4">
-                            <queries:Path initialCapacity="2">
-                                <queries:VariableRefStep value="focusEntity"/>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:VariableTest value="focusEntityContainer"/>
-                                </queries:Filter>
-                            </queries:Path>
+                        <queries:Block initialCapacity="3">
                             <queries:Path initialCapacity="3">
-                                <queries:VariableRefStep value="focusEntityContainer"/>
+                                <queries:VariableRefStep value="caretBounds"/>
                                 <queries:Filter>
-                                    <queries:FollowingSiblingStep/>
-                                    <queries:And initialCapacity="2">
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        <queries:VariableTest value="afterEntityContainer"/>
-                                    </queries:And>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureBoundsClosestBelow"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableTest value="belowEntityPart"/>
                                 </queries:Filter>
                                 <queries:Filter>
-                                    <queries:ChildStep/>
-                                    <queries:And initialCapacity="2">
-                                        <queries:IndexTest>
-                                        <queries:IntLiteral value="0"/>
-                                        </queries:IndexTest>
-                                        <queries:VariableTest value="afterEntity"/>
-                                    </queries:And>
+                                    <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#modelEntity"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </semantics:FunctionApplication>
+                                    <queries:VariableTest value="belowEntity"/>
                                 </queries:Filter>
                             </queries:Path>
                             <queries:PointwiseUpdate>
                                 <queries:VariableRefStep value="caretPosition"/>
                                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                    <workflows:Text value="afterEntity.getCaretPositions()"/>
+                                    <workflows:Text value="CaretUtils.calculateCaretPosition()"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                     <workflows:StringLiteral value="org.whole.lang.ui.util.CaretUtils"/>
-                                    <workflows:StringLiteral value="getCaretPositions(org.whole.lang.ui.viewers.IEntityPartViewer, org.whole.lang.model.IEntity)"/>
+                                    <workflows:StringLiteral value="calculateCaretPosition(org.whole.lang.ui.editparts.ITextualEntityPart, int)"/>
                                     <workflows:Expressions initialCapacity="2">
-                                        <workflows:Variable value="viewer"/>
-                                        <workflows:Variable value="afterEntity"/>
+                                        <workflows:Variable value="belowEntityPart"/>
+                                        <workflows:Variable value="caretHorizontalLocation"/>
                                     </workflows:Expressions>
                                 </workflows:InvokeJavaClassMethod>
                             </queries:PointwiseUpdate>
-                            <queries:VariableRefStep value="afterEntity"/>
+                            <queries:VariableRefStep value="belowEntity"/>
                         </queries:Block>
                     </queries:Scope>
                 </semantics:ExecutionRule>
