@@ -29,6 +29,7 @@ import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Caret;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.MonoLayout;
@@ -72,6 +73,9 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	}
 	public Rectangle getTextBounds() {
 		return label.getTextBounds();
+	}
+	public Font getFont() {
+		return label.getFont();
 	}
 
 	public int getCaretPosition() {

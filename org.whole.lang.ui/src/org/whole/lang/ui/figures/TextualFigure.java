@@ -28,6 +28,7 @@ import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Caret;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.MonoLayout;
@@ -72,6 +73,9 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 	public Rectangle getTextBounds() {
 		return label.getTextBounds();
 	}
+	public Font getFont() {
+		return label.getFont();
+	}
 
 	public int getCaretPosition() {
 		return caretPosition;
@@ -112,7 +116,7 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 	}
 
 	protected int getTextWidth(String text) {
-		return FigureUtilities.getTextExtents(text, label.getFont()).width;
+		return FigureUtilities.getTextExtents(text, getFont()).width;
 	}
 
 	protected boolean updateCaretLocation(Point location) {
@@ -126,7 +130,7 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 			lastProximityPoint = proximityPoint;
 		
 		String text = label.getText();
-		Dimension caretSize = CaretUtils.getCaretSize(label.getFont());
+		Dimension caretSize = CaretUtils.getCaretSize(getFont());
 		int line = CaretUtils.getCaretLine(proximityPoint, labelBounds, caretSize);
 		int verticalCaretLocation = labelBounds.y+(caretSize.height*line);
 		String textLine = CaretUtils.getLine(text, line);
@@ -144,10 +148,10 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 		}
 
 		// calculate intermediate positions
-		int length = label.getTextUtilities().getLargestSubstringConfinedTo(textLine, label.getFont(), proximityPoint.x - labelBounds.x);
+		int length = label.getTextUtilities().getLargestSubstringConfinedTo(textLine, getFont(), proximityPoint.x - labelBounds.x);
 		caretPosition = CaretUtils.getStartingLinePosition(text, line)+length;
 		String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
-		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, label.getFont());
+		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getFont());
 		caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
 		
 		return true;
@@ -159,11 +163,11 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 			caretPosition = text.length();
 
 		Rectangle labelBounds = getTextBounds();
-		Dimension caretSize = CaretUtils.getCaretSize(label.getFont());
+		Dimension caretSize = CaretUtils.getCaretSize(getFont());
 		int line = getLineFromPosition(caretPosition);
 		int verticalCaretLocation = labelBounds.y+(caretSize.height*line);
 		String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
-		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, label.getFont());
+		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getFont());
 		caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
 	}
 
@@ -278,7 +282,7 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 			String text = label.getText();
 			int startLine = CaretUtils.getLineFromPosition(text, rangeStart);
 			int endLine = CaretUtils.getLineFromPosition(text, rangeEnd);
-			int fontHeight = FigureUtilities.getFontMetrics(label.getFont()).getHeight();
+			int fontHeight = FigureUtilities.getFontMetrics(getFont()).getHeight();
 			Rectangle bounds = getTextBounds();
 
 			if (startLine == endLine) {
