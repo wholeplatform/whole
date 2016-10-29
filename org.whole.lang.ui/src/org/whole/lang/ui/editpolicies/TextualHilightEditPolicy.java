@@ -22,6 +22,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPartViewer;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
@@ -65,8 +66,8 @@ public class TextualHilightEditPolicy extends WholeHilightEditPolicy {
 			IBindingManager bm = getCurrentViewer().getContextBindings();
 			IEntity focusEntity = bm.wGet("focusEntity");
 			ITextualEntityPart textualHost = getTextualHost();
-			if (focusEntity != null && textualHost.getModelEntity() != focusEntity 
-					&& Matcher.containsMatch(textualHost.getModelEntity(), focusEntity)) { //FIXME workaround for focusEntity == RootFragment after a focus lost
+			if (focusEntity != null && textualHost.getModelEntity() != focusEntity
+					&& !Matcher.match(CommonsEntityDescriptorEnum.RootFragment, focusEntity)) { //FIXME workaround for focusEntity == RootFragment after a focus lost
 				IGraphicalEntityPart focusPart = (IGraphicalEntityPart) ModelObserver.getObserver(focusEntity, getCurrentViewer().getEditPartRegistry());
 				if (focusPart != null) {
 					int position = FigureUtils.getPositionOf(textualHost.getFigure(), focusPart.getFigure());
