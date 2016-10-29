@@ -41,8 +41,11 @@ public class EntityEditDomainJob extends Job {
 	public IStatus run(IProgressMonitor monitor) {
 		try {
 			runnable.run(monitor);
-		} catch (OperationCanceledException | InterruptedException e) {
+		} catch (OperationCanceledException e) {
 			// do nothing
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		} catch (Exception e) {
 			return new Status(Status.ERROR, IUIConstants.BUNDLE_ID, 0, "An exception occurred while executing the job "+getName(), e);
 		} finally {
