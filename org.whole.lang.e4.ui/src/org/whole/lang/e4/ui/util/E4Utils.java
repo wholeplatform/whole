@@ -248,7 +248,10 @@ public class E4Utils {
 		bm.wDefValue("caretPosition", targetPart.getCaretPosition());
 		bm.wDefValue("caretPositionStart", start);
 		bm.wDefValue("caretPositionEnd", end);
-		bm.wDefValue("caretBounds", CaretUtils.getAbsoluteCaretBounds(viewer, targetPart));
+		Rectangle caretBounds = CaretUtils.getAbsoluteCaretBounds(viewer, targetPart);
+		bm.wDefValue("caretBounds", caretBounds);
+		bm.wDefValue("caretVerticalLocation", caretBounds.y);
+		bm.wDefValue("caretHorizontalLocation", caretBounds.x);
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, IModelInput modelInput) {
