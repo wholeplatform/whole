@@ -15,25 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.text.ui.actions;
+package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Enrico Persiani
  */
-public class DeleteAction extends AbstractModelTextAction {
-	public DeleteAction(IEclipseContext context) {
-		super(context, IUIConstants.DELETE_LABEL);
+public class ArrowUpAction extends AbstractModelTextAction {
+	public ArrowUpAction(IEclipseContext context) {
+		super(context, IUIConstants.LEFT_LABEL);
 	}
 	
 
 	protected String getEnablementUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#deleteEnabled";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#arrowUpEnabled";
 	}
 
 	protected String getBehaviorUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#delete";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#arrowUp";
 	}
 }

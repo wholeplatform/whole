@@ -20,7 +20,7 @@ package org.whole.lang.ui.util;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
@@ -76,6 +76,8 @@ public class FigureUtils {
 		LinkedList<IGraphicalEntityPart> closestVertically = new LinkedList<>();
 
 		for (IGraphicalEntityPart entityPart : entityParts) {
+			if (!entityPart.getFigure().isVisible())
+				continue;
 			Rectangle partBounds = entityPart.getFigure().getBounds();
 			if (partBounds.contains(bounds) && !entityPart.getChildren().isEmpty()) {
 				LinkedList<IGraphicalEntityPart> filtered = filterClosestVertically(entityPart.getChildren(), above, bounds);
@@ -118,17 +120,29 @@ public class FigureUtils {
 		}
 		return extractContainerEntityParts(closestHorizontally);
 	}
-	public static IGraphicalEntityPart getClosestWrapping(List<IGraphicalEntityPart> entityParts, Predicate<IGraphicalEntityPart> predicate) {
-		return entityParts.stream()
-			.filter(predicate)
-			.reduce((h, t) -> t)
-			.orElse(entityParts.isEmpty() ? null : entityParts.get(0));
+	public static IGraphicalEntityPart getClosestWrappingVertically(List<IGraphicalEntityPart> entityParts, boolean above, Rectangle bounds) {
+		throw new UnsupportedOperationException("not implemented yet");
 	}
-	public static IGraphicalEntityPart getClosestWrappingVertically(List<IGraphicalEntityPart> entityParts, int verticalLimit) {
-		return getClosestWrapping(entityParts, (p) -> p.getFigure().getBounds().y < verticalLimit);
-	}
-	public static IGraphicalEntityPart getClosestWrappingHorizontally(List<IGraphicalEntityPart> entityParts, int horizontalLimit) {
-		return getClosestWrapping(entityParts, (p) -> p.getFigure().getBounds().x < horizontalLimit);
+	public static IGraphicalEntityPart getClosestWrappingHorizontally(LinkedList<IGraphicalEntityPart> entityParts, boolean above, Rectangle bounds) {
+		LinkedList<IGraphicalEntityPart> candidates = entityParts.stream()
+				.filter((p) -> 
+					p.getFigure().getBounds().x < bounds.x && bounds.x <= p.getFigure().getBounds().right())
+				.collect(Collectors.toCollection(() -> new LinkedList<>()));
+		candidates.sort((f, s) -> {
+			Rectangle fb = f.getFigure().getBounds();
+			Rectangle sb = s.getFigure().getBounds();
+			return above ? fb.y - sb.y : sb.bottom() - fb.bottom();
+		});
+		if (!candidates.isEmpty())
+			return candidates.getLast();
+
+		return entityParts.stream().reduce((f, s) -> {
+			Rectangle fb = f.getFigure().getBounds();
+			Rectangle sb = s.getFigure().getBounds();
+			int df = Math.min(Math.abs(fb.x - bounds.x), Math.abs(fb.right() - bounds.x));
+			int ds = Math.min(Math.abs(sb.x - bounds.x), Math.abs(sb.right() - bounds.x));
+			return df < ds ? f : s;
+		}).orElse(null);
 	}
 
 	public static IGraphicalEntityPart getClosestAbove(IEntityPartViewer viewer, IGraphicalEntityPart entityPart) {
@@ -145,7 +159,7 @@ public class FigureUtils {
 		if (entityParts.isEmpty())
 			throw new IllegalArgumentException("empty list");
 
-		return getClosestWrappingHorizontally(filterClosestVertically(entityParts, true, bounds), bounds.x);
+		return getClosestWrappingHorizontally(filterClosestVertically(entityParts, true, bounds), true, bounds);
 	}
 
 	public static IGraphicalEntityPart getClosestBelow(IEntityPartViewer viewer, IGraphicalEntityPart entityPart) {
@@ -162,7 +176,7 @@ public class FigureUtils {
 		if (entityParts.isEmpty())
 			throw new IllegalArgumentException("empty list");
 
-		return getClosestWrappingHorizontally(filterClosestVertically(entityParts, false, bounds), bounds.x);
+		return getClosestWrappingHorizontally(filterClosestVertically(entityParts, false, bounds), false, bounds);
 	}
 
 	public static IGraphicalEntityPart getClosest(int inDirection, IEntityPartViewer viewer, IGraphicalEntityPart entityPart) {

@@ -22,6 +22,8 @@ import static org.whole.lang.e4.ui.actions.IUIConstants.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -45,6 +47,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.IEditorKit;
+import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.actions.IUpdatableAction;
 import org.whole.lang.ui.editor.IGEFEditorKit;
@@ -114,15 +117,20 @@ public class ActionRegistry {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
 
 		for (IEditorKit editorKit : ReflectionFactory.getEditorKits()) {
-			for (Object[] textAction : ((IGEFEditorKit) editorKit).getActionFactory().textActions()) {
-				KeySequence keySequence = (KeySequence) textAction[0];
-				Class<IUpdatableAction> actionClass = (Class<IUpdatableAction>) textAction[2];
-				try {
-					IUpdatableAction action = actionClass
-							.getConstructor(IEclipseContext.class)
-							.newInstance(context);
-					keyHandler.put(editorKit, keySequence, true, action);
-				} catch (Exception e) {
+			for (ILanguageKit lk : ReflectionFactory.getLanguageKits(false)) {
+				if (!editorKit.canApply(lk))
+					continue;
+
+				for (Object[] textAction : E4Utils.textActionsFor(lk, ((IGEFEditorKit) editorKit).getActionFactory().textActions())) {
+					KeySequence keySequence = (KeySequence) textAction[0];
+					Class<IUpdatableAction> actionClass = (Class<IUpdatableAction>) textAction[2];
+					try {
+						IUpdatableAction action = actionClass
+								.getConstructor(IEclipseContext.class)
+								.newInstance(context);
+						keyHandler.put(editorKit, keySequence, true, action);
+					} catch (Exception e) {
+					}
 				}
 			}
 		}

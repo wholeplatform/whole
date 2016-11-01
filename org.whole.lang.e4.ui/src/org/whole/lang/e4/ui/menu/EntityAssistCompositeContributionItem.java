@@ -233,7 +233,7 @@ public class EntityAssistCompositeContributionItem extends AbstractCompositeCont
 		IGEFEditorKit editorKit = (IGEFEditorKit) (targetEntity.wGetLanguageKit().equals(lk) ?
 				ReflectionFactory.getEditorKit(targetEntity) : lk.getDefaultEditorKit());
 
-		for (Object[] textAction : editorKit.getActionFactory().textActions()) {
+		for (Object[] textAction : E4Utils.textActionsFor(lk, ((IGEFEditorKit) editorKit).getActionFactory().textActions())) {
 			EntityDescriptor<?> ed = (EntityDescriptor<?>) textAction[1];
 			if (Matcher.matchImpl(ed, targetEntity)) {
 				@SuppressWarnings("unchecked")

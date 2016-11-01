@@ -22,7 +22,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -47,6 +49,10 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.jface.bindings.keys.IKeyLookup;
+import org.eclipse.jface.bindings.keys.KeyLookupFactory;
+import org.eclipse.jface.bindings.keys.KeySequence;
+import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -58,7 +64,15 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.e4.ui.actions.ArrowDownAction;
+import org.whole.lang.e4.ui.actions.ArrowLeftAction;
+import org.whole.lang.e4.ui.actions.ArrowRightAction;
+import org.whole.lang.e4.ui.actions.ArrowUpAction;
+import org.whole.lang.e4.ui.actions.BackspaceAction;
+import org.whole.lang.e4.ui.actions.DeleteAction;
 import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.NewlineAction;
+import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -489,5 +503,60 @@ public class E4Utils {
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
+	}
+
+	public static KeySequence lookupKeySequence(int modifiers, String keyName) {
+		int key = KeyLookupFactory.getDefault().formalKeyLookup(keyName);
+		return KeySequence.getInstance(KeyStroke.getInstance(modifiers, key));
+	}
+	public static KeySequence lookupKeySequence(String keyName) {
+		int key = KeyLookupFactory.getDefault().formalKeyLookup(keyName);
+		return KeySequence.getInstance(KeyStroke.getInstance(key));
+	}
+	public static KeySequence lookupCtrlSpace() {
+		return lookupKeySequence(KeyLookupFactory.getDefault().getCtrl(), IKeyLookup.SPACE_NAME);
+	}
+	public static KeySequence lookupSpace() {
+		return lookupKeySequence(IKeyLookup.SPACE_NAME);
+	}
+	public static KeySequence lookupReturn() {
+		return lookupKeySequence(IKeyLookup.RETURN_NAME);
+	}
+	public static KeySequence lookupBackspace() {
+		return lookupKeySequence(IKeyLookup.BACKSPACE_NAME);
+	}
+	public static KeySequence lookupDelete() {
+		return lookupKeySequence(IKeyLookup.DELETE_NAME);
+	}
+	public static KeySequence lookupArrowLeft() {
+		return lookupKeySequence(IKeyLookup.ARROW_LEFT_NAME);
+	}
+	public static KeySequence lookupArrowRight() {
+		return lookupKeySequence(IKeyLookup.ARROW_RIGHT_NAME);
+	}
+	public static KeySequence lookupArrowUp() {
+		return lookupKeySequence(IKeyLookup.ARROW_UP_NAME);
+	}
+	public static KeySequence lookupArrowDown() {
+		return lookupKeySequence(IKeyLookup.ARROW_DOWN_NAME);
+	}
+	public static Object[][] textActionsFor(ILanguageKit languageKit, Object[][] customTextActions) {
+		List<Object[]> textActions = new LinkedList<>();
+		
+		for (EntityDescriptor<?> ed : languageKit.getEntityDescriptorEnum()) {
+			if (ed.getDataKind().isString()) {
+				textActions.add(new Object[] { E4Utils.lookupCtrlSpace(), ed, SplitOnCaretAction.class });
+				textActions.add(new Object[] { E4Utils.lookupReturn(), ed, NewlineAction.class });
+				textActions.add(new Object[] { E4Utils.lookupBackspace(), ed, BackspaceAction.class });
+				textActions.add(new Object[] { E4Utils.lookupDelete(), ed, DeleteAction.class });
+
+				textActions.add(new Object[] { E4Utils.lookupArrowLeft(), ed, ArrowLeftAction.class });
+				textActions.add(new Object[] { E4Utils.lookupArrowRight(), ed, ArrowRightAction.class });
+				textActions.add(new Object[] { E4Utils.lookupArrowUp(), ed, ArrowUpAction.class });
+				textActions.add(new Object[] { E4Utils.lookupArrowDown(), ed, ArrowDownAction.class });
+			}
+		}
+		textActions.addAll(Arrays.asList(customTextActions));
+		return textActions.toArray(new Object[0][]);
 	}
 }

@@ -98,7 +98,7 @@ public class CommandFactory implements ICommandFactory {
 	}
 
 	/**
-	 * @see org.eclipse.gef.ui.actions.DeleteAction#createDeleteCommand(List)
+	 * @see org.whole.lang.e4.ui.actions.DeleteAction#createDeleteCommand(List)
 	 */
 	
 	public static Command createDeleteCommand(List<?> objects) {

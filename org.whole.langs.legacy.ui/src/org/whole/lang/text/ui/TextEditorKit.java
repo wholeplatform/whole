@@ -19,7 +19,6 @@ package org.whole.lang.text.ui;
 
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.text.reflect.TextLanguageKit;
-import org.whole.lang.text.ui.actions.TextActionFactory;
 import org.whole.lang.text.ui.editparts.TextPartFactoryVisitor;
 import org.whole.lang.ui.editor.AbstractEditorKit;
 import org.whole.lang.ui.editor.IActionFactory;
@@ -49,11 +48,6 @@ public class TextEditorKit extends AbstractEditorKit {
 
 	public boolean canApply(ILanguageKit languageKit) {
 		return languageKit.getURI().equals(TextLanguageKit.URI) && isStaticAndCurrent(languageKit);
-	}
-
-	@Override
-	public IActionFactory getActionFactory() {
-		return TextActionFactory.instance();
 	}
 
 	@Override

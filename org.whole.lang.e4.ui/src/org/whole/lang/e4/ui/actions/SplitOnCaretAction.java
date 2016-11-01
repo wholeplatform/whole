@@ -15,25 +15,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.text.ui.actions;
+package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.whole.lang.e4.ui.actions.IUIConstants;
 
 /**
  * @author Enrico Persiani
  */
-public class NewlineAction extends AbstractModelTextAction {
-	public NewlineAction(IEclipseContext context) {
-		super(context, IUIConstants.NEWLINE_LABEL);
+public class SplitOnCaretAction extends AbstractModelTextAction {
+	public SplitOnCaretAction(IEclipseContext context) {
+		super(context, IUIConstants.SPLIT_ON_CARET_LABEL);
 	}
-	
 
 	protected String getEnablementUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#splitOnCaretEnabled";
 	}
 
 	protected String getBehaviorUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
+		return "whole:org.whole.lang.ui:CaretActionsSemantics#splitOnCaret";
 	}
 }

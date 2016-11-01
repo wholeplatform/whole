@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.text.ui.actions;
+package org.whole.lang.e4.ui.actions;
 
 import java.net.URL;
 
@@ -23,8 +23,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.AbstractE4Action;
-import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.e4.ui.jobs.FunctionRunnable;
 import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
 import org.whole.lang.e4.ui.jobs.TextualFunctionRunnable;
