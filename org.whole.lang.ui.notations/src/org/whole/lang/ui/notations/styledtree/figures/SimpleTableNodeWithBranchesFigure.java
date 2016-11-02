@@ -150,7 +150,11 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 			TableRowFigure row = new TableRowFigure();
 			row.getLayoutManager().withMarginLeft(4);
 			
-			row.addLabel(featuresStyling[i].getName());
+			String name = featuresStyling[i].getName();
+			if (name.matches("\\d+"))
+				row.addContentLight(name);
+			else
+				row.addLabel(name);
 			if (featuresStyling[i].isEmbedded()) {
 				row.add(createContentPane(typePaneShift+i));
 				row.addEmptyLabel();
