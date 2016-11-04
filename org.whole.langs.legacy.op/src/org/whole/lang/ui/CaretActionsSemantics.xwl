@@ -1206,11 +1206,17 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:And initialCapacity="2">
+                            <queries:And initialCapacity="3">
                                 <queries:ExpressionTest>
                                     <queries:Equals>
                                         <queries:VariableRefStep value="caretPosition"/>
                                         <queries:IntLiteral value="0"/>
+                                    </queries:Equals>
+                                </queries:ExpressionTest>
+                                <queries:ExpressionTest>
+                                    <queries:Equals>
+                                        <queries:VariableRefStep value="caretPositionStart"/>
+                                        <queries:VariableRefStep value="caretPositionEnd"/>
                                     </queries:Equals>
                                 </queries:ExpressionTest>
                                 <queries:ExpressionTest>
@@ -1228,6 +1234,7 @@
                                         <queries:IntLiteral value="0"/>
                                         </queries:IndexTest>
                                         </queries:Filter>
+                                        <queries:And initialCapacity="2">
                                         <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
@@ -1236,6 +1243,15 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureIsShowing"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:ExpressionTest>
@@ -1311,11 +1327,17 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:And initialCapacity="2">
+                            <queries:And initialCapacity="3">
                                 <queries:ExpressionTest>
                                     <queries:Equals>
                                         <queries:VariableRefStep value="caretPosition"/>
                                         <queries:VariableRefStep value="caretPositions"/>
+                                    </queries:Equals>
+                                </queries:ExpressionTest>
+                                <queries:ExpressionTest>
+                                    <queries:Equals>
+                                        <queries:VariableRefStep value="caretPositionStart"/>
+                                        <queries:VariableRefStep value="caretPositionEnd"/>
                                     </queries:Equals>
                                 </queries:ExpressionTest>
                                 <queries:ExpressionTest>
@@ -1333,6 +1355,7 @@
                                         <queries:IntLiteral value="0"/>
                                         </queries:IndexTest>
                                         </queries:Filter>
+                                        <queries:And initialCapacity="2">
                                         <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
@@ -1341,6 +1364,15 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </queries:ExpressionTest>
+                                        <queries:ExpressionTest>
+                                        <semantics:FunctionApplication>
+                                        <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureIsShowing"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </semantics:FunctionApplication>
+                                        </queries:ExpressionTest>
+                                        </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:ExpressionTest>

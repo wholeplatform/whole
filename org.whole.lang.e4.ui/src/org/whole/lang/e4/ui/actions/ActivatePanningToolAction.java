@@ -18,36 +18,13 @@
 package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.ui.tools.Tools;
 
 /**
  * @author Enrico Persiani
  */
-public class NewlineAction extends ActionWithFallback {
-	public NewlineAction(IEclipseContext context) {
-		super(context, new BaseAction(context), new ActivatePanningToolAction(context));
-	}
-	
-
-	protected String getEnablementUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
-	}
-
-	protected String getBehaviorUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
-	}
-
-	private static final class BaseAction extends AbstractModelTextAction {
-		public BaseAction(IEclipseContext context) {
-			super(context, IUIConstants.NEWLINE_LABEL);
-		}
-		
-
-		protected String getEnablementUri() {
-			return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
-		}
-
-		protected String getBehaviorUri() {
-			return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
-		}
+public final class ActivatePanningToolAction extends ActivateToolAction {
+	public ActivatePanningToolAction(IEclipseContext context) {
+		super(context, Tools.PANNING);
 	}
 }

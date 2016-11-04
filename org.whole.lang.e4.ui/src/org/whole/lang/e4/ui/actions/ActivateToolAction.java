@@ -30,7 +30,7 @@ import org.whole.lang.ui.viewers.IEntityPartViewer;
 /**
  * @author Enrico Persiani
  */
-public final class ActivateToolAction extends AbstractE4Action {
+public class ActivateToolAction extends AbstractE4Action {
 	private final Tools tool;
 
 	public ActivateToolAction(IEclipseContext context, Tools tool) {

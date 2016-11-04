@@ -76,8 +76,8 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("entityFigure", entityFigureIterator());
 		putFunctionCode("entityFigureParent", entityFigureParentIterator());
 		putFunctionCode("entityFigureChildren", entityFigureChildrenIterator());
-		putFunctionCode("entityPartIsVisible", entityFigureIsVisibleIterator());
-		putFunctionCode("entityPartIsShowing", entityFigureIsShowingIterator());
+		putFunctionCode("entityFigureIsVisible", entityFigureIsVisibleIterator());
+		putFunctionCode("entityFigureIsShowing", entityFigureIsShowingIterator());
 		putFunctionCode("entityFigureClosestAbove", entityFigureClosestAboveIterator());
 		putFunctionCode("entityFigureClosestBelow", entityFigureClosestBelowIterator());
 

@@ -18,36 +18,38 @@
 package org.whole.lang.e4.ui.actions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.ui.actions.IUpdatableAction;
 
 /**
  * @author Enrico Persiani
  */
-public class NewlineAction extends ActionWithFallback {
-	public NewlineAction(IEclipseContext context) {
-		super(context, new BaseAction(context), new ActivatePanningToolAction(context));
-	}
-	
+public class ActionWithFallback extends AbstractE4Action {
+	private final IUpdatableAction baseAction;
+	private final IUpdatableAction fallbackAction;
 
-	protected String getEnablementUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
-	}
-
-	protected String getBehaviorUri() {
-		return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
+	public ActionWithFallback(IEclipseContext context, IUpdatableAction baseAction, IUpdatableAction fallbackAction) {
+		super(context);
+		this.baseAction = baseAction;
+		this.fallbackAction = fallbackAction;
 	}
 
-	private static final class BaseAction extends AbstractModelTextAction {
-		public BaseAction(IEclipseContext context) {
-			super(context, IUIConstants.NEWLINE_LABEL);
-		}
-		
+	@Override
+	public void update() {
+		baseAction.update();
+		if (!baseAction.isEnabled())
+			fallbackAction.update();
+	}
 
-		protected String getEnablementUri() {
-			return "whole:org.whole.lang.ui:CaretActionsSemantics#newlineEnabled";
-		}
+	@Override
+	public boolean isEnabled() {
+		return baseAction.isEnabled() || fallbackAction.isEnabled();
+	}
 
-		protected String getBehaviorUri() {
-			return "whole:org.whole.lang.ui:CaretActionsSemantics#newline";
-		}
+	@Override
+	public void run() {
+		if (baseAction.isEnabled())
+			baseAction.run();
+		else
+			fallbackAction.run();
 	}
 }

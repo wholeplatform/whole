@@ -111,11 +111,6 @@ public class ActionRegistry {
 	public void registerKeyActions(AbstractKeyHandler keyHandler) {
 		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.F2)), true, actionFactory.createDirectEditAction());
 
-		IUpdatableAction activatePanningToolAction = actionFactory.createActivateToolAction(Tools.PANNING);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.CR)), true, activatePanningToolAction);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.LF)), true, activatePanningToolAction);
-		keyHandler.put(KeySequence.getInstance(KeyStroke.getInstance(SWT.ESC)), true, activatePanningToolAction);
-
 		for (IEditorKit editorKit : ReflectionFactory.getEditorKits()) {
 			for (ILanguageKit lk : ReflectionFactory.getLanguageKits(false)) {
 				if (!editorKit.canApply(lk))

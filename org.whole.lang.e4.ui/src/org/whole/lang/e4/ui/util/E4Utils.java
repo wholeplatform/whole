@@ -64,6 +64,7 @@ import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
+import org.whole.lang.e4.ui.actions.ActivatePanningToolAction;
 import org.whole.lang.e4.ui.actions.ArrowDownAction;
 import org.whole.lang.e4.ui.actions.ArrowLeftAction;
 import org.whole.lang.e4.ui.actions.ArrowRightAction;
@@ -513,6 +514,9 @@ public class E4Utils {
 		int key = KeyLookupFactory.getDefault().formalKeyLookup(keyName);
 		return KeySequence.getInstance(KeyStroke.getInstance(key));
 	}
+	public static KeySequence lookupEsc() {
+		return lookupKeySequence(IKeyLookup.ESC_NAME);
+	}
 	public static KeySequence lookupCtrlSpace() {
 		return lookupKeySequence(KeyLookupFactory.getDefault().getCtrl(), IKeyLookup.SPACE_NAME);
 	}
@@ -545,6 +549,7 @@ public class E4Utils {
 		
 		for (EntityDescriptor<?> ed : languageKit.getEntityDescriptorEnum()) {
 			if (ed.getDataKind().isString()) {
+				textActions.add(new Object[] { E4Utils.lookupEsc(), ed, ActivatePanningToolAction.class });
 				textActions.add(new Object[] { E4Utils.lookupCtrlSpace(), ed, SplitOnCaretAction.class });
 				textActions.add(new Object[] { E4Utils.lookupReturn(), ed, NewlineAction.class });
 				textActions.add(new Object[] { E4Utils.lookupBackspace(), ed, BackspaceAction.class });
