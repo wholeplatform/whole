@@ -51,6 +51,8 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("entityPart", entityPartIterator());
 		putFunctionCode("entityPartIsGraphical", entityPartIsGraphicalIterator());
 		putFunctionCode("entityPartIsTextual", entityPartIsTextualIterator());
+
+		putFunctionCode("entityPartParent", entityPartParentIterator());
 		putFunctionCode("entityPartChildren", entityPartChildrenIterator());
 		putFunctionCode("entityPartClosestAbove", entityPartClosestAboveIterator());
 		putFunctionCode("entityPartClosestBelow", entityPartClosestBelowIterator());
@@ -72,6 +74,10 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("caretPositionEnd", caretPositionEndIterator());
 
 		putFunctionCode("entityFigure", entityFigureIterator());
+		putFunctionCode("entityFigureParent", entityFigureParentIterator());
+		putFunctionCode("entityFigureChildren", entityFigureChildrenIterator());
+		putFunctionCode("entityPartIsVisible", entityFigureIsVisibleIterator());
+		putFunctionCode("entityPartIsShowing", entityFigureIsShowingIterator());
 		putFunctionCode("entityFigureClosestAbove", entityFigureClosestAboveIterator());
 		putFunctionCode("entityFigureClosestBelow", entityFigureClosestBelowIterator());
 
@@ -144,6 +150,12 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		}
 		protected abstract IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure);
 	}
+	protected abstract static class EntityFigureMultiValuedPropertyRunnable extends EntityFigurePropertyRunnable {
+		protected void setResult(IBindingManager bm, IEntityFigure entityFigure) {
+			bm.setResultIterator(getPropertyIterator((IEntityPartViewer) bm.wGetValue("viewer"), entityFigure));
+		}
+		protected abstract IEntityIterator<?> getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure);
+	}
 
 	protected abstract static class EntityFigureBoundsPropertyRunnable implements IRunnable {
 		public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
@@ -179,7 +191,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartIsGraphicalIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -187,11 +199,20 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartIsTextualIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
 				return BindingManagerFactory.instance.createValue(entityPart instanceof ITextualEntityPart);
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> entityPartParentIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
+			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
+				IEntityPart parent = (IEntityPart) entityPart.getParent();
+				return parent != null ? BindingManagerFactory.instance.createValue(parent) : null;
 			}
 		});
 	}
@@ -225,7 +246,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartNorthwardsIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -235,7 +256,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartSouthwardsIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -245,7 +266,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartWestwardsIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -255,7 +276,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> entityPartEastwardsIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -265,7 +286,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> modelEntityIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityPart entityPart) {
@@ -329,7 +350,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> caretPositionIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
@@ -337,7 +358,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> caretPositionStartIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
@@ -348,7 +369,7 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			}
 		});
 	}
-	
+
 	public static IEntityIterator<IEntity> caretPositionEndIterator() {
 		return IteratorFactory.singleValuedRunnableIterator(new TextualEntityPartSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, ITextualEntityPart entityPart) {
@@ -364,6 +385,41 @@ public class NotationsLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		return IteratorFactory.singleValuedRunnableIterator(new EntityFigureSingleValuedPropertyRunnable() {
 			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
 				return BindingManagerFactory.instance.createValue(entityFigure);
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> entityFigureParentIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntityFigureSingleValuedPropertyRunnable() {
+			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
+				IEntityFigure parent = (IEntityFigure) entityFigure.getParent();
+				return parent != null ? BindingManagerFactory.instance.createValue(entityFigure) : null;
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> entityFigureChildrenIterator() {
+		return IteratorFactory.multiValuedRunnableIterator(new EntityFigureMultiValuedPropertyRunnable() {
+			protected IEntityIterator<?> getPropertyIterator(IEntityPartViewer viewer, IEntityFigure entityFigure) {
+				return IteratorFactory.collectionIterator(
+						entityFigure.getChildren(),
+						IDataTypeWrapper.envObjectValue);
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> entityFigureIsVisibleIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntityFigureSingleValuedPropertyRunnable() {
+			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
+				return BindingManagerFactory.instance.createValue(entityFigure.isVisible());
+			}
+		});
+	}
+
+	public static IEntityIterator<IEntity> entityFigureIsShowingIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntityFigureSingleValuedPropertyRunnable() {
+			protected IEntity getProperty(IEntityPartViewer viewer, IEntityFigure entityFigure) {
+				return BindingManagerFactory.instance.createValue(entityFigure.isShowing());
 			}
 		});
 	}

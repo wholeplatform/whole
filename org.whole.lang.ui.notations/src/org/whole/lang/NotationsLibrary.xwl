@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Notations"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="25">
+    <semantics:SemanticFunctions initialCapacity="30">
         <semantics:SemanticFunction>
             <semantics:Name value="entityPart"/>
             <semantics:FunctionType>
@@ -52,6 +52,23 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
                     <workflows:StringLiteral value="entityPartIsTextualIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityPartParent"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityPartParentIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityPartParentIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
@@ -341,6 +358,74 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
                     <workflows:StringLiteral value="entityFigureIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityFigureParent"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityFigureParentIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityFigureParentIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityFigureChildren"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityFigureChildrenIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityFigureChildrenIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityFigureIsVisible"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityFigureIsVisibleIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityFigureIsVisibleIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityFigureIsShowing"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:AnyType/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityFigureIsShowingIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.NotationsLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityFigureIsShowingIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
