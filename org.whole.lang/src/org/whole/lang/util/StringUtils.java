@@ -930,28 +930,37 @@ public class StringUtils {
 			return value+ORDINAL_SUFFIX[(value-1) % 10];
 	}
 
-	public static boolean isValidEntityName(String baseName) {
-		if (!isValidFeatureName(baseName))
+	public static boolean isValidEntityName(String name) {
+		if (!isValidJavaIdentifier(name))
 			return false;
 
-		char first = baseName.charAt(0);
-		return  (Character.isUpperCase(first) || first == '_');// && !isAmbiguous(baseName);	
+		char first = name.charAt(0);
+		return (Character.isUpperCase(first) || first == '_');	
 	}
-	public static boolean isValidFeatureName(String baseName) {
-		if (baseName.length() == 0 || isJavaKeyword(baseName))
+	public static boolean isValidFeatureName(String name) {
+		if (!isValidJavaIdentifier(name))
 			return false;
-		
-		int index = 0;
-		char current = baseName.charAt(index++);
-		boolean isValid = Character.isJavaIdentifierStart(current);
-		while (isValid && index < baseName.length()) {
-			current = baseName.charAt(index++);
-			isValid = Character.isJavaIdentifierPart(current);
-		}
-		return isValid && !isJavaKeyword(baseName);
+
+		char first = name.charAt(0);
+		return (Character.isLowerCase(first) || first == '_');
 	}
 	public static boolean isValidEnumLiteralName(String baseName) {
-		return isValidFeatureName(baseName);
+		return isValidJavaIdentifier(baseName);
+	}
+	public static boolean isValidJavaIdentifier(String name) {
+		if (name.length() == 0 || isJavaKeyword(name))
+			return false;
+		
+		char[] chars = name.toCharArray();
+
+		if (!Character.isJavaIdentifierStart(chars[0]))
+			return false;
+
+		for (int i=1; i<chars.length; i++)
+			if (!Character.isJavaIdentifierPart(chars[i]))
+				return false;
+
+		return true;
 	}
 	public static String toEntityName(String baseName) {
 		String entityName;
@@ -968,8 +977,6 @@ public class StringUtils {
 			else if (length == 0 || entityName.charAt(0) != '_')
 				entityName = "_"+entityName;
 		}
-//		if (isAmbiguous(entityName))
-//			entityName = "_"+entityName;
 
 		return entityName;
 	}
