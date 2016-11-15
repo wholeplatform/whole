@@ -19,7 +19,6 @@ package org.whole.lang.ui.figures;
 
 import java.util.Map;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
@@ -74,7 +73,7 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	public Rectangle getTextBounds() {
 		return label.getTextBounds();
 	}
-	public Font getFont() {
+	public Font getEmbeddedLabelFont() {
 		return label.getFont();
 	}
 
@@ -117,7 +116,7 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	}
 
 	protected int getTextWidth(String text) {
-		return FigureUtilities.getTextWidth(text, label.getFont());
+		return FigureUtilities.getTextExtents(text, getEmbeddedLabelFont()).width;
 	}
 
 	protected boolean updateCaretLocation(Point location) {
@@ -131,64 +130,45 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 			lastProximityPoint = proximityPoint;
 		
 		String text = label.getText();
-		Dimension caretSize = CaretUtils.getCaretSize(label.getFont());
+		Dimension caretSize = CaretUtils.getCaretSize(getEmbeddedLabelFont());
 		int line = CaretUtils.getCaretLine(proximityPoint, labelBounds, caretSize);
 		int verticalCaretLocation = labelBounds.y+(caretSize.height*line);
+		String textLine = CaretUtils.getLine(text, line);
 
 		if (proximityPoint.x <= labelBounds.x) {
 			caretPosition = CaretUtils.getStartingLinePosition(text, line);
 			caretBounds = new Rectangle(labelBounds.x, verticalCaretLocation, caretSize.width, caretSize.height);
 			return true;
 		}
-		if (proximityPoint.x > labelBounds.x + labelBounds.width) {
+		if (proximityPoint.x > labelBounds.right()) {
 			caretPosition = CaretUtils.getEndingLinePosition(text, line);
-			int xOffset = getTextWidth(CaretUtils.getLine(text, line));
+			int xOffset = getTextWidth(textLine);
 			caretBounds = new Rectangle(labelBounds.x + xOffset, verticalCaretLocation, caretSize.width, caretSize.height);
 			return true;
 		}
 
 		// calculate intermediate positions
-		String textLine = CaretUtils.getLine(text, line);
-		int left = labelBounds.x;
-		int right = left;
-		int width = 0;
-		int index = 1;
-		while (index <= textLine.length()) {
-			width = getTextWidth(textLine.substring(index-1, index));
-			right = left + width;
-			if (left <= proximityPoint.x && proximityPoint.x < right)
-				break;
-			left = right;
-			index++;
-		}
-		assert left <= right;
-		int newPosition = CaretUtils.getStartingLinePosition(text, line)+index;
-		if ((proximityPoint.x - left) <= width/2) {
-			caretPosition = newPosition-1;
-			caretBounds = new Rectangle(left, verticalCaretLocation, caretSize.width, caretSize.height);
-		} else {
-			caretPosition = index > textLine.length() ? newPosition-1 : newPosition;
-			caretBounds = new Rectangle(right, verticalCaretLocation, caretSize.width, caretSize.height);
-		}
+		int length = label.getTextUtilities().getLargestSubstringConfinedTo(textLine, getEmbeddedLabelFont(), proximityPoint.x - labelBounds.x);
+		caretPosition = CaretUtils.getStartingLinePosition(text, line)+length;
+		String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
+		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getEmbeddedLabelFont());
+		caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
+		
 		return true;
 	}
 
 	protected void updateCaretPosition() {
 		String text = label.getText();
-		if (text.length() < caretPosition) {
+		if (text.length() < caretPosition)
 			caretPosition = text.length();
-		}
-		updateCaretPosition(caretPosition);
-	}
 
-	protected void updateCaretPosition(int position) {
-		String text = label.getText();
 		Rectangle labelBounds = getTextBounds();
-		Dimension caretSize = CaretUtils.getCaretSize(label.getFont());
-		int line = getLineFromPosition(position);
+		Dimension caretSize = CaretUtils.getCaretSize(getEmbeddedLabelFont());
+		int line = getLineFromPosition(caretPosition);
 		int verticalCaretLocation = labelBounds.y+(caretSize.height*line);
-		int xOffset = getTextWidth(text.substring(CaretUtils.getStartingLinePosition(text, line), position));
-		caretBounds = new Rectangle(labelBounds.x + xOffset, verticalCaretLocation, caretSize.width, caretSize.height);
+		String substringtmp = text.substring(CaretUtils.getStartingLinePosition(text, line), caretPosition);
+		Dimension stringExtents = label.getTextUtilities().getStringExtents(substringtmp, getEmbeddedLabelFont());
+		caretBounds = new Rectangle(labelBounds.x + stringExtents.width, verticalCaretLocation, caretSize.width, caretSize.height);
 	}
 
 	public Label getEmbeddedLabel() {
@@ -245,7 +225,7 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	}
 
 	private class CaretUpdateListener implements UpdateListener {
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		public void notifyPainting(Rectangle damage, Map dirtyRegions) {
 			updateCaret();
 		}
@@ -283,21 +263,22 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		if (hasSelectionRange()) {
-			graphics.setBackgroundColor(ColorConstants.menuBackgroundSelected);
+			label.setOpaque(false);
+			graphics.setBackgroundColor(FigurePrefs.lightBlueColor);
 			String text = label.getText();
 			int startLine = CaretUtils.getLineFromPosition(text, rangeStart);
 			int endLine = CaretUtils.getLineFromPosition(text, rangeEnd);
-			int fontHeight = FigureUtilities.getFontMetrics(label.getFont()).getHeight();
+			int fontHeight = FigureUtilities.getFontMetrics(getEmbeddedLabelFont()).getHeight();
 			Rectangle bounds = getTextBounds();
 
 			if (startLine == endLine) {
 				// paint single line selection
 				String initialPart = text.substring(CaretUtils.getStartingLinePosition(text, startLine), rangeStart);
-				String finalPart = text.substring(rangeEnd, CaretUtils.getEndingLinePosition(text, endLine));
+				String selectionPart = text.substring(rangeStart, rangeEnd);
 				int initialWidth = getTextWidth(initialPart);
-				int finalWidth = getTextWidth(finalPart);
-				Rectangle selection = bounds.getTranslated(initialWidth, startLine*fontHeight).resize(-initialWidth-finalWidth, 0);
-				selection.height = fontHeight;
+				int selectionWidth = getTextWidth(selectionPart);
+				Rectangle selection = bounds.getTranslated(initialWidth, startLine*fontHeight);
+				selection.setSize(selectionWidth, fontHeight);
 				graphics.fillRectangle(selection);
 			} else {
 				// paint first partial row

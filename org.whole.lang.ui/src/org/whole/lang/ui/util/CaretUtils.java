@@ -195,7 +195,7 @@ public class CaretUtils {
 		horizontalLocation = Point.SINGLETON.x;
 		Label label = textualFigure.getEmbeddedLabel();
 		String text = textualFigure.getText();
-		Font font = textualFigure.getFont();
+		Font font = textualFigure.getEmbeddedLabelFont();
 		int availableWidth = horizontalLocation - textualFigure.getTextBounds().x;
 		int length = label.getTextUtilities().getLargestSubstringConfinedTo(text, font, availableWidth+3);
 		return CaretUtils.getStartingLinePosition(text, getCaretLines(text)-1)+length;

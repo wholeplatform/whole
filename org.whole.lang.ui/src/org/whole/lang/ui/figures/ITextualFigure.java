@@ -20,6 +20,7 @@ package org.whole.lang.ui.figures;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Caret;
 
 /** 
@@ -41,4 +42,5 @@ public interface ITextualFigure extends ITextFigure {
 	public int getLineFromPosition(int position);
 
 	public Label getEmbeddedLabel();
+	public Font getEmbeddedLabelFont();
 }
