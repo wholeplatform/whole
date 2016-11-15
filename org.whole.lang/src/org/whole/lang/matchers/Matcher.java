@@ -103,6 +103,31 @@ public class Matcher {
 		return null;
 	}
 
+	public static IEntity findAncestorOrSelf(EntityKinds kind, IEntity model) {
+		return findAncestorOrSelf(GenericMatcherFactory.instance.hasKindMatcher(kind), model);
+	}
+	@SuppressWarnings("unchecked")
+	public static <E extends IEntity> E findAncestorOrSelf(EntityDescriptor<E> descriptor, IEntity model) {
+		return (E) findAncestorOrSelf(GenericMatcherFactory.instance.hasTypeMatcher(descriptor), model);
+	}
+	@SuppressWarnings("unchecked")
+	public static <E extends IEntity> E findAncestorOrSelf(E pattern, IEntity model) {
+		return (E) findAncestorOrSelf(GenericMatcherFactory.instance.match(pattern), model);
+	}
+	@SuppressWarnings("unchecked")
+	public static <E extends IEntity> E findAncestorOrSelf(E pattern, IEntity model, IBindingManager bindings) {
+		IVisitor mv = GenericMatcherFactory.instance.matchInScope(pattern);
+		mv.setBindings(bindings);
+		return (E) findAncestorOrSelf(mv, model);
+	}
+	public static IEntity findAncestorOrSelf(IVisitor matcherVisitor, IEntity model) {
+		AbstractPatternFilterIterator<IEntity> i = IteratorFactory.ancestorOrSelfMatcherIterator().withPattern(matcherVisitor);
+		i.reset(model);
+		for (IEntity e : i)
+			return e;
+		return null;
+	}
+
 	public static IEntity findChild(EntityKinds kind, IEntity model) {
 		return findChild(GenericMatcherFactory.instance.hasKindMatcher(kind), model);
 	}
