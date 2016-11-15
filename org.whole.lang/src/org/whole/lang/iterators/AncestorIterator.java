@@ -51,7 +51,7 @@ public class AncestorIterator<E extends IEntity> extends AbstractCloneableIterat
     	entity = result;
     	return lastEntity = result;
 	}
-   
+
     @SuppressWarnings("unchecked")
 	public E lookahead() {
     	if (entity == null)

@@ -97,7 +97,7 @@ public class IteratorFactory {
     	return new AncestorIterator<E>();
     }
     @SuppressWarnings("unchecked")
-	public static <E extends IEntity> IEntityIterator<IEntity> ancestorOrSelfIterator() {
+	public static <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
     	return sequenceIterator(selfIterator(), IteratorFactory.<E>ancestorIterator());
     }
 
@@ -308,6 +308,9 @@ public class IteratorFactory {
 
     public static <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
     	return matcherIterator(IteratorFactory.<E>ancestorIterator());
+    }
+    public static <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
+    	return matcherIterator(IteratorFactory.<E>ancestorOrSelfIterator());
     }
     public static <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
     	return matcherIterator(IteratorFactory.<E>childIterator());
