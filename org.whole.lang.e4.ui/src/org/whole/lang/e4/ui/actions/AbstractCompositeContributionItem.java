@@ -41,6 +41,8 @@ public abstract class AbstractCompositeContributionItem extends ContributionItem
 		this.contextProvider = contextProvider;
 		this.comparator = new Comparator<IAction>() {
 			public int compare(IAction left, IAction right) {
+				if (left.getText() == null || right.getText() == null)
+					return right.getText() == left.getText() ? 0 : (right.getText() == null ? 1 : -1);
 				return left.getText().compareTo(right.getText());
 			}
 		};
