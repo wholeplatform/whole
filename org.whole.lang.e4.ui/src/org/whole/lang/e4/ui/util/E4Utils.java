@@ -244,9 +244,9 @@ public class E4Utils {
 	}
 	public static void defineCaretBindings(IBindingManager bm) {
 		IEntity text = bm.wGet("focusEntity");
-		String textToSplit = DataTypeUtils.getAsPresentationString(text);
 		IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 		ITextualEntityPart targetPart = (ITextualEntityPart) ModelObserver.getObserver(text, viewer.getEditPartRegistry());
+		String textToSplit = DataTypeUtils.getAsPresentationString(targetPart.getModelTextEntity());
 		
 		int start = targetPart.getSelectionStart();
 		int end = targetPart.getSelectionEnd();
