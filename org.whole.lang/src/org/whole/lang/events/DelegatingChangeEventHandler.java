@@ -28,66 +28,66 @@ import org.whole.lang.reflect.FeatureDescriptor;
  */
 @SuppressWarnings("serial")
 public abstract class DelegatingChangeEventHandler extends IdentityChangeEventHandler {
-    protected abstract IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor featureDesc);
+    protected abstract IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd);
 
-    public void notifyAdded(IEntity source, FeatureDescriptor featureDesc, int index, IEntity newValue) {
-        getEventHandler(source, featureDesc).notifyAdded(source, featureDesc, index, newValue);
+    public void notifyAdded(IEntity source, FeatureDescriptor fd, int index, IEntity newValue) {
+        getEventHandler(source, fd).notifyAdded(source, fd, index, newValue);
     }
-    public void notifyRemoved(IEntity source, FeatureDescriptor featureDesc, int index, IEntity oldValue) {
-        getEventHandler(source, featureDesc).notifyRemoved(source, featureDesc, index, oldValue);
+    public void notifyRemoved(IEntity source, FeatureDescriptor fd, int index, IEntity oldValue) {
+        getEventHandler(source, fd).notifyRemoved(source, fd, index, oldValue);
     }
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, int index, IEntity oldValue, IEntity newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, index, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, int index, IEntity oldValue, IEntity newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, index, oldValue, newValue);
     }
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, IEntity oldValue, IEntity newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
-    }
-
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, boolean oldValue, boolean newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, IEntity oldValue, IEntity newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, byte oldValue, byte newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, boolean oldValue, boolean newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, char oldValue, char newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, byte oldValue, byte newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, double oldValue, double newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, char oldValue, char newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, float oldValue, float newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, double oldValue, double newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, int oldValue, int newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, float oldValue, float newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, long oldValue, long newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, int oldValue, int newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, short oldValue, short newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, long oldValue, long newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, String oldValue, String newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, short oldValue, short newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, Date oldValue, Date newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, String oldValue, String newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, EnumValue oldValue, EnumValue newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, Date oldValue, Date newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 
-    public void notifyChanged(IEntity source, FeatureDescriptor featureDesc, Object oldValue, Object newValue) {
-        getEventHandler(source, featureDesc).notifyChanged(source, featureDesc, oldValue, newValue);
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, EnumValue oldValue, EnumValue newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
+    }
+
+    public void notifyChanged(IEntity source, FeatureDescriptor fd, Object oldValue, Object newValue) {
+        getEventHandler(source, fd).notifyChanged(source, fd, oldValue, newValue);
     }
 }

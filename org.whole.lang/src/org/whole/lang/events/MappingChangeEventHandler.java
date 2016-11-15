@@ -20,7 +20,6 @@ package org.whole.lang.events;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
 
@@ -54,16 +53,12 @@ public abstract class MappingChangeEventHandler extends DelegatingChangeEventHan
 
     	@Override
         protected IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
-    		ICompoundModel compoundModel = source.wGetModel().getCompoundModel();
-    		if (!compoundModel.isHistoryEnabled() || compoundModel.isHistoryEvent())
-    			return IdentityChangeEventHandler.instance;
-    		else
-    			return super.getEventHandler(source, fd);
+    		return getActualEventHandler(super.getEventHandler(source, fd), source);
     	}
 
     	protected final IChangeEventHandler onDemandEventHandler(IEntity source, FeatureDescriptor fd) {
-            IChangeEventHandler reactionsHandler = source.wGetEntityDescriptor().getLanguageKit().getReactionsHandler();
-            reactionsHandler.cloneChangeEventHandler(IdentityChangeEventHandler.instance);
+    		IChangeEventHandler reactionsHandler = source.wGetEntityDescriptor().getLanguageKit().getReactionsHandler();
+            reactionsHandler = reactionsHandler.cloneChangeEventHandler(IdentityChangeEventHandler.instance);
             put(getKey(source, fd), reactionsHandler);
             return reactionsHandler;
         }
