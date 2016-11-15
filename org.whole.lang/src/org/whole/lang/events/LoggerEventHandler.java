@@ -28,7 +28,7 @@ import org.whole.lang.util.StringUtils;
 /**
  * @author Riccardo Solmi
  */
-public class LoggerEventHandler implements IRequestEventHandler, IChangeEventHandler {
+public class LoggerEventHandler implements IEventHandler {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger;
 

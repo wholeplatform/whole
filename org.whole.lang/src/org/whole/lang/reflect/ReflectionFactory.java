@@ -340,9 +340,9 @@ public class ReflectionFactory {
     		languageRequestHandler = languageRequestHandler.removeLanguageRequestHandler(handler);
     }
 
-    public void addReactionsHandler(String languageURI, IChangeEventHandler languageAdapter) {
+    public void addReactionsHandler(String languageURI, IChangeEventHandler reactionsHandler) {
     	ILanguageKit languageKit = getLanguageKit(languageURI, false, null);
-    	languageKit.addReactionsHandler(languageAdapter);
+    	languageKit.addReactionsHandler(reactionsHandler);
     }
     public void addOperationFactory(String languageURI, String operationId, IVisitorFactory visitorFactory) {
     	ILanguageKit languageKit = getLanguageKit(languageURI, false, null);

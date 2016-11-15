@@ -26,7 +26,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public class IdentityEventHandler implements IRequestEventHandler, IChangeEventHandler {
+public class IdentityEventHandler implements IEventHandler {
 	private static final long serialVersionUID = 1L;
 
 	public IRequestEventHandler cloneRequestEventHandler(IRequestEventHandler parentEventHandler) {
