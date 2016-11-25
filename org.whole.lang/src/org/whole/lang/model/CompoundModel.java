@@ -17,7 +17,6 @@
  */
 package org.whole.lang.model;
 
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
@@ -27,6 +26,7 @@ import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.events.CompositeChangeEventHandler;
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.events.IdentityChangeEventHandler;
 import org.whole.lang.events.IdentityRequestEventHandler;
@@ -121,16 +121,24 @@ public class CompoundModel extends CompositeChangeEventHandler implements ICompo
     		setChangeEventHandler(1, propertyChangeEventHandler = new PropertyChangeEventHandler());
 		return propertyChangeEventHandler;
 	}
-	public synchronized void addEventListener(PropertyChangeListener l) {
+	public synchronized void addEventListener(IPropertyChangeObserver l) {
 		getPropertyChangeEventHandler().addEventListener(l);
     }
-    public synchronized void removeEventListener(PropertyChangeListener l) {
+    public synchronized void removeEventListener(IPropertyChangeObserver l) {
 		getPropertyChangeEventHandler().removeEventListener(l);
     }
     public void fireNotationEvent(IEntity source, String name, Object data) {
     	getPropertyChangeEventHandler().notifyEvent(source, name, data);
     }
 
+    public boolean isObserved(IEntity entity) {
+    	if (hasPropertyChangeEventHandler())
+    		for (IPropertyChangeObserver o : getPropertyChangeEventHandler().getEventListeners())
+    			if (o.isObserving(entity))
+    				return true;
+
+    	return false;
+    }
 
     public boolean isHistoryEvent() {
 		if (historyManager != this)

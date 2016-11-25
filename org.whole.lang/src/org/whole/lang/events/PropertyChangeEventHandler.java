@@ -32,7 +32,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
  */
 public class PropertyChangeEventHandler extends IdentityDefaultChangeEventHandler {
 	private static final long serialVersionUID = 1L;
-    transient private Set<PropertyChangeListener> eventListeners = new HashSet<PropertyChangeListener>();
+    transient private Set<IPropertyChangeObserver> eventListeners = new HashSet<>();
     public Object readResolve() throws ObjectStreamException {
     	return new PropertyChangeEventHandler();
     }
@@ -41,19 +41,19 @@ public class PropertyChangeEventHandler extends IdentityDefaultChangeEventHandle
 	    return !eventListeners.isEmpty();
 	}
 
-	public synchronized Set<PropertyChangeListener> getEventListeners() {
+	public synchronized Set<IPropertyChangeObserver> getEventListeners() {
 		return eventListeners;
 	}
-	public synchronized void setEventListeners(Set<PropertyChangeListener> eventListeners) {
+	public synchronized void setEventListeners(Set<IPropertyChangeObserver> eventListeners) {
 	    this.eventListeners = eventListeners;
 	}
-	public synchronized void addAllEventListeners(Collection<? extends PropertyChangeListener> eventListeners) {
+	public synchronized void addAllEventListeners(Collection<? extends IPropertyChangeObserver> eventListeners) {
 	    getEventListeners().addAll(eventListeners);
 	}
-	public synchronized void addEventListener(PropertyChangeListener eventListener) {
+	public synchronized void addEventListener(IPropertyChangeObserver eventListener) {
 		getEventListeners().add(eventListener);
     }
-    public synchronized void removeEventListener(PropertyChangeListener eventListener) {
+    public synchronized void removeEventListener(IPropertyChangeObserver eventListener) {
     	getEventListeners().remove(eventListener);
     }
 

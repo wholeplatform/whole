@@ -18,12 +18,12 @@
 package org.whole.lang.ui.editparts;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.LightweightEditDomain;
+import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -33,7 +33,7 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi, Enrico Persiani
  */
-public class ModelObserver implements PropertyChangeListener {
+public class ModelObserver implements IPropertyChangeObserver {
 	private ICompoundModel model;
 	private IEntityPartViewer viewer;
 	private boolean needsRebuildNotation;
@@ -51,6 +51,10 @@ public class ModelObserver implements PropertyChangeListener {
 
 	public ICompoundModel getModel() {
 		return model;
+	}
+
+	public boolean isObserving(IEntity entity) {
+		return viewer.getEditPartRegistry().containsKey(entity);
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {

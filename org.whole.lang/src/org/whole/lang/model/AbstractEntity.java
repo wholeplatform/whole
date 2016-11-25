@@ -56,6 +56,7 @@ import org.whole.lang.util.WholeMessages;
  */
 @SuppressWarnings("serial")
 public abstract class AbstractEntity implements InternalIEntity, Serializable, Cloneable {
+	transient protected boolean requestNotificationDisabled = false;
     transient private IRequestEventHandler requestEventHandler = IdentityRequestEventHandler.instance;
     transient private IChangeEventHandler changeEventHandler = IdentityChangeEventHandler.instance;
     transient private ICommand bindingCommand = NullCommand.instance; 
@@ -277,9 +278,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	protected final IRequestEventHandler wGetEntityRequestEventHandler() {
 	    return requestEventHandler;
 	}
-//	protected final IRequestEventHandler wGetFragmentRequestEventHandler() {
-//	    return wGetActualModel().getRequestEventHandler();
-//	}
 	protected final IRequestEventHandler wGetCompoundRequestEventHandler() {
 		return wGetActualModel().getCompoundModel().getRequestEventHandler();
 	}
@@ -293,9 +291,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	protected final IChangeEventHandler wGetEntityChangeEventHandler() {
 	    return changeEventHandler;
 	}
-//	protected final IChangeEventHandler wGetFragmentChangeEventHandler() {
-//	    return wGetActualModel().getChangeEventHandler();
-//	}
 	protected final IChangeEventHandler wGetCompoundChangeEventHandler() {
 	    return wGetActualModel().getCompoundModel().getChangeEventHandler();
 	}
@@ -378,17 +373,22 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	}
 
 	public int wIndexOf(IEntity entity) {
-		//TODO ? return entity.wGetBindingCommand().getSourceIndex();
-		IEntity adaptee = entity.wGetAdaptee(false);
-		int result = -1;
-		for (int i=0, size=wSize()+wAdjacentSize(); i<size; i++) {
-			IEntity child = wGet(i).wGetAdaptee(false);
-			if (child.equals(adaptee))
-				return i; // object identity
-			else if (result == -1 && child.wEquals(adaptee))
-				result = i; // business identity
+		boolean requestNotificationState = requestNotificationDisabled;
+		requestNotificationDisabled = true;
+		try {
+			IEntity adaptee = entity.wGetAdaptee(false);
+			int result = -1;
+			for (int i=0, size=wSize()+wAdjacentSize(); i<size; i++) {
+				IEntity child = wGet(i).wGetAdaptee(false);
+				if (child.equals(adaptee))
+					return i; // object identity
+				else if (result == -1 && child.wEquals(adaptee))
+					result = i; // business identity
+			}
+			return result;
+		} finally {
+			requestNotificationDisabled = requestNotificationState;
 		}
-		return result;
 	}
 
 	public boolean wAdd(IEntity child) {
@@ -596,79 +596,103 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     @SuppressWarnings("unchecked")
 	protected final <E extends IEntity> E notifyRequested(int index, E value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
         FeatureDescriptor fd = CommonsFeatureDescriptorEnum.composite_element;
         IEntity value0 = value.wGetAdaptee(false);
         IEntity result = wGetEntityRequestEventHandler().notifyRequested(this, fd, index, value0);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, index, result);
     	result = wGetCompoundRequestEventHandler().notifyRequested(this, fd, index, result);
     	return result == value0 ? value : (E) result;
     }
     @SuppressWarnings("unchecked")
 	protected final <E extends IEntity> E notifyRequested(FeatureDescriptor fd, E value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
         IEntity value0 = value.wGetAdaptee(false);
     	IEntity result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value0);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	result = wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     	return result == value0 ? value : (E) result;
     }
     protected final boolean notifyRequested(boolean value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	boolean result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final byte notifyRequested(byte value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	byte result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final char notifyRequested(char value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	char result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final double notifyRequested(double value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	double result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final float notifyRequested(float value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	float result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final int notifyRequested(int value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	int result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final long notifyRequested(long value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	long result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final short notifyRequested(short value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	short result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final String notifyRequested(String value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         String result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final Date notifyRequested(Date value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	Date result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     protected final java.sql.Date notifyRequested(java.sql.Date value) {
@@ -681,16 +705,20 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
     	return (java.sql.Timestamp) notifyRequested((Object) value);
     }
     protected final <E extends EnumValue> E notifyRequested(E value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	E result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
     @SuppressWarnings("unchecked")
 	protected final <E> E notifyRequested(E value) {
+    	if (requestNotificationDisabled)
+    		return value;
+
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	Object result = wGetEntityRequestEventHandler().notifyRequested(this, fd, value);
-//    	result = wGetFragmentRequestEventHandler().notifyRequested(this, fd, result);
     	return (E) wGetCompoundRequestEventHandler().notifyRequested(this, fd, result);
     }
 
@@ -748,7 +776,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
         FeatureDescriptor fd = CommonsFeatureDescriptorEnum.composite_element;
         IEntity newValue0 = newValue.wGetAdaptee(false);
     	wGetEntityChangeEventHandler().notifyAdded(this, fd, index, newValue0);
-//    	wGetFragmentChangeEventHandler().notifyAdded(this, fd, index, newValue0);
     	wGetCompoundChangeEventHandler().notifyAdded(this, fd, index, newValue0);
     }
 
@@ -763,7 +790,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
         FeatureDescriptor fd = CommonsFeatureDescriptorEnum.composite_element;
         IEntity oldValue0 = oldValue.wGetAdaptee(false);
         wGetEntityChangeEventHandler().notifyRemoved(this, fd, index, oldValue0);
-//    	wGetFragmentChangeEventHandler().notifyRemoved(this, fd, index, oldValue0);
     	wGetCompoundChangeEventHandler().notifyRemoved(this, fd, index, oldValue0);
     }
 
@@ -855,7 +881,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
      	}
 
     	wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue0, newValue0);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue0, newValue0);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue0, newValue0);
     }
 
@@ -905,7 +930,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(byte oldValue, byte newValue) {
@@ -914,7 +938,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(char oldValue, char newValue) {
@@ -923,7 +946,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(double oldValue, double newValue) {
@@ -932,7 +954,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(float oldValue, float newValue) {
@@ -941,7 +962,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(int oldValue, int newValue) {
@@ -950,7 +970,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(long oldValue, long newValue) {
@@ -959,7 +978,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(short oldValue, short newValue) {
@@ -968,7 +986,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
         wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(String oldValue, String newValue) {
@@ -977,7 +994,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(Date oldValue, Date newValue) {
@@ -986,7 +1002,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(java.sql.Date oldValue, java.sql.Date newValue) {
@@ -1004,7 +1019,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
     protected final void notifyChanged(Object oldValue, Object newValue) {
@@ -1013,7 +1027,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 
     	FeatureDescriptor fd = CommonsFeatureDescriptorEnum.data_value;
     	wGetEntityChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
-//    	wGetFragmentChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     	wGetCompoundChangeEventHandler().notifyChanged(this, fd, oldValue, newValue);
     }
 }

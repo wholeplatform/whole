@@ -17,9 +17,8 @@
  */
 package org.whole.lang.model;
 
-import java.beans.PropertyChangeListener;
-
 import org.whole.lang.events.IChangeEventHandler;
+import org.whole.lang.events.IPropertyChangeObserver;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.lifecycle.IHistoryManager;
 
@@ -39,8 +38,9 @@ public interface ICompoundModel {
 	public boolean isHistoryEvent();
 	public boolean isHistoryEnabled();
 
+    public boolean isObserved(IEntity entity);
 	public IChangeEventHandler getPropertyChangeEventHandler();
 	public void fireNotationEvent(IEntity source, String name, Object data);
-    public void addEventListener(PropertyChangeListener l);
-    public void removeEventListener(PropertyChangeListener l);
+    public void addEventListener(IPropertyChangeObserver l);
+    public void removeEventListener(IPropertyChangeObserver l);
 }

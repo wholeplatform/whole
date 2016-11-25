@@ -19,6 +19,7 @@ package org.whole.lang.events;
 
 import java.util.Date;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -36,56 +37,88 @@ public abstract class AbstractDerivationRule<E extends IEntity> extends Identity
 
 	@SuppressWarnings("unchecked")
 	public <V extends IEntity> V notifyRequested(IEntity entity, FeatureDescriptor fd, V value) {
-		if (this.fd.equals(fd) && EntityUtils.isDefault(entity, fd, value)) {
+		if (this.fd.equals(fd) && (EntityUtils.isResolver(value) || EntityUtils.isDefault(entity, fd, value))) {
 			V newValue = (V) deriveRequested((E) entity, value);
-			if (newValue != value)
+			if (newValue != value) {
+				newValue = (V) EntityUtils.convertCloneIfParented(newValue, entity.wGetEntityDescriptor(fd));
 				entity.wSet(fd, newValue);
+			}
 			return newValue;
 		}
 		return value;
 	}
 
 	protected IEntity deriveRequested(E entity, IEntity value) {
-		switch (entity.wGetEntityDescriptor(fd).getDataKind()) {
-		case NOT_A_DATA:
-			throw new RequestException();
-		case BOOLEAN:
-			value.wSetValue(deriveRequested(entity, value.wBooleanValue()));
-			break;
-		case BYTE:
-			value.wSetValue(deriveRequested(entity, value.wByteValue()));
-			break;
-		case CHAR:
-			value.wSetValue(deriveRequested(entity, value.wCharValue()));
-			break;
-		case DOUBLE:
-			value.wSetValue(deriveRequested(entity, value.wDoubleValue()));
-			break;
-		case FLOAT:
-			value.wSetValue(deriveRequested(entity, value.wFloatValue()));
-			break;
-		case INT:
-			value.wSetValue(deriveRequested(entity, value.wIntValue()));
-			break;
-		case LONG:
-			value.wSetValue(deriveRequested(entity, value.wLongValue()));
-			break;
-		case SHORT:
-			value.wSetValue(deriveRequested(entity, value.wShortValue()));
-			break;
-		case STRING:
-			value.wSetValue(deriveRequested(entity, value.wStringValue()));
-			break;
-		case DATE:
-			value.wSetValue(deriveRequested(entity, value.wDateValue()));
-			break;
-		case ENUM_VALUE:
-			value.wSetValue(deriveRequested(entity, value.wEnumValue()));
-			break;
-		case OBJECT:
-			value.wSetValue(deriveRequested(entity, value.wGetValue()));
-			break;
-		}
+		if (EntityUtils.isResolver(value))
+			switch (entity.wGetEntityDescriptor(fd).getDataKind()) {
+			case NOT_A_DATA:
+				throw new RequestException();
+			case BOOLEAN:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wBooleanValue()));
+			case BYTE:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wByteValue()));
+			case CHAR:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wCharValue()));
+			case DOUBLE:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wDoubleValue()));
+			case FLOAT:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wFloatValue()));
+			case INT:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wIntValue()));
+			case LONG:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wLongValue()));
+			case SHORT:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wShortValue()));
+			case STRING:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wStringValue()));
+			case DATE:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wDateValue()));
+			case ENUM_VALUE:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wEnumValue()));
+			case OBJECT:
+				return BindingManagerFactory.instance.createValue(deriveRequested(entity, value.wGetValue()));
+			}
+		else
+			switch (entity.wGetEntityDescriptor(fd).getDataKind()) {
+			case NOT_A_DATA:
+				throw new RequestException();
+			case BOOLEAN:
+				value.wSetValue(deriveRequested(entity, value.wBooleanValue()));
+				break;
+			case BYTE:
+				value.wSetValue(deriveRequested(entity, value.wByteValue()));
+				break;
+			case CHAR:
+				value.wSetValue(deriveRequested(entity, value.wCharValue()));
+				break;
+			case DOUBLE:
+				value.wSetValue(deriveRequested(entity, value.wDoubleValue()));
+				break;
+			case FLOAT:
+				value.wSetValue(deriveRequested(entity, value.wFloatValue()));
+				break;
+			case INT:
+				value.wSetValue(deriveRequested(entity, value.wIntValue()));
+				break;
+			case LONG:
+				value.wSetValue(deriveRequested(entity, value.wLongValue()));
+				break;
+			case SHORT:
+				value.wSetValue(deriveRequested(entity, value.wShortValue()));
+				break;
+			case STRING:
+				value.wSetValue(deriveRequested(entity, value.wStringValue()));
+				break;
+			case DATE:
+				value.wSetValue(deriveRequested(entity, value.wDateValue()));
+				break;
+			case ENUM_VALUE:
+				value.wSetValue(deriveRequested(entity, value.wEnumValue()));
+				break;
+			case OBJECT:
+				value.wSetValue(deriveRequested(entity, value.wGetValue()));
+				break;
+			}
 		return value;
 	}
 

@@ -17,70 +17,128 @@
  */
 package org.whole.lang.testevents.events;
 
-import org.whole.lang.events.AbstractDerivationRule;
-import org.whole.lang.events.AbstractValidationRule;
+import org.whole.lang.events.AbstractEntityDerivationRule;
+import org.whole.lang.events.DerivationContext;
+import org.whole.lang.events.RequestException;
+import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.AbstractLanguageDeployer;
+import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.testevents.factories.TestEventsEntityFactory;
 import org.whole.lang.testevents.model.ITestEventsEntity;
 import org.whole.lang.testevents.model.Labels;
 import org.whole.lang.testevents.model.Rectangle;
+import org.whole.lang.testevents.reflect.TestEventsEntityDescriptorEnum;
 import org.whole.lang.testevents.reflect.TestEventsFeatureDescriptorEnum;
-import org.whole.lang.testevents.visitors.TestEventsTraverseAllVisitor;
+import org.whole.lang.testevents.reflect.TestEventsLanguageKit;
 
 /**
  * @author Riccardo Solmi
  */
-public class DerivedBehaviorFactory extends TestEventsTraverseAllVisitor {
-	public static final DerivedBehaviorFactory instance = new DerivedBehaviorFactory();
-	private DerivedBehaviorFactory() {
+public class DerivedBehaviorFactory extends AbstractLanguageDeployer {
+	public void deploy(ReflectionFactory platform) {
+		platform.addReactionsHandler(TestEventsLanguageKit.URI, createDerivationContext());
 	}
 
 	public static void deploy(ITestEventsEntity entity) {
-		entity.accept(instance);
+		DerivationContext dc = createDerivationContext();
+		ICompoundModel model = entity.wGetModel().getCompoundModel();
+		model.addRequestEventHandler(dc);
+		model.addChangeEventHandler(dc);
 	}
 
-	public void visit(Labels entity) {
-		entity.wAddRequestEventHandler(new AbstractDerivationRule<Labels>(
-				TestEventsFeatureDescriptorEnum.simpleDerived) {
-			protected String deriveRequested(Labels entity, String value) {
-				return entity.getSimple().wStringValue()+".suffix";
-			}
-		});
-		AbstractValidationRule<Labels> ceh = new AbstractValidationRule<Labels>(
-				TestEventsFeatureDescriptorEnum.simple) {
-			protected void validateChanged(Labels entity, IEntity newValue) {
-				entity.wUnset(TestEventsFeatureDescriptorEnum.simpleDerived);
-			}
-		};
-		entity.wAddChangeEventHandler(ceh);
-		entity.getSimple().wAddChangeEventHandler(ceh);
+	public static DerivationContext createDerivationContext() {
+		DerivationContext dc = new DerivationContext();
 
-		entity.wAddRequestEventHandler(new AbstractDerivationRule<Labels>(
-				TestEventsFeatureDescriptorEnum.simpleDerivedDerived) {
-			protected String deriveRequested(Labels entity, String value) {
-				return "prefix."+entity.getSimpleDerived().wStringValue();
-			}
-		});
-		entity.wAddChangeEventHandler(new AbstractValidationRule<Labels>(
-				TestEventsFeatureDescriptorEnum.simpleDerived) {
-			protected void validateChanged(Labels entity, IEntity newValue) {
-				entity.wUnset(TestEventsFeatureDescriptorEnum.simpleDerivedDerived);
-			}
-		});
-	}
-	
-	public void visit(Rectangle entity) {
-		entity.wAddRequestEventHandler(new AbstractDerivationRule<Rectangle>(
-				TestEventsFeatureDescriptorEnum.area) {
-			public int deriveRequested(Rectangle entity, int value) {
-				return entity.getBase().wIntValue() * entity.getHeight().wIntValue();
-			}
-		});
+		dc.addDerivationRules(
+				TestEventsEntityDescriptorEnum.Rectangle,
+				new AbstractEntityDerivationRule<Rectangle>() {
+					public IEntity derive(Rectangle entity, FeatureDescriptor fd, IEntity value) {
+						switch (fd.getOrdinal()) {
+						
+						case TestEventsFeatureDescriptorEnum.base_ord:
+							try {
+								return TestEventsEntityFactory.instance.createVal(
+										entity.getPerimeter().wIntValue() / 2 - entity.getHeight().wIntValue());
+							} catch (Exception e) {
+							}
+							try {
+								return TestEventsEntityFactory.instance.createVal(
+										entity.getArea().wIntValue() / entity.getHeight().wIntValue());
+							} catch (ArithmeticException e) {
+								throw new RequestException();
+							}
 
-		entity.wAddRequestEventHandler(new AbstractDerivationRule<Rectangle>(
-				TestEventsFeatureDescriptorEnum.perimeter) {
-			public int deriveRequested(Rectangle entity, int value) {
-				return (entity.getBase().wIntValue() + entity.getHeight().wIntValue()) * 2;
-			}
-		});
+						case TestEventsFeatureDescriptorEnum.height_ord:
+							try {
+								return TestEventsEntityFactory.instance.createVal(
+										entity.getPerimeter().wIntValue() / 2 - entity.getBase().wIntValue());
+							} catch (Exception e) {
+							}
+							try {
+								return TestEventsEntityFactory.instance.createVal(
+										entity.getArea().wIntValue() / entity.getBase().wIntValue());
+							} catch (ArithmeticException e) {
+								throw new RequestException();
+							}
+
+						case TestEventsFeatureDescriptorEnum.area_ord:
+							return TestEventsEntityFactory.instance.createVal(
+									entity.getBase().wIntValue() * entity.getHeight().wIntValue());
+
+						case TestEventsFeatureDescriptorEnum.perimeter_ord:
+							return TestEventsEntityFactory.instance.createVal(
+									(entity.getBase().wIntValue() + entity.getHeight().wIntValue()) * 2);
+						
+						default:
+							return value;
+						}
+					}
+					public void invalidate(Labels entity, FeatureDescriptor fd, IEntity oldValue, IEntity newValue) {
+//						switch (fd.getOrdinal()) {
+//						
+//						case TestEventsFeatureDescriptorEnum.base_ord:
+//						case TestEventsFeatureDescriptorEnum.height_ord:
+//							entity.wRemove(TestEventsFeatureDescriptorEnum.area);
+//							entity.wRemove(TestEventsFeatureDescriptorEnum.perimeter);
+//							break;
+//						}
+					}
+				});
+		dc.addDerivationRules(
+				TestEventsEntityDescriptorEnum.Labels,
+				new AbstractEntityDerivationRule<Labels>() {
+					public IEntity derive(Labels entity, FeatureDescriptor fd, IEntity value) {
+						switch (fd.getOrdinal()) {
+						
+						case TestEventsFeatureDescriptorEnum.simpleDerived_ord:
+							return TestEventsEntityFactory.instance.createLabel(
+									entity.getSimple().wStringValue()+".suffix");
+
+						case TestEventsFeatureDescriptorEnum.simpleDerivedDerived_ord:
+							return TestEventsEntityFactory.instance.createLabel(
+									"prefix."+entity.getSimpleDerived().wStringValue());
+
+						default:
+							return value;
+						}
+					}
+					public void invalidate(Labels entity, FeatureDescriptor fd, IEntity oldValue, IEntity newValue) {
+						switch (fd.getOrdinal()) {
+						
+						case TestEventsFeatureDescriptorEnum.simple_ord:
+							//FIXME initialization rule remove only if derived
+							entity.wRemove(TestEventsFeatureDescriptorEnum.simpleDerived);
+							break;
+
+						case TestEventsFeatureDescriptorEnum.simpleDerived_ord:
+							entity.wRemove(TestEventsFeatureDescriptorEnum.simpleDerivedDerived);
+							break;
+						}
+					}
+				});
+
+		return dc;
 	}
 }

@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.testevents.events.DerivedBehaviorFactory;
 import org.whole.lang.testevents.factories.TestEventsEntityFactory;
@@ -29,6 +30,7 @@ import org.whole.lang.testevents.model.Labels;
 import org.whole.lang.testevents.model.Rectangle;
 import org.whole.lang.testevents.model.Shape;
 import org.whole.lang.testevents.model.TestEvents;
+import org.whole.lang.testevents.reflect.TestEventsFeatureDescriptorEnum;
 import org.whole.lang.testevents.reflect.TestEventsLanguageDeployer;
 import org.whole.test.KnownFailingTests;
 
@@ -45,15 +47,18 @@ public class DemandDrivenBehaviorTest {
     public static void deployWholePlatform() {
     	ReflectionFactory.deployWholePlatform();
         ReflectionFactory.deploy(TestEventsLanguageDeployer.class);
-	}
+//        ReflectionFactory.deploy(DerivedBehaviorFactory.class);
+    }
 
 	@Before
     public void setUp() {
 		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
+		TestEventsEntityFactory tef2 = TestEventsEntityFactory.instance(RegistryConfigurations.RESOLVER);
+		
 		model = tef.createTestEvents();
         rootShape = tef.createCompositeShape(
-        		rect = tef.createRectangle(),
-        		labels = tef.createLabels());
+        		rect = tef2.createRectangle(),
+        		labels = tef2.createLabels());
         	
         model.setShape(rootShape);
 
@@ -62,7 +67,9 @@ public class DemandDrivenBehaviorTest {
 
 	@Test
 	public void testDerivedFeatures() {
-		labels.getSimple().wSetValue("aSimpleName");
+		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
+
+		labels.setSimple(tef.createLabel("aSimpleName"));
 		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
@@ -70,12 +77,12 @@ public class DemandDrivenBehaviorTest {
 				"prefix.aSimpleName.suffix",
 				labels.getSimpleDerivedDerived().wStringValue());
 
-		labels.getSimpleDerived().wSetValue("aDerivedName");
+		labels.setSimpleDerived(tef.createLabel("aDerivedName"));
 		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
 
-		labels.getSimpleDerived().wUnset();
+		labels.wRemove(TestEventsFeatureDescriptorEnum.simpleDerived);
 		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
@@ -83,12 +90,14 @@ public class DemandDrivenBehaviorTest {
 
 	@Test
 	public void testRederivedFeatures() {
-		labels.getSimple().wSetValue("aSimpleName");
+		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
+
+		labels.setSimple(tef.createLabel("aSimpleName"));
 		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
 
-		labels.getSimple().wSetValue("anotherName");
+		labels.setSimple(tef.createLabel("anotherName"));
 		Assert.assertEquals(
 				"anotherName.suffix",
 				labels.getSimpleDerived().wStringValue());
@@ -97,17 +106,20 @@ public class DemandDrivenBehaviorTest {
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testSetDerivedFeatures() {
-		labels.getSimple().wSetValue("aSimpleName");
+		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
+
+		labels.setSimple(tef.createLabel("aSimpleName"));
 		Assert.assertEquals(
 				"aSimpleName.suffix",
 				labels.getSimpleDerived().wStringValue());
 
-		labels.getSimpleDerived().wSetValue("aDerivedName");
+		labels.setSimpleDerived(tef.createLabel("aDerivedName"));
 		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
 
-		labels.getSimple().wSetValue("anotherName");//FIXME also unset simpleDerived
+		//FIXME also unset simpleDerived
+		labels.setSimple(tef.createLabel("anotherName"));
 		Assert.assertEquals(
 				"aDerivedName",
 				labels.getSimpleDerived().wStringValue());
@@ -115,9 +127,40 @@ public class DemandDrivenBehaviorTest {
 
 	@Test
 	public void testCircularDerivation() {
-		rect.getBase().wSetValue(5);
-		rect.getHeight().wSetValue(7);
+		TestEventsEntityFactory tef = TestEventsEntityFactory.instance;
+
+		rect.setBase(tef.createVal(5));
+		rect.setHeight(tef.createVal(7));
 		Assert.assertEquals(35, rect.getArea().wIntValue());
-		Assert.assertEquals(24, rect.getPerimeter().wIntValue());		
+		Assert.assertEquals(24, rect.getPerimeter().wIntValue());
+
+		rect.wRemove(TestEventsFeatureDescriptorEnum.base);	
+		Assert.assertEquals(5, rect.getBase().wIntValue());
+
+		rect.wRemove(TestEventsFeatureDescriptorEnum.height);	
+		Assert.assertEquals(7, rect.getHeight().wIntValue());
+
+		rect.wRemove(TestEventsFeatureDescriptorEnum.area);	
+		Assert.assertEquals(35, rect.getArea().wIntValue());
+
+		rect.wRemove(TestEventsFeatureDescriptorEnum.perimeter);	
+		Assert.assertEquals(24, rect.getPerimeter().wIntValue());
+
+		rect.setPerimeter(tef.createVal(10));
+		rect.setHeight(tef.createVal(2));
+		rect.wRemove(TestEventsFeatureDescriptorEnum.base);	
+		rect.wRemove(TestEventsFeatureDescriptorEnum.area);	
+		Assert.assertEquals(6, rect.getArea().wIntValue());
+
+		try {
+			rect.wRemove(TestEventsFeatureDescriptorEnum.base);	
+			rect.wRemove(TestEventsFeatureDescriptorEnum.height);	
+			rect.wRemove(TestEventsFeatureDescriptorEnum.area);	
+			rect.wRemove(TestEventsFeatureDescriptorEnum.perimeter);	
+			rect.getBase();
+		} catch (Exception e) {			
+			return;
+		}
+		Assert.fail();
 	}
 }
