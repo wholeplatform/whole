@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product	name="Whole e4 Language Workbench Product"
+<product	name="Whole E4 Language Workbench"
 			uid="org.whole.product.e4.lw.product"
 			id="org.whole.product.e4.lw.product"
 			application="org.eclipse.e4.ui.workbench.swt.E4Application"

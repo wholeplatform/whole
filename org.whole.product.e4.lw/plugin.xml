@@ -12,7 +12,7 @@
 			</property>
 			<property
 					name="appName"
-					value="org.whole.product.e4.lw">
+					value="Whole E4 Language Workbench">
 			</property>
 		</product>
 	</extension>
