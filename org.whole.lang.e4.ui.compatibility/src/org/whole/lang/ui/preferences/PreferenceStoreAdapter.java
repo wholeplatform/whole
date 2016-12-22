@@ -64,6 +64,10 @@ public class PreferenceStoreAdapter extends FailurePreferenceStore {
 	public String getString(String name) {
 		return preferences.containsKey(name) ? preferences.get(name) : "";
 	}
+	@Override
+	public boolean getBoolean(String name) {
+		return Boolean.valueOf(getString(name));
+	}
 
 	@Override
 	public String getDefaultString(String name) {

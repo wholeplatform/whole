@@ -51,22 +51,16 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.whole.lang.e4.ui.actions.IUIConstants;
-import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -99,8 +93,6 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 	private TableViewer bgCategoryTable;
 	private TableColumn bgColumn;
 	private ColorSelector bgColorSelector;
-
-	private Combo langCombo;
 
 	private TableViewer fgCategoryTable;
 	private TableColumn fgColumn;
@@ -135,22 +127,18 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		fontComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		font = new FontFieldEditor(PreferenceConstants.FONT, "Font:", fontComposite);
 
-		Group bgGroup = new Group(topComposite, SWT.NULL);
-		bgGroup.setText("Background");
-		bgGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
-
 		GridLayout bgLayout = new GridLayout(2, false);
 		bgLayout.marginHeight=5;
 		bgLayout.marginWidth=10;
-		bgGroup.setLayout(bgLayout);
+		topComposite.setLayout(bgLayout);
 
-		Label bgLabel = new Label(bgGroup, SWT.LEFT);
+		Label bgLabel = new Label(topComposite, SWT.LEFT);
 		bgLabel.setText("Hilight category:");
     	gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		bgLabel.setLayoutData(gd);
 		
-		bgCategoryTable = new TableViewer(bgGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
+		bgCategoryTable = new TableViewer(topComposite, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 		bgCategoryTable.setContentProvider(new ArrayContentProvider());
 		bgCategoryTable.setLabelProvider(new PresentationLabelProvider(bgCategoryTable));
 		bgCategoryTable.setComparator(new ViewerComparator());
@@ -160,7 +148,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		bgCategoryTable.getControl().setLayoutData(gd);
 		bgColumn = new TableColumn(bgCategoryTable.getTable(), SWT.LEFT);
 
-		Composite bgStylesComposite= new Composite(bgGroup, SWT.NONE);
+		Composite bgStylesComposite= new Composite(topComposite, SWT.NONE);
 		GridLayout bgStylesLayout= new GridLayout(2, false);
 		bgStylesLayout.marginHeight= 0;
 		bgStylesLayout.marginWidth= 0;
@@ -172,35 +160,13 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		label.setLayoutData(new GridData());
 		bgColorSelector = new ColorSelector(bgStylesComposite);
 
-
-		Group fgGroup= new Group(topComposite, SWT.NULL);
-		fgGroup.setText("Foreground");
-		fgGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-		GridLayout fgLayout = new GridLayout(2, false);
-		fgLayout.marginHeight=5;
-		fgLayout.marginWidth=10;
-		fgGroup.setLayout(fgLayout);
-
-		Composite langComposite = new Composite(fgGroup, SWT.NONE);
-    	gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = 2;
-		langComposite.setLayoutData(gd);
-		RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
-		rowLayout.center = true;
-		langComposite.setLayout(rowLayout);
-		
-		label = new Label(langComposite, SWT.NONE);
-		label.setText("Notation:");
-		langCombo = new Combo(langComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
-
-		Label fgLabel = new Label(fgGroup, SWT.NONE);
+		Label fgLabel = new Label(topComposite, SWT.NONE);
 		fgLabel.setText("Syntax category:");
     	gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		fgLabel.setLayoutData(gd);
 
-		fgCategoryTable = new TableViewer(fgGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
+		fgCategoryTable = new TableViewer(topComposite, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 		fgCategoryTable.setContentProvider(new ArrayContentProvider());
 		fgCategoryTable.setLabelProvider(new PresentationLabelProvider(fgCategoryTable));
 		fgCategoryTable.setComparator(new ViewerComparator());
@@ -210,7 +176,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		fgCategoryTable.getControl().setLayoutData(gd);
 		fgColumn = new TableColumn(fgCategoryTable.getTable(), SWT.LEFT);
 
-		Composite fgStylesComposite= new Composite(fgGroup, SWT.NONE);
+		Composite fgStylesComposite= new Composite(topComposite, SWT.NONE);
 		GridLayout fgStylesLayout= new GridLayout(2, false);
 		fgStylesLayout.marginHeight= 0;
 		fgStylesLayout.marginWidth= 0;
@@ -306,15 +272,15 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 
 	private void handleBgCategoryListSelection() {	
 		String key = getSelectedKey(bgCategoryTable);
-		RGB rgb = UIUtils.getColor(IUIConstants.BUNDLE_ID, key).getRGB();
+		RGB rgb = StringConverter.asRGB(store.getString(key));
 		bgColorSelector.setColorValue(rgb);		
 	}
 	private void handleFgCategoryListSelection() {	
 		String key = getSelectedKey(fgCategoryTable);
-		RGB rgb = UIUtils.getColor(IUIConstants.BUNDLE_ID, key).getRGB();
+		RGB rgb = StringConverter.asRGB(store.getString(key));
 		fgColorSelector.setColorValue(rgb);		
-		fgBoldCheckBox.setSelection(Boolean.parseBoolean(UIUtils.lookUpPreference(IUIConstants.BUNDLE_ID, key + PreferenceConstants.BOLD)));
-		fgItalicCheckBox.setSelection(Boolean.parseBoolean(UIUtils.lookUpPreference(IUIConstants.BUNDLE_ID, key + PreferenceConstants.ITALIC)));
+		fgBoldCheckBox.setSelection(store.getBoolean(key + PreferenceConstants.BOLD));
+		fgItalicCheckBox.setSelection(store.getBoolean(key + PreferenceConstants.ITALIC));
 	}
 
 	protected void initialize() {
@@ -337,10 +303,6 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 					fgCategoryTable.setSelection(new StructuredSelection(new Object[] {fgCategoryListModel[0]}));
 			}
 		});
-
-		for (IEditorKit editorKit : ReflectionFactory.getEditorKits())
-			langCombo.add(editorKit.getName());
-		langCombo.select(0);
 	}
 
 	protected void performDefaults() {
