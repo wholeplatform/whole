@@ -18,15 +18,17 @@
 package org.whole.lang.ui.preferences;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.FontFieldEditor;
-import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ColorRegistry;
-import org.eclipse.jface.resource.FontRegistry;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -37,15 +39,13 @@ import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
@@ -62,6 +62,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.reflect.IEditorKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.PreferenceConstants;
@@ -71,17 +72,14 @@ import org.whole.lang.ui.util.UIUtils;
  * @author Riccardo Solmi
  */
 public class EditorPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
-	public final OverlayPreferenceStore.OverlayKey[] fKeys;
-	private OverlayPreferenceStore fOverlayStore;
-
-	private final String[][] bgCategoryListModel= new String[][] {
+	private static final String[][] bgCategoryListModel= new String[][] {
 			{ "Selection", PreferenceConstants.SELECTION_COLOR },
 			{ "Matching selection", PreferenceConstants.MATCHING_SELECTION_COLOR },
 			{ "Host stage", PreferenceConstants.HOST_LANGUAGE_COLOR },
 			{ "Template stage", PreferenceConstants.TEMPLATE_LANGUAGE_COLOR },
 	};
 
-	private final String[][] fgCategoryListModel= new String[][] {
+	private static final String[][] fgCategoryListModel= new String[][] {
 			{ "Modules", PreferenceConstants.MODULES_COLOR },
 			{ "Declarations", PreferenceConstants.DECLARATIONS_COLOR },
 			{ "Relations", PreferenceConstants.RELATIONS_COLOR },
@@ -95,6 +93,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 			{ "Content Lighter", PreferenceConstants.CONTENT_LIGHTER_COLOR },
 	};
 
+	private PreferenceStoreAdapter store;
 	private FontFieldEditor font;
 
 	private TableViewer bgCategoryTable;
@@ -110,64 +109,11 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 	private Button fgItalicCheckBox;
 
 	public EditorPreferencePage() {
-		setPreferenceStore(UIUtils.getPreferenceStore());
 		setDescription("Colors and Fonts");
-
-		fKeys = createOverlayStoreKeys();
-		fOverlayStore = new OverlayPreferenceStore(getPreferenceStore(), fKeys);
-		fOverlayStore.load();
-		fOverlayStore.start();
+		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
 	}
-	private ColorRegistry colorRegistry;
-	private FontRegistry fontRegistry;
+
 	public void init(IWorkbench workbench) {
-		colorRegistry = UIUtils.getColorRegistry();
-		fontRegistry = UIUtils.getFontRegistry();
-	}
-
-	private OverlayPreferenceStore.OverlayKey[] createOverlayStoreKeys() {
-		return new OverlayPreferenceStore.OverlayKey[] {
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.FONT), 
-
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.SELECTION_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.MATCHING_SELECTION_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.HOST_LANGUAGE_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.TEMPLATE_LANGUAGE_COLOR), 
-
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.MODULES_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.MODULES_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.MODULES_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.DECLARATIONS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.DECLARATIONS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.DECLARATIONS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.RELATIONS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.RELATIONS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.RELATIONS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.KEYWORDS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.KEYWORDS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.KEYWORDS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.IDENTIFIERS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.IDENTIFIERS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.IDENTIFIERS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.LITERALS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.LITERALS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.LITERALS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.ERRORS_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.ERRORS_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.ERRORS_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.CONTENT_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.CONTENT_DARK_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_DARK_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_DARK_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.CONTENT_LIGHT_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_LIGHT_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_LIGHT_COLOR+PreferenceConstants.ITALIC), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, PreferenceConstants.CONTENT_LIGHTER_COLOR), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_LIGHTER_COLOR+PreferenceConstants.BOLD), 
-				new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.BOOLEAN, PreferenceConstants.CONTENT_LIGHTER_COLOR+PreferenceConstants.ITALIC), 
-		};
 	}
 
 	protected Control createContents(Composite parent) {
@@ -189,7 +135,6 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		fontComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		font = new FontFieldEditor(PreferenceConstants.FONT, "Font:", fontComposite);
 
-
 		Group bgGroup = new Group(topComposite, SWT.NULL);
 		bgGroup.setText("Background");
 		bgGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -208,7 +153,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		bgCategoryTable = new TableViewer(bgGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 		bgCategoryTable.setContentProvider(new ArrayContentProvider());
 		bgCategoryTable.setLabelProvider(new PresentationLabelProvider(bgCategoryTable));
-		bgCategoryTable.setSorter(new ViewerSorter());
+		bgCategoryTable.setComparator(new ViewerComparator());
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.FILL_BOTH);
 		gd.widthHint = convertWidthInCharsToPixels(25);
 		gd.heightHint = 90;//convertHeightInCharsToPixels(5);
@@ -258,7 +203,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 		fgCategoryTable = new TableViewer(fgGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER);
 		fgCategoryTable.setContentProvider(new ArrayContentProvider());
 		fgCategoryTable.setLabelProvider(new PresentationLabelProvider(fgCategoryTable));
-		fgCategoryTable.setSorter(new ViewerSorter());
+		fgCategoryTable.setComparator(new ViewerComparator());
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.FILL_BOTH);
 		gd.widthHint = convertWidthInCharsToPixels(25);
 		gd.heightHint = 52;//convertHeightInCharsToPixels(4);
@@ -308,8 +253,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 				RGB newRGB = (RGB)event.getNewValue();
 				String key = getSelectedKey(bgCategoryTable);
 				if (key != null && newRGB != null && !newRGB.equals(event.getOldValue())) {
-					PreferenceConverter.setValue(fOverlayStore, key, newRGB);
-					colorRegistry.put(key, newRGB);
+					store.putValue(key, StringConverter.asString(newRGB));
 				}
 			}
 		});
@@ -331,8 +275,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 				RGB newRGB = (RGB)event.getNewValue();
 				String key = getSelectedKey(fgCategoryTable);
 				if (key != null && newRGB != null && !newRGB.equals(event.getOldValue())) {
-					PreferenceConverter.setValue(fOverlayStore, key, newRGB);
-					colorRegistry.put(key, newRGB);
+					store.putValue(key, StringConverter.asString(newRGB));
 				}
 			}
 		});
@@ -341,7 +284,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 			public void widgetSelected(SelectionEvent e) {
 				String key = getSelectedKey(fgCategoryTable);
-				fOverlayStore.setValue(key + PreferenceConstants.BOLD, fgBoldCheckBox.getSelection());
+				store.putValue(key + PreferenceConstants.BOLD, Boolean.toString(fgBoldCheckBox.getSelection()));
 			}
 		});
 		fgItalicCheckBox.addSelectionListener(new SelectionListener() {
@@ -349,7 +292,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 			public void widgetSelected(SelectionEvent e) {
 				String key = getSelectedKey(fgCategoryTable);
-				fOverlayStore.setValue(key + PreferenceConstants.ITALIC, fgItalicCheckBox.getSelection());
+				store.putValue(key + PreferenceConstants.ITALIC, Boolean.toString(fgItalicCheckBox.getSelection()));
 			}
 		});
 
@@ -363,20 +306,20 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 
 	private void handleBgCategoryListSelection() {	
 		String key = getSelectedKey(bgCategoryTable);
-		RGB rgb = PreferenceConverter.getColor(fOverlayStore, key);
+		RGB rgb = UIUtils.getColor(IUIConstants.BUNDLE_ID, key).getRGB();
 		bgColorSelector.setColorValue(rgb);		
 	}
 	private void handleFgCategoryListSelection() {	
 		String key = getSelectedKey(fgCategoryTable);
-		RGB rgb = PreferenceConverter.getColor(fOverlayStore, key);
+		RGB rgb = UIUtils.getColor(IUIConstants.BUNDLE_ID, key).getRGB();
 		fgColorSelector.setColorValue(rgb);		
-		fgBoldCheckBox.setSelection(fOverlayStore.getBoolean(key + PreferenceConstants.BOLD));
-		fgItalicCheckBox.setSelection(fOverlayStore.getBoolean(key + PreferenceConstants.ITALIC));
+		fgBoldCheckBox.setSelection(Boolean.parseBoolean(UIUtils.lookUpPreference(IUIConstants.BUNDLE_ID, key + PreferenceConstants.BOLD)));
+		fgItalicCheckBox.setSelection(Boolean.parseBoolean(UIUtils.lookUpPreference(IUIConstants.BUNDLE_ID, key + PreferenceConstants.ITALIC)));
 	}
 
 	protected void initialize() {
 		font.setPage(this);
-		font.setPreferenceStore(fOverlayStore);
+		font.setPreferenceStore(getPreferenceStore());
 		font.load();
 
 		bgCategoryTable.setInput(bgCategoryListModel);
@@ -395,130 +338,99 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 		});
 
-
 		for (IEditorKit editorKit : ReflectionFactory.getEditorKits())
 			langCombo.add(editorKit.getName());
 		langCombo.select(0);
 	}
 
 	protected void performDefaults() {
-		font.loadDefault();
+		store.resetToDefaults();
+		font.load();
 
-		fOverlayStore.loadDefaults();
-		PreferenceConstants.restoreRegistries(fOverlayStore);
-		handleBgCategoryListSelection();
-		handleFgCategoryListSelection();
+		initialize();
 
 		super.performDefaults();
 	}
 
 	public boolean performOk() {
 		font.store();
-		fOverlayStore.propagate();
+		store.applyChanges();
 
 		return super.performOk();
 	}
 
-	public void dispose() {
-		if (font != null) {
-			font.setPreferenceStore(null);
-			font.setPage(null);
-		}
-		this.setPreferenceStore(null);
-		super.dispose();
-	}
-
 	protected class PresentationLabelProvider extends LabelProvider {//implements IFontProvider {
 		private TableViewer table;
-		private Map<Font, Font> fonts = new HashMap<Font, Font>();
-		private Map<Color, Image> images = new HashMap<Color, Image>();
+		private Map<String, Image> images = new HashMap<String, Image>();
 
 		private int imageSize = -1;
 		private int usableImageSize = -1;
 
-		private IPropertyChangeListener listener = new IPropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent event) {
-				fireLabelProviderChanged(new LabelProviderChangedEvent(PresentationLabelProvider.this));                
-			}            
-		};
+		private PreferencesChangeListener listener = new PreferencesChangeListener();
 
 		private Image emptyImage;        
 
 		public PresentationLabelProvider(TableViewer table) {
 			this.table = table;
-			hookListeners();
-		}
 
-		public void hookListeners() {
-			colorRegistry.addListener(listener);        
-			fontRegistry.addListener(listener);
+			store.addChangeListener(listener);
+			InstanceScope.INSTANCE.getNode(IUIConstants.BUNDLE_ID).addPreferenceChangeListener(listener);
 		}
 
 		public void dispose() {
-			super.dispose();
-			colorRegistry.removeListener(listener);
-			fontRegistry.removeListener(listener);
+			InstanceScope.INSTANCE.getNode(IUIConstants.BUNDLE_ID).removePreferenceChangeListener(listener);
+			store.removeChangeListener(listener);
 
-			for (Iterator<Image> i = images.values().iterator(); i.hasNext();)
-				i.next().dispose();
-
+			for (Image image : images.values())
+				image.dispose();
 			images.clear();
-
-			for (Iterator<Font> i = fonts.values().iterator(); i.hasNext();)
-				i.next().dispose();
-
-			fonts.clear();
 
 			if (emptyImage != null) {
 				emptyImage.dispose();
 				emptyImage = null;
 			}
-		}
 
-		public Font getFont(Object element) {
-			int parentHeight = table.getControl().getFont().getFontData()[0].getHeight();
-
-			Display display = table.getControl().getDisplay();
-
-			Font baseFont = fontRegistry.get(PreferenceConstants.FONT);
-			Font font = fonts.get(baseFont);
-			if (font == null) {
-				FontData[] data = baseFont.getFontData();
-				for (int i = 0; i < data.length; i++) {
-					data[i].setHeight(parentHeight);
-				}
-				font = new Font(display, data);
-
-				fonts.put(baseFont, font);
-			}
-			return font;
+			super.dispose();
 		}
 
 		public Image getImage(Object element) {
-			Color c = colorRegistry.get(((String[])element)[1]);
-			Image image = images.get(c);
-			if (image == null) {
-				Display display = table.getControl().getDisplay();
+			String symbolicName = ((String[]) element)[1];
+			String color = store.getString(symbolicName);
+
+			Image image = images.get(color);
+			if (image == null)
+				images.put(color, image = createImage(color));
+			return image;
+		}
+
+		protected Image createImage(String c) {
+			Display display = table.getControl().getDisplay();
+			Color color = new Color(display, StringConverter.asRGB(c));
+			GC gc = null;
+			try {
 				ensureImageSize(display);
 				//int size = presentationList.getControl().getFont().getFontData()[0].getHeight();
-				image = new Image(display, imageSize, imageSize);
+				Image image = new Image(display, imageSize, imageSize);
 
-				GC gc = new GC(image);
+				gc = new GC(image);
 				gc.setBackground(table.getControl().getBackground());
 				gc.setForeground(table.getControl().getBackground());
 				gc.drawRectangle(0, 0, imageSize - 1, imageSize - 1);
-
+	
 				gc.setForeground(table.getControl().getForeground());
-				gc.setBackground(c);
+				gc.setBackground(color);
 
 				int offset = (imageSize - usableImageSize) / 2;
 				gc.drawRectangle(offset, offset, usableImageSize - offset, usableImageSize - offset);
 				gc.fillRectangle(offset + 1, offset + 1, usableImageSize - offset - 1, usableImageSize - offset - 1);		    			    	
-				gc.dispose();
 
-				images.put(c, image);
+				return image;
+			} finally {
+				if (gc != null)
+					gc.dispose();
+				if (color != null)
+					color.dispose();
 			}
-			return image;
 		}
 
 		private void ensureImageSize(Display display) {
@@ -530,6 +442,20 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 
 		public String getText(Object element) {
 			return ((String[])element)[0];
+		}
+
+		protected class PreferencesChangeListener implements IChangeListener, IEclipsePreferences.IPreferenceChangeListener {
+			protected void handleEvent() {
+				fireLabelProviderChanged(new LabelProviderChangedEvent(PresentationLabelProvider.this));
+			}
+			@Override
+			public void handleChange(ChangeEvent event) {
+				handleEvent();
+			}
+			@Override
+			public void preferenceChange(PreferenceChangeEvent event) {
+				handleEvent();
+			}
 		}
 	}
 }

@@ -7,4 +7,16 @@
 			class="org.whole.lang.e4.ui.util.E4ResourceBindingsContributor"
 			id="E4ResourceBindingsContributor"/>
 	</extension>
+	<extension
+			id="commandContributions"
+			point="org.eclipse.e4.workbench.model">
+		<processor
+				beforefragment="false"
+				class="org.whole.lang.e4.ui.addon.ViewerRebuildProcessor">
+		</processor>
+		<processor
+				beforefragment="false"
+				class="org.whole.lang.e4.ui.addon.PreferenceProcessor">
+		</processor>
+	</extension>
 </plugin>

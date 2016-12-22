@@ -17,11 +17,13 @@
  */
 package org.whole.lang.ui;
 
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.resource.ColorRegistry;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.RGB;
 import org.whole.lang.ui.util.UIUtils;
 
@@ -63,91 +65,77 @@ public class PreferenceConstants {
 	public static final String BOLD = "Bold";
 	public static final String ITALIC = "Italic";
 
-	public static void initializeDefaultValues(IPreferenceStore store, ColorRegistry colorRegistry, FontRegistry fontRegistry) {
-		PreferenceConverter.setDefault(store, FONT, JFaceResources.getTextFont().getFontData());
+	public static void initializeDefaultValues(String bundleId, ColorRegistry colorRegistry, FontRegistry fontRegistry) {
+		IEclipsePreferences preferences = DefaultScope.INSTANCE.getNode(bundleId);
 
-		PreferenceConverter.setDefault(store, SELECTION_COLOR, GREEN_LIGHT_COLOR);
-		PreferenceConverter.setDefault(store, MATCHING_SELECTION_COLOR, darker(GREEN_LIGHT_COLOR));
-		PreferenceConverter.setDefault(store, HOST_LANGUAGE_COLOR, new RGB(255, 255, 255));
-		PreferenceConverter.setDefault(store, TEMPLATE_LANGUAGE_COLOR, new RGB(238, 232, 213));
+		preferences.put(FONT, PreferenceConverter.getStoredRepresentation(JFaceResources.getTextFont().getFontData()));
 
-		PreferenceConverter.setDefault(store, MODULES_COLOR, new RGB(115, 153, 0));
-		store.setDefault(MODULES_COLOR+BOLD, false);
-		store.setDefault(MODULES_COLOR+ITALIC, false);
+		preferences.put(SELECTION_COLOR, StringConverter.asString(GREEN_LIGHT_COLOR));
+		preferences.put(MATCHING_SELECTION_COLOR, StringConverter.asString(UIUtils.darker(GREEN_LIGHT_COLOR)));
+		preferences.put(HOST_LANGUAGE_COLOR, StringConverter.asString(new RGB(255, 255, 255)));
+		preferences.put(TEMPLATE_LANGUAGE_COLOR, StringConverter.asString(new RGB(238, 232, 213)));
 
-		PreferenceConverter.setDefault(store, DECLARATIONS_COLOR, new RGB(0, 0, 0));
-		store.setDefault(DECLARATIONS_COLOR+BOLD, true);
-		store.setDefault(DECLARATIONS_COLOR+ITALIC, false);
+		preferences.put(MODULES_COLOR, StringConverter.asString(new RGB(115, 153, 0)));
+		preferences.putBoolean(MODULES_COLOR+BOLD, false);
+		preferences.putBoolean(MODULES_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, RELATIONS_COLOR, new RGB(230, 123, 0));
-		store.setDefault(RELATIONS_COLOR+BOLD, true);
-		store.setDefault(RELATIONS_COLOR+ITALIC, false);
+		preferences.put(DECLARATIONS_COLOR, StringConverter.asString(new RGB(0, 0, 0)));
+		preferences.putBoolean(DECLARATIONS_COLOR+BOLD, true);
+		preferences.putBoolean(DECLARATIONS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, KEYWORDS_COLOR, new RGB(127, 0, 85));
-		store.setDefault(KEYWORDS_COLOR+BOLD, true);
-		store.setDefault(KEYWORDS_COLOR+ITALIC, false);
+		preferences.put(RELATIONS_COLOR, StringConverter.asString(new RGB(230, 123, 0)));
+		preferences.putBoolean(RELATIONS_COLOR+BOLD, true);
+		preferences.putBoolean(RELATIONS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, IDENTIFIERS_COLOR, new RGB(0, 112, 191));
-		store.setDefault(IDENTIFIERS_COLOR+BOLD, false);
-		store.setDefault(IDENTIFIERS_COLOR+ITALIC, false);
+		preferences.put(KEYWORDS_COLOR, StringConverter.asString(new RGB(127, 0, 85)));
+		preferences.putBoolean(KEYWORDS_COLOR+BOLD, true);
+		preferences.putBoolean(KEYWORDS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, LITERALS_COLOR, new RGB(128, 63, 0));
-		store.setDefault(LITERALS_COLOR+BOLD, false);
-		store.setDefault(LITERALS_COLOR+ITALIC, false);
+		preferences.put(IDENTIFIERS_COLOR, StringConverter.asString(new RGB(0, 112, 191)));
+		preferences.putBoolean(IDENTIFIERS_COLOR+BOLD, false);
+		preferences.putBoolean(IDENTIFIERS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, ERRORS_COLOR, new RGB(255, 0, 0));
-		store.setDefault(ERRORS_COLOR+BOLD, false);
-		store.setDefault(ERRORS_COLOR+ITALIC, false);
+		preferences.put(LITERALS_COLOR, StringConverter.asString(new RGB(128, 63, 0)));
+		preferences.putBoolean(LITERALS_COLOR+BOLD, false);
+		preferences.putBoolean(LITERALS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, CONTENT_COLOR, new RGB(0, 0, 0));
-		store.setDefault(CONTENT_COLOR+BOLD, false);
-		store.setDefault(CONTENT_COLOR+ITALIC, false);
+		preferences.put(ERRORS_COLOR, StringConverter.asString(new RGB(255, 0, 0)));
+		preferences.putBoolean(ERRORS_COLOR+BOLD, false);
+		preferences.putBoolean(ERRORS_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, CONTENT_DARK_COLOR, new RGB(7, 54, 66));
-		store.setDefault(CONTENT_DARK_COLOR+BOLD, false);
-		store.setDefault(CONTENT_DARK_COLOR+ITALIC, false);
+		preferences.put(CONTENT_COLOR, StringConverter.asString(new RGB(0, 0, 0)));
+		preferences.putBoolean(CONTENT_COLOR+BOLD, false);
+		preferences.putBoolean(CONTENT_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, CONTENT_LIGHT_COLOR, new RGB(88, 110, 117));
-		store.setDefault(CONTENT_LIGHT_COLOR+BOLD, false);
-		store.setDefault(CONTENT_LIGHT_COLOR+ITALIC, false);
+		preferences.put(CONTENT_DARK_COLOR, StringConverter.asString(new RGB(7, 54, 66)));
+		preferences.putBoolean(CONTENT_DARK_COLOR+BOLD, false);
+		preferences.putBoolean(CONTENT_DARK_COLOR+ITALIC, false);
 
-		PreferenceConverter.setDefault(store, CONTENT_LIGHTER_COLOR, new RGB(147, 161, 161));
-		store.setDefault(CONTENT_LIGHTER_COLOR+BOLD, false);
-		store.setDefault(CONTENT_LIGHTER_COLOR+ITALIC, false);
-		
-		restoreRegistries(store, colorRegistry, fontRegistry);
-	}
+		preferences.put(CONTENT_LIGHT_COLOR, StringConverter.asString(new RGB(88, 110, 117)));
+		preferences.putBoolean(CONTENT_LIGHT_COLOR+BOLD, false);
+		preferences.putBoolean(CONTENT_LIGHT_COLOR+ITALIC, false);
 
-	public static void restoreRegistries(IPreferenceStore store) {
-		restoreRegistries(store, UIUtils.getColorRegistry(), UIUtils.getFontRegistry());
-	}
-	public static void restoreRegistries(IPreferenceStore store, ColorRegistry colorRegistry, FontRegistry fontRegistry) {
-		colorRegistry.put(SELECTION_COLOR, PreferenceConverter.getColor(store, SELECTION_COLOR));
-		colorRegistry.put(MATCHING_SELECTION_COLOR, PreferenceConverter.getColor(store, MATCHING_SELECTION_COLOR));
-		colorRegistry.put(HOST_LANGUAGE_COLOR, PreferenceConverter.getColor(store, HOST_LANGUAGE_COLOR));
-		colorRegistry.put(TEMPLATE_LANGUAGE_COLOR, PreferenceConverter.getColor(store, TEMPLATE_LANGUAGE_COLOR));
+		preferences.put(CONTENT_LIGHTER_COLOR, StringConverter.asString(new RGB(147, 161, 161)));
+		preferences.putBoolean(CONTENT_LIGHTER_COLOR+BOLD, false);
+		preferences.putBoolean(CONTENT_LIGHTER_COLOR+ITALIC, false);
 
-		colorRegistry.put(MODULES_COLOR, PreferenceConverter.getColor(store, MODULES_COLOR));
-		colorRegistry.put(DECLARATIONS_COLOR, PreferenceConverter.getColor(store, DECLARATIONS_COLOR));
-		colorRegistry.put(RELATIONS_COLOR, PreferenceConverter.getColor(store, RELATIONS_COLOR));
-		colorRegistry.put(KEYWORDS_COLOR, PreferenceConverter.getColor(store, KEYWORDS_COLOR));
-		colorRegistry.put(IDENTIFIERS_COLOR, PreferenceConverter.getColor(store, IDENTIFIERS_COLOR));
-		colorRegistry.put(LITERALS_COLOR, PreferenceConverter.getColor(store, LITERALS_COLOR));
-		colorRegistry.put(ERRORS_COLOR, PreferenceConverter.getColor(store, ERRORS_COLOR));
-		colorRegistry.put(CONTENT_COLOR, PreferenceConverter.getColor(store, CONTENT_COLOR));
-		colorRegistry.put(CONTENT_DARK_COLOR, PreferenceConverter.getColor(store, CONTENT_DARK_COLOR));
-		colorRegistry.put(CONTENT_LIGHT_COLOR, PreferenceConverter.getColor(store, CONTENT_LIGHT_COLOR));
-		colorRegistry.put(CONTENT_LIGHTER_COLOR, PreferenceConverter.getColor(store, CONTENT_LIGHTER_COLOR));
+		colorRegistry.put(SELECTION_COLOR, StringConverter.asRGB(preferences.get(SELECTION_COLOR, null), null));
+		colorRegistry.put(MATCHING_SELECTION_COLOR, StringConverter.asRGB(preferences.get(MATCHING_SELECTION_COLOR, null), null));
+		colorRegistry.put(HOST_LANGUAGE_COLOR, StringConverter.asRGB(preferences.get(HOST_LANGUAGE_COLOR, null), null));
+		colorRegistry.put(TEMPLATE_LANGUAGE_COLOR, StringConverter.asRGB(preferences.get(TEMPLATE_LANGUAGE_COLOR, null), null));
 
-		fontRegistry.put(FONT, PreferenceConverter.getFontDataArray(store, FONT));
-	}
+		colorRegistry.put(MODULES_COLOR, StringConverter.asRGB(preferences.get(MODULES_COLOR, null), null));
+		colorRegistry.put(DECLARATIONS_COLOR, StringConverter.asRGB(preferences.get(DECLARATIONS_COLOR, null), null));
+		colorRegistry.put(RELATIONS_COLOR, StringConverter.asRGB(preferences.get(RELATIONS_COLOR, null), null));
+		colorRegistry.put(KEYWORDS_COLOR, StringConverter.asRGB(preferences.get(KEYWORDS_COLOR, null), null));
+		colorRegistry.put(IDENTIFIERS_COLOR, StringConverter.asRGB(preferences.get(IDENTIFIERS_COLOR, null), null));
+		colorRegistry.put(LITERALS_COLOR, StringConverter.asRGB(preferences.get(LITERALS_COLOR, null), null));
+		colorRegistry.put(ERRORS_COLOR, StringConverter.asRGB(preferences.get(ERRORS_COLOR, null), null));
+		colorRegistry.put(CONTENT_COLOR, StringConverter.asRGB(preferences.get(CONTENT_COLOR, null), null));
+		colorRegistry.put(CONTENT_DARK_COLOR, StringConverter.asRGB(preferences.get(CONTENT_DARK_COLOR, null), null));
+		colorRegistry.put(CONTENT_LIGHT_COLOR, StringConverter.asRGB(preferences.get(CONTENT_LIGHT_COLOR, null), null));
+		colorRegistry.put(CONTENT_LIGHTER_COLOR, StringConverter.asRGB(preferences.get(CONTENT_LIGHTER_COLOR, null), null));
 
-	public static RGB darker(RGB color) {
-		final float RGB_VALUE_MULTIPLIER = 0.6f;
-
-		return new RGB(
-			(int)(color.red * RGB_VALUE_MULTIPLIER),
-			(int)(color.green * RGB_VALUE_MULTIPLIER),
-			(int)(color.blue * RGB_VALUE_MULTIPLIER));
+		fontRegistry.put(FONT, PreferenceConverter.basicGetFontData(preferences.get(FONT, null)));
 	}
 }

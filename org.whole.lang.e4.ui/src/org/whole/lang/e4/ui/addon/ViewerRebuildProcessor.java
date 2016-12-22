@@ -25,7 +25,6 @@ import org.whole.lang.e4.ui.actions.IUIConstants;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistryListener;
-import org.whole.lang.ui.figures.FigurePrefs;
 
 /**
  * @author Enrico Persiani
@@ -37,12 +36,6 @@ public class ViewerRebuildProcessor {
 	@Execute
 	public void execute() {
 		ReflectionFactory.getLanguageKitRegistry().addResourceRegistryListener(createResourceRegistryListener());
-		FigurePrefs.setRebuildAllViewerRunnable(new Runnable() {
-			@Override
-			public void run() {
-				eventBroker.post(IUIConstants.TOPIC_REFRESH_VIEWER, null);
-			}
-		});
 	}
 
 	protected IResourceRegistryListener<ILanguageKit> createResourceRegistryListener() {

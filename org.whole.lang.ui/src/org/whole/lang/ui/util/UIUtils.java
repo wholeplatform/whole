@@ -26,21 +26,28 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.resource.ColorRegistry;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
@@ -123,6 +130,47 @@ public class UIUtils {
 		return display.getPrimaryMonitor();
 	}
 
+	private static final IScopeContext[] contexts = new IScopeContext[] { 
+			InstanceScope.INSTANCE, ConfigurationScope.INSTANCE, DefaultScope.INSTANCE };
+
+	public static final String lookUpPreference(String bundleId, String key) {
+		for (int i = 0; i < contexts.length; ++i) {
+			String value = contexts[i].getNode(bundleId).get(key, null);
+			if (value != null)
+				return value;
+		}
+		throw new IllegalArgumentException("unknown preference key: "+key);
+	}
+	public static final boolean lookUpBooleanPreference(String bundleId, String key) {
+		return Boolean.parseBoolean(lookUpPreference(bundleId, key));
+	}
+
+	public static final Color getColor(String bundleId, String key) {
+		ColorRegistry registry = getColorRegistry();
+		registry.put(key, StringConverter.asRGB(lookUpPreference(bundleId, key), null));
+		return registry.get(key);
+	}
+	public static final Font getFont(String bundleId, String key) {
+		FontRegistry registry = getFontRegistry();
+		String fontData = lookUpPreference(bundleId, PreferenceConstants.FONT);
+		registry.put(key, setStyle(FontDescriptor.copy(PreferenceConverter.basicGetFontData(fontData)), getStyle(bundleId, key)));
+		return registry.get(key);
+	}
+	public static final int getStyle(String bundleId, String key) {
+		int style = SWT.NORMAL;
+		if (lookUpBooleanPreference(bundleId, key+PreferenceConstants.BOLD))
+			style += SWT.BOLD;
+		if (lookUpBooleanPreference(bundleId, key+PreferenceConstants.ITALIC))
+			style += SWT.ITALIC;
+		
+		return style;
+	}
+	public static final FontData[] setStyle(FontData[] fontData, int style) {
+		for (FontData f : fontData)
+			f.setStyle(f.getStyle() | style);
+		return fontData;
+	}
+
 	private static ColorRegistry colorRegistry;
 	private static FontRegistry fontRegistry;
 	public static ColorRegistry getColorRegistry() {
@@ -185,29 +233,7 @@ public class UIUtils {
 	public static ColorRegistry getDefaultColorRegistry() {
 		return getColorRegistry();
 	}
-	public static FontRegistry getDefaultFontRegistry() {
-		return getFontRegistry();
-	}
 
-	//FIXME workaround for E4 products, should migrate to IEclipsePreferences
-	protected static IPreferenceStore preferenceStore = null;
-	public static IPreferenceStore getPreferenceStore() {
-		try {
-			ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
-			Class<?> uiPluginClass = Class.forName("org.whole.lang.e4.ui.E4CompatibilityPlugin", true, cl);
-			Object bundle = uiPluginClass.getMethod("getDefault").invoke(null);
-			return (IPreferenceStore) uiPluginClass.getMethod("getPreferenceStore").invoke(bundle);
-		} catch (Exception e) {
-	        if (preferenceStore == null) {
-	            preferenceStore = new PreferenceStore();
-	            PreferenceConstants.initializeDefaultValues(preferenceStore,
-	            		getColorRegistry(),
-	    				getFontRegistry());
-
-	        }
-	        return preferenceStore;
-		}
-	}
 	public static ImageDescriptor getImageDescriptor(String relativePath) {
 		return getImageDescriptor(PLUGIN_ID, relativePath);
 	}
@@ -219,5 +245,21 @@ public class UIUtils {
 		if (createFromURL == ImageDescriptor.getMissingImageDescriptor())
 			relativePath.length();
 		return createFromURL;
+	}
+
+	private static final float RGB_VALUE_MULTIPLIER = 0.6f;
+	public static RGB darker(RGB color) {
+		return new RGB(
+				(int) (color.red * RGB_VALUE_MULTIPLIER),
+				(int) (color.green * RGB_VALUE_MULTIPLIER),
+				(int) (color.blue * RGB_VALUE_MULTIPLIER)
+		);
+	}
+	public static RGB lighter(RGB color) {
+		return new RGB(
+				Math.max(2, Math.min((int) (color.red / RGB_VALUE_MULTIPLIER), 255)),
+				Math.max(2, Math.min((int) (color.green / RGB_VALUE_MULTIPLIER), 255)),
+				Math.max(2, Math.min((int) (color.blue / RGB_VALUE_MULTIPLIER), 255))
+		);
 	}
 }

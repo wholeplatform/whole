@@ -17,25 +17,13 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.jface.resource.ColorRegistry;
-import org.eclipse.jface.resource.FontDescriptor;
-import org.eclipse.jface.resource.FontRegistry;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.util.UIUtils;
-
 
 /**
  * @author Riccardo Solmi
  */
-public class FigurePrefs extends PreferenceConstants {
+public class FigurePrefs {
 	public static Color brightBlueColor = new Color(null, 180, 213, 255);
 	public static Color blueColor = new Color(null, 112, 158, 230);
 	public static Color lightBlueColor = new Color(null, 194, 212, 243);
@@ -53,12 +41,11 @@ public class FigurePrefs extends PreferenceConstants {
 	public static Color reviewCommentBackgroundColor = new Color(null, 255, 250, 233);
 	public static Color reviewCommentColor = new Color(null, 222, 162, 97);
 
-	
 	public static Color selectionColor;
 	public static Color matchingSelectionColor;
 	public static Color hostLanguageColor;
 	public static Color templateLanguageColor;
-	
+
 	public static int templateLanguageAlpha = 130;
 	public static int hostLanguageAlpha = 30;
 
@@ -85,155 +72,4 @@ public class FigurePrefs extends PreferenceConstants {
 	public static Font contentLightFont;
 	public static Color contentLighterColor;
 	public static Font contentLighterFont;
-
-	static {
-		final IPreferenceStore store = UIUtils.getPreferenceStore();
-		store.addPropertyChangeListener(new IPropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent event) {
-				final String prop = event.getProperty();
-
-				if (prop.equals(FONT)) {
-					modulesFont = getFont(store, MODULES_COLOR);
-					declarationsFont = getFont(store, DECLARATIONS_COLOR);
-					relationsFont = getFont(store, RELATIONS_COLOR);
-					keywordsFont = getFont(store, KEYWORDS_COLOR);
-					identifiersFont = getFont(store, IDENTIFIERS_COLOR);
-					literalsFont = getFont(store, LITERALS_COLOR);
-					errorsFont = getFont(store, ERRORS_COLOR);
-					contentFont = getFont(store, CONTENT_COLOR);
-					contentDarkFont = getFont(store, CONTENT_DARK_COLOR);
-					contentLightFont = getFont(store, CONTENT_LIGHT_COLOR);
-					contentLighterFont = getFont(store, CONTENT_LIGHTER_COLOR);
-
-				} else if (prop.equals(SELECTION_COLOR))
-					selectionColor = getColor(store, SELECTION_COLOR);
-				else if (prop.equals(MATCHING_SELECTION_COLOR))
-					matchingSelectionColor = getColor(store, MATCHING_SELECTION_COLOR);
-				else if (prop.equals(HOST_LANGUAGE_COLOR)) {
-					hostLanguageColor = getColor(store, HOST_LANGUAGE_COLOR);
-				} else if (prop.equals(TEMPLATE_LANGUAGE_COLOR)) {
-					templateLanguageColor = getColor(store, TEMPLATE_LANGUAGE_COLOR);
-				}
-
-				else if (prop.equals(MODULES_COLOR))
-					modulesColor = getColor(store, MODULES_COLOR);
-				else if (prop.startsWith(MODULES_COLOR))
-					modulesFont = getFont(store, MODULES_COLOR);
-
-				else if (prop.equals(DECLARATIONS_COLOR))
-					declarationsColor = getColor(store, DECLARATIONS_COLOR);
-				else if (prop.startsWith(DECLARATIONS_COLOR))
-					declarationsFont = getFont(store, DECLARATIONS_COLOR);
-
-				else if (prop.equals(RELATIONS_COLOR))
-					relationsColor = getColor(store, RELATIONS_COLOR);
-				else if (prop.startsWith(RELATIONS_COLOR))
-					relationsFont = getFont(store, RELATIONS_COLOR);
-
-				else if (prop.equals(KEYWORDS_COLOR))
-					keywordsColor = getColor(store, KEYWORDS_COLOR);
-				else if (prop.startsWith(KEYWORDS_COLOR))
-					keywordsFont = getFont(store, KEYWORDS_COLOR);
-
-				else if (prop.equals(IDENTIFIERS_COLOR))
-					identifiersColor = getColor(store, IDENTIFIERS_COLOR);
-				else if (prop.startsWith(IDENTIFIERS_COLOR))
-					identifiersFont = getFont(store, IDENTIFIERS_COLOR);
-
-				else if (prop.equals(LITERALS_COLOR))
-					literalsColor = getColor(store, LITERALS_COLOR);
-				else if (prop.startsWith(LITERALS_COLOR))
-					literalsFont = getFont(store, LITERALS_COLOR);
-
-				else if (prop.equals(ERRORS_COLOR))
-					errorsColor = getColor(store, ERRORS_COLOR);
-				else if (prop.startsWith(ERRORS_COLOR))
-					errorsFont = getFont(store, ERRORS_COLOR);
-
-				else if (prop.equals(CONTENT_COLOR))
-					contentColor = getColor(store, CONTENT_COLOR);
-				else if (prop.startsWith(CONTENT_COLOR))
-					contentFont = getFont(store, CONTENT_COLOR);
-
-				else if (prop.equals(CONTENT_LIGHT_COLOR))
-					contentLightColor = getColor(store, CONTENT_LIGHT_COLOR);
-				else if (prop.startsWith(CONTENT_LIGHT_COLOR))
-					contentLightFont = getFont(store, CONTENT_LIGHT_COLOR);
-
-				else if (prop.equals(CONTENT_LIGHTER_COLOR))
-					contentLighterColor = getColor(store, CONTENT_LIGHTER_COLOR);
-				else if (prop.startsWith(CONTENT_LIGHTER_COLOR))
-					contentLighterFont = getFont(store, CONTENT_LIGHTER_COLOR);
-
-				invalidateEditors();
-			}
-		});
-
-		selectionColor = getColor(store, SELECTION_COLOR);
-		matchingSelectionColor = getColor(store, MATCHING_SELECTION_COLOR);
-		hostLanguageColor = getColor(store, HOST_LANGUAGE_COLOR);
-		templateLanguageColor = getColor(store, TEMPLATE_LANGUAGE_COLOR);
-
-		modulesColor = getColor(store, MODULES_COLOR);
-		modulesFont = getFont(store, MODULES_COLOR);
-		declarationsColor = getColor(store, DECLARATIONS_COLOR);
-		declarationsFont = getFont(store, DECLARATIONS_COLOR);
-		relationsColor = getColor(store, RELATIONS_COLOR);
-		relationsFont = getFont(store, RELATIONS_COLOR);
-		keywordsColor = getColor(store, KEYWORDS_COLOR);
-		keywordsFont = getFont(store, KEYWORDS_COLOR);
-		identifiersColor = getColor(store, IDENTIFIERS_COLOR);
-		identifiersFont = getFont(store, IDENTIFIERS_COLOR);
-		literalsColor = getColor(store, LITERALS_COLOR);
-		literalsFont = getFont(store, LITERALS_COLOR);
-		errorsColor = getColor(store, ERRORS_COLOR);
-		errorsFont = getFont(store, ERRORS_COLOR);
-		contentColor = getColor(store, CONTENT_COLOR);
-		contentFont = getFont(store, CONTENT_COLOR);
-		contentLightColor = getColor(store, CONTENT_LIGHT_COLOR);
-		contentLightFont = getFont(store, CONTENT_LIGHT_COLOR);
-		contentLighterColor = getColor(store, CONTENT_LIGHTER_COLOR);
-		contentLighterFont = getFont(store, CONTENT_LIGHTER_COLOR);
-		
-		invalidateEditors();
-	}
-
-	private static final Color getColor(IPreferenceStore store, String key) {
-		ColorRegistry registry = UIUtils.getColorRegistry();
-		registry.put(key, PreferenceConverter.getColor(store, key));
-		return registry.get(key);
-	}
-
-	private static final Font getFont(IPreferenceStore store, String key) {
-		FontRegistry registry = UIUtils.getFontRegistry();
-		registry.put(key, setStyle(FontDescriptor.copy(PreferenceConverter.getFontDataArray(store, FONT)), getStyle(store, key)));
-		return registry.get(key);
-	}
-
-	private static final FontData[] setStyle(FontData[] fontData, int style) {
-		for (FontData f : fontData)
-			f.setStyle(f.getStyle() | style);
-		return fontData;
-	}
-	private static final int getStyle(IPreferenceStore store, String key) {
-		int style = SWT.NORMAL;
-		if (store.getBoolean(key+BOLD))
-			style += SWT.BOLD;
-		if (store.getBoolean(key+ITALIC))
-			style += SWT.ITALIC;
-		
-		return style;
-	}
-
-	//FIXME workaround for backward compatibility
-	//TODO migrate to E4 preferences injection
-	private static Runnable rebuildAllViewerRunnable = null;
-	public static void setRebuildAllViewerRunnable(
-			Runnable rebuildAllViewerRunnable) {
-		FigurePrefs.rebuildAllViewerRunnable = rebuildAllViewerRunnable;
-	}
-	private static final void invalidateEditors() {
-		if (rebuildAllViewerRunnable != null)
-			rebuildAllViewerRunnable.run();
-	}
 }

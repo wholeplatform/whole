@@ -95,11 +95,6 @@
 		</consoleFactory>
 	</extension>
 
-	<extension point="org.eclipse.core.runtime.preferences">
-		<initializer
-			class="org.whole.lang.ui.preferences.WholePreferenceInitializer"/>
-	</extension>
-		
 	<extension point="org.eclipse.ui.preferencePages">
 		<page name="Whole"
 			class="org.whole.lang.ui.preferences.WholePreferencePage"
@@ -453,10 +448,6 @@
 		<processor
 				beforefragment="false"
 				class="org.whole.lang.e4.ui.addon.CommandProcessor">
-		</processor>
-		<processor
-				beforefragment="false"
-				class="org.whole.lang.e4.ui.addon.ViewerRebuildProcessor">
 		</processor>
 	</extension>
 </plugin>
