@@ -18,7 +18,7 @@
 package org.whole.lang.e4.actions;
 
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.*;
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

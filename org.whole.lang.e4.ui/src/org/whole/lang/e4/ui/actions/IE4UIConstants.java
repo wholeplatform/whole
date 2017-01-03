@@ -26,7 +26,7 @@ import org.whole.lang.e4.ui.util.E4Utils;
 /**
  * @author Enrico Persiani
  */
-public interface IUIConstants {
+public interface IE4UIConstants {
 	// bundle id
 	public static final String BUNDLE_ID = "org.whole.lang.e4.ui";
 

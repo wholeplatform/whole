@@ -38,7 +38,7 @@ public class NewlineAction extends ActionWithFallback {
 
 	private static final class BaseAction extends AbstractModelTextAction {
 		public BaseAction(IEclipseContext context) {
-			super(context, IUIConstants.NEWLINE_LABEL);
+			super(context, IE4UIConstants.NEWLINE_LABEL);
 		}
 		
 

@@ -34,7 +34,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.ResumeAction;
 import org.whole.lang.e4.ui.actions.BreakpointsDisableAction;
 import org.whole.lang.e4.ui.actions.TerminateAction;
@@ -81,10 +81,10 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 				}
 			});
 
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, execution.getVariablesModel());
+			eventBroker.post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, execution.getVariablesModel());
 		} else {
 			getViewer().setEntityContents(createDefaultContents());
-			eventBroker.post(IUIConstants.TOPIC_UPDATE_VARIABLES, null);
+			eventBroker.post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, null);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 
 	@Inject
 	@Optional
-	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_DEBUG) ExecutionState execution) {
+	private void getNotified(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_DEBUG) ExecutionState execution) {
 		pushExecution(execution);
 	}
 

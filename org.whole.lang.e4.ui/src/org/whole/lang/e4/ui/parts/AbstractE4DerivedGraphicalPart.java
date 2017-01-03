@@ -23,7 +23,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.LinkType;
 import org.whole.lang.e4.ui.jobs.ShowingPolicy;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -54,7 +54,7 @@ public abstract class AbstractE4DerivedGraphicalPart extends E4GraphicalPart {
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, false);
 		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, false);
-		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, IUIConstants.DERIVED_PARTS_ID_SET);
+		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, IE4UIConstants.DERIVED_PARTS_ID_SET);
 		return params;
 	}
 

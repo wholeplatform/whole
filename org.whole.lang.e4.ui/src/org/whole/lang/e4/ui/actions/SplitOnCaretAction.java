@@ -24,7 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
  */
 public class SplitOnCaretAction extends AbstractModelTextAction {
 	public SplitOnCaretAction(IEclipseContext context) {
-		super(context, IUIConstants.SPLIT_ON_CARET_LABEL);
+		super(context, IE4UIConstants.SPLIT_ON_CARET_LABEL);
 	}
 
 	protected String getEnablementUri() {

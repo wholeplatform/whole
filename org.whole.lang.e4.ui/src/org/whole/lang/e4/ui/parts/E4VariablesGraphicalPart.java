@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.swt.widgets.Composite;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
 
@@ -40,7 +40,7 @@ public class E4VariablesGraphicalPart extends E4GraphicalPart {
 
 	@Inject
 	@Optional
-	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_VARIABLES) IEntity results) {
+	private void getNotified(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_VARIABLES) IEntity results) {
 		if (results != null) {
 			getViewer().setEntityContents(results);
 			getViewer().setInteractive(results, false, true, false);

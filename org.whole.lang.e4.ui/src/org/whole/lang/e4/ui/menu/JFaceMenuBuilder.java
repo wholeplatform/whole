@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.util.HashSet;
 import java.util.Set;

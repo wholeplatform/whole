@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.compatibility;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.tools.compat.parts.DIViewPart;

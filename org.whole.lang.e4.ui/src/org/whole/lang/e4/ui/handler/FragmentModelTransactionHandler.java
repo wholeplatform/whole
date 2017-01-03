@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import javax.inject.Named;
 

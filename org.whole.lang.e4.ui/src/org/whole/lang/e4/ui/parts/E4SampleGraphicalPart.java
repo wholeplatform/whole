@@ -29,7 +29,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.LinkViewerAdapter;
 import org.whole.lang.e4.ui.jobs.ExecuteSampleModelRunnable;
 import org.whole.lang.e4.ui.jobs.ISynchronizableRunnable;
@@ -58,7 +58,7 @@ public class E4SampleGraphicalPart extends AbstractE4DerivedGraphicalPart {
 
 	@Inject
 	@Optional
-	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_SAMPLE_CONTEXT) IEntity sampleContext) {
+	private void getNotified(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_SAMPLE_CONTEXT) IEntity sampleContext) {
 		if (sampleContext != null) {
 			contextModel = sampleContext.wGet(0);
 			selfModel = sampleContext.wGet(1);

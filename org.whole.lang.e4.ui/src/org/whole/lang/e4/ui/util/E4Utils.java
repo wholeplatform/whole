@@ -71,7 +71,7 @@ import org.whole.lang.e4.ui.actions.ArrowRightAction;
 import org.whole.lang.e4.ui.actions.ArrowUpAction;
 import org.whole.lang.e4.ui.actions.BackspaceAction;
 import org.whole.lang.e4.ui.actions.DeleteAction;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.NewlineAction;
 import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
@@ -440,8 +440,8 @@ public class E4Utils {
 					throw new IllegalStateException(e);
 				}
 
-				E4Utils.revealPart(context, IUIConstants.DEBUG_PART_ID);
-				E4Utils.revealPart(context, IUIConstants.VARIABLES_PART_ID);
+				E4Utils.revealPart(context, IE4UIConstants.DEBUG_PART_ID);
+				E4Utils.revealPart(context, IE4UIConstants.VARIABLES_PART_ID);
 				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
 					IEntity selfEntity = bindings.wGet("self");
 					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
@@ -451,7 +451,7 @@ public class E4Utils {
 		
 		IEventBroker eventBroker = context.get(IEventBroker.class);
 		ExecutionState execution = new ExecutionState(kind, throwable, sourceEntity, bindings, includeNames);
-		eventBroker.post(IUIConstants.TOPIC_UPDATE_DEBUG, execution);
+		eventBroker.post(IE4UIConstants.TOPIC_UPDATE_DEBUG, execution);
 		execution.pause();
 	}
 

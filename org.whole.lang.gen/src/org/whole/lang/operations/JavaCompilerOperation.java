@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.whole.gen.JavaModelGenerator;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.model.IEntity;
 
 
@@ -32,7 +32,7 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class JavaCompilerOperation extends AbstractOperation {
-	public static final String ID = IUIConstants.JAVA_COMPILER_OPERATION_ID;
+	public static final String ID = IE4UIConstants.JAVA_COMPILER_OPERATION_ID;
 
 	private JavaModelGenerator generator;
 

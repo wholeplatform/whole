@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.swt.graphics.FontData;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.util.UIUtils;
@@ -42,7 +42,7 @@ public class PreferenceProcessor {
 
 	@Execute
 	public void execute() {
-		final String bundleId = IUIConstants.BUNDLE_ID;
+		final String bundleId = IE4UIConstants.BUNDLE_ID;
 
 		PreferenceConstants.initializeDefaultValues(bundleId,
 				UIUtils.getColorRegistry(), UIUtils.getFontRegistry());
@@ -155,7 +155,7 @@ public class PreferenceProcessor {
 				else if (prop.startsWith(PreferenceConstants.CONTENT_LIGHTER_COLOR))
 					FigurePrefs.contentLighterFont = getFont(bundleId, PreferenceConstants.CONTENT_LIGHTER_COLOR);
 				
-				eventBroker.post(IUIConstants.TOPIC_REFRESH_VIEWER, null);
+				eventBroker.post(IE4UIConstants.TOPIC_REFRESH_VIEWER, null);
 			}
 		});
 	}

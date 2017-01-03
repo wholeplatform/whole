@@ -39,7 +39,7 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 	public AbstractModelTextAction(IEclipseContext context, String label) {
 		super(context, label);
 		try {
-			setImageDescriptor(ImageDescriptor.createFromURL(new URL(IUIConstants.TEXT_ICON_URI)));
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(IE4UIConstants.TEXT_ICON_URI)));
 		} catch (Exception e) {
 		}
 	}

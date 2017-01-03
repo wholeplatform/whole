@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.ui.viewers.EntityEditDomain;
 
@@ -47,7 +47,7 @@ public class EntityEditDomainJob extends Job {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		} catch (Exception e) {
-			return new Status(Status.ERROR, IUIConstants.BUNDLE_ID, 0, "An exception occurred while executing the job "+getName(), e);
+			return new Status(Status.ERROR, IE4UIConstants.BUNDLE_ID, 0, "An exception occurred while executing the job "+getName(), e);
 		} finally {
 			monitor.done();
 		}

@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistryListener;
@@ -50,7 +50,7 @@ public class ViewerRebuildProcessor {
 				rebuildNotationIfNeeded(newResource);
 			}
 			protected void rebuildNotationIfNeeded(final ILanguageKit resource) {
-				eventBroker.post(IUIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL, resource.getURI());
+				eventBroker.post(IE4UIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL, resource.getURI());
 			}
 		};
 	}

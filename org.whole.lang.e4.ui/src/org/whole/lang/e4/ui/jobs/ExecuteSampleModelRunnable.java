@@ -29,7 +29,7 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.environment.factories.EnvironmentEntityFactory;
 import org.whole.lang.environment.model.Name;
 import org.whole.lang.environment.reflect.EnvironmentEntityDescriptorEnum;
@@ -141,7 +141,7 @@ public class ExecuteSampleModelRunnable extends AbstractRunnableWithProgress {
 			context.get(UISynchronize.class).asyncExec(new Runnable() {
 				public void run() {
 					context.get(IEntityPartViewer.class).setContents(null, contents);
-					context.get(IEventBroker.class).post(IUIConstants.TOPIC_UPDATE_VARIABLES, variables);
+					context.get(IEventBroker.class).post(IE4UIConstants.TOPIC_UPDATE_VARIABLES, variables);
 				}
 			});
 		}

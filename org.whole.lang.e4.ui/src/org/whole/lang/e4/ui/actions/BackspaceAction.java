@@ -24,7 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
  */
 public class BackspaceAction extends AbstractModelTextAction {
 	public BackspaceAction(IEclipseContext context) {
-		super(context, IUIConstants.BACKSPACE_LABEL);
+		super(context, IE4UIConstants.BACKSPACE_LABEL);
 	}
 	
 

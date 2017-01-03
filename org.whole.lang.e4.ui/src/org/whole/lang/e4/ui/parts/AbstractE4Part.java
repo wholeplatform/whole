@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.parts;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -69,7 +69,7 @@ import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
 import org.whole.lang.e4.ui.actions.ILinkViewerListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.input.ModelInput;
 import org.whole.lang.e4.ui.menu.JFaceMenuBuilder;
@@ -268,7 +268,7 @@ public abstract class AbstractE4Part {
 	
 	@Inject
 	@Optional
-	protected void refreshViewer(@UIEventTopic(IUIConstants.TOPIC_REFRESH_VIEWER) IEntity source) {
+	protected void refreshViewer(@UIEventTopic(IE4UIConstants.TOPIC_REFRESH_VIEWER) IEntity source) {
 		if (source == null)
 			getViewer().refreshNotation();
 		else if (source.wGetModel() == getViewer().getEntityContents().wGetModel())
@@ -277,7 +277,7 @@ public abstract class AbstractE4Part {
 
 	@Inject
 	@Optional
-	protected void rebuildViewer(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER) IEntity source) {
+	protected void rebuildViewer(@UIEventTopic(IE4UIConstants.TOPIC_REBUILD_VIEWER) IEntity source) {
 		if (source == null)
 			getViewer().rebuildNotation();
 		else if (source.wGetModel() == getViewer().getEntityContents().wGetModel())
@@ -286,7 +286,7 @@ public abstract class AbstractE4Part {
 
 	@Inject
 	@Optional
-	protected void rebuildViewerConditional(@UIEventTopic(IUIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL) String resourceUri) {
+	protected void rebuildViewerConditional(@UIEventTopic(IE4UIConstants.TOPIC_REBUILD_VIEWER_CONDITIONAL) String resourceUri) {
 		if (getViewer().getReferencedResources().contains(resourceUri))
 			getViewer().rebuildNotation();
 	}
@@ -294,7 +294,7 @@ public abstract class AbstractE4Part {
 
 	@Inject
 	@Optional
-	protected void syncOutlineSelection(@UIEventTopic(IUIConstants.TOPIC_SYNC_OUTLINE_SELECTION) IEntity selectedEntities) {
+	protected void syncOutlineSelection(@UIEventTopic(IE4UIConstants.TOPIC_SYNC_OUTLINE_SELECTION) IEntity selectedEntities) {
 		if (selectedEntities.wSize()>0 && getViewer().getEditPartRegistry().containsKey(selectedEntities.wGet(0))) {
 			List<IEntity> selection = new ArrayList<>();
 			for (int i=0, size=selectedEntities.wSize(); i<size; i++)

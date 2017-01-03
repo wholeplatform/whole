@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.command.CommandFactory;
 import org.whole.lang.e4.ui.command.ICommandFactory;
 
@@ -43,7 +43,7 @@ public class CommandProcessor {
 
 		// clean up previously persisted commands
 		for (Iterator<MCommand> iterator = commands.iterator(); iterator.hasNext();)
-			if (iterator.next().getElementId().startsWith(IUIConstants.COMMAND_NS))
+			if (iterator.next().getElementId().startsWith(IE4UIConstants.COMMAND_NS))
 				iterator.remove();
 
 		commands.add(commandFactory.createCopyEntityPathCommand());

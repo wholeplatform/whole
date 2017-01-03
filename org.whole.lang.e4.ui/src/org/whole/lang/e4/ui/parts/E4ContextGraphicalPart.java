@@ -24,7 +24,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.LinkViewerAdapter;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -58,7 +58,7 @@ public class E4ContextGraphicalPart extends AbstractE4DerivedGraphicalPart {
 //					if (Matcher.matchImpl(EnvironmentEntityDescriptorEnum.Bindings, result))
 //						result.wAdd(BindingManagerFactory.instance.createBinding("self", selfModel));
 					
-					eventBroker.post(IUIConstants.TOPIC_UPDATE_SAMPLE_CONTEXT, sampleContext);
+					eventBroker.post(IE4UIConstants.TOPIC_UPDATE_SAMPLE_CONTEXT, sampleContext);
 				} else
 					getViewer().setContents(null, createDefaultContents());
 			}

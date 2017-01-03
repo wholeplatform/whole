@@ -24,7 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
  */
 public class DeleteAction extends AbstractModelTextAction {
 	public DeleteAction(IEclipseContext context) {
-		super(context, IUIConstants.DELETE_LABEL);
+		super(context, IE4UIConstants.DELETE_LABEL);
 	}
 	
 

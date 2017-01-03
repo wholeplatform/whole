@@ -21,7 +21,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -43,15 +43,15 @@ public class LanguageWorkbenchDebugPerspectiveFactory implements IPerspectiveFac
 	}
 
 	protected void addTopLeftViews(IFolderLayout folder) {
-		folder.addView(IUIConstants.DEBUG_PART_ID);
-		folder.addPlaceholder(IUIConstants.SAMPLE_PART_ID);
+		folder.addView(IE4UIConstants.DEBUG_PART_ID);
+		folder.addPlaceholder(IE4UIConstants.SAMPLE_PART_ID);
 		folder.addView(IPageLayout.ID_RES_NAV);
 //		topLeft.addView(IPageLayout.ID_OUTLINE);
 	}
 	protected void addTopRightViews(IFolderLayout folder) {
-		folder.addView(IUIConstants.VARIABLES_PART_ID);
-		folder.addPlaceholder(IUIConstants.CONTEXT_PART_ID);
-		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
+		folder.addView(IE4UIConstants.VARIABLES_PART_ID);
+		folder.addPlaceholder(IE4UIConstants.CONTEXT_PART_ID);
+		folder.addPlaceholder(IE4UIConstants.RESULTS_PART_ID);
 		folder.addView(IConsoleConstants.ID_CONSOLE_VIEW);
 	}
 
@@ -70,13 +70,13 @@ public class LanguageWorkbenchDebugPerspectiveFactory implements IPerspectiveFac
 	protected void addShowViewShortcuts(IPageLayout layout) {
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IConsoleConstants.ID_CONSOLE_VIEW);
-		layout.addShowViewShortcut(IUIConstants.DEBUG_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.CONTEXT_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.INDEX_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.PALETTE_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.MAP_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.DETAILS_PART_ID);
-		layout.addShowViewShortcut(IUIConstants.SAMPLE_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.DEBUG_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.VARIABLES_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.CONTEXT_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.INDEX_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.PALETTE_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.MAP_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.DETAILS_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.SAMPLE_PART_ID);
 	}
 }

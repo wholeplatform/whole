@@ -52,7 +52,7 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.e4.ui.viewers.E4GraphicalViewer;
 import org.whole.lang.iterators.IteratorFactory;
@@ -109,7 +109,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText(IUIConstants.FIND_REPLACE_DIALOG_TEXT);
+		shell.setText(IE4UIConstants.FIND_REPLACE_DIALOG_TEXT);
 		setBlockOnOpen(false);
 	}
 
@@ -187,7 +187,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		composite.setLayout(layout);
 		
 		//FIXME workaround to prevent button reordering on Shell.setDefaultButton()
-		final Button button = createButton(composite, FIND_ID, IUIConstants.FIND_BUTTON_TEXT, false);
+		final Button button = createButton(composite, FIND_ID, IE4UIConstants.FIND_BUTTON_TEXT, false);
 		getShell().addShellListener(new ShellAdapter() {
 			@Override
 			public void shellActivated(ShellEvent e) {
@@ -195,9 +195,9 @@ public class E4FindReplaceDialog extends E4Dialog {
 			}
 		});
 
-		createButton(composite, REPLACE_ID, IUIConstants.REPLACE_BUTTON_TEXT, false);
-		createButton(composite, REPLACE_FIND_ID, IUIConstants.REPLACE_FIND_BUTTON_TEXT, false);
-		createButton(composite, REPLACE_ALL_ID, IUIConstants.REPLACE_ALL_BUTTON_TEXT, false);
+		createButton(composite, REPLACE_ID, IE4UIConstants.REPLACE_BUTTON_TEXT, false);
+		createButton(composite, REPLACE_FIND_ID, IE4UIConstants.REPLACE_FIND_BUTTON_TEXT, false);
+		createButton(composite, REPLACE_ALL_ID, IE4UIConstants.REPLACE_ALL_BUTTON_TEXT, false);
 		composite.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, false));
 		return composite;
 	}
@@ -391,7 +391,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 		foundEntity = hasNext ? iterator.next() : null;
 		updateButtonsEnablement(hasNext);
 		if (updateStatus)
-			setStatusMessage(hasNext ? "" : IUIConstants.PATTERN_NOT_FOUND_TEXT);
+			setStatusMessage(hasNext ? "" : IE4UIConstants.PATTERN_NOT_FOUND_TEXT);
 		return hasNext;
 	}
 	protected void clearFoundEntity() {

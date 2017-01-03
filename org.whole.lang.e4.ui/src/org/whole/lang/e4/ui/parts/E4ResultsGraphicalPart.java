@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.whole.lang.e4.ui.actions.ClearContentsAction;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.actions.IUpdatableAction;
 
@@ -34,7 +34,7 @@ public class E4ResultsGraphicalPart extends E4GraphicalPart {
 
 	@Inject
 	@Optional
-	private void getNotified(@UIEventTopic(IUIConstants.TOPIC_UPDATE_RESULTS) IEntity results) {
+	private void getNotified(@UIEventTopic(IE4UIConstants.TOPIC_UPDATE_RESULTS) IEntity results) {
 		getViewer().setEntityContents(results);
 		getClearContentsAction().update();
 	}

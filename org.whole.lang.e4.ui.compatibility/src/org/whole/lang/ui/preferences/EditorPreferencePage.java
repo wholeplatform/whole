@@ -59,7 +59,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.ui.PreferenceConstants;
 
 /**
@@ -102,7 +102,7 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 
 	public EditorPreferencePage() {
 		setDescription("Colors and Fonts");
-		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
+		setPreferenceStore(store = new PreferenceStoreAdapter(IE4UIConstants.BUNDLE_ID));
 	}
 
 	public void init(IWorkbench workbench) {
@@ -336,11 +336,11 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 			this.table = table;
 
 			store.addChangeListener(listener);
-			InstanceScope.INSTANCE.getNode(IUIConstants.BUNDLE_ID).addPreferenceChangeListener(listener);
+			InstanceScope.INSTANCE.getNode(IE4UIConstants.BUNDLE_ID).addPreferenceChangeListener(listener);
 		}
 
 		public void dispose() {
-			InstanceScope.INSTANCE.getNode(IUIConstants.BUNDLE_ID).removePreferenceChangeListener(listener);
+			InstanceScope.INSTANCE.getNode(IE4UIConstants.BUNDLE_ID).removePreferenceChangeListener(listener);
 			store.removeChangeListener(listener);
 
 			for (Image image : images.values())

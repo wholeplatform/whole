@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.handler;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.jobs.RunnableWithResult;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.factories.GenericEntityFactory;
@@ -658,7 +658,7 @@ public class HandlersBehavior {
 	}
 	public static boolean canGenerateJava(IBindingManager bm) {
 		return bm.wIsSet("self") &&
-				bm.wGet("self").wGetLanguageKit().hasVisitor(IUIConstants.JAVA_COMPILER_OPERATION_ID) &&
+				bm.wGet("self").wGetLanguageKit().hasVisitor(IE4UIConstants.JAVA_COMPILER_OPERATION_ID) &&
 				bm.wIsSet("viewer") && ((IEntityPartViewer) bm.wGetValue("viewer")).isOperationExecutable();
 	}
 

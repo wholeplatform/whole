@@ -17,7 +17,7 @@
  */
 package org.whole.lang.e4.ui.jobs;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.*;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -28,7 +28,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.handler.HandlersBehavior;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.IEntity;
@@ -85,7 +85,7 @@ public class ActionCallRunnable extends AbstractRunnableWithProgress {
 			if (analyzing) {
 				E4Utils.revealPart(context, RESULTS_PART_ID);
 				IEventBroker eventBroker = context.get(IEventBroker.class);
-				eventBroker.post(IUIConstants.TOPIC_UPDATE_RESULTS, bm.getResult());
+				eventBroker.post(IE4UIConstants.TOPIC_UPDATE_RESULTS, bm.getResult());
 			} else if (mtc.canUndo()) {
 				context.get(UISynchronize.class).syncExec(new Runnable() {
 					public void run() {

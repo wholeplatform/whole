@@ -20,7 +20,7 @@ package org.whole.lang.ui.perspectives;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPlaceholderFolderLayout;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 
 /**
  * @author Riccardo Solmi
@@ -50,19 +50,19 @@ public class LanguageWorkbenchSamplePerspectiveFactory extends LanguageWorkbench
 	}
 
 	protected void addTopRightViews(IFolderLayout folder) {
-		folder.addView(IUIConstants.CONTEXT_PART_ID);
+		folder.addView(IE4UIConstants.CONTEXT_PART_ID);
 	}
 	protected void addMidRightViews(IFolderLayout folder) {
-		folder.addView(IUIConstants.SAMPLE_PART_ID);
-		folder.addPlaceholder(IUIConstants.RESULTS_PART_ID);
+		folder.addView(IE4UIConstants.SAMPLE_PART_ID);
+		folder.addPlaceholder(IE4UIConstants.RESULTS_PART_ID);
 	}
 	protected void addBottomRightViews(IFolderLayout folder) {
-		folder.addView(IUIConstants.VARIABLES_PART_ID);
+		folder.addView(IE4UIConstants.VARIABLES_PART_ID);
 	}
 
 	@Override
 	protected void addShowViewShortcuts(IPageLayout layout) {
 		super.addShowViewShortcuts(layout);
-		layout.addShowViewShortcut(IUIConstants.VARIABLES_PART_ID);
+		layout.addShowViewShortcut(IE4UIConstants.VARIABLES_PART_ID);
 	}
 }

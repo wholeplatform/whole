@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.e4.ui.actions.DerivedLinkableSelectionListener;
 import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.e4.ui.actions.LinkType;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.viewers.IEntityPartViewer;
@@ -56,7 +56,7 @@ public class E4OutlineTreePart extends E4TreePart {
 		params.set(ILinkableSelectionListener.LINK_TYPE, LinkType.ACTIVE_PART);
 		params.set(ILinkableSelectionListener.SHARE_EDIT_DOMAIN, true);
 		params.set(ILinkableSelectionListener.SYNCHRONIZE_SELECTION, true);
-		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, IUIConstants.DERIVED_PARTS_ID_SET);
+		params.set(ILinkableSelectionListener.IGNORABLE_PART_IDS, IE4UIConstants.DERIVED_PARTS_ID_SET);
 		return params;
 	}
 
@@ -65,7 +65,7 @@ public class E4OutlineTreePart extends E4TreePart {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void selectionChanged(MPart part, Object selection) {
-			if (lastSelection != null && part.getElementId().equals(IUIConstants.OUTLINE_PART_ID) && selection instanceof IBindingManager) {
+			if (lastSelection != null && part.getElementId().equals(IE4UIConstants.OUTLINE_PART_ID) && selection instanceof IBindingManager) {
 				IEntityPartViewer lastLinkedViewer = (IEntityPartViewer) lastSelection.wGetValue("viewer");
 				List<IEntity> selectedEntities = (List<IEntity>) ((IBindingManager) selection).wGet("selectedEntities");
 				lastLinkedViewer.selectAndReveal(EntityUtils.mapEntities(selectedEntities, lastLinkedViewer.getEntityContents()), false);

@@ -17,8 +17,8 @@
  */
 package org.whole.lang.e4.ui.menu;
 
-import static org.whole.lang.e4.ui.actions.IUIConstants.SELECT_LANGUAGE_ICON_URI;
-import static org.whole.lang.e4.ui.actions.IUIConstants.WRAP_ICON_URI;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.SELECT_LANGUAGE_ICON_URI;
+import static org.whole.lang.e4.ui.actions.IE4UIConstants.WRAP_ICON_URI;
 
 import java.net.MalformedURLException;
 import java.net.URL;

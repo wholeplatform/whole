@@ -24,7 +24,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.e4.ui.actions.IUIConstants;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -37,7 +37,7 @@ public class E4ResourceBindingsContributor implements IResourceBindingsContribut
 	public void addResourceBindings(final IBindingManager bm) {
 		try {
 			EPartService partService = ((IEclipseContext) bm.wGetValue("eclipseContext")).get(EPartService.class);
-			final MPart debugPart = partService.findPart(IUIConstants.DEBUG_PART_ID);
+			final MPart debugPart = partService.findPart(IE4UIConstants.DEBUG_PART_ID);
 			if (debugPart == null)
 				return;
 
