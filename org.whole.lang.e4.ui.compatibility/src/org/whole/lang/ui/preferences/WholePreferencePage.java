@@ -20,7 +20,7 @@ package org.whole.lang.ui.preferences;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.whole.lang.e4.ui.actions.IE4UIConstants;
+import org.whole.lang.ui.util.IUIConstants;
 
 
 public class WholePreferencePage
@@ -29,7 +29,7 @@ public class WholePreferencePage
 
 	public WholePreferencePage() {
 		super(GRID);
-		setPreferenceStore(new PreferenceStoreAdapter(IE4UIConstants.BUNDLE_ID));
+		setPreferenceStore(new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
 		setDescription("Whole preference page");
 		initializeDefaults();
 	}

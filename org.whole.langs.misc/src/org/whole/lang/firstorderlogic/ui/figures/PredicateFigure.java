@@ -18,8 +18,8 @@
 package org.whole.lang.firstorderlogic.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  *  @author Riccardo Solmi
@@ -34,7 +34,7 @@ public class PredicateFigure extends ContentPaneFigure {
         addContentLight("(");
         add(createContentPane(1));
         addContentLight(")");
-        addLabel("≔").setFont(UIUtils.getOpenSymbolMediumFont());
+        addLabel("≔").setFont(FigurePrefs.openSymbolMedium);
         add(createContentPane(2));
     }
 }

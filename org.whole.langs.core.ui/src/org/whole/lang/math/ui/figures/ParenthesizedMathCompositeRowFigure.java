@@ -21,7 +21,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.ParenthesizedStringSeparatedCompositeRowFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -40,7 +39,7 @@ public class ParenthesizedMathCompositeRowFigure extends ParenthesizedStringSepa
 	}
 	@Override
 	protected Font getLocalFont() {
-		return UIUtils.getOpenSymbolFont();
+		return FigurePrefs.openSymbol;
 	}
 	@Override
 	protected int getSeparatorAscent() {

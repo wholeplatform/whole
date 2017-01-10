@@ -18,87 +18,33 @@
 package org.whole.lang.ui.util;
 
 import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Pattern;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.ConfigurationScope;
-import org.eclipse.core.runtime.preferences.DefaultScope;
-import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.jface.resource.ColorRegistry;
+import org.eclipse.jface.resource.ColorDescriptor;
+import org.eclipse.jface.resource.DeviceResourceDescriptor;
 import org.eclipse.jface.resource.FontDescriptor;
-import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.StringConverter;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.commons.model.Fragment;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.IEditorKit;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.PreferenceConstants;
-import org.whole.lang.ui.editparts.IEntityPart;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
  */
 public class UIUtils {
-	public static final String LOCATION_REGEXP = "/(?:(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))/)*(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))?";
-	public static final Pattern LOCATION_PATTERN = Pattern.compile(LOCATION_REGEXP);
-
-	public static List<IEntityPart> getSelectedEntityParts(ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size()>0 && structuredSelection.getFirstElement() instanceof IEntityPart)
-				return getSelectedEntityParts(structuredSelection);
-		}
-		return Collections.emptyList();
-	}
-	@SuppressWarnings("unchecked")
-	public static List<IEntityPart> getSelectedEntityParts(IStructuredSelection structuredSelection) {
-		return (List<IEntityPart>) structuredSelection.toList();
-	}
-	public static IEntity getSelectedEntities(List<IEntityPart> selectedEntityParts) {
-		IEntity selectedEntities = BindingManagerFactory.instance.createTuple();
-		for (IEntityPart selectedEntityPart : selectedEntityParts)
-			selectedEntities.wAdd(selectedEntityPart.getModelEntity());
-		return selectedEntities;
-	}
-
-	public static void defSelectedEntities(IBindingManager bm, ISelection selection) {
-		defSelectedEntities(bm, getSelectedEntityParts(selection));
-	}
-	public static void defSelectedEntities(IBindingManager bm, List<IEntityPart> selectedEntityParts) {
-		defSelectedEntities(bm, getSelectedEntities(selectedEntityParts));
-	}
-	public static void defSelectedEntities(IBindingManager bm, IEntity entities) {
-		bm.wDef("selectedEntities", entities);
-		if (entities.wSize() > 0)
-			bm.wDef("primarySelectedEntity", entities.wGet(0));
-	}
-
 	public static int getButtonWidthHint(Composite composite) {
 		GC gc = new GC(composite);
 		gc.setFont(composite.getFont());
@@ -106,18 +52,6 @@ public class UIUtils {
 		int widthHint = Dialog.convertHorizontalDLUsToPixels(fFontMetrics, IDialogConstants.BUTTON_WIDTH);
 		gc.dispose();
 		return widthHint;
-	}
-
-	public static IEditorKit getEditorKit(IEntityPart selectedPart) {
-		IEditorKit editorKit;
-
-		IEntity parent = selectedPart.getParentModelEntity();
-		if (parent != null && EntityUtils.isFragment(parent))
-			editorKit = ((Fragment) parent).getRootEntity().wGetEditorKit();
-		else
-			editorKit = ReflectionFactory.getEditorKit((IEntity) selectedPart.getModelEntity());
-
-		return editorKit;
 	}
 
 	public static Monitor getActiveMonitor() {
@@ -130,112 +64,58 @@ public class UIUtils {
 		return display.getPrimaryMonitor();
 	}
 
-	private static final IScopeContext[] contexts = new IScopeContext[] { 
-			InstanceScope.INSTANCE, ConfigurationScope.INSTANCE, DefaultScope.INSTANCE };
+	public static final void destroyResource(Object resource) {
+		if (resource instanceof DeviceResourceDescriptor)
+			JFaceResources.getResources().destroy((DeviceResourceDescriptor) resource);
+		else if (resource instanceof Color)
+			destroyResource(ColorDescriptor.createFrom((Color) resource));
+		else if (resource instanceof Font)
+			destroyResource(FontDescriptor.createFrom((Font) resource));
+		else if (resource instanceof Image)
+			destroyResource(ImageDescriptor.createFromImage((Image) resource));
+		else
+			throw new IllegalArgumentException("unknown resoure type");
+	}
+	public static final <T> T replaceResource(T replaced, T replacement) {
+		destroyResource(replaced);
+		return replacement;
+	}
+	public static final Color createColor(ColorDescriptor colorDescriptor) {
+		return JFaceResources.getResources().createColor(colorDescriptor);
+	}
+	public static final Color createColor(String bundleId, String key) {
+		return createColor(PreferenceConstants.lookUpColorDescriptor(bundleId, key));
+	}
 
-	public static final String lookUpPreference(String bundleId, String key) {
-		for (int i = 0; i < contexts.length; ++i) {
-			String value = contexts[i].getNode(bundleId).get(key, null);
-			if (value != null)
-				return value;
-		}
-		throw new IllegalArgumentException("unknown preference key: "+key);
+	public static final Font createFont(FontDescriptor fontDescriptor) {
+		return JFaceResources.getResources().createFont(fontDescriptor);
 	}
-	public static final boolean lookUpBooleanPreference(String bundleId, String key) {
-		return Boolean.parseBoolean(lookUpPreference(bundleId, key));
+	public static final Font createFont(FontData[] fontData) {
+		return createFont(FontDescriptor.createFrom(fontData));
 	}
-
-	public static final Color getColor(String bundleId, String key) {
-		ColorRegistry registry = getColorRegistry();
-		registry.put(key, StringConverter.asRGB(lookUpPreference(bundleId, key), null));
-		return registry.get(key);
+	public static final Font scaleFont(Font font, float scale) {
+		FontData[] fontData = font.getFontData();
+		fontData[0].setHeight(Math.round(fontData[0].getHeight()*scale));
+		return createFont(fontData);
 	}
-	public static final Font getFont(String bundleId, String key) {
-		FontRegistry registry = getFontRegistry();
-		String fontData = lookUpPreference(bundleId, PreferenceConstants.FONT);
-		registry.put(key, setStyle(FontDescriptor.copy(PreferenceConverter.basicGetFontData(fontData)), getStyle(bundleId, key)));
-		return registry.get(key);
+	public static final Font createFont(String bundleId, String key) {
+		return createFont(PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.FONT));
+	}
+	public static final Font createStyledFont(String bundleId, String key) {
+		FontDescriptor fontDescriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.FONT);
+		return createFont(fontDescriptor.setStyle(getStyle(bundleId, key)));
 	}
 	public static final int getStyle(String bundleId, String key) {
 		int style = SWT.NORMAL;
-		if (lookUpBooleanPreference(bundleId, key+PreferenceConstants.BOLD))
+		if (PreferenceConstants.lookUpBooleanPreference(bundleId, key+PreferenceConstants.BOLD))
 			style += SWT.BOLD;
-		if (lookUpBooleanPreference(bundleId, key+PreferenceConstants.ITALIC))
+		if (PreferenceConstants.lookUpBooleanPreference(bundleId, key+PreferenceConstants.ITALIC))
 			style += SWT.ITALIC;
-		
 		return style;
-	}
-	public static final FontData[] setStyle(FontData[] fontData, int style) {
-		for (FontData f : fontData)
-			f.setStyle(f.getStyle() | style);
-		return fontData;
-	}
-
-	private static ColorRegistry colorRegistry;
-	private static FontRegistry fontRegistry;
-	public static ColorRegistry getColorRegistry() {
-		if (colorRegistry == null)
-			colorRegistry = new ColorRegistry(Display.getCurrent());
-		return colorRegistry;
-	}
-	public static FontRegistry getFontRegistry() {
-		if (fontRegistry == null) {
-			Display display = Display.getCurrent();
-			fontRegistry = new FontRegistry(display);
-			initFontRegistry(display, fontRegistry);
-		}
-		return fontRegistry;
-	}
-	protected static void initFontRegistry(Display display, FontRegistry fontRegistry) {
-		try {
-			URL url = Platform.getBundle("org.whole.lang.ui").getEntry("/fonts/opensymbol.ttf");
-			IPath fontPath = new Path(FileLocator.toFileURL(url).getPath());
-			if (display.loadFont(fontPath.toOSString())) {
-				fontRegistry.put(OPEN_SYMBOL_SMALL, new FontData[]{new FontData("OpenSymbol", 8, SWT.NONE)} );
-				fontRegistry.put(OPEN_SYMBOL, new FontData[]{new FontData("OpenSymbol", 12, SWT.NONE)} );
-				fontRegistry.put(OPEN_SYMBOL_MEDIUM, new FontData[]{new FontData("OpenSymbol", 14, SWT.NONE)} );
-				fontRegistry.put(OPEN_SYMBOL_LARGE, new FontData[]{new FontData("OpenSymbol", 21, SWT.NONE)} );
-			} else
-				return; // FIXME workaround font not loading on some mac os x 10.11.4 configurations
-				//throw new SWTException("Device.loadFont failed");				
-
-//			url = getBundle().getEntry("/fonts/STIXMath-Regular.otf");
-//			fontPath = new Path(FileLocator.toFileURL(url).getPath());
-//			if (display.loadFont(fontPath.toOSString())) {
-//				fontRegistry.put(OPEN_SYMBOL_SMALL, new FontData[]{new FontData("STIXMath", 8, SWT.NONE)} );
-//				fontRegistry.put(OPEN_SYMBOL, new FontData[]{new FontData("STIXMath", 12, SWT.NONE)} );
-//				fontRegistry.put(OPEN_SYMBOL_MEDIUM, new FontData[]{new FontData("STIXMath", 14, SWT.NONE)} );
-//				fontRegistry.put(OPEN_SYMBOL_LARGE, new FontData[]{new FontData("STIXMath", 21, SWT.NONE)} );
-//			} else
-//				throw new SWTException("Device.loadFont failed");				
-		} catch (Exception e) {
-			throw new IllegalStateException("Unable to load OpenSymbol font", e);
-		}
-	}
-
-	public static final String PLUGIN_ID = "org.whole.lang.ui";
-	public static final String OPEN_SYMBOL_SMALL = PLUGIN_ID+".opensymbol-small";
-	public static final String OPEN_SYMBOL = PLUGIN_ID+".opensymbol";
-	public static final String OPEN_SYMBOL_MEDIUM = PLUGIN_ID+".opensymbol-medium";
-	public static final String OPEN_SYMBOL_LARGE = PLUGIN_ID+".opensymbol-large";
-	public static Font getOpenSymbolSmallFont() {
-		return getFontRegistry().get(OPEN_SYMBOL_SMALL);
-	}
-	public static Font getOpenSymbolFont() {
-		return getFontRegistry().get(OPEN_SYMBOL);
-	}
-	public static Font getOpenSymbolMediumFont() {
-		return getFontRegistry().get(OPEN_SYMBOL_MEDIUM);
-	}
-	public static Font getOpenSymbolLargeFont() {
-		return getFontRegistry().get(OPEN_SYMBOL_LARGE);
-	}
-	public static ColorRegistry getDefaultColorRegistry() {
-		return getColorRegistry();
 	}
 
 	public static ImageDescriptor getImageDescriptor(String relativePath) {
-		return getImageDescriptor(PLUGIN_ID, relativePath);
+		return getImageDescriptor(IUIConstants.BUNDLE_ID, relativePath);
 	}
 	public static ImageDescriptor getImageDescriptor(String bundleId, String relativePath) {
 		URL entry = Platform.getBundle(bundleId).getEntry(relativePath);

@@ -24,13 +24,24 @@ import org.eclipse.swt.graphics.Font;
  * @author Riccardo Solmi
  */
 public class FigurePrefs {
+	public static Font fontSmall;
+	public static Font font;
+	public static Font fontMedium;
+	public static Font fontLarge;
+
+	public static Font openSymbolSmall;
+	public static Font openSymbol;
+	public static Font openSymbolMedium;
+	public static Font openSymbolLarge;
+
+	//TODO make customizable ???
 	public static Color brightBlueColor = new Color(null, 180, 213, 255);
 	public static Color blueColor = new Color(null, 112, 158, 230);
 	public static Color lightBlueColor = new Color(null, 194, 212, 243);
 	public static Color yellowColor = new Color(null, 255, 181, 21);
 	public static Color lightGray = new Color(null, 233, 233, 233);
 
-	//TODO make customizable
+	//TODO make customizable ???
 	public static Color deleteBackgroundColor = new Color(null, 255, 221, 221);
 	public static Color addBackgroundColor = new Color(null, 222, 253, 223);
 	public static Color deleteColor = new Color(null, 253, 170, 171);
@@ -46,10 +57,10 @@ public class FigurePrefs {
 	public static Color hostLanguageColor;
 	public static Color templateLanguageColor;
 
+	//TODO make customizable ???
 	public static int templateLanguageAlpha = 130;
 	public static int hostLanguageAlpha = 30;
 
-	public static Color defaultColor = new Color(null, 255, 255, 255);
 	public static Color modulesColor;
 	public static Font modulesFont;
 	public static Color declarationsColor;

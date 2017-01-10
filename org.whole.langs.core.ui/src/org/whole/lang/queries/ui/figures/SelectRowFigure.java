@@ -34,7 +34,6 @@ import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
 import org.whole.lang.ui.notations.figures.DrawUtils;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -53,7 +52,7 @@ public class SelectRowFigure extends ContentPaneFigure {
 				return ColorConstants.gray;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolLargeFont();
+				return FigurePrefs.openSymbolLarge;
 			}
 		});
 		add(col0);

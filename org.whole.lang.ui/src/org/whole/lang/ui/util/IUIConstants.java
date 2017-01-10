@@ -15,21 +15,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.semantics.ui.figures;
-
-import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
-import org.whole.lang.ui.layout.RowLayout;
+package org.whole.lang.ui.util;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class SequenceTypeFigure extends ContentPaneFigure {
-	public SequenceTypeFigure() {
-		super(new RowLayout());
-		initContentPanes(1);
-		
-		add(createContentPane(0));
-		addLabel("\u2026").setFont(FigurePrefs.openSymbolMedium);
-	}
+public interface IUIConstants {
+	String BUNDLE_ID = "org.whole.lang.ui";
 }

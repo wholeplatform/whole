@@ -23,9 +23,9 @@ import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -42,7 +42,7 @@ public class ForRowFigure extends ContentPaneFigure {
 				return ColorConstants.gray;
 			}
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolLargeFont();
+				return FigurePrefs.openSymbolLarge;
 			}
 		});
 		add(col0);

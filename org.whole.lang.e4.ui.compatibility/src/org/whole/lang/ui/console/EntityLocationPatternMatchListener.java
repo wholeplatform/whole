@@ -25,7 +25,6 @@ import org.eclipse.ui.console.IPatternMatchListener;
 import org.eclipse.ui.console.PatternMatchEvent;
 import org.eclipse.ui.console.TextConsole;
 import org.whole.lang.e4.ui.E4CompatibilityPlugin;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Enrico Persiani
@@ -33,6 +32,8 @@ import org.whole.lang.ui.util.UIUtils;
 public class EntityLocationPatternMatchListener implements IPatternMatchListener {
 	private static final String LOCATION_PREFIX = "[at ";
 	private static final String LOCATION_SUFFIX = "]";
+
+	private static final String LOCATION_REGEXP = "/(?:(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))/)*(?:(?:\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|(?:\\d+))?";
 
 	private final IFile file;
 	private final int skipTo;
@@ -44,7 +45,7 @@ public class EntityLocationPatternMatchListener implements IPatternMatchListener
 		this.file = file;
 		this.skipTo = skipTo;
 		this.lineQualifier = Pattern.quote(LOCATION_PREFIX);
-		this.regExp = lineQualifier + UIUtils.LOCATION_REGEXP + Pattern.quote(LOCATION_SUFFIX);
+		this.regExp = lineQualifier + LOCATION_REGEXP + Pattern.quote(LOCATION_SUFFIX);
 	}
 	
 	public void connect(TextConsole console) {

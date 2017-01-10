@@ -23,7 +23,6 @@ import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.SubLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -39,7 +38,7 @@ public class VariableTypeFigure extends ContentPaneFigure {
 				return FigurePrefs.identifiersColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolSmallFont();
+				return FigurePrefs.openSymbolSmall;
 			}
 		};
 		add(createContentPane(0, id));

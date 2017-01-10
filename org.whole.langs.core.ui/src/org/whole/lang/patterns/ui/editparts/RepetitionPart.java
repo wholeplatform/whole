@@ -32,7 +32,6 @@ import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
 import org.whole.lang.ui.layout.RowLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -49,7 +48,7 @@ public class RepetitionPart extends AbstractContentPanePart {
     					return FigurePrefs.contentLighterColor;
     				}	
     				public Font getLocalFont() {
-    					return UIUtils.getOpenSymbolMediumFont();
+    					return FigurePrefs.openSymbolMedium;
     				}
     			});
     			row.addContentLight(" ordered");

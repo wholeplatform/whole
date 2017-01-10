@@ -29,7 +29,6 @@ import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -48,7 +47,7 @@ public class PathPart extends CompositeRowWithPlaceholderPart {
 
 //workaround for LabelFactory.createModule
         		g.setForegroundColor(ColorConstants.gray);
-        		g.setFont(UIUtils.getOpenSymbolLargeFont());
+        		g.setFont(FigurePrefs.openSymbolLarge);
 
         		int spacing = Math.max(1, getLayoutManager().getSpacing() / 5);
                 int separatorAscent = FigureUtilities.getFontMetrics(g.getFont()).getHeight()/2;//getSeparatorAscent();

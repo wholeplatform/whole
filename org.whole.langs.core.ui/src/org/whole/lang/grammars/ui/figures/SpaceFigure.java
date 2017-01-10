@@ -20,8 +20,8 @@ package org.whole.lang.grammars.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.EntityLabel;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.layout.FractionLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -51,7 +51,7 @@ public class SpaceFigure extends RuleFractionFigure {
 		});
 		addEmptyLabel();
 		EntityLabel symbol = new EntityLabel("\u2334");
-		symbol.setFont(UIUtils.getOpenSymbolLargeFont());
+		symbol.setFont(FigurePrefs.openSymbolLarge);
 		symbol.setForegroundColor(ColorConstants.lightGray);
 		add(symbol);
 	}

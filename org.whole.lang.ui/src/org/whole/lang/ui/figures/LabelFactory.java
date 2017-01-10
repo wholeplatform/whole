@@ -21,7 +21,6 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.whole.lang.ui.util.UIUtils;
 
 public class LabelFactory {
 	public static EntityLabel createModuleName() {
@@ -224,7 +223,7 @@ public class LabelFactory {
 				return FigurePrefs.contentColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolSmallFont();
+				return FigurePrefs.openSymbolSmall;
 			}
 		};
 	}
@@ -240,7 +239,7 @@ public class LabelFactory {
 				return FigurePrefs.contentColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolFont();
+				return FigurePrefs.openSymbol;
 			}
 		};
 	}
@@ -256,7 +255,7 @@ public class LabelFactory {
 				return FigurePrefs.contentColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolMediumFont();
+				return FigurePrefs.openSymbolMedium;
 			}
 		};
 	}
@@ -272,7 +271,7 @@ public class LabelFactory {
 				return FigurePrefs.contentColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolLargeFont();
+				return FigurePrefs.openSymbolLarge;
 			}
 		};
 	}

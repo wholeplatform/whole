@@ -25,6 +25,7 @@ import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.figures.ArrowFactory.ArrowKind;
 import org.whole.lang.ui.figures.ArrowFactory.Direction;
 import org.whole.lang.ui.layout.AbstractEntityLayout;
+import org.whole.lang.ui.util.IUIConstants;
 import org.whole.lang.ui.util.UIUtils;
 
 /**
@@ -53,10 +54,10 @@ public class ArrowFigure extends EntityFigure {
 	}
 
 	public Color getLocalForegroundColor() {
-		return UIUtils.getColorRegistry().get(colorName);
+		return UIUtils.createColor(IUIConstants.BUNDLE_ID, colorName);
 	}
 	public Color getLocalBackgroundColor() {
-		return UIUtils.getColorRegistry().get(colorName);
+		return UIUtils.createColor(IUIConstants.BUNDLE_ID, colorName);
 	}
 
 	protected void paintFigure(Graphics g) {

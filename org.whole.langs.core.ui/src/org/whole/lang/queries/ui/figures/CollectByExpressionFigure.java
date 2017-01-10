@@ -19,10 +19,10 @@ package org.whole.lang.queries.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.SubLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -33,7 +33,7 @@ public class CollectByExpressionFigure extends ContentPaneFigure {
 		initContentPanes(2);
 
 		EntityFigure collectFigure = new EntityFigure(new SubLayout());
-		collectFigure.addLabel(label).setFont(UIUtils.getOpenSymbolLargeFont());
+		collectFigure.addLabel(label).setFont(FigurePrefs.openSymbolLarge);
 		EntityFigure subFigure = new EntityFigure(new RowLayout().withSpacing(2));
 		subFigure.add(createFoldingToggle(0));
 		subFigure.add(createContentPane(0));

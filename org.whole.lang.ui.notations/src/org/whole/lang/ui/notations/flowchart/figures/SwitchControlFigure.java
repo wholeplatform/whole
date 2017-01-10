@@ -41,7 +41,6 @@ import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.NotationImages;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -75,7 +74,7 @@ public class SwitchControlFigure extends NodeFigure {
 						return FigurePrefs.contentLightColor;
 					}	
 					public Font getLocalFont() {
-						return UIUtils.getOpenSymbolMediumFont();
+						return FigurePrefs.openSymbolMedium;
 					}
 				};
 			}

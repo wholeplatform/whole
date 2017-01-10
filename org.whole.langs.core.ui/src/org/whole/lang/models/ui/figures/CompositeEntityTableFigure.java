@@ -28,7 +28,6 @@ import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -52,7 +51,7 @@ public class CompositeEntityTableFigure extends ContentPaneFigure {
 				return FigurePrefs.contentLighterColor;
 			}	
 			public Font getLocalFont() {
-				return UIUtils.getOpenSymbolMediumFont();
+				return FigurePrefs.openSymbolMedium;
 			}
 		});
 		row.add(createContentPane(3, new MarginBorder(0,4,0,0)));

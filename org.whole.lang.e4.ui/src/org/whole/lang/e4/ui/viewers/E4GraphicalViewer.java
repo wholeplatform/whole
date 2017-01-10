@@ -514,27 +514,6 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 			firePartFocusChanged(oldPart, (IEntityPart) part);
 	}
 
-	//	private ResourceManager resourceManager;
-	@Override
-	public ResourceManager getResourceManager() {
-		//		return resourceManager;
-		return super.getResourceManager();
-	}
-	//	@Override
-	//	protected void hookControl() {
-	//		super.hookControl();
-	//
-	//		if (resourceManager == null)
-	//			resourceManager = new LocalResourceManager(JFaceResources.getResources());
-	//	}
-	//	@Override
-	//	protected void unhookControl() {
-	//		super.unhookControl();
-	//
-	//		if (resourceManager != null)
-	//			resourceManager.dispose();
-	//	}
-
 	@Override
 	protected void handleDispose(DisposeEvent e) {
 		colorRegistry = null;

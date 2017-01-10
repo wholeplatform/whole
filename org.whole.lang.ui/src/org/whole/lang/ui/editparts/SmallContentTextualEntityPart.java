@@ -21,7 +21,6 @@ import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigurePrefs;
 import org.whole.lang.ui.figures.TextualFigure;
-import org.whole.lang.ui.util.UIUtils;
 
 /**
  * @author Riccardo Solmi
@@ -29,7 +28,7 @@ import org.whole.lang.ui.util.UIUtils;
 public class SmallContentTextualEntityPart extends AbstractTextualEntityPart {
 	protected IFigure createFigure() {
 		EntityLabel label = new EntityLabel();
-		label.setFont(UIUtils.getOpenSymbolSmallFont());
+		label.setFont(FigurePrefs.openSymbolSmall);
 		label.setForegroundColor(FigurePrefs.contentColor);
 		return new TextualFigure(label);
 	}

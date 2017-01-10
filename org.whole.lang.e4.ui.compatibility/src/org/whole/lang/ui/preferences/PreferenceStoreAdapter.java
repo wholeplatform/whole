@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.service.prefs.BackingStoreException;
-import org.whole.lang.ui.util.UIUtils;
+import org.whole.lang.ui.PreferenceConstants;
 
 /**
  * @author Enrico Persiani
@@ -38,7 +38,7 @@ public class PreferenceStoreAdapter extends FailurePreferenceStore {
 		this.preferences = new WritableMap<>();
 		try {
 			for (String name : DefaultScope.INSTANCE.getNode(bundleId).keys())
-				this.preferences.put(name, UIUtils.lookUpPreference(bundleId, name));
+				this.preferences.put(name, PreferenceConstants.lookUpPreference(bundleId, name));
 
 		} catch (BackingStoreException e) {
 			throw new IllegalStateException(e);
