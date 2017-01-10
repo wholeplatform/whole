@@ -30,7 +30,7 @@ import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityToggle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
@@ -66,8 +66,8 @@ public class NodeWithCompositeBranchFigure extends NodeFigure {
 				super.paintFigure(g);
 
 				g.setLineWidth(1);
-				g.setForegroundColor(FigurePrefs.blueColor);
-				g.setBackgroundColor(FigurePrefs.blueColor);
+				g.setForegroundColor(FigureConstants.blueColor);
+				g.setBackgroundColor(FigureConstants.blueColor);
 
 				Rectangle bounds = getBounds();
 				Rectangle nodeBounds = bounds.getResized(-1, -1);
@@ -152,7 +152,7 @@ public class NodeWithCompositeBranchFigure extends NodeFigure {
 			}
 			translateToRelative(sourceLocation);
 
-			g.setForegroundColor(FigurePrefs.relationsColor);
+			g.setForegroundColor(FigureConstants.relationsColor);
 			DrawUtils.drawHorizontalTree(g, sourceLocation, DrawUtils.SPACING/2+2, targetLocations.toArray(new Point[targetLocations.size()]));
 		}
 	}

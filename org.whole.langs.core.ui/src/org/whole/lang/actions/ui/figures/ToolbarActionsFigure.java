@@ -27,7 +27,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -93,7 +93,7 @@ public class ToolbarActionsFigure extends ContentPaneFigure {
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
 		
-		g.setForegroundColor(FigurePrefs.contentLighterColor);
+		g.setForegroundColor(FigureConstants.contentLighterColor);
 		g.setLineStyle(SWT.LINE_CUSTOM);
 		g.setLineDash(new int[] {1,1});
 

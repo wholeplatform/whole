@@ -22,7 +22,7 @@ import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IQualifiedFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.OverLayout;
@@ -50,7 +50,7 @@ public class GoalStepFigure extends ContentPaneFigure implements IQualifiedFigur
 			@Override
 			protected void setBracketsStyle(Graphics g) {
 				g.setLineDash(new int[] {4,1});
-				g.setForegroundColor(FigurePrefs.relationsColor);
+				g.setForegroundColor(FigureConstants.relationsColor);
 			}
 		});
 		add(braskets);

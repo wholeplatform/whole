@@ -26,7 +26,7 @@ public class LabelFactory {
 	public static EntityLabel createModuleName() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.modulesColor;
+				return FigureConstants.modulesColor;
 			}
 			public Font getLocalFont() {
 				return JFaceResources.getHeaderFont();
@@ -42,7 +42,7 @@ public class LabelFactory {
 	public static EntityLabel createModuleNamespace() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.modulesColor;
+				return FigureConstants.modulesColor;
 			}	
 			public Font getLocalFont() {
 				return JFaceResources.getBannerFont();
@@ -58,7 +58,7 @@ public class LabelFactory {
 	public static EntityLabel createModule() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.modulesColor;
+				return FigureConstants.modulesColor;
 			}	
 			public Font getLocalFont() {
 				if (super.getLocalFont() != null)
@@ -76,10 +76,10 @@ public class LabelFactory {
 	public static EntityLabel createDeclaration() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.declarationsColor;
+				return FigureConstants.declarationsColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.declarationsFont;
+				return FigureConstants.declarationsFont;
 			}
 		};
 	}
@@ -92,10 +92,10 @@ public class LabelFactory {
 	public static EntityLabel createRelation() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.relationsColor;
+				return FigureConstants.relationsColor;
 			}
 			public Font getLocalFont() {
-				return FigurePrefs.relationsFont;
+				return FigureConstants.relationsFont;
 			}
 		};
 	}
@@ -108,10 +108,10 @@ public class LabelFactory {
 	public static EntityLabel createKeyword() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.keywordsColor;
+				return FigureConstants.keywordsColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.keywordsFont;
+				return FigureConstants.keywordsFont;
 			}
 		};
 	}
@@ -124,10 +124,10 @@ public class LabelFactory {
 	public static EntityLabel createIdentifier() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.identifiersColor;
+				return FigureConstants.identifiersColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.identifiersFont;
+				return FigureConstants.identifiersFont;
 			}
 		};
 	}
@@ -140,10 +140,10 @@ public class LabelFactory {
 	public static EntityLabel createLiteral() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.literalsColor;
+				return FigureConstants.literalsColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.literalsFont;
+				return FigureConstants.literalsFont;
 			}
 		};
 	}
@@ -156,10 +156,10 @@ public class LabelFactory {
 	public static EntityLabel createContent() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.contentFont;
+				return FigureConstants.contentFont;
 			}
 		};
 	}
@@ -172,10 +172,10 @@ public class LabelFactory {
 	public static EntityLabel createContentDark() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentDarkColor;
+				return FigureConstants.contentDarkColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.contentDarkFont;
+				return FigureConstants.contentDarkFont;
 			}
 		};
 	}
@@ -188,10 +188,10 @@ public class LabelFactory {
 	public static EntityLabel createContentLight() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentLightColor;
+				return FigureConstants.contentLightColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.contentLightFont;
+				return FigureConstants.contentLightFont;
 			}
 		};
 	}
@@ -204,10 +204,10 @@ public class LabelFactory {
 	public static EntityLabel createContentLighter() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentLighterColor;
+				return FigureConstants.contentLighterColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.contentLighterFont;
+				return FigureConstants.contentLighterFont;
 			}
 		};
 	}
@@ -220,10 +220,10 @@ public class LabelFactory {
 	public static EntityLabel createContentSmallMath() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolSmall;
+				return FigureConstants.openSymbolSmall;
 			}
 		};
 	}
@@ -236,10 +236,10 @@ public class LabelFactory {
 	public static EntityLabel createContentMath() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbol;
+				return FigureConstants.openSymbol;
 			}
 		};
 	}
@@ -252,10 +252,10 @@ public class LabelFactory {
 	public static EntityLabel createContentMediumMath() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolMedium;
+				return FigureConstants.openSymbolMedium;
 			}
 		};
 	}
@@ -268,10 +268,10 @@ public class LabelFactory {
 	public static EntityLabel createContentLargeMath() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolLarge;
+				return FigureConstants.openSymbolLarge;
 			}
 		};
 	}
@@ -284,7 +284,7 @@ public class LabelFactory {
 	public static EntityLabel createContentLabel(String text) {
 		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentColor;
+				return FigureConstants.contentColor;
 			}	
 //			public Font getLocalFont() {
 //				return FigurePrefs.contentFont;

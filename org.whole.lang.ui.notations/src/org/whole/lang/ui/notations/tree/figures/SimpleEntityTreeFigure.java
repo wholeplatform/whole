@@ -40,7 +40,7 @@ import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.EntityToggle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -82,7 +82,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 				int labelHeight = labelBounds.height;
 				final int LINE_WIDTH = 1;
 				Insets shrink = new Insets(0, 4, 0, 4);
-				Color borderColor = FigurePrefs.blueColor;
+				Color borderColor = FigureConstants.blueColor;
 
 				Rectangle tempRect = new Rectangle();
 				tempRect.setBounds(bounds);
@@ -285,7 +285,7 @@ public class SimpleEntityTreeFigure extends NodeFigure {
 
 	protected void paintConnections(Graphics graphics) {
 		if (contents.isVisible()) {
-			graphics.setForegroundColor(FigurePrefs.relationsColor);
+			graphics.setForegroundColor(FigureConstants.relationsColor);
 
 			int egdeXOffset = DrawUtils.SPACING - DrawUtils.EDGE_SPACING;
 			ConnectionAnchor[] srcAnchors = getSourceAnchors();

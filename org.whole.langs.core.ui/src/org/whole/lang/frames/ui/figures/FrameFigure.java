@@ -21,7 +21,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TitleBarBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.HeadersTableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -64,19 +64,19 @@ public class FrameFigure extends ContentPaneFigure {
 		add(headersFigure);
 
 		TitleBarBorder border5 = new TitleBarBorder("Variability ");
-		border5.setFont(FigurePrefs.declarationsFont);
+		border5.setFont(FigureConstants.declarationsFont);
 		border5.setTextColor(ColorConstants.white);
 		border5.setBackgroundColor(ColorConstants.lightGray);
 		add(createContentPane(5, border5));
 
 		TitleBarBorder border6 = new TitleBarBorder("Relations ");
-		border6.setFont(FigurePrefs.declarationsFont);
+		border6.setFont(FigureConstants.declarationsFont);
 		border6.setTextColor(ColorConstants.white);
 		border6.setBackgroundColor(ColorConstants.lightGray);
 		add(createContentPane(6, border6));
 
 		TitleBarBorder border7 = new TitleBarBorder("Content ");
-		border7.setFont(FigurePrefs.declarationsFont);
+		border7.setFont(FigureConstants.declarationsFont);
 		border7.setTextColor(ColorConstants.white);
 		border7.setBackgroundColor(ColorConstants.lightGray);
 		add(createContentPane(7, border7));

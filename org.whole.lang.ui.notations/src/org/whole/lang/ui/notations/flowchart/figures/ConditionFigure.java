@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.MonoLayout;
 
@@ -48,7 +48,7 @@ public class ConditionFigure extends EntityFigure {
     	pList.addPoint(new Point(xMid, r.bottom()-1));
     	pList.addPoint(new Point(r.x, yMid));
 
-    	g.setBackgroundColor(FigurePrefs.lightGray);
+    	g.setBackgroundColor(FigureConstants.lightGray);
     	g.fillPolygon(pList);
     	g.setForegroundColor(ColorConstants.black); 
     	g.drawPolygon(pList);

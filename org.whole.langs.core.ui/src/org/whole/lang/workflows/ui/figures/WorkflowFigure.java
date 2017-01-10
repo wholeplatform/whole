@@ -20,7 +20,7 @@ package org.whole.lang.workflows.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -41,7 +41,7 @@ public class WorkflowFigure extends NodeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 
 	@Override

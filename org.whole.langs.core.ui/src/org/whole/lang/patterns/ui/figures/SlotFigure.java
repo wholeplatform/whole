@@ -24,7 +24,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -72,7 +72,7 @@ public class SlotFigure extends ContentPaneFigure {
 		Rectangle b = getBounds();
 		Rectangle baseBounds = baseFigure.getBounds();
 
-		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		g.setBackgroundColor(FigureConstants.hostLanguageColor);
 		g.fillRectangle(baseBounds.x-1, bounds.y, baseBounds.width+2, bounds.height);
 		g.setForegroundColor(ColorConstants.lightGray);
 		g.drawRectangle(b.x, b.y, b.width-1, b.height-1);

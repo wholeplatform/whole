@@ -44,7 +44,7 @@ public class PlaceHolderBorder extends AbstractBorder {
 	}
 
 	public Color getColor() {
-		return isOptional ? FigurePrefs.contentLightColor : FigurePrefs.errorsColor;
+		return isOptional ? FigureConstants.contentLightColor : FigureConstants.errorsColor;
 	}
 
 	public Insets getInsets(IFigure figure) {

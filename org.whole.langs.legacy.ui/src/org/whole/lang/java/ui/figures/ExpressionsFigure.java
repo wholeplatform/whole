@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.ParenthesizedStringSeparatedCompositeRowFigure;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
@@ -38,8 +38,8 @@ public class ExpressionsFigure extends ContentPaneFigure {
 	private IEntityFigure openParenthesis;
 	private EntityLabel firstOperator;
 	private IEntityFigure closeParenthesis;
-	private Color color = FigurePrefs.contentLightColor;
-	private Font font = FigurePrefs.contentLightFont;
+	private Color color = FigureConstants.contentLightColor;
+	private Font font = FigureConstants.contentLightFont;
 
 	public ExpressionsFigure() {
 		super(new RowLayout().withSpacing(RoundBracketsBorder.HMARGIN+2));
@@ -78,8 +78,8 @@ public class ExpressionsFigure extends ContentPaneFigure {
 		case SEPARATORS:
 			compositeFigure.setSeparator(",");
 			compositeFigure.getLayoutManager().withSpacing(16);
-			color = FigurePrefs.contentLightColor;
-			font = FigurePrefs.contentLightFont;
+			color = FigureConstants.contentLightColor;
+			font = FigureConstants.contentLightFont;
 			break;
 
 		case PARENTHESIS:
@@ -87,8 +87,8 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			compositeFigure.getLayoutManager().withSpacing(24);
 			openParenthesis.setVisible(true);
 			closeParenthesis.setVisible(true);
-			color = FigurePrefs.contentLighterColor;
-			font = FigurePrefs.contentLighterFont;
+			color = FigureConstants.contentLighterColor;
+			font = FigureConstants.contentLighterFont;
 			break;
 
 		case PLUS_OPERATORS:
@@ -96,8 +96,8 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			firstOperator.setText("+");
 			compositeFigure.setSeparator("+");
 			compositeFigure.getLayoutManager().withSpacing(16);
-			color = FigurePrefs.contentColor;
-			font = FigurePrefs.contentFont;
+			color = FigureConstants.contentColor;
+			font = FigureConstants.contentFont;
 			break;
 
 		case TIMES_OPERATORS:
@@ -105,15 +105,15 @@ public class ExpressionsFigure extends ContentPaneFigure {
 			firstOperator.setText("*");
 			compositeFigure.setSeparator("*");
 			compositeFigure.getLayoutManager().withSpacing(16);
-			color = FigurePrefs.contentColor;
-			font = FigurePrefs.contentFont;
+			color = FigureConstants.contentColor;
+			font = FigureConstants.contentFont;
 			break;
 
 		case UNKNOWN:
 			compositeFigure.setSeparator("-");
 			compositeFigure.getLayoutManager().withSpacing(16);
-			color = FigurePrefs.contentLightColor;
-			font = FigurePrefs.contentLightFont;
+			color = FigureConstants.contentLightColor;
+			font = FigureConstants.contentLightFont;
 			break;
 		}
 	}

@@ -17,7 +17,7 @@ package org.whole.lang.changes.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.ColumnLayout;
 
 /**
@@ -38,7 +38,7 @@ public class RevisionTrackFigure extends ContentPaneFigure {
 		Rectangle bounds = getBounds();
 		Rectangle bounds1 = getContentPane(1).getBounds();
 
-		g.setBackgroundColor(FigurePrefs.collapseBackgroundColor);
+		g.setBackgroundColor(FigureConstants.collapseBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, 10, bounds.height);
 		g.fillRectangle(bounds.right()-10, bounds.y, 10, bounds.height);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, bounds1.y-bounds.y);

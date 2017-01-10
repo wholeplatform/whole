@@ -21,7 +21,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.UnderColumnLayout;
 
@@ -42,11 +42,11 @@ public class PatternInstanceFigure extends ContentPaneFigure {
 		super.paintFigure(g);
 
 		int oldAlpha = g.getAlpha();
-		g.setAlpha(FigurePrefs.templateLanguageAlpha);
+		g.setAlpha(FigureConstants.templateLanguageAlpha);
 
 		Rectangle cb = getBounds();
 		Rectangle cb0 = getContentPane(0).getBounds();
-		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
 		g.setForegroundColor(ColorConstants.lightGray);
 
 		g.fillRectangle(cb.x, cb.y, cb.width, cb0.height+2);

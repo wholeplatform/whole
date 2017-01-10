@@ -43,7 +43,7 @@ import org.eclipse.gef.handles.ResizeHandle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy.FeedbackImageFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 
 /**
  * @author Riccardo Solmi
@@ -95,7 +95,7 @@ public class WholeResizableEditPolicy extends ResizableEditPolicy {
 			}
 			protected Color getFillColor() {
 				return (isPrimary())
-					? FigurePrefs.lightBlueColor
+					? FigureConstants.lightBlueColor
 					: ColorConstants.white;
 			}
 

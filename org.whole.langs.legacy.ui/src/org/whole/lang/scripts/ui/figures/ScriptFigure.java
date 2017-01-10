@@ -20,7 +20,7 @@ package org.whole.lang.scripts.ui.figures;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverLayout;
@@ -41,7 +41,7 @@ public class ScriptFigure extends ContentPaneFigure {
 		super.paintFigure(g);
 
     	Rectangle nameBounds = getContentPane(0).getBounds();
-    	g.setForegroundColor(FigureUtilities.darker(FigurePrefs.hostLanguageColor));
+    	g.setForegroundColor(FigureUtilities.darker(FigureConstants.hostLanguageColor));
     	g.drawLine(bounds.x, nameBounds.bottom(), bounds.right(), nameBounds.bottom());
 	}
 }

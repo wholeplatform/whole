@@ -82,25 +82,25 @@ public class ArrowFactory {
 	public static Shape createSouthArrow(Point headLocation) {
 		Shape s = createArrow(Direction.SOUTH, ArrowKind.TRIANGLE, true);
 		s.setLocation(headLocation);
-		s.setBackgroundColor(FigurePrefs.relationsColor);
+		s.setBackgroundColor(FigureConstants.relationsColor);
 		return s;
 	}
 	public static Shape createNorthArrow(Point headLocation) {
 		Shape s = createArrow(Direction.NORTH, ArrowKind.TRIANGLE, true);
 		s.setLocation(headLocation);
-		s.setBackgroundColor(FigurePrefs.relationsColor);
+		s.setBackgroundColor(FigureConstants.relationsColor);
 		return s;
 	}
 	public static Shape createEastArrow(Point headLocation) {
 		Shape s = createArrow(Direction.EAST, ArrowKind.TRIANGLE, true);
 		s.setLocation(headLocation);
-		s.setBackgroundColor(FigurePrefs.relationsColor);
+		s.setBackgroundColor(FigureConstants.relationsColor);
 		return s;
 	}
 	public static Shape createWestArrow(Point headLocation) {
 		Shape s = createArrow(Direction.WEST, ArrowKind.TRIANGLE, true);
 		s.setLocation(headLocation);
-		s.setBackgroundColor(FigurePrefs.relationsColor);
+		s.setBackgroundColor(FigureConstants.relationsColor);
 		return s;
 	}
 

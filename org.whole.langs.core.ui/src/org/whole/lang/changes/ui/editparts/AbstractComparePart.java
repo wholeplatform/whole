@@ -37,7 +37,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editparts.ModelObserver;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.util.EntityUtils;
 
 /**
@@ -115,8 +115,8 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		int y1Center = reBounds.y + reBounds.height / 2;
 
             		g.setBackgroundColor(le.wGetEntityDescriptor().equals(ChangesEntityDescriptorEnum.Insert) ?
-            				FigurePrefs.addBackgroundColor : FigurePrefs.deleteBackgroundColor);
-            		g.setForegroundColor(FigurePrefs.collapseColor);
+            				FigureConstants.addBackgroundColor : FigureConstants.deleteBackgroundColor);
+            		g.setForegroundColor(FigureConstants.collapseColor);
 
             		if (lePlaceholder)
             			g.drawLine(x0, y0Center, x0 + 4, y0Center);
@@ -129,8 +129,8 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
             		}
 
             		g.setBackgroundColor(re.wGetEntityDescriptor().equals(ChangesEntityDescriptorEnum.Insert) ?
-            				FigurePrefs.addBackgroundColor : FigurePrefs.deleteBackgroundColor);
-            		g.setForegroundColor(FigurePrefs.collapseColor);
+            				FigureConstants.addBackgroundColor : FigureConstants.deleteBackgroundColor);
+            		g.setForegroundColor(FigureConstants.collapseColor);
 
             		if (rePlaceholder)
             			g.drawLine(x1, y1Center, x1 - 5, y1Center);
@@ -142,7 +142,7 @@ public abstract class AbstractComparePart extends AbstractContentPanePart {
 	            		});
             		}
 
-            		g.setForegroundColor(FigurePrefs.collapseColor);
+            		g.setForegroundColor(FigureConstants.collapseColor);
             		g.drawLine(x0 + 4, y0Center, x1 - 5, y1Center);
 
             		g.pushState();

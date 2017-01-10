@@ -33,7 +33,7 @@ public class RoundBracketsBorder extends MarginBorder {
 	public static final Border PARENTHESIS = new RoundBracketsBorder() {
 		@Override
 		protected void setBracketsStyle(Graphics g) {
-			g.setForegroundColor(FigurePrefs.contentLighterColor);
+			g.setForegroundColor(FigureConstants.contentLighterColor);
 		}
 	};
 

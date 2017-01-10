@@ -20,7 +20,7 @@ package org.whole.lang.patterns.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.PipeBracketsBorder;
 import org.whole.lang.ui.layout.MonoLayout;
 
@@ -35,7 +35,7 @@ public class InsertionPointFigure extends ContentPaneFigure {
 		add(createContentPane(0, new PipeBracketsBorder(1,12,1,2) {
 			@Override
 			protected void setBracketsStyle(Graphics g) {
-				g.setForegroundColor(FigurePrefs.relationsColor);
+				g.setForegroundColor(FigureConstants.relationsColor);
 				g.setLineWidth(1);
 				g.setLineStyle(SWT.LINE_CUSTOM);
 				g.setLineDash(new int[] {1,2});
@@ -48,7 +48,7 @@ public class InsertionPointFigure extends ContentPaneFigure {
 
     	int oldAlpha = g.getAlpha();
 		g.setAlpha(100);
-    	g.setBackgroundColor(FigurePrefs.relationsColor);
+    	g.setBackgroundColor(FigureConstants.relationsColor);
         g.fillRoundRectangle(getContentPane(0).getBounds(), 4, 6);
         g.setAlpha(oldAlpha);
 	}

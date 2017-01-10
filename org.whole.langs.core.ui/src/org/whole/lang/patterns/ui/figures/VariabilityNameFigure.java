@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.MonoLayout;
 
@@ -44,7 +44,7 @@ public class VariabilityNameFigure extends ContentPaneFigure {
 
     	int oldAlpha = g.getAlpha();
 		g.setAlpha(100);
-		g.setForegroundColor(FigurePrefs.relationsColor);
+		g.setForegroundColor(FigureConstants.relationsColor);
     	g.setBackgroundColor(ColorConstants.orange);
         g.fillRoundRectangle(getContentPane(0).getBounds(), 8, 6);
         g.drawRoundRectangle(getContentPane(0).getBounds().getResized(-1, -1), 8, 6);

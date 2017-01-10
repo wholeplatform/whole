@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -74,7 +74,7 @@ public class SelectFigure extends ContentPaneFigure {
 	}
 
 	protected void paintConnections(Graphics graphics) {
-		graphics.setForegroundColor(FigurePrefs.contentLighterColor);
+		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point selectPoint = fig[0].getBounds().getBottom();
 		Point[] childrenPoints = new Point[] {

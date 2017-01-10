@@ -26,7 +26,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
 
@@ -38,7 +38,7 @@ public class PathPart extends CompositeRowWithPlaceholderPart {
         IFigure f = new StringSeparatedCompositeRowFigure("/", 8) {
         	@Override
         	public Color getLocalForegroundColor() {
-        		return FigurePrefs.contentColor;
+        		return FigureConstants.contentColor;
         	}
         	
         	@SuppressWarnings("unchecked")
@@ -47,7 +47,7 @@ public class PathPart extends CompositeRowWithPlaceholderPart {
 
 //workaround for LabelFactory.createModule
         		g.setForegroundColor(ColorConstants.gray);
-        		g.setFont(FigurePrefs.openSymbolLarge);
+        		g.setFont(FigureConstants.openSymbolLarge);
 
         		int spacing = Math.max(1, getLayoutManager().getSpacing() / 5);
                 int separatorAscent = FigureUtilities.getFontMetrics(g.getFont()).getHeight()/2;//getSeparatorAscent();

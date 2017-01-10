@@ -31,7 +31,7 @@ import org.whole.lang.ui.WholeImages;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityToggle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.LabelFactory;
@@ -79,7 +79,7 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 				g.setBackgroundColor(ColorConstants.lightGray);
 				drawColumnBackground(g, 0);
 
-				g.setForegroundColor(FigurePrefs.blueColor);
+				g.setForegroundColor(FigureConstants.blueColor);
 				drawHeadersRowSeparator(g);
 
 
@@ -122,10 +122,10 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 					g.fillRoundRectangle(bf, 8, 8);
 					g.setClip(oldClip);
 					g.setAlpha(oldAlpha);
-					g.setForegroundColor(FigurePrefs.blueColor);
+					g.setForegroundColor(FigureConstants.blueColor);
 					g.drawLine(bf.x, bf.y, bf.right()-1, bf.y);
 				}
-				g.setForegroundColor(FigurePrefs.blueColor);
+				g.setForegroundColor(FigureConstants.blueColor);
 				g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
 
 //				int oldAlpha = g.getAlpha();
@@ -133,7 +133,7 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 
 				Rectangle b2 = b.getCopy();
 				b2.height = titleFigure.getBounds().height;
-				g.setBackgroundColor(FigurePrefs.blueColor);
+				g.setBackgroundColor(FigureConstants.blueColor);
 				g.setClip(b2);
 				g.fillRoundRectangle(b2.getResized(0, 4), 8, 8);
 
@@ -200,7 +200,7 @@ public class SimpleTableNodeWithBranchesFigure extends NodeFigure {
 	}
 
 	protected void paintConnections(Graphics g) {
-		g.setForegroundColor(FigurePrefs.relationsColor);
+		g.setForegroundColor(FigureConstants.relationsColor);
 
 		int egdeXOffset = DrawUtils.SPACING - DrawUtils.EDGE_SPACING;
 		ConnectionAnchor[] srcAnchors = getSourceAnchors();

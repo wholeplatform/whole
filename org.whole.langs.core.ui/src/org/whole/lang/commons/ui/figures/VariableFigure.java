@@ -20,7 +20,7 @@ package org.whole.lang.commons.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -45,7 +45,7 @@ public class VariableFigure extends ContentPaneFigure {
 		Rectangle nameBounds = getContentPane(1).getBounds();
 
 		setPaintStyle(graphics);
-		graphics.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		graphics.setBackgroundColor(FigureConstants.hostLanguageColor);
 		graphics.fillRectangle(nameBounds.x-1, bounds.y, nameBounds.width+2, bounds.height);
 		graphics.setForegroundColor(ColorConstants.lightGray);
 		graphics.drawRoundRectangle(bounds.getResized(-1, -1), 8, 8);

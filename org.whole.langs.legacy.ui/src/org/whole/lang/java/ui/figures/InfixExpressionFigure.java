@@ -21,7 +21,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -70,7 +70,7 @@ public class InfixExpressionFigure extends ContentPaneFigure {
 		int spacing = Math.max(1, getLayoutManager().getSpacing()/2);
 
 		Color color = g.getForegroundColor();
-		g.setForegroundColor(FigurePrefs.contentLighterColor);
+		g.setForegroundColor(FigureConstants.contentLighterColor);
 
 		if (showLeftParentheses)
 			RoundBracketsBorder.paintRoundBrackets(g, getContentPane(0)

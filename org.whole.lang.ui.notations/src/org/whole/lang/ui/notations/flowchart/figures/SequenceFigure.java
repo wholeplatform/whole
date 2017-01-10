@@ -29,7 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -77,7 +77,7 @@ public class SequenceFigure extends NodeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 
 	@SuppressWarnings("unchecked")

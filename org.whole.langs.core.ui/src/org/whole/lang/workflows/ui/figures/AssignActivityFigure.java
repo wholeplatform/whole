@@ -20,7 +20,7 @@ package org.whole.lang.workflows.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.notations.NotationImages;
 
@@ -39,6 +39,6 @@ public class AssignActivityFigure extends AbstractActivityFigure {
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
         PaintFigureHelper.drawFilledRoundRectangle(g, getBounds(),
-        		ColorConstants.darkGray, FigurePrefs.yellowColor);
+        		ColorConstants.darkGray, FigureConstants.yellowColor);
 	}
 }

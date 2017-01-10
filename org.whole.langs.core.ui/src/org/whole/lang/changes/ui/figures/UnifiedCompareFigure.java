@@ -19,7 +19,7 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.OverLayout;
 
 /**
@@ -43,10 +43,10 @@ public class UnifiedCompareFigure extends ContentPaneFigure {
 		Rectangle bounds = getBounds();
 		Rectangle contentBounds = getContentPane(0).getBounds();
 
-		g.setBackgroundColor(FigurePrefs.collapseBackgroundColor);
+		g.setBackgroundColor(FigureConstants.collapseBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, contentBounds.y - bounds.y);
 
-		g.setForegroundColor(FigurePrefs.collapseColor);
+		g.setForegroundColor(FigureConstants.collapseColor);
 		g.drawRectangle(bounds.x, contentBounds.y, bounds.width-1, contentBounds.height-1);
 	}
 }

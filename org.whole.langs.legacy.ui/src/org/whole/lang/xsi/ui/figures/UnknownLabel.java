@@ -18,7 +18,7 @@
 package org.whole.lang.xsi.ui.figures;
 
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.notations.NotationImages;
 
 /**
@@ -27,7 +27,7 @@ import org.whole.lang.ui.notations.NotationImages;
 public class UnknownLabel extends EntityLabel {
 	public UnknownLabel() {
 		super("???", NotationImages.XML_TAG16);
-		setForegroundColor(FigurePrefs.errorsColor);
-		setFont(FigurePrefs.errorsFont);
+		setForegroundColor(FigureConstants.errorsColor);
+		setFont(FigureConstants.errorsFont);
 	}
 }

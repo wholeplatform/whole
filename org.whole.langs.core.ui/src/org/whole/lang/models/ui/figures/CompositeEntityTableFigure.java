@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
@@ -48,10 +48,10 @@ public class CompositeEntityTableFigure extends ContentPaneFigure {
 		row.add(createContentPane(4));
 		row.add(new EntityLabel("\u2026") {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.contentLighterColor;
+				return FigureConstants.contentLighterColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolMedium;
+				return FigureConstants.openSymbolMedium;
 			}
 		});
 		row.add(createContentPane(3, new MarginBorder(0,4,0,0)));

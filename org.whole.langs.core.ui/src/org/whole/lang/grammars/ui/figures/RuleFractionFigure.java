@@ -18,7 +18,7 @@
 package org.whole.lang.grammars.ui.figures;
 
 import org.eclipse.swt.graphics.Color;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.FractionFigure;
 import org.whole.lang.ui.layout.FractionLayout;
 
@@ -39,6 +39,6 @@ public class RuleFractionFigure extends FractionFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 }

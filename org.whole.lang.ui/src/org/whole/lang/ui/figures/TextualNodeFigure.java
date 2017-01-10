@@ -264,7 +264,7 @@ public class TextualNodeFigure extends NodeFigure implements ITextualFigure {
 	protected void paintFigure(Graphics graphics) {
 		if (hasSelectionRange()) {
 			label.setOpaque(false);
-			graphics.setBackgroundColor(FigurePrefs.lightBlueColor);
+			graphics.setBackgroundColor(FigureConstants.lightBlueColor);
 			String text = label.getText();
 			int startLine = CaretUtils.getLineFromPosition(text, rangeStart);
 			int endLine = CaretUtils.getLineFromPosition(text, rangeEnd);

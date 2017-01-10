@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -46,10 +46,10 @@ public class TreeNotationUtils {
 		
 		EntityLabel label = new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.declarationsColor;
+				return FigureConstants.declarationsColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.declarationsFont;
+				return FigureConstants.declarationsFont;
 			}
 			@Override
 			protected void paintFigure(Graphics g) {

@@ -25,7 +25,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -134,7 +134,7 @@ public class CompositeEntityTreeTableFigure extends NodeFigure {
 		super.paintFigure(g);
 		
 		Rectangle b = getBounds();
-		g.setForegroundColor(FigurePrefs.blueColor);
+		g.setForegroundColor(FigureConstants.blueColor);
 		g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
 
 		int oldAlpha = g.getAlpha();
@@ -142,7 +142,7 @@ public class CompositeEntityTreeTableFigure extends NodeFigure {
 
 		b = b.getCopy();
 		b.height = titleFigure.getBounds().height;
-		g.setBackgroundColor(FigurePrefs.blueColor);
+		g.setBackgroundColor(FigureConstants.blueColor);
 		if (tableFigure.isVisible()) {
 			g.setClip(b);
 			g.fillRoundRectangle(b.getResized(0, 4), 8, 8);

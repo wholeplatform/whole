@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.SubLayout;
 
 /**
@@ -35,10 +35,10 @@ public class VariableTypeFigure extends ContentPaneFigure {
 		addIdentifier("t");
 		EntityLabel id = new EntityLabel() {
 			public Color getLocalForegroundColor() {
-				return FigurePrefs.identifiersColor;
+				return FigureConstants.identifiersColor;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolSmall;
+				return FigureConstants.openSymbolSmall;
 			}
 		};
 		add(createContentPane(0, id));

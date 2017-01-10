@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.PlaceHolderFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverColumnLayout;
@@ -54,12 +54,12 @@ public class BindingsScopeFigure extends ContentPaneFigure {
 		Rectangle cb0 = getContentPane(0).getBounds();
 		Rectangle cb1 = getContentPane(1).getBounds();
 
-		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
 		if (getContentPane(1).getChildren().get(0) instanceof PlaceHolderFigure)
 			g.fillRectangle(bounds.x, cb1.y, bounds.width, bounds.bottom()-cb1.y);
 
 		int oldAlpha = g.getAlpha();
-		g.setAlpha(FigurePrefs.templateLanguageAlpha);
+		g.setAlpha(FigureConstants.templateLanguageAlpha);
 		g.fillRectangle(bounds.x, cb0.y, bounds.width, cb1.y-bounds.y-1);
 		g.setAlpha(oldAlpha);
 

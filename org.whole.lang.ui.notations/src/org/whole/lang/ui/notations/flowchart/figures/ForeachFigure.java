@@ -26,7 +26,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.layout.Alignment;
@@ -79,7 +79,7 @@ public class ForeachFigure extends NodeFigure {
         r.setSize(bounds.width, gap*2 + rTimes.height);
 
         PaintFigureHelper.drawFilledRectangle(g, r,
-        		ColorConstants.black, FigurePrefs.lightGray);
+        		ColorConstants.black, FigureConstants.lightGray);
         r.height = bounds.height-1;
         g.drawRectangle(r);
 	}

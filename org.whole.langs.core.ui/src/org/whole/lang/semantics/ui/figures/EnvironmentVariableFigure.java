@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.OverLayout;
 
 /**
@@ -45,9 +45,9 @@ public class EnvironmentVariableFigure extends ContentPaneFigure {
 		Rectangle bounds = getBounds();
 		Rectangle cb1 = getContentPane(1).getBounds();
 
-		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
 		int oldAlpha = g.getAlpha();
-		g.setAlpha(FigurePrefs.templateLanguageAlpha);
+		g.setAlpha(FigureConstants.templateLanguageAlpha);
 		g.fillRectangle(bounds);
 		g.setAlpha(oldAlpha);
 

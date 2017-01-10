@@ -31,7 +31,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.TableFigure;
@@ -73,7 +73,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 				super.paintFigure(g);
 				
 				Rectangle b = nodeFigure.getBounds();
-				g.setForegroundColor(FigurePrefs.blueColor);
+				g.setForegroundColor(FigureConstants.blueColor);
 				g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
 
 				int oldAlpha = g.getAlpha();
@@ -81,7 +81,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 
 				b = b.getCopy();
 				b.height = titleFigure.getBounds().height;
-				g.setBackgroundColor(FigurePrefs.blueColor);
+				g.setBackgroundColor(FigureConstants.blueColor);
 				if (tableFigure.isVisible()) {
 					g.setClip(b);
 					g.fillRoundRectangle(b.getResized(0, 4), 8, 8);
@@ -136,7 +136,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 				g.setBackgroundColor(ColorConstants.lightGray);
 				drawAlternateColumnsBackground(g, 0);
 
-				g.setForegroundColor(FigurePrefs.blueColor);
+				g.setForegroundColor(FigureConstants.blueColor);
 				drawHeadersRowSeparator(g);
 
 				g.setForegroundColor(ColorConstants.lightGray);
@@ -192,7 +192,7 @@ public class SimpleEntityTreeTableFigure extends NodeFigure {
 
 	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics g) {
-		g.setForegroundColor(FigurePrefs.relationsColor);
+		g.setForegroundColor(FigureConstants.relationsColor);
 
 		List<IFigure> contentPanes = contentsFigure.getChildren();
 		int contentPanesSize = contentPanes.size();

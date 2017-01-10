@@ -21,7 +21,7 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.AnchorFactory;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -73,7 +73,7 @@ public class CompositeTableFigure extends NodeFigure {
 		
 		Rectangle b = getBounds();
 		Rectangle tableBounds = tableFigure.getBounds();
-		g.setForegroundColor(FigurePrefs.blueColor);
+		g.setForegroundColor(FigureConstants.blueColor);
 		g.drawRoundRectangle(b.getResized(-1, -1), 8, 8);
 		g.drawLine(b.x, tableBounds.y, b.right(), tableBounds.y);
 
@@ -82,7 +82,7 @@ public class CompositeTableFigure extends NodeFigure {
 
 		b = b.getCopy();
 		b.height = typeFigure.getBounds().height;
-		g.setBackgroundColor(FigurePrefs.blueColor);
+		g.setBackgroundColor(FigureConstants.blueColor);
 		g.setClip(b);
 		g.fillRoundRectangle(b.getResized(0, 4), 8, 8);
 

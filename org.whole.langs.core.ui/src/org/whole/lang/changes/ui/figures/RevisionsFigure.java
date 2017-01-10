@@ -20,7 +20,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -69,11 +69,11 @@ public class RevisionsFigure extends TableFigure {
 		Rectangle cb1 = l.getColumnBounds(1);
 		Rectangle cb2 = l.getColumnBounds(2);
 		Rectangle cb3 = l.getColumnBounds(3);
-		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		g.setBackgroundColor(FigureConstants.hostLanguageColor);
 		g.fillRectangle(cb1.x, tb.y, cb1.width+1, tb.height);
-		g.setBackgroundColor(FigurePrefs.addBackgroundColor);
+		g.setBackgroundColor(FigureConstants.addBackgroundColor);
 		g.fillRectangle(cb2.x, tb.y, cb2.width+1, tb.height);
-		g.setBackgroundColor(FigurePrefs.deleteBackgroundColor);
+		g.setBackgroundColor(FigureConstants.deleteBackgroundColor);
 		g.fillRectangle(cb3.x, tb.y, cb3.width+1, tb.height);
 
 		g.setBackgroundColor(ColorConstants.gray);

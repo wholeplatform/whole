@@ -28,7 +28,7 @@ import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.INodeFigure;
 import org.whole.lang.ui.figures.NodeFigure;
@@ -111,7 +111,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 					end[i] = child.getBounds().getLeft();
 			}
 
-			g.setForegroundColor(FigurePrefs.relationsColor);
+			g.setForegroundColor(FigureConstants.relationsColor);
 			DrawUtils.drawHorizontalTree(g, start, DrawUtils.SPACING, end);			
 		}
 	}
@@ -132,7 +132,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 			b = b.getResized(-1, -1);
 
 		if (titleFigure != null || getContentPane(0).getChildren().isEmpty()) {
-			g.setForegroundColor(FigurePrefs.blueColor);
+			g.setForegroundColor(FigureConstants.blueColor);
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(new int[] {4,2});
 			g.drawRoundRectangle(b, 8, 8);
@@ -148,7 +148,7 @@ public class CompositeEntityTreeTableNoEmbeddingFigure extends NodeFigure {
 
 //			int oldAlpha = g.getAlpha();
 //			g.setAlpha(60);
-			g.setBackgroundColor(FigurePrefs.blueColor);
+			g.setBackgroundColor(FigureConstants.blueColor);
 			g.fillRoundRectangle(tb, 8, 8);
 //			g.setAlpha(oldAlpha);
 

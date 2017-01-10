@@ -29,7 +29,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 
 /**
@@ -42,7 +42,7 @@ public class OrPart extends CompositeColumnWithPlaceholderPart {
     	border = new RoundBracketsBorder() {
 			@Override
 			protected void setBracketsStyle(Graphics g) {
-				g.setForegroundColor(FigurePrefs.contentLighterColor);
+				g.setForegroundColor(FigureConstants.contentLighterColor);
 			}
 		};
     	return new CompositeFigure(false) {

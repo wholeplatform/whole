@@ -19,7 +19,7 @@ package org.whole.lang.math.ui.figures;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ParenthesizedStringSeparatedCompositeRowFigure;
 
 /**
@@ -35,11 +35,11 @@ public class ParenthesizedMathCompositeRowFigure extends ParenthesizedStringSepa
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.contentColor;
+		return FigureConstants.contentColor;
 	}
 	@Override
 	protected Font getLocalFont() {
-		return FigurePrefs.openSymbol;
+		return FigureConstants.openSymbol;
 	}
 	@Override
 	protected int getSeparatorAscent() {

@@ -21,7 +21,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.SubSupLayout;
 
 /**
@@ -58,7 +58,7 @@ public class StructuredVariableFigure extends AbstractVariableFigure {
 		if (asStageDown) {
 			Rectangle b = getBounds();
 			
-			g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+			g.setBackgroundColor(FigureConstants.hostLanguageColor);
 			g.setForegroundColor(ColorConstants.lightGray);
 			g.fillRectangle(b.x, b.y, b.width, b.height);
 			g.drawRectangle(b.x, b.y, b.width-1, b.height-1);

@@ -21,7 +21,7 @@ import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.EyeFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.TableLayout;
@@ -57,7 +57,7 @@ public class PatternsFigure extends TableFigure {
             return ;
         graphics.setBackgroundColor(ColorConstants.gray);
         drawHeadersRowBackground(graphics);
-        graphics.setBackgroundColor(FigurePrefs.modulesColor);
+        graphics.setBackgroundColor(FigureConstants.modulesColor);
         int oldAlpha = graphics.getAlpha();
         graphics.setAlpha(getBackgroundAlpha());
         Rectangle tb = getTableBounds();

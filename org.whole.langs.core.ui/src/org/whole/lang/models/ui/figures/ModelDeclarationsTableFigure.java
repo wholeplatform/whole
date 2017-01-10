@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
 import org.whole.lang.ui.layout.TableLayout;
@@ -62,7 +62,7 @@ public class ModelDeclarationsTableFigure extends TableFigure {
 		g.setBackgroundColor(ColorConstants.gray);
 		drawHeadersRowBackground(g);
 
-		g.setBackgroundColor(FigurePrefs.modulesColor);
+		g.setBackgroundColor(FigureConstants.modulesColor);
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(getBackgroundAlpha());
 		Rectangle tb = getTableBounds();

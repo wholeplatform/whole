@@ -24,7 +24,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.UnderColumnLayout;
@@ -64,7 +64,7 @@ public class ActionCallFigure extends ContentPaneFigure {
 		
 		Rectangle bounds = getBounds();
 		Rectangle labelBounds = labelRow.getBounds();
-		g.setBackgroundColor(FigurePrefs.brightBlueColor);
+		g.setBackgroundColor(FigureConstants.brightBlueColor);
 		g.fillRectangle(bounds.x, labelBounds.y-1, bounds.width-3, labelBounds.height+2);
 	}
 }

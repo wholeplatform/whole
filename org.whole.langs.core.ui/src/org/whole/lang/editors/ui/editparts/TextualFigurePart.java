@@ -22,7 +22,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.figures.CompositeFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 
 
 /**
@@ -32,7 +32,7 @@ public class TextualFigurePart extends AbstractCompositePart {
     protected IFigure createFigure() {
         return new CompositeFigure(false) {
         	{
-        		setBackgroundColor(FigurePrefs.templateLanguageColor);
+        		setBackgroundColor(FigureConstants.templateLanguageColor);
         		setBorder(new CompoundBorder(new LineBorder(), getBorder()));
         	}
         };

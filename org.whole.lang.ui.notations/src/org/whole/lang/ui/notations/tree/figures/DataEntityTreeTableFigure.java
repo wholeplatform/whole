@@ -25,7 +25,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.NodeFigure;
@@ -73,7 +73,7 @@ public class DataEntityTreeTableFigure extends NodeFigure {
 		super.paintFigure(g);
 
 		Rectangle titleBounds = titleFigure.getBounds();
-		g.setForegroundColor(FigurePrefs.blueColor);
+		g.setForegroundColor(FigureConstants.blueColor);
 		
 		if (getContentPane(0).isVisible()) {
 			Rectangle b = getBounds();
@@ -87,7 +87,7 @@ public class DataEntityTreeTableFigure extends NodeFigure {
 
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(60);
-		g.setBackgroundColor(FigurePrefs.blueColor);
+		g.setBackgroundColor(FigureConstants.blueColor);
 		g.fillRoundRectangle(titleBounds, 8, 8);
 		g.setAlpha(oldAlpha);
 	}

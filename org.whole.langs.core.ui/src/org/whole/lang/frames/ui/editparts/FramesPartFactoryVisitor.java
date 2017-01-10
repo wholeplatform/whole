@@ -85,7 +85,7 @@ import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IdentifierTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNameTextualEntityPart;
 import org.whole.lang.ui.editparts.ModuleNamespaceTextualEntityPart;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 import org.whole.lang.util.EntityUtils;
@@ -337,7 +337,7 @@ public class FramesPartFactoryVisitor extends FramesIdentityDefaultVisitor imple
 				f.setBorder(new RoundBracketsBorder() {
 					@Override
 					protected void setBracketsStyle(Graphics g) {
-						g.setForegroundColor(FigurePrefs.contentLighterColor);
+						g.setForegroundColor(FigureConstants.contentLighterColor);
 					}
 				});
 				return f;

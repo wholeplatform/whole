@@ -25,7 +25,7 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.UnderLeftLayout;
 
@@ -88,7 +88,7 @@ public class ProductionInlineFigure extends ContentPaneFigure {
         int baseline = getLayoutManager().getBaseline(0)+1;
 //        Rectangle ruleBounds = getContentPane(0).getClientArea();
 
-    	g.setForegroundColor(FigurePrefs.relationsColor);
+    	g.setForegroundColor(FigureConstants.relationsColor);
     	g.drawLine(bounds.x, baseline, ruleBounds.x, baseline);
     	g.drawLine(ruleBounds.right()-1, baseline, bounds.right(), baseline);
 	}

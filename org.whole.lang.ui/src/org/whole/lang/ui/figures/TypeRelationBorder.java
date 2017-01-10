@@ -47,7 +47,7 @@ public class TypeRelationBorder extends MarginBorder {
 		int center = x + w/2;
 
 		g.setForegroundColor(
-				isLanguageSpecific ? FigurePrefs.modulesColor : FigurePrefs.declarationsColor);
+				isLanguageSpecific ? FigureConstants.modulesColor : FigureConstants.declarationsColor);
 
 		g.drawLine(x, y, center-H, y);
 		g.drawLine(center+H, y, x+w, y);

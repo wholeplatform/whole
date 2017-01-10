@@ -27,7 +27,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -63,7 +63,7 @@ public class EntityOutlineLeftFigure extends ContentPaneFigure {
 
 	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
-		graphics.setForegroundColor(FigurePrefs.contentLighterColor);
+		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point rootPoint = getFoldingToggle(0).getBounds().getBottom();
 

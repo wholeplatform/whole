@@ -23,7 +23,7 @@ import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.ITabularLayoutClient;
 
@@ -50,7 +50,7 @@ public class PhasedFragmentFigure extends ContentPaneFigure {
 	}
 
 	protected Color getFragmentColor() {
-		return getStage() == +1 ? FigurePrefs.templateLanguageColor : FigurePrefs.hostLanguageColor;
+		return getStage() == +1 ? FigureConstants.templateLanguageColor : FigureConstants.hostLanguageColor;
 	}
 
 	public int getStage() {
@@ -80,9 +80,9 @@ public class PhasedFragmentFigure extends ContentPaneFigure {
 
 		int oldAlpha = g.getAlpha();
 		if (getStage() > 0)
-			g.setAlpha(FigurePrefs.templateLanguageAlpha);
+			g.setAlpha(FigureConstants.templateLanguageAlpha);
 		else if (getStage() == 0)
-			g.setAlpha(FigurePrefs.hostLanguageAlpha);
+			g.setAlpha(FigureConstants.hostLanguageAlpha);
 
 		g.setBackgroundColor(getFragmentColor());
 		g.setForegroundColor(ColorConstants.lightGray);

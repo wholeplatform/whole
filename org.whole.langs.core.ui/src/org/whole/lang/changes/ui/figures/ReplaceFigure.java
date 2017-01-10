@@ -17,7 +17,7 @@ package org.whole.lang.changes.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.OverColumnLayout;
 
 /**
@@ -40,13 +40,13 @@ public class ReplaceFigure extends ContentPaneFigure {
 		Rectangle bounds = getBounds();
 		Rectangle revisedBounds = getContentPane(1).getBounds();
 
-		g.setBackgroundColor(FigurePrefs.deleteBackgroundColor);
+		g.setBackgroundColor(FigureConstants.deleteBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, revisedBounds.y-CONTENT_MARGIN-bounds.y);
-		g.setForegroundColor(FigurePrefs.deleteColor);
+		g.setForegroundColor(FigureConstants.deleteColor);
 		g.drawRectangle(bounds.x, bounds.y, bounds.width-1, revisedBounds.y-CONTENT_MARGIN-bounds.y);
-		g.setBackgroundColor(FigurePrefs.addBackgroundColor);
+		g.setBackgroundColor(FigureConstants.addBackgroundColor);
 		g.fillRectangle(bounds.x, revisedBounds.y-CONTENT_MARGIN, bounds.width, revisedBounds.height+CONTENT_MARGIN);
-		g.setForegroundColor(FigurePrefs.addColor);
+		g.setForegroundColor(FigureConstants.addColor);
 		g.drawRectangle(bounds.x, revisedBounds.y-CONTENT_MARGIN, bounds.width-1, revisedBounds.height-1+CONTENT_MARGIN);
 	}
 }

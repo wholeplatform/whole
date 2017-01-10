@@ -30,7 +30,7 @@ import org.whole.lang.ui.figures.ArrowFactory;
 import org.whole.lang.ui.figures.ArrowFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ArrowFactory.ArrowKind;
 import org.whole.lang.ui.figures.ArrowFactory.Direction;
 import org.whole.lang.ui.layout.OverLayout;
@@ -87,7 +87,7 @@ public class RepeatFigure extends ContentPaneFigure {
 			}
 
 			protected Color getDelimiterColor() {
-				return FigurePrefs.relationsColor;
+				return FigureConstants.relationsColor;
 			}
 		});
 	}
@@ -106,6 +106,6 @@ public class RepeatFigure extends ContentPaneFigure {
 	}
 
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 }

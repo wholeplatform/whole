@@ -89,6 +89,6 @@ public class StringSeparatedCompositeRowFigure extends CompositeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.contentLighterColor;
+		return FigureConstants.contentLighterColor;
 	}
 }

@@ -17,7 +17,7 @@ package org.whole.lang.changes.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.MonoLayout;
 
 /**
@@ -38,9 +38,9 @@ public class DeleteFigure extends ContentPaneFigure {
 		
 		Rectangle bounds = getBounds();
 
-		g.setBackgroundColor(FigurePrefs.deleteBackgroundColor);
+		g.setBackgroundColor(FigureConstants.deleteBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, bounds.height);
-		g.setForegroundColor(FigurePrefs.deleteColor);
+		g.setForegroundColor(FigureConstants.deleteColor);
 		g.drawRectangle(bounds.x, bounds.y, bounds.width-1, bounds.height-1);
 	}
 }

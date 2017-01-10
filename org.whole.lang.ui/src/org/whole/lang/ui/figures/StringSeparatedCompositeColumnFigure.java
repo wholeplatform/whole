@@ -73,6 +73,6 @@ public class StringSeparatedCompositeColumnFigure extends CompositeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.contentLightColor;
+		return FigureConstants.contentLightColor;
 	}
 }

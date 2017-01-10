@@ -25,7 +25,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ArrowFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.figures.ArrowFactory.ArrowKind;
@@ -71,7 +71,7 @@ public class PropertiesTabularFigure extends ContentPaneFigure {
 				ColorConstants.lightGray,
 				16, 16, false);
 		
-		g.setForegroundColor(FigurePrefs.relationsColor);		
+		g.setForegroundColor(FigureConstants.relationsColor);		
 		g.drawLine(bounds.getTop(), arrowLocation);
 		Shape s = ArrowFactory.createArrow(Direction.NORTH, ArrowKind.TRIANGLE, true);
 		s.setLocation(arrowLocation);

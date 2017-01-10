@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.layout.Alignment;
@@ -76,7 +76,7 @@ public class GuardedActivityFigure extends NodeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 
 	@Override
@@ -99,6 +99,6 @@ public class GuardedActivityFigure extends NodeFigure {
         g.drawLine(xMid, yActivityBottom, xMid, yBottom);
 
         PaintFigureHelper.drawFilledRectangle(g, rGuard,
-        		ColorConstants.black, FigurePrefs.lightGray);
+        		ColorConstants.black, FigureConstants.lightGray);
 	}
 }

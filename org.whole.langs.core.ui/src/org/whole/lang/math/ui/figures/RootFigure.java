@@ -20,7 +20,7 @@ package org.whole.lang.math.ui.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RootLayout;
 
 /**
@@ -44,7 +44,7 @@ public class RootFigure extends ContentPaneFigure {
 		int ascent = getAscent();
 		int spacing = getLayoutManager().getSpacing()/2;
 
-		g.setForegroundColor(FigurePrefs.contentColor);
+		g.setForegroundColor(FigureConstants.contentColor);
 		g.drawLine(b0.right()-spacing-3, b0.y+ascent+2, b0.right()-spacing, b0.y+ascent);
 		g.drawLine(b0.right()-spacing, b0.y+ascent, b0.right(), b1.bottom());
 		g.drawLine(b0.right(), b1.bottom(), b1.x, b0.y);

@@ -21,7 +21,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.changes.ui.editparts.AbstractComparePart;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -82,14 +82,14 @@ public class RevisionFrameFigure extends ContentPaneFigure {
 		int x2 = baseBounds.right() + 1;
 		int x3 = x2 + MAPPING_SIZE;
 
-		g.setBackgroundColor(FigurePrefs.collapseBackgroundColor);
+		g.setBackgroundColor(FigureConstants.collapseBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, leftBounds.y - bounds.y -1);
 		if (hasLeftReview)
 			g.fillRectangle(x0, bounds.y, MAPPING_SIZE, bounds.height);
 		if (hasRightReview)
 			g.fillRectangle(x2, bounds.y, MAPPING_SIZE, bounds.height);
 
-		g.setForegroundColor(FigurePrefs.collapseColor);
+		g.setForegroundColor(FigureConstants.collapseColor);
 		if (hasLeftReview)
 			g.drawRectangle(leftBounds.x-2, leftBounds.y-3, leftBounds.width+2, leftBounds.height+5);
 		g.drawRectangle(baseBounds.x-2, baseBounds.y-3, baseBounds.width+2, baseBounds.height+4);

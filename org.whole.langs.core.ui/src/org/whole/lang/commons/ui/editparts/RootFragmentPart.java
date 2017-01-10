@@ -40,7 +40,7 @@ import org.eclipse.swt.SWT;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.StackLayout;
@@ -94,7 +94,7 @@ public class RootFragmentPart extends AbstractFragmentPart implements LayerConst
 				Rectangle clipArea = graphics.getClip(new Rectangle()).expand(1,1);
 
 				graphics.fillRectangle(clipArea);
-				graphics.setBackgroundColor(FigurePrefs.hostLanguageColor);
+				graphics.setBackgroundColor(FigureConstants.hostLanguageColor);
 				graphics.fillRectangle(clipArea.intersect(r2));
 
 				graphics.setLineWidth(1);

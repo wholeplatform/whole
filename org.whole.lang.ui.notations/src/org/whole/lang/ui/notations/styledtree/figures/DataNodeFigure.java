@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.RowLayout;
@@ -78,8 +78,8 @@ public class DataNodeFigure extends NodeFigure {
 		super.paintFigure(g);
 
 		g.setLineWidth(1);
-		g.setForegroundColor(FigurePrefs.blueColor);
-		g.setBackgroundColor(FigurePrefs.blueColor);
+		g.setForegroundColor(FigureConstants.blueColor);
+		g.setBackgroundColor(FigureConstants.blueColor);
 
 		Rectangle bounds = getBounds();
 		Rectangle nodeBounds = bounds.getResized(-1, -1).getShrinked(4, 2);

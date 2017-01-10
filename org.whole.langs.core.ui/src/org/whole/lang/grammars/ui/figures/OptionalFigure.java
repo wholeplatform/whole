@@ -27,7 +27,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.ArrowFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ArrowFactory.ArrowKind;
 import org.whole.lang.ui.figures.ArrowFactory.Direction;
 import org.whole.lang.ui.layout.MonoLayout;
@@ -64,7 +64,7 @@ public class OptionalFigure extends EntityFigure {
 			}
 
 			protected Color getDelimiterColor() {
-				return FigurePrefs.relationsColor;
+				return FigureConstants.relationsColor;
 			}
 		});
 	}
@@ -81,6 +81,6 @@ public class OptionalFigure extends EntityFigure {
 
 
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 }

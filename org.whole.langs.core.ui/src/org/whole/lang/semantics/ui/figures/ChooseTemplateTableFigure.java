@@ -23,7 +23,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ChoiceBracketsBorder;
 import org.whole.lang.ui.figures.CurlyBracketsBorder;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
 
@@ -64,7 +64,7 @@ public class ChooseTemplateTableFigure extends TableFigure {
 
 		if (asStageDown) {
 			final int SP = 2, HM = 3;
-			g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+			g.setBackgroundColor(FigureConstants.hostLanguageColor);
 			Rectangle b = getTableBounds();
 			Rectangle b0 = l.getColumnBounds(0);
 			g.fillRectangle(b0.right()-1, b.y, b.width-b0.width-1, b.height);

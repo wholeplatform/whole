@@ -28,7 +28,7 @@ import org.whole.lang.patterns.model.Repetition;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
 import org.whole.lang.ui.layout.RowLayout;
@@ -45,10 +45,10 @@ public class RepetitionPart extends AbstractContentPanePart {
     			row.add(createContentPane(paneIndex));
     			row.add(new EntityLabel("\u2026") {
     				public Color getLocalForegroundColor() {
-    					return FigurePrefs.contentLighterColor;
+    					return FigureConstants.contentLighterColor;
     				}	
     				public Font getLocalFont() {
-    					return FigurePrefs.openSymbolMedium;
+    					return FigureConstants.openSymbolMedium;
     				}
     			});
     			row.addContentLight(" ordered");

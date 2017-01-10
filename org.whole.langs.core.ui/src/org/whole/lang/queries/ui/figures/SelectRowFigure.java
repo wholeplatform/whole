@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -52,7 +52,7 @@ public class SelectRowFigure extends ContentPaneFigure {
 				return ColorConstants.gray;
 			}	
 			public Font getLocalFont() {
-				return FigurePrefs.openSymbolLarge;
+				return FigureConstants.openSymbolLarge;
 			}
 		});
 		add(col0);
@@ -89,7 +89,7 @@ public class SelectRowFigure extends ContentPaneFigure {
 	}
 
 	protected void paintConnections(Graphics graphics) {
-		graphics.setForegroundColor(FigurePrefs.contentLighterColor);
+		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point fromPoint = fig[0].getBounds().getBottom();
 		Point[] childrenPoints = new Point[] {

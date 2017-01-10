@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.TableRowLayout;
 
 
@@ -44,14 +44,14 @@ public class ResultPointFigure extends ContentPaneFigure {
 	protected void paintFigure(Graphics g) {
 		super.paintFigure(g);
 
-		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		g.setBackgroundColor(FigureConstants.hostLanguageColor);
 		Rectangle b = getBounds();
 		Rectangle b1 = getContentPane(1).getBounds();
 		g.fillRectangle(b1.x-SP-8, b.y, b1.width-1+SP+8, b.height);
 
     	int oldAlpha = g.getAlpha();
 		g.setAlpha(100);
-    	g.setBackgroundColor(FigurePrefs.relationsColor);
+    	g.setBackgroundColor(FigureConstants.relationsColor);
         g.fillRectangle(b1.x-SP-8, b.y, 8, b.height-1);
         g.setAlpha(oldAlpha);
 

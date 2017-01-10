@@ -19,7 +19,7 @@ package org.whole.lang.properties.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 
 /**
@@ -35,7 +35,7 @@ public class EntriesTableFigure extends TableFigure {
 
 		g.setBackgroundColor(ColorConstants.white);
 		drawAlternateRowsBackground(g, 0, 255);
-		g.setBackgroundColor(FigurePrefs.lightBlueColor);
+		g.setBackgroundColor(FigureConstants.lightBlueColor);
 		drawAlternateRowsBackground(g, 1, 255);
 
 		g.setForegroundColor(ColorConstants.lightGray);

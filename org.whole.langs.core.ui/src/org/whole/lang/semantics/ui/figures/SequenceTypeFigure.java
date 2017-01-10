@@ -18,7 +18,7 @@
 package org.whole.lang.semantics.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -30,6 +30,6 @@ public class SequenceTypeFigure extends ContentPaneFigure {
 		initContentPanes(1);
 		
 		add(createContentPane(0));
-		addLabel("\u2026").setFont(FigurePrefs.openSymbolMedium);
+		addLabel("\u2026").setFont(FigureConstants.openSymbolMedium);
 	}
 }

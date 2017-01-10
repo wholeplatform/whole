@@ -21,7 +21,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.PipeBracketsBorder;
 import org.whole.lang.ui.layout.OverLayout;
 
@@ -36,7 +36,7 @@ public class JoinPointFigure extends ContentPaneFigure {
 		add(createContentPane(1, new PipeBracketsBorder(3) {
 			@Override
 			protected void setBracketsStyle(Graphics g) {
-				g.setForegroundColor(FigurePrefs.relationsColor);
+				g.setForegroundColor(FigureConstants.relationsColor);
 				g.setLineWidth(1);
 				g.setLineStyle(SWT.LINE_CUSTOM);
 				g.setLineDash(new int[] {1,2});
@@ -50,7 +50,7 @@ public class JoinPointFigure extends ContentPaneFigure {
 
     	int oldAlpha = g.getAlpha();
 		g.setAlpha(100);
-    	g.setBackgroundColor(FigurePrefs.relationsColor);
+    	g.setBackgroundColor(FigureConstants.relationsColor);
         g.fillRoundRectangle(getContentPane(0).getBounds(), 4, 6);
         g.setAlpha(oldAlpha);
 	}

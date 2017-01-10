@@ -20,7 +20,7 @@ package org.whole.lang.features.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.geometry.Insets;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.notations.map.borders.FillGradient;
 import org.whole.lang.ui.notations.map.borders.IStyledBorder;
@@ -36,7 +36,7 @@ public class FeatureFigure extends StyledFigure {
 		super(layout);
 		setShapeInsets(new Insets(1,0,0,3));
 		setShapeFillColor(ColorConstants.white);
-		setShapeFillColor2(FigurePrefs.brightBlueColor);
+		setShapeFillColor2(FigureConstants.brightBlueColor);
 		setShapeFillGradient(FillGradient.VERTICAL);
 	}
 

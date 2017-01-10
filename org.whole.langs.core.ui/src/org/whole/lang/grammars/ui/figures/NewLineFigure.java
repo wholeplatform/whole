@@ -19,7 +19,7 @@ package org.whole.lang.grammars.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.FractionLayout;
 
 /**
@@ -40,7 +40,7 @@ public class NewLineFigure extends RuleFractionFigure {
 		});
 		addEmptyLabel();
 		EntityLabel symbol = new EntityLabel("\u21a9");
-		symbol.setFont(FigurePrefs.openSymbolMedium);
+		symbol.setFont(FigureConstants.openSymbolMedium);
 		symbol.setForegroundColor(ColorConstants.lightGray);
 		add(symbol);
 	}

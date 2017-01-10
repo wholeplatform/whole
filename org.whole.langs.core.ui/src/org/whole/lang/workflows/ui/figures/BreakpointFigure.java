@@ -20,7 +20,7 @@ package org.whole.lang.workflows.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.WholeImages;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -70,6 +70,6 @@ public class BreakpointFigure extends AbstractActivityWithTableFigure {
 	public void paintFigure(Graphics g) {
         super.paintFigure(g);
         PaintFigureHelper.drawFilledRoundRectangle(g, getBounds(),
-        		ColorConstants.darkGray, FigurePrefs.blueColor);
+        		ColorConstants.darkGray, FigureConstants.blueColor);
 	}
 }

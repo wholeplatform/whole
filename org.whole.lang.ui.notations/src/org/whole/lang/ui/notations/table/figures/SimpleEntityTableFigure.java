@@ -26,7 +26,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.IVisibilityManager;
 import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ManagedContentPaneFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -116,7 +116,7 @@ public class SimpleEntityTableFigure extends ManagedContentPaneFigure {
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(60);
 		Rectangle b = getBounds();
-		g.setBackgroundColor(FigurePrefs.blueColor);
+		g.setBackgroundColor(FigureConstants.blueColor);
 		g.fillRectangle(b.x, b.y, b.width, typeRow.getBounds().height);
 		g.setAlpha(oldAlpha);
 	}

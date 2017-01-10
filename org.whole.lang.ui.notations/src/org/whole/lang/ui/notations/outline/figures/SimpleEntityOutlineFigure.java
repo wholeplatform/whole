@@ -30,7 +30,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.ui.editparts.IVisibilityManager;
 import org.whole.lang.ui.figures.EntityButton;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ManagedContentPaneFigure;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.Alignment;
@@ -118,7 +118,7 @@ public class SimpleEntityOutlineFigure extends ManagedContentPaneFigure {
 
 	@SuppressWarnings("unchecked")
 	protected void paintConnections(Graphics graphics) {
-		graphics.setForegroundColor(FigurePrefs.contentLighterColor);
+		graphics.setForegroundColor(FigureConstants.contentLighterColor);
 		
 		Point rootPoint = getFoldingToggle(0).getBounds().getBottom();
 

@@ -55,7 +55,7 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -96,7 +96,7 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 			}
 			protected Color getFillColor() {
 				return (isPrimary())
-					? FigurePrefs.lightBlueColor
+					? FigureConstants.lightBlueColor
 					: ColorConstants.white;
 			}
 			public void paintFigure(Graphics g) {

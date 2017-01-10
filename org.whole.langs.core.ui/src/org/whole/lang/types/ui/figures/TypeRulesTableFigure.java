@@ -20,7 +20,7 @@ package org.whole.lang.types.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
 
@@ -40,7 +40,7 @@ public class TypeRulesTableFigure extends TableFigure {
 		if (l.rows() == 0)
 			return;
 
-		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
 		int oldAlpha = g.getAlpha();
 		g.setAlpha(getBackgroundAlpha());
 		Rectangle tb = getTableBounds();

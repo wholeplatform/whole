@@ -21,7 +21,7 @@ import org.whole.lang.changes.ui.editparts.AbstractComparePart;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverLayout;
@@ -84,13 +84,13 @@ public class SideBySideCompareFigure extends ContentPaneFigure {
 		int x3 = rightBounds.x -1;
 		int x2 = x3 - MAPPING_SIZE;
 
-		g.setBackgroundColor(FigurePrefs.collapseBackgroundColor);
+		g.setBackgroundColor(FigureConstants.collapseBackgroundColor);
 		g.fillRectangle(bounds.x, bounds.y, bounds.width, leftBounds.y - bounds.y -1);
 		g.fillRectangle(x0, bounds.y, MAPPING_SIZE, bounds.height);
 		if (isThreeWay)
 			g.fillRectangle(x2, bounds.y, MAPPING_SIZE, bounds.height);
 
-		g.setForegroundColor(FigurePrefs.collapseColor);
+		g.setForegroundColor(FigureConstants.collapseColor);
 		g.drawRectangle(leftBounds.x-2, leftBounds.y-3, leftBounds.width+2, leftBounds.height+5);
 		if (isThreeWay)
 			g.drawRectangle(baseBounds.x-2, baseBounds.y-3, baseBounds.width+2, baseBounds.height+4);

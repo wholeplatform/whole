@@ -27,7 +27,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.figures.AnchorFactory;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.layout.Alignment;
@@ -66,7 +66,7 @@ public class DefaultActivityFigure extends NodeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.relationsColor;
+		return FigureConstants.relationsColor;
 	}
 
 	@Override
@@ -89,6 +89,6 @@ public class DefaultActivityFigure extends NodeFigure {
         g.drawLine(xMid, yActivityBottom, xMid, yBottom);
 
         PaintFigureHelper.drawFilledRectangle(g, rGuard,
-        		ColorConstants.black, FigurePrefs.lightGray);
+        		ColorConstants.black, FigureConstants.lightGray);
 	}
 }

@@ -35,7 +35,7 @@ public class DoubleRoundBracketsBorder extends MarginBorder {
 	public static final Border PARENTHESIS = new DoubleRoundBracketsBorder() {
 		@Override
 		protected void setBracketsStyle(Graphics g) {
-			g.setForegroundColor(FigurePrefs.contentLighterColor);
+			g.setForegroundColor(FigureConstants.contentLighterColor);
 		}
 	};
 

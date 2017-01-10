@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -72,7 +72,7 @@ public class FunctionApplicationFigure extends ContentPaneFigure {
 		if (asStageDown) {
 			Rectangle b = getBounds();
 
-			g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+			g.setBackgroundColor(FigureConstants.hostLanguageColor);
 			g.setForegroundColor(ColorConstants.lightGray);
 			g.fillRectangle(b.x, b.y, b.width, b.height);
 			g.drawRectangle(b.x, b.y, b.width-1, b.height-1);

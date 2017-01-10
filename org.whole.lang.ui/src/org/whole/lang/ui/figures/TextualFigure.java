@@ -278,7 +278,7 @@ public class TextualFigure extends EntityFigure implements ITextualFigure {
 //		}
 
 		if (hasSelectionRange()) {
-			graphics.setBackgroundColor(FigurePrefs.lightBlueColor);
+			graphics.setBackgroundColor(FigureConstants.lightBlueColor);
 			String text = label.getText();
 			int startLine = CaretUtils.getLineFromPosition(text, rangeStart);
 			int endLine = CaretUtils.getLineFromPosition(text, rangeEnd);

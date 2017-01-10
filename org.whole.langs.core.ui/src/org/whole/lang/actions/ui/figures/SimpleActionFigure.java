@@ -21,7 +21,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.SWT;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -66,7 +66,7 @@ public class SimpleActionFigure extends ContentPaneFigure {
 		super.paintFigure(g);
 		
 		if (row2.isVisible()) {
-			g.setForegroundColor(FigurePrefs.contentLighterColor);
+			g.setForegroundColor(FigureConstants.contentLighterColor);
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(new int[] {1,1});
 	

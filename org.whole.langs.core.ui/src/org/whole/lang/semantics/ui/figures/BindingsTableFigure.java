@@ -20,7 +20,7 @@ package org.whole.lang.semantics.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.TableLayout;
@@ -43,9 +43,9 @@ public class BindingsTableFigure extends TableFigure {
 		if (l.rows() == 0)
 			return;
 
-		g.setBackgroundColor(FigurePrefs.templateLanguageColor);
+		g.setBackgroundColor(FigureConstants.templateLanguageColor);
 		int oldAlpha = g.getAlpha();
-		g.setAlpha(FigurePrefs.templateLanguageAlpha);
+		g.setAlpha(FigureConstants.templateLanguageAlpha);
 		Rectangle tb = getTableBounds();
 		Rectangle cb1 = l.getColumnBounds(0);
 		g.fillRectangle(cb1.x, tb.y, cb1.width, tb.height-1);

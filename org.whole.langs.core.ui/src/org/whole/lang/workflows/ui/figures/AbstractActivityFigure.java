@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -84,6 +84,6 @@ public abstract class AbstractActivityFigure extends NodeFigure {
 
 	@Override
 	public Color getLocalForegroundColor() {
-		return FigurePrefs.contentColor;
+		return FigureConstants.contentColor;
 	}
 }

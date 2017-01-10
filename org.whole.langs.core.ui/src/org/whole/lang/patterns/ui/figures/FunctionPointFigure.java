@@ -22,7 +22,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
-import org.whole.lang.ui.figures.FigurePrefs;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -47,7 +47,7 @@ public class FunctionPointFigure extends ContentPaneFigure {
 		Rectangle bounds = getBounds();
 		Rectangle nameBounds = getContentPane(1).getBounds();
 		
-		g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+		g.setBackgroundColor(FigureConstants.hostLanguageColor);
 		g.fillRectangle(nameBounds.x-1, bounds.y, bounds.width - nameBounds.x + bounds.x, bounds.height);
 		g.setForegroundColor(ColorConstants.lightGray);
 		g.drawRectangle(bounds.x, bounds.y, bounds.width-1, bounds.height-1);

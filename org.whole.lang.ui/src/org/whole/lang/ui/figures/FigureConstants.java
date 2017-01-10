@@ -23,17 +23,7 @@ import org.eclipse.swt.graphics.Font;
 /**
  * @author Riccardo Solmi
  */
-public class FigurePrefs {
-	public static Font fontSmall;
-	public static Font font;
-	public static Font fontMedium;
-	public static Font fontLarge;
-
-	public static Font openSymbolSmall;
-	public static Font openSymbol;
-	public static Font openSymbolMedium;
-	public static Font openSymbolLarge;
-
+public class FigureConstants {
 	//TODO make customizable ???
 	public static Color brightBlueColor = new Color(null, 180, 213, 255);
 	public static Color blueColor = new Color(null, 112, 158, 230);
@@ -52,14 +42,24 @@ public class FigurePrefs {
 	public static Color reviewCommentBackgroundColor = new Color(null, 255, 250, 233);
 	public static Color reviewCommentColor = new Color(null, 222, 162, 97);
 
+	//TODO make customizable ???
+	public static int templateLanguageAlpha = 130;
+	public static int hostLanguageAlpha = 30;
+
+	public static Font fontSmall;
+	public static Font font;
+	public static Font fontMedium;
+	public static Font fontLarge;
+
+	public static Font openSymbolSmall;
+	public static Font openSymbol;
+	public static Font openSymbolMedium;
+	public static Font openSymbolLarge;
+
 	public static Color selectionColor;
 	public static Color matchingSelectionColor;
 	public static Color hostLanguageColor;
 	public static Color templateLanguageColor;
-
-	//TODO make customizable ???
-	public static int templateLanguageAlpha = 130;
-	public static int hostLanguageAlpha = 30;
 
 	public static Color modulesColor;
 	public static Font modulesFont;
