@@ -61,7 +61,7 @@ public class UnionTypePart extends CompositeColumnWithPlaceholderPart {//Composi
 //    	return new StringSeparatedCompositeRowFigure("\u222a", 10) {
 //        	@Override
 //        	public Color getLocalForegroundColor() {
-//        		return FigurePrefs.contentColor;
+//        		return FigureConstants.contentColor;
 //        	}
 //        };
     }

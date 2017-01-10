@@ -53,7 +53,7 @@ public class ChildrenBranchesFigure extends NodeFigure {
 //				if (getChildren().isEmpty()) {
 //					Rectangle b = getBounds().getResized(-1, -1);
 //
-//					g.setForegroundColor(FigurePrefs.blueColor);
+//					g.setForegroundColor(FigureConstants.blueColor);
 //					g.setLineStyle(SWT.LINE_CUSTOM);
 //					g.setLineDash(new int[] {4,2});
 //					g.drawRoundRectangle(b, 8, 8);

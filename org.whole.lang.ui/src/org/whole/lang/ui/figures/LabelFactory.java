@@ -63,7 +63,7 @@ public class LabelFactory {
 			public Font getLocalFont() {
 				if (super.getLocalFont() != null)
 					return super.getLocalFont();
-				return super.getLocalFont();//FIXME init FigurePrefs.modulesFont with super defined font;
+				return super.getLocalFont();//FIXME init FigureConstants.modulesFont with super defined font;
 			}
 		};
 	}
@@ -287,7 +287,7 @@ public class LabelFactory {
 				return FigureConstants.contentColor;
 			}	
 //			public Font getLocalFont() {
-//				return FigurePrefs.contentFont;
+//				return FigureConstants.contentFont;
 //			}
 		};
 	}

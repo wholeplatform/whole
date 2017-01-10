@@ -76,11 +76,11 @@ public class EnvironmentFigure extends ContentPaneFigure {
 ////				ColorConstants.lightGray,
 ////				16, 16, false);
 //
-//		g.setForegroundColor(FigurePrefs.relationsColor);		
+//		g.setForegroundColor(FigureConstants.relationsColor);		
 //		g.drawLine(arrowStart, arrowEnd);
 //		Shape s = ArrowFactory.createArrow(Direction.NORTH, ArrowKind.TRIANGLE, true);
 //		s.setLocation(arrowEnd);
-//		s.setBackgroundColor(FigurePrefs.relationsColor);
+//		s.setBackgroundColor(FigureConstants.relationsColor);
 //		s.paint(g);
 	}
 }

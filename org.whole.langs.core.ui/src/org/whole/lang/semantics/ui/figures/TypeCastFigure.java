@@ -52,7 +52,7 @@ public class TypeCastFigure extends ContentPaneFigure {
 //		if (asStageDown) {
 //			Rectangle b = getBounds();
 //
-//			g.setBackgroundColor(FigurePrefs.hostLanguageColor);
+//			g.setBackgroundColor(FigureConstants.hostLanguageColor);
 //			g.setForegroundColor(ColorConstants.lightGray);
 //			g.fillRectangle(b.x, b.y, b.width, b.height);
 //			g.drawRectangle(b.x, b.y, b.width-1, b.height-1);
