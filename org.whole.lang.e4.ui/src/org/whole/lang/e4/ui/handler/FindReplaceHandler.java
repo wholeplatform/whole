@@ -42,14 +42,18 @@ public class FindReplaceHandler {
 	@Execute
 	public void execute(IEclipseContext context, @Optional @Named(IServiceConstants.ACTIVE_SELECTION) IBindingManager bm) {
 		if (instance == null || instance.getShell() == null || instance.getShell().isDisposed())
+			// initially create ad new find replace dialog
 			instance = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
 		else if (contextWindow != context.get(MWindow.class)) {
+			// if find replace dialog already created but context window has changed recreate the dialog
 			instance.close();
 			instance = ContextInjectionFactory.make(E4FindReplaceDialog.class, context);
 		}
 
+		// update context window
 		contextWindow = context.get(MWindow.class);
 
+		// display the dialog with updated contents
 		instance.getShell().setActive();
 		instance.setTemplate(bm.wIsSet("primarySelectedEntity") && 
 				!Matcher.matchImpl(CommonsEntityDescriptorEnum.RootFragment, bm.wGet("primarySelectedEntity")) ?
