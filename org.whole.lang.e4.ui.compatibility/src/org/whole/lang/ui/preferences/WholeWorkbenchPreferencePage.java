@@ -17,29 +17,14 @@
  */
 package org.whole.lang.ui.preferences;
 
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.whole.lang.ui.util.IUIConstants;
+import org.whole.lang.e4.ui.preferences.WholePreferencePage;
 
-
-public class WholePreferencePage
-	extends FieldEditorPreferencePage
-	implements IWorkbenchPreferencePage {
-
-	public WholePreferencePage() {
-		super(GRID);
-		setPreferenceStore(new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
-		setDescription("Whole preference page");
-		initializeDefaults();
-	}
-
-	private void initializeDefaults() {
-	}
-	
-	public void createFieldEditors() {
-	}
-	
+/**
+ * @author Enrico Persiani
+ */
+public class WholeWorkbenchPreferencePage extends WholePreferencePage implements IWorkbenchPreferencePage {	
 	public void init(IWorkbench workbench) {
 	}
 }

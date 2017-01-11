@@ -6,22 +6,24 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.whole.lang.e4.ui.editparts,
- org.whole.lang.e4.actions,
- org.whole.lang.e4.ui.addon,
+Export-Package: org.whole.lang.e4.actions,
  org.whole.lang.e4.ui.actions,
+ org.whole.lang.e4.ui.addon,
  org.whole.lang.e4.ui.dialogs,
+ org.whole.lang.e4.ui.editparts,
  org.whole.lang.e4.ui.handler,
  org.whole.lang.e4.ui.input,
  org.whole.lang.e4.ui.jobs,
  org.whole.lang.e4.ui.menu,
  org.whole.lang.e4.ui.parts,
+ org.whole.lang.e4.ui.preferences,
  org.whole.lang.e4.ui.util,
  org.whole.lang.e4.ui.viewers
 Require-Bundle: javax.annotation,
  javax.inject,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
+ org.eclipse.core.databinding.observable,
  org.eclipse.core.expressions,
  org.eclipse.equinox.common,
  org.eclipse.equinox.preferences,

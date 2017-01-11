@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.ui.preferences;
+package org.whole.lang.e4.ui.preferences;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,15 +57,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.whole.lang.ui.PreferenceConstants;
 import org.whole.lang.ui.util.IUIConstants;
 
 /**
  * @author Riccardo Solmi
  */
-public class EditorPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+public class EditorPreferencePage extends PreferencePage {
 	private static final String[][] bgCategoryListModel= new String[][] {
 			{ "Selection", PreferenceConstants.SELECTION_COLOR },
 			{ "Matching selection", PreferenceConstants.MATCHING_SELECTION_COLOR },
@@ -103,9 +101,6 @@ public class EditorPreferencePage extends PreferencePage implements IWorkbenchPr
 	public EditorPreferencePage() {
 		setDescription("Colors and Fonts");
 		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
-	}
-
-	public void init(IWorkbench workbench) {
 	}
 
 	protected Control createContents(Composite parent) {

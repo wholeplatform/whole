@@ -213,6 +213,7 @@ public class PreferenceProcessor {
 						else if (prop.startsWith(CONTENT_LIGHTER_COLOR))
 							FigureConstants.contentLighterFont = replaceResource(FigureConstants.contentLighterFont, createStyledFont(bundleId, CONTENT_LIGHTER_COLOR));
 						
+						eventBroker.post(IE4UIConstants.TOPIC_REBUILD_VIEWER, null);
 						eventBroker.post(IE4UIConstants.TOPIC_REFRESH_VIEWER, null);
 					}
 				});
