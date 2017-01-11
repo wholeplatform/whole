@@ -99,8 +99,9 @@ public class EditorPreferencePage extends PreferencePage {
 	private Button fgItalicCheckBox;
 
 	public EditorPreferencePage() {
-		setDescription("Colors and Fonts");
 		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
+		setDescription("Colors and Fonts");
+		setTitle("Whole Languages");
 	}
 
 	protected Control createContents(Composite parent) {

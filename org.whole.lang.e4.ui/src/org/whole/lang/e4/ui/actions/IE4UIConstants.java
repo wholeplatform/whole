@@ -122,7 +122,7 @@ public interface IE4UIConstants {
 
 	public static final String DELETE_MENU_ID = "delete";
 	public static final String SELECT_ALL_MENU_ID = "selectAll";
-	
+
 	// icon uris
 	public static final String UNDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/undo_edit.gif");
 	public static final String REDO_ICON_URI = E4Utils.createPlatformPuginURI("icons/actions/redo_edit.gif");
@@ -183,6 +183,10 @@ public interface IE4UIConstants {
 
 	// tag used to render a GroupMarker instead of a Separator
 	public static final String TAG_GROUP_MARKER = "org.eclipse.jface.action.GroupMarker.GroupMarker(String)";
+
+	// preference nodes
+	public static final String WHOLE_PREFERENCE_PAGE_ID = BUNDLE_ID+".preference.page.whole";
+	public static final String EDITOR_PREFERENCE_PAGE_ID = BUNDLE_ID+".preference.page.editor";
 
 	public static final String TOPIC_UPDATE_RESULTS = "TOPIC_UPDATE_RESULTS";
 	public static final String TOPIC_UPDATE_DEBUG = "TOPIC_BREAK_DEBUG";

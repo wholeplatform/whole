@@ -30,6 +30,7 @@ public class WholePreferencePage extends FieldEditorPreferencePage {
 		super(GRID);
 		setPreferenceStore(new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
 		setDescription("Whole preference page");
+		setTitle("Whole");
 	}
 
 	public void createFieldEditors() {

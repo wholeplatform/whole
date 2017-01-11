@@ -18,8 +18,13 @@
 package org.whole.product.e4.lw.handlers;
 
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.PreferenceDialog;
+import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.jface.preference.PreferenceNode;
 import org.eclipse.swt.widgets.Shell;
+import org.whole.lang.e4.ui.actions.IE4UIConstants;
+import org.whole.lang.e4.ui.preferences.EditorPreferencePage;
+import org.whole.lang.e4.ui.preferences.WholePreferencePage;
 
 /**
  * @author Enrico Persiani
@@ -27,6 +32,14 @@ import org.eclipse.swt.widgets.Shell;
 public class PreferencesHandler {
 	@Execute
 	public void execute(Shell shell) {
-		MessageDialog.openInformation(shell, "Whole Platform Preferences", "Preferences stub");
+		PreferenceManager manager = new PreferenceManager();
+		PreferenceNode wholeNode = new PreferenceNode(IE4UIConstants.WHOLE_PREFERENCE_PAGE_ID, new WholePreferencePage());
+		PreferenceNode editorNode = new PreferenceNode(IE4UIConstants.EDITOR_PREFERENCE_PAGE_ID, new EditorPreferencePage());
+		manager.addToRoot(wholeNode);
+		wholeNode.add(editorNode);
+
+		PreferenceDialog dialog = new PreferenceDialog(null, manager);
+		dialog.setSelectedNode(IE4UIConstants.EDITOR_PREFERENCE_PAGE_ID);
+		dialog.open();
 	}
 }
