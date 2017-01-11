@@ -3,6 +3,7 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_2TgSAeWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.lw.placeholderWindow" toBeRendered="false" visible="false" label="Whole Product" width="500" height="400"/>
   <handlers xmi:id="_2TgSDeWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.quitCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.QuitHandler" command="_2TgSDOWiEeOr3YUCTkHmhA"/>
   <handlers xmi:id="_2TgSFOWiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.saveCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.SaveHandler" command="_2TgSE-WiEeOr3YUCTkHmhA"/>
+  <handlers xmi:id="_LhowkNfwEeahg_gJiJg-ow" elementId="org.whole.product.e4.handler.preferenceCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.PreferencesHandler" command="_x4NkgNfdEeahg_gJiJg-ow"/>
   <handlers xmi:id="_2TgSF-WiEeOr3YUCTkHmhA" elementId="org.whole.product.e4.handler.aboutCommand" contributionURI="bundleclass://org.whole.product.e4.lw/org.whole.product.e4.lw.handlers.AboutHandler" command="_2TgSFuWiEeOr3YUCTkHmhA"/>
   <handlers xmi:id="_dtr_kOWyEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.cut" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CutHandler" command="_XL980OWjEeOr3YUCTkHmhA"/>
   <handlers xmi:id="_HZZBoOWzEeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.copy" contributionURI="bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.handler.CopyHandler" command="_XnqaUOWjEeOr3YUCTkHmhA"/>
@@ -46,6 +47,7 @@
   </rootContext>
   <commands xmi:id="_2TgSDOWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_2TgSE-WiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
+  <commands xmi:id="_x4NkgNfdEeahg_gJiJg-ow" elementId="org.eclipse.ui.window.preferences" commandName="preferencesCommand"/>
   <commands xmi:id="_2TgSFuWiEeOr3YUCTkHmhA" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <commands xmi:id="_boOyIOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.undo" commandName="undoCommand"/>
   <commands xmi:id="_bgFiwOW2EeOwa6zyDulOEA" elementId="org.eclipse.ui.edit.redo" commandName="redoCommand"/>

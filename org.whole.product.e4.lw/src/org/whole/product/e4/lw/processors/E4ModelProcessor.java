@@ -33,6 +33,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory;
+import org.eclipse.e4.ui.model.application.ui.basic.MDialog;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
@@ -57,10 +58,14 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 public class E4ModelProcessor {
 	private static final String PLACEHOLDER_WINDOW_ID = "org.whole.product.e4.lw.placeholderWindow";
 
-	@Inject protected IEclipseContext context;
-	@Inject protected IWorkspace workspace;
-	@Inject protected MApplication application;
-	@Inject protected EModelService modelService;
+	@Inject
+	protected IEclipseContext context;
+	@Inject
+	protected IWorkspace workspace;
+	@Inject
+	protected MApplication application;
+	@Inject
+	protected EModelService modelService;
 
 	@Execute
 	protected void initialize() throws CoreException {
@@ -68,50 +73,50 @@ public class E4ModelProcessor {
 			ClasspathPersistenceProvider pp = new ClasspathPersistenceProvider("org/whole/product/e4/lw/WorkspaceConfiguration.xwl");
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(pp));
 
-		MUIElement placeholderWindow = modelService.find(PLACEHOLDER_WINDOW_ID, application);
-		if (placeholderWindow == null || !placeholderWindow.getParent().getChildren().remove(placeholderWindow))
-			throw new IllegalStateException("Unable to remove placeholder window with id: '"+PLACEHOLDER_WINDOW_ID+"'");
+			MUIElement placeholderWindow = modelService.find(PLACEHOLDER_WINDOW_ID, application);
+			if (placeholderWindow == null || !placeholderWindow.getParent().getChildren().remove(placeholderWindow))
+				throw new IllegalStateException("Unable to remove placeholder window with id: '"+PLACEHOLDER_WINDOW_ID+"'");
 
-		MTrimmedWindow window = MBasicFactory.INSTANCE.createTrimmedWindow();
+			MTrimmedWindow window = MBasicFactory.INSTANCE.createTrimmedWindow();
 
-		window.setLabel("Whole Language Workbench Window");
-		window.setX(500);
-		window.setY(20);
-		window.setWidth(400);
-		window.setHeight(300);
+			window.setLabel("Whole Language Workbench Window");
+			window.setX(500);
+			window.setY(20);
+			window.setWidth(900);
+			window.setHeight(1200);
 
-		MMenu mainMenu = MMenuFactory.INSTANCE.createMenu();
-		mainMenu.setElementId("menu:org.eclipse.ui.main.menu");
-		mainMenu.getChildren().add(createFileMenu());
-		mainMenu.getChildren().add(createEditMenu());
-		mainMenu.getChildren().add(createHelpMenu());
-		window.setMainMenu(mainMenu);
+			MMenu mainMenu = MMenuFactory.INSTANCE.createMenu();
+			mainMenu.setElementId("menu:org.eclipse.ui.main.menu");
+			mainMenu.getChildren().add(createFileMenu());
+			mainMenu.getChildren().add(createEditMenu());
+			mainMenu.getChildren().add(createHelpMenu());
+			window.setMainMenu(mainMenu);
 
-		MTrimBar trimBar = MBasicFactory.INSTANCE.createTrimBar();
-		trimBar.setSide(SideValue.TOP);
-		trimBar.getChildren().add(createToolBar());
-		window.getTrimBars().add(trimBar);
+			MTrimBar trimBar = MBasicFactory.INSTANCE.createTrimBar();
+			trimBar.setSide(SideValue.TOP);
+			trimBar.getChildren().add(createToolBar());
+			window.getTrimBars().add(trimBar);
 
-		MPerspectiveStack perspectiveStack = MAdvancedFactory.INSTANCE.createPerspectiveStack();
-		MPerspective perspective = MAdvancedFactory.INSTANCE.createPerspective();
-		perspective.setLabel("P1");
-		MPartSashContainer partSashContainer = MBasicFactory.INSTANCE.createPartSashContainer();
-		partSashContainer.setHorizontal(false);
-		MPartStack partStack = MBasicFactory.INSTANCE.createPartStack();
-		MPart part = MBasicFactory.INSTANCE.createPart();
-		part.setContributionURI("bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.parts.E4GraphicalPart");
-		part.setLabel("Part1a");
-		part.setCloseable(true);
-		Map<String, String> persistedState = part.getPersistedState();
-		persistedState.put("basePersistenceKitId", "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit");
-		persistedState.put("filePath", "/BaseProject/src/org/whole/lang/ExampleModel.xwl");
-		persistedState.put("overridePersistenceKitId", "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit");
-		partStack.getChildren().add(part);
-		partSashContainer.getChildren().add(partStack);
-		perspective.getChildren().add(partSashContainer);
-		perspectiveStack.getChildren().add(perspective);
-		window.getChildren().add(perspectiveStack);
-		application.getChildren().add(window);
+			MPerspectiveStack perspectiveStack = MAdvancedFactory.INSTANCE.createPerspectiveStack();
+			MPerspective perspective = MAdvancedFactory.INSTANCE.createPerspective();
+			perspective.setLabel("P1");
+			MPartSashContainer partSashContainer = MBasicFactory.INSTANCE.createPartSashContainer();
+			partSashContainer.setHorizontal(false);
+			MPartStack partStack = MBasicFactory.INSTANCE.createPartStack();
+			MPart part = MBasicFactory.INSTANCE.createPart();
+			part.setContributionURI("bundleclass://org.whole.lang.e4.ui/org.whole.lang.e4.ui.parts.E4GraphicalPart");
+			part.setLabel("Part1a");
+			part.setCloseable(true);
+			Map<String, String> persistedState = part.getPersistedState();
+			persistedState.put("basePersistenceKitId", "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit");
+			persistedState.put("filePath", "/BaseProject/src/org/whole/lang/ExampleModel.xwl");
+			persistedState.put("overridePersistenceKitId", "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit");
+			partStack.getChildren().add(part);
+			partSashContainer.getChildren().add(partStack);
+			perspective.getChildren().add(partSashContainer);
+			perspectiveStack.getChildren().add(perspective);
+			window.getChildren().add(perspectiveStack);
+			application.getChildren().add(window);
 
 		} catch (Exception e) {
 			System.out.println("Unable to configure the initial workspace");
@@ -167,6 +172,7 @@ public class E4ModelProcessor {
 		MMenu helpMenu = MMenuFactory.INSTANCE.createMenu();
 		helpMenu.setLabel("File");
 		helpMenu.getChildren().add(createHandledMenuItem("about", "About", "org.eclipse.ui.help.aboutAction"));
+		helpMenu.getChildren().add(createHandledMenuItem("preferences", "Preferences", "org.eclipse.ui.window.preferences"));
 		return helpMenu;
 	}
 
