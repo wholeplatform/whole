@@ -17,6 +17,7 @@
  */
 package org.whole.lang;
 
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
@@ -84,10 +85,12 @@ public class WholePlugin extends Plugin {
 		super.start(context);
 		Platform.getExtensionRegistry().addRegistryChangeListener(DeployerExtensions.instance());
 	}
-	
+
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		Platform.getExtensionRegistry().removeRegistryChangeListener(DeployerExtensions.instance());
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		if (extensionRegistry != null)
+			extensionRegistry.removeRegistryChangeListener(DeployerExtensions.instance());
 		super.stop(context);
 	}
 }
