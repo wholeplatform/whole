@@ -19,6 +19,8 @@ package org.whole.lang.math.ui.figures;
 
 import org.whole.lang.ui.figures.CompositePlaceHolderBorder;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -27,11 +29,14 @@ import org.whole.lang.ui.layout.RowLayout;
  */
 public class InfixExpressionFigure extends ContentPaneFigure {
 	public InfixExpressionFigure(String operatorSymbol) {
+		this(LabelFactory.createContentMath(operatorSymbol));
+	}
+	public InfixExpressionFigure(IEntityFigure operatorSymbol) {
 		super(new RowLayout().withSpacing(1));
 		initContentPanes(2);
 
 		add(createContentPane(0));
-		addMath(operatorSymbol);
+		add(operatorSymbol);
 		add(createContentPane(1));
 
     	showLeftParen(false);

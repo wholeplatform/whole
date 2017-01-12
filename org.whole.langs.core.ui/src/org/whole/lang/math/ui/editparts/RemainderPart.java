@@ -26,13 +26,14 @@ import org.whole.lang.math.reflect.OperatorGroupEnum;
 import org.whole.lang.math.ui.figures.InfixExpressionFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.LabelFactory;
 
 /**
  * @author Riccardo Solmi
  */
 public class RemainderPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixExpressionFigure(" mod ");
+		return new InfixExpressionFigure(LabelFactory.createContentLight(" mod "));
 	}
 	
 	protected List<IEntity> getModelSpecificChildren() {
