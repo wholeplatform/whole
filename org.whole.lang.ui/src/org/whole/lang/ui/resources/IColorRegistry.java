@@ -29,8 +29,8 @@ public interface IColorRegistry {
 	public boolean hasValueFor(String colorKey);
 	public Set<String> getKeySet();
 
-	public void put(String colorKey, int red, int green, int blue);
-	public void put(String colorKey, RGB rgb);
+	public boolean put(String colorKey, int red, int green, int blue);
+	public boolean put(String colorKey, RGB rgb);
 	public RGB getRGB(String colorKey);
 	public Color get(String colorKey);
 }

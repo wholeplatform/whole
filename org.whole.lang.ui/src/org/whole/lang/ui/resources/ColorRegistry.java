@@ -17,6 +17,8 @@
  */
 package org.whole.lang.ui.resources;
 
+import static org.eclipse.jface.resource.ColorDescriptor.*;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,59 +27,49 @@ import java.util.Set;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Riccardo Solmi
  */
 public class ColorRegistry implements IColorRegistry {//TODO ? extends ResourceRegistry
-	private ResourceManager resourceManager;
+	private IEntityPartViewer viewer;
 	private Map<String, Color> colorMap = new HashMap<String, Color>();
-	private Map<String, RGB> rgbMap = new HashMap<String, RGB>();
 
-	public ColorRegistry(ResourceManager resourceManager) {
-		this.resourceManager = resourceManager;
+	public ColorRegistry(IEntityPartViewer viewer) {
+		this.viewer = viewer;
 	}
 
-	public ResourceManager getResourceManager() {
-		return resourceManager;
+	protected ResourceManager getResourceManager() {
+		return viewer.getResourceManager();
 	}
 
 	public boolean hasValueFor(String colorKey) {
-		return rgbMap.containsKey(colorKey);
+		return colorMap.containsKey(colorKey);
 	}
 	public Set<String> getKeySet() {
-		return Collections.unmodifiableSet(rgbMap.keySet()); 
+		return Collections.unmodifiableSet(colorMap.keySet()); 
 	}
 
-	public void put(String colorKey, int red, int green, int blue) {
-		put(colorKey, new RGB(red, green, blue));
+	public boolean put(String colorKey, int red, int green, int blue) {
+		return put(colorKey, new RGB(red, green, blue));
 	}
-	public void put(String colorKey, RGB rgb) {
-		RGB oldRgb = rgbMap.get(colorKey);
-		if (rgb.equals(oldRgb))
-			return;
+	public boolean put(String colorKey, RGB rgb) {
+		Color oldColor = colorMap.get(colorKey);
+		colorMap.put(colorKey, getResourceManager().createColor(createFrom(rgb)));
 
-		Color oldColor = colorMap.remove(colorKey);
-		rgbMap.put(colorKey, rgb);
 		if (oldColor != null)
-			;//TODO staleColors.add(oldColor);
+			getResourceManager().destroyColor(createFrom(oldColor));
 
-		//fireMappingChanged
+		// fireMappingChanged
+
+		return oldColor != null && !oldColor.getRGB().equals(rgb);
 	}
 	public RGB getRGB(String colorKey) {
-		return rgbMap.get(colorKey);
+		return get(colorKey).getRGB();
 	}
 	public Color get(String colorKey) {
-		Color color = colorMap.get(colorKey);
-		if (color != null)
-			return color;
-
-		RGB rgb = rgbMap.get(colorKey);
-		if (rgb == null)
-			return null;//TODO delegate to a parent colorRegistry
-
-		colorMap.put(colorKey, color = createColor(rgb));
-		return color;
+		return colorMap.get(colorKey);
 	}
 	protected Color createColor(RGB rgb) {
 		return getResourceManager().createColor(rgb);
@@ -86,10 +78,10 @@ public class ColorRegistry implements IColorRegistry {//TODO ? extends ResourceR
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		for (Map.Entry<String, RGB> entry : rgbMap.entrySet()) {
+		for (Map.Entry<String, Color> entry : colorMap.entrySet()) {
 			result.append(entry.getKey());
 			result.append(": ");
-			RGB rgb = entry.getValue();
+			RGB rgb = entry.getValue().getRGB();
 			result.append(rgb.red);
 			result.append(",");
 			result.append(rgb.green);

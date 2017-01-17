@@ -43,7 +43,6 @@ import org.eclipse.gef.LightweightEditDomain;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.FocusEvent;
@@ -62,8 +61,6 @@ import org.whole.lang.e4.ui.handler.SelectAllHandler;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.model.ICompoundModel;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reflect.FeatureDescriptorEnum;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.dialogs.IImportAsModelDialogFactory;
 import org.whole.lang.ui.dnd.EditPartTransferDragSourceListener;
@@ -524,13 +521,13 @@ public class E4GraphicalViewer extends ScrollingGraphicalViewer implements IReso
 	private IColorRegistry colorRegistry;
 	public IColorRegistry getColorRegistry() {
 		if (colorRegistry == null)
-			colorRegistry = new ColorRegistry(getResourceManager());
+			colorRegistry = new ColorRegistry(this);
 		return colorRegistry;
 	}
 	private IFontRegistry fontRegistry;
 	public IFontRegistry getFontRegistry() {
 		if (fontRegistry == null)
-			fontRegistry = new FontRegistry(getResourceManager());
+			fontRegistry = new FontRegistry(this);
 		return fontRegistry;
 	}
 }

@@ -17,85 +17,71 @@
  */
 package org.whole.lang.ui.resources;
 
+import static  org.eclipse.jface.resource.FontDescriptor.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.resource.ResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Riccardo Solmi
  */
 public class FontRegistry implements IFontRegistry {//TODO ? extends ResourceRegistry
-	private ResourceManager resourceManager;
+	private IEntityPartViewer viewer;
 	private Map<String, Font> fontMap = new HashMap<String, Font>();
-	private Map<String, FontData[]> fontDataMap = new HashMap<String, FontData[]>();
 
-	public FontRegistry(ResourceManager resourceManager) {
-		this.resourceManager = resourceManager;
+	public FontRegistry(IEntityPartViewer viewer) {
+		this.viewer = viewer;
 	}
 
 	public ResourceManager getResourceManager() {
-		return resourceManager;
+		return viewer.getResourceManager();
 	}
 
 	public Set<String> getKeySet() {
-		return Collections.unmodifiableSet(fontDataMap.keySet());
+		return Collections.unmodifiableSet(fontMap.keySet());
 	}
 	public boolean hasValueFor(String fontKey) {
-		return fontDataMap.containsKey(fontKey);
-	}
-
-	public FontData[] getFontData(String fontKey) {
-		return fontDataMap.get(fontKey);
+		return fontMap.containsKey(fontKey);
 	}
 
 	public boolean put(String fontKey, String fontName, int fontSize, int fontStyle) {
 		return put(fontKey, new FontData[] { new FontData(fontName, fontSize, fontStyle) });
 	}
 	public boolean put(String fontKey, FontData[] fontData) {
-		FontData[] oldFontData = fontDataMap.get(fontKey);
-		if (Arrays.equals(oldFontData, fontData))
-			return false;
+		Font oldFont = fontMap.get(fontKey);
+		fontMap.put(fontKey, getResourceManager().createFont(createFrom(fontData)));
 
-		Font oldFont = fontMap.remove(fontKey);
-		fontDataMap.put(fontKey, fontData);
 		if (oldFont != null)
-			;//TODO staleFonts.add(oldFont);
+			getResourceManager().destroyFont(createFrom(oldFont));
 
-		//fireMappingChanged
-		return true;
+		// fireMappingChanged
+
+		return oldFont != null && !Arrays.equals(oldFont.getFontData(), fontData);
 	}
 
+	public FontData[] getFontData(String fontKey) {
+		return fontMap.get(fontKey).getFontData();
+	}
 	public Font get(String fontKey) {
-		Font font = fontMap.get(fontKey);
-		if (font != null)
-			return font;
-
-		FontData[] fontData = fontDataMap.get(fontKey);
-		if (fontData == null)
-			return null;//TODO delegate to a parent fontRegistry
-
-		fontMap.put(fontKey, font = createFont(fontData));
-		return font;
-	}
-	protected Font createFont(FontData[] fontData) {
-		return getResourceManager().createFont(FontDescriptor.createFrom(fontData));
+		return fontMap.get(fontKey);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		for (Map.Entry<String, FontData[]> entry : fontDataMap.entrySet()) {
+		for (Map.Entry<String, Font> entry : fontMap.entrySet()) {
 			result.append(entry.getKey());
 			result.append(": ");
-			FontData[] fontData = entry.getValue();
+			FontData[] fontData = entry.getValue().getFontData();
 			for (FontData data : fontData) {
 				result.append(data.getName());
 				result.append(' ');
