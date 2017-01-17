@@ -36,6 +36,5 @@ public class ImportAsModelDialogFactoryAddon {
 	protected void initialize() throws CoreException {
 		IImportAsModelDialogFactory factory = ContextInjectionFactory.make(DisabledImportAsModelDialogFactory.class, context);
 		context.set(IImportAsModelDialogFactory.class, factory);
-		System.out.println(getClass().getName());
 	}
 }

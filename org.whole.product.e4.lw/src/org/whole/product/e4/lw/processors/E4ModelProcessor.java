@@ -82,8 +82,8 @@ public class E4ModelProcessor {
 			window.setLabel("Whole Language Workbench Window");
 			window.setX(500);
 			window.setY(20);
-			window.setWidth(900);
-			window.setHeight(1200);
+			window.setWidth(800);
+			window.setHeight(1000);
 
 			MMenu mainMenu = MMenuFactory.INSTANCE.createMenu();
 			mainMenu.setElementId("menu:org.eclipse.ui.main.menu");
