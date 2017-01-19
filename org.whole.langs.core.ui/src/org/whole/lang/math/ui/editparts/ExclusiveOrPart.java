@@ -25,10 +25,10 @@ import org.whole.lang.math.ui.figures.ParenthesizedMathCompositeRowFigure;
  */
 public class ExclusiveOrPart extends ParenthesizedCompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        return new ParenthesizedMathCompositeRowFigure("\u22bb") {
+        return new ParenthesizedMathCompositeRowFigure("\u2295") {
         	@Override
         	protected int getSeparatorAscent() {
-        		return super.getSeparatorAscent()-3;
+        		return super.getSeparatorAscent() -1;
         	}
         };
     }
