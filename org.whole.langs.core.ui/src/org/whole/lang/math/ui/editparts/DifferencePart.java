@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class DifferencePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u2216"), 2);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2216"), 2);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

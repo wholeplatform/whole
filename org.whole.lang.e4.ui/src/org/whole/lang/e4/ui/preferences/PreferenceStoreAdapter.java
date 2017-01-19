@@ -31,11 +31,11 @@ import org.whole.lang.ui.PreferenceConstants;
  */
 public class PreferenceStoreAdapter extends FailurePreferenceStore {
 	protected String bundleId;
-	protected ObservableMap<String, String> preferences;
+	protected ObservableMap preferences;
 
 	public PreferenceStoreAdapter(String bundleId) {
 		this.bundleId = bundleId;
-		this.preferences = new WritableMap<>();
+		this.preferences = new WritableMap();
 		try {
 			for (String name : DefaultScope.INSTANCE.getNode(bundleId).keys())
 				this.preferences.put(name, PreferenceConstants.lookUpPreference(bundleId, name));
@@ -62,7 +62,7 @@ public class PreferenceStoreAdapter extends FailurePreferenceStore {
 
 	@Override
 	public String getString(String name) {
-		return preferences.containsKey(name) ? preferences.get(name) : "";
+		return preferences.containsKey(name) ? (String) preferences.get(name) : "";
 	}
 	@Override
 	public boolean getBoolean(String name) {
@@ -102,7 +102,7 @@ public class PreferenceStoreAdapter extends FailurePreferenceStore {
 			IEclipsePreferences instance = InstanceScope.INSTANCE.getNode(bundleId);
 			for (String name : DefaultScope.INSTANCE.getNode(bundleId).keys()) {
 				String defaultValue = getDefaultString(name);
-				String value = this.preferences.get(name);
+				String value = (String) this.preferences.get(name);
 				if (defaultValue.equals(value))
 					instance.remove(name);
 				else

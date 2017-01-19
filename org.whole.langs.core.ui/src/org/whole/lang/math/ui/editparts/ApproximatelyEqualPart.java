@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class ApproximatelyEqualPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u2243"), 4);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2243"), 4);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

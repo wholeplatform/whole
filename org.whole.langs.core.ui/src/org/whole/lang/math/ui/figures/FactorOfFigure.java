@@ -18,6 +18,7 @@
 package org.whole.lang.math.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -29,7 +30,7 @@ public class FactorOfFigure extends ContentPaneFigure {
 		initContentPanes(2);
 
 		add(createContentPane(0));
-		addMath("\u2223");
+		add(LabelFactory.createSymbolRegularContent("\u2223"));
 		add(createContentPane(1));
 	}
 }

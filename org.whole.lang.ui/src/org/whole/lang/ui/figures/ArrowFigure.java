@@ -36,7 +36,7 @@ public class ArrowFigure extends EntityFigure {
 	protected final String colorName;
 
 	public ArrowFigure(float autoresizeWeight, ArrowKind arrowLeft, ArrowKind arrowRight) {
-		this(autoresizeWeight, arrowLeft, arrowRight, PreferenceConstants.CONTENT_COLOR, true);
+		this(autoresizeWeight, arrowLeft, arrowRight, PreferenceConstants.CONTENT_CATEGORY, true);
 	}
 
 	public ArrowFigure(float autoresizeWeight, ArrowKind arrowLeft, ArrowKind arrowRight, String color, boolean filled) {

@@ -19,6 +19,7 @@ package org.whole.lang.queries.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.RoundBracketsBorder;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.OverLayout;
@@ -34,8 +35,8 @@ public class UnionAllFigure extends ContentPaneFigure {
 
 		EntityFigure collectFigure = new EntityFigure(new OverLayout()
 				.withMinorAlignment(Alignment.CENTER).withSpacing(-10));
-		collectFigure.addLargeMath("\u222a");
-		collectFigure.addMath("\u2022");
+		collectFigure.add(LabelFactory.createSymbolLargeContent("\u222a"));
+		collectFigure.add(LabelFactory.createSymbolRegularContent("\u2022"));
 		add(collectFigure);
 		add(createContentPane(0, new RoundBracketsBorder()));
 	}

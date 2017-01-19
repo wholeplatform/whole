@@ -22,12 +22,10 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
 import org.whole.lang.ui.layout.RowLayout;
@@ -47,14 +45,7 @@ public class SelectRowFigure extends ContentPaneFigure {
 
 		EntityFigure col0 = new EntityFigure(new RowLayout().withSpacing(1));
 		col0.add(createContentPane(1));
-		col0.add(new EntityLabel("/") {
-			public Color getLocalForegroundColor() {
-				return ColorConstants.gray;
-			}	
-			public Font getLocalFont() {
-				return FigureConstants.openSymbolLarge;
-			}
-		});
+		col0.add(LabelFactory.createSymbolLarge("/", ColorConstants.gray));
 		add(col0);
 
 		EntityFigure col1 = new EntityFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING).withSpacing(12));

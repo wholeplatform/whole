@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.SuffixContentPaneFigure;
  */
 public class FactorialPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new SuffixContentPaneFigure(LabelFactory.createContentMath("!"), 1);
+		return new SuffixContentPaneFigure(LabelFactory.createSymbolRegularContent("!"), 1);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

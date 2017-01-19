@@ -22,6 +22,7 @@ import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MarginBorder;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -43,7 +44,7 @@ public class LoadModelFigure extends AbstractActivityWithTableFigure {
 
 		row = new TableRowFigure();
 		row.addEmptyLabel();
-		row.addMath(" \u2191");
+		row.add(LabelFactory.createSymbolRegularContent(" \u2191"));
 		contentFigure.add(row);
 
 		EntityFigure resourceFigure = new EntityFigure(new RowLayout().withSpacing(4));

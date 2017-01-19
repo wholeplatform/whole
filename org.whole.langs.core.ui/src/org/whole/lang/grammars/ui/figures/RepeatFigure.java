@@ -50,9 +50,9 @@ public class RepeatFigure extends ContentPaneFigure {
 		row.addContentLight("..");
 		row.add(createContentPane(1));
 		row.addContentLight("]");
-	    row.add(new ArrowFigure(1f, ArrowKind.NONE, ArrowKind.NONE, PreferenceConstants.RELATIONS_COLOR, true));
+	    row.add(new ArrowFigure(1f, ArrowKind.NONE, ArrowKind.NONE, PreferenceConstants.RELATIONS_CATEGORY, true));
 		row.add(createContentPane(2));
-	    row.add(new ArrowFigure(0f, ArrowKind.TRIANGLE, ArrowKind.NONE, PreferenceConstants.RELATIONS_COLOR, true));
+	    row.add(new ArrowFigure(0f, ArrowKind.TRIANGLE, ArrowKind.NONE, PreferenceConstants.RELATIONS_CATEGORY, true));
 
 		add(createContentPane(3));
 		add(row);

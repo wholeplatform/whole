@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.PrefixContentPaneFigure;
  */
 public class MinusPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new PrefixContentPaneFigure(LabelFactory.createContentMath("\u2212"), 0);
+		return new PrefixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2212"), 0);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

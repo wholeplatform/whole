@@ -32,7 +32,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class NotProperSubsetPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u2284"), 2);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2284"), 2);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

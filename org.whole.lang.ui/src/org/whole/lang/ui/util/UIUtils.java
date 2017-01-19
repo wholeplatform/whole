@@ -99,10 +99,10 @@ public class UIUtils {
 		return createFont(fontData);
 	}
 	public static final Font createFont(String bundleId, String key) {
-		return createFont(PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.FONT));
+		return createFont(PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.MONOSPACE_FONT));
 	}
 	public static final Font createStyledFont(String bundleId, String key) {
-		FontDescriptor fontDescriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.FONT);
+		FontDescriptor fontDescriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.MONOSPACE_FONT);
 		return createFont(fontDescriptor.setStyle(getStyle(bundleId, key)));
 	}
 	public static final int getStyle(String bundleId, String key) {

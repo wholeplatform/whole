@@ -47,7 +47,7 @@ public class PathPart extends CompositeRowWithPlaceholderPart {
 
 //workaround for LabelFactory.createModule
         		g.setForegroundColor(ColorConstants.gray);
-        		g.setFont(FigureConstants.openSymbolLarge);
+        		g.setFont(FigureConstants.symbolFontLarge);
 
         		int spacing = Math.max(1, getLayoutManager().getSpacing() / 5);
                 int separatorAscent = FigureUtilities.getFontMetrics(g.getFont()).getHeight()/2;//getSeparatorAscent();

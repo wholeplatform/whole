@@ -17,11 +17,10 @@
  */
 package org.whole.lang.types.ui.figures;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.SubLayout;
 
 /**
@@ -33,14 +32,8 @@ public class VariableTypeFigure extends ContentPaneFigure {
 		initContentPanes(1);
 
 		addIdentifier("t");
-		EntityLabel id = new EntityLabel() {
-			public Color getLocalForegroundColor() {
-				return FigureConstants.identifiersColor;
-			}	
-			public Font getLocalFont() {
-				return FigureConstants.openSymbolSmall;
-			}
-		};
+		EntityLabel id = LabelFactory.createMonospaceSmall();
+		id.setForegroundColor(FigureConstants.identifiersColor);
 		add(createContentPane(0, id));
 	}
 }

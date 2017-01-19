@@ -77,44 +77,44 @@ public class PreferenceProcessor {
 		
 		initializeDefaultValues(bundleId);
 
-		FigureConstants.font = createFont(bundleId, FONT);
-		FigureConstants.fontSmall = scaleFont(FigureConstants.font, SMALL_RATIO);
-		FigureConstants.fontMedium = scaleFont(FigureConstants.font, MEDIUM_RATIO);
-		FigureConstants.fontLarge = scaleFont(FigureConstants.font, LARGE_RATIO);
+		FigureConstants.monospaceFontRegular = createFont(bundleId, MONOSPACE_FONT);
+		FigureConstants.monospaceFontSmall = scaleFont(FigureConstants.monospaceFontRegular, SMALL_RATIO);
+		FigureConstants.monospaceFontMedium = scaleFont(FigureConstants.monospaceFontRegular, MEDIUM_RATIO);
+		FigureConstants.monospaceFontLarge = scaleFont(FigureConstants.monospaceFontRegular, LARGE_RATIO);
 
-		int height = Math.round(FigureConstants.font.getFontData()[0].getHeight()*OPEN_SYMBOL_RATIO);
-		FigureConstants.openSymbol = createFont(FontDescriptor.createFrom("OpenSymbol", height, SWT.NONE));
-		FigureConstants.openSymbolSmall = scaleFont(FigureConstants.openSymbol, SMALL_RATIO);
-		FigureConstants.openSymbolMedium = scaleFont(FigureConstants.openSymbol, MEDIUM_RATIO);
-		FigureConstants.openSymbolLarge = scaleFont(FigureConstants.openSymbol, LARGE_RATIO);
+		int height = Math.round(FigureConstants.monospaceFontRegular.getFontData()[0].getHeight()*OPEN_SYMBOL_RATIO);
+		FigureConstants.symbolFontRegular = createFont(FontDescriptor.createFrom("OpenSymbol", height, SWT.NONE));
+		FigureConstants.symbolFontSmall = scaleFont(FigureConstants.symbolFontRegular, SMALL_RATIO);
+		FigureConstants.symbolFontMedium = scaleFont(FigureConstants.symbolFontRegular, MEDIUM_RATIO);
+		FigureConstants.symbolFontLarge = scaleFont(FigureConstants.symbolFontRegular, LARGE_RATIO);
 
-		FigureConstants.selectionColor = createColor(bundleId, SELECTION_COLOR);
-		FigureConstants.matchingSelectionColor = createColor(bundleId, MATCHING_SELECTION_COLOR);
-		FigureConstants.hostLanguageColor = createColor(bundleId, HOST_LANGUAGE_COLOR);
-		FigureConstants.templateLanguageColor = createColor(bundleId, TEMPLATE_LANGUAGE_COLOR);
+		FigureConstants.selectionColor = createColor(bundleId, SELECTION_CATEGORY);
+		FigureConstants.matchingSelectionColor = createColor(bundleId, MATCHING_SELECTION_CATEGORY);
+		FigureConstants.hostLanguageColor = createColor(bundleId, HOST_LANGUAGE_CATEGORY);
+		FigureConstants.templateLanguageColor = createColor(bundleId, TEMPLATE_LANGUAGE_CATEGORY);
 
-		FigureConstants.modulesColor = createColor(bundleId, MODULES_COLOR);
-		FigureConstants.modulesFont = createStyledFont(bundleId, MODULES_COLOR);
-		FigureConstants.declarationsColor = createColor(bundleId, DECLARATIONS_COLOR);
-		FigureConstants.declarationsFont = createStyledFont(bundleId, DECLARATIONS_COLOR);
-		FigureConstants.relationsColor = createColor(bundleId, RELATIONS_COLOR);
-		FigureConstants.relationsFont = createStyledFont(bundleId, RELATIONS_COLOR);
-		FigureConstants.keywordsColor = createColor(bundleId, KEYWORDS_COLOR);
-		FigureConstants.keywordsFont = createStyledFont(bundleId, KEYWORDS_COLOR);
-		FigureConstants.identifiersColor = createColor(bundleId, IDENTIFIERS_COLOR);
-		FigureConstants.identifiersFont = createStyledFont(bundleId, IDENTIFIERS_COLOR);
-		FigureConstants.literalsColor = createColor(bundleId, LITERALS_COLOR);
-		FigureConstants.literalsFont = createStyledFont(bundleId, LITERALS_COLOR);
-		FigureConstants.errorsColor = createColor(bundleId, ERRORS_COLOR);
-		FigureConstants.errorsFont = createStyledFont(bundleId, ERRORS_COLOR);
-		FigureConstants.contentColor = createColor(bundleId, CONTENT_COLOR);
-		FigureConstants.contentFont = createStyledFont(bundleId, CONTENT_COLOR);
-		FigureConstants.contentDarkColor = createColor(bundleId, CONTENT_DARK_COLOR);
-		FigureConstants.contentDarkFont = createStyledFont(bundleId, CONTENT_DARK_COLOR);
-		FigureConstants.contentLightColor = createColor(bundleId, CONTENT_LIGHT_COLOR);
-		FigureConstants.contentLightFont = createStyledFont(bundleId, CONTENT_LIGHT_COLOR);
-		FigureConstants.contentLighterColor = createColor(bundleId, CONTENT_LIGHTER_COLOR);
-		FigureConstants.contentLighterFont = createStyledFont(bundleId, CONTENT_LIGHTER_COLOR);
+		FigureConstants.modulesColor = createColor(bundleId, MODULES_CATEGORY);
+		FigureConstants.modulesFont = createStyledFont(bundleId, MODULES_CATEGORY);
+		FigureConstants.declarationsColor = createColor(bundleId, DECLARATIONS_CATEGORY);
+		FigureConstants.declarationsFont = createStyledFont(bundleId, DECLARATIONS_CATEGORY);
+		FigureConstants.relationsColor = createColor(bundleId, RELATIONS_CATEGORY);
+		FigureConstants.relationsFont = createStyledFont(bundleId, RELATIONS_CATEGORY);
+		FigureConstants.keywordsColor = createColor(bundleId, KEYWORDS_CATEGORY);
+		FigureConstants.keywordsFont = createStyledFont(bundleId, KEYWORDS_CATEGORY);
+		FigureConstants.identifiersColor = createColor(bundleId, IDENTIFIERS_CATEGORY);
+		FigureConstants.identifiersFont = createStyledFont(bundleId, IDENTIFIERS_CATEGORY);
+		FigureConstants.literalsColor = createColor(bundleId, LITERALS_CATEGORY);
+		FigureConstants.literalsFont = createStyledFont(bundleId, LITERALS_CATEGORY);
+		FigureConstants.errorsColor = createColor(bundleId, ERRORS_CATEGORY);
+		FigureConstants.errorsFont = createStyledFont(bundleId, ERRORS_CATEGORY);
+		FigureConstants.contentColor = createColor(bundleId, CONTENT_CATEGORY);
+		FigureConstants.contentFont = createStyledFont(bundleId, CONTENT_CATEGORY);
+		FigureConstants.contentDarkColor = createColor(bundleId, CONTENT_DARK_CATEGORY);
+		FigureConstants.contentDarkFont = createStyledFont(bundleId, CONTENT_DARK_CATEGORY);
+		FigureConstants.contentLightColor = createColor(bundleId, CONTENT_LIGHT_CATEGORY);
+		FigureConstants.contentLightFont = createStyledFont(bundleId, CONTENT_LIGHT_CATEGORY);
+		FigureConstants.contentLighterColor = createColor(bundleId, CONTENT_LIGHTER_CATEGORY);
+		FigureConstants.contentLighterFont = createStyledFont(bundleId, CONTENT_LIGHTER_CATEGORY);
 
 		InstanceScope.INSTANCE.getNode(bundleId).addPreferenceChangeListener(new IEclipsePreferences.IPreferenceChangeListener() {
 			public void preferenceChange(PreferenceChangeEvent event) {
@@ -124,94 +124,94 @@ public class PreferenceProcessor {
 				uiSynchronize.asyncExec(new Runnable() {
 					@Override
 					public void run() {
-						if (prop.equals(FONT)) {
-							FigureConstants.font = replaceResource(FigureConstants.font, createFont(bundleId, FONT));
-							FigureConstants.fontSmall = replaceResource(FigureConstants.fontSmall, scaleFont(FigureConstants.font, SMALL_RATIO));
-							FigureConstants.fontMedium = replaceResource(FigureConstants.fontMedium, scaleFont(FigureConstants.font, MEDIUM_RATIO));
-							FigureConstants.fontLarge = replaceResource(FigureConstants.fontLarge, scaleFont(FigureConstants.font, LARGE_RATIO));
+						if (prop.equals(MONOSPACE_FONT)) {
+							FigureConstants.monospaceFontRegular = replaceResource(FigureConstants.monospaceFontRegular, createFont(bundleId, MONOSPACE_FONT));
+							FigureConstants.monospaceFontSmall = replaceResource(FigureConstants.monospaceFontSmall, scaleFont(FigureConstants.monospaceFontRegular, SMALL_RATIO));
+							FigureConstants.monospaceFontMedium = replaceResource(FigureConstants.monospaceFontMedium, scaleFont(FigureConstants.monospaceFontRegular, MEDIUM_RATIO));
+							FigureConstants.monospaceFontLarge = replaceResource(FigureConstants.monospaceFontLarge, scaleFont(FigureConstants.monospaceFontRegular, LARGE_RATIO));
 							
-							int height = Math.round(FigureConstants.font.getFontData()[0].getHeight()*OPEN_SYMBOL_RATIO);
-							FigureConstants.openSymbol = replaceResource(FigureConstants.openSymbol, createFont(FontDescriptor.createFrom("OpenSymbol", height, SWT.NONE)));
-							FigureConstants.openSymbolSmall = replaceResource(FigureConstants.openSymbolSmall, scaleFont(FigureConstants.openSymbol, SMALL_RATIO));
-							FigureConstants.openSymbolMedium = replaceResource(FigureConstants.openSymbolMedium, scaleFont(FigureConstants.openSymbol, MEDIUM_RATIO));
-							FigureConstants.openSymbolLarge = replaceResource(FigureConstants.openSymbolLarge, scaleFont(FigureConstants.openSymbol, LARGE_RATIO));
+							int height = Math.round(FigureConstants.monospaceFontRegular.getFontData()[0].getHeight()*OPEN_SYMBOL_RATIO);
+							FigureConstants.symbolFontRegular = replaceResource(FigureConstants.symbolFontRegular, createFont(FontDescriptor.createFrom("OpenSymbol", height, SWT.NONE)));
+							FigureConstants.symbolFontSmall = replaceResource(FigureConstants.symbolFontSmall, scaleFont(FigureConstants.symbolFontRegular, SMALL_RATIO));
+							FigureConstants.symbolFontMedium = replaceResource(FigureConstants.symbolFontMedium, scaleFont(FigureConstants.symbolFontRegular, MEDIUM_RATIO));
+							FigureConstants.symbolFontLarge = replaceResource(FigureConstants.symbolFontLarge, scaleFont(FigureConstants.symbolFontRegular, LARGE_RATIO));
 							
-							FigureConstants.modulesFont = replaceResource(FigureConstants.modulesFont, createStyledFont(bundleId, MODULES_COLOR));
-							FigureConstants.declarationsFont = replaceResource(FigureConstants.declarationsFont, createStyledFont(bundleId, DECLARATIONS_COLOR));
-							FigureConstants.relationsFont = replaceResource(FigureConstants.relationsFont, createStyledFont(bundleId, RELATIONS_COLOR));
-							FigureConstants.keywordsFont = replaceResource(FigureConstants.keywordsFont, createStyledFont(bundleId, KEYWORDS_COLOR));
-							FigureConstants.identifiersFont = replaceResource(FigureConstants.identifiersFont, createStyledFont(bundleId, IDENTIFIERS_COLOR));
-							FigureConstants.literalsFont = replaceResource(FigureConstants.literalsFont, createStyledFont(bundleId, LITERALS_COLOR));
-							FigureConstants.errorsFont = replaceResource(FigureConstants.errorsFont, createStyledFont(bundleId, ERRORS_COLOR));
-							FigureConstants.contentFont = replaceResource(FigureConstants.contentFont, createStyledFont(bundleId, CONTENT_COLOR));
-							FigureConstants.contentDarkFont = replaceResource(FigureConstants.contentDarkFont, createStyledFont(bundleId, CONTENT_DARK_COLOR));
-							FigureConstants.contentLightFont = replaceResource(FigureConstants.contentLightFont, createStyledFont(bundleId, CONTENT_LIGHT_COLOR));
-							FigureConstants.contentLighterFont = replaceResource(FigureConstants.contentLighterFont, createStyledFont(bundleId, CONTENT_LIGHTER_COLOR));
+							FigureConstants.modulesFont = replaceResource(FigureConstants.modulesFont, createStyledFont(bundleId, MODULES_CATEGORY));
+							FigureConstants.declarationsFont = replaceResource(FigureConstants.declarationsFont, createStyledFont(bundleId, DECLARATIONS_CATEGORY));
+							FigureConstants.relationsFont = replaceResource(FigureConstants.relationsFont, createStyledFont(bundleId, RELATIONS_CATEGORY));
+							FigureConstants.keywordsFont = replaceResource(FigureConstants.keywordsFont, createStyledFont(bundleId, KEYWORDS_CATEGORY));
+							FigureConstants.identifiersFont = replaceResource(FigureConstants.identifiersFont, createStyledFont(bundleId, IDENTIFIERS_CATEGORY));
+							FigureConstants.literalsFont = replaceResource(FigureConstants.literalsFont, createStyledFont(bundleId, LITERALS_CATEGORY));
+							FigureConstants.errorsFont = replaceResource(FigureConstants.errorsFont, createStyledFont(bundleId, ERRORS_CATEGORY));
+							FigureConstants.contentFont = replaceResource(FigureConstants.contentFont, createStyledFont(bundleId, CONTENT_CATEGORY));
+							FigureConstants.contentDarkFont = replaceResource(FigureConstants.contentDarkFont, createStyledFont(bundleId, CONTENT_DARK_CATEGORY));
+							FigureConstants.contentLightFont = replaceResource(FigureConstants.contentLightFont, createStyledFont(bundleId, CONTENT_LIGHT_CATEGORY));
+							FigureConstants.contentLighterFont = replaceResource(FigureConstants.contentLighterFont, createStyledFont(bundleId, CONTENT_LIGHTER_CATEGORY));
 							
-						} else if (prop.equals(SELECTION_COLOR))
-							FigureConstants.selectionColor = replaceResource(FigureConstants.selectionColor, createColor(bundleId, SELECTION_COLOR));
-						else if (prop.equals(MATCHING_SELECTION_COLOR))
-							FigureConstants.matchingSelectionColor = replaceResource(FigureConstants.matchingSelectionColor, createColor(bundleId, MATCHING_SELECTION_COLOR));
-						else if (prop.equals(HOST_LANGUAGE_COLOR)) {
-							FigureConstants.hostLanguageColor = replaceResource(FigureConstants.hostLanguageColor, createColor(bundleId, HOST_LANGUAGE_COLOR));
-						} else if (prop.equals(TEMPLATE_LANGUAGE_COLOR)) {
-							FigureConstants.templateLanguageColor = replaceResource(FigureConstants.templateLanguageColor, createColor(bundleId, TEMPLATE_LANGUAGE_COLOR));
+						} else if (prop.equals(SELECTION_CATEGORY))
+							FigureConstants.selectionColor = replaceResource(FigureConstants.selectionColor, createColor(bundleId, SELECTION_CATEGORY));
+						else if (prop.equals(MATCHING_SELECTION_CATEGORY))
+							FigureConstants.matchingSelectionColor = replaceResource(FigureConstants.matchingSelectionColor, createColor(bundleId, MATCHING_SELECTION_CATEGORY));
+						else if (prop.equals(HOST_LANGUAGE_CATEGORY)) {
+							FigureConstants.hostLanguageColor = replaceResource(FigureConstants.hostLanguageColor, createColor(bundleId, HOST_LANGUAGE_CATEGORY));
+						} else if (prop.equals(TEMPLATE_LANGUAGE_CATEGORY)) {
+							FigureConstants.templateLanguageColor = replaceResource(FigureConstants.templateLanguageColor, createColor(bundleId, TEMPLATE_LANGUAGE_CATEGORY));
 						}
 						
-						else if (prop.equals(MODULES_COLOR))
-							FigureConstants.modulesColor = replaceResource(FigureConstants.modulesColor, createColor(bundleId, MODULES_COLOR));
-						else if (prop.startsWith(MODULES_COLOR))
-							FigureConstants.modulesFont = replaceResource(FigureConstants.modulesFont, createStyledFont(bundleId, MODULES_COLOR));
+						else if (prop.equals(MODULES_CATEGORY))
+							FigureConstants.modulesColor = replaceResource(FigureConstants.modulesColor, createColor(bundleId, MODULES_CATEGORY));
+						else if (prop.startsWith(MODULES_CATEGORY))
+							FigureConstants.modulesFont = replaceResource(FigureConstants.modulesFont, createStyledFont(bundleId, MODULES_CATEGORY));
 						
-						else if (prop.equals(DECLARATIONS_COLOR))
-							FigureConstants.declarationsColor = replaceResource(FigureConstants.declarationsColor, createColor(bundleId, DECLARATIONS_COLOR));
-						else if (prop.startsWith(DECLARATIONS_COLOR))
-							FigureConstants.declarationsFont = replaceResource(FigureConstants.declarationsFont, createStyledFont(bundleId, DECLARATIONS_COLOR));
+						else if (prop.equals(DECLARATIONS_CATEGORY))
+							FigureConstants.declarationsColor = replaceResource(FigureConstants.declarationsColor, createColor(bundleId, DECLARATIONS_CATEGORY));
+						else if (prop.startsWith(DECLARATIONS_CATEGORY))
+							FigureConstants.declarationsFont = replaceResource(FigureConstants.declarationsFont, createStyledFont(bundleId, DECLARATIONS_CATEGORY));
 						
-						else if (prop.equals(RELATIONS_COLOR))
-							FigureConstants.relationsColor = replaceResource(FigureConstants.relationsColor, createColor(bundleId, RELATIONS_COLOR));
-						else if (prop.startsWith(RELATIONS_COLOR))
-							FigureConstants.relationsFont = replaceResource(FigureConstants.relationsFont, createStyledFont(bundleId, RELATIONS_COLOR));
+						else if (prop.equals(RELATIONS_CATEGORY))
+							FigureConstants.relationsColor = replaceResource(FigureConstants.relationsColor, createColor(bundleId, RELATIONS_CATEGORY));
+						else if (prop.startsWith(RELATIONS_CATEGORY))
+							FigureConstants.relationsFont = replaceResource(FigureConstants.relationsFont, createStyledFont(bundleId, RELATIONS_CATEGORY));
 						
-						else if (prop.equals(KEYWORDS_COLOR))
-							FigureConstants.keywordsColor = replaceResource(FigureConstants.keywordsColor, createColor(bundleId, KEYWORDS_COLOR));
-						else if (prop.startsWith(KEYWORDS_COLOR))
-							FigureConstants.keywordsFont = replaceResource(FigureConstants.keywordsFont, createStyledFont(bundleId, KEYWORDS_COLOR));
+						else if (prop.equals(KEYWORDS_CATEGORY))
+							FigureConstants.keywordsColor = replaceResource(FigureConstants.keywordsColor, createColor(bundleId, KEYWORDS_CATEGORY));
+						else if (prop.startsWith(KEYWORDS_CATEGORY))
+							FigureConstants.keywordsFont = replaceResource(FigureConstants.keywordsFont, createStyledFont(bundleId, KEYWORDS_CATEGORY));
 						
-						else if (prop.equals(IDENTIFIERS_COLOR))
-							FigureConstants.identifiersColor = replaceResource(FigureConstants.identifiersColor, createColor(bundleId, IDENTIFIERS_COLOR));
-						else if (prop.startsWith(IDENTIFIERS_COLOR))
-							FigureConstants.identifiersFont = replaceResource(FigureConstants.identifiersFont, createStyledFont(bundleId, IDENTIFIERS_COLOR));
+						else if (prop.equals(IDENTIFIERS_CATEGORY))
+							FigureConstants.identifiersColor = replaceResource(FigureConstants.identifiersColor, createColor(bundleId, IDENTIFIERS_CATEGORY));
+						else if (prop.startsWith(IDENTIFIERS_CATEGORY))
+							FigureConstants.identifiersFont = replaceResource(FigureConstants.identifiersFont, createStyledFont(bundleId, IDENTIFIERS_CATEGORY));
 						
-						else if (prop.equals(LITERALS_COLOR))
-							FigureConstants.literalsColor = replaceResource(FigureConstants.literalsColor, createColor(bundleId, LITERALS_COLOR));
-						else if (prop.startsWith(LITERALS_COLOR))
-							FigureConstants.literalsFont = replaceResource(FigureConstants.literalsFont, createStyledFont(bundleId, LITERALS_COLOR));
+						else if (prop.equals(LITERALS_CATEGORY))
+							FigureConstants.literalsColor = replaceResource(FigureConstants.literalsColor, createColor(bundleId, LITERALS_CATEGORY));
+						else if (prop.startsWith(LITERALS_CATEGORY))
+							FigureConstants.literalsFont = replaceResource(FigureConstants.literalsFont, createStyledFont(bundleId, LITERALS_CATEGORY));
 						
-						else if (prop.equals(ERRORS_COLOR))
-							FigureConstants.errorsColor = replaceResource(FigureConstants.errorsColor, createColor(bundleId, ERRORS_COLOR));
-						else if (prop.startsWith(ERRORS_COLOR))
-							FigureConstants.errorsFont = replaceResource(FigureConstants.errorsFont, createStyledFont(bundleId, ERRORS_COLOR));
+						else if (prop.equals(ERRORS_CATEGORY))
+							FigureConstants.errorsColor = replaceResource(FigureConstants.errorsColor, createColor(bundleId, ERRORS_CATEGORY));
+						else if (prop.startsWith(ERRORS_CATEGORY))
+							FigureConstants.errorsFont = replaceResource(FigureConstants.errorsFont, createStyledFont(bundleId, ERRORS_CATEGORY));
 						
-						else if (prop.equals(CONTENT_COLOR))
-							FigureConstants.contentColor = replaceResource(FigureConstants.contentColor, createColor(bundleId, CONTENT_COLOR));
-						else if (prop.startsWith(CONTENT_COLOR))
-							FigureConstants.contentFont = replaceResource(FigureConstants.contentFont, createStyledFont(bundleId, CONTENT_COLOR));
+						else if (prop.equals(CONTENT_CATEGORY))
+							FigureConstants.contentColor = replaceResource(FigureConstants.contentColor, createColor(bundleId, CONTENT_CATEGORY));
+						else if (prop.startsWith(CONTENT_CATEGORY))
+							FigureConstants.contentFont = replaceResource(FigureConstants.contentFont, createStyledFont(bundleId, CONTENT_CATEGORY));
 						
-						else if (prop.equals(CONTENT_DARK_COLOR))
-							FigureConstants.contentDarkColor = replaceResource(FigureConstants.contentDarkColor, createColor(bundleId, CONTENT_DARK_COLOR));
-						else if (prop.startsWith(CONTENT_DARK_COLOR))
-							FigureConstants.contentDarkFont = replaceResource(FigureConstants.contentDarkFont, createStyledFont(bundleId, CONTENT_DARK_COLOR));
+						else if (prop.equals(CONTENT_DARK_CATEGORY))
+							FigureConstants.contentDarkColor = replaceResource(FigureConstants.contentDarkColor, createColor(bundleId, CONTENT_DARK_CATEGORY));
+						else if (prop.startsWith(CONTENT_DARK_CATEGORY))
+							FigureConstants.contentDarkFont = replaceResource(FigureConstants.contentDarkFont, createStyledFont(bundleId, CONTENT_DARK_CATEGORY));
 
-						else if (prop.equals(CONTENT_LIGHT_COLOR))
-							FigureConstants.contentLightColor = replaceResource(FigureConstants.contentLightColor, createColor(bundleId, CONTENT_LIGHT_COLOR));
-						else if (prop.startsWith(CONTENT_LIGHT_COLOR))
-							FigureConstants.contentLightFont = replaceResource(FigureConstants.contentLightFont, createStyledFont(bundleId, CONTENT_LIGHT_COLOR));
+						else if (prop.equals(CONTENT_LIGHT_CATEGORY))
+							FigureConstants.contentLightColor = replaceResource(FigureConstants.contentLightColor, createColor(bundleId, CONTENT_LIGHT_CATEGORY));
+						else if (prop.startsWith(CONTENT_LIGHT_CATEGORY))
+							FigureConstants.contentLightFont = replaceResource(FigureConstants.contentLightFont, createStyledFont(bundleId, CONTENT_LIGHT_CATEGORY));
 						
-						else if (prop.equals(CONTENT_LIGHTER_COLOR))
-							FigureConstants.contentLighterColor = replaceResource(FigureConstants.contentLighterColor, createColor(bundleId, CONTENT_LIGHTER_COLOR));
-						else if (prop.startsWith(CONTENT_LIGHTER_COLOR))
-							FigureConstants.contentLighterFont = replaceResource(FigureConstants.contentLighterFont, createStyledFont(bundleId, CONTENT_LIGHTER_COLOR));
+						else if (prop.equals(CONTENT_LIGHTER_CATEGORY))
+							FigureConstants.contentLighterColor = replaceResource(FigureConstants.contentLighterColor, createColor(bundleId, CONTENT_LIGHTER_CATEGORY));
+						else if (prop.startsWith(CONTENT_LIGHTER_CATEGORY))
+							FigureConstants.contentLighterFont = replaceResource(FigureConstants.contentLighterFont, createStyledFont(bundleId, CONTENT_LIGHTER_CATEGORY));
 						
 						eventBroker.post(IE4UIConstants.TOPIC_REBUILD_VIEWER, null);
 						eventBroker.post(IE4UIConstants.TOPIC_REFRESH_VIEWER, null);
@@ -224,56 +224,56 @@ public class PreferenceProcessor {
 	public static void initializeDefaultValues(String bundleId) {
 		IEclipsePreferences preferences = DefaultScope.INSTANCE.getNode(bundleId);
 
-		preferences.put(FONT, PreferenceConverter.getStoredRepresentation(JFaceResources.getTextFont().getFontData()));
+		preferences.put(MONOSPACE_FONT, PreferenceConverter.getStoredRepresentation(JFaceResources.getTextFont().getFontData()));
 
 		RGB lightGreen = new RGB(225, 235, 224);
-		preferences.put(SELECTION_COLOR, StringConverter.asString(lightGreen));
-		preferences.put(MATCHING_SELECTION_COLOR, StringConverter.asString(UIUtils.darker(lightGreen)));
-		preferences.put(HOST_LANGUAGE_COLOR, StringConverter.asString(new RGB(255, 255, 255)));
-		preferences.put(TEMPLATE_LANGUAGE_COLOR, StringConverter.asString(new RGB(238, 232, 213)));
+		preferences.put(SELECTION_CATEGORY, StringConverter.asString(lightGreen));
+		preferences.put(MATCHING_SELECTION_CATEGORY, StringConverter.asString(UIUtils.darker(lightGreen)));
+		preferences.put(HOST_LANGUAGE_CATEGORY, StringConverter.asString(new RGB(255, 255, 255)));
+		preferences.put(TEMPLATE_LANGUAGE_CATEGORY, StringConverter.asString(new RGB(238, 232, 213)));
 
-		preferences.put(MODULES_COLOR, StringConverter.asString(new RGB(115, 153, 0)));
-		preferences.putBoolean(MODULES_COLOR+BOLD, false);
-		preferences.putBoolean(MODULES_COLOR+ITALIC, false);
+		preferences.put(MODULES_CATEGORY, StringConverter.asString(new RGB(115, 153, 0)));
+		preferences.putBoolean(MODULES_CATEGORY+BOLD, false);
+		preferences.putBoolean(MODULES_CATEGORY+ITALIC, false);
 
-		preferences.put(DECLARATIONS_COLOR, StringConverter.asString(new RGB(0, 0, 0)));
-		preferences.putBoolean(DECLARATIONS_COLOR+BOLD, true);
-		preferences.putBoolean(DECLARATIONS_COLOR+ITALIC, false);
+		preferences.put(DECLARATIONS_CATEGORY, StringConverter.asString(new RGB(0, 0, 0)));
+		preferences.putBoolean(DECLARATIONS_CATEGORY+BOLD, true);
+		preferences.putBoolean(DECLARATIONS_CATEGORY+ITALIC, false);
 
-		preferences.put(RELATIONS_COLOR, StringConverter.asString(new RGB(230, 123, 0)));
-		preferences.putBoolean(RELATIONS_COLOR+BOLD, true);
-		preferences.putBoolean(RELATIONS_COLOR+ITALIC, false);
+		preferences.put(RELATIONS_CATEGORY, StringConverter.asString(new RGB(230, 123, 0)));
+		preferences.putBoolean(RELATIONS_CATEGORY+BOLD, true);
+		preferences.putBoolean(RELATIONS_CATEGORY+ITALIC, false);
 
-		preferences.put(KEYWORDS_COLOR, StringConverter.asString(new RGB(127, 0, 85)));
-		preferences.putBoolean(KEYWORDS_COLOR+BOLD, true);
-		preferences.putBoolean(KEYWORDS_COLOR+ITALIC, false);
+		preferences.put(KEYWORDS_CATEGORY, StringConverter.asString(new RGB(127, 0, 85)));
+		preferences.putBoolean(KEYWORDS_CATEGORY+BOLD, true);
+		preferences.putBoolean(KEYWORDS_CATEGORY+ITALIC, false);
 
-		preferences.put(IDENTIFIERS_COLOR, StringConverter.asString(new RGB(0, 112, 191)));
-		preferences.putBoolean(IDENTIFIERS_COLOR+BOLD, false);
-		preferences.putBoolean(IDENTIFIERS_COLOR+ITALIC, false);
+		preferences.put(IDENTIFIERS_CATEGORY, StringConverter.asString(new RGB(0, 112, 191)));
+		preferences.putBoolean(IDENTIFIERS_CATEGORY+BOLD, false);
+		preferences.putBoolean(IDENTIFIERS_CATEGORY+ITALIC, false);
 
-		preferences.put(LITERALS_COLOR, StringConverter.asString(new RGB(128, 63, 0)));
-		preferences.putBoolean(LITERALS_COLOR+BOLD, false);
-		preferences.putBoolean(LITERALS_COLOR+ITALIC, false);
+		preferences.put(LITERALS_CATEGORY, StringConverter.asString(new RGB(128, 63, 0)));
+		preferences.putBoolean(LITERALS_CATEGORY+BOLD, false);
+		preferences.putBoolean(LITERALS_CATEGORY+ITALIC, false);
 
-		preferences.put(ERRORS_COLOR, StringConverter.asString(new RGB(255, 0, 0)));
-		preferences.putBoolean(ERRORS_COLOR+BOLD, false);
-		preferences.putBoolean(ERRORS_COLOR+ITALIC, false);
+		preferences.put(ERRORS_CATEGORY, StringConverter.asString(new RGB(255, 0, 0)));
+		preferences.putBoolean(ERRORS_CATEGORY+BOLD, false);
+		preferences.putBoolean(ERRORS_CATEGORY+ITALIC, false);
 
-		preferences.put(CONTENT_COLOR, StringConverter.asString(new RGB(0, 0, 0)));
-		preferences.putBoolean(CONTENT_COLOR+BOLD, false);
-		preferences.putBoolean(CONTENT_COLOR+ITALIC, false);
+		preferences.put(CONTENT_CATEGORY, StringConverter.asString(new RGB(0, 0, 0)));
+		preferences.putBoolean(CONTENT_CATEGORY+BOLD, false);
+		preferences.putBoolean(CONTENT_CATEGORY+ITALIC, false);
 
-		preferences.put(CONTENT_DARK_COLOR, StringConverter.asString(new RGB(7, 54, 66)));
-		preferences.putBoolean(CONTENT_DARK_COLOR+BOLD, false);
-		preferences.putBoolean(CONTENT_DARK_COLOR+ITALIC, false);
+		preferences.put(CONTENT_DARK_CATEGORY, StringConverter.asString(new RGB(7, 54, 66)));
+		preferences.putBoolean(CONTENT_DARK_CATEGORY+BOLD, false);
+		preferences.putBoolean(CONTENT_DARK_CATEGORY+ITALIC, false);
 
-		preferences.put(CONTENT_LIGHT_COLOR, StringConverter.asString(new RGB(88, 110, 117)));
-		preferences.putBoolean(CONTENT_LIGHT_COLOR+BOLD, false);
-		preferences.putBoolean(CONTENT_LIGHT_COLOR+ITALIC, false);
+		preferences.put(CONTENT_LIGHT_CATEGORY, StringConverter.asString(new RGB(88, 110, 117)));
+		preferences.putBoolean(CONTENT_LIGHT_CATEGORY+BOLD, false);
+		preferences.putBoolean(CONTENT_LIGHT_CATEGORY+ITALIC, false);
 
-		preferences.put(CONTENT_LIGHTER_COLOR, StringConverter.asString(new RGB(147, 161, 161)));
-		preferences.putBoolean(CONTENT_LIGHTER_COLOR+BOLD, false);
-		preferences.putBoolean(CONTENT_LIGHTER_COLOR+ITALIC, false);
+		preferences.put(CONTENT_LIGHTER_CATEGORY, StringConverter.asString(new RGB(147, 161, 161)));
+		preferences.putBoolean(CONTENT_LIGHTER_CATEGORY+BOLD, false);
+		preferences.putBoolean(CONTENT_LIGHTER_CATEGORY+ITALIC, false);
 	}
 }

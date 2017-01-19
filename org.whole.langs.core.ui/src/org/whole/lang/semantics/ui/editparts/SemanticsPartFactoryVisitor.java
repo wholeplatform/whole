@@ -211,7 +211,7 @@ public class SemanticsPartFactoryVisitor extends SemanticsIdentityDefaultVisitor
 	public void visit(StageChange entity) {
 		part = new AbstractDataEntityPart() {
 			public IFigure createFigure() {
-				return LabelFactory.createContentSmallMath();
+				return LabelFactory.createMonospaceSmall();
 			}
 		};
 	}

@@ -19,6 +19,7 @@ package org.whole.lang.firstorderlogic.ui.figures;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -30,7 +31,7 @@ public class QuantifierFigure extends ContentPaneFigure {
     public QuantifierFigure(String quantifierLabel) {
         super(new RowLayout().withSpacing(4));
         initContentPanes(2);
-        addMath(quantifierLabel);
+        add(LabelFactory.createSymbolRegularContent(quantifierLabel));
         addContentLighter("(");
         add(createContentPane(0));
         addContentLight(")");

@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class NotEqualsPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u2260"), 4);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2260"), 4);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

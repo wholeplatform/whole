@@ -23,6 +23,139 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
 public class LabelFactory {
+	public static EntityLabel createMonospaceRegular() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.monospaceFontRegular;
+			}
+		};
+	}
+	public static EntityLabel createMonospaceRegular(String text) {
+		EntityLabel label = createMonospaceRegular();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createMonospaceRegular(String text, Color color) {
+		EntityLabel label = createMonospaceRegular();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createMonospaceSmall() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.monospaceFontSmall;
+			}
+		};
+	}
+	public static EntityLabel createMonospaceSmall(String text) {
+		EntityLabel label = createMonospaceSmall();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createMonospaceSmall(String text, Color color) {
+		EntityLabel label = createMonospaceSmall();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createMonospaceMedium() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.monospaceFontMedium;
+			}
+		};
+	}
+	public static EntityLabel createMonospaceMedium(String text) {
+		EntityLabel label = createMonospaceMedium();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createMonospaceMedium(String text, Color color) {
+		EntityLabel label = createMonospaceMedium();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createMonospaceLarge() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.monospaceFontLarge;
+			}
+		};
+	}
+	public static EntityLabel createMonospaceLarge(String text) {
+		EntityLabel label = createMonospaceLarge();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createMonospaceLarge(String text, Color color) {
+		EntityLabel label = createMonospaceLarge();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createSymbolSmall() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.symbolFontSmall;
+			}
+		};
+	}
+	public static EntityLabel createSymbolSmall(String text) {
+		EntityLabel label = createSymbolSmall();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createSymbolSmall(String text, Color color) {
+		EntityLabel label = createSymbolSmall();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createSymbolMedium() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.symbolFontMedium;
+			}
+		};
+	}
+	public static EntityLabel createSymbolMedium(String text) {
+		EntityLabel label = createSymbolMedium();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createSymbolMedium(String text, Color color) {
+		EntityLabel label = createSymbolMedium();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
+	public static EntityLabel createSymbolLarge() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.symbolFontLarge;
+			}
+		};
+	}
+	public static EntityLabel createSymbolLarge(String text) {
+		EntityLabel label = createSymbolLarge();
+		label.setText(text);
+		return label;
+	}
+	public static EntityLabel createSymbolLarge(String text, Color color) {
+		EntityLabel label = createSymbolLarge();
+		label.setText(text);
+		label.setForegroundColor(color);
+		return label;
+	}
+
 	public static EntityLabel createModuleName() {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
@@ -33,9 +166,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createModuleName(String name) {
+	public static EntityLabel createModuleName(String text) {
 		EntityLabel label = createModuleName();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -49,9 +182,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createModuleNamespace(String name) {
+	public static EntityLabel createModuleNamespace(String text) {
 		EntityLabel label = createModuleNamespace();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -67,9 +200,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createModule(String name) {
+	public static EntityLabel createModule(String text) {
 		EntityLabel label = createModule();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -83,9 +216,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createDeclaration(String name) {
+	public static EntityLabel createDeclaration(String text) {
 		EntityLabel label = createDeclaration();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -99,9 +232,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createRelation(String name) {
+	public static EntityLabel createRelation(String text) {
 		EntityLabel label = createRelation();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -115,9 +248,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createKeyword(String name) {
+	public static EntityLabel createKeyword(String text) {
 		EntityLabel label = createKeyword();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -131,9 +264,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createIdentifier(String name) {
+	public static EntityLabel createIdentifier(String text) {
 		EntityLabel label = createIdentifier();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -147,9 +280,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createLiteral(String name) {
+	public static EntityLabel createLiteral(String text) {
 		EntityLabel label = createLiteral();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -163,9 +296,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createContentDark(String name) {
+	public static EntityLabel createContentDark(String text) {
 		EntityLabel label = createContentDark();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -179,9 +312,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createContent(String name) {
+	public static EntityLabel createContent(String text) {
 		EntityLabel label = createContent();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -195,9 +328,9 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createContentLight(String name) {
+	public static EntityLabel createContentLight(String text) {
 		EntityLabel label = createContentLight();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
@@ -211,74 +344,64 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createContentLighter(String name) {
+	public static EntityLabel createContentLighter(String text) {
 		EntityLabel label = createContentLighter();
-		label.setText(name);
+		label.setText(text);
 		return label;
 	}
 
-	public static EntityLabel createContentSmallMath() {
-		return new EntityLabel() {
+	public static EntityLabel createSymbolSmallContent(String text) {
+		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigureConstants.openSymbolSmall;
+				return FigureConstants.symbolFontSmall;
 			}
 		};
 	}
-	public static EntityLabel createContentSmallMath(String name) {
-		EntityLabel label = createContentSmallMath();
-		label.setText(name);
-		return label;
-	}
 
-	public static EntityLabel createContentMath() {
-		return new EntityLabel() {
+	public static EntityLabel createSymbolRegularContent(String text) {
+		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigureConstants.openSymbol;
+				return FigureConstants.symbolFontRegular;
 			}
 		};
 	}
-	public static EntityLabel createContentMath(String name) {
-		EntityLabel label = createContentMath();
-		label.setText(name);
-		return label;
-	}
 
-	public static EntityLabel createContentMediumMath() {
-		return new EntityLabel() {
+	public static EntityLabel createSymbolMediumContent(String text) {
+		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigureConstants.openSymbolMedium;
+				return FigureConstants.symbolFontMedium;
 			}
 		};
 	}
-	public static EntityLabel createContentMediumMath(String name) {
-		EntityLabel label = createContentMediumMath();
-		label.setText(name);
-		return label;
+	public static EntityLabel createSymbolMediumContentLighter(String text) {
+		return new EntityLabel(text) {
+			public Color getLocalForegroundColor() {
+				return FigureConstants.contentLighterColor;
+			}	
+			public Font getLocalFont() {
+				return FigureConstants.symbolFontMedium;
+			}
+		};
 	}
 
-	public static EntityLabel createContentLargeMath() {
-		return new EntityLabel() {
+	public static EntityLabel createSymbolLargeContent(String text) {
+		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.contentColor;
 			}	
 			public Font getLocalFont() {
-				return FigureConstants.openSymbolLarge;
+				return FigureConstants.symbolFontLarge;
 			}
 		};
-	}
-	public static EntityLabel createContentLargeMath(String name) {
-		EntityLabel label = createContentLargeMath();
-		label.setText(name);
-		return label;
 	}
 
 	public static EntityLabel createContentLabel(String text) {

@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.PrefixContentPaneFigure;
  */
 public class NotPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new PrefixContentPaneFigure(LabelFactory.createContentMath("\u00ac"), 1);
+		return new PrefixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u00ac"), 1);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

@@ -32,7 +32,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class NotSubsetPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u2288"), 2);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u2288"), 2);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

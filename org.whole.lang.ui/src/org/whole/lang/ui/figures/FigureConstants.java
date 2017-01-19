@@ -46,15 +46,15 @@ public class FigureConstants {
 	public static int templateLanguageAlpha = 130;
 	public static int hostLanguageAlpha = 30;
 
-	public static Font fontSmall;
-	public static Font font;
-	public static Font fontMedium;
-	public static Font fontLarge;
+	public static Font monospaceFontSmall;
+	public static Font monospaceFontRegular;
+	public static Font monospaceFontMedium;
+	public static Font monospaceFontLarge;
 
-	public static Font openSymbolSmall;
-	public static Font openSymbol;
-	public static Font openSymbolMedium;
-	public static Font openSymbolLarge;
+	public static Font symbolFontSmall;
+	public static Font symbolFontRegular;
+	public static Font symbolFontMedium;
+	public static Font symbolFontLarge;
 
 	public static Color selectionColor;
 	public static Color matchingSelectionColor;

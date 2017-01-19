@@ -28,14 +28,13 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.AnchorFactory;
 import org.whole.lang.ui.figures.CompositeFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.EntityToggle;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.NodeFigure;
 import org.whole.lang.ui.layout.Alignment;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -69,14 +68,7 @@ public class SwitchControlFigure extends NodeFigure {
 		bodyFigure = new EntityFigure(new ColumnLayout().withMinorAlignment(Alignment.CENTER).withSpacing(2));
 		bodyFigure.add(createActionableFoldingToggle(new EntityToggle("\u00d7", "+", a1) {
 			protected EntityLabel createLabel(String text) {
-				return new EntityLabel(text) {
-					public Color getLocalForegroundColor() {
-						return FigureConstants.contentLightColor;
-					}	
-					public Font getLocalFont() {
-						return FigureConstants.openSymbolMedium;
-					}
-				};
+				return LabelFactory.createSymbolMedium(text, FigureConstants.contentLightColor);
 			}
 		}));
 		bodyFigure.add(casesFigure);

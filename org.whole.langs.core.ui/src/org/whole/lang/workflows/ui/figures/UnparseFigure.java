@@ -20,6 +20,7 @@ package org.whole.lang.workflows.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -45,7 +46,7 @@ public class UnparseFigure extends AbstractActivityWithTableFigure {
 	
 		TableRowFigure row2 = new TableRowFigure();
 		row2.add(createContentPane(1));
-		row2.addMath("\u2192");
+		row2.add(LabelFactory.createSymbolRegularContent("\u2192"));
 		row2.add(createContentPane(2));
 		row2.add(createContentPane(3));
 		row2.add(createContentPane(4));

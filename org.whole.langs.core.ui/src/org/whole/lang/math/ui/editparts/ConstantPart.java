@@ -27,7 +27,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class ConstantPart extends AbstractDataEntityPart {
 	public IFigure createFigure() {
-		return LabelFactory.createContentMath("");
+		return LabelFactory.createSymbolRegularContent("");
 	}
 
 	@Override

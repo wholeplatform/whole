@@ -203,18 +203,7 @@ public class EntityFigure extends Figure implements IEntityFigure {
 		public EntityLabel addContentLighter(String text) {
 			return add(LabelFactory.createContentLighter(text));
 		}
-		public EntityLabel addSmallMath(String text) {
-			return add(LabelFactory.createContentSmallMath(text));
-		}
-		public EntityLabel addMath(String text) {
-			return add(LabelFactory.createContentMath(text));
-		}
-		public EntityLabel addMediumMath(String text) {
-			return add(LabelFactory.createContentMediumMath(text));
-		}
-		public EntityLabel addLargeMath(String text) {
-			return add(LabelFactory.createContentLargeMath(text));
-		}
+
 		public EntityLabel addLabel(String text) {
 			return add(LabelFactory.createContentLabel(text));
 		}

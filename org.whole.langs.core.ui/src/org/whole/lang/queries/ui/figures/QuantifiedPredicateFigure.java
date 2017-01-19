@@ -19,6 +19,7 @@ package org.whole.lang.queries.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -33,11 +34,11 @@ public class QuantifiedPredicateFigure extends ContentPaneFigure {
 		super(new RowLayout().withSpacing(2));
 		initContentPanes(2);
 
-		addMath(quantifier);
+		add(LabelFactory.createSymbolRegularContent(quantifier));
 		add(createContentPane(0));
 		
 		whereClause = new EntityFigure(new RowLayout().withSpacing(2));
-		whereClause.addMath(":");
+		whereClause.add(LabelFactory.createSymbolRegularContent(":"));
 		whereClause.add(createContentPane(1));
 		add(whereClause);
 

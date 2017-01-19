@@ -65,24 +65,24 @@ import org.whole.lang.ui.util.IUIConstants;
  */
 public class EditorPreferencePage extends PreferencePage {
 	private static final String[][] bgCategoryListModel= new String[][] {
-			{ "Selection", PreferenceConstants.SELECTION_COLOR },
-			{ "Matching selection", PreferenceConstants.MATCHING_SELECTION_COLOR },
-			{ "Host stage", PreferenceConstants.HOST_LANGUAGE_COLOR },
-			{ "Template stage", PreferenceConstants.TEMPLATE_LANGUAGE_COLOR },
+			{ "Selection", PreferenceConstants.SELECTION_CATEGORY },
+			{ "Matching selection", PreferenceConstants.MATCHING_SELECTION_CATEGORY },
+			{ "Host stage", PreferenceConstants.HOST_LANGUAGE_CATEGORY },
+			{ "Template stage", PreferenceConstants.TEMPLATE_LANGUAGE_CATEGORY },
 	};
 
 	private static final String[][] fgCategoryListModel= new String[][] {
-			{ "Modules", PreferenceConstants.MODULES_COLOR },
-			{ "Declarations", PreferenceConstants.DECLARATIONS_COLOR },
-			{ "Relations", PreferenceConstants.RELATIONS_COLOR },
-			{ "Keywords", PreferenceConstants.KEYWORDS_COLOR },
-			{ "Identifiers", PreferenceConstants.IDENTIFIERS_COLOR },
-			{ "Literals", PreferenceConstants.LITERALS_COLOR },
-			{ "Errors", PreferenceConstants.ERRORS_COLOR },
-			{ "Content", PreferenceConstants.CONTENT_COLOR },
-			{ "Content Dark", PreferenceConstants.CONTENT_DARK_COLOR },
-			{ "Content Light", PreferenceConstants.CONTENT_LIGHT_COLOR },
-			{ "Content Lighter", PreferenceConstants.CONTENT_LIGHTER_COLOR },
+			{ "Modules", PreferenceConstants.MODULES_CATEGORY },
+			{ "Declarations", PreferenceConstants.DECLARATIONS_CATEGORY },
+			{ "Relations", PreferenceConstants.RELATIONS_CATEGORY },
+			{ "Keywords", PreferenceConstants.KEYWORDS_CATEGORY },
+			{ "Identifiers", PreferenceConstants.IDENTIFIERS_CATEGORY },
+			{ "Literals", PreferenceConstants.LITERALS_CATEGORY },
+			{ "Errors", PreferenceConstants.ERRORS_CATEGORY },
+			{ "Content", PreferenceConstants.CONTENT_CATEGORY },
+			{ "Content Dark", PreferenceConstants.CONTENT_DARK_CATEGORY },
+			{ "Content Light", PreferenceConstants.CONTENT_LIGHT_CATEGORY },
+			{ "Content Lighter", PreferenceConstants.CONTENT_LIGHTER_CATEGORY },
 	};
 
 	private PreferenceStoreAdapter store;
@@ -100,8 +100,8 @@ public class EditorPreferencePage extends PreferencePage {
 
 	public EditorPreferencePage() {
 		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
-		setDescription("Colors and Fonts");
 		setTitle("Whole Languages");
+		setDescription("Colors and Fonts");
 	}
 
 	protected Control createContents(Composite parent) {
@@ -121,7 +121,7 @@ public class EditorPreferencePage extends PreferencePage {
 		fontLayout.marginWidth=0;
 		fontComposite.setLayout(fontLayout);
 		fontComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		font = new FontFieldEditor(PreferenceConstants.FONT, "Font:", fontComposite);
+		font = new FontFieldEditor(PreferenceConstants.MONOSPACE_FONT, "Monospace Font:", fontComposite);
 
 		GridLayout bgLayout = new GridLayout(2, false);
 		bgLayout.marginHeight=5;

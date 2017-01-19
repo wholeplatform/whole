@@ -21,15 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Repetition;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.TypeNameValueTableRowFigure;
 import org.whole.lang.ui.layout.RowLayout;
 
@@ -43,14 +40,7 @@ public class RepetitionPart extends AbstractContentPanePart {
     		protected IEntityFigure createValueFigure(int paneIndex) {
     			EntityFigure row = new EntityFigure(new RowLayout());
     			row.add(createContentPane(paneIndex));
-    			row.add(new EntityLabel("\u2026") {
-    				public Color getLocalForegroundColor() {
-    					return FigureConstants.contentLighterColor;
-    				}	
-    				public Font getLocalFont() {
-    					return FigureConstants.openSymbolMedium;
-    				}
-    			});
+    			row.add(LabelFactory.createSymbolMediumContentLighter("\u2026"));
     			row.addContentLight(" ordered");
     			return row;
 			}

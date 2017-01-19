@@ -20,6 +20,7 @@ package org.whole.lang.workflows.ui.figures;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.PaintFigureHelper;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.figures.TableRowFigure;
@@ -40,7 +41,7 @@ public class LoadJavaModelFigure extends AbstractActivityWithTableFigure {
 
 		row = new TableRowFigure();
 		row.addEmptyLabel();
-		row.addMath(" \u2191");
+		row.add(LabelFactory.createSymbolRegularContent(" \u2191"));
 		contentFigure.add(row);
 
 		row = new TableRowFigure();

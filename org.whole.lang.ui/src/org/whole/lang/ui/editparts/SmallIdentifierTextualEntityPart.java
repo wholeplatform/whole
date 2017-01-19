@@ -20,6 +20,7 @@ package org.whole.lang.ui.editparts;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.EntityLabel;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.TextualFigure;
 
 /**
@@ -27,8 +28,7 @@ import org.whole.lang.ui.figures.TextualFigure;
  */
 public class SmallIdentifierTextualEntityPart extends AbstractTextualEntityPart {
 	protected IFigure createFigure() {
-		EntityLabel label = new EntityLabel();
-		label.setFont(FigureConstants.openSymbolSmall);
+		EntityLabel label = LabelFactory.createMonospaceSmall();
 		label.setForegroundColor(FigureConstants.identifiersColor);
 		return new TextualFigure(label);
 	}

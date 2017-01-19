@@ -33,7 +33,7 @@ import org.whole.lang.ui.figures.LabelFactory;
  */
 public class ImpliesPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		return new InfixContentPaneFigure(LabelFactory.createContentMath("\u21d2"), 2);
+		return new InfixContentPaneFigure(LabelFactory.createSymbolRegularContent("\u21d2"), 2);
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {

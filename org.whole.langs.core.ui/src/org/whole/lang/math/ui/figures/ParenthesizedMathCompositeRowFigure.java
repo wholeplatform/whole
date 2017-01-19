@@ -39,7 +39,7 @@ public class ParenthesizedMathCompositeRowFigure extends ParenthesizedStringSepa
 	}
 	@Override
 	protected Font getLocalFont() {
-		return FigureConstants.openSymbol;
+		return FigureConstants.symbolFontRegular;
 	}
 	@Override
 	protected int getSeparatorAscent() {

@@ -36,8 +36,8 @@ public class ProductionFigure extends ContentPaneFigure {
 		add(createContentPane(0, new MarginBorder(0,4,0,0)));
 		addContentLight(":");
 		add(createContentPane(2, new MarginBorder(0,0,0,4)));
-		add(new ArrowFigure(0f, ArrowKind.INVERTED_TRIANGLE, ArrowKind.NONE, PreferenceConstants.RELATIONS_COLOR, true));
+		add(new ArrowFigure(0f, ArrowKind.INVERTED_TRIANGLE, ArrowKind.NONE, PreferenceConstants.RELATIONS_CATEGORY, true));
 		add(createContentPane(1));
-	    add(new ArrowFigure(0f, ArrowKind.NONE, ArrowKind.BAR, PreferenceConstants.RELATIONS_COLOR, true));
+	    add(new ArrowFigure(0f, ArrowKind.NONE, ArrowKind.BAR, PreferenceConstants.RELATIONS_CATEGORY, true));
 	}
 }

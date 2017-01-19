@@ -29,7 +29,7 @@ import org.whole.lang.ui.layout.RowLayout;
  */
 public class InfixExpressionFigure extends ContentPaneFigure {
 	public InfixExpressionFigure(String operatorSymbol) {
-		this(LabelFactory.createContentMath(operatorSymbol));
+		this(LabelFactory.createSymbolRegularContent(operatorSymbol));
 	}
 	public InfixExpressionFigure(IEntityFigure operatorSymbol) {
 		super(new RowLayout().withSpacing(1));

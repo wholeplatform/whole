@@ -32,24 +32,24 @@ import org.eclipse.swt.graphics.RGB;
  * @author Riccardo Solmi
  */
 public class PreferenceConstants {
-	public static final String FONT = "font";
+	public static final String MONOSPACE_FONT = "monospaceFont";
 
-	public static final String SELECTION_COLOR = "selectionColor";
-	public static final String MATCHING_SELECTION_COLOR = "matchingSelectionColor";
-	public static final String HOST_LANGUAGE_COLOR = "hostColor";
-	public static final String TEMPLATE_LANGUAGE_COLOR = "templateColor";
+	public static final String SELECTION_CATEGORY = "selectionCategory";
+	public static final String MATCHING_SELECTION_CATEGORY = "matchingSelectionCategory";
+	public static final String HOST_LANGUAGE_CATEGORY = "hostCategory";
+	public static final String TEMPLATE_LANGUAGE_CATEGORY = "templateCategory";
 
-	public static final String MODULES_COLOR = "modulesColor";
-	public static final String DECLARATIONS_COLOR = "declarationsColor";
-	public static final String RELATIONS_COLOR = "relationsColor";
-	public static final String KEYWORDS_COLOR = "keywordsColor";
-	public static final String IDENTIFIERS_COLOR = "identifiersColor";
-	public static final String LITERALS_COLOR = "literalsColor";
-	public static final String ERRORS_COLOR = "errorsColor";
-	public static final String CONTENT_COLOR = "contentColor";
-	public static final String CONTENT_DARK_COLOR = "contentDarkColor";
-	public static final String CONTENT_LIGHT_COLOR = "contentLightColor";
-	public static final String CONTENT_LIGHTER_COLOR = "contentLighterColor";
+	public static final String MODULES_CATEGORY = "modulesCategory";
+	public static final String DECLARATIONS_CATEGORY = "declarationsCategory";
+	public static final String RELATIONS_CATEGORY = "relationsCategory";
+	public static final String KEYWORDS_CATEGORY = "keywordsCategory";
+	public static final String IDENTIFIERS_CATEGORY = "identifiersCategory";
+	public static final String LITERALS_CATEGORY = "literalsCategory";
+	public static final String ERRORS_CATEGORY = "errorsCategory";
+	public static final String CONTENT_CATEGORY = "contentCategory";
+	public static final String CONTENT_DARK_CATEGORY = "contentDarkCategory";
+	public static final String CONTENT_LIGHT_CATEGORY = "contentLightCategory";
+	public static final String CONTENT_LIGHTER_CATEGORY = "contentLighterCategory";
 
 	public static final String BOLD = "Bold";
 	public static final String ITALIC = "Italic";

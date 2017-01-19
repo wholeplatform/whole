@@ -18,12 +18,9 @@
 package org.whole.lang.queries.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
-import org.whole.lang.ui.figures.EntityLabel;
-import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 import org.whole.lang.ui.layout.TableRowLayout;
 
@@ -37,14 +34,7 @@ public class ForRowFigure extends ContentPaneFigure {
 
 		EntityFigure col0 = new EntityFigure(new RowLayout().withSpacing(1));
 		col0.add(createContentPane(0));
-		col0.add(new EntityLabel("/") {
-			public Color getLocalForegroundColor() {
-				return ColorConstants.gray;
-			}
-			public Font getLocalFont() {
-				return FigureConstants.openSymbolLarge;
-			}
-		});
+		col0.add(LabelFactory.createSymbolLarge("/", ColorConstants.gray));
 		add(col0);
 
 		add(createContentPane(1));

@@ -18,6 +18,7 @@
 package org.whole.lang.semantics.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
@@ -29,7 +30,7 @@ public class TransitionFigure extends ContentPaneFigure {
 		initContentPanes(2);
 
 		add(createContentPane(0));
-		addLargeMath("\u21d2");
+		add(LabelFactory.createSymbolLargeContent("\u21d2"));
 		add(createContentPane(1));
 	}
 }
