@@ -61,9 +61,13 @@ public class ColorRegistry implements IColorRegistry {//TODO ? extends ResourceR
 		if (oldColor != null)
 			getResourceManager().destroyColor(createFrom(oldColor));
 
-		// fireMappingChanged
+		boolean changed = oldColor != null && !oldColor.getRGB().equals(rgb);
+		if (changed)
+			viewer.getControl().getDisplay().asyncExec(() -> {
+				viewer.refreshNotation();
+			});
 
-		return oldColor != null && !oldColor.getRGB().equals(rgb);
+		return changed;
 	}
 	public RGB getRGB(String colorKey) {
 		return get(colorKey).getRGB();

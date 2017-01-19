@@ -63,9 +63,13 @@ public class FontRegistry implements IFontRegistry {//TODO ? extends ResourceReg
 		if (oldFont != null)
 			getResourceManager().destroyFont(createFrom(oldFont));
 
-		// fireMappingChanged
+		boolean changed = oldFont != null && !Arrays.equals(oldFont.getFontData(), fontData);
+		if (changed)
+			viewer.getControl().getDisplay().asyncExec(() -> {
+				viewer.rebuildNotation();
+			});
 
-		return oldFont != null && !Arrays.equals(oldFont.getFontData(), fontData);
+		return changed;
 	}
 
 	public FontData[] getFontData(String fontKey) {
