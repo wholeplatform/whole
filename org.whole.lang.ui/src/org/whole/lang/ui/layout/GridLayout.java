@@ -174,8 +174,10 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 			}
 		}
 
-		cellX = new int[columns];
-		cellY = new int[rows];
+		if (cellX == null || cellY == null) {
+			cellX = new int[columns];
+			cellY = new int[rows];
+		}
 		columnIndent = new int[columns];
 		columnRightIndent = new int[columns];
 		rowAscent = new int[rows];
@@ -243,7 +245,11 @@ public class GridLayout extends AbstractCompositeEntityLayout {
 
 	protected void setLocation(Rectangle area, int[] x, int[] y) {
 		int children = childSize.length;
+		assert children == x.length;
 
+		cellX = new int[columns()];
+		cellY = new int[rows()];
+		
 		for (int i=0,c=0,r=0; i<children; i++)
 			if (isChildVisible(i)) {
 				c = i / rows();
