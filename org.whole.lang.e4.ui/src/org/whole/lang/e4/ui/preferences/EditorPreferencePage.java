@@ -51,13 +51,16 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.whole.lang.ui.PreferenceConstants;
+import org.whole.lang.ui.PreferenceConstants.FontClass;
+import org.whole.lang.ui.PreferenceConstants.FontSize;
+import org.whole.lang.ui.PreferenceConstants.FontStyle;
 import org.whole.lang.ui.util.IUIConstants;
 
 /**
@@ -86,7 +89,9 @@ public class EditorPreferencePage extends PreferencePage {
 	};
 
 	private PreferenceStoreAdapter store;
-	private FontFieldEditor font;
+	private FontFieldEditor monospaceFont;
+	private FontFieldEditor sanserifFont;
+	private FontFieldEditor serifFont;
 
 	private TableViewer bgCategoryTable;
 	private TableColumn bgColumn;
@@ -95,8 +100,9 @@ public class EditorPreferencePage extends PreferencePage {
 	private TableViewer fgCategoryTable;
 	private TableColumn fgColumn;
 	private ColorSelector fgColorSelector;
-	private Button fgBoldCheckBox;
-	private Button fgItalicCheckBox;
+	private Combo classCombo;
+	private Combo styleCombo;
+	private Combo sizeCombo;	
 
 	public EditorPreferencePage() {
 		setPreferenceStore(store = new PreferenceStoreAdapter(IUIConstants.BUNDLE_ID));
@@ -115,13 +121,19 @@ public class EditorPreferencePage extends PreferencePage {
 		gd.horizontalSpan = 1;
 		topComposite.setLayoutData(gd);
 
-		Composite fontComposite = new Composite(topComposite, SWT.NONE);
+		Label fontsLabel = new Label(topComposite, SWT.LEFT);
+		fontsLabel.setText("Font category:");
+    	gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 2;
+		fontsLabel.setLayoutData(gd);
+
+		Composite fontComposite = new Composite(topComposite, SWT.BORDER);
 		GridLayout fontLayout = new GridLayout(3, false);
-		fontLayout.marginHeight=0;
-		fontLayout.marginWidth=0;
 		fontComposite.setLayout(fontLayout);
 		fontComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		font = new FontFieldEditor(PreferenceConstants.MONOSPACE_FONT, "Monospace Font:", fontComposite);
+		monospaceFont = new FontFieldEditor(PreferenceConstants.MONOSPACE_FONT, "Monospace", fontComposite);
+		sanserifFont = new FontFieldEditor(PreferenceConstants.SANSERIF_FONT, "Sans Serif", fontComposite);
+		serifFont = new FontFieldEditor(PreferenceConstants.SERIF_FONT, "Serif", fontComposite);
 
 		GridLayout bgLayout = new GridLayout(2, false);
 		bgLayout.marginHeight=5;
@@ -184,20 +196,23 @@ public class EditorPreferencePage extends PreferencePage {
 		label.setLayoutData(new GridData());
 		fgColorSelector = new ColorSelector(fgStylesComposite);
 
-		fgBoldCheckBox = new Button(fgStylesComposite, SWT.CHECK);
-		fgBoldCheckBox.setText("Bold");
-		gd= new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalAlignment= GridData.BEGINNING;
-		gd.horizontalSpan= 2;
-		fgBoldCheckBox.setLayoutData(gd);
+		label = new Label(fgStylesComposite, SWT.LEFT);
+		label.setText("Font:");
+		label.setLayoutData(new GridData());
+		classCombo = new Combo(fgStylesComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
+		classCombo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
-		fgItalicCheckBox = new Button(fgStylesComposite, SWT.CHECK);
-		fgItalicCheckBox.setText("Italic");
-		gd= new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalAlignment= GridData.BEGINNING;
-		gd.horizontalSpan= 2;
-		fgItalicCheckBox.setLayoutData(gd);
+		label = new Label(fgStylesComposite, SWT.LEFT);
+		label.setText("Style:");
+		label.setLayoutData(new GridData());
+		styleCombo = new Combo(fgStylesComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
+		styleCombo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
+		label = new Label(fgStylesComposite, SWT.LEFT);
+		label.setText("Size:");
+		label.setLayoutData(new GridData());
+		sizeCombo = new Combo(fgStylesComposite, SWT.DROP_DOWN | SWT.READ_ONLY);
+		sizeCombo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
 		bgCategoryTable.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
@@ -241,20 +256,29 @@ public class EditorPreferencePage extends PreferencePage {
 				}
 			}
 		});
-		fgBoldCheckBox.addSelectionListener(new SelectionListener() {
+
+		classCombo.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 			public void widgetSelected(SelectionEvent e) {
 				String key = getSelectedKey(fgCategoryTable);
-				store.putValue(key + PreferenceConstants.BOLD, Boolean.toString(fgBoldCheckBox.getSelection()));
+				store.putValue(key + PreferenceConstants.CLASS, FontClass.nameOf(classCombo.getSelectionIndex()));
 			}
 		});
-		fgItalicCheckBox.addSelectionListener(new SelectionListener() {
+		styleCombo.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 			public void widgetSelected(SelectionEvent e) {
 				String key = getSelectedKey(fgCategoryTable);
-				store.putValue(key + PreferenceConstants.ITALIC, Boolean.toString(fgItalicCheckBox.getSelection()));
+				store.putValue(key + PreferenceConstants.STYLE, FontStyle.nameOf(styleCombo.getSelectionIndex()));
+			}
+		});
+		sizeCombo.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+			public void widgetSelected(SelectionEvent e) {
+				String key = getSelectedKey(fgCategoryTable);
+				store.putValue(key + PreferenceConstants.SIZE, FontSize.nameOf(sizeCombo.getSelectionIndex()));
 			}
 		});
 
@@ -275,14 +299,29 @@ public class EditorPreferencePage extends PreferencePage {
 		String key = getSelectedKey(fgCategoryTable);
 		RGB rgb = StringConverter.asRGB(store.getString(key));
 		fgColorSelector.setColorValue(rgb);		
-		fgBoldCheckBox.setSelection(store.getBoolean(key + PreferenceConstants.BOLD));
-		fgItalicCheckBox.setSelection(store.getBoolean(key + PreferenceConstants.ITALIC));
+
+		classCombo.select(FontClass.ordinalOf(store.getString(key + PreferenceConstants.CLASS)));
+		styleCombo.select(FontStyle.ordinalOf(store.getString(key + PreferenceConstants.STYLE)));
+		sizeCombo.select(FontSize.ordinalOf(store.getString(key + PreferenceConstants.SIZE)));
 	}
 
 	protected void initialize() {
-		font.setPage(this);
-		font.setPreferenceStore(getPreferenceStore());
-		font.load();
+		monospaceFont.setPage(this);
+		monospaceFont.setPreferenceStore(getPreferenceStore());
+		monospaceFont.load();
+		sanserifFont.setPage(this);
+		sanserifFont.setPreferenceStore(getPreferenceStore());
+		sanserifFont.load();
+		serifFont.setPage(this);
+		serifFont.setPreferenceStore(getPreferenceStore());
+		serifFont.load();
+
+		for (FontClass v : FontClass.values())
+			classCombo.add(v.name());
+		for (FontStyle v : FontStyle.values())
+			styleCombo.add(v.name());
+		for (FontSize v : FontSize.values())
+			sizeCombo.add(v.name());
 
 		bgCategoryTable.setInput(bgCategoryListModel);
 		bgCategoryTable.getControl().getDisplay().asyncExec(new Runnable() {
@@ -303,7 +342,9 @@ public class EditorPreferencePage extends PreferencePage {
 
 	protected void performDefaults() {
 		store.resetToDefaults();
-		font.load();
+		monospaceFont.load();
+		sanserifFont.load();
+		serifFont.load();
 
 		initialize();
 
@@ -311,7 +352,9 @@ public class EditorPreferencePage extends PreferencePage {
 	}
 
 	public boolean performOk() {
-		font.store();
+		monospaceFont.store();
+		sanserifFont.store();
+		serifFont.store();
 		store.applyChanges();
 
 		return super.performOk();

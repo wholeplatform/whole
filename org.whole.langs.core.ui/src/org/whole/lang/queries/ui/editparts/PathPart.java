@@ -63,7 +63,6 @@ public class PathPart extends CompositeRowWithPlaceholderPart {
                 }
         	}
         };
-//        f.setFont(WholeUIPlugin.getOpenSymbolLargeFont());
         return f;
     }
 }

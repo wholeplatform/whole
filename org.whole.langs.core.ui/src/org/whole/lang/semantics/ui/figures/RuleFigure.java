@@ -39,7 +39,6 @@ public class RuleFigure extends ContentPaneFigure {
 		row.add(createContentPane(0));
 		row.add(createContentPane(1, configurationBorder = new DoubleSquareBracketsBorder()));
 		add(row);
-//		addLabel(symbol).setFont(WholeUIPlugin.getOpenSymbolMediumFont());
 		if (symbol.equals("\u25b7"))
 			add(createContentPane(2, new MarginBorder(4)));
 		else			

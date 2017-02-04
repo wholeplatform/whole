@@ -17,7 +17,6 @@
  */
 package org.whole.lang.ui.figures;
 
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
@@ -30,18 +29,6 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createMonospaceRegular(String text) {
-		EntityLabel label = createMonospaceRegular();
-		label.setText(text);
-		return label;
-	}
-	public static EntityLabel createMonospaceRegular(String text, Color color) {
-		EntityLabel label = createMonospaceRegular();
-		label.setText(text);
-		label.setForegroundColor(color);
-		return label;
-	}
-
 	public static EntityLabel createMonospaceSmall() {
 		return new EntityLabel() {
 			public Font getLocalFont() {
@@ -49,18 +36,6 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createMonospaceSmall(String text) {
-		EntityLabel label = createMonospaceSmall();
-		label.setText(text);
-		return label;
-	}
-	public static EntityLabel createMonospaceSmall(String text, Color color) {
-		EntityLabel label = createMonospaceSmall();
-		label.setText(text);
-		label.setForegroundColor(color);
-		return label;
-	}
-
 	public static EntityLabel createMonospaceMedium() {
 		return new EntityLabel() {
 			public Font getLocalFont() {
@@ -68,18 +43,6 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createMonospaceMedium(String text) {
-		EntityLabel label = createMonospaceMedium();
-		label.setText(text);
-		return label;
-	}
-	public static EntityLabel createMonospaceMedium(String text, Color color) {
-		EntityLabel label = createMonospaceMedium();
-		label.setText(text);
-		label.setForegroundColor(color);
-		return label;
-	}
-
 	public static EntityLabel createMonospaceLarge() {
 		return new EntityLabel() {
 			public Font getLocalFont() {
@@ -87,16 +50,63 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createMonospaceLarge(String text) {
-		EntityLabel label = createMonospaceLarge();
-		label.setText(text);
-		return label;
+
+	public static EntityLabel createSanserifRegular() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.sanserifFontRegular;
+			}
+		};
 	}
-	public static EntityLabel createMonospaceLarge(String text, Color color) {
-		EntityLabel label = createMonospaceLarge();
-		label.setText(text);
-		label.setForegroundColor(color);
-		return label;
+	public static EntityLabel createSanserifSmall() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.sanserifFontSmall;
+			}
+		};
+	}
+	public static EntityLabel createSanserifMedium() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.sanserifFontMedium;
+			}
+		};
+	}
+	public static EntityLabel createSanserifLarge() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.sanserifFontLarge;
+			}
+		};
+	}
+
+	public static EntityLabel createSerifRegular() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.serifFontRegular;
+			}
+		};
+	}
+	public static EntityLabel createSerifSmall() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.serifFontSmall;
+			}
+		};
+	}
+	public static EntityLabel createSerifMedium() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.serifFontMedium;
+			}
+		};
+	}
+	public static EntityLabel createSerifLarge() {
+		return new EntityLabel() {
+			public Font getLocalFont() {
+				return FigureConstants.serifFontLarge;
+			}
+		};
 	}
 
 	public static EntityLabel createSymbolSmall() {
@@ -106,18 +116,6 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createSymbolSmall(String text) {
-		EntityLabel label = createSymbolSmall();
-		label.setText(text);
-		return label;
-	}
-	public static EntityLabel createSymbolSmall(String text, Color color) {
-		EntityLabel label = createSymbolSmall();
-		label.setText(text);
-		label.setForegroundColor(color);
-		return label;
-	}
-
 	public static EntityLabel createSymbolMedium() {
 		return new EntityLabel() {
 			public Font getLocalFont() {
@@ -125,29 +123,18 @@ public class LabelFactory {
 			}
 		};
 	}
-	public static EntityLabel createSymbolMedium(String text) {
-		EntityLabel label = createSymbolMedium();
-		label.setText(text);
-		return label;
-	}
 	public static EntityLabel createSymbolMedium(String text, Color color) {
 		EntityLabel label = createSymbolMedium();
 		label.setText(text);
 		label.setForegroundColor(color);
 		return label;
 	}
-
 	public static EntityLabel createSymbolLarge() {
 		return new EntityLabel() {
 			public Font getLocalFont() {
 				return FigureConstants.symbolFontLarge;
 			}
 		};
-	}
-	public static EntityLabel createSymbolLarge(String text) {
-		EntityLabel label = createSymbolLarge();
-		label.setText(text);
-		return label;
 	}
 	public static EntityLabel createSymbolLarge(String text, Color color) {
 		EntityLabel label = createSymbolLarge();
@@ -162,7 +149,7 @@ public class LabelFactory {
 				return FigureConstants.modulesColor;
 			}
 			public Font getLocalFont() {
-				return JFaceResources.getHeaderFont();
+				return FigureConstants.sanserifFontLarge;
 			}
 		};
 	}
@@ -178,7 +165,7 @@ public class LabelFactory {
 				return FigureConstants.modulesColor;
 			}	
 			public Font getLocalFont() {
-				return JFaceResources.getBannerFont();
+				return FigureConstants.sanserifFontMedium;
 			}
 		};
 	}
@@ -192,11 +179,9 @@ public class LabelFactory {
 		return new EntityLabel() {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.modulesColor;
-			}	
+			}
 			public Font getLocalFont() {
-				if (super.getLocalFont() != null)
-					return super.getLocalFont();
-				return super.getLocalFont();//FIXME init FigureConstants.modulesFont with super defined font;
+				return FigureConstants.sanserifFontRegular;
 			}
 		};
 	}
@@ -376,6 +361,16 @@ public class LabelFactory {
 		return new EntityLabel(text) {
 			public Color getLocalForegroundColor() {
 				return FigureConstants.contentColor;
+			}	
+			public Font getLocalFont() {
+				return FigureConstants.symbolFontMedium;
+			}
+		};
+	}
+	public static EntityLabel createSymbolMediumContentLight(String text) {
+		return new EntityLabel(text) {
+			public Color getLocalForegroundColor() {
+				return FigureConstants.contentLightColor;
 			}	
 			public Font getLocalFont() {
 				return FigureConstants.symbolFontMedium;

@@ -51,6 +51,16 @@ public class FigureConstants {
 	public static Font monospaceFontMedium;
 	public static Font monospaceFontLarge;
 
+	public static Font sanserifFontSmall;
+	public static Font sanserifFontRegular;
+	public static Font sanserifFontMedium;
+	public static Font sanserifFontLarge;
+
+	public static Font serifFontSmall;
+	public static Font serifFontRegular;
+	public static Font serifFontMedium;
+	public static Font serifFontLarge;
+
 	public static Font symbolFontSmall;
 	public static Font symbolFontRegular;
 	public static Font symbolFontMedium;

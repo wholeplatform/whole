@@ -68,7 +68,7 @@ public class SwitchControlFigure extends NodeFigure {
 		bodyFigure = new EntityFigure(new ColumnLayout().withMinorAlignment(Alignment.CENTER).withSpacing(2));
 		bodyFigure.add(createActionableFoldingToggle(new EntityToggle("\u00d7", "+", a1) {
 			protected EntityLabel createLabel(String text) {
-				return LabelFactory.createSymbolMedium(text, FigureConstants.contentLightColor);
+				return LabelFactory.createSymbolMediumContentLight(text);
 			}
 		}));
 		bodyFigure.add(casesFigure);

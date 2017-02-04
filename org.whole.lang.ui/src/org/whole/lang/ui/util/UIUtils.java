@@ -40,6 +40,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.whole.lang.ui.PreferenceConstants;
+import org.whole.lang.ui.PreferenceConstants.FontClass;
+import org.whole.lang.ui.PreferenceConstants.FontSize;
+import org.whole.lang.ui.PreferenceConstants.FontStyle;
 
 /**
  * @author Enrico Persiani, Riccardo Solmi
@@ -93,25 +96,46 @@ public class UIUtils {
 	public static final Font createFont(FontData[] fontData) {
 		return createFont(FontDescriptor.createFrom(fontData));
 	}
-	public static final Font scaleFont(Font font, float scale) {
+	public static final Font scaleFont(Font font, FontSize fontSize) {
 		FontData[] fontData = font.getFontData();
-		fontData[0].setHeight(Math.round(fontData[0].getHeight()*scale));
+		fontData[0].setHeight(Math.round(fontData[0].getHeight() * fontSize.ratio));
 		return createFont(fontData);
 	}
-	public static final Font createFont(String bundleId, String key) {
-		return createFont(PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.MONOSPACE_FONT));
+	public static final Font createFont(String bundleId, String fontId) {
+		return createFont(PreferenceConstants.lookUpFontDescriptor(bundleId, fontId));
 	}
 	public static final Font createStyledFont(String bundleId, String key) {
-		FontDescriptor fontDescriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, PreferenceConstants.MONOSPACE_FONT);
-		return createFont(fontDescriptor.setStyle(getStyle(bundleId, key)));
+		FontDescriptor fontDescriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, getFontClass(bundleId, key));
+		return createFont(fontDescriptor
+				.setStyle(getFontStyle(bundleId, key))
+				.setHeight(getFontSize(bundleId, key)));
 	}
-	public static final int getStyle(String bundleId, String key) {
+	public static final String getFontClass(String bundleId, String key) {
+		FontClass fontClass = PreferenceConstants.lookUpFontClass(bundleId, key+PreferenceConstants.CLASS);
+		switch (fontClass) {
+		case Monospace:
+			return PreferenceConstants.MONOSPACE_FONT;
+		case Sanserif:
+			return PreferenceConstants.SANSERIF_FONT;
+		case Serif:
+			return PreferenceConstants.SERIF_FONT;
+		default:
+			throw new IllegalArgumentException("Unknown font");
+		}
+	}
+	public static final int getFontStyle(String bundleId, String key) {
 		int style = SWT.NORMAL;
-		if (PreferenceConstants.lookUpBooleanPreference(bundleId, key+PreferenceConstants.BOLD))
+		FontStyle fontStyle = PreferenceConstants.lookUpFontStyle(bundleId, key+PreferenceConstants.STYLE);
+		if (fontStyle.isBold())
 			style += SWT.BOLD;
-		if (PreferenceConstants.lookUpBooleanPreference(bundleId, key+PreferenceConstants.ITALIC))
+		if (fontStyle.isItalic())
 			style += SWT.ITALIC;
 		return style;
+	}
+	public static final int getFontSize(String bundleId, String key) {
+		FontSize fontSize = PreferenceConstants.lookUpFontSize(bundleId, key+PreferenceConstants.SIZE);
+		FontDescriptor descriptor = PreferenceConstants.lookUpFontDescriptor(bundleId, getFontClass(bundleId, key));
+		return Math.round(descriptor.getFontData()[0].getHeight() * fontSize.ratio);
 	}
 
 	public static ImageDescriptor getImageDescriptor(String relativePath) {
