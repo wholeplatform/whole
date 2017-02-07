@@ -17,6 +17,7 @@
  */
 package org.whole.lang.events;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.whole.lang.model.EnumValue;
@@ -28,7 +29,7 @@ import org.whole.lang.reflect.FeatureDescriptor;
  * 
  * @author Riccardo Solmi
  */
-public interface IRequestEventHandler {
+public interface IRequestEventHandler extends Serializable {
     public IRequestEventHandler cloneRequestEventHandler(IRequestEventHandler parentEventHandler);
     public IRequestEventHandler addRequestEventHandler(IRequestEventHandler eventHandler);
     public IRequestEventHandler removeRequestEventHandler(IRequestEventHandler eventHandler);

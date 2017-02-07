@@ -40,9 +40,13 @@ public class DefaultValueFactory {
 		});
 	}
 	public static void bindDefaultValueLazy(IEntity entity, final FeatureDescriptor fd, final IEntity defaultValue) {
-		entity.wAddRequestEventHandler(new AbstractDerivationRule<IEntity>(fd) {
-			protected IEntity deriveRequested(IEntity source, IEntity value) {
-				return EntityUtils.clone(defaultValue);
+		entity.wAddRequestEventHandler(new IdentityRequestEventHandler() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public <V extends IEntity> V notifyRequested(IEntity source, FeatureDescriptor feature, V value) {
+				if (fd.equals(feature) && EntityUtils.isDefault(entity, fd, value))
+					source.wSet(fd, value = EntityUtils.clone((V) defaultValue));
+				return value;
 			}
 		});
 	}

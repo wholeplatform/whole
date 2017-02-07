@@ -26,11 +26,11 @@ import org.whole.lang.reflect.FeatureDescriptor;
 /**
  * @author Riccardo Solmi
  */
-public abstract class MappingChangeEventHandler extends DelegatingChangeEventHandler {
+public abstract class MappingChangeEventHandler extends AbstractDelegatingChangeEventHandler {
 	private static final long serialVersionUID = 1L;
     private Map<Object, IChangeEventHandler> eventHandlerMap = new HashMap<Object, IChangeEventHandler>();
 
-    protected IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
+    protected IChangeEventHandler getChangeEventHandler(IEntity source, FeatureDescriptor fd) {
         IChangeEventHandler eventHandler = eventHandlerMap.get(getKey(source, fd));
         if (eventHandler == null)
             eventHandler = onDemandEventHandler(source, fd);
@@ -52,8 +52,8 @@ public abstract class MappingChangeEventHandler extends DelegatingChangeEventHan
     	private static final long serialVersionUID = 1L;
 
     	@Override
-        protected IChangeEventHandler getEventHandler(IEntity source, FeatureDescriptor fd) {
-    		return getActualEventHandler(super.getEventHandler(source, fd), source);
+        protected IChangeEventHandler getChangeEventHandler(IEntity source, FeatureDescriptor fd) {
+    		return getActualEventHandler(super.getChangeEventHandler(source, fd), source);
     	}
 
     	protected final IChangeEventHandler onDemandEventHandler(IEntity source, FeatureDescriptor fd) {

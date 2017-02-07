@@ -37,7 +37,8 @@ public class DerivationContext extends IdentityEventHandler {
 		IDLE, GET, SET, REQUEST, CHANGE
 	}
 	protected State state = State.IDLE;
-	protected int stateNesting = 0;
+/*
+ 	protected int stateNesting = 0;
 	protected void pushRequest() {
 		switch (state) {
 		case IDLE:
@@ -58,6 +59,7 @@ public class DerivationContext extends IdentityEventHandler {
 		default:
 		}
 	}
+*/
 
 	protected Map<EntityDescriptor<?>, IRequestEventHandler> requestRules = new HashMap<>();
 	protected Map<EntityDescriptor<?>, IChangeEventHandler> changeRules = new HashMap<>();
