@@ -278,9 +278,12 @@ public class PreferenceProcessor {
 	public static void initializeDefaultValues(String bundleId) {
 		IEclipsePreferences preferences = DefaultScope.INSTANCE.getNode(bundleId);
 
-		preferences.put(MONOSPACE_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Cousine", 11, SWT.NONE)).getFontData()));
-		preferences.put(SANSERIF_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Open Sans", 11, SWT.NONE)).getFontData()));
-		preferences.put(SERIF_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Tinos", 11, SWT.NONE)).getFontData()));
+		boolean IS_WIN = "win32".equals(SWT.getPlatform());
+		int height = IS_WIN ? 9 : 11;
+
+		preferences.put(MONOSPACE_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Cousine", height, SWT.NONE)).getFontData()));
+		preferences.put(SANSERIF_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Open Sans", height, SWT.NONE)).getFontData()));
+		preferences.put(SERIF_FONT, PreferenceConverter.getStoredRepresentation(createFont(FontDescriptor.createFrom("Tinos", height, SWT.NONE)).getFontData()));
 
 		RGB lightGreen = new RGB(225, 235, 224);
 		preferences.put(SELECTION_CATEGORY, StringConverter.asString(lightGreen));
