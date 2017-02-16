@@ -31,8 +31,10 @@ import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.parsers.DataTypeParsers;
 import org.whole.lang.parsers.IDataTypeParser;
+import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.util.DataTypeUtils;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -109,17 +111,26 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 
 	@Override
     public void visit(IEntity entity) {
-    	final EntityDescriptor<?> ed = entity.wGetEntityDescriptor();
+    	EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
+    	DataKinds dataKind = entityEd.getDataKind();
 
-    	switch (ed.getDataKind()) {
-    	case NOT_A_DATA:
-    		return;
+    	//TODO merge with parent results if different language
+    	if (dataKind.isNotAData()) {
+    		IEntity parent = entity.wGetParent();
+    		if (!EntityUtils.isNull(parent)) {
+    			entityEd = parent.wGetEntityDescriptor(entity);
+    			dataKind = entityEd.getDataKind();
+    		}
+    	}
+    	
+    	final EntityDescriptor<?> ed = entityEd;
+
+    	switch (dataKind) {
     	case ENUM_VALUE:
     		final List<EnumValue> enumValues = new ArrayList<EnumValue>(ed.getDataEnumType().values());
     		final IDataTypeParser unparser = DataTypeUtils.getDataTypeParser(ed, DataTypeParsers.PRESENTATION);
 
-    		Collections.sort(enumValues, new Comparator<EnumValue>() {
-    			public int compare(EnumValue arg0, EnumValue arg1) {
+    		Collections.sort(enumValues, (EnumValue arg0, EnumValue arg1) -> {
     				String arg0String = unparser.unparseEnumValue(ed, arg0);
     				String arg1String = unparser.unparseEnumValue(ed, arg1);
     				if (arg0String.length()==0 || arg1String.length()==0 ||
@@ -129,7 +140,7 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
     				else
     					return arg0String.compareTo(arg1String);
     			}
-    		});
+    		);
 
     		int size = enumValues.size();
 			IEntity[] values = new IEntity[size];
@@ -142,6 +153,8 @@ public class ContentAssistOperation extends AbstractVisitorOperation {
 	    			GenericEntityFactory.instance.create(ed, true),
 	    			GenericEntityFactory.instance.create(ed, false)
 	    	});
+	    	break;
+	    default:
 	    }
     }
 }
