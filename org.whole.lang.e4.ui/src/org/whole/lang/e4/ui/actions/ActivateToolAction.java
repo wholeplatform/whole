@@ -45,7 +45,8 @@ public class ActivateToolAction extends AbstractE4Action {
 		ESelectionService selectionService = getContext().get(ESelectionService.class);
 		if (selectionService.getSelection() instanceof IBindingManager) {
 			IBindingManager bm = (IBindingManager) selectionService.getSelection();
-			setEnabled(bm.wIsSet("viewer"));
+			if (bm.wIsSet("viewer"))
+				setEnabled(!tool.isActive((IEntityPartViewer) bm.wGetValue("viewer")));
 		}
 	}
 
