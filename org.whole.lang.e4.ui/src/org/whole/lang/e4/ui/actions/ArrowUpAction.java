@@ -24,7 +24,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
  */
 public class ArrowUpAction extends AbstractModelTextAction {
 	public ArrowUpAction(IEclipseContext context) {
-		super(context, IE4UIConstants.LEFT_LABEL);
+		super(context, IE4UIConstants.UP_LABEL);
 	}
 	
 

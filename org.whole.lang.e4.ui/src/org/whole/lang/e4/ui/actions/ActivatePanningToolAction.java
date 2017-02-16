@@ -17,7 +17,10 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import java.net.URL;
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.ui.tools.Tools;
 
 /**
@@ -26,5 +29,10 @@ import org.whole.lang.ui.tools.Tools;
 public final class ActivatePanningToolAction extends ActivateToolAction {
 	public ActivatePanningToolAction(IEclipseContext context) {
 		super(context, Tools.PANNING);
+		setText(IE4UIConstants.HIDE_CARET_LABEL);
+		try {
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(IE4UIConstants.TEXT_ICON_URI)));
+		} catch (Exception e) {
+		}
 	}
 }

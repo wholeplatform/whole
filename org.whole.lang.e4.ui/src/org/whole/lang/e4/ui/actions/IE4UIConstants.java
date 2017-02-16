@@ -150,7 +150,8 @@ public interface IE4UIConstants {
 	public static final String COPY_AS_IMAGE_LABEL = "Copy As Image";
 	public static final String PASTE_AS_LABEL = "Paste As";
 	public static final String SPLIT_ON_CARET_LABEL = "Split on Caret";
-	public static final String NEWLINE_LABEL = "Newline on Caret";
+	public static final String HIDE_CARET_LABEL = "Hide Caret";
+	public static final String NEWLINE_LABEL = "Newline";
 	public static final String BACKSPACE_LABEL = "Backspace";
 	public static final String DELETE_LABEL = "Delete";
 	public static final String LEFT_LABEL = "Left";

@@ -17,7 +17,10 @@
  */
 package org.whole.lang.e4.ui.actions;
 
+import java.net.URL;
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * @author Enrico Persiani
@@ -25,6 +28,11 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 public class NewlineAction extends ActionWithFallback {
 	public NewlineAction(IEclipseContext context) {
 		super(context, new BaseAction(context), new ActivatePanningToolAction(context));
+		setText(IE4UIConstants.NEWLINE_LABEL);
+		try {
+			setImageDescriptor(ImageDescriptor.createFromURL(new URL(IE4UIConstants.TEXT_ICON_URI)));
+		} catch (Exception e) {
+		}
 	}
 	
 
