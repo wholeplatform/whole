@@ -102,7 +102,9 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 	}
 
 	public IEntity next() {
+		getBindings().wEnterScope();
 		IEntity result = functionIterator().next();
+		getBindings().wExitScope();
 		getBindings().wAddAll(lookaheadScope());
 
 		nextEntity = null;
@@ -119,7 +121,10 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 		for (String name : laScope.wLocalNames())
 			getBindings().wUnset(name);
 
-		return nextEntity = functionIterator().lookahead();
+		getBindings().wEnterScope();
+		nextEntity = functionIterator().lookahead();
+		getBindings().wExitScope();
+		return nextEntity;
 	}
 
 	public void set(IEntity entity) {
