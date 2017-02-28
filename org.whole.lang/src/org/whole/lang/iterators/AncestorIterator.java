@@ -17,81 +17,28 @@
  */
 package org.whole.lang.iterators;
 
-import java.util.NoSuchElementException;
-
-import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.IBindingScope;
-import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
 /**
- * Iterator that returns the ancestors of a given IEntity (first is parent).
- * 
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class AncestorIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-    protected IEntity entity;
-    private E lastEntity;
-
-	public IBindingScope lookaheadScope() {
-		return NullScope.instance;
-	}
-
-	public boolean hasNext() {
-    	if (entity == null)
-    		return false;
-    	return EntityUtils.hasParent(entity);
-    }
-	public E next() {
-    	E result = lookahead();
-    	if (result == null)
-        	throw new NoSuchElementException();
-
-    	entity = result;
-    	return lastEntity = result;
-	}
-
-    @SuppressWarnings("unchecked")
-	public E lookahead() {
-    	if (entity == null)
-    		return null;
-		E parent = (E) entity.wGetParent();
-    	return EntityUtils.isNull(parent) ? null : parent;
-    }
-   
-    public void reset(IEntity entity) {
-        this.entity = entity;
-        lastEntity = null;
-    }
-
-	public void setBindings(IBindingManager bindings) {
-	}
-
-    public void prune() {
-    }
-
-	public void set(E value) {
-    	if (lastEntity == null)
-    		throw new IllegalStateException();
-    	
-    	lastEntity.wGetParent().wSet(lastEntity, entity = value);
-    	lastEntity = value;
-	}
-	public void add(E value) {
-		throw new UnsupportedOperationException();
-	}
-	public void remove() {
-    	if (lastEntity == null)
-    		throw new IllegalStateException();
-
-    	lastEntity.wGetParent().wRemove(lastEntity);
-    	lastEntity = null;
+public class AncestorIterator<E extends IEntity> extends AbstractTransitiveClosureIterator<E> {
+	protected AncestorIterator(boolean includeSelf) {
+		super(includeSelf);
 	}
 
     @Override
-	public void toString(StringBuilder sb) {
-		sb.append("ancestor()");
+	protected boolean isRelationNotEmpty(IEntity entity) {
+		return EntityUtils.hasParent(entity);
+	}
+	@Override
+    protected IEntityIterator<E> createRelationIterator() {
+    	return IteratorFactory.parentIterator();
     }
 
+    @Override
+	public void toString(StringBuilder sb) {
+		sb.append(includeSelf ? "ancestorOrSelf()" : "ancestor()");
+    }
 }

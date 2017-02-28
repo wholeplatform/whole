@@ -30,8 +30,10 @@ import org.junit.Test;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.factories.RegistryConfigurations;
 import org.whole.lang.grammars.factories.GrammarsEntityFactory;
 import org.whole.lang.grammars.model.Choose;
 import org.whole.lang.grammars.model.Grammar;
@@ -47,6 +49,10 @@ import org.whole.lang.java.model.ImportModifier;
 import org.whole.lang.java.reflect.JavaEntityDescriptorEnum;
 import org.whole.lang.matchers.GenericMatcherFactory;
 import org.whole.lang.matchers.Matcher;
+import org.whole.lang.misc.factories.MiscEntityFactory;
+import org.whole.lang.misc.model.Any;
+import org.whole.lang.misc.model.Misc;
+import org.whole.lang.misc.reflect.MiscEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.models.factories.ModelsEntityFactory;
@@ -504,6 +510,49 @@ public class IteratorFactoryTest {
 
 		assertSame(e1, i3.next());
 		assertSame(e2, i3.next());
+	}
+
+
+	@Test
+    public void testAncestorOrSelfIteratorRemoveSet() {
+		Grammar g = new TestXmlGrammar().create();
+
+		MiscEntityFactory mef = MiscEntityFactory.instance(RegistryConfigurations.RESOLVER);
+		Any any = CommonsEntityAdapterFactory.create(MiscEntityDescriptorEnum.Any, g);
+		Misc innerMisc = mef.createMisc(any);
+		any = CommonsEntityAdapterFactory.create(MiscEntityDescriptorEnum.Any, innerMisc);
+		Misc outerMisc = mef.createMisc(any);
+
+		Rule r = Matcher.find(GrammarsEntityDescriptorEnum.As, outerMisc, false);
+
+		IEntityIterator<IEntity> i = IteratorFactory.ancestorOrSelfIterator();
+		i.reset(r);
+
+		IEntity next = null;
+		while (i.hasNext()) {
+			next = i.next();
+			if (Matcher.match(MiscEntityDescriptorEnum.Misc, next))
+				break;
+		}
+		assertSame(innerMisc, next);
+
+		i.set(EntityUtils.clone(any));		
+		assertEquals(1, outerMisc.wSize());
+
+		Rule r2 = Matcher.find(GrammarsEntityDescriptorEnum.As, outerMisc, false);
+		assertTrue(Matcher.match(r, r2));
+		assertNotSame(r, r2);
+
+		i.remove();
+		assertEquals(0, outerMisc.wSize());
+		
+		i.reset(r2);
+		while (i.hasNext()) {
+			next = i.next();
+			if (i.hasNext())
+				i.remove();
+		}
+		assertFalse(EntityUtils.hasParent(next));
 	}
 
 	@Test

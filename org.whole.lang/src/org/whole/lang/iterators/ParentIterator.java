@@ -23,18 +23,19 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class ParentIterator extends SelfIterator<IEntity> {
+public class ParentIterator<E extends IEntity> extends SelfIterator<E> {
     @Override
     public boolean hasNext() {
     	return super.hasNext() && EntityUtils.hasParent(entity);
     }
 
-    @Override
-    public IEntity lookahead() {
+    @SuppressWarnings("unchecked")
+	@Override
+    public E lookahead() {
     	if (!hasNext())
     		return null;
 
-		return entity.wGetParent();
+		return (E) entity.wGetParent();
     }
 
     @Override

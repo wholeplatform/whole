@@ -89,16 +89,15 @@ public class IteratorFactory {
 		return new FragmentRootIterator();
 	}
 
-    public static IEntityIterator<IEntity> parentIterator() {
-    	return new ParentIterator();
+    public static <E extends IEntity> IEntityIterator<E> parentIterator() {
+    	return new ParentIterator<E>();
     }
 
     public static <E extends IEntity> IEntityIterator<E> ancestorIterator() {
-    	return new AncestorIterator<E>();
+    	return new AncestorIterator<E>(false);
     }
-    @SuppressWarnings("unchecked")
 	public static <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
-    	return sequenceIterator(selfIterator(), IteratorFactory.<E>ancestorIterator());
+    	return new AncestorIterator<E>(true);
     }
 
     public static IEntityIterator<IEntity> ancestorReverseIterator() {
