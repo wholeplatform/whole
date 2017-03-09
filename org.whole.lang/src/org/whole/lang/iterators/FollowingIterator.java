@@ -35,11 +35,11 @@ public class FollowingIterator<E extends IEntity> extends AbstractTransitiveClos
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialIterators(parent);
-			pushIterator(createChildIterator(parent.wIndexOf(entity)), entity);
+			pushIterator(createChildIterator(), entity);
 		}
 	}
 
-	protected IEntityIterator<E> createChildIterator(int index) {
+	protected IEntityIterator<E> createChildIterator() {
 		return includeSelf ? IteratorFactory.<E>followingSiblingOrSelfIterator() :
 			IteratorFactory.<E>followingSiblingIterator();
 	}
