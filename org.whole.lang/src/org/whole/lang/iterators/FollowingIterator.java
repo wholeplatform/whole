@@ -24,27 +24,28 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class FollowingIterator<E extends IEntity> extends AbstractTransitiveClosureIterator<E> {
-	protected FollowingIterator() {
-		super(false);
+	protected FollowingIterator(boolean includeSelf) {
+		super(includeSelf);
 	}
 
-    @Override
+	@Override
 	protected void pushInitialIterators(IEntity entity) {
 		if (entity == null || !EntityUtils.hasParent(entity))
-	    	pushIterator(IteratorFactory.<E>emptyIterator(), entity);
+			pushIterator(IteratorFactory.<E>emptyIterator(), entity);
 		else {
 			IEntity parent = entity.wGetParent();
 			pushInitialIterators(parent);
-			pushIterator(createChildIterator(parent.wIndexOf(entity)), parent);
+			pushIterator(createChildIterator(parent.wIndexOf(entity)), entity);
 		}
 	}
 
-    protected IEntityIterator<E> createChildIterator(int index) {
-    	return IteratorFactory.<E>childIterator(index+1);
-    }
+	protected IEntityIterator<E> createChildIterator(int index) {
+		return includeSelf ? IteratorFactory.<E>followingSiblingOrSelfIterator() :
+			IteratorFactory.<E>followingSiblingIterator();
+	}
 
-    @Override
+	@Override
 	public void toString(StringBuilder sb) {
-		sb.append("following()");
-    }
+		sb.append(includeSelf ? "following-or-self()" : "following()");
+	}
 }

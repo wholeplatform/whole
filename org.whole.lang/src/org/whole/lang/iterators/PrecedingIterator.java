@@ -23,15 +23,23 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class PrecedingIterator<E extends IEntity> extends FollowingIterator<E> {
-	protected IEntityIterator<E> createRelationIterator() {
-    	return IteratorFactory.<E>childReverseIterator();
-    }
-    protected IEntityIterator<E> createChildIterator(int index) {
-    	return IteratorFactory.<E>childReverseIterator(index-1);
-    }
+	protected PrecedingIterator(boolean includeSelf) {
+		super(includeSelf);
+	}
 
-    @Override
+	@Override
+	protected IEntityIterator<E> createRelationIterator() {
+		return IteratorFactory.<E>childReverseIterator();
+	}
+
+	@Override
+	protected IEntityIterator<E> createChildIterator(int index) {
+		return includeSelf ? IteratorFactory.<E>precedingSiblingOrSelfIterator() :
+			IteratorFactory.<E>precedingSiblingIterator();
+	}
+
+	@Override
 	public void toString(StringBuilder sb) {
-		sb.append("preceding()");
-    }
+		sb.append(includeSelf ? "preceding-or-self()" : "preceding()");
+	}
 }

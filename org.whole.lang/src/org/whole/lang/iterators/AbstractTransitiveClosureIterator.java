@@ -154,8 +154,5 @@ public abstract class AbstractTransitiveClosureIterator<E extends IEntity> exten
     	lastIterator = null;
 	}
 
-    @Override
-	public void toString(StringBuilder sb) {
-		sb.append("topDown()");
-    }
+	public abstract void toString(StringBuilder sb);
 }

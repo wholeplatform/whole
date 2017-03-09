@@ -57,28 +57,28 @@ public class IteratorFactory {
 		return new ConstantComposeIterator<E>(constant, iterator);
 	}
 
-    public static <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
-    	return collectionIterator(entityCollectionIterable, IDataTypeWrapper.identity);
-    }
-    public static <E extends IEntity> IEntityIterator<E> javaCollectionIterator(Iterable<?> collectionIterable) {
-    	return collectionIterator(collectionIterable, IDataTypeWrapper.envSpecificValue);
-    }
-    public static <E extends IEntity> IEntityIterator<E> collectionIterator(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper) {
-    	return new CollectionIterator<E>(elementWrapper, collectionIterable);
-    }
+	public static <E extends IEntity> IEntityIterator<E> entityCollectionIterator(Iterable<E> entityCollectionIterable) {
+		return collectionIterator(entityCollectionIterable, IDataTypeWrapper.identity);
+	}
+	public static <E extends IEntity> IEntityIterator<E> javaCollectionIterator(Iterable<?> collectionIterable) {
+		return collectionIterator(collectionIterable, IDataTypeWrapper.envSpecificValue);
+	}
+	public static <E extends IEntity> IEntityIterator<E> collectionIterator(Iterable<?> collectionIterable, IDataTypeWrapper elementWrapper) {
+		return new CollectionIterator<E>(elementWrapper, collectionIterable);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
-    	return new SingleValuedRunnableIterator<E>(runnable, argsIterators);
-    }
-    public static <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
-    	return new MultiValuedRunnableIterator<E>(runnable, argsIterators);
-    }
-    
+	public static <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+		return new SingleValuedRunnableIterator<E>(runnable, argsIterators);
+	}
+	public static <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
+		return new MultiValuedRunnableIterator<E>(runnable, argsIterators);
+	}
+
 	public static IEntityIterator<IEntity> aspectIterator() {
 		return new AspectIterator();
 	}
 
-    public static <E extends IEntity> IEntityIterator<E> selfIterator() {
+	public static <E extends IEntity> IEntityIterator<E> selfIterator() {
 		return new SelfIterator<E>();
 	}
 
@@ -89,34 +89,34 @@ public class IteratorFactory {
 		return new FragmentRootIterator();
 	}
 
-    public static <E extends IEntity> IEntityIterator<E> parentIterator() {
-    	return new ParentIterator<E>();
-    }
+	public static <E extends IEntity> IEntityIterator<E> parentIterator() {
+		return new ParentIterator<E>();
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> ancestorIterator() {
-    	return new AncestorIterator<E>(false);
-    }
+	public static <E extends IEntity> IEntityIterator<E> ancestorIterator() {
+		return new AncestorIterator<E>(false);
+	}
 	public static <E extends IEntity> IEntityIterator<E> ancestorOrSelfIterator() {
-    	return new AncestorIterator<E>(true);
-    }
+		return new AncestorIterator<E>(true);
+	}
 
-    public static IEntityIterator<IEntity> ancestorReverseIterator() {
-    	return new AncestorReverseIterator();
-    }
+	public static IEntityIterator<IEntity> ancestorReverseIterator() {
+		return new AncestorReverseIterator();
+	}
 	public static IEntityIterator<IEntity> ancestorOrSelfReverseIterator() {
-    	return new AncestorOrSelfReverseIterator();
-    }
+		return new AncestorOrSelfReverseIterator();
+	}
 
-    public static IEntityIterator<IEntity> inverseAdjacentIterator() {
-    	return new InverseAdjacentIterator();
-    }
-    public static IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf) {
-    	DistinctScope<IEntity> distinctScope = distinctScope(ObjectIdentityComparator.instance);
-    	return distinctScope.withIterator(inverseReachableIterator(includeSelf, distinctScope));
-    }
-    public static IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
-    	return new InverseReachableIterator(includeSelf, distinctScope);
-    }
+	public static IEntityIterator<IEntity> inverseAdjacentIterator() {
+		return new InverseAdjacentIterator();
+	}
+	public static IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf) {
+		DistinctScope<IEntity> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(inverseReachableIterator(includeSelf, distinctScope));
+	}
+	public static IEntityIterator<IEntity> inverseReachableIterator(boolean includeSelf, DistinctScope<IEntity> distinctScope) {
+		return new InverseReachableIterator(includeSelf, distinctScope);
+	}
 
 	public static IEntityIterator<IEntity> featureByNameIterator(String fdUri) {
 		return new FeatureByNameIterator(fdUri);
@@ -131,85 +131,98 @@ public class IteratorFactory {
 
 	public static <E extends IEntity> IEntityIterator<E> childIterator() {
 		return new ChildIterator<E>();
-    }
+	}
 	public static <E extends IEntity> IEntityIterator<E> childIterator(int firstIndex) {
-   		return new ChildIterator<E>(firstIndex);
-    }
+		return new ChildIterator<E>(firstIndex);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> childReverseIterator() {
-   		return new ChildReverseIterator<E>();
-    }
+	public static <E extends IEntity> IEntityIterator<E> childReverseIterator() {
+		return new ChildReverseIterator<E>();
+	}
 	public static <E extends IEntity> IEntityIterator<E> childReverseIterator(int firstIndex) {
-   		return new ChildReverseIterator<E>(firstIndex);
-    }
+		return new ChildReverseIterator<E>(firstIndex);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> descendantIterator() {
-    	return new DescendantIterator<E>(false);
-    }
-    public static <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
-    	return new DescendantIterator<E>(true);
-    }
-    public static <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
-    	return new DescendantReverseIterator<E>(true);
-    }
+	public static <E extends IEntity> IEntityIterator<E> descendantIterator() {
+		return new DescendantIterator<E>(false);
+	}
+	public static <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
+		return new DescendantIterator<E>(true);
+	}
+	public static <E extends IEntity> IEntityIterator<E> descendantOrSelfReverseIterator() {
+		return new DescendantReverseIterator<E>(true);
+	}
 
 	public static <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
-   		return new FollowingSiblingIterator<E>();
-    }
+		return new FollowingSiblingIterator<E>(false);
+	}
 	public static <E extends IEntity> IEntityIterator<E> precedingSiblingIterator() {
-   		return new PrecedingSiblingIterator<E>();
-    }
+		return new PrecedingSiblingIterator<E>(false);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> followingIterator() {
-    	return new FollowingIterator<E>();
-    }
-    public static <E extends IEntity> IEntityIterator<E> precedingIterator() {
-    	return new PrecedingIterator<E>();
-    }
+	public static <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfIterator() {
+		return new FollowingSiblingIterator<E>(true);
+	}
+	public static <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfIterator() {
+		return new PrecedingSiblingIterator<E>(true);
+	}
 
+	public static <E extends IEntity> IEntityIterator<E> followingIterator() {
+		return new FollowingIterator<E>(false);
+	}
+	public static <E extends IEntity> IEntityIterator<E> precedingIterator() {
+		return new PrecedingIterator<E>(false);
+	}
+
+	public static <E extends IEntity> IEntityIterator<E> followingOrSelfIterator() {
+		return new FollowingIterator<E>(true);
+	}
+	public static <E extends IEntity> IEntityIterator<E> precedingOrSelfIterator() {
+		return new PrecedingIterator<E>(true);
+	}
 
 	public static <E extends IEntity> IEntityIterator<E> adjacentIterator() {
 		return new AdjacentIterator<E>();
-    }
+	}
 	public static <E extends IEntity> IEntityIterator<E> adjacentIterator(int firstIndex) {
-   		return new AdjacentIterator<E>(firstIndex);
-    }
+		return new AdjacentIterator<E>(firstIndex);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
-    	DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
-    	return distinctScope.withIterator(reachableIterator(includeSelf, distinctScope));
-    }
-    public static <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
-    	return new ReachableIterator<E>(includeSelf, distinctScope);
-    }
+	public static <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
+		DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(reachableIterator(includeSelf, distinctScope));
+	}
+	public static <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
+		return new ReachableIterator<E>(includeSelf, distinctScope);
+	}
 
 	public static <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
 		return new ChildOrAdjacentIterator<E>();
-    }
+	}
 	public static <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int firstIndex) {
-   		return new ChildOrAdjacentIterator<E>(firstIndex);
-    }
+		return new ChildOrAdjacentIterator<E>(firstIndex);
+	}
 
-    public static <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
-    	DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
-    	return distinctScope.withIterator(descendantOrReachableIterator(false, distinctScope));
-    }
-    public static <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
-    	return new DescendantOrReachableIterator<E>(includeSelf, distinctScope);
-    }
+	public static <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {
+		DistinctScope<E> distinctScope = distinctScope(ObjectIdentityComparator.instance);
+		return distinctScope.withIterator(descendantOrReachableIterator(false, distinctScope));
+	}
+	public static <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator(boolean includeSelf, DistinctScope<E> distinctScope) {
+		return new DescendantOrReachableIterator<E>(includeSelf, distinctScope);
+	}
 
-    public static <E extends IEntity> ScannerIterator<E> scannerIterator(IEntityIterator<E> iterator) {
-    	return new ScannerIterator<E>(iterator);
-    }
-    public static <E extends IEntity> MatcherIterator<E> matcherIterator(IEntityIterator<E> iterator) {
-    	return new MatcherIterator<E>(iterator);
-    }
-    public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IVisitor filterPredicate) {
-    	return matcherIterator(iterator).withPattern(filterPredicate);
-    }
-    public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IEntity filterPattern) {
-    	return matcherIterator(iterator).withPattern(filterPattern);
-    }
+	public static <E extends IEntity> ScannerIterator<E> scannerIterator(IEntityIterator<E> iterator) {
+		return new ScannerIterator<E>(iterator);
+	}
+	public static <E extends IEntity> MatcherIterator<E> matcherIterator(IEntityIterator<E> iterator) {
+		return new MatcherIterator<E>(iterator);
+	}
+	public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IVisitor filterPredicate) {
+		return matcherIterator(iterator).withPattern(filterPredicate);
+	}
+	public static <E extends IEntity> AbstractPatternFilterIterator<E> filterIterator(IEntityIterator<E> iterator, IEntity filterPattern) {
+		return matcherIterator(iterator).withPattern(filterPattern);
+	}
 	public static AbstractPatternFilterIterator<IEntity> patternMatcherIterator(IEntity pattern) {
 		return filterIterator(selfIterator(), pattern);
 	}
@@ -220,7 +233,7 @@ public class IteratorFactory {
 	public static <E extends IEntity> ForIterator<E> forIterator(IEntityIterator<? extends IEntity> forIterator, IEntityIterator<E> doIterator) {
 		return new ForIterator<E>(forIterator, doIterator);
 	}
-	
+
 	public static IEntityIterator<IEntity> functionApplicationIterator(String functionUri) {
 		return new FunctionApplicationIterator(functionUri);
 	}
@@ -231,25 +244,25 @@ public class IteratorFactory {
 		return new TemplateInterpreterIterator<E>(template);
 	}
 
-    public static <E extends IEntity> ChooseByOrderIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
-    	return new ChooseByOrderIterator<E>(iteratorChain);
-    }
+	public static <E extends IEntity> ChooseByOrderIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
+		return new ChooseByOrderIterator<E>(iteratorChain);
+	}
 
-    public static <E extends IEntity> ChooseByTypeIterator<E> chooseIterator(ILanguageKit languageKit) {
-    	return new ChooseByTypeIterator<E>(languageKit);
-    }
+	public static <E extends IEntity> ChooseByTypeIterator<E> chooseIterator(ILanguageKit languageKit) {
+		return new ChooseByTypeIterator<E>(languageKit);
+	}
 
-    public static <E extends IEntity> SequenceIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
-    	return new BlockIterator<E>(iteratorChain);
-    }
+	public static <E extends IEntity> SequenceIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
+		return new BlockIterator<E>(iteratorChain);
+	}
 
-    public static <E extends IEntity> SequenceIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
-    	return new SequenceIterator<E>(iteratorChain);
-    }
+	public static <E extends IEntity> SequenceIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
+		return new SequenceIterator<E>(iteratorChain);
+	}
 
-    public static <E extends IEntity> ComposeIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
-    	return new ComposeIterator<E>(iterator, nestedIterators);
-    }
+	public static <E extends IEntity> ComposeIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
+		return new ComposeIterator<E>(iterator, nestedIterators);
+	}
 
 	public static <E extends IEntity> FilterByIndexRangeIterator<E> filterByIndexIterator(IEntityIterator<E> iterator, int index) {
 		return new FilterByIndexRangeIterator<E>(iterator, index, index);
@@ -275,52 +288,52 @@ public class IteratorFactory {
 		return new SortIterator<E>(iterator, comparator);
 	}
 
-    public static IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-    	return new UnionAllIterator(iteratorChain);
-    }
-    public static AbstractCollectIterator unionIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-    	return new UnionIterator(iteratorChain);
-    }
-    public static AbstractCollectIterator intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-    	return new IntersectIterator(iteratorChain);
-    }
-    public static AbstractCollectIterator exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
-    	return new ExceptIterator(iteratorChain);
-    }
+	public static IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
+		return new UnionAllIterator(iteratorChain);
+	}
+	public static AbstractCollectIterator unionIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
+		return new UnionIterator(iteratorChain);
+	}
+	public static AbstractCollectIterator intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
+		return new IntersectIterator(iteratorChain);
+	}
+	public static AbstractCollectIterator exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
+		return new ExceptIterator(iteratorChain);
+	}
 
 
 	public static <E extends IEntity> ScannerIterator<E> ancestorScannerIterator() {
-    	return scannerIterator(IteratorFactory.<E>ancestorIterator());
-    }
-    public static <E extends IEntity> ScannerIterator<E> childScannerIterator() {
-    	return scannerIterator(IteratorFactory.<E>childIterator());
-    }
-    public static <E extends IEntity> ScannerIterator<E> childReverseScannerIterator() {
-    	return scannerIterator(IteratorFactory.<E>childReverseIterator());
-    }
-    public static <E extends IEntity> ScannerIterator<E> descendantOrSelfScannerIterator() {
-    	return scannerIterator(IteratorFactory.<E>descendantOrSelfIterator());
-    }
-    public static <E extends IEntity> ScannerIterator<E> descendantOrSelfReverseScannerIterator() {
-    	return scannerIterator(IteratorFactory.<E>descendantOrSelfReverseIterator());
-    }
+		return scannerIterator(IteratorFactory.<E>ancestorIterator());
+	}
+	public static <E extends IEntity> ScannerIterator<E> childScannerIterator() {
+		return scannerIterator(IteratorFactory.<E>childIterator());
+	}
+	public static <E extends IEntity> ScannerIterator<E> childReverseScannerIterator() {
+		return scannerIterator(IteratorFactory.<E>childReverseIterator());
+	}
+	public static <E extends IEntity> ScannerIterator<E> descendantOrSelfScannerIterator() {
+		return scannerIterator(IteratorFactory.<E>descendantOrSelfIterator());
+	}
+	public static <E extends IEntity> ScannerIterator<E> descendantOrSelfReverseScannerIterator() {
+		return scannerIterator(IteratorFactory.<E>descendantOrSelfReverseIterator());
+	}
 
-    public static <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>ancestorIterator());
-    }
-    public static <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>ancestorOrSelfIterator());
-    }
-    public static <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>childIterator());
-    }
-    public static <E extends IEntity> MatcherIterator<E> childReverseMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>childReverseIterator());
-    }
-    public static <E extends IEntity> MatcherIterator<E> descendantOrSelfMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>descendantOrSelfIterator());
-    }
-    public static <E extends IEntity> MatcherIterator<E> descendantOrSelfReverseMatcherIterator() {
-    	return matcherIterator(IteratorFactory.<E>descendantOrSelfReverseIterator());
-    }
+	public static <E extends IEntity> MatcherIterator<E> ancestorMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>ancestorIterator());
+	}
+	public static <E extends IEntity> MatcherIterator<E> ancestorOrSelfMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>ancestorOrSelfIterator());
+	}
+	public static <E extends IEntity> MatcherIterator<E> childMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>childIterator());
+	}
+	public static <E extends IEntity> MatcherIterator<E> childReverseMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>childReverseIterator());
+	}
+	public static <E extends IEntity> MatcherIterator<E> descendantOrSelfMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>descendantOrSelfIterator());
+	}
+	public static <E extends IEntity> MatcherIterator<E> descendantOrSelfReverseMatcherIterator() {
+		return matcherIterator(IteratorFactory.<E>descendantOrSelfReverseIterator());
+	}
 }

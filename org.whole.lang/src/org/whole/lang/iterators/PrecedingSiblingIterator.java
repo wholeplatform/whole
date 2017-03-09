@@ -24,6 +24,12 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class PrecedingSiblingIterator<E extends IEntity> extends ChildReverseIterator<E> {
+	protected boolean includeSelf;
+
+	public PrecedingSiblingIterator(boolean includeSelf) {
+		this.includeSelf = includeSelf;
+	}
+
 	@Override
     public void reset(IEntity entity) {
 		//workaround for composeIterator init behavior
@@ -32,11 +38,11 @@ public class PrecedingSiblingIterator<E extends IEntity> extends ChildReverseIte
 			return;
 		}
 		super.reset(entity.wGetParent());
-		nextIndex = entity.wGetParent().wIndexOf(entity)-1;
+		nextIndex = entity.wGetParent().wIndexOf(entity) - (includeSelf ? 0 : 1);
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-		sb.append("preceding-siblings()");
+		sb.append(includeSelf ? "preceding-siblings-or-self()" : "preceding-siblings()");
     }
 }

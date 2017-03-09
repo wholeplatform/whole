@@ -24,6 +24,12 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class FollowingSiblingIterator<E extends IEntity> extends ChildIterator<E> {
+	protected boolean includeSelf;
+
+	public FollowingSiblingIterator(boolean includeSelf) {
+		this.includeSelf = includeSelf;
+	}
+
 	@Override
     public void reset(IEntity entity) {
 		//workaround for composeIterator init behavior
@@ -32,11 +38,11 @@ public class FollowingSiblingIterator<E extends IEntity> extends ChildIterator<E
 			return;
 		}
 		super.reset(entity.wGetParent());
-		nextIndex = entity.wGetParent().wIndexOf(entity)+1;
+		nextIndex = entity.wGetParent().wIndexOf(entity) + (includeSelf ? 0 : 1);
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-    	sb.append("following-siblings()");
+		sb.append(includeSelf ? "following-siblings-or-self()" : "following-siblings()");
     }
 }
