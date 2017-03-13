@@ -24,9 +24,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.CRC32;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
@@ -60,6 +65,8 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class ClipboardUtils {
+	public static final int DEFAULT_OUTPUT_DPI = 300;
+
 	public static String unparseEntity(IEntity entity) throws Exception {
 		StringPersistenceProvider pp = new StringPersistenceProvider();
 		ReflectionFactory.getDefaultPersistenceKit().writeModel(entity, pp);
@@ -93,14 +100,100 @@ public class ClipboardUtils {
 		}
 	}
 
-	public static File createTempImageFile(ImageData imageData) throws IOException, FileNotFoundException {
+	public static File createTempImageFile(ImageData imageData, int dpi) throws IOException, FileNotFoundException {
 		File file = File.createTempFile("whole-snapshot", ".png");
 		ImageLoader loader = new ImageLoader();
 		loader.data = new ImageData[] {imageData};
 		OutputStream os = new FileOutputStream(file);
 		loader.save(os, SWT.IMAGE_PNG);
 		os.close();
+		updatePngDpi(file, dpi);
 		return file;
+	}
+
+	private static final String PNG_MAGIC = "\u0089PNG\r\n\u001a\n";
+	private static final String IHDR_CHUNK = "IHDR";
+	private static final String pHYs_CHUNK = "pHYs";
+
+	private static final int CHUNK_BASE_LENGTH = 12; // 4bytes (length) + 4bytes (signature) + 4bytes (crc)
+	private static final int pHYs_DATA_LENGTH = 9; // 4bytes (pointsperunit) + 4bytes (pointsperunit) + 1bytes (unit)
+	private static final int pHYs_METERS_UNIT = 1;
+
+	private static final float INCH_2_M = 0.0254f;
+
+	private static void updatePngDpi(File file, int dpi) {
+
+		int dpm = Math.round(Float.valueOf(dpi) / INCH_2_M);
+
+		try (RandomAccessFile pngFile = new RandomAccessFile(file, "rws")) {
+			IllegalArgumentException exception = new IllegalArgumentException("malformed png file");
+
+			byte[] magic = new byte[8];
+			pngFile.readFully(magic);
+			if (!Arrays.equals(magic, PNG_MAGIC.getBytes("latin1")))
+				throw exception;
+
+			int ihdrLength = pngFile.readInt();
+
+			byte[] ihdr = new byte[4];
+			pngFile.readFully(ihdr);
+			if (!Arrays.equals(ihdr, IHDR_CHUNK.getBytes("ascii")))
+				throw exception;
+
+			byte[] ihdrData = new byte[ihdrLength];
+			pngFile.readFully(ihdrData);
+			CRC32 crc32 = new CRC32();
+			crc32.update(ihdr);
+			crc32.update(ihdrData);
+
+			ByteBuffer byteBuffer = ByteBuffer.allocate(4).order(ByteOrder.BIG_ENDIAN);
+			byte[] ihdrCrc32 = new byte[4];
+			pngFile.readFully(ihdrCrc32);
+			if (!Arrays.equals(ihdrCrc32, byteBuffer.putInt((int) crc32.getValue()).array()))
+				throw exception;
+
+			long offset = pngFile.getFilePointer();
+			long length = pngFile.length();
+			byte[] buffer = new byte[1024];
+
+			long fromOffset = length - buffer.length;
+			long toOffset = fromOffset + CHUNK_BASE_LENGTH + pHYs_DATA_LENGTH;
+			while(fromOffset >= offset) {
+				pngFile.seek(fromOffset);
+				pngFile.readFully(buffer);
+				pngFile.seek(toOffset);
+				pngFile.write(buffer);
+				fromOffset -= buffer.length;
+				toOffset -= buffer.length;
+			}
+			fromOffset += buffer.length;
+			toOffset += buffer.length;
+			if (fromOffset > offset) {
+				pngFile.seek(offset);
+				pngFile.readFully(buffer, 0, (int) (fromOffset - offset));
+				pngFile.seek(offset + CHUNK_BASE_LENGTH + pHYs_DATA_LENGTH);
+				pngFile.write(buffer, 0, (int) (fromOffset - offset));
+			}
+
+			// append pHYs after actual IHDR
+			pngFile.seek(offset);
+
+			pngFile.writeInt(pHYs_DATA_LENGTH);
+			pngFile.write(buffer = pHYs_CHUNK.getBytes("ascii"));
+			pngFile.writeInt(dpm);
+			pngFile.writeInt(dpm);
+			pngFile.write(pHYs_METERS_UNIT);
+
+			byteBuffer.clear();
+			crc32.reset();
+			crc32.update(buffer); // pHYs
+			crc32.update(buffer = byteBuffer.putInt(dpm).array());
+			crc32.update(buffer);
+			crc32.update(pHYs_METERS_UNIT);
+			pngFile.writeInt((int) crc32.getValue());
+		} catch (Exception e) {
+			throw new IllegalArgumentException("cannot update png file");
+		}
 	}
 
 	public static File createTempXmlBuilderFile(IEntity entity) throws Exception {
@@ -202,3 +295,4 @@ public class ClipboardUtils {
 		return CommonsEntityFactory.instance.create(stage, entity);
 	}
 }
+

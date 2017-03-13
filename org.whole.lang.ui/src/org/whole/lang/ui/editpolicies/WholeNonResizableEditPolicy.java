@@ -195,14 +195,17 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 	};
 	
 	public static Image createFeedbackImage(IGraphicalEntityPart part, int alpha, boolean withBorder, IConstraintDimensionStrategy strategy) {
+		double scale = ((ScalableRootEditPart) part.getViewer().getRootEditPart()).getZoomManager().getZoom();
+		return createFeedbackImage(part, alpha, withBorder, strategy, scale);
+	}
+	public static Image createFeedbackImage(IGraphicalEntityPart part, int alpha, boolean withBorder, IConstraintDimensionStrategy strategy, double scale) {
 		IFigure figure = part.getFigure();
 		Rectangle figureBounds = figure.getBounds();
 		Control figureCanvas = part.getViewer().getControl();				
-		double scale = ((ScalableRootEditPart) part.getViewer().getRootEditPart()).getZoomManager().getZoom();
 
 		// calculate feedback maximum dimension
-		Dimension dimension = strategy.constraintDimensions(new Dimension((int) Math.round(figureBounds.width*scale),
-				(int) Math.round(figureBounds.height*scale)));
+		Dimension dimension = strategy.constraintDimensions(new Dimension(
+				(int) Math.round(figureBounds.width*scale), (int) Math.round(figureBounds.height*scale)));
 
 		if (dimension == null)
 			return null;

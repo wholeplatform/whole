@@ -28,6 +28,8 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
@@ -150,7 +152,12 @@ public class Clipboard {
 
 	protected File imageFile;
 	public void setImageContents(IGraphicalEntityPart entityPart) {
-		Image image = WholeNonResizableEditPolicy.createFeedbackImage(entityPart, 255, false, FailWithFeedbackStrategy.instance());
+		setImageContents(entityPart, ClipboardUtils.DEFAULT_OUTPUT_DPI);
+	}
+	public void setImageContents(IGraphicalEntityPart entityPart, int dpi) {
+		Point dispalyDPI = Display.getCurrent().getDPI();
+		double scale = Double.valueOf(dpi) / dispalyDPI.x;
+		Image image = WholeNonResizableEditPolicy.createFeedbackImage(entityPart, 255, false, FailWithFeedbackStrategy.instance(), scale);
 		if (image == null)
 			return;
 		ImageData imageData = image.getImageData();
@@ -160,7 +167,7 @@ public class Clipboard {
 				imageFile.delete();
 				imageFile = null;
 			}
-			imageFile = ClipboardUtils.createTempImageFile(imageData);
+			imageFile = ClipboardUtils.createTempImageFile(imageData, dpi);
 
 			// ensure file deletion on exit
 			imageFile.deleteOnExit();

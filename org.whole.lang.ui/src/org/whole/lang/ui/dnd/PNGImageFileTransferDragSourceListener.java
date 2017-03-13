@@ -40,7 +40,7 @@ public class PNGImageFileTransferDragSourceListener extends AbstractFileTransfer
 		Image image = WholeNonResizableEditPolicy.createFeedbackImage(
 				(IGraphicalEntityPart) entityPart, 255, false, FitToMemoryStrategy.instance());
 		ImageData imageData = image.getImageData();
-		File file = ClipboardUtils.createTempImageFile(imageData);
+		File file = ClipboardUtils.createTempImageFile(imageData, ClipboardUtils.DEFAULT_OUTPUT_DPI);
 		image.dispose();
 		return file;
 	}
