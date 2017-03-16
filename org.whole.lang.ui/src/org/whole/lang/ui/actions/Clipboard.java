@@ -151,10 +151,10 @@ public class Clipboard {
 	}
 
 	protected File imageFile;
-	public void setImageContents(IGraphicalEntityPart entityPart) {
-		setImageContents(entityPart, ClipboardUtils.DEFAULT_OUTPUT_DPI);
+	public void setImageContents(String fileName, IGraphicalEntityPart entityPart) {
+		setImageContents(fileName, entityPart, ClipboardUtils.DEFAULT_OUTPUT_DPI);
 	}
-	public void setImageContents(IGraphicalEntityPart entityPart, int dpi) {
+	public void setImageContents(String fileName, IGraphicalEntityPart entityPart, int dpi) {
 		Point dispalyDPI = Display.getCurrent().getDPI();
 		double scale = Double.valueOf(dpi) / dispalyDPI.x;
 		Image image = WholeNonResizableEditPolicy.createFeedbackImage(entityPart, 255, false, FailWithFeedbackStrategy.instance(), scale);
@@ -167,7 +167,7 @@ public class Clipboard {
 				imageFile.delete();
 				imageFile = null;
 			}
-			imageFile = ClipboardUtils.createTempImageFile(imageData, dpi);
+			imageFile = ClipboardUtils.createTempImageFile(fileName, imageData, dpi);
 
 			// ensure file deletion on exit
 			imageFile.deleteOnExit();

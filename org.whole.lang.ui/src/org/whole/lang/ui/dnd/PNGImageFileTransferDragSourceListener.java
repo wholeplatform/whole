@@ -22,11 +22,13 @@ import java.io.File;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.ui.editparts.IEntityPart;
 import org.whole.lang.ui.editparts.IGraphicalEntityPart;
 import org.whole.lang.ui.editpolicies.FitToMemoryStrategy;
 import org.whole.lang.ui.editpolicies.WholeNonResizableEditPolicy;
 import org.whole.lang.ui.util.ClipboardUtils;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Enrico Persiani
@@ -40,7 +42,13 @@ public class PNGImageFileTransferDragSourceListener extends AbstractFileTransfer
 		Image image = WholeNonResizableEditPolicy.createFeedbackImage(
 				(IGraphicalEntityPart) entityPart, 255, false, FitToMemoryStrategy.instance());
 		ImageData imageData = image.getImageData();
-		File file = ClipboardUtils.createTempImageFile(imageData, ClipboardUtils.DEFAULT_OUTPUT_DPI);
+		String fileName = ClipboardUtils.DEFAULT_OUTPUT_FILENAME;
+		if (getViewer() instanceof IEntityPartViewer) {
+			IBindingManager bm = ((IEntityPartViewer) getViewer()).getContextBindings();
+			if (bm.wIsSet("fileName"))
+				fileName = bm.wStringValue("fileName");
+		}
+		File file = ClipboardUtils.createTempImageFile(fileName, imageData, ClipboardUtils.DEFAULT_OUTPUT_DPI);
 		image.dispose();
 		return file;
 	}

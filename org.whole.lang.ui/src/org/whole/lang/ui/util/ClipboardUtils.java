@@ -18,6 +18,7 @@
 package org.whole.lang.ui.util;
 
 import static org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum.SameStageFragment;
+import static java.nio.file.StandardOpenOption.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +28,9 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +69,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class ClipboardUtils {
+	public static final String DEFAULT_OUTPUT_FILENAME = "WholeSnapshot";
 	public static final int DEFAULT_OUTPUT_DPI = 300;
 
 	public static String unparseEntity(IEntity entity) throws Exception {
@@ -100,13 +105,20 @@ public class ClipboardUtils {
 		}
 	}
 
-	public static File createTempImageFile(ImageData imageData, int dpi) throws IOException, FileNotFoundException {
-		File file = File.createTempFile("whole-snapshot", ".png");
+	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+	private static Path wholeSnapshots;
+	public static File createTempImageFile(String fileName, ImageData imageData, int dpi) throws IOException, FileNotFoundException {
+		if (wholeSnapshots == null) {
+			wholeSnapshots = Files.createTempDirectory("whole-snapshots");
+			wholeSnapshots.toFile().deleteOnExit();
+		}
 		ImageLoader loader = new ImageLoader();
 		loader.data = new ImageData[] {imageData};
-		OutputStream os = new FileOutputStream(file);
+		Path snapshotPath = wholeSnapshots.resolve(fileName+'-'+Long.toHexString(SECURE_RANDOM.nextLong())+".png");
+		OutputStream os = Files.newOutputStream(snapshotPath, CREATE, WRITE, TRUNCATE_EXISTING);
 		loader.save(os, SWT.IMAGE_PNG);
 		os.close();
+		File file = snapshotPath.toFile();
 		updatePngDpi(file, dpi);
 		return file;
 	}

@@ -187,7 +187,8 @@ public class HandlersBehavior {
 			IEntityPartViewer viewer = (IEntityPartViewer) bm.wGetValue("viewer");
 			IEntity focusEntity = bm.wGet("focusEntity");
 			IEntityPart part = viewer.getEditPartRegistry().get(focusEntity);
-			Clipboard.instance().setImageContents((IGraphicalEntityPart) part);
+			String fileName = bm.wIsSet("fileName") ? bm.wStringValue("fileName") : ClipboardUtils.DEFAULT_OUTPUT_FILENAME;
+			Clipboard.instance().setImageContents(fileName, (IGraphicalEntityPart) part);
 		});
 	}
 
