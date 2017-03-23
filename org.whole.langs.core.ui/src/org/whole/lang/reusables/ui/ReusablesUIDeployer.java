@@ -14,19 +14,32 @@
  */
 package org.whole.lang.reusables.ui;
 
+import org.whole.lang.operations.IOperation;
+import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.reflect.ReusablesLanguageKit;
+import org.whole.lang.reusables.visitors.ReusablesUIInterpreterVisitor;
+import org.whole.lang.visitors.IVisitor;
+import org.whole.lang.visitors.IVisitorFactory;
 
-/**
- *  @generator Whole
- */
 public class ReusablesUIDeployer extends AbstractLanguageExtensionDeployer {
 
-    public void deploy(ReflectionFactory platform) {
-        platform.addEditorKit(ReusablesEditorKit.ID);
-    }
+	public void deploy(ReflectionFactory platform) {
+		platform.addEditorKit(ReusablesEditorKit.ID);
 
-    public void undeploy(ReflectionFactory platform) {
-        platform.removeEditorKit(ReusablesEditorKit.ID);
-    }
+		platform.addOperationFactory(ReusablesLanguageKit.URI, InterpreterOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				if (stage == 0)
+					return new ReusablesUIInterpreterVisitor();
+				else
+					return null;
+			}
+		});
+	}
+
+	public void undeploy(ReflectionFactory platform) {
+		platform.removeEditorKit(ReusablesEditorKit.ID);
+	}
 }

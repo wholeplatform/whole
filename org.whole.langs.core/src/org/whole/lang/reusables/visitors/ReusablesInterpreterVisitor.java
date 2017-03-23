@@ -32,6 +32,7 @@ import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -45,21 +46,27 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.reusables.factories.ReusablesEntityFactory;
 import org.whole.lang.reusables.model.Adapt;
+import org.whole.lang.reusables.model.ClassPathURI;
+import org.whole.lang.reusables.model.FileSystemPath;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
-import org.whole.lang.reusables.model.Locator;
+import org.whole.lang.reusables.model.Persistence;
 import org.whole.lang.reusables.model.ReferenceStep;
 import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
+import org.whole.lang.reusables.model.Source;
 import org.whole.lang.reusables.model.Synch;
+import org.whole.lang.reusables.model.URI;
+import org.whole.lang.reusables.model.WorkspacePath;
 import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Enrico Persiani
@@ -177,14 +184,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(ReferenceStep entity) {
-		if (isEvaluateCloneOperation())
-			return;
-
-		entity.getSource().accept(this);
-
-		IEntityIterator<?> contentIterator = Matcher.isAssignableAsIsFrom(
-				QueriesEntityDescriptorEnum.PathExpression, entity.getSource().wGetAdaptee(false)) ?
-						IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
+		IEntityIterator<?> contentIterator = readSource(entity.getSource());
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
@@ -193,11 +193,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Include entity) {
-		entity.getSource().accept(this);
-
-		IEntityIterator<?> contentIterator = Matcher.isAssignableAsIsFrom(
-				QueriesEntityDescriptorEnum.PathExpression, entity.getSource().wGetAdaptee(false)) ?
-						IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
+		IEntityIterator<?> contentIterator = readSource(entity.getSource());
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
@@ -220,11 +216,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					entity.getSource().accept(this);
-					contentIterator = Matcher.isAssignableAsIsFrom(
-							QueriesEntityDescriptorEnum.PathExpression, entity.getSource().wGetAdaptee(false)) ?
-									IteratorFactory.constantComposeIterator(entity, getResultIterator()) : getResultIterator();
-	
+					contentIterator = readSource(entity.getSource());
 					contentIterator.setBindings(getBindings());
 					contentIterator.reset(entity);
 					if (contentIterator.hasNext())
@@ -294,8 +286,11 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	@Override
 	public void visit(Registry entity) {
 		entity.getLocator().accept(this);
-		String locator = getResult().wStringValue();
-		IResourceRegistry<IResource> registry = ResourceRegistry.getRegistry(locator);
+		String registryId = getResult().wStringValue();
+		if (!ResourceRegistry.hasRegistry(registryId))
+			throw new WholeIllegalArgumentException("Undefined registry "+registryId).withSourceEntity(entity).withBindings(getBindings());
+
+		IResourceRegistry<IResource> registry = ResourceRegistry.getRegistry(registryId);
 
 		entity.getUri().accept(this);
 		String uri = getResult().wStringValue();
@@ -309,72 +304,75 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	}
 
 	@Override
+	public void visit(ClassPathURI entity) {
+		setResult(BindingManagerFactory.instance.createValue(
+				new ClasspathPersistenceProvider(entity.getValue(), getBindings())));
+	}
+	@Override
+	public void visit(FileSystemPath entity) {
+		setResult(BindingManagerFactory.instance.createValue(
+				new FilePersistenceProvider(new File(entity.getValue()), getBindings())));
+	}
+	@Override
+	public void visit(URI entity) {
+		if (EntityUtils.hasParent(entity) && EntityUtils.getParentFormalType(entity).equals(ReusablesEntityDescriptorEnum.Locator))
+			try {
+				setResult(BindingManagerFactory.instance.createValue(
+						new URLPersistenceProvider(new URL(entity.getValue()), getBindings())));
+			} catch (MalformedURLException e) {
+				throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
+			}
+		else
+			setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
+	}
+	@Override
+	public void visit(WorkspacePath entity) {
+		throw new UnsupportedOperationException(WholeMessages.no_workspace);
+	}
+
+	@Override
+	public void visit(Persistence entity) {
+		String persistenceKitId = entity.getValue();
+		if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
+			throw new WholeIllegalArgumentException("The Persistence requested is not deployed: "+persistenceKitId)
+			.withSourceEntity(entity).withBindings(getBindings());
+
+		setResult(BindingManagerFactory.instance.createValue(ReflectionFactory.getPersistenceKit(persistenceKitId)));			
+	}
+
+	@Override
 	public void visit(Resource entity) {
 		entity.getPersistence().accept(this);
-		IEntity persistence = getResult();
+		IEntity result = getResult();
+		IPersistenceKit persistenceKit = result != null ?
+				EntityUtils.safeGetValue(result, ReflectionFactory.getDefaultPersistenceKit(), IPersistenceKit.class) :
+				ReflectionFactory.getDefaultPersistenceKit();
 
-		String persistenceKitId = persistence != null && !BindingManagerFactory.instance.isVoid(persistence) &&
-				ReflectionFactory.hasPersistenceKit(persistence.wStringValue()) ?
-				persistence.wStringValue() : "org.whole.lang.xml.codebase.XmlBuilderPersistenceKit";
+		entity.getLocator().accept(this);
+		IPersistenceProvider pp = (IPersistenceProvider) getResult().wGetValue();
 
-		IPersistenceKit persistenceKit = ReflectionFactory.getPersistenceKit(persistenceKitId);
+		//TODO replace Object[] with IResource impl
+		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+	}
 
-		Locator locator = entity.getLocator();
-		locator.accept(this);
+	protected IEntityIterator<?> readSource(Source source) {
+		source.accept(this);
+		return Matcher.isAssignableAsIsFrom(
+				QueriesEntityDescriptorEnum.PathExpression, source.wGetAdaptee(false)) ?
+						IteratorFactory.constantComposeIterator(source.wGetParent(), getResultIterator()) : 
+							IteratorFactory.constantIterator(readModel(getResult()), false);
+	}
 
-		if (getBindings().hasResultIterator()) {
-			IEntityIterator<?> locatorIterator = IteratorFactory.constantComposeIterator(entity, getResultIterator());
+	public static IEntity readModel(IEntity resource) {
+		Object[] pkpp = (Object[]) resource.wGetValue();
+		IPersistenceKit pk = (IPersistenceKit) pkpp[0];
+		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
 
-			IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
-				public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-					try {
-						bm.setResult(persistenceKit.readModel(new StringPersistenceProvider(selfEntity.wStringValue())));
-					} catch (Exception e) {
-						throw new IllegalArgumentException("Failed to load the resource with the given persistence: " + persistenceKitId, e);
-					}
-				}
-			});
-
-			setResultIterator(IteratorFactory.composeIterator(evaluateIterator, locatorIterator));
-
-		} else {
-			String location = getResult().wStringValue();
-
-			IPersistenceProvider provider;
-			switch (locator.wGetEntityDescriptor().getOrdinal()) {
-			case ReusablesEntityDescriptorEnum.ClassPathURI_ord:
-				provider = new ClasspathPersistenceProvider(location, getBindings());
-				break;
-			case ReusablesEntityDescriptorEnum.FileSystemPath_ord:
-				provider = new FilePersistenceProvider(new File(location), getBindings());
-				break;
-			case ReusablesEntityDescriptorEnum.URI_ord:
-				try {
-					provider = new URLPersistenceProvider(new URL(location), getBindings());
-				} catch (MalformedURLException e) {
-					throw new IllegalArgumentException(e);
-				}
-				break;
-			case ReusablesEntityDescriptorEnum.WorkspacePath_ord:
-			default:
-				try {
-					ClassLoader cl = ReflectionFactory.getPlatformClassLoader();
-					Class<?> editorPartClass = Class.forName("org.whole.lang.e4.ui.util.E4Utils", true, cl);
-					provider = (IPersistenceProvider) editorPartClass.getMethod("createWorkspaceProvider",
-							IBindingManager.class, String.class, boolean.class)
-								.invoke(null, getBindings(), location, true);
-				} catch (Exception e) {
-					throw new IllegalArgumentException("Failed to find the resource in the Workspace: " + 
-							location, e);
-				}
-			}
-
-			try {
-				setResult(persistenceKit.readModel(provider));
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Failed to load the resource with the given persistence: " + 
-						location + ", " + persistenceKitId, e);
-			}
+		try {
+			return pk.readModel(pp);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Failed to load the resource with the given persistence: " + pp + ", " + pk.getId(), e);
 		}
 	}
 }

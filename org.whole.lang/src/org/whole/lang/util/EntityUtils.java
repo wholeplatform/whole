@@ -218,8 +218,15 @@ public class EntityUtils {
 	public static final EnumValue safeEnumValueValue(IEntity entity, EnumValue defaultValue) {
 		return DataTypeUtils.getDataKind(entity).isEnumValue() ? entity.wEnumValue() : defaultValue;
 	}
-	public static final Object safeGetValue(IEntity entity, Object defaultValue) {
-		return !DataTypeUtils.getDataKind(entity).isNotAData() ? entity.wGetValue() : defaultValue;
+	@SuppressWarnings("unchecked")
+	public static final <T, E extends T> T safeGetValue(IEntity entity, E defaultValue, Class<T> dataType) {
+		return !DataTypeUtils.getDataKind(entity).isNotAData() && dataType.isAssignableFrom(entity.wGetValue().getClass()) ?
+				(T) entity.wGetValue() : defaultValue;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static final <T, E extends T> T safeGetValue(IEntity entity, E defaultValue) {
+		return EntityUtils.<T, E>safeGetValue(entity, defaultValue, (Class<T>) defaultValue.getClass());
 	}
 
 	public static final EntityDescriptor<?> getFormalEntityDescriptor(IEntity entity) {
