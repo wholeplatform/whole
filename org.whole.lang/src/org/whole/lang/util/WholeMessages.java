@@ -26,8 +26,10 @@ public interface WholeMessages {
 	public String no_composite = "This entity is not a composite";
 	public String no_data = "This entity is not a data";
 	public String no_data_type = "The data entity type is incompatible";
+	public String no_optional = "This entity is not optional";
 	public String command_illegal_method = "The method is illegal for this command";
 	public String illegal_data_conversion = "Illegal data conversion";
 	public String undefined_variable_reference = "Undefined variable reference: ";
 	public String null_value_argument = "Mandatory argument is without value";
+	public String no_workspace = "No workspace available";
 }

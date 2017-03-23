@@ -18,9 +18,13 @@
 package org.whole.lang.commons.visitors;
 
 import org.whole.lang.commons.model.ICommonsEntity;
+import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.util.BehaviorUtils;
+import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
@@ -39,5 +43,12 @@ public class CommonsDynamicCompilerVisitor extends CommonsIdentityDefaultVisitor
 			setResult(null);
 			BehaviorUtils.lazyEvaluate(entity.wGetRoot(), -1, getBindings());
 		}
+	}
+
+	@Override
+	public void visit(Resolver entity) {
+		IEntity parent = entity.wGetParent();
+		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
+			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 }

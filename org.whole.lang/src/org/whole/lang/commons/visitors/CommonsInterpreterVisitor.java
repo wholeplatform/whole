@@ -19,6 +19,7 @@ package org.whole.lang.commons.visitors;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.InlineVariable;
+import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.SameStageFragment;
 import org.whole.lang.commons.model.StageDownFragment;
@@ -38,6 +39,7 @@ import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 import org.whole.lang.visitors.VisitException;
 
@@ -59,6 +61,13 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		IEntity result = BehaviorUtils.evaluate(entity.wGetRoot(), +1, getOperation());
 		if (result!=null && EntityUtils.hasParent(result))
 			setResult(EntityUtils.clone(result));
+	}
+
+	@Override
+	public void visit(Resolver entity) {
+		IEntity parent = entity.wGetParent();
+		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
+			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 
 	public void visit(Variable entity) {
