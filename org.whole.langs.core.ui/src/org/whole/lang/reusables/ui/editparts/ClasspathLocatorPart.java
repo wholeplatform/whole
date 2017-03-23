@@ -23,19 +23,18 @@ import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
 
 /**
- * @author Enrico Persiani
+ * @author Riccardo Solmi
  */
-public class WorkspacePathPart extends AbstractOverQualifiedDataEntityPart {
+public class ClasspathLocatorPart extends AbstractOverQualifiedDataEntityPart {
 	public IFigure createFigure() {
 		return new OverQualifiedDataEntityFigure(
 				LabelFactory.createContentLight(), LabelFactory.createContent());
 	}
 
 	protected String getQualifierPart(String qname) {
-		return "Workspace Path";
+		return "Classpath";
 	}
 	protected String getNamePart(String qname) {
-		int index = qname.lastIndexOf('/');
-		return index != -1 ? qname.substring(index+1) : qname;
+		return qname;
 	}
 }

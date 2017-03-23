@@ -80,22 +80,23 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
 
     @Override
     public void visit(WorkspacePath entity) {
-        part = new WorkspacePathPart();
+        part = new WorkspaceLocatorPart();
     }
 
     @Override
     public void visit(FileSystemPath entity) {
-        part = new ContentTextualEntityPart();
+        part = new FileSystemLocatorPart();
     }
 
     @Override
     public void visit(ClassPathURI entity) {
-        part = new ContentTextualEntityPart();
+        part = new ClasspathLocatorPart();
     }
 
     @Override
     public void visit(URI entity) {
-        part = new ContentTextualEntityPart();
+//        part = new ContentTextualEntityPart();
+    	part = new URLPart();
     }
 
     @Override
