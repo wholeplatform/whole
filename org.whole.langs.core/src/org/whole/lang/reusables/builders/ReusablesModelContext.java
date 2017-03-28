@@ -102,11 +102,43 @@ public class ReusablesModelContext extends EntityContext {
         wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
     }
 
+    public ReusablesModelContext getContent() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.content);
+    }
+
+    public void setContent(ReusablesModelContext content) {
+        wSet(ReusablesFeatureDescriptorEnum.content, content);
+    }
+
+    public ReusablesModelContext getRegistryUri() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.registryUri);
+    }
+
+    public void setRegistryUri(ReusablesModelContext registryUri) {
+        wSet(ReusablesFeatureDescriptorEnum.registryUri, registryUri);
+    }
+
     public ReusablesModelContext getUri() {
         return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.uri);
     }
 
     public void setUri(ReusablesModelContext uri) {
         wSet(ReusablesFeatureDescriptorEnum.uri, uri);
+    }
+
+    public ReusablesModelContext getPath() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.path);
+    }
+
+    public void setPath(ReusablesModelContext path) {
+        wSet(ReusablesFeatureDescriptorEnum.path, path);
+    }
+
+    public ReusablesModelContext getExtension() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.extension);
+    }
+
+    public void setExtension(ReusablesModelContext extension) {
+        wSet(ReusablesFeatureDescriptorEnum.extension, extension);
     }
 }

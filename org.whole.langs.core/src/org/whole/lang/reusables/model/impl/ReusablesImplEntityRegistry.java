@@ -32,16 +32,25 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
     protected void createPrototypes() {
         put(new AdaptImpl());
         put(new ReuseImpl());
-        put(new SynchImpl());
+        put(new SyncImpl());
         put(new IncludeImpl());
         put(new ReusablesImpl());
-        put(new ReferenceStepImpl());
         put(new ResourceImpl());
+        put(new WorkspaceImpl());
+        put(new FileSystemImpl());
+        put(new ClasspathImpl());
+        put(new ModelImpl());
         put(new RegistryImpl());
+        put(new LoadImpl());
+        put(new SaveImpl());
+        put(new ContentsImpl());
+        put(new FolderArtifactImpl());
+        put(new PathNameImpl());
+        put(new PathWithExtensionImpl());
+        put(new PathSegmentsImpl());
+        put(new URIImpl());
         put(new WorkspacePathImpl());
         put(new FileSystemPathImpl());
-        put(new ClassPathURIImpl());
-        put(new URIImpl());
-        put(new PersistenceImpl());
+        put(new PersistenceIdImpl());
     }
 }

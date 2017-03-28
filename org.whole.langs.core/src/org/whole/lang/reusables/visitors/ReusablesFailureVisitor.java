@@ -38,7 +38,7 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         throw new VisitException();
     }
 
@@ -50,15 +50,59 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(ReferenceStep entity) {
-        throw new VisitException();
-    }
-
     public void visit(Resource entity) {
         throw new VisitException();
     }
 
+    public void visit(Workspace entity) {
+        throw new VisitException();
+    }
+
+    public void visit(FileSystem entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Classpath entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Model entity) {
+        throw new VisitException();
+    }
+
     public void visit(Registry entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Load entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Save entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Contents entity) {
+        throw new VisitException();
+    }
+
+    public void visit(FolderArtifact entity) {
+        throw new VisitException();
+    }
+
+    public void visit(PathName entity) {
+        throw new VisitException();
+    }
+
+    public void visit(PathWithExtension entity) {
+        throw new VisitException();
+    }
+
+    public void visit(PathSegments entity) {
+        throw new VisitException();
+    }
+
+    public void visit(URI entity) {
         throw new VisitException();
     }
 
@@ -70,15 +114,7 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(ClassPathURI entity) {
-        throw new VisitException();
-    }
-
-    public void visit(URI entity) {
-        throw new VisitException();
-    }
-
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
         throw new VisitException();
     }
 }

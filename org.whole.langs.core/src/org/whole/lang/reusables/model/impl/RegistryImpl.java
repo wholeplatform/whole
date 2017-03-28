@@ -48,14 +48,14 @@ public class RegistryImpl extends AbstractSimpleEntity implements Registry {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private URI locator;
+    private URI registryUri;
 
-    public URI getLocator() {
-        return notifyRequested(ReusablesFeatureDescriptorEnum.locator, locator);
+    public URI getRegistryUri() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.registryUri, registryUri);
     }
 
-    public void setLocator(URI locator) {
-        notifyChanged(ReusablesFeatureDescriptorEnum.locator, this.locator, this.locator = locator);
+    public void setRegistryUri(URI registryUri) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.registryUri, this.registryUri, this.registryUri = registryUri);
     }
     private URI uri;
 
@@ -70,7 +70,7 @@ public class RegistryImpl extends AbstractSimpleEntity implements Registry {
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getLocator().wGetAdaptee(false);
+            return getRegistryUri().wGetAdaptee(false);
             case 1 :
             return getUri().wGetAdaptee(false);
             default :
@@ -81,7 +81,7 @@ public class RegistryImpl extends AbstractSimpleEntity implements Registry {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setLocator(value.wGetAdapter(ReusablesEntityDescriptorEnum.URI));
+            setRegistryUri(value.wGetAdapter(ReusablesEntityDescriptorEnum.URI));
             break;
             case 1 :
             setUri(value.wGetAdapter(ReusablesEntityDescriptorEnum.URI));

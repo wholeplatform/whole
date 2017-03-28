@@ -18,7 +18,7 @@
 package org.whole.lang.reusables.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.reusables.model.Synch;
+import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
@@ -33,15 +33,15 @@ import org.whole.lang.reusables.model.Revision;
 /**
  *  @generator Whole
  */
-public class SynchImpl extends AbstractSimpleEntity implements Synch {
+public class SyncImpl extends AbstractSimpleEntity implements Sync {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<Synch> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Synch;
+    public EntityDescriptor<Sync> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Sync;
     }
 
     public int wGetEntityOrd() {
-        return ReusablesEntityDescriptorEnum.Synch_ord;
+        return ReusablesEntityDescriptorEnum.Sync_ord;
     }
 
     public void accept(IReusablesVisitor visitor) {

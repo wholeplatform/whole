@@ -33,7 +33,11 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final int variantRevision_ord = 6;
     public static final int locator_ord = 7;
     public static final int persistence_ord = 8;
-    public static final int uri_ord = 9;
+    public static final int content_ord = 9;
+    public static final int registryUri_ord = 10;
+    public static final int uri_ord = 11;
+    public static final int path_ord = 12;
+    public static final int extension_ord = 13;
     public static final ReusablesFeatureDescriptorEnum instance = new ReusablesFeatureDescriptorEnum();
     public static final FeatureDescriptor original = instance.valueOf(original_ord);
     public static final FeatureDescriptor adapter = instance.valueOf(adapter_ord);
@@ -44,7 +48,11 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
     public static final FeatureDescriptor variantRevision = instance.valueOf(variantRevision_ord);
     public static final FeatureDescriptor locator = instance.valueOf(locator_ord);
     public static final FeatureDescriptor persistence = instance.valueOf(persistence_ord);
+    public static final FeatureDescriptor content = instance.valueOf(content_ord);
+    public static final FeatureDescriptor registryUri = instance.valueOf(registryUri_ord);
     public static final FeatureDescriptor uri = instance.valueOf(uri_ord);
+    public static final FeatureDescriptor path = instance.valueOf(path_ord);
+    public static final FeatureDescriptor extension = instance.valueOf(extension_ord);
 
     private ReusablesFeatureDescriptorEnum() {
         putFeatureDescriptor(original_ord, "original");
@@ -56,7 +64,11 @@ public class ReusablesFeatureDescriptorEnum extends FeatureDescriptorEnum {
         putFeatureDescriptor(variantRevision_ord, "variantRevision");
         putFeatureDescriptor(locator_ord, "locator");
         putFeatureDescriptor(persistence_ord, "persistence");
+        putFeatureDescriptor(content_ord, "content");
+        putFeatureDescriptor(registryUri_ord, "registryUri");
         putFeatureDescriptor(uri_ord, "uri");
+        putFeatureDescriptor(path_ord, "path");
+        putFeatureDescriptor(extension_ord, "extension");
     }
     private static final long serialVersionUID = 1;
 }

@@ -23,8 +23,4 @@ package org.whole.lang.reusables.model;
  */
 public interface Persistence extends IReusablesEntity {
 
-
-    public String getValue();
-
-    public void setValue(String value);
 }

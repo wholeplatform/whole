@@ -17,18 +17,11 @@
  */
 package org.whole.lang.reusables.model;
 
+import java.util.List;
 
 /**
  *  @generator Whole
  */
-public interface Synch extends IReusablesEntity, Reuse {
+public interface Contents extends IReusablesEntity, List<Content>, Content {
 
-
-    public Reusable getVariant();
-
-    public void setVariant(Reusable variant);
-
-    public Revision getVariantRevision();
-
-    public void setVariantRevision(Revision variantRevision);
 }

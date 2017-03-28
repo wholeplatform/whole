@@ -22,22 +22,22 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.reusables.model.Include;
-import org.whole.lang.reusables.model.ReferenceStep;
-import org.whole.lang.reusables.model.Resource;
-import org.whole.lang.reusables.model.Source;
 import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.model.Include;
+import org.whole.lang.reusables.model.Load;
+import org.whole.lang.reusables.model.Resource;
+import org.whole.lang.reusables.model.Source;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.ui.figures.ReferenceStepFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  *  @generator Whole
  */
-public class ReferenceStepPart extends AbstractContentPanePart {
+public class LoadPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
         return new ReferenceStepFigure(event -> {
@@ -55,7 +55,7 @@ public class ReferenceStepPart extends AbstractContentPanePart {
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-        ReferenceStep entity = getModelEntity();
+        Load entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(1);
         children.add(entity.getSource());
         return children;

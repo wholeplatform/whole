@@ -17,7 +17,12 @@
  */
 package org.whole.lang.reusables.visitors;
 
-import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.*;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Locator_ord;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.PathExpression_ord;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable_ord;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Source_ord;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -29,7 +34,6 @@ import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.codebase.StringPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
@@ -46,25 +50,29 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.reusables.factories.ReusablesEntityFactory;
 import org.whole.lang.reusables.model.Adapt;
-import org.whole.lang.reusables.model.ClassPathURI;
-import org.whole.lang.reusables.model.FileSystemPath;
+import org.whole.lang.reusables.model.Classpath;
+import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
+import org.whole.lang.reusables.model.Load;
+import org.whole.lang.reusables.model.Path;
+import org.whole.lang.reusables.model.PathName;
+import org.whole.lang.reusables.model.PathSegments;
+import org.whole.lang.reusables.model.PathWithExtension;
 import org.whole.lang.reusables.model.Persistence;
-import org.whole.lang.reusables.model.ReferenceStep;
+import org.whole.lang.reusables.model.PersistenceId;
 import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Source;
-import org.whole.lang.reusables.model.Synch;
+import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
-import org.whole.lang.reusables.model.WorkspacePath;
+import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.WholeMessages;
 
@@ -78,7 +86,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 			evaluateCloneOperation = new EvaluateCloneOperation(getOperation(), entity -> Matcher.matchAnyImpl(entity,
 					ReusablesEntityDescriptorEnum.Adapt, ReusablesEntityDescriptorEnum.Resource,
 					ReusablesEntityDescriptorEnum.Include, ReusablesEntityDescriptorEnum.Reuse,
-					ReusablesEntityDescriptorEnum.Synch));
+					ReusablesEntityDescriptorEnum.Sync));
 		}
 		return evaluateCloneOperation;
     }
@@ -183,7 +191,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	}
 
 	@Override
-	public void visit(ReferenceStep entity) {
+	public void visit(Load entity) {
 		IEntityIterator<?> contentIterator = readSource(entity.getSource());
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
@@ -270,7 +278,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	}
 
 	@Override
-	public void visit(Synch entity) {
+	public void visit(Sync entity) {
 		Reusable reusable = entity.getVariant();
 
 		if (EntityUtils.isResolver(reusable))
@@ -285,7 +293,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Registry entity) {
-		entity.getLocator().accept(this);
+		entity.getRegistryUri().accept(this);
 		String registryId = getResult().wStringValue();
 		if (!ResourceRegistry.hasRegistry(registryId))
 			throw new WholeIllegalArgumentException("Undefined registry "+registryId).withSourceEntity(entity).withBindings(getBindings());
@@ -304,16 +312,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	}
 
 	@Override
-	public void visit(ClassPathURI entity) {
-		setResult(BindingManagerFactory.instance.createValue(
-				new ClasspathPersistenceProvider(entity.getValue(), getBindings())));
-	}
-	@Override
-	public void visit(FileSystemPath entity) {
-		setResult(BindingManagerFactory.instance.createValue(
-				new FilePersistenceProvider(new File(entity.getValue()), getBindings())));
-	}
-	@Override
 	public void visit(URI entity) {
 		if (EntityUtils.hasParent(entity) && EntityUtils.getParentFormalType(entity).equals(ReusablesEntityDescriptorEnum.Locator))
 			try {
@@ -325,13 +323,66 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		else
 			setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
+
 	@Override
-	public void visit(WorkspacePath entity) {
+	public void visit(Workspace entity) {
 		throw new UnsupportedOperationException(WholeMessages.no_workspace);
 	}
 
 	@Override
-	public void visit(Persistence entity) {
+	public void visit(Classpath entity) {
+		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
+
+		entity.getContent().accept(this);
+		IPersistenceProvider pp = new ClasspathPersistenceProvider(getResult().wStringValue(), getBindings());
+
+		//TODO replace Object[] with IResource impl
+		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+	}
+	@Override
+	public void visit(FileSystem entity) {
+		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
+
+		entity.getContent().accept(this);
+		IPersistenceProvider pp = new FilePersistenceProvider(new File(getResult().wStringValue()), getBindings());
+
+		//TODO replace Object[] with IResource impl
+		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+	}
+
+	@Override
+	public void visit(PathName entity) {
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
+	}
+
+	@Override
+	public void visit(PathWithExtension entity) {
+		entity.getPath().accept(this);
+		String path = getResult().wStringValue();
+
+		entity.getExtension().accept(this);
+		String extension = getResult().wStringValue();
+
+		setResult(BindingManagerFactory.instance.createValue(path + '.' + extension));
+	}
+
+	@Override
+	public void visit(PathSegments entity) {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Path segment : entity) {
+			segment.accept(this);
+			IEntity result = getResult();
+			if (result.wGetEntityDescriptor().getDataKind().isString()) {
+				sb.append(result.wStringValue());
+				//TODO ensure path separator
+			}
+		}
+		setResult(BindingManagerFactory.instance.createValue(sb.toString()));
+	}
+	
+	@Override
+	public void visit(PersistenceId entity) {
 		String persistenceKitId = entity.getValue();
 		if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
 			throw new WholeIllegalArgumentException("The Persistence requested is not deployed: "+persistenceKitId)
@@ -342,17 +393,22 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Resource entity) {
-		entity.getPersistence().accept(this);
-		IEntity result = getResult();
-		IPersistenceKit persistenceKit = result != null ?
-				EntityUtils.safeGetValue(result, ReflectionFactory.getDefaultPersistenceKit(), IPersistenceKit.class) :
-				ReflectionFactory.getDefaultPersistenceKit();
+		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
 
 		entity.getLocator().accept(this);
 		IPersistenceProvider pp = (IPersistenceProvider) getResult().wGetValue();
 
 		//TODO replace Object[] with IResource impl
 		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+	}
+
+	public IPersistenceKit evaluatePersistence(Persistence persistence) {
+		persistence.accept(this);
+		IEntity result = getResult();
+		IPersistenceKit persistenceKit = result != null ?
+				EntityUtils.safeGetValue(result, ReflectionFactory.getDefaultPersistenceKit(), IPersistenceKit.class) :
+				ReflectionFactory.getDefaultPersistenceKit();
+		return persistenceKit;
 	}
 
 	protected IEntityIterator<?> readSource(Source source) {

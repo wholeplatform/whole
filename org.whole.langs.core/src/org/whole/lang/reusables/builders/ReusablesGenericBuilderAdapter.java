@@ -71,8 +71,20 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesFeatureDescriptorEnum.persistence_ord :
             specificBuilder.persistence();
             break;
+            case ReusablesFeatureDescriptorEnum.content_ord :
+            specificBuilder.content();
+            break;
+            case ReusablesFeatureDescriptorEnum.registryUri_ord :
+            specificBuilder.registryUri();
+            break;
             case ReusablesFeatureDescriptorEnum.uri_ord :
             specificBuilder.uri();
+            break;
+            case ReusablesFeatureDescriptorEnum.path_ord :
+            specificBuilder.path();
+            break;
+            case ReusablesFeatureDescriptorEnum.extension_ord :
+            specificBuilder.extension();
             break;
         }
     }
@@ -85,8 +97,8 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder.Reuse();
             break;
-            case ReusablesEntityDescriptorEnum.Synch_ord :
-            specificBuilder.Synch();
+            case ReusablesEntityDescriptorEnum.Sync_ord :
+            specificBuilder.Sync();
             break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include();
@@ -94,14 +106,41 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder.Reusables();
             break;
-            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
-            specificBuilder.ReferenceStep();
-            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource();
             break;
+            case ReusablesEntityDescriptorEnum.Workspace_ord :
+            specificBuilder.Workspace();
+            break;
+            case ReusablesEntityDescriptorEnum.FileSystem_ord :
+            specificBuilder.FileSystem();
+            break;
+            case ReusablesEntityDescriptorEnum.Classpath_ord :
+            specificBuilder.Classpath();
+            break;
+            case ReusablesEntityDescriptorEnum.Model_ord :
+            specificBuilder.Model();
+            break;
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder.Registry();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder.Load();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder.Save();
+            break;
+            case ReusablesEntityDescriptorEnum.Contents_ord :
+            specificBuilder.Contents();
+            break;
+            case ReusablesEntityDescriptorEnum.FolderArtifact_ord :
+            specificBuilder.FolderArtifact();
+            break;
+            case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
+            specificBuilder.PathWithExtension();
+            break;
+            case ReusablesEntityDescriptorEnum.PathSegments_ord :
+            specificBuilder.PathSegments();
             break;
         }
     }
@@ -114,8 +153,8 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder.Reuse_();
             break;
-            case ReusablesEntityDescriptorEnum.Synch_ord :
-            specificBuilder.Synch_();
+            case ReusablesEntityDescriptorEnum.Sync_ord :
+            specificBuilder.Sync_();
             break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder.Include_();
@@ -123,14 +162,41 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder.Reusables_();
             break;
-            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
-            specificBuilder.ReferenceStep_();
-            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder.Resource_();
             break;
+            case ReusablesEntityDescriptorEnum.Workspace_ord :
+            specificBuilder.Workspace_();
+            break;
+            case ReusablesEntityDescriptorEnum.FileSystem_ord :
+            specificBuilder.FileSystem_();
+            break;
+            case ReusablesEntityDescriptorEnum.Classpath_ord :
+            specificBuilder.Classpath_();
+            break;
+            case ReusablesEntityDescriptorEnum.Model_ord :
+            specificBuilder.Model_();
+            break;
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder.Registry_();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder.Load_();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder.Save_();
+            break;
+            case ReusablesEntityDescriptorEnum.Contents_ord :
+            specificBuilder.Contents_();
+            break;
+            case ReusablesEntityDescriptorEnum.FolderArtifact_ord :
+            specificBuilder.FolderArtifact_();
+            break;
+            case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
+            specificBuilder.PathWithExtension_();
+            break;
+            case ReusablesEntityDescriptorEnum.PathSegments_ord :
+            specificBuilder.PathSegments_();
             break;
         }
     }
@@ -143,8 +209,8 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reuse_ord :
             specificBuilder._Reuse();
             break;
-            case ReusablesEntityDescriptorEnum.Synch_ord :
-            specificBuilder._Synch();
+            case ReusablesEntityDescriptorEnum.Sync_ord :
+            specificBuilder._Sync();
             break;
             case ReusablesEntityDescriptorEnum.Include_ord :
             specificBuilder._Include();
@@ -152,14 +218,41 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder._Reusables();
             break;
-            case ReusablesEntityDescriptorEnum.ReferenceStep_ord :
-            specificBuilder._ReferenceStep();
-            break;
             case ReusablesEntityDescriptorEnum.Resource_ord :
             specificBuilder._Resource();
             break;
+            case ReusablesEntityDescriptorEnum.Workspace_ord :
+            specificBuilder._Workspace();
+            break;
+            case ReusablesEntityDescriptorEnum.FileSystem_ord :
+            specificBuilder._FileSystem();
+            break;
+            case ReusablesEntityDescriptorEnum.Classpath_ord :
+            specificBuilder._Classpath();
+            break;
+            case ReusablesEntityDescriptorEnum.Model_ord :
+            specificBuilder._Model();
+            break;
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder._Registry();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder._Load();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder._Save();
+            break;
+            case ReusablesEntityDescriptorEnum.Contents_ord :
+            specificBuilder._Contents();
+            break;
+            case ReusablesEntityDescriptorEnum.FolderArtifact_ord :
+            specificBuilder._FolderArtifact();
+            break;
+            case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
+            specificBuilder._PathWithExtension();
+            break;
+            case ReusablesEntityDescriptorEnum.PathSegments_ord :
+            specificBuilder._PathSegments();
             break;
         }
     }
@@ -169,25 +262,31 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Reusables_ord :
             specificBuilder.Reusables_(initialCapacity);
             break;
+            case ReusablesEntityDescriptorEnum.Contents_ord :
+            specificBuilder.Contents_(initialCapacity);
+            break;
+            case ReusablesEntityDescriptorEnum.PathSegments_ord :
+            specificBuilder.PathSegments_(initialCapacity);
+            break;
         }
     }
 
     public void wEntity(EntityDescriptor<?> entityDesc, String value) {
         switch (entityDesc.getOrdinal()) {
+            case ReusablesEntityDescriptorEnum.PathName_ord :
+            specificBuilder.PathName(value);
+            break;
+            case ReusablesEntityDescriptorEnum.URI_ord :
+            specificBuilder.URI(value);
+            break;
             case ReusablesEntityDescriptorEnum.WorkspacePath_ord :
             specificBuilder.WorkspacePath(value);
             break;
             case ReusablesEntityDescriptorEnum.FileSystemPath_ord :
             specificBuilder.FileSystemPath(value);
             break;
-            case ReusablesEntityDescriptorEnum.ClassPathURI_ord :
-            specificBuilder.ClassPathURI(value);
-            break;
-            case ReusablesEntityDescriptorEnum.URI_ord :
-            specificBuilder.URI(value);
-            break;
-            case ReusablesEntityDescriptorEnum.Persistence_ord :
-            specificBuilder.Persistence(value);
+            case ReusablesEntityDescriptorEnum.PersistenceId_ord :
+            specificBuilder.PersistenceId(value);
             break;
         }
     }

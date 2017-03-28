@@ -28,14 +28,14 @@ import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class ReferenceStepAdapter extends AbstractEntityAdapter implements ReferenceStep {
+public class WorkspaceAdapter extends AbstractEntityAdapter implements Workspace {
     private static final long serialVersionUID = 1;
 
-    public ReferenceStepAdapter(IEntity implementor) {
+    public WorkspaceAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ReferenceStepAdapter() {
+    public WorkspaceAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -43,15 +43,23 @@ public class ReferenceStepAdapter extends AbstractEntityAdapter implements Refer
             visitor.visit(this);
     }
 
-    public EntityDescriptor<ReferenceStep> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.ReferenceStep;
+    public EntityDescriptor<Workspace> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Workspace;
     }
 
-    public Source getSource() {
-        return wGet(ReusablesFeatureDescriptorEnum.source).wGetAdapter(ReusablesEntityDescriptorEnum.Source);
+    public Content getContent() {
+        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.Content);
     }
 
-    public void setSource(Source source) {
-        wSet(ReusablesFeatureDescriptorEnum.source, source);
+    public void setContent(Content content) {
+        wSet(ReusablesFeatureDescriptorEnum.content, content);
+    }
+
+    public Persistence getPersistence() {
+        return wGet(ReusablesFeatureDescriptorEnum.persistence).wGetAdapter(ReusablesEntityDescriptorEnum.Persistence);
+    }
+
+    public void setPersistence(Persistence persistence) {
+        wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
     }
 }

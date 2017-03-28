@@ -28,14 +28,14 @@ import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class SynchAdapter extends AbstractEntityAdapter implements Synch {
+public class SyncAdapter extends AbstractEntityAdapter implements Sync {
     private static final long serialVersionUID = 1;
 
-    public SynchAdapter(IEntity implementor) {
+    public SyncAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public SynchAdapter() {
+    public SyncAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -43,8 +43,8 @@ public class SynchAdapter extends AbstractEntityAdapter implements Synch {
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Synch> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Synch;
+    public EntityDescriptor<Sync> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Sync;
     }
 
     public Source getSource() {

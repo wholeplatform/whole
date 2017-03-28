@@ -32,7 +32,7 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         stagedVisit(entity);
     }
 
@@ -44,15 +44,59 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(ReferenceStep entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(Resource entity) {
         stagedVisit(entity);
     }
 
+    public void visit(Workspace entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(FileSystem entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Classpath entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Model entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Registry entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Load entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Save entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Contents entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(FolderArtifact entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(PathName entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(PathWithExtension entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(PathSegments entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(URI entity) {
         stagedVisit(entity);
     }
 
@@ -64,15 +108,7 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(ClassPathURI entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(URI entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
         stagedVisit(entity);
     }
 }

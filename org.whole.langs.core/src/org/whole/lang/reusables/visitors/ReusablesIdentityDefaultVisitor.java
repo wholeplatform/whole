@@ -40,7 +40,7 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Reusable) entity);
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         visit((IReusablesEntity) entity);
         visit((Reuse) entity);
     }
@@ -57,24 +57,27 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     public void visit(Source entity) {
     }
 
-    public void visit(PathExpression entity) {
-        visit((Source) entity);
-        visit((Locator) entity);
-    }
-
-    public void visit(Locator entity) {
-    }
-
-    public void visit(StepExpression entity) {
-        visit((PathExpression) entity);
-    }
-
-    public void visit(ReferenceStep entity) {
-        visit((IReusablesEntity) entity);
-        visit((StepExpression) entity);
-    }
-
     public void visit(Resource entity) {
+        visit((IReusablesEntity) entity);
+        visit((Source) entity);
+    }
+
+    public void visit(Workspace entity) {
+        visit((IReusablesEntity) entity);
+        visit((Source) entity);
+    }
+
+    public void visit(FileSystem entity) {
+        visit((IReusablesEntity) entity);
+        visit((Source) entity);
+    }
+
+    public void visit(Classpath entity) {
+        visit((IReusablesEntity) entity);
+        visit((Source) entity);
+    }
+
+    public void visit(Model entity) {
         visit((IReusablesEntity) entity);
         visit((Source) entity);
     }
@@ -82,6 +85,64 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     public void visit(Registry entity) {
         visit((IReusablesEntity) entity);
         visit((Source) entity);
+    }
+
+    public void visit(PathExpression entity) {
+        visit((Source) entity);
+    }
+
+    public void visit(StepExpression entity) {
+        visit((PathExpression) entity);
+    }
+
+    public void visit(Load entity) {
+        visit((IReusablesEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(Save entity) {
+        visit((IReusablesEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(Content entity) {
+    }
+
+    public void visit(Contents entity) {
+        visit((IReusablesEntity) entity);
+        visit((Content) entity);
+    }
+
+    public void visit(FolderArtifact entity) {
+        visit((IReusablesEntity) entity);
+        visit((Content) entity);
+    }
+
+    public void visit(Path entity) {
+        visit((Content) entity);
+    }
+
+    public void visit(PathName entity) {
+        visit((IReusablesEntity) entity);
+        visit((Path) entity);
+    }
+
+    public void visit(PathWithExtension entity) {
+        visit((IReusablesEntity) entity);
+        visit((Path) entity);
+    }
+
+    public void visit(PathSegments entity) {
+        visit((IReusablesEntity) entity);
+        visit((Path) entity);
+    }
+
+    public void visit(URI entity) {
+        visit((IReusablesEntity) entity);
+    }
+
+    public void visit(Locator entity) {
+        visit((Content) entity);
     }
 
     public void visit(WorkspacePath entity) {
@@ -94,17 +155,11 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Locator) entity);
     }
 
-    public void visit(ClassPathURI entity) {
-        visit((IReusablesEntity) entity);
-        visit((Locator) entity);
-    }
-
-    public void visit(URI entity) {
-        visit((IReusablesEntity) entity);
-        visit((Locator) entity);
-    }
-
     public void visit(Persistence entity) {
+    }
+
+    public void visit(PersistenceId entity) {
         visit((IReusablesEntity) entity);
+        visit((Persistence) entity);
     }
 }

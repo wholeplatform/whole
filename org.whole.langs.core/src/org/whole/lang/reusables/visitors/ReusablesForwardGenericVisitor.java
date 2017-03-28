@@ -43,7 +43,7 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -55,15 +55,59 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(ReferenceStep entity) {
-        wGetVisitor1().visit(entity);
-    }
-
     public void visit(Resource entity) {
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Workspace entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(FileSystem entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Classpath entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Model entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Registry entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Load entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Save entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Contents entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(FolderArtifact entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(PathName entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(PathWithExtension entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(PathSegments entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(URI entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -75,15 +119,7 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(ClassPathURI entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(URI entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
         wGetVisitor1().visit(entity);
     }
 }

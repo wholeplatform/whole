@@ -36,8 +36,24 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         super(strategy, entityContext);
     }
 
+    public void extension() {
+        wFeature(ReusablesFeatureDescriptorEnum.extension);
+    }
+
+    public void path() {
+        wFeature(ReusablesFeatureDescriptorEnum.path);
+    }
+
     public void uri() {
         wFeature(ReusablesFeatureDescriptorEnum.uri);
+    }
+
+    public void registryUri() {
+        wFeature(ReusablesFeatureDescriptorEnum.registryUri);
+    }
+
+    public void content() {
+        wFeature(ReusablesFeatureDescriptorEnum.content);
     }
 
     public void persistence() {
@@ -103,16 +119,16 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Reuse);
     }
 
-    public void Synch() {
-        wEntity(ReusablesEntityDescriptorEnum.Synch);
+    public void Sync() {
+        wEntity(ReusablesEntityDescriptorEnum.Sync);
     }
 
-    public void Synch_() {
-        wEntity_(ReusablesEntityDescriptorEnum.Synch);
+    public void Sync_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Sync);
     }
 
-    public void _Synch() {
-        _wEntity(ReusablesEntityDescriptorEnum.Synch);
+    public void _Sync() {
+        _wEntity(ReusablesEntityDescriptorEnum.Sync);
     }
 
     public void Include() {
@@ -143,18 +159,6 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Reusables);
     }
 
-    public void ReferenceStep() {
-        wEntity(ReusablesEntityDescriptorEnum.ReferenceStep);
-    }
-
-    public void ReferenceStep_() {
-        wEntity_(ReusablesEntityDescriptorEnum.ReferenceStep);
-    }
-
-    public void _ReferenceStep() {
-        _wEntity(ReusablesEntityDescriptorEnum.ReferenceStep);
-    }
-
     public void Resource() {
         wEntity(ReusablesEntityDescriptorEnum.Resource);
     }
@@ -167,6 +171,54 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Resource);
     }
 
+    public void Workspace() {
+        wEntity(ReusablesEntityDescriptorEnum.Workspace);
+    }
+
+    public void Workspace_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Workspace);
+    }
+
+    public void _Workspace() {
+        _wEntity(ReusablesEntityDescriptorEnum.Workspace);
+    }
+
+    public void FileSystem() {
+        wEntity(ReusablesEntityDescriptorEnum.FileSystem);
+    }
+
+    public void FileSystem_() {
+        wEntity_(ReusablesEntityDescriptorEnum.FileSystem);
+    }
+
+    public void _FileSystem() {
+        _wEntity(ReusablesEntityDescriptorEnum.FileSystem);
+    }
+
+    public void Classpath() {
+        wEntity(ReusablesEntityDescriptorEnum.Classpath);
+    }
+
+    public void Classpath_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Classpath);
+    }
+
+    public void _Classpath() {
+        _wEntity(ReusablesEntityDescriptorEnum.Classpath);
+    }
+
+    public void Model() {
+        wEntity(ReusablesEntityDescriptorEnum.Model);
+    }
+
+    public void Model_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Model);
+    }
+
+    public void _Model() {
+        _wEntity(ReusablesEntityDescriptorEnum.Model);
+    }
+
     public void Registry() {
         wEntity(ReusablesEntityDescriptorEnum.Registry);
     }
@@ -177,6 +229,102 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void _Registry() {
         _wEntity(ReusablesEntityDescriptorEnum.Registry);
+    }
+
+    public void Load() {
+        wEntity(ReusablesEntityDescriptorEnum.Load);
+    }
+
+    public void Load_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Load);
+    }
+
+    public void _Load() {
+        _wEntity(ReusablesEntityDescriptorEnum.Load);
+    }
+
+    public void Save() {
+        wEntity(ReusablesEntityDescriptorEnum.Save);
+    }
+
+    public void Save_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Save);
+    }
+
+    public void _Save() {
+        _wEntity(ReusablesEntityDescriptorEnum.Save);
+    }
+
+    public void Contents() {
+        wEntity(ReusablesEntityDescriptorEnum.Contents);
+    }
+
+    public void Contents_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Contents);
+    }
+
+    public void Contents_(int initialCapacity) {
+        wEntity_(ReusablesEntityDescriptorEnum.Contents, initialCapacity);
+    }
+
+    public void _Contents() {
+        _wEntity(ReusablesEntityDescriptorEnum.Contents);
+    }
+
+    public void FolderArtifact() {
+        wEntity(ReusablesEntityDescriptorEnum.FolderArtifact);
+    }
+
+    public void FolderArtifact_() {
+        wEntity_(ReusablesEntityDescriptorEnum.FolderArtifact);
+    }
+
+    public void _FolderArtifact() {
+        _wEntity(ReusablesEntityDescriptorEnum.FolderArtifact);
+    }
+
+    public void PathName() {
+        wEntity(ReusablesEntityDescriptorEnum.PathName);
+    }
+
+    public void PathName(String value) {
+        wEntity(ReusablesEntityDescriptorEnum.PathName, value);
+    }
+
+    public void PathWithExtension() {
+        wEntity(ReusablesEntityDescriptorEnum.PathWithExtension);
+    }
+
+    public void PathWithExtension_() {
+        wEntity_(ReusablesEntityDescriptorEnum.PathWithExtension);
+    }
+
+    public void _PathWithExtension() {
+        _wEntity(ReusablesEntityDescriptorEnum.PathWithExtension);
+    }
+
+    public void PathSegments() {
+        wEntity(ReusablesEntityDescriptorEnum.PathSegments);
+    }
+
+    public void PathSegments_() {
+        wEntity_(ReusablesEntityDescriptorEnum.PathSegments);
+    }
+
+    public void PathSegments_(int initialCapacity) {
+        wEntity_(ReusablesEntityDescriptorEnum.PathSegments, initialCapacity);
+    }
+
+    public void _PathSegments() {
+        _wEntity(ReusablesEntityDescriptorEnum.PathSegments);
+    }
+
+    public void URI() {
+        wEntity(ReusablesEntityDescriptorEnum.URI);
+    }
+
+    public void URI(String value) {
+        wEntity(ReusablesEntityDescriptorEnum.URI, value);
     }
 
     public void WorkspacePath() {
@@ -195,27 +343,11 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         wEntity(ReusablesEntityDescriptorEnum.FileSystemPath, value);
     }
 
-    public void ClassPathURI() {
-        wEntity(ReusablesEntityDescriptorEnum.ClassPathURI);
+    public void PersistenceId() {
+        wEntity(ReusablesEntityDescriptorEnum.PersistenceId);
     }
 
-    public void ClassPathURI(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.ClassPathURI, value);
-    }
-
-    public void URI() {
-        wEntity(ReusablesEntityDescriptorEnum.URI);
-    }
-
-    public void URI(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.URI, value);
-    }
-
-    public void Persistence() {
-        wEntity(ReusablesEntityDescriptorEnum.Persistence);
-    }
-
-    public void Persistence(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.Persistence, value);
+    public void PersistenceId(String value) {
+        wEntity(ReusablesEntityDescriptorEnum.PersistenceId, value);
     }
 }

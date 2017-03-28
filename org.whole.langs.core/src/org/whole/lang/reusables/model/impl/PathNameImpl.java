@@ -15,42 +15,59 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.reusables.model.adapters;
+package org.whole.lang.reusables.model.impl;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
-import org.whole.lang.reusables.model.*;
-import org.whole.lang.model.IEntity;
+import org.whole.lang.model.AbstractDataEntity;
+import org.whole.lang.reusables.model.PathName;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
-import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /**
  *  @generator Whole
  */
-public class ClassPathURIAdapter extends AbstractEntityAdapter implements ClassPathURI {
+public class PathNameImpl extends AbstractDataEntity implements PathName {
     private static final long serialVersionUID = 1;
-
-    public ClassPathURIAdapter(IEntity implementor) {
-        super(implementor);
-    }
-
-    public ClassPathURIAdapter() {
-    }
-
-    public void accept(IReusablesVisitor visitor) {
-        if (visitor.visitAdapter(this))
-            visitor.visit(this);
-    }
-
-    public EntityDescriptor<ClassPathURI> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.ClassPathURI;
-    }
+    private String value;
 
     public String getValue() {
-        return wStringValue();
+        return notifyRequested(value);
     }
 
     public void setValue(String value) {
-        wSetValue(value);
+        notifyChanged(this.value, this.value = value);
+    }
+
+    public void accept(IReusablesVisitor visitor) {
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
+    }
+
+    public int wGetEntityOrd() {
+        return ReusablesEntityDescriptorEnum.PathName_ord;
+    }
+
+    public EntityDescriptor<PathName> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.PathName;
+    }
+
+    public Object wGetValue() {
+        return getValue();
+    }
+
+    public void wSetValue(Object value) {
+        setValue((String) value);
+    }
+
+    public String wStringValue() {
+        return getValue();
+    }
+
+    public void wSetValue(String value) {
+        setValue(value);
     }
 }

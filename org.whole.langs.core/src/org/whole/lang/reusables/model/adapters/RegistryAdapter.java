@@ -47,12 +47,12 @@ public class RegistryAdapter extends AbstractEntityAdapter implements Registry {
         return ReusablesEntityDescriptorEnum.Registry;
     }
 
-    public URI getLocator() {
-        return wGet(ReusablesFeatureDescriptorEnum.locator).wGetAdapter(ReusablesEntityDescriptorEnum.URI);
+    public URI getRegistryUri() {
+        return wGet(ReusablesFeatureDescriptorEnum.registryUri).wGetAdapter(ReusablesEntityDescriptorEnum.URI);
     }
 
-    public void setLocator(URI locator) {
-        wSet(ReusablesFeatureDescriptorEnum.locator, locator);
+    public void setRegistryUri(URI registryUri) {
+        wSet(ReusablesFeatureDescriptorEnum.registryUri, registryUri);
     }
 
     public URI getUri() {

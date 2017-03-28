@@ -16,23 +16,24 @@ package org.whole.lang.reusables.ui.editparts;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.reusables.model.Synch;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.Sync;
+import org.whole.lang.reusables.ui.figures.SyncFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.reusables.ui.figures.SynchFigure;
 
 /**
  *  @generator Whole
  */
-public class SynchPart extends AbstractContentPanePart {
+public class SyncPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new SynchFigure();
+        return new SyncFigure();
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-        Synch entity = getModelEntity();
+        Sync entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(7);
         children.add(entity.getSource());
         children.add(entity.getOriginal());

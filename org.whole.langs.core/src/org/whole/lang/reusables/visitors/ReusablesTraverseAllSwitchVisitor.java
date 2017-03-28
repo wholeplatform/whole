@@ -45,7 +45,7 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
         wGetVisitor1().visit(entity.getAdaptedRevision());
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         wGetVisitor1().visit(entity.getSource());
         wGetVisitor1().visit(entity.getOriginal());
         wGetVisitor1().visit(entity.getAdapter());
@@ -64,17 +64,62 @@ public class ReusablesTraverseAllSwitchVisitor extends ReusablesIdentityUnaryVis
             wGetVisitor1().visit(entity.get(i));
     }
 
-    public void visit(ReferenceStep entity) {
-        wGetVisitor1().visit(entity.getSource());
-    }
-
     public void visit(Resource entity) {
         wGetVisitor1().visit(entity.getLocator());
         wGetVisitor1().visit(entity.getPersistence());
     }
 
+    public void visit(Workspace entity) {
+        wGetVisitor1().visit(entity.getContent());
+        wGetVisitor1().visit(entity.getPersistence());
+    }
+
+    public void visit(FileSystem entity) {
+        wGetVisitor1().visit(entity.getContent());
+        wGetVisitor1().visit(entity.getPersistence());
+    }
+
+    public void visit(Classpath entity) {
+        wGetVisitor1().visit(entity.getContent());
+        wGetVisitor1().visit(entity.getPersistence());
+    }
+
+    public void visit(Model entity) {
+        wGetVisitor1().visit(entity.getContent());
+        wGetVisitor1().visit(entity.getPersistence());
+    }
+
     public void visit(Registry entity) {
-        wGetVisitor1().visit(entity.getLocator());
+        wGetVisitor1().visit(entity.getRegistryUri());
         wGetVisitor1().visit(entity.getUri());
+    }
+
+    public void visit(Load entity) {
+        wGetVisitor1().visit(entity.getSource());
+    }
+
+    public void visit(Save entity) {
+        wGetVisitor1().visit(entity.getSource());
+    }
+
+    public void visit(Contents entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(FolderArtifact entity) {
+        wGetVisitor1().visit(entity.getPath());
+        wGetVisitor1().visit(entity.getContent());
+        wGetVisitor1().visit(entity.getPersistence());
+    }
+
+    public void visit(PathWithExtension entity) {
+        wGetVisitor1().visit(entity.getPath());
+        wGetVisitor1().visit(entity.getExtension());
+    }
+
+    public void visit(PathSegments entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
     }
 }

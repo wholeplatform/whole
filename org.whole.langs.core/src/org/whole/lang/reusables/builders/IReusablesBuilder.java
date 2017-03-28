@@ -27,7 +27,15 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void visit();
 
+    public void extension();
+
+    public void path();
+
     public void uri();
+
+    public void registryUri();
+
+    public void content();
 
     public void persistence();
 
@@ -59,11 +67,11 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Reuse();
 
-    public void Synch();
+    public void Sync();
 
-    public void Synch_();
+    public void Sync_();
 
-    public void _Synch();
+    public void _Sync();
 
     public void Include();
 
@@ -79,23 +87,89 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Reusables();
 
-    public void ReferenceStep();
-
-    public void ReferenceStep_();
-
-    public void _ReferenceStep();
-
     public void Resource();
 
     public void Resource_();
 
     public void _Resource();
 
+    public void Workspace();
+
+    public void Workspace_();
+
+    public void _Workspace();
+
+    public void FileSystem();
+
+    public void FileSystem_();
+
+    public void _FileSystem();
+
+    public void Classpath();
+
+    public void Classpath_();
+
+    public void _Classpath();
+
+    public void Model();
+
+    public void Model_();
+
+    public void _Model();
+
     public void Registry();
 
     public void Registry_();
 
     public void _Registry();
+
+    public void Load();
+
+    public void Load_();
+
+    public void _Load();
+
+    public void Save();
+
+    public void Save_();
+
+    public void _Save();
+
+    public void Contents();
+
+    public void Contents_();
+
+    public void Contents_(int initialCapacity);
+
+    public void _Contents();
+
+    public void FolderArtifact();
+
+    public void FolderArtifact_();
+
+    public void _FolderArtifact();
+
+    public void PathName();
+
+    public void PathName(String value);
+
+    public void PathWithExtension();
+
+    public void PathWithExtension_();
+
+    public void _PathWithExtension();
+
+    public void PathSegments();
+
+    public void PathSegments_();
+
+    public void PathSegments_(int initialCapacity);
+
+    public void _PathSegments();
+
+    public void URI();
+
+    public void URI(String value);
 
     public void WorkspacePath();
 
@@ -105,15 +179,7 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void FileSystemPath(String value);
 
-    public void ClassPathURI();
+    public void PersistenceId();
 
-    public void ClassPathURI(String value);
-
-    public void URI();
-
-    public void URI(String value);
-
-    public void Persistence();
-
-    public void Persistence(String value);
+    public void PersistenceId(String value);
 }

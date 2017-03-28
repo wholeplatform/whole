@@ -24,9 +24,9 @@ package org.whole.lang.reusables.model;
 public interface Registry extends IReusablesEntity, Source {
 
 
-    public URI getLocator();
+    public URI getRegistryUri();
 
-    public void setLocator(URI locator);
+    public void setRegistryUri(URI registryUri);
 
     public URI getUri();
 

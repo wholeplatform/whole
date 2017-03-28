@@ -16,16 +16,23 @@ package org.whole.lang.reusables.ui.editparts;
 
 import org.eclipse.gef.EditPart;
 import org.whole.lang.reusables.model.Adapt;
-import org.whole.lang.reusables.model.ClassPathURI;
+import org.whole.lang.reusables.model.Classpath;
+import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reusables.model.FileSystemPath;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
-import org.whole.lang.reusables.model.Persistence;
-import org.whole.lang.reusables.model.ReferenceStep;
+import org.whole.lang.reusables.model.Load;
+import org.whole.lang.reusables.model.Model;
+import org.whole.lang.reusables.model.PathName;
+import org.whole.lang.reusables.model.PathSegments;
+import org.whole.lang.reusables.model.PathWithExtension;
+import org.whole.lang.reusables.model.PersistenceId;
+import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Reusables;
 import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.reusables.model.Synch;
+import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
+import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.model.WorkspacePath;
 import org.whole.lang.reusables.visitors.ReusablesIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
@@ -59,8 +66,8 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     }
 
     @Override
-    public void visit(Synch entity) {
-        part = new SynchPart();
+    public void visit(Sync entity) {
+        part = new SyncPart();
     }
 
     @Override
@@ -69,13 +76,44 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     }
 
     @Override
-    public void visit(ReferenceStep entity) {
-        part = new ReferenceStepPart();
+    public void visit(Load entity) {
+        part = new LoadPart();
     }
 
     @Override
     public void visit(Reusables entity) {
         part = new ReusablesPart();
+    }
+
+    @Override
+    public void visit(Workspace entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(FileSystem entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(Classpath entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+//        part = new ClasspathLocatorPart();
+    }
+
+    @Override
+    public void visit(Model entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(Registry entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
     }
 
     @Override
@@ -89,8 +127,21 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     }
 
     @Override
-    public void visit(ClassPathURI entity) {
-        part = new ClasspathLocatorPart();
+    public void visit(PathName entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(PathWithExtension entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
+    }
+
+    @Override
+    public void visit(PathSegments entity) {
+    	// TODO Auto-generated method stub
+    	super.visit(entity);
     }
 
     @Override
@@ -100,7 +151,7 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     }
 
     @Override
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
         part = new ContentTextualEntityPart();
     }
 }

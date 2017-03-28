@@ -18,27 +18,28 @@
 package org.whole.lang.reusables.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.reusables.model.ReferenceStep;
+import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.reusables.model.Source;
+import org.whole.lang.reusables.model.Content;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.Persistence;
 
 /**
  *  @generator Whole
  */
-public class ReferenceStepImpl extends AbstractSimpleEntity implements ReferenceStep {
+public class FileSystemImpl extends AbstractSimpleEntity implements FileSystem {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<ReferenceStep> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.ReferenceStep;
+    public EntityDescriptor<FileSystem> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.FileSystem;
     }
 
     public int wGetEntityOrd() {
-        return ReusablesEntityDescriptorEnum.ReferenceStep_ord;
+        return ReusablesEntityDescriptorEnum.FileSystem_ord;
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -48,20 +49,31 @@ public class ReferenceStepImpl extends AbstractSimpleEntity implements Reference
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Source source;
+    private Content content;
 
-    public Source getSource() {
-        return notifyRequested(ReusablesFeatureDescriptorEnum.source, source);
+    public Content getContent() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.content, content);
     }
 
-    public void setSource(Source source) {
-        notifyChanged(ReusablesFeatureDescriptorEnum.source, this.source, this.source = source);
+    public void setContent(Content content) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.content, this.content, this.content = content);
+    }
+    private Persistence persistence;
+
+    public Persistence getPersistence() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.persistence, persistence);
+    }
+
+    public void setPersistence(Persistence persistence) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.persistence, this.persistence, this.persistence = persistence);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getSource().wGetAdaptee(false);
+            return getContent().wGetAdaptee(false);
+            case 1 :
+            return getPersistence().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -70,7 +82,10 @@ public class ReferenceStepImpl extends AbstractSimpleEntity implements Reference
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setSource(value.wGetAdapter(ReusablesEntityDescriptorEnum.Source));
+            setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.Content));
+            break;
+            case 1 :
+            setPersistence(value.wGetAdapter(ReusablesEntityDescriptorEnum.Persistence));
             break;
             default :
             throw new IllegalArgumentException();
@@ -78,6 +93,6 @@ public class ReferenceStepImpl extends AbstractSimpleEntity implements Reference
     }
 
     public int wSize() {
-        return 1;
+        return 2;
     }
 }

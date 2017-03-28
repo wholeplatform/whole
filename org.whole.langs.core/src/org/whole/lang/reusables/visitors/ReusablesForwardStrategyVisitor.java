@@ -46,7 +46,7 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -58,15 +58,59 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(ReferenceStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(Resource entity) {
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Workspace entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(FileSystem entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Classpath entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Model entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Registry entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Load entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Save entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Contents entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(FolderArtifact entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(PathName entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(PathWithExtension entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(PathSegments entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(URI entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -78,15 +122,7 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(ClassPathURI entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(URI entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
         wGetStrategy().visit(entity);
     }
 }

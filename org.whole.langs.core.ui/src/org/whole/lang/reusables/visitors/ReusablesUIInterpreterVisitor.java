@@ -18,16 +18,23 @@
 package org.whole.lang.reusables.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.codebase.IPersistenceKit;
+import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.reusables.model.WorkspacePath;
+import org.whole.lang.reusables.model.Workspace;
 
 /**
  * @author Riccardo Solmi
  */
 public class ReusablesUIInterpreterVisitor extends ReusablesInterpreterVisitor {
 	@Override
-	public void visit(WorkspacePath entity) {
-		setResult(BindingManagerFactory.instance.createValue(
-				E4Utils.createWorkspaceProvider(getBindings(), entity.getValue(), true)));
+	public void visit(Workspace entity) {
+		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
+
+		entity.getContent().accept(this);
+		IPersistenceProvider pp = E4Utils.createWorkspaceProvider(getBindings(), getResult().wStringValue(), true);
+
+		//TODO replace Object[] with IResource impl
+		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
 	}
 }

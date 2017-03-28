@@ -45,12 +45,4 @@ public class PersistenceAdapter extends AbstractEntityAdapter implements Persist
     public EntityDescriptor<Persistence> wGetEntityDescriptor() {
         return ReusablesEntityDescriptorEnum.Persistence;
     }
-
-    public String getValue() {
-        return wStringValue();
-    }
-
-    public void setValue(String value) {
-        wSetValue(value);
-    }
 }

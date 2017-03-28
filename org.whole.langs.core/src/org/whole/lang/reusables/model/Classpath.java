@@ -21,10 +21,14 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface ClassPathURI extends IReusablesEntity, Locator {
+public interface Classpath extends IReusablesEntity, Source {
 
 
-    public String getValue();
+    public Content getContent();
 
-    public void setValue(String value);
+    public void setContent(Content content);
+
+    public Persistence getPersistence();
+
+    public void setPersistence(Persistence persistence);
 }

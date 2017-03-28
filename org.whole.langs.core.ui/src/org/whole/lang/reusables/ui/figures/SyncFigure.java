@@ -34,11 +34,11 @@ import org.whole.lang.ui.figures.EntityFigure;
 /**
  *  @generator Whole
  */
-public class SynchFigure extends ContentPaneFigure {
+public class SyncFigure extends ContentPaneFigure {
 	protected EntityFigure reuseFigure, originalFigure, adaptedFigure, configurationFigure;
 	protected ReuseBorder reuseBorder;
 
-    public SynchFigure() {
+    public SyncFigure() {
         initContentPanes(7);
         setLayoutManager(new RowLayout().withMinorAlignment(Alignment.LEADING));
         

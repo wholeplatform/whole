@@ -21,7 +21,7 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface URI extends IReusablesEntity, Locator {
+public interface URI extends IReusablesEntity {
 
 
     public String getValue();

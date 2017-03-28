@@ -50,7 +50,7 @@ public class ReusablesTraverseAllChildrenVisitor extends ReusablesIdentityUnaryV
         entity.getAdaptedRevision().accept(wGetVisitor1());
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
         entity.getSource().accept(wGetVisitor1());
         entity.getOriginal().accept(wGetVisitor1());
         entity.getAdapter().accept(wGetVisitor1());
@@ -69,17 +69,62 @@ public class ReusablesTraverseAllChildrenVisitor extends ReusablesIdentityUnaryV
             entity.get(i).accept(wGetVisitor1());
     }
 
-    public void visit(ReferenceStep entity) {
-        entity.getSource().accept(wGetVisitor1());
-    }
-
     public void visit(Resource entity) {
         entity.getLocator().accept(wGetVisitor1());
         entity.getPersistence().accept(wGetVisitor1());
     }
 
+    public void visit(Workspace entity) {
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
+    public void visit(FileSystem entity) {
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
+    public void visit(Classpath entity) {
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
+    public void visit(Model entity) {
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
     public void visit(Registry entity) {
-        entity.getLocator().accept(wGetVisitor1());
+        entity.getRegistryUri().accept(wGetVisitor1());
         entity.getUri().accept(wGetVisitor1());
+    }
+
+    public void visit(Load entity) {
+        entity.getSource().accept(wGetVisitor1());
+    }
+
+    public void visit(Save entity) {
+        entity.getSource().accept(wGetVisitor1());
+    }
+
+    public void visit(Contents entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(FolderArtifact entity) {
+        entity.getPath().accept(wGetVisitor1());
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
+    public void visit(PathWithExtension entity) {
+        entity.getPath().accept(wGetVisitor1());
+        entity.getExtension().accept(wGetVisitor1());
+    }
+
+    public void visit(PathSegments entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
     }
 }

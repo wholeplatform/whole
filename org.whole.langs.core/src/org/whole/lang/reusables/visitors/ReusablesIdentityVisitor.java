@@ -36,7 +36,7 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Reuse entity) {
     }
 
-    public void visit(Synch entity) {
+    public void visit(Sync entity) {
     }
 
     public void visit(Include entity) {
@@ -45,13 +45,46 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Reusables entity) {
     }
 
-    public void visit(ReferenceStep entity) {
-    }
-
     public void visit(Resource entity) {
     }
 
+    public void visit(Workspace entity) {
+    }
+
+    public void visit(FileSystem entity) {
+    }
+
+    public void visit(Classpath entity) {
+    }
+
+    public void visit(Model entity) {
+    }
+
     public void visit(Registry entity) {
+    }
+
+    public void visit(Load entity) {
+    }
+
+    public void visit(Save entity) {
+    }
+
+    public void visit(Contents entity) {
+    }
+
+    public void visit(FolderArtifact entity) {
+    }
+
+    public void visit(PathName entity) {
+    }
+
+    public void visit(PathWithExtension entity) {
+    }
+
+    public void visit(PathSegments entity) {
+    }
+
+    public void visit(URI entity) {
     }
 
     public void visit(WorkspacePath entity) {
@@ -60,12 +93,6 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(FileSystemPath entity) {
     }
 
-    public void visit(ClassPathURI entity) {
-    }
-
-    public void visit(URI entity) {
-    }
-
-    public void visit(Persistence entity) {
+    public void visit(PersistenceId entity) {
     }
 }
