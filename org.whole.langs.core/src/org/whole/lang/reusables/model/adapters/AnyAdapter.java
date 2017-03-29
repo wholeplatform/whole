@@ -23,19 +23,18 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
-import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class ClasspathAdapter extends AbstractEntityAdapter implements Classpath {
+public class AnyAdapter extends AbstractEntityAdapter implements Any {
     private static final long serialVersionUID = 1;
 
-    public ClasspathAdapter(IEntity implementor) {
+    public AnyAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ClasspathAdapter() {
+    public AnyAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -43,23 +42,7 @@ public class ClasspathAdapter extends AbstractEntityAdapter implements Classpath
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Classpath> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Classpath;
-    }
-
-    public Content getContent() {
-        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.Content);
-    }
-
-    public void setContent(Content content) {
-        wSet(ReusablesFeatureDescriptorEnum.content, content);
-    }
-
-    public Persistence getPersistence() {
-        return wGet(ReusablesFeatureDescriptorEnum.persistence).wGetAdapter(ReusablesEntityDescriptorEnum.Persistence);
-    }
-
-    public void setPersistence(Persistence persistence) {
-        wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
+    public EntityDescriptor<Any> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Any;
     }
 }

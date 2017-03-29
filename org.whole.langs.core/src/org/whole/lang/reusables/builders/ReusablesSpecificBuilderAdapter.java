@@ -52,16 +52,12 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         wFeature(ReusablesFeatureDescriptorEnum.registryUri);
     }
 
-    public void content() {
-        wFeature(ReusablesFeatureDescriptorEnum.content);
-    }
-
     public void persistence() {
         wFeature(ReusablesFeatureDescriptorEnum.persistence);
     }
 
-    public void locator() {
-        wFeature(ReusablesFeatureDescriptorEnum.locator);
+    public void content() {
+        wFeature(ReusablesFeatureDescriptorEnum.content);
     }
 
     public void variantRevision() {
@@ -72,8 +68,8 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         wFeature(ReusablesFeatureDescriptorEnum.variant);
     }
 
-    public void source() {
-        wFeature(ReusablesFeatureDescriptorEnum.source);
+    public void resource() {
+        wFeature(ReusablesFeatureDescriptorEnum.resource);
     }
 
     public void adaptedRevision() {
@@ -157,18 +153,6 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void _Reusables() {
         _wEntity(ReusablesEntityDescriptorEnum.Reusables);
-    }
-
-    public void Resource() {
-        wEntity(ReusablesEntityDescriptorEnum.Resource);
-    }
-
-    public void Resource_() {
-        wEntity_(ReusablesEntityDescriptorEnum.Resource);
-    }
-
-    public void _Resource() {
-        _wEntity(ReusablesEntityDescriptorEnum.Resource);
     }
 
     public void Workspace() {
@@ -271,16 +255,28 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Contents);
     }
 
-    public void FolderArtifact() {
-        wEntity(ReusablesEntityDescriptorEnum.FolderArtifact);
+    public void Folder() {
+        wEntity(ReusablesEntityDescriptorEnum.Folder);
     }
 
-    public void FolderArtifact_() {
-        wEntity_(ReusablesEntityDescriptorEnum.FolderArtifact);
+    public void Folder_() {
+        wEntity_(ReusablesEntityDescriptorEnum.Folder);
     }
 
-    public void _FolderArtifact() {
-        _wEntity(ReusablesEntityDescriptorEnum.FolderArtifact);
+    public void _Folder() {
+        _wEntity(ReusablesEntityDescriptorEnum.Folder);
+    }
+
+    public void File() {
+        wEntity(ReusablesEntityDescriptorEnum.File);
+    }
+
+    public void File_() {
+        wEntity_(ReusablesEntityDescriptorEnum.File);
+    }
+
+    public void _File() {
+        _wEntity(ReusablesEntityDescriptorEnum.File);
     }
 
     public void PathName() {
@@ -325,22 +321,6 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
 
     public void URI(String value) {
         wEntity(ReusablesEntityDescriptorEnum.URI, value);
-    }
-
-    public void WorkspacePath() {
-        wEntity(ReusablesEntityDescriptorEnum.WorkspacePath);
-    }
-
-    public void WorkspacePath(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.WorkspacePath, value);
-    }
-
-    public void FileSystemPath() {
-        wEntity(ReusablesEntityDescriptorEnum.FileSystemPath);
-    }
-
-    public void FileSystemPath(String value) {
-        wEntity(ReusablesEntityDescriptorEnum.FileSystemPath, value);
     }
 
     public void PersistenceId() {

@@ -21,14 +21,6 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Resource extends IReusablesEntity, Source {
+public interface Resource extends IReusablesEntity {
 
-
-    public Locator getLocator();
-
-    public void setLocator(Locator locator);
-
-    public Persistence getPersistence();
-
-    public void setPersistence(Persistence persistence);
 }

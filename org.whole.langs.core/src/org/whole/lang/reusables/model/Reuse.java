@@ -24,9 +24,9 @@ package org.whole.lang.reusables.model;
 public interface Reuse extends IReusablesEntity, Reusable {
 
 
-    public Source getSource();
+    public Resource getResource();
 
-    public void setSource(Source source);
+    public void setResource(Resource resource);
 
     public Reusable getOriginal();
 

@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.reusables.model.Source;
+import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,20 +48,20 @@ public class IncludeImpl extends AbstractSimpleEntity implements Include {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Source source;
+    private Resource resource;
 
-    public Source getSource() {
-        return notifyRequested(ReusablesFeatureDescriptorEnum.source, source);
+    public Resource getResource() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.resource, resource);
     }
 
-    public void setSource(Source source) {
-        notifyChanged(ReusablesFeatureDescriptorEnum.source, this.source, this.source = source);
+    public void setResource(Resource resource) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.resource, this.resource, this.resource = resource);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getSource().wGetAdaptee(false);
+            return getResource().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -70,7 +70,7 @@ public class IncludeImpl extends AbstractSimpleEntity implements Include {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setSource(value.wGetAdapter(ReusablesEntityDescriptorEnum.Source));
+            setResource(value.wGetAdapter(ReusablesEntityDescriptorEnum.Resource));
             break;
             default :
             throw new IllegalArgumentException();

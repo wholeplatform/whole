@@ -26,9 +26,11 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.model.Content;
 import org.whole.lang.reusables.model.Include;
 import org.whole.lang.reusables.model.Resource;
-import org.whole.lang.reusables.model.Source;
+import org.whole.lang.reusables.model.Reuse;
+import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.ui.figures.IncludeFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -43,12 +45,15 @@ public class IncludePart extends AbstractContentPanePart {
     protected IFigure createFigure() {
         return new IncludeFigure(event -> {
         	try {
-	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
-	        	Include entity = getModelEntity();
-	        	Source source = entity.getSource();
-	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Resource, source)) {
-	    			IFile file = workspace.getRoot().getFile(Path.fromPortableString(((Resource) source).getLocator().wStringValue()));
-	            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+	        	Reuse entity = getModelEntity();
+	        	Resource resource = entity.getResource();
+	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Workspace, resource)) {
+	    			Content content = ((Workspace) resource).getContent();
+	    			if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.PathName, resource)) {
+	    	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IFile file = workspace.getRoot().getFile(Path.fromPortableString(content.wStringValue()));
+		            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+	    			}
 	        	}
         	} catch (Exception e) {
         	}
@@ -58,7 +63,7 @@ public class IncludePart extends AbstractContentPanePart {
     protected List<IEntity> getModelSpecificChildren() {
         Include entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(1);
-        children.add(entity.getSource());
+        children.add(entity.getResource());
         return children;
     }
 }

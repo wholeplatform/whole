@@ -45,9 +45,6 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Reusables entity) {
     }
 
-    public void visit(Resource entity) {
-    }
-
     public void visit(Workspace entity) {
     }
 
@@ -72,7 +69,10 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Contents entity) {
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+    }
+
+    public void visit(File entity) {
     }
 
     public void visit(PathName entity) {
@@ -85,12 +85,6 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     }
 
     public void visit(URI entity) {
-    }
-
-    public void visit(WorkspacePath entity) {
-    }
-
-    public void visit(FileSystemPath entity) {
     }
 
     public void visit(PersistenceId entity) {

@@ -24,7 +24,7 @@ package org.whole.lang.reusables.model;
 public interface Save extends IReusablesEntity, StepExpression {
 
 
-    public Source getSource();
+    public Resource getResource();
 
-    public void setSource(Source source);
+    public void setResource(Resource resource);
 }

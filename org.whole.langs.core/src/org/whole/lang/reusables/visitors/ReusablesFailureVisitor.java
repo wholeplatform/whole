@@ -50,10 +50,6 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(Resource entity) {
-        throw new VisitException();
-    }
-
     public void visit(Workspace entity) {
         throw new VisitException();
     }
@@ -86,7 +82,11 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        throw new VisitException();
+    }
+
+    public void visit(File entity) {
         throw new VisitException();
     }
 
@@ -103,14 +103,6 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(URI entity) {
-        throw new VisitException();
-    }
-
-    public void visit(WorkspacePath entity) {
-        throw new VisitException();
-    }
-
-    public void visit(FileSystemPath entity) {
         throw new VisitException();
     }
 

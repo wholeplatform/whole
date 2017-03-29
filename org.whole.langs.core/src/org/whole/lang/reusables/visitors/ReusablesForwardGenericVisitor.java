@@ -55,10 +55,6 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(Resource entity) {
-        wGetVisitor1().visit(entity);
-    }
-
     public void visit(Workspace entity) {
         wGetVisitor1().visit(entity);
     }
@@ -91,7 +87,11 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(File entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -108,14 +108,6 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
     }
 
     public void visit(URI entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(WorkspacePath entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(FileSystemPath entity) {
         wGetVisitor1().visit(entity);
     }
 

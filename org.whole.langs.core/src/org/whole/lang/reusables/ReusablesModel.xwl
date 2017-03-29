@@ -33,7 +33,7 @@
             <models:EntityType value="whole:org.whole.lang.changes:ChangesModel#Revision"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="31">
+    <models:ModelDeclarations initialCapacity="28">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -91,8 +91,8 @@
             <models:Features initialCapacity="5">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Source"/>
-                    <models:SimpleName value="source"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
@@ -163,8 +163,8 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Source"/>
-                    <models:SimpleName value="source"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -184,38 +184,15 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="Source"/>
+            <models:SimpleName value="Resource"/>
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Resource"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
-            </models:Types>
-            <models:Features initialCapacity="2">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Locator"/>
-                    <models:SimpleName value="locator"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="1">
-                        <models:FeatureModifier value="optional"/>
-                    </models:FeatureModifiers>
-                    <models:SimpleName value="Persistence"/>
-                    <models:SimpleName value="persistence"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Workspace"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
@@ -238,7 +215,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="FileSystem"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
@@ -261,7 +238,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Classpath"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
@@ -284,7 +261,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Model"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
@@ -307,7 +284,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Registry"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="2">
                 <models:Feature>
@@ -330,7 +307,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="PathExpression"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="Source"/>
+                <models:SimpleName value="Resource"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -353,8 +330,8 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Source"/>
-                    <models:SimpleName value="source"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -368,8 +345,8 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Source"/>
-                    <models:SimpleName value="source"/>
+                    <models:SimpleName value="Resource"/>
+                    <models:SimpleName value="resource"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
             </models:Features>
@@ -395,7 +372,7 @@
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="FolderArtifact"/>
+            <models:SimpleName value="Folder"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Content"/>
             </models:Types>
@@ -409,6 +386,37 @@
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
                     <models:SimpleName value="Content"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Persistence"/>
+                    <models:SimpleName value="persistence"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="File"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Content"/>
+            </models:Types>
+            <models:Features initialCapacity="3">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Path"/>
+                    <models:SimpleName value="path"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Any"/>
                     <models:SimpleName value="content"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -476,32 +484,6 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="URI"/>
             <models:Types initialCapacity="0"/>
-            <models:DataType value="String"/>
-        </models:DataEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
-            <models:SimpleName value="Locator"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Content"/>
-            </models:Types>
-            <models:Features initialCapacity="0"/>
-        </models:SimpleEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="WorkspacePath"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Locator"/>
-            </models:Types>
-            <models:DataType value="String"/>
-        </models:DataEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="FileSystemPath"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Locator"/>
-            </models:Types>
             <models:DataType value="String"/>
         </models:DataEntity>
         <models:SimpleEntity>

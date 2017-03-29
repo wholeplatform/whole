@@ -58,10 +58,6 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(Resource entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(Workspace entity) {
         wGetStrategy().visit(entity);
     }
@@ -94,7 +90,11 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(File entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -111,14 +111,6 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
     }
 
     public void visit(URI entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(WorkspacePath entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(FileSystemPath entity) {
         wGetStrategy().visit(entity);
     }
 

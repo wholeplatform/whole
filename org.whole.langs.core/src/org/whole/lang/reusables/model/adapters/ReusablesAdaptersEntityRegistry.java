@@ -36,7 +36,6 @@ public class ReusablesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new SyncAdapter());
         put(new IncludeAdapter());
         put(new ReusablesAdapter());
-        put(new SourceAdapter());
         put(new ResourceAdapter());
         put(new WorkspaceAdapter());
         put(new FileSystemAdapter());
@@ -49,17 +48,16 @@ public class ReusablesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new SaveAdapter());
         put(new ContentAdapter());
         put(new ContentsAdapter());
-        put(new FolderArtifactAdapter());
+        put(new FolderAdapter());
+        put(new FileAdapter());
         put(new PathAdapter());
         put(new PathNameAdapter());
         put(new PathWithExtensionAdapter());
         put(new PathSegmentsAdapter());
         put(new URIAdapter());
-        put(new LocatorAdapter());
-        put(new WorkspacePathAdapter());
-        put(new FileSystemPathAdapter());
         put(new PersistenceAdapter());
         put(new PersistenceIdAdapter());
         put(new RevisionAdapter());
+        put(new AnyAdapter());
     }
 }

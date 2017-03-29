@@ -62,11 +62,6 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(Resource entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
     public void visit(Workspace entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -107,7 +102,12 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(File entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
@@ -128,16 +128,6 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
     }
 
     public void visit(URI entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(WorkspacePath entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(FileSystemPath entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

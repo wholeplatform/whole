@@ -47,12 +47,12 @@ public class SyncAdapter extends AbstractEntityAdapter implements Sync {
         return ReusablesEntityDescriptorEnum.Sync;
     }
 
-    public Source getSource() {
-        return wGet(ReusablesFeatureDescriptorEnum.source).wGetAdapter(ReusablesEntityDescriptorEnum.Source);
+    public Resource getResource() {
+        return wGet(ReusablesFeatureDescriptorEnum.resource).wGetAdapter(ReusablesEntityDescriptorEnum.Resource);
     }
 
-    public void setSource(Source source) {
-        wSet(ReusablesFeatureDescriptorEnum.source, source);
+    public void setResource(Resource resource) {
+        wSet(ReusablesFeatureDescriptorEnum.resource, resource);
     }
 
     public Reusable getOriginal() {

@@ -21,7 +21,7 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Registry extends IReusablesEntity, Source {
+public interface Registry extends IReusablesEntity, Resource {
 
 
     public URI getRegistryUri();

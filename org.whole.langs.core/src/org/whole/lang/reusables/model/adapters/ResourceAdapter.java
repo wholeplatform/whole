@@ -23,7 +23,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
-import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
@@ -45,21 +44,5 @@ public class ResourceAdapter extends AbstractEntityAdapter implements Resource {
 
     public EntityDescriptor<Resource> wGetEntityDescriptor() {
         return ReusablesEntityDescriptorEnum.Resource;
-    }
-
-    public Locator getLocator() {
-        return wGet(ReusablesFeatureDescriptorEnum.locator).wGetAdapter(ReusablesEntityDescriptorEnum.Locator);
-    }
-
-    public void setLocator(Locator locator) {
-        wSet(ReusablesFeatureDescriptorEnum.locator, locator);
-    }
-
-    public Persistence getPersistence() {
-        return wGet(ReusablesFeatureDescriptorEnum.persistence).wGetAdapter(ReusablesEntityDescriptorEnum.Persistence);
-    }
-
-    public void setPersistence(Persistence persistence) {
-        wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
     }
 }

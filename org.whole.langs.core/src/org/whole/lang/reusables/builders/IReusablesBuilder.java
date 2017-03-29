@@ -35,17 +35,15 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void registryUri();
 
-    public void content();
-
     public void persistence();
 
-    public void locator();
+    public void content();
 
     public void variantRevision();
 
     public void variant();
 
-    public void source();
+    public void resource();
 
     public void adaptedRevision();
 
@@ -86,12 +84,6 @@ public interface IReusablesBuilder extends IBuilder {
     public void Reusables_(int initialCapacity);
 
     public void _Reusables();
-
-    public void Resource();
-
-    public void Resource_();
-
-    public void _Resource();
 
     public void Workspace();
 
@@ -143,11 +135,17 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Contents();
 
-    public void FolderArtifact();
+    public void Folder();
 
-    public void FolderArtifact_();
+    public void Folder_();
 
-    public void _FolderArtifact();
+    public void _Folder();
+
+    public void File();
+
+    public void File_();
+
+    public void _File();
 
     public void PathName();
 
@@ -170,14 +168,6 @@ public interface IReusablesBuilder extends IBuilder {
     public void URI();
 
     public void URI(String value);
-
-    public void WorkspacePath();
-
-    public void WorkspacePath(String value);
-
-    public void FileSystemPath();
-
-    public void FileSystemPath(String value);
 
     public void PersistenceId();
 

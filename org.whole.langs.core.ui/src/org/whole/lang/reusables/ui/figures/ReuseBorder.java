@@ -40,48 +40,45 @@ public class ReuseBorder extends MarginBorder{
 
 		g.pushState();
 
-		int bandSize = 6;
-		g.setLineWidth(3);
+		int bandSize = 32;
+		int lw = 4;
+
+		r.shrink(5, 5);		
+		g.setLineWidth(lw*2);
+		g.setForegroundColor(ColorConstants.darkGray);
+		g.drawRoundRectangle(r, 3, 3);
+
 		g.setLineStyle(SWT.LINE_CUSTOM);
 		g.setLineDash(new int[] {bandSize, bandSize});
 
-		r.shrink(2, 2);
-		g.setLineDashOffset(-1);
-		g.setForegroundColor(ColorConstants.orange);
-		g.drawLine(r.x, r.y, r.right(), r.y);
-		g.drawLine(r.right(), r.y, r.right(), r.bottom());
-		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
-		g.drawLine(r.x, r.bottom(), r.x, r.y);
-		g.setLineDashOffset(-1 + bandSize);
-		g.setForegroundColor(ColorConstants.darkGray);
-		g.drawLine(r.x, r.y, r.right(), r.y);
-		g.drawLine(r.right(), r.y, r.right(), r.bottom());
-		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
-		g.drawLine(r.x, r.bottom(), r.x, r.y);
-
-		r.shrink(2, 2);
+		r.shrink(-2, -2);
 		g.setLineDashOffset(0);
 		g.setForegroundColor(ColorConstants.orange);
-		g.drawLine(r.x, r.y, r.right(), r.y);
-		g.drawLine(r.right(), r.y, r.right(), r.bottom());
-		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
-		g.drawLine(r.x, r.bottom(), r.x, r.y);
-		g.setLineDashOffset(0 + bandSize);
-		g.setForegroundColor(ColorConstants.darkGray);
+		g.setLineWidth(lw);
 		g.drawLine(r.x, r.y, r.right(), r.y);
 		g.drawLine(r.right(), r.y, r.right(), r.bottom());
 		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
 		g.drawLine(r.x, r.bottom(), r.x, r.y);
 
+		r.shrink(4, 4);
+		g.setLineDashOffset(5);
+		g.setForegroundColor(ColorConstants.orange);
+		g.setLineWidth(lw);
+		g.drawLine(r.x, r.y, r.right(), r.y);
+		g.drawLine(r.right(), r.y, r.right(), r.bottom());
+		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
+		g.drawLine(r.x, r.bottom(), r.x, r.y);
+
+
 //		r.shrink(3, 3);		
-//		g.setLineWidth(5);
-//		g.setLineStyle(SWT.LINE_CUSTOM);
-//		g.setLineDash(new int[] {5,5});
-//		g.setLineDashOffset(0);
-//		g.setForegroundColor(ColorConstants.orange);
-//		g.drawRoundRectangle(r, 3, 3);
-//		g.setLineDashOffset(5);
+//		g.setLineWidth(lw);
 //		g.setForegroundColor(ColorConstants.darkGray);
+//		g.drawRoundRectangle(r, 3, 3);
+//		g.setLineStyle(SWT.LINE_CUSTOM);
+//		g.setLineDash(new int[] {bandSize, bandSize});
+//		g.setLineWidth(lw);
+//		g.setLineJoin(SWT.JOIN_MITER);
+//		g.setForegroundColor(ColorConstants.orange);
 //		g.drawRoundRectangle(r, 3, 3);
 
 		g.popState();

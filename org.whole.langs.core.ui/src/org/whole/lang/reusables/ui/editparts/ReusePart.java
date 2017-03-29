@@ -26,9 +26,10 @@ import org.whole.lang.e4.ui.util.E4Utils;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.reusables.model.Content;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.reusables.model.Source;
+import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.ui.figures.ReuseFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
@@ -41,12 +42,15 @@ public class ReusePart extends AbstractContentPanePart {
     protected IFigure createFigure() {
         return new ReuseFigure(event -> {
         	try {
-	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
 	        	Reuse entity = getModelEntity();
-	        	Source source = entity.getSource();
-	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Resource, source)) {
-	    			IFile file = workspace.getRoot().getFile(Path.fromPortableString(((Resource) source).getLocator().wStringValue()));
-	            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+	        	Resource resource = entity.getResource();
+	        	if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.Workspace, resource)) {
+	    			Content content = ((Workspace) resource).getContent();
+	    			if (Matcher.matchImpl(ReusablesEntityDescriptorEnum.PathName, resource)) {
+	    	        	IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IFile file = workspace.getRoot().getFile(Path.fromPortableString(content.wStringValue()));
+		            	E4Utils.openEditor(getViewer().getContext(), file, ReflectionFactory.getDefaultPersistenceKit());
+	    			}
 	        	}
         	} catch (Exception e) {
         	}
@@ -73,7 +77,7 @@ public class ReusePart extends AbstractContentPanePart {
 //        }
 
         List<IEntity> children = new ArrayList<IEntity>(5);
-        children.add(entity.getSource());
+        children.add(entity.getResource());
         children.add(entity.getOriginal());
         children.add(entity.getAdapter());
         children.add(entity.getAdapted());

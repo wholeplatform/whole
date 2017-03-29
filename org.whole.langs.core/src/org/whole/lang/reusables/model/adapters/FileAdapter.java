@@ -28,14 +28,14 @@ import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class ClasspathAdapter extends AbstractEntityAdapter implements Classpath {
+public class FileAdapter extends AbstractEntityAdapter implements File {
     private static final long serialVersionUID = 1;
 
-    public ClasspathAdapter(IEntity implementor) {
+    public FileAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ClasspathAdapter() {
+    public FileAdapter() {
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -43,15 +43,23 @@ public class ClasspathAdapter extends AbstractEntityAdapter implements Classpath
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Classpath> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Classpath;
+    public EntityDescriptor<File> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.File;
     }
 
-    public Content getContent() {
-        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.Content);
+    public Path getPath() {
+        return wGet(ReusablesFeatureDescriptorEnum.path).wGetAdapter(ReusablesEntityDescriptorEnum.Path);
     }
 
-    public void setContent(Content content) {
+    public void setPath(Path path) {
+        wSet(ReusablesFeatureDescriptorEnum.path, path);
+    }
+
+    public Any getContent() {
+        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.Any);
+    }
+
+    public void setContent(Any content) {
         wSet(ReusablesFeatureDescriptorEnum.content, content);
     }
 

@@ -36,8 +36,6 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(Reusables entity);
 
-    public void visit(Resource entity);
-
     public void visit(Workspace entity);
 
     public void visit(FileSystem entity);
@@ -54,7 +52,9 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(Contents entity);
 
-    public void visit(FolderArtifact entity);
+    public void visit(Folder entity);
+
+    public void visit(File entity);
 
     public void visit(PathName entity);
 
@@ -63,10 +63,6 @@ public interface IReusablesVisitor extends IVisitor {
     public void visit(PathSegments entity);
 
     public void visit(URI entity);
-
-    public void visit(WorkspacePath entity);
-
-    public void visit(FileSystemPath entity);
 
     public void visit(PersistenceId entity);
 }

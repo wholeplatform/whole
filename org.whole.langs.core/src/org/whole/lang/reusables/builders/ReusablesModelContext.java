@@ -62,12 +62,12 @@ public class ReusablesModelContext extends EntityContext {
         wSet(ReusablesFeatureDescriptorEnum.adaptedRevision, adaptedRevision);
     }
 
-    public ReusablesModelContext getSource() {
-        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.source);
+    public ReusablesModelContext getResource() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.resource);
     }
 
-    public void setSource(ReusablesModelContext source) {
-        wSet(ReusablesFeatureDescriptorEnum.source, source);
+    public void setResource(ReusablesModelContext resource) {
+        wSet(ReusablesFeatureDescriptorEnum.resource, resource);
     }
 
     public ReusablesModelContext getVariant() {
@@ -86,12 +86,12 @@ public class ReusablesModelContext extends EntityContext {
         wSet(ReusablesFeatureDescriptorEnum.variantRevision, variantRevision);
     }
 
-    public ReusablesModelContext getLocator() {
-        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.locator);
+    public ReusablesModelContext getContent() {
+        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.content);
     }
 
-    public void setLocator(ReusablesModelContext locator) {
-        wSet(ReusablesFeatureDescriptorEnum.locator, locator);
+    public void setContent(ReusablesModelContext content) {
+        wSet(ReusablesFeatureDescriptorEnum.content, content);
     }
 
     public ReusablesModelContext getPersistence() {
@@ -100,14 +100,6 @@ public class ReusablesModelContext extends EntityContext {
 
     public void setPersistence(ReusablesModelContext persistence) {
         wSet(ReusablesFeatureDescriptorEnum.persistence, persistence);
-    }
-
-    public ReusablesModelContext getContent() {
-        return (ReusablesModelContext) wGet(ReusablesFeatureDescriptorEnum.content);
-    }
-
-    public void setContent(ReusablesModelContext content) {
-        wSet(ReusablesFeatureDescriptorEnum.content, content);
     }
 
     public ReusablesModelContext getRegistryUri() {

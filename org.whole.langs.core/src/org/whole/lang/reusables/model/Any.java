@@ -21,10 +21,6 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Load extends IReusablesEntity, StepExpression {
+public interface Any extends IReusablesEntity {
 
-
-    public Resource getResource();
-
-    public void setResource(Resource resource);
 }

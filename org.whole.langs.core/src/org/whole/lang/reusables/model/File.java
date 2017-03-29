@@ -21,10 +21,18 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Load extends IReusablesEntity, StepExpression {
+public interface File extends IReusablesEntity, Content {
 
 
-    public Resource getResource();
+    public Path getPath();
 
-    public void setResource(Resource resource);
+    public void setPath(Path path);
+
+    public Any getContent();
+
+    public void setContent(Any content);
+
+    public Persistence getPersistence();
+
+    public void setPersistence(Persistence persistence);
 }

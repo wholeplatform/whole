@@ -18,28 +18,29 @@
 package org.whole.lang.reusables.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.reusables.model.Workspace;
+import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.reusables.model.Content;
+import org.whole.lang.reusables.model.Path;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.Content;
 import org.whole.lang.reusables.model.Persistence;
 
 /**
  *  @generator Whole
  */
-public class WorkspaceImpl extends AbstractSimpleEntity implements Workspace {
+public class FolderImpl extends AbstractSimpleEntity implements Folder {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<Workspace> wGetEntityDescriptor() {
-        return ReusablesEntityDescriptorEnum.Workspace;
+    public EntityDescriptor<Folder> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Folder;
     }
 
     public int wGetEntityOrd() {
-        return ReusablesEntityDescriptorEnum.Workspace_ord;
+        return ReusablesEntityDescriptorEnum.Folder_ord;
     }
 
     public void accept(IReusablesVisitor visitor) {
@@ -48,6 +49,15 @@ public class WorkspaceImpl extends AbstractSimpleEntity implements Workspace {
         } catch (Exception e) {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
+    }
+    private Path path;
+
+    public Path getPath() {
+        return notifyRequested(ReusablesFeatureDescriptorEnum.path, path);
+    }
+
+    public void setPath(Path path) {
+        notifyChanged(ReusablesFeatureDescriptorEnum.path, this.path, this.path = path);
     }
     private Content content;
 
@@ -71,8 +81,10 @@ public class WorkspaceImpl extends AbstractSimpleEntity implements Workspace {
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getContent().wGetAdaptee(false);
+            return getPath().wGetAdaptee(false);
             case 1 :
+            return getContent().wGetAdaptee(false);
+            case 2 :
             return getPersistence().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
@@ -82,9 +94,12 @@ public class WorkspaceImpl extends AbstractSimpleEntity implements Workspace {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.Content));
+            setPath(value.wGetAdapter(ReusablesEntityDescriptorEnum.Path));
             break;
             case 1 :
+            setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.Content));
+            break;
+            case 2 :
             setPersistence(value.wGetAdapter(ReusablesEntityDescriptorEnum.Persistence));
             break;
             default :
@@ -93,6 +108,6 @@ public class WorkspaceImpl extends AbstractSimpleEntity implements Workspace {
     }
 
     public int wSize() {
-        return 2;
+        return 3;
     }
 }

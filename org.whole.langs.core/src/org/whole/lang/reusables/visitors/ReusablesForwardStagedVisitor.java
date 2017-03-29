@@ -44,10 +44,6 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(Resource entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(Workspace entity) {
         stagedVisit(entity);
     }
@@ -80,7 +76,11 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(File entity) {
         stagedVisit(entity);
     }
 
@@ -97,14 +97,6 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(URI entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(WorkspacePath entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(FileSystemPath entity) {
         stagedVisit(entity);
     }
 

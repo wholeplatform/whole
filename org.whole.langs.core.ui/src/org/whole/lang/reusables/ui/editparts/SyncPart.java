@@ -35,7 +35,7 @@ public class SyncPart extends AbstractContentPanePart {
     protected List<IEntity> getModelSpecificChildren() {
         Sync entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(7);
-        children.add(entity.getSource());
+        children.add(entity.getResource());
         children.add(entity.getOriginal());
         children.add(entity.getAdapter());
         children.add(entity.getAdapted());

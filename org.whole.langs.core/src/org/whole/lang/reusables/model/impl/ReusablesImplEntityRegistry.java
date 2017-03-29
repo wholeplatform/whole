@@ -35,7 +35,6 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new SyncImpl());
         put(new IncludeImpl());
         put(new ReusablesImpl());
-        put(new ResourceImpl());
         put(new WorkspaceImpl());
         put(new FileSystemImpl());
         put(new ClasspathImpl());
@@ -44,13 +43,12 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new LoadImpl());
         put(new SaveImpl());
         put(new ContentsImpl());
-        put(new FolderArtifactImpl());
+        put(new FolderImpl());
+        put(new FileImpl());
         put(new PathNameImpl());
         put(new PathWithExtensionImpl());
         put(new PathSegmentsImpl());
         put(new URIImpl());
-        put(new WorkspacePathImpl());
-        put(new FileSystemPathImpl());
         put(new PersistenceIdImpl());
     }
 }

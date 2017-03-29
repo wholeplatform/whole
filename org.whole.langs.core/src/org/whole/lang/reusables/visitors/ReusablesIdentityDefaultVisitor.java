@@ -54,41 +54,36 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Reusable) entity);
     }
 
-    public void visit(Source entity) {
-    }
-
     public void visit(Resource entity) {
-        visit((IReusablesEntity) entity);
-        visit((Source) entity);
     }
 
     public void visit(Workspace entity) {
         visit((IReusablesEntity) entity);
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(FileSystem entity) {
         visit((IReusablesEntity) entity);
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(Classpath entity) {
         visit((IReusablesEntity) entity);
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(Model entity) {
         visit((IReusablesEntity) entity);
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(Registry entity) {
         visit((IReusablesEntity) entity);
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(PathExpression entity) {
-        visit((Source) entity);
+        visit((Resource) entity);
     }
 
     public void visit(StepExpression entity) {
@@ -113,7 +108,12 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Content) entity);
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        visit((IReusablesEntity) entity);
+        visit((Content) entity);
+    }
+
+    public void visit(File entity) {
         visit((IReusablesEntity) entity);
         visit((Content) entity);
     }
@@ -139,20 +139,6 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
 
     public void visit(URI entity) {
         visit((IReusablesEntity) entity);
-    }
-
-    public void visit(Locator entity) {
-        visit((Content) entity);
-    }
-
-    public void visit(WorkspacePath entity) {
-        visit((IReusablesEntity) entity);
-        visit((Locator) entity);
-    }
-
-    public void visit(FileSystemPath entity) {
-        visit((IReusablesEntity) entity);
-        visit((Locator) entity);
     }
 
     public void visit(Persistence entity) {

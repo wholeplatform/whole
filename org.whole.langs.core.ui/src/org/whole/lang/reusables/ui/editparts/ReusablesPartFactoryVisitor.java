@@ -18,7 +18,6 @@ import org.eclipse.gef.EditPart;
 import org.whole.lang.reusables.model.Adapt;
 import org.whole.lang.reusables.model.Classpath;
 import org.whole.lang.reusables.model.FileSystem;
-import org.whole.lang.reusables.model.FileSystemPath;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
 import org.whole.lang.reusables.model.Load;
@@ -33,7 +32,6 @@ import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
 import org.whole.lang.reusables.model.Workspace;
-import org.whole.lang.reusables.model.WorkspacePath;
 import org.whole.lang.reusables.visitors.ReusablesIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
@@ -114,16 +112,6 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     public void visit(Registry entity) {
     	// TODO Auto-generated method stub
     	super.visit(entity);
-    }
-
-    @Override
-    public void visit(WorkspacePath entity) {
-        part = new WorkspaceLocatorPart();
-    }
-
-    @Override
-    public void visit(FileSystemPath entity) {
-        part = new FileSystemLocatorPart();
     }
 
     @Override

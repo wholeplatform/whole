@@ -21,7 +21,7 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Classpath extends IReusablesEntity, Source {
+public interface Classpath extends IReusablesEntity, Resource {
 
 
     public Content getContent();

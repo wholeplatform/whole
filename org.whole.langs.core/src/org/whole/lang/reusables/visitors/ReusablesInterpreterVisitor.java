@@ -17,12 +17,10 @@
  */
 package org.whole.lang.reusables.visitors;
 
-import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Locator_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.PathExpression_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
-import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Source_ord;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -65,7 +63,6 @@ import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.reusables.model.Source;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
 import org.whole.lang.reusables.model.Workspace;
@@ -116,8 +113,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 			return false;
 
 		case PathExpression_ord:
-		case Locator_ord:
-		case Source_ord:
 //			setResultIterator(DynamicCompilerOperation.compile(entity.wGetAdaptee(false), getBindings()).getResultIterator());
 			try {
 				getBindings().wEnterScope();
@@ -192,7 +187,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Load entity) {
-		IEntityIterator<?> contentIterator = readSource(entity.getSource());
+		IEntityIterator<?> contentIterator = readResource(entity.getResource());
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
@@ -201,7 +196,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Include entity) {
-		IEntityIterator<?> contentIterator = readSource(entity.getSource());
+		IEntityIterator<?> contentIterator = readResource(entity.getResource());
 
 		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
 				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
@@ -224,7 +219,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 				reusable =  entity.getOriginal();
 	
 				if (EntityUtils.isResolver(reusable)) {
-					contentIterator = readSource(entity.getSource());
+					contentIterator = readResource(entity.getResource());
 					contentIterator.setBindings(getBindings());
 					contentIterator.reset(entity);
 					if (contentIterator.hasNext())
@@ -313,14 +308,14 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(URI entity) {
-		if (EntityUtils.hasParent(entity) && EntityUtils.getParentFormalType(entity).equals(ReusablesEntityDescriptorEnum.Locator))
-			try {
-				setResult(BindingManagerFactory.instance.createValue(
-						new URLPersistenceProvider(new URL(entity.getValue()), getBindings())));
-			} catch (MalformedURLException e) {
-				throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
-			}
-		else
+//		if (EntityUtils.hasParent(entity) && EntityUtils.getParentFormalType(entity).equals(ReusablesEntityDescriptorEnum.Locator))
+//			try {
+//				setResult(BindingManagerFactory.instance.createValue(
+//						new URLPersistenceProvider(new URL(entity.getValue()), getBindings())));
+//			} catch (MalformedURLException e) {
+//				throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
+//			}
+//		else
 			setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
 
@@ -391,17 +386,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		setResult(BindingManagerFactory.instance.createValue(ReflectionFactory.getPersistenceKit(persistenceKitId)));			
 	}
 
-	@Override
-	public void visit(Resource entity) {
-		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
-
-		entity.getLocator().accept(this);
-		IPersistenceProvider pp = (IPersistenceProvider) getResult().wGetValue();
-
-		//TODO replace Object[] with IResource impl
-		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
-	}
-
 	public IPersistenceKit evaluatePersistence(Persistence persistence) {
 		persistence.accept(this);
 		IEntity result = getResult();
@@ -411,7 +395,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		return persistenceKit;
 	}
 
-	protected IEntityIterator<?> readSource(Source source) {
+	protected IEntityIterator<?> readResource(Resource source) {
 		source.accept(this);
 		return Matcher.isAssignableAsIsFrom(
 				QueriesEntityDescriptorEnum.PathExpression, source.wGetAdaptee(false)) ?

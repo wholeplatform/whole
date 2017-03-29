@@ -56,8 +56,8 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Reuse);
     }
 
-    public Reuse createReuse(Source source, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
-        return create(ReusablesEntityDescriptorEnum.Reuse, source, original, adapter, adapted, adaptedRevision);
+    public Reuse createReuse(Resource resource, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
+        return create(ReusablesEntityDescriptorEnum.Reuse, resource, original, adapter, adapted, adaptedRevision);
     }
 
     public IEntityBuilder<Reuse> buildReuse() {
@@ -68,8 +68,8 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Sync);
     }
 
-    public Sync createSync(Source source, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision, Reusable variant, Revision variantRevision) {
-        return create(ReusablesEntityDescriptorEnum.Sync, source, original, adapter, adapted, adaptedRevision, variant, variantRevision);
+    public Sync createSync(Resource resource, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision, Reusable variant, Revision variantRevision) {
+        return create(ReusablesEntityDescriptorEnum.Sync, resource, original, adapter, adapted, adaptedRevision, variant, variantRevision);
     }
 
     public IEntityBuilder<Sync> buildSync() {
@@ -80,8 +80,8 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Include);
     }
 
-    public Include createInclude(Source source) {
-        return create(ReusablesEntityDescriptorEnum.Include, source);
+    public Include createInclude(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Include, resource);
     }
 
     public Reusables createReusables() {
@@ -94,18 +94,6 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
 
     public Reusables createReusables(int initialSize) {
         return clone(ReusablesEntityDescriptorEnum.Reusables, initialSize);
-    }
-
-    public Resource createResource() {
-        return create(ReusablesEntityDescriptorEnum.Resource);
-    }
-
-    public Resource createResource(Locator locator, Persistence persistence) {
-        return create(ReusablesEntityDescriptorEnum.Resource, locator, persistence);
-    }
-
-    public IEntityBuilder<Resource> buildResource() {
-        return new EntityBuilder<Resource>(create(ReusablesEntityDescriptorEnum.Resource));
     }
 
     public Workspace createWorkspace() {
@@ -172,16 +160,16 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Load);
     }
 
-    public Load createLoad(Source source) {
-        return create(ReusablesEntityDescriptorEnum.Load, source);
+    public Load createLoad(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Load, resource);
     }
 
     public Save createSave() {
         return create(ReusablesEntityDescriptorEnum.Save);
     }
 
-    public Save createSave(Source source) {
-        return create(ReusablesEntityDescriptorEnum.Save, source);
+    public Save createSave(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Save, resource);
     }
 
     public Contents createContents() {
@@ -196,16 +184,28 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return clone(ReusablesEntityDescriptorEnum.Contents, initialSize);
     }
 
-    public FolderArtifact createFolderArtifact() {
-        return create(ReusablesEntityDescriptorEnum.FolderArtifact);
+    public Folder createFolder() {
+        return create(ReusablesEntityDescriptorEnum.Folder);
     }
 
-    public FolderArtifact createFolderArtifact(Path path, Content content, Persistence persistence) {
-        return create(ReusablesEntityDescriptorEnum.FolderArtifact, path, content, persistence);
+    public Folder createFolder(Path path, Content content, Persistence persistence) {
+        return create(ReusablesEntityDescriptorEnum.Folder, path, content, persistence);
     }
 
-    public IEntityBuilder<FolderArtifact> buildFolderArtifact() {
-        return new EntityBuilder<FolderArtifact>(create(ReusablesEntityDescriptorEnum.FolderArtifact));
+    public IEntityBuilder<Folder> buildFolder() {
+        return new EntityBuilder<Folder>(create(ReusablesEntityDescriptorEnum.Folder));
+    }
+
+    public File createFile() {
+        return create(ReusablesEntityDescriptorEnum.File);
+    }
+
+    public File createFile(Path path, Any content, Persistence persistence) {
+        return create(ReusablesEntityDescriptorEnum.File, path, content, persistence);
+    }
+
+    public IEntityBuilder<File> buildFile() {
+        return new EntityBuilder<File>(create(ReusablesEntityDescriptorEnum.File));
     }
 
     public PathName createPathName() {
@@ -246,22 +246,6 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
 
     public URI createURI(String value) {
         return create(ReusablesEntityDescriptorEnum.URI, value);
-    }
-
-    public WorkspacePath createWorkspacePath() {
-        return create(ReusablesEntityDescriptorEnum.WorkspacePath);
-    }
-
-    public WorkspacePath createWorkspacePath(String value) {
-        return create(ReusablesEntityDescriptorEnum.WorkspacePath, value);
-    }
-
-    public FileSystemPath createFileSystemPath() {
-        return create(ReusablesEntityDescriptorEnum.FileSystemPath);
-    }
-
-    public FileSystemPath createFileSystemPath(String value) {
-        return create(ReusablesEntityDescriptorEnum.FileSystemPath, value);
     }
 
     public PersistenceId createPersistenceId() {

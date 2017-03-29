@@ -43,7 +43,7 @@ public class ReusablesTraverseAllVisitor extends ReusablesIdentityUnaryVisitor<I
     }
 
     public void visit(Reuse entity) {
-        entity.getSource().accept(wGetVisitor1());
+        entity.getResource().accept(wGetVisitor1());
         entity.getOriginal().accept(wGetVisitor1());
         entity.getAdapter().accept(wGetVisitor1());
         entity.getAdapted().accept(wGetVisitor1());
@@ -51,7 +51,7 @@ public class ReusablesTraverseAllVisitor extends ReusablesIdentityUnaryVisitor<I
     }
 
     public void visit(Sync entity) {
-        entity.getSource().accept(wGetVisitor1());
+        entity.getResource().accept(wGetVisitor1());
         entity.getOriginal().accept(wGetVisitor1());
         entity.getAdapter().accept(wGetVisitor1());
         entity.getAdapted().accept(wGetVisitor1());
@@ -61,17 +61,12 @@ public class ReusablesTraverseAllVisitor extends ReusablesIdentityUnaryVisitor<I
     }
 
     public void visit(Include entity) {
-        entity.getSource().accept(wGetVisitor1());
+        entity.getResource().accept(wGetVisitor1());
     }
 
     public void visit(Reusables entity) {
         for (int i = 0; i < entity.size(); i++)
             entity.get(i).accept(wGetVisitor1());
-    }
-
-    public void visit(Resource entity) {
-        entity.getLocator().accept(wGetVisitor1());
-        entity.getPersistence().accept(wGetVisitor1());
     }
 
     public void visit(Workspace entity) {
@@ -100,11 +95,11 @@ public class ReusablesTraverseAllVisitor extends ReusablesIdentityUnaryVisitor<I
     }
 
     public void visit(Load entity) {
-        entity.getSource().accept(wGetVisitor1());
+        entity.getResource().accept(wGetVisitor1());
     }
 
     public void visit(Save entity) {
-        entity.getSource().accept(wGetVisitor1());
+        entity.getResource().accept(wGetVisitor1());
     }
 
     public void visit(Contents entity) {
@@ -112,7 +107,13 @@ public class ReusablesTraverseAllVisitor extends ReusablesIdentityUnaryVisitor<I
             entity.get(i).accept(wGetVisitor1());
     }
 
-    public void visit(FolderArtifact entity) {
+    public void visit(Folder entity) {
+        entity.getPath().accept(wGetVisitor1());
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
+    public void visit(File entity) {
         entity.getPath().accept(wGetVisitor1());
         entity.getContent().accept(wGetVisitor1());
         entity.getPersistence().accept(wGetVisitor1());
