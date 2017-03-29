@@ -30,7 +30,7 @@ import org.eclipse.swt.SWT;
  */
 public class ReuseBorder extends MarginBorder{
 	public ReuseBorder() {
-		super(6);
+		super(8);
 	}
 
 	public void paint(IFigure f, Graphics g, Insets i) {
@@ -40,20 +40,20 @@ public class ReuseBorder extends MarginBorder{
 
 		g.pushState();
 
-		int bandSize = 32;
+		int bandSize = 8;
 		int lw = 4;
 
-		r.shrink(5, 5);		
+		r.shrink(4, 4);		
 		g.setLineWidth(lw*2);
 		g.setForegroundColor(ColorConstants.darkGray);
 		g.drawRoundRectangle(r, 3, 3);
 
 		g.setLineStyle(SWT.LINE_CUSTOM);
 		g.setLineDash(new int[] {bandSize, bandSize});
+		g.setForegroundColor(ColorConstants.orange);
 
 		r.shrink(-2, -2);
 		g.setLineDashOffset(0);
-		g.setForegroundColor(ColorConstants.orange);
 		g.setLineWidth(lw);
 		g.drawLine(r.x, r.y, r.right(), r.y);
 		g.drawLine(r.right(), r.y, r.right(), r.bottom());
@@ -62,24 +62,11 @@ public class ReuseBorder extends MarginBorder{
 
 		r.shrink(4, 4);
 		g.setLineDashOffset(5);
-		g.setForegroundColor(ColorConstants.orange);
 		g.setLineWidth(lw);
 		g.drawLine(r.x, r.y, r.right(), r.y);
 		g.drawLine(r.right(), r.y, r.right(), r.bottom());
 		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
 		g.drawLine(r.x, r.bottom(), r.x, r.y);
-
-
-//		r.shrink(3, 3);		
-//		g.setLineWidth(lw);
-//		g.setForegroundColor(ColorConstants.darkGray);
-//		g.drawRoundRectangle(r, 3, 3);
-//		g.setLineStyle(SWT.LINE_CUSTOM);
-//		g.setLineDash(new int[] {bandSize, bandSize});
-//		g.setLineWidth(lw);
-//		g.setLineJoin(SWT.JOIN_MITER);
-//		g.setForegroundColor(ColorConstants.orange);
-//		g.drawRoundRectangle(r, 3, 3);
 
 		g.popState();
 	}
