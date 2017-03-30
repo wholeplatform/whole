@@ -18,7 +18,10 @@
 package org.whole.lang.reusables.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
 
 /**
@@ -26,6 +29,16 @@ import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
 */
 public class PathSegmentsPart extends AbstractCompositePart {
     protected IFigure createFigure() {
-        return new StringSeparatedCompositeRowFigure("/", 6);
+        return new StringSeparatedCompositeRowFigure("/", 6) {
+        	@Override
+        	protected Font getLocalFont() {
+        		return FigureConstants.sanserifFontMedium;
+        	}
+
+        	@Override
+        	public Color getLocalForegroundColor() {
+        		return FigureConstants.contentLighterColor;
+        	}       	
+        };
     }
 }

@@ -244,6 +244,7 @@ public class IteratorFactory {
 		return new TemplateInterpreterIterator<E>(template);
 	}
 
+	@SafeVarargs
 	public static <E extends IEntity> ChooseByOrderIterator<E> chooseIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new ChooseByOrderIterator<E>(iteratorChain);
 	}
@@ -252,14 +253,17 @@ public class IteratorFactory {
 		return new ChooseByTypeIterator<E>(languageKit);
 	}
 
+	@SafeVarargs
 	public static <E extends IEntity> SequenceIterator<E> blockIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new BlockIterator<E>(iteratorChain);
 	}
 
+	@SafeVarargs
 	public static <E extends IEntity> SequenceIterator<E> sequenceIterator(IEntityIterator<? extends E>... iteratorChain) {
 		return new SequenceIterator<E>(iteratorChain);
 	}
 
+	@SafeVarargs
 	public static <E extends IEntity> ComposeIterator<E> composeIterator(IEntityIterator<E> iterator, IEntityIterator<? extends IEntity>... nestedIterators) {
 		return new ComposeIterator<E>(iterator, nestedIterators);
 	}
@@ -288,15 +292,19 @@ public class IteratorFactory {
 		return new SortIterator<E>(iterator, comparator);
 	}
 
+	@SafeVarargs
 	public static IEntityIterator<IEntity> unionAllIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
 		return new UnionAllIterator(iteratorChain);
 	}
+	@SafeVarargs
 	public static AbstractCollectIterator unionIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
 		return new UnionIterator(iteratorChain);
 	}
+	@SafeVarargs
 	public static AbstractCollectIterator intersectIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
 		return new IntersectIterator(iteratorChain);
 	}
+	@SafeVarargs
 	public static AbstractCollectIterator exceptIterator(IEntityIterator<? extends IEntity>... iteratorChain) {
 		return new ExceptIterator(iteratorChain);
 	}

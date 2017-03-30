@@ -63,10 +63,10 @@ public class ReuseBorder extends MarginBorder{
 		r.shrink(4, 4);
 		g.setLineDashOffset(5);
 		g.setLineWidth(lw);
-		g.drawLine(r.x, r.y, r.right(), r.y);
-		g.drawLine(r.right(), r.y, r.right(), r.bottom());
-		g.drawLine(r.right(), r.bottom(), r.x, r.bottom());
-		g.drawLine(r.x, r.bottom(), r.x, r.y);
+		g.drawLine(r.x, r.y, r.right()+4, r.y);
+		g.drawLine(r.right(), r.y, r.right(), r.bottom()+4);
+		g.drawLine(r.right(), r.bottom(), r.x-4, r.bottom());
+		g.drawLine(r.x, r.bottom(), r.x, r.y-4);
 
 		g.popState();
 	}

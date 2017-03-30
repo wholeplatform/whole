@@ -49,7 +49,9 @@ import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.reusables.factories.ReusablesEntityFactory;
 import org.whole.lang.reusables.model.Adapt;
 import org.whole.lang.reusables.model.Classpath;
+import org.whole.lang.reusables.model.Contents;
 import org.whole.lang.reusables.model.FileSystem;
+import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
 import org.whole.lang.reusables.model.Load;
@@ -70,6 +72,7 @@ import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.WholeMessages;
 
@@ -329,10 +332,16 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
 
 		entity.getContent().accept(this);
-		IPersistenceProvider pp = new ClasspathPersistenceProvider(getResult().wStringValue(), getBindings());
 
-		//TODO replace Object[] with IResource impl
-		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+		setResultIterator(IteratorFactory.composeIterator(
+					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+							IPersistenceProvider pp = new ClasspathPersistenceProvider(selfEntity.wStringValue(), bm);
+	
+							//TODO replace Object[] with IResource impl
+							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+						}
+					}).withSourceEntity(entity), getResultIterator()));
 	}
 	@Override
 	public void visit(FileSystem entity) {
@@ -345,6 +354,35 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
 	}
 
+	@Override
+	public void visit(Contents entity) {
+	   	int size = entity.wSize();
+    	if (size == 1)
+    		entity.get(0).accept(this);
+    	else {
+			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
+			
+	    	for (int i=0; i<size; i++) {
+				entity.get(i).accept(this);
+				iteratorChain[i] = getResultIterator();
+			}
+	
+	    	setResultIterator(IteratorFactory.sequenceIterator(iteratorChain).withSourceEntity(entity));
+    	}
+	}
+
+	@Override
+	public void visit(Folder entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+
+	@Override
+	public void visit(org.whole.lang.reusables.model.File entity) {
+		// TODO Auto-generated method stub
+		super.visit(entity);
+	}
+	
 	@Override
 	public void visit(PathName entity) {
 		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
@@ -399,12 +437,16 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		return persistenceKit;
 	}
 
-	protected IEntityIterator<?> readResource(Resource source) {
-		source.accept(this);
+	protected IEntityIterator<?> readResource(Resource resource) {
+		resource.accept(this);
 		return Matcher.isAssignableAsIsFrom(
-				QueriesEntityDescriptorEnum.PathExpression, source.wGetAdaptee(false)) ?
-						IteratorFactory.constantComposeIterator(source.wGetParent(), getResultIterator()) : 
-							IteratorFactory.constantIterator(readModel(getResult()), false);
+				QueriesEntityDescriptorEnum.PathExpression, resource.wGetAdaptee(false)) ?
+						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
+							IteratorFactory.composeIterator(
+									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+										if (!BindingManagerFactory.instance.isVoid(selfEntity))
+											bm.setResult(readModel(selfEntity));
+									}).withSourceEntity(resource), getResultIterator());
 	}
 
 	public static IEntity readModel(IEntity resource) {

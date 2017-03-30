@@ -35,6 +35,7 @@ import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.visitors.ReusablesIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentTextualEntityPart;
 import org.whole.lang.ui.editparts.IEditPartFactory;
+import org.whole.lang.ui.editparts.LiteralTextualEntityPart;
 import org.whole.lang.ui.notations.table.editparts.TablePartFactory;
 
 /**
@@ -116,7 +117,7 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
 
     @Override
     public void visit(PathName entity) {
-        part = new ContentTextualEntityPart();
+        part = new LiteralTextualEntityPart();
     }
 
     @Override
