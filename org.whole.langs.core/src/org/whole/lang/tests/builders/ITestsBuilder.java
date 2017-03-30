@@ -1,326 +1,384 @@
+/**
+ *  Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.tests.builders;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.tests.model.CommentKindEnum;
 import org.whole.lang.tests.model.KindEnum;
+import org.whole.lang.tests.model.OutcomeEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface ITestsBuilder extends IBuilder {
-	public void visit();
 
-	public void object();
 
-	public void throwableType();
+    public void visit();
 
-	public void descriptorName();
+    public void cause();
 
-	public void constraint();
+    public void location();
 
-	public void subject();
+    public void outcome();
 
-	public void subjectStatement();
+    public void errors();
 
-	public void filter();
+    public void failures();
 
-	public void kind();
+    public void successes();
 
-	public void tests();
+    public void object();
 
-	public void aspects();
+    public void throwableType();
 
-	public void body();
+    public void descriptorName();
 
-	public void filterRules();
+    public void constraint();
 
-	public void testCases();
+    public void subject();
 
-	public void filterFamilies();
+    public void subjectStatement();
 
-	public void deployer();
+    public void filter();
 
-	public void name();
+    public void kind();
 
-	public void description();
+    public void expectedResult();
 
-	public void packageName();
+    public void actualResult();
 
-	public void TestSuite();
+    public void tests();
 
-	public void TestSuite_();
+    public void aspects();
 
-	public void _TestSuite();
+    public void body();
 
-	public void FilterFamilies();
+    public void filterRules();
 
-	public void FilterFamilies_();
+    public void expectedResults();
 
-	public void FilterFamilies_(int initialCapacity);
+    public void actualResults();
 
-	public void _FilterFamilies();
+    public void testCases();
 
-	public void FilterFamily();
+    public void filterFamilies();
 
-	public void FilterFamily_();
+    public void deployer();
 
-	public void _FilterFamily();
+    public void name();
 
-	public void FilterRules();
+    public void description();
 
-	public void FilterRules_();
+    public void packageName();
 
-	public void FilterRules_(int initialCapacity);
+    public void TestSuite();
 
-	public void _FilterRules();
+    public void TestSuite_();
 
-	public void FilterRule();
+    public void _TestSuite();
 
-	public void FilterRule_();
+    public void FilterFamilies();
 
-	public void _FilterRule();
+    public void FilterFamilies_();
 
-	public void TestCases();
+    public void FilterFamilies_(int initialCapacity);
 
-	public void TestCases_();
+    public void _FilterFamilies();
 
-	public void TestCases_(int initialCapacity);
+    public void FilterFamily();
 
-	public void _TestCases();
+    public void FilterFamily_();
 
-	public void TestCase();
+    public void _FilterFamily();
 
-	public void TestCase_();
+    public void FilterRules();
 
-	public void _TestCase();
+    public void FilterRules_();
 
-	public void Aspects();
+    public void FilterRules_(int initialCapacity);
 
-	public void Aspects_();
+    public void _FilterRules();
 
-	public void Aspects_(int initialCapacity);
+    public void FilterRule();
 
-	public void _Aspects();
+    public void FilterRule_();
 
-	public void BeforeTestCase();
+    public void _FilterRule();
 
-	public void BeforeTestCase_();
+    public void TestCases();
 
-	public void _BeforeTestCase();
+    public void TestCases_();
 
-	public void AfterTestCase();
+    public void TestCases_(int initialCapacity);
 
-	public void AfterTestCase_();
+    public void _TestCases();
 
-	public void _AfterTestCase();
+    public void TestCase();
 
-	public void BeforeTest();
+    public void TestCase_();
 
-	public void BeforeTest_();
+    public void _TestCase();
 
-	public void _BeforeTest();
+    public void Aspects();
 
-	public void AfterTest();
+    public void Aspects_();
 
-	public void AfterTest_();
+    public void Aspects_(int initialCapacity);
 
-	public void _AfterTest();
+    public void _Aspects();
 
-	public void Tests();
+    public void BeforeTestCase();
 
-	public void Tests_();
+    public void BeforeTestCase_();
 
-	public void Tests_(int initialCapacity);
+    public void _BeforeTestCase();
 
-	public void _Tests();
+    public void AfterTestCase();
 
-	public void Test();
+    public void AfterTestCase_();
 
-	public void Test_();
+    public void _AfterTestCase();
 
-	public void _Test();
+    public void BeforeTest();
 
-	public void TestStatements();
+    public void BeforeTest_();
 
-	public void TestStatements_();
+    public void _BeforeTest();
 
-	public void TestStatements_(int initialCapacity);
+    public void AfterTest();
 
-	public void _TestStatements();
+    public void AfterTest_();
 
-	public void Comment();
+    public void _AfterTest();
 
-	public void Comment_();
+    public void Tests();
 
-	public void _Comment();
+    public void Tests_();
 
-	public void CommentKind();
+    public void Tests_(int initialCapacity);
 
-	public void CommentKind(CommentKindEnum.Value value);
+    public void _Tests();
 
-	public void CommentKind(String value);
+    public void Test();
 
-	public void UsingFilter();
+    public void Test_();
 
-	public void UsingFilter_();
+    public void _Test();
 
-	public void _UsingFilter();
+    public void TestStatements();
 
-	public void AssertThat();
+    public void TestStatements_();
 
-	public void AssertThat_();
+    public void TestStatements_(int initialCapacity);
 
-	public void _AssertThat();
+    public void _TestStatements();
 
-	public void AssumeThat();
+    public void Comment();
 
-	public void AssumeThat_();
+    public void Comment_();
 
-	public void _AssumeThat();
+    public void _Comment();
 
-	public void Filter();
+    public void CommentKind();
 
-	public void Filter_();
+    public void CommentKind(CommentKindEnum.Value value);
 
-	public void _Filter();
+    public void CommentKind(String value);
 
-	public void IsNull();
+    public void UsingFilter();
 
-	public void IsNull_();
+    public void UsingFilter_();
 
-	public void _IsNull();
+    public void _UsingFilter();
 
-	public void IsTrue();
+    public void AssertThat();
 
-	public void IsTrue_();
+    public void AssertThat_();
 
-	public void _IsTrue();
+    public void _AssertThat();
 
-	public void IsFalse();
+    public void AssumeThat();
 
-	public void IsFalse_();
+    public void AssumeThat_();
 
-	public void _IsFalse();
+    public void _AssumeThat();
 
-	public void IsDef();
+    public void Filter();
 
-	public void IsDef_();
+    public void Filter_();
 
-	public void _IsDef();
+    public void _Filter();
 
-	public void IsUndef();
+    public void IsNull();
 
-	public void IsUndef_();
+    public void IsNull_();
 
-	public void _IsUndef();
+    public void _IsNull();
 
-	public void HasKind();
+    public void IsTrue();
 
-	public void HasKind_();
+    public void IsTrue_();
 
-	public void _HasKind();
+    public void _IsTrue();
 
-	public void Kind();
+    public void IsFalse();
 
-	public void Kind(KindEnum.Value value);
+    public void IsFalse_();
 
-	public void Kind(String value);
+    public void _IsFalse();
 
-	public void IsAssignableTo();
+    public void IsDef();
 
-	public void IsAssignableTo_();
+    public void IsDef_();
 
-	public void _IsAssignableTo();
+    public void _IsDef();
 
-	public void HasType();
+    public void IsUndef();
 
-	public void HasType_();
+    public void IsUndef_();
 
-	public void _HasType();
+    public void _IsUndef();
 
-	public void Throws();
+    public void HasKind();
 
-	public void Throws_();
+    public void HasKind_();
 
-	public void _Throws();
+    public void _HasKind();
 
-	public void ThrowableType();
+    public void Kind();
 
-	public void ThrowableType(String value);
+    public void Kind(KindEnum.Value value);
 
-	public void Same();
+    public void Kind(String value);
 
-	public void Same_();
+    public void IsAssignableTo();
 
-	public void _Same();
+    public void IsAssignableTo_();
 
-	public void Equals();
+    public void _IsAssignableTo();
 
-	public void Equals_();
+    public void HasType();
 
-	public void _Equals();
+    public void HasType_();
 
-	public void Matches();
+    public void _HasType();
 
-	public void Matches_();
+    public void Throws();
 
-	public void _Matches();
+    public void Throws_();
 
-	public void Not();
+    public void _Throws();
 
-	public void Not_();
+    public void ThrowableType();
 
-	public void _Not();
+    public void ThrowableType(String value);
 
-	public void AllOf();
+    public void Same();
 
-	public void AllOf_();
+    public void Same_();
 
-	public void AllOf_(int initialCapacity);
+    public void _Same();
 
-	public void _AllOf();
+    public void Equals();
 
-	public void AnyOf();
+    public void Equals_();
 
-	public void AnyOf_();
+    public void _Equals();
 
-	public void AnyOf_(int initialCapacity);
+    public void Matches();
 
-	public void _AnyOf();
+    public void Matches_();
 
-	public void BooleanLiteral();
+    public void _Matches();
 
-	public void BooleanLiteral(boolean value);
+    public void Not();
 
-	public void IntLiteral();
+    public void Not_();
 
-	public void IntLiteral(int value);
+    public void _Not();
 
-	public void StringLiteral();
+    public void AllOf();
 
-	public void StringLiteral(String value);
+    public void AllOf_();
 
-	public void DataName();
+    public void AllOf_(int initialCapacity);
 
-	public void DataName(String value);
+    public void _AllOf();
 
-	public void Sequence();
+    public void AnyOf();
 
-	public void Sequence_();
+    public void AnyOf_();
 
-	public void Sequence_(int initialCapacity);
+    public void AnyOf_(int initialCapacity);
 
-	public void _Sequence();
+    public void _AnyOf();
 
-	public void Name();
+    public void Results();
 
-	public void Name(String value);
+    public void Results_();
 
-	public void PackageName();
+    public void _Results();
 
-	public void PackageName(String value);
+    public void Result();
 
-	public void Description();
+    public void Result_();
 
-	public void Description(String value);
+    public void _Result();
+
+    public void Outcome();
+
+    public void Outcome(OutcomeEnum.Value value);
+
+    public void Outcome(String value);
+
+    public void BooleanLiteral();
+
+    public void BooleanLiteral(boolean value);
+
+    public void IntLiteral();
+
+    public void IntLiteral(int value);
+
+    public void StringLiteral();
+
+    public void StringLiteral(String value);
+
+    public void DataName();
+
+    public void DataName(String value);
+
+    public void Sequence();
+
+    public void Sequence_();
+
+    public void Sequence_(int initialCapacity);
+
+    public void _Sequence();
+
+    public void Name();
+
+    public void Name(String value);
+
+    public void PackageName();
+
+    public void PackageName(String value);
+
+    public void Description();
+
+    public void Description(String value);
 }
