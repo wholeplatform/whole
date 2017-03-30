@@ -250,6 +250,7 @@ public class TestsLearningInterpreterVisitor extends TestsInterpreterVisitor {
 		ThrowableType throwableType = entity.getThrowableType();
 		if (isLearning() && EntityUtils.isResolver(throwableType) && getBindings().wIsSet("thrownException")) {
 			Exception throwable = (Exception) getBindings().wGetValue("thrownException");
+			getBindings().wUnset("thrownException");
 			ThrowableType learntThrowable = TestsEntityFactory.instance.createThrowableType(throwable.getClass().getName());
 			putLearntEntity(throwableType, learntThrowable);
 			

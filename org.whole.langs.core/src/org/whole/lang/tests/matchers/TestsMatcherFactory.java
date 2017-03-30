@@ -104,8 +104,10 @@ public class TestsMatcherFactory {
 					if (getBindings().wIsSet("thrownException")) {
 						ClassLoader loader = ReflectionFactory.getClassLoader(getBindings());
 						Class<?> clazz = Class.forName(className, true, loader);
-						if (clazz.isInstance(getBindings().wGetValue("thrownException")))
+						if (clazz.isAssignableFrom(getBindings().wGetValue("thrownException").getClass())) {
+							getBindings().wUnset("thrownException");
 							return;
+						}
 					}
 				} catch (Exception e) {
 				}

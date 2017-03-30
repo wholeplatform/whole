@@ -2,11 +2,10 @@ package org.whole.lang.tests.visitors;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IEntityIterator;
@@ -172,23 +171,25 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			printWriter().printf("\n* %s test case %s\n", name, testCaseSuccess ? "OK" : "FAILED");
 		} catch (OperationCanceledException e) {
 			throw e;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			testCaseSuccess = false;
 			printWriter().printf("\n* %s test case ERRORS: %s\n", name, formatMessage(e));
 			IEntity statement = getBindings().wGet("lastVisitedStatement");
 			if (statement != UNDEF_VALUE)
 				printWriter().printf(" [at %s]", EntityUtils.getLocation(statement));
+
+			IBindingManager debugEnv = getBindings();
+			if ((debugEnv.wIsSet("debug#reportModeEnabled") && debugEnv.wBooleanValue("debug#reportModeEnabled")) &&
+					(debugEnv.wIsSet("debug#debugModeEnabled") && debugEnv.wBooleanValue("debug#debugModeEnabled")))
+				throw e;
 		}
 		setResult(BindingManagerFactory.instance.createValue(testCaseSuccess));
 	}
 
 	@Override
 	public void visit(Test entity) {
-		ITransactionScope bindingsRS;
-
-		Set<String> bindingsNames = new HashSet<String>(getBindings().wNames());
-
-		getBindings().wEnterScope(bindingsRS = BindingManagerFactory.instance.createTransactionScope());
+		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+		getBindings().wEnterScope(ts);
 
 		String name = entity.getName().getValue();
 		boolean testSuccess = false;
@@ -213,21 +214,20 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			printWriter().printf(" [at %s]\n", EntityUtils.getLocation(e.getAssertion()));
 		} catch (OperationCanceledException e) {
 			throw e;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			printWriter().printf("    %32s(...) ERRORS: %s", name, formatMessage(e));
 			IEntity statement = getBindings().wGet("lastVisitedStatement");
 			if (statement != UNDEF_VALUE)
 				printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(statement));
+
+			IBindingManager debugEnv = getBindings();
+			if ((debugEnv.wIsSet("debug#reportModeEnabled") && debugEnv.wBooleanValue("debug#reportModeEnabled")) &&
+					(debugEnv.wIsSet("debug#debugModeEnabled") && debugEnv.wBooleanValue("debug#debugModeEnabled")))
+				throw e;
+		} finally {
+			ts.rollback();
+			getBindings().wExitScope();
 		}
-
-		bindingsRS.rollback();
-		getBindings().wExitScope();
-
-		//FIXME workaround for fresh variables not being reset by ResettableScope
-		Set<String> toUnset = new HashSet<String>(getBindings().wNames());
-		toUnset.removeAll(bindingsNames);
-		for (String unsetName : toUnset)
-			getBindings().wUnset(unsetName);
 
 		setResult(BindingManagerFactory.instance.createValue(testSuccess));
 	}
@@ -301,7 +301,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 	protected void evaluate(SubjectStatement entity) {
 		ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		getBindings().wEnterScope(ts);
-		
+
 		try {
 			IEntity subject = evaluate(entity.getSubject(), true);
 			if (!EntityUtils.isNull(subject))
@@ -310,9 +310,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			IVisitor visitor = evaluate(entity.getConstraint());
 			boolean result = Matcher.match(visitor, subject);
 	
-			// exception already evaluated
-			getBindings().wUnset("thrownException");
-	
+			if (getBindings().wIsSet("thrownException"))
+				throw (RuntimeException) getBindings().wGetValue("thrownException");
+
 			if (!result) {
 				if (Matcher.match(TestsEntityDescriptorEnum.AssertThat, entity))
 					throw new AssertionError((AssertThat) entity, subject, visitor);
