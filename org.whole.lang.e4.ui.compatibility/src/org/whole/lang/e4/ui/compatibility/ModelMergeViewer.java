@@ -18,7 +18,6 @@
 package org.whole.lang.e4.ui.compatibility;
 
 import java.io.ByteArrayOutputStream;
-import java.util.EventObject;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareEditorInput;
@@ -47,7 +46,9 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CommandStackEvent;
+import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -97,9 +98,9 @@ import org.whole.lang.util.BehaviorUtils;
  */
 public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNotifier, IFlushable, IFlushable2 {
 	protected CompareConfiguration compareConfiguration;
-	protected ListenerList listenerList;
+	protected ListenerList<IPropertyChangeListener> listenerList;
 	protected IPropertyChangeListener ccPropertyListener;
-	protected CommandStackListener csListener;
+	protected CommandStackEventListener csListener;
 	protected IResourceChangeListener resourceListener;
 	protected boolean dirty;
 
@@ -115,7 +116,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		else
 			this.compareConfiguration = compareConfiguration;
 
-		this.listenerList = new ListenerList();
+		this.listenerList = new ListenerList<>();
 
 		setContentProvider(new MergeViewerContentProvider(compareConfiguration));
 
@@ -126,9 +127,11 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 		getControl().setData(CompareUI.COMPARE_VIEWER_TITLE, "Whole Model Compare");
 
 		viewer.setEntityContents(createMergeModel());
-		viewer.getCommandStack().addCommandStackListener(csListener = new CommandStackListener() {
-			public void commandStackChanged(EventObject event) {
-				setDirty(viewer.isDirty());
+		viewer.getCommandStack().addCommandStackEventListener(csListener = new CommandStackEventListener() {
+			@Override
+			public void stackChanged(CommandStackEvent event) {
+				if ((event.getDetail() & CommandStack.POST_MASK) != 0)
+					setDirty(viewer.isDirty());
 			}
 		});
 		
@@ -167,7 +170,7 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 			getCompareConfiguration().removePropertyChangeListener(ccPropertyListener);
 
 		if (csListener != null)
-			viewer.getCommandStack().removeCommandStackListener(csListener);
+			viewer.getCommandStack().removeCommandStackEventListener(csListener);
 
 		if (resourceListener != null) {
 			IWorkspace workspace = getContext().get(IWorkspace.class);
@@ -356,8 +359,8 @@ public class ModelMergeViewer extends ContentViewer implements IPropertyChangeNo
 
 		Runnable runnable = new Runnable() {
 			public void run() {
-				for (Object listener : listenerList.getListeners()) {
-					final IPropertyChangeListener propertyChangeListener = (IPropertyChangeListener) listener;
+				for (IPropertyChangeListener listener : listenerList) {
+					final IPropertyChangeListener propertyChangeListener = listener;
 					SafeRunner.run(new ISafeRunnable() {
 						public void run() throws Exception {
 							propertyChangeListener.propertyChange(event);

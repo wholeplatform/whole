@@ -20,7 +20,6 @@ package org.whole.lang.e4.ui.parts;
 import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -51,7 +50,9 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.gef.ContextMenuProvider;
-import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CommandStackEvent;
+import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -153,9 +154,11 @@ public abstract class AbstractE4Part {
 		configureContextMenu();
 
 		if (!E4Utils.isLegacyApplication())
-			viewer.getCommandStack().addCommandStackListener(new CommandStackListener() {
-				public void commandStackChanged(EventObject event) {
-					part.setDirty(viewer.isDirty());
+			viewer.getCommandStack().addCommandStackEventListener(new CommandStackEventListener() {
+				@Override
+				public void stackChanged(CommandStackEvent event) {
+					if ((event.getDetail() & CommandStack.POST_MASK) != 0)
+						part.setDirty(viewer.isDirty());
 				}
 			});
 

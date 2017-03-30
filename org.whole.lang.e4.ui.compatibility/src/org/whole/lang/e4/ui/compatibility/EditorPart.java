@@ -19,7 +19,6 @@ package org.whole.lang.e4.ui.compatibility;
 
 import static org.whole.lang.e4.ui.actions.IE4UIConstants.*;
 
-import java.util.EventObject;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,7 +35,8 @@ import org.eclipse.e4.tools.compat.parts.DIEditorPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.commands.CommandStackListener;
+import org.eclipse.gef.commands.CommandStackEvent;
+import org.eclipse.gef.commands.CommandStackEventListener;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Composite;
@@ -72,7 +72,7 @@ import org.whole.langs.core.CoreMetaModelsDeployer;
  */
 @SuppressWarnings("restriction")
 public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersistableEditor, IGotoMarker {
-	protected CommandStackListener listener;
+	protected CommandStackEventListener listener;
 	protected UndoAction undoAction;
 	protected RedoAction redoAction;
 	protected ResourceChangeListener resourceListener;
@@ -93,9 +93,11 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 		setPartName(getEditorInput().getName());
 
 		final IEntityPartViewer viewer = getComponent().getViewer();
-		viewer.getCommandStack().addCommandStackListener(listener = new CommandStackListener() {
-			public void commandStackChanged(EventObject event) {
-				setDirtyState(viewer.isDirty());
+		viewer.getCommandStack().addCommandStackEventListener(listener = new CommandStackEventListener() {
+			@Override
+			public void stackChanged(CommandStackEvent event) {
+				if ((event.getDetail() & CommandStack.POST_MASK) != 0)
+					setDirtyState(viewer.isDirty());
 			}
 		});
 
@@ -196,7 +198,7 @@ public class EditorPart extends DIEditorPart<E4GraphicalPart> implements IPersis
 	@Override
 	public void dispose() {
 		if (listener != null)
-			getComponent().getViewer().getCommandStack().removeCommandStackListener(listener);
+			getComponent().getViewer().getCommandStack().removeCommandStackEventListener(listener);
 		if (undoAction != null)
 			undoAction.dispose();
 		if (redoAction != null)
