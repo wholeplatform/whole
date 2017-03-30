@@ -116,20 +116,17 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
 
     @Override
     public void visit(PathName entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
+        part = new ContentTextualEntityPart();
     }
 
     @Override
     public void visit(PathWithExtension entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
+    	part = new PathWithExtensionPart();
     }
 
     @Override
     public void visit(PathSegments entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
+    	part = new PathSegmentsPart();
     }
 
     @Override

@@ -365,12 +365,16 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	public void visit(PathSegments entity) {
 		StringBuilder sb = new StringBuilder();
 		
-		for (Path segment : entity) {
-			segment.accept(this);
+		for (Path pathSegment : entity) {
+			pathSegment.accept(this);
 			IEntity result = getResult();
 			if (result.wGetEntityDescriptor().getDataKind().isString()) {
-				sb.append(result.wStringValue());
-				//TODO ensure path separator
+				String segment = result.wStringValue();
+				if (sb.length() > 0 && !segment.startsWith("/"))
+					sb.append('/');
+				sb.append(segment);
+				if (segment.endsWith("/"))
+					sb.deleteCharAt(sb.length()-1);
 			}
 		}
 		setResult(BindingManagerFactory.instance.createValue(sb.toString()));
