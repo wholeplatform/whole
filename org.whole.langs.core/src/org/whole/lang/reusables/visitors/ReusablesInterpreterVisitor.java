@@ -65,6 +65,7 @@ import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
+import org.whole.lang.reusables.model.Save;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
 import org.whole.lang.reusables.model.Workspace;
@@ -190,11 +191,12 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Load entity) {
-		IEntityIterator<?> contentIterator = readResource(entity.getResource());
+		setResultIterator(readResource(entity.getResource()));
+	}
 
-		IEntityIterator<?> evaluateIterator = IteratorFactory.singleValuedRunnableIterator(
-				(selfEntity, bm, arguments) -> evaluateAndClone(selfEntity, bm));
-		setResultIterator(IteratorFactory.composeIterator(evaluateIterator, contentIterator));
+	@Override
+	public void visit(Save entity) {
+		setResultIterator(saveResource(entity.getResource()));
 	}
 
 	@Override
@@ -459,6 +461,38 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		} catch (Exception e) {
 			throw new IllegalArgumentException(
 					"Failed to load the resource with the given persistence: " + pp + ", " + pk.getId(), e);
+		}
+	}
+
+	protected IEntityIterator<?> saveResource(Resource resource) {
+		//TODO add multiple save
+		//FIXME path expression save
+
+		resource.accept(this);
+		return
+//		return Matcher.isAssignableAsIsFrom(
+//				QueriesEntityDescriptorEnum.PathExpression, resource.wGetAdaptee(false)) ?
+//						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
+//							IteratorFactory.composeIterator(
+									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+										if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+											writeModel(selfEntity, arguments[0]);
+											bm.setResult(selfEntity);
+										}
+									}, getResultIterator()).withSourceEntity(resource);
+//									);
+	}
+
+	public static void writeModel(IEntity model, IEntity resource) {
+		Object[] pkpp = (Object[]) resource.wGetValue();
+		IPersistenceKit pk = (IPersistenceKit) pkpp[0];
+		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
+
+		try {
+			pk.writeModel(model, pp);
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Failed to write the resource with the given persistence: " + pp + ", " + pk.getId(), e);
 		}
 	}
 }

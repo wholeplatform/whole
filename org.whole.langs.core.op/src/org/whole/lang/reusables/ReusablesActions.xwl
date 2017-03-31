@@ -24,7 +24,15 @@
                 <queries:VariableRefStep value="primarySelectedEntity"/>
                 <queries:Choose initialCapacity="1">
                     <queries:If>
-                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#WorkspacePath"/>
+                        <queries:And initialCapacity="2">
+                            <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>
+                            <queries:ExpressionTest>
+                                <queries:Filter>
+                                    <queries:ParentStep/>
+                                    <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#Workspace"/>
+                                </queries:Filter>
+                            </queries:ExpressionTest>
+                        </queries:And>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <actions:Actions initialCapacity="1">
                                 <actions:GroupAction>
@@ -52,7 +60,7 @@
                                         <workflows:Variable value="eclipseContext"/>
                                         <queries:Path initialCapacity="2">
                                         <commons:StageUpFragment>
-                                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#WorkspacePath"/>
+                                        <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>
                                         </commons:StageUpFragment>
                                         <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#uriEntity"/>
