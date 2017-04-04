@@ -67,7 +67,7 @@ public class ExecutionState {
 			throw new IllegalStateException(e);
 		} catch (BrokenBarrierException e) {	
 			// execution terminated
-			if (getSuspensionKind().isBreak())
+			if (getSuspensionKind().isRecoverable())
 				throw new OperationCanceledException();
 		}
 		return this;

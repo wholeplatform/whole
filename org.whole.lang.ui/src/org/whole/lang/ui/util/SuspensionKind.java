@@ -22,7 +22,7 @@ package org.whole.lang.ui.util;
  * @author Enrico Persiani
  */
 public enum SuspensionKind {
-	NONE, BREAK, ERROR;
+	NONE, BREAK, ERROR, RECOVERABLE_ERROR;
 
 	public boolean isSuspended() {
 		return !equals(NONE);
@@ -34,5 +34,13 @@ public enum SuspensionKind {
 	
 	public boolean isError() {
 		return equals(ERROR);
+	}
+	
+	public boolean isRecoverableError() {
+		return equals(RECOVERABLE_ERROR);
+	}
+
+	public boolean isRecoverable() {
+		return isBreak() || isRecoverableError();
 	}
 }
