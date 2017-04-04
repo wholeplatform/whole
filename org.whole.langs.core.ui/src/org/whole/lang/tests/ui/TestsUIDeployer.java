@@ -23,7 +23,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 /**
  * @author Riccardo Solmi
  */
-public class TestsEditorDeployer extends AbstractLanguageExtensionDeployer {
+public class TestsUIDeployer extends AbstractLanguageExtensionDeployer {
     public void deploy(ReflectionFactory platform) {
         platform.addEditorKit(TestsEditorKit.ID);
     }
