@@ -23,8 +23,6 @@ import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
-import org.whole.lang.tests.reflect.TestsLanguageKit;
-import org.whole.lang.tests.visitors.TestsIDELearningInterpreterVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
 import org.whole.lang.workflows.reflect.WorkflowsLanguageKit;
@@ -49,15 +47,6 @@ public class IDEOperationsDeployer extends AbstractLanguageExtensionDeployer {
 				ContentAssistOperation.ID, new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
 				return new WorkflowsIDEContentAssistVisitor();
-			}
-		});
-		platform.addOperationFactory(TestsLanguageKit.URI, InterpreterOperation.ID,
-				new IVisitorFactory() {
-			public IVisitor create(IOperation operation, int stage) {
-				if (stage == 0)
-					return new TestsIDELearningInterpreterVisitor();
-				else
-					return null;
 			}
 		});
 

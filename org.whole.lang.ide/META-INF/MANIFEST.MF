@@ -10,7 +10,6 @@ Bundle-SymbolicName: org.whole.lang.ide;singleton:=true
 Export-Package: org.whole.lang.java,
  org.whole.lang.java.codebase,
  org.whole.lang.java.reflect,
- org.whole.lang.tests.visitors,
  org.whole.lang.ui.actions,
  org.whole.lang.ui.controls,
  org.whole.lang.ui.perspectives,
