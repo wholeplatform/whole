@@ -77,6 +77,7 @@ import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -453,6 +454,15 @@ public class E4Utils {
 		ExecutionState execution = new ExecutionState(kind, throwable, sourceEntity, bindings, includeNames);
 		eventBroker.post(IE4UIConstants.TOPIC_UPDATE_DEBUG, execution);
 		execution.pause();
+	}
+
+	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e) {
+		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e);
+		if (we.getSourceEntity() != null) {
+			E4Utils.suspendOperation(kind, we);
+		} else {
+			E4Utils.reportError(context, title, description, e);
+		}
 	}
 
 	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {

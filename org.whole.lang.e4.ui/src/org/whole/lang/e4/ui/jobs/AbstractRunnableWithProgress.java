@@ -25,8 +25,6 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.e4.ui.util.E4Utils;
-import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.operations.IOperationProgressMonitor;
 import org.whole.lang.operations.OperationProgressMonitorAdapter;
 import org.whole.lang.ui.util.SuspensionKind;
@@ -59,11 +57,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			bm.wDefValue("progressMonitor", pm);
 			run(pm);
 		} catch (Exception e) {
-			IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e);
-			if (we.getSourceEntity() != null) {
-				E4Utils.suspendOperation(SuspensionKind.ERROR, we);
-			} else
-				E4Utils.reportError(context, "Model operation error", "Error while executing "+label+" operation", e);
+			E4Utils.suspendOrReportException(context, SuspensionKind.ERROR, "Model operation error", "Error while executing "+label+" operation", e);
 		} finally {
 			monitor.done();
 			if (isTransactional())
