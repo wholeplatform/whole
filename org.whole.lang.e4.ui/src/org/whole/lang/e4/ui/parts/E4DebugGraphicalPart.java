@@ -119,6 +119,13 @@ public class E4DebugGraphicalPart extends E4GraphicalPart {
 		pushExecution(execution);
 	}
 
+	@Override
+	protected void restoreState() {
+		super.restoreState();
+		if (!part.getPersistedState().containsKey("debug#breakpointsEnabled"))
+			part.getPersistedState().put("debug#breakpointsEnabled", Boolean.toString(true));
+	}
+
 	public void doBreakpointsDisable(boolean disable) {
 		part.getPersistedState().put("debug#breakpointsEnabled", Boolean.toString(!disable));
 	}
