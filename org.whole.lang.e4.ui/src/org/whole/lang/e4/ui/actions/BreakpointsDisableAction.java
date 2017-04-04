@@ -40,12 +40,12 @@ public class BreakpointsDisableAction extends AbstractDebugAction {
 	}
 	
 	@Override
-	public void run() {
-		debugPart.doBreakpointsDisable(isChecked());
-	}
-
-	@Override
 	public void update() {
 		setEnabled(true);
+	}
+	
+	@Override
+	public void run() {
+		debugPart.doBreakpointsDisable(isChecked());
 	}
 }

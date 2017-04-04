@@ -36,7 +36,12 @@ public class ResumeAction extends AbstractDebugAction {
 		} catch (Exception e) {
 		}
 	}
-	
+
+	@Override
+	public void update() {
+		setEnabled(debugPart.getSuspensionKind().isRecoverable());
+	}
+
 	@Override
 	public void run() {
 		debugPart.doResume();

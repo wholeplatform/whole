@@ -31,9 +31,4 @@ public abstract class AbstractDebugAction extends AbstractE4Action {
 		this.debugPart = debugPart;
 		update();
 	}
-
-	@Override
-	public void update() {
-		setEnabled(debugPart.getSuspensionKind().isBreak());
-	}
 }
