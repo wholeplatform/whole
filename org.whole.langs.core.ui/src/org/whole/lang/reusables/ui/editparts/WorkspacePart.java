@@ -17,25 +17,29 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.editparts.AbstractOverQualifiedDataEntityPart;
-import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.Workspace;
+import org.whole.lang.reusables.ui.figures.ResourceFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
+
 
 /**
- * @author Enrico Persiani
+ * @author Riccardo Solmi
  */
-public class WorkspaceLocatorPart extends AbstractOverQualifiedDataEntityPart {
-	public IFigure createFigure() {
-		return new OverQualifiedDataEntityFigure(
-				LabelFactory.createContentLight(), LabelFactory.createContent());
-	}
+public class WorkspacePart extends AbstractContentPanePart {
+    protected IFigure createFigure() {
+    	return new ResourceFigure("Workspace");
+    }
 
-	protected String getQualifierPart(String qname) {
-		return "Workspace";
-	}
-	protected String getNamePart(String qname) {
-		int index = qname.lastIndexOf('/');
-		return index != -1 ? qname.substring(index+1) : qname;
-	}
+    protected List<IEntity> getModelSpecificChildren() {
+    	Workspace entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(2);
+        children.add(entity.getPersistence());
+        children.add(entity.getContent());
+        return children;
+    }
 }

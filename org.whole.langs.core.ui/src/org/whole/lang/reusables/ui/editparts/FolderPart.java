@@ -17,24 +17,30 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.editparts.AbstractOverQualifiedDataEntityPart;
-import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.Folder;
+import org.whole.lang.reusables.ui.figures.FolderFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
+
 
 /**
  * @author Riccardo Solmi
  */
-public class ClasspathLocatorPart extends AbstractOverQualifiedDataEntityPart {
-	public IFigure createFigure() {
-		return new OverQualifiedDataEntityFigure(
-				LabelFactory.createContentLight(), LabelFactory.createContent());
-	}
+public class FolderPart extends AbstractContentPanePart {
+    protected IFigure createFigure() {
+    	return new FolderFigure();
+    }
 
-	protected String getQualifierPart(String qname) {
-		return "Classpath";
-	}
-	protected String getNamePart(String qname) {
-		return qname;
-	}
+    protected List<IEntity> getModelSpecificChildren() {
+    	Folder entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(3);
+        children.add(entity.getPath());
+        children.add(entity.getPersistence());
+        children.add(entity.getContent());
+        return children;
+    }
 }

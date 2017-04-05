@@ -23,8 +23,6 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reu
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -32,7 +30,6 @@ import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
@@ -73,7 +70,6 @@ import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.util.WholeMessages;
 
@@ -350,10 +346,16 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
 
 		entity.getContent().accept(this);
-		IPersistenceProvider pp = new FilePersistenceProvider(new File(getResult().wStringValue()), getBindings());
 
-		//TODO replace Object[] with IResource impl
-		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+		setResultIterator(IteratorFactory.composeIterator(
+					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+							IPersistenceProvider pp = new FilePersistenceProvider(new File(selfEntity.wStringValue()), bm);
+	
+							//TODO replace Object[] with IResource impl
+							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+						}
+					}).withSourceEntity(entity), getResultIterator()));
 	}
 
 	@Override
@@ -375,14 +377,30 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Folder entity) {
-		// TODO Auto-generated method stub
-		super.visit(entity);
+		entity.getPath().accept(this);
+		String path = getResult().wStringValue();
+
+//TODO		entity.getPersistence();
+
+		entity.getContent().accept(this);
+
+		setResultIterator(IteratorFactory.composeIterator(
+				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+						bm.setResult(BindingManagerFactory.instance.createValue(
+								appendSegment(path, selfEntity.wStringValue())));
+					}
+				}).withSourceEntity(entity), getResultIterator()));
 	}
 
 	@Override
 	public void visit(org.whole.lang.reusables.model.File entity) {
-		// TODO Auto-generated method stub
-		super.visit(entity);
+		entity.getPath().accept(this);
+		String path = getResult().wStringValue();
+
+//TODO		entity.getPersistence();
+
+		setResult(BindingManagerFactory.instance.createValue(path));
 	}
 	
 	@Override
@@ -407,17 +425,27 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		
 		for (Path pathSegment : entity) {
 			pathSegment.accept(this);
-			IEntity result = getResult();
-			if (result.wGetEntityDescriptor().getDataKind().isString()) {
-				String segment = result.wStringValue();
-				if (sb.length() > 0 && !segment.startsWith("/"))
-					sb.append('/');
-				sb.append(segment);
-				if (segment.endsWith("/"))
-					sb.deleteCharAt(sb.length()-1);
-			}
+			appendSegment(sb, getResult().wStringValue());
 		}
 		setResult(BindingManagerFactory.instance.createValue(sb.toString()));
+	}
+
+	public static String appendSegment(String path, String segment) {
+		StringBuilder sb = new StringBuilder(path);
+		appendSegment(sb, segment);
+		return sb.toString();
+	}
+	public static void appendSegment(StringBuilder sb, String segment) {
+		int length = sb.length();
+		if (length == 0)
+			sb.append(segment);
+		else if (sb.charAt(length-1) == '/')
+			sb.append(segment.startsWith("/") ? segment.substring(1) : segment);
+		else {
+			if (!segment.startsWith("/"))
+				sb.append('/');
+			sb.append(segment);
+		}
 	}
 	
 	@Override

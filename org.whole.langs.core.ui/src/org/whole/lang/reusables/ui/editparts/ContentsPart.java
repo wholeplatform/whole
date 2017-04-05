@@ -18,23 +18,17 @@
 package org.whole.lang.reusables.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.ui.editparts.AbstractOverQualifiedDataEntityPart;
-import org.whole.lang.ui.figures.LabelFactory;
-import org.whole.lang.ui.figures.OverQualifiedDataEntityFigure;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
+import org.whole.lang.ui.figures.CompositeFigure;
+import org.whole.lang.ui.layout.Alignment;
+import org.whole.lang.ui.layout.UnderColumnLayout;
 
 /**
- * @author Riccardo Solmi
- */
-public class FileSystemLocatorPart extends AbstractOverQualifiedDataEntityPart {
-	public IFigure createFigure() {
-		return new OverQualifiedDataEntityFigure(
-				LabelFactory.createContentLight(), LabelFactory.createContent());
-	}
-
-	protected String getQualifierPart(String qname) {
-		return "FileSystem";
-	}
-	protected String getNamePart(String qname) {
-		return qname;
-	}
+* @author Riccardo Solmi
+*/
+public class ContentsPart extends AbstractCompositePart {
+    protected IFigure createFigure() {
+        return new CompositeFigure(new UnderColumnLayout().withMinorAlignment(Alignment.LEADING)
+        		.withMarginTop(5).withMarginBottom(5).withSpacing(5), true);
+    }
 }

@@ -17,28 +17,29 @@
  */
 package org.whole.lang.reusables.ui.editparts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.whole.lang.ui.editparts.AbstractCompositePart;
-import org.whole.lang.ui.figures.FigureConstants;
-import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reusables.model.FileSystem;
+import org.whole.lang.reusables.ui.figures.ResourceFigure;
+import org.whole.lang.ui.editparts.AbstractContentPanePart;
+
 
 /**
-* @author Riccardo Solmi
-*/
-public class PathSegmentsPart extends AbstractCompositePart {
+ * @author Riccardo Solmi
+ */
+public class FileSystemPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
-        return new StringSeparatedCompositeRowFigure("/", 6) {
-        	@Override
-        	protected Font getLocalFont() {
-        		return FigureConstants.sanserifFontMedium;
-        	}
+    	return new ResourceFigure("FileSystem");
+    }
 
-        	@Override
-        	public Color getLocalForegroundColor() {
-        		return FigureConstants.literalsColor;
-        	}       	
-        };
+    protected List<IEntity> getModelSpecificChildren() {
+    	FileSystem entity = getModelEntity();
+        List<IEntity> children = new ArrayList<IEntity>(2);
+        children.add(entity.getPersistence());
+        children.add(entity.getContent());
+        return children;
     }
 }
