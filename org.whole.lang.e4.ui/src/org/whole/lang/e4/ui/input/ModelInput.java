@@ -24,6 +24,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
@@ -43,7 +45,7 @@ public class ModelInput implements IModelInput {
 	protected Boolean readable;
 
 	public ModelInput(IEclipseContext context, String location, String basePersistenceKitId) {
-		this(context, createPersistenceProvider(location), basePersistenceKitId);
+		this(context, createPersistenceProvider(context, location), basePersistenceKitId);
 		
 	}
 	public ModelInput(IEclipseContext context, IPersistenceProvider persistenceProvider, String basePersistenceKitId) {
@@ -52,7 +54,6 @@ public class ModelInput implements IModelInput {
 		this.overridePersistenceKitId = null;
 		this.readable = null;
 		E4Utils.defineResourceBindings(this.persistenceProvider.getBindings(), this);
-		this.persistenceProvider.getBindings().wDefValue("eclipseContext", context);
 	}
 
 	@Override
@@ -67,13 +68,15 @@ public class ModelInput implements IModelInput {
 				((IFilePersistenceProvider) persistenceProvider).getStore().getFullPath().toPortableString() :
 					((FilePersistenceProvider) persistenceProvider).getStore().toURI().toASCIIString();
 	}
-	public static IPersistenceProvider createPersistenceProvider(String location) {
+	public static IPersistenceProvider createPersistenceProvider(IEclipseContext context, String location) {
+		final IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		bm.wDefValue("eclipseContext", context);
 		try {
 			File file = new File(new URI(location));
-			return new FilePersistenceProvider(file);
+			return new FilePersistenceProvider(file, bm);
 		} catch (Exception e) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(Path.fromPortableString(location));
-			return new IFilePersistenceProvider(file);
+			return new IFilePersistenceProvider(file, bm);
 		}
 	}
 

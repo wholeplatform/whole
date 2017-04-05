@@ -29,6 +29,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IURIEditorInput;
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IFilePersistenceProvider;
 import org.whole.lang.e4.ui.input.ModelInput;
@@ -40,11 +42,13 @@ import org.whole.lang.reflect.ReflectionFactory;
 public class ModelInputFunction extends ContextFunction {
 	@Override
 	public Object compute(IEclipseContext context) {
+		final IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		bm.wDefValue("eclipseContext", context);
 		final IEditorPart editorPart = context.get(IEditorPart.class);
 		final IEditorInput input = context.get(IEditorInput.class);
 		if (input instanceof IFileEditorInput) {
 			IFile file = ((IFileEditorInput) input).getFile();
-			IFilePersistenceProvider pp = new IFilePersistenceProvider(file);
+			IFilePersistenceProvider pp = new IFilePersistenceProvider(file, bm);
 			ModelInput modelInput = new ModelInput(context, pp, calculateBasePersistenceKitId(file));
 			if (editorPart != null) {
 				String editorId = editorPart.getSite().getId();
@@ -54,7 +58,7 @@ public class ModelInputFunction extends ContextFunction {
 			return modelInput;
 		} else if (input instanceof IURIEditorInput) {
 			File file = new File(((IURIEditorInput) input).getURI());
-			FilePersistenceProvider pp = new FilePersistenceProvider(file);
+			FilePersistenceProvider pp = new FilePersistenceProvider(file, bm);
 			ModelInput modelInput = new ModelInput(context, pp, ReflectionFactory.getDefaultPersistenceKit().getId());
 			if (editorPart != null) {
 				String editorId = editorPart.getSite().getId();
