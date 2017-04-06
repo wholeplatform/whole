@@ -91,7 +91,7 @@ public abstract class AbstractProductIterator<E extends IEntity> extends Abstrac
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 	public IBindingScope lookaheadScope() {

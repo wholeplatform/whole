@@ -92,7 +92,7 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

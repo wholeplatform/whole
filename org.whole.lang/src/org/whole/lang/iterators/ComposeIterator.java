@@ -165,7 +165,7 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
 
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 	public IBindingScope lookaheadScope() {

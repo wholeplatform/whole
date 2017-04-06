@@ -133,7 +133,7 @@ public class WithStageIterator<E extends IEntity> extends AbstractDelegatingIter
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

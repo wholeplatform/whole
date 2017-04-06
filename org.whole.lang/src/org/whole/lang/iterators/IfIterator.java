@@ -126,7 +126,7 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

@@ -204,7 +204,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

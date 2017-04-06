@@ -194,7 +194,7 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

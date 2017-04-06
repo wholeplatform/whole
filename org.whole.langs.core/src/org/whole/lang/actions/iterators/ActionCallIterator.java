@@ -150,7 +150,7 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

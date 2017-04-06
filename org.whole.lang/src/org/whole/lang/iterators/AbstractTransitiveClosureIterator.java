@@ -103,7 +103,7 @@ public abstract class AbstractTransitiveClosureIterator<E extends IEntity> exten
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

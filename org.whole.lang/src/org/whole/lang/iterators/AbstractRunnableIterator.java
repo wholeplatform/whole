@@ -67,7 +67,7 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

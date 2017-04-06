@@ -124,7 +124,7 @@ public abstract class AbstractCartesianIterator<E extends IEntity> extends Abstr
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

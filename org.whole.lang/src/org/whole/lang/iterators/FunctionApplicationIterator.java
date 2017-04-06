@@ -107,7 +107,7 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

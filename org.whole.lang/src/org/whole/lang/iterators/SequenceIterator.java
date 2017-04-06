@@ -163,7 +163,7 @@ public class SequenceIterator<E extends IEntity> extends AbstractLazyCloneableCo
 
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

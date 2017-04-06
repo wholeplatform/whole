@@ -39,6 +39,8 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 	}
 
 	public IBindingManager getBindings() {
+		if (bindings == null)
+			initBindings();
 		return bindings;
 	}
     public void setBindings(IBindingManager bindings) {

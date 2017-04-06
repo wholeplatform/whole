@@ -19,6 +19,7 @@ package org.whole.lang.iterators;
 
 import java.util.Iterator;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
@@ -35,8 +36,11 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 	public IEntityIterator<E> clone();
 	public IEntityIterator<E> clone(ICloneContext cc);
 
-	public void reset(IEntity entity);
 	public void setBindings(IBindingManager bindings);
+	public default void initBindings() {
+		setBindings(BindingManagerFactory.instance.createBindingManager());
+	}
+	public void reset(IEntity entity);
 
 	public E next();
 	public E lookahead();

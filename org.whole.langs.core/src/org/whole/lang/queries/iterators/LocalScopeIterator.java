@@ -115,7 +115,7 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

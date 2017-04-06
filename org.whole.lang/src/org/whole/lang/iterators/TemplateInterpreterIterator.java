@@ -56,7 +56,7 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractClon
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 

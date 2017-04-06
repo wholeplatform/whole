@@ -63,7 +63,7 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 	}
 	public IBindingManager getBindings() {
 		if (bindings == null)
-			setBindings(BindingManagerFactory.instance.createBindingManager());
+			initBindings();
 		return bindings;
 	}
 
