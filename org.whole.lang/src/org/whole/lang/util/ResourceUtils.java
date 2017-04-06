@@ -144,11 +144,14 @@ public class ResourceUtils {
 		bm.wDefValue("fileLocationName", name = StringUtils.stripFileExtension(name));
 		bm.wDefValue("fileFullPathName", name);
 
-		bm.wDefValue("contextURI", parentFile != null ? parentFile.toURI().toString() : null);//FIXME
+		if (!bm.wIsSet("contextURI"))
+			bm.wDefValue("contextURI", parentFile != null ? parentFile.toURI().toString() : null);//FIXME
 
-		bm.wDefValue("debug#reportModeEnabled", true);
-		bm.wDefValue("debug#debugModeEnabled", true);
-		bm.wDefValue("debug#breakpointsEnabled", true);
+		if (!bm.wIsSet("debug#breakpointsEnabled")) {
+			bm.wDefValue("debug#reportModeEnabled", true);
+			bm.wDefValue("debug#debugModeEnabled", true);
+			bm.wDefValue("debug#breakpointsEnabled", true);			
+		}
 	}
 
 	public static void defineResourceBindings(IBindingManager bm, String resourceClasspath) {
@@ -174,15 +177,19 @@ public class ResourceUtils {
 			bm.wDefValue("compilationUnitName", compilationUnitName);
 			bm.wDefValue("className", fileName);
 		}
-		try {
-			String resourceUri = ReflectionFactory.getClassLoader(bm).getResource(resourceClasspath).toURI().toString();
-			bm.wDefValue("contextURI", resourceUri.substring(0, resourceUri.length()-resourceClasspath.length()-1));
-		} catch (Exception e) {
-		}
 
-		bm.wDefValue("debug#reportModeEnabled", true);
-		bm.wDefValue("debug#debugModeEnabled", true);
-		bm.wDefValue("debug#breakpointsEnabled", true);
+		if (!bm.wIsSet("contextURI"))
+			try {
+				String resourceUri = ReflectionFactory.getClassLoader(bm).getResource(resourceClasspath).toURI().toString();
+				bm.wDefValue("contextURI", resourceUri.substring(0, resourceUri.length()-resourceClasspath.length()-1));
+			} catch (Exception e) {
+			}
+
+		if (!bm.wIsSet("debug#breakpointsEnabled")) {
+			bm.wDefValue("debug#reportModeEnabled", true);
+			bm.wDefValue("debug#debugModeEnabled", true);
+			bm.wDefValue("debug#breakpointsEnabled", true);			
+		}
 	}
 
 	public static boolean hasFragmentPart(String resourceUri) {

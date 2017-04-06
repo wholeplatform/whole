@@ -60,12 +60,17 @@ public class ResourceUtils {
 		bm.wDefValue("fileFullPath", name = file.getFullPath().toString());
 		bm.wDefValue("fileFullPathName", StringUtils.stripFileExtension(name));
 
-		bm.wDefValue("workspaceLocation", container.getWorkspace().getRoot().getLocation().toString());
-		bm.wDefValue("contextURI", "platform:/resource/"+project.getName());
+		if (!bm.wIsSet("workspaceLocation"))
+			bm.wDefValue("workspaceLocation", container.getWorkspace().getRoot().getLocation().toString());
 
-		bm.wDefValue("debug#reportModeEnabled", true);
-		bm.wDefValue("debug#debugModeEnabled", true);
-		bm.wDefValue("debug#breakpointsEnabled", true);
+		if (!bm.wIsSet("contextURI"))
+			bm.wDefValue("contextURI", "platform:/resource/"+project.getName());
+
+		if (!bm.wIsSet("debug#breakpointsEnabled")) {
+			bm.wDefValue("debug#reportModeEnabled", true);
+			bm.wDefValue("debug#debugModeEnabled", true);
+			bm.wDefValue("debug#breakpointsEnabled", true);			
+		}
 
 		for (IResourceBindingsContributor contributor : ResourceBindingsContributorExtensions.instance().getContributors())
 			try {

@@ -29,11 +29,13 @@ import org.whole.lang.ui.util.IResourceBindingsContributor;
  * @author Enrico Persiani
  */
 public class GrammarsResourceBindingsContributor implements IResourceBindingsContributor {
-	public void addResourceBindings(IBindingManager bindings) {
-		Collection<Grammar> grammars = GrammarsRegistry.instance().grammars();
-		if (!grammars.isEmpty()) {
-			IGrammarProvider provider = new DialogGrammarProvider(bindings);
-			bindings.wDefValue("grammarProvider", provider);
+	public void addResourceBindings(IBindingManager bm) {
+		if (!bm.wIsSet("grammarProvider")) {
+			Collection<Grammar> grammars = GrammarsRegistry.instance().grammars();
+			if (!grammars.isEmpty()) {
+				IGrammarProvider provider = new DialogGrammarProvider(bm);
+				bm.wDefValue("grammarProvider", provider);
+			}
 		}
 	}
 }

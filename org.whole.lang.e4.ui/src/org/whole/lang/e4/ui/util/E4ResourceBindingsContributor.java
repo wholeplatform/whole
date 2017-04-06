@@ -35,22 +35,24 @@ import org.whole.lang.ui.util.IResourceBindingsContributor;
  */
 public class E4ResourceBindingsContributor implements IResourceBindingsContributor {
 	public void addResourceBindings(final IBindingManager bm) {
-		try {
-			EPartService partService = ((IEclipseContext) bm.wGetValue("eclipseContext")).get(EPartService.class);
-			final MPart debugPart = partService.findPart(IE4UIConstants.DEBUG_PART_ID);
-			if (debugPart == null)
-				return;
+		if (!bm.wIsSet("debug#breakpointsEnabled") && bm.wIsSet("eclipseContext")) {
+			try {
+				EPartService partService = ((IEclipseContext) bm.wGetValue("eclipseContext")).get(EPartService.class);
+				final MPart debugPart = partService.findPart(IE4UIConstants.DEBUG_PART_ID);
+				if (debugPart == null)
+					return;
 
-			IEntity breakpointsEnabled = BindingManagerFactory.instance.createValue(true);
-			breakpointsEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
-				public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
-					Map<String, String> persistedState = debugPart.getPersistedState();
-					return Boolean.valueOf(persistedState.get("debug#breakpointsEnabled"));
-				}
-			});
-			bm.wSet("debug#breakpointsEnabled", breakpointsEnabled);
-
-		} catch (Exception e) {
+				IEntity breakpointsEnabled = BindingManagerFactory.instance.createValue(true);
+				breakpointsEnabled.wAddRequestEventHandler(new IdentityRequestEventHandler() {
+					public boolean notifyRequested(IEntity source, FeatureDescriptor feature, boolean value) {
+						Map<String, String> persistedState = debugPart.getPersistedState();
+						return Boolean.valueOf(persistedState.get("debug#breakpointsEnabled"));
+					}
+				});
+				bm.wSet("debug#breakpointsEnabled", breakpointsEnabled);
+	
+			} catch (Exception e) {
+			}
 		}
 	}
 }
