@@ -136,6 +136,13 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		return (InterpreterOperation) super.getOperation();
 	}
 
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
+	}
+
     protected void setResult(Variable variable, IEntity model) {
     	if (DataTypeUtils.getDataKind(variable).isString())
     		getBindings().wDef(variable.getValue(), model);
@@ -237,6 +244,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 				return;
 			
 			iterator = IteratorFactory.childIterator();
+			iterator.setBindings(getBindings());
 			iterator.reset(result);
 		}
 

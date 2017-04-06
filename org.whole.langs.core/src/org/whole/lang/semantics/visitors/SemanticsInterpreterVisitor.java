@@ -55,9 +55,11 @@ import org.whole.lang.visitors.MissingVariableException;
  * @author Riccardo Solmi
 */
 public class SemanticsInterpreterVisitor extends SemanticsTraverseAllChildrenVisitor {
-	public void setResultIterator(IEntityIterator<?> queryIterator) {
-		queryIterator.setBindings(getBindings());
-		super.setResultIterator(queryIterator);
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
 	}
 
     @Override

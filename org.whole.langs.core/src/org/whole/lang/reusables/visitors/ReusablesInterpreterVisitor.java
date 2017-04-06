@@ -23,6 +23,7 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reu
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -77,6 +78,13 @@ import org.whole.lang.util.WholeMessages;
  * @author Enrico Persiani
  */
 public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor {
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
+	}
+
     protected EvaluateCloneOperation evaluateCloneOperation;
     protected EvaluateCloneOperation getEvaluateCloneOperation() {
 		if (evaluateCloneOperation == null) {
@@ -87,7 +95,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 		}
 		return evaluateCloneOperation;
     }
-    
+   
     protected boolean isEvaluateCloneOperation() {
     	return getBindings().wIsSet("evaluateCloneOperation");
     }
@@ -486,9 +494,12 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 		try {
 			return pk.readModel(pp);
+		} catch (FileNotFoundException e) {
+			throw new IllegalArgumentException(
+					"Resource not found with the " + pk.getId() + " persistence at " + e.getMessage(), e);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(
-					"Failed to load the resource with the given persistence: " + pp + ", " + pk.getId(), e);
+					"Failed to load the resource with the given persistence: " + pk.getId(), e);
 		}
 	}
 

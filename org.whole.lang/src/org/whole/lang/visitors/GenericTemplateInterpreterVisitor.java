@@ -38,7 +38,14 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
-	@SuppressWarnings("unchecked")
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
+	}
+
+    @SuppressWarnings("unchecked")
 	public void visit(IEntity entity) {
 		IEntity adaptee = entity.wGetAdaptee(false);
 		EntityDescriptor<?> ed = adaptee.wGetEntityDescriptor();

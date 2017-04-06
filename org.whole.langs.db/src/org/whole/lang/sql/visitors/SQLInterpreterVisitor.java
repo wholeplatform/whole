@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
@@ -50,6 +51,13 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 	@Override
 	public InterpreterOperation getOperation() {
 		return (InterpreterOperation) super.getOperation();
+	}
+
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
 	}
 
 	@Override
@@ -125,11 +133,9 @@ public class SQLInterpreterVisitor extends SQLIdentityDefaultVisitor {
 //					
 //				}
 
-				if (statement.execute(sql)) {
-					ResultSetIterator ri = new ResultSetIterator(statement.getResultSet(), names);
-					ri.setBindings(getBindings());
-					setResultIterator(ri);
-				} else {
+				if (statement.execute(sql))
+					setResultIterator(new ResultSetIterator(statement.getResultSet(), names));
+				else {
 					setResult(null);
 					statement.close();
 				}
