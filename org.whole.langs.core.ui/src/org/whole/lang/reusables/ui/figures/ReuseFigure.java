@@ -119,23 +119,23 @@ public class ReuseFigure extends ContentPaneFigure {
 			g.pushState();
 
 			int bandSize = 6;
-			g.setLineWidth(3);
+			int lw = 4;
+
+			g.setLineWidth(lw*2);
+			g.setForegroundColor(ColorConstants.darkGray);
+			g.drawLine(x, y0, x, y1);
+
 			g.setLineStyle(SWT.LINE_CUSTOM);
 			g.setLineDash(new int[] {bandSize, bandSize});
-	
-			g.setLineDashOffset(-1);
 			g.setForegroundColor(ColorConstants.orange);
-			g.drawLine(x-2, y0, x-2, y1);
-			g.setLineDashOffset(-1 + bandSize);
-			g.setForegroundColor(ColorConstants.darkGray);
-			g.drawLine(x-2, y0, x-2, y1);
 	
 			g.setLineDashOffset(0);
-			g.setForegroundColor(ColorConstants.orange);
-			g.drawLine(x, y0, x, y1);
-			g.setLineDashOffset(0 + bandSize);
-			g.setForegroundColor(ColorConstants.darkGray);
-			g.drawLine(x, y0, x, y1);
+			g.setLineWidth(lw);
+			g.drawLine(x+2, y0, x+2, y1);
+
+			g.setLineDashOffset(3);
+			g.setLineWidth(lw);
+			g.drawLine(x-2, y0, x-2, y1);
 
 			g.popState();
         }
