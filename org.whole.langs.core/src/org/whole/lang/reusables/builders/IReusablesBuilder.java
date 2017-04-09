@@ -103,6 +103,12 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Classpath();
 
+    public void URL();
+
+    public void URL_();
+
+    public void _URL();
+
     public void Model();
 
     public void Model_();

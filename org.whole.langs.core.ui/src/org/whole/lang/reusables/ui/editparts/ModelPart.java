@@ -22,20 +22,20 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reusables.model.URL;
+import org.whole.lang.reusables.model.Model;
 import org.whole.lang.reusables.ui.figures.ResourceFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class URLPart extends AbstractContentPanePart {
+public class ModelPart extends AbstractContentPanePart {
     protected IFigure createFigure() {
-    	return new ResourceFigure("URL");
+    	return new ResourceFigure("Model");
     }
 
     protected List<IEntity> getModelSpecificChildren() {
-    	URL entity = getModelEntity();
+    	Model entity = getModelEntity();
         List<IEntity> children = new ArrayList<IEntity>(2);
         children.add(entity.getPersistence());
         children.add(entity.getContent());

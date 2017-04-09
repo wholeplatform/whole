@@ -72,6 +72,11 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Resource) entity);
     }
 
+    public void visit(URL entity) {
+        visit((IReusablesEntity) entity);
+        visit((Resource) entity);
+    }
+
     public void visit(Model entity) {
         visit((IReusablesEntity) entity);
         visit((Resource) entity);
@@ -83,7 +88,6 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(PathExpression entity) {
-        visit((Resource) entity);
     }
 
     public void visit(StepExpression entity) {

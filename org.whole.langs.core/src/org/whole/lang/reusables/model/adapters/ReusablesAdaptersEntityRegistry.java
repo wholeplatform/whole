@@ -40,6 +40,7 @@ public class ReusablesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new WorkspaceAdapter());
         put(new FileSystemAdapter());
         put(new ClasspathAdapter());
+        put(new URLAdapter());
         put(new ModelAdapter());
         put(new RegistryAdapter());
         put(new PathExpressionAdapter());

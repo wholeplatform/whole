@@ -33,7 +33,7 @@
             <models:EntityType value="whole:org.whole.lang.changes:ChangesModel#Revision"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="28">
+    <models:ModelDeclarations initialCapacity="29">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -259,6 +259,29 @@
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="URL"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Resource"/>
+            </models:Types>
+            <models:Features initialCapacity="2">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Content"/>
+                    <models:SimpleName value="content"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
+                    <models:SimpleName value="Persistence"/>
+                    <models:SimpleName value="persistence"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Model"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Resource"/>
@@ -306,9 +329,7 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="PathExpression"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Resource"/>
-            </models:Types>
+            <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>

@@ -24,9 +24,9 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  *  @generator Whole
  */
-public class ReferenceStepFigure extends ContentPaneFigure {
+public class LoadFigure extends ContentPaneFigure {
 
-    public ReferenceStepFigure(ActionListener linkListener) {
+    public LoadFigure(ActionListener linkListener) {
         initContentPanes(1);
         setLayoutManager(new RowLayout().withSpacing(4));
         add(createContentPane(0));

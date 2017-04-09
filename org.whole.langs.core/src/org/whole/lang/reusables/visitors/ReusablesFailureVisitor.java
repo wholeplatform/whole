@@ -62,6 +62,10 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(URL entity) {
+        throw new VisitException();
+    }
+
     public void visit(Model entity) {
         throw new VisitException();
     }

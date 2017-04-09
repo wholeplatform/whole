@@ -32,7 +32,7 @@ import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
-import org.whole.lang.reusables.ui.figures.ReferenceStepFigure;
+import org.whole.lang.reusables.ui.figures.LoadFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
@@ -41,7 +41,7 @@ import org.whole.lang.ui.editparts.AbstractContentPanePart;
 public class LoadPart extends AbstractContentPanePart {
 
     protected IFigure createFigure() {
-        return new ReferenceStepFigure(event -> {
+        return new LoadFigure(event -> {
         	try {
 	        	Reuse entity = getModelEntity();
 	        	Resource resource = entity.getResource();

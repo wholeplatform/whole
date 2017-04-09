@@ -132,6 +132,18 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Classpath>(create(ReusablesEntityDescriptorEnum.Classpath));
     }
 
+    public URL createURL() {
+        return create(ReusablesEntityDescriptorEnum.URL);
+    }
+
+    public URL createURL(Content content, Persistence persistence) {
+        return create(ReusablesEntityDescriptorEnum.URL, content, persistence);
+    }
+
+    public IEntityBuilder<URL> buildURL() {
+        return new EntityBuilder<URL>(create(ReusablesEntityDescriptorEnum.URL));
+    }
+
     public Model createModel() {
         return create(ReusablesEntityDescriptorEnum.Model);
     }

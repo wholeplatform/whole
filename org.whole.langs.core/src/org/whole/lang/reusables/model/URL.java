@@ -21,6 +21,14 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface PathExpression extends IReusablesEntity {
+public interface URL extends IReusablesEntity, Resource {
 
+
+    public Content getContent();
+
+    public void setContent(Content content);
+
+    public Persistence getPersistence();
+
+    public void setPersistence(Persistence persistence);
 }

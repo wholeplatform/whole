@@ -63,6 +63,9 @@ public class ReusablesIdentityUnaryVisitor<V extends IVisitor>  extends Abstract
     public void visit(Classpath entity) {
     }
 
+    public void visit(URL entity) {
+    }
+
     public void visit(Model entity) {
     }
 

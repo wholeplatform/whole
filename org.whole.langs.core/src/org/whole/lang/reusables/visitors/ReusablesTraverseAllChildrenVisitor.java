@@ -84,6 +84,11 @@ public class ReusablesTraverseAllChildrenVisitor extends ReusablesIdentityUnaryV
         entity.getPersistence().accept(wGetVisitor1());
     }
 
+    public void visit(URL entity) {
+        entity.getContent().accept(wGetVisitor1());
+        entity.getPersistence().accept(wGetVisitor1());
+    }
+
     public void visit(Model entity) {
         entity.getContent().accept(wGetVisitor1());
         entity.getPersistence().accept(wGetVisitor1());

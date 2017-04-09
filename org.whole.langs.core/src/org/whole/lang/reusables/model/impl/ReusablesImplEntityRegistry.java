@@ -38,6 +38,7 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new WorkspaceImpl());
         put(new FileSystemImpl());
         put(new ClasspathImpl());
+        put(new URLImpl());
         put(new ModelImpl());
         put(new RegistryImpl());
         put(new LoadImpl());

@@ -54,6 +54,9 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Classpath entity) {
     }
 
+    public void visit(URL entity) {
+    }
+
     public void visit(Model entity) {
     }
 

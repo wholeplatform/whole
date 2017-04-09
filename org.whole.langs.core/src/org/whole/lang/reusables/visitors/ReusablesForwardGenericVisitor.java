@@ -67,6 +67,10 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(URL entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Model entity) {
         wGetVisitor1().visit(entity);
     }

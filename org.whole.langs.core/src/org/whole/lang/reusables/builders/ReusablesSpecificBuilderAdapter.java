@@ -191,6 +191,18 @@ public class ReusablesSpecificBuilderAdapter extends GenericBuilderContext imple
         _wEntity(ReusablesEntityDescriptorEnum.Classpath);
     }
 
+    public void URL() {
+        wEntity(ReusablesEntityDescriptorEnum.URL);
+    }
+
+    public void URL_() {
+        wEntity_(ReusablesEntityDescriptorEnum.URL);
+    }
+
+    public void _URL() {
+        _wEntity(ReusablesEntityDescriptorEnum.URL);
+    }
+
     public void Model() {
         wEntity(ReusablesEntityDescriptorEnum.Model);
     }

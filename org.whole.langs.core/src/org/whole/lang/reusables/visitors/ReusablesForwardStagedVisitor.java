@@ -56,6 +56,10 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(URL entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Model entity) {
         stagedVisit(entity);
     }

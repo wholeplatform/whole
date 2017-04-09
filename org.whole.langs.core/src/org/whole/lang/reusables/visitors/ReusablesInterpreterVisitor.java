@@ -24,6 +24,7 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reu
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -31,6 +32,7 @@ import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
@@ -38,7 +40,6 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
-import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.IResource;
@@ -53,6 +54,7 @@ import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
 import org.whole.lang.reusables.model.Load;
+import org.whole.lang.reusables.model.Model;
 import org.whole.lang.reusables.model.Path;
 import org.whole.lang.reusables.model.PathName;
 import org.whole.lang.reusables.model.PathSegments;
@@ -66,6 +68,7 @@ import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Save;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
+import org.whole.lang.reusables.model.URL;
 import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
@@ -317,15 +320,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	@Override
 	public void visit(URI entity) {
-//		if (EntityUtils.hasParent(entity) && EntityUtils.getParentFormalType(entity).equals(ReusablesEntityDescriptorEnum.Locator))
-//			try {
-//				setResult(BindingManagerFactory.instance.createValue(
-//						new URLPersistenceProvider(new URL(entity.getValue()), getBindings())));
-//			} catch (MalformedURLException e) {
-//				throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
-//			}
-//		else
-			setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
 
 	@Override
@@ -364,6 +359,32 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
 						}
 					}).withSourceEntity(entity), getResultIterator()));
+	}
+
+	@Override
+	public void visit(URL entity) {
+		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
+
+		entity.getContent().accept(this);
+
+		setResultIterator(IteratorFactory.composeIterator(
+				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+						try {
+							IPersistenceProvider pp = new URLPersistenceProvider(new java.net.URL(selfEntity.wStringValue()), bm);
+
+							//TODO replace Object[] with IResource impl
+							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+						} catch (MalformedURLException e) {
+							throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
+						}
+					}
+				}).withSourceEntity(entity), getResultIterator()));
+	}
+
+	@Override
+	public void visit(Model entity) {
+		entity.getContent().accept(this);
 	}
 
 	@Override
@@ -477,8 +498,7 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 	protected IEntityIterator<?> readResource(Resource resource) {
 		resource.accept(this);
-		return Matcher.isAssignableAsIsFrom(
-				QueriesEntityDescriptorEnum.PathExpression, resource.wGetAdaptee(false)) ?
+		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
 						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
 							IteratorFactory.composeIterator(
 									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {

@@ -34,6 +34,7 @@ import org.whole.lang.reusables.model.Reusables;
 import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
+import org.whole.lang.reusables.model.URL;
 import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.visitors.ReusablesIdentityDefaultVisitor;
 import org.whole.lang.ui.editparts.ContentLightDataEntityPart;
@@ -103,9 +104,13 @@ public class ReusablesPartFactoryVisitor extends ReusablesIdentityDefaultVisitor
     }
 
     @Override
+    public void visit(URL entity) {
+    	part = new URLPart();
+    }
+
+    @Override
     public void visit(Model entity) {
-    	// TODO Auto-generated method stub
-    	super.visit(entity);
+    	part = new ModelPart();
     }
 
     @Override

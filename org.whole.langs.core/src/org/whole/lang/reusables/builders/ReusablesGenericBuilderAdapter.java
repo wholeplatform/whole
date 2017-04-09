@@ -112,6 +112,9 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Classpath_ord :
             specificBuilder.Classpath();
             break;
+            case ReusablesEntityDescriptorEnum.URL_ord :
+            specificBuilder.URL();
+            break;
             case ReusablesEntityDescriptorEnum.Model_ord :
             specificBuilder.Model();
             break;
@@ -168,6 +171,9 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Classpath_ord :
             specificBuilder.Classpath_();
             break;
+            case ReusablesEntityDescriptorEnum.URL_ord :
+            specificBuilder.URL_();
+            break;
             case ReusablesEntityDescriptorEnum.Model_ord :
             specificBuilder.Model_();
             break;
@@ -223,6 +229,9 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case ReusablesEntityDescriptorEnum.Classpath_ord :
             specificBuilder._Classpath();
+            break;
+            case ReusablesEntityDescriptorEnum.URL_ord :
+            specificBuilder._URL();
             break;
             case ReusablesEntityDescriptorEnum.Model_ord :
             specificBuilder._Model();

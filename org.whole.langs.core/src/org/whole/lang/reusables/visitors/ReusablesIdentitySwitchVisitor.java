@@ -53,6 +53,9 @@ public abstract class ReusablesIdentitySwitchVisitor extends AbstractVisitor imp
             case ReusablesEntityDescriptorEnum.Classpath_ord :
             visit((Classpath) entity);
             break;
+            case ReusablesEntityDescriptorEnum.URL_ord :
+            visit((URL) entity);
+            break;
             case ReusablesEntityDescriptorEnum.Model_ord :
             visit((Model) entity);
             break;

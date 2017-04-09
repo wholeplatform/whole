@@ -42,6 +42,8 @@ public interface IReusablesVisitor extends IVisitor {
 
     public void visit(Classpath entity);
 
+    public void visit(URL entity);
+
     public void visit(Model entity);
 
     public void visit(Registry entity);
