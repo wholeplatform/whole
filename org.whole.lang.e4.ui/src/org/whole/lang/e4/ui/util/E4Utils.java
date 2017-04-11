@@ -487,25 +487,8 @@ public class E4Utils {
 	}
 	
 	public static IPersistenceProvider createWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
-		IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(resourceString);
-		if (resource == null) {
-			if (isInput)
-				throw new IllegalArgumentException("The workspace doesn't contain the resource: "+resourceString);
-			else {
-				try {
-					IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceString));
-					file.create(new ByteArrayInputStream(new byte[0]), true, null);
-					resource = file;
-				} catch (CoreException e) {
-					throw new IllegalArgumentException("Failed to create a file at the following path: "+resourceString);
-				}
-			}
-		}
-
-		if (resource instanceof IFile)
-			return new IFilePersistenceProvider((IFile) resource, bm);
-
-		throw new UnsupportedOperationException("Unable to find sthe specified resource in the Workspace");
+		IFile resource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceString));
+		return new IFilePersistenceProvider(resource, bm);
 	}
 	public static boolean isLegacyApplication() {
 		try {
