@@ -20,14 +20,14 @@ package org.whole.lang.exceptions;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.OperationCanceledException;
+import org.whole.lang.reflect.ISourceable;
 
 /**
  * @author Riccardo Solmi
  */
-public interface IWholeRuntimeException {
+public interface IWholeRuntimeException extends ISourceable {
 	public IWholeRuntimeException withSourceEntity(IEntity sourceEntity);
 	public IWholeRuntimeException withBindings(IBindingManager bindings);
-	public IEntity getSourceEntity();
 	public IBindingManager getBindings();
 
 	public IWholeRuntimeException getSourceCause();
