@@ -47,7 +47,6 @@ import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestEntities;
 import org.whole.lang.models.codebase.TestEvents;
 import org.whole.lang.models.codebase.TestORM;
-import org.whole.lang.models.codebase.TestsModel;
 import org.whole.lang.models.codebase.TextModel;
 import org.whole.lang.models.codebase.TopicMapsModel;
 import org.whole.lang.models.codebase.TopicsModel;
@@ -112,7 +111,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Editors model", new EditorsModel());
 		put("Presentation model", new PresentationModel());
 		put("Mbed model", new MbedModel());
-		put("Tests model", new TestsModel());
 		put("Types model", new TypesModel());
 		put("Libraries model", new LibrariesModel());
 
