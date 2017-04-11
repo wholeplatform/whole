@@ -28,7 +28,7 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  * @author Riccardo Solmi
  */
-public class AsVariableTestFigure extends ContentPaneFigure implements IQualifiedFigure{
+public class AsVariableTestFigure extends ContentPaneFigure implements IQualifiedFigure {
 	private EntityLabel environmentLabel;
 
 	public AsVariableTestFigure(String label) {

@@ -701,7 +701,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		try {
 			IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
 	
-			IPersistenceProvider provider = getPersistenceProvider(entity, true);
+			IPersistenceProvider provider = getPersistenceProvider(entity);
 	
 			try {
 				IEntity model = persistenceKit.readModel(provider);
@@ -719,7 +719,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		try {
 			IPersistenceKit persistenceKit = getPersistenceKit(entity.getPersistence());
 	
-			IPersistenceProvider provider = getPersistenceProvider(entity, false);
+			IPersistenceProvider provider = getPersistenceProvider(entity);
 	
 			entity.getModel().accept(this);
 			IEntity model = getResult();
@@ -774,7 +774,7 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 			getBindings().wDefValue(variable.getValue(), result);
 		}
 	}
-	protected IPersistenceProvider getPersistenceProvider(PersistenceActivity entity, boolean isInput) {
+	protected IPersistenceProvider getPersistenceProvider(PersistenceActivity entity) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		getBindings().wEnterScope(bm, true);
 		entity.getBindings().accept(this);
@@ -785,48 +785,42 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		ResourceKind resourceKind = getResourceKind(entity);
 		switch (resourceKind.getValue().getOrdinal()) {
 		case ResourceKindEnum.FILE_SYSTEM_ord:
-			return getFileSystemProvider(bm, resource, isInput);
+			return getFileSystemProvider(bm, resource);
 		case ResourceKindEnum.WORKSPACE_ord:
-			return getWorkspaceProvider(bm, resource, isInput);
+			return getWorkspaceProvider(bm, resource);
 		case ResourceKindEnum.CLASSPATH_ord:
 			ReflectionFactory.setClassLoader(bm, ReflectionFactory.getClassLoader(getBindings()));
-			return getClasspathProvider(bm, resource, isInput);
+			return getClasspathProvider(bm, resource);
 		case ResourceKindEnum.URL_ord:
-			return getURLProvider(bm, resource, isInput);
+			return getURLProvider(bm, resource);
 		case ResourceKindEnum.VARIABLE_ord:
-			return getStringProvider(bm, resource, isInput);
+			return getStringProvider(bm, resource);
 		default:
 			throw new IllegalArgumentException("Unsupported resource kind");
 		}
 	}
-	protected IPersistenceProvider getFileSystemProvider(IBindingManager bm, String resourceString, boolean isInput) {
+	protected IPersistenceProvider getFileSystemProvider(IBindingManager bm, String resourceString) {
 		try {
 			return new FilePersistenceProvider(new File(resourceString), bm);
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Cannot access the resource: "+resourceString, e);
 		}
 	}
-	protected IPersistenceProvider getURLProvider(IBindingManager bm, String resourceString, boolean isInput) {
-//		if (isInput)
-			try {
-				return new URLPersistenceProvider(new URL(resourceString), bm);
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Cannot load the specified resource", e);
-			}
-//		else
-//			throw new UnsupportedOperationException("Save model to a URL not implemented yet");
+	protected IPersistenceProvider getURLProvider(IBindingManager bm, String resourceString) {
+		try {
+			return new URLPersistenceProvider(new URL(resourceString), bm);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Cannot load the specified resource", e);
+		}
 	}
-	protected IPersistenceProvider getStringProvider(IBindingManager bm, String resourceString, boolean isInput) {
+	protected IPersistenceProvider getStringProvider(IBindingManager bm, String resourceString) {
 		return new StringPersistenceProvider(getBindings().wIsSet(resourceString) ? getBindings().wStringValue(resourceString) : "", bm);
 	}
-	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
+	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString) {
 		throw new UnsupportedOperationException("The Eclipse Workspace is not available");
 	}
-	protected IPersistenceProvider getClasspathProvider(IBindingManager bm, String resourceString, boolean isInput) {
-		if (isInput)
-			return new ClasspathPersistenceProvider(resourceString, bm);
-		else
-			throw new UnsupportedOperationException("Cannot save the specified resource");
+	protected IPersistenceProvider getClasspathProvider(IBindingManager bm, String resourceString) {
+		return new ClasspathPersistenceProvider(resourceString, bm);
 	}
 
 	@Override

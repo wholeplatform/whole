@@ -486,7 +486,7 @@ public class E4Utils {
 		}
 	}
 	
-	public static IPersistenceProvider createWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
+	public static IPersistenceProvider createWorkspaceProvider(IBindingManager bm, String resourceString) {
 		IFile resource = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceString));
 		return new IFilePersistenceProvider(resource, bm);
 	}

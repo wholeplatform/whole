@@ -18,9 +18,12 @@
 package org.whole.lang.reusables.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Workspace;
 
 /**
@@ -32,9 +35,15 @@ public class ReusablesUIInterpreterVisitor extends ReusablesInterpreterVisitor {
 		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
 
 		entity.getContent().accept(this);
-		IPersistenceProvider pp = E4Utils.createWorkspaceProvider(getBindings(), getResult().wStringValue(), true);
 
-		//TODO replace Object[] with IResource impl
-		setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+		setResultIterator(IteratorFactory.composeIterator(
+					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+							IPersistenceProvider pp = E4Utils.createWorkspaceProvider(bm, selfEntity.wStringValue());
+	
+							//TODO replace Object[] with IResource impl
+							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
+						}
+					}).withSourceEntity(entity), getResultIterator()));
 	}
 }

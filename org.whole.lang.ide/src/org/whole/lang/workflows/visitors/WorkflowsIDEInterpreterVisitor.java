@@ -125,8 +125,8 @@ public class WorkflowsIDEInterpreterVisitor extends WorkflowsInterpreterVisitor 
 	}
 
 	@Override
-	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString, boolean isInput) {
-		return E4Utils.createWorkspaceProvider(bm, resourceString, isInput);
+	protected IPersistenceProvider getWorkspaceProvider(IBindingManager bm, String resourceString) {
+		return E4Utils.createWorkspaceProvider(bm, resourceString);
 	}
 
 	@Override
