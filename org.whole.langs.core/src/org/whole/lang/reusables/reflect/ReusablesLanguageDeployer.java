@@ -23,6 +23,7 @@ import org.whole.lang.builders.IBuilderFactory;
 import org.whole.lang.builders.SpecificBuilderAdapterOperation;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.operations.ArtifactsGeneratorOperation;
+import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageDeployer;
@@ -31,6 +32,7 @@ import org.whole.lang.reusables.builders.IReusablesBuilder;
 import org.whole.lang.reusables.builders.ReusablesGenericBuilderAdapter;
 import org.whole.lang.reusables.builders.ReusablesSpecificBuilderAdapter;
 import org.whole.lang.reusables.visitors.ReusablesArtifactsGeneratorVisitor;
+import org.whole.lang.reusables.visitors.ReusablesDynamicCompilerVisitor;
 import org.whole.lang.reusables.visitors.ReusablesInterpreterVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
@@ -59,6 +61,15 @@ public class ReusablesLanguageDeployer extends AbstractLanguageDeployer {
         	public IVisitor create(IOperation operation, int stage) {
         		if (stage == 0)
         			return new ReusablesInterpreterVisitor();
+        		else
+        			return null;
+        	}
+        });
+        platform.addOperationFactory(ReusablesLanguageKit.URI, DynamicCompilerOperation.ID,
+        		new IVisitorFactory() {
+        	public IVisitor create(IOperation operation, int stage) {
+        		if (stage == 0)
+        			return new ReusablesDynamicCompilerVisitor();
         		else
         			return null;
         	}

@@ -14,12 +14,12 @@
  */
 package org.whole.lang.reusables.ui;
 
+import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.operations.IOperation;
-import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.reflect.ReusablesLanguageKit;
-import org.whole.lang.reusables.visitors.ReusablesUIInterpreterVisitor;
+import org.whole.lang.reusables.visitors.ReusablesUIDynamicCompilerVisitor;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.IVisitorFactory;
 
@@ -28,11 +28,11 @@ public class ReusablesUIDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
 		platform.addEditorKit(ReusablesEditorKit.ID);
 
-		platform.addOperationFactory(ReusablesLanguageKit.URI, InterpreterOperation.ID,
+		platform.addOperationFactory(ReusablesLanguageKit.URI, DynamicCompilerOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
 				if (stage == 0)
-					return new ReusablesUIInterpreterVisitor();
+					return new ReusablesUIDynamicCompilerVisitor();
 				else
 					return null;
 			}
