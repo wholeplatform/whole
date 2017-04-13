@@ -22,17 +22,8 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reu
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.codebase.ClasspathPersistenceProvider;
-import org.whole.lang.codebase.FilePersistenceProvider;
-import org.whole.lang.codebase.IPersistenceKit;
-import org.whole.lang.codebase.IPersistenceProvider;
-import org.whole.lang.codebase.URLPersistenceProvider;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
@@ -40,6 +31,7 @@ import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.operations.DynamicCompilerOperation;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.IResource;
@@ -47,40 +39,31 @@ import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.reusables.factories.ReusablesEntityFactory;
 import org.whole.lang.reusables.model.Adapt;
-import org.whole.lang.reusables.model.Classpath;
 import org.whole.lang.reusables.model.Contents;
-import org.whole.lang.reusables.model.FileSystem;
 import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
-import org.whole.lang.reusables.model.Load;
 import org.whole.lang.reusables.model.Model;
 import org.whole.lang.reusables.model.Path;
 import org.whole.lang.reusables.model.PathName;
 import org.whole.lang.reusables.model.PathSegments;
 import org.whole.lang.reusables.model.PathWithExtension;
-import org.whole.lang.reusables.model.Persistence;
 import org.whole.lang.reusables.model.PersistenceId;
 import org.whole.lang.reusables.model.Registry;
-import org.whole.lang.reusables.model.Resource;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
-import org.whole.lang.reusables.model.Save;
 import org.whole.lang.reusables.model.Sync;
 import org.whole.lang.reusables.model.URI;
-import org.whole.lang.reusables.model.URL;
-import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
-import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Enrico Persiani
  */
-public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor {
+public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisitor {
     @Override
 	public void setResultIterator(IEntityIterator<?> iterator) {
 		if (iterator != null)
@@ -141,6 +124,20 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
     @Override
     public void visit(IReusablesEntity entity) {
+    	switch (entity.wGetEntityDescriptor().getOrdinal()) {
+    	case ReusablesEntityDescriptorEnum.Load_ord:
+    	case ReusablesEntityDescriptorEnum.Save_ord:
+    	case ReusablesEntityDescriptorEnum.Classpath_ord:
+    	case ReusablesEntityDescriptorEnum.FileSystem_ord:
+    	case ReusablesEntityDescriptorEnum.Workspace_ord:
+    	case ReusablesEntityDescriptorEnum.URL_ord:
+    	case ReusablesEntityDescriptorEnum.PathName_ord:
+    	case ReusablesEntityDescriptorEnum.PersistenceId_ord:
+    		DynamicCompilerOperation.compile(entity, getBindings());
+    		BehaviorUtils.evaluateResult(getBindings());
+    		return;
+    	}
+
 		if (isEvaluateCloneOperation())
 			evaluateAndClone(entity);
     }
@@ -194,16 +191,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 			stagedVisit(result.wGetAdaptee(false));
 			setResult(result);
 		}
-	}
-
-	@Override
-	public void visit(Load entity) {
-		setResultIterator(readResource(entity.getResource()));
-	}
-
-	@Override
-	public void visit(Save entity) {
-		setResultIterator(saveResource(entity.getResource()));
 	}
 
 	@Override
@@ -324,65 +311,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 	}
 
 	@Override
-	public void visit(Workspace entity) {
-		throw new UnsupportedOperationException(WholeMessages.no_workspace);
-	}
-
-	@Override
-	public void visit(Classpath entity) {
-		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
-
-		entity.getContent().accept(this);
-
-		setResultIterator(IteratorFactory.composeIterator(
-					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-							IPersistenceProvider pp = new ClasspathPersistenceProvider(selfEntity.wStringValue(), bm);
-	
-							//TODO replace Object[] with IResource impl
-							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
-						}
-					}).withSourceEntity(entity), getResultIterator()));
-	}
-	@Override
-	public void visit(FileSystem entity) {
-		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
-
-		entity.getContent().accept(this);
-
-		setResultIterator(IteratorFactory.composeIterator(
-					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-							IPersistenceProvider pp = new FilePersistenceProvider(new File(selfEntity.wStringValue()), bm);
-	
-							//TODO replace Object[] with IResource impl
-							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
-						}
-					}).withSourceEntity(entity), getResultIterator()));
-	}
-
-	@Override
-	public void visit(URL entity) {
-		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
-
-		entity.getContent().accept(this);
-
-		setResultIterator(IteratorFactory.composeIterator(
-				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-						try {
-							IPersistenceProvider pp = new URLPersistenceProvider(new java.net.URL(selfEntity.wStringValue()), bm);
-
-							//TODO replace Object[] with IResource impl
-							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
-						} catch (MalformedURLException e) {
-							throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(getBindings());
-						}
-					}
-				}).withSourceEntity(entity), getResultIterator()));
-	}
-
-	@Override
 	public void visit(Model entity) {
 		entity.getContent().accept(this);
 	}
@@ -431,11 +359,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 
 		setResult(BindingManagerFactory.instance.createValue(path));
 	}
-	
-	@Override
-	public void visit(PathName entity) {
-		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
-	}
 
 	@Override
 	public void visit(PathWithExtension entity) {
@@ -474,84 +397,6 @@ public class ReusablesInterpreterVisitor extends ReusablesIdentityDefaultVisitor
 			if (!segment.startsWith("/"))
 				sb.append('/');
 			sb.append(segment);
-		}
-	}
-	
-	@Override
-	public void visit(PersistenceId entity) {
-		String persistenceKitId = entity.getValue();
-		if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
-			throw new WholeIllegalArgumentException("The Persistence requested is not deployed: "+persistenceKitId)
-			.withSourceEntity(entity).withBindings(getBindings());
-
-		setResult(BindingManagerFactory.instance.createValue(ReflectionFactory.getPersistenceKit(persistenceKitId)));			
-	}
-
-	public IPersistenceKit evaluatePersistence(Persistence persistence) {
-		persistence.accept(this);
-		IEntity result = getResult();
-		IPersistenceKit persistenceKit = result != null ?
-				EntityUtils.safeGetValue(result, ReflectionFactory.getDefaultPersistenceKit(), IPersistenceKit.class) :
-				ReflectionFactory.getDefaultPersistenceKit();
-		return persistenceKit;
-	}
-
-	protected IEntityIterator<?> readResource(Resource resource) {
-		resource.accept(this);
-		return Matcher.match(ReusablesEntityDescriptorEnum.Model, resource) ?
-						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
-							IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-										if (!BindingManagerFactory.instance.isVoid(selfEntity))
-											bm.setResult(readModel(selfEntity));
-									}).withSourceEntity(resource), getResultIterator());
-	}
-
-	public static IEntity readModel(IEntity resource) {
-		Object[] pkpp = (Object[]) resource.wGetValue();
-		IPersistenceKit pk = (IPersistenceKit) pkpp[0];
-		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
-
-		try {
-			return pk.readModel(pp);
-		} catch (FileNotFoundException e) {
-			throw new IllegalArgumentException(
-					"Resource not found with the " + pk.getId() + " persistence at " + e.getMessage(), e);
-		} catch (Exception e) {
-			throw new IllegalArgumentException(
-					"Failed to load the resource with the given persistence: " + pk.getId(), e);
-		}
-	}
-
-	protected IEntityIterator<?> saveResource(Resource resource) {
-		//TODO add multiple save
-		//FIXME path expression save
-
-		resource.accept(this);
-		return
-//		return Matcher.isAssignableAsIsFrom(
-//				QueriesEntityDescriptorEnum.PathExpression, resource.wGetAdaptee(false)) ?
-//						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
-//							IteratorFactory.composeIterator(
-									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-										if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-											writeModel(selfEntity, arguments[0]);
-											bm.setResult(selfEntity);
-										}
-									}, getResultIterator()).withSourceEntity(resource);
-//									);
-	}
-
-	public static void writeModel(IEntity model, IEntity resource) {
-		Object[] pkpp = (Object[]) resource.wGetValue();
-		IPersistenceKit pk = (IPersistenceKit) pkpp[0];
-		IPersistenceProvider pp = (IPersistenceProvider) pkpp[1];
-
-		try {
-			pk.writeModel(model, pp);
-		} catch (Exception e) {
-			throw new IllegalArgumentException(
-					"Failed to write the resource with the given persistence: " + pp + ", " + pk.getId(), e);
 		}
 	}
 }

@@ -17,33 +17,30 @@
  */
 package org.whole.lang.reusables.visitors;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.codebase.IPersistenceKit;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.e4.ui.util.E4Utils;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Workspace;
 
 /**
  * @author Riccardo Solmi
  */
-public class ReusablesUIInterpreterVisitor extends ReusablesInterpreterVisitor {
+public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerVisitor {
 	@Override
 	public void visit(Workspace entity) {
-		IPersistenceKit persistenceKit = evaluatePersistence(entity.getPersistence());
-
+		entity.getPersistence().accept(this);
+		IEntityIterator<?> persistenceIterator = getResultIterator();
+		
 		entity.getContent().accept(this);
+		IEntityIterator<?> contentIterator = getResultIterator();
 
 		setResultIterator(IteratorFactory.composeIterator(
-					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-						if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-							IPersistenceProvider pp = E4Utils.createWorkspaceProvider(bm, selfEntity.wStringValue());
-	
-							//TODO replace Object[] with IResource impl
-							bm.setResult(BindingManagerFactory.instance.createValue(new Object[] {persistenceKit, pp}));
-						}
-					}).withSourceEntity(entity), getResultIterator()));
+				IteratorFactory.singleValuedRunnableIterator(new ResourcePersistenceRunnable() {
+					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
+						return E4Utils.createWorkspaceProvider(bm, path);
+					}
+				}, persistenceIterator).withSourceEntity(entity), contentIterator));
 	}
 }
