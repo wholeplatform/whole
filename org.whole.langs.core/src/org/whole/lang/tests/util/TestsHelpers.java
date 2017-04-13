@@ -168,7 +168,7 @@ public class TestsHelpers {
 
 	public static IEntity splitDescription(String description) {
 		IEntity tuple = BindingManagerFactory.instance.createTuple();
-		EntityDescriptorEnum edEnum = ReflectionFactory.getLanguageKit("http://lang.whole.org/Java").getEntityDescriptorEnum();
+		EntityDescriptorEnum edEnum = ReflectionFactory.getLanguageKit("http://lang.whole.org/Java", true, null).getEntityDescriptorEnum();
 		for (String line : StringUtils.EOL_PATTERN.split(description))
 			tuple.wAdd(GenericEntityFactory.instance.create(edEnum.valueOf("TextElement"), line));
 		return tuple;

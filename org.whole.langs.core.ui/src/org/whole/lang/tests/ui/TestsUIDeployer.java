@@ -17,8 +17,14 @@
  */
 package org.whole.lang.tests.ui;
 
+import org.whole.lang.operations.IOperation;
+import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.reflect.AbstractLanguageExtensionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.tests.reflect.TestsLanguageKit;
+import org.whole.lang.tests.visitors.TestsUIInterpreterVisitor;
+import org.whole.lang.visitors.IVisitor;
+import org.whole.lang.visitors.IVisitorFactory;
 
 /**
  * @author Riccardo Solmi
@@ -26,6 +32,16 @@ import org.whole.lang.reflect.ReflectionFactory;
 public class TestsUIDeployer extends AbstractLanguageExtensionDeployer {
     public void deploy(ReflectionFactory platform) {
         platform.addEditorKit(TestsEditorKit.ID);
+
+		platform.addOperationFactory(TestsLanguageKit.URI, InterpreterOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				if (stage == 0)
+					return new TestsUIInterpreterVisitor();
+				else
+					return null;
+			}
+		});
     }
 
     public void undeploy(ReflectionFactory platform) {

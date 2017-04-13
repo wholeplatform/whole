@@ -1,12 +1,14 @@
 package org.whole.lang.tests.visitors;
 
+import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.*;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -60,7 +62,6 @@ import org.whole.lang.tests.model.TestSuite;
 import org.whole.lang.tests.model.Tests;
 import org.whole.lang.tests.model.Throws;
 import org.whole.lang.tests.model.UsingFilter;
-import org.whole.lang.tests.reflect.TestsEntityDescriptorEnum;
 import org.whole.lang.tests.util.TestsHelpers;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.EntityUtils;
@@ -146,7 +147,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			// execute all BeforeTestCase
 			AbstractPatternFilterIterator<BeforeTestCase> i1 = IteratorFactory.<BeforeTestCase>childMatcherIterator()
-					.withPattern(TestsEntityDescriptorEnum.BeforeTestCase);
+					.withPattern(BeforeTestCase);
 			i1.reset(entity.getAspects());
 			for (BeforeTestCase beforeTestCase : i1)
 				beforeTestCase.accept(this);
@@ -163,7 +164,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 			// execute all AfterTestCase
 			AbstractPatternFilterIterator<AfterTestCase> i2 = IteratorFactory.<AfterTestCase>childMatcherIterator()
-					.withPattern(TestsEntityDescriptorEnum.AfterTestCase);
+					.withPattern(AfterTestCase);
 			i2.reset(entity.getAspects());
 			for (AfterTestCase afterTestCase : i2)
 				afterTestCase.accept(this);
@@ -173,15 +174,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			throw e;
 		} catch (RuntimeException e) {
 			testCaseSuccess = false;
-			printWriter().printf("\n* %s test case ERRORS: %s\n", name, formatMessage(e));
-			IEntity statement = getBindings().wGet("lastVisitedStatement");
-			if (statement != UNDEF_VALUE)
-				printWriter().printf(" [at %s]", EntityUtils.getLocation(statement));
-
-			IBindingManager debugEnv = getBindings();
-			if ((debugEnv.wIsSet("debug#reportModeEnabled") && debugEnv.wBooleanValue("debug#reportModeEnabled")) &&
-					(debugEnv.wIsSet("debug#debugModeEnabled") && debugEnv.wBooleanValue("debug#debugModeEnabled")))
-				throw e;
+			reportError(name, e);
 		}
 		setResult(BindingManagerFactory.instance.createValue(testCaseSuccess));
 	}
@@ -206,24 +199,14 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 			printWriter().printf("    %32s(...) OK\n", name);
 			testSuccess = true;
-		} catch (AssumptionError e) {
-			printWriter().printf("    %32s(...) SKIPPED: AssumptionError: %s", name, e.getMessage());
-			printWriter().printf(" [at %s]\n", EntityUtils.getLocation(e.getAssumption()));
-		} catch (AssertionError e) {
-			printWriter().printf("    %32s(...) FAILED:  AssertionError: %s", name, e.getMessage());
-			printWriter().printf(" [at %s]\n", EntityUtils.getLocation(e.getAssertion()));
+		} catch (TestsException e) {
+			reportFailure(name, e);
 		} catch (OperationCanceledException e) {
 			throw e;
 		} catch (RuntimeException e) {
-			printWriter().printf("    %32s(...) ERRORS: %s", name, formatMessage(e));
-			IEntity statement = getBindings().wGet("lastVisitedStatement");
-			if (statement != UNDEF_VALUE)
-				printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(statement));
-
-			IBindingManager debugEnv = getBindings();
-			if ((debugEnv.wIsSet("debug#reportModeEnabled") && debugEnv.wBooleanValue("debug#reportModeEnabled")) &&
-					(debugEnv.wIsSet("debug#debugModeEnabled") && debugEnv.wBooleanValue("debug#debugModeEnabled")))
-				throw e;
+			IEntity statement = getBindings().wIsSet("lastVisitedStatement") ? getBindings().wGet("lastVisitedStatement") : null;
+			RuntimeException wre = IWholeRuntimeException.asWholeException(e, statement, getBindings());
+			reportError(name, wre);
 		} finally {
 			ts.rollback();
 			getBindings().wExitScope();
@@ -232,10 +215,18 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		setResult(BindingManagerFactory.instance.createValue(testSuccess));
 	}
 
-	protected String formatMessage(Exception e) {
-		StringWriter sw = new StringWriter();
-		e.printStackTrace(new PrintWriter(sw));
-		return sw.toString();
+	protected void reportFailure(String name, TestsException e) {
+		String error = Matcher.matchImpl(AssertThat, e.getSubjectStatement()) ? "AssertionError" : "AssupmtionError";
+		printWriter().printf("    %32s(...) FAILED:  %s: %s", name, error, e.getMessage());
+		printWriter().printf(" [at %s]\n", EntityUtils.getLocation(e.getSubjectStatement()));
+	}
+	protected void reportError(String name, RuntimeException e) {
+		StringWriter writer = new StringWriter();
+		e.printStackTrace(new PrintWriter(writer));
+		printWriter().printf("    %32s(...) ERRORS: %s", name, writer.toString());
+		IEntity statement = getBindings().wGet("lastVisitedStatement");
+		if (statement != UNDEF_VALUE)
+			printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(statement));
 	}
 
 	@Override
@@ -307,18 +298,14 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			if (!EntityUtils.isNull(subject))
 				subject = applyFilterRule(subject);
 	
-			IVisitor visitor = evaluate(entity.getConstraint());
-			boolean result = Matcher.match(visitor, subject);
+			IVisitor constraint = evaluate(entity.getConstraint());
+			boolean result = Matcher.match(constraint, subject);
 	
 			if (getBindings().wIsSet("thrownException"))
 				throw (RuntimeException) getBindings().wGetValue("thrownException");
 
-			if (!result) {
-				if (Matcher.match(TestsEntityDescriptorEnum.AssertThat, entity))
-					throw new AssertionError((AssertThat) entity, subject, visitor);
-				else
-					throw new AssumptionError((AssumeThat) entity, subject, visitor);
-			}
+			if (!result)
+				throw new TestsException(entity, subject, constraint, getBindings());
 		} finally {
 			ts.rollback();
 			getBindings().wExitScope();
@@ -333,7 +320,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			entity.get(i).accept(this);
 			visitors[i] = getResultVisitor();
 		}
-		setResultVisitor(GenericTraversalFactory.instance.all(visitors));
+		setResultVisitor(GenericTraversalFactory.instance.all(visitors).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(AnyOf entity) {
@@ -343,72 +330,72 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			entity.get(i).accept(this);
 			visitors[i] = getResultVisitor();
 		}
-		setResultVisitor(GenericTraversalFactory.instance.one(visitors));
+		setResultVisitor(GenericTraversalFactory.instance.one(visitors).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(Not entity) {
 		entity.getConstraint().accept(this);
-		setResultVisitor(GenericTraversalFactory.instance.not(getResultVisitor()));
+		setResultVisitor(GenericTraversalFactory.instance.not(getResultVisitor()).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Equals entity) {
-		setResultVisitor(TestsMatcherFactory.instance.equals(applyFilterRule(evaluate(entity.getObject(), false))));
+		setResultVisitor(TestsMatcherFactory.instance.equals(applyFilterRule(evaluate(entity.getObject(), false))).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(Matches entity) {
-		setResultVisitor(GenericMatcherFactory.instance.match(applyFilterRule(evaluate(entity.getObject(), false))));
+		setResultVisitor(GenericMatcherFactory.instance.match(applyFilterRule(evaluate(entity.getObject(), false))).withSourceEntity(entity));
 	}
 
 	@Override
 	public void visit(Same entity) {
 		entity.getObject().accept(this);
-		setResultVisitor(TestsMatcherFactory.instance.same(evaluate(entity.getObject(), false)));
+		setResultVisitor(TestsMatcherFactory.instance.same(evaluate(entity.getObject(), false)).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(HasKind entity) {
 		EntityKinds kind = EntityKinds.valueOf(entity.getKind().getValue().getName());
-		setResultVisitor(GenericMatcherFactory.instance.hasKindMatcher(kind));
+		setResultVisitor(GenericMatcherFactory.instance.hasKindMatcher(kind).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(HasType entity) {
-		setResultVisitor(GenericMatcherFactory.instance.hasTypeMatcher(entity.getDescriptorName().getValue()));
+		setResultVisitor(GenericMatcherFactory.instance.hasTypeMatcher(entity.getDescriptorName().getValue()).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(IsAssignableTo entity) {
 		String edName = entity.getDescriptorName().getValue();
-		setResultVisitor(GenericMatcherFactory.instance.isPlatformSubtypeOfMatcher(edName));
+		setResultVisitor(GenericMatcherFactory.instance.isPlatformSubtypeOfMatcher(edName).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(IsDef entity) {
 		IVisitor v = TestsMatcherFactory.instance.defined();
-		v.setBindings(getBindings());
+		v.withSourceEntity(entity).setBindings(getBindings());
 		setResultVisitor(v);
 	}
 	@Override
 	public void visit(IsUndef entity) {
-		IVisitor v = TestsMatcherFactory.instance.defined();
-		v.setBindings(getBindings());
-		setResultVisitor(GenericTraversalFactory.instance.not(v));
+		IVisitor v = GenericTraversalFactory.instance.not(TestsMatcherFactory.instance.defined());
+		v.withSourceEntity(entity).setBindings(getBindings());
+		setResultVisitor(v);
 	}
 	@Override
 	public void visit(IsFalse entity) {
-		setResultVisitor(TestsMatcherFactory.instance.equalsValue(false));
+		setResultVisitor(TestsMatcherFactory.instance.equalsValue(false).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(IsTrue entity) {
-		setResultVisitor(TestsMatcherFactory.instance.equalsValue(true));
+		setResultVisitor(TestsMatcherFactory.instance.equalsValue(true).withSourceEntity(entity));
 	}
 	@Override
 	public void visit(Throws entity) {
 		String className = entity.getThrowableType().getValue();
 		IVisitor v = TestsMatcherFactory.instance.hasThrown(className);
-		v.setBindings(getBindings());
+		v.withSourceEntity(entity).setBindings(getBindings());
 		setResultVisitor(v);
 	}
 	@Override
 	public void visit(IsNull entity) {
-		setResultVisitor(TestsMatcherFactory.instance.isNull());
+		setResultVisitor(TestsMatcherFactory.instance.isNull().withSourceEntity(entity));
 	}
 	@Override
 	public void visit(Comment entity) {
@@ -437,33 +424,5 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			throw new MissingVariableException(name).withSourceEntity(entity).withBindings(getBindings());
 		else
 			setResult(result);
-	}
-
-	protected class AssertionError extends java.lang.AssertionError {
-		private static final long serialVersionUID = 1L;
-		private final AssertThat assertion;
-
-		public AssertionError(AssertThat assertion, IEntity subject, IVisitor constraint) {
-			super(TestsHelpers.formatMessage(getBindings(), subject, constraint));
-			this.assertion = assertion;
-		}
-		
-		public AssertThat getAssertion() {
-			return assertion;
-		}
-	}
-
-	protected class AssumptionError extends java.lang.AssertionError {
-		private static final long serialVersionUID = 1L;
-		private final AssumeThat assumption;
-		
-		public AssumptionError(AssumeThat assumption, IEntity subject, IVisitor constraint) {
-			super(TestsHelpers.formatMessage(getBindings(), subject, constraint));
-			this.assumption = assumption;
-		}
-		
-		public AssumeThat getAssumption() {
-			return assumption;
-		}
 	}
 }
