@@ -147,18 +147,13 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 				return false;
 			}
 		}
-		switch (entity.wGetEntityKind()) {
-		case SIMPLE:
-		case COMPOSITE:
-		case DATA:
-			if (entity.wGetEntityDescriptor().equals(adapteeEd))
-				return true;
-			else {
-				BehaviorUtils.evaluate(adaptee, 0, op);
-				return false;
-			}
+
+		if (entity.wGetEntityDescriptor().equals(adapteeEd))
+			return true;
+		else {
+			BehaviorUtils.evaluate(adaptee, 0, op);
+			return false;
 		}
-		return false;
 	}
 
 	public static final IEntity evaluate(Variable variable, IBindingManager bm) {

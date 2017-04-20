@@ -40,13 +40,12 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		//TODO return iterator in result entity value
 
 		IBindingScope re = op.getResultsScope();
-		IEntity result = re.getResult();
-		if (result != null) {
-	    	Object rv = result.wGetValue();
+		if (re.hasResultIterator())
+			re.getResultIterator().setBindings(bm);
+		else {
+	    	Object rv = re.getResult().wGetValue();
 	    	if (rv instanceof IVisitor)
 	    		((IVisitor) rv).setBindings(bm);
-		} else {
-			re.getResultIterator().setBindings(bm);
 		}
 		return re;
 	}

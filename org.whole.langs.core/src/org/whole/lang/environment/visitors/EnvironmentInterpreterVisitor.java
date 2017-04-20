@@ -30,44 +30,44 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public class EnvironmentInterpreterVisitor extends EnvironmentIdentityDefaultVisitor {
-		@Override
-		public void visit(IEnvironmentEntity entity) {
-			setResult(EntityUtils.clone(entity));
-		}
+    @Override
+	public void visit(IEnvironmentEntity entity) {
+		setResult(EntityUtils.clone(entity));
+	}
 
-		@Override
-		public void visit(Bindings entity) {
-			IBindingManager bm = getBindings();
-			IEntity selfEntity = bm.wGet("self");
-			for (int i = 0; i < entity.wSize(); i++) {
-				Binding binding = entity.get(i);
-				binding.accept(this);
-//							if (!binding.getName().getValue().equals("self")) {
-					if (bm.wGet("self") != selfEntity)
-						if (bm.wIsSet("self"))
-							bm.wSet("self", selfEntity);
-						else
-							bm.wDef("self", selfEntity);	
-//							}
+	@Override
+	public void visit(Bindings entity) {
+		IBindingManager bm = getBindings();
+		IEntity selfEntity = bm.wGet("self");
+		for (int i = 0; i < entity.wSize(); i++) {
+			Binding binding = entity.get(i);
+			binding.accept(this);
+//			if (!binding.getName().getValue().equals("self")) {
+			if (bm.wGet("self") != selfEntity)
+				if (bm.wIsSet("self"))
+					bm.wSet("self", selfEntity);
+				else
+					bm.wDef("self", selfEntity);	
+//			}
 			}
 		}
 
-		@Override
-		public void visit(Binding entity) {
-			entity.getName().accept(this);
-			String name = getResult().wStringValue();
-			//TODO test
-			if (name.equals("self"))
-				name = "self";
-			
-			entity.getValue().accept(this);
-			
-			IBindingManager bm = getBindings();
-			bm.wDef(name, BehaviorUtils.evaluateResult(bm));
-		}
-
-		@Override
-		public void visit(Value entity) {
-			setResult(entity.getValue());
-		}
+	@Override
+	public void visit(Binding entity) {
+		entity.getName().accept(this);
+		String name = getResult().wStringValue();
+		//TODO test
+		if (name.equals("self"))
+			name = "self";
+		
+		entity.getValue().accept(this);
+		
+		IBindingManager bm = getBindings();
+		bm.wDef(name, BehaviorUtils.evaluateResult(bm));
 	}
+
+	@Override
+	public void visit(Value entity) {
+		setResult(entity.getValue());
+	}
+}
