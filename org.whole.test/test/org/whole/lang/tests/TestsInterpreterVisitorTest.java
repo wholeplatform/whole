@@ -47,7 +47,10 @@ public class TestsInterpreterVisitorTest {
 	@Test
 	public void testInterpreter() throws Exception {
 		TestSuite testSuite = new TestSuiteCompleted().create();
-		Assert.assertTrue(InterpreterOperation.interpret(testSuite).getResult().wBooleanValue());
+		IEntity result = InterpreterOperation.interpret(testSuite).getResult();
+		Assert.assertEquals(1, result.wGet(0).wIntValue());
+		Assert.assertEquals(0, result.wGet(1).wIntValue());
+		Assert.assertEquals(0, result.wGet(2).wIntValue());
 	}
 
 	@Test
@@ -58,7 +61,15 @@ public class TestsInterpreterVisitorTest {
 		IBindingManager bm = BindingManagerFactory.instance.createArguments();
 		bm.wDefValue("learnMode", true);
 		bm.wDefValue("learnCycles", 2);
-		Assert.assertTrue(InterpreterOperation.interpret(testSuiteToComplete, bm).getResult().wBooleanValue());
+		IEntity result = InterpreterOperation.interpret(testSuiteToComplete, bm).getResult();
+		Assert.assertEquals(1, result.wGet(0).wIntValue());
+		Assert.assertEquals(0, result.wGet(1).wIntValue());
+		Assert.assertEquals(0, result.wGet(2).wIntValue());
+
+		result = InterpreterOperation.interpret(testSuiteCompleted).getResult();
+		Assert.assertEquals(1, result.wGet(0).wIntValue());
+		Assert.assertEquals(0, result.wGet(1).wIntValue());
+		Assert.assertEquals(0, result.wGet(2).wIntValue());
 
 		// remove timestamps from both the models
 		IEntityIterator<IEntity> iterator = IteratorFactory.descendantOrSelfMatcherIterator()
