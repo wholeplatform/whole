@@ -1,6 +1,7 @@
 package org.whole.lang.tests.visitors;
 
 import static org.whole.lang.tests.reflect.TestsEntityDescriptorEnum.*;
+import static org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -8,8 +9,9 @@ import java.util.Map;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.ITransactionScope;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.iterators.AbstractPatternFilterIterator;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.GenericMatcherFactory;
@@ -21,6 +23,7 @@ import org.whole.lang.operations.OperationCanceledException;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Path;
 import org.whole.lang.reflect.EntityKinds;
+import org.whole.lang.tests.factories.TestsEntityFactory;
 import org.whole.lang.tests.matchers.TestsMatcherFactory;
 import org.whole.lang.tests.model.AfterTest;
 import org.whole.lang.tests.model.AfterTestCase;
@@ -49,6 +52,10 @@ import org.whole.lang.tests.model.IsTrue;
 import org.whole.lang.tests.model.IsUndef;
 import org.whole.lang.tests.model.Matches;
 import org.whole.lang.tests.model.Not;
+import org.whole.lang.tests.model.Outcome;
+import org.whole.lang.tests.model.OutcomeEnum;
+import org.whole.lang.tests.model.Result;
+import org.whole.lang.tests.model.Results;
 import org.whole.lang.tests.model.Same;
 import org.whole.lang.tests.model.Sequence;
 import org.whole.lang.tests.model.StringLiteral;
@@ -73,8 +80,6 @@ import org.whole.lang.visitors.MissingVariableException;
  * @author Enrico Persiani
  */
 public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
-	protected static final IEntity UNDEF_VALUE = BindingManagerFactory.instance.createValue((Object) null);
-
 	@Override
 	public InterpreterOperation getOperation() {
 		return (InterpreterOperation) super.getOperation();
@@ -121,10 +126,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 	@Override
 	public void visit(TestSuite entity) {
-		boolean testSuiteSuccess = true;
+		Results results = TestsEntityFactory.instance.createResults();
 		printWriter().printf("=== %s test suite ===\n\n", entity.getName().getValue());
 
-		getBindings().wDef("lastVisitedStatement", UNDEF_VALUE);
 		getBindings().wDefValue("filterRulesMap", TestsHelpers.createFilterRulesMap(entity));
 		TestCases testCases = entity.getTestCases();
 
@@ -133,50 +137,68 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			if (getBindings().wIsSet("runSingleTest") && getBindings().wGet("runSingleTest").wGetParent().wGetParent() != testCase)
 				continue;
 			testCase.accept(this);
-			testSuiteSuccess &= getResult().wBooleanValue();
-		}
 
-		setResult(BindingManagerFactory.instance.createValue(testSuiteSuccess));
+			Results testCaseResults = (Results) getResult();
+			results.getErrors().setValue(results.getErrors().getValue() + testCaseResults.getErrors().getValue());
+			results.getFailures().setValue(results.getFailures().getValue() + testCaseResults.getFailures().getValue());
+			results.getSuccesses().setValue(results.getSuccesses().getValue() + testCaseResults.getSuccesses().getValue());
+		}
+		entity.setActualResults(results);
+		setResult(results);
 	}
 
 	@Override
 	public void visit(TestCase entity) {
 		String name = entity.getName().getValue();
-		boolean testCaseSuccess = true;
+		Results results = TestsEntityFactory.instance.createResults();
 		printWriter().printf("* %s test case running:\n\n", name);
 		try {
-			// execute all BeforeTestCase
-			AbstractPatternFilterIterator<BeforeTestCase> i1 = IteratorFactory.<BeforeTestCase>childMatcherIterator()
-					.withPattern(BeforeTestCase);
-			i1.reset(entity.getAspects());
-			for (BeforeTestCase beforeTestCase : i1)
+			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
+			beforeIterator.reset(entity.getAspects());
+			for (BeforeTestCase beforeTestCase : beforeIterator)
 				beforeTestCase.accept(this);
 
-			// execute all tests
 			Tests tests = entity.getTests();
 			for (int i = 0; i < tests.wSize(); i++) {
 				Test test = tests.get(i);
 				if (getBindings().wIsSet("runSingleTest") && getBindings().wGet("runSingleTest") != test)
 					continue;
 				test.accept(this);
-				testCaseSuccess &= getResult().wBooleanValue();
+
+				IntLiteral result = null;
+				switch (getResult().wGet(outcome).wEnumValue().getOrdinal()) {
+				case OutcomeEnum.ERROR_ord:
+					result = results.getErrors();
+					break;
+				case OutcomeEnum.FAILURE_ord:
+					result = results.getErrors();
+					break;
+				case OutcomeEnum.SUCCESS_ord:
+					result = results.getSuccesses();
+					break;
+				default:
+					throw new WholeIllegalArgumentException("unsupported outcome");
+				}
+				result.setValue(result.getValue() + 1);
 			}
 
-			// execute all AfterTestCase
-			AbstractPatternFilterIterator<AfterTestCase> i2 = IteratorFactory.<AfterTestCase>childMatcherIterator()
-					.withPattern(AfterTestCase);
-			i2.reset(entity.getAspects());
-			for (AfterTestCase afterTestCase : i2)
+			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
+			afterIterator.reset(entity.getAspects());
+			for (AfterTestCase afterTestCase : afterIterator)
 				afterTestCase.accept(this);
 
+			boolean testCaseSuccess = results.getErrors().getValue() + results.getFailures().getValue() == 0;
 			printWriter().printf("\n* %s test case %s\n", name, testCaseSuccess ? "OK" : "FAILED");
 		} catch (OperationCanceledException e) {
 			throw e;
 		} catch (RuntimeException e) {
-			testCaseSuccess = false;
 			reportError(name, e);
+			results.getErrors().setValue(entity.getTests().wSize());
+			results.getFailures().setValue(0);
+			results.getSuccesses().setValue(0);
 		}
-		setResult(BindingManagerFactory.instance.createValue(testCaseSuccess));
+		entity.setActualResults(results);
+		setResult(results);
 	}
 
 	@Override
@@ -185,34 +207,39 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		getBindings().wEnterScope(ts);
 
 		String name = entity.getName().getValue();
-		boolean testSuccess = false;
+		Outcome outcome = TestsEntityFactory.instance.createOutcome(OutcomeEnum.SUCCESS);
+		StringLiteral location = CommonsEntityAdapterFactory.createResolver(StringLiteral);
+		StringLiteral cause = CommonsEntityAdapterFactory.createResolver(StringLiteral);
+		Result result = TestsEntityFactory.instance.createResult(outcome, location, cause);
 		try {
-			// execute all BeforeTest
 			for (BeforeTest beforeTest : BehaviorUtils.<BeforeTest>compileAndLazyEvaluate(createAspectPath("BeforeTest"), entity))
 				beforeTest.accept(this);
 
 			entity.getBody().accept(this);
 
-			// execute all AfterTest
 			for (AfterTest afterTest : BehaviorUtils.<AfterTest>compileAndLazyEvaluate(createAspectPath("AfterTest"), entity))
 				afterTest.accept(this);
 
 			printWriter().printf("    %32s(...) OK\n", name);
-			testSuccess = true;
-		} catch (TestsException e) {
-			reportFailure(name, e);
 		} catch (OperationCanceledException e) {
 			throw e;
+		} catch (TestsException e) {
+			outcome.wSetValue(OutcomeEnum.FAILURE);
+			location.setValue(EntityUtils.getLocation(entity));
+			cause.setValue(e.getMessage());
+			reportFailure(name, e);
 		} catch (RuntimeException e) {
-			IEntity statement = getBindings().wIsSet("lastVisitedStatement") ? getBindings().wGet("lastVisitedStatement") : null;
-			RuntimeException wre = IWholeRuntimeException.asWholeException(e, statement, getBindings());
-			reportError(name, wre);
+			outcome.wSetValue(OutcomeEnum.ERROR);
+			location.setValue(EntityUtils.getLocation(entity));
+			cause.setValue(e.getMessage());
+			reportError(name, e);
 		} finally {
 			ts.rollback();
 			getBindings().wExitScope();
 		}
 
-		setResult(BindingManagerFactory.instance.createValue(testSuccess));
+		entity.setActualResult(result);
+		setResult(result);
 	}
 
 	protected void reportFailure(String name, TestsException e) {
@@ -224,9 +251,9 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		StringWriter writer = new StringWriter();
 		e.printStackTrace(new PrintWriter(writer));
 		printWriter().printf("    %32s(...) ERRORS: %s", name, writer.toString());
-		IEntity statement = getBindings().wGet("lastVisitedStatement");
-		if (statement != UNDEF_VALUE)
-			printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(statement));
+		IWholeRuntimeException wre = (IWholeRuntimeException) e;
+		if (wre.getSourceEntity() != null)
+			printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(wre.getSourceEntity()));
 	}
 
 	@Override
@@ -235,7 +262,6 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			handleCancelRequest();
 
 			TestStatement statement = entity.get(i);
-			getBindings().wDef("lastVisitedStatement", statement);
 			statement.accept(this);
 		}
 	}
@@ -280,8 +306,6 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			else
 				throw e;
 		}
-
-//		return entity == null ? CommonsEntityFactory.instance.createResolver() : entity;
 		return entity == null ? NullEntity.instance : entity;
 	}
 	protected IVisitor evaluate(Constraint constraint) {
