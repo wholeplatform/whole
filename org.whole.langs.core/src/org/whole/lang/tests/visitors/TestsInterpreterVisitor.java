@@ -143,7 +143,10 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			results.getFailures().setValue(results.getFailures().getValue() + testCaseResults.getFailures().getValue());
 			results.getSuccesses().setValue(results.getSuccesses().getValue() + testCaseResults.getSuccesses().getValue());
 		}
-		entity.setActualResults(results);
+		if (EntityUtils.isResolver(entity.getExpectedResults()))
+			entity.setExpectedResults(EntityUtils.clone(results));
+		if (!Matcher.match(results, entity.getActualResults()))
+			entity.setActualResults(results);
 		setResult(results);
 	}
 
@@ -197,7 +200,10 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			results.getFailures().setValue(0);
 			results.getSuccesses().setValue(0);
 		}
-		entity.setActualResults(results);
+		if (EntityUtils.isResolver(entity.getExpectedResults()))
+			entity.setExpectedResults(EntityUtils.clone(results));
+		if (!Matcher.match(results, entity.getActualResults()))
+			entity.setActualResults(results);
 		setResult(results);
 	}
 
@@ -238,7 +244,10 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			getBindings().wExitScope();
 		}
 
-		entity.setActualResult(result);
+		if (EntityUtils.isResolver(entity.getExpectedResult()))
+			entity.setExpectedResult(EntityUtils.clone(result));
+		if (!Matcher.match(result, entity.getActualResult()))
+			entity.setActualResult(result);
 		setResult(result);
 	}
 
