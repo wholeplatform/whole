@@ -559,8 +559,8 @@ public class WorkflowsInterpreterVisitor extends WorkflowsTraverseAllVisitor {
 		//TODO remove ?
 		if (Matcher.matchImpl(WorkflowsEntityDescriptorEnum.Name, entity.getTemplate())) {
 			IEntityIterator<IEntity> tii = QueriesIteratorFactory.templateInterpreterIterator(getResult());
-			tii.reset(entity);
 			tii.setBindings(getBindings());
+			tii.reset(entity);
 			model = tii.next();
 		}
 
