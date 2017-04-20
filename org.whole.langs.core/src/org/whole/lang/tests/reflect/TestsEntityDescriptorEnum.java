@@ -196,7 +196,7 @@ public class TestsEntityDescriptorEnum extends EntityDescriptorEnum {
         putCompositeEntity(AllOf_ord, "AllOf", AllOf.class, false, Constraint_ord, true, false);
         putCompositeEntity(AnyOf_ord, "AnyOf", AnyOf.class, false, Constraint_ord, true, false);
         putSimpleEntity(Results_ord, "Results", Results.class, false).withFeature(TestsFeatureDescriptorEnum.successes, IntLiteral_ord).withFeature(TestsFeatureDescriptorEnum.failures, IntLiteral_ord).withFeature(TestsFeatureDescriptorEnum.errors, IntLiteral_ord);
-        putSimpleEntity(Result_ord, "Result", Result.class, false).withFeature(TestsFeatureDescriptorEnum.outcome, Outcome_ord).withFeature(TestsFeatureDescriptorEnum.location, StringLiteral_ord).withFeature(TestsFeatureDescriptorEnum.cause, StringLiteral_ord);
+        putSimpleEntity(Result_ord, "Result", Result.class, false).withFeature(TestsFeatureDescriptorEnum.outcome, Outcome_ord).withFeature(TestsFeatureDescriptorEnum.location, StringLiteral_ord, true, false, false, false, false).withFeature(TestsFeatureDescriptorEnum.cause, StringLiteral_ord, true, false, false, false, false);
         putDataEntity(Outcome_ord, "Outcome", Outcome.class, false, OutcomeEnum.Value.class);
         putSimpleEntity(Expression_ord, "Expression", Expression.class, true, IntLiteral_ord, Sequence_ord, StringLiteral_ord, BooleanLiteral_ord, DataName_ord);
         putDataEntity(BooleanLiteral_ord, "BooleanLiteral", BooleanLiteral.class, false, boolean.class);

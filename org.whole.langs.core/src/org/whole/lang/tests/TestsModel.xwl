@@ -749,13 +749,17 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="StringLiteral"/>
                     <models:SimpleName value="location"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:FeatureModifiers initialCapacity="1">
+                        <models:FeatureModifier value="optional"/>
+                    </models:FeatureModifiers>
                     <models:SimpleName value="StringLiteral"/>
                     <models:SimpleName value="cause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
