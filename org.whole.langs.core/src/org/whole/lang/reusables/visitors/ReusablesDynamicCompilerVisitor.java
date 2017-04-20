@@ -34,12 +34,17 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.model.Classpath;
+import org.whole.lang.reusables.model.Contents;
 import org.whole.lang.reusables.model.FileSystem;
+import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Load;
 import org.whole.lang.reusables.model.PathName;
+import org.whole.lang.reusables.model.PathSegments;
+import org.whole.lang.reusables.model.PathWithExtension;
 import org.whole.lang.reusables.model.PersistenceId;
 import org.whole.lang.reusables.model.Save;
+import org.whole.lang.reusables.model.URI;
 import org.whole.lang.reusables.model.URL;
 import org.whole.lang.reusables.model.Workspace;
 import org.whole.lang.util.EntityUtils;
@@ -153,24 +158,139 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 	}
 
 	@Override
+	public void visit(Contents entity) {
+	   	int size = entity.wSize();
+    	if (size == 1)
+    		entity.get(0).accept(this);
+    	else {
+			IEntityIterator<? extends IEntity>[] contentIterators = new IEntityIterator<?>[size];
+
+	    	for (int i=0; i<size; i++) {
+				entity.get(i).accept(this);
+				contentIterators[i] = getResultIterator();
+			}
+
+	    	setResultIterator(IteratorFactory.sequenceIterator(contentIterators).withSourceEntity(entity));
+    	}
+	}
+
+	@Override
+	public void visit(Folder entity) {
+		entity.getPath().accept(this);
+		IEntityIterator<?> pathIterator = getResultIterator();
+
+//TODO		entity.getPersistence();
+
+		entity.getContent().accept(this);
+		IEntityIterator<?> contentIterator = getResultIterator();
+
+		setResultIterator(IteratorFactory.composeIterator(
+				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+						bm.setResult(BindingManagerFactory.instance.createValue(
+								appendSegment(
+										arguments[0].wStringValue(),
+										selfEntity.wStringValue())));
+					}
+				}, pathIterator).withSourceEntity(entity), contentIterator));
+	}
+
+	@Override
+	public void visit(org.whole.lang.reusables.model.File entity) {
+		entity.getPath().accept(this);
+		IEntityIterator<?> pathIterator = getResultIterator();
+
+//TODO		entity.getPersistence();
+
+		setResultIterator(IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+						bm.setResult(BindingManagerFactory.instance.createValue(
+								arguments[0].wStringValue()));
+					}
+				}, pathIterator).withSourceEntity(entity));
+	}
+
+	@Override
+	public void visit(PathSegments entity) {
+	   	int size = entity.wSize();
+    	if (size == 1)
+    		entity.get(0).accept(this);
+    	else {
+			IEntityIterator<? extends IEntity>[] segmentIterators = new IEntityIterator<?>[size];
+
+	    	for (int i=0; i<size; i++) {
+				entity.get(i).accept(this);
+				segmentIterators[i] = getResultIterator();
+			}
+
+			setResultIterator(IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+				if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+					StringBuilder sb = new StringBuilder();
+					
+					for (IEntity pathSegment : arguments)
+						appendSegment(sb, pathSegment.wStringValue());
+
+					bm.setResult(BindingManagerFactory.instance.createValue(sb.toString()));
+				}
+			}, segmentIterators).withSourceEntity(entity));
+    	}
+	}
+
+	@Override
+	public void visit(PathWithExtension entity) {
+		entity.getPath().accept(this);
+		IEntityIterator<?> pathIterator = getResultIterator();
+
+		entity.getExtension().accept(this);
+		IEntityIterator<?> extensionIterator = getResultIterator();
+
+		setResultIterator(IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+			if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
+				bm.setResult(BindingManagerFactory.instance.createValue(
+						arguments[0].wStringValue() + '.' + arguments[1].wStringValue()));
+			}
+		}, pathIterator, extensionIterator).withSourceEntity(entity));
+	}
+
+	@Override
 	public void visit(PathName entity) {
-		setResult(BindingManagerFactory.instance.createValue(
-				entity.getValue()), entity);
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()), entity);
 	}
 
 	@Override
 	public void visit(PersistenceId entity) {
 		String persistenceKitId = entity.getValue();
 
-		setResultIterator(
-				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+		setResultIterator(IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
 					if (!ReflectionFactory.hasPersistenceKit(persistenceKitId))
 						throw new WholeIllegalArgumentException("The Persistence is not deployed: "+persistenceKitId)
 						.withSourceEntity(entity).withBindings(bm);
 
-					bm.setResult(BindingManagerFactory.instance.createValue(ReflectionFactory.getPersistenceKit(persistenceKitId)));
+					bm.setResult(BindingManagerFactory.instance.createValue(
+							ReflectionFactory.getPersistenceKit(persistenceKitId)));
 				}).withSourceEntity(entity));
 	}
 
-	
+	@Override
+	public void visit(URI entity) {
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()), entity);
+	}
+
+	public static String appendSegment(String path, String segment) {
+		StringBuilder sb = new StringBuilder(path);
+		appendSegment(sb, segment);
+		return sb.toString();
+	}
+	public static void appendSegment(StringBuilder sb, String segment) {
+		int length = sb.length();
+		if (length == 0)
+			sb.append(segment);
+		else if (sb.charAt(length-1) == '/')
+			sb.append(segment.startsWith("/") ? segment.substring(1) : segment);
+		else {
+			if (!segment.startsWith("/"))
+				sb.append('/');
+			sb.append(segment);
+		}
+	}
 }

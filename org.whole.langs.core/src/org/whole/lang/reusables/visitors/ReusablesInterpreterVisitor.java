@@ -22,7 +22,6 @@ import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reu
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
@@ -32,28 +31,19 @@ import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.DynamicCompilerOperation;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.IResource;
 import org.whole.lang.resources.IResourceRegistry;
 import org.whole.lang.resources.ResourceRegistry;
 import org.whole.lang.reusables.factories.ReusablesEntityFactory;
 import org.whole.lang.reusables.model.Adapt;
-import org.whole.lang.reusables.model.Contents;
-import org.whole.lang.reusables.model.Folder;
 import org.whole.lang.reusables.model.IReusablesEntity;
 import org.whole.lang.reusables.model.Include;
 import org.whole.lang.reusables.model.Model;
-import org.whole.lang.reusables.model.Path;
-import org.whole.lang.reusables.model.PathName;
-import org.whole.lang.reusables.model.PathSegments;
-import org.whole.lang.reusables.model.PathWithExtension;
-import org.whole.lang.reusables.model.PersistenceId;
 import org.whole.lang.reusables.model.Registry;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.model.Reuse;
 import org.whole.lang.reusables.model.Sync;
-import org.whole.lang.reusables.model.URI;
 import org.whole.lang.reusables.operations.EvaluateCloneOperation;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.util.BehaviorUtils;
@@ -131,10 +121,18 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
     	case ReusablesEntityDescriptorEnum.FileSystem_ord:
     	case ReusablesEntityDescriptorEnum.Workspace_ord:
     	case ReusablesEntityDescriptorEnum.URL_ord:
+    	case ReusablesEntityDescriptorEnum.File_ord:
+    	case ReusablesEntityDescriptorEnum.PathSegments_ord:
+    	case ReusablesEntityDescriptorEnum.PathWithExtension_ord:
     	case ReusablesEntityDescriptorEnum.PathName_ord:
     	case ReusablesEntityDescriptorEnum.PersistenceId_ord:
+    	case ReusablesEntityDescriptorEnum.URI_ord:
     		DynamicCompilerOperation.compile(entity, getBindings());
     		BehaviorUtils.evaluateResult(getBindings());
+    		return;
+    	case ReusablesEntityDescriptorEnum.Contents_ord:
+    	case ReusablesEntityDescriptorEnum.Folder_ord:
+    		DynamicCompilerOperation.compile(entity, getBindings());
     		return;
     	}
 
@@ -306,97 +304,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 	}
 
 	@Override
-	public void visit(URI entity) {
-		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
-	}
-
-	@Override
 	public void visit(Model entity) {
 		entity.getContent().accept(this);
-	}
-
-	@Override
-	public void visit(Contents entity) {
-	   	int size = entity.wSize();
-    	if (size == 1)
-    		entity.get(0).accept(this);
-    	else {
-			IEntityIterator<? extends IEntity>[] iteratorChain = new IEntityIterator<?>[size];
-			
-	    	for (int i=0; i<size; i++) {
-				entity.get(i).accept(this);
-				iteratorChain[i] = getResultIterator();
-			}
-	
-	    	setResultIterator(IteratorFactory.sequenceIterator(iteratorChain).withSourceEntity(entity));
-    	}
-	}
-
-	@Override
-	public void visit(Folder entity) {
-		entity.getPath().accept(this);
-		String path = getResult().wStringValue();
-
-//TODO		entity.getPersistence();
-
-		entity.getContent().accept(this);
-
-		setResultIterator(IteratorFactory.composeIterator(
-				IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-					if (!BindingManagerFactory.instance.isVoid(selfEntity)) {
-						bm.setResult(BindingManagerFactory.instance.createValue(
-								appendSegment(path, selfEntity.wStringValue())));
-					}
-				}).withSourceEntity(entity), getResultIterator()));
-	}
-
-	@Override
-	public void visit(org.whole.lang.reusables.model.File entity) {
-		entity.getPath().accept(this);
-		String path = getResult().wStringValue();
-
-//TODO		entity.getPersistence();
-
-		setResult(BindingManagerFactory.instance.createValue(path));
-	}
-
-	@Override
-	public void visit(PathWithExtension entity) {
-		entity.getPath().accept(this);
-		String path = getResult().wStringValue();
-
-		entity.getExtension().accept(this);
-		String extension = getResult().wStringValue();
-
-		setResult(BindingManagerFactory.instance.createValue(path + '.' + extension));
-	}
-
-	@Override
-	public void visit(PathSegments entity) {
-		StringBuilder sb = new StringBuilder();
-		
-		for (Path pathSegment : entity) {
-			pathSegment.accept(this);
-			appendSegment(sb, getResult().wStringValue());
-		}
-		setResult(BindingManagerFactory.instance.createValue(sb.toString()));
-	}
-
-	public static String appendSegment(String path, String segment) {
-		StringBuilder sb = new StringBuilder(path);
-		appendSegment(sb, segment);
-		return sb.toString();
-	}
-	public static void appendSegment(StringBuilder sb, String segment) {
-		int length = sb.length();
-		if (length == 0)
-			sb.append(segment);
-		else if (sb.charAt(length-1) == '/')
-			sb.append(segment.startsWith("/") ? segment.substring(1) : segment);
-		else {
-			if (!segment.startsWith("/"))
-				sb.append('/');
-			sb.append(segment);
-		}
 	}
 }
