@@ -162,7 +162,7 @@ public class TestsHelpers {
 		else
 			sb.append(PrettyPrinterOperation.toPrettyPrintString(subject).replaceFirst(StringUtils.EOL_REGEXP+"+$", ""));
 		sb.append(" ");
-		sb.append(constraint.toString());
+		sb.append(PrettyPrinterOperation.toPrettyPrintString(constraint.getSourceEntity()));
 		return sb.toString();
 	}
 
