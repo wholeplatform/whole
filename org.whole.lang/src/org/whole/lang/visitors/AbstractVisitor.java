@@ -27,6 +27,7 @@ import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.OperationCanceledException;
+import org.whole.lang.util.BehaviorUtils;
 
 /**
  * @author Riccardo Solmi
@@ -88,6 +89,9 @@ public abstract class AbstractVisitor implements IVisitor {
 		getBindings().setResultIterator(entityIterator);
 	}
 	public IEntity getResult() {
+    	if (isResultIterator())
+    		BehaviorUtils.evaluateResult(getBindings());
+
 		return getBindings().getResult();
 	}
 	public void setResult(IEntity entity) {

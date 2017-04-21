@@ -112,20 +112,18 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 				return false;
 			}
 		}
-		switch (entity.wGetEntityKind()) {
-		case SIMPLE:
-		case COMPOSITE:
-		case DATA:
-			if (entity.wGetEntityDescriptor().equals(adapteeEd))
-				return true;
-			else {
-				op.stagedVisit(adaptee, 0);
-				return false;
-			}
+
+		if (entity.wGetEntityDescriptor().equals(adapteeEd))
+			return true;
+		else {
+			op.stagedVisit(adaptee, 0);
+			return false;
 		}
-		return false;
 	}
 	public static final boolean evaluateAdapter(IEntityAdapter entity, IOperation op) {
+//TODO test
+//		return visitAdapter(entity, op);
+
 		IEntity adaptee = entity.wGetAdaptee(false);
 		EntityDescriptor<?> adapteeEd = adaptee.wGetEntityDescriptor();
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {

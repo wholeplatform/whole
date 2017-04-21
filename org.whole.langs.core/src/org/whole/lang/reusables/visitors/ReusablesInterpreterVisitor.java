@@ -127,9 +127,6 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
     	case ReusablesEntityDescriptorEnum.PathName_ord:
     	case ReusablesEntityDescriptorEnum.PersistenceId_ord:
     	case ReusablesEntityDescriptorEnum.URI_ord:
-    		DynamicCompilerOperation.compile(entity, getBindings());
-    		BehaviorUtils.evaluateResult(getBindings());
-    		return;
     	case ReusablesEntityDescriptorEnum.Contents_ord:
     	case ReusablesEntityDescriptorEnum.Folder_ord:
     		DynamicCompilerOperation.compile(entity, getBindings());

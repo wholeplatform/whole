@@ -45,11 +45,9 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 		super.setResultIterator(iterator);
 	}
 
-    @SuppressWarnings("unchecked")
 	public void visit(IEntity entity) {
 		IEntity adaptee = entity.wGetAdaptee(false);
 		EntityDescriptor<?> ed = adaptee.wGetEntityDescriptor();
-		IEntity result;
 
 		//TODO workaround move into a separate visitor
 		if (ed.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
@@ -68,25 +66,17 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 	        	setResult(null);
 	        	IEntity oldSelfEntity = getBindings().wGet("self");
-//TODO for testing
-//	        	if (oldSelfEntity == null)
-//	        		oldSelfEntity = null;
 	        	final int stageShift0 = -1;
 	        	stagedVisit(adaptee.wGetRoot(), stageShift0);
 
 	        	if (getBindings().wGet("self") != oldSelfEntity)
 	        		getBindings().wDef("self", oldSelfEntity);
 
-	        	//TODO test only
-//	        	if (isResultIterator())
-//	        		result = BehaviorUtils.evaluateResult(getBindings());
-
-	        	result = getResult();
-	        	if (getStage()+stageShift0>0 && result!=null)
+	        	if (getStage()+stageShift0>0 && !isResultIterator())
 	        		setResult(GenericEntityFactory.instance.create(
 		       				CommonsEntityDescriptorEnum.StageDownFragment,
 		       				//CommonsEntityFactory.instance.createStageDownFragment(
-	        				EntityUtils.cloneIfParented(result)
+	        				EntityUtils.cloneIfParented(getResult())
 	        				/*, stageShift0*/));
 	        	return;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
@@ -154,11 +144,8 @@ public class GenericTemplateInterpreterVisitor extends AbstractVisitor {
 			}
 		}
 
-		result = ((InternalIEntity) adaptee).wShallowClone();
+		IEntity result = ((InternalIEntity) adaptee).wShallowClone();
 		IEntity oldSelfEntity2 = getBindings().wGet("self");
-//TODO for testing
-//  	if (oldSelfEntity2 == null)
-//    		oldSelfEntity2 = null;
 
     	for (int i=0; i<result.wSize(); i++) {
     		int resultSize = result.wSize();
