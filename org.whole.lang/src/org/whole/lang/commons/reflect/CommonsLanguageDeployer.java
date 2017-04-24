@@ -61,6 +61,15 @@ public class CommonsLanguageDeployer extends AbstractLanguageDeployer {
 				return new CommonsContentAssistVisitor();
 			}
 		});
+//		platform.addOperationFactory(CommonsLanguageKit.URI, IOperation.ANY_ID,
+//				new IVisitorFactory() {
+//			public IVisitor create(IOperation operation, int stage) {
+//				if (stage == 0)
+//					return new CommonsInterpreterVisitor();
+//				else
+//					return null;
+//			}
+//		});
 		platform.addOperationFactory(CommonsLanguageKit.URI, InterpreterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {

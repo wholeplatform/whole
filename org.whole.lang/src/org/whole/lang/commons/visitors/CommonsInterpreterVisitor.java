@@ -17,6 +17,7 @@
  */
 package org.whole.lang.commons.visitors;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.InlineVariable;
 import org.whole.lang.commons.model.Resolver;
@@ -39,7 +40,6 @@ import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.MissingVariableException;
 import org.whole.lang.visitors.VisitException;
 
@@ -48,16 +48,35 @@ import org.whole.lang.visitors.VisitException;
  */
 public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 	public void visit(RootFragment entity) {
-		stagedVisit(entity.wGetRoot());
+		stagedVisit(entity.wGetRoot(), 0);
 	}
 	public void visit(SameStageFragment entity) {
-		stagedVisit(entity.wGetRoot());
+		stagedVisit(entity.wGetRoot(), 0);
 	}
 	public void visit(StageDownFragment entity) {
 		setResult(null);
 		stagedVisit(entity.wGetRoot(), -1);
 	}
 	public void visit(StageUpFragment entity) {
+//		stagedVisit(entity.wGetRoot(), +1);
+//
+//		if (!isResultIterator()) {
+//			IEntity result = getResult();
+//			//TODO test and remove		
+//			if (result == null)
+//				setResult(result = BindingManagerFactory.instance.createVoid());
+//
+//			if (EntityUtils.hasParent(result))
+//				setResult(EntityUtils.clone(result));
+//		} else {
+//			setResultIterator(IteratorFactory.composeIterator(
+//					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+//						if (!BindingManagerFactory.instance.isVoid(selfEntity))
+//							bm.setResult(EntityUtils.cloneIfParented(selfEntity));
+//					}).withSourceEntity(entity), getResultIterator()));
+//		}
+
+//was	
 		IEntity result = BehaviorUtils.evaluate(entity.wGetRoot(), +1, getOperation());
 		if (result!=null && EntityUtils.hasParent(result))
 			setResult(EntityUtils.clone(result));
@@ -65,9 +84,13 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 	@Override
 	public void visit(Resolver entity) {
-		IEntity parent = entity.wGetParent();
-		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
-			throw new IllegalArgumentException(WholeMessages.no_optional);
+//FIXME defensive setResults
+//		setResult(null);
+
+//TODO move into validator
+//		IEntity parent = entity.wGetParent();
+//		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
+//			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 
 	public void visit(Variable entity) {
@@ -129,12 +152,14 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
 			switch (adapteeEd.getOrdinal()) {
 			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
+//				break;
 				BehaviorUtils.evaluate(entity.wGetRoot(), 0, op);
 				return false;
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
 				BehaviorUtils.evaluate(entity.wGetRoot(), -1, op);
 				return false;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
+//				break;
 				BehaviorUtils.evaluate(entity.wGetRoot(), +1, op);
 				return false;
 			case CommonsEntityDescriptorEnum.Variable_ord:
@@ -142,6 +167,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 				evaluate((Variable) adaptee, op.getOperationEnvironment());
 				return false;
 			case CommonsEntityDescriptorEnum.Resolver_ord:
+//				break;
 				return false;
 			}
 		}
@@ -149,6 +175,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		if (entity.wGetEntityDescriptor().equals(adapteeEd))
 			return true;
 		else {
+//			op.stagedVisit(adaptee, 0);
 			BehaviorUtils.evaluate(adaptee, 0, op);
 			return false;
 		}

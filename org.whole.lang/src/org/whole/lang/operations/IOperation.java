@@ -26,6 +26,8 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public interface IOperation {
+	public static String ANY_ID = "_any_";
+
 	public String getOperationId();
     public IOperation getEnclosingOperation();
 

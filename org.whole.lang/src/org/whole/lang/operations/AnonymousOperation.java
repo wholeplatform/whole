@@ -24,15 +24,15 @@ import org.whole.lang.bindings.IEnvironmentManager;
  * @author Riccardo Solmi
  */
 public class AnonymousOperation extends AbstractOperation {
+	public static final String ID = "AnonymousOperation";
+
 	public AnonymousOperation() {
-		super("AnonymousOperation",
-				BindingManagerFactory.instance.createBindingManager(), true);
+		super(ID, BindingManagerFactory.instance.createBindingManager(), true);
 		getEnvironmentManager().enterOperation(this);
 	}
 	//FIXME test only
 	public AnonymousOperation(IEnvironmentManager env) {
-		super("AnonymousOperation",
-				env.createEnvironment("bm"), true);
+		super(ID, env.createEnvironment("bm"), true);
 		getEnvironmentManager().enterOperation(this);
 	}
 }

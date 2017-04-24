@@ -247,14 +247,20 @@ public abstract class AbstractLanguageKit extends Resource implements InternalIL
     public void addVisitorFactory(String operationId, IVisitorFactory visitorFactory) {
     	visitorMap.put(operationId, visitorFactory);
     }
+    protected IVisitorFactory getVisitorFactory(String operationId) {
+    	IVisitorFactory visitorFactory = visitorMap.get(operationId);
+    	if (visitorFactory == null)
+    		visitorFactory = visitorMap.get(IOperation.ANY_ID);
+    	return visitorFactory;
+    }
 	public boolean hasVisitor(String operationId) {
-		return visitorMap.containsKey(operationId);
+		return visitorMap.containsKey(operationId) || visitorMap.containsKey(IOperation.ANY_ID);
 	}
 	public boolean hasVisitor(IOperation operation) {
 		return hasVisitor(operation.getOperationId());
 	}
 	public IVisitor getVisitor(IOperation operation, int stage) {
-		IVisitorFactory visitorFactory = visitorMap.get(operation.getOperationId());
+		IVisitorFactory visitorFactory = getVisitorFactory(operation.getOperationId());
 		if (visitorFactory == null)
 			throw new IllegalArgumentException("The "+getName()+" language does not support the (visitor) operation "+operation.getOperationId()+".");
 
