@@ -123,6 +123,9 @@ public abstract class AbstractVisitor implements IVisitor {
 	public final void stagedVisit(IEntity entity, int relativeStage) {
 		getOperation().stagedVisit(entity, relativeStage);
 	}
+	public final void stagedVisit(IEntity entity, int relativeStage, String phase) {
+		getOperation().stagedVisit(entity, relativeStage, phase);
+	}
 	public final void stagedDefaultVisit(IEntity entity, int relativeStage) {
 		getOperation().stagedDefaultVisit(entity, relativeStage);
 	}

@@ -19,16 +19,19 @@ package org.whole.lang.commons.visitors;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.model.BaseFragment;
 import org.whole.lang.commons.model.InlineVariable;
 import org.whole.lang.commons.model.Resolver;
 import org.whole.lang.commons.model.RootFragment;
 import org.whole.lang.commons.model.SameStageFragment;
 import org.whole.lang.commons.model.StageDownFragment;
 import org.whole.lang.commons.model.StageUpFragment;
+import org.whole.lang.commons.model.TemplateFragment;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.matchers.SubstituteException;
@@ -36,7 +39,6 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
 import org.whole.lang.util.EntityUtils;
@@ -47,39 +49,61 @@ import org.whole.lang.visitors.VisitException;
  * @author Riccardo Solmi
  */
 public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
+    @Override
+	public void setResultIterator(IEntityIterator<?> iterator) {
+		if (iterator != null)
+			iterator.setBindings(getBindings());
+		super.setResultIterator(iterator);
+	}
+
 	public void visit(RootFragment entity) {
 		stagedVisit(entity.wGetRoot(), 0);
 	}
+
 	public void visit(SameStageFragment entity) {
 		stagedVisit(entity.wGetRoot(), 0);
 	}
+
 	public void visit(StageDownFragment entity) {
 		setResult(null);
 		stagedVisit(entity.wGetRoot(), -1);
 	}
-	public void visit(StageUpFragment entity) {
-//		stagedVisit(entity.wGetRoot(), +1);
-//
-//		if (!isResultIterator()) {
-//			IEntity result = getResult();
-//			//TODO test and remove		
-//			if (result == null)
-//				setResult(result = BindingManagerFactory.instance.createVoid());
-//
-//			if (EntityUtils.hasParent(result))
-//				setResult(EntityUtils.clone(result));
-//		} else {
-//			setResultIterator(IteratorFactory.composeIterator(
-//					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
-//						if (!BindingManagerFactory.instance.isVoid(selfEntity))
-//							bm.setResult(EntityUtils.cloneIfParented(selfEntity));
-//					}).withSourceEntity(entity), getResultIterator()));
-//		}
 
-//was	
-		IEntity result = BehaviorUtils.evaluate(entity.wGetRoot(), +1, getOperation());
-		if (result!=null && EntityUtils.hasParent(result))
-			setResult(EntityUtils.clone(result));
+	public void visit(StageUpFragment entity) {
+		stagedVisit(entity.wGetRoot(), +1);
+
+		if (isResultIterator()) {
+			IEntityIterator<?> templateIterator = getResultIterator();
+			setResultIterator(IteratorFactory.composeIterator(
+					IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {
+						if (!BindingManagerFactory.instance.isVoid(selfEntity))
+							bm.setResult(EntityUtils.cloneIfParented(selfEntity));
+					}).withSourceEntity(entity), templateIterator));
+		} else {
+			IEntity result = getResult();
+
+			if (result!=null && EntityUtils.hasParent(result))
+				setResult(EntityUtils.clone(result));
+		}
+	}
+
+	@Override
+	public void visit(BaseFragment entity) {
+		stagedVisit(entity.wGetRoot(), -1,
+				EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
+	}
+
+	@Override
+	public void visit(TemplateFragment entity) {
+		stagedVisit(entity.wGetRoot(), +1,
+				EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
+	}
+
+	public void visit(Variable entity) {
+		evaluate(entity, getBindings());
+	}
+	public void visit(InlineVariable entity) {
+		evaluate(entity, getBindings());
 	}
 
 	@Override
@@ -93,12 +117,6 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 //			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 
-	public void visit(Variable entity) {
-		evaluate(entity, getBindings());
-	}
-	public void visit(InlineVariable entity) {
-		evaluate(entity, getBindings());
-	}
 
 	public boolean visitAdapter(IEntityAdapter entity) {
 		return evaluateAdapter(entity, getOperation());
@@ -107,34 +125,6 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 	public static final boolean visitAdapter(IEntityAdapter entity, IOperation op) {
 		IEntity adaptee = entity.wGetAdaptee(false);
 		EntityDescriptor<?> adapteeEd = adaptee.wGetEntityDescriptor();
-		ILanguageKit languageKit = adapteeEd.getLanguageKit();
-
-		if (languageKit.getURI().equals(CommonsLanguageKit.URI)) {
-			switch (adapteeEd.getOrdinal()) {
-			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-				op.stagedVisit(entity.wGetRoot(), 0);
-				return false;
-			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-				op.stagedVisit(entity.wGetRoot(), -1);
-				return false;
-			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-				op.stagedVisit(entity.wGetRoot(), +1);
-				return false;
-			case CommonsEntityDescriptorEnum.TemplateFragment_ord:
-				op.stagedVisit(entity.wGetRoot(), +1,
-						EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
-				return false;
-			case CommonsEntityDescriptorEnum.BaseFragment_ord:
-				op.stagedVisit(entity.wGetRoot(), -1,
-						EntityUtils.safeStringValue(entity.wGet(CommonsFeatureDescriptorEnum.phase), null));
-				return false;
-			case CommonsEntityDescriptorEnum.Variable_ord:
-			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-				throw new VisitException("Illegal operation for variables: "+op.getOperationId());
-			case CommonsEntityDescriptorEnum.Resolver_ord:
-				return false;
-			}
-		}
 
 		if (entity.wGetEntityDescriptor().equals(adapteeEd))
 			return true;
@@ -149,25 +139,23 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 		IEntity adaptee = entity.wGetAdaptee(false);
 		EntityDescriptor<?> adapteeEd = adaptee.wGetEntityDescriptor();
+
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
 			switch (adapteeEd.getOrdinal()) {
-			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-//				break;
-				BehaviorUtils.evaluate(entity.wGetRoot(), 0, op);
-				return false;
-			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-				BehaviorUtils.evaluate(entity.wGetRoot(), -1, op);
-				return false;
-			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-//				break;
-				BehaviorUtils.evaluate(entity.wGetRoot(), +1, op);
-				return false;
-			case CommonsEntityDescriptorEnum.Variable_ord:
-			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-				evaluate((Variable) adaptee, op.getOperationEnvironment());
-				return false;
+//			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
+//				BehaviorUtils.evaluate(entity.wGetRoot(), 0, op);
+//				return false;
+//			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
+//				BehaviorUtils.evaluate(entity.wGetRoot(), -1, op);
+//				return false;
+//			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
+//				BehaviorUtils.evaluate(entity.wGetRoot(), +1, op);
+//				return false;
+//			case CommonsEntityDescriptorEnum.Variable_ord:
+//			case CommonsEntityDescriptorEnum.InlineVariable_ord:
+//				evaluate((Variable) adaptee, op.getOperationEnvironment());
+//				return false;
 			case CommonsEntityDescriptorEnum.Resolver_ord:
-//				break;
 				return false;
 			}
 		}
@@ -186,8 +174,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
     	IEntity value = BindingUtils.wGet(bm, varName);
 		if (value != null) {
 			if (Matcher.match(CommonsEntityDescriptorEnum.InlineVariable, variable)) {
-				bm.setResultIterator(
-						IteratorFactory.constantChildIterator(value));
+				bm.setResultIterator(IteratorFactory.constantChildIterator(value));
 				value = null;
 			} else {
 				EntityDescriptor<?> varType = variable.getVarType().getValue();
