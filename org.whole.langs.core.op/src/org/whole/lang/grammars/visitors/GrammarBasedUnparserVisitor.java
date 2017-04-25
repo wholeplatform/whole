@@ -156,6 +156,10 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 	
 	@Override
 	public boolean visitAdapter(IEntityAdapter entity) {
+		//FIXME workaround for null operation
+		if (getOperation() == null && EntityUtils.isResolver(entity))
+			return false;
+
 		if (EntityUtils.isFragment(entity))
 			return true;
 		else

@@ -121,6 +121,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		getBindings().wDef("self", filteredEntity);
 		
 		stagedVisit(filterRule.getBody());
+		getResult();
 		return filteredEntity;
 	}
 
@@ -158,8 +159,10 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		try {
 			IEntityIterator<BeforeTestCase> beforeIterator = IteratorFactory.<BeforeTestCase>childMatcherIterator().withPattern(BeforeTestCase);
 			beforeIterator.reset(entity.getAspects());
-			for (BeforeTestCase beforeTestCase : beforeIterator)
+			for (BeforeTestCase beforeTestCase : beforeIterator) {
 				beforeTestCase.accept(this);
+				getResult();
+			}
 
 			Tests tests = entity.getTests();
 			for (int i = 0; i < tests.wSize(); i++) {
@@ -187,8 +190,10 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 			IEntityIterator<AfterTestCase> afterIterator = IteratorFactory.<AfterTestCase>childMatcherIterator().withPattern(AfterTestCase);
 			afterIterator.reset(entity.getAspects());
-			for (AfterTestCase afterTestCase : afterIterator)
+			for (AfterTestCase afterTestCase : afterIterator) {
 				afterTestCase.accept(this);
+				getResult();
+			}
 
 			boolean testCaseSuccess = results.getErrors().getValue() + results.getFailures().getValue() == 0;
 			printWriter().printf("\n* %s test case %s\n", name, testCaseSuccess ? "OK" : "FAILED");
@@ -218,13 +223,18 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		StringLiteral cause = CommonsEntityAdapterFactory.createResolver(StringLiteral);
 		Result result = TestsEntityFactory.instance.createResult(outcome, location, cause);
 		try {
-			for (BeforeTest beforeTest : BehaviorUtils.<BeforeTest>compileAndLazyEvaluate(createAspectPath("BeforeTest"), entity))
+			for (BeforeTest beforeTest : BehaviorUtils.<BeforeTest>compileAndLazyEvaluate(createAspectPath("BeforeTest"), entity)) {
 				beforeTest.accept(this);
+				getResult();
+			}
 
 			entity.getBody().accept(this);
+			getResult();
 
-			for (AfterTest afterTest : BehaviorUtils.<AfterTest>compileAndLazyEvaluate(createAspectPath("AfterTest"), entity))
+			for (AfterTest afterTest : BehaviorUtils.<AfterTest>compileAndLazyEvaluate(createAspectPath("AfterTest"), entity)) {
 				afterTest.accept(this);
+				getResult();
+			}
 
 			printWriter().printf("    %32s(...) OK\n", name);
 		} catch (OperationCanceledException e) {
@@ -272,6 +282,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 			TestStatement statement = entity.get(i);
 			statement.accept(this);
+			getResult();
 		}
 	}
 
@@ -382,7 +393,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 
 	@Override
 	public void visit(Same entity) {
-		entity.getObject().accept(this);
+//		entity.getObject().accept(this);
 		setResultVisitor(TestsMatcherFactory.instance.same(evaluate(entity.getObject(), false)).withSourceEntity(entity));
 	}
 	@Override

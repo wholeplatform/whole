@@ -30,7 +30,6 @@ import org.whole.lang.commons.model.TemplateFragment;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -105,6 +104,25 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 	public void visit(InlineVariable entity) {
 		evaluate(entity, getBindings());
 	}
+	public static final IEntity evaluate(Variable variable, IBindingManager bm) {
+    	String varName = variable.getVarName().getValue();
+    	IEntity value = BindingUtils.wGet(bm, varName);
+		if (value != null) {
+			if (Matcher.match(CommonsEntityDescriptorEnum.InlineVariable, variable)) {
+				bm.setResultIterator(IteratorFactory.constantChildIterator(value));
+				value = null;
+			} else {
+				EntityDescriptor<?> varType = variable.getVarType().getValue();
+				try {
+					bm.setResult(value = EntityUtils.convertCloneIfParented(value, varType));
+				} catch (IllegalArgumentException e) {
+					throw new SubstituteException(variable, value.wGetEntityDescriptor());					
+				}
+			}
+			return value;
+		} else
+			throw new VisitException(new MissingVariableException(varName).withSourceEntity(variable).withBindings(bm));
+	}
 
 	@Override
 	public void visit(Resolver entity) {
@@ -134,58 +152,12 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		}
 	}
 	public static final boolean evaluateAdapter(IEntityAdapter entity, IOperation op) {
-//TODO test
-//		return visitAdapter(entity, op);
+		boolean result = visitAdapter(entity, op);
 
-		IEntity adaptee = entity.wGetAdaptee(false);
-		EntityDescriptor<?> adapteeEd = adaptee.wGetEntityDescriptor();
+//FIXME workaround for accept(this) without getResult (replace with evaluate)
+		if (op != null)
+			BehaviorUtils.evaluateResult(op.getOperationEnvironment());
 
-		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
-			switch (adapteeEd.getOrdinal()) {
-//			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-//				BehaviorUtils.evaluate(entity.wGetRoot(), 0, op);
-//				return false;
-//			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-//				BehaviorUtils.evaluate(entity.wGetRoot(), -1, op);
-//				return false;
-//			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-//				BehaviorUtils.evaluate(entity.wGetRoot(), +1, op);
-//				return false;
-//			case CommonsEntityDescriptorEnum.Variable_ord:
-//			case CommonsEntityDescriptorEnum.InlineVariable_ord:
-//				evaluate((Variable) adaptee, op.getOperationEnvironment());
-//				return false;
-			case CommonsEntityDescriptorEnum.Resolver_ord:
-				return false;
-			}
-		}
-
-		if (entity.wGetEntityDescriptor().equals(adapteeEd))
-			return true;
-		else {
-//			op.stagedVisit(adaptee, 0);
-			BehaviorUtils.evaluate(adaptee, 0, op);
-			return false;
-		}
-	}
-
-	public static final IEntity evaluate(Variable variable, IBindingManager bm) {
-    	String varName = variable.getVarName().getValue();
-    	IEntity value = BindingUtils.wGet(bm, varName);
-		if (value != null) {
-			if (Matcher.match(CommonsEntityDescriptorEnum.InlineVariable, variable)) {
-				bm.setResultIterator(IteratorFactory.constantChildIterator(value));
-				value = null;
-			} else {
-				EntityDescriptor<?> varType = variable.getVarType().getValue();
-				try {
-					bm.setResult(value = EntityUtils.convertCloneIfParented(value, varType));
-				} catch (IllegalArgumentException e) {
-					throw new SubstituteException(variable, value.wGetEntityDescriptor());					
-				}
-			}
-			return value;
-		} else
-			throw new VisitException(new MissingVariableException(varName).withSourceEntity(variable).withBindings(bm));
+		return result;
 	}
 }
