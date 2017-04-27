@@ -22,6 +22,8 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.whole.lang.tests.factories.TestsEntityFactory;
+import org.whole.lang.tests.model.Results;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
 import org.whole.lang.ui.layout.ColumnLayout;
@@ -35,6 +37,7 @@ public class TestSuiteFigure extends ContentPaneFigure {
 	protected IFigure descriptionFigure;
     protected EntityFigure headerFigure;
     protected EntityFigure compartmentFigure;
+    protected ResultsFigure resultsFigure;
 
     public TestSuiteFigure() {
         super(new ColumnLayout());
@@ -51,6 +54,9 @@ public class TestSuiteFigure extends ContentPaneFigure {
         overFigure.add(createContentPane(2));
         overFigure.add(createContentPane(1));
         headerFigure.add(overFigure);
+        headerFigure.add(resultsFigure = new ResultsFigure());
+        Results expected = TestsEntityFactory.instance.createResults();
+        expected.getFailures().setValue(3);
 
         add(descriptionFigure = createContentPane(0, new MarginBorder(2,4,2,4)));
 		add(createContentPane(3, new MarginBorder(6,8,6,8)));
@@ -68,6 +74,10 @@ public class TestSuiteFigure extends ContentPaneFigure {
 	}
 	public void showFilterFamilies(boolean value) {
 		getContentPane(4).setVisible(value);
+	}
+
+	public void updateResults(Results expected, Results actual) {
+		resultsFigure.update(expected, actual);
 	}
 
 	protected void paintFigure(Graphics g) {

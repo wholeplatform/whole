@@ -24,7 +24,6 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.tests.model.TestCase;
-import org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum;
 import org.whole.lang.tests.ui.figures.TestCaseFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
@@ -45,17 +44,20 @@ public class TestCasePart extends AbstractContentPanePart {
 	protected void propertyChangeUI(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("description") ||
 				 evt.getPropertyName().equals("deployer") ||
-				 evt.getPropertyName().equals("aspects"))
+				 evt.getPropertyName().equals("aspects") ||
+				 evt.getPropertyName().equals("expectedResults") ||
+				 evt.getPropertyName().equals("actualResults"))
 			refreshVisuals();
 		super.propertyChangeUI(evt);
 	}
 
 	@Override
 	protected void refreshVisuals() {
-		IEntity entity = getModelEntity();
-		getFigure().showDescription(EntityUtils.isNotResolver(entity.wGet(TestsFeatureDescriptorEnum.description)));
-		getFigure().showDeployer(EntityUtils.isNotResolver(entity.wGet(TestsFeatureDescriptorEnum.deployer)));
-		getFigure().showAspects(EntityUtils.isNotResolver(entity.wGet(TestsFeatureDescriptorEnum.aspects)));
+		TestCase entity = getModelEntity();
+		getFigure().showDescription(EntityUtils.isNotResolver(entity.getDescription()));
+		getFigure().showDeployer(EntityUtils.isNotResolver(entity.getDeployer()));
+		getFigure().showAspects(EntityUtils.isNotResolver(entity.getAspects()));
+		getFigure().updateResults(entity.getExpectedResults(), entity.getActualResults());
 	}
 
     protected List<IEntity> getModelSpecificChildren() {

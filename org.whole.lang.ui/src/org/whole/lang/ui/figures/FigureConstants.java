@@ -30,6 +30,9 @@ public class FigureConstants {
 	public static Color lightBlueColor = new Color(null, 194, 212, 243);
 	public static Color yellowColor = new Color(null, 255, 181, 21);
 	public static Color lightGray = new Color(null, 233, 233, 233);
+	public static Color darkRed = new Color(null, 127, 0, 0);
+	public static Color darkOrange = new Color(null, 127, 98, 0);
+	
 
 	//TODO make customizable ???
 	public static Color deleteBackgroundColor = new Color(null, 255, 221, 221);
