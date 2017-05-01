@@ -155,7 +155,7 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 		boolean result = visitAdapter(entity, op);
 
 //FIXME workaround for accept(this) without getResult (replace with evaluate)
-		if (op != null)
+		if (!result && op != null)
 			BehaviorUtils.evaluateResult(op.getOperationEnvironment());
 
 		return result;

@@ -28,6 +28,7 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.util.BehaviorUtils;
 
 /**
  * @author Riccardo Solmi
@@ -114,13 +115,17 @@ public class SimpleScope extends AbstractScope {
 	}
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		if (resultIterator != null)
+		if (hasResultIterator())
 			return (IEntityIterator<E>) resultIterator;
 		else
-			return IteratorFactory.constantIterator((E) (result != null ? result : BindingManagerFactory.instance.createVoid()), false);
+			return IteratorFactory.constantIterator((E) (result != null ?
+					result : BindingManagerFactory.instance.createVoid()), false);
 	}
 	public IEntity getResult() {
-		return result;
+		if (hasResultIterator())
+			return BehaviorUtils.evaluateResult(resultIterator.getBindings());
+		else
+			return result;
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
 		this.result = null;
