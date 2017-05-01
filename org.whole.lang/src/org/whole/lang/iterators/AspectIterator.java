@@ -20,7 +20,6 @@ package org.whole.lang.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -77,9 +76,6 @@ public class AspectIterator extends AbstractCloneableIterator<IEntity> {
 		aspectualFeatureDescriptorIterator = entity.wGetAspectualFeatureDescriptors().iterator();
     	nextFeatureDescriptor = null;
     	lastFeatureDescriptor = null;
-	}
-
-	public void setBindings(IBindingManager bindings) {
 	}
 
     public void prune() {

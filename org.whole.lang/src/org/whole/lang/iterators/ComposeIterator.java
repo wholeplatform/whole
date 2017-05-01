@@ -20,7 +20,6 @@ package org.whole.lang.iterators;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -163,11 +162,6 @@ public class ComposeIterator<E extends IEntity> extends AbstractLazyCloneableCom
 		laIndex = nestedIterators.length-1;
 	}
 
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
-	}
 	public IBindingScope lookaheadScope() {
 		if (lookaheadScope == null)
 			lookaheadScope = BindingManagerFactory.instance.createSimpleScope();

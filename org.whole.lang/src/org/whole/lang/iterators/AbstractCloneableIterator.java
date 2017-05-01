@@ -19,6 +19,8 @@ package org.whole.lang.iterators;
 
 import java.util.Iterator;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
@@ -51,6 +53,24 @@ public abstract class AbstractCloneableIterator<E extends IEntity> implements IE
 		}
 	}
 
+	private IBindingManager bindings;
+	public final IBindingManager getBindings() {
+		if (bindings == null)
+			setDefaultBindings();
+		return bindings;
+	}
+	protected void setDefaultBindings() {
+		setBindings(BindingManagerFactory.instance.createBindingManager());
+	}
+    public final void setBindings(IBindingManager bindings) {
+    	if (this.bindings != bindings) {
+    		this.bindings = bindings;
+    		setChildrenBindings(bindings);
+    	}
+	}
+    protected void setChildrenBindings(IBindingManager bindings) {
+	}
+	
 	public Iterator<E> iterator() {
 		return this;
 	}

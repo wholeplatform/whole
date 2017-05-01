@@ -45,8 +45,9 @@ public abstract class AbstractFilterIterator<E extends IEntity> extends Abstract
 		return iterator;
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		iterator.setBindings(bindings);
+	protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+    	iterator.setBindings(bindings);
 	}
 
 	public int nextIndex() {

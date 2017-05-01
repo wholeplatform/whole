@@ -73,7 +73,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 			selectIterator = getCloneContext().clone(selectIterator);
 			lazyCloneSelect = false;
 			updateCloneContext();
-			selectIterator.setBindings(bindings);
+			selectIterator.setBindings(getBindings());
 		}
 		return selectIterator;
 	}
@@ -83,7 +83,7 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 			whereIterator = getCloneContext().clone(whereIterator);
 			lazyCloneWhere = false;
 			updateCloneContext();
-			whereIterator.setBindings(bindings);
+			whereIterator.setBindings(getBindings());
 		}
 		return whereIterator;
 	}
@@ -192,20 +192,13 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		nextEntity = null;
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-	    	fromIterator.setBindings(bindings);
-	    	if (!lazyCloneSelect)
-	    		selectIterator.setBindings(bindings);
-	    	if (!lazyCloneWhere)
-	    		whereIterator.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		fromIterator.setBindings(bindings);
+    	if (!lazyCloneSelect)
+    		selectIterator.setBindings(bindings);
+    	if (!lazyCloneWhere)
+    		whereIterator.setBindings(bindings);
 	}
 
 	public AbstractFilterScope lookaheadScope() {

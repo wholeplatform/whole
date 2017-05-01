@@ -20,7 +20,6 @@ package org.whole.lang.iterators;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -77,9 +76,6 @@ public abstract class AbstractByIndexIterator<E extends IEntity> extends Abstrac
         this.entity = entity;
         nextIndex = firstIndex;
         lastIndex = -1;
-    }
-
-    public void setBindings(IBindingManager bindings) {
     }
 
     public void prune() {

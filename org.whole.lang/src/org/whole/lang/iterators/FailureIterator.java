@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.IWholeRuntimeException;
@@ -36,8 +35,6 @@ public class FailureIterator<E extends IEntity> extends AbstractCloneableIterato
 	public void reset(IEntity entity) {
 	}
 
-	public void setBindings(IBindingManager bindings) {
-	}
 	public IBindingScope lookaheadScope() {
 		return NullScope.instance;
 	}

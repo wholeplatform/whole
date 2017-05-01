@@ -20,8 +20,6 @@ package org.whole.lang.iterators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -31,7 +29,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public abstract class AbstractTransitiveClosureIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	private IBindingManager bindings;
 	protected List<IEntityIterator<E>> iteratorStack = new ArrayList<IEntityIterator<E>>(16);
 	protected IEntityIterator<E> lastIterator;
 	protected E lastEntity;
@@ -97,15 +94,6 @@ public abstract class AbstractTransitiveClosureIterator<E extends IEntity> exten
     	iteratorStack.clear();
     	pushInitialIterators(entity);
     }
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
-	}
 
     public boolean hasNext() {
     	return currentIterator().hasNext();

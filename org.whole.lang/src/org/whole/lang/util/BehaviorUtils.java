@@ -93,10 +93,11 @@ public class BehaviorUtils {
 		if (bm.hasResultIterator()) {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
 			bm.setResultIterator(null);
+			resultIterator.setBindings(bm);
 			IEntity selfEntity = bm.wGet("self");
 			if (selfEntity != null)
 				resultIterator.reset(selfEntity);
-	
+
 			IEntity result = null;
 			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
 			bm.wEnterScope(resettableScope);

@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -65,9 +64,6 @@ public class ChildReverseIterator<E extends IEntity> extends AbstractCloneableIt
         this.entity = entity;
         nextIndex = firstIndex != Integer.MAX_VALUE ? firstIndex : entity != null ? entity.wSize()-1 : -1;
         lastIndex = -1;
-    }
-
-    public void setBindings(IBindingManager bindings) {
     }
 
     public void prune() {

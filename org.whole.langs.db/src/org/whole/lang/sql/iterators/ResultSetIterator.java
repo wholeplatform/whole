@@ -24,7 +24,6 @@ import java.sql.Types;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.iterators.AbstractCloneableIterator;
@@ -35,7 +34,6 @@ import org.whole.lang.sql.factories.SQLEntityFactory;
  * @author Riccardo Solmi
  */
 public class ResultSetIterator extends AbstractCloneableIterator<IEntity> {
-	private IBindingManager bindings;
 	private ResultSet resultSet;
 	private IEntity nextEntity = null;
 	private String[] labels;
@@ -170,15 +168,6 @@ public class ResultSetIterator extends AbstractCloneableIterator<IEntity> {
 			resultSet.beforeFirst();
 		} catch (SQLException e) {
 		}
-	}
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 	private IBindingScope lookaheadScope;

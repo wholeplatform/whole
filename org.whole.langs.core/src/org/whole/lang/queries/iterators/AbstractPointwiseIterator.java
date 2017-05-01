@@ -45,8 +45,8 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		return iterator;
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		super.setBindings(bindings);
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
 		toIterator.setBindings(bindings);
 	}
 
@@ -69,7 +69,7 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		try {
 			nextEntity = doLookahead(toLookahead, nextEntity);
 		} catch(Exception e) {
-			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bindings);
+			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
 		}
 
 		return nextEntity;
@@ -87,7 +87,7 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		try {
 			doNext(toEntity, result);
 		} catch(Exception e) {
-			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), bindings);
+			throw IWholeRuntimeException.asWholeException(e, getSourceEntity(), getBindings());
 		}
 
 		nextEntity = null;

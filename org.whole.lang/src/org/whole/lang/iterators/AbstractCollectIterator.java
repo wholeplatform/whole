@@ -62,6 +62,7 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 
 	public AbstractCollectIterator withComparator(IEntityComparator<IEntity> comparator) {
 		this.comparator = comparator;
+//		comparator.setBindings(bindings);
 		return this;
 	}
 
@@ -69,7 +70,7 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 		if (lazyCloneChain) {
 			for (int i=0; i<iteratorChain.length; i++) {
 				iteratorChain[i] = getCloneContext().clone(iteratorChain[i]);
-				iteratorChain[i].setBindings(bindings);
+				iteratorChain[i].setBindings(getBindings());
 				if (resetEntity != null)
 					iteratorChain[i].reset(resetEntity);
 			}
@@ -79,8 +80,8 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 		return iteratorChain;
 	}
 
-	public void setBindings(IBindingManager bindings) {
-		this.bindings = bindings;
+	protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
 		comparator.setBindings(bindings);
 		if (!lazyCloneChain)
 			for (int i=0; i<iteratorChain.length; i++)

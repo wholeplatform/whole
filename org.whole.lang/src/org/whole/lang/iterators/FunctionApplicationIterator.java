@@ -17,8 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -29,7 +27,6 @@ import org.whole.lang.resources.FunctionLibraryRegistry;
  * @author Riccardo Solmi
  */
 public class FunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
-	private IBindingManager bindings;
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private IEntity nextEntity = null;
@@ -100,15 +97,6 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 		functionIterator = null;
 //		lookaheadScope = null;
 		nextEntity = null;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 //	private IDelegatingScope lookaheadScope;

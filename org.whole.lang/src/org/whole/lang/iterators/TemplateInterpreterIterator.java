@@ -20,7 +20,6 @@ package org.whole.lang.iterators;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -30,7 +29,6 @@ import org.whole.lang.operations.InterpreterOperation;
  * @author Riccardo Solmi
  */
 public class TemplateInterpreterIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	private IBindingManager bindings;
 	protected IEntity resetEntity;
 	protected IEntity pattern;
 	protected IEntityIterator<E> nextEntityIterator;
@@ -49,15 +47,6 @@ public class TemplateInterpreterIterator<E extends IEntity> extends AbstractClon
         resetEntity = entity;
 		clearLookaheadScope();
 		nextEntityIterator = null;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 	private IBindingScope lookaheadScope;

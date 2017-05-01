@@ -19,8 +19,6 @@ package org.whole.lang.iterators;
 
 import java.util.NoSuchElementException;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.visitors.MissingVariableException;
@@ -29,7 +27,6 @@ import org.whole.lang.visitors.MissingVariableException;
  * @author Riccardo Solmi
  */
 public abstract class AbstractVariableIterator<E extends IEntity> extends SelfIterator<E> {
-	private IBindingManager bindings;
 	protected String varName;
 	protected boolean useVar = true;
 
@@ -65,18 +62,6 @@ public abstract class AbstractVariableIterator<E extends IEntity> extends SelfIt
 	public void reset(IEntity entity) {
 		super.reset(entity);
 		useVar = true;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-			super.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 	@Override

@@ -118,16 +118,9 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 		super.reset(entity);
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-	    	super.setBindings(bindings);
-	    	conditionIterator.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+	    super.setChildrenBindings(bindings);
+	    conditionIterator.setBindings(bindings);
 	}
 
 	public IBindingScope lookaheadScope() {

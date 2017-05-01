@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
@@ -33,7 +32,6 @@ import org.whole.lang.util.WholeMessages;
  */
 public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIterator<E> implements IRunnable {
 	protected IEntity selfEntity;
-	protected IBindingManager bindings;
 	protected IEntityIterator<?>[] argsIterators;
 
 	protected AbstractRunnableIterator(IEntityIterator<?>... argsIterators) {
@@ -57,18 +55,11 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
     			i.reset(entity);
     }
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-			if (argsIterators != null)
-				for (IEntityIterator<? extends IEntity> i : argsIterators)
-					i.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		if (argsIterators != null)
+			for (IEntityIterator<? extends IEntity> i : argsIterators)
+				i.setBindings(bindings);
 	}
 
 	public IBindingScope lookaheadScope() {
@@ -88,6 +79,10 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
         return arguments;
 	}
 	protected IEntity evaluateArgument(IEntityIterator<? extends IEntity> argumentIterator, IEntity selfEntity, IBindingManager bm) {
+		//TODO test and remove
+		IBindingManager ab = argumentIterator.getBindings();
+		if (bm != ab)
+			ab = bm;
 		return BehaviorUtils.evaluate(argumentIterator, selfEntity, bm);
 	}
 

@@ -161,12 +161,6 @@ public class SequenceIterator<E extends IEntity> extends AbstractLazyCloneableCo
 		nextEntity = null;
 	}
 
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
-	}
-
 	public AbstractFilterScope lookaheadScope() {
 		if (lookaheadScope == null)
 			lookaheadScope = BindingManagerFactory.instance.createExcludeFilterSimpleScope();

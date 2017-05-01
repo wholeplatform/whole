@@ -19,7 +19,6 @@ package org.whole.lang.actions.iterators;
 
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.iterators.AbstractCloneableIterator;
@@ -31,7 +30,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
-	private IBindingManager bindings;
 	protected String functionUri;
 	private IEntityIterator<IEntity> functionIterator;
 	private IEntityIterator<?>[] argsIterators;
@@ -143,15 +141,6 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 		functionIterator = null;
 //		lookaheadScope = null;
 		nextEntity = null;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 //	private IDelegatingScope lookaheadScope;

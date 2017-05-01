@@ -20,7 +20,6 @@ package org.whole.lang.iterators;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -29,7 +28,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class RecursiveFunctionApplicationIterator extends AbstractCloneableIterator<IEntity> {
-	private IBindingManager bindings;
 	protected IEntity resetEntity = null;
 	protected IEntityIterator<IEntity> nextEntityIterator;
 
@@ -85,15 +83,6 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 	public void reset(IEntity entity) {
 		resetEntity = entity;
 		nextEntityIterator = null;
-	}
-
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
 	}
 
 	private IBindingScope lookaheadScope;

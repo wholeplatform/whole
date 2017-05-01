@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -27,7 +26,6 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class FeatureByNameIterator extends SelfIterator<IEntity> {
-	protected IBindingManager bindings;
 	protected String featureName;
 	protected FeatureDescriptor featureDescriptor;
 
@@ -36,15 +34,6 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 	}
 	protected FeatureByNameIterator(FeatureDescriptor featureDescriptor) {
 		this.featureDescriptor = featureDescriptor;
-	}
-
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
-	}
-    public void setBindings(IBindingManager bindings) {
-    	this.bindings = bindings;
 	}
 
 	protected FeatureDescriptor getFeatureDescriptor() {

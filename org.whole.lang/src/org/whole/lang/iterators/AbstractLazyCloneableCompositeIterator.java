@@ -46,13 +46,11 @@ public abstract class AbstractLazyCloneableCompositeIterator<E extends IEntity> 
 		lazyClone.set(0, childIteratorSize(), value);
 	}
 
-	public void setBindings(IBindingManager bm) {
-		if (bindings != bm) {
-			bindings = bm;
-			for (int i=0; i<childIteratorSize(); i++)
-				if (!lazyClone.get(i))
-					getChildIterator(i).setBindings(bm);
-		}
+	protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		for (int i=0; i<childIteratorSize(); i++)
+			if (!lazyClone.get(i))
+				getChildIterator(i).setBindings(bindings);
 	}
 
 	public void reset(IEntity entity) {
@@ -72,7 +70,7 @@ public abstract class AbstractLazyCloneableCompositeIterator<E extends IEntity> 
 	public IEntityIterator<?> getChildIterator(int index) {
 		if (lazyClone.get(index)) {
 			setChildIterator(index, getCloneContext().clone(childIterator(index)));
-			childIterator(index).setBindings(bindings);
+			childIterator(index).setBindings(getBindings());
 			if (lazyReset())
 				childIterator(index).reset(resetEntity);
 		}

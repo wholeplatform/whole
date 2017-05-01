@@ -19,7 +19,6 @@ package org.whole.lang.iterators;
 
 import java.util.NoSuchElementException;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
@@ -58,9 +57,6 @@ public class EmptyIterator<E extends IEntity> extends AbstractCloneableIterator<
     }
 
     public void reset(IEntity entity) {
-    }
-
-    public void setBindings(IBindingManager bindings) {
     }
 
 	public void prune() {

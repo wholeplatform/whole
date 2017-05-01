@@ -60,9 +60,8 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 		return this;
 	}
 
-	public void setBindings(IBindingManager bindings) {
-		if (getIterator() != null)
-			super.setBindings(bindings);
+	protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
 		comparator.setBindings(bindings);
 	}
 

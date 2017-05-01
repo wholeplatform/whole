@@ -33,7 +33,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	private IBindingManager bindings;
 	private IBindingManager queryBindings;
 	private String environmentName;
 	private Set<String> localNames;
@@ -98,27 +97,18 @@ public class ScopeIterator<E extends IEntity> extends AbstractCloneableIterator<
 			queryBindings.wClear();
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		if (!localNames.isEmpty())
+			lookaheadScope = BindingManagerFactory.instance.createExcludeFilterScope(localNames);
 
-			if (!localNames.isEmpty())
-				lookaheadScope = BindingManagerFactory.instance.createExcludeFilterScope(localNames);
+		queryBindings = BindingManagerFactory.instance.createBindingManager(
+				localNames.isEmpty() ? bindings :
+				BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(bindings),
+					bindings.wGetEnvironmentManager());
+		queryBindings.wEnterScope();
+		queryBindings.withSourceEntity(getSourceEntity());
 
-			queryBindings = BindingManagerFactory.instance.createBindingManager(
-					localNames.isEmpty() ? getBindings() :
-					BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(getBindings()),
-						getBindings().wGetEnvironmentManager());
-			queryBindings.wEnterScope();
-			queryBindings.withSourceEntity(getSourceEntity());
-
-			scopeIterator.setBindings(queryBindings);//was bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+		scopeIterator.setBindings(queryBindings);
 	}
 
 	private INestableScope lookaheadScope;

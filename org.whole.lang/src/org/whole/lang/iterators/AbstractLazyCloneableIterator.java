@@ -17,7 +17,6 @@
  */
 package org.whole.lang.iterators;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 
@@ -26,7 +25,6 @@ import org.whole.lang.operations.ICloneContext;
  */
 public abstract class AbstractLazyCloneableIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
 	private ICloneContext cloneContext;
-	protected IBindingManager bindings;
 	protected IEntity resetEntity;
 
 	@Override

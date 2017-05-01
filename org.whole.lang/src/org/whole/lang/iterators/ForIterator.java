@@ -122,16 +122,9 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 		clearLookaheadScope();
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-	    	super.setBindings(bindings);
-	    	forIterator.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+	    super.setChildrenBindings(bindings);
+	    forIterator.setBindings(bindings);
 	}
 
 	public IBindingScope lookaheadScope() {

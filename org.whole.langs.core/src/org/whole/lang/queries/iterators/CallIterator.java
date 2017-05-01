@@ -41,7 +41,6 @@ import org.whole.lang.util.ResourceUtils;
  * @author Riccardo Solmi
  */
 public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<E> {
-	private IBindingManager bindings;
 	private IBindingManager queryBindings;
 	protected String queryName;
 	protected Names parameters;
@@ -185,17 +184,10 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		}
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-	    	for (IEntityIterator<? extends IEntity> i : argsIterators)
-				i.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+    	for (IEntityIterator<? extends IEntity> i : argsIterators)
+			i.setBindings(bindings);
 	}
 
 	private INestableScope lookaheadScope;

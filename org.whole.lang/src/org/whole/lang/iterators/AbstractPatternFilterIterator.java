@@ -32,7 +32,6 @@ import org.whole.lang.visitors.IVisitor;
  * @author Riccardo Solmi
  */
 public abstract class AbstractPatternFilterIterator<E extends IEntity> extends AbstractFilterIterator<E> {
-	private IBindingManager bindings;
 	private IBindingScope lookaheadScope;
 	private IVisitor patternVisitor;
 
@@ -52,19 +51,9 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 		clearLookaheadScope();
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-			super.setBindings(bindings);
-		}//TODO test
-			if (patternVisitor != null)
-				patternVisitor.setBindings(bindings);
-//TODO		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		pattern().setBindings(bindings);
 	}
 
 	public IBindingScope lookaheadScope() {
@@ -82,7 +71,7 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 
 	public IVisitor pattern() {
 		if (patternVisitor == null)
-			patternVisitor = defaultPattern();
+			withPattern(defaultPattern());
 		return patternVisitor;
 	}
 	protected abstract IVisitor defaultPattern();
@@ -101,6 +90,7 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 	}
 	public AbstractPatternFilterIterator<E> withPattern(IVisitor matcherVisitor) {
 		this.patternVisitor = matcherVisitor;
+//		updateBindings();
 		return this;
 	}
 

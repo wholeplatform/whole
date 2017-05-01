@@ -125,16 +125,9 @@ public class WithStageIterator<E extends IEntity> extends AbstractDelegatingIter
 		super.reset(entity);
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-	    	super.setBindings(bindings);
-	    	stageIterator.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		stageIterator.setBindings(bindings);
 	}
 
 	public IBindingScope lookaheadScope() {

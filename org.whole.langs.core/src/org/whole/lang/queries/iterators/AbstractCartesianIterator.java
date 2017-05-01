@@ -116,16 +116,9 @@ public abstract class AbstractCartesianIterator<E extends IEntity> extends Abstr
 		nextEntity = null;
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			super.setBindings(bindings);
-	    	valuesIterator.setBindings(bindings);
-		}
-	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		valuesIterator.setBindings(bindings);
 	}
 
 	private IBindingScope lookaheadScope;

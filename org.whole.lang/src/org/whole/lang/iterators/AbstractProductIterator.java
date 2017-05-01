@@ -29,7 +29,6 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public abstract class AbstractProductIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	private IBindingManager bindings;
 	private IBindingScope lookaheadScope;
 	protected IEntityIterator<? extends IEntity>[] iterators;
 	protected IEntity initialEntity;
@@ -82,19 +81,13 @@ public abstract class AbstractProductIterator<E extends IEntity> extends Abstrac
 		lookaheadScope = null;
 	}
 
-    public void setBindings(IBindingManager bindings) {
-		if (this.bindings != bindings) {
-			this.bindings = bindings;
-			for (IEntityIterator<?> i : iterators)
-				i.setBindings(bindings);
-		}
+    protected void setChildrenBindings(IBindingManager bindings) {
+		super.setChildrenBindings(bindings);
+		for (IEntityIterator<?> i : iterators)
+			i.setBindings(bindings);
 	}
-	public IBindingManager getBindings() {
-		if (bindings == null)
-			initBindings();
-		return bindings;
-	}
-	public IBindingScope lookaheadScope() {
+
+    public IBindingScope lookaheadScope() {
 		if (lookaheadScope == null)
 			lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
 		return lookaheadScope;
