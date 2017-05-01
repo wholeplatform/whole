@@ -95,8 +95,14 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 
 		if (cachedResult == CachedResult.VALUE)
 			super.setResult(result);
-		if (cachedResult == CachedResult.ITERATOR)
+		else if (cachedResult == CachedResult.ITERATOR)
 			super.setResultIterator(resultIterator);
+
+		map.clear();
+
+		cachedResult = CachedResult.NONE;
+		result = null;
+		resultIterator = null;
 	}
 	
 	private void updateMap(String name) {
@@ -268,18 +274,25 @@ public class EarlyTransactionScope extends AbstractDelegatingScope implements IT
 	}
 
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
-		if (cachedResult == CachedResult.NONE) {
-			cachedResult = CachedResult.ITERATOR;
-			this.resultIterator = super.getResultIterator();
-		}
+		cacheResult();
 		super.setResultIterator(resultIterator);
 	}
 	public void setResult(IEntity value) {
-		if (cachedResult == CachedResult.NONE) {
-			cachedResult = CachedResult.VALUE;
-			this.result = super.getResult();
-		}
+		cacheResult();
 		super.setResult(value);
+	}
+	protected void cacheResult() {
+		if (cachedResult == CachedResult.NONE) {
+			if (super.hasResultIterator()) {
+				cachedResult = CachedResult.ITERATOR;
+				this.result = null;
+				this.resultIterator = super.getResultIterator();
+			} else {
+				cachedResult = CachedResult.VALUE;
+				this.result = super.getResult();
+				this.resultIterator = null;
+			}
+		}
 	}
 
 	public String toString() {

@@ -99,7 +99,7 @@ public class LazyTransactionScope extends SimpleScope implements ITransactionSco
 
 		if (definedResult == DefinedResult.VALUE)
 			wEnclosingScope().setResult(result);
-		if (definedResult == DefinedResult.ITERATOR)
+		else if (definedResult == DefinedResult.ITERATOR)
 			wEnclosingScope().setResultIterator(resultIterator);
 
 		map.clear();
