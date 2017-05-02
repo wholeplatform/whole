@@ -282,7 +282,7 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 	}
 	public void select(IEntity entity, boolean propagate) {
 		IEntityPart entityPart = ModelObserver.getObserver(entity, getEditPartRegistry());
-		if (entityPart != null)
+		if (entityPart != null && entityPart.isSelectable())
 			select(entityPart, propagate);
 	}
 	@Override
@@ -294,7 +294,7 @@ public class E4TreeViewer extends TreeViewer implements IEntityPartViewer {
 		List<IEntityPart> entityParts = new ArrayList<>();
 		for (int i = entities.size()-1; i >= 0; i--) {
 			IEntityPart entityPart = ModelObserver.getObserver(entities.get(i), getEditPartRegistry());
-			if (entityPart != null)
+			if (entityPart != null && entityPart.isSelectable())
 				entityParts.add(entityPart);
 		}
 		setSelection(new StructuredSelection(entityParts), propagate);
