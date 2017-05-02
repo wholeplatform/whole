@@ -19,9 +19,7 @@ package org.whole.lang.grammars.visitors;
 
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.util.DataTypeUtils;
-import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -37,11 +35,7 @@ public class GrammarBasedPrettyPrinterVisitor extends GrammarBasedUnparserVisito
 	protected String getAsString(IEntity entity) {
 		return DataTypeUtils.getAsPresentationString(entity);
 	}
-	protected boolean appendModelEntityAsFragment() {
-		if (!EntityUtils.isFragment(model))
-			return false;
-
-		append(PrettyPrinterOperation.toPrettyPrintString(EntityUtils.getFragmentRoot(model)));
-		return true;
+	protected IEntity evaluateFragment(IEntity fragment) {
+		return fragment;
 	}
 }

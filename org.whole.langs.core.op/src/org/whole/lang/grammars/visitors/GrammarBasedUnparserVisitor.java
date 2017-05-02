@@ -122,9 +122,14 @@ public class GrammarBasedUnparserVisitor extends GrammarsTraverseAllVisitor {
 		if (!EntityUtils.isFragment(model))
 			return false;
 
-		IEntity result = BehaviorUtils.evaluate(model, +1, getBindings());			
-		append(PrettyPrinterOperation.toPrettyPrintString(EntityUtils.getFragmentRoot(result)));
+		IEntity result = evaluateFragment(model);			
+		String prettyPrintString = PrettyPrinterOperation.toPrettyPrintString(EntityUtils.getFragmentRoot(result));
+		prettyPrintString = prettyPrintString.replace(System.getProperty("line.separator"), newLine);
+		append(prettyPrintString);
 		return true;
+	}
+	protected IEntity evaluateFragment(IEntity fragment) {
+		return BehaviorUtils.evaluate(fragment, +1, getBindings());
 	}
 
 	protected void normalize(Grammar entity) {
