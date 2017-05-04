@@ -118,15 +118,20 @@ public class SimpleScope extends AbstractScope {
 		if (hasResultIterator())
 			return (IEntityIterator<E>) resultIterator;
 		else
-			return IteratorFactory.constantIterator((E) (result != null ?
-					result : BindingManagerFactory.instance.createVoid()), false);
+			return result != null ?
+					IteratorFactory.constantIterator((E) result, false) :
+						IteratorFactory.emptyIterator();
 	}
 	public IEntity getResult() {
-		if (hasResultIterator())
-			return BehaviorUtils.evaluateResult(resultIterator.getBindings());
-		else
+		if (hasResultIterator()) {
+			IBindingManager riBindings = resultIterator.getBindings();
+			riBindings.setResultIterator(resultIterator);
+
+			return BehaviorUtils.evaluateResult(riBindings);
+		} else
 			return result;
 	}
+
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
 		this.result = null;
 		this.resultIterator = resultIterator;

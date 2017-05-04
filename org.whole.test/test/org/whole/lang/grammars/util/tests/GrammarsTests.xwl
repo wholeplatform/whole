@@ -1180,6 +1180,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -2281,6 +2283,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -2813,6 +2817,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -3121,6 +3127,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -3761,6 +3769,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -4359,6 +4369,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -4567,6 +4579,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -5053,6 +5067,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -6182,6 +6198,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -7244,6 +7262,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -7466,6 +7486,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -7672,8 +7694,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -8642,6 +8668,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -9525,6 +9553,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -9921,6 +9951,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -10187,6 +10219,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -10743,6 +10777,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -11276,6 +11312,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -11472,6 +11510,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -11920,6 +11960,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -12941,6 +12983,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -13958,6 +14002,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14169,6 +14215,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14372,8 +14420,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14440,6 +14492,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14482,6 +14536,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14617,6 +14673,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14752,6 +14810,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14819,6 +14879,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14868,6 +14930,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -14950,6 +15014,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15100,6 +15166,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15250,8 +15318,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15541,6 +15613,8 @@
                             </tests:Equals>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15575,8 +15649,12 @@
                             </tests:Equals>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15758,7 +15836,7 @@
                             </workflows:Sequence>
                             <tests:Matches>
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="34">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="35">
                                         <text:Row initialCapacity="1">
                                         <text:Text value="events"/>
                                         </text:Row>
@@ -15861,11 +15939,16 @@
                                         <text:Row initialCapacity="1">
                                         <text:Text value="end"/>
                                         </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value=""/>
+                                        </text:Row>
                                     </text:Document>
                                 </commons:StageUpFragment>
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -15974,8 +16057,14 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
     </tests:TestCases>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
 </tests:TestSuite>

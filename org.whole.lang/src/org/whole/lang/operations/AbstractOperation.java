@@ -88,6 +88,9 @@ public abstract class AbstractOperation implements IOperation {
 	}
 
 	public IBindingScope getResultsScope() {
+		if (resultsScope.hasResultIterator())
+			resultsScope.getResultIterator().setBindings(operationEnvironment);
+
 		return resultsScope;
 	}
 	public IBindingScope getArgumentsScope() {

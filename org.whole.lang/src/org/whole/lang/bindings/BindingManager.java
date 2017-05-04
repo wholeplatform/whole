@@ -106,4 +106,12 @@ public class BindingManager extends AbstractDelegatingScope implements IBindingM
 		if (merge)
 			wTargetScope().wAddAll(scope);
 	}
+
+	@Override
+	public IEntity getResult() {
+		if (hasResultIterator())
+			getResultIterator().setBindings(this);
+
+		return super.getResult();
+	}
 }

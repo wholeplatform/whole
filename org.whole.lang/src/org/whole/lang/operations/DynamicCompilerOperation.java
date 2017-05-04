@@ -37,17 +37,18 @@ public class DynamicCompilerOperation extends AbstractOperation {
 		op.stagedVisit(model, 0);
 		bm.wExitScope();
 
-		//TODO return iterator in result entity value
+		return op.getResultsScope();
+	}
 
-		IBindingScope re = op.getResultsScope();
-		if (re.hasResultIterator())
-			re.getResultIterator().setBindings(bm);
-		else {
-	    	Object rv = re.getResult().wGetValue();
+	@Override
+	public IBindingScope getResultsScope() {
+		IBindingScope rs = super.getResultsScope();
+		if (!rs.hasResultIterator()) {
+	    	Object rv = rs.getResult().wGetValue();
 	    	if (rv instanceof IVisitor)
-	    		((IVisitor) rv).setBindings(bm);
+	    		((IVisitor) rv).setBindings(getOperationEnvironment());
 		}
-		return re;
+		return rs;
 	}
 
 	protected DynamicCompilerOperation(IBindingManager bm) {
