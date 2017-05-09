@@ -19,10 +19,9 @@ package org.whole.lang.tests.ui.editparts;
 
 import java.beans.PropertyChangeEvent;
 
-import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.tests.reflect.TestsFeatureDescriptorEnum;
-import org.whole.lang.tests.ui.figures.TestFigure;
+import org.whole.lang.tests.ui.figures.TestStepFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 import org.whole.lang.util.EntityUtils;
 
@@ -30,14 +29,9 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractTestPart extends AbstractContentPanePart {
-    protected IFigure createFigure() {
-        return new TestFigure(getTestKind());
-    }
-    protected abstract String getTestKind();
-
 	@Override
-	public TestFigure getFigure() {
-		return (TestFigure) super.getFigure();
+	public TestStepFigure getFigure() {
+		return (TestStepFigure) super.getFigure();
 	}
 
 	@Override

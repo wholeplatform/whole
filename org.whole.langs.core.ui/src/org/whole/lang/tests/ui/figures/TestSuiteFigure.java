@@ -37,10 +37,16 @@ public class TestSuiteFigure extends ContentPaneFigure {
 	protected IFigure descriptionFigure;
     protected EntityFigure headerFigure;
     protected EntityFigure compartmentFigure;
-    protected ResultsFigure resultsFigure;
+    protected TestGroupResultsFigure resultsFigure;
 
     public TestSuiteFigure() {
-        super(new ColumnLayout());
+        super(new ColumnLayout() {
+        	@Override
+        	protected boolean calculateChildrenSize(int wHint, int hHint, boolean preferred) {
+        		super.calculateChildrenSize(wHint, hHint, preferred);
+        		return true;
+        	}
+        });
         initContentPanes(6);
         
         add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(6,8,4,8)));
@@ -54,7 +60,7 @@ public class TestSuiteFigure extends ContentPaneFigure {
         overFigure.add(createContentPane(2));
         overFigure.add(createContentPane(1));
         headerFigure.add(overFigure);
-        headerFigure.add(resultsFigure = new ResultsFigure());
+        headerFigure.add(resultsFigure = new TestGroupResultsFigure());
         Results expected = TestsEntityFactory.instance.createResults();
         expected.getFailures().setValue(3);
 

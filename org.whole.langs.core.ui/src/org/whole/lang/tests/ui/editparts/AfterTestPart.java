@@ -26,7 +26,7 @@ import org.whole.lang.tests.model.AfterTest;
 /**
  * @author Riccardo Solmi
  */
-public class AfterTestPart extends AbstractTestPart {
+public class AfterTestPart extends AbstractTestStepPart {
     protected String getTestKind() {
         return "After Test";
     }

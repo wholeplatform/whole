@@ -17,26 +17,58 @@
  */
 package org.whole.lang.tests.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.Clickable;
+import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.tests.model.Test;
+import org.whole.lang.tests.ui.figures.TestFigure;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
  */
 public class TestPart extends AbstractTestPart {
-    protected String getTestKind() {
-        return "Test";
-    }
+	protected IFigure createFigure() {
+		return new TestFigure((event) -> {
+			String location = (String) ((Clickable) event.getSource()).getModel().getUserData();
+			Test test = getModelEntity();
+			IEntity root = EntityUtils.getFragmentRoot(test);
+			IEntityPartViewer viewer = getViewer();
+			viewer.getControl().getDisplay().asyncExec(() ->
+					viewer.selectAndReveal(EntityUtils.getEntity(root, location)));
+		});
+	}
 
-    protected List<IEntity> getModelSpecificChildren() {
-        Test entity = getModelEntity();
-        List<IEntity> list = new ArrayList<IEntity>(3);
-        list.add(entity.getDescription());
-        list.add(entity.getName());
-        list.add(entity.getBody());
-        return list;
-    }
+	@Override
+	public TestFigure getFigure() {
+		return (TestFigure) super.getFigure();
+	}
+
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("expectedResult") ||
+				evt.getPropertyName().equals("actualResult"))
+			refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		Test entity = getModelEntity();
+		getFigure().updateResult(entity.getExpectedResult(), entity.getActualResult());
+	}
+	protected List<IEntity> getModelSpecificChildren() {
+		Test entity = getModelEntity();
+		List<IEntity> list = new ArrayList<IEntity>(3);
+		list.add(entity.getDescription());
+		list.add(entity.getName());
+		list.add(entity.getBody());
+		return list;
+	}
 }

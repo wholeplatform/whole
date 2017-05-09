@@ -22,7 +22,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.whole.lang.tests.factories.TestsEntityFactory;
 import org.whole.lang.tests.model.Results;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
@@ -37,7 +36,7 @@ public class TestCaseFigure extends ContentPaneFigure {
 	protected IFigure descriptionFigure;
     protected EntityFigure headerFigure;
     protected EntityFigure compartmentFigure;
-    protected ResultsFigure resultsFigure;
+    protected TestGroupResultsFigure resultsFigure;
 
     public TestCaseFigure() {
         super(new ColumnLayout());
@@ -54,9 +53,7 @@ public class TestCaseFigure extends ContentPaneFigure {
         overFigure.add(createContentPane(2));
         overFigure.add(createContentPane(1));
         headerFigure.add(overFigure);
-        headerFigure.add(resultsFigure = new ResultsFigure());
-        Results expected = TestsEntityFactory.instance.createResults();
-        expected.getErrors().setValue(1);
+        headerFigure.add(resultsFigure = new TestGroupResultsFigure());
 
         add(descriptionFigure = createContentPane(0, new MarginBorder(2,4,2,4)));
 		add(createContentPane(3, new MarginBorder(6,8,6,8)));

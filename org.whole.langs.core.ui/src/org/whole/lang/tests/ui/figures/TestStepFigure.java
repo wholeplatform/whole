@@ -31,27 +31,28 @@ import org.whole.lang.ui.layout.RowLayout;
 /**
  *  @author Riccardo Solmi
  */
-public class TestFigure extends ContentPaneFigure {
+public class TestStepFigure extends ContentPaneFigure {
 	protected IFigure descriptionFigure;
-    protected EntityFigure headerFigure;
+	protected EntityFigure headerFigure;
+	protected TestResultsFigure resultsFigure;
 
-    public TestFigure(String header) {
-        super(new ColumnLayout());
-        initContentPanes(3);
+	public TestStepFigure(String header) {
+		super(new ColumnLayout());
+		initContentPanes(3);
 
-        add(headerFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2,4,2,4)));
-        headerFigure.add(createFoldingToggle(2));
+		add(headerFigure = new EntityFigure(new RowLayout().withSpacing(4).withMargin(2,4,2,4)));
+		headerFigure.add(createFoldingToggle(2));
 
-        EntityFigure titleFigure = new EntityFigure(new OverLayout());
-        titleFigure.add(createContentPane(1));
-        titleFigure.addContentLighter(header);
-        headerFigure.add(titleFigure);
+		EntityFigure titleFigure = new EntityFigure(new OverLayout());
+		titleFigure.add(createContentPane(1));
+		titleFigure.addContentLighter(header);
+		headerFigure.add(titleFigure);
 
-        add(descriptionFigure = createContentPane(0, new MarginBorder(2)));
+		add(descriptionFigure = createContentPane(0, new MarginBorder(2)));
 		add(createContentPane(2, new MarginBorder(4,8,6,8)));
 
 		clickFoldingToggle(0);
-    }
+	}
 
 	public void showDescription(boolean value) {
 		descriptionFigure.setVisible(value);
@@ -75,7 +76,7 @@ public class TestFigure extends ContentPaneFigure {
 
 		g.setForegroundColor(ColorConstants.gray);
 		g.setLineWidth(2);
-		
+
 		g.drawLine(headerBounds.x, headerBounds.bottom()-1, bounds.right(), headerBounds.bottom()-1);
 		if (bounds.bottom() > headerBounds.bottom())
 			g.drawLine(headerBounds.x, bounds.bottom()-1, bounds.right(), bounds.bottom()-1);

@@ -241,7 +241,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			throw e;
 		} catch (TestsException e) {
 			outcome.wSetValue(OutcomeEnum.FAILURE);
-			location.setValue(EntityUtils.getLocation(entity));
+			location.setValue(EntityUtils.getLocation(e.getSubjectStatement()));
 			cause.setValue(e.getMessage());
 			reportFailure(name, e);
 		} catch (RuntimeException e) {

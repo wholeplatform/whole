@@ -36,14 +36,17 @@ import org.whole.lang.ui.layout.TableLayout;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 
-public class ResultsFigure extends TableFigure {
+/**
+ * @author Enrico Persiani
+ */
+public class TestGroupResultsFigure extends TableFigure {
 	private static final int RESULTS_FEATURES = Results.featureSize();
 
 	protected IEntityFigure[] expectedResults;
 	protected IEntityFigure[] actualResults;
 
-	public ResultsFigure() {
-		super(new TableLayout(RESULTS_FEATURES*2) {
+	public TestGroupResultsFigure() {
+		super(new TableLayout(RESULTS_FEATURES) {
 			public int getAscent(int height) {
 				return height - getRow(0).getAscent() - 1;
 			};
@@ -80,7 +83,7 @@ public class ResultsFigure extends TableFigure {
 		Value value = OutcomeEnum.instance.valueOf(i);
 		return new OutcomeFigure(value);
 	}
-	
+
 	public void update(Results expected, Results actual) {
 		setVisible(EntityUtils.isImpl(actual));
 		if (isVisible()) {

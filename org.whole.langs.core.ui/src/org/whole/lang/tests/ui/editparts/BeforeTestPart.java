@@ -26,7 +26,7 @@ import org.whole.lang.tests.model.BeforeTest;
 /**
  * @author Riccardo Solmi
  */
-public class BeforeTestPart extends AbstractTestPart {
+public class BeforeTestPart extends AbstractTestStepPart {
     protected String getTestKind() {
         return "Before Test";
     }

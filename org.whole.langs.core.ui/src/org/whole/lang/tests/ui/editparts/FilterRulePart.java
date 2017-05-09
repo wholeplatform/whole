@@ -23,7 +23,7 @@ import java.util.List;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.tests.model.FilterRule;
 
-public class FilterRulePart extends AbstractTestPart {
+public class FilterRulePart extends AbstractTestStepPart {
     protected String getTestKind() {
         return "Filter";
     }

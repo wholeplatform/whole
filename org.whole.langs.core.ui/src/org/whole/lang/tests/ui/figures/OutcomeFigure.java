@@ -31,11 +31,11 @@ import org.whole.lang.ui.figures.FigureConstants;
 public class OutcomeFigure extends AbstractEntityShapeFigure {
 	protected OutcomeEnum.Value outcome;
 
+	public OutcomeFigure() {
+		this(OutcomeEnum.SUCCESS);
+	}
 	public OutcomeFigure(OutcomeEnum.Value outcome) {
-		this.outcome = outcome;
-
-		setBackgroundColor(getColor(false));
-		setForegroundColor(getColor(true));
+		update(outcome);
 	}
 	
 	@Override
@@ -54,6 +54,15 @@ public class OutcomeFigure extends AbstractEntityShapeFigure {
 		default:
 			throw new IllegalArgumentException("unsupported outcome");
 		}
+	}
+
+	public void update(OutcomeEnum.Value outcome) {
+		this.outcome = outcome;
+
+		setBackgroundColor(getColor(false));
+		setForegroundColor(getColor(true));
+
+		repaint();
 	}
 
 	@Override

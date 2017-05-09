@@ -17,26 +17,15 @@
  */
 package org.whole.lang.tests.ui.editparts;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.whole.lang.model.IEntity;
-import org.whole.lang.tests.model.AfterTestCase;
+import org.eclipse.draw2d.IFigure;
+import org.whole.lang.tests.ui.figures.TestStepFigure;
 
 /**
- * @author Riccardo Solmi
+ * @author Enrico Persiani
  */
-public class AfterTestCasePart extends AbstractTestStepPart {
-    protected String getTestKind() {
-        return "After Test case";
-    }
-
-    protected List<IEntity> getModelSpecificChildren() {
-        AfterTestCase entity = getModelEntity();
-        List<IEntity> list = new ArrayList<IEntity>(3);
-        list.add(entity.getDescription());
-        list.add(entity.getName());
-        list.add(entity.getBody());
-        return list;
-    }
+public abstract class AbstractTestStepPart extends AbstractTestPart {
+	protected IFigure createFigure() {
+		return new TestStepFigure(getTestKind());
+	}
+	protected abstract String getTestKind();
 }
