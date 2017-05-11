@@ -25,10 +25,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.util.BehaviorUtils;
 
 /**
  * @author Riccardo Solmi
@@ -115,21 +113,12 @@ public class SimpleScope extends AbstractScope {
 	}
 	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		if (hasResultIterator())
-			return (IEntityIterator<E>) resultIterator;
-		else
-			return result != null ?
-					IteratorFactory.constantIterator((E) result, false) :
-						IteratorFactory.emptyIterator();
+		return hasResultIterator() ?
+				(IEntityIterator<E>) resultIterator : BindingManagerFactory.instance.resultIteratorOf((E) result);
 	}
 	public IEntity getResult() {
-		if (hasResultIterator()) {
-			IBindingManager riBindings = resultIterator.getBindings();
-			riBindings.setResultIterator(resultIterator);
-
-			return BehaviorUtils.evaluateResult(riBindings);
-		} else
-			return result;
+		return hasResultIterator() ?
+				BindingManagerFactory.instance.resultOf(resultIterator) : result;
 	}
 
 	public void setResultIterator(IEntityIterator<?> resultIterator) {

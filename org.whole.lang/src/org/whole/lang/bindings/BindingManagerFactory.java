@@ -29,6 +29,8 @@ import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.factories.IEntityFactory;
+import org.whole.lang.iterators.IEntityIterator;
+import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -38,6 +40,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityDescriptorEnum;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.WholeMessages;
@@ -303,6 +306,20 @@ public class BindingManagerFactory {
 	public boolean isVoid(IEntity entity) {
 		return Matcher.match(getVoidEd(), entity);
 	}
+
+	public <E extends IEntity> IEntityIterator<E> resultIteratorOf(E result) {
+		return result != null ?
+				IteratorFactory.constantIterator(result, false) :
+					IteratorFactory.emptyIterator();
+	}
+
+	public IEntity resultOf(IEntityIterator<?> resultIterator) {
+		IBindingManager riBindings = resultIterator.getBindings();
+		riBindings.setResultIterator(resultIterator);
+
+		return BehaviorUtils.evaluateResult(riBindings);
+	}
+
 
 	public IEntity createContextViewModel(IBindingManager bm, IBindingScope scope) {
 		IEntityFactory ef = GenericEntityFactory.instance;

@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.whole.lang.iterators.IEntityIterator;
-import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
@@ -400,8 +399,9 @@ public class EntityScope extends AbstractCloneableScope {
 	public boolean hasResultIterator() {
 		return false;
 	}
+	@SuppressWarnings("unchecked")
 	public <E extends IEntity> IEntityIterator<E> getResultIterator() {
-		return IteratorFactory.emptyIterator();		
+		return BindingManagerFactory.instance.resultIteratorOf((E) getResult());		
 	}
 	public void setResultIterator(IEntityIterator<?> resultIterator) {
 	}
