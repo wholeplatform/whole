@@ -22,25 +22,11 @@ import java.util.NoSuchElementException;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.operations.ICloneContext;
 
 /**
  * @author Riccardo Solmi
  */
 public class EmptyIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-	public static final EmptyIterator<IEntity> instance = new EmptyIterator<IEntity>();
-	@SuppressWarnings("unchecked")
-	public static final <T extends IEntity> EmptyIterator<T> instance() {
-		return (EmptyIterator<T>) instance;
-	}
-	protected EmptyIterator() {
-    }
-
-	@Override
-	public IEntityIterator<E> clone(ICloneContext cc) {
-		return this;
-	}
-
 	public IBindingScope lookaheadScope() {
 		return NullScope.instance;
 	}

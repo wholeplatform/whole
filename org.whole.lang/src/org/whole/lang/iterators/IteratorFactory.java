@@ -33,7 +33,7 @@ import org.whole.lang.visitors.IVisitor;
  */
 public class IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> emptyIterator() {
-		return EmptyIterator.<E>instance();
+		return new EmptyIterator<E>();
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> failureIterator(Throwable failure) {
