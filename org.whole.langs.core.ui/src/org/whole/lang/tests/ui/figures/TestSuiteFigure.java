@@ -40,13 +40,7 @@ public class TestSuiteFigure extends ContentPaneFigure {
     protected TestGroupResultsFigure resultsFigure;
 
     public TestSuiteFigure() {
-        super(new ColumnLayout() {
-        	@Override
-        	protected boolean calculateChildrenSize(int wHint, int hHint, boolean preferred) {
-        		super.calculateChildrenSize(wHint, hHint, preferred);
-        		return true;
-        	}
-        });
+        super(new ColumnLayout());
         initContentPanes(6);
         
         add(headerFigure = new EntityFigure(new RowLayout().withSpacing(6).withMargin(6,8,4,8)));
@@ -93,13 +87,13 @@ public class TestSuiteFigure extends ContentPaneFigure {
 		Rectangle headerBounds = headerFigure.getBounds();
 		Rectangle compartmentBounds = compartmentFigure.getBounds();
 
-		g.setForegroundColor(ColorConstants.black);
-		g.setLineWidth(2);
+		g.setForegroundColor(ColorConstants.gray);
+//		g.setLineWidth(2);
 
-		g.drawLine(bounds.x+1, headerBounds.bottom()-1, bounds.right()-1, headerBounds.bottom()-1);
+		g.drawLine(bounds.x/*+1*/, headerBounds.bottom()-1, bounds.right()/*-1*/, headerBounds.bottom()-1);
 		if (compartmentBounds.y > headerBounds.bottom())
 			g.drawLine(bounds.x+1, compartmentBounds.y-1, bounds.right()-1, compartmentBounds.y-1);
 
-		g.drawRectangle(bounds.getExpanded(-1, -1));
+//		g.drawRectangle(bounds.getExpanded(-1, -1));
 	}
 }

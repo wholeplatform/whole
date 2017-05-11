@@ -18,8 +18,6 @@
 package org.whole.lang.tests.ui.figures;
 
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.draw2d.ActionListener;
 import org.whole.lang.tests.model.OutcomeEnum;
@@ -34,18 +32,14 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public class ResultFigure extends EntityFigure {
-	private final Pattern EOL = Pattern.compile("\\R");
-
 	protected OutcomeFigure outcomeFigure;
 	protected EntityButton buttonFigure;
-	protected EntityLabel causeLabel;
 
 	public ResultFigure(ActionListener linkAction) {
 		super(new RowLayout());
 
 		add(this.outcomeFigure = new OutcomeFigure());
 		add(this.buttonFigure = new EntityButton(linkAction));
-		this.causeLabel = addLabel("");
 	}
 
 	public void update(Result result) {
@@ -57,13 +51,7 @@ public class ResultFigure extends EntityFigure {
 	public void update(OutcomeEnum.Value outcome,
 			Optional<String> cause, Optional<String> location) {
 		this.outcomeFigure.update(outcome);
-		String causeValue = cause.orElse("");
-		String abbreviatedCause = causeValue;
-		Matcher eolMatcher = EOL.matcher(abbreviatedCause);
-		if (eolMatcher.find())
-			abbreviatedCause = abbreviatedCause.substring(0, eolMatcher.start()).concat(" ...");
-		this.causeLabel.setText(abbreviatedCause);
-		this.setToolTip(new EntityLabel(causeValue));
+		this.setToolTip(cause.isPresent() ? new EntityLabel(cause.get()) : null);
 		this.buttonFigure.getModel().setUserData(location.orElse(""));
 		this.buttonFigure.setVisible(location.isPresent());
 		repaint();

@@ -246,7 +246,17 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 			reportFailure(name, e);
 		} catch (RuntimeException e) {
 			outcome.wSetValue(OutcomeEnum.ERROR);
-			location.setValue(EntityUtils.getLocation(entity));
+			
+			IEntity sourceEntity = null;
+			if (e instanceof IWholeRuntimeException) {
+				sourceEntity = ((IWholeRuntimeException) e).getSourceEntity();
+				if (EntityUtils.getCompoundRoot(sourceEntity) != EntityUtils.getCompoundRoot(entity))
+					sourceEntity = null; //FIXME replace with outer aspect or statement
+			}
+			if (sourceEntity == null)
+				sourceEntity = entity;
+
+			location.setValue(EntityUtils.getLocation(sourceEntity));
 			cause.setValue(e.getMessage());
 			reportError(name, e);
 		} finally {
