@@ -177,7 +177,7 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 					result = results.getErrors();
 					break;
 				case OutcomeEnum.FAILURE_ord:
-					result = results.getErrors();
+					result = results.getFailures();
 					break;
 				case OutcomeEnum.SUCCESS_ord:
 					result = results.getSuccesses();
