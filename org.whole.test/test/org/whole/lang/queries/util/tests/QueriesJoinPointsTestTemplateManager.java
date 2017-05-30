@@ -16,29 +16,11 @@ public class QueriesJoinPointsTestTemplateManager extends AbstractTemplateManage
     }
 
     private QueriesJoinPointsTestTemplateManager() {
-        put("fragment5", newFragment5());
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
     }
 
-    public ITemplateFactory<IEntity> newFragment5() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.actions.builders.IActionsBuilder b0 = (org.whole.lang.actions.builders.IActionsBuilder) op.wGetBuilder(org.whole.lang.actions.reflect.ActionsLanguageKit.URI);
-                b0.GuardedAction_();
-                b0.Label("Action 2");
-                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b1.SelfStep();
-                b1.ExpressionTest_();
-                b1.BooleanLiteral(true);
-                b1._ExpressionTest();
-                b0._GuardedAction();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -258,7 +240,7 @@ public class QueriesJoinPointsTestTemplateManager extends AbstractTemplateManage
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {

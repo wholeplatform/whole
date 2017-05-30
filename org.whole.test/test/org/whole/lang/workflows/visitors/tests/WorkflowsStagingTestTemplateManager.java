@@ -16,38 +16,40 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
     }
 
     private WorkflowsStagingTestTemplateManager() {
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
-        put("fragment2", newFragment2());
-        put("fragment3", newFragment3());
-        put("fragment4", newFragment4());
-        put("fragment5", newFragment5());
-        put("fragment6", newFragment6());
-        put("fragment7", newFragment7());
-        put("fragment8", newFragment8());
-        put("fragment9", newFragment9());
-        put("fragment10", newFragment10());
-        put("fragment11", newFragment11());
-        put("fragment12", newFragment12());
-        put("fragment13", newFragment13());
-        put("fragment14", newFragment14());
-        put("fragment15", newFragment15());
-        put("fragment16", newFragment16());
-        put("fragment17", newFragment17());
-        put("fragment18", newFragment18());
-        put("fragment19", newFragment19());
-        put("fragment20", newFragment20());
-        put("fragment21", newFragment21());
-        put("fragment22", newFragment22());
-        put("fragment23", newFragment23());
-        put("fragment24", newFragment24());
-        put("fragment25", newFragment25());
-        put("fragment26", newFragment26());
-        put("fragment27", newFragment27());
-        put("fragment28", newFragment28());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
+        put("fragment2", newfragment2());
+        put("fragment3", newfragment3());
+        put("fragment4", newfragment4());
+        put("fragment5", newfragment5());
+        put("fragment6", newfragment6());
+        put("fragment7", newfragment7());
+        put("fragment8", newfragment8());
+        put("fragment9", newfragment9());
+        put("fragment10", newfragment10());
+        put("fragment11", newfragment11());
+        put("fragment12", newfragment12());
+        put("fragment13", newfragment13());
+        put("fragment14", newfragment14());
+        put("fragment15", newfragment15());
+        put("fragment16", newfragment16());
+        put("fragment17", newfragment17());
+        put("fragment18", newfragment18());
+        put("fragment19", newfragment19());
+        put("fragment20", newfragment20());
+        put("fragment21", newfragment21());
+        put("fragment22", newfragment22());
+        put("fragment23", newfragment23());
+        put("fragment24", newfragment24());
+        put("fragment25", newfragment25());
+        put("fragment26", newfragment26());
+        put("fragment27", newfragment27());
+        put("fragment28", newfragment28());
+        put("fragment29", newfragment29());
+        put("fragment30", newfragment30());
     }
 
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -76,33 +78,37 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b0.Block_(2);
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b0 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b0.CreateJavaClassInstance_();
+                b0.Text("create new instance in variable");
+                b0.Variable("instance");
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.CreateJavaClassInstance_();
-                b2.Text("create new instance in variable");
-                b2.Variable("instance");
                 b1.Resolver();
-                b2.StringLiteral("java.lang.String");
-                b2.StringLiteral("String(java.lang.String)");
-                b2.Expressions_(1);
-                b2.StringLiteral("sample string");
-                b2._Expressions();
-                b2._CreateJavaClassInstance();
-                b1._SameStageFragment();
-                b0.VariableRefStep("instance");
-                b0._Block();
+                b0.StringLiteral("java.lang.String");
+                b0.StringLiteral("String(java.lang.String)");
+                b0.Expressions_(1);
+                b0.StringLiteral("sample string");
+                b0._Expressions();
+                b0._CreateJavaClassInstance();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment2() {
+    public ITemplateFactory<IEntity> newfragment2() {
+        return new AbstractTemplateFactory<IEntity>() {
+
+            public void apply(org.whole.lang.builders.IBuilderOperation op) {
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.VariableRefStep("instance");
+            }
+        };
+    }
+
+    public ITemplateFactory<IEntity> newfragment3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -122,7 +128,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment3() {
+    public ITemplateFactory<IEntity> newfragment4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -142,7 +148,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment4() {
+    public ITemplateFactory<IEntity> newfragment5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -168,7 +174,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment5() {
+    public ITemplateFactory<IEntity> newfragment6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -188,7 +194,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment6() {
+    public ITemplateFactory<IEntity> newfragment7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -208,7 +214,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment7() {
+    public ITemplateFactory<IEntity> newfragment8() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -235,7 +241,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment8() {
+    public ITemplateFactory<IEntity> newfragment9() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -256,7 +262,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment9() {
+    public ITemplateFactory<IEntity> newfragment10() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -277,7 +283,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment10() {
+    public ITemplateFactory<IEntity> newfragment11() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -300,7 +306,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment11() {
+    public ITemplateFactory<IEntity> newfragment12() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -317,7 +323,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment12() {
+    public ITemplateFactory<IEntity> newfragment13() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -334,7 +340,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment13() {
+    public ITemplateFactory<IEntity> newfragment14() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -374,7 +380,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment14() {
+    public ITemplateFactory<IEntity> newfragment15() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -408,7 +414,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment15() {
+    public ITemplateFactory<IEntity> newfragment16() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -442,25 +448,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment16() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b0 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b0.AssignActivity_();
-                b0.Text("initialize a variable with some text");
-                b0.Assignments_(1);
-                b0.Assign_();
-                b0.Variable("textInput");
-                b0.StringLiteral("this is some text input");
-                b0._Assign();
-                b0._Assignments();
-                b0._AssignActivity();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newFragment17() {
+    public ITemplateFactory<IEntity> newfragment17() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -482,7 +470,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment18() {
+    public ITemplateFactory<IEntity> newfragment18() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -498,7 +486,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment19() {
+    public ITemplateFactory<IEntity> newfragment19() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -513,7 +501,28 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment20() {
+    public ITemplateFactory<IEntity> newfragment20() {
+        return new AbstractTemplateFactory<IEntity>() {
+
+            public void apply(org.whole.lang.builders.IBuilderOperation op) {
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.SameStageFragment_();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.AssignActivity_();
+                b1.Text("initialize a variable with some text");
+                b1.Assignments_(1);
+                b1.Assign_();
+                b1.Variable("textInput");
+                b1.StringLiteral("this is some text input");
+                b1._Assign();
+                b1._Assignments();
+                b1._AssignActivity();
+                b0._SameStageFragment();
+            }
+        };
+    }
+
+    public ITemplateFactory<IEntity> newfragment21() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -537,7 +546,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment21() {
+    public ITemplateFactory<IEntity> newfragment22() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -555,7 +564,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment22() {
+    public ITemplateFactory<IEntity> newfragment23() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -573,30 +582,34 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment23() {
+    public ITemplateFactory<IEntity> newfragment24() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b0.Block_(2);
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b0 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b0.Parse_();
+                b0.Text("parse model in variable");
+                b0.Variable("entity");
+                b0.StringLiteral("{\n\tfalse;\n\tx one;\n\t12345,000000;\n\t12345;\n\ttwo;\n\tthree;\n\t31/12/2005;\n\t2009-01-21T17:10:46.120Z;\n\ttrue;\n\t\"ciao\";\n\t-123,456000\n}");
+                b0.StringLiteral("DataTypesGrammar");
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.Parse_();
-                b2.Text("parse model in variable");
-                b2.Variable("entity");
-                b2.StringLiteral("{\n\tfalse;\n\tx one;\n\t12345,000000;\n\t12345;\n\ttwo;\n\tthree;\n\t31/12/2005;\n\t2009-01-21T17:10:46.120Z;\n\ttrue;\n\t\"ciao\";\n\t-123,456000\n}");
-                b2.StringLiteral("DataTypesGrammar");
                 b1.Resolver();
-                b2._Parse();
-                b1._SameStageFragment();
-                b0.VariableRefStep("entity");
-                b0._Block();
+                b0._Parse();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment24() {
+    public ITemplateFactory<IEntity> newfragment25() {
+        return new AbstractTemplateFactory<IEntity>() {
+
+            public void apply(org.whole.lang.builders.IBuilderOperation op) {
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.VariableRefStep("entity");
+            }
+        };
+    }
+
+    public ITemplateFactory<IEntity> newfragment26() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -613,7 +626,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment25() {
+    public ITemplateFactory<IEntity> newfragment27() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -630,7 +643,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment26() {
+    public ITemplateFactory<IEntity> newfragment28() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -653,7 +666,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment27() {
+    public ITemplateFactory<IEntity> newfragment29() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -670,7 +683,7 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment28() {
+    public ITemplateFactory<IEntity> newfragment30() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
 import org.junit.*;
+import org.whole.lang.bindings.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
@@ -18,15 +19,24 @@ public class QueriesJoinPointsTest extends TestCase {
         return evaluate(create(templateName));
     }
 
+    protected static IEntity evaluateInScope(String templateName) {
+        return evaluate(create(templateName), false);
+    }
+
     /**
      *
      */
     @Test
     public void testJoinPoints() {
-        bindings().wEnterScope();
-        IEntity subject;
-        subject = evaluate("fragment");
-        assertThat("at /testCases/3/tests/0/body/0", subject, matches(evaluate("fragment1")));
-        bindings().wExitScope();
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            subject = evaluate("fragment");
+            assertThat("at /testCases/3/tests/0/body/0", subject, matches(evaluate("fragment1")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
     }
 }

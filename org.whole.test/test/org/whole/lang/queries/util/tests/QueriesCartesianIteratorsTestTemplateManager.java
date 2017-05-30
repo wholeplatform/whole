@@ -16,38 +16,19 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
     }
 
     private QueriesCartesianIteratorsTestTemplateManager() {
-        put("fragment10", newFragment10());
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
-        put("fragment2", newFragment2());
-        put("fragment3", newFragment3());
-        put("fragment4", newFragment4());
-        put("fragment5", newFragment5());
-        put("fragment6", newFragment6());
-        put("fragment7", newFragment7());
-        put("fragment8", newFragment8());
-        put("fragment9", newFragment9());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
+        put("fragment2", newfragment2());
+        put("fragment3", newfragment3());
+        put("fragment4", newfragment4());
+        put("fragment5", newfragment5());
+        put("fragment6", newfragment6());
+        put("fragment7", newfragment7());
+        put("fragment8", newfragment8());
+        put("fragment9", newfragment9());
     }
 
-    public ITemplateFactory<IEntity> newFragment10() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.java.builders.IJavaBuilder b0 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
-                b0.InfixExpression_();
-                b0.StringLiteral("");
-                b0.InfixOperator("+");
-                b0.ParenthesizedExpression_();
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._ParenthesizedExpression();
-                b1.Resolver();
-                b0._InfixExpression();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -154,7 +135,7 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -203,75 +184,77 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment2() {
+    public ITemplateFactory<IEntity> newfragment2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.models.builders.IModelsBuilder b0 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b0.ModelDeclarations_(2);
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name1");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(3);
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namex");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name2");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(2);
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namey");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0._ModelDeclarations();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b1.ModelDeclarations_(2);
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name1");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(3);
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namex");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name2");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(2);
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namey");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1._ModelDeclarations();
+                b0._StageUpFragment();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment3() {
+    public ITemplateFactory<IEntity> newfragment3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -322,75 +305,77 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment4() {
+    public ITemplateFactory<IEntity> newfragment4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.models.builders.IModelsBuilder b0 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b0.ModelDeclarations_(2);
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name1");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(3);
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namex");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name2");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(2);
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namey");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0._ModelDeclarations();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b1.ModelDeclarations_(2);
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name1");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(3);
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namex");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name2");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(2);
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namey");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1._ModelDeclarations();
+                b0._StageUpFragment();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment5() {
+    public ITemplateFactory<IEntity> newfragment5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -497,7 +482,7 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment6() {
+    public ITemplateFactory<IEntity> newfragment6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -549,104 +534,106 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment7() {
+    public ITemplateFactory<IEntity> newfragment7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.models.builders.IModelsBuilder b0 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b0.ModelDeclarations_(2);
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name1");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(6);
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namex");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name2");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(3);
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namey");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0._ModelDeclarations();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b1.ModelDeclarations_(2);
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name1");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(6);
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("TypeXX2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namex");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name2");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(3);
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namey");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1._ModelDeclarations();
+                b0._StageUpFragment();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment8() {
+    public ITemplateFactory<IEntity> newfragment8() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -681,147 +668,149 @@ public class QueriesCartesianIteratorsTestTemplateManager extends AbstractTempla
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment9() {
+    public ITemplateFactory<IEntity> newfragment9() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.models.builders.IModelsBuilder b0 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b0.ModelDeclarations_(2);
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name1");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(9);
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namex");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name2");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(6);
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namey");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0._ModelDeclarations();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.models.builders.IModelsBuilder b1 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
+                b1.ModelDeclarations_(2);
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name1");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(9);
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("TypeXX2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namex");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("TypeXX2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1.SimpleEntity_();
+                b1.EntityModifiers_(0);
+                b1._EntityModifiers();
+                b1.SimpleName("Name2");
+                b1.Types_(0);
+                b1._Types();
+                b1.Features_(6);
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("namey");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(0);
+                b1._FeatureModifiers();
+                b1.SimpleName("featureType");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("optional");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type1");
+                b1.SimpleName("name1");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("TypeXX2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1.Feature_();
+                b1.FeatureModifiers_(1);
+                b1.FeatureModifier("derived");
+                b1._FeatureModifiers();
+                b1.SimpleName("Type2");
+                b1.SimpleName("name2");
+                b0.Resolver();
+                b1._Feature();
+                b1._Features();
+                b1._SimpleEntity();
+                b1._ModelDeclarations();
+                b0._StageUpFragment();
             }
         };
     }

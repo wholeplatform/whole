@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.whole.lang.tests.junit.EntityMatchers.*;
 import org.junit.*;
+import org.whole.lang.bindings.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
@@ -18,19 +19,28 @@ public class QueriesCartesianIteratorsTest extends TestCase {
         return evaluate(create(templateName));
     }
 
+    protected static IEntity evaluateInScope(String templateName) {
+        return evaluate(create(templateName), false);
+    }
+
     /**
      *
      */
     @Test
     public void testCartesianUpdateIterator() {
-        bindings().wEnterScope();
-        IEntity subject;
-        evaluate("fragment");
-        subject = evaluate("fragment1");
-        assertThat("at /testCases/1/tests/0/body/1", subject, matches(create("fragment2")));
-        subject = evaluate("fragment3");
-        assertThat("at /testCases/1/tests/0/body/2", subject, matches(create("fragment4")));
-        bindings().wExitScope();
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            evaluateInScope("fragment");
+            subject = evaluate("fragment1");
+            assertThat("at /testCases/1/tests/0/body/1", subject, matches(evaluate("fragment2")));
+            subject = evaluate("fragment3");
+            assertThat("at /testCases/1/tests/0/body/2", subject, matches(evaluate("fragment4")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
     }
 
     /**
@@ -38,13 +48,18 @@ public class QueriesCartesianIteratorsTest extends TestCase {
      */
     @Test
     public void testCartesianInsertIterator() {
-        bindings().wEnterScope();
-        IEntity subject;
-        evaluate("fragment5");
-        subject = evaluate("fragment6");
-        assertThat("at /testCases/1/tests/1/body/1", subject, matches(create("fragment7")));
-        subject = evaluate("fragment8");
-        assertThat("at /testCases/1/tests/1/body/2", subject, matches(create("fragment9")));
-        bindings().wExitScope();
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            evaluateInScope("fragment5");
+            subject = evaluate("fragment6");
+            assertThat("at /testCases/1/tests/1/body/1", subject, matches(evaluate("fragment7")));
+            subject = evaluate("fragment8");
+            assertThat("at /testCases/1/tests/1/body/2", subject, matches(evaluate("fragment9")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
     }
 }

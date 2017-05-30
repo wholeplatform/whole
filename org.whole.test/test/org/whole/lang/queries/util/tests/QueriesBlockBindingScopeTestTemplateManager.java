@@ -16,161 +16,15 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
     }
 
     private QueriesBlockBindingScopeTestTemplateManager() {
-        put("fragment9", newFragment9());
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
-        put("fragment2", newFragment2());
-        put("fragment3", newFragment3());
-        put("fragment4", newFragment4());
-        put("fragment5", newFragment5());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
+        put("fragment2", newfragment2());
+        put("fragment3", newfragment3());
+        put("fragment4", newfragment4());
+        put("fragment5", newfragment5());
     }
 
-    public ITemplateFactory<IEntity> newFragment9() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.models.builders.IModelsBuilder b0 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
-                b0.ModelDeclarations_(2);
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name1");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(9);
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namex");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0.SimpleEntity_();
-                b0.EntityModifiers_(0);
-                b0._EntityModifiers();
-                b0.SimpleName("Name2");
-                b0.Types_(0);
-                b0._Types();
-                b0.Features_(6);
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("namey");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(0);
-                b0._FeatureModifiers();
-                b0.SimpleName("featureType");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("optional");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type1");
-                b0.SimpleName("name1");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("TypeXX2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0.Feature_();
-                b0.FeatureModifiers_(1);
-                b0.FeatureModifier("derived");
-                b0._FeatureModifiers();
-                b0.SimpleName("Type2");
-                b0.SimpleName("name2");
-                b1.Resolver();
-                b0._Feature();
-                b0._Features();
-                b0._SimpleEntity();
-                b0._ModelDeclarations();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -225,7 +79,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -244,7 +98,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment2() {
+    public ITemplateFactory<IEntity> newfragment2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -301,7 +155,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment3() {
+    public ITemplateFactory<IEntity> newfragment3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -320,7 +174,7 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment4() {
+    public ITemplateFactory<IEntity> newfragment4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -397,19 +251,22 @@ public class QueriesBlockBindingScopeTestTemplateManager extends AbstractTemplat
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment5() {
+    public ITemplateFactory<IEntity> newfragment5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.actions.builders.IActionsBuilder b0 = (org.whole.lang.actions.builders.IActionsBuilder) op.wGetBuilder(org.whole.lang.actions.reflect.ActionsLanguageKit.URI);
-                b0.GuardedAction_();
-                b0.Label("Action 2");
-                org.whole.lang.queries.builders.IQueriesBuilder b1 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b1.SelfStep();
-                b1.ExpressionTest_();
-                b1.BooleanLiteral(true);
-                b1._ExpressionTest();
-                b0._GuardedAction();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.actions.builders.IActionsBuilder b1 = (org.whole.lang.actions.builders.IActionsBuilder) op.wGetBuilder(org.whole.lang.actions.reflect.ActionsLanguageKit.URI);
+                b1.GuardedAction_();
+                b1.Label("Action 2");
+                org.whole.lang.queries.builders.IQueriesBuilder b2 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b2.SelfStep();
+                b2.ExpressionTest_();
+                b2.BooleanLiteral(true);
+                b2._ExpressionTest();
+                b1._GuardedAction();
+                b0._StageUpFragment();
             }
         };
     }

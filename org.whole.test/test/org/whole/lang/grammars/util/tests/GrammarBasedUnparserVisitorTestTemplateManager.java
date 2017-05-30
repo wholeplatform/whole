@@ -16,13 +16,13 @@ public class GrammarBasedUnparserVisitorTestTemplateManager extends AbstractTemp
     }
 
     private GrammarBasedUnparserVisitorTestTemplateManager() {
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
-        put("fragment2", newFragment2());
-        put("fragment3", newFragment3());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
+        put("fragment2", newfragment2());
+        put("fragment3", newfragment3());
     }
 
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -51,7 +51,7 @@ public class GrammarBasedUnparserVisitorTestTemplateManager extends AbstractTemp
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -315,7 +315,7 @@ public class GrammarBasedUnparserVisitorTestTemplateManager extends AbstractTemp
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment2() {
+    public ITemplateFactory<IEntity> newfragment2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -347,12 +347,15 @@ public class GrammarBasedUnparserVisitorTestTemplateManager extends AbstractTemp
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment3() {
+    public ITemplateFactory<IEntity> newfragment3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.environment.builders.IEnvironmentBuilder b0 = (org.whole.lang.environment.builders.IEnvironmentBuilder) op.wGetBuilder(org.whole.lang.environment.reflect.EnvironmentLanguageKit.URI);
-                b0.StringData("{\n    false\n\n\n    ;\n    x one;\n    12345,500000;\n    12345;\n    two;\n    three;\n    31/12/2003;\n    2009-01-21T17:10:46.120Z;\n    true\n\n\n    ;\n    \"ciao\";\n    -123,456000\n}");
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.environment.builders.IEnvironmentBuilder b1 = (org.whole.lang.environment.builders.IEnvironmentBuilder) op.wGetBuilder(org.whole.lang.environment.reflect.EnvironmentLanguageKit.URI);
+                b1.StringData("{\n    false\n\n\n    ;\n    x one;\n    12345,500000;\n    12345;\n    two;\n    three;\n    31/12/2003;\n    2009-01-21T17:10:46.120Z;\n    true\n\n\n    ;\n    \"ciao\";\n    -123,456000\n}");
+                b0._StageUpFragment();
             }
         };
     }

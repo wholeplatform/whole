@@ -6,6 +6,7 @@ import static org.whole.lang.tests.junit.EntityMatchers.*;
 
 import org.junit.*;
 import org.junit.experimental.categories.Category;
+import org.whole.lang.bindings.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.tests.junit.TestCase;
@@ -39,16 +40,25 @@ public class GrammarBasedPrettyPrinterVisitorTest extends TestCase {
         return evaluate(create(templateName));
     }
 
+    protected static IEntity evaluateInScope(String templateName) {
+        return evaluate(create(templateName), false);
+    }
+
     /**
      *
      */
     @Test
     public void testPrettyPrintWithFragments() {
-        bindings().wEnterScope();
-        IEntity subject;
-        subject = evaluate("fragment1");
-        assertThat("at /testCases/4/tests/0/body/0", subject, matches(create("fragment2")));
-        bindings().wExitScope();
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            subject = evaluate("fragment1");
+            assertThat("at /testCases/4/tests/0/body/0", subject, matches(evaluate("fragment2")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
     }
 
     /**
@@ -56,10 +66,15 @@ public class GrammarBasedPrettyPrinterVisitorTest extends TestCase {
      */
     @Test
     public void testPrettyPrintWithBehavioralLiteral() {
-        bindings().wEnterScope();
-        IEntity subject;
-        subject = evaluate("fragment3");
-        assertThat("at /testCases/4/tests/1/body/0", subject, matches(create("fragment4")));
-        bindings().wExitScope();
+        ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
+        try {
+            bindings().wEnterScope(ts);
+            IEntity subject;
+            subject = evaluate("fragment3");
+            assertThat("at /testCases/4/tests/1/body/0", subject, matches(evaluate("fragment4")));
+        } finally {
+            ts.rollback();
+            bindings().wExitScope();
+        }
     }
 }

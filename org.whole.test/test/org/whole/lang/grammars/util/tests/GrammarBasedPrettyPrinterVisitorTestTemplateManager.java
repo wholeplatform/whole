@@ -16,14 +16,14 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
     }
 
     private GrammarBasedPrettyPrinterVisitorTestTemplateManager() {
-        put("fragment", newFragment());
-        put("fragment1", newFragment1());
-        put("fragment2", newFragment2());
-        put("fragment3", newFragment3());
-        put("fragment4", newFragment4());
+        put("fragment", newfragment());
+        put("fragment1", newfragment1());
+        put("fragment2", newfragment2());
+        put("fragment3", newfragment3());
+        put("fragment4", newfragment4());
     }
 
-    public ITemplateFactory<IEntity> newFragment() {
+    public ITemplateFactory<IEntity> newfragment() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -52,7 +52,7 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment1() {
+    public ITemplateFactory<IEntity> newfragment1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -212,123 +212,126 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment2() {
+    public ITemplateFactory<IEntity> newfragment2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.text.builders.ITextBuilder b0 = (org.whole.lang.text.builders.ITextBuilder) op.wGetBuilder(org.whole.lang.text.reflect.TextLanguageKit.URI);
-                b0.Document_(35);
-                b0.Row_(1);
-                b0.Text("events");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdoorClosed\tD1CL");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdrawOpened\tD2OP");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tlightOn\tL1ON");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdoorOpened\tD1OP");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tpanelClosed\tPNCL");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("resetEvents");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdoorOpened");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("commands");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tunlockPanel\tPNUL");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tlockPanel\tPNLK");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tlockDoor\tD1LK");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tunlockDoor\tD1UL");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("state idle");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tactions {unlockDoor lockPanel}");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdoorClosed => active");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("state active");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdrawOpened => waitingForLight");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tlightOn => waitingForDraw");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("state waitingForLight");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tlightOn => unlockedPanel");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("state waitingForDraw");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tdrawOpened => unlockedPanel");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("state unlockedPanel");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tactions {unlockPanel lockDoor}");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("\tpanelClosed => idle");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("end");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("");
-                b0._Row();
-                b0._Document();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.text.builders.ITextBuilder b1 = (org.whole.lang.text.builders.ITextBuilder) op.wGetBuilder(org.whole.lang.text.reflect.TextLanguageKit.URI);
+                b1.Document_(35);
+                b1.Row_(1);
+                b1.Text("events");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdoorClosed\tD1CL");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdrawOpened\tD2OP");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tlightOn\tL1ON");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdoorOpened\tD1OP");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tpanelClosed\tPNCL");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("resetEvents");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdoorOpened");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("commands");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tunlockPanel\tPNUL");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tlockPanel\tPNLK");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tlockDoor\tD1LK");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tunlockDoor\tD1UL");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("state idle");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tactions {unlockDoor lockPanel}");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdoorClosed => active");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("state active");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdrawOpened => waitingForLight");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tlightOn => waitingForDraw");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("state waitingForLight");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tlightOn => unlockedPanel");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("state waitingForDraw");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tdrawOpened => unlockedPanel");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("state unlockedPanel");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tactions {unlockPanel lockDoor}");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("\tpanelClosed => idle");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("end");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("");
+                b1._Row();
+                b1._Document();
+                b0._StageUpFragment();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment3() {
+    public ITemplateFactory<IEntity> newfragment3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -376,70 +379,73 @@ public class GrammarBasedPrettyPrinterVisitorTestTemplateManager extends Abstrac
         };
     }
 
-    public ITemplateFactory<IEntity> newFragment4() {
+    public ITemplateFactory<IEntity> newfragment4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.text.builders.ITextBuilder b0 = (org.whole.lang.text.builders.ITextBuilder) op.wGetBuilder(org.whole.lang.text.reflect.TextLanguageKit.URI);
-                b0.Document_(19);
-                b0.Row_(1);
-                b0.Text("{");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    false");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    ;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    x one;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    12345,500000;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    12345;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    two;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    three;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    31/12/2003;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    2009-01-21T17:10:46.120Z;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    true");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    ;");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    \"ciao\";");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("    -123,456000");
-                b0._Row();
-                b0.Row_(1);
-                b0.Text("}");
-                b0._Row();
-                b0._Document();
+                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b0.StageUpFragment_();
+                org.whole.lang.text.builders.ITextBuilder b1 = (org.whole.lang.text.builders.ITextBuilder) op.wGetBuilder(org.whole.lang.text.reflect.TextLanguageKit.URI);
+                b1.Document_(19);
+                b1.Row_(1);
+                b1.Text("{");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    false");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    ;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    x one;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    12345,500000;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    12345;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    two;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    three;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    31/12/2003;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    2009-01-21T17:10:46.120Z;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    true");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    ;");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    \"ciao\";");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("    -123,456000");
+                b1._Row();
+                b1.Row_(1);
+                b1.Text("}");
+                b1._Row();
+                b1._Document();
+                b0._StageUpFragment();
             }
         };
     }
