@@ -158,53 +158,17 @@
                                 </queries:Not>
                             </queries:Filter>
                         </queries:Path>
-                        <queries:Path initialCapacity="5">
+                        <queries:Path initialCapacity="4">
                             <queries:FeatureStep value="http://lang.whole.org/Tests#tests"/>
                             <queries:ChildStep/>
                             <queries:FeatureStep value="http://lang.whole.org/Tests#body"/>
                             <queries:Filter>
-                                <queries:DescendantOrSelfStep/>
-                                <queries:Or initialCapacity="4">
-                                    <queries:TypeTest value="http://lang.whole.org/Tests#TestStatements"/>
-                                    <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
-                                    <queries:SubtypeTest value="http://lang.whole.org/Tests#SubjectStatement"/>
-                                    <queries:SubtypeTest value="http://lang.whole.org/Tests#ObjectConstraint"/>
-                                </queries:Or>
-                            </queries:Filter>
-                            <queries:Filter>
-                                <queries:Choose initialCapacity="4">
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:SelfStep/>
-                                        <queries:TypeTest value="http://lang.whole.org/Tests#TestStatements"/>
-                                        </queries:Filter>
-                                        <queries:ChildStep/>
-                                    </queries:Path>
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:SelfStep/>
-                                        <queries:TypeTest value="http://lang.whole.org/Tests#UsingFilter"/>
-                                        </queries:Filter>
-                                        <queries:FeatureStep value="http://lang.whole.org/Tests#subjectStatement"/>
-                                    </queries:Path>
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:SelfStep/>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Tests#SubjectStatement"/>
-                                        </queries:Filter>
-                                        <queries:FeatureStep value="http://lang.whole.org/Tests#subject"/>
-                                    </queries:Path>
-                                    <queries:Path initialCapacity="2">
-                                        <queries:Filter>
-                                        <queries:SelfStep/>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Tests#ObjectConstraint"/>
-                                        </queries:Filter>
-                                        <queries:FeatureStep value="http://lang.whole.org/Tests#object"/>
-                                    </queries:Path>
-                                </queries:Choose>
-                                <queries:Not>
-                                    <queries:LanguageTest value="http://lang.whole.org/Tests"/>
-                                </queries:Not>
+                                <queries:DescendantStep/>
+                                <queries:Prune>
+                                    <queries:Not>
+                                        <queries:LanguageTest value="http://lang.whole.org/Tests"/>
+                                    </queries:Not>
+                                </queries:Prune>
                             </queries:Filter>
                         </queries:Path>
                     </queries:Sequence>
@@ -215,73 +179,7 @@
                         <queries:Name value="value"/>
                         <queries:Name value="name"/>
                     </queries:Names>
-                    <queries:Choose initialCapacity="10">
-                        <queries:If>
-                            <queries:TypeTest value="http://lang.whole.org/Commons#StageUpFragment"/>
-                            <queries:Block initialCapacity="2">
-                                <queries:Filter>
-                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="next template name"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="fragmentsMap"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="java.util.Map"/>
-                                        <workflows:StringLiteral value="get(java.lang.Object)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaInstanceMethod>
-                                    <queries:VariableTest value="name"/>
-                                </queries:Filter>
-                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
-                                        <commons:Resolver/>
-                                        <java:Types initialCapacity="0"/>
-                                        <java:SimpleName value="create"/>
-                                        <java:Arguments initialCapacity="1">
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
-                                        <commons:VarName value="name"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </java:Arguments>
-                                    </java:MethodInvocation>
-                                </commons:StageUpFragment>
-                            </queries:Block>
-                        </queries:If>
-                        <queries:If>
-                            <queries:SubtypeTest value="http://lang.whole.org/Commons#Fragment"/>
-                            <queries:Block initialCapacity="2">
-                                <queries:Filter>
-                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="next template name"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:Variable value="fragmentsMap"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <workflows:StringLiteral value="java.util.Map"/>
-                                        <workflows:StringLiteral value="get(java.lang.Object)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaInstanceMethod>
-                                    <queries:VariableTest value="name"/>
-                                </queries:Filter>
-                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
-                                        <commons:Resolver/>
-                                        <java:Types initialCapacity="0"/>
-                                        <java:SimpleName value="evaluate"/>
-                                        <java:Arguments initialCapacity="1">
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
-                                        <commons:VarName value="name"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </java:Arguments>
-                                    </java:MethodInvocation>
-                                </commons:StageUpFragment>
-                            </queries:Block>
-                        </queries:If>
+                    <queries:Choose initialCapacity="8">
                         <queries:If>
                             <queries:Not>
                                 <queries:LanguageTest value="http://lang.whole.org/Tests"/>
@@ -305,7 +203,45 @@
                                     <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
                                         <commons:Resolver/>
                                         <java:Types initialCapacity="0"/>
+                                        <commons:StageDownFragment>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:Prune>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Tests#AbstractBehavior"/>
+                                        </queries:Prune>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Tests#Aspect"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:ExpressionTest>
+                                        <commons:StageUpFragment>
+                                        <java:SimpleName value="evaluateInScope"/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Tests#TestStatements"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <commons:StageUpFragment>
+                                        <java:SimpleName value="evaluateInScope"/>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <commons:StageUpFragment>
                                         <java:SimpleName value="evaluate"/>
+                                        </commons:StageUpFragment>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        </commons:StageDownFragment>
                                         <java:Arguments initialCapacity="1">
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Java#StringLiteral"/>
@@ -1504,16 +1440,10 @@
                                     </queries:Filter>
                                     <queries:SelfStep/>
                                     <queries:For>
-                                        <queries:Path initialCapacity="2">
                                         <queries:Call>
                                         <queries:Name value="allAdaptedFragments"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </queries:Call>
-                                        <queries:Sequence initialCapacity="2">
-                                        <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
-                                        <queries:SelfStep/>
-                                        </queries:Sequence>
-                                        </queries:Path>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -1595,7 +1525,7 @@
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         </java:PackageDeclaration>
-                                        <java:ImportDeclarations initialCapacity="7">
+                                        <java:ImportDeclarations initialCapacity="8">
                                         <java:ImportDeclaration>
                                         <java:QualifiedName value="org.junit.Assert"/>
                                         <java:ImportModifier value="true"/>
@@ -1613,6 +1543,11 @@
                                         </java:ImportDeclaration>
                                         <java:ImportDeclaration>
                                         <java:QualifiedName value="org.junit"/>
+                                        <java:ImportModifier value="true"/>
+                                        <java:ImportModifier value="false"/>
+                                        </java:ImportDeclaration>
+                                        <java:ImportDeclaration>
+                                        <java:QualifiedName value="org.whole.lang.bindings"/>
                                         <java:ImportModifier value="true"/>
                                         <java:ImportModifier value="false"/>
                                         </java:ImportDeclaration>
@@ -1646,7 +1581,7 @@
                                         <commons:Resolver/>
                                         <java:SimpleType value="TestCase"/>
                                         <commons:Resolver/>
-                                        <java:BodyDeclarations initialCapacity="5">
+                                        <java:BodyDeclarations initialCapacity="6">
                                         <commons:InlineVariable>
                                         <commons:VarType value="http://lang.whole.org/Java#BodyDeclaration"/>
                                         <commons:VarName value="deployCode"/>
@@ -1668,6 +1603,7 @@
                                         <java:Varargs value="false"/>
                                         <java:SimpleName value="templateName"/>
                                         <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
                                         <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
@@ -1712,6 +1648,7 @@
                                         <java:SimpleName value="templateName"/>
                                         <java:ExtraDimensions value="0"/>
                                         <commons:Resolver/>
+                                        <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
                                         <commons:Resolver/>
@@ -1731,6 +1668,49 @@
                                         <java:SimpleName value="templateName"/>
                                         </java:Arguments>
                                         </java:MethodInvocation>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        </java:ReturnStatement>
+                                        </java:Block>
+                                        </java:MethodDeclaration>
+                                        <java:MethodDeclaration>
+                                        <commons:Resolver/>
+                                        <java:ExtendedModifiers initialCapacity="2">
+                                        <java:Modifier value="protected"/>
+                                        <java:Modifier value="static"/>
+                                        </java:ExtendedModifiers>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="IEntity"/>
+                                        <java:SimpleName value="evaluateInScope"/>
+                                        <java:Parameters initialCapacity="1">
+                                        <java:SingleVariableDeclaration>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="String"/>
+                                        <java:Varargs value="false"/>
+                                        <java:SimpleName value="templateName"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        </java:SingleVariableDeclaration>
+                                        </java:Parameters>
+                                        <commons:Resolver/>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="1">
+                                        <java:ReturnStatement>
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="evaluate"/>
+                                        <java:Arguments initialCapacity="2">
+                                        <java:MethodInvocation>
+                                        <commons:Resolver/>
+                                        <java:Types initialCapacity="0"/>
+                                        <java:SimpleName value="create"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="templateName"/>
+                                        </java:Arguments>
+                                        </java:MethodInvocation>
+                                        <java:BooleanLiteral value="false"/>
                                         </java:Arguments>
                                         </java:MethodInvocation>
                                         </java:ReturnStatement>
@@ -1884,6 +1864,7 @@
                                         <java:Varargs value="false"/>
                                         <java:SimpleName value="platform"/>
                                         <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
                                         <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
@@ -2187,7 +2168,25 @@
                                         <java:Parameters initialCapacity="0"/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
-                                        <java:Block initialCapacity="4">
+                                        <java:Block initialCapacity="2">
+                                        <java:VariableDeclarationStatement>
+                                        <commons:Resolver/>
+                                        <java:SimpleType value="ITransactionScope"/>
+                                        <java:VariableDeclarationFragments initialCapacity="1">
+                                        <java:VariableDeclarationFragment>
+                                        <java:SimpleName value="ts"/>
+                                        <java:ExtraDimensions value="0"/>
+                                        <java:MethodInvocation>
+                                        <java:QualifiedName value="BindingManagerFactory.instance"/>
+                                        <commons:Resolver/>
+                                        <java:SimpleName value="createTransactionScope"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:VariableDeclarationFragment>
+                                        </java:VariableDeclarationFragments>
+                                        </java:VariableDeclarationStatement>
+                                        <java:TryStatement>
+                                        <java:Block initialCapacity="3">
                                         <java:ExpressionStatement>
                                         <java:MethodInvocation>
                                         <java:MethodInvocation>
@@ -2198,7 +2197,9 @@
                                         </java:MethodInvocation>
                                         <java:Types initialCapacity="0"/>
                                         <java:SimpleName value="wEnterScope"/>
-                                        <java:Arguments initialCapacity="0"/>
+                                        <java:Arguments initialCapacity="1">
+                                        <java:SimpleName value="ts"/>
+                                        </java:Arguments>
                                         </java:MethodInvocation>
                                         </java:ExpressionStatement>
                                         <java:VariableDeclarationStatement>
@@ -2217,19 +2218,32 @@
                                         <commons:VarName value="statements"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:InlineVariable>
+                                        </java:Block>
+                                        <commons:Resolver/>
+                                        <java:Block initialCapacity="2">
+                                        <java:ExpressionStatement>
+                                        <java:MethodInvocation>
+                                        <java:SimpleName value="ts"/>
+                                        <commons:Resolver/>
+                                        <java:SimpleName value="rollback"/>
+                                        <java:Arguments initialCapacity="0"/>
+                                        </java:MethodInvocation>
+                                        </java:ExpressionStatement>
                                         <java:ExpressionStatement>
                                         <java:MethodInvocation>
                                         <java:MethodInvocation>
                                         <commons:Resolver/>
-                                        <java:Types initialCapacity="0"/>
+                                        <commons:Resolver/>
                                         <java:SimpleName value="bindings"/>
                                         <java:Arguments initialCapacity="0"/>
                                         </java:MethodInvocation>
-                                        <java:Types initialCapacity="0"/>
+                                        <commons:Resolver/>
                                         <java:SimpleName value="wExitScope"/>
                                         <java:Arguments initialCapacity="0"/>
                                         </java:MethodInvocation>
                                         </java:ExpressionStatement>
+                                        </java:Block>
+                                        </java:TryStatement>
                                         </java:Block>
                                         </java:MethodDeclaration>
                                         </commons:StageUpFragment>

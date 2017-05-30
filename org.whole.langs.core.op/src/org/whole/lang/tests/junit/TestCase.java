@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.NullEntity;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -26,7 +27,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Enrico Persiani
  */
 public abstract class TestCase {
-    protected static IBindingManager bindings;
+	protected static IBindingManager bindings;
     protected static IBindingManager bindings() {
         if (bindings == null)
             bindings = BindingManagerFactory.instance.createBindingManager();
@@ -34,14 +35,37 @@ public abstract class TestCase {
     }
 
     protected static IEntity evaluate(IEntity model) {
-		IEntity entity = NullEntity.instance;
+    	return evaluate(model, true);
+    }
+    protected static IEntity evaluate(IEntity model, boolean rollbackScope) {
+    	return evaluate(model, rollbackScope, false);
+    }
+    protected static IEntity evaluate(IEntity model, boolean rollbackScope, boolean catchExceptions) {
+    	IEntity entity = NullEntity.instance;
+    	RuntimeException thrownException = null;
+
+    	ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 		try {
+			if (rollbackScope)
+				bindings().wEnterScope(ts);
 			entity = BehaviorUtils.evaluate(model, 0, bindings());
 		} catch (RuntimeException e) {
-			// save exception for later evaluation
-			bindings().wDefValue("thrownException", e);
+			if (catchExceptions)
+				// save exception for later evaluation
+				thrownException = e;
+			else
+				throw e;
+		} finally {
+			if (rollbackScope) {
+				ts.rollback();
+				bindings().wExitScope();
+			}
 		}
-		return entity == null ? NullEntity.instance : entity;
+
+		if (thrownException != null) 
+			bindings().wDefValue("thrownException", thrownException);
+
+		return entity;
     }
 
     protected static StringLiteral createStringLiteral(String value) {

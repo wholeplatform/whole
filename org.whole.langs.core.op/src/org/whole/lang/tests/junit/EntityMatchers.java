@@ -14,11 +14,11 @@ import org.whole.lang.visitors.IVisitor;
  */
 public class EntityMatchers {
 	@Factory
-	public static <T> Matcher<IEntity> equalToEntity(final IEntity toEntity) {
+	public static <T> Matcher<IEntity> equalToEntity(IEntity toEntity) {
 		return new VisitorMatcher(TestsMatcherFactory.instance.equals(toEntity));
 	}
 	@Factory
-	public static <T> Matcher<IEntity> sameAsEntity(final IEntity asEntity) {
+	public static <T> Matcher<IEntity> sameAsEntity(IEntity asEntity) {
 		return new VisitorMatcher(TestsMatcherFactory.instance.same(asEntity));
 	}
 	@Factory
@@ -36,19 +36,23 @@ public class EntityMatchers {
 		return new VisitorMatcher(TestsMatcherFactory.instance.isNull());
 	}
 	@Factory
-	public static <T> Matcher<IEntity> matches(final IEntity pattern) {
+	public static <T> Matcher<IEntity> matches(IEntity pattern) {
 		return new VisitorMatcher(GenericMatcherFactory.instance.match(pattern));
 	}
 	@Factory
-	public static <T> Matcher<IEntity> assignableTo(final String edName) {
+	public static <T> Matcher<IEntity> assignableTo(String edName) {
    		return new VisitorMatcher(GenericMatcherFactory.instance.isPlatformSubtypeOfMatcher(edName));
 	}
 	@Factory
-	public static <T> Matcher<IEntity> hasType(final String edName) {
+	public static <T> Matcher<IEntity> hasType(String edName) {
    		return new VisitorMatcher(GenericMatcherFactory.instance.hasTypeMatcher(edName));
 	}
 	@Factory
-	public static <T> Matcher<IEntity> hasKind(final EntityKinds kind) {
+	public static <T> Matcher<IEntity> hasKind(EntityKinds kind) {
    		return new VisitorMatcher(GenericMatcherFactory.instance.hasKindMatcher(kind));
+	}
+	@Factory
+	public static <T> Matcher<IEntity> hasThrown(String className) {
+		return new VisitorMatcher(TestsMatcherFactory.instance.hasThrown(className));
 	}
 }
