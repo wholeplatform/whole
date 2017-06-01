@@ -313,7 +313,6 @@ public class EntityDescriptorEnum extends EnumType<EntityDescriptor<?>> implemen
 	}
 	protected <E extends IEntity> EntityDescriptor<E> putDataEntity(int ordinal,
 			String name, String implName, Class<E> type, boolean isRelationship, Class<?> dataType) {
-		assert (valueOf(name) == null);
 		EntityDescriptor<E> ed = new DataEntityDescriptor<E>(ordinal, name, implName, type, isRelationship, dataType);
 		putEnumValue(ed);
 		return ed;
