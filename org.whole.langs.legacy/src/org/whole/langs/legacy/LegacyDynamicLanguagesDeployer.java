@@ -31,6 +31,8 @@ public class LegacyDynamicLanguagesDeployer extends AbstractDynamicLanguageDeplo
 		try {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/html/HTML5Model.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/mediawiki/MediaWikiModel.xwl")));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

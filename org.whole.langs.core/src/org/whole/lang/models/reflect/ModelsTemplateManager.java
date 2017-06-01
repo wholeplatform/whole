@@ -27,7 +27,6 @@ import org.whole.lang.models.codebase.MapsModel;
 import org.whole.lang.models.codebase.MathModel;
 import org.whole.lang.models.codebase.MathPresentationModel;
 import org.whole.lang.models.codebase.MbedModel;
-import org.whole.lang.models.codebase.MediaWikiModel;
 import org.whole.lang.models.codebase.MiscModel;
 import org.whole.lang.models.codebase.ModelsInfoModel;
 import org.whole.lang.models.codebase.ModelsModel;
@@ -145,7 +144,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Grammars model", new GrammarsModel());
 		put("Grammar Based Notation model", new GrammarBasedModel());
 		put("Data model", new DataModel());
-		put("MediaWiki model", new MediaWikiModel());
 		put("Status model", new StatusModel());
 
 		put("Math Presentation model", new MathPresentationModel());
