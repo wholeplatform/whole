@@ -17,7 +17,6 @@
  */
 package org.whole.langs.legacy.op;
 
-import org.whole.lang.mediawiki.MediaWikiActions;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -42,8 +41,6 @@ import org.whole.langs.legacy.LegacyMetaModelsDeployer;
  */
 public class LegacyOperationsDeployer extends AbstractLanguageExtensionDeployer {
 	public void deploy(ReflectionFactory platform) {
-		InterpreterOperation.interpret(new MediaWikiActions().create());
-
 		//TODO move to MappingStrategyRegistry?
 		MappingStrategyRegistry.instance().putMappingStrategy(new CommonsMappingStrategy());
 

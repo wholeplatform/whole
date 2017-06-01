@@ -47,6 +47,8 @@ public class LegacyContributionExtensionsDeployer extends AbstractContributionEx
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/javascript/JavaScriptActions.xwl")));
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/mediawiki/MediaWikiActions.xwl")));
+			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/ui/CaretActionsSemantics.xwl")));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);

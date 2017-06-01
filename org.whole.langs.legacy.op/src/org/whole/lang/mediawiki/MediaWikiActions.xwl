@@ -1,0 +1,1618 @@
+<?xml version="1.0"?>
+<actions:LanguageActionFactory xmlns:actions="http://lang.whole.org/Actions">
+    <actions:URI value="whole:org.whole.lang.mediawiki:MediaWikiActions"/>
+    <actions:Namespace value="org.whole.lang.mediawiki"/>
+    <actions:Name value="MediaWikiActions"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <actions:URI value="whole:org.whole.lang.mediawiki:MediaWiki"/>
+    <actions:ToolbarActions>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Normalizer"/>
+            <queries:CartesianUpdate xmlns:queries="http://lang.whole.org/Queries">
+                <queries:Path initialCapacity="3">
+                    <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#wikiPages"/>
+                    <queries:Filter>
+                        <queries:ChildStep/>
+                        <queries:ExpressionTest>
+                            <queries:Filter>
+                                <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#title"/>
+                                <queries:VariableTest value="title"/>
+                            </queries:Filter>
+                        </queries:ExpressionTest>
+                    </queries:Filter>
+                    <queries:Filter>
+                        <queries:FeatureStep value="whole:org.whole.lang.mediawiki:MediaWiki#article"/>
+                        <queries:KindTest value="RESOLVER"/>
+                    </queries:Filter>
+                </queries:Path>
+                <queries:Block initialCapacity="2">
+                    <queries:Filter>
+                        <queries:Addition>
+                            <queries:VariableRefStep value="folderFullPath"/>
+                            <queries:Addition>
+                                <queries:StringLiteral value="/"/>
+                                <queries:Addition>
+                                    <queries:VariableRefStep value="title"/>
+                                    <queries:StringLiteral value=".mediawiki"/>
+                                </queries:Addition>
+                            </queries:Addition>
+                        </queries:Addition>
+                        <queries:VariableTest value="articleFileName"/>
+                    </queries:Filter>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="load article"/>
+                            <commons:Resolver/>
+                            <workflows:StringLiteral value="org.whole.lang.grammars.codebase.MediaWikiPersistenceKit"/>
+                            <workflows:ResourceKind value="WORKSPACE"/>
+                            <workflows:Variable value="articleFileName"/>
+                            <commons:Resolver/>
+                        </workflows:LoadModel>
+                    </commons:SameStageFragment>
+                </queries:Block>
+            </queries:CartesianUpdate>
+        </actions:SimpleAction>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+        <actions:SimpleAction>
+            <actions:Label value="Artifacts Generator"/>
+            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="13">
+                <queries:QueryDeclaration>
+                    <queries:Name value="getImageWidth"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="filepath"/>
+                        <queries:Name value="file"/>
+                        <queries:Name value="image"/>
+                        <queries:Name value="filepath"/>
+                    </queries:Names>
+                    <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="sequence"/>
+                            <workflows:FlowObjects initialCapacity="3">
+                                <workflows:CreateJavaClassInstance>
+                                    <workflows:Text value="create a file from path"/>
+                                    <workflows:Variable value="file"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="java.io.File"/>
+                                    <workflows:StringLiteral value="File(java.lang.String)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="filepath"/>
+                                    </workflows:Expressions>
+                                </workflows:CreateJavaClassInstance>
+                                <workflows:InvokeJavaClassMethod>
+                                    <workflows:Text value="read image from file"/>
+                                    <workflows:Variable value="image"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="javax.imageio.ImageIO"/>
+                                    <workflows:StringLiteral value="read(java.io.File)"/>
+                                    <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="file"/>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
+                                <workflows:InvokeJavaInstanceMethod>
+                                    <workflows:Text value="get image width"/>
+                                    <commons:Resolver/>
+                                    <workflows:Variable value="image"/>
+                                    <commons:Resolver/>
+                                    <workflows:StringLiteral value="java.awt.image.BufferedImage"/>
+                                    <workflows:StringLiteral value="getWidth()"/>
+                                    <commons:Resolver/>
+                                </workflows:InvokeJavaInstanceMethod>
+                            </workflows:FlowObjects>
+                        </workflows:Sequence>
+                    </commons:SameStageFragment>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="escapeText"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="escaped"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="1">
+                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="sequence"/>
+                                <workflows:FlowObjects initialCapacity="6">
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape left curly braces"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="{"/>
+                                        <workflows:StringLiteral value="\{"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape right curly braces"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="}"/>
+                                        <workflows:StringLiteral value="\}"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape sharp"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="#"/>
+                                        <workflows:StringLiteral value="\#"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape subscript"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="_"/>
+                                        <workflows:StringLiteral value="\_"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape ..."/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="..."/>
+                                        <workflows:StringLiteral value="\ldots"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape greater then"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="&gt;"/>
+                                        <workflows:StringLiteral value="\textgreater{}"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </workflows:FlowObjects>
+                            </workflows:Sequence>
+                        </commons:SameStageFragment>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="escapeLabel"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="escaped"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="1">
+                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="sequence"/>
+                                <workflows:FlowObjects initialCapacity="1">
+                                    <workflows:InvokeJavaInstanceMethod>
+                                        <workflows:Text value="escape subsript"/>
+                                        <workflows:Variable value="escaped"/>
+                                        <workflows:Variable value="self"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="java.lang.String"/>
+                                        <workflows:StringLiteral value="replace(java.lang.CharSequence, java.lang.CharSequence)"/>
+                                        <workflows:Expressions initialCapacity="2">
+                                        <workflows:StringLiteral value="_"/>
+                                        <workflows:StringLiteral value="-"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                </workflows:FlowObjects>
+                            </workflows:Sequence>
+                        </commons:SameStageFragment>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapLink"/>
+                    <queries:Names initialCapacity="9">
+                        <queries:Name value="filename"/>
+                        <queries:Name value="caption"/>
+                        <queries:Name value="scale"/>
+                        <queries:Name value="width"/>
+                        <queries:Name value="text"/>
+                        <queries:Name value="description"/>
+                        <queries:Name value="title"/>
+                        <queries:Name value="section"/>
+                        <queries:Name value="url"/>
+                    </queries:Names>
+                    <queries:Choose initialCapacity="3">
+                        <queries:If>
+                            <queries:TypeTest value="FileLink"/>
+                            <queries:Choose initialCapacity="2">
+                                <queries:Select>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Row initialCapacity="3">
+                                        <text:Text value="\includegraphics[scale=0.12]{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="filename"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        </text:Document>
+                                    </commons:StageUpFragment>
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="Table"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                    </queries:Filter>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="filename"/>
+                                        <queries:VariableTest value="filename"/>
+                                        </queries:Filter>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                                        <text:Text value="\caption{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="text"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}\label{fig:"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="filename"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="caption"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="options"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Caption"/>
+                                        <queries:VariableTest value="text"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                                <queries:Select>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="6">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\begin{figure}[H]"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\begin{center}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="5">
+                                        <text:Text value="\includegraphics[scale="/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="scale"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="]{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="filename"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\end{center}"/>
+                                        </text:Row>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="caption"/>
+                                        <commons:Quantifier value="?"/>
+                                        </commons:Variable>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\end{figure}"/>
+                                        </text:Row>
+                                        </text:Document>
+                                    </commons:StageUpFragment>
+                                    <queries:SelfStep/>
+                                    <queries:Sequence initialCapacity="4">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="filename"/>
+                                        <queries:VariableTest value="filename"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="getImageWidth"/>
+                                        <queries:Expressions initialCapacity="1">
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="folderLocation"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="/"/>
+                                        <queries:VariableRefStep value="filename"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Expressions>
+                                        </queries:Call>
+                                        <queries:VariableTest value="width"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:LessOrEquals>
+                                        <queries:Multiplication>
+                                        <queries:VariableRefStep value="width"/>
+                                        <queries:DoubleLiteral value="0.5"/>
+                                        </queries:Multiplication>
+                                        <queries:DoubleLiteral value="325.0"/>
+                                        </queries:LessOrEquals>
+                                        </queries:ExpressionTest>
+                                        <queries:DoubleLiteral value="0.5"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Division>
+                                        <queries:DoubleLiteral value="325.0"/>
+                                        <queries:VariableRefStep value="width"/>
+                                        </queries:Division>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="scale"/>
+                                        </queries:Filter>
+                                        <queries:Select>
+                                        <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                                        <text:Text value="\caption{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="text"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}\label{fig:"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="filename"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="caption"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="options"/>
+                                        <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:And initialCapacity="2">
+                                        <queries:TypeTest value="Caption"/>
+                                        <queries:VariableTest value="text"/>
+                                        </queries:And>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        <queries:TemplateNames/>
+                                        </queries:Select>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                            </queries:Choose>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="InternalLink"/>
+                            <queries:Select>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Row initialCapacity="5">
+                                        <text:Text value="\hyperref["/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="label"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="]{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="description"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                    </text:Document>
+                                </commons:StageUpFragment>
+                                <queries:SelfStep/>
+                                <queries:Sequence initialCapacity="4">
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="articleLink"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="title"/>
+                                        <queries:VariableTest value="title"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="articleLink"/>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="section"/>
+                                        <queries:VariableTest value="section"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:Filter>
+                                        <queries:VariableRefStep value="section"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        </queries:ExpressionTest>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="sec:"/>
+                                        <queries:Addition>
+                                        <queries:VariableRefStep value="title"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="-"/>
+                                        <queries:VariableRefStep value="section"/>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:Addition>
+                                        </queries:If>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="chap:"/>
+                                        <queries:VariableRefStep value="title"/>
+                                        </queries:Addition>
+                                        </queries:Choose>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeLabel"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="label"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="description"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="title"/>
+                                        </queries:Choose>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="description"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:Sequence>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="ExternalLink"/>
+                            <queries:Select>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Row initialCapacity="5">
+                                        <text:Text value="\href{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="url"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="description"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                    </text:Document>
+                                </commons:StageUpFragment>
+                                <queries:SelfStep/>
+                                <queries:Sequence initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:FeatureStep value="url"/>
+                                        <queries:VariableTest value="url"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="description"/>
+                                        <queries:KindTest value="IMPL"/>
+                                        </queries:Filter>
+                                        <queries:VariableRefStep value="url"/>
+                                        </queries:Choose>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="description"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                </queries:Sequence>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                        </queries:If>
+                    </queries:Choose>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapTemplate"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="type"/>
+                        <queries:Name value="icon"/>
+                        <queries:Name value="row"/>
+                        <queries:Name value="contents"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="1">
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="7">
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="\begin{framed}"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="\noindent"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="\includegraphics[scale=0.5]{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="icon"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="\textbf{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="heading"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}\\"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="\\"/>
+                                    </text:Row>
+                                    <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="row"/>
+                                        <commons:Quantifier value="+"/>
+                                    </commons:InlineVariable>
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="\end{framed}"/>
+                                    </text:Row>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                            <queries:SelfStep/>
+                            <queries:Sequence initialCapacity="3">
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="title"/>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Tip"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        <queries:StringLiteral value="Tip.png"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Note"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        <queries:StringLiteral value="Note.png"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <mediawiki:ArticleTitle xmlns:mediawiki="whole:org.whole.lang.mediawiki:MediaWiki" value="Warning"/>
+                                        </commons:StageUpFragment>
+                                        </queries:ExpressionTest>
+                                        <queries:StringLiteral value="Warning.png"/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="icon"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Filter>
+                                    <queries:FeatureStep value="heading"/>
+                                    <queries:VariableTest value="heading"/>
+                                </queries:Filter>
+                                <queries:Select>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="row"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="1">
+                                        <queries:FeatureStep value="body"/>
+                                    </queries:Path>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:ChildStep/>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapBlock"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="contents"/>
+                                        </queries:Filter>
+                                    </queries:Path>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                            </queries:Sequence>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapTable"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="format"/>
+                        <queries:Name value="row"/>
+                        <queries:Name value="column"/>
+                        <queries:Name value="terminator"/>
+                    </queries:Names>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                <text:Row initialCapacity="3">
+                                    <text:Text value="\begin{tabular}{ "/>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="format"/>
+                                        <commons:Quantifier value="+"/>
+                                    </commons:Variable>
+                                    <text:Text value="}"/>
+                                </text:Row>
+                                <commons:InlineVariable>
+                                    <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                    <commons:VarName value="row"/>
+                                    <commons:Quantifier value="+"/>
+                                </commons:InlineVariable>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="\end{tabular}"/>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                        <queries:Sequence initialCapacity="2">
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Text xmlns:text="http://lang.whole.org/Text" value="l "/>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="format"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="4">
+                                    <queries:FeatureStep value="rows"/>
+                                    <queries:Filter>
+                                        <queries:ChildStep/>
+                                        <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                        </queries:IndexTest>
+                                    </queries:Filter>
+                                    <queries:FeatureStep value="columns"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="column"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        </text:Document>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="row"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="rows"/>
+                                    <queries:ChildStep/>
+                                </queries:Path>
+                                <queries:Select>
+                                    <queries:Filter>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        <text:Row initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="terminator"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        <queries:VariableTest value="column"/>
+                                    </queries:Filter>
+                                    <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="columns"/>
+                                        <queries:ChildStep/>
+                                    </queries:Path>
+                                    <queries:Sequence initialCapacity="2">
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:FeatureStep value="header"/>
+                                        <queries:FeatureStep value="data"/>
+                                        </queries:Choose>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapInlineText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="contents"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:ExpressionTest>
+                                        <queries:FollowingSiblingStep/>
+                                        </queries:ExpressionTest>
+                                        <queries:StringLiteral value="&amp;"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:StringLiteral value="\\"/>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="terminator"/>
+                                        </queries:Filter>
+                                    </queries:Sequence>
+                                    <queries:TemplateNames/>
+                                </queries:Select>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                        </queries:Sequence>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapList"/>
+                    <queries:Names initialCapacity="3">
+                        <queries:Name value="ambient"/>
+                        <queries:Name value="item"/>
+                        <queries:Name value="contents"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="2">
+                        <queries:Path initialCapacity="2">
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:IndexTest>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:IndexTest>
+                            </queries:Filter>
+                            <queries:Filter>
+                                <queries:Choose initialCapacity="2">
+                                    <queries:If>
+                                        <queries:TypeTest value="BulletItem"/>
+                                        <queries:StringLiteral value="itemize"/>
+                                    </queries:If>
+                                    <queries:If>
+                                        <queries:TypeTest value="EnumeratedItem"/>
+                                        <queries:StringLiteral value="enumerate"/>
+                                    </queries:If>
+                                </queries:Choose>
+                                <queries:VariableTest value="ambient"/>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="\begin{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="ambient"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                    <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="item"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:InlineVariable>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="\end{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="ambient"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                            <queries:SelfStep/>
+                            <queries:Select>
+                                <queries:Filter>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\item"/>
+                                        </text:Row>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        </text:Document>
+                                    </commons:StageUpFragment>
+                                    <queries:VariableTest value="item"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:ChildStep/>
+                                    <queries:FeatureStep value="item"/>
+                                </queries:Path>
+                                <queries:Path initialCapacity="1">
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapInlineText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="contents"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapInlineText"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="inlineElement"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="3">
+                        <queries:QueryDeclaration>
+                            <queries:Name value="mapTextWithFormatting"/>
+                            <queries:Names initialCapacity="2">
+                                <queries:Name value="style"/>
+                                <queries:Name value="contents"/>
+                            </queries:Names>
+                            <queries:Choose initialCapacity="3">
+                                <queries:If>
+                                    <queries:TypeTest value="Text"/>
+                                    <queries:Select>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        </text:Row>
+                                        </commons:StageUpFragment>
+                                        <queries:SelfStep/>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="contents"/>
+                                        </queries:Filter>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </queries:If>
+                                <queries:If>
+                                    <queries:TypeTest value="LineBreak"/>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Text value="\newline"/>
+                                        </text:Row>
+                                    </commons:StageUpFragment>
+                                </queries:If>
+                                <queries:Do>
+                                    <queries:Select>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="5">
+                                        <text:Text value="\"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="style"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="{"/>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IText"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:InlineVariable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        </commons:StageUpFragment>
+                                        <queries:SelfStep/>
+                                        <queries:Sequence initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:Choose initialCapacity="4">
+                                        <queries:If>
+                                        <queries:TypeTest value="Italics"/>
+                                        <queries:StringLiteral value="emph"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="Bold"/>
+                                        <queries:StringLiteral value="textbf"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="Deleted"/>
+                                        <queries:StringLiteral value="sout"/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="Teletype"/>
+                                        <queries:StringLiteral value="lstinline"/>
+                                        </queries:If>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="style"/>
+                                        </queries:Filter>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:FeatureStep value="text"/>
+                                        <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapTextWithFormatting"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="contents"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                        </queries:Sequence>
+                                        <queries:TemplateNames/>
+                                    </queries:Select>
+                                </queries:Do>
+                            </queries:Choose>
+                        </queries:QueryDeclaration>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:VariableTest value="heading"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                    <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="inlineElement"/>
+                                        <commons:Quantifier value="*"/>
+                                    </commons:InlineVariable>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                            <queries:Path initialCapacity="2">
+                                <queries:ChildStep/>
+                                <queries:Filter>
+                                    <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:TypeTest value="Nowiki"/>
+                                        <queries:Call>
+                                        <queries:Name value="mapNowiki"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:SubtypeTest value="Link"/>
+                                        <queries:Call>
+                                        <queries:Name value="mapLink"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:SubtypeTest value="TextWithFormatting"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <commons:StageDownFragment>
+                                        <queries:Call>
+                                        <queries:Name value="mapTextWithFormatting"/>
+                                        <commons:Resolver/>
+                                        </queries:Call>
+                                        </commons:StageDownFragment>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                    </queries:Choose>
+                                    <queries:VariableTest value="inlineElement"/>
+                                </queries:Filter>
+                            </queries:Path>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapNowiki"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="text"/>
+                    </queries:Names>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="\begin{flushleft}"/>
+                                </text:Row>
+                                <text:Row initialCapacity="1">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="text"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </text:Row>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value="\end{flushleft}"/>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:Filter>
+                            <queries:FeatureStep value="text"/>
+                            <queries:VariableTest value="text"/>
+                        </queries:Filter>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapHeading"/>
+                    <queries:Names initialCapacity="4">
+                        <queries:Name value="title"/>
+                        <queries:Name value="subType"/>
+                        <queries:Name value="label"/>
+                        <queries:Name value="articleTitle"/>
+                    </queries:Names>
+                    <queries:Block initialCapacity="1">
+                        <queries:Select>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                    <text:Row initialCapacity="5">
+                                        <text:Text value="\"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="subType"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="section{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="title"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                    <text:Row initialCapacity="3">
+                                        <text:Text value="\label{sec:"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="label"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                    </text:Row>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:VariableTest value="title"/>
+                                    <queries:ExpressionTest>
+                                        <queries:Path initialCapacity="2">
+                                        <queries:Filter>
+                                        <queries:AncestorStep/>
+                                        <queries:TypeTest value="WikiPage"/>
+                                        </queries:Filter>
+                                        <queries:Filter>
+                                        <queries:FeatureStep value="title"/>
+                                        <queries:VariableTest value="articleTitle"/>
+                                        </queries:Filter>
+                                        </queries:Path>
+                                    </queries:ExpressionTest>
+                                </queries:And>
+                            </queries:Filter>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:Filter>
+                                    <queries:Choose initialCapacity="3">
+                                        <queries:If>
+                                        <queries:TypeTest value="Heading1"/>
+                                        <queries:StringLiteral value=""/>
+                                        </queries:If>
+                                        <queries:If>
+                                        <queries:TypeTest value="Heading2"/>
+                                        <queries:StringLiteral value="sub"/>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:StringLiteral value="subsub"/>
+                                        </queries:Do>
+                                    </queries:Choose>
+                                    <queries:VariableTest value="subType"/>
+                                </queries:Filter>
+                                <queries:Path initialCapacity="2">
+                                    <queries:Addition>
+                                        <queries:VariableRefStep value="articleTitle"/>
+                                        <queries:Addition>
+                                        <queries:StringLiteral value="-"/>
+                                        <queries:VariableRefStep value="title"/>
+                                        </queries:Addition>
+                                    </queries:Addition>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeLabel"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="label"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:Sequence>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Block>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapParagraph"/>
+                    <queries:Names initialCapacity="1">
+                        <queries:Name value="contents"/>
+                    </queries:Names>
+                    <queries:Select>
+                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                <commons:InlineVariable>
+                                    <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                    <commons:VarName value="contents"/>
+                                    <commons:Quantifier value="*"/>
+                                </commons:InlineVariable>
+                                <text:Row initialCapacity="1">
+                                    <text:Text value=""/>
+                                </text:Row>
+                            </text:Document>
+                        </commons:StageUpFragment>
+                        <queries:SelfStep/>
+                        <queries:Path initialCapacity="2">
+                            <queries:ChildStep/>
+                            <queries:Filter>
+                                <queries:Call>
+                                    <queries:Name value="mapInlineText"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Call>
+                                <queries:VariableTest value="contents"/>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:TemplateNames/>
+                    </queries:Select>
+                </queries:QueryDeclaration>
+                <queries:QueryDeclaration>
+                    <queries:Name value="mapBlock"/>
+                    <queries:Names initialCapacity="2">
+                        <queries:Name value="text"/>
+                        <queries:Name value="contents"/>
+                    </queries:Names>
+                    <queries:Choose initialCapacity="9">
+                        <queries:If>
+                            <queries:SubtypeTest value="Heading"/>
+                            <queries:Call>
+                                <queries:Name value="mapHeading"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="Nowiki"/>
+                            <queries:Call>
+                                <queries:Name value="mapNowiki"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="Template"/>
+                            <queries:Call>
+                                <queries:Name value="mapTemplate"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="List"/>
+                            <queries:Call>
+                                <queries:Name value="mapList"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="Table"/>
+                            <queries:Call>
+                                <queries:Name value="mapTable"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:SubtypeTest value="Link"/>
+                            <queries:Call>
+                                <queries:Name value="mapLink"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="HorizontalRule"/>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                    <text:Row initialCapacity="1">
+                                        <text:Text value="\newline\rule{\textwidth}{1pt}"/>
+                                    </text:Row>
+                                </text:Document>
+                            </commons:StageUpFragment>
+                        </queries:If>
+                        <queries:If>
+                            <queries:TypeTest value="SpaceBlock"/>
+                            <queries:Select>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\begin{alltt}"/>
+                                        </text:Row>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="contents"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\end{alltt}"/>
+                                        </text:Row>
+                                    </text:Document>
+                                </commons:StageUpFragment>
+                                <queries:SelfStep/>
+                                <queries:Path initialCapacity="2">
+                                    <queries:ChildStep/>
+                                    <queries:Filter>
+                                        <queries:Choose initialCapacity="2">
+                                        <queries:If>
+                                        <queries:TypeTest value="EmptyLine"/>
+                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value=""/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </queries:If>
+                                        <queries:Do>
+                                        <queries:Call>
+                                        <queries:Name value="mapInlineText"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        </queries:Do>
+                                        </queries:Choose>
+                                        <queries:VariableTest value="contents"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:TemplateNames/>
+                            </queries:Select>
+                        </queries:If>
+                        <queries:Do>
+                            <queries:Call>
+                                <queries:Name value="mapParagraph"/>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Call>
+                        </queries:Do>
+                    </queries:Choose>
+                </queries:QueryDeclaration>
+                <queries:Select>
+                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                        <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
+                            <commons:Resolver/>
+                            <artifacts:Projects initialCapacity="1">
+                                <artifacts:Project>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#ProjectName"/>
+                                        <commons:VarName value="projectName"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <artifacts:Natures initialCapacity="1">
+                                        <commons:Resolver/>
+                                    </artifacts:Natures>
+                                    <commons:Resolver/>
+                                    <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FolderArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#FolderName"/>
+                                        <commons:VarName value="sourceFolderName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:PackageArtifact>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#PackageName"/>
+                                        <commons:VarName value="packageName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:Resolver/>
+                                        <artifacts:Artifacts initialCapacity="1">
+                                        <artifacts:FileArtifact>
+                                        <artifacts:NameWithExtension>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Artifacts#Name"/>
+                                        <commons:VarName value="fileName"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <artifacts:Extension value="tex"/>
+                                        </artifacts:NameWithExtension>
+                                        <commons:Resolver/>
+                                        <commons:StageUpFragment>
+                                        <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="20">
+                                        <text:TextSeparator value=""/>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\documentclass[a4paper,10pt]{book}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{latexsym}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{hyperref}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{listings}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{float}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage[normalem]{ulem}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{graphicx}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{alltt}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage{framed}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\usepackage[utf8]{inputenc}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\lstset{basicstyle=\ttfamily}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="4">
+                                        <text:Text value="\author{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="firstAuthor"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="moreAuthor"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="3">
+                                        <text:Text value="\title{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="title"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\frenchspacing"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\begin{document}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\maketitle"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\tableofcontents"/>
+                                        </text:Row>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="chapter"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                        <text:Row initialCapacity="1">
+                                        <text:Text value="\end{document}"/>
+                                        </text:Row>
+                                        </text:Document>
+                                        </commons:StageUpFragment>
+                                        </artifacts:FileArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:PackageArtifact>
+                                        </artifacts:Artifacts>
+                                        </artifacts:FolderArtifact>
+                                    </artifacts:Artifacts>
+                                    <commons:Resolver/>
+                                </artifacts:Project>
+                            </artifacts:Projects>
+                        </artifacts:Workspace>
+                    </commons:StageUpFragment>
+                    <queries:Path initialCapacity="2">
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:TypeTest value="whole:org.whole.lang.mediawiki:MediaWiki#Wiki"/>
+                        </queries:Filter>
+                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
+                            <workflows:Sequence xmlns:workflows="http://lang.whole.org/Workflows">
+                                <workflows:Text value="sequence"/>
+                                <workflows:FlowObjects initialCapacity="2">
+                                    <workflows:InvokeJavaClassMethod>
+                                        <workflows:Text value="cloneSelf"/>
+                                        <workflows:Variable value="clonedSelf"/>
+                                        <commons:Resolver/>
+                                        <workflows:StringLiteral value="org.whole.lang.util.EntityUtils"/>
+                                        <workflows:StringLiteral value="clone(org.whole.lang.model.IEntity)"/>
+                                        <workflows:Expressions initialCapacity="1">
+                                        <workflows:Variable value="self"/>
+                                        </workflows:Expressions>
+                                    </workflows:InvokeJavaClassMethod>
+                                    <workflows:InvokeOperation>
+                                        <workflows:Text value="invoke Normalizer"/>
+                                        <workflows:Variable value="clonedSelf"/>
+                                        <workflows:Operation value="NORMALIZER"/>
+                                        <commons:Resolver/>
+                                    </workflows:InvokeOperation>
+                                </workflows:FlowObjects>
+                            </workflows:Sequence>
+                        </commons:SameStageFragment>
+                    </queries:Path>
+                    <queries:Sequence initialCapacity="4">
+                        <queries:Path initialCapacity="2">
+                            <queries:FeatureStep value="authors"/>
+                            <queries:Filter>
+                                <queries:ChildStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:IndexTest>
+                                        <queries:IntLiteral value="0"/>
+                                    </queries:IndexTest>
+                                    <queries:VariableTest value="firstAuthor"/>
+                                </queries:And>
+                            </queries:Filter>
+                        </queries:Path>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Row xmlns:text="http://lang.whole.org/Text" initialCapacity="2">
+                                        <text:Text value=" \and "/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="author"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                    </text:Row>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="moreAuthor"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="authors"/>
+                                <queries:Filter>
+                                    <queries:ChildStep/>
+                                    <queries:And initialCapacity="2">
+                                        <queries:IndexRangeTest>
+                                        <queries:IntLiteral value="1"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:IndexRangeTest>
+                                        <queries:VariableTest value="author"/>
+                                    </queries:And>
+                                </queries:Filter>
+                            </queries:Path>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                        <queries:Filter>
+                            <queries:FeatureStep value="title"/>
+                            <queries:VariableTest value="title"/>
+                        </queries:Filter>
+                        <queries:Select>
+                            <queries:Filter>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="3">
+                                        <text:Row initialCapacity="3">
+                                        <text:Text value="\chapter{"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="chapterTitle"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <text:Row initialCapacity="3">
+                                        <text:Text value="\label{chap:"/>
+                                        <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Text#Text"/>
+                                        <commons:VarName value="chapterTitle"/>
+                                        <commons:Quantifier value="!"/>
+                                        </commons:Variable>
+                                        <text:Text value="}"/>
+                                        </text:Row>
+                                        <commons:InlineVariable>
+                                        <commons:VarType value="http://lang.whole.org/Text#IRow"/>
+                                        <commons:VarName value="chapterContent"/>
+                                        <commons:Quantifier value="*"/>
+                                        </commons:InlineVariable>
+                                    </text:Document>
+                                </commons:StageUpFragment>
+                                <queries:VariableTest value="chapter"/>
+                            </queries:Filter>
+                            <queries:Path initialCapacity="2">
+                                <queries:FeatureStep value="wikiPages"/>
+                                <queries:ChildStep/>
+                            </queries:Path>
+                            <queries:Sequence initialCapacity="2">
+                                <queries:Path initialCapacity="2">
+                                    <queries:FeatureStep value="title"/>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="escapeLabel"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="chapterTitle"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                                <queries:Path initialCapacity="4">
+                                    <queries:FeatureStep value="article"/>
+                                    <queries:FeatureStep value="blocks"/>
+                                    <queries:ChildStep/>
+                                    <queries:Filter>
+                                        <queries:Call>
+                                        <queries:Name value="mapBlock"/>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Call>
+                                        <queries:VariableTest value="chapterContent"/>
+                                    </queries:Filter>
+                                </queries:Path>
+                            </queries:Sequence>
+                            <queries:TemplateNames/>
+                        </queries:Select>
+                    </queries:Sequence>
+                    <queries:TemplateNames/>
+                </queries:Select>
+            </queries:Block>
+        </actions:SimpleAction>
+    </actions:ToolbarActions>
+    <actions:ContextMenuActions>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <actions:MenuActions initialCapacity="0"/>
+        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    </actions:ContextMenuActions>
+</actions:LanguageActionFactory>
