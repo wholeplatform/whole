@@ -34,23 +34,19 @@
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <tests:Name value="testJavaActivities"/>
-                    <tests:TestStatements initialCapacity="3">
+                    <tests:TestStatements initialCapacity="4">
+                        <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="create new instance in variable"/>
+                            <workflows:Variable value="instance"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <workflows:StringLiteral value="java.lang.String"/>
+                            <workflows:StringLiteral value="String(java.lang.String)"/>
+                            <workflows:Expressions initialCapacity="1">
+                                <workflows:StringLiteral value="sample string"/>
+                            </workflows:Expressions>
+                        </workflows:CreateJavaClassInstance>
                         <tests:AssertThat>
-                            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new instance in variable"/>
-                                        <workflows:Variable value="instance"/>
-                                        <commons:Resolver/>
-                                        <workflows:StringLiteral value="java.lang.String"/>
-                                        <workflows:StringLiteral value="String(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
-                                        <workflows:StringLiteral value="sample string"/>
-                                        </workflows:Expressions>
-                                    </workflows:CreateJavaClassInstance>
-                                </commons:SameStageFragment>
-                                <queries:VariableRefStep value="instance"/>
-                            </queries:Block>
+                            <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="instance"/>
                             <tests:AllOf initialCapacity="2">
                                 <tests:Equals>
                                     <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
@@ -80,18 +76,16 @@
                         </tests:AssertThat>
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="invoke class methot and set result in variable"/>
-                                        <workflows:Variable value="retval"/>
-                                        <commons:Resolver/>
-                                        <workflows:StringLiteral value="java.lang.String"/>
-                                        <workflows:StringLiteral value="valueOf(int)"/>
-                                        <workflows:Expressions initialCapacity="1">
+                                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="invoke class methot and set result in variable"/>
+                                    <workflows:Variable value="retval"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="java.lang.String"/>
+                                    <workflows:StringLiteral value="valueOf(int)"/>
+                                    <workflows:Expressions initialCapacity="1">
                                         <workflows:IntLiteral value="1234567890"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaClassMethod>
-                                </commons:SameStageFragment>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaClassMethod>
                                 <queries:VariableRefStep value="retval"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -123,19 +117,17 @@
                         </tests:AssertThat>
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="invoke instance methot and set result in variable"/>
-                                        <workflows:Variable value="retval"/>
-                                        <workflows:Variable value="instance"/>
-                                        <commons:Resolver/>
-                                        <workflows:StringLiteral value="java.lang.String"/>
-                                        <workflows:StringLiteral value="concat(java.lang.String)"/>
-                                        <workflows:Expressions initialCapacity="1">
+                                <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="invoke instance methot and set result in variable"/>
+                                    <workflows:Variable value="retval"/>
+                                    <workflows:Variable value="instance"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <workflows:StringLiteral value="java.lang.String"/>
+                                    <workflows:StringLiteral value="concat(java.lang.String)"/>
+                                    <workflows:Expressions initialCapacity="1">
                                         <workflows:StringLiteral value="append this"/>
-                                        </workflows:Expressions>
-                                    </workflows:InvokeJavaInstanceMethod>
-                                </commons:SameStageFragment>
+                                    </workflows:Expressions>
+                                </workflows:InvokeJavaInstanceMethod>
                                 <queries:VariableRefStep value="retval"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -168,6 +160,8 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -175,15 +169,13 @@
                     <tests:TestStatements initialCapacity="2">
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new entity in variable"/>
-                                        <workflows:Variable value="entity"/>
-                                        <workflows:Registry value="DEFAULT"/>
-                                        <workflows:StringLiteral value="http://lang.whole.org/Models#Model"/>
-                                        <commons:Resolver/>
-                                    </workflows:CreateEntity>
-                                </commons:SameStageFragment>
+                                <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="create new entity in variable"/>
+                                    <workflows:Variable value="entity"/>
+                                    <workflows:Registry value="DEFAULT"/>
+                                    <workflows:StringLiteral value="http://lang.whole.org/Models#Model"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:CreateEntity>
                                 <queries:VariableRefStep value="entity"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -209,11 +201,10 @@
                         </tests:AssertThat>
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="create new model in variable"/>
-                                        <workflows:Variable value="model"/>
-                                        <commons:StageUpFragment>
+                                <workflows:CreateModel xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="create new model in variable"/>
+                                    <workflows:Variable value="model"/>
+                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <wxml:Document xmlns:wxml="http://lang.whole.org/Xml">
                                         <wxml:Prolog>
                                         <wxml:XMLDecl>
@@ -230,10 +221,9 @@
                                         <commons:Resolver/>
                                         </wxml:Element>
                                         </wxml:Document>
-                                        </commons:StageUpFragment>
-                                        <commons:Resolver/>
-                                    </workflows:CreateModel>
-                                </commons:SameStageFragment>
+                                    </commons:StageUpFragment>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:CreateModel>
                                 <queries:VariableRefStep value="model"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -290,6 +280,8 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -297,14 +289,12 @@
                     <tests:TestStatements initialCapacity="3">
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:LoadJavaModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="load java model in variable"/>
-                                        <workflows:Variable value="entity"/>
-                                        <workflows:StringLiteral value="java.lang.String"/>
-                                        <workflows:ClassPath/>
-                                    </workflows:LoadJavaModel>
-                                </commons:SameStageFragment>
+                                <workflows:LoadJavaModel xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="load java model in variable"/>
+                                    <workflows:Variable value="entity"/>
+                                    <workflows:StringLiteral value="java.lang.String"/>
+                                    <workflows:ClassPath/>
+                                </workflows:LoadJavaModel>
                                 <queries:VariableRefStep value="entity"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -326,29 +316,25 @@
                                 </tests:Matches>
                             </tests:AllOf>
                         </tests:AssertThat>
-                        <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                            <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
-                                <workflows:Text value="initialize a variable with some text"/>
-                                <workflows:Assignments initialCapacity="1">
-                                    <workflows:Assign>
-                                        <workflows:Variable value="textInput"/>
-                                        <workflows:StringLiteral value="this is some text input"/>
-                                    </workflows:Assign>
-                                </workflows:Assignments>
-                            </workflows:AssignActivity>
-                        </commons:SameStageFragment>
+                        <workflows:AssignActivity xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="initialize a variable with some text"/>
+                            <workflows:Assignments initialCapacity="1">
+                                <workflows:Assign>
+                                    <workflows:Variable value="textInput"/>
+                                    <workflows:StringLiteral value="this is some text input"/>
+                                </workflows:Assign>
+                            </workflows:Assignments>
+                        </workflows:AssignActivity>
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="load text model in variable"/>
-                                        <workflows:Variable value="entity"/>
-                                        <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
-                                        <workflows:ResourceKind value="VARIABLE"/>
-                                        <workflows:Variable value="textInput"/>
-                                        <commons:Resolver/>
-                                    </workflows:LoadModel>
-                                </commons:SameStageFragment>
+                                <workflows:LoadModel xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="load text model in variable"/>
+                                    <workflows:Variable value="entity"/>
+                                    <workflows:StringLiteral value="org.whole.lang.text.codebase.TextSourcePersistenceKit"/>
+                                    <workflows:ResourceKind value="VARIABLE"/>
+                                    <workflows:Variable value="textInput"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:LoadModel>
                                 <queries:VariableRefStep value="entity"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -375,24 +361,22 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <tests:Name value="testGrammarActivities"/>
-                    <tests:TestStatements initialCapacity="2">
+                    <tests:TestStatements initialCapacity="3">
+                        <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
+                            <workflows:Text value="parse model in variable"/>
+                            <workflows:Variable value="entity"/>
+                            <workflows:StringLiteral value="{&#10;&#9;false;&#10;&#9;x one;&#10;&#9;12345,000000;&#10;&#9;12345;&#10;&#9;two;&#10;&#9;three;&#10;&#9;31/12/2005;&#10;&#9;2009-01-21T17:10:46.120Z;&#10;&#9;true;&#10;&#9;&quot;ciao&quot;;&#10;&#9;-123,456000&#10;}"/>
+                            <workflows:StringLiteral value="DataTypesGrammar"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </workflows:Parse>
                         <tests:AssertThat>
-                            <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="parse model in variable"/>
-                                        <workflows:Variable value="entity"/>
-                                        <workflows:StringLiteral value="{&#10;&#9;false;&#10;&#9;x one;&#10;&#9;12345,000000;&#10;&#9;12345;&#10;&#9;two;&#10;&#9;three;&#10;&#9;31/12/2005;&#10;&#9;2009-01-21T17:10:46.120Z;&#10;&#9;true;&#10;&#9;&quot;ciao&quot;;&#10;&#9;-123,456000&#10;}"/>
-                                        <workflows:StringLiteral value="DataTypesGrammar"/>
-                                        <commons:Resolver/>
-                                    </workflows:Parse>
-                                </commons:SameStageFragment>
-                                <queries:VariableRefStep value="entity"/>
-                            </queries:Block>
+                            <queries:VariableRefStep xmlns:queries="http://lang.whole.org/Queries" value="entity"/>
                             <tests:AllOf initialCapacity="2">
                                 <tests:Matches>
                                     <workflows:Parse xmlns:workflows="http://lang.whole.org/Workflows">
@@ -416,15 +400,13 @@
                         </tests:AssertThat>
                         <tests:AssertThat>
                             <queries:Block xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
-                                <commons:SameStageFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <workflows:Unparse xmlns:workflows="http://lang.whole.org/Workflows">
-                                        <workflows:Text value="unparse model in variable"/>
-                                        <workflows:Variable value="entity"/>
-                                        <workflows:Variable value="text"/>
-                                        <workflows:StringLiteral value="DataTypesGrammar"/>
-                                        <commons:Resolver/>
-                                    </workflows:Unparse>
-                                </commons:SameStageFragment>
+                                <workflows:Unparse xmlns:workflows="http://lang.whole.org/Workflows">
+                                    <workflows:Text value="unparse model in variable"/>
+                                    <workflows:Variable value="entity"/>
+                                    <workflows:Variable value="text"/>
+                                    <workflows:StringLiteral value="DataTypesGrammar"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </workflows:Unparse>
                                 <queries:VariableRefStep value="text"/>
                             </queries:Block>
                             <tests:AllOf initialCapacity="2">
@@ -449,8 +431,14 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
     </tests:TestCases>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
 </tests:TestSuite>

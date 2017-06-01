@@ -5,17 +5,17 @@ import org.whole.lang.templates.AbstractTemplateFactory;
 import org.whole.lang.templates.AbstractTemplateManager;
 import org.whole.lang.templates.ITemplateFactory;
 
-public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager {
+public class WorkflowsTestTemplateManager extends AbstractTemplateManager {
 
     private static class SingletonHolder {
-        private static final WorkflowsStagingTestTemplateManager instance = new WorkflowsStagingTestTemplateManager();
+        private static final WorkflowsTestTemplateManager instance = new WorkflowsTestTemplateManager();
     }
 
-    public static WorkflowsStagingTestTemplateManager instance() {
+    public static WorkflowsTestTemplateManager instance() {
         return SingletonHolder.instance;
     }
 
-    private WorkflowsStagingTestTemplateManager() {
+    private WorkflowsTestTemplateManager() {
         put("fragment", newfragment());
         put("fragment1", newfragment1());
         put("fragment2", newfragment2());
@@ -154,20 +154,18 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.InvokeJavaClassMethod_();
-                b2.Text("invoke class methot and set result in variable");
-                b2.Variable("retval");
-                b1.Resolver();
-                b2.StringLiteral("java.lang.String");
-                b2.StringLiteral("valueOf(int)");
-                b2.Expressions_(1);
-                b2.IntLiteral(1234567890);
-                b2._Expressions();
-                b2._InvokeJavaClassMethod();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.InvokeJavaClassMethod_();
+                b1.Text("invoke class methot and set result in variable");
+                b1.Variable("retval");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
+                b1.StringLiteral("java.lang.String");
+                b1.StringLiteral("valueOf(int)");
+                b1.Expressions_(1);
+                b1.IntLiteral(1234567890);
+                b1._Expressions();
+                b1._InvokeJavaClassMethod();
                 b0.VariableRefStep("retval");
                 b0._Block();
             }
@@ -220,21 +218,19 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.InvokeJavaInstanceMethod_();
-                b2.Text("invoke instance methot and set result in variable");
-                b2.Variable("retval");
-                b2.Variable("instance");
-                b1.Resolver();
-                b2.StringLiteral("java.lang.String");
-                b2.StringLiteral("concat(java.lang.String)");
-                b2.Expressions_(1);
-                b2.StringLiteral("append this");
-                b2._Expressions();
-                b2._InvokeJavaInstanceMethod();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.InvokeJavaInstanceMethod_();
+                b1.Text("invoke instance methot and set result in variable");
+                b1.Variable("retval");
+                b1.Variable("instance");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
+                b1.StringLiteral("java.lang.String");
+                b1.StringLiteral("concat(java.lang.String)");
+                b1.Expressions_(1);
+                b1.StringLiteral("append this");
+                b1._Expressions();
+                b1._InvokeJavaInstanceMethod();
                 b0.VariableRefStep("retval");
                 b0._Block();
             }
@@ -289,17 +285,15 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.CreateEntity_();
-                b2.Text("create new entity in variable");
-                b2.Variable("entity");
-                b2.Registry("DEFAULT");
-                b2.StringLiteral("http://lang.whole.org/Models#Model");
-                b1.Resolver();
-                b2._CreateEntity();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.CreateEntity_();
+                b1.Text("create new entity in variable");
+                b1.Variable("entity");
+                b1.Registry("DEFAULT");
+                b1.StringLiteral("http://lang.whole.org/Models#Model");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
+                b1._CreateEntity();
                 b0.VariableRefStep("entity");
                 b0._Block();
             }
@@ -346,34 +340,32 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.CreateModel_();
-                b2.Text("create new model in variable");
-                b2.Variable("model");
-                b1.StageUpFragment_();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.CreateModel_();
+                b1.Text("create new model in variable");
+                b1.Variable("model");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.StageUpFragment_();
                 org.whole.lang.xml.builders.IXmlBuilder b3 = (org.whole.lang.xml.builders.IXmlBuilder) op.wGetBuilder(org.whole.lang.xml.reflect.XmlLanguageKit.URI);
                 b3.Document_();
                 b3.Prolog_();
                 b3.XMLDecl_();
                 b3.Version("1.0");
                 b3.Encoding("UTF-8");
-                b1.Resolver();
+                b2.Resolver();
                 b3._XMLDecl();
-                b1.Resolver();
-                b1.Resolver();
+                b2.Resolver();
+                b2.Resolver();
                 b3._Prolog();
                 b3.Element_();
                 b3.Name("tag");
-                b1.Resolver();
-                b1.Resolver();
+                b2.Resolver();
+                b2.Resolver();
                 b3._Element();
                 b3._Document();
-                b1._StageUpFragment();
-                b1.Resolver();
-                b2._CreateModel();
-                b1._SameStageFragment();
+                b2._StageUpFragment();
+                b2.Resolver();
+                b1._CreateModel();
                 b0.VariableRefStep("model");
                 b0._Block();
             }
@@ -454,16 +446,13 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.LoadJavaModel_();
-                b2.Text("load java model in variable");
-                b2.Variable("entity");
-                b2.StringLiteral("java.lang.String");
-                b2.ClassPath();
-                b2._LoadJavaModel();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.LoadJavaModel_();
+                b1.Text("load java model in variable");
+                b1.Variable("entity");
+                b1.StringLiteral("java.lang.String");
+                b1.ClassPath();
+                b1._LoadJavaModel();
                 b0.VariableRefStep("entity");
                 b0._Block();
             }
@@ -505,19 +494,16 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.commons.builders.ICommonsBuilder b0 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b0.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b1.AssignActivity_();
-                b1.Text("initialize a variable with some text");
-                b1.Assignments_(1);
-                b1.Assign_();
-                b1.Variable("textInput");
-                b1.StringLiteral("this is some text input");
-                b1._Assign();
-                b1._Assignments();
-                b1._AssignActivity();
-                b0._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b0 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b0.AssignActivity_();
+                b0.Text("initialize a variable with some text");
+                b0.Assignments_(1);
+                b0.Assign_();
+                b0.Variable("textInput");
+                b0.StringLiteral("this is some text input");
+                b0._Assign();
+                b0._Assignments();
+                b0._AssignActivity();
             }
         };
     }
@@ -528,18 +514,16 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.LoadModel_();
-                b2.Text("load text model in variable");
-                b2.Variable("entity");
-                b2.StringLiteral("org.whole.lang.text.codebase.TextSourcePersistenceKit");
-                b2.ResourceKind("VARIABLE");
-                b2.Variable("textInput");
-                b1.Resolver();
-                b2._LoadModel();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.LoadModel_();
+                b1.Text("load text model in variable");
+                b1.Variable("entity");
+                b1.StringLiteral("org.whole.lang.text.codebase.TextSourcePersistenceKit");
+                b1.ResourceKind("VARIABLE");
+                b1.Variable("textInput");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
+                b1._LoadModel();
                 b0.VariableRefStep("entity");
                 b0._Block();
             }
@@ -649,17 +633,15 @@ public class WorkflowsStagingTestTemplateManager extends AbstractTemplateManager
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Block_(2);
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
-                b1.SameStageFragment_();
-                org.whole.lang.workflows.builders.IWorkflowsBuilder b2 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
-                b2.Unparse_();
-                b2.Text("unparse model in variable");
-                b2.Variable("entity");
-                b2.Variable("text");
-                b2.StringLiteral("DataTypesGrammar");
-                b1.Resolver();
-                b2._Unparse();
-                b1._SameStageFragment();
+                org.whole.lang.workflows.builders.IWorkflowsBuilder b1 = (org.whole.lang.workflows.builders.IWorkflowsBuilder) op.wGetBuilder(org.whole.lang.workflows.reflect.WorkflowsLanguageKit.URI);
+                b1.Unparse_();
+                b1.Text("unparse model in variable");
+                b1.Variable("entity");
+                b1.Variable("text");
+                b1.StringLiteral("DataTypesGrammar");
+                org.whole.lang.commons.builders.ICommonsBuilder b2 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b2.Resolver();
+                b1._Unparse();
                 b0.VariableRefStep("text");
                 b0._Block();
             }

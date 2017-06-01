@@ -12,7 +12,7 @@ import org.whole.lang.tests.junit.TestCase;
 import org.whole.test.SlowTests;
 
 @Category(SlowTests.class)
-public class WorkflowsStagingTest extends TestCase {
+public class WorkflowsTest extends TestCase {
 
     @BeforeClass
     public static void wholeDeploy() {
@@ -32,7 +32,7 @@ public class WorkflowsStagingTest extends TestCase {
     }
 
     protected static IEntity create(String templateName) {
-        return WorkflowsStagingTestTemplateManager.instance().create(templateName);
+        return WorkflowsTestTemplateManager.instance().create(templateName);
     }
 
     protected static IEntity evaluate(String templateName) {
