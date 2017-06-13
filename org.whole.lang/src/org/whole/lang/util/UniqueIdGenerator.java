@@ -24,16 +24,16 @@ public class UniqueIdGenerator {
 	public static UniqueIdGenerator newUniqueIdGenerator(String prefix) {
 		return newUniqueIdGenerator(prefix, 1);
 	}
-	public static UniqueIdGenerator newUniqueIdGenerator(String prefix, long counter) {
-	    return new UniqueIdGenerator(prefix, counter);
+	public static UniqueIdGenerator newUniqueIdGenerator(String prefix, long startIndex) {
+	    return new UniqueIdGenerator(prefix, startIndex);
 	}
 
     private final String prefix;
 	private long counter;
 	
-	private UniqueIdGenerator(String prefix, long counter) {
+	private UniqueIdGenerator(String prefix, long startIndex) {
 	    this.prefix = prefix;
-	    this.counter = counter;
+	    this.counter = startIndex;
 	}
 
 	public String next() {

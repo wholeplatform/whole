@@ -31,10 +31,18 @@ public class FreshNameGenerator {
 	private Map<String, UniqueIdGenerator> generators = new HashMap<String, UniqueIdGenerator>();
 	private Set<String> boundNames;
 	private Set<String> boundFreshNames;
+	private int startIndex;
 
-	public FreshNameGenerator(Collection<String> boundNames) {
+	public FreshNameGenerator(Collection<String> boundNames, int startIndex) {
 		this.boundNames = new HashSet<String>(boundNames);
 		this.boundFreshNames = new HashSet<String>();
+		this.startIndex = startIndex;
+	}
+	public FreshNameGenerator(Collection<String> boundNames) {
+		this(Collections.<String>emptySet(), 1);
+	}
+	public FreshNameGenerator(int startIndex) {
+		this(Collections.<String>emptySet(), startIndex);
 	}
 	public FreshNameGenerator() {
 		this(Collections.<String>emptySet());
@@ -45,15 +53,15 @@ public class FreshNameGenerator {
 		generators.put(prefix, generator);
 		return generator;
 	}
-	public UniqueIdGenerator newUniqueIdGenerator(String prefix, long counter) {
-		UniqueIdGenerator generator = UniqueIdGenerator.newUniqueIdGenerator(prefix, counter);
+	public UniqueIdGenerator newUniqueIdGenerator(String prefix, long startIndex) {
+		UniqueIdGenerator generator = UniqueIdGenerator.newUniqueIdGenerator(prefix, startIndex);
 		generators.put(prefix, generator);
 		return generator;
 	}
 
 	public UniqueIdGenerator getUniqueIdGenerator(String prefix) {
 		UniqueIdGenerator generator = generators.get(prefix);
-		return generator != null ? generator : newUniqueIdGenerator(prefix);
+		return generator != null ? generator : newUniqueIdGenerator(prefix, startIndex);
 	}
 
 	public String next(String prefix) {
