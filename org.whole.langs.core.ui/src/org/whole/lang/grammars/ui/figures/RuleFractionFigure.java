@@ -17,6 +17,11 @@
  */
 package org.whole.lang.grammars.ui.figures;
 
+import java.util.List;
+
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.FractionFigure;
@@ -40,5 +45,14 @@ public class RuleFractionFigure extends FractionFigure {
 	@Override
 	public Color getLocalForegroundColor() {
 		return FigureConstants.relationsColor;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void paintFigure(Graphics g) {
+		super.paintFigure(g);
+		
+//		List<IFigure> children = (List<IFigure>) getChildren();
+//        Rectangle fb = children.get(2).getBounds();
+//        g.drawLine(fb.getLeft(), fb.getRight());
 	}
 }
