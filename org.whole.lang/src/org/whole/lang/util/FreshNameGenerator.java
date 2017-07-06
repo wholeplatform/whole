@@ -39,7 +39,7 @@ public class FreshNameGenerator {
 		this.startIndex = startIndex;
 	}
 	public FreshNameGenerator(Collection<String> boundNames) {
-		this(Collections.<String>emptySet(), 1);
+		this(boundNames, 1);
 	}
 	public FreshNameGenerator(int startIndex) {
 		this(Collections.<String>emptySet(), startIndex);
@@ -49,9 +49,7 @@ public class FreshNameGenerator {
 	}
 
 	public UniqueIdGenerator newUniqueIdGenerator(String prefix) {
-		UniqueIdGenerator generator = UniqueIdGenerator.newUniqueIdGenerator(prefix);
-		generators.put(prefix, generator);
-		return generator;
+		return newUniqueIdGenerator(prefix, startIndex);
 	}
 	public UniqueIdGenerator newUniqueIdGenerator(String prefix, long startIndex) {
 		UniqueIdGenerator generator = UniqueIdGenerator.newUniqueIdGenerator(prefix, startIndex);
@@ -61,7 +59,7 @@ public class FreshNameGenerator {
 
 	public UniqueIdGenerator getUniqueIdGenerator(String prefix) {
 		UniqueIdGenerator generator = generators.get(prefix);
-		return generator != null ? generator : newUniqueIdGenerator(prefix, startIndex);
+		return generator != null ? generator : newUniqueIdGenerator(prefix);
 	}
 
 	public String next(String prefix) {
