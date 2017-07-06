@@ -17,10 +17,19 @@
  */
 package org.whole.lang.exceptions;
 
+import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.model.IEntity;
+
 /**
  * @author Riccardo Solmi
  */
 public interface IWholeFrameworkException {
+	public String getMessage();
+
+	default public IEntity getMessageModel() {
+		return BindingManagerFactory.instance.createValue(getMessage());
+	}
+
 	default public RuntimeException asException() {
 		return (RuntimeException) this;
 	}

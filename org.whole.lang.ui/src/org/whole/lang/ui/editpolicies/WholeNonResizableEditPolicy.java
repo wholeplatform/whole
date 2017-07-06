@@ -201,7 +201,7 @@ public class WholeNonResizableEditPolicy extends NonResizableEditPolicy {
 	public static Image createFeedbackImage(IGraphicalEntityPart part, int alpha, boolean withBorder, IConstraintDimensionStrategy strategy, double scale) {
 		IFigure figure = part.getFigure();
 		Rectangle figureBounds = figure.getBounds();
-		Control figureCanvas = part.getViewer().getControl();				
+		Control figureCanvas = part.getViewer().getControl();	
 
 		// calculate feedback maximum dimension
 		Dimension dimension = strategy.constraintDimensions(new Dimension(

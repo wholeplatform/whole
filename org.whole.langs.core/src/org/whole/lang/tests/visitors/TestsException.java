@@ -18,10 +18,13 @@
 package org.whole.lang.tests.visitors;
 
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.tests.model.SubjectStatement;
-import org.whole.lang.tests.util.TestsHelpers;
+import org.whole.lang.operations.PrettyPrinterOperation;
+import org.whole.lang.tests.reflect.TestsEntityDescriptorEnum;
+import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.StringUtils;
 import org.whole.lang.visitors.IVisitor;
 
 /**
@@ -30,13 +33,13 @@ import org.whole.lang.visitors.IVisitor;
 public class TestsException extends RuntimeException implements IWholeFrameworkException {
 	private static final long serialVersionUID = 1L;
 
-	private SubjectStatement subjectStatement;
+	private IEntity subjectStatement;
 	private IEntity subject;
 	private IVisitor constraint;
 	private IBindingManager bindings;
 
-	public TestsException(SubjectStatement subjectStatement, IEntity subject, IVisitor constraint, IBindingManager bindings) {
-		super(TestsHelpers.formatMessage(bindings, subject, constraint));
+	public TestsException(IEntity subjectStatement, IEntity subject, IVisitor constraint, IBindingManager bindings) {
+		super(formatMessage(bindings, subject, constraint));
 		this.subjectStatement = subjectStatement;
 		this.subject = subject;
 		this.constraint = constraint;
@@ -54,5 +57,25 @@ public class TestsException extends RuntimeException implements IWholeFrameworkE
 	}
 	public IBindingManager getBindings() {
 		return bindings;
+	}
+	
+	@Override
+	public IEntity getMessageModel() {
+		IEntity subjectStatement = EntityUtils.clone(getSubjectStatement());
+		IEntity subject = EntityUtils.clone(getSubject());
+		IEntity fragment = CommonsEntityAdapterFactory.createStageUpFragment(TestsEntityDescriptorEnum.Expression, subject);
+		subjectStatement.wSet(0, fragment);
+		return subjectStatement;
+	}
+
+	public static String formatMessage(IBindingManager bm, IEntity subject, IVisitor constraint) {
+		StringBuilder sb = new StringBuilder(2048);
+		if (EntityUtils.isNull(subject))
+			sb.append("NullEntity");
+		else
+			sb.append(PrettyPrinterOperation.toPrettyPrintString(subject).replaceFirst(StringUtils.EOL_REGEXP+"+$", ""));
+		sb.append(" ");
+		sb.append(PrettyPrinterOperation.toPrettyPrintString(constraint.getSourceEntity()));
+		return sb.toString();
 	}
 }

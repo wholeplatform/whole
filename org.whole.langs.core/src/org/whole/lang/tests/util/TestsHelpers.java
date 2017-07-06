@@ -22,7 +22,6 @@ import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.InterpreterOperation;
-import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Sequence;
 import org.whole.lang.queries.util.QueriesUtils;
@@ -38,7 +37,6 @@ import org.whole.lang.tests.model.TestSuite;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
-import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.TraverseAllFilter;
 
 /**
@@ -154,16 +152,6 @@ public class TestsHelpers {
 			filterRulesMap.put(templateManagerClass.getName() + "." + name, filterRule);
 		}
 		return filterRulesMap;
-	}
-	public static String formatMessage(IBindingManager bm, IEntity subject, IVisitor constraint) {
-		StringBuilder sb = new StringBuilder(2048);
-		if (EntityUtils.isNull(subject))
-			sb.append("NullEntity");
-		else
-			sb.append(PrettyPrinterOperation.toPrettyPrintString(subject).replaceFirst(StringUtils.EOL_REGEXP+"+$", ""));
-		sb.append(" ");
-		sb.append(PrettyPrinterOperation.toPrettyPrintString(constraint.getSourceEntity()));
-		return sb.toString();
 	}
 
 	public static IEntity splitDescription(String description) {

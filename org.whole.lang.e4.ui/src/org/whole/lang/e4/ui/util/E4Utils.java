@@ -73,6 +73,7 @@ import org.whole.lang.e4.ui.actions.NewlineAction;
 import org.whole.lang.e4.ui.actions.SplitOnCaretAction;
 import org.whole.lang.e4.ui.jobs.ExecutionState;
 import org.whole.lang.events.IdentityRequestEventHandler;
+import org.whole.lang.exceptions.IWholeFrameworkException;
 import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.exceptions.WholeRuntimeException;
 import org.whole.lang.iterators.IEntityIterator;
@@ -443,6 +444,13 @@ public class E4Utils {
 				if (bindings.wIsSet("self") && bindings.wIsSet("viewer")) {
 					IEntity selfEntity = bindings.wGet("self");
 					((IEntityPartViewer) bindings.wGetValue("viewer")).selectAndReveal(selfEntity);
+				}
+
+				if (throwable instanceof IWholeFrameworkException) {
+					IEntity messageModel = ((IWholeFrameworkException) throwable).getMessageModel();
+					E4Utils.revealPart(context, IE4UIConstants.RESULTS_PART_ID);
+					IEventBroker eventBroker = context.get(IEventBroker.class);
+					eventBroker.post(IE4UIConstants.TOPIC_UPDATE_RESULTS, messageModel);
 				}
 			}
 		});
