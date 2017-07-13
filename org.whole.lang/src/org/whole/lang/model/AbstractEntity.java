@@ -39,7 +39,6 @@ import org.whole.lang.events.IdentityChangeEventHandler;
 import org.whole.lang.events.IdentityRequestEventHandler;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.lifecycle.IHistoryManager;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.operations.PrettyPrinterOperation;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -345,11 +344,6 @@ public abstract class AbstractEntity implements InternalIEntity, Serializable, C
 	protected void toString(StringBuffer buffer) {
 	}
 
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-    	matcher.match(this, other);
-    }
-
-    
 	public FeatureDescriptor wGetFeatureDescriptor(IEntity child) {
 		return wGetEntityDescriptor().getEntityFeatureDescriptor(wIndexOf(child));
 	}

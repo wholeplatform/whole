@@ -24,7 +24,6 @@ import java.util.Set;
 
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -55,10 +54,8 @@ public interface IEntity {
 	public Serializable wGetPid();
 	public int wHashCode();
     public boolean wEquals(IEntity entity);
-    public void wAccept(GenericMatcher matcher, IEntity other); //TODO remove
 
-
-	public boolean wIsEmpty();
+    public boolean wIsEmpty();
 	public int wSize(); //number of children values (domain features only)
 	public int wAdjacentSize(); //number of adjacent values (domain features only)
 	public int wInverseAdjacentSize();

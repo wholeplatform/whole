@@ -82,8 +82,8 @@ public class TestsHelpers {
 				bindings.wEnterScope();
 
 				// try to match
-				applyFilter(sequence, EntityUtils.clone(pattern), bindings)
-				.wAccept(new GenericMatcher(bindings, TraverseAllFilter.instance), 
+				new GenericMatcher(bindings, TraverseAllFilter.instance).match(
+						applyFilter(sequence, EntityUtils.clone(pattern), bindings),
 						applyFilter(sequence, EntityUtils.clone(model), bindings));
 
 				// eventually matches

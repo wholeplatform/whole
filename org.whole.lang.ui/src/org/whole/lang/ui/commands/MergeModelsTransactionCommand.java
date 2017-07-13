@@ -42,14 +42,14 @@ public class MergeModelsTransactionCommand extends ModelTransactionCommand {
 		begin();
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-			entity.wAccept(new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
+			new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
 				protected void forceMatch(IEntity pattern, IEntity model) {
 					IEntity parent = model.wGetParent();
 					if (EntityUtils.isNull(parent))
 						throw new MatchException(pattern, model, bindings);
 					parent.wSet(model, EntityUtils.clone(pattern));
 				}
-			}, getModel());
+			}.match(entity, getModel());
 			commit();
 		} catch (RuntimeException e) {
 			rollbackIfNeeded();

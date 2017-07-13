@@ -25,7 +25,6 @@ import java.util.Set;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.IFragmentModel;
@@ -65,11 +64,6 @@ public abstract class AbstractEntityAdapter /*extends AbstractEntity*/ implement
     public int wGetEntityOrd() {
     	return wGetEntityDescriptor().getOrdinal();
     }
-
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-		matcher.match(this, other);
-//		wGetAdaptee().wAccept(matcher, other);
-	}
 
 	public void wSetModel(IFragmentModel model) {
 		((InternalIEntity) wGetAdaptee(false)).wSetModel(model);

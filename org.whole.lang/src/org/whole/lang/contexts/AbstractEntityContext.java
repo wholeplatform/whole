@@ -31,7 +31,6 @@ import org.whole.lang.commands.ICommand;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.IFragmentModel;
@@ -579,11 +578,6 @@ public abstract class AbstractEntityContext implements IEntityContext, InternalI
 
 	public Set<IEntity> wGetSharingSet() {
 		return entity.wGetSharingSet();
-	}
-
-	@Deprecated
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-		entity.wAccept(matcher, other);
 	}
 
 	public ICommand wGetBindingCommand() {

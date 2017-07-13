@@ -74,8 +74,10 @@ public class OrderedMatcher extends GenericMatcher {
 		if (comparator != null) {
 			if ((!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())
 					&& !EntityUtils.isResolver(model) //TODO workaround for resolvers
-					) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) )
-				throw new MatchException(pattern, model, bindings);
+					) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) ) {
+				mismatchEntity(pattern, model);
+				return;
+			}
 	
 			List<IEntity> patternList = new ArrayList<IEntity>(pattern.wFeatures());
 			Collections.sort(patternList, comparator);
@@ -87,7 +89,7 @@ public class OrderedMatcher extends GenericMatcher {
 				IEntity patternChild = patternList.get(i);
 				IEntity modelChild = modelList.get(i);
 				if (traversalFilter.include(model, model.wIndexOf(modelChild)))
-					patternChild.wAccept(this, modelChild);
+					match(patternChild, modelChild);
 			}
 		} else
 			super.matchCompositeEntity(pattern, model);
@@ -109,7 +111,7 @@ public class OrderedMatcher extends GenericMatcher {
 
 	public static boolean match(IEntity pattern, IEntity model, Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap) {
 		try {
-			pattern.wAccept(new OrderedMatcher(comparatorsMap), model);
+			new OrderedMatcher(comparatorsMap).match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;

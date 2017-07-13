@@ -84,63 +84,65 @@ public class GenericMatcher {
         }
 	}
 
-	public void matchAdapterFragmentEntity(IEntity pattern, IEntity model) {
-		matchSimpleEntity(pattern, model);
-	}
-	public void matchBaseFragmentEntity(IEntity pattern, IEntity model) {
-		matchSimpleEntity(pattern, model);
-	}
-	public void matchMetaFragmentEntity(IEntity pattern, IEntity model) {
-		matchSimpleEntity(pattern, model);
+	protected void mismatchEntity(IEntity pattern, IEntity model) {
+		throw new MatchException(pattern, model, bindings);
 	}
 
-	public void matchSimpleEntity(IEntity pattern, IEntity model) {
-		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) ||
-				model.wSize() < pattern.wSize())
-			throw new MatchException(pattern, model, bindings);
+	protected void matchSimpleEntity(IEntity pattern, IEntity model) {
+		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) || model.wSize() < pattern.wSize()) {
+			mismatchEntity(pattern, model);
+			return;
+		}
 		
 		for (int i=0, size=pattern.wSize(); i<size; i++)
 			if (traversalFilter.include(model, i))
-				pattern.wGet(i).wAccept(this, model.wGet(i));
+				match(pattern.wGet(i), model.wGet(i));
 	}
 
-    public void matchCompositeEntity(IEntity pattern, IEntity model) {
+	protected void matchCompositeEntity(IEntity pattern, IEntity model) {
 		if ((!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())
 				&& !EntityUtils.isResolver(model) //TODO workaround for resolvers
-				) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) )
-			throw new MatchException(pattern, model, bindings);
+				) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) ) {
+			mismatchEntity(pattern, model);
+			return;
+		}
 
 		if (!pattern.wIsEmpty())
 			for (int i=0, size=pattern.wSize(); i<size; i++)
 				if (traversalFilter.include(model, i))
-					pattern.wGet(i).wAccept(this, model.wGet(i));
+					match(pattern.wGet(i), model.wGet(i));
 	}
 
-    public void matchDataEntity(IEntity pattern, IEntity model) {
-    	if (!EntityUtils.isData(model) ||
-    			!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()))
-			throw new MatchException(pattern, model, bindings);
+    protected void matchDataEntity(IEntity pattern, IEntity model) {
+    	if (!EntityUtils.isData(model) || !pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())) {
+    		mismatchEntity(pattern, model);
+    		return;
+    	}
 		
     	Object patternValue = pattern.wGetValue();
 		Object modelValue = model.wGetValue();
 		if (patternValue != modelValue && (patternValue == null || !patternValue.equals(modelValue)))
-			throw new MatchException(pattern, model, bindings);
+			mismatchEntity(pattern, model);
     }
 
-	public void matchEntityResolver(IEntity pattern, IEntity model) {
-		if (pattern.wSize() != model.wSize() || model.wGetEntityKind().equals(EntityKinds.DATA))
-			throw new MatchException(pattern, model, bindings);
+    protected void matchEntityResolver(IEntity pattern, IEntity model) {
+		if (pattern.wSize() != model.wSize() || model.wGetEntityKind().equals(EntityKinds.DATA)) {
+			mismatchEntity(pattern, model);
+			return;
+		}
 
 		for (FeatureDescriptor fd : pattern.wGetEntityDescriptor().getEntityFeatureDescriptors()) {
 			if (pattern.wContains(fd))
 				if (model.wContains(fd))
-					pattern.wGet(fd).wAccept(this, model.wGet(fd));
-				else
-					throw new MatchException(pattern, model, bindings);
+					match(pattern.wGet(fd), model.wGet(fd));
+				else {
+					mismatchEntity(pattern, model);
+					return;
+				}
 		}
 	}
 
-    public void matchEntityVariable(IEntity pattern, IEntity model) {
+    protected void matchEntityVariable(IEntity pattern, IEntity model) {
     	EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
     	String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
 
@@ -151,12 +153,12 @@ public class GenericMatcher {
     			if (!EntityUtils.isVariable(model) ||
     					!value.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()) ||
     					!value.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue()))
-    				throw new MatchException(pattern, model, bindings);
+					mismatchEntity(pattern, model);
      		} else {
         		if (type.isPlatformSupertypeOf(value.wGetEntityDescriptor()))//was AsIsFrom(
-            		value.wAccept(this, model);
-        		else
-        			throw new MatchException(pattern, model, bindings);
+            		match(value, model);
+				else
+					mismatchEntity(pattern, model);
      		}
     	} else {
 			if (type.isPlatformSupertypeOf(//was AsIsFrom(
@@ -167,7 +169,17 @@ public class GenericMatcher {
 			else if (EntityUtils.isResolver(model)) //TODO workaround waiting for a dynamic entity descriptor for resolvers 
 				bindings.wDef(name, model);
 			else
-				throw new MatchException(pattern, model, bindings);
+				mismatchEntity(pattern, model);
     	}
     }
+
+	protected void matchAdapterFragmentEntity(IEntity pattern, IEntity model) {
+		matchSimpleEntity(pattern, model);
+	}
+	protected void matchBaseFragmentEntity(IEntity pattern, IEntity model) {
+		matchSimpleEntity(pattern, model);
+	}
+	protected void matchMetaFragmentEntity(IEntity pattern, IEntity model) {
+		matchSimpleEntity(pattern, model);
+	}
 }

@@ -37,49 +37,19 @@ public abstract class AbstractGenericForcedMatcher extends GenericMatcher {
 		super(bindings, traversalFilter);
 	}
 
+	@Override
+	protected void mismatchEntity(IEntity pattern, IEntity model) {
+		forceMatch(pattern, model);
+	}
+
 	protected void forceMatch(IEntity pattern, IEntity model) {
 	}
 
 	@Override
-	public void matchSimpleEntity(IEntity pattern, IEntity model) {
-		try {
-			super.matchSimpleEntity(pattern, model);
-		} catch (MatchException e) {
-			forceMatch(pattern, model);
-		}
-	}
-	@Override
-	public void matchCompositeEntity(IEntity pattern, IEntity model) {
-		try {
-			super.matchCompositeEntity(pattern, model);
-		} catch (MatchException e) {
-			forceMatch(pattern, model);
-		}
-	}
-
-	@Override
-	public void matchDataEntity(IEntity pattern, IEntity model) {
-		try {
-			super.matchDataEntity(pattern, model);
-		} catch (MatchException e) {
-			forceMatch(pattern, model);
-		}
-	}
-
-	@Override
-	public void matchEntityResolver(IEntity pattern, IEntity model) {
-		try {
-			super.matchEntityResolver(pattern, model);
-		} catch (MatchException e) {
-			forceMatch(pattern, model);
-		}
-	}
-
-	@Override
-	public void matchEntityVariable(IEntity pattern, IEntity model) {
+	protected void matchEntityVariable(IEntity pattern, IEntity model) {
 		if (!EntityUtils.isVariable(model) ||
 				!pattern.wGet(CommonsFeatureDescriptorEnum.varType).wEquals(model.wGet(CommonsFeatureDescriptorEnum.varType)) ||
 				!pattern.wGet(CommonsFeatureDescriptorEnum.varName).wEquals(model.wGet(CommonsFeatureDescriptorEnum.varName)))
-			forceMatch(pattern, model);
+			mismatchEntity(pattern, model);
 	}
 }

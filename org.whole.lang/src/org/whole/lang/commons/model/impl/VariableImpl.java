@@ -1,17 +1,16 @@
 package org.whole.lang.commons.model.impl;
 
-import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.commons.model.Variable;
-import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
-import org.whole.lang.commons.visitors.ICommonsVisitor;
-import org.whole.lang.matchers.GenericMatcher;
-import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.commons.model.VarType;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.commons.model.VarName;
 import org.whole.lang.commons.model.Quantifier;
+import org.whole.lang.commons.model.VarName;
+import org.whole.lang.commons.model.VarType;
+import org.whole.lang.commons.model.Variable;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.commons.visitors.ICommonsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.model.AbstractSimpleEntity;
+import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.EntityDescriptor;
 
 /** 
  * @generator Whole
@@ -27,9 +26,6 @@ public class VariableImpl extends AbstractSimpleEntity implements Variable {
 		return CommonsEntityDescriptorEnum.Variable_ord;
 	}
 
-    public void wAccept(GenericMatcher matcher, IEntity other) {
-    	matcher.matchEntityVariable(this, other);
-    }
 	public void accept(ICommonsVisitor visitor) {
 		try {
 			visitor.visit(this);

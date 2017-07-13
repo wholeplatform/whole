@@ -30,14 +30,9 @@ public class MatchException extends RuntimeException implements IWholeFrameworkE
 	public final IEntity pattern;
 	public final IEntity model;
 	public final IBindingManager bindings;
-	public final int patternIndex;
 	
 	public MatchException(IEntity pattern, IEntity model, IBindingManager bindings) {
-		this(pattern, -1, model, bindings);
-	}
-	public MatchException(IEntity pattern, int patternIndex, IEntity model, IBindingManager bindings) {
 		this.pattern = pattern;
-		this.patternIndex = patternIndex;
 		this.model = model;
 		this.bindings = bindings;
 	}

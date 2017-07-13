@@ -31,7 +31,6 @@ import org.whole.lang.contexts.IdentityEntityContext;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.factories.RegistryConfigurations;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.IFragmentModel;
@@ -286,10 +285,6 @@ public class GenericBuilderContext extends GenericForwardStrategyBuilder impleme
 	}
 	public void setContextTimeToEntityBindingTime() {
 		entityContext.setContextTimeToEntityBindingTime();
-	}
-	@Deprecated
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-		entityContext.wAccept(matcher, other);
 	}
 	public boolean wCurrentAdd(IEntity entity) {
 		return entityContext.wCurrentAdd(entity);

@@ -26,7 +26,6 @@ import java.util.ListIterator;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.iterators.IteratorFactory;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.util.EntityUtils;
 
@@ -53,10 +52,6 @@ public abstract class AbstractOrderedCompositeEntity<E extends IEntity> extends 
     	entity.elements = (List<E>) ((ArrayList<E>) entity.elements).clone();
     	entity.lastCommand = NullCommand.instance;
     	return entity;
-    }
-
-    public void wAccept(GenericMatcher matcher, IEntity other) {
-    	matcher.matchCompositeEntity(this, other);
     }
 
 	public /*final*/ ICommand wGetLastCommand() {

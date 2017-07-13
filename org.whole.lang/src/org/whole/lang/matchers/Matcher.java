@@ -243,7 +243,8 @@ public class Matcher {
 	}
 	public static boolean forceMatch(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			pattern.wAccept(new GenericResolverForcedMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter), model);
+			new GenericResolverForcedMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter)
+					.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;
@@ -259,8 +260,8 @@ public class Matcher {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			final Set<String> boundNames = new HashSet<String>();
 			bm.wDefValue("boundNames", boundNames);
-			model.wAccept(new AbstractGenericForcedMatcher(bm, traversalFilter) {
-				public void matchEntityVariable(IEntity pattern, IEntity model) {
+			new AbstractGenericForcedMatcher(bm, traversalFilter) {
+				protected void matchEntityVariable(IEntity pattern, IEntity model) {
 					if (EntityUtils.isVariable(model)) {
 						IEntity varName = pattern.wGet(CommonsFeatureDescriptorEnum.varName);
 						IEntity varType = pattern.wGet(CommonsFeatureDescriptorEnum.varType);
@@ -269,8 +270,8 @@ public class Matcher {
 							boundNames.add(varName.wStringValue());
 					}
 				}
-			}, pattern);
-			pattern.wAccept(new GenericVariableForcedMatcher(bm, traversalFilter), model);
+			}.match(model, pattern);
+			new GenericVariableForcedMatcher(bm, traversalFilter).match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;
@@ -283,7 +284,8 @@ public class Matcher {
 	}
 	public static boolean match(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			pattern.wAccept(new GenericMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter), model);
+			new GenericMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter)
+					.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;
@@ -295,7 +297,7 @@ public class Matcher {
 		boolean mergeScope = true;
 		try {
 			bindings.wEnterScope();
-			pattern.wAccept(new GenericMatcher(bindings), model);
+			new GenericMatcher(bindings).match(pattern, model);
 		} catch (MatchException e) {
 			mergeScope = false;
 		} catch (VisitException e) {
@@ -314,56 +316,6 @@ public class Matcher {
 		} catch (VisitException e) {
 			return false;
 		}
-	}
-
-	public static boolean containsMatch(IEntity pattern, IEntity model) {
-		try {
-			pattern.wAccept(new GenericPatternMatcher(), model);
-			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
-			return false;
-		}
-	}
-	public static boolean containsMatch(IEntity pattern, IEntity model, IBindingManager bindings) {
-		boolean mergeScope = true;
-		try {
-			bindings.wEnterScope();
-			pattern.wAccept(new GenericPatternMatcher(bindings), model);
-		} catch (MatchException e) {
-			mergeScope = false;
-		} catch (VisitException e) {
-			mergeScope = false;
-		} finally {
-			bindings.wExitScope(mergeScope);
-		}
-		return mergeScope;
-	}
-
-	public static boolean learnMatch(IEntity pattern, IEntity model) {
-		try {
-			pattern.wAccept(new GenericLearningPatternMatcher(), model);
-			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
-			return false;
-		}
-	}
-	public static boolean learnMatch(IEntity pattern, IEntity model, IBindingManager bindings) {
-		boolean mergeScope = true;
-		try {
-			bindings.wEnterScope();
-			pattern.wAccept(new GenericLearningPatternMatcher(bindings), model);
-		} catch (MatchException e) {
-			mergeScope = false;
-		} catch (VisitException e) {
-			mergeScope = false;
-		} finally {
-			bindings.wExitScope(mergeScope);
-		}
-		return mergeScope;
 	}
 
 	public static void rename(IEntity pattern, final Map<String, String> nameMap, boolean includeAdjacents) {

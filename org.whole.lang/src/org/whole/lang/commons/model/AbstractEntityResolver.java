@@ -27,7 +27,6 @@ import java.util.Set;
 
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.factories.GenericEntityFactory;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.AbstractListCompositeEntity;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
@@ -118,10 +117,6 @@ public abstract class AbstractEntityResolver extends AbstractListCompositeEntity
 
     public final EntityKinds wGetEntityKind() {
     	return EntityKinds.SIMPLE;//WAS RESOLVER;
-    }
-
-    public void wAccept(GenericMatcher matcher, IEntity other) {
-    	matcher.matchEntityResolver(this, other);
     }
 
 	public <T extends IEntity> T wResolveWith(EntityDescriptor<T> ed) {

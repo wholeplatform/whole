@@ -30,7 +30,6 @@ import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityFeatureDescriptorImpl;
 import org.whole.lang.reflect.EntityKinds;
@@ -95,10 +94,6 @@ public class NullEntity implements InternalIEntity, Serializable, Cloneable {
 
 	public void wSetModel(IFragmentModel model) {
 		//throw new IllegalStateException(WholeMessages.null_model);
-	}
-
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-		throw new IllegalStateException(WholeMessages.null_model);
 	}
 
 	public boolean wAdd(IEntity child) {

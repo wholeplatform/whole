@@ -26,7 +26,6 @@ import java.util.Set;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.events.IChangeEventHandler;
 import org.whole.lang.events.IRequestEventHandler;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.model.EnumValue;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.IFragmentModel;
@@ -319,11 +318,6 @@ public class IdentityEntityContext implements IEntityContext {
 	public boolean wEquals(IEntity entity) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public void wAccept(GenericMatcher matcher, IEntity other) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public <E extends IEntity> E wGetAspect(EntityDescriptor<E> ed) {

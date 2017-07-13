@@ -23,7 +23,6 @@ import java.util.Date;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.commands.NullCommand;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
-import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.WholeMessages;
@@ -57,10 +56,6 @@ public abstract class AbstractDataEntity extends AbstractEntity {
 
     public EntityKinds wGetEntityKind() {
     	return EntityKinds.DATA;
-    }
-
-    public void wAccept(GenericMatcher matcher, IEntity other) {
-    	matcher.matchDataEntity(this, other);
     }
 
     public boolean wIsSet(FeatureDescriptor feature) {

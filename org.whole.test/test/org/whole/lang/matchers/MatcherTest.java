@@ -284,11 +284,11 @@ public class MatcherTest {
 		// test forced match
 		assertFalse(Matcher.match(textModel, modifiedTextModel));
 		assertTrue(Matcher.forceMatch(textModel, modifiedTextModel));
-		textModel.wAccept(new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
+		new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
 			protected void forceMatch(IEntity pattern, IEntity model) {
 				assertTrue(EntityUtils.isResolver(model));
 			}
-		}, modifiedTextModel);
+		}.match(textModel, modifiedTextModel);
 	}
 
 	@Test
