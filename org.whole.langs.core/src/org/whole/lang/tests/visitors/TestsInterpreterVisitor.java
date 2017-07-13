@@ -280,9 +280,11 @@ public class TestsInterpreterVisitor extends TestsTraverseAllVisitor {
 		StringWriter writer = new StringWriter();
 		e.printStackTrace(new PrintWriter(writer));
 		printWriter().printf("    %32s(...) ERRORS: %s", name, writer.toString());
+		if (e instanceof IWholeRuntimeException) {
 		IWholeRuntimeException wre = (IWholeRuntimeException) e;
-		if (wre.getSourceEntity() != null)
-			printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(wre.getSourceEntity()));
+			if (wre.getSourceEntity() != null)
+				printWriter().printf(" [at %s]\n\n", EntityUtils.getLocation(wre.getSourceEntity()));
+		}
 	}
 
 	@Override

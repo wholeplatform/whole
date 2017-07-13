@@ -36,7 +36,7 @@ public class TestsUIInterpreterVisitor extends TestsLearningInterpreterVisitor {
 				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))
 			return;
 		else
-			E4Utils.suspendOrReportException(context, SuspensionKind.RECOVERABLE_ERROR, "Model test error", "Error while executing "+name+" test", e);
+			E4Utils.suspendOrReportException(context, SuspensionKind.RECOVERABLE_ERROR, "Model test error", "Error while executing "+name+" test", e, debugEnv);
 	}
 	@Override
 	protected void reportFailure(String name, TestsException e) {

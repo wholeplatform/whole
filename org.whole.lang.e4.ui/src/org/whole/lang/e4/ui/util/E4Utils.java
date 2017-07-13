@@ -461,12 +461,12 @@ public class E4Utils {
 		execution.pause();
 	}
 
-	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e) {
-		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e);
+	public static void suspendOrReportException(IEclipseContext context, SuspensionKind kind, String title, String description, Exception e, IBindingManager bindings) {
+		IWholeRuntimeException we = e instanceof IWholeRuntimeException ? (IWholeRuntimeException) e : new WholeRuntimeException(e).withBindings(bindings);
 		if (we.getSourceEntity() != null) {
 			E4Utils.suspendOperation(kind, we);
 		} else {
-			E4Utils.reportError(context, title, description, e);
+			E4Utils.reportError(context, title, description, (Throwable) we);
 		}
 	}
 

@@ -57,7 +57,7 @@ public abstract class AbstractRunnableWithProgress implements ISynchronizableRun
 			bm.wDefValue("progressMonitor", pm);
 			run(pm);
 		} catch (Exception e) {
-			E4Utils.suspendOrReportException(context, SuspensionKind.ERROR, "Model operation error", "Error while executing "+label+" operation", e);
+			E4Utils.suspendOrReportException(context, SuspensionKind.ERROR, "Model operation error", "Error while executing "+label+" operation", e, bm);
 		} finally {
 			monitor.done();
 			if (isTransactional())
