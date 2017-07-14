@@ -19,11 +19,11 @@ package org.whole.lang.ui.commands;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.matchers.AbstractGenericForcedMatcher;
-import org.whole.lang.matchers.MatchException;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
+import org.whole.lang.matchers.GenericMatcher;
+import org.whole.lang.matchers.MatchStrategy;
+import org.whole.lang.matchers.MismatchStrategy;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.TraverseAllFilter;
 
 /**
  * @author Enrico Persiani
@@ -42,14 +42,12 @@ public class MergeModelsTransactionCommand extends ModelTransactionCommand {
 		begin();
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-			new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
-				protected void forceMatch(IEntity pattern, IEntity model) {
-					IEntity parent = model.wGetParent();
-					if (EntityUtils.isNull(parent))
-						throw new MatchException(pattern, model, bindings);
-					parent.wSet(model, EntityUtils.clone(pattern));
-				}
-			}.match(entity, getModel());
+			new GenericMatcher(bm)
+			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
+					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+			.withMismatchStrategy(MismatchStrategy.ReplaceWithClone)
+			.match(entity, getModel());
+			
 			commit();
 		} catch (RuntimeException e) {
 			rollbackIfNeeded();

@@ -26,36 +26,52 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.FreshNameGenerator;
-import org.whole.lang.visitors.ITraversalFilter;
 
 /**
- * @author Enrico Persiani
+ * @author Riccardo Solmi
  */
-public class GenericVariableForcedMatcher extends AbstractGenericForcedMatcher {
-	public GenericVariableForcedMatcher() {
-	}
-	public GenericVariableForcedMatcher(IBindingManager bindings) {
-		super(bindings);
-	}
-	public GenericVariableForcedMatcher(IBindingManager bindings, ITraversalFilter traversalFilter) {
-		super(bindings, traversalFilter);
-	}
+@FunctionalInterface
+public interface MismatchStrategy {
+	public void apply(IEntity pattern, IEntity model, IBindingManager bindings);
+
+
+	public static final MismatchStrategy ThrowMatchException = (pattern, model, bindings) -> {
+		throw new MatchException(pattern, model, bindings);
+	};
+
+	public static final MismatchStrategy IgnoreSubtree = (pattern, model, bindings) -> {
+	};
+
+	public static final MismatchStrategy ReplaceWithClone = (pattern, model, bindings) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, bindings);
+
+		parent.wSet(model, EntityUtils.clone(pattern));
+	};
+
+	public static final MismatchStrategy ReplaceWithResolver = (pattern, model, bindings) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, bindings);
+
+		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
+		parent.wSet(model, CommonsEntityAdapterFactory.createResolver(ed));
+	};
 
 	@SuppressWarnings("unchecked")
-	private FreshNameGenerator fnGen() {
+	public static final MismatchStrategy ReplaceWithVariable = (pattern, model, bindings) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, bindings);
+
 		if (!bindings.wIsSet("fnGen"))
 			bindings.wDefValue("fnGen", bindings.wIsSet("boundNames") ?
 					new FreshNameGenerator((Collection<String>) bindings.wGetValue("boundNames")) : new FreshNameGenerator());
-		return (FreshNameGenerator) bindings.wGetValue("fnGen");
-	}
+		FreshNameGenerator fnGen = (FreshNameGenerator) bindings.wGetValue("fnGen");
 
-	@Override
-	protected void forceMatch(IEntity pattern, IEntity model) {
-		IEntity parent = model.wGetParent();
-		if (EntityUtils.isNull(parent))
-			throw new MatchException(pattern, model, bindings);
 		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
 		FeatureDescriptor fd = parent.wGetFeatureDescriptor(model);
-		parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fnGen().nextFreshName(fd.getName())));
-	}
+		parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fnGen.nextFreshName(fd.getName())));
+	};
 }

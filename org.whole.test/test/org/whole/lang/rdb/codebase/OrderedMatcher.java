@@ -26,8 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.whole.lang.bindings.BindingManagerFactory;
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchException;
 import org.whole.lang.model.IEntity;
@@ -35,8 +33,6 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
-import org.whole.lang.visitors.ITraversalFilter;
-import org.whole.lang.visitors.TraverseAllFilter;
 import org.whole.lang.visitors.VisitException;
 
 /**
@@ -50,15 +46,7 @@ public class OrderedMatcher extends GenericMatcher {
 	}
 
 	public OrderedMatcher(Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap) {
-		this(comparatorsMap, BindingManagerFactory.instance.createBindingManager());
-	}
-
-	public OrderedMatcher(Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap, IBindingManager bindings) {
-		this(comparatorsMap, bindings, TraverseAllFilter.instance);
-	}
-
-	public OrderedMatcher(Map<EntityDescriptor<?>, Comparator<IEntity>> comparatorsMap, IBindingManager bindings, ITraversalFilter traversalFilter) {
-		super(bindings, traversalFilter);
+		super();
 		this.comparatorsMap = new HashMap<EntityDescriptor<?>, Comparator<IEntity>>();
 		this.comparatorsMap.putAll(comparatorsMap);
 	}
@@ -75,7 +63,7 @@ public class OrderedMatcher extends GenericMatcher {
 			if ((!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())
 					&& !EntityUtils.isResolver(model) //TODO workaround for resolvers
 					) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) ) {
-				mismatchEntity(pattern, model);
+				mismatch(pattern, model);
 				return;
 			}
 	
@@ -88,7 +76,7 @@ public class OrderedMatcher extends GenericMatcher {
 			for (int i=0; i<pattern.wSize(); i++) {
 				IEntity patternChild = patternList.get(i);
 				IEntity modelChild = modelList.get(i);
-				if (traversalFilter.include(model, model.wIndexOf(modelChild)))
+				if (getTraversalFilter().include(model, model.wIndexOf(modelChild)))
 					match(patternChild, modelChild);
 			}
 		} else

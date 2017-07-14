@@ -17,10 +17,14 @@
  */
 package org.whole.lang.matchers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,6 +40,7 @@ import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Variable;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.MethodInvocation;
@@ -55,7 +60,6 @@ import org.whole.lang.testentities.codebase.TestingModel;
 import org.whole.lang.testentities.model.ListTestEntity;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericTraversalFactory;
-import org.whole.lang.visitors.TraverseAllFilter;
 import org.whole.langs.test.TestLanguagesDeployer;
 
 /**
@@ -284,11 +288,13 @@ public class MatcherTest {
 		// test forced match
 		assertFalse(Matcher.match(textModel, modifiedTextModel));
 		assertTrue(Matcher.forceMatch(textModel, modifiedTextModel));
-		new AbstractGenericForcedMatcher(bm, TraverseAllFilter.instance) {
-			protected void forceMatch(IEntity pattern, IEntity model) {
-				assertTrue(EntityUtils.isResolver(model));
-			}
-		}.match(textModel, modifiedTextModel);
+
+		new GenericMatcher(bm)
+		.withMatchStrategy(MatchStrategy.ForceEntityVariable,
+				CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+		.withMismatchStrategy(
+				(pattern, model, bindings) -> { assertTrue(EntityUtils.isResolver(model)); })
+		.match(textModel, modifiedTextModel);
 	}
 
 	@Test

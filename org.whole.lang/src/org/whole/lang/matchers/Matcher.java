@@ -26,7 +26,7 @@ import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
-import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
@@ -243,8 +243,12 @@ public class Matcher {
 	}
 	public static boolean forceMatch(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			new GenericResolverForcedMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter)
-					.match(pattern, model);
+			new GenericMatcher()
+			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
+					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+			.withTraversalFilter(traversalFilter)
+			.withMismatchStrategy(MismatchStrategy.ReplaceWithResolver)
+			.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;
@@ -260,18 +264,19 @@ public class Matcher {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			final Set<String> boundNames = new HashSet<String>();
 			bm.wDefValue("boundNames", boundNames);
-			new AbstractGenericForcedMatcher(bm, traversalFilter) {
-				protected void matchEntityVariable(IEntity pattern, IEntity model) {
-					if (EntityUtils.isVariable(model)) {
-						IEntity varName = pattern.wGet(CommonsFeatureDescriptorEnum.varName);
-						IEntity varType = pattern.wGet(CommonsFeatureDescriptorEnum.varType);
-						if (varName.wEquals(model.wGet(CommonsFeatureDescriptorEnum.varName)) &&
-								varType.wEquals(model.wGet(CommonsFeatureDescriptorEnum.varType)))
-							boundNames.add(varName.wStringValue());
-					}
-				}
-			}.match(model, pattern);
-			new GenericVariableForcedMatcher(bm, traversalFilter).match(pattern, model);
+			new GenericMatcher(bm) 
+			.withMatchStrategy(MatchStrategy.bindVariables(boundNames),
+					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+			.withTraversalFilter(traversalFilter)
+			.withMismatchStrategy(MismatchStrategy.IgnoreSubtree)
+			.match(model, pattern);
+
+			new GenericMatcher(bm)
+			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
+					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+			.withTraversalFilter(traversalFilter)
+			.withMismatchStrategy(MismatchStrategy.ReplaceWithVariable)
+			.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;
@@ -284,8 +289,7 @@ public class Matcher {
 	}
 	public static boolean match(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			new GenericMatcher(BindingManagerFactory.instance.createBindingManager(), traversalFilter)
-					.match(pattern, model);
+			new GenericMatcher().withTraversalFilter(traversalFilter).match(pattern, model);
 			return true;
 		} catch (MatchException e) {
 			return false;

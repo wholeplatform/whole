@@ -37,7 +37,6 @@ import org.whole.lang.tests.model.TestSuite;
 import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.StringUtils;
-import org.whole.lang.visitors.TraverseAllFilter;
 
 /**
  * @author Enrico Persiani
@@ -82,7 +81,7 @@ public class TestsHelpers {
 				bindings.wEnterScope();
 
 				// try to match
-				new GenericMatcher(bindings, TraverseAllFilter.instance).match(
+				new GenericMatcher(bindings).match(
 						applyFilter(sequence, EntityUtils.clone(pattern), bindings),
 						applyFilter(sequence, EntityUtils.clone(model), bindings));
 
