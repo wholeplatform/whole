@@ -17,14 +17,18 @@
  */
 package org.whole.lang.matchers;
 
+import java.util.Collection;
 import java.util.Set;
 
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.FreshNameGenerator;
 
 /**
  * @author Riccardo Solmi
@@ -32,6 +36,9 @@ import org.whole.lang.util.EntityUtils;
 @FunctionalInterface
 public interface MatchStrategy {
 	public void apply(IEntity pattern, IEntity model, GenericMatcher matcher);
+
+
+// Match strategies
 
 	public static MatchStrategy EntityResolver = (pattern, model, matcher) -> {
 		if (pattern.wSize() != model.wSize() || model.wGetEntityKind().equals(EntityKinds.DATA)) {
@@ -99,4 +106,49 @@ public interface MatchStrategy {
 			}
 		};
 	}
+
+
+// Mismatch strategies
+
+	public static final MatchStrategy ThrowMatchException = (pattern, model, matcher) -> {
+		throw new MatchException(pattern, model, matcher.getBindings());
+	};
+
+	public static final MatchStrategy IgnoreSubtree = (pattern, model, matcher) -> {
+	};
+
+	public static final MatchStrategy ReplaceWithClone = (pattern, model, matcher) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, matcher);
+
+		parent.wSet(model, EntityUtils.clone(pattern));
+	};
+
+	public static final MatchStrategy ReplaceWithResolver = (pattern, model, matcher) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, matcher);
+
+		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
+		parent.wSet(model, CommonsEntityAdapterFactory.createResolver(ed));
+	};
+
+	@SuppressWarnings("unchecked")
+	public static final MatchStrategy ReplaceWithVariable = (pattern, model, matcher) -> {
+		IEntity parent = model.wGetParent();
+		if (EntityUtils.isNull(parent))
+			ThrowMatchException.apply(pattern, model, matcher);
+
+		IBindingManager bindings = matcher.getBindings();
+		if (!bindings.wIsSet("fnGen"))
+			bindings.wDefValue("fnGen", bindings.wIsSet("boundNames") ?
+					new FreshNameGenerator((Collection<String>) bindings.wGetValue("boundNames")) : new FreshNameGenerator());
+		FreshNameGenerator fnGen = (FreshNameGenerator) bindings.wGetValue("fnGen");
+
+		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
+		FeatureDescriptor fd = parent.wGetFeatureDescriptor(model);
+		parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fnGen.nextFreshName(fd.getName())));
+	};
+	
 }

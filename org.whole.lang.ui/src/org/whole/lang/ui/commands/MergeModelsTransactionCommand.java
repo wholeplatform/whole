@@ -22,7 +22,6 @@ import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.matchers.GenericMatcher;
 import org.whole.lang.matchers.MatchStrategy;
-import org.whole.lang.matchers.MismatchStrategy;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -45,7 +44,7 @@ public class MergeModelsTransactionCommand extends ModelTransactionCommand {
 			new GenericMatcher(bm)
 			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
 					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
-			.withMismatchStrategy(MismatchStrategy.ReplaceWithClone)
+			.withMismatchStrategy(MatchStrategy.ReplaceWithClone)
 			.match(entity, getModel());
 			
 			commit();

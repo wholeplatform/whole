@@ -36,7 +36,7 @@ public class GenericMatcher {
 	private IBindingManager bindings;
 	private ITraversalFilter traversalFilter = TraverseAllFilter.instance;
 	protected Map<EntityDescriptor<?>, MatchStrategy> matchStrategyMap = new HashMap<>();
-	protected MismatchStrategy mismatchStrategy = MismatchStrategy.ThrowMatchException;
+	protected MatchStrategy mismatchStrategy = MatchStrategy.ThrowMatchException;
 
 	public GenericMatcher() {
 		this(BindingManagerFactory.instance.createBindingManager());
@@ -75,7 +75,7 @@ public class GenericMatcher {
 		return this;
 	}
 	
-	public GenericMatcher withMismatchStrategy(MismatchStrategy mismatchStrategy) {
+	public GenericMatcher withMismatchStrategy(MatchStrategy mismatchStrategy) {
 		this.mismatchStrategy = mismatchStrategy;
 		return this;
 	}
@@ -101,7 +101,7 @@ public class GenericMatcher {
 	}
 
 	public void mismatch(IEntity pattern, IEntity model) {
-		mismatchStrategy.apply(pattern, model, bindings);
+		mismatchStrategy.apply(pattern, model, this);
 	}
 
 	protected void matchSimpleEntity(IEntity pattern, IEntity model) {

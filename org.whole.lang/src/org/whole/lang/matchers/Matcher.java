@@ -247,7 +247,7 @@ public class Matcher {
 			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
 					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
 			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MismatchStrategy.ReplaceWithResolver)
+			.withMismatchStrategy(MatchStrategy.ReplaceWithResolver)
 			.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
@@ -268,14 +268,14 @@ public class Matcher {
 			.withMatchStrategy(MatchStrategy.bindVariables(boundNames),
 					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
 			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MismatchStrategy.IgnoreSubtree)
+			.withMismatchStrategy(MatchStrategy.IgnoreSubtree)
 			.match(model, pattern);
 
 			new GenericMatcher(bm)
 			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
 					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
 			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MismatchStrategy.ReplaceWithVariable)
+			.withMismatchStrategy(MatchStrategy.ReplaceWithVariable)
 			.match(pattern, model);
 			return true;
 		} catch (MatchException e) {
