@@ -22,18 +22,20 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.iterators.AbstractPatternFilterIterator;
 import org.whole.lang.iterators.IteratorFactory;
+import org.whole.lang.lifecycle.IHistoryManager;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.FreshNameGenerator;
 import org.whole.lang.visitors.GenericTraversalFactory;
 import org.whole.lang.visitors.ITraversalFilter;
 import org.whole.lang.visitors.IVisitor;
@@ -239,61 +241,47 @@ public class Matcher {
 	}
 
 	public static boolean forceMatch(IEntity pattern, IEntity model) {
-		return Matcher.forceMatch(pattern, model, TraverseAllFilter.instance);
+		return forceMatch(pattern, model, TraverseAllFilter.instance);
 	}
 	public static boolean forceMatch(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
 			new GenericMatcher()
-			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
-					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+			.withAsIsMatching()
 			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MatchStrategy.ReplaceWithResolver)
+			.withMismatchStrategy(IMatchStrategy.ReplaceWithResolver)
 			.match(pattern, model);
 			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
+		} catch (MatchException|VisitException e) {
 			return false;
 		}
 	}
 	public static boolean forceMatchUsingVariables(IEntity pattern, IEntity model) {
-		return Matcher.forceMatchUsingVariables(pattern, model, TraverseAllFilter.instance);
-	}
-	public static boolean forceMatchUsingVariables(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
-			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+			GenericMatcher gm = new GenericMatcher();
+
 			final Set<String> boundNames = new HashSet<String>();
-			bm.wDefValue("boundNames", boundNames);
-			new GenericMatcher(bm) 
-			.withMatchStrategy(MatchStrategy.bindVariables(boundNames),
+			gm.withMatchStrategy(IMatchStrategy.CollectVariableNames(boundNames),
 					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
-			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MatchStrategy.IgnoreSubtree)
+			.withMismatchStrategy(IMatchStrategy.IgnoreSubtree)
 			.match(model, pattern);
 
-			new GenericMatcher(bm)
-			.withMatchStrategy(MatchStrategy.ForceEntityVariable,
-					CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
-			.withTraversalFilter(traversalFilter)
-			.withMismatchStrategy(MatchStrategy.ReplaceWithVariable)
+			final FreshNameGenerator fng = new FreshNameGenerator(boundNames);
+			gm.withAsIsMatching()
+			.withMismatchStrategy(IMatchStrategy.ReplaceWithVariable(fng))
 			.match(pattern, model);
 			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
+		} catch (MatchException|VisitException e) {
 			return false;
 		}
 	}
 	public static boolean match(IEntity pattern, IEntity model) {
-		return Matcher.match(pattern, model, TraverseAllFilter.instance);
+		return match(pattern, model, TraverseAllFilter.instance);
 	}
 	public static boolean match(IEntity pattern, IEntity model, ITraversalFilter traversalFilter) {
 		try {
 			new GenericMatcher().withTraversalFilter(traversalFilter).match(pattern, model);
 			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
+		} catch (MatchException|VisitException e) {
 			return false;
 		}
 	}
@@ -301,10 +289,8 @@ public class Matcher {
 		boolean mergeScope = true;
 		try {
 			bindings.wEnterScope();
-			new GenericMatcher(bindings).match(pattern, model);
-		} catch (MatchException e) {
-			mergeScope = false;
-		} catch (VisitException e) {
+			new GenericMatcher().withBindings(bindings).match(pattern, model);
+		} catch (MatchException|VisitException e) {
 			mergeScope = false;
 		} finally {
 			bindings.wExitScope(mergeScope);
@@ -315,11 +301,35 @@ public class Matcher {
 		try {
 			matcherVisitor.visit(model);
 			return true;
-		} catch (MatchException e) {
-			return false;
-		} catch (VisitException e) {
+		} catch (MatchException|VisitException e) {
 			return false;
 		}
+	}
+
+	public static IEntity merge(IEntity mergingModel, IEntity model) {
+		IHistoryManager hm = ReflectionFactory.getHistoryManager(model);
+
+		hm.begin();
+		try {
+			new GenericMatcher()
+			.withAsIsMatching()
+			.withMismatchStrategy(IMatchStrategy.ReplaceWithClone)
+			.match(mergingModel, model);
+
+			hm.commit();
+		} catch (MatchException e) {
+			hm.rollbackIfNeeded();
+
+			if (e.model == model && e.pattern == mergingModel)
+				return mergingModel;
+
+			throw e;
+		} catch (RuntimeException e) {
+			hm.rollbackIfNeeded();
+			throw e;
+		}
+		
+		return model;
 	}
 
 	public static void rename(IEntity pattern, final Map<String, String> nameMap, boolean includeAdjacents) {

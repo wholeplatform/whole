@@ -20,7 +20,6 @@ package org.whole.lang.ui.commands;
 import org.eclipse.gef.commands.Command;
 import org.whole.lang.commands.ICommand;
 import org.whole.lang.lifecycle.IHistoryManager;
-import org.whole.lang.lifecycle.Status;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.util.AnimableRunnable;
@@ -94,7 +93,6 @@ public class ModelTransactionCommand extends Command {
 		return compoundCommand = getModelHistory().mergeCommit(compoundCommand);
 	}
 	public void rollbackIfNeeded() {
-		if (!getModelHistory().getStatus().equals(Status.NO_TRANSACTION))	
-			getModelHistory().rollback();
+		getModelHistory().rollbackIfNeeded();
 	}
 }

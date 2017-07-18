@@ -35,25 +35,34 @@ import org.whole.lang.visitors.TraverseAllFilter;
 public class GenericMatcher {
 	private IBindingManager bindings;
 	private ITraversalFilter traversalFilter = TraverseAllFilter.instance;
-	protected Map<EntityDescriptor<?>, MatchStrategy> matchStrategyMap = new HashMap<>();
-	protected MatchStrategy mismatchStrategy = MatchStrategy.ThrowMatchException;
+	protected Map<EntityDescriptor<?>, IMatchStrategy> matchStrategyMap = new HashMap<>();
+	protected IMatchStrategy mismatchStrategy = IMatchStrategy.ThrowMatchException;
 
 	public GenericMatcher() {
-		this(BindingManagerFactory.instance.createBindingManager());
+		withPatternMatching();
 	}
-	public GenericMatcher(IBindingManager bindings) {
-		this.bindings = bindings;
 
-		withMatchStrategy(MatchStrategy.EntityResolver, CommonsEntityDescriptorEnum.Resolver);
-		withMatchStrategy(MatchStrategy.EntityVariable,
+	public GenericMatcher withAsIsMatching() {
+		withMatchStrategy(IMatchStrategy.ResolverAsIs, CommonsEntityDescriptorEnum.Resolver);
+		withMatchStrategy(IMatchStrategy.VariableAsIs,
 				CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable);
+		return this;
 	}
+	public GenericMatcher withPatternMatching() {
+		withMatchStrategy(IMatchStrategy.ResolverPattern, CommonsEntityDescriptorEnum.Resolver);
+		withMatchStrategy(IMatchStrategy.VariablePattern,
+				CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable);
+		return this;
+	}
+	
 
 	public GenericMatcher withBindings(IBindingManager bindings) {
 		this.bindings = bindings;
 		return this;
 	}
 	public IBindingManager getBindings() {
+		if (bindings == null)
+			bindings = BindingManagerFactory.instance.createBindingManager();
 		return bindings;
 	}
 
@@ -65,17 +74,17 @@ public class GenericMatcher {
 		return traversalFilter;
 	}
 
-	public GenericMatcher withMatchStrategies(Map<EntityDescriptor<?>, MatchStrategy> matchStrategyMap) {
+	public GenericMatcher withMatchStrategies(Map<EntityDescriptor<?>, IMatchStrategy> matchStrategyMap) {
 		matchStrategyMap.putAll(matchStrategyMap);
 		return this;
 	}
-	public GenericMatcher withMatchStrategy(MatchStrategy matchStrategy, EntityDescriptor<?>... eds) {
+	public GenericMatcher withMatchStrategy(IMatchStrategy matchStrategy, EntityDescriptor<?>... eds) {
 		for (EntityDescriptor<?> ed : eds)
 			matchStrategyMap.put(ed, matchStrategy);
 		return this;
 	}
 	
-	public GenericMatcher withMismatchStrategy(MatchStrategy mismatchStrategy) {
+	public GenericMatcher withMismatchStrategy(IMatchStrategy mismatchStrategy) {
 		this.mismatchStrategy = mismatchStrategy;
 		return this;
 	}
@@ -83,7 +92,7 @@ public class GenericMatcher {
 
 	public void match(IEntity pattern, IEntity model) {
 		IEntity patternAdaptee = pattern.wGetAdaptee(false);
-		MatchStrategy matchStrategy = matchStrategyMap.get(patternAdaptee.wGetEntityDescriptor());
+		IMatchStrategy matchStrategy = matchStrategyMap.get(patternAdaptee.wGetEntityDescriptor());
 		if (matchStrategy != null)
 			matchStrategy.apply(patternAdaptee, model, this);
 		else
@@ -104,7 +113,7 @@ public class GenericMatcher {
 		mismatchStrategy.apply(pattern, model, this);
 	}
 
-	protected void matchSimpleEntity(IEntity pattern, IEntity model) {
+	public void matchSimpleEntity(IEntity pattern, IEntity model) {
 		if (!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor()) || model.wSize() < pattern.wSize()) {
 			mismatch(pattern, model);
 			return;
@@ -115,7 +124,7 @@ public class GenericMatcher {
 				match(pattern.wGet(i), model.wGet(i));
 	}
 
-	protected void matchCompositeEntity(IEntity pattern, IEntity model) {
+	public void matchCompositeEntity(IEntity pattern, IEntity model) {
 		if ((!pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())
 				&& !EntityUtils.isResolver(model) //TODO workaround for resolvers
 				) || (pattern.wSize() != model.wSize() && !(pattern.wIsEmpty() && model.wIsEmpty())) ) {
@@ -129,7 +138,7 @@ public class GenericMatcher {
 					match(pattern.wGet(i), model.wGet(i));
 	}
 
-    protected void matchDataEntity(IEntity pattern, IEntity model) {
+	public void matchDataEntity(IEntity pattern, IEntity model) {
     	if (!EntityUtils.isData(model) || !pattern.wGetEntityDescriptor().equals(model.wGetEntityDescriptor())) {
     		mismatch(pattern, model);
     		return;

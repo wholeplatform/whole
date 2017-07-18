@@ -17,11 +17,10 @@
  */
 package org.whole.lang.matchers;
 
-import java.util.Collection;
 import java.util.Set;
 
-import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
+import org.whole.lang.commons.model.AbstractEntityResolver;
 import org.whole.lang.commons.reflect.CommonsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reflect.EntityDescriptor;
@@ -34,13 +33,13 @@ import org.whole.lang.util.FreshNameGenerator;
  * @author Riccardo Solmi
  */
 @FunctionalInterface
-public interface MatchStrategy {
+public interface IMatchStrategy {
 	public void apply(IEntity pattern, IEntity model, GenericMatcher matcher);
 
 
 // Match strategies
 
-	public static MatchStrategy EntityResolver = (pattern, model, matcher) -> {
+	public static IMatchStrategy ResolverPattern = (pattern, model, matcher) -> {
 		if (pattern.wSize() != model.wSize() || model.wGetEntityKind().equals(EntityKinds.DATA)) {
 			matcher.mismatch(pattern, model);
 			return;
@@ -57,7 +56,7 @@ public interface MatchStrategy {
 		}
 	};
 
-	public static MatchStrategy EntityVariable = (pattern, model, matcher) -> {
+	public static IMatchStrategy VariablePattern = (pattern, model, matcher) -> {
     	EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
     	String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
 
@@ -88,36 +87,50 @@ public interface MatchStrategy {
     	}
 	};
 
-	public static MatchStrategy ForceEntityVariable = (pattern, model, matcher) -> {
-		if (!EntityUtils.isVariable(model) ||
-				!pattern.wGet(CommonsFeatureDescriptorEnum.varType).wEquals(model.wGet(CommonsFeatureDescriptorEnum.varType)) ||
-				!pattern.wGet(CommonsFeatureDescriptorEnum.varName).wEquals(model.wGet(CommonsFeatureDescriptorEnum.varName)))
+	public static IMatchStrategy ResolverAsIs = (pattern, model, matcher) -> {
+		if (!EntityUtils.isResolver(model) || pattern.wSize() != model.wSize()) {
 			matcher.mismatch(pattern, model);
+			return;
+		}
+
+		Set<FeatureDescriptor> fset = ((AbstractEntityResolver) pattern).getFeatureDescriptorSet();
+		if (fset.isEmpty()) {
+			for (int i=0, size=pattern.wSize(); i<size; i++)
+				matcher.match(pattern.wGet(i), model.wGet(i));
+		} else {
+			for (FeatureDescriptor fd : fset)
+				if (model.wContains(fd))
+					matcher.match(pattern.wGet(fd), model.wGet(fd));
+				else {
+					matcher.mismatch(pattern, model);
+					return;
+				}
+		}
 	};
 
-	public static MatchStrategy bindVariables(Set<String> boundNames) {
+	public static IMatchStrategy VariableAsIs = (pattern, model, matcher) -> {
+		matcher.matchSimpleEntity(pattern, model);
+	};
+
+	public static IMatchStrategy CollectVariableNames(Set<String> names) {
 		return (pattern, model, matcher) -> {
-			if (EntityUtils.isVariable(model)) {
-				IEntity varName = pattern.wGet(CommonsFeatureDescriptorEnum.varName);
-				IEntity varType = pattern.wGet(CommonsFeatureDescriptorEnum.varType);
-				if (varName.wEquals(model.wGet(CommonsFeatureDescriptorEnum.varName)) &&
-						varType.wEquals(model.wGet(CommonsFeatureDescriptorEnum.varType)))
-					boundNames.add(varName.wStringValue());
-			}
+			matcher.matchSimpleEntity(pattern, model);
+
+			names.add(pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue());
 		};
 	}
 
 
 // Mismatch strategies
 
-	public static final MatchStrategy ThrowMatchException = (pattern, model, matcher) -> {
+	public static final IMatchStrategy ThrowMatchException = (pattern, model, matcher) -> {
 		throw new MatchException(pattern, model, matcher.getBindings());
 	};
 
-	public static final MatchStrategy IgnoreSubtree = (pattern, model, matcher) -> {
+	public static final IMatchStrategy IgnoreSubtree = (pattern, model, matcher) -> {
 	};
 
-	public static final MatchStrategy ReplaceWithClone = (pattern, model, matcher) -> {
+	public static final IMatchStrategy ReplaceWithClone = (pattern, model, matcher) -> {
 		IEntity parent = model.wGetParent();
 		if (EntityUtils.isNull(parent))
 			ThrowMatchException.apply(pattern, model, matcher);
@@ -125,7 +138,7 @@ public interface MatchStrategy {
 		parent.wSet(model, EntityUtils.clone(pattern));
 	};
 
-	public static final MatchStrategy ReplaceWithResolver = (pattern, model, matcher) -> {
+	public static final IMatchStrategy ReplaceWithResolver = (pattern, model, matcher) -> {
 		IEntity parent = model.wGetParent();
 		if (EntityUtils.isNull(parent))
 			ThrowMatchException.apply(pattern, model, matcher);
@@ -134,21 +147,15 @@ public interface MatchStrategy {
 		parent.wSet(model, CommonsEntityAdapterFactory.createResolver(ed));
 	};
 
-	@SuppressWarnings("unchecked")
-	public static final MatchStrategy ReplaceWithVariable = (pattern, model, matcher) -> {
-		IEntity parent = model.wGetParent();
-		if (EntityUtils.isNull(parent))
-			ThrowMatchException.apply(pattern, model, matcher);
-
-		IBindingManager bindings = matcher.getBindings();
-		if (!bindings.wIsSet("fnGen"))
-			bindings.wDefValue("fnGen", bindings.wIsSet("boundNames") ?
-					new FreshNameGenerator((Collection<String>) bindings.wGetValue("boundNames")) : new FreshNameGenerator());
-		FreshNameGenerator fnGen = (FreshNameGenerator) bindings.wGetValue("fnGen");
-
-		EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
-		FeatureDescriptor fd = parent.wGetFeatureDescriptor(model);
-		parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fnGen.nextFreshName(fd.getName())));
-	};
+	public static IMatchStrategy ReplaceWithVariable(FreshNameGenerator fng) {
+		return (pattern, model, matcher) -> {
+			IEntity parent = model.wGetParent();
+			if (EntityUtils.isNull(parent))
+				ThrowMatchException.apply(pattern, model, matcher);
 	
+			EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
+			FeatureDescriptor fd = parent.wGetFeatureDescriptor(model);
+			parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fng.nextFreshName(fd.getName())));
+		};
+	}
 }

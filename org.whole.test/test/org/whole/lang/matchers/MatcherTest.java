@@ -40,7 +40,6 @@ import org.whole.lang.commons.builders.ICommonsBuilder;
 import org.whole.lang.commons.factories.CommonsEntityAdapterFactory;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Variable;
-import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.commons.reflect.CommonsLanguageKit;
 import org.whole.lang.java.model.ClassDeclaration;
 import org.whole.lang.java.model.MethodInvocation;
@@ -289,9 +288,9 @@ public class MatcherTest {
 		assertFalse(Matcher.match(textModel, modifiedTextModel));
 		assertTrue(Matcher.forceMatch(textModel, modifiedTextModel));
 
-		new GenericMatcher(bm)
-		.withMatchStrategy(MatchStrategy.ForceEntityVariable,
-				CommonsEntityDescriptorEnum.Variable, CommonsEntityDescriptorEnum.InlineVariable)
+		new GenericMatcher()
+		.withAsIsMatching()
+		.withBindings(bm)
 		.withMismatchStrategy(
 				(pattern, model, bindings) -> { assertTrue(EntityUtils.isResolver(model)); })
 		.match(textModel, modifiedTextModel);

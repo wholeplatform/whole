@@ -29,5 +29,9 @@ public interface ITransaction {
 	public ICommand commit();
 	public ICommand mergeCommit(ICommand command);
 	public void rollback();
+	public default void rollbackIfNeeded() {
+		if (!getStatus().equals(Status.NO_TRANSACTION))	
+			rollback();
+	}
 	public void setRollbackOnly();
 }

@@ -81,7 +81,7 @@ public class TestsHelpers {
 				bindings.wEnterScope();
 
 				// try to match
-				new GenericMatcher(bindings).match(
+				new GenericMatcher().withBindings(bindings).match(
 						applyFilter(sequence, EntityUtils.clone(pattern), bindings),
 						applyFilter(sequence, EntityUtils.clone(model), bindings));
 
