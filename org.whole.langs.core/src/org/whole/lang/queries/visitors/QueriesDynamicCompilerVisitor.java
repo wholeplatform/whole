@@ -37,6 +37,7 @@ import org.whole.lang.comparators.IdentityIteratorComparator;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
+import org.whole.lang.iterators.EmptyIterator;
 import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
@@ -88,20 +89,25 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	}
 
 	//TODO work in progress to support elimination of ExpressiontTest
-	private IVisitor compilePredicate(Predicate predicate) {
-		predicate.accept(this);
-		
-		if (isResultIterator()) {
-			boolean hasMatchSemantics = true;
+	private void compilePredicate(Predicate predicate) {
+		//TODO test is needed?
+		setResultPredicate(null);
 
-			return hasMatchSemantics ?
-					GenericMatcherFactory.instance.match(getResultIterator()) :
-						GenericMatcherFactory.evalTrue(predicate);
-				
-		} else
-			return getResultPredicate();
+		predicate.accept(this);
+
+		if (isResultIterator())
+			setResultPredicate(GenericMatcherFactory.evalTrue(getResultIterator()));
 	}
 	private IVisitor getResultPredicate() {
+		//TODO test Expression subtype of Predicate
+		if (isResultIterator()) {
+			IEntityIterator<IEntity> resultIterator = getResultIterator();
+			if (resultIterator instanceof EmptyIterator)
+				setResultPredicate(GenericTraversalFactory.instance.identity());
+			else
+				setResultPredicate(GenericMatcherFactory.evalTrue(resultIterator));
+		}
+
 		IEntity result = getResult();
 		return result != null ? (IVisitor) result.wGetValue() : GenericTraversalFactory.instance.identity();
 	}
