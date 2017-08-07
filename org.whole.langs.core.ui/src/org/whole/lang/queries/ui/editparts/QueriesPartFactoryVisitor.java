@@ -158,8 +158,8 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(QueriesEntityDescriptorEnum.Choose, parent)) {
-					part = new IfRowPart();
-					return;
+				part = new IfRowPart();
+				return;
 			}
 		}
 		part = new IfPart();
@@ -170,8 +170,8 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(QueriesEntityDescriptorEnum.Choose, parent)) {
-					part = new ForRowPart();
-					return;
+				part = new ForRowPart();
+				return;
 			}
 		}
 		part = new ForPart();
@@ -189,6 +189,13 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 
 	@Override
 	public void visit(Choose entity) {
+		if (EntityUtils.hasParent(entity)) {
+			IEntity parent = entity.wGetParent();
+			if (Matcher.match(QueriesEntityDescriptorEnum.If, parent)) {
+				part = new AndChooseTablePart();
+				return;
+			}
+		}
 		part = new ChooseTablePart();
 	}
 
@@ -245,8 +252,8 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(QueriesEntityDescriptorEnum.Choose, parent)) {
-					part = new DoRowPart();
-					return;
+				part = new DoRowPart();
+				return;
 			}
 		}
 		part = new DoPart();
@@ -257,8 +264,8 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(QueriesEntityDescriptorEnum.Tuple, parent)) {
-					part = new FilterRowPart();
-					return;
+				part = new FilterRowPart();
+				return;
 			}
 		}
 		part = new FilterPart();
