@@ -26,6 +26,6 @@ import org.whole.lang.ui.editparts.AbstractCompositePart;
  */
 public class ChooseTablePart extends AbstractCompositePart {
     protected IFigure createFigure() {
-        return new ChooseTableFigure();
+        return new ChooseTableFigure(true);
     }
 }

@@ -23,12 +23,15 @@ import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
+import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
+import org.whole.lang.queries.ui.figures.ChooseTableFigure;
 import org.whole.lang.queries.ui.figures.CollectByExpressionFigure;
 import org.whole.lang.queries.visitors.QueriesIdentityDefaultVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
+import org.whole.lang.ui.editparts.AbstractCompositePart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeColumnPart;
 import org.whole.lang.ui.editparts.CommaSeparatedCompositeFlowPart;
 import org.whole.lang.ui.editparts.CompositeColumnWithPlaceholderPart;
@@ -191,8 +194,19 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	public void visit(Choose entity) {
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
-			if (Matcher.match(QueriesEntityDescriptorEnum.If, parent)) {
+			if (Matcher.matchAny(parent,
+					QueriesEntityDescriptorEnum.If,
+					QueriesEntityDescriptorEnum.For)) {
 				part = new AndChooseTablePart();
+				return;
+			} else if (Matcher.matchAny(parent,
+					PatternsEntityDescriptorEnum.FunctionDeclaration,
+					PatternsEntityDescriptorEnum.VariableDeclaration)) {
+				part = new AbstractCompositePart() {
+				    protected IFigure createFigure() {
+				        return new ChooseTableFigure(false);
+				    }
+				};
 				return;
 			}
 		}

@@ -27,17 +27,18 @@ import org.whole.lang.ui.layout.TableLayout;
  * @author Riccardo Solmi
  */
 public class ChooseTableFigure extends TableFigure {
-	public ChooseTableFigure() {
+	public ChooseTableFigure(boolean withBorder) {
 		super(new TableLayout(2)
 				.withColumnSpacing(24).withRowSpacing(10).withMarginTop(5).withMarginBottom(5));
 
-		setBorder(new CurlyBracketsBorder() {
-			@Override
-			protected void setBracketsStyle(Graphics g) {
-				g.setForegroundColor(ColorConstants.gray);
-				g.setLineWidth(2);
-			}
-		});
+		if (withBorder)
+			setBorder(new CurlyBracketsBorder() {
+				@Override
+				protected void setBracketsStyle(Graphics g) {
+					g.setForegroundColor(ColorConstants.gray);
+					g.setLineWidth(2);
+				}
+			});
 	}
 
 	protected void paintFigure(Graphics g) {
