@@ -19,26 +19,31 @@ package org.whole.lang.queries.ui.figures;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.whole.lang.ui.figures.CurlyBracketsBorder;
+import org.eclipse.swt.SWT;
+import org.whole.lang.ui.figures.PipeBracketsBorder;
 import org.whole.lang.ui.figures.TableFigure;
 import org.whole.lang.ui.layout.TableLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class ChooseTableFigure extends TableFigure {
-	public ChooseTableFigure(boolean withBorder) {
+public class AndChooseTableFigure extends TableFigure {
+	private static final int LMARGIN = 5;
+	
+	public AndChooseTableFigure() {
 		super(new TableLayout(2)
 				.withColumnSpacing(24).withRowSpacing(10).withMarginTop(5).withMarginBottom(5));
 
-		if (withBorder)
-			setBorder(new CurlyBracketsBorder() {
-				@Override
-				protected void setBracketsStyle(Graphics g) {
-					g.setForegroundColor(ColorConstants.gray);
-					g.setLineWidth(2);
-				}
-			});
+		setBorder(new PipeBracketsBorder(0, LMARGIN, 0, 0) {
+			@Override
+			protected void setBracketsStyle(Graphics g) {
+    			g.setForegroundColor(ColorConstants.lightGray);
+
+    			g.setLineStyle(SWT.LINE_CUSTOM);
+    			g.setLineDash(new int[] {1,3});
+				g.setLineWidth(2);
+			}
+		});
 	}
 
 	protected void paintFigure(Graphics g) {
@@ -49,6 +54,6 @@ public class ChooseTableFigure extends TableFigure {
 			return;
 
 		g.setForegroundColor(ColorConstants.lightGray);
-		drawRowSeparators(g);
+		drawRowSeparators(g, LMARGIN, 0);
 	}
 }

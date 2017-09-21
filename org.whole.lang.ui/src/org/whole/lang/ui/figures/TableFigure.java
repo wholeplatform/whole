@@ -52,34 +52,44 @@ public class TableFigure extends ContentPaneFigure {
 	}
 
 	protected void drawColumnSeparators(Graphics g) {
+		drawColumnSeparators(g, 0, 0);
+	}
+	protected void drawColumnSeparators(Graphics g, int topMargin, int bottomMargin) {
 		TableLayout l = getLayoutManager();
 		if (l.rows() > 0) {
 			Rectangle ca = getTableBounds();
 			for (int c=1; c<l.columns(); c++) {
 				Rectangle r = l.getColumnBounds(c);
-				g.drawLine(r.x, ca.y, r.x, ca.bottom()-1);
+				g.drawLine(r.x, ca.y-topMargin, r.x, ca.bottom()-1+bottomMargin);
 			}
 		}
 	}
 	protected void drawColumnSeparatorBefore(Graphics g, int columnIndex) {
+		drawColumnSeparatorBefore(g, columnIndex, 0, 0);
+	}
+	protected void drawColumnSeparatorBefore(Graphics g, int columnIndex, int topMargin, int bottomMargin) {
 		TableLayout l = getLayoutManager();
 		if (l.rows() > 0 && columnIndex < l.columns()) {
 			Rectangle ca = getTableBounds();
 			Rectangle r = l.getColumnBounds(columnIndex);
-			g.drawLine(r.x, ca.y, r.x, ca.bottom()-1);
+			g.drawLine(r.x, ca.y-topMargin, r.x, ca.bottom()-1+bottomMargin);
 		}
 	}
 	protected void drawHeadersRowSeparator(Graphics g) {
+		drawHeadersRowSeparator(g, 0, 0);
+	}
+	protected void drawHeadersRowSeparator(Graphics g, int leftMargin, int rightMargin) {
 		TableLayout l = getLayoutManager();
-		Rectangle ca = getTableBounds();
-		if (l.hasHeaderRow() && l.rows() > 1) {
-
-			Rectangle r = l.getRowBounds(1);
-			g.drawLine(ca.x, r.y, ca.right()-1, r.y);			
-		} else if (l.rows() > 0)
-			g.drawLine(ca.x, ca.y, ca.right()-1, ca.y);
+		if (l.rows() > 0) {
+			Rectangle ca = getTableBounds();
+			Rectangle yb = (l.hasHeaderRow() && l.rows() > 1) ? l.getRowBounds(1) : ca;
+			g.drawLine(ca.x-leftMargin, yb.y, ca.right()-1+rightMargin, yb.y);
+		}
 	}
 	protected void drawRowSeparators(Graphics g) {
+		drawRowSeparators(g, 0, 0);
+	}
+	protected void drawRowSeparators(Graphics g, int leftMargin, int rightMargin) {
 		TableLayout l = getLayoutManager();
 		int columns = l.columns();
 		if (columns > 0) {
@@ -87,17 +97,20 @@ public class TableFigure extends ContentPaneFigure {
 			int firstRow = l.hasHeaderRow() ? 2 : 1;
 			for (int i=firstRow; i<l.rows(); i++) {
 				Rectangle r = l.getRowBounds(i);
-				g.drawLine(ca.x, r.y, ca.right()-1, r.y);
+				g.drawLine(ca.x-leftMargin, r.y, ca.right()-1+rightMargin, r.y);
 			}
 		}
 	}
 	protected void drawRowSeparatorBefore(Graphics g, int rowIndex) {
+		drawRowSeparatorBefore(g, rowIndex, 0, 0);
+	}
+	protected void drawRowSeparatorBefore(Graphics g, int rowIndex, int leftMargin, int rightMargin) {
 		TableLayout l = getLayoutManager();
 		int columns = l.columns();
 		if (rowIndex < columns) {
 			Rectangle ca = getTableBounds();
 			Rectangle r = l.getRowBounds(rowIndex + (l.hasHeaderRow() ? 1 : 0));
-			g.drawLine(ca.x, r.y, ca.right()-1, r.y);
+			g.drawLine(ca.x-leftMargin, r.y, ca.right()-1+rightMargin, r.y);
 		}
 	}
 

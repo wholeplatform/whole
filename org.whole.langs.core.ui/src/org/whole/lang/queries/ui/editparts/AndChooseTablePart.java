@@ -18,14 +18,14 @@
 package org.whole.lang.queries.ui.editparts;
 
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.queries.ui.figures.ChooseTableFigure;
+import org.whole.lang.queries.ui.figures.AndChooseTableFigure;
 import org.whole.lang.ui.editparts.AbstractCompositePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class ChooseTablePart extends AbstractCompositePart {
+public class AndChooseTablePart extends AbstractCompositePart {
     protected IFigure createFigure() {
-        return new ChooseTableFigure(true);
+        return new AndChooseTableFigure();
     }
 }
