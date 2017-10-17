@@ -23,24 +23,26 @@ import org.whole.lang.templates.AbstractTemplateFactory;
 import org.whole.lang.queries.model.QueryDeclaration;
 import org.whole.lang.factories.GenericEntityFactory;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class QueriesTemplateManager extends AbstractTemplateManager {
-	private static class SingletonHolder {
-		private static final QueriesTemplateManager instance = new QueriesTemplateManager();
-	}
-	public static QueriesTemplateManager instance() {
-		return SingletonHolder.instance;
-	}
 
-	private QueriesTemplateManager() {
-		put("empty", new AbstractTemplateFactory<QueryDeclaration>() {
-			public QueryDeclaration create() {
-				return GenericEntityFactory.instance
-						.create(QueriesEntityDescriptorEnum.QueryDeclaration);
-			}
-		});
+    private static class SingletonHolder {
+        private static final QueriesTemplateManager instance = new QueriesTemplateManager();
+    }
+
+    public static QueriesTemplateManager instance() {
+        return SingletonHolder.instance;
+    }
+
+    private QueriesTemplateManager() {
+        put("empty", new AbstractTemplateFactory<QueryDeclaration>() {
+
+            public QueryDeclaration create() {
+                return GenericEntityFactory.instance.create(QueriesEntityDescriptorEnum.QueryDeclaration);
+            }
+        });
 		put("FileArtifact generator", new FileArtifactGenerator());
 	}
 }

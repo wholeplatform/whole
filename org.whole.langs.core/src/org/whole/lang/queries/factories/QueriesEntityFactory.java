@@ -408,94 +408,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PrecedingStep);
     }
 
-    public AdditionStep createAdditionStep() {
-        return create(QueriesEntityDescriptorEnum.AdditionStep);
-    }
-
-    public AdditionStep createAdditionStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.AdditionStep, expression);
-    }
-
-    public SubtractionStep createSubtractionStep() {
-        return create(QueriesEntityDescriptorEnum.SubtractionStep);
-    }
-
-    public SubtractionStep createSubtractionStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.SubtractionStep, expression);
-    }
-
-    public MultiplicationStep createMultiplicationStep() {
-        return create(QueriesEntityDescriptorEnum.MultiplicationStep);
-    }
-
-    public MultiplicationStep createMultiplicationStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.MultiplicationStep, expression);
-    }
-
-    public DivisionStep createDivisionStep() {
-        return create(QueriesEntityDescriptorEnum.DivisionStep);
-    }
-
-    public DivisionStep createDivisionStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.DivisionStep, expression);
-    }
-
-    public RemainderStep createRemainderStep() {
-        return create(QueriesEntityDescriptorEnum.RemainderStep);
-    }
-
-    public RemainderStep createRemainderStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.RemainderStep, expression);
-    }
-
-    public EqualsStep createEqualsStep() {
-        return create(QueriesEntityDescriptorEnum.EqualsStep);
-    }
-
-    public EqualsStep createEqualsStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.EqualsStep, expression);
-    }
-
-    public NotEqualsStep createNotEqualsStep() {
-        return create(QueriesEntityDescriptorEnum.NotEqualsStep);
-    }
-
-    public NotEqualsStep createNotEqualsStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.NotEqualsStep, expression);
-    }
-
-    public LessThanStep createLessThanStep() {
-        return create(QueriesEntityDescriptorEnum.LessThanStep);
-    }
-
-    public LessThanStep createLessThanStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.LessThanStep, expression);
-    }
-
-    public LessOrEqualsStep createLessOrEqualsStep() {
-        return create(QueriesEntityDescriptorEnum.LessOrEqualsStep);
-    }
-
-    public LessOrEqualsStep createLessOrEqualsStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.LessOrEqualsStep, expression);
-    }
-
-    public GreaterThanStep createGreaterThanStep() {
-        return create(QueriesEntityDescriptorEnum.GreaterThanStep);
-    }
-
-    public GreaterThanStep createGreaterThanStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.GreaterThanStep, expression);
-    }
-
-    public GreaterOrEqualsStep createGreaterOrEqualsStep() {
-        return create(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
-    }
-
-    public GreaterOrEqualsStep createGreaterOrEqualsStep(Expression expression) {
-        return create(QueriesEntityDescriptorEnum.GreaterOrEqualsStep, expression);
-    }
-
     public Prune createPrune() {
         return create(QueriesEntityDescriptorEnum.Prune);
     }
@@ -510,6 +422,62 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public VariableTest createVariableTest(String value) {
         return create(QueriesEntityDescriptorEnum.VariableTest, value);
+    }
+
+    public StageVariableTest createStageVariableTest() {
+        return create(QueriesEntityDescriptorEnum.StageVariableTest);
+    }
+
+    public StageVariableTest createStageVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.StageVariableTest, value);
+    }
+
+    public LanguageVariableTest createLanguageVariableTest() {
+        return create(QueriesEntityDescriptorEnum.LanguageVariableTest);
+    }
+
+    public LanguageVariableTest createLanguageVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.LanguageVariableTest, value);
+    }
+
+    public TypeVariableTest createTypeVariableTest() {
+        return create(QueriesEntityDescriptorEnum.TypeVariableTest);
+    }
+
+    public TypeVariableTest createTypeVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.TypeVariableTest, value);
+    }
+
+    public SubtypeVariableTest createSubtypeVariableTest() {
+        return create(QueriesEntityDescriptorEnum.SubtypeVariableTest);
+    }
+
+    public SubtypeVariableTest createSubtypeVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.SubtypeVariableTest, value);
+    }
+
+    public SupertypeVariableTest createSupertypeVariableTest() {
+        return create(QueriesEntityDescriptorEnum.SupertypeVariableTest);
+    }
+
+    public SupertypeVariableTest createSupertypeVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.SupertypeVariableTest, value);
+    }
+
+    public ExtendedSubtypeVariableTest createExtendedSubtypeVariableTest() {
+        return create(QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest);
+    }
+
+    public ExtendedSubtypeVariableTest createExtendedSubtypeVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest, value);
+    }
+
+    public ExtendedSupertypeVariableTest createExtendedSupertypeVariableTest() {
+        return create(QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest);
+    }
+
+    public ExtendedSupertypeVariableTest createExtendedSupertypeVariableTest(String value) {
+        return create(QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest, value);
     }
 
     public IndexVariableTest createIndexVariableTest() {
@@ -534,14 +502,6 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public StageTest createStageTest(StageTestEnum.Value value) {
         return create(QueriesEntityDescriptorEnum.StageTest, value);
-    }
-
-    public StageVariableTest createStageVariableTest() {
-        return create(QueriesEntityDescriptorEnum.StageVariableTest);
-    }
-
-    public StageVariableTest createStageVariableTest(String value) {
-        return create(QueriesEntityDescriptorEnum.StageVariableTest, value);
     }
 
     public LanguageTest createLanguageTest() {
@@ -794,6 +754,94 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public Name createName(String value) {
         return create(QueriesEntityDescriptorEnum.Name, value);
+    }
+
+    public AdditionStep createAdditionStep() {
+        return create(QueriesEntityDescriptorEnum.AdditionStep);
+    }
+
+    public AdditionStep createAdditionStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.AdditionStep, expression);
+    }
+
+    public SubtractionStep createSubtractionStep() {
+        return create(QueriesEntityDescriptorEnum.SubtractionStep);
+    }
+
+    public SubtractionStep createSubtractionStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.SubtractionStep, expression);
+    }
+
+    public MultiplicationStep createMultiplicationStep() {
+        return create(QueriesEntityDescriptorEnum.MultiplicationStep);
+    }
+
+    public MultiplicationStep createMultiplicationStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.MultiplicationStep, expression);
+    }
+
+    public DivisionStep createDivisionStep() {
+        return create(QueriesEntityDescriptorEnum.DivisionStep);
+    }
+
+    public DivisionStep createDivisionStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.DivisionStep, expression);
+    }
+
+    public RemainderStep createRemainderStep() {
+        return create(QueriesEntityDescriptorEnum.RemainderStep);
+    }
+
+    public RemainderStep createRemainderStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.RemainderStep, expression);
+    }
+
+    public EqualsStep createEqualsStep() {
+        return create(QueriesEntityDescriptorEnum.EqualsStep);
+    }
+
+    public EqualsStep createEqualsStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.EqualsStep, expression);
+    }
+
+    public NotEqualsStep createNotEqualsStep() {
+        return create(QueriesEntityDescriptorEnum.NotEqualsStep);
+    }
+
+    public NotEqualsStep createNotEqualsStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.NotEqualsStep, expression);
+    }
+
+    public LessThanStep createLessThanStep() {
+        return create(QueriesEntityDescriptorEnum.LessThanStep);
+    }
+
+    public LessThanStep createLessThanStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.LessThanStep, expression);
+    }
+
+    public LessOrEqualsStep createLessOrEqualsStep() {
+        return create(QueriesEntityDescriptorEnum.LessOrEqualsStep);
+    }
+
+    public LessOrEqualsStep createLessOrEqualsStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.LessOrEqualsStep, expression);
+    }
+
+    public GreaterThanStep createGreaterThanStep() {
+        return create(QueriesEntityDescriptorEnum.GreaterThanStep);
+    }
+
+    public GreaterThanStep createGreaterThanStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.GreaterThanStep, expression);
+    }
+
+    public GreaterOrEqualsStep createGreaterOrEqualsStep() {
+        return create(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
+    }
+
+    public GreaterOrEqualsStep createGreaterOrEqualsStep(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.GreaterOrEqualsStep, expression);
     }
 
     public IdentityComparator createIdentityComparator() {

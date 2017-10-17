@@ -41,25 +41,21 @@ import org.whole.lang.visitors.IVisitorFactory;
  * @generator Whole
  */
 public class QueriesLanguageDeployer extends AbstractLanguageDeployer {
-	public void deploy(ReflectionFactory platform) {
-		platform.addLanguageKit(new QueriesLanguageKit());
-		platform.addOperationFactory(QueriesLanguageKit.URI,
-				GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new QueriesGenericBuilderAdapter(
-								(IQueriesBuilder) strategy, entityContext);
-					}
-				});
-		platform.addOperationFactory(QueriesLanguageKit.URI,
-				SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
-					public IBuilder create(IBuilder strategy,
-							IEntityContext entityContext) {
-						return new QueriesSpecificBuilderAdapter(strategy,
-								entityContext);
-					}
-				});
 
+    public void deploy(ReflectionFactory platform) {
+        platform.addLanguageKit(new QueriesLanguageKit());
+        platform.addOperationFactory(QueriesLanguageKit.URI, GenericBuilderAdapterOperation.ID, new IBuilderFactory() {
+
+            public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+                return new QueriesGenericBuilderAdapter((IQueriesBuilder) strategy, entityContext);
+            }
+        });
+        platform.addOperationFactory(QueriesLanguageKit.URI, SpecificBuilderAdapterOperation.ID, new IBuilderFactory() {
+
+            public IBuilder create(IBuilder strategy, IEntityContext entityContext) {
+                return new QueriesSpecificBuilderAdapter(strategy, entityContext);
+            }
+        });
 		platform.addOperationFactory(QueriesLanguageKit.URI, InterpreterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
@@ -86,7 +82,7 @@ public class QueriesLanguageDeployer extends AbstractLanguageDeployer {
 		});
 	}
 
-	public void undeploy(ReflectionFactory platform) {
-		platform.removeLanguageKit(QueriesLanguageKit.URI);
-	}
+    public void undeploy(ReflectionFactory platform) {
+        platform.removeLanguageKit(QueriesLanguageKit.URI);
+    }
 }

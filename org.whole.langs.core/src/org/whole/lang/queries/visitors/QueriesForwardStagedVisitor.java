@@ -204,55 +204,39 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(AdditionStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(SubtractionStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(MultiplicationStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(DivisionStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(RemainderStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(EqualsStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(NotEqualsStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(LessThanStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(GreaterThanStep entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(Prune entity) {
         stagedVisit(entity);
     }
 
     public void visit(VariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(StageVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(LanguageVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(TypeVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
         stagedVisit(entity);
     }
 
@@ -265,10 +249,6 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(StageTest entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(StageVariableTest entity) {
         stagedVisit(entity);
     }
 
@@ -381,6 +361,50 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(Name entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(AdditionStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(SubtractionStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(MultiplicationStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(DivisionStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(RemainderStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(EqualsStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(NotEqualsStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(LessThanStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(GreaterThanStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
         stagedVisit(entity);
     }
 

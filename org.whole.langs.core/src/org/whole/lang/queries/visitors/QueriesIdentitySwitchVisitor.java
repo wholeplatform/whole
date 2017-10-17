@@ -164,44 +164,32 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             visit((PrecedingStep) entity);
             break;
-            case QueriesEntityDescriptorEnum.AdditionStep_ord :
-            visit((AdditionStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
-            visit((SubtractionStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
-            visit((MultiplicationStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.DivisionStep_ord :
-            visit((DivisionStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.RemainderStep_ord :
-            visit((RemainderStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.EqualsStep_ord :
-            visit((EqualsStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
-            visit((NotEqualsStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.LessThanStep_ord :
-            visit((LessThanStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
-            visit((LessOrEqualsStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
-            visit((GreaterThanStep) entity);
-            break;
-            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
-            visit((GreaterOrEqualsStep) entity);
-            break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             visit((Prune) entity);
             break;
             case QueriesEntityDescriptorEnum.VariableTest_ord :
             visit((VariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.StageVariableTest_ord :
+            visit((StageVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.LanguageVariableTest_ord :
+            visit((LanguageVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.TypeVariableTest_ord :
+            visit((TypeVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.SubtypeVariableTest_ord :
+            visit((SubtypeVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.SupertypeVariableTest_ord :
+            visit((SupertypeVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest_ord :
+            visit((ExtendedSubtypeVariableTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest_ord :
+            visit((ExtendedSupertypeVariableTest) entity);
             break;
             case QueriesEntityDescriptorEnum.IndexVariableTest_ord :
             visit((IndexVariableTest) entity);
@@ -211,9 +199,6 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             break;
             case QueriesEntityDescriptorEnum.StageTest_ord :
             visit((StageTest) entity);
-            break;
-            case QueriesEntityDescriptorEnum.StageVariableTest_ord :
-            visit((StageVariableTest) entity);
             break;
             case QueriesEntityDescriptorEnum.LanguageTest_ord :
             visit((LanguageTest) entity);
@@ -298,6 +283,39 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             break;
             case QueriesEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
+            break;
+            case QueriesEntityDescriptorEnum.AdditionStep_ord :
+            visit((AdditionStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
+            visit((SubtractionStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
+            visit((MultiplicationStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.DivisionStep_ord :
+            visit((DivisionStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.RemainderStep_ord :
+            visit((RemainderStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.EqualsStep_ord :
+            visit((EqualsStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
+            visit((NotEqualsStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.LessThanStep_ord :
+            visit((LessThanStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
+            visit((LessOrEqualsStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
+            visit((GreaterThanStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
+            visit((GreaterOrEqualsStep) entity);
             break;
             case QueriesEntityDescriptorEnum.IdentityComparator_ord :
             visit((IdentityComparator) entity);

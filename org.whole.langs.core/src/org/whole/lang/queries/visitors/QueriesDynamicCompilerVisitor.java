@@ -88,18 +88,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		setResult(BindingManagerFactory.instance.createValue(queryPredicate));
 	}
 
-	//TODO work in progress to support elimination of ExpressiontTest
-	private void compilePredicate(Predicate predicate) {
-		//TODO test is needed?
-		setResultPredicate(null);
-
-		predicate.accept(this);
-
-		if (isResultIterator())
-			setResultPredicate(GenericMatcherFactory.evalTrue(getResultIterator()));
-	}
 	private IVisitor getResultPredicate() {
-		//TODO test Expression subtype of Predicate
 		if (isResultIterator()) {
 			IEntityIterator<IEntity> resultIterator = getResultIterator();
 			if (resultIterator instanceof EmptyIterator)
@@ -974,6 +963,33 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     public void visit(StageVariableTest entity) {
 		setResultPredicate(GenericMatcherFactory.instance.atStageVariableMatcher(entity.getValue()).withSourceEntity(entity));
 	}
+
+    @Override
+    public void visit(LanguageVariableTest entity) {
+    	String languageURI = entity.getValue();
+    	setResultPredicate(GenericMatcherFactory.instance.languageAsVariableMatcher(languageURI).withSourceEntity(entity));
+    }
+
+    @Override
+    public void visit(TypeVariableTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.typeAsVariableMatcher(entity.getValue()).withSourceEntity(entity));
+    }
+    @Override
+    public void visit(SubtypeVariableTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.languageSubtypeOfVariableMatcher(entity.getValue()).withSourceEntity(entity));
+    }
+    @Override
+    public void visit(SupertypeVariableTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.languageSupertypeOfVariableMatcher(entity.getValue()).withSourceEntity(entity));
+    }
+    @Override
+    public void visit(ExtendedSubtypeVariableTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.extendedLanguageSubtypeOfVariableMatcher(entity.getValue()).withSourceEntity(entity));
+    }
+    @Override
+    public void visit(ExtendedSupertypeVariableTest entity) {
+    	setResultPredicate(GenericMatcherFactory.instance.extendedLanguageSupertypeOfVariableMatcher(entity.getValue()).withSourceEntity(entity));
+    }
 
     @Override
     public void visit(LanguageTest entity) {

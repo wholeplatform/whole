@@ -218,55 +218,39 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
-    public void visit(AdditionStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(SubtractionStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(MultiplicationStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(DivisionStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(RemainderStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(EqualsStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(NotEqualsStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(LessThanStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(GreaterThanStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(Prune entity) {
         wGetStrategy().visit(entity);
     }
 
     public void visit(VariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(StageVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(LanguageVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(TypeVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -279,10 +263,6 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
     }
 
     public void visit(StageTest entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(StageVariableTest entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -395,6 +375,50 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
     }
 
     public void visit(Name entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(AdditionStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(SubtractionStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(MultiplicationStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(DivisionStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(RemainderStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(EqualsStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(NotEqualsStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(LessThanStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(GreaterThanStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
         wGetStrategy().visit(entity);
     }
 

@@ -285,65 +285,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((ReverseStep) entity);
     }
 
-    public void visit(MathStep entity) {
-        visit((StepExpression) entity);
-    }
-
-    public void visit(AdditionStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(SubtractionStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(MultiplicationStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(DivisionStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(RemainderStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(EqualsStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(NotEqualsStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(LessThanStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(GreaterThanStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        visit((IQueriesEntity) entity);
-        visit((MathStep) entity);
-    }
-
     public void visit(PruneOrPredicate entity) {
     }
 
@@ -362,6 +303,41 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((Predicate) entity);
     }
 
+    public void visit(StageVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(LanguageVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(TypeVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
     public void visit(IndexVariableTest entity) {
         visit((IQueriesEntity) entity);
         visit((Predicate) entity);
@@ -373,11 +349,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(StageTest entity) {
-        visit((IQueriesEntity) entity);
-        visit((Predicate) entity);
-    }
-
-    public void visit(StageVariableTest entity) {
         visit((IQueriesEntity) entity);
         visit((Predicate) entity);
     }
@@ -529,6 +500,66 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
 
     public void visit(Expression entity) {
         visit((StepExpression) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(MathStep entity) {
+        visit((Expression) entity);
+    }
+
+    public void visit(AdditionStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(SubtractionStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(MultiplicationStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(DivisionStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(RemainderStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(EqualsStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(NotEqualsStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(LessThanStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(GreaterThanStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((MathStep) entity);
     }
 
     public void visit(CollectByExpression entity) {

@@ -158,50 +158,6 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
         entity.getPredicate().accept(wGetVisitor1());
     }
 
-    public void visit(AdditionStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(SubtractionStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(MultiplicationStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(DivisionStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(RemainderStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(EqualsStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(NotEqualsStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(LessThanStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(GreaterThanStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        entity.getExpression().accept(wGetVisitor1());
-    }
-
     public void visit(Prune entity) {
         entity.getPredicate().accept(wGetVisitor1());
     }
@@ -274,6 +230,50 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
     public void visit(Names entity) {
         for (int i = 0; i < entity.size(); i++)
             entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(AdditionStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(SubtractionStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(MultiplicationStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(DivisionStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(RemainderStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(EqualsStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(NotEqualsStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(LessThanStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(GreaterThanStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
+        entity.getExpression().accept(wGetVisitor1());
     }
 
     public void visit(CollectByExpression entity) {

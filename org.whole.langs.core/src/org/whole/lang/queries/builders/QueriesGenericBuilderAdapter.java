@@ -263,39 +263,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder.PrecedingStep();
             break;
-            case QueriesEntityDescriptorEnum.AdditionStep_ord :
-            specificBuilder.AdditionStep();
-            break;
-            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
-            specificBuilder.SubtractionStep();
-            break;
-            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
-            specificBuilder.MultiplicationStep();
-            break;
-            case QueriesEntityDescriptorEnum.DivisionStep_ord :
-            specificBuilder.DivisionStep();
-            break;
-            case QueriesEntityDescriptorEnum.RemainderStep_ord :
-            specificBuilder.RemainderStep();
-            break;
-            case QueriesEntityDescriptorEnum.EqualsStep_ord :
-            specificBuilder.EqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
-            specificBuilder.NotEqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.LessThanStep_ord :
-            specificBuilder.LessThanStep();
-            break;
-            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
-            specificBuilder.LessOrEqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
-            specificBuilder.GreaterThanStep();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
-            specificBuilder.GreaterOrEqualsStep();
-            break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune();
             break;
@@ -346,6 +313,39 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder.Names();
+            break;
+            case QueriesEntityDescriptorEnum.AdditionStep_ord :
+            specificBuilder.AdditionStep();
+            break;
+            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
+            specificBuilder.SubtractionStep();
+            break;
+            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
+            specificBuilder.MultiplicationStep();
+            break;
+            case QueriesEntityDescriptorEnum.DivisionStep_ord :
+            specificBuilder.DivisionStep();
+            break;
+            case QueriesEntityDescriptorEnum.RemainderStep_ord :
+            specificBuilder.RemainderStep();
+            break;
+            case QueriesEntityDescriptorEnum.EqualsStep_ord :
+            specificBuilder.EqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
+            specificBuilder.NotEqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.LessThanStep_ord :
+            specificBuilder.LessThanStep();
+            break;
+            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
+            specificBuilder.LessOrEqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
+            specificBuilder.GreaterThanStep();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
+            specificBuilder.GreaterOrEqualsStep();
             break;
             case QueriesEntityDescriptorEnum.IdentityComparator_ord :
             specificBuilder.IdentityComparator();
@@ -544,39 +544,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder.PrecedingStep_();
             break;
-            case QueriesEntityDescriptorEnum.AdditionStep_ord :
-            specificBuilder.AdditionStep_();
-            break;
-            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
-            specificBuilder.SubtractionStep_();
-            break;
-            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
-            specificBuilder.MultiplicationStep_();
-            break;
-            case QueriesEntityDescriptorEnum.DivisionStep_ord :
-            specificBuilder.DivisionStep_();
-            break;
-            case QueriesEntityDescriptorEnum.RemainderStep_ord :
-            specificBuilder.RemainderStep_();
-            break;
-            case QueriesEntityDescriptorEnum.EqualsStep_ord :
-            specificBuilder.EqualsStep_();
-            break;
-            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
-            specificBuilder.NotEqualsStep_();
-            break;
-            case QueriesEntityDescriptorEnum.LessThanStep_ord :
-            specificBuilder.LessThanStep_();
-            break;
-            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
-            specificBuilder.LessOrEqualsStep_();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
-            specificBuilder.GreaterThanStep_();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
-            specificBuilder.GreaterOrEqualsStep_();
-            break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune_();
             break;
@@ -627,6 +594,39 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder.Names_();
+            break;
+            case QueriesEntityDescriptorEnum.AdditionStep_ord :
+            specificBuilder.AdditionStep_();
+            break;
+            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
+            specificBuilder.SubtractionStep_();
+            break;
+            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
+            specificBuilder.MultiplicationStep_();
+            break;
+            case QueriesEntityDescriptorEnum.DivisionStep_ord :
+            specificBuilder.DivisionStep_();
+            break;
+            case QueriesEntityDescriptorEnum.RemainderStep_ord :
+            specificBuilder.RemainderStep_();
+            break;
+            case QueriesEntityDescriptorEnum.EqualsStep_ord :
+            specificBuilder.EqualsStep_();
+            break;
+            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
+            specificBuilder.NotEqualsStep_();
+            break;
+            case QueriesEntityDescriptorEnum.LessThanStep_ord :
+            specificBuilder.LessThanStep_();
+            break;
+            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
+            specificBuilder.LessOrEqualsStep_();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
+            specificBuilder.GreaterThanStep_();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
+            specificBuilder.GreaterOrEqualsStep_();
             break;
             case QueriesEntityDescriptorEnum.IdentityComparator_ord :
             specificBuilder.IdentityComparator_();
@@ -825,39 +825,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder._PrecedingStep();
             break;
-            case QueriesEntityDescriptorEnum.AdditionStep_ord :
-            specificBuilder._AdditionStep();
-            break;
-            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
-            specificBuilder._SubtractionStep();
-            break;
-            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
-            specificBuilder._MultiplicationStep();
-            break;
-            case QueriesEntityDescriptorEnum.DivisionStep_ord :
-            specificBuilder._DivisionStep();
-            break;
-            case QueriesEntityDescriptorEnum.RemainderStep_ord :
-            specificBuilder._RemainderStep();
-            break;
-            case QueriesEntityDescriptorEnum.EqualsStep_ord :
-            specificBuilder._EqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
-            specificBuilder._NotEqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.LessThanStep_ord :
-            specificBuilder._LessThanStep();
-            break;
-            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
-            specificBuilder._LessOrEqualsStep();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
-            specificBuilder._GreaterThanStep();
-            break;
-            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
-            specificBuilder._GreaterOrEqualsStep();
-            break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder._Prune();
             break;
@@ -908,6 +875,39 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder._Names();
+            break;
+            case QueriesEntityDescriptorEnum.AdditionStep_ord :
+            specificBuilder._AdditionStep();
+            break;
+            case QueriesEntityDescriptorEnum.SubtractionStep_ord :
+            specificBuilder._SubtractionStep();
+            break;
+            case QueriesEntityDescriptorEnum.MultiplicationStep_ord :
+            specificBuilder._MultiplicationStep();
+            break;
+            case QueriesEntityDescriptorEnum.DivisionStep_ord :
+            specificBuilder._DivisionStep();
+            break;
+            case QueriesEntityDescriptorEnum.RemainderStep_ord :
+            specificBuilder._RemainderStep();
+            break;
+            case QueriesEntityDescriptorEnum.EqualsStep_ord :
+            specificBuilder._EqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.NotEqualsStep_ord :
+            specificBuilder._NotEqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.LessThanStep_ord :
+            specificBuilder._LessThanStep();
+            break;
+            case QueriesEntityDescriptorEnum.LessOrEqualsStep_ord :
+            specificBuilder._LessOrEqualsStep();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterThanStep_ord :
+            specificBuilder._GreaterThanStep();
+            break;
+            case QueriesEntityDescriptorEnum.GreaterOrEqualsStep_ord :
+            specificBuilder._GreaterOrEqualsStep();
             break;
             case QueriesEntityDescriptorEnum.IdentityComparator_ord :
             specificBuilder._IdentityComparator();
@@ -1021,11 +1021,29 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.VariableTest_ord :
             specificBuilder.VariableTest(value);
             break;
-            case QueriesEntityDescriptorEnum.IndexVariableTest_ord :
-            specificBuilder.IndexVariableTest(value);
-            break;
             case QueriesEntityDescriptorEnum.StageVariableTest_ord :
             specificBuilder.StageVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.LanguageVariableTest_ord :
+            specificBuilder.LanguageVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.TypeVariableTest_ord :
+            specificBuilder.TypeVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.SubtypeVariableTest_ord :
+            specificBuilder.SubtypeVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.SupertypeVariableTest_ord :
+            specificBuilder.SupertypeVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest_ord :
+            specificBuilder.ExtendedSubtypeVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest_ord :
+            specificBuilder.ExtendedSupertypeVariableTest(value);
+            break;
+            case QueriesEntityDescriptorEnum.IndexVariableTest_ord :
+            specificBuilder.IndexVariableTest(value);
             break;
             case QueriesEntityDescriptorEnum.LanguageTest_ord :
             specificBuilder.LanguageTest(value);

@@ -716,138 +716,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.PrecedingStep);
     }
 
-    public void AdditionStep() {
-        wEntity(QueriesEntityDescriptorEnum.AdditionStep);
-    }
-
-    public void AdditionStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.AdditionStep);
-    }
-
-    public void _AdditionStep() {
-        _wEntity(QueriesEntityDescriptorEnum.AdditionStep);
-    }
-
-    public void SubtractionStep() {
-        wEntity(QueriesEntityDescriptorEnum.SubtractionStep);
-    }
-
-    public void SubtractionStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.SubtractionStep);
-    }
-
-    public void _SubtractionStep() {
-        _wEntity(QueriesEntityDescriptorEnum.SubtractionStep);
-    }
-
-    public void MultiplicationStep() {
-        wEntity(QueriesEntityDescriptorEnum.MultiplicationStep);
-    }
-
-    public void MultiplicationStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.MultiplicationStep);
-    }
-
-    public void _MultiplicationStep() {
-        _wEntity(QueriesEntityDescriptorEnum.MultiplicationStep);
-    }
-
-    public void DivisionStep() {
-        wEntity(QueriesEntityDescriptorEnum.DivisionStep);
-    }
-
-    public void DivisionStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.DivisionStep);
-    }
-
-    public void _DivisionStep() {
-        _wEntity(QueriesEntityDescriptorEnum.DivisionStep);
-    }
-
-    public void RemainderStep() {
-        wEntity(QueriesEntityDescriptorEnum.RemainderStep);
-    }
-
-    public void RemainderStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.RemainderStep);
-    }
-
-    public void _RemainderStep() {
-        _wEntity(QueriesEntityDescriptorEnum.RemainderStep);
-    }
-
-    public void EqualsStep() {
-        wEntity(QueriesEntityDescriptorEnum.EqualsStep);
-    }
-
-    public void EqualsStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.EqualsStep);
-    }
-
-    public void _EqualsStep() {
-        _wEntity(QueriesEntityDescriptorEnum.EqualsStep);
-    }
-
-    public void NotEqualsStep() {
-        wEntity(QueriesEntityDescriptorEnum.NotEqualsStep);
-    }
-
-    public void NotEqualsStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.NotEqualsStep);
-    }
-
-    public void _NotEqualsStep() {
-        _wEntity(QueriesEntityDescriptorEnum.NotEqualsStep);
-    }
-
-    public void LessThanStep() {
-        wEntity(QueriesEntityDescriptorEnum.LessThanStep);
-    }
-
-    public void LessThanStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.LessThanStep);
-    }
-
-    public void _LessThanStep() {
-        _wEntity(QueriesEntityDescriptorEnum.LessThanStep);
-    }
-
-    public void LessOrEqualsStep() {
-        wEntity(QueriesEntityDescriptorEnum.LessOrEqualsStep);
-    }
-
-    public void LessOrEqualsStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.LessOrEqualsStep);
-    }
-
-    public void _LessOrEqualsStep() {
-        _wEntity(QueriesEntityDescriptorEnum.LessOrEqualsStep);
-    }
-
-    public void GreaterThanStep() {
-        wEntity(QueriesEntityDescriptorEnum.GreaterThanStep);
-    }
-
-    public void GreaterThanStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.GreaterThanStep);
-    }
-
-    public void _GreaterThanStep() {
-        _wEntity(QueriesEntityDescriptorEnum.GreaterThanStep);
-    }
-
-    public void GreaterOrEqualsStep() {
-        wEntity(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
-    }
-
-    public void GreaterOrEqualsStep_() {
-        wEntity_(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
-    }
-
-    public void _GreaterOrEqualsStep() {
-        _wEntity(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
-    }
-
     public void Prune() {
         wEntity(QueriesEntityDescriptorEnum.Prune);
     }
@@ -866,6 +734,62 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void VariableTest(String value) {
         wEntity(QueriesEntityDescriptorEnum.VariableTest, value);
+    }
+
+    public void StageVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.StageVariableTest);
+    }
+
+    public void StageVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.StageVariableTest, value);
+    }
+
+    public void LanguageVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.LanguageVariableTest);
+    }
+
+    public void LanguageVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.LanguageVariableTest, value);
+    }
+
+    public void TypeVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.TypeVariableTest);
+    }
+
+    public void TypeVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.TypeVariableTest, value);
+    }
+
+    public void SubtypeVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.SubtypeVariableTest);
+    }
+
+    public void SubtypeVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.SubtypeVariableTest, value);
+    }
+
+    public void SupertypeVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.SupertypeVariableTest);
+    }
+
+    public void SupertypeVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.SupertypeVariableTest, value);
+    }
+
+    public void ExtendedSubtypeVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest);
+    }
+
+    public void ExtendedSubtypeVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.ExtendedSubtypeVariableTest, value);
+    }
+
+    public void ExtendedSupertypeVariableTest() {
+        wEntity(QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest);
+    }
+
+    public void ExtendedSupertypeVariableTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.ExtendedSupertypeVariableTest, value);
     }
 
     public void IndexVariableTest() {
@@ -898,14 +822,6 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void StageTest(String value) {
         wEntity(QueriesEntityDescriptorEnum.StageTest, value);
-    }
-
-    public void StageVariableTest() {
-        wEntity(QueriesEntityDescriptorEnum.StageVariableTest);
-    }
-
-    public void StageVariableTest(String value) {
-        wEntity(QueriesEntityDescriptorEnum.StageVariableTest, value);
     }
 
     public void LanguageTest() {
@@ -1210,6 +1126,138 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void Name(String value) {
         wEntity(QueriesEntityDescriptorEnum.Name, value);
+    }
+
+    public void AdditionStep() {
+        wEntity(QueriesEntityDescriptorEnum.AdditionStep);
+    }
+
+    public void AdditionStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.AdditionStep);
+    }
+
+    public void _AdditionStep() {
+        _wEntity(QueriesEntityDescriptorEnum.AdditionStep);
+    }
+
+    public void SubtractionStep() {
+        wEntity(QueriesEntityDescriptorEnum.SubtractionStep);
+    }
+
+    public void SubtractionStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.SubtractionStep);
+    }
+
+    public void _SubtractionStep() {
+        _wEntity(QueriesEntityDescriptorEnum.SubtractionStep);
+    }
+
+    public void MultiplicationStep() {
+        wEntity(QueriesEntityDescriptorEnum.MultiplicationStep);
+    }
+
+    public void MultiplicationStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.MultiplicationStep);
+    }
+
+    public void _MultiplicationStep() {
+        _wEntity(QueriesEntityDescriptorEnum.MultiplicationStep);
+    }
+
+    public void DivisionStep() {
+        wEntity(QueriesEntityDescriptorEnum.DivisionStep);
+    }
+
+    public void DivisionStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.DivisionStep);
+    }
+
+    public void _DivisionStep() {
+        _wEntity(QueriesEntityDescriptorEnum.DivisionStep);
+    }
+
+    public void RemainderStep() {
+        wEntity(QueriesEntityDescriptorEnum.RemainderStep);
+    }
+
+    public void RemainderStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.RemainderStep);
+    }
+
+    public void _RemainderStep() {
+        _wEntity(QueriesEntityDescriptorEnum.RemainderStep);
+    }
+
+    public void EqualsStep() {
+        wEntity(QueriesEntityDescriptorEnum.EqualsStep);
+    }
+
+    public void EqualsStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.EqualsStep);
+    }
+
+    public void _EqualsStep() {
+        _wEntity(QueriesEntityDescriptorEnum.EqualsStep);
+    }
+
+    public void NotEqualsStep() {
+        wEntity(QueriesEntityDescriptorEnum.NotEqualsStep);
+    }
+
+    public void NotEqualsStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.NotEqualsStep);
+    }
+
+    public void _NotEqualsStep() {
+        _wEntity(QueriesEntityDescriptorEnum.NotEqualsStep);
+    }
+
+    public void LessThanStep() {
+        wEntity(QueriesEntityDescriptorEnum.LessThanStep);
+    }
+
+    public void LessThanStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.LessThanStep);
+    }
+
+    public void _LessThanStep() {
+        _wEntity(QueriesEntityDescriptorEnum.LessThanStep);
+    }
+
+    public void LessOrEqualsStep() {
+        wEntity(QueriesEntityDescriptorEnum.LessOrEqualsStep);
+    }
+
+    public void LessOrEqualsStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.LessOrEqualsStep);
+    }
+
+    public void _LessOrEqualsStep() {
+        _wEntity(QueriesEntityDescriptorEnum.LessOrEqualsStep);
+    }
+
+    public void GreaterThanStep() {
+        wEntity(QueriesEntityDescriptorEnum.GreaterThanStep);
+    }
+
+    public void GreaterThanStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.GreaterThanStep);
+    }
+
+    public void _GreaterThanStep() {
+        _wEntity(QueriesEntityDescriptorEnum.GreaterThanStep);
+    }
+
+    public void GreaterOrEqualsStep() {
+        wEntity(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
+    }
+
+    public void GreaterOrEqualsStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
+    }
+
+    public void _GreaterOrEqualsStep() {
+        _wEntity(QueriesEntityDescriptorEnum.GreaterOrEqualsStep);
     }
 
     public void IdentityComparator() {

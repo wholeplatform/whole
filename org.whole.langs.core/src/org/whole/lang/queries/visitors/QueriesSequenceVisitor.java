@@ -262,67 +262,47 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(AdditionStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(SubtractionStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(MultiplicationStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(DivisionStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(RemainderStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(EqualsStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(NotEqualsStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(LessThanStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(GreaterThanStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
     public void visit(Prune entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
 
     public void visit(VariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(StageVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(LanguageVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(TypeVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
@@ -338,11 +318,6 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
     }
 
     public void visit(StageTest entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(StageVariableTest entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
@@ -483,6 +458,61 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
     }
 
     public void visit(Name entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(AdditionStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(SubtractionStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(MultiplicationStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(DivisionStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(RemainderStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(EqualsStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(NotEqualsStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(LessThanStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(GreaterThanStep entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }

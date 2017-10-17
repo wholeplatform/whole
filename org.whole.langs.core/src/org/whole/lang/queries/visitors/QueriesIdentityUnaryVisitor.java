@@ -174,43 +174,31 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(PrecedingStep entity) {
     }
 
-    public void visit(AdditionStep entity) {
-    }
-
-    public void visit(SubtractionStep entity) {
-    }
-
-    public void visit(MultiplicationStep entity) {
-    }
-
-    public void visit(DivisionStep entity) {
-    }
-
-    public void visit(RemainderStep entity) {
-    }
-
-    public void visit(EqualsStep entity) {
-    }
-
-    public void visit(NotEqualsStep entity) {
-    }
-
-    public void visit(LessThanStep entity) {
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-    }
-
-    public void visit(GreaterThanStep entity) {
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-    }
-
     public void visit(Prune entity) {
     }
 
     public void visit(VariableTest entity) {
+    }
+
+    public void visit(StageVariableTest entity) {
+    }
+
+    public void visit(LanguageVariableTest entity) {
+    }
+
+    public void visit(TypeVariableTest entity) {
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
     }
 
     public void visit(IndexVariableTest entity) {
@@ -220,9 +208,6 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     }
 
     public void visit(StageTest entity) {
-    }
-
-    public void visit(StageVariableTest entity) {
     }
 
     public void visit(LanguageTest entity) {
@@ -307,6 +292,39 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     }
 
     public void visit(Name entity) {
+    }
+
+    public void visit(AdditionStep entity) {
+    }
+
+    public void visit(SubtractionStep entity) {
+    }
+
+    public void visit(MultiplicationStep entity) {
+    }
+
+    public void visit(DivisionStep entity) {
+    }
+
+    public void visit(RemainderStep entity) {
+    }
+
+    public void visit(EqualsStep entity) {
+    }
+
+    public void visit(NotEqualsStep entity) {
+    }
+
+    public void visit(LessThanStep entity) {
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+    }
+
+    public void visit(GreaterThanStep entity) {
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
     }
 
     public void visit(IdentityComparator entity) {

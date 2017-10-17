@@ -346,6 +346,51 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     }
 
     @Override
+    public void visit(StageVariableTest entity) {
+    	out.printRaw("[stage as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+
+    @Override
+    public void visit(LanguageVariableTest entity) {
+    	out.printRaw("[language() as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+
+    @Override
+    public void visit(TypeVariableTest entity) {
+    	out.printRaw("[type() as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
+    public void visit(SubtypeVariableTest entity) {
+    	out.printRaw("[type() <: as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
+    public void visit(SupertypeVariableTest entity) {
+    	out.printRaw("[type() :> as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
+    public void visit(ExtendedSubtypeVariableTest entity) {
+    	out.printRaw("[type() <<: as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+    @Override
+    public void visit(ExtendedSupertypeVariableTest entity) {
+    	out.printRaw("[type() :>> as $");
+    	out.printRaw(entity.getValue());
+    	out.printRaw("]");
+    }
+
+    @Override
     public void visit(LanguageTest entity) {
     	out.printRaw("[language() = ");
     	out.printRaw(entity.getValue().toString());
@@ -362,12 +407,6 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     public void visit(StageTest entity) {
     	out.printRaw("[stage() = ");
     	out.printRaw(entity.getValue().toString());
-    	out.printRaw("]");
-    }
-    @Override
-    public void visit(StageVariableTest entity) {
-    	out.printRaw("[stage as $");
-    	out.printRaw(entity.getValue());
     	out.printRaw("]");
     }
 

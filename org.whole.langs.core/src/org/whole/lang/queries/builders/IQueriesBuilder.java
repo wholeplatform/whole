@@ -368,72 +368,6 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _PrecedingStep();
 
-    public void AdditionStep();
-
-    public void AdditionStep_();
-
-    public void _AdditionStep();
-
-    public void SubtractionStep();
-
-    public void SubtractionStep_();
-
-    public void _SubtractionStep();
-
-    public void MultiplicationStep();
-
-    public void MultiplicationStep_();
-
-    public void _MultiplicationStep();
-
-    public void DivisionStep();
-
-    public void DivisionStep_();
-
-    public void _DivisionStep();
-
-    public void RemainderStep();
-
-    public void RemainderStep_();
-
-    public void _RemainderStep();
-
-    public void EqualsStep();
-
-    public void EqualsStep_();
-
-    public void _EqualsStep();
-
-    public void NotEqualsStep();
-
-    public void NotEqualsStep_();
-
-    public void _NotEqualsStep();
-
-    public void LessThanStep();
-
-    public void LessThanStep_();
-
-    public void _LessThanStep();
-
-    public void LessOrEqualsStep();
-
-    public void LessOrEqualsStep_();
-
-    public void _LessOrEqualsStep();
-
-    public void GreaterThanStep();
-
-    public void GreaterThanStep_();
-
-    public void _GreaterThanStep();
-
-    public void GreaterOrEqualsStep();
-
-    public void GreaterOrEqualsStep_();
-
-    public void _GreaterOrEqualsStep();
-
     public void Prune();
 
     public void Prune_();
@@ -443,6 +377,34 @@ public interface IQueriesBuilder extends IBuilder {
     public void VariableTest();
 
     public void VariableTest(String value);
+
+    public void StageVariableTest();
+
+    public void StageVariableTest(String value);
+
+    public void LanguageVariableTest();
+
+    public void LanguageVariableTest(String value);
+
+    public void TypeVariableTest();
+
+    public void TypeVariableTest(String value);
+
+    public void SubtypeVariableTest();
+
+    public void SubtypeVariableTest(String value);
+
+    public void SupertypeVariableTest();
+
+    public void SupertypeVariableTest(String value);
+
+    public void ExtendedSubtypeVariableTest();
+
+    public void ExtendedSubtypeVariableTest(String value);
+
+    public void ExtendedSupertypeVariableTest();
+
+    public void ExtendedSupertypeVariableTest(String value);
 
     public void IndexVariableTest();
 
@@ -459,10 +421,6 @@ public interface IQueriesBuilder extends IBuilder {
     public void StageTest(StageTestEnum.Value value);
 
     public void StageTest(String value);
-
-    public void StageVariableTest();
-
-    public void StageVariableTest(String value);
 
     public void LanguageTest();
 
@@ -615,6 +573,72 @@ public interface IQueriesBuilder extends IBuilder {
     public void Name();
 
     public void Name(String value);
+
+    public void AdditionStep();
+
+    public void AdditionStep_();
+
+    public void _AdditionStep();
+
+    public void SubtractionStep();
+
+    public void SubtractionStep_();
+
+    public void _SubtractionStep();
+
+    public void MultiplicationStep();
+
+    public void MultiplicationStep_();
+
+    public void _MultiplicationStep();
+
+    public void DivisionStep();
+
+    public void DivisionStep_();
+
+    public void _DivisionStep();
+
+    public void RemainderStep();
+
+    public void RemainderStep_();
+
+    public void _RemainderStep();
+
+    public void EqualsStep();
+
+    public void EqualsStep_();
+
+    public void _EqualsStep();
+
+    public void NotEqualsStep();
+
+    public void NotEqualsStep_();
+
+    public void _NotEqualsStep();
+
+    public void LessThanStep();
+
+    public void LessThanStep_();
+
+    public void _LessThanStep();
+
+    public void LessOrEqualsStep();
+
+    public void LessOrEqualsStep_();
+
+    public void _LessOrEqualsStep();
+
+    public void GreaterThanStep();
+
+    public void GreaterThanStep_();
+
+    public void _GreaterThanStep();
+
+    public void GreaterOrEqualsStep();
+
+    public void GreaterOrEqualsStep_();
+
+    public void _GreaterOrEqualsStep();
 
     public void IdentityComparator();
 

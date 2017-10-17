@@ -210,55 +210,39 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(AdditionStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(SubtractionStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(MultiplicationStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(DivisionStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(RemainderStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(EqualsStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(NotEqualsStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(LessThanStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(LessOrEqualsStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(GreaterThanStep entity) {
-        throw new VisitException();
-    }
-
-    public void visit(GreaterOrEqualsStep entity) {
-        throw new VisitException();
-    }
-
     public void visit(Prune entity) {
         throw new VisitException();
     }
 
     public void visit(VariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(StageVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(LanguageVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(TypeVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(SubtypeVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(SupertypeVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ExtendedSubtypeVariableTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ExtendedSupertypeVariableTest entity) {
         throw new VisitException();
     }
 
@@ -271,10 +255,6 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(StageTest entity) {
-        throw new VisitException();
-    }
-
-    public void visit(StageVariableTest entity) {
         throw new VisitException();
     }
 
@@ -387,6 +367,50 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(Name entity) {
+        throw new VisitException();
+    }
+
+    public void visit(AdditionStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(SubtractionStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(MultiplicationStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(DivisionStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(RemainderStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(EqualsStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(NotEqualsStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(LessThanStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(LessOrEqualsStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(GreaterThanStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(GreaterOrEqualsStep entity) {
         throw new VisitException();
     }
 

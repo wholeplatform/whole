@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="140">
+    <models:ModelDeclarations initialCapacity="146">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -720,181 +720,6 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="MathStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="StepExpression"/>
-            </models:Types>
-            <models:Features initialCapacity="0"/>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="AdditionStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="SubtractionStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="MultiplicationStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="DivisionStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="RemainderStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="EqualsStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="NotEqualsStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="LessThanStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="LessOrEqualsStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="GreaterThanStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="GreaterOrEqualsStep"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="MathStep"/>
-            </models:Types>
-            <models:Features initialCapacity="1">
-                <models:Feature>
-                    <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Expression"/>
-                    <models:SimpleName value="expression"/>
-                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                </models:Feature>
-            </models:Features>
-        </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
             <models:SimpleName value="PruneOrPredicate"/>
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
@@ -928,6 +753,62 @@
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="VariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="StageVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="LanguageVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="TypeVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="SubtypeVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="SupertypeVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ExtendedSubtypeVariableTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="ExtendedSupertypeVariableTest"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Predicate"/>
             </models:Types>
@@ -975,14 +856,6 @@
                 <models:EnumValue value="TEMPLATE_STAGE"/>
             </models:EnumValues>
         </models:EnumEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="StageVariableTest"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Predicate"/>
-            </models:Types>
-            <models:DataType value="String"/>
-        </models:DataEntity>
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="LanguageTest"/>
@@ -1328,10 +1201,186 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Expression"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="StepExpression"/>
+                <models:SimpleName value="Predicate"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="MathStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="AdditionStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="SubtractionStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="MultiplicationStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DivisionStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="RemainderStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="EqualsStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="NotEqualsStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="LessThanStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="LessOrEqualsStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="GreaterThanStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="GreaterOrEqualsStep"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="MathStep"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <models:FeatureModifiers initialCapacity="0"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
