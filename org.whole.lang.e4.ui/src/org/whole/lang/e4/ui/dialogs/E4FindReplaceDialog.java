@@ -49,6 +49,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.factories.CommonsEntityFactory;
+import org.whole.lang.commons.model.RootFragment;
+import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.e4.ui.actions.ActionRegistry;
 import org.whole.lang.e4.ui.actions.E4KeyHandler;
 import org.whole.lang.e4.ui.actions.E4NavigationKeyHandler;
@@ -281,13 +283,13 @@ public class E4FindReplaceDialog extends E4Dialog {
 		if (!hasFoundEntity())
 			return;
 
-		final IEntity replacement = EntityUtils.clone(replaceViewer.getEntityContents());
-		Matcher.substitute(replacement, bindings, false);
+		final RootFragment replacementWrapper = CommonsEntityFactory.instance.createRootFragment(EntityUtils.clone(replaceViewer.getEntityContents()).wGetAdapter(CommonsEntityDescriptorEnum.Any));
+		Matcher.substitute(replacementWrapper.getRootEntity(), bindings, false);
 		ModelTransactionCommand command = new ModelTransactionCommand();
 		try {
 			command.setModel(getFoundEntity());
 			command.begin();
-			iterator.set(replacement);
+			iterator.set(EntityUtils.remove(replacementWrapper.getRootEntity()));
 			command.commit();
 		} catch (Exception e) {
 			command.rollbackIfNeeded();
@@ -302,7 +304,7 @@ public class E4FindReplaceDialog extends E4Dialog {
 				@Override
 				public void run() {
 					boolean state = enableSelectionTracking(false);
-					selectAndReveal(replacement);
+					selectAndReveal(replacementWrapper);
 					enableSelectionTracking(state);
 				}
 			});
