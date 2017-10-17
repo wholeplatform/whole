@@ -90,7 +90,8 @@ public abstract class AbstractPatternFilterIterator<E extends IEntity> extends A
 	}
 	public AbstractPatternFilterIterator<E> withPattern(IVisitor matcherVisitor) {
 		this.patternVisitor = matcherVisitor;
-//		updateBindings();
+		if (hasBindings())
+			patternVisitor.setBindings(getBindings());
 		return this;
 	}
 
