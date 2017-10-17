@@ -399,6 +399,36 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(LanguageVariableTest entity) {
+		part = new LanguageTestPart();
+	}
+
+	@Override
+	public void visit(TypeVariableTest entity) {
+		part = new TypeTestPart();
+	}
+
+	@Override
+	public void visit(SubtypeVariableTest entity) {
+		part = new SubtypeTestPart();
+	}
+
+	@Override
+	public void visit(SupertypeVariableTest entity) {
+		part = new SupertypeTestPart();
+	}
+
+	@Override
+	public void visit(ExtendedSubtypeVariableTest entity) {
+		part = new ExtendedSubtypeTestPart();
+	}
+
+	@Override
+	public void visit(ExtendedSupertypeVariableTest entity) {
+		part = new ExtendedSupertypeTestPart();
+	}
+
+	@Override
 	public void visit(LanguageTest entity) {
 		part = new LanguageTestPart();
 	}
