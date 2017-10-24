@@ -17,6 +17,9 @@
  */
 package org.whole.lang.e4.ui.parts;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.whole.lang.e4.ui.actions.ILinkableSelectionListener;
+import org.whole.lang.e4.ui.jobs.ShowingPolicy;
 
 /**
  * @author Enrico Persiani
@@ -24,5 +27,12 @@ package org.whole.lang.e4.ui.parts;
 public class E4MapGraphicalPart extends AbstractE4DerivedGraphicalPart {
 	protected String getDerivationFunction() {
 		return "whole:org.whole.lang:ViewDerivationLibrary#deriveMapViewContents";
+	}
+
+	@Override
+	protected IEclipseContext configureSelectionLinkable(IEclipseContext params) {
+		params = super.configureSelectionLinkable(params);
+		params.set(ILinkableSelectionListener.RESULTS_SHOWING_POLICY, ShowingPolicy.OPTIONAL);
+		return params;
 	}
 }

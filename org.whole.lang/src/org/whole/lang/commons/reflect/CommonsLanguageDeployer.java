@@ -31,6 +31,8 @@ import org.whole.lang.commons.visitors.CommonsPrettyPrinterVisitor;
 import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.operations.DynamicCompilerOperation;
+import org.whole.lang.operations.FindDeclarationOperation;
+import org.whole.lang.operations.FindDeclarationsOperation;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -61,15 +63,6 @@ public class CommonsLanguageDeployer extends AbstractLanguageDeployer {
 				return new CommonsContentAssistVisitor();
 			}
 		});
-		platform.addOperationFactory(CommonsLanguageKit.URI, IOperation.ANY_ID,
-				new IVisitorFactory() {
-			public IVisitor create(IOperation operation, int stage) {
-				if (stage == 0)
-					return new CommonsInterpreterVisitor();
-				else
-					return null;
-			}
-		});
 		platform.addOperationFactory(CommonsLanguageKit.URI, InterpreterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
@@ -88,11 +81,32 @@ public class CommonsLanguageDeployer extends AbstractLanguageDeployer {
 					return null;
 			}
 		});
-
 		platform.addOperationFactory(CommonsLanguageKit.URI, PrettyPrinterOperation.ID,
 				new IVisitorFactory() {
 			public IVisitor create(IOperation operation, int stage) {
 				return new CommonsPrettyPrinterVisitor((PrettyPrinterOperation) operation);
+			}
+		});
+		platform.addOperationFactory(CommonsLanguageKit.URI, FindDeclarationOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				return null;
+			}
+		});
+		platform.addOperationFactory(CommonsLanguageKit.URI, FindDeclarationsOperation.ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				return null;
+			}
+		});
+
+		platform.addOperationFactory(CommonsLanguageKit.URI, IOperation.ANY_ID,
+				new IVisitorFactory() {
+			public IVisitor create(IOperation operation, int stage) {
+				if (stage == 0)
+					return new CommonsInterpreterVisitor();
+				else
+					return null;
 			}
 		});
 	}
