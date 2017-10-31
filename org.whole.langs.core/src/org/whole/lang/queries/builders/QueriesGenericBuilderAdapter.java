@@ -203,6 +203,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Filter_ord :
             specificBuilder.Filter();
             break;
+            case QueriesEntityDescriptorEnum.Reverse_ord :
+            specificBuilder.Reverse();
+            break;
             case QueriesEntityDescriptorEnum.AspectStep_ord :
             specificBuilder.AspectStep();
             break;
@@ -245,8 +248,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord :
             specificBuilder.FollowingSiblingStep();
             break;
+            case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord :
+            specificBuilder.FollowingSiblingOrSelfStep();
+            break;
             case QueriesEntityDescriptorEnum.FollowingStep_ord :
             specificBuilder.FollowingStep();
+            break;
+            case QueriesEntityDescriptorEnum.FollowingOrSelfStep_ord :
+            specificBuilder.FollowingOrSelfStep();
             break;
             case QueriesEntityDescriptorEnum.ParentStep_ord :
             specificBuilder.ParentStep();
@@ -260,8 +269,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord :
             specificBuilder.PrecedingSiblingStep();
             break;
+            case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord :
+            specificBuilder.PrecedingSiblingOrSelfStep();
+            break;
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder.PrecedingStep();
+            break;
+            case QueriesEntityDescriptorEnum.PrecedingOrSelfStep_ord :
+            specificBuilder.PrecedingOrSelfStep();
             break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune();
@@ -484,6 +499,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Filter_ord :
             specificBuilder.Filter_();
             break;
+            case QueriesEntityDescriptorEnum.Reverse_ord :
+            specificBuilder.Reverse_();
+            break;
             case QueriesEntityDescriptorEnum.AspectStep_ord :
             specificBuilder.AspectStep_();
             break;
@@ -526,8 +544,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord :
             specificBuilder.FollowingSiblingStep_();
             break;
+            case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord :
+            specificBuilder.FollowingSiblingOrSelfStep_();
+            break;
             case QueriesEntityDescriptorEnum.FollowingStep_ord :
             specificBuilder.FollowingStep_();
+            break;
+            case QueriesEntityDescriptorEnum.FollowingOrSelfStep_ord :
+            specificBuilder.FollowingOrSelfStep_();
             break;
             case QueriesEntityDescriptorEnum.ParentStep_ord :
             specificBuilder.ParentStep_();
@@ -541,8 +565,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord :
             specificBuilder.PrecedingSiblingStep_();
             break;
+            case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord :
+            specificBuilder.PrecedingSiblingOrSelfStep_();
+            break;
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder.PrecedingStep_();
+            break;
+            case QueriesEntityDescriptorEnum.PrecedingOrSelfStep_ord :
+            specificBuilder.PrecedingOrSelfStep_();
             break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune_();
@@ -765,6 +795,9 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Filter_ord :
             specificBuilder._Filter();
             break;
+            case QueriesEntityDescriptorEnum.Reverse_ord :
+            specificBuilder._Reverse();
+            break;
             case QueriesEntityDescriptorEnum.AspectStep_ord :
             specificBuilder._AspectStep();
             break;
@@ -807,8 +840,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord :
             specificBuilder._FollowingSiblingStep();
             break;
+            case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord :
+            specificBuilder._FollowingSiblingOrSelfStep();
+            break;
             case QueriesEntityDescriptorEnum.FollowingStep_ord :
             specificBuilder._FollowingStep();
+            break;
+            case QueriesEntityDescriptorEnum.FollowingOrSelfStep_ord :
+            specificBuilder._FollowingOrSelfStep();
             break;
             case QueriesEntityDescriptorEnum.ParentStep_ord :
             specificBuilder._ParentStep();
@@ -822,8 +861,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord :
             specificBuilder._PrecedingSiblingStep();
             break;
+            case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord :
+            specificBuilder._PrecedingSiblingOrSelfStep();
+            break;
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             specificBuilder._PrecedingStep();
+            break;
+            case QueriesEntityDescriptorEnum.PrecedingOrSelfStep_ord :
+            specificBuilder._PrecedingOrSelfStep();
             break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder._Prune();

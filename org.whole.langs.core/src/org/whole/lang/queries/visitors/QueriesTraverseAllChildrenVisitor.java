@@ -158,6 +158,10 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
         entity.getPredicate().accept(wGetVisitor1());
     }
 
+    public void visit(Reverse entity) {
+        entity.getExpression().accept(wGetVisitor1());
+    }
+
     public void visit(Prune entity) {
         entity.getPredicate().accept(wGetVisitor1());
     }

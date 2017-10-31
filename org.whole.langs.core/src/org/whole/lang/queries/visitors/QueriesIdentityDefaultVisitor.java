@@ -160,6 +160,11 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((StepExpression) entity);
     }
 
+    public void visit(Reverse entity) {
+        visit((IQueriesEntity) entity);
+        visit((StepExpression) entity);
+    }
+
     public void visit(TraversalStep entity) {
         visit((StepExpression) entity);
     }
@@ -234,6 +239,10 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(ChildStep entity) {
         visit((IQueriesEntity) entity);
         visit((ForwardStep) entity);
+        visit((ReversibleStep) entity);
+    }
+
+    public void visit(ReversibleStep entity) {
     }
 
     public void visit(DescendantStep entity) {
@@ -249,9 +258,21 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(FollowingSiblingStep entity) {
         visit((IQueriesEntity) entity);
         visit((ForwardStep) entity);
+        visit((ReversibleStep) entity);
+    }
+
+    public void visit(FollowingSiblingOrSelfStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((ForwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(FollowingStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((ForwardStep) entity);
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
         visit((IQueriesEntity) entity);
         visit((ForwardStep) entity);
     }
@@ -268,19 +289,33 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(AncestorStep entity) {
         visit((IQueriesEntity) entity);
         visit((BackwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(AncestorOrSelfStep entity) {
         visit((IQueriesEntity) entity);
         visit((BackwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(PrecedingSiblingStep entity) {
         visit((IQueriesEntity) entity);
         visit((BackwardStep) entity);
+        visit((ReversibleStep) entity);
+    }
+
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((BackwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(PrecedingStep entity) {
+        visit((IQueriesEntity) entity);
+        visit((BackwardStep) entity);
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
         visit((IQueriesEntity) entity);
         visit((BackwardStep) entity);
     }

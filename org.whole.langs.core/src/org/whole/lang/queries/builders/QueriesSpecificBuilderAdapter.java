@@ -468,6 +468,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Filter);
     }
 
+    public void Reverse() {
+        wEntity(QueriesEntityDescriptorEnum.Reverse);
+    }
+
+    public void Reverse_() {
+        wEntity_(QueriesEntityDescriptorEnum.Reverse);
+    }
+
+    public void _Reverse() {
+        _wEntity(QueriesEntityDescriptorEnum.Reverse);
+    }
+
     public void AspectStep() {
         wEntity(QueriesEntityDescriptorEnum.AspectStep);
     }
@@ -644,6 +656,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.FollowingSiblingStep);
     }
 
+    public void FollowingSiblingOrSelfStep() {
+        wEntity(QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep);
+    }
+
+    public void FollowingSiblingOrSelfStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep);
+    }
+
+    public void _FollowingSiblingOrSelfStep() {
+        _wEntity(QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep);
+    }
+
     public void FollowingStep() {
         wEntity(QueriesEntityDescriptorEnum.FollowingStep);
     }
@@ -654,6 +678,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _FollowingStep() {
         _wEntity(QueriesEntityDescriptorEnum.FollowingStep);
+    }
+
+    public void FollowingOrSelfStep() {
+        wEntity(QueriesEntityDescriptorEnum.FollowingOrSelfStep);
+    }
+
+    public void FollowingOrSelfStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.FollowingOrSelfStep);
+    }
+
+    public void _FollowingOrSelfStep() {
+        _wEntity(QueriesEntityDescriptorEnum.FollowingOrSelfStep);
     }
 
     public void ParentStep() {
@@ -704,6 +740,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.PrecedingSiblingStep);
     }
 
+    public void PrecedingSiblingOrSelfStep() {
+        wEntity(QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep);
+    }
+
+    public void PrecedingSiblingOrSelfStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep);
+    }
+
+    public void _PrecedingSiblingOrSelfStep() {
+        _wEntity(QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep);
+    }
+
     public void PrecedingStep() {
         wEntity(QueriesEntityDescriptorEnum.PrecedingStep);
     }
@@ -714,6 +762,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void _PrecedingStep() {
         _wEntity(QueriesEntityDescriptorEnum.PrecedingStep);
+    }
+
+    public void PrecedingOrSelfStep() {
+        wEntity(QueriesEntityDescriptorEnum.PrecedingOrSelfStep);
+    }
+
+    public void PrecedingOrSelfStep_() {
+        wEntity_(QueriesEntityDescriptorEnum.PrecedingOrSelfStep);
+    }
+
+    public void _PrecedingOrSelfStep() {
+        _wEntity(QueriesEntityDescriptorEnum.PrecedingOrSelfStep);
     }
 
     public void Prune() {

@@ -134,6 +134,10 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(Reverse entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(AspectStep entity) {
         wGetStrategy().visit(entity);
     }
@@ -194,7 +198,15 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(FollowingSiblingOrSelfStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(FollowingStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
         wGetStrategy().visit(entity);
     }
 
@@ -214,7 +226,15 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(PrecedingStep entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
         wGetStrategy().visit(entity);
     }
 

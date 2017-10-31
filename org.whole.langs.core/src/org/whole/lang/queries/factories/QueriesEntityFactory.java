@@ -320,6 +320,14 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Filter>(create(QueriesEntityDescriptorEnum.Filter));
     }
 
+    public Reverse createReverse() {
+        return create(QueriesEntityDescriptorEnum.Reverse);
+    }
+
+    public Reverse createReverse(ReversibleStep expression) {
+        return create(QueriesEntityDescriptorEnum.Reverse, expression);
+    }
+
     public AspectStep createAspectStep() {
         return create(QueriesEntityDescriptorEnum.AspectStep);
     }
@@ -384,8 +392,16 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.FollowingSiblingStep);
     }
 
+    public FollowingSiblingOrSelfStep createFollowingSiblingOrSelfStep() {
+        return create(QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep);
+    }
+
     public FollowingStep createFollowingStep() {
         return create(QueriesEntityDescriptorEnum.FollowingStep);
+    }
+
+    public FollowingOrSelfStep createFollowingOrSelfStep() {
+        return create(QueriesEntityDescriptorEnum.FollowingOrSelfStep);
     }
 
     public ParentStep createParentStep() {
@@ -404,8 +420,16 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PrecedingSiblingStep);
     }
 
+    public PrecedingSiblingOrSelfStep createPrecedingSiblingOrSelfStep() {
+        return create(QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep);
+    }
+
     public PrecedingStep createPrecedingStep() {
         return create(QueriesEntityDescriptorEnum.PrecedingStep);
+    }
+
+    public PrecedingOrSelfStep createPrecedingOrSelfStep() {
+        return create(QueriesEntityDescriptorEnum.PrecedingOrSelfStep);
     }
 
     public Prune createPrune() {

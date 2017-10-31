@@ -21,6 +21,6 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface AncestorOrSelfStep extends IQueriesEntity, BackwardStep, ReversibleStep {
+public interface PrecedingOrSelfStep extends IQueriesEntity, BackwardStep {
 
 }

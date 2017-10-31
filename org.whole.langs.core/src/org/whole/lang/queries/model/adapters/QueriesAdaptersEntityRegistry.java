@@ -58,6 +58,8 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new CartesianProductAdapter());
         put(new PointwiseProductAdapter());
         put(new FilterAdapter());
+        put(new ReverseAdapter());
+        put(new ReversibleStepAdapter());
         put(new TraversalStepAdapter());
         put(new AspectStepAdapter());
         put(new DirectStepAdapter());
@@ -77,13 +79,17 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new DescendantStepAdapter());
         put(new DescendantOrSelfStepAdapter());
         put(new FollowingSiblingStepAdapter());
+        put(new FollowingSiblingOrSelfStepAdapter());
         put(new FollowingStepAdapter());
+        put(new FollowingOrSelfStepAdapter());
         put(new BackwardStepAdapter());
         put(new ParentStepAdapter());
         put(new AncestorStepAdapter());
         put(new AncestorOrSelfStepAdapter());
         put(new PrecedingSiblingStepAdapter());
+        put(new PrecedingSiblingOrSelfStepAdapter());
         put(new PrecedingStepAdapter());
+        put(new PrecedingOrSelfStepAdapter());
         put(new PruneOrPredicateAdapter());
         put(new PruneAdapter());
         put(new PredicateAdapter());

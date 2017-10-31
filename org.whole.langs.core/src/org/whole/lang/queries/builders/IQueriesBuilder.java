@@ -244,6 +244,12 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Filter();
 
+    public void Reverse();
+
+    public void Reverse_();
+
+    public void _Reverse();
+
     public void AspectStep();
 
     public void AspectStep_();
@@ -332,11 +338,23 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _FollowingSiblingStep();
 
+    public void FollowingSiblingOrSelfStep();
+
+    public void FollowingSiblingOrSelfStep_();
+
+    public void _FollowingSiblingOrSelfStep();
+
     public void FollowingStep();
 
     public void FollowingStep_();
 
     public void _FollowingStep();
+
+    public void FollowingOrSelfStep();
+
+    public void FollowingOrSelfStep_();
+
+    public void _FollowingOrSelfStep();
 
     public void ParentStep();
 
@@ -362,11 +380,23 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _PrecedingSiblingStep();
 
+    public void PrecedingSiblingOrSelfStep();
+
+    public void PrecedingSiblingOrSelfStep_();
+
+    public void _PrecedingSiblingOrSelfStep();
+
     public void PrecedingStep();
 
     public void PrecedingStep_();
 
     public void _PrecedingStep();
+
+    public void PrecedingOrSelfStep();
+
+    public void PrecedingOrSelfStep_();
+
+    public void _PrecedingOrSelfStep();
 
     public void Prune();
 

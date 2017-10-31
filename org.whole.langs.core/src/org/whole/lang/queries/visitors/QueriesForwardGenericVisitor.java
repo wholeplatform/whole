@@ -131,6 +131,10 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(Reverse entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(AspectStep entity) {
         wGetVisitor1().visit(entity);
     }
@@ -191,7 +195,15 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(FollowingSiblingOrSelfStep entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(FollowingStep entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
         wGetVisitor1().visit(entity);
     }
 
@@ -211,7 +223,15 @@ public class QueriesForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor>
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(PrecedingStep entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
         wGetVisitor1().visit(entity);
     }
 

@@ -111,6 +111,9 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(Filter entity) {
     }
 
+    public void visit(Reverse entity) {
+    }
+
     public void visit(AspectStep entity) {
     }
 
@@ -156,7 +159,13 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(FollowingSiblingStep entity) {
     }
 
+    public void visit(FollowingSiblingOrSelfStep entity) {
+    }
+
     public void visit(FollowingStep entity) {
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
     }
 
     public void visit(ParentStep entity) {
@@ -171,7 +180,13 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(PrecedingSiblingStep entity) {
     }
 
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+    }
+
     public void visit(PrecedingStep entity) {
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
     }
 
     public void visit(Prune entity) {

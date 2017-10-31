@@ -120,6 +120,10 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(Reverse entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(AspectStep entity) {
         stagedVisit(entity);
     }
@@ -180,7 +184,15 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(FollowingSiblingOrSelfStep entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(FollowingStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
         stagedVisit(entity);
     }
 
@@ -200,7 +212,15 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(PrecedingStep entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
         stagedVisit(entity);
     }
 

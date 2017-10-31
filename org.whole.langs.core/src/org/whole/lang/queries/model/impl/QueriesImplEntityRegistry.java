@@ -54,6 +54,7 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new CartesianProductImpl());
         put(new PointwiseProductImpl());
         put(new FilterImpl());
+        put(new ReverseImpl());
         put(new AspectStepImpl());
         put(new AdjacentStepImpl());
         put(new ReachableStepImpl());
@@ -69,12 +70,16 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new DescendantStepImpl());
         put(new DescendantOrSelfStepImpl());
         put(new FollowingSiblingStepImpl());
+        put(new FollowingSiblingOrSelfStepImpl());
         put(new FollowingStepImpl());
+        put(new FollowingOrSelfStepImpl());
         put(new ParentStepImpl());
         put(new AncestorStepImpl());
         put(new AncestorOrSelfStepImpl());
         put(new PrecedingSiblingStepImpl());
+        put(new PrecedingSiblingOrSelfStepImpl());
         put(new PrecedingStepImpl());
+        put(new PrecedingOrSelfStepImpl());
         put(new PruneImpl());
         put(new VariableTestImpl());
         put(new StageVariableTestImpl());

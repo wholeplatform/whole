@@ -101,6 +101,9 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Filter_ord :
             visit((Filter) entity);
             break;
+            case QueriesEntityDescriptorEnum.Reverse_ord :
+            visit((Reverse) entity);
+            break;
             case QueriesEntityDescriptorEnum.AspectStep_ord :
             visit((AspectStep) entity);
             break;
@@ -146,8 +149,14 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord :
             visit((FollowingSiblingStep) entity);
             break;
+            case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord :
+            visit((FollowingSiblingOrSelfStep) entity);
+            break;
             case QueriesEntityDescriptorEnum.FollowingStep_ord :
             visit((FollowingStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.FollowingOrSelfStep_ord :
+            visit((FollowingOrSelfStep) entity);
             break;
             case QueriesEntityDescriptorEnum.ParentStep_ord :
             visit((ParentStep) entity);
@@ -161,8 +170,14 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord :
             visit((PrecedingSiblingStep) entity);
             break;
+            case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord :
+            visit((PrecedingSiblingOrSelfStep) entity);
+            break;
             case QueriesEntityDescriptorEnum.PrecedingStep_ord :
             visit((PrecedingStep) entity);
+            break;
+            case QueriesEntityDescriptorEnum.PrecedingOrSelfStep_ord :
+            visit((PrecedingOrSelfStep) entity);
             break;
             case QueriesEntityDescriptorEnum.Prune_ord :
             visit((Prune) entity);

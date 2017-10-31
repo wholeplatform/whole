@@ -126,6 +126,10 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(Reverse entity) {
+        throw new VisitException();
+    }
+
     public void visit(AspectStep entity) {
         throw new VisitException();
     }
@@ -186,7 +190,15 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(FollowingSiblingOrSelfStep entity) {
+        throw new VisitException();
+    }
+
     public void visit(FollowingStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(FollowingOrSelfStep entity) {
         throw new VisitException();
     }
 
@@ -206,7 +218,15 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+        throw new VisitException();
+    }
+
     public void visit(PrecedingStep entity) {
+        throw new VisitException();
+    }
+
+    public void visit(PrecedingOrSelfStep entity) {
         throw new VisitException();
     }
 

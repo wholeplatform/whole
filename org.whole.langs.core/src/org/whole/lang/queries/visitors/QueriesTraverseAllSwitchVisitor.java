@@ -153,6 +153,10 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
         wGetVisitor1().visit(entity.getPredicate());
     }
 
+    public void visit(Reverse entity) {
+        wGetVisitor1().visit(entity.getExpression());
+    }
+
     public void visit(Prune entity) {
         wGetVisitor1().visit(entity.getPredicate());
     }
