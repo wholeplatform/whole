@@ -81,16 +81,14 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     	DynamicCompilerOperation.compile(entity, getBindings());
     }
 
-	protected IEntity evaluateOptional(Expression entity) {
-    	entity.accept(this);
-    	return getResult();
-    }
 	protected IEntity evaluate(Expression entity) {
-    	IEntity result = evaluateOptional(entity);
+		setResult(null);
+    	entity.accept(this);
+    	IEntity result = getResult();
     	if (result == null)
     		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
     	return result;
-    }
+	}
 	protected final boolean booleanValue(Expression exp) {
 		return evaluate(exp).wBooleanValue();
 	}
@@ -135,43 +133,43 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 
     @Override
 	public void visit(BooleanLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createValue(entity.wBooleanValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(ByteLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createValue(entity.wByteValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(CharLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createValue(entity.wCharValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(DoubleLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createValue(entity.wDoubleValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(FloatLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createValue(entity.wFloatValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(IntLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createSpecificValue(entity.wIntValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(LongLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createSpecificValue(entity.wLongValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(ShortLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createSpecificValue(entity.wShortValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(DateLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createSpecificValue(entity.wDateValue()));
+    	setResultValue(entity);
 	}
     @Override
 	public void visit(StringLiteral entity) {
-    	setResult(BindingManagerFactory.instance.createSpecificValue(entity.wStringValue()));
+    	setResultValue(entity);
 	}
     @Override
     public void visit(VoidLiteral entity) {
@@ -272,6 +270,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 
 	@Override
 	public void visit(Singleton entity) {
+		setResult(null);
 		entity.getExpression().accept(this);
 
 		BehaviorUtils.evaluateSingletonResult(getBindings());

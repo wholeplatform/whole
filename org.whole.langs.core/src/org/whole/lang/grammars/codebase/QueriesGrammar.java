@@ -596,7 +596,7 @@ public class QueriesGrammar extends AbstractTemplateFactory<org.whole.lang.gramm
         b1.Resolver();
         b0._Production();
         b0.Production_();
-        b0.NonTerminal("ReverseStep");
+        b0.NonTerminal("BackwardStep");
         b0.Choose_(5);
         b0.Production_();
         b0.NonTerminal("ParentStep");

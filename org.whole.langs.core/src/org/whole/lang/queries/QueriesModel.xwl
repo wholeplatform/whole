@@ -670,7 +670,7 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="ReverseStep"/>
+            <models:SimpleName value="BackwardStep"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="TraversalStep"/>
             </models:Types>
@@ -680,7 +680,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="ParentStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="ReverseStep"/>
+                <models:SimpleName value="BackwardStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -688,7 +688,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="AncestorStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="ReverseStep"/>
+                <models:SimpleName value="BackwardStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -696,7 +696,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="AncestorOrSelfStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="ReverseStep"/>
+                <models:SimpleName value="BackwardStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -704,7 +704,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PrecedingSiblingStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="ReverseStep"/>
+                <models:SimpleName value="BackwardStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -712,7 +712,7 @@
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="PrecedingStep"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="ReverseStep"/>
+                <models:SimpleName value="BackwardStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>

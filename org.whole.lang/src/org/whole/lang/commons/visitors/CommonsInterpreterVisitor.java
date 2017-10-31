@@ -126,13 +126,6 @@ public class CommonsInterpreterVisitor extends CommonsIdentityVisitor {
 
 	@Override
 	public void visit(Resolver entity) {
-//FIXME defensive setResults
-//		setResult(null);
-
-//TODO move into validator
-//		IEntity parent = entity.wGetParent();
-//		if (!EntityUtils.isNull(parent) && !parent.wGetFeatureDescriptor(entity).isOptional())
-//			throw new IllegalArgumentException(WholeMessages.no_optional);
 	}
 
 

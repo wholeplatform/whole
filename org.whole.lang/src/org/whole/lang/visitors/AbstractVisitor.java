@@ -17,6 +17,7 @@
  */
 package org.whole.lang.visitors;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.iterators.IEntityIterator;
@@ -27,6 +28,7 @@ import org.whole.lang.operations.CloneContext;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.IOperation;
 import org.whole.lang.operations.OperationCanceledException;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -92,6 +94,18 @@ public abstract class AbstractVisitor implements IVisitor {
 	}
 	public void setResult(IEntity entity) {
 		getBindings().setResult(entity);
+	}
+	protected void setResultValue(IEntity entity) {
+		setResult(BindingManagerFactory.instance.createSpecificValue(entity));
+	}	
+	protected void setResultClone(IEntity entity) {
+		setResult(EntityUtils.clone(entity));
+	}	
+	protected void setResultCopy(IEntity entity) {
+		if (EntityUtils.isData(entity))
+			setResultValue(entity);
+		else
+			setResultClone(entity);
 	}
 
 	protected void handleCancelRequest() {

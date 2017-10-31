@@ -78,7 +78,7 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new DescendantOrSelfStepAdapter());
         put(new FollowingSiblingStepAdapter());
         put(new FollowingStepAdapter());
-        put(new ReverseStepAdapter());
+        put(new BackwardStepAdapter());
         put(new ParentStepAdapter());
         put(new AncestorStepAdapter());
         put(new AncestorOrSelfStepAdapter());

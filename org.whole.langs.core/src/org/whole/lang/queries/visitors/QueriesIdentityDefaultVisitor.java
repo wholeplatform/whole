@@ -256,33 +256,33 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((ForwardStep) entity);
     }
 
-    public void visit(ReverseStep entity) {
+    public void visit(BackwardStep entity) {
         visit((TraversalStep) entity);
     }
 
     public void visit(ParentStep entity) {
         visit((IQueriesEntity) entity);
-        visit((ReverseStep) entity);
+        visit((BackwardStep) entity);
     }
 
     public void visit(AncestorStep entity) {
         visit((IQueriesEntity) entity);
-        visit((ReverseStep) entity);
+        visit((BackwardStep) entity);
     }
 
     public void visit(AncestorOrSelfStep entity) {
         visit((IQueriesEntity) entity);
-        visit((ReverseStep) entity);
+        visit((BackwardStep) entity);
     }
 
     public void visit(PrecedingSiblingStep entity) {
         visit((IQueriesEntity) entity);
-        visit((ReverseStep) entity);
+        visit((BackwardStep) entity);
     }
 
     public void visit(PrecedingStep entity) {
         visit((IQueriesEntity) entity);
-        visit((ReverseStep) entity);
+        visit((BackwardStep) entity);
     }
 
     public void visit(PruneOrPredicate entity) {
