@@ -18,22 +18,17 @@
 package org.whole.lang.queries.ui.figures;
 
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestFigure extends ContentPaneFigure {
-	public AtIndexTestFigure() {
-		this(4);
-	}
-	public AtIndexTestFigure(int spacing) {
-		super(new RowLayout().withSpacing(4));
+public class ReverseFigure extends ContentPaneFigure {
+	public ReverseFigure() {
+		super(new RowLayout());
 		initContentPanes(1);
 
-		addKeyword("at");
 		add(createContentPane(0));
-		setBorder(new SquareBracketsBorder(spacing, spacing));
+		addRelation("-reverse");
 	}
 }

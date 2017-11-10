@@ -17,8 +17,8 @@
  */
 package org.whole.lang.iterators;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.IntSupplier;
 
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
@@ -31,79 +31,88 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractByIndexIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
-    protected IEntity entity; //parent
-    protected int nextIndex;
-    private int firstIndex;
-    private int lastIndex = -1;
+	protected IEntity entity; //parent
+	protected int nextIndex;
+	protected int lastIndex = -1;
+	protected boolean forward;
+	protected IntSupplier firstIndexSupplier;
 
-    protected AbstractByIndexIterator() {
-    	this(0);
-    }
-    protected AbstractByIndexIterator(int firstIndex) {
-        this.firstIndex = firstIndex;
-    }
-
-	public Iterator<E> iterator() {
-		return this;
+	protected AbstractByIndexIterator(boolean forward) {
+		this.forward = forward;
+		this.firstIndexSupplier = () -> forward ? 0 : endIndex()-startIndex();
+	}
+	protected AbstractByIndexIterator(boolean forward, int relativeFirstIndex) {
+		this.forward = forward;
+		this.firstIndexSupplier = () -> relativeFirstIndex >= 0 ? relativeFirstIndex : endIndex()-startIndex() + relativeFirstIndex+1;
+	}
+	protected AbstractByIndexIterator(boolean forward, IntSupplier firstIndexSupplier) {
+		this.forward = forward;
+		this.firstIndexSupplier = firstIndexSupplier;
 	}
 
-    protected abstract int startIndex();
-    protected abstract int endIndex();
+	protected abstract int startIndex();
+	protected abstract int endIndex();
 
 	public IBindingScope lookaheadScope() {
 		return NullScope.instance;
 	}
 
-    public boolean hasNext() {
-        return entity != null && nextIndex < endIndex();
-    }
+	public boolean hasNext() {
+		return entity != null && (forward ?
+				startIndex() + nextIndex <= endIndex() : nextIndex >= 0);
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public E next() {
-    	try {
-    		return (E) entity.wGet(startIndex() + (lastIndex = nextIndex++));
-    	} catch (Exception e) {
-    		throw new NoSuchElementException(e.getMessage());
-    	}
+		try {
+			lastIndex = nextIndex;
+			nextIndex += forward ? +1 : -1;
+			return (E) entity.wGet(startIndex() + lastIndex);
+		} catch (Exception e) {
+			throw new NoSuchElementException(e.getMessage());
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public E lookahead() {
 		return hasNext() ? (E) entity.wGet(startIndex() + nextIndex) : null;
-    }
+	}
 
-    public void reset(IEntity entity) {
-        this.entity = entity;
-        nextIndex = firstIndex;
-        lastIndex = -1;
-    }
+	public void reset(IEntity entity) {
+		this.entity = entity;
+		nextIndex = entity != null ? firstIndexSupplier.getAsInt() : -1;
+		lastIndex = -1;
+	}
 
-    public void prune() {
-    }
-    
-    public int nextIndex() {
-    	return nextIndex;
-    }
-    public void set(E value) {
+	public void prune() {
+	}
+
+	public int nextIndex() {
+		return nextIndex;
+	}
+	public void set(E value) {
 		if (lastIndex == -1)
 			throw new IllegalStateException();
 
 		entity.wSet(startIndex() + lastIndex, value);
 	}
-    public void add(E value) {
-    	if (lastIndex == -1)
+	public void add(E value) {
+		if (lastIndex == -1)
 			throw new IllegalStateException();
 
-    	entity.wAdd(startIndex() + lastIndex, value);
-    	lastIndex = nextIndex++;
-    }
-    public void remove() {
-    	if (lastIndex == -1)
-    		throw new IllegalStateException();
+		if (forward) {
+			entity.wAdd(startIndex() + lastIndex, value);
+			lastIndex = nextIndex++;
+		} else
+			entity.wAdd(startIndex() + lastIndex+1, value);
+	}
+	public void remove() {
+		if (lastIndex == -1)
+			throw new IllegalStateException();
 
-        entity.wRemove(startIndex() + lastIndex);
-        if (EntityUtils.isComposite(entity))
-        	nextIndex = lastIndex;
-        lastIndex = -1;
-    }
+		entity.wRemove(startIndex() + lastIndex);
+		if (forward && EntityUtils.isComposite(entity))
+			nextIndex = lastIndex;
+		lastIndex = -1;
+	}
 }

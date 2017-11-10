@@ -286,6 +286,11 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(Reverse entity) {
+		part = new ReversePart();
+	}
+
+	@Override
 	public void visit(AspectStep entity) {
 		part = new AspectStepPart();
 	}
@@ -355,8 +360,18 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(FollowingSiblingOrSelfStep entity) {
+		part = new FollowingSiblingOrSelfStepPart();
+	}
+
+	@Override
 	public void visit(FollowingStep entity) {
 		part = new FollowingStepPart();
+	}
+
+	@Override
+	public void visit(FollowingOrSelfStep entity) {
+		part = new FollowingOrSelfStepPart();
 	}
 
 	@Override
@@ -380,8 +395,18 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(PrecedingSiblingOrSelfStep entity) {
+		part = new PrecedingSiblingOrSelfStepPart();
+	}
+
+	@Override
 	public void visit(PrecedingStep entity) {
 		part = new PrecedingStepPart();
+	}
+
+	@Override
+	public void visit(PrecedingOrSelfStep entity) {
+		part = new PrecedingOrSelfStepPart();
 	}
 
 	@Override
@@ -489,6 +514,11 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(IntLiteral entity) {
+		part = new RelativeIntLiteralPart();
+	}
+
+	@Override
 	public void visit(StringLiteral entity) {
 		part = new QuotedStringTextualEntityPart();
 	}
@@ -498,6 +528,11 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		part = new VoidLiteralPart();
 	}
 	
+	@Override
+	public void visit(MatchTest entity) {
+		part = new MatchTestPart();
+	}
+
 	@Override
 	public void visit(ExpressionTest entity) {
 		part = new ExpressionTestPart();

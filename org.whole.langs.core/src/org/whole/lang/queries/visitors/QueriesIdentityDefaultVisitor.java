@@ -181,6 +181,10 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(AdjacentStep entity) {
         visit((IQueriesEntity) entity);
         visit((DirectStep) entity);
+        visit((ReversibleStep) entity);
+    }
+
+    public void visit(ReversibleStep entity) {
     }
 
     public void visit(ReachableStep entity) {
@@ -242,17 +246,16 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((ReversibleStep) entity);
     }
 
-    public void visit(ReversibleStep entity) {
-    }
-
     public void visit(DescendantStep entity) {
         visit((IQueriesEntity) entity);
         visit((ForwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(DescendantOrSelfStep entity) {
         visit((IQueriesEntity) entity);
         visit((ForwardStep) entity);
+        visit((ReversibleStep) entity);
     }
 
     public void visit(FollowingSiblingStep entity) {
@@ -444,6 +447,11 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     }
 
     public void visit(VisitorTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(MatchTest entity) {
         visit((IQueriesEntity) entity);
         visit((Predicate) entity);
     }

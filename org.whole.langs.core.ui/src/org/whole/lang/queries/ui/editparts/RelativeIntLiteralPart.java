@@ -17,27 +17,21 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.AtIndexTest;
-import org.whole.lang.queries.ui.figures.AtIndexTestFigure;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.queries.ui.figures.RelativeIntLiteralFigure;
+import org.whole.lang.ui.editparts.AbstractDataEntityPart;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestPart extends AbstractContentPanePart {
+public class RelativeIntLiteralPart extends AbstractDataEntityPart {
 	public IFigure createFigure() {
-		return new AtIndexTestFigure();
+		return new RelativeIntLiteralFigure();
 	}
 
-	protected List<IEntity> getModelSpecificChildren() {
-		AtIndexTest entity = getModelEntity();
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getIndex());
-		return list;
+	@Override
+	protected void refreshVisuals() {
+		super.refreshVisuals();
+		((RelativeIntLiteralFigure) getFigure()).showSize(getModelEntity().wIntValue() < 0);
 	}
 }

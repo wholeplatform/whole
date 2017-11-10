@@ -486,7 +486,9 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void AtIndexTest();
 
-    public void AtIndexTest(int value);
+    public void AtIndexTest_();
+
+    public void _AtIndexTest();
 
     public void IndexTest();
 
@@ -505,6 +507,12 @@ public interface IQueriesBuilder extends IBuilder {
     public void VisitorTest(IVisitor value);
 
     public void VisitorTest(String value);
+
+    public void MatchTest();
+
+    public void MatchTest_();
+
+    public void _MatchTest();
 
     public void ExpressionTest();
 

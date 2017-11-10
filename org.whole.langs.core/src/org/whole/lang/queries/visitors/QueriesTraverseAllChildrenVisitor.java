@@ -166,6 +166,10 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
         entity.getPredicate().accept(wGetVisitor1());
     }
 
+    public void visit(AtIndexTest entity) {
+        entity.getIndex().accept(wGetVisitor1());
+    }
+
     public void visit(IndexTest entity) {
         entity.getIndex().accept(wGetVisitor1());
     }
@@ -173,6 +177,10 @@ public class QueriesTraverseAllChildrenVisitor extends QueriesIdentityUnaryVisit
     public void visit(IndexRangeTest entity) {
         entity.getStartIndex().accept(wGetVisitor1());
         entity.getEndIndex().accept(wGetVisitor1());
+    }
+
+    public void visit(MatchTest entity) {
+        entity.getExpression().accept(wGetVisitor1());
     }
 
     public void visit(ExpressionTest entity) {

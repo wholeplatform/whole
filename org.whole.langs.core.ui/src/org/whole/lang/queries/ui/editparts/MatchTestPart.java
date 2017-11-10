@@ -20,24 +20,33 @@ package org.whole.lang.queries.ui.editparts;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.AtIndexTest;
-import org.whole.lang.queries.ui.figures.AtIndexTestFigure;
+import org.whole.lang.queries.model.MatchTest;
+import org.whole.lang.queries.ui.figures.ParenthesizedPredicateFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
+import org.whole.lang.ui.figures.FigureConstants;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestPart extends AbstractContentPanePart {
-	public IFigure createFigure() {
-		return new AtIndexTestFigure();
+public class MatchTestPart extends AbstractContentPanePart {
+	protected IFigure createFigure() {
+		IFigure f = new ParenthesizedPredicateFigure(7);
+		f.setBorder(new DoubleSquareBracketsBorder(7, 7)  {
+			protected void setBracketsStyle(Graphics g) {
+				g.setForegroundColor(FigureConstants.relationsColor);
+			}
+		});
+		return f;
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		AtIndexTest entity = getModelEntity();
+		MatchTest entity = getModelEntity();
 		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getIndex());
+		list.add(entity.getExpression());
 		return list;
 	}
 }

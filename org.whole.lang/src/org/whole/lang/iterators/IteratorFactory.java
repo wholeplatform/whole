@@ -51,7 +51,7 @@ public class IteratorFactory {
 		return new ConstantIterator<E>(constant, useClone);
 	}
 	public static <E extends IEntity> ConstantChildIterator<E> constantChildIterator(IEntity constant) {
-		return new ConstantChildIterator<E>(constant);
+		return new ConstantChildIterator<E>(true, constant);
 	}
 	public static <E extends IEntity> ConstantComposeIterator<E> constantComposeIterator(IEntity constant, IEntityIterator<E> iterator) {
 		return new ConstantComposeIterator<E>(constant, iterator);
@@ -125,26 +125,32 @@ public class IteratorFactory {
 		return new FeatureByNameIterator(fd);
 	}
 
-	public static IEntityIterator<IEntity> featureByIndexIterator(int index) {
-		return new FeatureByIndexIterator(index);
+	public static IEntityIterator<IEntity> featureByIndexIterator(int relativeIndex) {
+		return new FeatureByIndexIterator(relativeIndex);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> childIterator() {
-		return new ChildIterator<E>();
+		return new ChildIterator<E>(true);
 	}
-	public static <E extends IEntity> IEntityIterator<E> childIterator(int firstIndex) {
-		return new ChildIterator<E>(firstIndex);
+	public static <E extends IEntity> IEntityIterator<E> childIterator(int relativeFirstIndex) {
+		return new ChildIterator<E>(true, relativeFirstIndex);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> childReverseIterator() {
-		return new ChildReverseIterator<E>();
+		return new ChildIterator<E>(false);
 	}
-	public static <E extends IEntity> IEntityIterator<E> childReverseIterator(int firstIndex) {
-		return new ChildReverseIterator<E>(firstIndex);
+	public static <E extends IEntity> IEntityIterator<E> childReverseIterator(int relativeFirstIndex) {
+		return new ChildIterator<E>(false, relativeFirstIndex);
+	}
+	public static <E extends IEntity> IEntityIterator<E> childRangeIterator(int relativeStartIndex, int relativeEndIndex) {
+		return new ChildRangeIterator<E>(true, relativeStartIndex, relativeEndIndex);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> descendantIterator() {
 		return new DescendantIterator<E>(false);
+	}
+	public static <E extends IEntity> IEntityIterator<E> descendantReverseIterator() {
+		return new DescendantReverseIterator<E>(false);
 	}
 	public static <E extends IEntity> IEntityIterator<E> descendantOrSelfIterator() {
 		return new DescendantIterator<E>(true);
@@ -154,17 +160,29 @@ public class IteratorFactory {
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> followingSiblingIterator() {
-		return new FollowingSiblingIterator<E>(false);
+		return new FollowingSiblingIterator<E>(true, false);
+	}
+	public static <E extends IEntity> IEntityIterator<E> followingSiblingReverseIterator() {
+		return new FollowingSiblingIterator<E>(false, false);
 	}
 	public static <E extends IEntity> IEntityIterator<E> precedingSiblingIterator() {
-		return new PrecedingSiblingIterator<E>(false);
+		return new PrecedingSiblingIterator<E>(false, false);
+	}
+	public static <E extends IEntity> IEntityIterator<E> precedingSiblingReverseIterator() {
+		return new PrecedingSiblingIterator<E>(true, false);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfIterator() {
-		return new FollowingSiblingIterator<E>(true);
+		return new FollowingSiblingIterator<E>(true, true);
+	}
+	public static <E extends IEntity> IEntityIterator<E> followingSiblingOrSelfReverseIterator() {
+		return new FollowingSiblingIterator<E>(false, true);
 	}
 	public static <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfIterator() {
-		return new PrecedingSiblingIterator<E>(true);
+		return new PrecedingSiblingIterator<E>(false, true);
+	}
+	public static <E extends IEntity> IEntityIterator<E> precedingSiblingOrSelfReverseIterator() {
+		return new PrecedingSiblingIterator<E>(true, true);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> followingIterator() {
@@ -182,10 +200,13 @@ public class IteratorFactory {
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> adjacentIterator() {
-		return new AdjacentIterator<E>();
+		return new AdjacentIterator<E>(true);
 	}
-	public static <E extends IEntity> IEntityIterator<E> adjacentIterator(int firstIndex) {
-		return new AdjacentIterator<E>(firstIndex);
+	public static <E extends IEntity> IEntityIterator<E> adjacentIterator(int relativeFirstIndex) {
+		return new AdjacentIterator<E>(true, relativeFirstIndex);
+	}
+	public static <E extends IEntity> IEntityIterator<E> adjacentReverseIterator() {
+		return new AdjacentIterator<E>(false);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> reachableIterator(boolean includeSelf) {
@@ -197,10 +218,10 @@ public class IteratorFactory {
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator() {
-		return new ChildOrAdjacentIterator<E>();
+		return new ChildOrAdjacentIterator<E>(true);
 	}
-	public static <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int firstIndex) {
-		return new ChildOrAdjacentIterator<E>(firstIndex);
+	public static <E extends IEntity> IEntityIterator<E> childOrAdjacentIterator(int relativeFirstIndex) {
+		return new ChildOrAdjacentIterator<E>(true, relativeFirstIndex);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> descendantOrReachableIterator() {

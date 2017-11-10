@@ -174,6 +174,8 @@ public interface IQueriesVisitor extends IVisitor {
 
     public void visit(VisitorTest entity);
 
+    public void visit(MatchTest entity);
+
     public void visit(ExpressionTest entity);
 
     public void visit(DistinctTest entity);

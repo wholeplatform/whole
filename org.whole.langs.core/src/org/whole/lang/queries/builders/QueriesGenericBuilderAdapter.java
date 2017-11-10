@@ -281,11 +281,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune();
             break;
+            case QueriesEntityDescriptorEnum.AtIndexTest_ord :
+            specificBuilder.AtIndexTest();
+            break;
             case QueriesEntityDescriptorEnum.IndexTest_ord :
             specificBuilder.IndexTest();
             break;
             case QueriesEntityDescriptorEnum.IndexRangeTest_ord :
             specificBuilder.IndexRangeTest();
+            break;
+            case QueriesEntityDescriptorEnum.MatchTest_ord :
+            specificBuilder.MatchTest();
             break;
             case QueriesEntityDescriptorEnum.ExpressionTest_ord :
             specificBuilder.ExpressionTest();
@@ -577,11 +583,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder.Prune_();
             break;
+            case QueriesEntityDescriptorEnum.AtIndexTest_ord :
+            specificBuilder.AtIndexTest_();
+            break;
             case QueriesEntityDescriptorEnum.IndexTest_ord :
             specificBuilder.IndexTest_();
             break;
             case QueriesEntityDescriptorEnum.IndexRangeTest_ord :
             specificBuilder.IndexRangeTest_();
+            break;
+            case QueriesEntityDescriptorEnum.MatchTest_ord :
+            specificBuilder.MatchTest_();
             break;
             case QueriesEntityDescriptorEnum.ExpressionTest_ord :
             specificBuilder.ExpressionTest_();
@@ -873,11 +885,17 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Prune_ord :
             specificBuilder._Prune();
             break;
+            case QueriesEntityDescriptorEnum.AtIndexTest_ord :
+            specificBuilder._AtIndexTest();
+            break;
             case QueriesEntityDescriptorEnum.IndexTest_ord :
             specificBuilder._IndexTest();
             break;
             case QueriesEntityDescriptorEnum.IndexRangeTest_ord :
             specificBuilder._IndexRangeTest();
+            break;
+            case QueriesEntityDescriptorEnum.MatchTest_ord :
+            specificBuilder._MatchTest();
             break;
             case QueriesEntityDescriptorEnum.ExpressionTest_ord :
             specificBuilder._ExpressionTest();
@@ -1143,17 +1161,6 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
         }
     }
 
-    public void wEntity(EntityDescriptor<?> entityDesc, int value) {
-        switch (entityDesc.getOrdinal()) {
-            case QueriesEntityDescriptorEnum.AtIndexTest_ord :
-            specificBuilder.AtIndexTest(value);
-            break;
-            case QueriesEntityDescriptorEnum.IntLiteral_ord :
-            specificBuilder.IntLiteral(value);
-            break;
-        }
-    }
-
     public void wEntity(EntityDescriptor<?> entityDesc, IVisitor value) {
         switch (entityDesc.getOrdinal()) {
             case QueriesEntityDescriptorEnum.VisitorTest_ord :
@@ -1198,6 +1205,14 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
         switch (entityDesc.getOrdinal()) {
             case QueriesEntityDescriptorEnum.FloatLiteral_ord :
             specificBuilder.FloatLiteral(value);
+            break;
+        }
+    }
+
+    public void wEntity(EntityDescriptor<?> entityDesc, int value) {
+        switch (entityDesc.getOrdinal()) {
+            case QueriesEntityDescriptorEnum.IntLiteral_ord :
+            specificBuilder.IntLiteral(value);
             break;
         }
     }

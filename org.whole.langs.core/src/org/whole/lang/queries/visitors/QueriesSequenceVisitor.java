@@ -407,6 +407,11 @@ public class QueriesSequenceVisitor extends AbstractBinaryVisitor<IQueriesVisito
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(MatchTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(ExpressionTest entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

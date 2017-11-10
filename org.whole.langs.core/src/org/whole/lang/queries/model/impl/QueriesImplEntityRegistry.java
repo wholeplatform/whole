@@ -104,6 +104,7 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new IndexTestImpl());
         put(new IndexRangeTestImpl());
         put(new VisitorTestImpl());
+        put(new MatchTestImpl());
         put(new ExpressionTestImpl());
         put(new DistinctTestImpl());
         put(new AndImpl());

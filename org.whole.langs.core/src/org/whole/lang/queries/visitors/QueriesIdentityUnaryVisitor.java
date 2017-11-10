@@ -261,6 +261,9 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(VisitorTest entity) {
     }
 
+    public void visit(MatchTest entity) {
+    }
+
     public void visit(ExpressionTest entity) {
     }
 

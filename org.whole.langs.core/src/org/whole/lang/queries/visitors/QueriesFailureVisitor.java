@@ -326,6 +326,10 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(MatchTest entity) {
+        throw new VisitException();
+    }
+
     public void visit(ExpressionTest entity) {
         throw new VisitException();
     }

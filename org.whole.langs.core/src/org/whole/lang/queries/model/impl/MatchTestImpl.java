@@ -18,27 +18,27 @@
 package org.whole.lang.queries.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.queries.model.AtIndexTest;
+import org.whole.lang.queries.model.MatchTest;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.IntLiteral;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
 /**
  *  @generator Whole
  */
-public class AtIndexTestImpl extends AbstractSimpleEntity implements AtIndexTest {
+public class MatchTestImpl extends AbstractSimpleEntity implements MatchTest {
     private static final long serialVersionUID = 1;
 
-    public EntityDescriptor<AtIndexTest> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.AtIndexTest;
+    public EntityDescriptor<MatchTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.MatchTest;
     }
 
     public int wGetEntityOrd() {
-        return QueriesEntityDescriptorEnum.AtIndexTest_ord;
+        return QueriesEntityDescriptorEnum.MatchTest_ord;
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -48,20 +48,20 @@ public class AtIndexTestImpl extends AbstractSimpleEntity implements AtIndexTest
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private IntLiteral index;
+    private Expression expression;
 
-    public IntLiteral getIndex() {
-        return notifyRequested(QueriesFeatureDescriptorEnum.index, index);
+    public Expression getExpression() {
+        return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setIndex(IntLiteral index) {
-        notifyChanged(QueriesFeatureDescriptorEnum.index, this.index, this.index = index);
+    public void setExpression(Expression expression) {
+        notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
     public IEntity wGet(int index) {
         switch (index) {
             case 0 :
-            return getIndex().wGetAdaptee(false);
+            return getExpression().wGetAdaptee(false);
             default :
             throw new IllegalArgumentException();
         }
@@ -70,7 +70,7 @@ public class AtIndexTestImpl extends AbstractSimpleEntity implements AtIndexTest
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setIndex(value.wGetAdapter(QueriesEntityDescriptorEnum.IntLiteral));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

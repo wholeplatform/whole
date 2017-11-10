@@ -455,7 +455,7 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     @Override
     public void visit(AtIndexTest entity) {
     	out.printRaw("[at ");
-    	int value = entity.getValue();
+    	int value = entity.getIndex().getValue();
     	if (value < 0)
     		out.printRaw("size");
 		out.print(value);
@@ -472,17 +472,27 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     @Override
     public void visit(IndexTest entity) {
     	out.printRaw("[");
-    	out.print(entity.getIndex().getValue());
+    	int value = entity.getIndex().getValue();
+    	if (value < 0)
+    		out.printRaw("size");
+		out.print(value);
     	out.printRaw("]");
     }
     @Override
     public void visit(IndexRangeTest entity) {
     	out.printRaw("[");
-    	out.print(entity.getStartIndex().getValue());
+    	int startValue = entity.getStartIndex().getValue();
+    	if (startValue < 0)
+    		out.printRaw("size");
+		out.print(startValue);
     	out.printRaw("..");
     	IntLiteral endIndex = entity.getEndIndex();
-    	if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IntLiteral, endIndex))
-    		out.print(endIndex.getValue());
+    	if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IntLiteral, endIndex)) {
+        	int endValue = endIndex.getValue();
+        	if (endValue < 0)
+        		out.printRaw("size");
+    		out.print(endValue);
+    	}
     	out.printRaw("]");
     }
     @Override

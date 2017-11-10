@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="152">
+    <models:ModelDeclarations initialCapacity="153">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -552,8 +552,9 @@
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="AdjacentStep"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="DirectStep"/>
+                <models:SimpleName value="ReversibleStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -661,16 +662,18 @@
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="DescendantStep"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="ForwardStep"/>
+                <models:SimpleName value="ReversibleStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="DescendantOrSelfStep"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="ForwardStep"/>
+                <models:SimpleName value="ReversibleStep"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -982,14 +985,21 @@
             </models:Types>
             <models:DataType value="String"/>
         </models:DataEntity>
-        <models:DataEntity>
+        <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="AtIndexTest"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Predicate"/>
             </models:Types>
-            <models:DataType value="int"/>
-        </models:DataEntity>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:SimpleName value="IntLiteral"/>
+                    <models:SimpleName value="index"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="IndexTest"/>
@@ -1036,6 +1046,21 @@
             </models:Types>
             <models:DataType value="org.whole.lang.visitors.IVisitor"/>
         </models:DataEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="MatchTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:Features initialCapacity="1">
+                <models:Feature>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <models:SimpleName value="Expression"/>
+                    <models:SimpleName value="expression"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                </models:Feature>
+            </models:Features>
+        </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="ExpressionTest"/>

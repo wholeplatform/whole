@@ -161,6 +161,10 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
         wGetVisitor1().visit(entity.getPredicate());
     }
 
+    public void visit(AtIndexTest entity) {
+        wGetVisitor1().visit(entity.getIndex());
+    }
+
     public void visit(IndexTest entity) {
         wGetVisitor1().visit(entity.getIndex());
     }
@@ -168,6 +172,10 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
     public void visit(IndexRangeTest entity) {
         wGetVisitor1().visit(entity.getStartIndex());
         wGetVisitor1().visit(entity.getEndIndex());
+    }
+
+    public void visit(MatchTest entity) {
+        wGetVisitor1().visit(entity.getExpression());
     }
 
     public void visit(ExpressionTest entity) {

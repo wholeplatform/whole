@@ -23,12 +23,12 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class ConstantChildIterator<E extends IEntity> extends ChildIterator<E> {
-	protected ConstantChildIterator(IEntity entity) {
-		super();
+	protected ConstantChildIterator(boolean forward, IEntity entity) {
+		super(forward);
 		super.reset(entity);
 	}
-	protected ConstantChildIterator(IEntity entity, int firstIndex) {
-		super(firstIndex);
+	protected ConstantChildIterator(boolean forward, IEntity entity, int relativeFirstIndex) {
+		super(forward, relativeFirstIndex);
 		super.reset(entity);
 	}
 

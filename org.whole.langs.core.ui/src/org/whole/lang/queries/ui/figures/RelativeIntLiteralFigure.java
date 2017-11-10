@@ -17,23 +17,26 @@
  */
 package org.whole.lang.queries.ui.figures;
 
+import org.eclipse.draw2d.IFigure;
 import org.whole.lang.ui.figures.ContentPaneFigure;
-import org.whole.lang.ui.figures.SquareBracketsBorder;
+import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestFigure extends ContentPaneFigure {
-	public AtIndexTestFigure() {
-		this(4);
-	}
-	public AtIndexTestFigure(int spacing) {
-		super(new RowLayout().withSpacing(4));
-		initContentPanes(1);
+public class RelativeIntLiteralFigure extends ContentPaneFigure {
+	private IFigure sizeFigure;
 
-		addKeyword("at");
-		add(createContentPane(0));
-		setBorder(new SquareBracketsBorder(spacing, spacing));
+	public RelativeIntLiteralFigure() {
+		super(new RowLayout());
+		initContentPanes(1);
+		
+		sizeFigure = addKeyword("size");
+		add(createContentPane(0, LabelFactory.createLiteral()));
+	}
+
+	public void showSize(boolean visible) {
+		sizeFigure.setVisible(visible);
 	}
 }

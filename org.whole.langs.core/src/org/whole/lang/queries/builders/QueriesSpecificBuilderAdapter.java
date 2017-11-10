@@ -952,8 +952,12 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         wEntity(QueriesEntityDescriptorEnum.AtIndexTest);
     }
 
-    public void AtIndexTest(int value) {
-        wEntity(QueriesEntityDescriptorEnum.AtIndexTest, value);
+    public void AtIndexTest_() {
+        wEntity_(QueriesEntityDescriptorEnum.AtIndexTest);
+    }
+
+    public void _AtIndexTest() {
+        _wEntity(QueriesEntityDescriptorEnum.AtIndexTest);
     }
 
     public void IndexTest() {
@@ -990,6 +994,18 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void VisitorTest(String value) {
         wEntity(QueriesEntityDescriptorEnum.VisitorTest, value);
+    }
+
+    public void MatchTest() {
+        wEntity(QueriesEntityDescriptorEnum.MatchTest);
+    }
+
+    public void MatchTest_() {
+        wEntity_(QueriesEntityDescriptorEnum.MatchTest);
+    }
+
+    public void _MatchTest() {
+        _wEntity(QueriesEntityDescriptorEnum.MatchTest);
     }
 
     public void ExpressionTest() {

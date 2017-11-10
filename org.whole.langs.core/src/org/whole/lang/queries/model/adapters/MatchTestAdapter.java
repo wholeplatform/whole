@@ -28,14 +28,14 @@ import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class AtIndexTestAdapter extends AbstractEntityAdapter implements AtIndexTest {
+public class MatchTestAdapter extends AbstractEntityAdapter implements MatchTest {
     private static final long serialVersionUID = 1;
 
-    public AtIndexTestAdapter(IEntity implementor) {
+    public MatchTestAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public AtIndexTestAdapter() {
+    public MatchTestAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -43,15 +43,15 @@ public class AtIndexTestAdapter extends AbstractEntityAdapter implements AtIndex
             visitor.visit(this);
     }
 
-    public EntityDescriptor<AtIndexTest> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.AtIndexTest;
+    public EntityDescriptor<MatchTest> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.MatchTest;
     }
 
-    public IntLiteral getIndex() {
-        return wGet(QueriesFeatureDescriptorEnum.index).wGetAdapter(QueriesEntityDescriptorEnum.IntLiteral);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setIndex(IntLiteral index) {
-        wSet(QueriesFeatureDescriptorEnum.index, index);
+    public void setExpression(Expression expression) {
+        wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 }

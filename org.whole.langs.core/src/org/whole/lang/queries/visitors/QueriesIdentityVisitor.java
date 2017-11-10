@@ -252,6 +252,9 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(VisitorTest entity) {
     }
 
+    public void visit(MatchTest entity) {
+    }
+
     public void visit(ExpressionTest entity) {
     }
 

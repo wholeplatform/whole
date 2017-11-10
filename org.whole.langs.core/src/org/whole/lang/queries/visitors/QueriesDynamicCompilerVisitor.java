@@ -34,6 +34,7 @@ import org.whole.lang.commons.visitors.CommonsInterpreterVisitor;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
 import org.whole.lang.comparators.IdentityIteratorComparator;
+import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.iterators.ChooseByTypeIterator;
 import org.whole.lang.iterators.DistinctScope;
@@ -407,13 +408,19 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			
     	if (Matcher.matchImpl(QueriesEntityDescriptorEnum.ChildStep, expression)) {
     		if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IndexTest, predicate)) {
-    			int index = predicate.wGet(0).wIntValue();
-    			setResultIterator(IteratorFactory.featureByIndexIterator(index).withSourceEntity(entity));
+    			int relativeIndex = predicate.wGet(0).wIntValue();
+    			setResultIterator(IteratorFactory.featureByIndexIterator(relativeIndex).withSourceEntity(entity));
     			optimizeIndexTest = true;
     		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.AtIndexTest, predicate)) {
     			int index = predicate.wIntValue();
     			setResultIterator(IteratorFactory.featureByIndexIterator(index).withSourceEntity(entity));
     			optimizeIndexTest = true;
+    		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.IndexRangeTest, predicate)) {
+    			int relativeStartIndex = ((IndexRangeTest) predicate).getStartIndex().getValue();
+    			IntLiteral relativeEndIndexEntity = ((IndexRangeTest) predicate).getEndIndex();
+				int relativeEndIndex = EntityUtils.isResolver(relativeEndIndexEntity) ? -1 : relativeEndIndexEntity.getValue();
+    			setResultIterator(IteratorFactory.childRangeIterator(relativeStartIndex, relativeEndIndex).withSourceEntity(entity));
+    			optimizeIndexTest = true;    			
     		}
     	}
 
@@ -527,8 +534,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	setResultIterator(IteratorFactory.followingSiblingIterator().withSourceEntity(entity));
     }
     @Override
+    public void visit(FollowingSiblingOrSelfStep entity) {
+    	setResultIterator(IteratorFactory.followingSiblingOrSelfIterator().withSourceEntity(entity));
+    }
+    @Override
     public void visit(FollowingStep entity) {
     	setResultIterator(IteratorFactory.followingIterator().withSourceEntity(entity));
+    }
+    @Override
+    public void visit(FollowingOrSelfStep entity) {
+    	setResultIterator(IteratorFactory.followingOrSelfIterator().withSourceEntity(entity));
     }
 
     @Override
@@ -548,8 +563,63 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	setResultIterator(IteratorFactory.precedingSiblingIterator().withSourceEntity(entity));
     }
     @Override
+    public void visit(PrecedingSiblingOrSelfStep entity) {
+    	setResultIterator(IteratorFactory.precedingSiblingOrSelfIterator().withSourceEntity(entity));
+    }
+    @Override
     public void visit(PrecedingStep entity) {
     	setResultIterator(IteratorFactory.precedingIterator().withSourceEntity(entity));
+    }
+    @Override
+    public void visit(PrecedingOrSelfStep entity) {
+    	setResultIterator(IteratorFactory.precedingOrSelfIterator().withSourceEntity(entity));
+    }
+
+    @Override
+    public void visit(Reverse entity) {
+    	ReversibleStep step = entity.getExpression();
+    	
+    	IEntityIterator<?> iterator = null;
+
+    	if (step.wGetLanguageKit().getURI().equals(QueriesLanguageKit.URI)) {
+	    	switch (step.wGetEntityOrd()) {
+	    	case QueriesEntityDescriptorEnum.ChildStep_ord:
+	        	iterator = IteratorFactory.childReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.AdjacentStep_ord:
+	        	iterator = IteratorFactory.adjacentReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.DescendantStep_ord:
+	        	iterator = IteratorFactory.descendantReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.DescendantOrSelfStep_ord:
+	        	iterator = IteratorFactory.descendantOrSelfReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.FollowingSiblingStep_ord:
+	        	iterator = IteratorFactory.followingSiblingReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.FollowingSiblingOrSelfStep_ord:
+	        	iterator = IteratorFactory.followingSiblingOrSelfReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.PrecedingSiblingStep_ord:
+	        	iterator = IteratorFactory.precedingSiblingReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.PrecedingSiblingOrSelfStep_ord:
+	        	iterator = IteratorFactory.precedingSiblingOrSelfReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.AncestorStep_ord:
+	        	iterator = IteratorFactory.ancestorReverseIterator();
+	        	break;
+	    	case QueriesEntityDescriptorEnum.AncestorOrSelfStep_ord:
+	        	iterator = IteratorFactory.ancestorOrSelfReverseIterator();
+	        	break;
+	    	}
+    	}
+
+    	if (iterator != null)
+        	setResultIterator(iterator.withSourceEntity(entity));
+    	else
+    		throw new WholeIllegalArgumentException("Non reversible step").withSourceEntity(entity);
     }
 
     @Override
@@ -1019,6 +1089,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     }
 
     @Override
+    public void visit(MatchTest entity) {
+    	// TODO
+    }
+
+    @Override
     public void visit(ExpressionTest entity) {
     	PathExpression e = entity.getExpression();
 
@@ -1068,7 +1143,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	}
 	@Override
 	public void visit(AtIndexTest entity) {
-		setResultPredicate(GenericMatcherFactory.instance.atIndexMatcher(entity.getValue()).withSourceEntity(entity).withSourceEntity(entity));
+		int index = entity.getIndex().getValue();
+		setResultPredicate(GenericMatcherFactory.instance.atIndexMatcher(index).withSourceEntity(entity).withSourceEntity(entity));
 	}
 
     @Override

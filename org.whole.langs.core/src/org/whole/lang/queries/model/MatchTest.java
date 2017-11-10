@@ -21,6 +21,10 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface AdjacentStep extends IQueriesEntity, DirectStep, ReversibleStep {
+public interface MatchTest extends IQueriesEntity, Predicate {
 
+
+    public Expression getExpression();
+
+    public void setExpression(Expression expression);
 }

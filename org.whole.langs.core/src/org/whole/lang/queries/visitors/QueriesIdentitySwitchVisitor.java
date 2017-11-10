@@ -251,6 +251,9 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.VisitorTest_ord :
             visit((VisitorTest) entity);
             break;
+            case QueriesEntityDescriptorEnum.MatchTest_ord :
+            visit((MatchTest) entity);
+            break;
             case QueriesEntityDescriptorEnum.ExpressionTest_ord :
             visit((ExpressionTest) entity);
             break;

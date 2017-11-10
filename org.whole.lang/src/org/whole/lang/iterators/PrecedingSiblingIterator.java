@@ -23,12 +23,23 @@ import org.whole.lang.util.EntityUtils;
 /**
  * @author Riccardo Solmi
  */
-public class PrecedingSiblingIterator<E extends IEntity> extends ChildReverseIterator<E> {
+public class PrecedingSiblingIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
 	protected boolean includeSelf;
 
-	public PrecedingSiblingIterator(boolean includeSelf) {
+	public PrecedingSiblingIterator(boolean forward, boolean includeSelf) {
+		super(forward);
 		this.includeSelf = includeSelf;
 	}
+
+    @Override
+    protected final int startIndex() {
+    	return 0;
+    }
+	private int endIndex;
+    @Override
+    protected final int endIndex() {
+    	return endIndex;
+    }
 
 	@Override
     public void reset(IEntity entity) {
@@ -37,12 +48,15 @@ public class PrecedingSiblingIterator<E extends IEntity> extends ChildReverseIte
 			super.reset(null);
 			return;
 		}
-		super.reset(entity.wGetParent());
-		nextIndex = entity.wGetParent().wIndexOf(entity) - (includeSelf ? 0 : 1);
+
+		IEntity parentEntity = entity.wGetParent();
+		endIndex = parentEntity.wIndexOf(entity) + (includeSelf ? 0 : -1);
+		super.reset(parentEntity);
 	}
 
     @Override
 	public void toString(StringBuilder sb) {
-		sb.append(includeSelf ? "preceding-siblings-or-self()" : "preceding-siblings()");
+		sb.append(includeSelf ? "preceding-siblings-or-self" : "preceding-siblings");
+		sb.append(forward ? "()" : "-reverse()");
     }
 }

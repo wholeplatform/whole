@@ -596,8 +596,8 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.AtIndexTest);
     }
 
-    public AtIndexTest createAtIndexTest(int value) {
-        return create(QueriesEntityDescriptorEnum.AtIndexTest, value);
+    public AtIndexTest createAtIndexTest(IntLiteral index) {
+        return create(QueriesEntityDescriptorEnum.AtIndexTest, index);
     }
 
     public IndexTest createIndexTest() {
@@ -626,6 +626,14 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public VisitorTest createVisitorTest(org.whole.lang.visitors.IVisitor value) {
         return create(QueriesEntityDescriptorEnum.VisitorTest, (java.lang.Object) value);
+    }
+
+    public MatchTest createMatchTest() {
+        return create(QueriesEntityDescriptorEnum.MatchTest);
+    }
+
+    public MatchTest createMatchTest(Expression expression) {
+        return create(QueriesEntityDescriptorEnum.MatchTest, expression);
     }
 
     public ExpressionTest createExpressionTest() {

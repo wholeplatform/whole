@@ -24,7 +24,7 @@ package org.whole.lang.queries.model;
 public interface AtIndexTest extends IQueriesEntity, Predicate {
 
 
-    public int getValue();
+    public IntLiteral getIndex();
 
-    public void setValue(int value);
+    public void setIndex(IntLiteral index);
 }

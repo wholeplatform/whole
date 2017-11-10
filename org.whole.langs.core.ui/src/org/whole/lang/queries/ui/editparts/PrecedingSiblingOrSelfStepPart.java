@@ -17,27 +17,15 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
-import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.AtIndexTest;
-import org.whole.lang.queries.ui.figures.AtIndexTestFigure;
-import org.whole.lang.ui.editparts.AbstractContentPanePart;
+import org.whole.lang.ui.editparts.AbstractPart;
+import org.whole.lang.ui.figures.LabelFactory;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestPart extends AbstractContentPanePart {
+public class PrecedingSiblingOrSelfStepPart extends AbstractPart {
 	public IFigure createFigure() {
-		return new AtIndexTestFigure();
-	}
-
-	protected List<IEntity> getModelSpecificChildren() {
-		AtIndexTest entity = getModelEntity();
-		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getIndex());
-		return list;
+		return LabelFactory.createRelation("preceding-sibling-or-self");
 	}
 }

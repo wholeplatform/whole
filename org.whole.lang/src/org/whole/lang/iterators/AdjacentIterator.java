@@ -25,11 +25,11 @@ import org.whole.lang.model.IEntity;
  * @author Riccardo Solmi
  */
 public class AdjacentIterator<E extends IEntity> extends AbstractByIndexIterator<E> {
-    protected AdjacentIterator() {
-    	super();
+    protected AdjacentIterator(boolean forward) {
+    	super(forward);
     }
-    protected AdjacentIterator(int firstIndex) {
-        super(firstIndex);
+    protected AdjacentIterator(boolean forward, int relativeFirstIndex) {
+        super(forward, relativeFirstIndex);
     }
     
     @Override
@@ -38,11 +38,12 @@ public class AdjacentIterator<E extends IEntity> extends AbstractByIndexIterator
     }
     @Override
     protected final int endIndex() {
-    	return entity.wAdjacentSize();
+    	return entity.wSize()+entity.wAdjacentSize()-1;
     }
 
     @Override
 	public void toString(StringBuilder sb) {
     	sb.append("adjacent()");
+		sb.append(forward ? "()" : "-reverse()");
     }
 }

@@ -17,16 +17,28 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.function.IntSupplier;
+
 import org.whole.lang.model.IEntity;
 
 /**
  * @author Riccardo Solmi
  */
 public class FeatureByIndexIterator extends SelfIterator<IEntity> {
+	protected IntSupplier indexSupplier;
 	protected int index;
 
-	protected FeatureByIndexIterator(int index) {
-		this.index = index;
+	protected FeatureByIndexIterator(int relativeIndex) {
+		indexSupplier = () -> relativeIndex >= 0 ? relativeIndex : entity.wSize()-1 + relativeIndex+1;
+	}
+	protected FeatureByIndexIterator(IntSupplier indexSupplier) {
+		this.indexSupplier = indexSupplier;
+	}
+
+	@Override
+	public void reset(IEntity entity) {
+		super.reset(entity);
+		index = indexSupplier.getAsInt();
 	}
 
 	public boolean hasNext() {

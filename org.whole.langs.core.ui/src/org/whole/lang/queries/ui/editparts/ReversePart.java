@@ -22,22 +22,22 @@ import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.AtIndexTest;
-import org.whole.lang.queries.ui.figures.AtIndexTestFigure;
+import org.whole.lang.queries.model.Reverse;
+import org.whole.lang.queries.ui.figures.ReverseFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
 /**
  * @author Riccardo Solmi
  */
-public class AtIndexTestPart extends AbstractContentPanePart {
+public class ReversePart extends AbstractContentPanePart {
 	public IFigure createFigure() {
-		return new AtIndexTestFigure();
+		return new ReverseFigure();
 	}
 
 	protected List<IEntity> getModelSpecificChildren() {
-		AtIndexTest entity = getModelEntity();
+		Reverse entity = getModelEntity();
 		List<IEntity> list = new ArrayList<IEntity>(1);
-		list.add(entity.getIndex());
+		list.add(entity.getExpression());
 		return list;
 	}
 }
