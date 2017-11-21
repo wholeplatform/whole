@@ -26,18 +26,18 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.MatchTest;
 import org.whole.lang.queries.ui.figures.ParenthesizedPredicateFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
-import org.whole.lang.ui.figures.DoubleSquareBracketsBorder;
 import org.whole.lang.ui.figures.FigureConstants;
+import org.whole.lang.ui.figures.SquareBracketsBorder;
 
 /**
  * @author Riccardo Solmi
  */
 public class MatchTestPart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
-		IFigure f = new ParenthesizedPredicateFigure(7);
-		f.setBorder(new DoubleSquareBracketsBorder(7, 7)  {
+		IFigure f = new ParenthesizedPredicateFigure();
+		f.setBorder(new SquareBracketsBorder(5, 5)  {
 			protected void setBracketsStyle(Graphics g) {
-				g.setForegroundColor(FigureConstants.relationsColor);
+				g.setForegroundColor(FigureConstants.keywordsColor);
 			}
 		});
 		return f;

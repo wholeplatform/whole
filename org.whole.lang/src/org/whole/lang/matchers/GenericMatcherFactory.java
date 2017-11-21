@@ -1107,18 +1107,55 @@ public class GenericMatcherFactory {
 		};
 	}
 
-	public IVisitor match(final IEntityIterator<?> iterator) {
-		return new MatchVisitor(iterator);
+	public IVisitor matchInScope(final IEntityIterator<?> patternIterator) {
+		return new MatchPatternVisitor(patternIterator);
 	}
-	public static class MatchVisitor extends AbstractVisitor {
+	public static class MatchPatternVisitor extends AbstractVisitor {
+		private IEntityIterator<?> patternIterator;
+
+		public MatchPatternVisitor(IEntityIterator<?> patternIterator) {
+			this.patternIterator = patternIterator;
+		}
+
+		public IVisitor clone(ICloneContext cc) {
+			MatchPatternVisitor visitor = (MatchPatternVisitor) super.clone(cc);
+			visitor.patternIterator = cc.clone(patternIterator);
+			return visitor;
+		}
+
+		public void visit(IEntity entity) {
+			IEntity pattern = BehaviorUtils.evaluate(patternIterator, entity, getBindings());
+
+			if (pattern == null || !Matcher.match(pattern, entity, getBindings()))
+				throw new VisitException();
+		}
+
+		@Override
+		public void setBindings(IBindingManager bm) {
+			super.setBindings(bm);
+			patternIterator.setBindings(bm);
+		}
+
+		public void toString(StringBuilder sb) {
+			sb.append("match(");
+			sb.append(patternIterator);
+			sb.append(")");
+		}
+	}
+
+	@Deprecated
+	public IVisitor matchSome(final IEntityIterator<?> iterator) {
+		return new MatchSomeVisitor(iterator);
+	}
+	public static class MatchSomeVisitor extends AbstractVisitor {
 		private IEntityIterator<?> iterator;
 
-		public MatchVisitor(IEntityIterator<?> iterator) {
+		public MatchSomeVisitor(IEntityIterator<?> iterator) {
 			this.iterator = iterator;
 		}
 
 		public IVisitor clone(ICloneContext cc) {
-			MatchVisitor visitor = (MatchVisitor) super.clone(cc);
+			MatchSomeVisitor visitor = (MatchSomeVisitor) super.clone(cc);
 			visitor.iterator = cc.clone(iterator);
 			return visitor;
 		}

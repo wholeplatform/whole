@@ -17,8 +17,10 @@
  */
 package org.whole.lang.queries.ui.figures;
 
+import org.eclipse.draw2d.Graphics;
 import org.whole.lang.ui.figures.ContentPaneFigure;
 import org.whole.lang.ui.figures.EntityFigure;
+import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.LabelFactory;
 import org.whole.lang.ui.figures.SquareBracketsBorder;
 import org.whole.lang.ui.layout.RowLayout;
@@ -39,10 +41,13 @@ public class QuantifiedPredicateFigure extends ContentPaneFigure {
 		
 		whereClause = new EntityFigure(new RowLayout().withSpacing(2));
 		whereClause.add(LabelFactory.createSymbolRegularContent(":"));
-		whereClause.add(createContentPane(1));
+		whereClause.add(createContentPane(1, new SquareBracketsBorder(4, 5) {
+			@Override
+			protected void setBracketsStyle(Graphics g) {
+				g.setForegroundColor(FigureConstants.contentLighterColor);
+			}
+		}));
 		add(whereClause);
-
-		setBorder(new SquareBracketsBorder(4, 5));
 
 		showWhereClause(this.forceWhereClause = forceWhereClause);
 	}

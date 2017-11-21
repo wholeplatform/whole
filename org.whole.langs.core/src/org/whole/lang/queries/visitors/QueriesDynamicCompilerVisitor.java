@@ -141,6 +141,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	@Override
 	public boolean visitAdapter(IEntityAdapter entity) {
 		IEntity adaptee = entity.wGetAdaptee(false);
+
+		@Deprecated
 		EntityDescriptor<?> adapteeEd = adaptee.wGetEntityDescriptor();
 		if (adapteeEd.getLanguageKit().getURI().equals(CommonsLanguageKit.URI)) {
 			switch (adapteeEd.getOrdinal()) {
@@ -150,25 +152,21 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			case CommonsEntityDescriptorEnum.Variable_ord:
 			case CommonsEntityDescriptorEnum.InlineVariable_ord:
 				throw new MissingVariableException(((Variable) adaptee).getVarName().toString()).withSourceEntity(adaptee).withBindings(getBindings());
-			case CommonsEntityDescriptorEnum.SameStageFragment_ord:
-				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(adaptee));
-				return false;
 			case CommonsEntityDescriptorEnum.RootFragment_ord:
 			case CommonsEntityDescriptorEnum.StageDownFragment_ord:
-				setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(
+				setResultIterator(IteratorFactory.templateInterpreterIterator(
 						GenericEntityFactory.instance.create(
 								CommonsEntityDescriptorEnum.StageDownFragment,
 								EntityUtils.clone(entity))).withSourceEntity(adaptee));
 				return false;
 			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-				if (useTemplateFactorySemantics())
-					setResultIterator(QueriesIteratorFactory.templateInterpreterIterator(adaptee).withSourceEntity(adaptee));
-				else {
+				if (!useTemplateFactorySemantics()) {
+					//TODO replace with MatchTest
 					CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());//TODO test
 					setResultIterator(QueriesIteratorFactory.patternMatcherIterator(
 							getResult()).withSourceEntity(adaptee));
+					return false;
 				}
-				return false;
 			}
 		}
 
@@ -1090,7 +1088,13 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     @Override
     public void visit(MatchTest entity) {
-    	// TODO
+    	Expression e = entity.getExpression();
+    	boolean inheritedSemantics = useInheritedSemantics(false);
+       	boolean outerSemantics = useTemplateFactorySemantics(true);
+		e.accept(this);
+	   	useTemplateFactorySemantics(outerSemantics);
+	   	useInheritedSemantics(inheritedSemantics);
+		setResultPredicate(GenericMatcherFactory.instance.matchInScope(getResultIterator()).withSourceEntity(entity));
     }
 
     @Override
@@ -1120,8 +1124,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
 			setResultPredicate(GenericMatcherFactory.evalTrue(e).withSourceEntity(entity));
 		else {
+			//TODO replace ExpressionTest with Some and remove
 			e.accept(this);
-			setResultPredicate(GenericMatcherFactory.instance.match(getResultIterator()).withSourceEntity(entity));
+			setResultPredicate(GenericMatcherFactory.instance.matchSome(getResultIterator()).withSourceEntity(entity));
 		}
     }
 

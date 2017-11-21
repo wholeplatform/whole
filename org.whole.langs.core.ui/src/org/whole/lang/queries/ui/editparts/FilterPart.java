@@ -80,9 +80,7 @@ public class FilterPart extends AbstractContentPanePart {
 	protected void refreshVisuals() {
 		Filter entity = getModelEntity();
 		boolean hideBorder = Matcher.matchAny(entity.getPredicate(),
-				QueriesEntityDescriptorEnum.Every,
-				QueriesEntityDescriptorEnum.Some,
-				QueriesEntityDescriptorEnum.One,
+				QueriesEntityDescriptorEnum.MatchTest,
 				QueriesEntityDescriptorEnum.VariableTest,
 				QueriesEntityDescriptorEnum.ExpressionTest,
 				QueriesEntityDescriptorEnum.IndexTest,
