@@ -16,40 +16,40 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
     }
 
     private PathExpressionsQueriesTemplateManager() {
-        put("path1", newPath1());
-        put("path1a", newPath1a());
-        put("path1b", newPath1b());
-        put("path1c", newPath1c());
-        put("path1d", newPath1d());
-        put("path2", newPath2());
-        put("path3", newPath3());
-        put("path4", newPath4());
-        put("path5", newPath5());
-        put("path6", newPath6());
-        put("path7", newPath7());
-        put("path8", newPath8());
-        put("pathWithTuple", newPathWithTuple());
-        put("testProduct1", newTestProduct1());
-        put("testProduct2", newTestProduct2());
-        put("testProduct3", newTestProduct3());
-        put("testProduct4", newTestProduct4());
-        put("findProduction", newFindProduction());
-        put("nonTerminalSet", newNonTerminalSet());
-        put("findNonTerminalOccurrences", newFindNonTerminalOccurrences());
-        put("bindNonTerminalOccurrences", newBindNonTerminalOccurrences());
-        put("findAllNonTerminalsUsed", newFindAllNonTerminalsUsed());
-        put("recursiveProduction1", newRecursiveProduction1());
-        put("recursiveProduction2", newRecursiveProduction2());
-        put("recursiveProduction3", newRecursiveProduction3());
-        put("recursiveProduction4", newRecursiveProduction4());
-        put("recursiveProduction5", newRecursiveProduction5());
-        put("recursiveProduction6", newRecursiveProduction6());
-        put("unusedProduction", newUnusedProduction());
-        put("exactlyOneDefUse", newExactlyOneDefUse());
-        put("helperResultAs", newHelperResultAs());
+        put("path1", newpath1());
+        put("path1a", newpath1a());
+        put("path1b", newpath1b());
+        put("path1c", newpath1c());
+        put("path1d", newpath1d());
+        put("path2", newpath2());
+        put("path3", newpath3());
+        put("path4", newpath4());
+        put("path5", newpath5());
+        put("path6", newpath6());
+        put("path7", newpath7());
+        put("path8", newpath8());
+        put("pathWithTuple", newpathWithTuple());
+        put("testProduct1", newtestProduct1());
+        put("testProduct2", newtestProduct2());
+        put("testProduct3", newtestProduct3());
+        put("testProduct4", newtestProduct4());
+        put("findProduction", newfindProduction());
+        put("nonTerminalSet", newnonTerminalSet());
+        put("findNonTerminalOccurrences", newfindNonTerminalOccurrences());
+        put("bindNonTerminalOccurrences", newbindNonTerminalOccurrences());
+        put("findAllNonTerminalsUsed", newfindAllNonTerminalsUsed());
+        put("recursiveProduction1", newrecursiveProduction1());
+        put("recursiveProduction2", newrecursiveProduction2());
+        put("recursiveProduction3", newrecursiveProduction3());
+        put("recursiveProduction4", newrecursiveProduction4());
+        put("recursiveProduction5", newrecursiveProduction5());
+        put("recursiveProduction6", newrecursiveProduction6());
+        put("unusedProduction", newunusedProduction());
+        put("exactlyOneDefUse", newexactlyOneDefUse());
+        put("helperResultAs", newhelperResultAs());
     }
 
-    public ITemplateFactory<IEntity> newPath1() {
+    public ITemplateFactory<IEntity> newpath1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -75,7 +75,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath1a() {
+    public ITemplateFactory<IEntity> newpath1a() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -93,7 +93,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath1b() {
+    public ITemplateFactory<IEntity> newpath1b() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -102,7 +102,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.IndexTest_();
                 b0.IntLiteral(2);
                 b0._IndexTest();
@@ -114,7 +114,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath1c() {
+    public ITemplateFactory<IEntity> newpath1c() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -138,7 +138,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath1d() {
+    public ITemplateFactory<IEntity> newpath1d() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -153,7 +153,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0._Filter();
                 b0.Filter_();
                 b0.FollowingSiblingStep();
-                b0.And_();
+                b0.And_(2);
                 b0.IndexTest_();
                 b0.IntLiteral(2);
                 b0._IndexTest();
@@ -165,7 +165,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath2() {
+    public ITemplateFactory<IEntity> newpath2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -181,7 +181,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.Or_();
+                b0.Or_(2);
                 b0.KindTest("SIMPLE");
                 b0.KindTest("DATA");
                 b0._Or();
@@ -191,7 +191,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath3() {
+    public ITemplateFactory<IEntity> newpath3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -216,7 +216,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath4() {
+    public ITemplateFactory<IEntity> newpath4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -237,7 +237,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath5() {
+    public ITemplateFactory<IEntity> newpath5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -249,14 +249,16 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0._Sequence();
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.SubtypeTest("Production");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("rule");
                 b0.TypeTest("Choose");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -264,7 +266,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath6() {
+    public ITemplateFactory<IEntity> newpath6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -273,14 +275,12 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
-                b0.ExpressionTest_();
                 b0.GreaterOrEquals_();
                 b0.VariableRefStep("index");
                 b0.IntLiteral(2);
                 b0._GreaterOrEquals();
-                b0._ExpressionTest();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -288,7 +288,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newPath7() {
+    public ITemplateFactory<IEntity> newpath7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -302,7 +302,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.grammars.builders.IGrammarsBuilder b2 = (org.whole.lang.grammars.builders.IGrammarsBuilder) op.wGetBuilder(org.whole.lang.grammars.reflect.GrammarsLanguageKit.URI);
@@ -311,14 +311,14 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b2.Name("tag");
                 b2._As();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newPath8() {
+    public ITemplateFactory<IEntity> newpath8() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -332,7 +332,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.grammars.builders.IGrammarsBuilder b2 = (org.whole.lang.grammars.builders.IGrammarsBuilder) op.wGetBuilder(org.whole.lang.grammars.reflect.GrammarsLanguageKit.URI);
@@ -346,14 +346,14 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b1.Resolver();
                 b2._Production();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newPathWithTuple() {
+    public ITemplateFactory<IEntity> newpathWithTuple() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -372,7 +372,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newTestProduct1() {
+    public ITemplateFactory<IEntity> newtestProduct1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -397,7 +397,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newTestProduct2() {
+    public ITemplateFactory<IEntity> newtestProduct2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -406,7 +406,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.VariableTest("prod");
                 b0._And();
@@ -420,7 +420,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newTestProduct3() {
+    public ITemplateFactory<IEntity> newtestProduct3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -453,7 +453,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newTestProduct4() {
+    public ITemplateFactory<IEntity> newtestProduct4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -486,7 +486,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newFindProduction() {
+    public ITemplateFactory<IEntity> newfindProduction() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -498,14 +498,16 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0._Sequence();
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -513,23 +515,26 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newNonTerminalSet() {
+    public ITemplateFactory<IEntity> newnonTerminalSet() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
                 org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
-                b0.DistinctTest();
+                b0.DistinctTest_();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._DistinctTest();
                 b0._And();
                 b0._Filter();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFindNonTerminalOccurrences() {
+    public ITemplateFactory<IEntity> newfindNonTerminalOccurrences() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -549,7 +554,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newBindNonTerminalOccurrences() {
+    public ITemplateFactory<IEntity> newbindNonTerminalOccurrences() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -562,7 +567,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0._Filter();
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("nt");
                 b0._And();
@@ -572,7 +577,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newFindAllNonTerminalsUsed() {
+    public ITemplateFactory<IEntity> newfindAllNonTerminalsUsed() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -581,22 +586,26 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
-                b0.DistinctTest();
+                b0.DistinctTest_();
+                b1.Resolver();
+                b0._DistinctTest();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -604,7 +613,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newRecursiveProduction1() {
+    public ITemplateFactory<IEntity> newrecursiveProduction1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -613,7 +622,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.grammars.builders.IGrammarsBuilder b2 = (org.whole.lang.grammars.builders.IGrammarsBuilder) op.wGetBuilder(org.whole.lang.grammars.reflect.GrammarsLanguageKit.URI);
@@ -627,7 +636,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.Path_(1);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("pname");
                 b0._And();
@@ -637,14 +646,14 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b1.Resolver();
                 b2._Production();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newRecursiveProduction2() {
+    public ITemplateFactory<IEntity> newrecursiveProduction2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -653,27 +662,30 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
-                b0.And_();
-                b0.ExpressionTest_();
+                b0.And_(2);
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Path_(2);
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("pname");
                 b0._And();
                 b0._Filter();
                 b0._Path();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -682,7 +694,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newRecursiveProduction3() {
+    public ITemplateFactory<IEntity> newrecursiveProduction3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -691,43 +703,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
-                b0.TypeTest("Production");
-                b0.ExpressionTest_();
-                b0.CartesianProduct_(2);
-                b0.Filter_();
-                b0.FeatureStep("name");
-                b0.VariableTest("pname");
-                b0._Filter();
-                b0.Path_(2);
-                b0.FeatureStep("rule");
-                b0.Filter_();
-                b0.DescendantOrSelfStep();
-                b0.And_();
-                b0.TypeTest("NonTerminal");
-                b0.VariableTest("pname");
-                b0._And();
-                b0._Filter();
-                b0._Path();
-                b0._CartesianProduct();
-                b0._ExpressionTest();
-                b0._And();
-                b0._Filter();
-                b0._Path();
-            }
-        };
-    }
-
-    public ITemplateFactory<IEntity> newRecursiveProduction4() {
-        return new AbstractTemplateFactory<IEntity>() {
-
-            public void apply(org.whole.lang.builders.IBuilderOperation op) {
-                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
-                b0.Path_(2);
-                b0.FeatureStep("phraseStructure");
-                b0.Filter_();
-                b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.Some_();
                 b0.CartesianProduct_(2);
@@ -739,19 +715,15 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
-                b0.VariableTest("nt");
+                b0.VariableTest("pname");
                 b0._And();
                 b0._Filter();
                 b0._Path();
                 b0._CartesianProduct();
-                b0.ExpressionTest_();
-                b0.PointwiseEquals_();
-                b0.VariableRefStep("pname");
-                b0.VariableRefStep("nt");
-                b0._PointwiseEquals();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
                 b0._Some();
                 b0._And();
                 b0._Filter();
@@ -760,7 +732,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newRecursiveProduction5() {
+    public ITemplateFactory<IEntity> newrecursiveProduction4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -769,8 +741,48 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
-                b0.And_();
+                b0.And_(2);
+                b0.TypeTest("Production");
+                b0.Some_();
+                b0.CartesianProduct_(2);
+                b0.Filter_();
+                b0.FeatureStep("name");
+                b0.VariableTest("pname");
+                b0._Filter();
+                b0.Path_(2);
+                b0.FeatureStep("rule");
+                b0.Filter_();
+                b0.DescendantOrSelfStep();
+                b0.And_(2);
+                b0.TypeTest("NonTerminal");
+                b0.VariableTest("nt");
+                b0._And();
+                b0._Filter();
+                b0._Path();
+                b0._CartesianProduct();
+                b0.PointwiseEquals_();
+                b0.VariableRefStep("pname");
+                b0.VariableRefStep("nt");
+                b0._PointwiseEquals();
+                b0._Some();
+                b0._And();
+                b0._Filter();
+                b0._Path();
+            }
+        };
+    }
+
+    public ITemplateFactory<IEntity> newrecursiveProduction5() {
+        return new AbstractTemplateFactory<IEntity>() {
+
+            public void apply(org.whole.lang.builders.IBuilderOperation op) {
+                org.whole.lang.queries.builders.IQueriesBuilder b0 = (org.whole.lang.queries.builders.IQueriesBuilder) op.wGetBuilder(org.whole.lang.queries.reflect.QueriesLanguageKit.URI);
+                b0.Path_(2);
+                b0.FeatureStep("phraseStructure");
+                b0.Filter_();
+                b0.ChildStep();
+                b0.And_(2);
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.VariableTest("prod");
                 b0._And();
@@ -779,13 +791,12 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("nt");
                 b0._And();
                 b0._Filter();
                 b0._Path();
-                b0.ExpressionTest_();
                 b0.PointwiseEquals_();
                 b0.Path_(2);
                 b0.VariableRefStep("prod");
@@ -793,7 +804,6 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0._Path();
                 b0.VariableRefStep("nt");
                 b0._PointwiseEquals();
-                b0._ExpressionTest();
                 b0._Some();
                 b0._And();
                 b0._Filter();
@@ -802,7 +812,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newRecursiveProduction6() {
+    public ITemplateFactory<IEntity> newrecursiveProduction6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -811,7 +821,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.Some_();
                 b0.CartesianProduct_(2);
@@ -823,19 +833,17 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("nt");
                 b0._And();
                 b0._Filter();
                 b0._Path();
                 b0._CartesianProduct();
-                b0.ExpressionTest_();
                 b0.Equals_();
                 b0.VariableRefStep("pname");
                 b0.VariableRefStep("nt");
                 b0._Equals();
-                b0._ExpressionTest();
                 b0._Some();
                 b0._And();
                 b0._Filter();
@@ -844,7 +852,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newUnusedProduction() {
+    public ITemplateFactory<IEntity> newunusedProduction() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -853,7 +861,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.Every_();
                 b0.CartesianProduct_(2);
@@ -867,19 +875,17 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("rule");
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("nt");
                 b0._And();
                 b0._Filter();
                 b0._Path();
                 b0._CartesianProduct();
-                b0.ExpressionTest_();
                 b0.NotEquals_();
                 b0.VariableRefStep("pname");
                 b0.VariableRefStep("nt");
                 b0._NotEquals();
-                b0._ExpressionTest();
                 b0._Every();
                 b0._And();
                 b0._Filter();
@@ -888,7 +894,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newExactlyOneDefUse() {
+    public ITemplateFactory<IEntity> newexactlyOneDefUse() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -897,7 +903,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.FeatureStep("phraseStructure");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
                 b0.One_();
                 b0.Path_(2);
@@ -905,43 +911,44 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
                 b0.CartesianProduct_(2);
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("Production");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Path_(1);
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
-                b0.And_();
-                b0.And_();
+                b0.And_(2);
+                b0.And_(2);
                 b0.TypeTest("NonTerminal");
                 b0.VariableTest("nt");
                 b0._And();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.ParentStep();
                 b0.Not_();
                 b0.TypeTest("Production");
                 b0._Not();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
                 b0._CartesianProduct();
                 b0._Path();
-                b0.ExpressionTest_();
                 b0.Equals_();
                 b0.VariableRefStep("pname");
                 b0.VariableRefStep("nt");
                 b0._Equals();
-                b0._ExpressionTest();
                 b0._One();
                 b0._And();
                 b0._Filter();
@@ -950,7 +957,7 @@ public class PathExpressionsQueriesTemplateManager extends AbstractTemplateManag
         };
     }
 
-    public ITemplateFactory<IEntity> newHelperResultAs() {
+    public ITemplateFactory<IEntity> newhelperResultAs() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {

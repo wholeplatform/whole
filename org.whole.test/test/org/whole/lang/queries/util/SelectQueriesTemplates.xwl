@@ -128,13 +128,14 @@
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="As"/>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="rule"/>
                                         <queries:And initialCapacity="2">
@@ -142,7 +143,8 @@
                                         <queries:VariableTest value="ftype"/>
                                         </queries:And>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:And>
                         </queries:Filter>
@@ -211,13 +213,14 @@
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="As"/>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="rule"/>
                                         <queries:And initialCapacity="2">
@@ -225,7 +228,8 @@
                                         <queries:VariableTest value="ftype"/>
                                         </queries:And>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:And>
                         </queries:Filter>
@@ -301,18 +305,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ftype"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -347,12 +353,13 @@
                                     <queries:TypeTest value="SimpleEntity"/>
                                     <queries:VariableTest value="entity"/>
                                 </queries:And>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="ename"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -426,18 +433,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ftype"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -469,12 +478,13 @@
                             <queries:ChildStep/>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="SimpleEntity"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="ename"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -577,12 +587,13 @@
                             <queries:ChildStep/>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="SimpleEntity"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="ename"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -662,18 +673,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ftype"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -691,12 +704,13 @@
                             <queries:ChildStep/>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="SimpleEntity"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="ename"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -756,18 +770,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ftype"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="fname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -823,12 +839,13 @@
                             <queries:DescendantOrSelfStep/>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="As"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="rule"/>
                                         <queries:TypeTest value="NonTerminal"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -884,18 +901,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="type"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="name"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -946,18 +965,20 @@
                                         <queries:And initialCapacity="2">
                                         <queries:TypeTest value="Feature"/>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="type"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="name"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:And>
                                         </queries:Filter>
@@ -1009,12 +1030,13 @@
                             <queries:DescendantStep/>
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="SimpleEntity"/>
-                                <queries:ExpressionTest>
+                                <queries:Some>
                                     <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="entityName"/>
                                     </queries:Filter>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver/>
+                                </queries:Some>
                             </queries:And>
                         </queries:Filter>
                     </queries:Path>
@@ -1047,25 +1069,27 @@
                             </commons:Variable>
                         </java:IfStatement>
                     </commons:StageUpFragment>
-                    <commons:StageUpFragment>
-                        <java:IfStatement xmlns:java="http://lang.whole.org/Java">
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Java#Expression"/>
-                                <commons:VarName value="exp"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
-                                <commons:VarName value="trueBody"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Java#Statement"/>
-                                <commons:VarName value="falseBody"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                        </java:IfStatement>
-                    </commons:StageUpFragment>
+                    <queries:MatchTest>
+                        <commons:StageUpFragment>
+                            <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#Expression"/>
+                                    <commons:VarName value="exp"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                    <commons:VarName value="trueBody"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                    <commons:VarName value="falseBody"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                            </java:IfStatement>
+                        </commons:StageUpFragment>
+                    </queries:MatchTest>
                     <commons:Resolver/>
                     <queries:TemplateNames/>
                 </queries:Select>
@@ -1100,29 +1124,31 @@
                             </java:VariableDeclarationFragments>
                         </java:FieldDeclaration>
                     </commons:StageUpFragment>
-                    <queries:Path initialCapacity="2">
+                    <queries:Filter>
                         <queries:DescendantOrSelfStep/>
-                        <commons:StageUpFragment>
-                            <models:Feature xmlns:models="http://lang.whole.org/Models">
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
-                                    <commons:VarName value="_"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                    <commons:VarName value="ftype"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                    <commons:VarName value="fname"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Resolver/>
-                            </models:Feature>
-                        </commons:StageUpFragment>
-                    </queries:Path>
+                        <queries:MatchTest>
+                            <commons:StageUpFragment>
+                                <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
+                                        <commons:VarName value="_"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Resolver/>
+                                </models:Feature>
+                            </commons:StageUpFragment>
+                        </queries:MatchTest>
+                    </queries:Filter>
                     <commons:Resolver/>
                     <queries:TemplateNames/>
                 </queries:Select>
@@ -1157,26 +1183,28 @@
                             </java:VariableDeclarationFragments>
                         </java:FieldDeclaration>
                     </commons:StageUpFragment>
-                    <commons:StageUpFragment>
-                        <models:Feature xmlns:models="http://lang.whole.org/Models">
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
-                                <commons:VarName value="_"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                <commons:VarName value="ftype"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                            <commons:Variable>
-                                <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                <commons:VarName value="fname"/>
-                                <commons:Quantifier value="!"/>
-                            </commons:Variable>
-                            <commons:Resolver/>
-                        </models:Feature>
-                    </commons:StageUpFragment>
+                    <queries:MatchTest>
+                        <commons:StageUpFragment>
+                            <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
+                                    <commons:VarName value="_"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="ftype"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Variable>
+                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                    <commons:VarName value="fname"/>
+                                    <commons:Quantifier value="!"/>
+                                </commons:Variable>
+                                <commons:Resolver/>
+                            </models:Feature>
+                        </commons:StageUpFragment>
+                    </queries:MatchTest>
                     <queries:Filter>
                         <commons:SameStageFragment>
                             <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">
@@ -1235,18 +1263,20 @@
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="Feature"/>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="pname"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ptype"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:And>
                         </queries:Filter>
@@ -1306,6 +1336,7 @@
                                     </commons:Variable>
                                     <java:ExtraDimensions value="0"/>
                                     <commons:Resolver/>
+                                    <commons:Resolver/>
                                 </java:SingleVariableDeclaration>
                             </commons:StageUpFragment>
                             <queries:VariableTest value="param"/>
@@ -1343,18 +1374,20 @@
                             <queries:And initialCapacity="2">
                                 <queries:TypeTest value="Feature"/>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="pname"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ptype"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:And>
                         </queries:Filter>
@@ -1401,12 +1434,13 @@
                         <queries:DescendantOrSelfStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="SimpleEntity"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="entityName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <queries:Sequence initialCapacity="2">
@@ -1502,18 +1536,20 @@
                                 <queries:Filter>
                                     <queries:ChildStep/>
                                     <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="pname"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="type"/>
                                         <queries:VariableTest value="ptype"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </queries:Filter>
                             </queries:Path>
@@ -1581,12 +1617,13 @@
                         <queries:DescendantOrSelfStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="SimpleEntity"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="fromName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <queries:Sequence initialCapacity="4">
@@ -1733,24 +1770,26 @@
                         </commons:StageUpFragment>
                         <queries:Filter>
                             <queries:SelfStep/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="selectName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:Filter>
                     </queries:Tuple>
                     <queries:Filter>
                         <queries:DescendantOrSelfStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="SimpleEntity"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="fromName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <queries:Sequence initialCapacity="3">
@@ -1841,12 +1880,13 @@
                                 <queries:FeatureStep value="features"/>
                                 <queries:Filter>
                                     <queries:ChildStep/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="featureName"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:Filter>
                             </queries:Path>
                             <queries:Filter>
@@ -1921,12 +1961,13 @@
                         <queries:DescendantOrSelfStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="SimpleEntity"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="fromName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <queries:Filter>
@@ -1976,12 +2017,13 @@
                         <queries:DescendantOrSelfStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="SimpleEntity"/>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:FeatureStep value="name"/>
                                     <queries:VariableTest value="fromName"/>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver/>
+                            </queries:Some>
                         </queries:And>
                     </queries:Filter>
                     <commons:Resolver/>
@@ -2020,9 +2062,7 @@
                     </commons:StageUpFragment>
                     <queries:StringLiteral value=""/>
                     <queries:If>
-                        <queries:ExpressionTest>
-                            <queries:BooleanLiteral value="false"/>
-                        </queries:ExpressionTest>
+                        <queries:BooleanLiteral value="false"/>
                         <queries:Sequence initialCapacity="4">
                             <queries:Filter>
                                 <queries:VoidLiteral/>
@@ -2039,7 +2079,7 @@
                             </queries:QueryDeclaration>
                             <queries:Filter>
                                 <queries:SelfStep/>
-                                <queries:ExpressionTest>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment>
                                         <text:Document xmlns:text="http://lang.whole.org/Text" initialCapacity="1">
                                         <text:Row initialCapacity="1">
@@ -2051,7 +2091,7 @@
                                         </text:Row>
                                         </text:Document>
                                     </commons:StageUpFragment>
-                                </queries:ExpressionTest>
+                                </queries:MatchTest>
                             </queries:Filter>
                         </queries:Sequence>
                     </queries:If>

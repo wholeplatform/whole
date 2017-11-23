@@ -373,7 +373,6 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0.Path_(2);
         b0.Choose_(2);
         b0.If_();
-        b0.ExpressionTest_();
         b0.Singleton_();
         b0.Path_(2);
         b0.VariableRefStep("names");
@@ -385,7 +384,6 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0._Call();
         b0._Path();
         b0._Singleton();
-        b0._ExpressionTest();
         b0.VariableRefStep("collisions");
         b0._If();
         b0.Do_();
@@ -415,7 +413,6 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0.SelfStep();
         b0.Choose_(2);
         b0.If_();
-        b0.ExpressionTest_();
         b0.Singleton_();
         b0.Path_(2);
         b0.VariableRefStep("collisions");
@@ -427,7 +424,6 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0._Call();
         b0._Path();
         b0._Singleton();
-        b0._ExpressionTest();
         b0.Path_(2);
         b0.VariableRefStep("fng");
         b0.Call_();
@@ -596,12 +592,13 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0.FeatureStep("tables");
         b0.Filter_();
         b0.ChildStep();
-        b0.ExpressionTest_();
+        b0.Some_();
         b0.Filter_();
         b0.FeatureStep("name");
         b0.VariableTest("tableName");
         b0._Filter();
-        b0._ExpressionTest();
+        b1.Resolver();
+        b0._Some();
         b0._Filter();
         b0.Sequence_(3);
         b0.Filter_();
@@ -783,7 +780,7 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0.Filter_();
         b0.ChildStep();
         b0.And_(2);
-        b0.ExpressionTest_();
+        b0.Some_();
         b0.Filter_();
         b0.Call_();
         b0.Name("fngCreate");
@@ -793,13 +790,15 @@ public class CompleteRDBEntityMappingQuery extends AbstractTemplateFactory<org.w
         b0._Call();
         b0.VariableTest("fng");
         b0._Filter();
-        b0._ExpressionTest();
-        b0.ExpressionTest_();
+        b1.Resolver();
+        b0._Some();
+        b0.Some_();
         b0.Filter_();
         b0.FeatureStep("name");
         b0.VariableTest("schemaName");
         b0._Filter();
-        b0._ExpressionTest();
+        b1.Resolver();
+        b0._Some();
         b0._And();
         b0._Filter();
         b0.Filter_();

@@ -16,34 +16,34 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
     }
 
     private SelectQueriesTemplateManager() {
-        put("selectPath1", newSelectPath1());
-        put("selectPath2", newSelectPath2());
-        put("selectNonTerminalSet", newSelectNonTerminalSet());
-        put("selectTuple1", newSelectTuple1());
-        put("selectTemplate1", newSelectTemplate1());
-        put("selectTupleWithTemplates", newSelectTupleWithTemplates());
-        put("selectTemplateWithNestedQuery", newSelectTemplateWithNestedQuery());
-        put("selectTemplateWithNestedRelativeQuery", newSelectTemplateWithNestedRelativeQuery());
-        put("selectTemplateWithNestedEmptyQuery", newSelectTemplateWithNestedEmptyQuery());
-        put("selectTemplateWithJavaHelpers", newSelectTemplateWithJavaHelpers());
-        put("selectTemplateWithFreeVariable", newSelectTemplateWithFreeVariable());
-        put("selectTemplateWithTwoNestedSimpleQueries", newSelectTemplateWithTwoNestedSimpleQueries());
-        put("selectTemplateWithTwoNestedSelectQueries", newSelectTemplateWithTwoNestedSelectQueries());
-        put("selectHelperResultAs", newSelectHelperResultAs());
-        put("selectTemplateFromPattern", newSelectTemplateFromPattern());
-        put("selectTemplateFromPathWithPattern", newSelectTemplateFromPathWithPattern());
-        put("selectTemplateFromPatternWithWhere", newSelectTemplateFromPatternWithWhere());
-        put("selectTemplateAs", newSelectTemplateAs());
-        put("selectTupleOfTemplatesAs", newSelectTupleOfTemplatesAs());
-        put("selectTemplateFromWhere", newSelectTemplateFromWhere());
-        put("selectVariableScopes", newSelectVariableScopes());
-        put("selectBindingScopes", newSelectBindingScopes());
-        put("selectBindingScopes2", newSelectBindingScopes2());
-        put("selectBindingScopes3", newSelectBindingScopes3());
-        put("selectDeclaredNamesBinding", newSelectDeclaredNamesBinding());
+        put("selectPath1", newselectPath1());
+        put("selectPath2", newselectPath2());
+        put("selectNonTerminalSet", newselectNonTerminalSet());
+        put("selectTuple1", newselectTuple1());
+        put("selectTemplate1", newselectTemplate1());
+        put("selectTupleWithTemplates", newselectTupleWithTemplates());
+        put("selectTemplateWithNestedQuery", newselectTemplateWithNestedQuery());
+        put("selectTemplateWithNestedRelativeQuery", newselectTemplateWithNestedRelativeQuery());
+        put("selectTemplateWithNestedEmptyQuery", newselectTemplateWithNestedEmptyQuery());
+        put("selectTemplateWithJavaHelpers", newselectTemplateWithJavaHelpers());
+        put("selectTemplateWithFreeVariable", newselectTemplateWithFreeVariable());
+        put("selectTemplateWithTwoNestedSimpleQueries", newselectTemplateWithTwoNestedSimpleQueries());
+        put("selectTemplateWithTwoNestedSelectQueries", newselectTemplateWithTwoNestedSelectQueries());
+        put("selectHelperResultAs", newselectHelperResultAs());
+        put("selectTemplateFromPattern", newselectTemplateFromPattern());
+        put("selectTemplateFromPathWithPattern", newselectTemplateFromPathWithPattern());
+        put("selectTemplateFromPatternWithWhere", newselectTemplateFromPatternWithWhere());
+        put("selectTemplateAs", newselectTemplateAs());
+        put("selectTupleOfTemplatesAs", newselectTupleOfTemplatesAs());
+        put("selectTemplateFromWhere", newselectTemplateFromWhere());
+        put("selectVariableScopes", newselectVariableScopes());
+        put("selectBindingScopes", newselectBindingScopes());
+        put("selectBindingScopes2", newselectBindingScopes2());
+        put("selectBindingScopes3", newselectBindingScopes3());
+        put("selectDeclaredNamesBinding", newselectDeclaredNamesBinding());
     }
 
-    public ITemplateFactory<IEntity> newSelectPath1() {
+    public ITemplateFactory<IEntity> newselectPath1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -65,7 +65,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectPath2() {
+    public ITemplateFactory<IEntity> newselectPath2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -93,7 +93,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectNonTerminalSet() {
+    public ITemplateFactory<IEntity> newselectNonTerminalSet() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -117,7 +117,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTuple1() {
+    public ITemplateFactory<IEntity> newselectTuple1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -150,7 +150,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplate1() {
+    public ITemplateFactory<IEntity> newselectTemplate1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -189,13 +189,14 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("As");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("rule");
                 b0.And_(2);
@@ -203,7 +204,8 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.VariableTest("ftype");
                 b0._And();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -215,7 +217,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTupleWithTemplates() {
+    public ITemplateFactory<IEntity> newselectTupleWithTemplates() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -279,13 +281,14 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("As");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("rule");
                 b0.And_(2);
@@ -293,7 +296,8 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.VariableTest("ftype");
                 b0._And();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -305,7 +309,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithNestedQuery() {
+    public ITemplateFactory<IEntity> newselectTemplateWithNestedQuery() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -374,18 +378,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ftype");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -420,12 +426,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.TypeTest("SimpleEntity");
                 b0.VariableTest("entity");
                 b0._And();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("ename");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -436,7 +443,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithNestedRelativeQuery() {
+    public ITemplateFactory<IEntity> newselectTemplateWithNestedRelativeQuery() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -504,18 +511,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ftype");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -547,12 +556,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.ChildStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("ename");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -563,7 +573,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithNestedEmptyQuery() {
+    public ITemplateFactory<IEntity> newselectTemplateWithNestedEmptyQuery() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -660,12 +670,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.ChildStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("ename");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -676,7 +687,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithJavaHelpers() {
+    public ITemplateFactory<IEntity> newselectTemplateWithJavaHelpers() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -753,18 +764,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ftype");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -782,12 +795,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.ChildStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("ename");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -798,7 +812,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithFreeVariable() {
+    public ITemplateFactory<IEntity> newselectTemplateWithFreeVariable() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -852,18 +866,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ftype");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fname");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -894,7 +910,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithTwoNestedSimpleQueries() {
+    public ITemplateFactory<IEntity> newselectTemplateWithTwoNestedSimpleQueries() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -925,12 +941,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("As");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("rule");
                 b0.TypeTest("NonTerminal");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -941,7 +958,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateWithTwoNestedSelectQueries() {
+    public ITemplateFactory<IEntity> newselectTemplateWithTwoNestedSelectQueries() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -991,18 +1008,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("type");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1055,18 +1074,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("type");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1094,7 +1115,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectHelperResultAs() {
+    public ITemplateFactory<IEntity> newselectHelperResultAs() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1123,12 +1144,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("entityName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -1139,7 +1161,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateFromPattern() {
+    public ITemplateFactory<IEntity> newselectTemplateFromPattern() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1166,6 +1188,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b2._IfStatement();
                 b1._StageUpFragment();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 b2.IfStatement_();
                 b1.Variable_();
@@ -1185,6 +1208,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b2._IfStatement();
                 b1._StageUpFragment();
+                b0._MatchTest();
                 b1.Resolver();
                 b0.TemplateNames();
                 b0._Select();
@@ -1192,7 +1216,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateFromPathWithPattern() {
+    public ITemplateFactory<IEntity> newselectTemplateFromPathWithPattern() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1224,8 +1248,9 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b2._VariableDeclarationFragments();
                 b2._FieldDeclaration();
                 b1._StageUpFragment();
-                b0.Path_(2);
+                b0.Filter_();
                 b0.DescendantOrSelfStep();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b3 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b3.Feature_();
@@ -1247,7 +1272,8 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1.Resolver();
                 b3._Feature();
                 b1._StageUpFragment();
-                b0._Path();
+                b0._MatchTest();
+                b0._Filter();
                 b1.Resolver();
                 b0.TemplateNames();
                 b0._Select();
@@ -1255,7 +1281,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateFromPatternWithWhere() {
+    public ITemplateFactory<IEntity> newselectTemplateFromPatternWithWhere() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1287,6 +1313,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b2._VariableDeclarationFragments();
                 b2._FieldDeclaration();
                 b1._StageUpFragment();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b3 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b3.Feature_();
@@ -1308,6 +1335,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1.Resolver();
                 b3._Feature();
                 b1._StageUpFragment();
+                b0._MatchTest();
                 b0.Filter_();
                 b1.SameStageFragment_();
                 b2.MethodInvocation_();
@@ -1327,7 +1355,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateAs() {
+    public ITemplateFactory<IEntity> newselectTemplateAs() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1371,18 +1399,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ptype");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1394,7 +1424,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTupleOfTemplatesAs() {
+    public ITemplateFactory<IEntity> newselectTupleOfTemplatesAs() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1447,6 +1477,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b2.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b2._SingleVariableDeclaration();
                 b1._StageUpFragment();
                 b0.VariableTest("param");
@@ -1484,18 +1515,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Feature");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ptype");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1507,7 +1540,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectTemplateFromWhere() {
+    public ITemplateFactory<IEntity> newselectTemplateFromWhere() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1547,12 +1580,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("entityName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Sequence_(2);
@@ -1649,18 +1683,20 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.Filter_();
                 b0.ChildStep();
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("type");
                 b0.VariableTest("ptype");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -1674,7 +1710,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectVariableScopes() {
+    public ITemplateFactory<IEntity> newselectVariableScopes() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1733,12 +1769,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fromName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Sequence_(4);
@@ -1814,7 +1851,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectBindingScopes() {
+    public ITemplateFactory<IEntity> newselectBindingScopes() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1890,24 +1927,26 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("selectName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Tuple();
                 b0.Filter_();
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fromName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Sequence_(3);
@@ -1999,12 +2038,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.FeatureStep("features");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("featureName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
                 b0.Filter_();
@@ -2043,7 +2083,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectBindingScopes2() {
+    public ITemplateFactory<IEntity> newselectBindingScopes2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -2084,12 +2124,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fromName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
@@ -2110,7 +2151,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectBindingScopes3() {
+    public ITemplateFactory<IEntity> newselectBindingScopes3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -2145,12 +2186,13 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0.DescendantOrSelfStep();
                 b0.And_(2);
                 b0.TypeTest("SimpleEntity");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("fromName");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b1.Resolver();
@@ -2160,7 +2202,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newSelectDeclaredNamesBinding() {
+    public ITemplateFactory<IEntity> newselectDeclaredNamesBinding() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -2194,9 +2236,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0.StringLiteral("");
                 b0.If_();
-                b0.ExpressionTest_();
                 b0.BooleanLiteral(false);
-                b0._ExpressionTest();
                 b0.Sequence_(4);
                 b0.Filter_();
                 b0.VoidLiteral();
@@ -2213,7 +2253,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b0._QueryDeclaration();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 b2.Document_(1);
                 b2.Row_(1);
@@ -2225,7 +2265,7 @@ public class SelectQueriesTemplateManager extends AbstractTemplateManager {
                 b2._Row();
                 b2._Document();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Sequence();
                 b0._If();

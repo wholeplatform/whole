@@ -200,12 +200,10 @@
                         <queries:ChildStep/>
                         <queries:And initialCapacity="2">
                             <queries:TypeTest value="Production"/>
-                            <queries:ExpressionTest>
-                                <queries:GreaterOrEquals>
-                                    <queries:VariableRefStep value="index"/>
-                                    <queries:IntLiteral value="2"/>
-                                </queries:GreaterOrEquals>
-                            </queries:ExpressionTest>
+                            <queries:GreaterOrEquals>
+                                <queries:VariableRefStep value="index"/>
+                                <queries:IntLiteral value="2"/>
+                            </queries:GreaterOrEquals>
                         </queries:And>
                     </queries:Filter>
                 </queries:Path>
@@ -621,12 +619,10 @@
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianProduct>
-                                <queries:ExpressionTest>
-                                    <queries:PointwiseEquals>
-                                        <queries:VariableRefStep value="pname"/>
-                                        <queries:VariableRefStep value="nt"/>
-                                    </queries:PointwiseEquals>
-                                </queries:ExpressionTest>
+                                <queries:PointwiseEquals>
+                                    <queries:VariableRefStep value="pname"/>
+                                    <queries:VariableRefStep value="nt"/>
+                                </queries:PointwiseEquals>
                             </queries:Some>
                         </queries:And>
                     </queries:Filter>
@@ -657,15 +653,13 @@
                                         </queries:And>
                                     </queries:Filter>
                                 </queries:Path>
-                                <queries:ExpressionTest>
-                                    <queries:PointwiseEquals>
-                                        <queries:Path initialCapacity="2">
+                                <queries:PointwiseEquals>
+                                    <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="prod"/>
                                         <queries:FeatureStep value="name"/>
-                                        </queries:Path>
-                                        <queries:VariableRefStep value="nt"/>
-                                    </queries:PointwiseEquals>
-                                </queries:ExpressionTest>
+                                    </queries:Path>
+                                    <queries:VariableRefStep value="nt"/>
+                                </queries:PointwiseEquals>
                             </queries:Some>
                         </queries:And>
                     </queries:Filter>
@@ -699,12 +693,10 @@
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianProduct>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="pname"/>
-                                        <queries:VariableRefStep value="nt"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="pname"/>
+                                    <queries:VariableRefStep value="nt"/>
+                                </queries:Equals>
                             </queries:Some>
                         </queries:And>
                     </queries:Filter>
@@ -740,12 +732,10 @@
                                         </queries:Filter>
                                     </queries:Path>
                                 </queries:CartesianProduct>
-                                <queries:ExpressionTest>
-                                    <queries:NotEquals>
-                                        <queries:VariableRefStep value="pname"/>
-                                        <queries:VariableRefStep value="nt"/>
-                                    </queries:NotEquals>
-                                </queries:ExpressionTest>
+                                <queries:NotEquals>
+                                    <queries:VariableRefStep value="pname"/>
+                                    <queries:VariableRefStep value="nt"/>
+                                </queries:NotEquals>
                             </queries:Every>
                         </queries:And>
                     </queries:Filter>
@@ -799,12 +789,10 @@
                                         </queries:Path>
                                     </queries:CartesianProduct>
                                 </queries:Path>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="pname"/>
-                                        <queries:VariableRefStep value="nt"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="pname"/>
+                                    <queries:VariableRefStep value="nt"/>
+                                </queries:Equals>
                             </queries:One>
                         </queries:And>
                     </queries:Filter>

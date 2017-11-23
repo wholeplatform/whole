@@ -124,7 +124,7 @@ public class PathExpressionsQueriesTest {
 				(PathExpression) tm.create("path3")));		
 		Assert.assertEquals("phraseStructure/child()[type() <: Production]/rule/descendant()[type() <: Production]", toPrettyPrintString(
 				(PathExpression) tm.create("path4")));		
-		Assert.assertEquals("(phraseStructure, lexicalStructure)/child()[type() <: Production][rule[type() = Choose]]", toPrettyPrintString(
+		Assert.assertEquals("(phraseStructure, lexicalStructure)/child()[type() <: Production][some rule[type() = Choose] satisfies ]", toPrettyPrintString(
 				(PathExpression) tm.create("path5")));		
 		Assert.assertEquals("phraseStructure/child()[type() = Production][name[visitor: startsWith(\"I\")]]", toPrettyPrintString(buildPath9(ef)));		
 	}

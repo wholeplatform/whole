@@ -16,19 +16,20 @@
                     </queries:Filter>
                     <queries:Filter>
                         <queries:SelfStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Path initialCapacity="2">
                                 <queries:FeatureStep value="modifiers"/>
                                 <queries:Filter>
                                     <queries:ChildStep/>
-                                    <queries:ExpressionTest>
+                                    <queries:MatchTest>
                                         <commons:StageUpFragment>
                                         <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
                                         </commons:StageUpFragment>
-                                    </queries:ExpressionTest>
+                                    </queries:MatchTest>
                                 </queries:Filter>
                             </queries:Path>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -47,23 +48,25 @@
                     </queries:Filter>
                     <queries:Filter>
                         <queries:SelfStep/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Path initialCapacity="1">
                                 <queries:Filter>
                                     <queries:FeatureStep value="modifiers"/>
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:ChildStep/>
-                                        <queries:ExpressionTest>
+                                        <queries:MatchTest>
                                         <commons:StageUpFragment>
                                         <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
                                         </commons:StageUpFragment>
-                                        </queries:ExpressionTest>
+                                        </queries:MatchTest>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:Filter>
                             </queries:Path>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -82,16 +85,17 @@
                     </queries:Filter>
                     <queries:Filter>
                         <queries:FeatureStep value="modifiers"/>
-                        <queries:ExpressionTest>
+                        <queries:Some>
                             <queries:Filter>
                                 <queries:ChildStep/>
-                                <queries:ExpressionTest>
+                                <queries:MatchTest>
                                     <commons:StageUpFragment>
                                         <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
                                     </commons:StageUpFragment>
-                                </queries:ExpressionTest>
+                                </queries:MatchTest>
                             </queries:Filter>
-                        </queries:ExpressionTest>
+                            <commons:Resolver/>
+                        </queries:Some>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -110,11 +114,11 @@
                     </queries:Filter>
                     <queries:Filter>
                         <queries:DescendantStep/>
-                        <queries:ExpressionTest>
+                        <queries:MatchTest>
                             <commons:StageUpFragment>
                                 <java:Modifier xmlns:java="http://lang.whole.org/Java" value="public"/>
                             </commons:StageUpFragment>
-                        </queries:ExpressionTest>
+                        </queries:MatchTest>
                     </queries:Filter>
                 </queries:Path>
             </commons:StageUpFragment>
@@ -230,6 +234,7 @@
                                         <java:SimpleName value="entity"/>
                                         <java:ExtraDimensions value="0"/>
                                         <commons:Resolver/>
+                                        <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                     </java:Parameters>
                                     <commons:Resolver/>
@@ -280,6 +285,7 @@
                                         <java:SimpleName value="entity"/>
                                         <java:ExtraDimensions value="0"/>
                                         <commons:Resolver/>
+                                        <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
                                         <commons:Resolver/>
@@ -329,6 +335,7 @@
                                         <java:Varargs value="false"/>
                                         <java:SimpleName value="entity"/>
                                         <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
                                         <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
@@ -405,6 +412,7 @@
                                         <java:SimpleName value="entity"/>
                                         <java:ExtraDimensions value="0"/>
                                         <commons:Resolver/>
+                                        <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                     </java:Parameters>
                                     <commons:Resolver/>
@@ -440,6 +448,7 @@
                                         <java:Varargs value="false"/>
                                         <java:SimpleName value="e"/>
                                         <java:ExtraDimensions value="0"/>
+                                        <commons:Resolver/>
                                         <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         <java:Block initialCapacity="1">

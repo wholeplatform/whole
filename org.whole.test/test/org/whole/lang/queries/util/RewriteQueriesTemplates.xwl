@@ -274,18 +274,20 @@
                                 <queries:And initialCapacity="2">
                                     <queries:TypeTest value="DataEntity"/>
                                     <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="oldName"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="types"/>
                                         <queries:VariableTest value="types"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                        </queries:Some>
                                     </queries:And>
                                 </queries:And>
                             </queries:Filter>
@@ -340,18 +342,20 @@
                             <queries:Filter>
                                 <queries:SelfStep/>
                                 <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="name"/>
                                         <queries:VariableTest value="oldName"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
-                                    <queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
+                                    <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="types"/>
                                         <queries:VariableTest value="types"/>
                                         </queries:Filter>
-                                    </queries:ExpressionTest>
+                                        <commons:Resolver/>
+                                    </queries:Some>
                                 </queries:And>
                             </queries:Filter>
                             <queries:Filter>

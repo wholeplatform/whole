@@ -16,14 +16,14 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
     }
 
     private BindVariablesInPathTemplateManager() {
-        put("findClassDeclarationsBAD2", newFindClassDeclarationsBAD2());
-        put("findClassDeclarationsOK1", newFindClassDeclarationsOK1());
-        put("findClassDeclarationsBAD1", newFindClassDeclarationsBAD1());
-        put("findClassDeclarationsOK2", newFindClassDeclarationsOK2());
-        put("compilationUnit", newCompilationUnit());
+        put("findClassDeclarationsBAD2", newfindClassDeclarationsBAD2());
+        put("findClassDeclarationsOK1", newfindClassDeclarationsOK1());
+        put("findClassDeclarationsBAD1", newfindClassDeclarationsBAD1());
+        put("findClassDeclarationsOK2", newfindClassDeclarationsOK2());
+        put("compilationUnit", newcompilationUnit());
     }
 
-    public ITemplateFactory<IEntity> newFindClassDeclarationsBAD2() {
+    public ITemplateFactory<IEntity> newfindClassDeclarationsBAD2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -31,35 +31,36 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.Path_(2);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("MethodDeclaration");
                 b0.VariableTest("methodDeclaration");
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Path_(2);
                 b0.FeatureStep("modifiers");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b2.Modifier("public");
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFindClassDeclarationsOK1() {
+    public ITemplateFactory<IEntity> newfindClassDeclarationsOK1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -67,39 +68,41 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.Path_(2);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("MethodDeclaration");
                 b0.VariableTest("methodDeclaration");
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Path_(1);
                 b0.Filter_();
                 b0.FeatureStep("modifiers");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b2.Modifier("public");
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFindClassDeclarationsBAD1() {
+    public ITemplateFactory<IEntity> newfindClassDeclarationsBAD1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -107,32 +110,33 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.Path_(2);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("MethodDeclaration");
                 b0.VariableTest("methodDeclaration");
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
                 b0.FeatureStep("modifiers");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b2.Modifier("public");
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newFindClassDeclarationsOK2() {
+    public ITemplateFactory<IEntity> newfindClassDeclarationsOK2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -140,27 +144,27 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.Path_(2);
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("MethodDeclaration");
                 b0.VariableTest("methodDeclaration");
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
                 b0.DescendantStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b2.Modifier("public");
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newCompilationUnit() {
+    public ITemplateFactory<IEntity> newcompilationUnit() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -236,7 +240,8 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0._ExtendedModifiers();
                 b1.Resolver();
                 b0.SimpleName("CheckPaternityVisitor");
-                b0.Parameters();
+                b0.Parameters_(0);
+                b0._Parameters();
                 b1.Resolver();
                 b1.Resolver();
                 b0.Block_(1);
@@ -246,9 +251,11 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.AssignmentOperator("=");
                 b0.MethodInvocation_();
                 b0.QualifiedName("BindingManagerFactory.instance");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("createBindingManager");
-                b0.Arguments();
+                b0.Arguments_(0);
+                b0._Arguments();
                 b0._MethodInvocation();
                 b0._Assignment();
                 b0._ExpressionStatement();
@@ -273,6 +280,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.SimpleName("entity");
                 b0.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b0._SingleVariableDeclaration();
                 b0._Parameters();
                 b1.Resolver();
@@ -281,15 +289,18 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.ExpressionStatement_();
                 b0.MethodInvocation_();
                 b0.SimpleName("bm");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wDef");
                 b0.Arguments_(2);
                 b0.StringLiteral("parent");
                 b0.MethodInvocation_();
                 b0.SimpleName("entity");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wGetParent");
-                b0.Arguments();
+                b0.Arguments_(0);
+                b0._Arguments();
                 b0._MethodInvocation();
                 b0._Arguments();
                 b0._MethodInvocation();
@@ -298,7 +309,8 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.MethodInvocation_();
                 b0.MethodInvocation_();
                 b0.QualifiedName("GenericTraversalFactory.instance");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("downUp");
                 b0.Arguments_(2);
                 b0.ClassInstanceCreation_();
@@ -323,6 +335,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.SimpleName("entity");
                 b0.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b0._SingleVariableDeclaration();
                 b0._Parameters();
                 b1.Resolver();
@@ -331,15 +344,18 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.ExpressionStatement_();
                 b0.MethodInvocation_();
                 b0.SimpleName("bm");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wEnterScope");
-                b0.Arguments();
+                b0.Arguments_(0);
+                b0._Arguments();
                 b0._MethodInvocation();
                 b0._ExpressionStatement();
                 b0.ExpressionStatement_();
                 b0.MethodInvocation_();
                 b0.SimpleName("bm");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wDef");
                 b0.Arguments_(2);
                 b0.StringLiteral("parent");
@@ -373,6 +389,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.SimpleName("entity");
                 b0.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b0._SingleVariableDeclaration();
                 b0._Parameters();
                 b1.Resolver();
@@ -381,16 +398,19 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.ExpressionStatement_();
                 b0.MethodInvocation_();
                 b0.SimpleName("bm");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wExitScope");
-                b0.Arguments();
+                b0.Arguments_(0);
+                b0._Arguments();
                 b0._MethodInvocation();
                 b0._ExpressionStatement();
                 b0.IfStatement_();
                 b0.InfixExpression_();
                 b0.MethodInvocation_();
                 b0.SimpleName("bm");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wGet");
                 b0.Arguments_(1);
                 b0.StringLiteral("parent");
@@ -399,11 +419,14 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.InfixOperator("!=");
                 b0.MethodInvocation_();
                 b0.SimpleName("entity");
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("wGetParent");
-                b0.Arguments();
+                b0.Arguments_(0);
+                b0._Arguments();
                 b0._MethodInvocation();
-                b0.Expressions();
+                b0.Expressions_(0);
+                b0._Expressions();
                 b0._InfixExpression();
                 b0.ThrowStatement_();
                 b0.ClassInstanceCreation_();
@@ -422,7 +445,8 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0._ClassInstanceCreation();
                 b0._Arguments();
                 b0._MethodInvocation();
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("visit");
                 b0.Arguments_(1);
                 b0.SimpleName("entity");
@@ -448,6 +472,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.SimpleName("entity");
                 b0.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b0._SingleVariableDeclaration();
                 b0._Parameters();
                 b1.Resolver();
@@ -464,7 +489,8 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b1.Resolver();
                 b1.Resolver();
                 b0._ClassInstanceCreation();
-                b0.Types();
+                b0.Types_(0);
+                b0._Types();
                 b0.SimpleName("visit");
                 b0.Arguments_(1);
                 b0.SimpleName("entity");
@@ -484,6 +510,7 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0.SimpleName("e");
                 b0.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b0._SingleVariableDeclaration();
                 b0.Block_(1);
                 b0.ReturnStatement_();
@@ -492,7 +519,8 @@ public class BindVariablesInPathTemplateManager extends AbstractTemplateManager 
                 b0._Block();
                 b0._CatchClause();
                 b0._CatchClauses();
-                b0.Block();
+                b0.Block_(0);
+                b0._Block();
                 b0._TryStatement();
                 b0._Block();
                 b0._MethodDeclaration();

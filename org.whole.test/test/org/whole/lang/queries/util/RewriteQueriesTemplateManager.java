@@ -16,24 +16,24 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
     }
 
     private RewriteQueriesTemplateManager() {
-        put("delete1", newDelete1());
-        put("delete2", newDelete2());
-        put("delete3", newDelete3());
-        put("update1", newUpdate1());
-        put("update2", newUpdate2());
-        put("update3", newUpdate3());
-        put("update4", newUpdate4());
-        put("update5", newUpdate5());
-        put("update6", newUpdate6());
-        put("update7", newUpdate7());
-        put("update8", newUpdate8());
-        put("update9", newUpdate9());
-        put("update10", newUpdate10());
-        put("update11", newUpdate11());
-        put("insert1", newInsert1());
+        put("delete1", newdelete1());
+        put("delete2", newdelete2());
+        put("delete3", newdelete3());
+        put("update1", newupdate1());
+        put("update2", newupdate2());
+        put("update3", newupdate3());
+        put("update4", newupdate4());
+        put("update5", newupdate5());
+        put("update6", newupdate6());
+        put("update7", newupdate7());
+        put("update8", newupdate8());
+        put("update9", newupdate9());
+        put("update10", newupdate10());
+        put("update11", newupdate11());
+        put("insert1", newinsert1());
     }
 
-    public ITemplateFactory<IEntity> newDelete1() {
+    public ITemplateFactory<IEntity> newdelete1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -51,7 +51,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newDelete2() {
+    public ITemplateFactory<IEntity> newdelete2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -69,7 +69,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newDelete3() {
+    public ITemplateFactory<IEntity> newdelete3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -93,7 +93,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate1() {
+    public ITemplateFactory<IEntity> newupdate1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -134,7 +134,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate2() {
+    public ITemplateFactory<IEntity> newupdate2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -168,7 +168,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate3() {
+    public ITemplateFactory<IEntity> newupdate3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -195,7 +195,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate4() {
+    public ITemplateFactory<IEntity> newupdate4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -224,7 +224,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate5() {
+    public ITemplateFactory<IEntity> newupdate5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -261,7 +261,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate6() {
+    public ITemplateFactory<IEntity> newupdate6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -285,7 +285,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate7() {
+    public ITemplateFactory<IEntity> newupdate7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -305,7 +305,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate8() {
+    public ITemplateFactory<IEntity> newupdate8() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -323,7 +323,8 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b2.DataEntity_();
-                b2.EntityModifiers();
+                b2.EntityModifiers_(0);
+                b2._EntityModifiers();
                 b1.Variable_();
                 b1.VarType("http://lang.whole.org/Models#SimpleName");
                 b1.VarName("newName");
@@ -341,21 +342,23 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b0.FeatureStep("declarations");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.And_();
+                b0.And_(2);
                 b0.TypeTest("DataEntity");
-                b0.And_();
-                b0.ExpressionTest_();
+                b0.And_(2);
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("oldName");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("types");
                 b0.VariableTest("types");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -372,13 +375,14 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1._SameStageFragment();
                 b0.VariableTest("newName");
                 b0._Filter();
+                b0.TemplateNames();
                 b0._Select();
                 b0._PointwiseUpdate();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate9() {
+    public ITemplateFactory<IEntity> newupdate9() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -398,7 +402,8 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b2.DataEntity_();
-                b2.EntityModifiers();
+                b2.EntityModifiers_(0);
+                b2._EntityModifiers();
                 b1.Variable_();
                 b1.VarType("http://lang.whole.org/Models#SimpleName");
                 b1.VarName("newName");
@@ -414,19 +419,21 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.And_();
-                b0.ExpressionTest_();
+                b0.And_(2);
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("oldName");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("types");
                 b0.VariableTest("types");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Filter_();
@@ -441,6 +448,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1._SameStageFragment();
                 b0.VariableTest("newName");
                 b0._Filter();
+                b0.TemplateNames();
                 b0._Select();
                 b0._PointwiseUpdate();
                 b0._For();
@@ -448,7 +456,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate10() {
+    public ITemplateFactory<IEntity> newupdate10() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -479,7 +487,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newUpdate11() {
+    public ITemplateFactory<IEntity> newupdate11() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -521,7 +529,7 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newInsert1() {
+    public ITemplateFactory<IEntity> newinsert1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -541,16 +549,20 @@ public class RewriteQueriesTemplateManager extends AbstractTemplateManager {
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b2.Feature_();
-                b2.FeatureModifiers();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
                 b2.SimpleName("T1");
                 b2.SimpleName("n1");
+                b1.Resolver();
                 b2._Feature();
                 b1._StageUpFragment();
                 b1.StageUpFragment_();
                 b2.Feature_();
-                b2.FeatureModifiers();
+                b2.FeatureModifiers_(0);
+                b2._FeatureModifiers();
                 b2.SimpleName("T2");
                 b2.SimpleName("n2");
+                b1.Resolver();
                 b2._Feature();
                 b1._StageUpFragment();
                 b0._Sequence();

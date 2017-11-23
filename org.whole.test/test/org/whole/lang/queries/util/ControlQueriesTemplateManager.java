@@ -16,38 +16,38 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
     }
 
     private ControlQueriesTemplateManager() {
-        put("if1", newIf1());
-        put("if2", newIf2());
-        put("if3", newIf3());
-        put("if4", newIf4());
-        put("if5", newIf5());
-        put("do1", newDo1());
-        put("for1", newFor1());
-        put("choose1", newChoose1());
-        put("choose2", newChoose2());
-        put("choose3", newChoose3());
-        put("choose4", newChoose4());
-        put("choose5", newChoose5());
-        put("call1", newCall1());
-        put("call2", newCall2());
-        put("call3", newCall3());
-        put("call4", newCall4());
-        put("call5", newCall5());
-        put("call6", newCall6());
-        put("call7", newCall7());
-        put("queryDecl1", newQueryDecl1());
-        put("queryDecl2", newQueryDecl2());
-        put("queryDecl3", newQueryDecl3());
-        put("queryDecl4", newQueryDecl4());
-        put("queryDecl5", newQueryDecl5());
-        put("queryDecl6", newQueryDecl6());
-        put("queryDecl7", newQueryDecl7());
-        put("queryDecl8", newQueryDecl8());
-        put("queryDecl9", newQueryDecl9());
-        put("queryDecl10", newQueryDecl10());
+        put("if1", newif1());
+        put("if2", newif2());
+        put("if3", newif3());
+        put("if4", newif4());
+        put("if5", newif5());
+        put("do1", newdo1());
+        put("for1", newfor1());
+        put("choose1", newchoose1());
+        put("choose2", newchoose2());
+        put("choose3", newchoose3());
+        put("choose4", newchoose4());
+        put("choose5", newchoose5());
+        put("call1", newcall1());
+        put("call2", newcall2());
+        put("call3", newcall3());
+        put("call4", newcall4());
+        put("call5", newcall5());
+        put("call6", newcall6());
+        put("call7", newcall7());
+        put("queryDecl1", newqueryDecl1());
+        put("queryDecl2", newqueryDecl2());
+        put("queryDecl3", newqueryDecl3());
+        put("queryDecl4", newqueryDecl4());
+        put("queryDecl5", newqueryDecl5());
+        put("queryDecl6", newqueryDecl6());
+        put("queryDecl7", newqueryDecl7());
+        put("queryDecl8", newqueryDecl8());
+        put("queryDecl9", newqueryDecl9());
+        put("queryDecl10", newqueryDecl10());
     }
 
-    public ITemplateFactory<IEntity> newIf1() {
+    public ITemplateFactory<IEntity> newif1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -60,7 +60,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newIf2() {
+    public ITemplateFactory<IEntity> newif2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -68,14 +68,15 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.If_();
                 b0.And_(2);
                 b0.TypeTest("Model");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("n");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0._And();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
+                b0._And();
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b2 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b2.ClassDeclaration_();
@@ -98,7 +99,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newIf3() {
+    public ITemplateFactory<IEntity> newif3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -126,12 +127,13 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0.Filter_();
                 b0.SelfStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("ename");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0.Filter_();
                 b1.SameStageFragment_();
@@ -146,13 +148,14 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._SameStageFragment();
                 b0.VariableTest("cname");
                 b0._Filter();
+                b0.TemplateNames();
                 b0._Select();
                 b0._If();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newIf4() {
+    public ITemplateFactory<IEntity> newif4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -161,18 +164,21 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Division");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp1");
                 b0.VariableTest("exp1");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp2");
                 b0.VariableTest("exp2");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0.Sequence_(2);
@@ -190,7 +196,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newIf5() {
+    public ITemplateFactory<IEntity> newif5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -199,21 +205,23 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Division");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp1");
                 b0.VariableTest("exp1");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp2");
                 b0.VariableTest("exp2");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 b0.Division_();
                 b1.StageDownFragment_();
@@ -235,7 +243,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newDo1() {
+    public ITemplateFactory<IEntity> newdo1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -282,6 +290,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b2.SimpleName("args");
                 b2.ExtraDimensions(0);
                 b1.Resolver();
+                b1.Resolver();
                 b2._SingleVariableDeclaration();
                 b2._Parameters();
                 b1.Resolver();
@@ -308,7 +317,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newFor1() {
+    public ITemplateFactory<IEntity> newfor1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -327,7 +336,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newChoose1() {
+    public ITemplateFactory<IEntity> newchoose1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -357,7 +366,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newChoose2() {
+    public ITemplateFactory<IEntity> newchoose2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -398,12 +407,13 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Path();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.Resolver();
+                b0.TemplateNames();
                 b0._Select();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newChoose3() {
+    public ITemplateFactory<IEntity> newchoose3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -446,12 +456,13 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Path();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.Resolver();
+                b0.TemplateNames();
                 b0._Select();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newChoose4() {
+    public ITemplateFactory<IEntity> newchoose4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -556,21 +567,23 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.FeatureStep("declarations");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Path();
                 b1.Resolver();
+                b0.TemplateNames();
                 b0._Select();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newChoose5() {
+    public ITemplateFactory<IEntity> newchoose5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -583,17 +596,18 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.FeatureStep("types");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0.Choose_(3);
                 b0.If_();
                 b0.TypeTest("EnumDeclaration");
-                org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 org.whole.lang.models.builders.IModelsBuilder b2 = (org.whole.lang.models.builders.IModelsBuilder) op.wGetBuilder(org.whole.lang.models.reflect.ModelsLanguageKit.URI);
                 b2.EnumEntity_();
@@ -618,20 +632,21 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Filter();
                 b0.Choose_(2);
                 b0.If_();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Path_(2);
                 b0.FeatureStep("superInterfaceTypes");
                 b0.Filter_();
                 b0.ChildStep();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 org.whole.lang.java.builders.IJavaBuilder b3 = (org.whole.lang.java.builders.IJavaBuilder) op.wGetBuilder(org.whole.lang.java.reflect.JavaLanguageKit.URI);
                 b3.SimpleType("List");
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b0._Filter();
                 b0._Path();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b1.StageUpFragment_();
                 b2.CompositeEntity_();
                 b2.EntityModifiers_(0);
@@ -694,7 +709,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall1() {
+    public ITemplateFactory<IEntity> newcall1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -729,7 +744,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall2() {
+    public ITemplateFactory<IEntity> newcall2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -776,7 +791,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall3() {
+    public ITemplateFactory<IEntity> newcall3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -802,13 +817,14 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Production");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRule");
@@ -816,7 +832,8 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Call();
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -826,7 +843,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall4() {
+    public ITemplateFactory<IEntity> newcall4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -855,18 +872,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Production");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRuleWithName");
                 b1.Resolver();
                 b0._Call();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -876,7 +895,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall5() {
+    public ITemplateFactory<IEntity> newcall5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -891,12 +910,13 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.ChildStep();
                 b0.And_(2);
                 b0.TypeTest("Production");
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Path();
@@ -923,19 +943,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.Name("productionsWithName");
                 b1.Resolver();
                 b0._Call();
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRuleWithName");
                 b1.Resolver();
                 b0._Call();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._Filter();
                 b0._Block();
             }
         };
     }
 
-    public ITemplateFactory<IEntity> newCall6() {
+    public ITemplateFactory<IEntity> newcall6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -975,18 +996,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1.Resolver();
                 b0._Call();
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRuleWithName");
                 b1.Resolver();
                 b0._Call();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Block();
@@ -994,7 +1017,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newCall7() {
+    public ITemplateFactory<IEntity> newcall7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1049,7 +1072,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl1() {
+    public ITemplateFactory<IEntity> newqueryDecl1() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1074,13 +1097,14 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Production");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRule");
@@ -1088,7 +1112,8 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Call();
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1098,7 +1123,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl2() {
+    public ITemplateFactory<IEntity> newqueryDecl2() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1126,18 +1151,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Production");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRuleWithName");
                 b1.Resolver();
                 b0._Call();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1147,7 +1174,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl3() {
+    public ITemplateFactory<IEntity> newqueryDecl3() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1185,18 +1212,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1.Resolver();
                 b0._Call();
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("name");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRuleWithName");
                 b1.Resolver();
                 b0._Call();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0._Block();
@@ -1204,7 +1233,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl4() {
+    public ITemplateFactory<IEntity> newqueryDecl4() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1233,13 +1262,14 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.And_(2);
                 b0.TypeTest("Production");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("name");
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.Call_();
                 b0.Name("nonTerminalsInRule");
@@ -1247,7 +1277,8 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Call();
                 b0.VariableTest("pname");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b0._Filter();
@@ -1263,7 +1294,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl5() {
+    public ITemplateFactory<IEntity> newqueryDecl5() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1332,7 +1363,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl6() {
+    public ITemplateFactory<IEntity> newqueryDecl6() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1408,7 +1439,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl7() {
+    public ITemplateFactory<IEntity> newqueryDecl7() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1469,18 +1500,20 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.Filter_();
                 b0.SelfStep();
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("http://lang.whole.org/Queries#exp1");
                 b0.VariableTest("exp1");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("http://lang.whole.org/Queries#exp2");
                 b0.VariableTest("exp2");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._Filter();
                 b0.Sequence_(2);
@@ -1505,24 +1538,27 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Filter();
                 b0._Path();
                 b0._Sequence();
+                b0.TemplateNames();
                 b0._Select();
                 b0._If();
                 b0.If_();
                 b0.And_(2);
                 b0.TypeTest("http://lang.whole.org/Queries#Division");
                 b0.And_(2);
-                b0.ExpressionTest_();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp1");
                 b0.VariableTest("exp1");
                 b0._Filter();
-                b0._ExpressionTest();
-                b0.ExpressionTest_();
+                b1.Resolver();
+                b0._Some();
+                b0.Some_();
                 b0.Filter_();
                 b0.FeatureStep("exp2");
                 b0.VariableTest("exp2");
                 b0._Filter();
-                b0._ExpressionTest();
+                b1.Resolver();
+                b0._Some();
                 b0._And();
                 b0._And();
                 b1.StageUpFragment_();
@@ -1551,7 +1587,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0._If();
                 b0.If_();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 b0.Remainder_();
                 b1.Variable_();
@@ -1566,7 +1602,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b0._Remainder();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b1.StageUpFragment_();
                 b2.InfixExpression_();
                 b1.Variable_();
@@ -1585,7 +1621,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0._If();
                 b0.If_();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 b0.Addition_();
                 b1.Variable_();
@@ -1600,7 +1636,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b0._Addition();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b1.StageUpFragment_();
                 b2.InfixExpression_();
                 b1.Variable_();
@@ -1619,7 +1655,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._StageUpFragment();
                 b0._If();
                 b0.If_();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 b1.StageUpFragment_();
                 b0.Subtraction_();
                 b1.Variable_();
@@ -1634,7 +1670,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b0._Subtraction();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b1.StageUpFragment_();
                 b2.InfixExpression_();
                 b1.Variable_();
@@ -1667,6 +1703,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0.VariableTest("jexp");
                 b0._Filter();
                 b1.Resolver();
+                b0.TemplateNames();
                 b0._Select();
                 b0._If();
                 b0._Choose();
@@ -1681,7 +1718,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl8() {
+    public ITemplateFactory<IEntity> newqueryDecl8() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1711,7 +1748,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl9() {
+    public ITemplateFactory<IEntity> newqueryDecl9() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1725,7 +1762,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Names();
                 b0.Choose_(2);
                 b0.If_();
-                b0.ExpressionTest_();
+                b0.MatchTest_();
                 org.whole.lang.commons.builders.ICommonsBuilder b1 = (org.whole.lang.commons.builders.ICommonsBuilder) op.wGetBuilder(org.whole.lang.commons.reflect.CommonsLanguageKit.URI);
                 b1.StageUpFragment_();
                 b0.Addition_();
@@ -1741,7 +1778,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b1._Variable();
                 b0._Addition();
                 b1._StageUpFragment();
-                b0._ExpressionTest();
+                b0._MatchTest();
                 b1.StageUpFragment_();
                 b0.Addition_();
                 b1.StageDownFragment_();
@@ -1777,7 +1814,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
         };
     }
 
-    public ITemplateFactory<IEntity> newQueryDecl10() {
+    public ITemplateFactory<IEntity> newqueryDecl10() {
         return new AbstractTemplateFactory<IEntity>() {
 
             public void apply(org.whole.lang.builders.IBuilderOperation op) {
@@ -1840,6 +1877,7 @@ public class ControlQueriesTemplateManager extends AbstractTemplateManager {
                 b0._Bindings();
                 b0._EntityTemplate();
                 b1.Resolver();
+                b0.TemplateNames();
                 b0._Select();
                 b0.If_();
                 b0.ExpressionTest_();
