@@ -59,7 +59,6 @@ import org.whole.lang.queries.util.MathUtils;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.ILanguageKit;
-import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.visitors.GenericTraversalFactory;
 import org.whole.lang.visitors.IVisitor;
@@ -69,8 +68,6 @@ import org.whole.lang.visitors.MissingVariableException;
  * @author Riccardo Solmi
  */
 public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor {
-	private boolean useInheritedSemantics;
-	private boolean useTemplateFactorySemantics = true;
 	private Set<String> declaredNames = new HashSet<String>();
 	private Set<String> templateNames = new HashSet<String>();
 	private Set<String> namesExp = new HashSet<String>();
@@ -102,42 +99,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		return result != null ? (IVisitor) result.wGetValue() : GenericTraversalFactory.instance.identity();
 	}
 
-
-	protected boolean useInheritedSemantics() {
-		return useInheritedSemantics;
-	}
-	protected boolean useInheritedSemantics(boolean value) {
-		boolean oldValue = useInheritedSemantics;
-		useInheritedSemantics = value;
-		return oldValue;
-	}
-	protected boolean useTemplateFactorySemantics() {
-		return useTemplateFactorySemantics;
-	}
-	protected boolean useTemplateFactorySemantics(boolean value) {
-		boolean oldValue = useTemplateFactorySemantics;
-		if (!useInheritedSemantics())
-			useTemplateFactorySemantics = value;
-		return oldValue;
-	}
-	protected boolean useFactorySemantics(IEntity entity) {
-		if (Matcher.match(QueriesEntityDescriptorEnum.Filter, entity)) {
-			Filter filter = (Filter) entity;
-			StepExpression exp = filter.getExpression();
-
-			if (Matcher.match(QueriesEntityDescriptorEnum.VariableRefStep, exp) &&
-					Matcher.match(QueriesEntityDescriptorEnum.VariableTest, filter.getPredicate()))
-				return true;
-			else
-				return useFactorySemantics(exp);
-		} else if (Matcher.match(QueriesEntityDescriptorEnum.Path, entity))
-			return entity.wSize() == 0 ? false : useFactorySemantics(((Path) entity).get(0));
-		else
-			return EntityUtils.isStageUpFragment(entity) || EntityUtils.isSameStageFragment(entity) ||
-				!entity.wGetLanguageKit().equals(ReflectionFactory.getLanguageKit(QueriesLanguageKit.URI, false, null)) ||
-				Matcher.match(QueriesEntityDescriptorEnum.Tuple, entity);
-	}
-
 	@Override
 	public boolean visitAdapter(IEntityAdapter entity) {
 		IEntity adaptee = entity.wGetAdaptee(false);
@@ -159,14 +120,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 								CommonsEntityDescriptorEnum.StageDownFragment,
 								EntityUtils.clone(entity))).withSourceEntity(adaptee));
 				return false;
-			case CommonsEntityDescriptorEnum.StageUpFragment_ord:
-				if (!useTemplateFactorySemantics()) {
-					//TODO replace with MatchTest
-					CommonsInterpreterVisitor.evaluateAdapter(entity, getOperation());//TODO test
-					setResultIterator(QueriesIteratorFactory.patternMatcherIterator(
-							getResult()).withSourceEntity(adaptee));
-					return false;
-				}
 			}
 		}
 
@@ -193,15 +146,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(Call entity) {
 		Expressions arguments = entity.getArguments();
 	
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-		boolean templateFactorySemantics = useTemplateFactorySemantics(true);
     	IEntityIterator<? extends IEntity>[] argsIterators = new IEntityIterator<?>[arguments.wSize()];
     	for (int i=0, size=arguments.wSize(); i<size; i++) {
 			arguments.get(i).accept(this);
 			argsIterators[i] = getResultIterator();
 		}
-    	useTemplateFactorySemantics(templateFactorySemantics);
-		useInheritedSemantics(inheritedSemantics);
 
 		setResultIterator(QueriesIteratorFactory.callIterator(
 				entity.getName().getValue(), argsIterators).withSourceEntity(entity));
@@ -220,9 +169,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     @Override
     public void visit(Path entity) {
-    	boolean useFactorySemantics = useFactorySemantics(entity);
-    	boolean templateSemantics = useTemplateFactorySemantics(useFactorySemantics);//TODO test true);
-    	boolean inheritedSemantics = useInheritedSemantics(true);
     	DistinctScope<IEntity> oldDistinctScope = distinctScope;
     	distinctScope = null;
 
@@ -241,9 +187,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			setResultIterator(distinctScope.withIterator(getResultIterator()));
 
 		distinctScope = oldDistinctScope;
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
@@ -306,23 +249,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     			ChooseByTypeIterator<IEntity> chooseIterator = IteratorFactory.chooseIterator(languageKit);
 
     			for (Entry<EntityDescriptor<?>, PathExpression> entry : typeMap.entrySet()) {
-    		    	boolean inheritedSemantics = useInheritedSemantics(false);
-    		    	boolean templateSemantics = useTemplateFactorySemantics(false);
-
-
-    		    	useInheritedSemantics(false);
-    		    	useTemplateFactorySemantics(true);
-
     		    	Set<String> oldDeclaredNames = declaredNames;
 
     		    	entry.getValue().accept(this);
     		    	chooseIterator.setCase(entry.getKey(), getResultIterator());
 
     		    	declaredNames = oldDeclaredNames;
-
-    				useInheritedSemantics(false);
-    				useTemplateFactorySemantics(templateSemantics);
-    				useInheritedSemantics(inheritedSemantics);
     			}
 
     			setResultIterator(chooseIterator.withSourceEntity(entity));
@@ -381,9 +313,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     @Override
     public void visit(Filter entity) {
-    	boolean useFactorySemantics = useFactorySemantics(entity);
-    	boolean templateSemantics = useTemplateFactorySemantics(useFactorySemantics);
-    	boolean inheritedSemantics = useInheritedSemantics(true);
     	FilterByIndexRangeIterator<IEntity> oldFilterByIndexIterator = filterByIndexIterator;
     	filterByIndexIterator = null;
     	DistinctScope<IEntity> oldDistinctScope = distinctScope;
@@ -454,10 +383,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		canFilterByIndex = oldCanFilterByIndex;
 		filterByIndexIterator = oldFilterByIndexIterator;
 		distinctScope = oldDistinctScope;
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
@@ -658,54 +583,28 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     @Override
     public void visit(Delete entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	entity.getFromClause().accept(this);
     	IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
 
     	setResultIterator(QueriesIteratorFactory.deleteIterator(fromIterator).withSourceEntity(entity));
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
 	@Override
     public void visit(CartesianUpdate entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
      	entity.getFromClause().accept(this);
     	IEntityIterator<IEntity> fromIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
     	entity.getValuesClause().accept(this);
     	IEntityIterator<? extends IEntity> valuesIterator = getResultIterator();
 
     	setResultIterator(QueriesIteratorFactory.cartesianUpdateIterator(valuesIterator, fromIterator).withSourceEntity(entity));
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
 	@Override
     public void visit(PointwiseUpdate entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
      	entity.getFromClause().accept(this);
     	IEntityIterator<IEntity> fromIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
     	entity.getValuesClause().accept(this);
@@ -713,23 +612,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     	setResultIterator(QueriesIteratorFactory.pointwiseUpdateIterator(
     			valuesIterator, fromIterator).withSourceEntity(entity));
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
 	@Override
     public void visit(CartesianInsert entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	entity.getFromClause().accept(this);
     	IEntityIterator<IEntity> fromIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
     	entity.getValuesClause().accept(this);
@@ -738,23 +626,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
     	setResultIterator(QueriesIteratorFactory.cartesianInsertIterator(
     			valuesIterator, fromIterator, placement).withSourceEntity(entity));
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
 	@Override
     public void visit(PointwiseInsert entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	entity.getFromClause().accept(this);
     	IEntityIterator<IEntity> fromIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
     	entity.getValuesClause().accept(this);
@@ -763,18 +640,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     	Placement placement = Placement.valueOf(entity.getPlacement().getValue().getName());
     	setResultIterator(QueriesIteratorFactory.pointwiseInsertIterator(
     			valuesIterator, fromIterator, placement).withSourceEntity(entity));
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
     public void visit(Select entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	Set<String> oldDeclaredNames = declaredNames;
     	Set<String> namesToBound = declaredNames = new HashSet<String>();
 
@@ -785,15 +654,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 				getResultIterator() :
 				IteratorFactory.filterIterator(IteratorFactory.selfIterator().withSourceEntity(entity), getResultPredicate()).withSourceEntity(entity);
 
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
-
     	setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
     	entity.getWhereClause().accept(this);
     	IEntityIterator<? extends IEntity> whereIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	declaredNames = oldDeclaredNames;
 
@@ -811,10 +674,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
        			.withNamesComplement(useNamesComplement).withSourceEntity(entity));   		
 
     	declaredNames = oldDeclaredNames;
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
@@ -855,18 +714,11 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
     @Override
     public void visit(For entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	Set<String> oldDeclaredNames = declaredNames;
     	Set<String> namesToBound = declaredNames = new HashSet<String>();
 
     	entity.getFromClause().accept(this);
     	IEntityIterator<? extends IEntity> fromIterator = getResultIterator();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	declaredNames = oldDeclaredNames;
 
@@ -879,27 +731,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     			fromIterator, selectIterator).withSourceEntity(entity));
 
     	declaredNames = oldDeclaredNames;
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
     public void visit(If entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	Set<String> oldDeclaredNames = declaredNames;
     	Set<String> namesToBound = declaredNames = new HashSet<String>();
 
 		setResultPredicate(null);
 		entity.getPredicate().accept(this);
 		IVisitor predicate = getResultPredicate();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	declaredNames = oldDeclaredNames;
 
@@ -912,24 +753,13 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     			predicate, selectIterator).withSourceEntity(entity));
 
     	declaredNames = oldDeclaredNames;
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
     public void visit(Do entity) {
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-    	boolean templateSemantics = useTemplateFactorySemantics(false);
-    	useInheritedSemantics(true);
-
     	Set<String> oldDeclaredNames = declaredNames;
 //    	Set<String> namesToBound = 
     		declaredNames = new HashSet<String>();
-
-    	useInheritedSemantics(false);
-    	useTemplateFactorySemantics(true);
 
     	declaredNames = oldDeclaredNames;
 
@@ -942,10 +772,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 //       			.useNamesToBound(namesToBound).withDomainEntity(entity));   		
 
     	declaredNames = oldDeclaredNames;
-
-		useInheritedSemantics(false);
-		useTemplateFactorySemantics(templateSemantics);
-		useInheritedSemantics(inheritedSemantics);
     }
 
     @Override
@@ -1089,11 +915,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
     @Override
     public void visit(MatchTest entity) {
     	Expression e = entity.getExpression();
-    	boolean inheritedSemantics = useInheritedSemantics(false);
-       	boolean outerSemantics = useTemplateFactorySemantics(true);
 		e.accept(this);
-	   	useTemplateFactorySemantics(outerSemantics);
-	   	useInheritedSemantics(inheritedSemantics);
 		setResultPredicate(GenericMatcherFactory.instance.matchInScope(getResultIterator()).withSourceEntity(entity));
     }
 
