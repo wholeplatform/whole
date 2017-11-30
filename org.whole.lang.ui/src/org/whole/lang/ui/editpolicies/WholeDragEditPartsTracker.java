@@ -17,6 +17,9 @@
  */
 package org.whole.lang.ui.editpolicies;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -29,6 +32,8 @@ import org.eclipse.gef.tools.DragEditPartsTracker;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Cursor;
+import org.whole.lang.ui.editparts.IEntityPart;
+import org.whole.lang.ui.viewers.IEntityPartViewer;
 
 /**
  * @author Riccardo Solmi, Enrico Persiani
@@ -219,8 +224,53 @@ public class WholeDragEditPartsTracker extends DragEditPartsTracker {
 
 	@Override
 	protected void performConditionalSelection() {
-		// ovverride to disable direct edit
+		// override to disable direct edit
 		if (getSourceEditPart().getSelected() == EditPart.SELECTED_NONE)
 			performSelection();
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void performSelection() {
+		if (!getCurrentInput().isShiftKeyDown())
+			super.performSelection();
+
+		if (hasSelectionOccurred())
+			return;
+		
+		setFlag(FLAG_SELECTION_PERFORMED, true);
+		IEntityPartViewer viewer = (IEntityPartViewer) getCurrentViewer();
+
+		List<IEntityPart> selectedParts = viewer.getSelectedEditParts();
+		IEntityPart startPart = selectedParts.get(selectedParts.size()-1);
+		EditPart endPart = getSourceEditPart();
+		EditPart parentPart = startPart.getParent();
+		if (parentPart != null && endPart != startPart && parentPart == endPart.getParent()) {
+			LinkedList<IEntityPart> appendParts = new LinkedList<IEntityPart>();
+			int endIndex = -1, startIndex = -1;
+
+			List<IEntityPart> children = parentPart.getChildren();
+			for (int i = 0; i < children.size(); i++) {
+				IEntityPart child = children.get(i);
+				if (child == startPart)
+					startIndex = i;
+				else if (child == endPart)
+					endIndex = i;
+
+				if (startIndex != -1 && endIndex == -1 && i > startIndex)
+					appendParts.addLast(child);
+				else if (startIndex == -1 && endIndex != -1)
+					appendParts.addFirst(child);
+				else if (startIndex != -1 && endIndex != -1) {
+					if (startIndex < endIndex)
+						appendParts.addLast(child);
+					break;					
+				}
+			}
+
+			for (IEntityPart entityPart : appendParts)
+				viewer.appendSelection(entityPart);
+		} else
+			viewer.appendSelection(endPart);
 	}
 }
