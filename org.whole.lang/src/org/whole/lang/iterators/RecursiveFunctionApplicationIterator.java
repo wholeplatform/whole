@@ -17,6 +17,7 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 import org.whole.lang.bindings.BindingManagerFactory;
@@ -96,7 +97,7 @@ public class RecursiveFunctionApplicationIterator extends AbstractCloneableItera
 	}
 	protected void clearLookaheadScope() {
 		if (lookaheadScope != null) {
-			for (String name : lookaheadScope.wLocalNames())
+			for (String name : new HashSet<String>(lookaheadScope.wLocalNames())) //lookaheadScope is nested in bindings
 				getBindings().wUnset(name);
 			lookaheadScope.wClear();
 		}

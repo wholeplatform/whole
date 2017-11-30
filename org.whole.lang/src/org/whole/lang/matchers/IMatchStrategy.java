@@ -37,7 +37,7 @@ public interface IMatchStrategy {
 	public void apply(IEntity pattern, IEntity model, GenericMatcher matcher);
 
 
-// Match strategies
+	// Match strategies
 
 	public static IMatchStrategy ResolverPattern = (pattern, model, matcher) -> {
 		if (pattern.wSize() != model.wSize() || model.wGetEntityKind().equals(EntityKinds.DATA)) {
@@ -57,25 +57,25 @@ public interface IMatchStrategy {
 	};
 
 	public static IMatchStrategy VariablePattern = (pattern, model, matcher) -> {
-    	EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
-    	String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
+		EntityDescriptor<?> type = (EntityDescriptor<?>) pattern.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue();
+		String name = pattern.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue();
 
-    	if (matcher.getBindings().wIsSet(name)) {
-    		IEntity value = matcher.getBindings().wGet(name);
+		if (matcher.getBindings().wIsSet(name)) {
+			IEntity value = matcher.getBindings().wGet(name);
 
-    		if (EntityUtils.isVariable(value)) {
-    			if (!EntityUtils.isVariable(model) ||
-    					!value.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()) ||
-    					!value.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue()))
-    				matcher.mismatch(pattern, model);
-     		} else {
-        		if (type.isPlatformSupertypeOf(value.wGetEntityDescriptor()))//was AsIsFrom(
-        			matcher.match(value, model);
+			if (EntityUtils.isVariable(value)) {
+				if (!EntityUtils.isVariable(model) ||
+						!value.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()) ||
+						!value.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue().equals(model.wGet(CommonsFeatureDescriptorEnum.varName).wStringValue()))
+					matcher.mismatch(pattern, model);
+			} else {
+				if (type.isExtendedLanguageSupertypeOf(value.wGetEntityDescriptor()))//WAS isPlatformSupertypeOf(value.wGetEntityDescriptor()))
+					matcher.match(value, model);
 				else
 					matcher.mismatch(pattern, model);
-     		}
-    	} else {
-			if (type.isPlatformSupertypeOf(//was AsIsFrom(
+			}
+		} else {
+			if (type.isExtendedLanguageSupertypeOf(//WAS isPlatformSupertypeOf(
 					EntityUtils.isVariable(model) ?
 							(EntityDescriptor<?>) model.wGet(CommonsFeatureDescriptorEnum.varType).wGetValue()
 							: model.wGetEntityDescriptor()))
@@ -84,7 +84,7 @@ public interface IMatchStrategy {
 				matcher.getBindings().wDef(name, model);
 			else
 				matcher.mismatch(pattern, model);
-    	}
+		}
 	};
 
 	public static IMatchStrategy ResolverAsIs = (pattern, model, matcher) -> {
@@ -121,7 +121,7 @@ public interface IMatchStrategy {
 	}
 
 
-// Mismatch strategies
+	// Mismatch strategies
 
 	public static final IMatchStrategy ThrowMatchException = (pattern, model, matcher) -> {
 		throw new MatchException(pattern, model, matcher.getBindings());
@@ -152,7 +152,7 @@ public interface IMatchStrategy {
 			IEntity parent = model.wGetParent();
 			if (EntityUtils.isNull(parent))
 				ThrowMatchException.apply(pattern, model, matcher);
-	
+
 			EntityDescriptor<?> ed = parent.wGetEntityDescriptor(model);
 			FeatureDescriptor fd = parent.wGetFeatureDescriptor(model);
 			parent.wSet(model, CommonsEntityAdapterFactory.createVariable(ed, fng.nextFreshName(fd.getName())));
