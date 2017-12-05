@@ -19,7 +19,6 @@ package org.whole.langs.core.op;
 
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.operations.InterpreterOperation;
-import org.whole.lang.queries.GenericQueriesActions;
 import org.whole.lang.reflect.AbstractContributionDeployer;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
@@ -29,8 +28,6 @@ import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
  */
 public class CoreContributionsDeployer extends AbstractContributionDeployer {
 	public void deploy(ReflectionFactory platform) {
-		InterpreterOperation.interpret(new GenericQueriesActions().create());
-
 		try {
 			InterpreterOperation.interpret(XmlBuilderPersistenceKit.instance().readModel(
 					new ClasspathPersistenceProvider("org/whole/lang/actions/ActionsActions.xwl")));
