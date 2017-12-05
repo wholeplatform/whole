@@ -32,6 +32,10 @@ public class SingleValuedRunnableIterator<E extends IEntity> extends AbstractSin
 		super(argsIterators);
 		this.runnable = runnable;
 	}
+	protected SingleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		super(optionalArgsIndexes, argsIterators);
+		this.runnable = runnable;
+	}
 
 	public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 		try {

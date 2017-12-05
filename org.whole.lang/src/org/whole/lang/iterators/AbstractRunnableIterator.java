@@ -17,6 +17,11 @@
  */
 package org.whole.lang.iterators;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.bindings.NullScope;
@@ -33,8 +38,14 @@ import org.whole.lang.util.WholeMessages;
 public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIterator<E> implements IRunnable {
 	protected IEntity selfEntity;
 	protected IEntityIterator<?>[] argsIterators;
+	protected Set<Integer> optionalArgsIndexSet;
 
 	protected AbstractRunnableIterator(IEntityIterator<?>... argsIterators) {
+		optionalArgsIndexSet = Collections.emptySet();
+		this.argsIterators = argsIterators;
+	}
+	protected AbstractRunnableIterator(int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		optionalArgsIndexSet = Arrays.stream(optionalArgsIndexes).boxed().collect(Collectors.toSet());
 		this.argsIterators = argsIterators;
 	}
 
@@ -72,7 +83,7 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
         	arguments = new IEntity[argsIterators.length];
         	for (int i=0; i<argsIterators.length; i++) {
         		arguments[i] = evaluateArgument(argsIterators[i], selfEntity, bm);
-        		if (arguments[i] == null)
+        		if (arguments[i] == null && !optionalArgsIndexSet.contains(i))
         			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(argsIterators[i].getSourceEntity()).withBindings(bm);
         	}
         }

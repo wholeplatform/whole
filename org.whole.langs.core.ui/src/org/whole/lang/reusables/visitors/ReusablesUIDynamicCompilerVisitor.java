@@ -41,6 +41,6 @@ public class ReusablesUIDynamicCompilerVisitor extends ReusablesDynamicCompilerV
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return E4Utils.createWorkspaceProvider(bm, path);
 					}
-				}, persistenceIterator).withSourceEntity(entity), contentIterator));
+				}, new int[] { 0 }, persistenceIterator).withSourceEntity(entity), contentIterator));
 	}
 }

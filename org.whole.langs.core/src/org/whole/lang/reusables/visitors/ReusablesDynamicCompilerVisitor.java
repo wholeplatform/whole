@@ -113,7 +113,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 						protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 							return new ClasspathPersistenceProvider(path, bm);
 						}
-					}, persistenceIterator).withSourceEntity(entity), contentIterator));
+					}, new int[] { 0 }, persistenceIterator).withSourceEntity(entity), contentIterator));
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 					protected IPersistenceProvider getPersistenceProvider(String path, IBindingManager bm) {
 						return new FilePersistenceProvider(new File(path), bm);
 					}
-				}, persistenceIterator).withSourceEntity(entity), contentIterator));
+				}, new int[] { 0 }, persistenceIterator).withSourceEntity(entity), contentIterator));
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class ReusablesDynamicCompilerVisitor extends AbstractReusablesSemanticsV
 							throw new WholeIllegalArgumentException(e).withSourceEntity(entity).withBindings(bm);
 						}
 					}
-				}, persistenceIterator).withSourceEntity(entity), contentIterator));
+				}, new int[] { 0 }, persistenceIterator).withSourceEntity(entity), contentIterator));
 	}
 
 	@Override

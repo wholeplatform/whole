@@ -31,6 +31,9 @@ public abstract class AbstractMultiValuedRunnableIterator<E extends IEntity> ext
 	protected AbstractMultiValuedRunnableIterator(IEntityIterator<?>... argsIterators) {
 		super(argsIterators);
 	}
+	protected AbstractMultiValuedRunnableIterator(int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		super(optionalArgsIndexes, argsIterators);
+	}
 
 	public IEntityIterator<E> clone(ICloneContext cc) {
 		AbstractMultiValuedRunnableIterator<E> iterator = (AbstractMultiValuedRunnableIterator<E>) super.clone(cc);

@@ -32,6 +32,10 @@ public class MultiValuedRunnableIterator<E extends IEntity> extends AbstractMult
 		super(argsIterators);
 		this.runnable = runnable;
 	}
+	protected MultiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		super(optionalArgsIndexes, argsIterators);
+		this.runnable = runnable;
+	}
 
 	public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
 		try {

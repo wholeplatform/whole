@@ -67,11 +67,20 @@ public class IteratorFactory {
 		return new CollectionIterator<E>(elementWrapper, collectionIterable);
 	}
 
+	public static <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable) {
+		return new SingleValuedRunnableIterator<E>(runnable);
+	}
 	public static <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
 		return new SingleValuedRunnableIterator<E>(runnable, argsIterators);
 	}
+	public static <E extends IEntity> IEntityIterator<E> singleValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		return new SingleValuedRunnableIterator<E>(runnable, optionalArgsIndexes, argsIterators);
+	}
 	public static <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, IEntityIterator<?>... argsIterators) {
 		return new MultiValuedRunnableIterator<E>(runnable, argsIterators);
+	}
+	public static <E extends IEntity> IEntityIterator<E> multiValuedRunnableIterator(IRunnable runnable, int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		return new MultiValuedRunnableIterator<E>(runnable, optionalArgsIndexes, argsIterators);
 	}
 
 	public static IEntityIterator<IEntity> aspectIterator() {

@@ -34,6 +34,9 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
 	protected AbstractSingleValuedRunnableIterator(IEntityIterator<?>... argsIterators) {
 		super(argsIterators);
 	}
+	protected AbstractSingleValuedRunnableIterator(int[] optionalArgsIndexes, IEntityIterator<?>... argsIterators) {
+		super(optionalArgsIndexes, argsIterators);
+	}
 
 	public void reset(IEntity entity) {
         super.reset(entity);
