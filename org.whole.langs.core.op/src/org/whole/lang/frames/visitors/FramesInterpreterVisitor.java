@@ -38,9 +38,8 @@ public class FramesInterpreterVisitor extends FramesIdentityDefaultVisitor {
     public void visit(ReusePoint entity) {
     	entity.getFrame().accept(this);
     	String frameUri = getResult().wStringValue();
-    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-
-    	Frame frame = FrameRegistry.instance().getFrame(frameUri, true, contextUri);
+    	
+    	Frame frame = FrameRegistry.instance().getFrame(frameUri, true, getBindings());
     	frame = EntityUtils.clone(frame);
 
     	//TODO resolve variability

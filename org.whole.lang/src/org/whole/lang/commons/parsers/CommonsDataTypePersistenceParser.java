@@ -20,6 +20,7 @@ package org.whole.lang.commons.parsers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.reflect.CommonsEntityDescriptorEnum;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
@@ -93,7 +94,7 @@ public class CommonsDataTypePersistenceParser extends DefaultDataTypePersistence
 		int index = descriptorUri.indexOf('#');
 		if (index > 0) {
 			String languageUri = descriptorUri.substring(0, index);
-			if (ReflectionFactory.hasLanguageKit(languageUri))
+			if (ReflectionFactory.hasLanguageKit(languageUri, true, null))
 				return ReflectionFactory.getLanguageKit(languageUri);
 		}
 		return null;
@@ -111,12 +112,12 @@ public class CommonsDataTypePersistenceParser extends DefaultDataTypePersistence
 	public static EntityDescriptor<? extends IEntity> getEntityDescriptor(String edUri) {
 		return getEntityDescriptor(edUri, false, null);
 	}
-	public static EntityDescriptor<? extends IEntity> getEntityDescriptor(String edUri, boolean loadOnDemand, String contextURI) {
+	public static EntityDescriptor<? extends IEntity> getEntityDescriptor(String edUri, boolean loadOnDemand, IBindingManager bm) {
 		int index = edUri.indexOf('#');
 		if (index > 0) {
 			String languageUri = edUri.substring(0, index);
-			if (ReflectionFactory.hasLanguageKit(languageUri, loadOnDemand, contextURI)) {
-				ILanguageKit lk = ReflectionFactory.getLanguageKit(languageUri, loadOnDemand, contextURI);
+			if (ReflectionFactory.hasLanguageKit(languageUri, loadOnDemand, bm)) {
+				ILanguageKit lk = ReflectionFactory.getLanguageKit(languageUri, loadOnDemand, bm);
 	    		EntityDescriptor<?> ed = lk.getEntityDescriptorEnum().valueOf(edUri.substring(index+1));
 	    		if (ed != null)
 	    			return ed;
@@ -124,12 +125,12 @@ public class CommonsDataTypePersistenceParser extends DefaultDataTypePersistence
 		}
 		return null;
 	}
-	public static FeatureDescriptor getFeatureDescriptor(String fdUri, boolean loadOnDemand, String contextURI) {
+	public static FeatureDescriptor getFeatureDescriptor(String fdUri, boolean loadOnDemand, IBindingManager bm) {
 		int index = fdUri.indexOf('#');
 		if (index > 0) {
 			String languageUri = fdUri.substring(0, index);
-			if (ReflectionFactory.hasLanguageKit(languageUri, loadOnDemand, contextURI)) {
-				ILanguageKit lk = ReflectionFactory.getLanguageKit(languageUri, loadOnDemand, contextURI);
+			if (ReflectionFactory.hasLanguageKit(languageUri, loadOnDemand, bm)) {
+				ILanguageKit lk = ReflectionFactory.getLanguageKit(languageUri, loadOnDemand, bm);
 	    		FeatureDescriptor fd = lk.getFeatureDescriptorEnum().valueOf(fdUri.substring(index+1));
 	    		if (fd != null)
 	    			return fd;

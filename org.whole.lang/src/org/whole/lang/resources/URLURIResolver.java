@@ -20,6 +20,7 @@ package org.whole.lang.resources;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.codebase.URLPersistenceProvider;
 
@@ -28,7 +29,7 @@ import org.whole.lang.codebase.URLPersistenceProvider;
  * @author Riccardo Solmi
  */
 public class URLURIResolver extends AbstractURIResolver {
-	public boolean canResolve(String contextUri, String uri) {
+	public boolean canResolve(IBindingManager bm, String uri) {
 		try {
 			new URL(uri);
 			return true;
@@ -36,7 +37,7 @@ public class URLURIResolver extends AbstractURIResolver {
 			return false;
 		}
 	}
-	public IPersistenceProvider resolve(String contextUri, String uri) {
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
 		try {
 			return new URLPersistenceProvider(new URL(uri));
 		} catch (MalformedURLException e) {
@@ -44,7 +45,7 @@ public class URLURIResolver extends AbstractURIResolver {
 		}
 	}
 
-	public String getLocator(String contextUri, String uri) {
+	public String getLocator(IBindingManager bm, String uri) {
 		return uri;
 	}
 

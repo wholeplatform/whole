@@ -20,6 +20,8 @@ package org.whole.lang.actions.resources;
 import org.whole.lang.actions.model.Action;
 import org.whole.lang.actions.model.LanguageActionFactory;
 import org.whole.lang.actions.reflect.ActionsLanguageKit;
+import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.Resource;
 import org.whole.lang.resources.ResourceRegistry;
@@ -51,7 +53,11 @@ public class ActionsRegistry extends CompoundResourceRegistry<Resource> {
 		return removeResource(functionLibrary.getUri().getValue());
 	}
 
+	public <A extends Action> A getAction(String resourceUri, boolean loadOnDemand, IBindingManager bm) {
+		return getResourceModel(resourceUri, loadOnDemand, bm);
+	}
+	@Deprecated
 	public <A extends Action> A getAction(String resourceUri, boolean loadOnDemand, String contextUri) {
-		return getResourceModel(resourceUri, loadOnDemand, contextUri);
+		return getResourceModel(resourceUri, loadOnDemand, ReflectionFactory.contextURIBindings(contextUri));
 	}
 }

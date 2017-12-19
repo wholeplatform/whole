@@ -78,7 +78,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 			}
 			if (EntityUtils.isSimple(entityClone))
 				entityClone.wRemove(index);
-			BehaviorUtils.evaluate(iterator, entityClone, getBindings());
+			iterator.evaluate(entityClone, getBindings());
 			if (EntityUtils.isComposite(entityClone))
 				entityClone.wRemove(index);
 			resetSelfEntity(selfEntity);
@@ -96,7 +96,7 @@ public class EvaluateCloneOperation extends CloneOperationOld {
 					(self, bm, arguments) -> entityClone.wSet(fd, self)
 			),	iterator);
 			entityClone.wRemove(fd);
-			BehaviorUtils.evaluate(iterator, entityClone, getBindings());
+			iterator.evaluate(entityClone, getBindings());
 			resetSelfEntity(selfEntity);
 		} else
 			super.cloneAndUpdate(entityClone, fd);

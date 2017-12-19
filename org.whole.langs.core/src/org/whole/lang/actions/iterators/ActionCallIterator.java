@@ -61,8 +61,7 @@ public class ActionCallIterator extends AbstractCloneableIterator<IEntity>{
 
 	protected IEntityIterator<IEntity> functionIterator() {
 		if (functionIterator == null) {
-			String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-			functionIterator = ActionsRegistry.instance().getFunctionCode(functionUri, true, contextUri);
+			functionIterator = ActionsRegistry.instance().getFunctionCode(functionUri, true, getBindings());
 			functionIterator.setBindings(getBindings());
 		}
 

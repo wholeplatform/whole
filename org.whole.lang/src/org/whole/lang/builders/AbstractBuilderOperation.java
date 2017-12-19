@@ -43,10 +43,6 @@ public abstract class AbstractBuilderOperation implements IBuilderOperation {
 		this.bindings = bindings;
 		return this;
 	}
-	public String getContextURI() {
-		return bindings != null && getBindings().wIsSet("contextURI") ?
-			getBindings().wStringValue("contextURI") : null;
-	}
 
 	public IBuilder wGetBuilder() {
 	    if (genericBuilder == null)

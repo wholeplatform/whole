@@ -51,13 +51,12 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
 			IBindingManager bm = getBindings();
 			bm.setResult(null);
 
-			run(selfEntity, bm, evaluateArguments(selfEntity, bm));
+			run(selfEntity, bm);
 
 			result = (E) bm.getResult();
 		}
 		return result;
 	}
-
 
 	public boolean hasNext() {
 		return getResult() != null;

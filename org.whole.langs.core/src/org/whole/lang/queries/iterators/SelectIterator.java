@@ -192,8 +192,8 @@ public class SelectIterator<E extends IEntity> extends AbstractLazyCloneableIter
 		nextEntity = null;
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		fromIterator.setBindings(bindings);
     	if (!lazyCloneSelect)
     		selectIterator.setBindings(bindings);

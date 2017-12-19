@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.SortedSet;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.model.IEntity;
 
 /**
@@ -38,9 +39,9 @@ public interface IResourceRegistry<T extends IResource> {
 	public int getResourceQualifiedNameOccurrences(T resource);
 	public boolean isResourceVersionAmbiguous(T resource);
 
-	public boolean containsResource(String uri, boolean loadOnDemand, String contextUri);
-	public T getResource(String uri, boolean loadOnDemand, String contextUri);
-	public <E extends IEntity> E getResourceModel(String uri, boolean loadOnDemand, String contextUri);
+	public boolean containsResource(String uri, boolean loadOnDemand, IBindingManager bm);
+	public T getResource(String uri, boolean loadOnDemand, IBindingManager bm);
+	public <E extends IEntity> E getResourceModel(String uri, boolean loadOnDemand, IBindingManager bm);
 	public T createResource(String uri, boolean hidden);
 	public boolean addResource(IEntity entity, String uri, boolean hidden);
 	public boolean addResource(T resource, boolean hidden);

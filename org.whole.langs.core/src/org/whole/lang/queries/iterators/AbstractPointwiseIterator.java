@@ -45,8 +45,8 @@ public abstract class AbstractPointwiseIterator<E extends IEntity> extends Abstr
 		return iterator;
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		toIterator.setBindings(bindings);
 	}
 

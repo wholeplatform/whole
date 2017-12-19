@@ -21,6 +21,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 
@@ -31,7 +32,7 @@ public class FileURIResolver extends AbstractURIResolver {
 	public static final String URI_PREFIX = "file://";
 	public static final int URI_PREFIX_LENGTH = URI_PREFIX.length();
 
-	public boolean canResolve(String contextUri, String uri) {
+	public boolean canResolve(IBindingManager bm, String uri) {
 		try {
 			return uri.substring(0, URI_PREFIX_LENGTH).equalsIgnoreCase(URI_PREFIX) &&
 				(uri.charAt(URI_PREFIX_LENGTH)=='/' || getHost(uri).equalsIgnoreCase("localhost"));
@@ -39,7 +40,7 @@ public class FileURIResolver extends AbstractURIResolver {
 			return false;
 		}
 	}
-	public IPersistenceProvider resolve(String contextUri, String uri) {
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
 		return new FilePersistenceProvider(new File(getURI(uri)));
 	}
 

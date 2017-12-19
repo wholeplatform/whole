@@ -95,7 +95,7 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 			queryBindings.wClear();
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
+    protected void setArgumentsBindings(IBindingManager bindings) {
 		if (!localNames.isEmpty())
 			lookaheadScope = BindingManagerFactory.instance.createExcludeFilterScope(localNames);
 

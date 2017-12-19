@@ -20,6 +20,7 @@ package org.whole.lang.resources;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 
 /**
@@ -28,14 +29,14 @@ import org.whole.lang.codebase.IPersistenceProvider;
 public class MappedURIResolver extends AbstractURIResolver {
 	private final Map<String, String> uriLocatorMap = new HashMap<String, String>();
 
-	public boolean canResolve(String contextUri, String uri) {
-		return uriLocatorMap.containsKey(uri) && getUriResolverRegistry().canResolve(contextUri, getLocator(contextUri, uri));
+	public boolean canResolve(IBindingManager bm, String uri) {
+		return uriLocatorMap.containsKey(uri) && getUriResolverRegistry().canResolve(bm, getLocator(bm, uri));
 	}
-	public IPersistenceProvider resolve(String contextUri, String uri) {
-		return getUriResolverRegistry().resolve(contextUri, getLocator(contextUri, uri));
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
+		return getUriResolverRegistry().resolve(bm, getLocator(bm, uri));
 	}
 
-	public String getLocator(String contextUri, String uri) {
+	public String getLocator(IBindingManager bm, String uri) {
 		return uriLocatorMap.get(uri);
 	}
 	public String addLocator(String uri, String url) {

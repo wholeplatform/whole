@@ -60,10 +60,6 @@ public class ModelBuilderOperation implements IBuilderOperation {
 		this.bindings = bindings;
 		return this;
 	}
-	public String getContextURI() {
-		return bindings != null && getBindings().wIsSet("contextURI") ?
-			getBindings().wStringValue("contextURI") : null;
-	}
 
 	public IBuilder wGetBuilder() {
 	    if (genericBuilder == null)
@@ -91,7 +87,7 @@ public class ModelBuilderOperation implements IBuilderOperation {
 		return createSpecificBuilderAdapter(languageURI, log, wGetBuilder());
 	}
 	protected IBuilder createSpecificBuilderAdapter(String languageURI, boolean log, IBuilder builder) {
-		return ReflectionFactory.getLanguageKit(languageURI, true, getContextURI()).getBuilder(SpecificBuilderAdapterOperation.ID).create(
+		return ReflectionFactory.getLanguageKit(languageURI, true, bindings).getBuilder(SpecificBuilderAdapterOperation.ID).create(
 				log ? GenericLoggerBuilder.instance(builder) : builder,
 				entityContext);
 	}

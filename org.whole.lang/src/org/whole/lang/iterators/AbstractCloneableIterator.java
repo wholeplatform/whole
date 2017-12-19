@@ -68,10 +68,10 @@ public abstract class AbstractCloneableIterator<E extends IEntity> implements IE
     public final void setBindings(IBindingManager bindings) {
     	if (this.bindings != bindings) {
     		this.bindings = bindings;
-    		setChildrenBindings(bindings);
+    		setArgumentsBindings(bindings);
     	}
 	}
-    protected void setChildrenBindings(IBindingManager bindings) {
+    protected void setArgumentsBindings(IBindingManager bindings) {
 	}
 	
 	public Iterator<E> iterator() {

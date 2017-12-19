@@ -122,8 +122,8 @@ public class ForIterator<E extends IEntity> extends AbstractDelegatingIterator<E
 		clearLookaheadScope();
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-	    super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+	    super.setArgumentsBindings(bindings);
 	    forIterator.setBindings(bindings);
 	}
 

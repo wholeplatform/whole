@@ -93,4 +93,11 @@ public abstract class AbstractVisitorOperation extends AbstractOperation impleme
 		return this;
 	}
 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		toString(sb);
+		return sb.toString();
+	}
+	public void toString(StringBuilder sb) {
+	}
 }

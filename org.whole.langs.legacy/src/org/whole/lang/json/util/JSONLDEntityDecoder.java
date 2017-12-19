@@ -60,8 +60,7 @@ public class JSONLDEntityDecoder extends CloneOperation {
 		if (edUri == null)
 			return super.applyRules(jsonEntity);
 
-    	String contextUri = null;//TODO getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, true, contextUri);
+    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, true, null);
 
 		IEntityFactory ef = GenericEntityFactory.instance(RegistryConfigurations.RESOLVER);
 		IEntity entity = ef.create(ed);

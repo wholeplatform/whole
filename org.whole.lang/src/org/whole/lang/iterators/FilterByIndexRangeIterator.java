@@ -136,12 +136,12 @@ public class FilterByIndexRangeIterator<E extends IEntity> extends AbstractDeleg
 	public void toString(StringBuilder sb) {
     	sb.append("(");
     	super.toString(sb);
-    	sb.append(")_");
+    	sb.append(" iteration ");
     	sb.append(lookaheadIndex);
-    	sb.append("in [");
+    	sb.append(" of [");
     	sb.append(startIndex);
     	sb.append("..");
     	sb.append((endIndex == Integer.MAX_VALUE) ? "*" : String.valueOf(endIndex));
-		sb.append("]");
+		sb.append("])");
 	}
 }

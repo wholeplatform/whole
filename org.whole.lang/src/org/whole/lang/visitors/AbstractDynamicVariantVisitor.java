@@ -148,5 +148,14 @@ public abstract class AbstractDynamicVariantVisitor extends AbstractVisitor impl
 			setResultIterator(
 					BehaviorUtils.lazyEvaluate(behavior, 0, getBindings()));
 		}
+
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			toString(sb);
+			return sb.toString();
+		}
+		public void toString(StringBuilder sb) {
+			sb.append("BehaviorVisitor");
+		}
 	}
 }

@@ -80,8 +80,8 @@ public abstract class AbstractCollectIterator extends AbstractLazyCloneableItera
 		return iteratorChain;
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		comparator.setBindings(bindings);
 		if (!lazyCloneChain)
 			for (int i=0; i<iteratorChain.length; i++)

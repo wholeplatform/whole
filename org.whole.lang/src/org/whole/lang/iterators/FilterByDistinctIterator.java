@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.comparators.BusinessIdentityComparator;
 import org.whole.lang.comparators.IEntityComparator;
@@ -60,9 +61,29 @@ public class FilterByDistinctIterator<E extends IEntity> extends AbstractDelegat
 		return this;
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		comparator.setBindings(bindings);
+	}
+
+	public IEntityIterator<IEntity> distinctIterator() {
+		return new AbstractSingleValuedRunnableIterator<IEntity>(this) {
+			@Override
+			protected void resetArguments(IEntity entity) {
+			}
+			@Override
+			protected void setArgumentsBindings(IBindingManager bindings) {
+			}
+
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+				bm.setResult(BindingManagerFactory.instance.createValue(
+						((FilterByDistinctIterator<?>) argsIterators[0]).addDistinct(this, selfEntity)));
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("distinct()");
+			}
+		};
 	}
 
 	public IVisitor distinctMatcher() {

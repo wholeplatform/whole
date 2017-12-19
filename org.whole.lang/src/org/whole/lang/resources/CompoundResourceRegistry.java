@@ -41,11 +41,11 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		super(uriResolvers);
 	}
 
-	public <E extends IEntity> E getFunctionLibrary(String libraryUri, boolean loadOnDemand, String contextUri) {
-		E functionLibrary = getResourceModel(libraryUri, false, contextUri);
+	public <E extends IEntity> E getFunctionLibrary(String libraryUri, boolean loadOnDemand, IBindingManager bm) {
+		E functionLibrary = getResourceModel(libraryUri, false, bm);
 		final boolean needInterpretation = functionLibrary == null;
 		if (needInterpretation && loadOnDemand) {
-			functionLibrary = getResourceModel(libraryUri, loadOnDemand, contextUri);
+			functionLibrary = getResourceModel(libraryUri, loadOnDemand, bm);
 			IBindingManager args = BindingManagerFactory.instance.createArguments();
 			args.wDefValue("LazyInterpretation", true);
 			InterpreterOperation.interpret(functionLibrary, args);
@@ -54,11 +54,11 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E extends IEntity> E getFunctionModel(String functionUri, boolean loadOnDemand, String contextUri) {
+	public <E extends IEntity> E getFunctionModel(String functionUri, boolean loadOnDemand, IBindingManager bm) {
 		IEntity functionModel = uriModelMap.get(functionUri);
 		if (functionModel == null && loadOnDemand && ResourceUtils.hasFragmentPart(functionUri)) {
 			String libraryUri = ResourceUtils.getResourcePart(functionUri);
-			getFunctionLibrary(libraryUri, loadOnDemand, contextUri);
+			getFunctionLibrary(libraryUri, loadOnDemand, bm);
 			functionModel = uriModelMap.get(functionUri);
 		}
 		return (E) functionModel;
@@ -79,10 +79,10 @@ public class CompoundResourceRegistry<T extends IResource> extends ResourceRegis
 		uriCodeMap.put(functionName, functionCode);
 	}
 	@SuppressWarnings("unchecked")
-	public <B extends ICloneable> B getFunctionCode(String functionUri, boolean loadOnDemand, String contextUri) {
+	public <B extends ICloneable> B getFunctionCode(String functionUri, boolean loadOnDemand, IBindingManager bm) {
 		ICloneable functionCode = uriCodeMap.get(functionUri);
 		if (functionCode == null) {
-			IEntity functionModel = getFunctionModel(functionUri, loadOnDemand, contextUri);
+			IEntity functionModel = getFunctionModel(functionUri, loadOnDemand, bm);
 			functionCode = uriCodeMap.get(functionUri);
 
 			if (functionModel != null && functionCode == null) {

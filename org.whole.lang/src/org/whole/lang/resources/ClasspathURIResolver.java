@@ -17,6 +17,7 @@
  */
 package org.whole.lang.resources;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.IPersistenceProvider;
 
@@ -30,7 +31,7 @@ public class ClasspathURIResolver extends AbstractURIResolver {
 	public static final String URI_PREFIX = "classpath:/";
 	public static final int URI_PREFIX_LENGTH = URI_PREFIX.length();
 
-	public boolean canResolve(String contextUri, String uri) {
+	public boolean canResolve(IBindingManager bm, String uri) {
 		try {
 			return uri.substring(0, URI_PREFIX_LENGTH).equalsIgnoreCase(URI_PREFIX);
 		} catch (IndexOutOfBoundsException e) {
@@ -38,7 +39,7 @@ public class ClasspathURIResolver extends AbstractURIResolver {
 		}
 	}
 
-	public IPersistenceProvider resolve(String contextUri, String uri) {
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
 		return new ClasspathPersistenceProvider(getResourceClasspath(uri));
 	}
 

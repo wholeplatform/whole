@@ -20,6 +20,7 @@ package org.whole.lang.actions.visitors;
 import org.whole.lang.actions.model.ActionCall;
 import org.whole.lang.actions.model.ContextMenuActions;
 import org.whole.lang.actions.model.GuardedAction;
+import org.whole.lang.actions.model.IActionsEntity;
 import org.whole.lang.actions.model.LanguageActionFactory;
 import org.whole.lang.actions.model.Name;
 import org.whole.lang.actions.model.SimpleAction;
@@ -29,6 +30,7 @@ import org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum;
 import org.whole.lang.actions.resources.ActionsRegistry;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
@@ -57,16 +59,32 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
 	public enum WholeAction {VALUE_ASSIST, VALIDATOR, NORMALIZER, PRETTY_PRINTER, INTERPRETER, GENERATOR};
 	protected WholeAction wholeAction;
 
+	protected IEntityIterator<?> lazyEvaluate(IActionsEntity entity) {
+		setResult(null);
+		entity.accept(this);
+		return getResultIterator();
+	}
+	protected IEntity evaluate(IActionsEntity entity) {
+		lazyEvaluate(entity);
+		return getResult();
+	}
+	protected String stringEvaluate(IActionsEntity entity) {
+		return evaluate(entity).wStringValue();
+	}
+	protected int intEvaluate(IActionsEntity entity) {
+		return evaluate(entity).wIntValue();
+	}
+
     @Override
     public void visit(LanguageActionFactory entity) {
     	entity = NormalizerOperation.normalize(EntityUtils.clone(entity));
 
 		ActionsRegistry.instance().addResource(entity, entity.getUri().getValue(), false);
 
-    	entity.getName().accept(this);
-		entity.getTargetLanguage().accept(this);
-		entity.getToolbarActions().accept(this);
-		entity.getContextMenuActions().accept(this);
+		lazyEvaluate(entity.getName());
+		lazyEvaluate(entity.getTargetLanguage());
+		lazyEvaluate(entity.getToolbarActions());
+		lazyEvaluate(entity.getContextMenuActions());
 
 		setResult(BindingManagerFactory.instance.createVoid());
     }
@@ -109,19 +127,19 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
 			return;
 
 		wholeAction = WholeAction.VALIDATOR;
-		entity.getValidatorAction().accept(this);
+		lazyEvaluate(entity.getValidatorAction());
 
 		wholeAction = WholeAction.NORMALIZER;
-		entity.getNormalizerAction().accept(this);
+		lazyEvaluate(entity.getNormalizerAction());
 
 		wholeAction = WholeAction.PRETTY_PRINTER;
-		entity.getPrettyPrinterAction().accept(this);
+		lazyEvaluate(entity.getPrettyPrinterAction());
 
 		wholeAction = WholeAction.INTERPRETER;
-		entity.getInterpreterAction().accept(this);
+		lazyEvaluate(entity.getInterpreterAction());
 
 		wholeAction = WholeAction.GENERATOR;
-		entity.getGeneratorAction().accept(this);
+		lazyEvaluate(entity.getGeneratorAction());
 	}
 
 	@Override
@@ -143,10 +161,8 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
     	if (!bm.wIsSet("LazyInterpretation") || !bm.wBooleanValue("LazyInterpretation"))
 	   		DynamicCompilerOperation.compile(entity, getBindings());
 
-		if (languageKit == null) {
-			String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-			languageKit = ReflectionFactory.getLanguageKit(uri, true, contextUri);
-		}
+		if (languageKit == null)
+			languageKit = ReflectionFactory.getLanguageKit(uri, true, getBindings());
 
 		switch (wholeAction) {
 		case VALUE_ASSIST:
@@ -182,12 +198,12 @@ public class ActionsInterpreterVisitor extends ActionsTraverseAllVisitor {
 	@Override
 	public void visit(ContextMenuActions entity) {
 		wholeAction = WholeAction.VALUE_ASSIST;
-		entity.getValueAssistActions().accept(this);
+		lazyEvaluate(entity.getValueAssistActions());
 
-		entity.getSourceMenuActions().accept(this);
-		entity.getRefactorMenuActions().accept(this);
-		entity.getTranslateMenuActions().accept(this);
-		entity.getAnalyzeMenuActions().accept(this);
-		entity.getMigrateMenuActions().accept(this);
+		lazyEvaluate(entity.getSourceMenuActions());
+		lazyEvaluate(entity.getRefactorMenuActions());
+		lazyEvaluate(entity.getTranslateMenuActions());
+		lazyEvaluate(entity.getAnalyzeMenuActions());
+		lazyEvaluate(entity.getMigrateMenuActions());
 	}
 }

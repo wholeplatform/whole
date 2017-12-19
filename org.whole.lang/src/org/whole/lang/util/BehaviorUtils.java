@@ -19,7 +19,6 @@ package org.whole.lang.util;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
-import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
@@ -38,14 +37,14 @@ public class BehaviorUtils {
 		return apply(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity apply(String functionUri, IEntity self, IBindingManager bm) {
-		return evaluate(IteratorFactory.functionApplicationIterator(functionUri), self, bm);
+		return IteratorFactory.functionApplicationIterator(functionUri).evaluate(self, bm);
 	}
 
 	public static IEntity applyFirstResult(String functionUri, IEntity self) {
 		return applyFirstResult(functionUri, self, BindingManagerFactory.instance.createArguments());
 	}
 	public static IEntity applyFirstResult(String functionUri, IEntity self, IBindingManager bm) {
-		return evaluateFirstResult(IteratorFactory.functionApplicationIterator(functionUri), self, bm);
+		return IteratorFactory.functionApplicationIterator(functionUri).evaluateFirst(self, bm);
 	}
 
 	public static <E extends IEntity> IEntityIterator<E> compileAndLazyEvaluate(IEntity behavior, IEntity self) {
@@ -69,26 +68,6 @@ public class BehaviorUtils {
 		op.stagedVisit(behavior, relativeStage);
 		return evaluateResult(op.getOperationEnvironment());
 	}
-	public static final IEntity evaluate(IEntityIterator<?> iterator, IEntity self, IBindingManager bm) {
-		bm.wDef("self", self);
-		iterator.setBindings(bm);
-		iterator.reset(self);
-	
-		IEntity result = null;
-		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-		bm.wEnterScope(resettableScope);
-		try {
-			while (iterator.hasNext()) {
-				bm.setResult(result = iterator.next());
-				resettableScope.commit();
-			}
-		} finally {
-			resettableScope.rollback();
-			bm.wExitScope();
-		}
-		return result;
-	}
-
 	public static final IEntity evaluateResult(IBindingManager bm) {
 		if (bm.hasResultIterator()) {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
@@ -98,24 +77,11 @@ public class BehaviorUtils {
 			if (selfEntity != null)
 				resultIterator.reset(selfEntity);
 
-			IEntity result = null;
-			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-			bm.wEnterScope(resettableScope);
-			try {
-				while (resultIterator.hasNext()) {
-					bm.setResult(result = resultIterator.next());
-					resettableScope.commit();
-				}
-			} finally {
-				resettableScope.rollback();
-				bm.wExitScope();
-			}
-			return result;
+			return resultIterator.evaluateRemaining();
 		} else
 			return bm.getResult();
 	}
 	public static final IEntity evaluateSingletonResult(IBindingManager bm) {
-		IEntity result = null;
 		if (bm.hasResultIterator()) {
 			IEntityIterator<?> resultIterator = bm.getResultIterator();
 			bm.setResultIterator(null);
@@ -123,26 +89,13 @@ public class BehaviorUtils {
 			if (selfEntity != null)
 				resultIterator.reset(selfEntity);
 	
-			ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
-			bm.wEnterScope(resettableScope);	
-			try {
-				if (resultIterator.hasNext()) {
-					bm.setResult(result = resultIterator.next());
-					resettableScope.commit();
-				}
-
-				if (result == null || resultIterator.hasNext())
-					throw new IllegalArgumentException("The result is not a singleton");
-			} finally {
-				resettableScope.rollback();
-				bm.wExitScope();
-			}
+			return resultIterator.evaluateSingleton();
 		} else {
-			result = bm.getResult();
+			IEntity result = bm.getResult();
 			if (result == null)
 				throw new IllegalArgumentException("The result is not a singleton");
+			return result;
 		}
-		return result;
 	}
 
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self) {
@@ -150,15 +103,7 @@ public class BehaviorUtils {
 	}
 	public static <E extends IEntity> E evaluateFirstResult(IEntity behavior, IEntity self, IBindingManager bm) {
 		IEntityIterator<E> iterator = compileAndLazyEvaluate(behavior, self, bm);
-		return iterator.hasNext() ? iterator.next() : null;
-	}
-
-	public static IEntity evaluateFirstResult(IEntityIterator<?> iterator, IEntity self, IBindingManager bm) {
-		bm.wDef("self", self);
-		iterator.setBindings(bm);
-		iterator.reset(self);
-
-		return iterator.hasNext() ? iterator.next() : null;
+		return iterator.evaluateNext();
 	}
 
 	//TODO ? fail on not boolean; != Queries predicate

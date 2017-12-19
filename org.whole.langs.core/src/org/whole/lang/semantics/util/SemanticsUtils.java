@@ -72,8 +72,6 @@ public class SemanticsUtils {
 	public static IEntityIterator<IEntity> typeCastIterator(final String entityTypeUri) {
 		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
 			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
-//TODO				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-				
 				EntityDescriptor<?> toEd = CommonsDataTypePersistenceParser.parseEntityDescriptor(entityTypeUri);
 				bm.setResult(DataTypeUtils.convertCloneIfParented(selfEntity, toEd));
 			}
@@ -84,8 +82,12 @@ public class SemanticsUtils {
 		return IteratorFactory.javaCollectionIterator(
 				FunctionLibraryRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
+	public static IEntity getSemanticTheory(IBindingManager bm, String theoryURI, boolean loadOnDemand) {
+		return theoryURI != null ? FunctionLibraryRegistry.instance().getResourceModel(theoryURI, loadOnDemand, bm) : null;
+	}
+	@Deprecated
 	public static IEntity getSemanticTheory(String contextURI, String theoryURI, boolean loadOnDemand) {
-		return theoryURI != null ? FunctionLibraryRegistry.instance().getResourceModel(theoryURI, loadOnDemand, contextURI) : null;
+		return theoryURI != null ? FunctionLibraryRegistry.instance().getResourceModel(theoryURI, loadOnDemand, ReflectionFactory.contextURIBindings(contextURI)) : null;
 	}
 
 	public static boolean abstractFilter(EntityDescriptor<?> ed, boolean excludeAbstract) {

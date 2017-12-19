@@ -29,10 +29,10 @@ import org.whole.lang.operations.ICloneContext;
  * @author Riccardo Solmi
  */
 public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E> {
-	private IBindingManager lookaheadScope;
-	private IEntityIterator<?> conditionIterator;
-	private boolean conditionEvaluated = false;
-	private boolean conditionValue;
+	protected IBindingManager lookaheadScope;
+	protected IEntityIterator<?> conditionIterator;
+	protected boolean conditionEvaluated = false;
+	protected boolean conditionValue;
 	private E nextEntity = null;
 
 	protected IfIterator(IEntityIterator<?> conditionIterator, IEntityIterator<E> doIterator) {
@@ -50,14 +50,15 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 	protected boolean predicateIsTrue() {
 		if (!conditionEvaluated) {
 			conditionEvaluated = true;
-			if (conditionIterator.hasNext()) {
-				getBindings().wEnterScope(lookaheadScope(), true);
-				conditionIterator.next();
-				getBindings().wExitScope();
-				lookaheadScope.wEnterScope();
-				conditionValue = true;
-			} else
-				conditionValue = false;
+
+			getBindings().wEnterScope(lookaheadScope(), true);
+
+			IEntity result = conditionIterator.evaluateRemaining();
+
+			getBindings().wExitScope();
+			conditionValue = result != null && result.wBooleanValue();
+			if (conditionValue)
+				lookaheadScope.wEnterScope();	
 		}
 		return conditionValue;
 	}
@@ -118,8 +119,8 @@ public class IfIterator<E extends IEntity> extends AbstractDelegatingIterator<E>
 		super.reset(entity);
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-	    super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+	    super.setArgumentsBindings(bindings);
 	    conditionIterator.setBindings(bindings);
 	}
 

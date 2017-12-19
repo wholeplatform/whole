@@ -43,4 +43,6 @@ public interface IVisitor extends ICloneable, ISourceable {
 
     public void visit(IEntity entity);
     public boolean visitAdapter(IEntityAdapter entity);
+
+	public void toString(StringBuilder sb);
 }

@@ -56,13 +56,8 @@ public class XmlStoreConsumerVisitor extends XmlTraverseAllVisitor {
 		this.bindings = targetOperation.getBindings();
 	}
 
-	public String getContextURI() {
-		return bindings != null && bindings.wIsSet("contextURI") ?
-				bindings.wStringValue("contextURI") : null;
-	}
-
 	protected EntityDescriptorEnum getEntityDescriptorEnum(String uri) {
-		return ReflectionFactory.getLanguageKit(uri, true, getContextURI()).getEntityDescriptorEnum();
+		return ReflectionFactory.getLanguageKit(uri, true, bindings).getEntityDescriptorEnum();
 	}
 
 	protected EntityDescriptor<?> getEntityDescriptor(String name) {

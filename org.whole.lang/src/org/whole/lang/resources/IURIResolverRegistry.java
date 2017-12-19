@@ -17,12 +17,14 @@
  */
 package org.whole.lang.resources;
 
+import org.whole.lang.bindings.IBindingManager;
+
 /**
  * @author Riccardo Solmi
  */
 public interface IURIResolverRegistry extends IURIResolver {
 	public IResourceRegistry<?> getResourceRegistry();
 
-	public IURIResolver getURIResolver(String contextUri, String uri);
+	public IURIResolver getURIResolver(IBindingManager bm, String uri);
 	public void addURIResolver(IURIResolver uriResolver);
 }

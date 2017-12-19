@@ -28,16 +28,14 @@ import org.whole.lang.bindings.NullScope;
 import org.whole.lang.exceptions.WholeIllegalArgumentException;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.util.BehaviorUtils;
-import org.whole.lang.util.IRunnable;
 import org.whole.lang.util.WholeMessages;
 
 /**
  * @author Riccardo Solmi
  */
-public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIterator<E> implements IRunnable {
+public abstract class AbstractRunnableIterator<E extends IEntity> extends AbstractCloneableIterator<E> {
 	protected IEntity selfEntity;
-	protected IEntityIterator<?>[] argsIterators;
+	protected IEntityIterator<? extends IEntity>[] argsIterators;
 	protected Set<Integer> optionalArgsIndexSet;
 
 	protected AbstractRunnableIterator(IEntityIterator<?>... argsIterators) {
@@ -61,13 +59,16 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 
 	public void reset(IEntity entity) {
         selfEntity = entity;
+        resetArguments(entity);
+    }
+	protected void resetArguments(IEntity entity) {
         if (argsIterators != null)
     		for (IEntityIterator<? extends IEntity> i : argsIterators)
-    			i.reset(entity);
-    }
+    			i.reset(entity);		
+	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		if (argsIterators != null)
 			for (IEntityIterator<? extends IEntity> i : argsIterators)
 				i.setBindings(bindings);
@@ -77,24 +78,23 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
 		return NullScope.instance;
 	}
 
+	protected void run(IEntity selfEntity, IBindingManager bm) {
+		run(selfEntity, bm, evaluateArguments(selfEntity, bm));
+	}
+	public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+	}
+
 	protected IEntity[] evaluateArguments(IEntity selfEntity, IBindingManager bm) {
 		IEntity[] arguments = null;
         if (argsIterators != null) {
         	arguments = new IEntity[argsIterators.length];
         	for (int i=0; i<argsIterators.length; i++) {
-        		arguments[i] = evaluateArgument(argsIterators[i], selfEntity, bm);
+        		arguments[i] = argsIterators[i].evaluate(selfEntity, bm);
         		if (arguments[i] == null && !optionalArgsIndexSet.contains(i))
         			throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(argsIterators[i].getSourceEntity()).withBindings(bm);
         	}
         }
         return arguments;
-	}
-	protected IEntity evaluateArgument(IEntityIterator<? extends IEntity> argumentIterator, IEntity selfEntity, IBindingManager bm) {
-		//TODO test and remove
-		IBindingManager ab = argumentIterator.getBindings();
-		if (bm != ab)
-			ab = bm;
-		return BehaviorUtils.evaluate(argumentIterator, selfEntity, bm);
 	}
 
     @Override
@@ -103,8 +103,8 @@ public abstract class AbstractRunnableIterator<E extends IEntity> extends Abstra
     	
 		for (int i=0; i<argsIterators.length; i++) {
 			if (i>0)
-				sb.append(",");
-			sb.append(argsIterators[i].toString());
+				sb.append(", ");
+			argsIterators[i].toString(sb);
 		}
 
     	sb.append(")");

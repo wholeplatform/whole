@@ -27,17 +27,13 @@ import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.commons.model.QuantifierEnum;
 import org.whole.lang.commons.model.Variable;
 import org.whole.lang.commons.parsers.CommonsDataTypePersistenceParser;
-import org.whole.lang.iterators.FilterByIndexRangeIterator;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
-import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
-import org.whole.lang.util.BehaviorUtils;
 import org.whole.lang.util.BindingUtils;
-import org.whole.lang.util.DataTypeUtils;
 import org.whole.lang.util.EntityUtils;
 import org.whole.lang.util.ResourceUtils;
 import org.whole.lang.visitors.AbstractVisitor;
@@ -83,65 +79,6 @@ public class GenericMatcherFactory {
 			}
 		};
 	}
-	public IVisitor extendedLanguageSubtypeOfVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !ed.isExtendedLanguageSupertypeOf(entityEd))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, entityEd.getURI());
-				}
-
-				public void toString(StringBuilder sb) {
-					sb.append("extendedLanguageSubtypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !ed.isExtendedLanguageSupertypeOf(entityEd))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, entityEd.getURI());
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("extendedLanguageSubtypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
 
 	public IVisitor isLanguageSubtypeOfMatcher(String edUri) {
 		return new IsLanguageSubtypeOfMatcher(edUri);
@@ -168,65 +105,6 @@ public class GenericMatcherFactory {
 			return "isLanguageSubtypeOf";
 		}
 	}
-	public IVisitor languageSubtypeOfVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !ed.isLanguageSupertypeOf(entityEd))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, entityEd.getURI());
-				}
-
-				public void toString(StringBuilder sb) {
-					sb.append("languageSubtypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !ed.isLanguageSupertypeOf(entityEd))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, entityEd.getURI());
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("languageSubtypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
 
 	public IVisitor isExtendedLanguageSupertypeOfMatcher(String edUri) {
 		return new AbstractEntityDescriptorBasedMatcher(edUri) {
@@ -242,65 +120,7 @@ public class GenericMatcherFactory {
 			}
 		};
 	}
-	public IVisitor extendedLanguageSupertypeOfVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
 
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !entityEd.isExtendedLanguageSupertypeOf(ed))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, entityEd.getURI());
-				}
-
-				public void toString(StringBuilder sb) {
-					sb.append("extendedLanguageSupertypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !entityEd.isExtendedLanguageSupertypeOf(ed))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, entityEd.getURI());
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("extendedLanguageSupertypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
 
 	public IVisitor isLanguageSupertypeOfMatcher(String edUri) {
 		return new AbstractEntityDescriptorBasedMatcher(edUri) {
@@ -315,65 +135,6 @@ public class GenericMatcherFactory {
 				return "isLanguageSupertypeOf";
 			}
 		};
-	}
-	public IVisitor languageSupertypeOfVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !entityEd.isLanguageSupertypeOf(ed))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, entityEd.getURI());
-				}
-
-				public void toString(StringBuilder sb) {
-					sb.append("languageSupertypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					EntityDescriptor<?> entityEd = entity.wGetEntityDescriptor();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString())
-							throw new VisitException();
-						String uri = value.wStringValue();
-
-				    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-				    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
-
-						if (ed == null || !entityEd.isLanguageSupertypeOf(ed))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, entityEd.getURI());
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("languageSupertypeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
 	}
 
 	public IVisitor hasTypeMatcher(String edUri) {
@@ -401,70 +162,7 @@ public class GenericMatcherFactory {
 			return "hasType";
 		}
 	}
-	public IVisitor typeAsVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					String entityUri = entity.wGetEntityDescriptor().getURI();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString() || !value.wStringValue().equals(entityUri))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, entityUri);
-				}
 
-				public void toString(StringBuilder sb) {
-					sb.append("typeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					String entityUri = entity.wGetEntityDescriptor().getURI();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-						if (!dataKind.isString() || !value.wStringValue().equals(entityUri))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, entityUri);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("typeAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
-
-	public IVisitor atTypeMatcher(String edUri) {
-		return new AbstractEntityDescriptorBasedMatcher(edUri) {
-			public void visit(IEntity entity) {
-				EntityDescriptor<?> entityEd = entity.wGetParent().wGetEntityDescriptor(entity);
-				EntityDescriptor<?> ed = getOtherEntityDescriptor(entityEd);
-				if (ed == null || !entityEd.equals(ed))
-					throw new VisitException();
-			}
-
-			protected String predicateName() {
-				return "atType";
-			}
-		};
-	}
-
-	public IVisitor atFeatureMatcher(String fdUri) {
-		return new AtFeatureMatcher(fdUri);
-	}
 	public IVisitor atFeatureMatcher(FeatureDescriptor fd) {
 		return new AtFeatureMatcher(fd);
 	}
@@ -509,8 +207,7 @@ public class GenericMatcherFactory {
 				if (!ResourceUtils.hasFragmentPart(edUri))
 					return selfEd.getEntityDescriptorEnum().valueOf(edUri);
 
-		    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-		    	ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, true, contextUri);
+		    	ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, true, getBindings());
 			}
 			return ed;
 		}
@@ -541,8 +238,7 @@ public class GenericMatcherFactory {
 				if (!ResourceUtils.hasFragmentPart(fdUri))
 					return selfFd.getFeatureDescriptorEnum().valueOf(fdUri);
 
-		    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-		    	fd = CommonsDataTypePersistenceParser.getFeatureDescriptor(fdUri, true, contextUri);
+		    	fd = CommonsDataTypePersistenceParser.getFeatureDescriptor(fdUri, true, getBindings());
 			}
 			return fd;
 		}
@@ -554,64 +250,6 @@ public class GenericMatcherFactory {
 			sb.append(")");
 		}
 		protected abstract String predicateName(); 
-	}
-
-	public IVisitor isLanguageMatcher(final String languageURI) {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				if (!languageURI.equals(entity.wGetLanguageKit().getURI()))
-					throw new VisitException();
-			}
-
-			public void toString(StringBuilder sb) {
-				sb.append("isLanguage(");
-				sb.append(languageURI);
-				sb.append(")");
-			}
-		};
-	}
-	public IVisitor languageAsVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					String languageUri = entity.wGetLanguageKit().getURI();
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						if (!value.equals(languageUri))
-							throw new VisitException();
-					} else
-						bm.wDefValue(varName, languageUri);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("languageAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					String languageUri = entity.wGetLanguageKit().getURI();
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						if (!value.equals(languageUri))
-							throw new VisitException();
-					} else
-						bm.wDefValue(name, languageUri);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("languageAsVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
 	}
 
 	public IVisitor hasKindMatcher(final EntityKinds kind) {
@@ -689,131 +327,6 @@ public class GenericMatcherFactory {
 		return matchFragmentVisitor;
 	}
 
-	public IVisitor atHostStageMatcher() {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				if (getOperation().getStage() > 0)
-					throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("atHostStage()");
-			}
-		};
-	}
-	public IVisitor atTemplateStageMatcher() {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				if (getOperation().getStage() <= 0)
-					throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("atTemplateStage()");
-			}
-		};
-	}
-	public IVisitor atStageMatcher(final int stage) {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				if (getOperation().getStage() != stage)
-					throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("atStage(");
-				sb.append(stage);
-				sb.append(")");
-			}
-		};
-	}
-
-	public IVisitor atStageVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					if (bm.wIsSet(varName)) {
-						IEntity value = bm.wGet(varName);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-
-						if (!dataKind.isInt() || value.wIntValue() != getOperation().getStage())
-							throw new VisitException();
-					} else
-						bm.wDef(varName, entity);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("atStageVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					if (bm.wIsSet(name)) {
-						IEntity value = bm.wGet(name);
-						DataKinds dataKind = DataTypeUtils.getDataKind(value);
-	
-						if (!dataKind.isInt() || value.wIntValue() != getOperation().getStage())
-							throw new VisitException();
-					} else
-						bm.wDef(name, entity);
-				}
-				
-				public void toString(StringBuilder sb) {
-					sb.append("atStageVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
-
-	public IVisitor asVariableMatcher(final String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-					final String varName = BindingUtils.getVariableName(name);
-	
-					if (bm.wIsSet(varName)) {
-						if (!Matcher.match(bm.wGet(varName), entity))
-							throw new VisitException();
-					} else
-						bm.wDef(varName, entity);
-				}
-	
-				public void toString(StringBuilder sb) {
-					sb.append("asVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-		else
-			return new AbstractVisitor() {
-				public void visit(IEntity entity) {
-					final IBindingManager bm = getBindings();
-	
-					if (bm.wIsSet(name)) {
-						if (!Matcher.match(bm.wGet(name), entity))
-							throw new VisitException();
-					} else
-						bm.wDef(name, entity);
-				}
-	
-				public void toString(StringBuilder sb) {
-					sb.append("asVariable(");
-					sb.append(name);
-					sb.append(")");
-				}
-			};
-	}
-
 	public IVisitor defineVariableMatcher(final String name) {
 		if (BindingUtils.hasEnvironmentPart(name))
 			return new AbstractVisitor() {
@@ -840,242 +353,6 @@ public class GenericMatcherFactory {
 				}
 			};
 
-	}
-
-	public IVisitor atIndexMatcher(final int index) {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				try {
-					IEntity parent = entity.wGetParent();
-					int indexOf = parent.wIndexOf(entity);
-					if (index < 0)
-						indexOf -= parent.wSize();
-					if (indexOf == index)
-						return;
-				} catch (RuntimeException e) {
-				}
-				throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("atIndex(");
-				if (index < 0)
-					sb.append("size");
-				sb.append(index);
-				sb.append(")");
-			}
-		};
-	}
-
-	public IVisitor matchIteratorIndexVariable(FilterByIndexRangeIterator<?> iterator, String name) {
-		if (BindingUtils.hasEnvironmentPart(name))
-			return new MatchIteratorIndexLocalVariableVisitor(iterator, name);
-		else
-			return new MatchIteratorIndexVariableVisitor(iterator, name);
-	}
-	public static class MatchIteratorIndexLocalVariableVisitor extends AbstractVisitor {
-		protected FilterByIndexRangeIterator<?> iterator;
-		protected String name;
-
-		public MatchIteratorIndexLocalVariableVisitor(FilterByIndexRangeIterator<?> iterator, String name) {
-			this.iterator = iterator;
-			this.name = name;
-		}
-
-		public IVisitor clone(ICloneContext cc) {
-			MatchIteratorIndexVariableVisitor visitor = (MatchIteratorIndexVariableVisitor) super.clone(cc);
-			visitor.iterator = cc.clone(iterator);
-			return visitor;
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			super.setBindings(bm);
-			iterator.setBindings(bm);
-		}
-
-		public void visit(IEntity entity) {
-			int predicateIndex = iterator.predicateIndex(this);
-			final IBindingManager bm = getBindings();
-			
-			if (bm.wIsSet(name)) {
-				IEntity value = bm.wGet(name);
-				DataKinds dataKind = DataTypeUtils.getDataKind(value);
-				
-				if (!dataKind.isInt() || value.wIntValue() != predicateIndex)
-					throw new VisitException();
-			} else
-				bm.wDef(name, BindingManagerFactory.instance.createValue(predicateIndex));
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("matchIteratorIndexVariable(index as");
-			sb.append(name);
-			sb.append(")");
-		}
-	};
-	public static class MatchIteratorIndexVariableVisitor extends MatchIteratorIndexLocalVariableVisitor {
-		public MatchIteratorIndexVariableVisitor(FilterByIndexRangeIterator<?> iterator, String name) {
-			super(iterator, name);
-		}
-
-		public void visit(IEntity entity) {
-			int predicateIndex = iterator.predicateIndex(this);
-			final IBindingManager bm = BindingUtils.getEnvironment(getBindings(), name);
-			final String varName = BindingUtils.getVariableName(name);
-			
-			if (bm.wIsSet(varName)) {
-				IEntity value = bm.wGet(varName);
-				DataKinds dataKind = DataTypeUtils.getDataKind(value);
-				
-				if (!dataKind.isInt() || value.wIntValue() != predicateIndex)
-					throw new VisitException();
-			} else
-				bm.wDef(varName, BindingManagerFactory.instance.createValue(predicateIndex));
-		}
-	};
-
-	public IVisitor matchIteratorIndex(FilterByIndexRangeIterator<?> iterator, int index) {
-		return new MatchIteratorIndexVisitor(iterator, index);
-	}
-	public static class MatchIteratorIndexVisitor extends AbstractVisitor {
-		private FilterByIndexRangeIterator<?> iterator;
-		private int index;
-
-		public MatchIteratorIndexVisitor(FilterByIndexRangeIterator<?> iterator, int index) {
-			this.iterator = iterator;
-			this.index = index;
-		}
-
-		public IVisitor clone(ICloneContext cc) {
-			MatchIteratorIndexVisitor visitor = (MatchIteratorIndexVisitor) super.clone(cc);
-			visitor.iterator = cc.clone(iterator);
-			return visitor;
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			super.setBindings(bm);
-			iterator.setBindings(bm);
-		}
-
-		public void visit(IEntity entity) {
-			if (iterator.predicateIndex(this) == index)
-				return;
-			else
-				throw new VisitException();
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("matchIteratorIndex(");
-			sb.append(index);
-			sb.append(")");
-		}
-	}
-
-	public IVisitor matchIteratorIndexRange(FilterByIndexRangeIterator<?> iterator, int startIndex, int endIndex) {
-		return new MatchIteratorIndexRangeVisitor(iterator, startIndex, endIndex);
-	}
-	public static class MatchIteratorIndexRangeVisitor extends AbstractVisitor {
-		private FilterByIndexRangeIterator<?> iterator;
-		private int startIndex, endIndex;
-
-		public MatchIteratorIndexRangeVisitor(FilterByIndexRangeIterator<?> iterator, int startIndex, int endIndex) {
-			this.iterator = iterator;
-			this.startIndex = startIndex;
-			this.endIndex = endIndex;
-		}
-
-		public IVisitor clone(ICloneContext cc) {
-			MatchIteratorIndexRangeVisitor visitor = (MatchIteratorIndexRangeVisitor) super.clone(cc);
-			visitor.iterator = cc.clone(iterator);
-			return visitor;
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			super.setBindings(bm);
-			iterator.setBindings(bm);
-		}
-
-		public void visit(IEntity entity) {
-			int index = iterator.predicateIndex(this);
-			if (startIndex <= index && index <= endIndex)
-				return;
-			else
-				throw new VisitException();
-		}
-		
-		public void toString(StringBuilder sb) {
-			sb.append("matchIteratorIndexRange(");
-			sb.append(startIndex);
-			sb.append("..");
-			sb.append(endIndex == Integer.MAX_VALUE ? "*" : String.valueOf(endIndex));
-			sb.append(")");
-		}
-	};
-
-	public static IVisitor evalTrue(final IEntity program) {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				IBindingManager bm = getBindings();
-
-				IEntity selfEntity = bm.wGet("self");
-				if (selfEntity != entity)
-					bm.wDef("self", entity);
-
-				IEntity result = BehaviorUtils.evaluate(program, 0, bm);			
-
-				if (selfEntity != entity ) {
-					if (selfEntity != null)
-						bm.wDef("self", selfEntity);
-					else
-						bm.wUnset("self");
-				}
-
-				if (result == null || 
-						!DataTypeUtils.getDataKind(result).isBoolean() ||
-						!result.wBooleanValue())
-					throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("evalTrue(");
-				sb.append(program);//TODO startOf
-				sb.append(")");
-			}
-		};
-	}
-	public static IVisitor evalTrue(final IEntityIterator<?> iterator) {
-		return new AbstractVisitor() {
-			public void visit(IEntity entity) {
-				IBindingManager bm = getBindings();
-
-				IEntity selfEntity = bm.wGet("self");
-				if (selfEntity != entity)
-					bm.wDef("self", entity);
-
-				IEntity result = BehaviorUtils.evaluate(iterator, entity, bm);			
-
-				if (selfEntity != entity ) {
-					if (selfEntity != null)
-						bm.wDef("self", selfEntity);
-					else
-						bm.wUnset("self");
-				}
-
-				if (result == null || 
-						!DataTypeUtils.getDataKind(result).isBoolean() ||
-						!result.wBooleanValue())
-					throw new VisitException();
-			}
-			
-			public void toString(StringBuilder sb) {
-				sb.append("evalTrue(");
-				sb.append(iterator.toString());
-				sb.append(")");
-			}
-		};
 	}
 
 	public IVisitor match(final IEntity pattern) {
@@ -1124,7 +401,7 @@ public class GenericMatcherFactory {
 		}
 
 		public void visit(IEntity entity) {
-			IEntity pattern = BehaviorUtils.evaluate(patternIterator, entity, getBindings());
+			IEntity pattern = (IEntity) patternIterator.evaluate(entity, getBindings());
 
 			if (pattern == null || !Matcher.match(pattern, entity, getBindings()))
 				throw new VisitException();
@@ -1139,43 +416,6 @@ public class GenericMatcherFactory {
 		public void toString(StringBuilder sb) {
 			sb.append("match(");
 			sb.append(patternIterator);
-			sb.append(")");
-		}
-	}
-
-	@Deprecated
-	public IVisitor matchSome(final IEntityIterator<?> iterator) {
-		return new MatchSomeVisitor(iterator);
-	}
-	public static class MatchSomeVisitor extends AbstractVisitor {
-		private IEntityIterator<?> iterator;
-
-		public MatchSomeVisitor(IEntityIterator<?> iterator) {
-			this.iterator = iterator;
-		}
-
-		public IVisitor clone(ICloneContext cc) {
-			MatchSomeVisitor visitor = (MatchSomeVisitor) super.clone(cc);
-			visitor.iterator = cc.clone(iterator);
-			return visitor;
-		}
-
-		public void visit(IEntity entity) {
-			iterator.reset(entity);
-			if (!iterator.hasNext())
-				throw new VisitException();
-			iterator.next(); // merge lookahead bindings
-		}
-
-		@Override
-		public void setBindings(IBindingManager bm) {
-			super.setBindings(bm);
-			iterator.setBindings(bm);
-		}
-
-		public void toString(StringBuilder sb) {
-			sb.append("match(");
-			sb.append(iterator);
 			sb.append(")");
 		}
 	}

@@ -29,8 +29,10 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.ReflectionFactory;
 
 /**
  * @author Riccardo Solmi
@@ -105,18 +107,18 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		return false;
 	}
 
-	public boolean containsResource(String uri, boolean loadOnDemand, String contextUri) {
-		return getResource(uri, loadOnDemand, contextUri) != null;
+	public boolean containsResource(String uri, boolean loadOnDemand, IBindingManager bm) {
+		return getResource(uri, loadOnDemand, bm) != null;
 	}
 
 	protected Set<String> uriFailureSet = new HashSet<String>();
 
 	@SuppressWarnings("unchecked")
-	public T getResource(String uri, boolean loadOnDemand, String contextUri) {
+	public T getResource(String uri, boolean loadOnDemand, IBindingManager bm) {
 		T resource = uriResourceMap.get(uri);
 		if (resource == null && loadOnDemand && !uriFailureSet.contains(uri))
 			try {
-				IPersistenceProvider pp = getURIResolverRegistry().resolve(contextUri, uri);
+				IPersistenceProvider pp = getURIResolverRegistry().resolve(bm, uri);
 				if (pp.exists()) {
 					resource = (T) getResourceFactoryRegistry().createResource(uri);
 					resource.setResourcePersistenceProvider(pp);
@@ -138,8 +140,12 @@ public class ResourceRegistry<T extends IResource> implements IResourceRegistry<
 		return resource;
 	}
 
+	@Deprecated
 	public <E extends IEntity> E getResourceModel(String uri, boolean loadOnDemand, String contextUri) {
-		IResource resource = getResource(uri, loadOnDemand, contextUri);
+		return getResourceModel(uri, loadOnDemand, ReflectionFactory.contextURIBindings(contextUri));
+	}
+	public <E extends IEntity> E getResourceModel(String uri, boolean loadOnDemand, IBindingManager bm) {
+		IResource resource = getResource(uri, loadOnDemand, bm);
 		return resource == null ? null : resource.<E>getEntity();
 	}
 

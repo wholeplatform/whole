@@ -184,8 +184,8 @@ public class CallIterator<E extends IEntity>  extends AbstractCloneableIterator<
 		}
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
     	for (IEntityIterator<? extends IEntity> i : argsIterators)
 			i.setBindings(bindings);
 	}

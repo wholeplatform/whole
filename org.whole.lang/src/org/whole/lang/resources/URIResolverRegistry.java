@@ -20,6 +20,7 @@ package org.whole.lang.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 
 /**
@@ -51,25 +52,25 @@ public class URIResolverRegistry implements IURIResolverRegistry {
 		uriResolverList.add(0, uriResolver);
 		uriResolver.setUriResolverRegistry(this);
 	}
-	public IURIResolver getURIResolver(String contextUri, String uri) {
+	public IURIResolver getURIResolver(IBindingManager bm, String uri) {
 		for (IURIResolver uriResolver : uriResolverList)
-			if (uriResolver.canResolve(contextUri, uri))
+			if (uriResolver.canResolve(bm, uri))
 				return uriResolver;
 		throw new IllegalArgumentException();
 	}
 
-	public boolean canResolve(String contextUri, String uri) {
+	public boolean canResolve(IBindingManager bm, String uri) {
 		for (IURIResolver uriResolver : uriResolverList)
-			if (uriResolver.canResolve(contextUri, uri))
+			if (uriResolver.canResolve(bm, uri))
 				return true;
 		return false;
 	}
-	public IPersistenceProvider resolve(String contextUri, String uri) {
-		return getURIResolver(contextUri, uri).resolve(contextUri, uri);
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
+		return getURIResolver(bm, uri).resolve(bm, uri);
 	}
 
-	public String getLocator(String contextUri, String uri) {
-		return getURIResolver(contextUri, uri).getLocator(contextUri, uri);
+	public String getLocator(IBindingManager bm, String uri) {
+		return getURIResolver(bm, uri).getLocator(bm, uri);
 	}
 	public String addLocator(String uri, String url) {
 		IURIResolver mappedURIResolver = null;

@@ -228,8 +228,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 
 			if (DataTypeUtils.getDataKind(selfEntity).isString()) {
 				String languageUri = ResourceUtils.stripFragmentPart(selfEntity.wStringValue());
-				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-				languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
+				languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, bm);
 			} else if (DataTypeUtils.getDataKind(selfEntity).isEnumValue() && selfEntity.wEnumValue() instanceof Descriptor)
 				languageKit = ((Descriptor) selfEntity.wEnumValue()).getLanguageKit();
 			else if (DataTypeUtils.getDataKind(selfEntity).isObject()) {
@@ -415,8 +414,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				if (ResourceUtils.hasFragmentPart(uri)) {
 					String languageUri = ResourceUtils.stripFragmentPart(uri);
 					String descriptorName = ResourceUtils.getFragmentPart(uri);
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-					ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
+					ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, bm);
 					if (languageKit != null)
 						ed = languageKit.getEntityDescriptorEnum().valueOf(descriptorName);
 				}
@@ -596,8 +594,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 			if (ResourceUtils.hasFragmentPart(uri)) {
 				String languageUri = ResourceUtils.stripFragmentPart(uri);
 				String descriptorName = ResourceUtils.getFragmentPart(uri);
-				String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-				ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
+				ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, bm);
 				if (languageKit != null)
 					fd = languageKit.getFeatureDescriptorEnum().valueOf(descriptorName);
 			}
@@ -788,8 +785,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 
 				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
 					String languageUri = ResourceUtils.stripFragmentPart(selfEntity.wStringValue());
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-					ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, contextUri);
+					ILanguageKit languageKit = ReflectionFactory.safeGetLanguageKit(languageUri, true, bm);
 					if (languageKit != null)
 						result = BindingManagerFactory.instance.createValue(languageKit);
 				}
@@ -805,8 +801,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 
 				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
 					String uri = selfEntity.wStringValue();
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-			    	EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, contextUri);
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(uri, true, bm);
 					if (ed != null)
 						result = BindingManagerFactory.instance.createValue(ed);
 				}
@@ -822,8 +817,7 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 
 				if (DataTypeUtils.getDataKind(selfEntity).isString()) {
 					String uri = selfEntity.wStringValue();
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-			    	FeatureDescriptor fd = CommonsDataTypePersistenceParser.getFeatureDescriptor(uri, true, contextUri);
+					FeatureDescriptor fd = CommonsDataTypePersistenceParser.getFeatureDescriptor(uri, true, bm);
 					if (fd != null)
 						result = BindingManagerFactory.instance.createValue(fd);
 				}

@@ -62,8 +62,8 @@ public class AbstractDelegatingIterator<E extends IEntity> extends AbstractLazyC
 		return this;
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		if (!lazyClone && getIterator() != null)
 			getIterator().setBindings(bindings);
 	}

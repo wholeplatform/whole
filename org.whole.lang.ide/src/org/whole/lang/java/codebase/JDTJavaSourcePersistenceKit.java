@@ -67,8 +67,7 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 			if (bm.wIsSet("entityURI")) {
 				String entityURI = bm.wStringValue("entityURI");
 				if (ResourceUtils.hasFragmentPart(entityURI)) {
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, bm);
 
 					if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
 						ast = JDTUtils.parseAs(fileStr, JAVA_FRAGMENT.EXPRESSION);
@@ -92,8 +91,7 @@ public class JDTJavaSourcePersistenceKit extends JavaSourcePersistenceKit {
 			if (bm.wIsSet("entityURI")) {
 				String entityURI = bm.wStringValue("entityURI");
 				if (ResourceUtils.hasFragmentPart(entityURI)) {
-					String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
-					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri);
+					EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, bm);
 					
 					if (ed.isLanguageSubtypeOf(JavaEntityDescriptorEnum.Expression)) {
 						if (!result.wGetEntityDescriptor().isLanguageSubtypeOf(ed))

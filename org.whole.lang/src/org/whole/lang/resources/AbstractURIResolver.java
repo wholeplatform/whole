@@ -17,6 +17,7 @@
  */
 package org.whole.lang.resources;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 
 
@@ -37,11 +38,11 @@ public abstract class AbstractURIResolver implements IURIResolver {
 		this.uriResolverRegistry = uriResolverRegistry;
 	}
 
-	public IPersistenceProvider resolve(String contextUri, String uri) {
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
 		throw new IllegalArgumentException();
 	}
 
-	public String getLocator(String contextUri, String uri) {
+	public String getLocator(IBindingManager bm, String uri) {
 		return uri;
 	}
 	public String addLocator(String uri, String url) {

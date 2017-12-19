@@ -116,8 +116,8 @@ public abstract class AbstractCartesianIterator<E extends IEntity> extends Abstr
 		nextEntity = null;
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		valuesIterator.setBindings(bindings);
 	}
 

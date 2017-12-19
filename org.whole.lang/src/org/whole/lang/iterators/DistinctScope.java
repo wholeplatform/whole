@@ -29,5 +29,6 @@ public interface DistinctScope<E extends IEntity> extends ICloneable {
 	public DistinctScope<E> withComparator(IEntityComparator<IEntity> comparator);
 	public IEntityIterator<E> withIterator(IEntityIterator<E> iterator);
 
+	public IEntityIterator<IEntity> distinctIterator();
 	public IVisitor distinctMatcher();
 }

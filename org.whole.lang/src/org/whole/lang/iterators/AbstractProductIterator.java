@@ -81,8 +81,8 @@ public abstract class AbstractProductIterator<E extends IEntity> extends Abstrac
 		lookaheadScope = null;
 	}
 
-    protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+    protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		for (IEntityIterator<?> i : iterators)
 			i.setBindings(bindings);
 	}

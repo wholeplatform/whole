@@ -31,6 +31,7 @@ import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.reusables.builders.IReusablesBuilder;
 import org.whole.lang.reusables.builders.ReusablesGenericBuilderAdapter;
 import org.whole.lang.reusables.builders.ReusablesSpecificBuilderAdapter;
+//import org.whole.lang.reusables.events.ReusablesReactionsHandler;
 import org.whole.lang.reusables.visitors.ReusablesArtifactsGeneratorVisitor;
 import org.whole.lang.reusables.visitors.ReusablesDynamicCompilerVisitor;
 import org.whole.lang.reusables.visitors.ReusablesInterpreterVisitor;
@@ -80,6 +81,8 @@ public class ReusablesLanguageDeployer extends AbstractLanguageDeployer {
 				return new ReusablesArtifactsGeneratorVisitor();
 			}
 		});
+
+//        platform.addReactionsHandler(ReusablesLanguageKit.URI, new ReusablesReactionsHandler());
     }
 
     public void undeploy(ReflectionFactory platform) {

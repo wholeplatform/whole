@@ -30,6 +30,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.builders.IBuilderFactory;
 import org.whole.lang.codebase.ClasspathPersistenceProvider;
@@ -281,24 +282,29 @@ public class ReflectionFactory {
 		return ed;
 	}
 
+	public static String contextURI(IBindingManager bm) {
+		return bm != null && bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
+	}
 	@Deprecated
-    public static boolean hasLanguageKit(String languageURI) {
-    	return hasLanguageKit(languageURI, true, null);
-    }
-    public static boolean hasLanguageKit(String languageURI, boolean loadOnDemand, String contextURI) {
-		return languageKitRegistry.containsResource(languageURI, loadOnDemand, contextURI) ||
+	public static IBindingManager contextURIBindings(String contextUri) {
+		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
+		bm.wDefValue("contextURI", contextUri);
+		return bm;
+	}
+    public static boolean hasLanguageKit(String languageURI, boolean loadOnDemand, IBindingManager bm) {
+		return languageKitRegistry.containsResource(languageURI, loadOnDemand, bm) ||
 			languageRequestHandler.containsLanguage(languageURI);
     }
 	@Deprecated
     public static ILanguageKit getLanguageKit(String languageURI) {
     	return getLanguageKit(languageURI, true, null);
     }
-    public static ILanguageKit getLanguageKit(String languageURI, boolean loadOnDemand, String contextURI) {
-    	ILanguageKit languageKit = languageKitRegistry.getResource(languageURI, loadOnDemand, contextURI);
+    public static ILanguageKit getLanguageKit(String languageURI, boolean loadOnDemand, IBindingManager bm) {
+    	ILanguageKit languageKit = languageKitRegistry.getResource(languageURI, loadOnDemand, bm);
 		if (languageKit == null)
 			try {
 				if (languageRequestHandler.deployLanguage(languageURI))
-					languageKit = languageKitRegistry.getResource(languageURI, false, contextURI);
+					languageKit = languageKitRegistry.getResource(languageURI, false, bm);
 			} catch (Exception e) {
 				throw new IllegalArgumentException("The Language: "+languageURI+" is not deployed.", e);
 			}
@@ -306,9 +312,9 @@ public class ReflectionFactory {
 			throw new IllegalArgumentException("The Language: "+languageURI+" is not deployed.");
 		return languageKit;
     }
-	public static ILanguageKit safeGetLanguageKit(String languageURI, boolean loadOnDemand, String contextURI) {
-		return languageURI != null && hasLanguageKit(languageURI, loadOnDemand, contextURI) ?
-				getLanguageKit(languageURI, loadOnDemand, contextURI) : null;
+	public static ILanguageKit safeGetLanguageKit(String languageURI, boolean loadOnDemand, IBindingManager bm) {
+		return languageURI != null && hasLanguageKit(languageURI, loadOnDemand, bm) ?
+				getLanguageKit(languageURI, loadOnDemand, bm) : null;
 	}
 
 

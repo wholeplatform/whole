@@ -72,9 +72,8 @@ public class GrammarsInterpreterVisitor extends GrammarsIdentityDefaultVisitor {
 		final String languageUri;
 		IBindingManager bm = getBindings();
 		if (Matcher.match(GrammarsEntityDescriptorEnum.URI, targetLanguage)) {
-			String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
 			languageUri = targetLanguage.wStringValue();
-			languageKit = ReflectionFactory.getLanguageKit(languageUri, true, contextUri);
+			languageKit = ReflectionFactory.getLanguageKit(languageUri, true, bm);
 		} else {
 			languageUri = ((LanguageDescriptor) targetLanguage).getUri().getValue();
 			stagedVisit(GrammarsUtils.deriveModel(grammar, false));

@@ -41,8 +41,7 @@ public class FeatureByNameIterator extends SelfIterator<IEntity> {
 			if (!ResourceUtils.hasFragmentPart(featureName))
 				return resetEntity.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
 			
-	    	String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-	    	featureDescriptor = CommonsDataTypePersistenceParser.getFeatureDescriptor(featureName, true, contextUri);
+	    	featureDescriptor = CommonsDataTypePersistenceParser.getFeatureDescriptor(featureName, true, getBindings());
 		}
 		return featureDescriptor;
 	}

@@ -19,8 +19,10 @@ package org.whole.lang.iterators;
 
 import java.util.Iterator;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
+import org.whole.lang.bindings.ITransactionScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
 import org.whole.lang.operations.ICloneable;
@@ -46,4 +48,58 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 
 	public void set(E entity);
 	public void add(E entity);
+
+	public void toString(StringBuilder sb);
+
+	public default E evaluate(IEntity self, IBindingManager bm) {
+		bm.wDef("self", self);
+		setBindings(bm);
+		reset(self);
+
+		return evaluateRemaining();
+	}
+	public default E evaluateFirst(IEntity self, IBindingManager bm) {
+		bm.wDef("self", self);
+		setBindings(bm);
+		reset(self);
+
+		return evaluateNext();
+	}
+	public default E evaluateNext() {
+		return hasNext() ? next() : null;
+	}
+	public default E evaluateRemaining() {
+		E result = null;
+		IBindingManager bm = getBindings();
+		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(resettableScope);
+		try {
+			while (hasNext()) {
+				bm.setResult(result = next());
+				resettableScope.commit();
+			}
+		} finally {
+			resettableScope.rollback();
+			bm.wExitScope();
+		}
+		return result;
+	}
+	public default E evaluateSingleton() {
+		E result = null;
+		IBindingManager bm = getBindings();
+		ITransactionScope resettableScope = BindingManagerFactory.instance.createTransactionScope();
+		bm.wEnterScope(resettableScope);
+		try {
+			if (hasNext()) {
+				bm.setResult(result = next());
+				resettableScope.commit();
+			}
+			if (result == null || hasNext())
+				throw new IllegalArgumentException("The result is not a singleton");
+		} finally {
+			resettableScope.rollback();
+			bm.wExitScope();
+		}
+		return result;
+	}
 }

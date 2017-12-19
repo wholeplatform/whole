@@ -127,10 +127,9 @@ public class PersistenceLibraryDeployer extends AbstractFunctionLibraryDeployer 
 		}
 		if (pp.getBindings().wIsSet("entityURI")) {
 			String entityURI = pp.getBindings().wStringValue("entityURI");
-			String contextUri = bm.wIsSet("contextURI") ? bm.wStringValue("contextURI") : null;
 			ILanguageKit languageKit = ResourceUtils.hasFragmentPart(entityURI) ?
-					CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, contextUri).getLanguageKit()
-					: ReflectionFactory.getLanguageKit(entityURI, true, contextUri);;
+					CommonsDataTypePersistenceParser.getEntityDescriptor(entityURI, true, bm).getLanguageKit()
+					: ReflectionFactory.getLanguageKit(entityURI, true, bm);
 			
 			if (persistenceKitId == null)
 				for (IPersistenceKit persistenceKit : languageKit.getPersistenceKits())

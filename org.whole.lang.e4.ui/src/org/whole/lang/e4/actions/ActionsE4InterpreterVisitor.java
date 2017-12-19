@@ -97,30 +97,25 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 
 	@Override
 	public void visit(SeparatedAction entity) {
-		entity.getAction().accept(this);
+		lazyEvaluate(entity.getAction());
 	}
 
 	@Override
 	public void visit(PerformAction entity) {
-		entity.getKind().accept(this);
-		ActionKindEnum.Value kind = ((ActionKind) getResult()).getValue();
+		ActionKindEnum.Value kind = ((ActionKind) evaluate(entity.getKind())).getValue();
 
-		entity.getText().accept(this);
-		String text = getResult().wStringValue();
+		String text = stringEvaluate(entity.getText());
 
 		Predicate enablerPredicate = entity.getEnablerPredicate();
 		IEnablerPredicate predicate = null;
 		if (EntityUtils.isResolver(enablerPredicate))
 			predicate = EnablerPredicateFactory.instance.alwaysTrue();
-		else {
-			enablerPredicate.accept(this);
-			predicate = createEnablerPredicate(getResult());
-		}
+		else
+			predicate = createEnablerPredicate(evaluate(enablerPredicate));
 
 //TODO!	entity.getConfiguration()
 
-		entity.getTransformation().accept(this);
-		IAction action = createAction(kind, predicate, null, getResult(), text);
+		IAction action = createAction(kind, predicate, null, evaluate(entity.getTransformation()), text);
 
 		Icon icon = entity.getIcon();
 		if (DataTypeUtils.getDataKind(icon).isObject())
@@ -131,26 +126,21 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 
 	@Override
 	public void visit(TemplateAction entity) {
-		entity.getKind().accept(this);
-		ActionKindEnum.Value kind = ((ActionKind) getResult()).getValue();
+		ActionKindEnum.Value kind = ((ActionKind) evaluate(entity.getKind())).getValue();
 
-		entity.getText().accept(this);
-		String text = getResult().wStringValue();
+		String text = stringEvaluate(entity.getText());
 
 		Predicate enablerPredicate = entity.getEnablerPredicate();
 		IEnablerPredicate predicate = null;
 		if (EntityUtils.isResolver(enablerPredicate))
 			predicate = EnablerPredicateFactory.instance.alwaysTrue();
-		else {
-			enablerPredicate.accept(this);
-			predicate = createEnablerPredicate(getResult());
-		}
+		else
+			predicate = createEnablerPredicate(evaluate(enablerPredicate));
 
 //TODO?	entity.getConfiguration()
 
 		//TODO use custom IEntityTransformer if available
-		entity.getTransformation().accept(this);
-		IAction action = createAction(kind, predicate, null, getResult(), text);
+		IAction action = createAction(kind, predicate, null, evaluate(entity.getTransformation()), text);
 
 
 		Icon icon = entity.getIcon();
@@ -188,9 +178,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 				contributions.clear();
 			}
 
-			action.accept(this);
-
-			IEntity result = getResult();
+			IEntity result = evaluate(action);
 			if (result == null)
 				continue;
 
@@ -214,8 +202,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
 				getBindings().wGetValue("itemContainer");
 		
-		entity.getText().accept(this);
-		String groupName = getResult().wStringValue();
+		String groupName = stringEvaluate(entity.getText());
 
 		IFillMenuStrategy strategy;
 		FillStrategy fillStrategy = entity.getFillStrategy();
@@ -233,7 +220,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 		getBindings().wEnterScope();
 		getBindings().wDefValue("fillMenuStrategy", strategy);
 
-		entity.getActions().accept(this);
+		lazyEvaluate(entity.getActions());
 
 		getBindings().wExitScope();
 
@@ -245,8 +232,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 		IItemContainer<IAction, ImageDescriptor> container = (IItemContainer<IAction, ImageDescriptor>) 
 				getBindings().wGetValue("itemContainer");
 		
-		entity.getText().accept(this);
-		String groupName = getResult().wStringValue();
+		String groupName = stringEvaluate(entity.getText());
 		
 		IFillMenuStrategy strategy;
 		FillStrategy fillStrategy = entity.getFillStrategy();
@@ -261,7 +247,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 		getBindings().wDefValue("itemContainer", subContainer);
 		getBindings().wDefValue("fillMenuStrategy", strategy);
 
-		entity.getActions().accept(this);
+		lazyEvaluate(entity.getActions());
 		
 		getBindings().wExitScope();
 
@@ -321,8 +307,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 				hierarchicalStrategy.getNamingStrategy()) ? 
 						PrefixMenuNameStrategy.instance() : FullMenuNameStrategy.instance();
 
-						hierarchicalStrategy.getSplitSize().accept(this);
-						int splitSize = getResult().wIntValue();
+						int splitSize = intEvaluate(hierarchicalStrategy.getSplitSize());
 
 						return new HierarchicalFillMenuStrategy(nameStrategy, splitSize, groupName);
 	}

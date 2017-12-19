@@ -46,8 +46,8 @@ public abstract class AbstractLazyCloneableCompositeIterator<E extends IEntity> 
 		lazyClone.set(0, childIteratorSize(), value);
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		for (int i=0; i<childIteratorSize(); i++)
 			if (!lazyClone.get(i))
 				getChildIterator(i).setBindings(bindings);

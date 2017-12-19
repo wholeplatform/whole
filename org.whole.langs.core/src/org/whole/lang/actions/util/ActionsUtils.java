@@ -18,9 +18,11 @@
 package org.whole.lang.actions.util;
 
 import org.whole.lang.actions.resources.ActionsRegistry;
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.ResourceUtils;
 
 /**
@@ -31,7 +33,11 @@ public class ActionsUtils {
 		return IteratorFactory.javaCollectionIterator(
 				ActionsRegistry.instance().getResources(false, ResourceUtils.SIMPLE_COMPARATOR));
 	}
+	public static IEntity getActionsModule(IBindingManager bm, String resourceURI, boolean loadOnDemand) {
+		return resourceURI != null ? ActionsRegistry.instance().getResourceModel(resourceURI, loadOnDemand, bm) : null;
+	}
+	@Deprecated
 	public static IEntity getActionsModule(String contextURI, String resourceURI, boolean loadOnDemand) {
-		return resourceURI != null ? ActionsRegistry.instance().getResourceModel(resourceURI, loadOnDemand, contextURI) : null;
+		return resourceURI != null ? ActionsRegistry.instance().getResourceModel(resourceURI, loadOnDemand, ReflectionFactory.contextURIBindings(contextURI)) : null;
 	}
 }

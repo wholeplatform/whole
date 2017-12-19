@@ -59,8 +59,8 @@ public class SortIterator<E extends IEntity> extends CollectionIterator<E> {
 		return treeSet;
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
 		iterator.setBindings(bindings);
 		comparator.setBindings(bindings);
 	}

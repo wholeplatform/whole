@@ -45,8 +45,8 @@ public abstract class AbstractFilterIterator<E extends IEntity> extends Abstract
 		return iterator;
 	}
 
-	protected void setChildrenBindings(IBindingManager bindings) {
-		super.setChildrenBindings(bindings);
+	protected void setArgumentsBindings(IBindingManager bindings) {
+		super.setArgumentsBindings(bindings);
     	iterator.setBindings(bindings);
 	}
 

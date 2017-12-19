@@ -599,7 +599,7 @@ public class HandlersBehavior {
 			}
 			bm.setResult(results);
 		} else
-			BehaviorUtils.evaluate(iterator, model, bm);
+			iterator.evaluate(model, bm);
 	}
 
 	public static boolean canPerform(IBindingManager bm) {

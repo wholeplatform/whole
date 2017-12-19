@@ -19,7 +19,9 @@ package org.whole.lang.resources;
 
 import java.util.logging.Logger;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.reflect.ReflectionFactory;
 
 /**
  * @author Riccardo Solmi
@@ -31,21 +33,21 @@ public class LoggerURIResolver extends AbstractURIResolver {
     	logger = Logger.getLogger("org.whole.lang.resources");
     }
 
-	public boolean canResolve(String contextUri, String uri) {
-		logger.fine("canResolve: "+uri+" in context: "+contextUri);
+	public boolean canResolve(IBindingManager bm, String uri) {
+		logger.fine("canResolve: "+uri+" in context: "+ReflectionFactory.contextURI(bm));
 		return false;
 	}
 
 	@Override
-	public IPersistenceProvider resolve(String contextUri, String uri) {
-		logger.fine("resolve: "+uri+" in context: "+contextUri);
-		return super.resolve(contextUri, uri);
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
+		logger.fine("resolve: "+uri+" in context: "+ReflectionFactory.contextURI(bm));
+		return super.resolve(bm, uri);
 	}
 
 	@Override
-	public String getLocator(String contextUri, String uri) {
-		logger.fine("get Locator: "+uri+" in context: "+contextUri);
-		return super.getLocator(contextUri, uri);
+	public String getLocator(IBindingManager bm, String uri) {
+		logger.fine("get Locator: "+uri+" in context: "+ReflectionFactory.contextURI(bm));
+		return super.getLocator(bm, uri);
 	}
 
 	@Override

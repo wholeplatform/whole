@@ -17,7 +17,9 @@
  */
 package org.whole.lang.frames.resources;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.frames.model.Frame;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.CompoundResourceRegistry;
 import org.whole.lang.resources.Resource;
 import org.whole.lang.resources.ResourceRegistry;
@@ -49,7 +51,11 @@ public class FrameRegistry extends CompoundResourceRegistry<Resource> {
 		return removeResource(frame.getUri().getValue());
 	}
 
+	public Frame getFrame(String uri, boolean loadOnDemand, IBindingManager bm) {
+		return getResourceModel(uri, loadOnDemand, bm);
+	}
+	@Deprecated
 	public Frame getFrame(String uri, boolean loadOnDemand, String contextUri) {
-		return getResourceModel(uri, loadOnDemand, contextUri);
+		return getResourceModel(uri, loadOnDemand, ReflectionFactory.contextURIBindings(contextUri));
 	}
 }

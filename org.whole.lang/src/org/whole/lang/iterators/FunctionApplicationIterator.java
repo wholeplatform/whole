@@ -45,8 +45,7 @@ public class FunctionApplicationIterator extends AbstractCloneableIterator<IEnti
 
 	protected IEntityIterator<IEntity> functionIterator() {
 		if (functionIterator == null) {
-			String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-			functionIterator = FunctionLibraryRegistry.instance().getFunctionCode(functionUri, true, contextUri);
+			functionIterator = FunctionLibraryRegistry.instance().getFunctionCode(functionUri, true, getBindings());
 	    	functionIterator.setBindings(getBindings());
 		}
 		if (resetEntity != null) {

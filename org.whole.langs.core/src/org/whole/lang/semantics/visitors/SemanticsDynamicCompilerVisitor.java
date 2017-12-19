@@ -74,7 +74,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 
     	IEntityIterator<?> ac = new ActionCallIterator(
     			"whole:org.whole.lang.semantics:SemanticsActions:1.0.0#Translate Normalized Function to Query", null);
-    	stagedVisit(BehaviorUtils.evaluate(ac, entity, getBindings()));
+    	stagedVisit(ac.evaluate(entity, getBindings()));
 		IEntityIterator<?> functionBehavior = getResultIterator();
 
 		FunctionLibraryRegistry.instance().putFunctionCode(getLibraryUri(entity)+"#"+entity.getName().getValue(), functionBehavior);

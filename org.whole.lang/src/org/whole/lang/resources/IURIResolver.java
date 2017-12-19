@@ -17,6 +17,7 @@
  */
 package org.whole.lang.resources;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
 
 
@@ -29,9 +30,9 @@ public interface IURIResolver {
 	public IURIResolverRegistry getUriResolverRegistry();
 	public void setUriResolverRegistry(IURIResolverRegistry uriResolverRegistry);
 
-	public boolean canResolve(String contextUri, String uri);
-	public IPersistenceProvider resolve(String contextUri, String uri);
+	public boolean canResolve(IBindingManager bm, String uri);
+	public IPersistenceProvider resolve(IBindingManager bm, String uri);
 
-	public String getLocator(String contextUri, String uri);
+	public String getLocator(IBindingManager bm, String uri);
 	public String addLocator(String uri, String url);
 }

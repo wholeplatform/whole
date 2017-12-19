@@ -50,11 +50,6 @@ public abstract class AbstractBuilderAdapterOperation implements IBuilderOperati
 		return bindings;
 	}
 
-	public String getContextURI() {
-		return bindings != null && getBindings().wIsSet("contextURI") ?
-			getBindings().wStringValue("contextURI") : null;
-	}
-
 	protected IEntityContext createEntityContext() {
 		return new IdentityEntityContext();
 	}
@@ -68,7 +63,7 @@ public abstract class AbstractBuilderAdapterOperation implements IBuilderOperati
 	public IBuilder wGetBuilder(String languageURI, boolean log) {
 	    IBuilder builder = builderMap.get(languageURI);
 	    if (builder == null) {
-	        builder = ReflectionFactory.getLanguageKit(languageURI, true, getContextURI()).getBuilder(wGetOperationId()).create(
+	        builder = ReflectionFactory.getLanguageKit(languageURI, true, bindings).getBuilder(wGetOperationId()).create(
 	        		log ? GenericLoggerBuilder.instance(targetBuilder) : targetBuilder, entityContext);
 	        builderMap.put(languageURI, builder);
 	    }

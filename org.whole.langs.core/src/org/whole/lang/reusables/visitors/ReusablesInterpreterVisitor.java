@@ -292,12 +292,11 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
 		entity.getUri().accept(this);
 		String uri = getResult().wStringValue();
 
-		String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
 		if (ResourceUtils.hasFragmentPart(uri) && registry instanceof CompoundResourceRegistry) {
 			CompoundResourceRegistry<IResource> compoundRegistry = (CompoundResourceRegistry<IResource>) registry;
-			setResult(compoundRegistry.getFunctionModel(uri, true, contextUri));
+			setResult(compoundRegistry.getFunctionModel(uri, true, getBindings()));
 		} else
-			setResult(registry.getResourceModel(uri, true, contextUri));
+			setResult(registry.getResourceModel(uri, true, getBindings()));
 	}
 
 	@Override

@@ -44,8 +44,7 @@ public abstract class AbstractDynamicVisitor extends AbstractVisitor {
 
 	protected IEntityIterator<?> functionIterator() {
 		if (functionIterator == null) {
-			String contextUri = getBindings().wIsSet("contextURI") ? getBindings().wStringValue("contextURI") : null;
-			functionIterator = registry.getFunctionCode(functionUri, true, contextUri);
+			functionIterator = registry.getFunctionCode(functionUri, true, getBindings());
 		}
 		return functionIterator;
 	}

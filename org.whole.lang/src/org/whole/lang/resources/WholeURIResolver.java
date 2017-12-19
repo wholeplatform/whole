@@ -17,7 +17,9 @@
  */
 package org.whole.lang.resources;
 
+import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.codebase.IPersistenceProvider;
+import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.StringUtils;
 
 /**
@@ -30,20 +32,21 @@ public class WholeURIResolver extends AbstractURIResolver {
 	public static final String URI_PREFIX = "whole:";
 	public static final int URI_PREFIX_LENGTH = URI_PREFIX.length();
 
-	public boolean canResolve(String contextUri, String uri) {
+	public boolean canResolve(IBindingManager bm, String uri) {
 		try {
-			return isWholeScheme(uri) && getUriResolverRegistry().canResolve(contextUri, getLocator(contextUri, uri));
+			return isWholeScheme(uri) && getUriResolverRegistry().canResolve(bm, getLocator(bm, uri));
 		} catch (IndexOutOfBoundsException e) {
 			return false;
 		}
 	}
-	public IPersistenceProvider resolve(String contextUri, String uri) {
-		return getUriResolverRegistry().resolve(contextUri, getLocator(contextUri, uri));
+	public IPersistenceProvider resolve(IBindingManager bm, String uri) {
+		return getUriResolverRegistry().resolve(bm, getLocator(bm, uri));
 	}
 
-	public String getLocator(String contextUri, String uri) {
+	public String getLocator(IBindingManager bm, String uri) {
 		String[] part = uri.split(":");
 		StringBuilder sb = new StringBuilder(uri.length());
+		String contextUri = ReflectionFactory.contextURI(bm);
 		if (contextUri != null) {
 			sb.append(contextUri);
 			sb.append("/");
