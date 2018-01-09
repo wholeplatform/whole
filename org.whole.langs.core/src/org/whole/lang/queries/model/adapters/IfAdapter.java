@@ -47,19 +47,19 @@ public class IfAdapter extends AbstractEntityAdapter implements If {
         return QueriesEntityDescriptorEnum.If;
     }
 
-    public Predicate getPredicate() {
-        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    public Expression getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPredicate(Predicate predicate) {
+    public void setPredicate(Expression predicate) {
         wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
     }
 
-    public PathExpression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 }

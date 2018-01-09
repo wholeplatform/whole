@@ -19,7 +19,6 @@ package org.whole.lang.workflows.ui.dialogs;
 
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createSameStageFragment;
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createStageUpFragment;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.PathExpression;
 import static org.whole.lang.workflows.reflect.WorkflowsEntityDescriptorEnum.Expression;
 
 import javax.inject.Inject;
@@ -38,6 +37,7 @@ import org.whole.lang.e4.ui.E4CompatibilityPlugin;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Tuple;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.ui.dialogs.OpenAsModelDialog;
 import org.whole.lang.workflows.factories.WorkflowsEntityFactory;
@@ -91,7 +91,7 @@ public class ChooseModelsDialog extends OpenAsModelDialog {
 			for (Object element : getResult())
 				try {
 					IEntity model = getPersistenceKit().readModel(new IFilePersistenceProvider((IFile) element));
-					tuple.wAdd(createStageUpFragment(PathExpression, model));
+					tuple.wAdd(createStageUpFragment(QueriesEntityDescriptorEnum.Expression, model));
 				} catch (Exception e) {
 				}
 

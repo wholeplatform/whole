@@ -49,8 +49,6 @@ import org.whole.lang.queries.model.Multiplication;
 import org.whole.lang.queries.model.MultiplicationStep;
 import org.whole.lang.queries.model.NotEquals;
 import org.whole.lang.queries.model.NotEqualsStep;
-import org.whole.lang.queries.model.PathExpression;
-import org.whole.lang.queries.model.Predicate;
 import org.whole.lang.queries.model.Remainder;
 import org.whole.lang.queries.model.RemainderStep;
 import org.whole.lang.queries.model.SelfStep;
@@ -73,11 +71,7 @@ import org.whole.lang.visitors.MissingVariableException;
  */
 public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
     @Override
-	public void visit(PathExpression entity) {
-    	DynamicCompilerOperation.compile(entity, getBindings());
-    }
-    @Override
-    public void visit(Predicate entity) {
+	public void visit(Expression entity) {
     	DynamicCompilerOperation.compile(entity, getBindings());
     }
 
@@ -126,7 +120,7 @@ public class QueriesInterpreterVisitor extends QueriesIdentityDefaultVisitor {
 		String featureName = entity.getValue();
 		FeatureDescriptor fd = self.wGetLanguageKit().getFeatureDescriptorEnum().valueOf(featureName);
 		if (fd == null || !self.wContains(fd))
-			visit((PathExpression) entity);
+			visit((Expression) entity);
 		else
 			setResult(self.wGet(fd));
 	}

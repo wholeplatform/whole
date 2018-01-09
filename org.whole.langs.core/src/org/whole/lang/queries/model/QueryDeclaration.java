@@ -32,7 +32,7 @@ public interface QueryDeclaration extends IQueriesEntity, PathExpression {
 
     public void setParameters(Names parameters);
 
-    public PathExpression getBody();
+    public Expression getBody();
 
-    public void setBody(PathExpression body);
+    public void setBody(Expression body);
 }

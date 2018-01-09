@@ -24,7 +24,7 @@ package org.whole.lang.queries.model;
 public interface Not extends IQueriesEntity, Predicate {
 
 
-    public Predicate getPredicate();
+    public Expression getPredicate();
 
-    public void setPredicate(Predicate predicate);
+    public void setPredicate(Expression predicate);
 }

@@ -22,7 +22,7 @@ import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Predica
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Transformation;
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createResolver;
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createStageUpFragment;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.PathExpression;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Expression;
 
 import java.util.Set;
 import java.util.SortedSet;
@@ -183,6 +183,6 @@ public class ActionsUIEntityFactory extends ActionsEntityFactory {
 	protected IEntity createNotEqualsPredicate(IEntity prototype) {
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		return qef.createNot(qef.createExpressionTest(qef.createPointwiseEquals(qef.createSelfStep(),
-				createStageUpFragment(PathExpression, EntityUtils.clone(prototype)))));
+				createStageUpFragment(Expression, EntityUtils.clone(prototype)))));
 	}
 }

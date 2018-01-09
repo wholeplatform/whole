@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,22 +48,22 @@ public class PointwiseEqualsImpl extends AbstractSimpleEntity implements Pointwi
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression pexp1;
+    private Expression pexp1;
 
-    public PathExpression getPexp1() {
+    public Expression getPexp1() {
         return notifyRequested(QueriesFeatureDescriptorEnum.pexp1, pexp1);
     }
 
-    public void setPexp1(PathExpression pexp1) {
+    public void setPexp1(Expression pexp1) {
         notifyChanged(QueriesFeatureDescriptorEnum.pexp1, this.pexp1, this.pexp1 = pexp1);
     }
-    private PathExpression pexp2;
+    private Expression pexp2;
 
-    public PathExpression getPexp2() {
+    public Expression getPexp2() {
         return notifyRequested(QueriesFeatureDescriptorEnum.pexp2, pexp2);
     }
 
-    public void setPexp2(PathExpression pexp2) {
+    public void setPexp2(Expression pexp2) {
         notifyChanged(QueriesFeatureDescriptorEnum.pexp2, this.pexp2, this.pexp2 = pexp2);
     }
 
@@ -81,10 +81,10 @@ public class PointwiseEqualsImpl extends AbstractSimpleEntity implements Pointwi
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPexp1(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setPexp1(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setPexp2(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setPexp2(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

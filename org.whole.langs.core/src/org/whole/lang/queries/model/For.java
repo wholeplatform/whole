@@ -24,11 +24,11 @@ package org.whole.lang.queries.model;
 public interface For extends IQueriesEntity, PathExpression {
 
 
-    public PathExpression getFromClause();
+    public Expression getFromClause();
 
-    public void setFromClause(PathExpression fromClause);
+    public void setFromClause(Expression fromClause);
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 }

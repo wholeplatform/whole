@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.model.Names;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class ScopeImpl extends AbstractSimpleEntity implements Scope {
     public void setLocalNames(Names localNames) {
         notifyChanged(QueriesFeatureDescriptorEnum.localNames, this.localNames, this.localNames = localNames);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -85,7 +85,7 @@ public class ScopeImpl extends AbstractSimpleEntity implements Scope {
             setLocalNames(value.wGetAdapter(QueriesEntityDescriptorEnum.Names));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

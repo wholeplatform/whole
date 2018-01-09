@@ -23,10 +23,9 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.PathExpressionOrPredicate;
 import org.whole.lang.queries.model.NamesExpression;
 
 /**
@@ -50,31 +49,31 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression selectClause;
+    private Expression selectClause;
 
-    public PathExpression getSelectClause() {
+    public Expression getSelectClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.selectClause, selectClause);
     }
 
-    public void setSelectClause(PathExpression selectClause) {
+    public void setSelectClause(Expression selectClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.selectClause, this.selectClause, this.selectClause = selectClause);
     }
-    private PathExpressionOrPredicate fromClause;
+    private Expression fromClause;
 
-    public PathExpressionOrPredicate getFromClause() {
+    public Expression getFromClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public void setFromClause(PathExpressionOrPredicate fromClause) {
+    public void setFromClause(Expression fromClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
     }
-    private PathExpression whereClause;
+    private Expression whereClause;
 
-    public PathExpression getWhereClause() {
+    public Expression getWhereClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.whereClause, whereClause);
     }
 
-    public void setWhereClause(PathExpression whereClause) {
+    public void setWhereClause(Expression whereClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.whereClause, this.whereClause, this.whereClause = whereClause);
     }
     private NamesExpression clearClause;
@@ -105,13 +104,13 @@ public class SelectImpl extends AbstractSimpleEntity implements Select {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setSelectClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setSelectClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpressionOrPredicate));
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 2 :
-            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 3 :
             setClearClause(value.wGetAdapter(QueriesEntityDescriptorEnum.NamesExpression));

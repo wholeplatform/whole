@@ -47,11 +47,11 @@ public class DeleteAdapter extends AbstractEntityAdapter implements Delete {
         return QueriesEntityDescriptorEnum.Delete;
     }
 
-    public PathExpression getFromClause() {
-        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 }

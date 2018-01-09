@@ -26,8 +26,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
@@ -42,6 +42,7 @@ import org.whole.lang.parsers.DefaultDataTypePersistenceParser;
 import org.whole.lang.pojo.factories.PojoEntityFactory;
 import org.whole.lang.pojo.model.ArrayType;
 import org.whole.lang.pojo.model.CollectionInterfaceEnum;
+import org.whole.lang.pojo.model.CollectionInterfaceEnum.Value;
 import org.whole.lang.pojo.model.CollectionType;
 import org.whole.lang.pojo.model.Constructor;
 import org.whole.lang.pojo.model.Constructors;
@@ -59,9 +60,9 @@ import org.whole.lang.pojo.model.ProductDeclaration;
 import org.whole.lang.pojo.model.Property;
 import org.whole.lang.pojo.model.ReferenceType;
 import org.whole.lang.pojo.model.Type;
-import org.whole.lang.pojo.model.CollectionInterfaceEnum.Value;
 import org.whole.lang.pojo.reflect.PojoEntityDescriptorEnum;
 import org.whole.lang.pojo.templates.PojoTemplateManager;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -110,7 +111,7 @@ public class PojoUtils {
 	public static ProductDeclaration findProductDeclaration(Type type, Library entity) {
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		bindings.wDef("name", type);
-		return BehaviorUtils.<ProductDeclaration>evaluateFirstResult((PathExpression) PojoTemplateManager.instance().share("findProductDeclarationByName"), entity, bindings);
+		return BehaviorUtils.<ProductDeclaration>evaluateFirstResult((Expression) PojoTemplateManager.instance().share("findProductDeclarationByName"), entity, bindings);
 	}
 
 	private static Map<PrimitiveTypeEnum.Value, Class<?>> primitiveTypesMap;
@@ -147,7 +148,7 @@ public class PojoUtils {
 	}
 	public static ProductDeclaration findProductDeclarationByTemplateName(EntityDescriptor<?> ed, Library library) {
 		PojoEntityFactory pef = PojoEntityFactory.instance;
-		PathExpression findProductDeclarationByTemplateName = (PathExpression) PojoTemplateManager.instance().create("findProductDeclarationByTemplateName");
+		Expression findProductDeclarationByTemplateName = (Expression) PojoTemplateManager.instance().create("findProductDeclarationByTemplateName");
 		Name templateName = pef.createName(ed.getName());
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 		bindings.wDef("templateName", templateName);
@@ -480,7 +481,7 @@ public class PojoUtils {
 	public static Set<Name> getReadOnlyFields(PojoDeclaration pojoDeclaration) {
 		Set<Name> readOnlyFields = new HashSet<Name>();
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
-		PathExpression findAllReadOnlyFields = (PathExpression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
+		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
 		for (Name readOnlyField : BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings))
 			readOnlyFields.add(readOnlyField);
 		return readOnlyFields;
@@ -504,11 +505,11 @@ public class PojoUtils {
 	public static Constructor findConstructor(PojoDeclaration pojoDeclaration) {
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
 
-		PathExpression findParameterByTemplate = (PathExpression) PojoTemplateManager.instance().create("findParameterByTemplate");
+		Expression findParameterByTemplate = (Expression) PojoTemplateManager.instance().create("findParameterByTemplate");
 		List<Constructor> constructors = getConstructors(pojoDeclaration);
 		int[] supportedFields = new int[constructors.size()];
 
-		PathExpression findAllReadOnlyFields = (PathExpression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
+		Expression findAllReadOnlyFields = (Expression) PojoTemplateManager.instance().create("findAllReadOnlyFields");
 		IEntityIterator<Name> iterator = BehaviorUtils.<Name>compileAndLazyEvaluate(findAllReadOnlyFields, pojoDeclaration, bindings);
 		int readOnlyFieldCount = 0;
 		while (iterator.hasNext()) {
@@ -535,8 +536,8 @@ public class PojoUtils {
 		List<Object> initargs = new ArrayList<Object>(params);
 
 		IBindingManager bindings = BindingManagerFactory.instance.createArguments();
-		PathExpression findPropertyByTemplate = (PathExpression) PojoTemplateManager.instance().create("findPropertyByTemplate");
-		PathExpression findParameterByTemplate = (PathExpression) PojoTemplateManager.instance().create("findParameterByTemplate");
+		Expression findPropertyByTemplate = (Expression) PojoTemplateManager.instance().create("findPropertyByTemplate");
+		Expression findParameterByTemplate = (Expression) PojoTemplateManager.instance().create("findParameterByTemplate");
 		IEntityIterator<Parameter> iterator = BehaviorUtils.<Parameter>compileAndLazyEvaluate(findParameterByTemplate, constructor, bindings);
 		while (iterator.hasNext()) {
 			iterator.next();

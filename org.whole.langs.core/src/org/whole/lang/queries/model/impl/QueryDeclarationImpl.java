@@ -27,7 +27,7 @@ import org.whole.lang.queries.model.Name;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.Names;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 
 /**
  *  @generator Whole
@@ -68,13 +68,13 @@ public class QueryDeclarationImpl extends AbstractSimpleEntity implements QueryD
     public void setParameters(Names parameters) {
         notifyChanged(QueriesFeatureDescriptorEnum.parameters, this.parameters, this.parameters = parameters);
     }
-    private PathExpression body;
+    private Expression body;
 
-    public PathExpression getBody() {
+    public Expression getBody() {
         return notifyRequested(QueriesFeatureDescriptorEnum.body, body);
     }
 
-    public void setBody(PathExpression body) {
+    public void setBody(Expression body) {
         notifyChanged(QueriesFeatureDescriptorEnum.body, this.body, this.body = body);
     }
 
@@ -100,7 +100,7 @@ public class QueryDeclarationImpl extends AbstractSimpleEntity implements QueryD
             setParameters(value.wGetAdapter(QueriesEntityDescriptorEnum.Names));
             break;
             case 2 :
-            setBody(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setBody(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -47,27 +47,27 @@ public class SelectAdapter extends AbstractEntityAdapter implements Select {
         return QueriesEntityDescriptorEnum.Select;
     }
 
-    public PathExpression getSelectClause() {
-        return wGet(QueriesFeatureDescriptorEnum.selectClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getSelectClause() {
+        return wGet(QueriesFeatureDescriptorEnum.selectClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setSelectClause(PathExpression selectClause) {
+    public void setSelectClause(Expression selectClause) {
         wSet(QueriesFeatureDescriptorEnum.selectClause, selectClause);
     }
 
-    public PathExpressionOrPredicate getFromClause() {
-        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpressionOrPredicate);
+    public Expression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setFromClause(PathExpressionOrPredicate fromClause) {
+    public void setFromClause(Expression fromClause) {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public PathExpression getWhereClause() {
-        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getWhereClause() {
+        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setWhereClause(PathExpression whereClause) {
+    public void setWhereClause(Expression whereClause) {
         wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
     }
 

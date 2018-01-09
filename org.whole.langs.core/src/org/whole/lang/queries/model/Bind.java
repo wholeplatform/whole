@@ -28,7 +28,7 @@ public interface Bind extends IQueriesEntity {
 
     public void setName(Name name);
 
-    public PathExpressionOrPredicate getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpressionOrPredicate expression);
+    public void setExpression(Expression expression);
 }

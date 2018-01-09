@@ -27,11 +27,15 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(IQueriesEntity entity) {
     }
 
-    public void visit(PathExpressionOrPredicate entity) {
+    public void visit(PruneOrPredicate entity) {
+    }
+
+    public void visit(Expression entity) {
+        visit((PruneOrPredicate) entity);
     }
 
     public void visit(PathExpression entity) {
-        visit((PathExpressionOrPredicate) entity);
+        visit((Expression) entity);
     }
 
     public void visit(QueryDeclaration entity) {
@@ -323,17 +327,13 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((BackwardStep) entity);
     }
 
-    public void visit(PruneOrPredicate entity) {
-    }
-
     public void visit(Prune entity) {
         visit((IQueriesEntity) entity);
         visit((PruneOrPredicate) entity);
     }
 
     public void visit(Predicate entity) {
-        visit((PathExpressionOrPredicate) entity);
-        visit((PruneOrPredicate) entity);
+        visit((Expression) entity);
     }
 
     public void visit(VariableTest entity) {
@@ -539,11 +539,6 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
 
     public void visit(Name entity) {
         visit((IQueriesEntity) entity);
-    }
-
-    public void visit(Expression entity) {
-        visit((StepExpression) entity);
-        visit((Predicate) entity);
     }
 
     public void visit(MathStep entity) {

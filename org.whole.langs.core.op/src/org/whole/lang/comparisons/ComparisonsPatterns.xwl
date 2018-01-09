@@ -1948,7 +1948,7 @@
                                 <patterns:Choice>
                                     <patterns:Name value="CompareRule"/>
                                     <patterns:Types initialCapacity="2">
-                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <models:EntityType xmlns:models="http://lang.whole.org/Models" value="http://lang.whole.org/Queries#Expression"/>
                                         <patterns:Name value="CompareEntity"/>
                                     </patterns:Types>
                                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

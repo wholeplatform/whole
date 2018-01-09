@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class PointwiseProductImpl extends AbstractListCompositeEntity<PathExpression> implements PointwiseProduct {
+public class PointwiseProductImpl extends AbstractListCompositeEntity<Expression> implements PointwiseProduct {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

@@ -21,7 +21,7 @@ import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Predica
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.SubgroupAction;
 import static org.whole.lang.actions.reflect.ActionsEntityDescriptorEnum.Transformation;
 import static org.whole.lang.commons.factories.CommonsEntityAdapterFactory.createStageUpFragment;
-import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.PathExpression;
+import static org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum.Expression;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.whole.lang.actions.factories.ActionsEntityFactory;
@@ -37,7 +37,7 @@ import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.ContentAssistOperation;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.resources.IResourceRegistry;
@@ -76,11 +76,11 @@ public class ActionsUIContentAssistVisitor extends ActionsIdentityVisitor {
 		return true;
 	}
 	protected IEntity createNotEqualsQuery(IEntity prototype) {
-		PathExpression pathExpression = createStageUpFragment(
-				PathExpression, EntityUtils.clone(prototype));
+		Expression expression = createStageUpFragment(
+				Expression, EntityUtils.clone(prototype));
 		QueriesEntityFactory qef = QueriesEntityFactory.instance;
 		return qef.createNot(qef.createExpressionTest(
-				qef.createPointwiseEquals(qef.createSelfStep(), pathExpression)));
+				qef.createPointwiseEquals(qef.createSelfStep(), expression)));
 	}
 	protected TemplateAction createReplaceTemplateAction(IEntity prototype, String label) {
 		return createReplaceTemplateAction(prototype, label, null);

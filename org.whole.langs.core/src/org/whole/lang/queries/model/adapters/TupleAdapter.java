@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class TupleAdapter extends AbstractListEntityAdapter<PathExpression> implements Tuple {
+public class TupleAdapter extends AbstractListEntityAdapter<Expression> implements Tuple {
     private static final long serialVersionUID = 1;
 
     public TupleAdapter(IEntity implementor) {

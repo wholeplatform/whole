@@ -4,15 +4,15 @@
     <models:TypeRelations initialCapacity="7">
         <models:TypeAliasOf>
             <models:SimpleName value="PathExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#PathExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="StepExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#StepExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="Predicate"/>
-            <models:EntityType value="http://lang.whole.org/Queries#Predicate"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:SupertypesOf>
             <models:Types initialCapacity="1">

@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class OrAdapter extends AbstractListEntityAdapter<Predicate> implements Or {
+public class OrAdapter extends AbstractListEntityAdapter<Expression> implements Or {
     private static final long serialVersionUID = 1;
 
     public OrAdapter(IEntity implementor) {

@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class TupleImpl extends AbstractListCompositeEntity<PathExpression> implements Tuple {
+public class TupleImpl extends AbstractListCompositeEntity<Expression> implements Tuple {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

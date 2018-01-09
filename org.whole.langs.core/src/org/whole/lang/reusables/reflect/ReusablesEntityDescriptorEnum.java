@@ -128,8 +128,8 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initForeignTypeRelations() {
         setAssignableToAll(true, Adapt_ord, Reuse_ord, Include_ord);
         setAssignableFromAll(true, Reusable_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#PathExpression", PathExpression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#StepExpression", StepExpression_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", PathExpression_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", StepExpression_ord);
         setAliasOf(true, "http://lang.whole.org/Queries#Expression", Path_ord);
         setAliasOf(true, "whole:org.whole.lang.changes:ChangesModel#Revision", Revision_ord);
     }

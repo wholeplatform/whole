@@ -269,8 +269,7 @@ public class SemanticsEntityDescriptorEnum extends EntityDescriptorEnum {
 
     protected void initForeignTypeRelations() {
         setAssignableFromAll(true, Term_ord);
-        setAssignableFromForeignType(true, "http://lang.whole.org/Queries#PathExpressionOrPredicate", Predicate_ord);
-        setAssignableFromForeignType(true, "http://lang.whole.org/Queries#PathExpression", Expression_ord, FunctionBody_ord);
+        setAssignableFromForeignType(true, "http://lang.whole.org/Queries#Expression", Predicate_ord, Expression_ord, FunctionBody_ord);
         setAssignableToAll(true, Identifier_ord, TypedVariable_ord, FunctionApplication_ord, TypeCast_ord, BindingsScope_ord, Template_ord);
     }
 }

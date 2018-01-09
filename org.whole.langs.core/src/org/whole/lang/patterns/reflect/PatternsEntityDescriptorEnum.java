@@ -255,9 +255,9 @@ public class PatternsEntityDescriptorEnum extends EntityDescriptorEnum {
     }
 
     protected void initForeignTypeRelations() {
-        setAliasOf(true, "http://lang.whole.org/Queries#PathExpression", PathExpression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#StepExpression", StepExpression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#Predicate", Predicate_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", PathExpression_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", StepExpression_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", Predicate_ord);
         setAssignableFromForeignType(true, "http://lang.whole.org/Models#EntityType", ResultType_ord);
         setAssignableFromForeignType(true, "http://lang.whole.org/Models#AnyType", ResultType_ord);
         setAssignableFromAll(true, Template_ord);

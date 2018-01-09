@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.model.Name;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.PathExpressionOrPredicate;
+import org.whole.lang.queries.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class BindImpl extends AbstractSimpleEntity implements Bind {
     public void setName(Name name) {
         notifyChanged(QueriesFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private PathExpressionOrPredicate expression;
+    private Expression expression;
 
-    public PathExpressionOrPredicate getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpressionOrPredicate expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -85,7 +85,7 @@ public class BindImpl extends AbstractSimpleEntity implements Bind {
             setName(value.wGetAdapter(QueriesEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpressionOrPredicate));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

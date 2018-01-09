@@ -55,19 +55,19 @@ public class CartesianInsertAdapter extends AbstractEntityAdapter implements Car
         wSet(QueriesFeatureDescriptorEnum.placement, placement);
     }
 
-    public PathExpression getFromClause() {
-        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public PathExpression getValuesClause() {
-        return wGet(QueriesFeatureDescriptorEnum.valuesClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getValuesClause() {
+        return wGet(QueriesFeatureDescriptorEnum.valuesClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setValuesClause(PathExpression valuesClause) {
+    public void setValuesClause(Expression valuesClause) {
         wSet(QueriesFeatureDescriptorEnum.valuesClause, valuesClause);
     }
 }

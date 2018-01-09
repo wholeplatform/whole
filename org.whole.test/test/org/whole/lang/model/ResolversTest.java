@@ -35,7 +35,6 @@ import org.whole.lang.models.reflect.ModelsEntityDescriptorEnum;
 import org.whole.lang.models.reflect.ModelsFeatureDescriptorEnum;
 import org.whole.lang.queries.factories.QueriesEntityFactory;
 import org.whole.lang.queries.model.Filter;
-import org.whole.lang.queries.model.PathExpression;
 import org.whole.lang.queries.model.Sequence;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
@@ -65,17 +64,17 @@ public class ResolversTest {
 	public void testCompositeEntitySetParent() {
 		Sequence sequence = qf.createSequence(0);
 		
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		sequence.wAdd(pathExpression);
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		sequence.wAdd(expression);
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 		
-		pathExpression.wAdd(qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wAdd(qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
 		Filter filter = qf.createFilter();
-		filter.wSet(QueriesFeatureDescriptorEnum.expression, EntityUtils.clone(pathExpression));
+		filter.wSet(QueriesFeatureDescriptorEnum.expression, EntityUtils.clone(expression));
 		
-		Assert.assertTrue(Matcher.match(QueriesEntityDescriptorEnum.StepExpression, filter.getExpression()));
+		Assert.assertTrue(Matcher.match(QueriesEntityDescriptorEnum.Expression, filter.getExpression()));
 	}
 
 	@Test
@@ -107,77 +106,77 @@ public class ResolversTest {
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntityResolverTightening() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wAdd(qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wAdd(qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wAdd(qf.createPath());
+		expression.wAdd(qf.createPath());
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntityResolverTighteningAddByIndex() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wAdd(0, qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wAdd(0, qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wAdd(1, qf.createPath());
+		expression.wAdd(1, qf.createPath());
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntityResolverTighteningAddByIndexSparse() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wAdd(2, qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wAdd(2, qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wAdd(6, qf.createPath());
+		expression.wAdd(6, qf.createPath());
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntityResolverTighteningSetByIndex() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wSet(0, qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wSet(0, qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wSet(1, qf.createPath());
+		expression.wSet(1, qf.createPath());
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 
 	@Category(KnownFailingTests.class)
 	@Test
 	public void testCompositeEntityResolverTighteningSetByIndexSparse() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wSet(2, qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wSet(2, qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wSet(6, qf.createPath());
+		expression.wSet(6, qf.createPath());
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 
 	@Test
 	public void testCompositeEntityResolverWithResolve() {
-		PathExpression pathExpression = createResolver(QueriesEntityDescriptorEnum.PathExpression);
-		Sequence sequence = qf.createSequence(pathExpression);
+		org.whole.lang.queries.model.Expression expression = createResolver(QueriesEntityDescriptorEnum.Expression);
+		Sequence sequence = qf.createSequence(expression);
 
-		pathExpression.wAdd(qf.createChildStep());
-		Assert.assertTrue(EntityUtils.isResolver(pathExpression));
+		expression.wAdd(qf.createChildStep());
+		Assert.assertTrue(EntityUtils.isResolver(expression));
 
-		pathExpression.wResolveWith(QueriesEntityDescriptorEnum.Sequence);
+		expression.wResolveWith(QueriesEntityDescriptorEnum.Sequence);
 		Assert.assertTrue(Matcher.matchImpl(QueriesEntityDescriptorEnum.Sequence, sequence.wGet(0)));
 	}
 

@@ -24,7 +24,7 @@ package org.whole.lang.queries.model;
 public interface Delete extends IQueriesEntity, PathExpression {
 
 
-    public PathExpression getFromClause();
+    public Expression getFromClause();
 
-    public void setFromClause(PathExpression fromClause);
+    public void setFromClause(Expression fromClause);
 }

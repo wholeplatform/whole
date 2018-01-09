@@ -155,7 +155,7 @@ public class QueriesPrettyPrinterVisitor extends QueriesTraverseAllVisitor {
     @Override
     public void visit(Path entity) {
 		for (int i = 0; i < entity.wSize(); i++) {
-			StepExpression e = entity.get(i);
+			Expression e = entity.get(i);
 			if (i>0)
 				out.printRaw("/");
 			e.accept(this);

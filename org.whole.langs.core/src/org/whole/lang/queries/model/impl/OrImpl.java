@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class OrImpl extends AbstractListCompositeEntity<Predicate> implements Or {
+public class OrImpl extends AbstractListCompositeEntity<Expression> implements Or {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

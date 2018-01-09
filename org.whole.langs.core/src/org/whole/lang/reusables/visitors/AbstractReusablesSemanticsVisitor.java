@@ -68,7 +68,7 @@ public abstract class AbstractReusablesSemanticsVisitor extends ReusablesIdentit
 		resource.accept(this);
 		return
 //		return Matcher.isAssignableAsIsFrom(
-//				QueriesEntityDescriptorEnum.PathExpression, resource.wGetAdaptee(false)) ?
+//				QueriesEntityDescriptorEnum.Expression, resource.wGetAdaptee(false)) ?
 //						IteratorFactory.constantComposeIterator(resource.wGetParent(), getResultIterator()) :
 //							IteratorFactory.composeIterator(
 									IteratorFactory.singleValuedRunnableIterator((IEntity selfEntity, IBindingManager bm, IEntity... arguments) -> {

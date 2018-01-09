@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,13 +48,13 @@ public class ExpressionTestImpl extends AbstractSimpleEntity implements Expressi
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -70,7 +70,7 @@ public class ExpressionTestImpl extends AbstractSimpleEntity implements Expressi
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

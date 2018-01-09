@@ -55,11 +55,11 @@ public class BindAdapter extends AbstractEntityAdapter implements Bind {
         wSet(QueriesFeatureDescriptorEnum.name, name);
     }
 
-    public PathExpressionOrPredicate getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpressionOrPredicate);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(PathExpressionOrPredicate expression) {
+    public void setExpression(Expression expression) {
         wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 }

@@ -47,11 +47,11 @@ public class NotAdapter extends AbstractEntityAdapter implements Not {
         return QueriesEntityDescriptorEnum.Not;
     }
 
-    public Predicate getPredicate() {
-        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    public Expression getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPredicate(Predicate predicate) {
+    public void setPredicate(Expression predicate) {
         wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
     }
 }

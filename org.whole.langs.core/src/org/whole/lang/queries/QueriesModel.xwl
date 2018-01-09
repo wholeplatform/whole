@@ -7,13 +7,15 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="153">
+    <models:ModelDeclarations initialCapacity="152">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="PathExpressionOrPredicate"/>
-            <models:Types initialCapacity="0"/>
+            <models:SimpleName value="Expression"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="PruneOrPredicate"/>
+            </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
         <models:SimpleEntity>
@@ -22,7 +24,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="PathExpression"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="PathExpressionOrPredicate"/>
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -49,7 +51,7 @@
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="body"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -64,7 +66,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="StepExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -75,7 +77,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -96,13 +98,13 @@
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="valuesClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -123,13 +125,13 @@
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="valuesClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -144,13 +146,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="valuesClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -165,13 +167,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="valuesClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -186,13 +188,13 @@
             <models:Features initialCapacity="4">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="selectClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpressionOrPredicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -200,7 +202,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="whereClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -223,13 +225,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -244,13 +246,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="predicate"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -265,7 +267,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -367,7 +369,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -395,7 +397,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="PathExpressionOrPredicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -410,7 +412,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -421,7 +423,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -432,7 +434,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -449,7 +451,7 @@
                 </models:Feature>
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -464,7 +466,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -475,7 +477,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -486,7 +488,7 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="StepExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -798,7 +800,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="predicate"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -809,9 +811,8 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Predicate"/>
-            <models:Types initialCapacity="2">
-                <models:SimpleName value="PathExpressionOrPredicate"/>
-                <models:SimpleName value="PruneOrPredicate"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -893,19 +894,14 @@
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Predicate"/>
             </models:Types>
-            <models:EnumValues initialCapacity="12">
+            <models:EnumValues initialCapacity="7">
                 <models:EnumValue value="SIMPLE"/>
                 <models:EnumValue value="COMPOSITE"/>
                 <models:EnumValue value="DATA"/>
                 <models:EnumValue value="RESOLVER"/>
-                <models:EnumValue value="PROXY"/>
-                <models:EnumValue value="ADAPTER"/>
                 <models:EnumValue value="IMPL"/>
                 <models:EnumValue value="VARIABLE"/>
                 <models:EnumValue value="FRAGMENT"/>
-                <models:EnumValue value="SAME_STAGE_FRAGMENT"/>
-                <models:EnumValue value="STAGE_UP_FRAGMENT"/>
-                <models:EnumValue value="STAGE_DOWN_FRAGMENT"/>
             </models:EnumValues>
         </models:EnumEntity>
         <models:EnumEntity>
@@ -1070,7 +1066,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1102,7 +1098,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="Predicate"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -1113,7 +1109,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="Predicate"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>
@@ -1124,7 +1120,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="predicate"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1141,7 +1137,7 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="fromClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1149,7 +1145,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="whereClause"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1188,7 +1184,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="predicate"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1283,17 +1279,6 @@
             <models:Types initialCapacity="0"/>
             <models:DataType value="String"/>
         </models:DataEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
-            <models:SimpleName value="Expression"/>
-            <models:Types initialCapacity="2">
-                <models:SimpleName value="StepExpression"/>
-                <models:SimpleName value="Predicate"/>
-            </models:Types>
-            <models:Features initialCapacity="0"/>
-        </models:SimpleEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -1511,7 +1496,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="StepExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="identity"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1573,7 +1558,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="expression"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1588,13 +1573,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="pexp1"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="pexp2"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -1609,7 +1594,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="0"/>

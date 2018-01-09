@@ -47,11 +47,11 @@ public class PruneAdapter extends AbstractEntityAdapter implements Prune {
         return QueriesEntityDescriptorEnum.Prune;
     }
 
-    public Predicate getPredicate() {
-        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    public Expression getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPredicate(Predicate predicate) {
+    public void setPredicate(Expression predicate) {
         wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
     }
 }

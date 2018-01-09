@@ -182,7 +182,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		else {
 			boolean canOptimize = true;
 			ILanguageKit languageKit = null;
-			Map<EntityDescriptor<?>, PathExpression> typeMap = new HashMap<EntityDescriptor<?>, PathExpression>();
+			Map<EntityDescriptor<?>, Expression> typeMap = new HashMap<EntityDescriptor<?>, Expression>();
 
 			If ifWithTemplate = new IfWithTemplate().create();
 			If ifWithTypeTest = new IfWithTypeTest().create();
@@ -190,7 +190,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			ITransactionScope ts = BindingManagerFactory.instance.createTransactionScope();
 			getBindings().wEnterScope(ts);
 			for (int i = 0; i < size; i++) {
-				PathExpression child = entity.get(i);
+				Expression child = entity.get(i);
 				try {
 					if (!Matcher.match(ifWithTemplate, child, getBindings())
 							&& !Matcher.match(ifWithTypeTest, child, getBindings())) {
@@ -211,7 +211,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 					}
 
 					if (typeMap.containsKey(ed)) {
-						PathExpression behavior = typeMap.get(ed);
+						Expression behavior = typeMap.get(ed);
 						boolean isPattern = behavior.wGetParent() == entity;
 						if (isPattern) {
 							canOptimize = false;
@@ -229,7 +229,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 						typeMap.put(ed,
 								getBindings().wIsSet("pattern") ? child
 										: getBindings().wGet("expression")
-												.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+												.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
 					}
 				} finally {
 					ts.rollback();
@@ -237,10 +237,10 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			}
 			getBindings().wExitScope();
 
-			if (canOptimize) {
+			if (canOptimize && languageKit != null) {
 				ChooseByTypeIterator<IEntity> chooseIterator = IteratorFactory.chooseIterator(languageKit);
 
-				for (Entry<EntityDescriptor<?>, PathExpression> entry : typeMap.entrySet()) {
+				for (Entry<EntityDescriptor<?>, Expression> entry : typeMap.entrySet()) {
 					Set<String> oldDeclaredNames = declaredNames;
 
 					entry.getValue().accept(this);
@@ -311,7 +311,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		distinctScope = null;
 
 		PruneOrPredicate predicate = entity.getPredicate();
-		StepExpression expression = entity.getExpression();
+		Expression expression = entity.getExpression();
 		boolean optimizeIndexTest = false;
 
 		int oldStartIndex = startIndex;
@@ -655,11 +655,23 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		Set<String> namesToBound = declaredNames = new HashSet<String>();
 
 		setResult(null);
-		PathExpressionOrPredicate fromClause = entity.getFromClause();
+		Expression fromClause = entity.getFromClause();
 		fromClause.accept(this);
-		IEntityIterator<? extends IEntity> fromIterator = !Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Predicate, fromClause) ||
-				Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Expression, fromClause)  ? getResultIterator()
-				: IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
+		//TODO workaround migrate code and delete
+		IEntityIterator<? extends IEntity> fromIterator = null;
+//				!Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Predicate, fromClause)
+//				|| Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Expression, fromClause)  
+//				? getResultIterator()
+//				: IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
+
+		if (Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.Predicate, fromClause))
+			fromIterator = IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
+		else if (Matcher.isAssignableFrom(QueriesEntityDescriptorEnum.PathExpression, fromClause))
+			fromIterator = getResultIterator();
+		else
+			fromIterator = getResultIterator();
+//				else
+//					fromIterator = IteratorFactory.filterIterator(getResultIterator()).withSourceEntity(entity);
 
 		setResultIterator(IteratorFactory.emptyIterator().withSourceEntity(entity));
 		entity.getWhereClause().accept(this);
@@ -843,13 +855,6 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 		case KindTestEnum.RESOLVER_ord:
 			setResultIterator(IteratorFactory.isResolverIterator().withSourceEntity(entity));
 			break;
-		// TODO test only remove
-		case KindTestEnum.ADAPTER_ord:
-		case KindTestEnum.PROXY_ord:
-		case KindTestEnum.SAME_STAGE_FRAGMENT_ord:
-		case KindTestEnum.STAGE_UP_FRAGMENT_ord:
-		case KindTestEnum.STAGE_DOWN_FRAGMENT_ord:
-			throw new IllegalArgumentException();
 		default:
 			EntityKinds ekind = EntityKinds.valueOf(kind.getName());
 			setResultIterator(IteratorFactory.hasKindIterator(ekind).withSourceEntity(entity));
@@ -949,7 +954,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(ExpressionTest entity) {
-		PathExpression e = entity.getExpression();
+		Expression e = entity.getExpression();
 
 		if (EntityUtils.isStageUpFragment(e)) {
 			CommonsInterpreterVisitor.evaluateAdapter((IEntityAdapter) e, getOperation());
@@ -971,7 +976,8 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			e.accept(this);
 		} else if (Matcher.matchImpl(QueriesEntityDescriptorEnum.PointwiseEquals, e))
 			e.accept(this);
-		else if (QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor())
+		else if ((QueriesEntityDescriptorEnum.Expression.isLanguageSupertypeOf(e.wGetEntityDescriptor()) &&
+				! QueriesEntityDescriptorEnum.PathExpression.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
 				|| QueriesEntityDescriptorEnum.MathStep.isLanguageSupertypeOf(e.wGetEntityDescriptor()))
 			e.accept(this);
 		else {

@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class CartesianProductAdapter extends AbstractListEntityAdapter<PathExpression> implements CartesianProduct {
+public class CartesianProductAdapter extends AbstractListEntityAdapter<Expression> implements CartesianProduct {
     private static final long serialVersionUID = 1;
 
     public CartesianProductAdapter(IEntity implementor) {

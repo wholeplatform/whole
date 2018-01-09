@@ -47,11 +47,11 @@ public class DoAdapter extends AbstractEntityAdapter implements Do {
         return QueriesEntityDescriptorEnum.Do;
     }
 
-    public PathExpression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 }

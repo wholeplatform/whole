@@ -63,11 +63,11 @@ public class QueryDeclarationAdapter extends AbstractEntityAdapter implements Qu
         wSet(QueriesFeatureDescriptorEnum.parameters, parameters);
     }
 
-    public PathExpression getBody() {
-        return wGet(QueriesFeatureDescriptorEnum.body).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getBody() {
+        return wGet(QueriesFeatureDescriptorEnum.body).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setBody(PathExpression body) {
+    public void setBody(Expression body) {
         wSet(QueriesFeatureDescriptorEnum.body, body);
     }
 }

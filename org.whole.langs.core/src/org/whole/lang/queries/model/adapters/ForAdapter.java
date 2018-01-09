@@ -47,19 +47,19 @@ public class ForAdapter extends AbstractEntityAdapter implements For {
         return QueriesEntityDescriptorEnum.For;
     }
 
-    public PathExpression getFromClause() {
-        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public PathExpression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 }

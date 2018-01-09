@@ -44,7 +44,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.QueryDeclaration);
     }
 
-    public QueryDeclaration createQueryDeclaration(Name name, Names parameters, PathExpression body) {
+    public QueryDeclaration createQueryDeclaration(Name name, Names parameters, Expression body) {
         return create(QueriesEntityDescriptorEnum.QueryDeclaration, name, parameters, body);
     }
 
@@ -56,7 +56,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Path);
     }
 
-    public Path createPath(StepExpression... entities) {
+    public Path createPath(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Path, (IEntity[]) entities);
     }
 
@@ -68,7 +68,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Delete);
     }
 
-    public Delete createDelete(PathExpression fromClause) {
+    public Delete createDelete(Expression fromClause) {
         return create(QueriesEntityDescriptorEnum.Delete, fromClause);
     }
 
@@ -76,7 +76,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.CartesianInsert);
     }
 
-    public CartesianInsert createCartesianInsert(Placement placement, PathExpression fromClause, PathExpression valuesClause) {
+    public CartesianInsert createCartesianInsert(Placement placement, Expression fromClause, Expression valuesClause) {
         return create(QueriesEntityDescriptorEnum.CartesianInsert, placement, fromClause, valuesClause);
     }
 
@@ -88,7 +88,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PointwiseInsert);
     }
 
-    public PointwiseInsert createPointwiseInsert(Placement placement, PathExpression fromClause, PathExpression valuesClause) {
+    public PointwiseInsert createPointwiseInsert(Placement placement, Expression fromClause, Expression valuesClause) {
         return create(QueriesEntityDescriptorEnum.PointwiseInsert, placement, fromClause, valuesClause);
     }
 
@@ -100,7 +100,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.CartesianUpdate);
     }
 
-    public CartesianUpdate createCartesianUpdate(PathExpression fromClause, PathExpression valuesClause) {
+    public CartesianUpdate createCartesianUpdate(Expression fromClause, Expression valuesClause) {
         return create(QueriesEntityDescriptorEnum.CartesianUpdate, fromClause, valuesClause);
     }
 
@@ -112,7 +112,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PointwiseUpdate);
     }
 
-    public PointwiseUpdate createPointwiseUpdate(PathExpression fromClause, PathExpression valuesClause) {
+    public PointwiseUpdate createPointwiseUpdate(Expression fromClause, Expression valuesClause) {
         return create(QueriesEntityDescriptorEnum.PointwiseUpdate, fromClause, valuesClause);
     }
 
@@ -124,7 +124,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Select);
     }
 
-    public Select createSelect(PathExpression selectClause, PathExpressionOrPredicate fromClause, PathExpression whereClause, NamesExpression clearClause) {
+    public Select createSelect(Expression selectClause, Expression fromClause, Expression whereClause, NamesExpression clearClause) {
         return create(QueriesEntityDescriptorEnum.Select, selectClause, fromClause, whereClause, clearClause);
     }
 
@@ -136,7 +136,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.For);
     }
 
-    public For createFor(PathExpression fromClause, PathExpression expression) {
+    public For createFor(Expression fromClause, Expression expression) {
         return create(QueriesEntityDescriptorEnum.For, fromClause, expression);
     }
 
@@ -148,7 +148,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.If);
     }
 
-    public If createIf(Predicate predicate, PathExpression expression) {
+    public If createIf(Expression predicate, Expression expression) {
         return create(QueriesEntityDescriptorEnum.If, predicate, expression);
     }
 
@@ -160,7 +160,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Do);
     }
 
-    public Do createDo(PathExpression expression) {
+    public Do createDo(Expression expression) {
         return create(QueriesEntityDescriptorEnum.Do, expression);
     }
 
@@ -204,7 +204,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Expressions);
     }
 
-    public Expressions createExpressions(PathExpression... entities) {
+    public Expressions createExpressions(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Expressions, (IEntity[]) entities);
     }
 
@@ -228,7 +228,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Bind);
     }
 
-    public Bind createBind(Name name, PathExpressionOrPredicate expression) {
+    public Bind createBind(Name name, Expression expression) {
         return create(QueriesEntityDescriptorEnum.Bind, name, expression);
     }
 
@@ -240,7 +240,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Choose);
     }
 
-    public Choose createChoose(PathExpression... entities) {
+    public Choose createChoose(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Choose, (IEntity[]) entities);
     }
 
@@ -252,7 +252,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Block);
     }
 
-    public Block createBlock(PathExpression... entities) {
+    public Block createBlock(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Block, (IEntity[]) entities);
     }
 
@@ -264,7 +264,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Sequence);
     }
 
-    public Sequence createSequence(PathExpression... entities) {
+    public Sequence createSequence(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Sequence, (IEntity[]) entities);
     }
 
@@ -276,7 +276,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Scope);
     }
 
-    public Scope createScope(Names localNames, PathExpression expression) {
+    public Scope createScope(Names localNames, Expression expression) {
         return create(QueriesEntityDescriptorEnum.Scope, localNames, expression);
     }
 
@@ -288,7 +288,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.CartesianProduct);
     }
 
-    public CartesianProduct createCartesianProduct(PathExpression... entities) {
+    public CartesianProduct createCartesianProduct(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.CartesianProduct, (IEntity[]) entities);
     }
 
@@ -300,7 +300,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PointwiseProduct);
     }
 
-    public PointwiseProduct createPointwiseProduct(PathExpression... entities) {
+    public PointwiseProduct createPointwiseProduct(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.PointwiseProduct, (IEntity[]) entities);
     }
 
@@ -312,7 +312,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Filter);
     }
 
-    public Filter createFilter(StepExpression expression, PruneOrPredicate predicate) {
+    public Filter createFilter(Expression expression, PruneOrPredicate predicate) {
         return create(QueriesEntityDescriptorEnum.Filter, expression, predicate);
     }
 
@@ -436,7 +436,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Prune);
     }
 
-    public Prune createPrune(Predicate predicate) {
+    public Prune createPrune(Expression predicate) {
         return create(QueriesEntityDescriptorEnum.Prune, predicate);
     }
 
@@ -640,7 +640,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.ExpressionTest);
     }
 
-    public ExpressionTest createExpressionTest(PathExpression expression) {
+    public ExpressionTest createExpressionTest(Expression expression) {
         return create(QueriesEntityDescriptorEnum.ExpressionTest, expression);
     }
 
@@ -656,7 +656,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.And);
     }
 
-    public And createAnd(Predicate... entities) {
+    public And createAnd(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.And, (IEntity[]) entities);
     }
 
@@ -668,7 +668,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Or);
     }
 
-    public Or createOr(Predicate... entities) {
+    public Or createOr(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Or, (IEntity[]) entities);
     }
 
@@ -680,7 +680,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Not);
     }
 
-    public Not createNot(Predicate predicate) {
+    public Not createNot(Expression predicate) {
         return create(QueriesEntityDescriptorEnum.Not, predicate);
     }
 
@@ -688,7 +688,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.One);
     }
 
-    public One createOne(PathExpression fromClause, Predicate whereClause) {
+    public One createOne(Expression fromClause, Expression whereClause) {
         return create(QueriesEntityDescriptorEnum.One, fromClause, whereClause);
     }
 
@@ -700,7 +700,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Some);
     }
 
-    public Some createSome(PathExpression fromClause, Predicate whereClause) {
+    public Some createSome(Expression fromClause, Expression whereClause) {
         return create(QueriesEntityDescriptorEnum.Some, fromClause, whereClause);
     }
 
@@ -712,7 +712,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Every);
     }
 
-    public Every createEvery(PathExpression fromClause, Predicate whereClause) {
+    public Every createEvery(Expression fromClause, Expression whereClause) {
         return create(QueriesEntityDescriptorEnum.Every, fromClause, whereClause);
     }
 
@@ -724,7 +724,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.ParenthesizedPredicate);
     }
 
-    public ParenthesizedPredicate createParenthesizedPredicate(Predicate predicate) {
+    public ParenthesizedPredicate createParenthesizedPredicate(Expression predicate) {
         return create(QueriesEntityDescriptorEnum.ParenthesizedPredicate, predicate);
     }
 
@@ -880,7 +880,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.IdentityComparator);
     }
 
-    public IdentityComparator createIdentityComparator(StepExpression identity) {
+    public IdentityComparator createIdentityComparator(Expression identity) {
         return create(QueriesEntityDescriptorEnum.IdentityComparator, identity);
     }
 
@@ -940,7 +940,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Singleton);
     }
 
-    public Singleton createSingleton(PathExpression expression) {
+    public Singleton createSingleton(Expression expression) {
         return create(QueriesEntityDescriptorEnum.Singleton, expression);
     }
 
@@ -948,7 +948,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.PointwiseEquals);
     }
 
-    public PointwiseEquals createPointwiseEquals(PathExpression pexp1, PathExpression pexp2) {
+    public PointwiseEquals createPointwiseEquals(Expression pexp1, Expression pexp2) {
         return create(QueriesEntityDescriptorEnum.PointwiseEquals, pexp1, pexp2);
     }
 
@@ -960,7 +960,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Tuple);
     }
 
-    public Tuple createTuple(PathExpression... entities) {
+    public Tuple createTuple(Expression... entities) {
         return create(QueriesEntityDescriptorEnum.Tuple, (IEntity[]) entities);
     }
 

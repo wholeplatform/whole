@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.queries.model.Placement;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,22 +58,22 @@ public class PointwiseInsertImpl extends AbstractSimpleEntity implements Pointwi
     public void setPlacement(Placement placement) {
         notifyChanged(QueriesFeatureDescriptorEnum.placement, this.placement, this.placement = placement);
     }
-    private PathExpression fromClause;
+    private Expression fromClause;
 
-    public PathExpression getFromClause() {
+    public Expression getFromClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
     }
-    private PathExpression valuesClause;
+    private Expression valuesClause;
 
-    public PathExpression getValuesClause() {
+    public Expression getValuesClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.valuesClause, valuesClause);
     }
 
-    public void setValuesClause(PathExpression valuesClause) {
+    public void setValuesClause(Expression valuesClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.valuesClause, this.valuesClause, this.valuesClause = valuesClause);
     }
 
@@ -96,10 +96,10 @@ public class PointwiseInsertImpl extends AbstractSimpleEntity implements Pointwi
             setPlacement(value.wGetAdapter(QueriesEntityDescriptorEnum.Placement));
             break;
             case 1 :
-            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 2 :
-            setValuesClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setValuesClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

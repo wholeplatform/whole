@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Tuple extends IQueriesEntity, List<PathExpression>, Expression {
+public interface Tuple extends IQueriesEntity, List<Expression>, Expression {
 
 }

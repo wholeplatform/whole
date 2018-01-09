@@ -24,11 +24,11 @@ package org.whole.lang.queries.model;
 public interface CartesianUpdate extends IQueriesEntity, PathExpression {
 
 
-    public PathExpression getFromClause();
+    public Expression getFromClause();
 
-    public void setFromClause(PathExpression fromClause);
+    public void setFromClause(Expression fromClause);
 
-    public PathExpression getValuesClause();
+    public Expression getValuesClause();
 
-    public void setValuesClause(PathExpression valuesClause);
+    public void setValuesClause(Expression valuesClause);
 }

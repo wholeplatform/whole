@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.StepExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.PruneOrPredicate;
@@ -49,13 +49,13 @@ public class FilterImpl extends AbstractSimpleEntity implements Filter {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private StepExpression expression;
+    private Expression expression;
 
-    public StepExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(StepExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private PruneOrPredicate predicate;
@@ -82,7 +82,7 @@ public class FilterImpl extends AbstractSimpleEntity implements Filter {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.StepExpression));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setPredicate(value.wGetAdapter(QueriesEntityDescriptorEnum.PruneOrPredicate));

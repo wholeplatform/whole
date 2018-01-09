@@ -30,7 +30,7 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
     }
 
     protected void createPrototypes() {
-        put(new PathExpressionOrPredicateAdapter());
+        put(new ExpressionAdapter());
         put(new PathExpressionAdapter());
         put(new QueryDeclarationAdapter());
         put(new PathAdapter());
@@ -135,7 +135,6 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new RemoveNamesAdapter());
         put(new NamesAdapter());
         put(new NameAdapter());
-        put(new ExpressionAdapter());
         put(new MathStepAdapter());
         put(new AdditionStepAdapter());
         put(new SubtractionStepAdapter());

@@ -28,7 +28,7 @@ public interface Scope extends IQueriesEntity, StepExpression {
 
     public void setLocalNames(Names localNames);
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 }

@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class AndImpl extends AbstractListCompositeEntity<Predicate> implements And {
+public class AndImpl extends AbstractListCompositeEntity<Expression> implements And {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

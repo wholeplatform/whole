@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,22 +48,22 @@ public class ForImpl extends AbstractSimpleEntity implements For {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression fromClause;
+    private Expression fromClause;
 
-    public PathExpression getFromClause() {
+    public Expression getFromClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -81,10 +81,10 @@ public class ForImpl extends AbstractSimpleEntity implements For {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

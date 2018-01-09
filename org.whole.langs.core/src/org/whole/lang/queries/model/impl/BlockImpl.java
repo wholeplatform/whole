@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class BlockImpl extends AbstractListCompositeEntity<PathExpression> implements Block {
+public class BlockImpl extends AbstractListCompositeEntity<Expression> implements Block {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class AndAdapter extends AbstractListEntityAdapter<Predicate> implements And {
+public class AndAdapter extends AbstractListEntityAdapter<Expression> implements And {
     private static final long serialVersionUID = 1;
 
     public AndAdapter(IEntity implementor) {

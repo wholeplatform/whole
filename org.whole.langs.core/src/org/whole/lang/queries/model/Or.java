@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Or extends IQueriesEntity, List<Predicate>, Predicate {
+public interface Or extends IQueriesEntity, List<Expression>, Predicate {
 
 }

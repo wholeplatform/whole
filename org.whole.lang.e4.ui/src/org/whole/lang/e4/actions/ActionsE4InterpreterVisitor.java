@@ -288,7 +288,7 @@ public class ActionsE4InterpreterVisitor extends ActionsInterpreterVisitor {
 
 		case ActionKindEnum.WRAP_ord:
 			IEntity behavior = qf.createPointwiseUpdate(qf.createVariableRefStep("focusEntity"),
-					CommonsEntityAdapterFactory.createStageUpFragment(QueriesEntityDescriptorEnum.PathExpression, prototype));
+					CommonsEntityAdapterFactory.createStageUpFragment(QueriesEntityDescriptorEnum.Expression, prototype));
 			return actionRegistry.createPerformAction(text, WRAP_ICON_URI, predicate, behavior);
 
 		case ActionKindEnum.PERFORM_ord:

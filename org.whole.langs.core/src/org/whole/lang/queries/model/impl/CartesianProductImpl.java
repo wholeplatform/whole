@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class CartesianProductImpl extends AbstractListCompositeEntity<PathExpression> implements CartesianProduct {
+public class CartesianProductImpl extends AbstractListCompositeEntity<Expression> implements CartesianProduct {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {

@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class PathAdapter extends AbstractListEntityAdapter<StepExpression> implements Path {
+public class PathAdapter extends AbstractListEntityAdapter<Expression> implements Path {
     private static final long serialVersionUID = 1;
 
     public PathAdapter(IEntity implementor) {

@@ -9,17 +9,12 @@
             <models:AnyType/>
         </models:SupertypesOf>
         <models:SupertypesOf>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="Predicate"/>
-            </models:Types>
-            <models:EntityType value="http://lang.whole.org/Queries#PathExpressionOrPredicate"/>
-        </models:SupertypesOf>
-        <models:SupertypesOf>
-            <models:Types initialCapacity="2">
+            <models:Types initialCapacity="3">
                 <models:SimpleName value="Expression"/>
+                <models:SimpleName value="Predicate"/>
                 <models:SimpleName value="FunctionBody"/>
             </models:Types>
-            <models:EntityType value="http://lang.whole.org/Queries#PathExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:SupertypesOf>
         <models:SubtypesOf>
             <models:Types initialCapacity="6">

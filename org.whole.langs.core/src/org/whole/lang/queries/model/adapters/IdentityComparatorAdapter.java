@@ -47,11 +47,11 @@ public class IdentityComparatorAdapter extends AbstractEntityAdapter implements 
         return QueriesEntityDescriptorEnum.IdentityComparator;
     }
 
-    public StepExpression getIdentity() {
-        return wGet(QueriesFeatureDescriptorEnum.identity).wGetAdapter(QueriesEntityDescriptorEnum.StepExpression);
+    public Expression getIdentity() {
+        return wGet(QueriesFeatureDescriptorEnum.identity).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setIdentity(StepExpression identity) {
+    public void setIdentity(Expression identity) {
         wSet(QueriesFeatureDescriptorEnum.identity, identity);
     }
 }

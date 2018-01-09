@@ -261,7 +261,7 @@
                                         <queries:FeatureStep value="http://lang.whole.org/Actions#transformation"/>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#Expression"/>
                                         <queries:SelfStep/>
                                         </queries:If>
                                         <queries:Do>

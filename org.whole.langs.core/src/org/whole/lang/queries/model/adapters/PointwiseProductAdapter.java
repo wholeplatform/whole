@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class PointwiseProductAdapter extends AbstractListEntityAdapter<PathExpression> implements PointwiseProduct {
+public class PointwiseProductAdapter extends AbstractListEntityAdapter<Expression> implements PointwiseProduct {
     private static final long serialVersionUID = 1;
 
     public PointwiseProductAdapter(IEntity implementor) {

@@ -23,10 +23,9 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.PathExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.Predicate;
 
 /**
  *  @generator Whole
@@ -49,22 +48,22 @@ public class SomeImpl extends AbstractSimpleEntity implements Some {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression fromClause;
+    private Expression fromClause;
 
-    public PathExpression getFromClause() {
+    public Expression getFromClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.fromClause, this.fromClause, this.fromClause = fromClause);
     }
-    private Predicate whereClause;
+    private Expression whereClause;
 
-    public Predicate getWhereClause() {
+    public Expression getWhereClause() {
         return notifyRequested(QueriesFeatureDescriptorEnum.whereClause, whereClause);
     }
 
-    public void setWhereClause(Predicate whereClause) {
+    public void setWhereClause(Expression whereClause) {
         notifyChanged(QueriesFeatureDescriptorEnum.whereClause, this.whereClause, this.whereClause = whereClause);
     }
 
@@ -82,10 +81,10 @@ public class SomeImpl extends AbstractSimpleEntity implements Some {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setFromClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Predicate));
+            setWhereClause(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

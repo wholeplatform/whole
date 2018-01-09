@@ -24,9 +24,9 @@ package org.whole.lang.queries.model;
 public interface Filter extends IQueriesEntity, StepExpression {
 
 
-    public StepExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(StepExpression expression);
+    public void setExpression(Expression expression);
 
     public PruneOrPredicate getPredicate();
 

@@ -47,19 +47,19 @@ public class EveryAdapter extends AbstractEntityAdapter implements Every {
         return QueriesEntityDescriptorEnum.Every;
     }
 
-    public PathExpression getFromClause() {
-        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getFromClause() {
+        return wGet(QueriesFeatureDescriptorEnum.fromClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setFromClause(PathExpression fromClause) {
+    public void setFromClause(Expression fromClause) {
         wSet(QueriesFeatureDescriptorEnum.fromClause, fromClause);
     }
 
-    public Predicate getWhereClause() {
-        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    public Expression getWhereClause() {
+        return wGet(QueriesFeatureDescriptorEnum.whereClause).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setWhereClause(Predicate whereClause) {
+    public void setWhereClause(Expression whereClause) {
         wSet(QueriesFeatureDescriptorEnum.whereClause, whereClause);
     }
 }

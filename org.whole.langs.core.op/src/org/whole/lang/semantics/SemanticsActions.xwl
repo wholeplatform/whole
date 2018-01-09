@@ -794,7 +794,7 @@
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Filter>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#StepExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="block"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -850,14 +850,14 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:Select>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="block"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <queries:SelfStep/>
                                         <queries:Sequence initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="whereBlock"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
@@ -944,7 +944,7 @@
                                         <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="http://lang.whole.org/Semantics#identifier"/>
                                         <queries:Filter>
-                                        <queries:Choose initialCapacity="4">
+                                        <queries:Choose initialCapacity="3">
                                         <queries:If>
                                         <queries:KindTest value="RESOLVER"/>
                                         <queries:VariableRefStep value="expressionBlock"/>
@@ -961,7 +961,7 @@
                                         </queries:Names>
                                         <queries:Block initialCapacity="2">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#StepExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="expressionBlock"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1017,38 +1017,14 @@
                                         </queries:Select>
                                         <queries:TemplateNames/>
                                         </queries:Select>
-                                        <queries:If>
-                                        <queries:ExpressionTest>
-                                        <queries:Filter>
-                                        <queries:VariableRefStep value="expressionBlock"/>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#StepExpression"/>
-                                        </queries:Filter>
-                                        </queries:ExpressionTest>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <queries:Filter>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#StepExpression"/>
-                                        <commons:VarName value="expressionBlock"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#VariableTest"/>
-                                        <commons:VarName value="self"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </queries:Filter>
-                                        </commons:StageUpFragment>
-                                        </queries:If>
                                         <queries:Do>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Filter>
-                                        <queries:Sequence initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="expressionBlock"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
-                                        </queries:Sequence>
                                         <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/Queries#VariableTest"/>
                                         <commons:VarName value="self"/>
@@ -1077,7 +1053,7 @@
                                         </commons:Variable>
                                         </queries:And>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="block"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1189,7 +1165,7 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:Choose initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="case"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
@@ -1212,12 +1188,12 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:If>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#Predicate"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="condition"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="expression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1234,30 +1210,13 @@
                                         <queries:BooleanLiteral value="true"/>
                                         <queries:VariableTest value="withExecutionSemantics"/>
                                         </queries:Filter>
-                                        <queries:Path initialCapacity="3">
+                                        <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="condition"/>
+                                        <queries:Filter>
                                         <queries:Call>
                                         <queries:Name value="translateExpression"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </queries:Call>
-                                        <queries:Filter>
-                                        <queries:Choose initialCapacity="2">
-                                        <queries:If>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#Predicate"/>
-                                        <queries:SelfStep/>
-                                        </queries:If>
-                                        <queries:Do>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <queries:ExpressionTest>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
-                                        <commons:VarName value="self"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </queries:ExpressionTest>
-                                        </commons:StageUpFragment>
-                                        </queries:Do>
-                                        </queries:Choose>
                                         <queries:VariableTest value="condition"/>
                                         </queries:Filter>
                                         </queries:Path>
@@ -1280,12 +1239,12 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:For>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="condition"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="expression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1331,7 +1290,7 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:Do>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="expression"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1466,7 +1425,7 @@
                             <queries:Name value="patternVarType"/>
                             <queries:Name value="elementType"/>
                         </queries:Names>
-                        <queries:Choose initialCapacity="10">
+                        <queries:Choose initialCapacity="9">
                             <queries:If>
                                 <queries:TypeTest value="http://lang.whole.org/Semantics#TypedVariable"/>
                                 <queries:Block initialCapacity="3">
@@ -1490,7 +1449,7 @@
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:And initialCapacity="2">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#Predicate"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="patternVarType"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -1571,7 +1530,7 @@
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                     <queries:Or initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#Predicate"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="elementType"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>
@@ -1595,46 +1554,10 @@
                                     <queries:TypeTest value="http://lang.whole.org/Commons#StageDownFragment"/>
                                     <queries:TypeTest value="http://lang.whole.org/Commons#SameStageFragment"/>
                                 </queries:Or>
-                                <queries:Path initialCapacity="2">
-                                    <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
-                                    <queries:Choose initialCapacity="2">
-                                        <queries:If>
-                                        <queries:SubtypeTest value="http://lang.whole.org/Queries#Predicate"/>
-                                        <queries:SelfStep/>
-                                        </queries:If>
-                                        <queries:Do>
-                                        <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <queries:ExpressionTest>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
-                                        <commons:VarName value="self"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                        </queries:ExpressionTest>
-                                        </commons:StageUpFragment>
-                                        </queries:Do>
-                                    </queries:Choose>
-                                </queries:Path>
-                            </queries:If>
-                            <queries:If>
-                                <queries:And initialCapacity="2">
-                                    <queries:ExpressionTest>
-                                        <queries:VariableRefStep value="withExecutionSemantics"/>
-                                    </queries:ExpressionTest>
-                                    <queries:SubtypeTest value="http://lang.whole.org/Queries#Predicate"/>
-                                </queries:And>
-                                <queries:SelfStep/>
+                                <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
                             </queries:If>
                             <queries:Do>
-                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                    <queries:ExpressionTest>
-                                        <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
-                                        <commons:VarName value="self"/>
-                                        <commons:Quantifier value="!"/>
-                                        </commons:Variable>
-                                    </queries:ExpressionTest>
-                                </commons:StageUpFragment>
+                                <queries:SelfStep/>
                             </queries:Do>
                         </queries:Choose>
                     </queries:QueryDeclaration>
@@ -1677,12 +1600,12 @@
                                         </queries:Names>
                                         <queries:If>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#Predicate"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="casePredicate"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="caseBody"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
@@ -2053,7 +1976,7 @@
                                     </queries:Names>
                                     <queries:Choose initialCapacity="1">
                                         <commons:Variable>
-                                        <commons:VarType value="http://lang.whole.org/Queries#PathExpression"/>
+                                        <commons:VarType value="http://lang.whole.org/Queries#Expression"/>
                                         <commons:VarName value="functionCase"/>
                                         <commons:Quantifier value="*"/>
                                         </commons:Variable>

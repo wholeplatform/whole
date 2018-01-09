@@ -47,11 +47,11 @@ public class FilterAdapter extends AbstractEntityAdapter implements Filter {
         return QueriesEntityDescriptorEnum.Filter;
     }
 
-    public StepExpression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.StepExpression);
+    public Expression getExpression() {
+        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(StepExpression expression) {
+    public void setExpression(Expression expression) {
         wSet(QueriesFeatureDescriptorEnum.expression, expression);
     }
 

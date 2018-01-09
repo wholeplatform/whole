@@ -24,7 +24,7 @@ package org.whole.lang.queries.model;
 public interface IdentityComparator extends IQueriesEntity, Comparator {
 
 
-    public StepExpression getIdentity();
+    public Expression getIdentity();
 
-    public void setIdentity(StepExpression identity);
+    public void setIdentity(Expression identity);
 }

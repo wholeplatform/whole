@@ -23,10 +23,9 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.Predicate;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.queries.model.PathExpression;
 
 /**
  *  @generator Whole
@@ -49,22 +48,22 @@ public class IfImpl extends AbstractSimpleEntity implements If {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Predicate predicate;
+    private Expression predicate;
 
-    public Predicate getPredicate() {
+    public Expression getPredicate() {
         return notifyRequested(QueriesFeatureDescriptorEnum.predicate, predicate);
     }
 
-    public void setPredicate(Predicate predicate) {
+    public void setPredicate(Expression predicate) {
         notifyChanged(QueriesFeatureDescriptorEnum.predicate, this.predicate, this.predicate = predicate);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(QueriesFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(QueriesFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -82,10 +81,10 @@ public class IfImpl extends AbstractSimpleEntity implements If {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPredicate(value.wGetAdapter(QueriesEntityDescriptorEnum.Predicate));
+            setPredicate(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

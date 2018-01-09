@@ -24,7 +24,7 @@ package org.whole.lang.queries.model;
 public interface ExpressionTest extends IQueriesEntity, Predicate {
 
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 }

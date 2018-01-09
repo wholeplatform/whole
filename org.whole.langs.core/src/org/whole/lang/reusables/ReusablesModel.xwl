@@ -18,11 +18,11 @@
         </models:SupertypesOf>
         <models:TypeAliasOf>
             <models:SimpleName value="PathExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#PathExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="StepExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#StepExpression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="Path"/>

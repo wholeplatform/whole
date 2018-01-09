@@ -47,19 +47,19 @@ public class PointwiseEqualsAdapter extends AbstractEntityAdapter implements Poi
         return QueriesEntityDescriptorEnum.PointwiseEquals;
     }
 
-    public PathExpression getPexp1() {
-        return wGet(QueriesFeatureDescriptorEnum.pexp1).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getPexp1() {
+        return wGet(QueriesFeatureDescriptorEnum.pexp1).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPexp1(PathExpression pexp1) {
+    public void setPexp1(Expression pexp1) {
         wSet(QueriesFeatureDescriptorEnum.pexp1, pexp1);
     }
 
-    public PathExpression getPexp2() {
-        return wGet(QueriesFeatureDescriptorEnum.pexp2).wGetAdapter(QueriesEntityDescriptorEnum.PathExpression);
+    public Expression getPexp2() {
+        return wGet(QueriesFeatureDescriptorEnum.pexp2).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPexp2(PathExpression pexp2) {
+    public void setPexp2(Expression pexp2) {
         wSet(QueriesFeatureDescriptorEnum.pexp2, pexp2);
     }
 }

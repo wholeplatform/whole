@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.StepExpression;
+import org.whole.lang.queries.model.Expression;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,13 +48,13 @@ public class IdentityComparatorImpl extends AbstractSimpleEntity implements Iden
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private StepExpression identity;
+    private Expression identity;
 
-    public StepExpression getIdentity() {
+    public Expression getIdentity() {
         return notifyRequested(QueriesFeatureDescriptorEnum.identity, identity);
     }
 
-    public void setIdentity(StepExpression identity) {
+    public void setIdentity(Expression identity) {
         notifyChanged(QueriesFeatureDescriptorEnum.identity, this.identity, this.identity = identity);
     }
 
@@ -70,7 +70,7 @@ public class IdentityComparatorImpl extends AbstractSimpleEntity implements Iden
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setIdentity(value.wGetAdapter(QueriesEntityDescriptorEnum.StepExpression));
+            setIdentity(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

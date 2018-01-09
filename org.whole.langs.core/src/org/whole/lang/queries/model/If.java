@@ -24,11 +24,11 @@ package org.whole.lang.queries.model;
 public interface If extends IQueriesEntity, PathExpression {
 
 
-    public Predicate getPredicate();
+    public Expression getPredicate();
 
-    public void setPredicate(Predicate predicate);
+    public void setPredicate(Expression predicate);
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 }

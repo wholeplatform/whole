@@ -27,7 +27,7 @@ import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class ChooseAdapter extends AbstractListEntityAdapter<PathExpression> implements Choose {
+public class ChooseAdapter extends AbstractListEntityAdapter<Expression> implements Choose {
     private static final long serialVersionUID = 1;
 
     public ChooseAdapter(IEntity implementor) {

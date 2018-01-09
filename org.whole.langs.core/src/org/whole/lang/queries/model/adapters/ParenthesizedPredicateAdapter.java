@@ -47,11 +47,11 @@ public class ParenthesizedPredicateAdapter extends AbstractEntityAdapter impleme
         return QueriesEntityDescriptorEnum.ParenthesizedPredicate;
     }
 
-    public Predicate getPredicate() {
-        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Predicate);
+    public Expression getPredicate() {
+        return wGet(QueriesFeatureDescriptorEnum.predicate).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
     }
 
-    public void setPredicate(Predicate predicate) {
+    public void setPredicate(Expression predicate) {
         wSet(QueriesFeatureDescriptorEnum.predicate, predicate);
     }
 }

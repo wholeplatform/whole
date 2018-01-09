@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Sequence extends IQueriesEntity, List<PathExpression>, StepExpression {
+public interface Sequence extends IQueriesEntity, List<Expression>, StepExpression {
 
 }

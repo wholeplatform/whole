@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface CartesianProduct extends IQueriesEntity, List<PathExpression>, StepExpression {
+public interface CartesianProduct extends IQueriesEntity, List<Expression>, StepExpression {
 
 }

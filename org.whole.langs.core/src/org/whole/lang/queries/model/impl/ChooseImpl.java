@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class ChooseImpl extends AbstractListCompositeEntity<PathExpression> implements Choose {
+public class ChooseImpl extends AbstractListCompositeEntity<Expression> implements Choose {
     private static final long serialVersionUID = 1;
 
     public void accept(IQueriesVisitor visitor) {
