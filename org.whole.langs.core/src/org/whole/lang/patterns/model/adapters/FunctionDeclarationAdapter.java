@@ -63,11 +63,11 @@ public class FunctionDeclarationAdapter extends AbstractEntityAdapter implements
         wSet(PatternsFeatureDescriptorEnum.name, name);
     }
 
-    public PathExpression getBody() {
-        return wGet(PatternsFeatureDescriptorEnum.body).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getBody() {
+        return wGet(PatternsFeatureDescriptorEnum.body).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setBody(PathExpression body) {
+    public void setBody(Expression body) {
         wSet(PatternsFeatureDescriptorEnum.body, body);
     }
 }

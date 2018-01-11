@@ -37,7 +37,7 @@ public class ReusablesActionFactory extends ActionFactory {
 		EnablerPredicateFactory pf = EnablerPredicateFactory.instance;
 		return new Object[][] {
 				{ pf.assignableTo(ReusablesEntityDescriptorEnum.Reusable), ReusablesEntityDescriptorEnum.Adapt, "Adapt", wrapIn0},
-				{ pf.assignableTo(ReusablesEntityDescriptorEnum.PathExpression), ReusablesEntityDescriptorEnum.Reuse, "Reuse", wrapIn(2)},
+				{ pf.assignableTo(ReusablesEntityDescriptorEnum.Expression), ReusablesEntityDescriptorEnum.Reuse, "Reuse", wrapIn(2)},
 		};
 	};
 }

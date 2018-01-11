@@ -27,14 +27,14 @@ import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class PathExpressionAdapter extends AbstractEntityAdapter implements PathExpression {
+public class ExpressionAdapter extends AbstractEntityAdapter implements Expression {
     private static final long serialVersionUID = 1;
 
-    public PathExpressionAdapter(IEntity implementor) {
+    public ExpressionAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public PathExpressionAdapter() {
+    public ExpressionAdapter() {
     }
 
     public void accept(IPatternsVisitor visitor) {
@@ -42,7 +42,7 @@ public class PathExpressionAdapter extends AbstractEntityAdapter implements Path
             visitor.visit(this);
     }
 
-    public EntityDescriptor<PathExpression> wGetEntityDescriptor() {
-        return PatternsEntityDescriptorEnum.PathExpression;
+    public EntityDescriptor<Expression> wGetEntityDescriptor() {
+        return PatternsEntityDescriptorEnum.Expression;
     }
 }

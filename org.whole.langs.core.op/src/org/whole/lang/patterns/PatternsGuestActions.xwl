@@ -255,6 +255,7 @@
                                         </commons:Variable>
                                         <commons:Resolver/>
                                         <patterns:Patterns initialCapacity="0"/>
+                                        <commons:Resolver/>
                                         </patterns:PatternLanguage>
                                         </commons:StageUpFragment>
                                         </artifacts:FileArtifact>
@@ -579,6 +580,7 @@
                                         </commons:Variable>
                                         <commons:Resolver/>
                                         <patterns:Patterns initialCapacity="0"/>
+                                        <commons:Resolver/>
                                         </patterns:PatternLanguage>
                                         </commons:StageUpFragment>
                                         </artifacts:FileArtifact>
@@ -722,7 +724,7 @@
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#PathExpression"/>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Expression"/>
                                         <commons:VarName value="path"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>

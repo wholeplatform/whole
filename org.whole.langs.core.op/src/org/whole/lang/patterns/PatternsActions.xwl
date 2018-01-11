@@ -397,7 +397,7 @@
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>
                                         <commons:Variable>
-                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#PathExpression"/>
+                                        <commons:VarType value="whole:org.whole.lang.patterns:PatternsModel#Expression"/>
                                         <commons:VarName value="path"/>
                                         <commons:Quantifier value="!"/>
                                         </commons:Variable>

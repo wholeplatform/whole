@@ -47,11 +47,11 @@ public class DerivationPointAdapter extends AbstractEntityAdapter implements Der
         return PatternsEntityDescriptorEnum.DerivationPoint;
     }
 
-    public PathExpression getExpression() {
-        return wGet(PatternsFeatureDescriptorEnum.expression).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getExpression() {
+        return wGet(PatternsFeatureDescriptorEnum.expression).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         wSet(PatternsFeatureDescriptorEnum.expression, expression);
     }
 

@@ -44,7 +44,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Adapt);
     }
 
-    public Adapt createAdapt(Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
+    public Adapt createAdapt(Reusable original, Expression adapter, Reusable adapted, Revision adaptedRevision) {
         return create(ReusablesEntityDescriptorEnum.Adapt, original, adapter, adapted, adaptedRevision);
     }
 
@@ -56,7 +56,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Reuse);
     }
 
-    public Reuse createReuse(Resource resource, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision) {
+    public Reuse createReuse(Resource resource, Reusable original, Expression adapter, Reusable adapted, Revision adaptedRevision) {
         return create(ReusablesEntityDescriptorEnum.Reuse, resource, original, adapter, adapted, adaptedRevision);
     }
 
@@ -68,7 +68,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Sync);
     }
 
-    public Sync createSync(Resource resource, Reusable original, PathExpression adapter, Reusable adapted, Revision adaptedRevision, Reusable variant, Revision variantRevision) {
+    public Sync createSync(Resource resource, Reusable original, Expression adapter, Reusable adapted, Revision adaptedRevision, Reusable variant, Revision variantRevision) {
         return create(ReusablesEntityDescriptorEnum.Sync, resource, original, adapter, adapted, adaptedRevision, variant, variantRevision);
     }
 
@@ -148,7 +148,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Model);
     }
 
-    public Model createModel(PathExpression content, Persistence persistence) {
+    public Model createModel(Expression content, Persistence persistence) {
         return create(ReusablesEntityDescriptorEnum.Model, content, persistence);
     }
 
@@ -200,7 +200,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.Folder);
     }
 
-    public Folder createFolder(Path path, Content content, Persistence persistence) {
+    public Folder createFolder(Expression path, Content content, Persistence persistence) {
         return create(ReusablesEntityDescriptorEnum.Folder, path, content, persistence);
     }
 
@@ -212,7 +212,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.File);
     }
 
-    public File createFile(Path path, Any content, Persistence persistence) {
+    public File createFile(Expression path, Any content, Persistence persistence) {
         return create(ReusablesEntityDescriptorEnum.File, path, content, persistence);
     }
 
@@ -232,7 +232,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.PathWithExtension);
     }
 
-    public PathWithExtension createPathWithExtension(Path path, Path extension) {
+    public PathWithExtension createPathWithExtension(Expression path, Expression extension) {
         return create(ReusablesEntityDescriptorEnum.PathWithExtension, path, extension);
     }
 
@@ -244,7 +244,7 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return create(ReusablesEntityDescriptorEnum.PathSegments);
     }
 
-    public PathSegments createPathSegments(Path... entities) {
+    public PathSegments createPathSegments(Expression... entities) {
         return create(ReusablesEntityDescriptorEnum.PathSegments, (IEntity[]) entities);
     }
 

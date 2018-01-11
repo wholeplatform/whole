@@ -220,7 +220,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.FunctionPoint);
     }
 
-    public FunctionPoint createFunctionPoint(Name name, ResultType resultType, PathExpression expression) {
+    public FunctionPoint createFunctionPoint(Name name, ResultType resultType, Expression expression) {
         return create(PatternsEntityDescriptorEnum.FunctionPoint, name, resultType, expression);
     }
 
@@ -232,7 +232,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.Slot);
     }
 
-    public Slot createSlot(Name name, BooleanValue optional, PathExpression adapter, Type type, Type resultType) {
+    public Slot createSlot(Name name, BooleanValue optional, Expression adapter, Type type, Type resultType) {
         return create(PatternsEntityDescriptorEnum.Slot, name, optional, adapter, type, resultType);
     }
 
@@ -244,7 +244,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.ResultPoint);
     }
 
-    public ResultPoint createResultPoint(Type resultType, Template template, PathExpression weaver) {
+    public ResultPoint createResultPoint(Type resultType, Template template, Expression weaver) {
         return create(PatternsEntityDescriptorEnum.ResultPoint, resultType, template, weaver);
     }
 
@@ -296,7 +296,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.DerivationPoint);
     }
 
-    public DerivationPoint createDerivationPoint(PathExpression expression, ResultType resultType) {
+    public DerivationPoint createDerivationPoint(Expression expression, ResultType resultType) {
         return create(PatternsEntityDescriptorEnum.DerivationPoint, expression, resultType);
     }
 
@@ -320,7 +320,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.ConditionPoint);
     }
 
-    public ConditionPoint createConditionPoint(Predicate condition, Template template) {
+    public ConditionPoint createConditionPoint(Expression condition, Template template) {
         return create(PatternsEntityDescriptorEnum.ConditionPoint, condition, template);
     }
 
@@ -368,7 +368,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.IterationPoint);
     }
 
-    public IterationPoint createIterationPoint(PathExpression iterator, Template template) {
+    public IterationPoint createIterationPoint(Expression iterator, Template template) {
         return create(PatternsEntityDescriptorEnum.IterationPoint, iterator, template);
     }
 
@@ -412,7 +412,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.FunctionDeclaration);
     }
 
-    public FunctionDeclaration createFunctionDeclaration(ResultTypes applicationTypes, Name name, PathExpression body) {
+    public FunctionDeclaration createFunctionDeclaration(ResultTypes applicationTypes, Name name, Expression body) {
         return create(PatternsEntityDescriptorEnum.FunctionDeclaration, applicationTypes, name, body);
     }
 
@@ -424,7 +424,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.GoalDeclaration);
     }
 
-    public GoalDeclaration createGoalDeclaration(GoalExpression subgoals, Name name, PathExpression body) {
+    public GoalDeclaration createGoalDeclaration(GoalExpression subgoals, Name name, Expression body) {
         return create(PatternsEntityDescriptorEnum.GoalDeclaration, subgoals, name, body);
     }
 
@@ -436,7 +436,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.PointcutDeclaration);
     }
 
-    public PointcutDeclaration createPointcutDeclaration(Name name, PathExpression expression) {
+    public PointcutDeclaration createPointcutDeclaration(Name name, Expression expression) {
         return create(PatternsEntityDescriptorEnum.PointcutDeclaration, name, expression);
     }
 
@@ -448,7 +448,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.JoinPointDeclaration);
     }
 
-    public JoinPointDeclaration createJoinPointDeclaration(Name name, PathExpression expression) {
+    public JoinPointDeclaration createJoinPointDeclaration(Name name, Expression expression) {
         return create(PatternsEntityDescriptorEnum.JoinPointDeclaration, name, expression);
     }
 
@@ -460,7 +460,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.VariableDeclaration);
     }
 
-    public VariableDeclaration createVariableDeclaration(Name name, PathExpression expression, Type resultType) {
+    public VariableDeclaration createVariableDeclaration(Name name, Expression expression, Type resultType) {
         return create(PatternsEntityDescriptorEnum.VariableDeclaration, name, expression, resultType);
     }
 
@@ -472,7 +472,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.VariantSelector);
     }
 
-    public VariantSelector createVariantSelector(Name variability, PathExpression variant) {
+    public VariantSelector createVariantSelector(Name variability, Expression variant) {
         return create(PatternsEntityDescriptorEnum.VariantSelector, variability, variant);
     }
 
@@ -580,7 +580,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.Cut);
     }
 
-    public Cut createCut(PathExpression path) {
+    public Cut createCut(Expression path) {
         return create(PatternsEntityDescriptorEnum.Cut, path);
     }
 
@@ -588,7 +588,7 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.Insert);
     }
 
-    public Insert createInsert(Placement placement, PathExpression path) {
+    public Insert createInsert(Placement placement, Expression path) {
         return create(PatternsEntityDescriptorEnum.Insert, placement, path);
     }
 

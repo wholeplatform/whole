@@ -28,7 +28,7 @@ import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.semantics.model.Premises;
 import org.whole.lang.semantics.model.Transition;
-import org.whole.lang.semantics.model.Predicate;
+import org.whole.lang.semantics.model.Expression;
 
 /**
  *  @generator Whole
@@ -78,13 +78,13 @@ public class InferenceRuleImpl extends AbstractSimpleEntity implements Inference
     public void setConclusion(Transition conclusion) {
         notifyChanged(SemanticsFeatureDescriptorEnum.conclusion, this.conclusion, this.conclusion = conclusion);
     }
-    private Predicate condition;
+    private Expression condition;
 
-    public Predicate getCondition() {
+    public Expression getCondition() {
         return notifyRequested(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         notifyChanged(SemanticsFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
     }
 
@@ -115,7 +115,7 @@ public class InferenceRuleImpl extends AbstractSimpleEntity implements Inference
             setConclusion(value.wGetAdapter(SemanticsEntityDescriptorEnum.Transition));
             break;
             case 3 :
-            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Predicate));
+            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

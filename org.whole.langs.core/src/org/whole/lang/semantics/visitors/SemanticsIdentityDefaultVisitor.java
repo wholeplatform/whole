@@ -69,6 +69,7 @@ public class SemanticsIdentityDefaultVisitor extends SemanticsIdentityVisitor {
     }
 
     public void visit(Predicate entity) {
+        visit((Expression) entity);
     }
 
     public void visit(AnyType entity) {
@@ -175,6 +176,7 @@ public class SemanticsIdentityDefaultVisitor extends SemanticsIdentityVisitor {
 
     public void visit(Expression entity) {
         visit((Term) entity);
+        visit((FunctionBody) entity);
     }
 
     public void visit(Identifier entity) {

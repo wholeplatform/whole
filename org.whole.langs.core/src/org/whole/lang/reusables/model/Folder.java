@@ -24,9 +24,9 @@ package org.whole.lang.reusables.model;
 public interface Folder extends IReusablesEntity, Content {
 
 
-    public Path getPath();
+    public Expression getPath();
 
-    public void setPath(Path path);
+    public void setPath(Expression path);
 
     public Content getContent();
 

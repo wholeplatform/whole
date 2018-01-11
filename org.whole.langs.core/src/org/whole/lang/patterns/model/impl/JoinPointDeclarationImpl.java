@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class JoinPointDeclarationImpl extends AbstractSimpleEntity implements Jo
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -85,7 +85,7 @@ public class JoinPointDeclarationImpl extends AbstractSimpleEntity implements Jo
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

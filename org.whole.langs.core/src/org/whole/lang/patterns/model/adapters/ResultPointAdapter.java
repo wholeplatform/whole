@@ -63,11 +63,11 @@ public class ResultPointAdapter extends AbstractEntityAdapter implements ResultP
         wSet(PatternsFeatureDescriptorEnum.template, template);
     }
 
-    public PathExpression getWeaver() {
-        return wGet(PatternsFeatureDescriptorEnum.weaver).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getWeaver() {
+        return wGet(PatternsFeatureDescriptorEnum.weaver).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setWeaver(PathExpression weaver) {
+    public void setWeaver(Expression weaver) {
         wSet(PatternsFeatureDescriptorEnum.weaver, weaver);
     }
 }

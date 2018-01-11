@@ -27,7 +27,7 @@ import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.ResultType;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -68,13 +68,13 @@ public class FunctionPointImpl extends AbstractSimpleEntity implements FunctionP
     public void setResultType(ResultType resultType) {
         notifyChanged(PatternsFeatureDescriptorEnum.resultType, this.resultType, this.resultType = resultType);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
 
@@ -100,7 +100,7 @@ public class FunctionPointImpl extends AbstractSimpleEntity implements FunctionP
             setResultType(value.wGetAdapter(PatternsEntityDescriptorEnum.ResultType));
             break;
             case 2 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -59,7 +59,6 @@ public class SemanticsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PremiseAdapter());
         put(new ConfigurationOrTransitionAdapter());
         put(new TransitionAdapter());
-        put(new PredicateAdapter());
         put(new ConfigurationAdapter());
         put(new ConfigurationItemAdapter());
         put(new BindingSubjectAdapter());
@@ -68,6 +67,7 @@ public class SemanticsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new IdentifierAdapter());
         put(new LocalIdentifierAdapter());
         put(new TemplateAdapter());
+        put(new PredicateAdapter());
         put(new AbstractVariableAdapter());
         put(new TypedVariableAdapter());
         put(new StructuredVariableAdapter());

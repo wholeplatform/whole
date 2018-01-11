@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.model.Type;
 
 /**
@@ -59,13 +59,13 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements Var
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private Type resultType;
@@ -97,7 +97,7 @@ public class VariableDeclarationImpl extends AbstractSimpleEntity implements Var
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             case 2 :
             setResultType(value.wGetAdapter(PatternsEntityDescriptorEnum.Type));

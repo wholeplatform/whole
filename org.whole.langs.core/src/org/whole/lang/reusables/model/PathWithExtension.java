@@ -24,11 +24,11 @@ package org.whole.lang.reusables.model;
 public interface PathWithExtension extends IReusablesEntity, Path {
 
 
-    public Path getPath();
+    public Expression getPath();
 
-    public void setPath(Path path);
+    public void setPath(Expression path);
 
-    public Path getExtension();
+    public Expression getExtension();
 
-    public void setExtension(Path extension);
+    public void setExtension(Expression extension);
 }

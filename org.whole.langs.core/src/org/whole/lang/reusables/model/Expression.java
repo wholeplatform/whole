@@ -15,12 +15,12 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.patterns.model;
+package org.whole.lang.reusables.model;
 
 
 /**
  *  @generator Whole
  */
-public interface PathExpression extends IPatternsEntity, Template, ResultTypeOrPathExpression {
+public interface Expression extends IReusablesEntity {
 
 }

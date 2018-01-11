@@ -24,7 +24,7 @@ package org.whole.lang.semantics.model;
 public interface IfTemplate extends ISemanticsEntity, Case, Template {
 
 
-    public Predicate getCondition();
+    public Expression getCondition();
 
-    public void setCondition(Predicate condition);
+    public void setCondition(Expression condition);
 }

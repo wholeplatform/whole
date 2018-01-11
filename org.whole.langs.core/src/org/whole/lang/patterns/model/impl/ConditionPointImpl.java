@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.patterns.model.Predicate;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Template;
@@ -49,13 +49,13 @@ public class ConditionPointImpl extends AbstractSimpleEntity implements Conditio
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Predicate condition;
+    private Expression condition;
 
-    public Predicate getCondition() {
+    public Expression getCondition() {
         return notifyRequested(PatternsFeatureDescriptorEnum.condition, condition);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         notifyChanged(PatternsFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
     }
     private Template template;
@@ -82,7 +82,7 @@ public class ConditionPointImpl extends AbstractSimpleEntity implements Conditio
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setCondition(value.wGetAdapter(PatternsEntityDescriptorEnum.Predicate));
+            setCondition(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setTemplate(value.wGetAdapter(PatternsEntityDescriptorEnum.Template));

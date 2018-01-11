@@ -17,7 +17,7 @@
  */
 package org.whole.lang.reusables.visitors;
 
-import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.PathExpression_ord;
+import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Expression_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusable_ord;
 import static org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum.Reusables;
@@ -96,7 +96,7 @@ public class ReusablesInterpreterVisitor extends AbstractReusablesSemanticsVisit
     			return super.visitAdapter(entity);
 			return false;
 
-		case PathExpression_ord:
+		case Expression_ord:
 //			setResultIterator(DynamicCompilerOperation.compile(entity.wGetAdaptee(false), getBindings()).getResultIterator());
 			try {
 				getBindings().wEnterScope();

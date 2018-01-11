@@ -32,9 +32,9 @@ public interface Slot extends IPatternsEntity, VariationPoint {
 
     public void setOptional(BooleanValue optional);
 
-    public PathExpression getAdapter();
+    public Expression getAdapter();
 
-    public void setAdapter(PathExpression adapter);
+    public void setAdapter(Expression adapter);
 
     public Type getType();
 

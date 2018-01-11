@@ -24,9 +24,9 @@ package org.whole.lang.patterns.model;
 public interface ConditionPoint extends IPatternsEntity, VariationPoint {
 
 
-    public Predicate getCondition();
+    public Expression getCondition();
 
-    public void setCondition(Predicate condition);
+    public void setCondition(Expression condition);
 
     public Template getTemplate();
 

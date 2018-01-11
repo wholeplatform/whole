@@ -27,7 +27,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 /**
  *  @generator Whole
  */
-public class PathSegmentsImpl extends AbstractListCompositeEntity<Path> implements PathSegments {
+public class PathSegmentsImpl extends AbstractListCompositeEntity<Expression> implements PathSegments {
     private static final long serialVersionUID = 1;
 
     public void accept(IReusablesVisitor visitor) {

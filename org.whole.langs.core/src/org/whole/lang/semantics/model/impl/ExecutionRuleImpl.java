@@ -26,7 +26,6 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.semantics.model.Name;
 import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.semantics.model.Predicate;
 import org.whole.lang.semantics.model.Expression;
 
 /**
@@ -59,13 +58,13 @@ public class ExecutionRuleImpl extends AbstractSimpleEntity implements Execution
     public void setName(Name name) {
         notifyChanged(SemanticsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private Predicate condition;
+    private Expression condition;
 
-    public Predicate getCondition() {
+    public Expression getCondition() {
         return notifyRequested(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         notifyChanged(SemanticsFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
     }
     private Expression meaning;
@@ -97,7 +96,7 @@ public class ExecutionRuleImpl extends AbstractSimpleEntity implements Execution
             setName(value.wGetAdapter(SemanticsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Predicate));
+            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));
             break;
             case 2 :
             setMeaning(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));

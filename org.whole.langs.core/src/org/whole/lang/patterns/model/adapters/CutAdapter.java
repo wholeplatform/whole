@@ -47,11 +47,11 @@ public class CutAdapter extends AbstractEntityAdapter implements Cut {
         return PatternsEntityDescriptorEnum.Cut;
     }
 
-    public PathExpression getPath() {
-        return wGet(PatternsFeatureDescriptorEnum.path).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getPath() {
+        return wGet(PatternsFeatureDescriptorEnum.path).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setPath(PathExpression path) {
+    public void setPath(Expression path) {
         wSet(PatternsFeatureDescriptorEnum.path, path);
     }
 }

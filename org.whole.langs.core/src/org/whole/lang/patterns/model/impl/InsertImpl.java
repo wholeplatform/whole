@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.model.Placement;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
     public void setPlacement(Placement placement) {
         notifyChanged(PatternsFeatureDescriptorEnum.placement, this.placement, this.placement = placement);
     }
-    private PathExpression path;
+    private Expression path;
 
-    public PathExpression getPath() {
+    public Expression getPath() {
         return notifyRequested(PatternsFeatureDescriptorEnum.path, path);
     }
 
-    public void setPath(PathExpression path) {
+    public void setPath(Expression path) {
         notifyChanged(PatternsFeatureDescriptorEnum.path, this.path, this.path = path);
     }
 
@@ -85,7 +85,7 @@ public class InsertImpl extends AbstractSimpleEntity implements Insert {
             setPlacement(value.wGetAdapter(PatternsEntityDescriptorEnum.Placement));
             break;
             case 1 :
-            setPath(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setPath(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -63,11 +63,11 @@ public class SlotAdapter extends AbstractEntityAdapter implements Slot {
         wSet(PatternsFeatureDescriptorEnum.optional, optional);
     }
 
-    public PathExpression getAdapter() {
-        return wGet(PatternsFeatureDescriptorEnum.adapter).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getAdapter() {
+        return wGet(PatternsFeatureDescriptorEnum.adapter).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setAdapter(PathExpression adapter) {
+    public void setAdapter(Expression adapter) {
         wSet(PatternsFeatureDescriptorEnum.adapter, adapter);
     }
 

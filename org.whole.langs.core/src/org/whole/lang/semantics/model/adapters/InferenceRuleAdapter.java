@@ -71,11 +71,11 @@ public class InferenceRuleAdapter extends AbstractEntityAdapter implements Infer
         wSet(SemanticsFeatureDescriptorEnum.conclusion, conclusion);
     }
 
-    public Predicate getCondition() {
-        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Predicate);
+    public Expression getCondition() {
+        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Expression);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         wSet(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 }

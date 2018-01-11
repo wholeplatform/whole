@@ -24,7 +24,7 @@ package org.whole.lang.patterns.model;
 public interface Cut extends IPatternsEntity, StepExpression {
 
 
-    public PathExpression getPath();
+    public Expression getPath();
 
-    public void setPath(PathExpression path);
+    public void setPath(Expression path);
 }

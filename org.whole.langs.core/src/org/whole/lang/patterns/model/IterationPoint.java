@@ -24,9 +24,9 @@ package org.whole.lang.patterns.model;
 public interface IterationPoint extends IPatternsEntity, VariationPoint {
 
 
-    public PathExpression getIterator();
+    public Expression getIterator();
 
-    public void setIterator(PathExpression iterator);
+    public void setIterator(Expression iterator);
 
     public Template getTemplate();
 

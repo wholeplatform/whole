@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Template;
@@ -49,13 +49,13 @@ public class IterationPointImpl extends AbstractSimpleEntity implements Iteratio
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression iterator;
+    private Expression iterator;
 
-    public PathExpression getIterator() {
+    public Expression getIterator() {
         return notifyRequested(PatternsFeatureDescriptorEnum.iterator, iterator);
     }
 
-    public void setIterator(PathExpression iterator) {
+    public void setIterator(Expression iterator) {
         notifyChanged(PatternsFeatureDescriptorEnum.iterator, this.iterator, this.iterator = iterator);
     }
     private Template template;
@@ -82,7 +82,7 @@ public class IterationPointImpl extends AbstractSimpleEntity implements Iteratio
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setIterator(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setIterator(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setTemplate(value.wGetAdapter(PatternsEntityDescriptorEnum.Template));

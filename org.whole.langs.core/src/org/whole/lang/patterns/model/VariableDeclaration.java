@@ -28,9 +28,9 @@ public interface VariableDeclaration extends IPatternsEntity, Declaration {
 
     public void setName(Name name);
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 
     public Type getResultType();
 

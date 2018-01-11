@@ -74,11 +74,10 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new TypesAdapter());
         put(new ResultTypesAdapter());
         put(new TypeAdapter());
-        put(new ResultTypeOrPathExpressionAdapter());
         put(new ResultTypeAdapter());
-        put(new PathExpressionAdapter());
-        put(new StepExpressionAdapter());
         put(new NameAdapter());
+        put(new ExpressionAdapter());
+        put(new StepExpressionAdapter());
         put(new PatternJoinPointStepAdapter());
         put(new JoinPointStepAdapter());
         put(new PointcutStepAdapter());
@@ -89,6 +88,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PatternInstanceAdapter());
         put(new CutAdapter());
         put(new InsertAdapter());
+        put(new PredicateAdapter());
         put(new SlotsDefinedAdapter());
         put(new PatternTypeTestAdapter());
         put(new PlacementAdapter());
@@ -98,7 +98,6 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new BooleanValueAdapter());
         put(new GoalExpressionAdapter());
         put(new ArgumentAdapter());
-        put(new PredicateAdapter());
         put(new DeclarationAdapter());
     }
 }

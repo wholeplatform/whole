@@ -29,48 +29,48 @@ import org.whole.lang.semantics.model.impl.SemanticsStrictImplEntityRegistry;
 import org.whole.lang.semantics.parsers.SemanticsDataTypePersistenceParser;
 import org.whole.lang.templates.ITemplateManager;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class SemanticsLanguageKit extends AbstractLanguageKit {
-	public static final String URI = "http://lang.whole.org/Semantics";
+    public static final String URI = "http://lang.whole.org/Semantics";
 
-	public String getURI() {
-		return URI;
-	}
+    public String getURI() {
+        return URI;
+    }
 
-	public String getNamespace() {
-		return "org.whole.lang.semantics";
-	}
+    public String getNamespace() {
+        return "org.whole.lang.semantics";
+    }
 
-	public String getName() {
-		return "Semantics";
-	}
+    public String getName() {
+        return "Semantics";
+    }
 
-	public EntityDescriptorEnum getEntityDescriptorEnum() {
-		return SemanticsEntityDescriptorEnum.instance;
-	}
+    public EntityDescriptorEnum getEntityDescriptorEnum() {
+        return SemanticsEntityDescriptorEnum.instance;
+    }
 
-	public FeatureDescriptorEnum getFeatureDescriptorEnum() {
-		return SemanticsFeatureDescriptorEnum.instance;
-	}
+    public FeatureDescriptorEnum getFeatureDescriptorEnum() {
+        return SemanticsFeatureDescriptorEnum.instance;
+    }
 
 	protected IEntityRegistry createDefaultEntityRegistry() {
 		IEntityRegistry er = createImplEntityRegistry();
 		new SemanticsDefaultEntityRegistryConfiguration().apply(er);
 		return er;
 	}
-	protected IEntityRegistry createImplEntityRegistry() {
-		return new SemanticsImplEntityRegistry();
-	}
+    protected IEntityRegistry createImplEntityRegistry() {
+        return new SemanticsImplEntityRegistry();
+    }
 
-	protected IEntityRegistry createStrictImplEntityRegistry() {
-		return new SemanticsStrictImplEntityRegistry();
-	}
+    protected IEntityRegistry createStrictImplEntityRegistry() {
+        return new SemanticsStrictImplEntityRegistry();
+    }
 
-	protected IEntityRegistry createAdaptersEntityRegistry() {
-		return new SemanticsAdaptersEntityRegistry();
-	}
+    protected IEntityRegistry createAdaptersEntityRegistry() {
+        return new SemanticsAdaptersEntityRegistry();
+    }
 
 	@Override
 	protected IDataTypeParser getDataTypePersistenceParser() {
@@ -81,7 +81,7 @@ public class SemanticsLanguageKit extends AbstractLanguageKit {
 		return SemanticsDataTypePersistenceParser.instance();
 	}
 
-	public ITemplateManager getTemplateManager() {
-		return SemanticsTemplateManager.instance();
-	}
+    public ITemplateManager getTemplateManager() {
+        return SemanticsTemplateManager.instance();
+    }
 }

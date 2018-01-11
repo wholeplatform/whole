@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.semantics.model.Term;
 import org.whole.lang.semantics.reflect.SemanticsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.semantics.model.Predicate;
+import org.whole.lang.semantics.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class IfTemplateImpl extends AbstractSimpleEntity implements IfTemplate {
     public void setExpression(Term expression) {
         notifyChanged(SemanticsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
-    private Predicate condition;
+    private Expression condition;
 
-    public Predicate getCondition() {
+    public Expression getCondition() {
         return notifyRequested(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         notifyChanged(SemanticsFeatureDescriptorEnum.condition, this.condition, this.condition = condition);
     }
 
@@ -85,7 +85,7 @@ public class IfTemplateImpl extends AbstractSimpleEntity implements IfTemplate {
             setExpression(value.wGetAdapter(SemanticsEntityDescriptorEnum.Term));
             break;
             case 1 :
-            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Predicate));
+            setCondition(value.wGetAdapter(SemanticsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -47,11 +47,11 @@ public class IterationPointAdapter extends AbstractEntityAdapter implements Iter
         return PatternsEntityDescriptorEnum.IterationPoint;
     }
 
-    public PathExpression getIterator() {
-        return wGet(PatternsFeatureDescriptorEnum.iterator).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getIterator() {
+        return wGet(PatternsFeatureDescriptorEnum.iterator).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setIterator(PathExpression iterator) {
+    public void setIterator(Expression iterator) {
         wSet(PatternsFeatureDescriptorEnum.iterator, iterator);
     }
 

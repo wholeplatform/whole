@@ -62,6 +62,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.ILanguageKit;
 import org.whole.lang.util.EntityUtils;
+import org.whole.lang.util.WholeMessages;
 import org.whole.lang.visitors.IVisitor;
 import org.whole.lang.visitors.MissingVariableException;
 
@@ -78,6 +79,15 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	private boolean canFilterByIndex;
 	private int startIndex;
 	private int endIndex;
+
+	protected final String stringValue(Name entity) {
+		setResult(null);
+    	entity.accept(this);
+    	IEntity result = getResult();
+    	if (result == null)
+    		throw new WholeIllegalArgumentException(WholeMessages.null_value_argument).withSourceEntity(entity).withBindings(getBindings());
+    	return result.wStringValue();
+	}
 
 	@Override
 	public boolean visitAdapter(IEntityAdapter entity) {
@@ -115,7 +125,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(QueryDeclaration entity) {
-		String queryName = entity.getName().getValue();
+		String queryName = stringValue(entity.getName());
 		declaredNames.add(queryName);
 
 		setResultIterator(
@@ -135,7 +145,7 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			argsIterators[i] = getResultIterator();
 		}
 
-		setResultIterator(QueriesIteratorFactory.callIterator(entity.getName().getValue(), argsIterators)
+		setResultIterator(QueriesIteratorFactory.callIterator(stringValue(entity.getName()), argsIterators)
 				.withSourceEntity(entity));
 	}
 
@@ -727,12 +737,12 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 	public void visit(Names entity) {
 		namesExp = new HashSet<String>();
 		for (int i = 0; i < entity.size(); i++)
-			entity.get(i).accept(this);
+			namesExp.add(stringValue(entity.get(i)));
 	}
 
 	@Override
 	public void visit(Name entity) {
-		namesExp.add(entity.getValue());
+		setResult(BindingManagerFactory.instance.createValue(entity.getValue()));
 	}
 
 	@Override

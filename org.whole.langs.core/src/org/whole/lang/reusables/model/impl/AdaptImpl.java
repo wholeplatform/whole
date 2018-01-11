@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.reusables.model.Reusable;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.reusables.model.PathExpression;
+import org.whole.lang.reusables.model.Expression;
 import org.whole.lang.reusables.model.Revision;
 
 /**
@@ -59,13 +59,13 @@ public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
     public void setOriginal(Reusable original) {
         notifyChanged(ReusablesFeatureDescriptorEnum.original, this.original, this.original = original);
     }
-    private PathExpression adapter;
+    private Expression adapter;
 
-    public PathExpression getAdapter() {
+    public Expression getAdapter() {
         return notifyRequested(ReusablesFeatureDescriptorEnum.adapter, adapter);
     }
 
-    public void setAdapter(PathExpression adapter) {
+    public void setAdapter(Expression adapter) {
         notifyChanged(ReusablesFeatureDescriptorEnum.adapter, this.adapter, this.adapter = adapter);
     }
     private Reusable adapted;
@@ -108,7 +108,7 @@ public class AdaptImpl extends AbstractSimpleEntity implements Adapt {
             setOriginal(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));
             break;
             case 1 :
-            setAdapter(value.wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression));
+            setAdapter(value.wGetAdapter(ReusablesEntityDescriptorEnum.Expression));
             break;
             case 2 :
             setAdapted(value.wGetAdapter(ReusablesEntityDescriptorEnum.Reusable));

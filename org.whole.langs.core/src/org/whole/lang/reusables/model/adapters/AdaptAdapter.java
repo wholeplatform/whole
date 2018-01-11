@@ -55,11 +55,11 @@ public class AdaptAdapter extends AbstractEntityAdapter implements Adapt {
         wSet(ReusablesFeatureDescriptorEnum.original, original);
     }
 
-    public PathExpression getAdapter() {
-        return wGet(ReusablesFeatureDescriptorEnum.adapter).wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression);
+    public Expression getAdapter() {
+        return wGet(ReusablesFeatureDescriptorEnum.adapter).wGetAdapter(ReusablesEntityDescriptorEnum.Expression);
     }
 
-    public void setAdapter(PathExpression adapter) {
+    public void setAdapter(Expression adapter) {
         wSet(ReusablesFeatureDescriptorEnum.adapter, adapter);
     }
 

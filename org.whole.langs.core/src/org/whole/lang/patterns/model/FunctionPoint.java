@@ -32,7 +32,7 @@ public interface FunctionPoint extends IPatternsEntity, VariationPoint {
 
     public void setResultType(ResultType resultType);
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 }

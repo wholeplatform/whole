@@ -24,9 +24,9 @@ package org.whole.lang.patterns.model;
 public interface DerivationPoint extends IPatternsEntity, VariationPoint {
 
 
-    public PathExpression getExpression();
+    public Expression getExpression();
 
-    public void setExpression(PathExpression expression);
+    public void setExpression(Expression expression);
 
     public ResultType getResultType();
 

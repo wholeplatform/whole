@@ -36,7 +36,7 @@ public interface InferenceRule extends ISemanticsEntity, Premise {
 
     public void setConclusion(Transition conclusion);
 
-    public Predicate getCondition();
+    public Expression getCondition();
 
-    public void setCondition(Predicate condition);
+    public void setCondition(Expression condition);
 }

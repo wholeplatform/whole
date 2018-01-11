@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.reusables.model.PathExpression;
+import org.whole.lang.reusables.model.Expression;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Persistence;
@@ -49,13 +49,13 @@ public class ModelImpl extends AbstractSimpleEntity implements Model {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression content;
+    private Expression content;
 
-    public PathExpression getContent() {
+    public Expression getContent() {
         return notifyRequested(ReusablesFeatureDescriptorEnum.content, content);
     }
 
-    public void setContent(PathExpression content) {
+    public void setContent(Expression content) {
         notifyChanged(ReusablesFeatureDescriptorEnum.content, this.content, this.content = content);
     }
     private Persistence persistence;
@@ -82,7 +82,7 @@ public class ModelImpl extends AbstractSimpleEntity implements Model {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression));
+            setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setPersistence(value.wGetAdapter(ReusablesEntityDescriptorEnum.Persistence));

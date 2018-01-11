@@ -28,50 +28,50 @@ import org.whole.lang.reflect.EntityDescriptorEnum;
 import org.whole.lang.reflect.FeatureDescriptorEnum;
 import org.whole.lang.templates.ITemplateManager;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class PatternsLanguageKit extends AbstractLanguageKit {
-	public static final String URI = "whole:org.whole.lang.patterns:PatternsModel";
+    public static final String URI = "whole:org.whole.lang.patterns:PatternsModel";
 
-	public String getURI() {
-		return URI;
-	}
+    public String getURI() {
+        return URI;
+    }
 
-	public String getNamespace() {
-		return "org.whole.lang.patterns";
-	}
+    public String getNamespace() {
+        return "org.whole.lang.patterns";
+    }
 
-	public String getName() {
-		return "Patterns";
-	}
+    public String getName() {
+        return "Patterns";
+    }
 
-	public EntityDescriptorEnum getEntityDescriptorEnum() {
-		return PatternsEntityDescriptorEnum.instance;
-	}
+    public EntityDescriptorEnum getEntityDescriptorEnum() {
+        return PatternsEntityDescriptorEnum.instance;
+    }
 
-	public FeatureDescriptorEnum getFeatureDescriptorEnum() {
-		return PatternsFeatureDescriptorEnum.instance;
-	}
+    public FeatureDescriptorEnum getFeatureDescriptorEnum() {
+        return PatternsFeatureDescriptorEnum.instance;
+    }
 
-	protected IEntityRegistry createImplEntityRegistry() {
-		return new PatternsImplEntityRegistry();
-	}
+    protected IEntityRegistry createImplEntityRegistry() {
+        return new PatternsImplEntityRegistry();
+    }
 
-	protected IEntityRegistry createStrictImplEntityRegistry() {
-		return new PatternsStrictImplEntityRegistry();
-	}
+    protected IEntityRegistry createStrictImplEntityRegistry() {
+        return new PatternsStrictImplEntityRegistry();
+    }
 
-	protected IEntityRegistry createAdaptersEntityRegistry() {
-		return new PatternsAdaptersEntityRegistry();
-	}
+    protected IEntityRegistry createAdaptersEntityRegistry() {
+        return new PatternsAdaptersEntityRegistry();
+    }
 
 	@Override
 	protected IDataTypeParser getDataTypePresentationParser() {
 		return PatternsDataTypePresentationParser.instance();
 	}
 
-	public ITemplateManager getTemplateManager() {
-		return PatternsTemplateManager.instance();
-	}
+    public ITemplateManager getTemplateManager() {
+        return PatternsTemplateManager.instance();
+    }
 }

@@ -27,7 +27,7 @@ import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.BooleanValue;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.model.Type;
 
 /**
@@ -69,13 +69,13 @@ public class SlotImpl extends AbstractSimpleEntity implements Slot {
     public void setOptional(BooleanValue optional) {
         notifyChanged(PatternsFeatureDescriptorEnum.optional, this.optional, this.optional = optional);
     }
-    private PathExpression adapter;
+    private Expression adapter;
 
-    public PathExpression getAdapter() {
+    public Expression getAdapter() {
         return notifyRequested(PatternsFeatureDescriptorEnum.adapter, adapter);
     }
 
-    public void setAdapter(PathExpression adapter) {
+    public void setAdapter(Expression adapter) {
         notifyChanged(PatternsFeatureDescriptorEnum.adapter, this.adapter, this.adapter = adapter);
     }
     private Type type;
@@ -123,7 +123,7 @@ public class SlotImpl extends AbstractSimpleEntity implements Slot {
             setOptional(value.wGetAdapter(PatternsEntityDescriptorEnum.BooleanValue));
             break;
             case 2 :
-            setAdapter(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setAdapter(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             case 3 :
             setType(value.wGetAdapter(PatternsEntityDescriptorEnum.Type));

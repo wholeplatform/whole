@@ -27,7 +27,7 @@ import org.whole.lang.patterns.model.ResultTypes;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Name;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -68,13 +68,13 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements Fun
     public void setName(Name name) {
         notifyChanged(PatternsFeatureDescriptorEnum.name, this.name, this.name = name);
     }
-    private PathExpression body;
+    private Expression body;
 
-    public PathExpression getBody() {
+    public Expression getBody() {
         return notifyRequested(PatternsFeatureDescriptorEnum.body, body);
     }
 
-    public void setBody(PathExpression body) {
+    public void setBody(Expression body) {
         notifyChanged(PatternsFeatureDescriptorEnum.body, this.body, this.body = body);
     }
 
@@ -100,7 +100,7 @@ public class FunctionDeclarationImpl extends AbstractSimpleEntity implements Fun
             setName(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 2 :
-            setBody(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setBody(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

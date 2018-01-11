@@ -47,11 +47,11 @@ public class ModelAdapter extends AbstractEntityAdapter implements Model {
         return ReusablesEntityDescriptorEnum.Model;
     }
 
-    public PathExpression getContent() {
-        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.PathExpression);
+    public Expression getContent() {
+        return wGet(ReusablesFeatureDescriptorEnum.content).wGetAdapter(ReusablesEntityDescriptorEnum.Expression);
     }
 
-    public void setContent(PathExpression content) {
+    public void setContent(Expression content) {
         wSet(ReusablesFeatureDescriptorEnum.content, content);
     }
 

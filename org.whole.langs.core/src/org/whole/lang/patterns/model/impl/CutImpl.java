@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 
@@ -48,13 +48,13 @@ public class CutImpl extends AbstractSimpleEntity implements Cut {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression path;
+    private Expression path;
 
-    public PathExpression getPath() {
+    public Expression getPath() {
         return notifyRequested(PatternsFeatureDescriptorEnum.path, path);
     }
 
-    public void setPath(PathExpression path) {
+    public void setPath(Expression path) {
         notifyChanged(PatternsFeatureDescriptorEnum.path, this.path, this.path = path);
     }
 
@@ -70,7 +70,7 @@ public class CutImpl extends AbstractSimpleEntity implements Cut {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPath(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setPath(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

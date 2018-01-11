@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.reusables.model.Path;
+import org.whole.lang.reusables.model.Expression;
 import org.whole.lang.reusables.reflect.ReusablesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.reusables.model.Content;
@@ -50,13 +50,13 @@ public class FolderImpl extends AbstractSimpleEntity implements Folder {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Path path;
+    private Expression path;
 
-    public Path getPath() {
+    public Expression getPath() {
         return notifyRequested(ReusablesFeatureDescriptorEnum.path, path);
     }
 
-    public void setPath(Path path) {
+    public void setPath(Expression path) {
         notifyChanged(ReusablesFeatureDescriptorEnum.path, this.path, this.path = path);
     }
     private Content content;
@@ -94,7 +94,7 @@ public class FolderImpl extends AbstractSimpleEntity implements Folder {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setPath(value.wGetAdapter(ReusablesEntityDescriptorEnum.Path));
+            setPath(value.wGetAdapter(ReusablesEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setContent(value.wGetAdapter(ReusablesEntityDescriptorEnum.Content));

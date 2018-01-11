@@ -27,7 +27,7 @@ import org.whole.lang.patterns.model.Type;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.Template;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -68,13 +68,13 @@ public class ResultPointImpl extends AbstractSimpleEntity implements ResultPoint
     public void setTemplate(Template template) {
         notifyChanged(PatternsFeatureDescriptorEnum.template, this.template, this.template = template);
     }
-    private PathExpression weaver;
+    private Expression weaver;
 
-    public PathExpression getWeaver() {
+    public Expression getWeaver() {
         return notifyRequested(PatternsFeatureDescriptorEnum.weaver, weaver);
     }
 
-    public void setWeaver(PathExpression weaver) {
+    public void setWeaver(Expression weaver) {
         notifyChanged(PatternsFeatureDescriptorEnum.weaver, this.weaver, this.weaver = weaver);
     }
 
@@ -100,7 +100,7 @@ public class ResultPointImpl extends AbstractSimpleEntity implements ResultPoint
             setTemplate(value.wGetAdapter(PatternsEntityDescriptorEnum.Template));
             break;
             case 2 :
-            setWeaver(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setWeaver(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

@@ -32,9 +32,9 @@ public interface Reuse extends IReusablesEntity, Reusable {
 
     public void setOriginal(Reusable original);
 
-    public PathExpression getAdapter();
+    public Expression getAdapter();
 
-    public void setAdapter(PathExpression adapter);
+    public void setAdapter(Expression adapter);
 
     public Reusable getAdapted();
 

@@ -28,7 +28,7 @@ public interface VariantSelector extends IPatternsEntity, Declaration {
 
     public void setVariability(Name variability);
 
-    public PathExpression getVariant();
+    public Expression getVariant();
 
-    public void setVariant(PathExpression variant);
+    public void setVariant(Expression variant);
 }

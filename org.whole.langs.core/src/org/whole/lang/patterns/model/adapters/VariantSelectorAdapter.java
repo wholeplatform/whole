@@ -55,11 +55,11 @@ public class VariantSelectorAdapter extends AbstractEntityAdapter implements Var
         wSet(PatternsFeatureDescriptorEnum.variability, variability);
     }
 
-    public PathExpression getVariant() {
-        return wGet(PatternsFeatureDescriptorEnum.variant).wGetAdapter(PatternsEntityDescriptorEnum.PathExpression);
+    public Expression getVariant() {
+        return wGet(PatternsFeatureDescriptorEnum.variant).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setVariant(PathExpression variant) {
+    public void setVariant(Expression variant) {
         wSet(PatternsFeatureDescriptorEnum.variant, variant);
     }
 }

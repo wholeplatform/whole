@@ -21,7 +21,7 @@ package org.whole.lang.patterns.model;
 /**
  *  @generator Whole
  */
-public interface Name extends IPatternsEntity, ResultType, StepExpression {
+public interface Name extends IPatternsEntity, ResultType {
 
 
     public String getValue();

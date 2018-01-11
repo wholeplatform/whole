@@ -204,7 +204,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.ExecutionRule);
     }
 
-    public ExecutionRule createExecutionRule(Name name, Predicate condition, Expression meaning) {
+    public ExecutionRule createExecutionRule(Name name, Expression condition, Expression meaning) {
         return create(SemanticsEntityDescriptorEnum.ExecutionRule, name, condition, meaning);
     }
 
@@ -216,7 +216,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.InferenceRule);
     }
 
-    public InferenceRule createInferenceRule(RuleName name, Premises premises, Transition conclusion, Predicate condition) {
+    public InferenceRule createInferenceRule(RuleName name, Premises premises, Transition conclusion, Expression condition) {
         return create(SemanticsEntityDescriptorEnum.InferenceRule, name, premises, conclusion, condition);
     }
 
@@ -520,7 +520,7 @@ public class SemanticsEntityFactory extends GenericEntityFactory {
         return create(SemanticsEntityDescriptorEnum.IfTemplate);
     }
 
-    public IfTemplate createIfTemplate(Term expression, Predicate condition) {
+    public IfTemplate createIfTemplate(Term expression, Expression condition) {
         return create(SemanticsEntityDescriptorEnum.IfTemplate, expression, condition);
     }
 

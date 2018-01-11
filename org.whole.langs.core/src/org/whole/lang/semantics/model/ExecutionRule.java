@@ -28,9 +28,9 @@ public interface ExecutionRule extends ISemanticsEntity, Rule {
 
     public void setName(Name name);
 
-    public Predicate getCondition();
+    public Expression getCondition();
 
-    public void setCondition(Predicate condition);
+    public void setCondition(Expression condition);
 
     public Expression getMeaning();
 

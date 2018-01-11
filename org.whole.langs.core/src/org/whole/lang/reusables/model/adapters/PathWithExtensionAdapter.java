@@ -47,19 +47,19 @@ public class PathWithExtensionAdapter extends AbstractEntityAdapter implements P
         return ReusablesEntityDescriptorEnum.PathWithExtension;
     }
 
-    public Path getPath() {
-        return wGet(ReusablesFeatureDescriptorEnum.path).wGetAdapter(ReusablesEntityDescriptorEnum.Path);
+    public Expression getPath() {
+        return wGet(ReusablesFeatureDescriptorEnum.path).wGetAdapter(ReusablesEntityDescriptorEnum.Expression);
     }
 
-    public void setPath(Path path) {
+    public void setPath(Expression path) {
         wSet(ReusablesFeatureDescriptorEnum.path, path);
     }
 
-    public Path getExtension() {
-        return wGet(ReusablesFeatureDescriptorEnum.extension).wGetAdapter(ReusablesEntityDescriptorEnum.Path);
+    public Expression getExtension() {
+        return wGet(ReusablesFeatureDescriptorEnum.extension).wGetAdapter(ReusablesEntityDescriptorEnum.Expression);
     }
 
-    public void setExtension(Path extension) {
+    public void setExtension(Expression extension) {
         wSet(ReusablesFeatureDescriptorEnum.extension, extension);
     }
 }

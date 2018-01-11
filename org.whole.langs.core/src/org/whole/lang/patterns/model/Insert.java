@@ -28,7 +28,7 @@ public interface Insert extends IPatternsEntity, StepExpression {
 
     public void setPlacement(Placement placement);
 
-    public PathExpression getPath();
+    public Expression getPath();
 
-    public void setPath(PathExpression path);
+    public void setPath(Expression path);
 }

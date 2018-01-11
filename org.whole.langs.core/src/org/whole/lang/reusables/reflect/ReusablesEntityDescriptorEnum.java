@@ -39,7 +39,7 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final int URL_ord = 10;
     public static final int Model_ord = 11;
     public static final int Registry_ord = 12;
-    public static final int PathExpression_ord = 13;
+    public static final int Expression_ord = 13;
     public static final int StepExpression_ord = 14;
     public static final int Load_ord = 15;
     public static final int Save_ord = 16;
@@ -70,7 +70,7 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     public static final EntityDescriptor<URL> URL = (EntityDescriptor<URL>) instance.valueOf(URL_ord);
     public static final EntityDescriptor<Model> Model = (EntityDescriptor<Model>) instance.valueOf(Model_ord);
     public static final EntityDescriptor<Registry> Registry = (EntityDescriptor<Registry>) instance.valueOf(Registry_ord);
-    public static final EntityDescriptor<PathExpression> PathExpression = (EntityDescriptor<PathExpression>) instance.valueOf(PathExpression_ord);
+    public static final EntityDescriptor<Expression> Expression = (EntityDescriptor<Expression>) instance.valueOf(Expression_ord);
     public static final EntityDescriptor<StepExpression> StepExpression = (EntityDescriptor<StepExpression>) instance.valueOf(StepExpression_ord);
     public static final EntityDescriptor<Load> Load = (EntityDescriptor<Load>) instance.valueOf(Load_ord);
     public static final EntityDescriptor<Save> Save = (EntityDescriptor<Save>) instance.valueOf(Save_ord);
@@ -94,9 +94,9 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
 
     protected void initEntityDescriptors() {
         putSimpleEntity(Reusable_ord, "Reusable", Reusable.class, true, Adapt_ord, Sync_ord, Reusables_ord, Reuse_ord);
-        putSimpleEntity(Adapt_ord, "Adapt", Adapt.class, false).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
-        putSimpleEntity(Reuse_ord, "Reuse", Reuse.class, false, Sync_ord).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
-        putSimpleEntity(Sync_ord, "Sync", Sync.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, PathExpression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variant, Reusable_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variantRevision, Revision_ord, true, false, false, false, false);
+        putSimpleEntity(Adapt_ord, "Adapt", Adapt.class, false).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord).withFeature(ReusablesFeatureDescriptorEnum.adapter, Expression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
+        putSimpleEntity(Reuse_ord, "Reuse", Reuse.class, false, Sync_ord).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, Expression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false);
+        putSimpleEntity(Sync_ord, "Sync", Sync.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord).withFeature(ReusablesFeatureDescriptorEnum.original, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adapter, Expression_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.adapted, Reusable_ord, true, false, false, true, false).withFeature(ReusablesFeatureDescriptorEnum.adaptedRevision, Revision_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variant, Reusable_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.variantRevision, Revision_ord, true, false, false, false, false);
         putSimpleEntity(Include_ord, "Include", Include.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putCompositeEntity(Reusables_ord, "Reusables", Reusables.class, false, Reusable_ord, true, false);
         putSimpleEntity(Resource_ord, "Resource", Resource.class, true, Model_ord, Registry_ord, URL_ord, FileSystem_ord, Classpath_ord, Workspace_ord);
@@ -104,20 +104,20 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
         putSimpleEntity(FileSystem_ord, "FileSystem", FileSystem.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(Classpath_ord, "Classpath", Classpath.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(URL_ord, "URL", URL.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
-        putSimpleEntity(Model_ord, "Model", Model.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, PathExpression_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
+        putSimpleEntity(Model_ord, "Model", Model.class, false).withFeature(ReusablesFeatureDescriptorEnum.content, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(Registry_ord, "Registry", Registry.class, false).withFeature(ReusablesFeatureDescriptorEnum.registryUri, URI_ord).withFeature(ReusablesFeatureDescriptorEnum.uri, URI_ord);
-        putSimpleEntity(PathExpression_ord, "PathExpression", PathExpression.class, true, StepExpression_ord, Load_ord, Save_ord);
+        putSimpleEntity(Expression_ord, "Expression", Expression.class, true, Path_ord, Load_ord, Save_ord, PathName_ord, PathSegments_ord, StepExpression_ord, PathWithExtension_ord);
         putSimpleEntity(StepExpression_ord, "StepExpression", StepExpression.class, true, Load_ord, Save_ord);
         putSimpleEntity(Load_ord, "Load", Load.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putSimpleEntity(Save_ord, "Save", Save.class, false).withFeature(ReusablesFeatureDescriptorEnum.resource, Resource_ord);
         putSimpleEntity(Content_ord, "Content", Content.class, true, Path_ord, Contents_ord, PathName_ord, Folder_ord, PathSegments_ord, File_ord, PathWithExtension_ord);
         putCompositeEntity(Contents_ord, "Contents", Contents.class, false, Content_ord, true, false);
-        putSimpleEntity(Folder_ord, "Folder", Folder.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Path_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
-        putSimpleEntity(File_ord, "File", File.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Path_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Any_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
+        putSimpleEntity(Folder_ord, "Folder", Folder.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Content_ord).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
+        putSimpleEntity(File_ord, "File", File.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.content, Any_ord, true, false, false, false, false).withFeature(ReusablesFeatureDescriptorEnum.persistence, Persistence_ord, true, false, false, false, false);
         putSimpleEntity(Path_ord, "Path", Path.class, true, PathSegments_ord, PathWithExtension_ord, PathName_ord);
         putDataEntity(PathName_ord, "PathName", PathName.class, false, String.class);
-        putSimpleEntity(PathWithExtension_ord, "PathWithExtension", PathWithExtension.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Path_ord).withFeature(ReusablesFeatureDescriptorEnum.extension, Path_ord);
-        putCompositeEntity(PathSegments_ord, "PathSegments", PathSegments.class, false, Path_ord, true, false);
+        putSimpleEntity(PathWithExtension_ord, "PathWithExtension", PathWithExtension.class, false).withFeature(ReusablesFeatureDescriptorEnum.path, Expression_ord).withFeature(ReusablesFeatureDescriptorEnum.extension, Expression_ord);
+        putCompositeEntity(PathSegments_ord, "PathSegments", PathSegments.class, false, Expression_ord, true, false);
         putDataEntity(URI_ord, "URI", URI.class, false, String.class);
         putSimpleEntity(Persistence_ord, "Persistence", Persistence.class, true, PersistenceId_ord);
         putDataEntity(PersistenceId_ord, "PersistenceId", PersistenceId.class, false, String.class);
@@ -128,9 +128,8 @@ public class ReusablesEntityDescriptorEnum extends EntityDescriptorEnum {
     protected void initForeignTypeRelations() {
         setAssignableToAll(true, Adapt_ord, Reuse_ord, Include_ord);
         setAssignableFromAll(true, Reusable_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#Expression", PathExpression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#Expression", StepExpression_ord);
-        setAliasOf(true, "http://lang.whole.org/Queries#Expression", Path_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#Expression", Expression_ord);
+        setAliasOf(true, "http://lang.whole.org/Queries#StepExpression", StepExpression_ord);
         setAliasOf(true, "whole:org.whole.lang.changes:ChangesModel#Revision", Revision_ord);
     }
 }

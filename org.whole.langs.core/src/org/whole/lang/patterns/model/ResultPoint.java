@@ -32,7 +32,7 @@ public interface ResultPoint extends IPatternsEntity, VariationPoint {
 
     public void setTemplate(Template template);
 
-    public PathExpression getWeaver();
+    public Expression getWeaver();
 
-    public void setWeaver(PathExpression weaver);
+    public void setWeaver(Expression weaver);
 }

@@ -24,9 +24,9 @@ package org.whole.lang.reusables.model;
 public interface Model extends IReusablesEntity, Resource {
 
 
-    public PathExpression getContent();
+    public Expression getContent();
 
-    public void setContent(PathExpression content);
+    public void setContent(Expression content);
 
     public Persistence getPersistence();
 

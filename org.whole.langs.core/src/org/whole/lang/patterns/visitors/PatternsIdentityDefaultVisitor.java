@@ -86,7 +86,7 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(StepExpression entity) {
-        visit((PathExpression) entity);
+        visit((Expression) entity);
     }
 
     public void visit(VariationPoint entity) {
@@ -240,24 +240,18 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
 
     public void visit(ResultType entity) {
         visit((Type) entity);
-        visit((ResultTypeOrPathExpression) entity);
-    }
-
-    public void visit(ResultTypeOrPathExpression entity) {
-    }
-
-    public void visit(Template entity) {
-    }
-
-    public void visit(PathExpression entity) {
-        visit((Template) entity);
-        visit((ResultTypeOrPathExpression) entity);
     }
 
     public void visit(Name entity) {
         visit((IPatternsEntity) entity);
         visit((ResultType) entity);
-        visit((StepExpression) entity);
+    }
+
+    public void visit(Template entity) {
+    }
+
+    public void visit(Expression entity) {
+        visit((Template) entity);
     }
 
     public void visit(PatternJoinPointStep entity) {
@@ -311,6 +305,7 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
     }
 
     public void visit(Predicate entity) {
+        visit((Expression) entity);
     }
 
     public void visit(SlotsDefined entity) {

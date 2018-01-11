@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <models:Model xmlns:models="http://lang.whole.org/Models">
     <models:SimpleName value="Reusables"/>
-    <models:TypeRelations initialCapacity="6">
+    <models:TypeRelations initialCapacity="5">
         <models:SubtypesOf>
             <models:Types initialCapacity="3">
                 <models:SimpleName value="Adapt"/>
@@ -17,16 +17,12 @@
             <models:AnyType/>
         </models:SupertypesOf>
         <models:TypeAliasOf>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="StepExpression"/>
-            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
-        </models:TypeAliasOf>
-        <models:TypeAliasOf>
-            <models:SimpleName value="Path"/>
-            <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
+            <models:EntityType value="http://lang.whole.org/Queries#StepExpression"/>
         </models:TypeAliasOf>
         <models:TypeAliasOf>
             <models:SimpleName value="Revision"/>
@@ -59,7 +55,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="adapter"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -108,7 +104,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="adapter"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -289,7 +285,7 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="PathExpression"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="content"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -328,7 +324,7 @@
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
-            <models:SimpleName value="PathExpression"/>
+            <models:SimpleName value="Expression"/>
             <models:Types initialCapacity="0"/>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -338,7 +334,7 @@
             </models:EntityModifiers>
             <models:SimpleName value="StepExpression"/>
             <models:Types initialCapacity="1">
-                <models:SimpleName value="PathExpression"/>
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -400,7 +396,7 @@
             <models:Features initialCapacity="3">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Path"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="path"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -429,7 +425,7 @@
             <models:Features initialCapacity="3">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Path"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="path"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -456,8 +452,9 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Path"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="Content"/>
+                <models:SimpleName value="Expression"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -478,13 +475,13 @@
             <models:Features initialCapacity="2">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Path"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="path"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Path"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="extension"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -499,7 +496,7 @@
             <models:ComponentModifiers initialCapacity="1">
                 <models:ComponentModifier value="ordered"/>
             </models:ComponentModifiers>
-            <models:SimpleName value="Path"/>
+            <models:SimpleName value="Expression"/>
         </models:CompositeEntity>
         <models:DataEntity>
             <models:EntityModifiers initialCapacity="0"/>

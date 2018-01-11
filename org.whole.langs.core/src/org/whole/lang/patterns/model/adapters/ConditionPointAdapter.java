@@ -47,11 +47,11 @@ public class ConditionPointAdapter extends AbstractEntityAdapter implements Cond
         return PatternsEntityDescriptorEnum.ConditionPoint;
     }
 
-    public Predicate getCondition() {
-        return wGet(PatternsFeatureDescriptorEnum.condition).wGetAdapter(PatternsEntityDescriptorEnum.Predicate);
+    public Expression getCondition() {
+        return wGet(PatternsFeatureDescriptorEnum.condition).wGetAdapter(PatternsEntityDescriptorEnum.Expression);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         wSet(PatternsFeatureDescriptorEnum.condition, condition);
     }
 

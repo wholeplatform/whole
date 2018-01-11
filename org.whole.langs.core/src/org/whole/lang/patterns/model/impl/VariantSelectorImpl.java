@@ -26,7 +26,7 @@ import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.patterns.model.Name;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 
 /**
  *  @generator Whole
@@ -58,13 +58,13 @@ public class VariantSelectorImpl extends AbstractSimpleEntity implements Variant
     public void setVariability(Name variability) {
         notifyChanged(PatternsFeatureDescriptorEnum.variability, this.variability, this.variability = variability);
     }
-    private PathExpression variant;
+    private Expression variant;
 
-    public PathExpression getVariant() {
+    public Expression getVariant() {
         return notifyRequested(PatternsFeatureDescriptorEnum.variant, variant);
     }
 
-    public void setVariant(PathExpression variant) {
+    public void setVariant(Expression variant) {
         notifyChanged(PatternsFeatureDescriptorEnum.variant, this.variant, this.variant = variant);
     }
 
@@ -85,7 +85,7 @@ public class VariantSelectorImpl extends AbstractSimpleEntity implements Variant
             setVariability(value.wGetAdapter(PatternsEntityDescriptorEnum.Name));
             break;
             case 1 :
-            setVariant(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setVariant(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             default :
             throw new IllegalArgumentException();

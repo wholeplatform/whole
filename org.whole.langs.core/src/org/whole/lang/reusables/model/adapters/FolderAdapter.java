@@ -47,11 +47,11 @@ public class FolderAdapter extends AbstractEntityAdapter implements Folder {
         return ReusablesEntityDescriptorEnum.Folder;
     }
 
-    public Path getPath() {
-        return wGet(ReusablesFeatureDescriptorEnum.path).wGetAdapter(ReusablesEntityDescriptorEnum.Path);
+    public Expression getPath() {
+        return wGet(ReusablesFeatureDescriptorEnum.path).wGetAdapter(ReusablesEntityDescriptorEnum.Expression);
     }
 
-    public void setPath(Path path) {
+    public void setPath(Expression path) {
         wSet(ReusablesFeatureDescriptorEnum.path, path);
     }
 

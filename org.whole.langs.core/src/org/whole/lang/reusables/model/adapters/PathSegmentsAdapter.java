@@ -27,7 +27,7 @@ import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 /**
  *  @generator Whole
  */
-public class PathSegmentsAdapter extends AbstractListEntityAdapter<Path> implements PathSegments {
+public class PathSegmentsAdapter extends AbstractListEntityAdapter<Expression> implements PathSegments {
     private static final long serialVersionUID = 1;
 
     public PathSegmentsAdapter(IEntity implementor) {

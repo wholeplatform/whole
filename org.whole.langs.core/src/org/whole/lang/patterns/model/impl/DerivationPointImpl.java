@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
 import org.whole.lang.patterns.visitors.IPatternsVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.patterns.model.PathExpression;
+import org.whole.lang.patterns.model.Expression;
 import org.whole.lang.patterns.reflect.PatternsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.patterns.model.ResultType;
@@ -49,13 +49,13 @@ public class DerivationPointImpl extends AbstractSimpleEntity implements Derivat
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private PathExpression expression;
+    private Expression expression;
 
-    public PathExpression getExpression() {
+    public Expression getExpression() {
         return notifyRequested(PatternsFeatureDescriptorEnum.expression, expression);
     }
 
-    public void setExpression(PathExpression expression) {
+    public void setExpression(Expression expression) {
         notifyChanged(PatternsFeatureDescriptorEnum.expression, this.expression, this.expression = expression);
     }
     private ResultType resultType;
@@ -82,7 +82,7 @@ public class DerivationPointImpl extends AbstractSimpleEntity implements Derivat
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.PathExpression));
+            setExpression(value.wGetAdapter(PatternsEntityDescriptorEnum.Expression));
             break;
             case 1 :
             setResultType(value.wGetAdapter(PatternsEntityDescriptorEnum.ResultType));

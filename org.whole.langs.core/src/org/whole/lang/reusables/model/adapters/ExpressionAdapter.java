@@ -15,34 +15,34 @@
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.whole.lang.patterns.model.adapters;
+package org.whole.lang.reusables.model.adapters;
 
 import org.whole.lang.model.adapters.AbstractEntityAdapter;
-import org.whole.lang.patterns.model.*;
+import org.whole.lang.reusables.model.*;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.patterns.visitors.IPatternsVisitor;
+import org.whole.lang.reusables.visitors.IReusablesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
-import org.whole.lang.patterns.reflect.PatternsEntityDescriptorEnum;
+import org.whole.lang.reusables.reflect.ReusablesEntityDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class ResultTypeOrPathExpressionAdapter extends AbstractEntityAdapter implements ResultTypeOrPathExpression {
+public class ExpressionAdapter extends AbstractEntityAdapter implements Expression {
     private static final long serialVersionUID = 1;
 
-    public ResultTypeOrPathExpressionAdapter(IEntity implementor) {
+    public ExpressionAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ResultTypeOrPathExpressionAdapter() {
+    public ExpressionAdapter() {
     }
 
-    public void accept(IPatternsVisitor visitor) {
+    public void accept(IReusablesVisitor visitor) {
         if (visitor.visitAdapter(this))
             visitor.visit(this);
     }
 
-    public EntityDescriptor<ResultTypeOrPathExpression> wGetEntityDescriptor() {
-        return PatternsEntityDescriptorEnum.ResultTypeOrPathExpression;
+    public EntityDescriptor<Expression> wGetEntityDescriptor() {
+        return ReusablesEntityDescriptorEnum.Expression;
     }
 }

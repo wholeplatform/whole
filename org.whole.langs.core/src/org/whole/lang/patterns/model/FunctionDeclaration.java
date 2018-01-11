@@ -32,7 +32,7 @@ public interface FunctionDeclaration extends IPatternsEntity, Declaration {
 
     public void setName(Name name);
 
-    public PathExpression getBody();
+    public Expression getBody();
 
-    public void setBody(PathExpression body);
+    public void setBody(Expression body);
 }

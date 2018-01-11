@@ -55,11 +55,11 @@ public class IfTemplateAdapter extends AbstractEntityAdapter implements IfTempla
         wSet(SemanticsFeatureDescriptorEnum.expression, expression);
     }
 
-    public Predicate getCondition() {
-        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Predicate);
+    public Expression getCondition() {
+        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Expression);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         wSet(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 }

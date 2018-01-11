@@ -8,14 +8,14 @@
             </models:Types>
             <models:AnyType/>
         </models:SupertypesOf>
-        <models:SupertypesOf>
-            <models:Types initialCapacity="3">
-                <models:SimpleName value="Expression"/>
-                <models:SimpleName value="Predicate"/>
-                <models:SimpleName value="FunctionBody"/>
-            </models:Types>
+        <models:TypeAliasOf>
+            <models:SimpleName value="Expression"/>
             <models:EntityType value="http://lang.whole.org/Queries#Expression"/>
-        </models:SupertypesOf>
+        </models:TypeAliasOf>
+        <models:TypeAliasOf>
+            <models:SimpleName value="Predicate"/>
+            <models:EntityType value="http://lang.whole.org/Queries#Predicate"/>
+        </models:TypeAliasOf>
         <models:SubtypesOf>
             <models:Types initialCapacity="6">
                 <models:SimpleName value="Identifier"/>
@@ -343,7 +343,7 @@
                 </models:Feature>
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="condition"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -388,7 +388,7 @@
                     <models:FeatureModifiers initialCapacity="1">
                         <models:FeatureModifier value="optional"/>
                     </models:FeatureModifiers>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="condition"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>
@@ -441,14 +441,6 @@
                 </models:Feature>
             </models:Features>
         </models:SimpleEntity>
-        <models:SimpleEntity>
-            <models:EntityModifiers initialCapacity="1">
-                <models:EntityModifier value="abstract"/>
-            </models:EntityModifiers>
-            <models:SimpleName value="Predicate"/>
-            <models:Types initialCapacity="0"/>
-            <models:Features initialCapacity="0"/>
-        </models:SimpleEntity>
         <models:CompositeEntity>
             <models:EntityModifiers initialCapacity="0"/>
             <models:SimpleName value="Configuration"/>
@@ -491,8 +483,9 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Expression"/>
-            <models:Types initialCapacity="1">
+            <models:Types initialCapacity="2">
                 <models:SimpleName value="Term"/>
+                <models:SimpleName value="FunctionBody"/>
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
@@ -522,6 +515,16 @@
                 <models:EntityModifier value="abstract"/>
             </models:EntityModifiers>
             <models:SimpleName value="Template"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Expression"/>
+            </models:Types>
+            <models:Features initialCapacity="0"/>
+        </models:SimpleEntity>
+        <models:SimpleEntity>
+            <models:EntityModifiers initialCapacity="1">
+                <models:EntityModifier value="abstract"/>
+            </models:EntityModifiers>
+            <models:SimpleName value="Predicate"/>
             <models:Types initialCapacity="1">
                 <models:SimpleName value="Expression"/>
             </models:Types>
@@ -982,7 +985,7 @@
             <models:Features initialCapacity="1">
                 <models:Feature>
                     <models:FeatureModifiers initialCapacity="0"/>
-                    <models:SimpleName value="Predicate"/>
+                    <models:SimpleName value="Expression"/>
                     <models:SimpleName value="condition"/>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </models:Feature>

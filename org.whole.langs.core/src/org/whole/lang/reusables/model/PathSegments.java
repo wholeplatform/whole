@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface PathSegments extends IReusablesEntity, List<Path>, Path {
+public interface PathSegments extends IReusablesEntity, List<Expression>, Path {
 
 }

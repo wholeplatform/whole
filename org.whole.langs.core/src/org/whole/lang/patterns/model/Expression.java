@@ -21,6 +21,6 @@ package org.whole.lang.patterns.model;
 /**
  *  @generator Whole
  */
-public interface ResultTypeOrPathExpression extends IPatternsEntity {
+public interface Expression extends IPatternsEntity, Template {
 
 }

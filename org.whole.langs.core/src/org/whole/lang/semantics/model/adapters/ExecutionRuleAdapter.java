@@ -55,11 +55,11 @@ public class ExecutionRuleAdapter extends AbstractEntityAdapter implements Execu
         wSet(SemanticsFeatureDescriptorEnum.name, name);
     }
 
-    public Predicate getCondition() {
-        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Predicate);
+    public Expression getCondition() {
+        return wGet(SemanticsFeatureDescriptorEnum.condition).wGetAdapter(SemanticsEntityDescriptorEnum.Expression);
     }
 
-    public void setCondition(Predicate condition) {
+    public void setCondition(Expression condition) {
         wSet(SemanticsFeatureDescriptorEnum.condition, condition);
     }
 
