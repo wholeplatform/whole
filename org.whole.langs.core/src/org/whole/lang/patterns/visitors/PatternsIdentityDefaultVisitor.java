@@ -242,16 +242,17 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Type) entity);
     }
 
-    public void visit(Name entity) {
-        visit((IPatternsEntity) entity);
-        visit((ResultType) entity);
-    }
-
     public void visit(Template entity) {
     }
 
     public void visit(Expression entity) {
         visit((Template) entity);
+    }
+
+    public void visit(Name entity) {
+        visit((IPatternsEntity) entity);
+        visit((Expression) entity);
+        visit((ResultType) entity);
     }
 
     public void visit(PatternJoinPointStep entity) {

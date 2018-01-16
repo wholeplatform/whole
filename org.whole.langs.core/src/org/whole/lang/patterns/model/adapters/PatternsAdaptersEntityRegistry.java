@@ -75,8 +75,8 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ResultTypesAdapter());
         put(new TypeAdapter());
         put(new ResultTypeAdapter());
-        put(new NameAdapter());
         put(new ExpressionAdapter());
+        put(new NameAdapter());
         put(new StepExpressionAdapter());
         put(new PatternJoinPointStepAdapter());
         put(new JoinPointStepAdapter());

@@ -964,14 +964,6 @@
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
-        <models:DataEntity>
-            <models:EntityModifiers initialCapacity="0"/>
-            <models:SimpleName value="Name"/>
-            <models:Types initialCapacity="1">
-                <models:SimpleName value="ResultType"/>
-            </models:Types>
-            <models:DataType value="String"/>
-        </models:DataEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -982,6 +974,15 @@
             </models:Types>
             <models:Features initialCapacity="0"/>
         </models:SimpleEntity>
+        <models:DataEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="Name"/>
+            <models:Types initialCapacity="2">
+                <models:SimpleName value="Expression"/>
+                <models:SimpleName value="ResultType"/>
+            </models:Types>
+            <models:DataType value="String"/>
+        </models:DataEntity>
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
