@@ -17,13 +17,19 @@
  */
 package org.whole.lang.iterators;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,7 +60,6 @@ import org.whole.lang.misc.model.Any;
 import org.whole.lang.misc.model.Misc;
 import org.whole.lang.misc.reflect.MiscEntityDescriptorEnum;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.models.factories.ModelsEntityFactory;
 import org.whole.lang.models.model.Type;
 import org.whole.lang.reflect.ReflectionFactory;
@@ -291,7 +296,7 @@ public class IteratorFactoryTest {
 	}
 
     @Test
-    public void testTopDownIterator() {
+    public void testTopDownIterator() throws Exception {
 		Grammar g = new TestXmlGrammar().create();
 		final Productions productions = g.getPhraseStructure();
 
@@ -338,7 +343,8 @@ public class IteratorFactoryTest {
 		}, false);
 		v.visit(productions);
 		
-		IEntity artifactsModel = new ArtifactsModel().create();
+		IEntity artifactsModel = XmlBuilderPersistenceKit.instance().readModel(
+				new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 		Set<Type> typeSet = new HashSet<Type>();
 		IEntityIterator<Type> ci4 = IteratorFactory.<Type>descendantOrSelfMatcherIterator()
 				.withPattern(ModelsEntityFactory.instance.createSimpleName("Atifacts"));

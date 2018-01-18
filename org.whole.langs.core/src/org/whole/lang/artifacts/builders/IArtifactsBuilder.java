@@ -1,149 +1,168 @@
+/**
+ *  Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.artifacts.builders;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.artifacts.model.AttributeEnum;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public interface IArtifactsBuilder extends IBuilder {
-	public void visit();
 
-	public void extension();
 
-	public void persistenceKitId();
+    public void visit();
 
-	public void attributes();
+    public void extension();
 
-	public void author();
+    public void persistenceKitId();
 
-	public void license();
+    public void attributes();
 
-	public void copyright();
+    public void author();
 
-	public void content();
+    public void license();
 
-	public void locationURI();
+    public void copyright();
 
-	public void artifacts();
+    public void content();
 
-	public void natures();
+    public void locationURI();
 
-	public void name();
+    public void artifacts();
 
-	public void projects();
+    public void natures();
 
-	public void metadata();
+    public void name();
 
-	public void Workspace();
+    public void projects();
 
-	public void Workspace_();
+    public void metadata();
 
-	public void _Workspace();
+    public void Workspace();
 
-	public void Projects();
+    public void Workspace_();
 
-	public void Projects_();
+    public void _Workspace();
 
-	public void Projects_(int initialCapacity);
+    public void Projects();
 
-	public void _Projects();
+    public void Projects_();
 
-	public void Project();
+    public void Projects_(int initialCapacity);
 
-	public void Project_();
+    public void _Projects();
 
-	public void _Project();
+    public void Project();
 
-	public void Artifacts();
+    public void Project_();
 
-	public void Artifacts_();
+    public void _Project();
 
-	public void Artifacts_(int initialCapacity);
+    public void Artifacts();
 
-	public void _Artifacts();
+    public void Artifacts_();
 
-	public void PackageArtifact();
+    public void Artifacts_(int initialCapacity);
 
-	public void PackageArtifact_();
+    public void _Artifacts();
 
-	public void _PackageArtifact();
+    public void PackageArtifact();
 
-	public void FolderArtifact();
+    public void PackageArtifact_();
 
-	public void FolderArtifact_();
+    public void _PackageArtifact();
 
-	public void _FolderArtifact();
+    public void FolderArtifact();
 
-	public void FileArtifact();
+    public void FolderArtifact_();
 
-	public void FileArtifact_();
+    public void _FolderArtifact();
 
-	public void _FileArtifact();
+    public void FileArtifact();
 
-	public void Natures();
+    public void FileArtifact_();
 
-	public void Natures_();
+    public void _FileArtifact();
 
-	public void Natures_(int initialCapacity);
+    public void Natures();
 
-	public void _Natures();
+    public void Natures_();
 
-	public void Nature();
+    public void Natures_(int initialCapacity);
 
-	public void Nature(String value);
+    public void _Natures();
 
-	public void LocationURI();
+    public void Nature();
 
-	public void LocationURI(String value);
+    public void Nature(String value);
 
-	public void Metadata();
+    public void LocationURI();
 
-	public void Metadata_();
+    public void LocationURI(String value);
 
-	public void _Metadata();
+    public void Metadata();
 
-	public void Name();
+    public void Metadata_();
 
-	public void Name(String value);
+    public void _Metadata();
 
-	public void NameWithExtension();
+    public void Name();
 
-	public void NameWithExtension_();
+    public void Name(String value);
 
-	public void _NameWithExtension();
+    public void NameWithExtension();
 
-	public void Copyright();
+    public void NameWithExtension_();
 
-	public void Copyright(String value);
+    public void _NameWithExtension();
 
-	public void License();
+    public void Copyright();
 
-	public void License(String value);
+    public void Copyright(String value);
 
-	public void Author();
+    public void License();
 
-	public void Author(String value);
+    public void License(String value);
 
-	public void Extension();
+    public void Author();
 
-	public void Extension(String value);
+    public void Author(String value);
 
-	public void Attributes();
+    public void Extension();
 
-	public void Attributes_();
+    public void Extension(String value);
 
-	public void Attributes_(int initialCapacity);
+    public void Attributes();
 
-	public void _Attributes();
+    public void Attributes_();
 
-	public void Attribute();
+    public void Attributes_(int initialCapacity);
 
-	public void Attribute(AttributeEnum.Value value);
+    public void _Attributes();
 
-	public void Attribute(String value);
+    public void Attribute();
 
-	public void PersistenceKitId();
+    public void Attribute(AttributeEnum.Value value);
 
-	public void PersistenceKitId(String value);
+    public void Attribute(String value);
+
+    public void PersistenceKitId();
+
+    public void PersistenceKitId(String value);
 }

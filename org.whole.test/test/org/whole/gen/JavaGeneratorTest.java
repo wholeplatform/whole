@@ -17,19 +17,21 @@
  */
 package org.whole.gen;
 
-import java.util.List;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.whole.gen.lang.reflect.GenOperationsDeployer;
 import org.whole.lang.bindings.BindingManagerFactory;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.operations.JavaCompilerOperation;
 import org.whole.lang.reflect.ReflectionFactory;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 
 /**
  * 
@@ -45,7 +47,8 @@ public class JavaGeneratorTest {
 
     @Test
     public void testGenerateJava() throws Exception {
-		IEntity artifactsModel = new ArtifactsModel().create();
+		IEntity artifactsModel = XmlBuilderPersistenceKit.instance().readModel(
+				new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 		assertNotNull(artifactsModel);
 
 		List<CompilationUnit> cuList = JavaCompilerOperation.compile(

@@ -1,103 +1,113 @@
+/**
+ *  Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.artifacts.model.impl;
 
 import org.whole.lang.model.AbstractSimpleEntity;
-import org.whole.lang.artifacts.model.*;
+import org.whole.lang.artifacts.model.FolderArtifact;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.artifacts.reflect.ArtifactsEntityDescriptorEnum;
 import org.whole.lang.artifacts.visitors.IArtifactsVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
+import org.whole.lang.artifacts.model.FolderName;
 import org.whole.lang.artifacts.reflect.ArtifactsFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.artifacts.model.Metadata;
+import org.whole.lang.artifacts.model.Artifacts;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
-public class FolderArtifactImpl extends AbstractSimpleEntity implements
-		FolderArtifact {
-	private static final long serialVersionUID = 1;
+public class FolderArtifactImpl extends AbstractSimpleEntity implements FolderArtifact {
+    private static final long serialVersionUID = 1;
 
-	public EntityDescriptor<FolderArtifact> wGetEntityDescriptor() {
-		return ArtifactsEntityDescriptorEnum.FolderArtifact;
-	}
+    public EntityDescriptor<FolderArtifact> wGetEntityDescriptor() {
+        return ArtifactsEntityDescriptorEnum.FolderArtifact;
+    }
 
-	public int wGetEntityOrd() {
-		return ArtifactsEntityDescriptorEnum.FolderArtifact_ord;
-	}
+    public int wGetEntityOrd() {
+        return ArtifactsEntityDescriptorEnum.FolderArtifact_ord;
+    }
 
-	public void accept(IArtifactsVisitor visitor) {
-		try {
-			visitor.visit(this);
-		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
-		}
-	}
+    public void accept(IArtifactsVisitor visitor) {
+        try {
+            visitor.visit(this);
+        } catch (Exception e) {
+            throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+        }
+    }
+    private FolderName name;
 
-	private FolderName name;
+    public FolderName getName() {
+        return notifyRequested(ArtifactsFeatureDescriptorEnum.name, name);
+    }
 
-	public FolderName getName() {
-		return notifyRequested(ArtifactsFeatureDescriptorEnum.name, name);
-	}
+    public void setName(FolderName name) {
+        notifyChanged(ArtifactsFeatureDescriptorEnum.name, this.name, this.name = name);
+    }
+    private Metadata metadata;
 
-	public void setName(FolderName name) {
-		notifyChanged(ArtifactsFeatureDescriptorEnum.name, this.name,
-				this.name = name);
-	}
+    public Metadata getMetadata() {
+        return notifyRequested(ArtifactsFeatureDescriptorEnum.metadata, metadata);
+    }
 
-	private Metadata metadata;
+    public void setMetadata(Metadata metadata) {
+        notifyChanged(ArtifactsFeatureDescriptorEnum.metadata, this.metadata, this.metadata = metadata);
+    }
+    private Artifacts artifacts;
 
-	public Metadata getMetadata() {
-		return notifyRequested(ArtifactsFeatureDescriptorEnum.metadata,
-				metadata);
-	}
+    public Artifacts getArtifacts() {
+        return notifyRequested(ArtifactsFeatureDescriptorEnum.artifacts, artifacts);
+    }
 
-	public void setMetadata(Metadata metadata) {
-		notifyChanged(ArtifactsFeatureDescriptorEnum.metadata, this.metadata,
-				this.metadata = metadata);
-	}
+    public void setArtifacts(Artifacts artifacts) {
+        notifyChanged(ArtifactsFeatureDescriptorEnum.artifacts, this.artifacts, this.artifacts = artifacts);
+    }
 
-	private Artifacts artifacts;
+    public IEntity wGet(int index) {
+        switch (index) {
+            case 0 :
+            return getName().wGetAdaptee(false);
+            case 1 :
+            return getMetadata().wGetAdaptee(false);
+            case 2 :
+            return getArtifacts().wGetAdaptee(false);
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public Artifacts getArtifacts() {
-		return notifyRequested(ArtifactsFeatureDescriptorEnum.artifacts,
-				artifacts);
-	}
+    public void wSet(int index, IEntity value) {
+        switch (index) {
+            case 0 :
+            setName(value.wGetAdapter(ArtifactsEntityDescriptorEnum.FolderName));
+            break;
+            case 1 :
+            setMetadata(value.wGetAdapter(ArtifactsEntityDescriptorEnum.Metadata));
+            break;
+            case 2 :
+            setArtifacts(value.wGetAdapter(ArtifactsEntityDescriptorEnum.Artifacts));
+            break;
+            default :
+            throw new IllegalArgumentException();
+        }
+    }
 
-	public void setArtifacts(Artifacts artifacts) {
-		notifyChanged(ArtifactsFeatureDescriptorEnum.artifacts, this.artifacts,
-				this.artifacts = artifacts);
-	}
-
-	public IEntity wGet(int index) {
-		switch (index) {
-		case 0:
-			return getName().wGetAdaptee(false);
-		case 1:
-			return getMetadata().wGetAdaptee(false);
-		case 2:
-			return getArtifacts().wGetAdaptee(false);
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void wSet(int index, IEntity value) {
-		switch (index) {
-		case 0:
-			setName(value.wGetAdapter(ArtifactsEntityDescriptorEnum.FolderName));
-			break;
-		case 1:
-			setMetadata(value
-					.wGetAdapter(ArtifactsEntityDescriptorEnum.Metadata));
-			break;
-		case 2:
-			setArtifacts(value
-					.wGetAdapter(ArtifactsEntityDescriptorEnum.Artifacts));
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public int wSize() {
-		return 3;
-	}
+    public int wSize() {
+        return 3;
+    }
 }

@@ -1,3 +1,20 @@
+/**
+ *  Copyright 2004-2016 Riccardo Solmi. All rights reserved.
+ *  This file is part of the Whole Platform.
+ *  
+ *  The Whole Platform is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  The Whole Platform is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU Lesser General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with the Whole Platform. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.whole.lang.artifacts.factories;
 
 import org.whole.lang.factories.GenericEntityFactory;
@@ -9,247 +26,221 @@ import org.whole.lang.factories.IEntityBuilder;
 import org.whole.lang.factories.EntityBuilder;
 import org.whole.lang.model.IEntity;
 
-/** 
- * @generator Whole
+/**
+ *  @generator Whole
  */
 public class ArtifactsEntityFactory extends GenericEntityFactory {
-	public static final ArtifactsEntityFactory instance = instance(RegistryConfigurations.DEFAULT);
+    public static final ArtifactsEntityFactory instance = instance(RegistryConfigurations.DEFAULT);
 
-	public static ArtifactsEntityFactory instance(
-			IEntityRegistryProvider provider) {
-		return new ArtifactsEntityFactory(provider);
-	}
+    public static ArtifactsEntityFactory instance(IEntityRegistryProvider provider) {
+        return new ArtifactsEntityFactory(provider);
+    }
 
-	protected ArtifactsEntityFactory(IEntityRegistryProvider provider) {
-		super(provider);
-	}
+    protected ArtifactsEntityFactory(IEntityRegistryProvider provider) {
+        super(provider);
+    }
 
-	public Workspace createWorkspace() {
-		return create(ArtifactsEntityDescriptorEnum.Workspace);
-	}
+    public Workspace createWorkspace() {
+        return create(ArtifactsEntityDescriptorEnum.Workspace);
+    }
 
-	public Workspace createWorkspace(Metadata metadata, Projects projects) {
-		return create(ArtifactsEntityDescriptorEnum.Workspace, metadata,
-				projects);
-	}
+    public Workspace createWorkspace(Metadata metadata, Projects projects) {
+        return create(ArtifactsEntityDescriptorEnum.Workspace, metadata, projects);
+    }
 
-	public IEntityBuilder<Workspace> buildWorkspace() {
-		return new EntityBuilder<Workspace>(
-				create(ArtifactsEntityDescriptorEnum.Workspace));
-	}
+    public IEntityBuilder<Workspace> buildWorkspace() {
+        return new EntityBuilder<Workspace>(create(ArtifactsEntityDescriptorEnum.Workspace));
+    }
 
-	public Projects createProjects() {
-		return create(ArtifactsEntityDescriptorEnum.Projects);
-	}
+    public Projects createProjects() {
+        return create(ArtifactsEntityDescriptorEnum.Projects);
+    }
 
-	public Projects createProjects(Project... entities) {
-		return create(ArtifactsEntityDescriptorEnum.Projects,
-				(IEntity[]) entities);
-	}
+    public Projects createProjects(Project... entities) {
+        return create(ArtifactsEntityDescriptorEnum.Projects, (IEntity[]) entities);
+    }
 
-	public Projects createProjects(int initialSize) {
-		return clone(ArtifactsEntityDescriptorEnum.Projects, initialSize);
-	}
+    public Projects createProjects(int initialSize) {
+        return clone(ArtifactsEntityDescriptorEnum.Projects, initialSize);
+    }
 
-	public Project createProject() {
-		return create(ArtifactsEntityDescriptorEnum.Project);
-	}
+    public Project createProject() {
+        return create(ArtifactsEntityDescriptorEnum.Project);
+    }
 
-	public Project createProject(ProjectName name, Natures natures,
-			Metadata metadata, Artifacts artifacts, LocationURI locationURI) {
-		return create(ArtifactsEntityDescriptorEnum.Project, name, natures,
-				metadata, artifacts, locationURI);
-	}
+    public Project createProject(ProjectName name, Natures natures, Metadata metadata, Artifacts artifacts, LocationURI locationURI) {
+        return create(ArtifactsEntityDescriptorEnum.Project, name, natures, metadata, artifacts, locationURI);
+    }
 
-	public IEntityBuilder<Project> buildProject() {
-		return new EntityBuilder<Project>(
-				create(ArtifactsEntityDescriptorEnum.Project));
-	}
+    public IEntityBuilder<Project> buildProject() {
+        return new EntityBuilder<Project>(create(ArtifactsEntityDescriptorEnum.Project));
+    }
 
-	public Artifacts createArtifacts() {
-		return create(ArtifactsEntityDescriptorEnum.Artifacts);
-	}
+    public Artifacts createArtifacts() {
+        return create(ArtifactsEntityDescriptorEnum.Artifacts);
+    }
 
-	public Artifacts createArtifacts(Artifact... entities) {
-		return create(ArtifactsEntityDescriptorEnum.Artifacts,
-				(IEntity[]) entities);
-	}
+    public Artifacts createArtifacts(Artifact... entities) {
+        return create(ArtifactsEntityDescriptorEnum.Artifacts, (IEntity[]) entities);
+    }
 
-	public Artifacts createArtifacts(int initialSize) {
-		return clone(ArtifactsEntityDescriptorEnum.Artifacts, initialSize);
-	}
+    public Artifacts createArtifacts(int initialSize) {
+        return clone(ArtifactsEntityDescriptorEnum.Artifacts, initialSize);
+    }
 
-	public PackageArtifact createPackageArtifact() {
-		return create(ArtifactsEntityDescriptorEnum.PackageArtifact);
-	}
+    public PackageArtifact createPackageArtifact() {
+        return create(ArtifactsEntityDescriptorEnum.PackageArtifact);
+    }
 
-	public PackageArtifact createPackageArtifact(PackageName name,
-			Metadata metadata, Artifacts artifacts) {
-		return create(ArtifactsEntityDescriptorEnum.PackageArtifact, name,
-				metadata, artifacts);
-	}
+    public PackageArtifact createPackageArtifact(PackageName name, Metadata metadata, Artifacts artifacts) {
+        return create(ArtifactsEntityDescriptorEnum.PackageArtifact, name, metadata, artifacts);
+    }
 
-	public IEntityBuilder<PackageArtifact> buildPackageArtifact() {
-		return new EntityBuilder<PackageArtifact>(
-				create(ArtifactsEntityDescriptorEnum.PackageArtifact));
-	}
+    public IEntityBuilder<PackageArtifact> buildPackageArtifact() {
+        return new EntityBuilder<PackageArtifact>(create(ArtifactsEntityDescriptorEnum.PackageArtifact));
+    }
 
-	public FolderArtifact createFolderArtifact() {
-		return create(ArtifactsEntityDescriptorEnum.FolderArtifact);
-	}
+    public FolderArtifact createFolderArtifact() {
+        return create(ArtifactsEntityDescriptorEnum.FolderArtifact);
+    }
 
-	public FolderArtifact createFolderArtifact(FolderName name,
-			Metadata metadata, Artifacts artifacts) {
-		return create(ArtifactsEntityDescriptorEnum.FolderArtifact, name,
-				metadata, artifacts);
-	}
+    public FolderArtifact createFolderArtifact(FolderName name, Metadata metadata, Artifacts artifacts) {
+        return create(ArtifactsEntityDescriptorEnum.FolderArtifact, name, metadata, artifacts);
+    }
 
-	public IEntityBuilder<FolderArtifact> buildFolderArtifact() {
-		return new EntityBuilder<FolderArtifact>(
-				create(ArtifactsEntityDescriptorEnum.FolderArtifact));
-	}
+    public IEntityBuilder<FolderArtifact> buildFolderArtifact() {
+        return new EntityBuilder<FolderArtifact>(create(ArtifactsEntityDescriptorEnum.FolderArtifact));
+    }
 
-	public FileArtifact createFileArtifact() {
-		return create(ArtifactsEntityDescriptorEnum.FileArtifact);
-	}
+    public FileArtifact createFileArtifact() {
+        return create(ArtifactsEntityDescriptorEnum.FileArtifact);
+    }
 
-	public FileArtifact createFileArtifact(FileName name, Metadata metadata,
-			Content content) {
-		return create(ArtifactsEntityDescriptorEnum.FileArtifact, name,
-				metadata, content);
-	}
+    public FileArtifact createFileArtifact(FileName name, Metadata metadata, Content content) {
+        return create(ArtifactsEntityDescriptorEnum.FileArtifact, name, metadata, content);
+    }
 
-	public IEntityBuilder<FileArtifact> buildFileArtifact() {
-		return new EntityBuilder<FileArtifact>(
-				create(ArtifactsEntityDescriptorEnum.FileArtifact));
-	}
+    public IEntityBuilder<FileArtifact> buildFileArtifact() {
+        return new EntityBuilder<FileArtifact>(create(ArtifactsEntityDescriptorEnum.FileArtifact));
+    }
 
-	public Natures createNatures() {
-		return create(ArtifactsEntityDescriptorEnum.Natures);
-	}
+    public Natures createNatures() {
+        return create(ArtifactsEntityDescriptorEnum.Natures);
+    }
 
-	public Natures createNatures(Nature... entities) {
-		return create(ArtifactsEntityDescriptorEnum.Natures,
-				(IEntity[]) entities);
-	}
+    public Natures createNatures(Nature... entities) {
+        return create(ArtifactsEntityDescriptorEnum.Natures, (IEntity[]) entities);
+    }
 
-	public Natures createNatures(int initialSize) {
-		return clone(ArtifactsEntityDescriptorEnum.Natures, initialSize);
-	}
+    public Natures createNatures(int initialSize) {
+        return clone(ArtifactsEntityDescriptorEnum.Natures, initialSize);
+    }
 
-	public Nature createNature() {
-		return create(ArtifactsEntityDescriptorEnum.Nature);
-	}
+    public Nature createNature() {
+        return create(ArtifactsEntityDescriptorEnum.Nature);
+    }
 
-	public Nature createNature(String value) {
-		return create(ArtifactsEntityDescriptorEnum.Nature, value);
-	}
+    public Nature createNature(String value) {
+        return create(ArtifactsEntityDescriptorEnum.Nature, value);
+    }
 
-	public LocationURI createLocationURI() {
-		return create(ArtifactsEntityDescriptorEnum.LocationURI);
-	}
+    public LocationURI createLocationURI() {
+        return create(ArtifactsEntityDescriptorEnum.LocationURI);
+    }
 
-	public LocationURI createLocationURI(String value) {
-		return create(ArtifactsEntityDescriptorEnum.LocationURI, value);
-	}
+    public LocationURI createLocationURI(String value) {
+        return create(ArtifactsEntityDescriptorEnum.LocationURI, value);
+    }
 
-	public Metadata createMetadata() {
-		return create(ArtifactsEntityDescriptorEnum.Metadata);
-	}
+    public Metadata createMetadata() {
+        return create(ArtifactsEntityDescriptorEnum.Metadata);
+    }
 
-	public Metadata createMetadata(Copyright copyright, License license,
-			Author author, Attributes attributes,
-			PersistenceKitId persistenceKitId) {
-		return create(ArtifactsEntityDescriptorEnum.Metadata, copyright,
-				license, author, attributes, persistenceKitId);
-	}
+    public Metadata createMetadata(Copyright copyright, License license, Author author, Attributes attributes, PersistenceKitId persistenceKitId) {
+        return create(ArtifactsEntityDescriptorEnum.Metadata, copyright, license, author, attributes, persistenceKitId);
+    }
 
-	public IEntityBuilder<Metadata> buildMetadata() {
-		return new EntityBuilder<Metadata>(
-				create(ArtifactsEntityDescriptorEnum.Metadata));
-	}
+    public IEntityBuilder<Metadata> buildMetadata() {
+        return new EntityBuilder<Metadata>(create(ArtifactsEntityDescriptorEnum.Metadata));
+    }
 
-	public Name createName() {
-		return create(ArtifactsEntityDescriptorEnum.Name);
-	}
+    public Name createName() {
+        return create(ArtifactsEntityDescriptorEnum.Name);
+    }
 
-	public Name createName(String value) {
-		return create(ArtifactsEntityDescriptorEnum.Name, value);
-	}
+    public Name createName(String value) {
+        return create(ArtifactsEntityDescriptorEnum.Name, value);
+    }
 
-	public NameWithExtension createNameWithExtension() {
-		return create(ArtifactsEntityDescriptorEnum.NameWithExtension);
-	}
+    public NameWithExtension createNameWithExtension() {
+        return create(ArtifactsEntityDescriptorEnum.NameWithExtension);
+    }
 
-	public NameWithExtension createNameWithExtension(Name name,
-			Extension extension) {
-		return create(ArtifactsEntityDescriptorEnum.NameWithExtension, name,
-				extension);
-	}
+    public NameWithExtension createNameWithExtension(Name name, Extension extension) {
+        return create(ArtifactsEntityDescriptorEnum.NameWithExtension, name, extension);
+    }
 
-	public IEntityBuilder<NameWithExtension> buildNameWithExtension() {
-		return new EntityBuilder<NameWithExtension>(
-				create(ArtifactsEntityDescriptorEnum.NameWithExtension));
-	}
+    public IEntityBuilder<NameWithExtension> buildNameWithExtension() {
+        return new EntityBuilder<NameWithExtension>(create(ArtifactsEntityDescriptorEnum.NameWithExtension));
+    }
 
-	public Copyright createCopyright() {
-		return create(ArtifactsEntityDescriptorEnum.Copyright);
-	}
+    public Copyright createCopyright() {
+        return create(ArtifactsEntityDescriptorEnum.Copyright);
+    }
 
-	public Copyright createCopyright(String value) {
-		return create(ArtifactsEntityDescriptorEnum.Copyright, value);
-	}
+    public Copyright createCopyright(String value) {
+        return create(ArtifactsEntityDescriptorEnum.Copyright, value);
+    }
 
-	public License createLicense() {
-		return create(ArtifactsEntityDescriptorEnum.License);
-	}
+    public License createLicense() {
+        return create(ArtifactsEntityDescriptorEnum.License);
+    }
 
-	public License createLicense(String value) {
-		return create(ArtifactsEntityDescriptorEnum.License, value);
-	}
+    public License createLicense(String value) {
+        return create(ArtifactsEntityDescriptorEnum.License, value);
+    }
 
-	public Author createAuthor() {
-		return create(ArtifactsEntityDescriptorEnum.Author);
-	}
+    public Author createAuthor() {
+        return create(ArtifactsEntityDescriptorEnum.Author);
+    }
 
-	public Author createAuthor(String value) {
-		return create(ArtifactsEntityDescriptorEnum.Author, value);
-	}
+    public Author createAuthor(String value) {
+        return create(ArtifactsEntityDescriptorEnum.Author, value);
+    }
 
-	public Extension createExtension() {
-		return create(ArtifactsEntityDescriptorEnum.Extension);
-	}
+    public Extension createExtension() {
+        return create(ArtifactsEntityDescriptorEnum.Extension);
+    }
 
-	public Extension createExtension(String value) {
-		return create(ArtifactsEntityDescriptorEnum.Extension, value);
-	}
+    public Extension createExtension(String value) {
+        return create(ArtifactsEntityDescriptorEnum.Extension, value);
+    }
 
-	public Attributes createAttributes() {
-		return create(ArtifactsEntityDescriptorEnum.Attributes);
-	}
+    public Attributes createAttributes() {
+        return create(ArtifactsEntityDescriptorEnum.Attributes);
+    }
 
-	public Attributes createAttributes(Attribute... entities) {
-		return create(ArtifactsEntityDescriptorEnum.Attributes,
-				(IEntity[]) entities);
-	}
+    public Attributes createAttributes(Attribute... entities) {
+        return create(ArtifactsEntityDescriptorEnum.Attributes, (IEntity[]) entities);
+    }
 
-	public Attributes createAttributes(int initialSize) {
-		return clone(ArtifactsEntityDescriptorEnum.Attributes, initialSize);
-	}
+    public Attributes createAttributes(int initialSize) {
+        return clone(ArtifactsEntityDescriptorEnum.Attributes, initialSize);
+    }
 
-	public Attribute createAttribute() {
-		return create(ArtifactsEntityDescriptorEnum.Attribute);
-	}
+    public Attribute createAttribute() {
+        return create(ArtifactsEntityDescriptorEnum.Attribute);
+    }
 
-	public Attribute createAttribute(AttributeEnum.Value value) {
-		return create(ArtifactsEntityDescriptorEnum.Attribute, value);
-	}
+    public Attribute createAttribute(AttributeEnum.Value value) {
+        return create(ArtifactsEntityDescriptorEnum.Attribute, value);
+    }
 
-	public PersistenceKitId createPersistenceKitId() {
-		return create(ArtifactsEntityDescriptorEnum.PersistenceKitId);
-	}
+    public PersistenceKitId createPersistenceKitId() {
+        return create(ArtifactsEntityDescriptorEnum.PersistenceKitId);
+    }
 
-	public PersistenceKitId createPersistenceKitId(String value) {
-		return create(ArtifactsEntityDescriptorEnum.PersistenceKitId, value);
-	}
+    public PersistenceKitId createPersistenceKitId(String value) {
+        return create(ArtifactsEntityDescriptorEnum.PersistenceKitId, value);
+    }
 }

@@ -31,12 +31,11 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.codebase.ClasspathPersistenceProvider;
 import org.whole.lang.codebase.FilePersistenceProvider;
 import org.whole.lang.codebase.StreamPersistenceProvider;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
-import org.whole.lang.models.codebase.ArtifactsModel;
-import org.whole.lang.models.model.Model;
 import org.whole.lang.operations.InterpreterOperation;
 import org.whole.lang.operations.NormalizerOperation;
 import org.whole.lang.queries.model.PathExpression;
@@ -44,6 +43,7 @@ import org.whole.lang.rdb.codebase.OrderedMatcher;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.ReflectionFactory;
 import org.whole.lang.util.BehaviorUtils;
+import org.whole.lang.xml.codebase.XmlBuilderPersistenceKit;
 import org.whole.lang.xsd.codebase.ModelToXmlSchemaQuery;
 import org.whole.lang.xsd.codebase.XsdPersistenceKit;
 import org.whole.lang.xsd.codebase.XsiPersistenceKit;
@@ -151,7 +151,8 @@ public class XsdLanguageTest {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			PathExpression path = new ModelToXmlSchemaQuery().create();
-			Model model = new ArtifactsModel().create();
+			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
 			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
 			IEntity mappedXsd = bm.wGet("schema");
@@ -169,7 +170,8 @@ public class XsdLanguageTest {
 		try {
 			IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 			PathExpression path = new ModelToXmlSchemaQuery().create();
-			Model model = new ArtifactsModel().create();
+			IEntity model = XmlBuilderPersistenceKit.instance().readModel(
+					new ClasspathPersistenceProvider("org/whole/lang/artifacts/ArtifactsModel.xwl"));
 
 			Assert.assertNotNull(BehaviorUtils.evaluateFirstResult(path, model, bm));
 			InterpreterOperation.interpret(bm.wGet("mapping"));

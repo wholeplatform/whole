@@ -2,7 +2,6 @@ package org.whole.lang.models.reflect;
 
 import org.whole.lang.factories.GenericEntityFactory;
 import org.whole.lang.models.codebase.ActionsModel;
-import org.whole.lang.models.codebase.ArtifactsModel;
 import org.whole.lang.models.codebase.BPELModel;
 import org.whole.lang.models.codebase.BPMModel;
 import org.whole.lang.models.codebase.ClassModel;
@@ -95,7 +94,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("DBCFG model", new DBCFGModel());
 
 		put("Actions", new ActionsModel());
-		put("Artifacts model", new ArtifactsModel());
 		put("Math model", new MathModel());
 		put("Models model", new ModelsModel());
 		put("Models Info model", new ModelsInfoModel());
