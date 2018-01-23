@@ -35,16 +35,20 @@ public class IncludeFilterScope extends AbstractFilterScope {
 
 	@Override
 	public Set<String> wLocalNames() {
-		if (isFilterEnabled())
-			return Collections.unmodifiableSet(getFilterNames());
-		else
+		if (isFilterEnabled()) {
+			Set<String> filteredNames = new HashSet<String>(super.wLocalNames());
+			filteredNames.retainAll(getFilterNames());
+			return Collections.unmodifiableSet(filteredNames);
+		} else
 			return super.wLocalNames();
 	}
 	@Override
 	public Set<String> wNames() {
-		if (isFilterEnabled())
-			return new HashSet<String>(getFilterNames());
-		else
+		if (isFilterEnabled()) {
+			Set<String> filteredNames = super.wNames();
+			filteredNames.retainAll(getFilterNames());
+			return filteredNames;
+		} else
 			return super.wNames();
 	}
 
