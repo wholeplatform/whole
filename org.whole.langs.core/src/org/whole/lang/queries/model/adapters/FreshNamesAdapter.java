@@ -17,25 +17,24 @@
  */
 package org.whole.lang.queries.model.adapters;
 
-import org.whole.lang.model.adapters.AbstractEntityAdapter;
+import org.whole.lang.model.adapters.AbstractListEntityAdapter;
 import org.whole.lang.queries.model.*;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
-import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 
 /**
  *  @generator Whole
  */
-public class ScopeAdapter extends AbstractEntityAdapter implements Scope {
+public class FreshNamesAdapter extends AbstractListEntityAdapter<Name> implements FreshNames {
     private static final long serialVersionUID = 1;
 
-    public ScopeAdapter(IEntity implementor) {
+    public FreshNamesAdapter(IEntity implementor) {
         super(implementor);
     }
 
-    public ScopeAdapter() {
+    public FreshNamesAdapter() {
     }
 
     public void accept(IQueriesVisitor visitor) {
@@ -43,23 +42,7 @@ public class ScopeAdapter extends AbstractEntityAdapter implements Scope {
             visitor.visit(this);
     }
 
-    public EntityDescriptor<Scope> wGetEntityDescriptor() {
-        return QueriesEntityDescriptorEnum.Scope;
-    }
-
-    public ScopeFilter getLocalNames() {
-        return wGet(QueriesFeatureDescriptorEnum.localNames).wGetAdapter(QueriesEntityDescriptorEnum.ScopeFilter);
-    }
-
-    public void setLocalNames(ScopeFilter localNames) {
-        wSet(QueriesFeatureDescriptorEnum.localNames, localNames);
-    }
-
-    public Expression getExpression() {
-        return wGet(QueriesFeatureDescriptorEnum.expression).wGetAdapter(QueriesEntityDescriptorEnum.Expression);
-    }
-
-    public void setExpression(Expression expression) {
-        wSet(QueriesFeatureDescriptorEnum.expression, expression);
+    public EntityDescriptor<FreshNames> wGetEntityDescriptor() {
+        return QueriesEntityDescriptorEnum.FreshNames;
     }
 }

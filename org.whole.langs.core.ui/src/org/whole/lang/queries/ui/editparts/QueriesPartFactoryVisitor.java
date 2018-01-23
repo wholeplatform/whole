@@ -83,6 +83,15 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 
 	@Override
+	public void visit(FreshNames entity) {
+		part = new CommaSeparatedCompositeFlowPart();
+	}
+	@Override
+	public void visit(ScopeNames entity) {
+		part = new ScopeNamesPart();
+	}
+
+	@Override
 	public void visit(Name entity) {
 		IEntity parent = entity.wGetParent();
 		if (EntityUtils.hasParent(entity) && Matcher.match(QueriesEntityDescriptorEnum.Bind, parent) && parent.wGet(QueriesFeatureDescriptorEnum.name) == entity)

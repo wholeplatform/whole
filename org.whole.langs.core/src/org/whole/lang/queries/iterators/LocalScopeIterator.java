@@ -20,6 +20,7 @@ package org.whole.lang.queries.iterators;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.whole.lang.bindings.AbstractFilterScope;
 import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
 import org.whole.lang.bindings.IBindingScope;
@@ -96,17 +97,17 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 	}
 
     protected void setArgumentsBindings(IBindingManager bindings) {
-		if (!localNames.isEmpty())
-			lookaheadScope = BindingManagerFactory.instance.createExcludeFilterScope(localNames);
+		lookaheadScope = createScopeFilter(localNames);
 
 		queryBindings = BindingManagerFactory.instance.createBindingManager(
-				localNames.isEmpty() ? bindings :
-				BindingManagerFactory.instance.createExcludeFilterScope(localNames).wWithEnclosingScope(bindings),
-					bindings.wGetEnvironmentManager());
+				createScopeFilter(localNames).wWithEnclosingScope(bindings), bindings.wGetEnvironmentManager());
 		queryBindings.wEnterScope();
 		queryBindings.withSourceEntity(getSourceEntity());
 
 		scopeIterator.setBindings(queryBindings);
+	}
+	protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
+		return BindingManagerFactory.instance.createExcludeFilterScope(localNames);
 	}
 
 	private INestableScope lookaheadScope;
@@ -125,14 +126,12 @@ public class LocalScopeIterator<E extends IEntity> extends AbstractCloneableIter
 	public void toString(StringBuilder sb) {
 		sb.append("(");
     	
-    	if (!localNames.isEmpty()) {
-	    	Iterator<String> nameIterator = localNames.iterator();
-	    	sb.append(nameIterator.next());
-	    	while (nameIterator.hasNext()) {
-				sb.append(",");
-				sb.append(nameIterator.next());
-			}
-    	}
+    	Iterator<String> nameIterator = localNames.iterator();
+    	sb.append(nameIterator.next());
+    	while (nameIterator.hasNext()) {
+			sb.append(",");
+			sb.append(nameIterator.next());
+		}
 
 		sb.append("|");
 		

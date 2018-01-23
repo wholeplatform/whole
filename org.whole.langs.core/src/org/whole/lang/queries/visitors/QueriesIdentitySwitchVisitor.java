@@ -299,6 +299,12 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.Names_ord :
             visit((Names) entity);
             break;
+            case QueriesEntityDescriptorEnum.FreshNames_ord :
+            visit((FreshNames) entity);
+            break;
+            case QueriesEntityDescriptorEnum.ScopeNames_ord :
+            visit((ScopeNames) entity);
+            break;
             case QueriesEntityDescriptorEnum.Name_ord :
             visit((Name) entity);
             break;

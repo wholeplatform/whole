@@ -398,6 +398,14 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(FreshNames entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(ScopeNames entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Name entity) {
         wGetStrategy().visit(entity);
     }

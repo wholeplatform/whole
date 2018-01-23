@@ -120,6 +120,8 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new AddNamesImpl());
         put(new RemoveNamesImpl());
         put(new NamesImpl());
+        put(new FreshNamesImpl());
+        put(new ScopeNamesImpl());
         put(new NameImpl());
         put(new AdditionStepImpl());
         put(new SubtractionStepImpl());

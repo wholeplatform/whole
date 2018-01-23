@@ -22,6 +22,6 @@ import java.util.List;
 /**
  *  @generator Whole
  */
-public interface Names extends IQueriesEntity, List<Name>, NamesExpression {
+public interface Names extends IQueriesEntity, List<Name>, NamesExpression, ScopeFilter {
 
 }

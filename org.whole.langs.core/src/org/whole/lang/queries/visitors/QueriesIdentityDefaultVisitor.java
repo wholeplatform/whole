@@ -535,6 +535,20 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
     public void visit(Names entity) {
         visit((IQueriesEntity) entity);
         visit((NamesExpression) entity);
+        visit((ScopeFilter) entity);
+    }
+
+    public void visit(ScopeFilter entity) {
+    }
+
+    public void visit(FreshNames entity) {
+        visit((IQueriesEntity) entity);
+        visit((ScopeFilter) entity);
+    }
+
+    public void visit(ScopeNames entity) {
+        visit((IQueriesEntity) entity);
+        visit((ScopeFilter) entity);
     }
 
     public void visit(Name entity) {

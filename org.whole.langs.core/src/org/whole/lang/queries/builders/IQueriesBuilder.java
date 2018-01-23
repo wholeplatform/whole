@@ -608,6 +608,22 @@ public interface IQueriesBuilder extends IBuilder {
 
     public void _Names();
 
+    public void FreshNames();
+
+    public void FreshNames_();
+
+    public void FreshNames_(int initialCapacity);
+
+    public void _FreshNames();
+
+    public void ScopeNames();
+
+    public void ScopeNames_();
+
+    public void ScopeNames_(int initialCapacity);
+
+    public void _ScopeNames();
+
     public void Name();
 
     public void Name(String value);

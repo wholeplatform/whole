@@ -157,8 +157,9 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 		entity.getExpression().accept(this);
 
-		setResultIterator(
-				QueriesIteratorFactory.scopeIterator(getResultIterator(), null, localNames).withSourceEntity(entity));
+		boolean withFreshNames = !(entity.getLocalNames() instanceof ScopeNames);
+		if (!withFreshNames || !localNames.isEmpty())
+			setResultIterator(QueriesIteratorFactory.scopeIterator(getResultIterator(), null, localNames, withFreshNames).withSourceEntity(entity));
 	}
 
 	@Override
@@ -735,6 +736,19 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 
 	@Override
 	public void visit(Names entity) {
+		namesExp = new HashSet<String>();
+		for (int i = 0; i < entity.size(); i++)
+			namesExp.add(stringValue(entity.get(i)));
+	}
+
+	@Override
+	public void visit(FreshNames entity) {
+		namesExp = new HashSet<String>();
+		for (int i = 0; i < entity.size(); i++)
+			namesExp.add(stringValue(entity.get(i)));
+	}
+	@Override
+	public void visit(ScopeNames entity) {
 		namesExp = new HashSet<String>();
 		for (int i = 0; i < entity.size(); i++)
 			namesExp.add(stringValue(entity.get(i)));

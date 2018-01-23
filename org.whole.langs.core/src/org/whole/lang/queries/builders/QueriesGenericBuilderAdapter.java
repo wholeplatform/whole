@@ -335,6 +335,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder.Names();
             break;
+            case QueriesEntityDescriptorEnum.FreshNames_ord :
+            specificBuilder.FreshNames();
+            break;
+            case QueriesEntityDescriptorEnum.ScopeNames_ord :
+            specificBuilder.ScopeNames();
+            break;
             case QueriesEntityDescriptorEnum.AdditionStep_ord :
             specificBuilder.AdditionStep();
             break;
@@ -636,6 +642,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder.Names_();
+            break;
+            case QueriesEntityDescriptorEnum.FreshNames_ord :
+            specificBuilder.FreshNames_();
+            break;
+            case QueriesEntityDescriptorEnum.ScopeNames_ord :
+            specificBuilder.ScopeNames_();
             break;
             case QueriesEntityDescriptorEnum.AdditionStep_ord :
             specificBuilder.AdditionStep_();
@@ -939,6 +951,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder._Names();
             break;
+            case QueriesEntityDescriptorEnum.FreshNames_ord :
+            specificBuilder._FreshNames();
+            break;
+            case QueriesEntityDescriptorEnum.ScopeNames_ord :
+            specificBuilder._ScopeNames();
+            break;
             case QueriesEntityDescriptorEnum.AdditionStep_ord :
             specificBuilder._AdditionStep();
             break;
@@ -1069,6 +1087,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case QueriesEntityDescriptorEnum.Names_ord :
             specificBuilder.Names_(initialCapacity);
+            break;
+            case QueriesEntityDescriptorEnum.FreshNames_ord :
+            specificBuilder.FreshNames_(initialCapacity);
+            break;
+            case QueriesEntityDescriptorEnum.ScopeNames_ord :
+            specificBuilder.ScopeNames_(initialCapacity);
             break;
             case QueriesEntityDescriptorEnum.Tuple_ord :
             specificBuilder.Tuple_(initialCapacity);

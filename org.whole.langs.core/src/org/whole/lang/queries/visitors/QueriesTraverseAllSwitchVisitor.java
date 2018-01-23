@@ -239,6 +239,16 @@ public class QueriesTraverseAllSwitchVisitor extends QueriesIdentityUnaryVisitor
             wGetVisitor1().visit(entity.get(i));
     }
 
+    public void visit(FreshNames entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
+    public void visit(ScopeNames entity) {
+        for (int i = 0; i < entity.size(); i++)
+            wGetVisitor1().visit(entity.get(i));
+    }
+
     public void visit(AdditionStep entity) {
         wGetVisitor1().visit(entity.getExpression());
     }

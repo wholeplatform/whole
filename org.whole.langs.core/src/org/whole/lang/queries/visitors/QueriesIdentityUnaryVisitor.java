@@ -309,6 +309,12 @@ public class QueriesIdentityUnaryVisitor<V extends IVisitor>  extends AbstractUn
     public void visit(Names entity) {
     }
 
+    public void visit(FreshNames entity) {
+    }
+
+    public void visit(ScopeNames entity) {
+    }
+
     public void visit(Name entity) {
     }
 

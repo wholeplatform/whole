@@ -390,6 +390,14 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(FreshNames entity) {
+        throw new VisitException();
+    }
+
+    public void visit(ScopeNames entity) {
+        throw new VisitException();
+    }
+
     public void visit(Name entity) {
         throw new VisitException();
     }

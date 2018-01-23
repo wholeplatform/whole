@@ -300,6 +300,12 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(Names entity) {
     }
 
+    public void visit(FreshNames entity) {
+    }
+
+    public void visit(ScopeNames entity) {
+    }
+
     public void visit(Name entity) {
     }
 

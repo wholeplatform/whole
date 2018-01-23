@@ -133,7 +133,10 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new AllNamesAdapter());
         put(new AddNamesAdapter());
         put(new RemoveNamesAdapter());
+        put(new ScopeFilterAdapter());
         put(new NamesAdapter());
+        put(new FreshNamesAdapter());
+        put(new ScopeNamesAdapter());
         put(new NameAdapter());
         put(new MathStepAdapter());
         put(new AdditionStepAdapter());

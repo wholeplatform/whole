@@ -1196,6 +1196,38 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
         _wEntity(QueriesEntityDescriptorEnum.Names);
     }
 
+    public void FreshNames() {
+        wEntity(QueriesEntityDescriptorEnum.FreshNames);
+    }
+
+    public void FreshNames_() {
+        wEntity_(QueriesEntityDescriptorEnum.FreshNames);
+    }
+
+    public void FreshNames_(int initialCapacity) {
+        wEntity_(QueriesEntityDescriptorEnum.FreshNames, initialCapacity);
+    }
+
+    public void _FreshNames() {
+        _wEntity(QueriesEntityDescriptorEnum.FreshNames);
+    }
+
+    public void ScopeNames() {
+        wEntity(QueriesEntityDescriptorEnum.ScopeNames);
+    }
+
+    public void ScopeNames_() {
+        wEntity_(QueriesEntityDescriptorEnum.ScopeNames);
+    }
+
+    public void ScopeNames_(int initialCapacity) {
+        wEntity_(QueriesEntityDescriptorEnum.ScopeNames, initialCapacity);
+    }
+
+    public void _ScopeNames() {
+        _wEntity(QueriesEntityDescriptorEnum.ScopeNames);
+    }
+
     public void Name() {
         wEntity(QueriesEntityDescriptorEnum.Name);
     }

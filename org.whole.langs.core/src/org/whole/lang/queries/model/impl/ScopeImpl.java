@@ -23,7 +23,7 @@ import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.visitors.IQueriesVisitor;
 import org.whole.lang.exceptions.IWholeRuntimeException;
-import org.whole.lang.queries.model.Names;
+import org.whole.lang.queries.model.ScopeFilter;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.Expression;
@@ -49,13 +49,13 @@ public class ScopeImpl extends AbstractSimpleEntity implements Scope {
             throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
         }
     }
-    private Names localNames;
+    private ScopeFilter localNames;
 
-    public Names getLocalNames() {
+    public ScopeFilter getLocalNames() {
         return notifyRequested(QueriesFeatureDescriptorEnum.localNames, localNames);
     }
 
-    public void setLocalNames(Names localNames) {
+    public void setLocalNames(ScopeFilter localNames) {
         notifyChanged(QueriesFeatureDescriptorEnum.localNames, this.localNames, this.localNames = localNames);
     }
     private Expression expression;
@@ -82,7 +82,7 @@ public class ScopeImpl extends AbstractSimpleEntity implements Scope {
     public void wSet(int index, IEntity value) {
         switch (index) {
             case 0 :
-            setLocalNames(value.wGetAdapter(QueriesEntityDescriptorEnum.Names));
+            setLocalNames(value.wGetAdapter(QueriesEntityDescriptorEnum.ScopeFilter));
             break;
             case 1 :
             setExpression(value.wGetAdapter(QueriesEntityDescriptorEnum.Expression));

@@ -17,18 +17,11 @@
  */
 package org.whole.lang.queries.model;
 
+import java.util.List;
 
 /**
  *  @generator Whole
  */
-public interface Scope extends IQueriesEntity, StepExpression {
+public interface ScopeNames extends IQueriesEntity, List<Name>, ScopeFilter {
 
-
-    public ScopeFilter getLocalNames();
-
-    public void setLocalNames(ScopeFilter localNames);
-
-    public Expression getExpression();
-
-    public void setExpression(Expression expression);
 }

@@ -276,7 +276,7 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.Scope);
     }
 
-    public Scope createScope(Names localNames, Expression expression) {
+    public Scope createScope(ScopeFilter localNames, Expression expression) {
         return create(QueriesEntityDescriptorEnum.Scope, localNames, expression);
     }
 
@@ -778,6 +778,30 @@ public class QueriesEntityFactory extends GenericEntityFactory {
 
     public Names createNames(int initialSize) {
         return clone(QueriesEntityDescriptorEnum.Names, initialSize);
+    }
+
+    public FreshNames createFreshNames() {
+        return create(QueriesEntityDescriptorEnum.FreshNames);
+    }
+
+    public FreshNames createFreshNames(Name... entities) {
+        return create(QueriesEntityDescriptorEnum.FreshNames, (IEntity[]) entities);
+    }
+
+    public FreshNames createFreshNames(int initialSize) {
+        return clone(QueriesEntityDescriptorEnum.FreshNames, initialSize);
+    }
+
+    public ScopeNames createScopeNames() {
+        return create(QueriesEntityDescriptorEnum.ScopeNames);
+    }
+
+    public ScopeNames createScopeNames(Name... entities) {
+        return create(QueriesEntityDescriptorEnum.ScopeNames, (IEntity[]) entities);
+    }
+
+    public ScopeNames createScopeNames(int initialSize) {
+        return clone(QueriesEntityDescriptorEnum.ScopeNames, initialSize);
     }
 
     public Name createName() {

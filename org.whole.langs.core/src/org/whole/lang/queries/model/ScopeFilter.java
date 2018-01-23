@@ -21,14 +21,6 @@ package org.whole.lang.queries.model;
 /**
  *  @generator Whole
  */
-public interface Scope extends IQueriesEntity, StepExpression {
+public interface ScopeFilter extends IQueriesEntity {
 
-
-    public ScopeFilter getLocalNames();
-
-    public void setLocalNames(ScopeFilter localNames);
-
-    public Expression getExpression();
-
-    public void setExpression(Expression expression);
 }

@@ -19,6 +19,8 @@ package org.whole.lang.queries.iterators;
 
 import java.util.Set;
 
+import org.whole.lang.bindings.AbstractFilterScope;
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.model.IEntity;
@@ -50,8 +52,14 @@ public class QueriesIteratorFactory extends IteratorFactory {
 	public static <E extends IEntity> IEntityIterator<E> callIterator(String name, IEntityIterator<? extends E>... argsIterators) {
     	return new CallIterator<E>(name, argsIterators);
     }
-	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames) {
-    	return new LocalScopeIterator<E>(scopeIterator, localNames);
+	public static <E extends IEntity> IEntityIterator<E> scopeIterator(IEntityIterator<E> scopeIterator, String environmentName, Set<String> localNames, boolean withFreshNames) {
+    	return withFreshNames ? new LocalScopeIterator<E>(scopeIterator, localNames) :
+    		new LocalScopeIterator<E>(scopeIterator, localNames) {
+    			@Override
+    			protected AbstractFilterScope createScopeFilter(Set<String> localNames) {
+    				return BindingManagerFactory.instance.createIncludeFilterScope(localNames);
+    			}
+    		};
     }
 
 	public static <E extends IEntity> IEntityIterator<E> deleteIterator(IEntityIterator<E> valuesIterator) {

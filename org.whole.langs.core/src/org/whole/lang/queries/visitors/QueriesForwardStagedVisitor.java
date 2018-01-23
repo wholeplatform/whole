@@ -384,6 +384,14 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(FreshNames entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(ScopeNames entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Name entity) {
         stagedVisit(entity);
     }

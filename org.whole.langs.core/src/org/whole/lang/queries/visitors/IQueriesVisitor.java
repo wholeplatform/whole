@@ -206,6 +206,10 @@ public interface IQueriesVisitor extends IVisitor {
 
     public void visit(Names entity);
 
+    public void visit(FreshNames entity);
+
+    public void visit(ScopeNames entity);
+
     public void visit(Name entity);
 
     public void visit(AdditionStep entity);

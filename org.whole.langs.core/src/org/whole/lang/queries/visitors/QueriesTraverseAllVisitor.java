@@ -244,6 +244,16 @@ public class QueriesTraverseAllVisitor extends QueriesIdentityUnaryVisitor<IQuer
             entity.get(i).accept(wGetVisitor1());
     }
 
+    public void visit(FreshNames entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
+    public void visit(ScopeNames entity) {
+        for (int i = 0; i < entity.size(); i++)
+            entity.get(i).accept(wGetVisitor1());
+    }
+
     public void visit(AdditionStep entity) {
         entity.getExpression().accept(wGetVisitor1());
     }
