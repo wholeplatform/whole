@@ -17,12 +17,15 @@
  */
 package org.whole.lang.queries.ui.editparts;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.queries.model.Scope;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.ui.figures.ScopeFigure;
 import org.whole.lang.ui.editparts.AbstractContentPanePart;
 
@@ -33,6 +36,10 @@ public class ScopePart extends AbstractContentPanePart {
 	protected IFigure createFigure() {
 		return new ScopeFigure();
 	}
+	@Override
+	public ScopeFigure getFigure() {
+		return (ScopeFigure) super.getFigure();
+	}
 
 	protected List<IEntity> getModelSpecificChildren() {
 		Scope entity = getModelEntity();
@@ -42,4 +49,16 @@ public class ScopePart extends AbstractContentPanePart {
 		return list;
 	}
 
+	@Override
+	protected void propertyChangeUI(PropertyChangeEvent evt) {
+		refreshVisuals();
+		super.propertyChangeUI(evt);
+	}
+
+	@Override
+	protected void refreshVisuals() {
+		Scope entity = getModelEntity();
+		boolean dashedBorder = Matcher.matchImpl(QueriesEntityDescriptorEnum.ScopeNames, entity.getLocalNames());
+		getFigure().showDashedBorder(dashedBorder);
+	}
 }

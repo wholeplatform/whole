@@ -26,6 +26,8 @@ import org.whole.lang.ui.layout.ColumnLayout;
  * @author Riccardo Solmi
  */
 public class ScopeFigure extends ContentPaneFigure {
+	private boolean dashedBorder;
+
 	public ScopeFigure() {
 		super(new ColumnLayout() {
 			@Override
@@ -37,7 +39,11 @@ public class ScopeFigure extends ContentPaneFigure {
 
 		add(createContentPane(0));
 		add(createContentPane(1, new MarginBorder(4,0,4,0)));
-		
-		setBorder(new ScopeBracketsBorder(2,1,2,1));
+
+	}
+
+	public void showDashedBorder(boolean value) {
+		dashedBorder = value;
+		setBorder(dashedBorder ? new DashedScopeBracketsBorder(2,1,2,1) : new ScopeBracketsBorder(2,1,2,1));
 	}
 }

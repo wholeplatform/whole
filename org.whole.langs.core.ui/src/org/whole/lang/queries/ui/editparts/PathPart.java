@@ -25,41 +25,49 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.whole.lang.ui.editparts.CompositeRowWithPlaceholderPart;
 import org.whole.lang.ui.figures.FigureConstants;
 import org.whole.lang.ui.figures.IEntityFigure;
 import org.whole.lang.ui.figures.StringSeparatedCompositeRowFigure;
+import org.whole.lang.ui.layout.RowLayout;
 
 /**
  * @author Riccardo Solmi
  */
 public class PathPart extends CompositeRowWithPlaceholderPart {
     protected IFigure createFigure() {
-        IFigure f = new StringSeparatedCompositeRowFigure("/", 8) {
+        IFigure f = new StringSeparatedCompositeRowFigure("/", new RowLayout().withMarginLeft(8).withMarginRight(5).withSpacing(8)) {
         	@Override
         	public Color getLocalForegroundColor() {
-        		return FigureConstants.contentColor;
+        		return ColorConstants.gray;
+        	}
+        	@Override
+        	protected Font getLocalFont() {
+        		return FigureConstants.symbolFontLarge;
         	}
         	
         	@SuppressWarnings("unchecked")
-        	protected void paintFigure(Graphics g) {
-//        		super.paintFigure(g);
+        	protected void paintDecorations(Graphics g) {
 
 //workaround for LabelFactory.createModule
-        		g.setForegroundColor(ColorConstants.gray);
         		g.setFont(FigureConstants.symbolFontLarge);
 
         		int spacing = Math.max(1, getLayoutManager().getSpacing() / 5);
                 int separatorAscent = FigureUtilities.getFontMetrics(g.getFont()).getHeight()/2;//getSeparatorAscent();
 
-//                if (getLocalFont() != null)
-//                	g.setFont(getLocalFont());
-
                 List<IEntityFigure> children = (List<IEntityFigure>) getChildren();
-                for (int i=0; i<children.size()-1; i++) {
-                	IEntityFigure childFigure = children.get(i);
-                	Rectangle childBounds = childFigure.getBounds();
-                	g.drawString(separator, childBounds.right() + spacing, childBounds.y + childFigure.getAscent() - separatorAscent);
+                if (!children.isEmpty()) {
+	                for (int i=0; i<children.size()-1; i++) {
+	                	IEntityFigure childFigure = children.get(i);
+	                	Rectangle childBounds = childFigure.getBounds();
+	                	g.drawString(separator, childBounds.right() + spacing, childBounds.y + childFigure.getAscent() - separatorAscent);
+	                }
+	
+                	IEntityFigure childFigure = children.get(0);
+                	Rectangle childBounds = childFigure.getBounds();	                
+	        		g.setForegroundColor(ColorConstants.lightGray);
+	            	g.drawString(separator, childBounds.x-getLayoutManager().getMarginLeft()+1, childBounds.y + childFigure.getAscent() - separatorAscent);
                 }
         	}
         };
