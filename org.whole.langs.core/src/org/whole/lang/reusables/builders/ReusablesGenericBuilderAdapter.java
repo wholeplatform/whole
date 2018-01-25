@@ -121,12 +121,6 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder.Registry();
             break;
-            case ReusablesEntityDescriptorEnum.Load_ord :
-            specificBuilder.Load();
-            break;
-            case ReusablesEntityDescriptorEnum.Save_ord :
-            specificBuilder.Save();
-            break;
             case ReusablesEntityDescriptorEnum.Contents_ord :
             specificBuilder.Contents();
             break;
@@ -135,6 +129,12 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case ReusablesEntityDescriptorEnum.File_ord :
             specificBuilder.File();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder.Load();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder.Save();
             break;
             case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
             specificBuilder.PathWithExtension();
@@ -180,12 +180,6 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder.Registry_();
             break;
-            case ReusablesEntityDescriptorEnum.Load_ord :
-            specificBuilder.Load_();
-            break;
-            case ReusablesEntityDescriptorEnum.Save_ord :
-            specificBuilder.Save_();
-            break;
             case ReusablesEntityDescriptorEnum.Contents_ord :
             specificBuilder.Contents_();
             break;
@@ -194,6 +188,12 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case ReusablesEntityDescriptorEnum.File_ord :
             specificBuilder.File_();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder.Load_();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder.Save_();
             break;
             case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
             specificBuilder.PathWithExtension_();
@@ -239,12 +239,6 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             case ReusablesEntityDescriptorEnum.Registry_ord :
             specificBuilder._Registry();
             break;
-            case ReusablesEntityDescriptorEnum.Load_ord :
-            specificBuilder._Load();
-            break;
-            case ReusablesEntityDescriptorEnum.Save_ord :
-            specificBuilder._Save();
-            break;
             case ReusablesEntityDescriptorEnum.Contents_ord :
             specificBuilder._Contents();
             break;
@@ -253,6 +247,12 @@ public class ReusablesGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case ReusablesEntityDescriptorEnum.File_ord :
             specificBuilder._File();
+            break;
+            case ReusablesEntityDescriptorEnum.Load_ord :
+            specificBuilder._Load();
+            break;
+            case ReusablesEntityDescriptorEnum.Save_ord :
+            specificBuilder._Save();
             break;
             case ReusablesEntityDescriptorEnum.PathWithExtension_ord :
             specificBuilder._PathWithExtension();

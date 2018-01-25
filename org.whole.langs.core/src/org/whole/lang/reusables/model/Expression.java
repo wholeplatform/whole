@@ -21,6 +21,6 @@ package org.whole.lang.reusables.model;
 /**
  *  @generator Whole
  */
-public interface Expression extends IReusablesEntity {
+public interface Expression extends IReusablesEntity, Content {
 
 }

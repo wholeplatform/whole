@@ -63,12 +63,6 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     public void visit(Registry entity) {
     }
 
-    public void visit(Load entity) {
-    }
-
-    public void visit(Save entity) {
-    }
-
     public void visit(Contents entity) {
     }
 
@@ -76,6 +70,12 @@ public class ReusablesIdentityVisitor extends AbstractVisitor implements IReusab
     }
 
     public void visit(File entity) {
+    }
+
+    public void visit(Load entity) {
+    }
+
+    public void visit(Save entity) {
     }
 
     public void visit(PathName entity) {

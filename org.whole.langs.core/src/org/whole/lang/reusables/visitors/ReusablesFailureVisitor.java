@@ -74,14 +74,6 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
         throw new VisitException();
     }
 
-    public void visit(Load entity) {
-        throw new VisitException();
-    }
-
-    public void visit(Save entity) {
-        throw new VisitException();
-    }
-
     public void visit(Contents entity) {
         throw new VisitException();
     }
@@ -91,6 +83,14 @@ public class ReusablesFailureVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(File entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Load entity) {
+        throw new VisitException();
+    }
+
+    public void visit(Save entity) {
         throw new VisitException();
     }
 

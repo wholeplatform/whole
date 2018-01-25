@@ -87,23 +87,6 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Resource) entity);
     }
 
-    public void visit(Expression entity) {
-    }
-
-    public void visit(StepExpression entity) {
-        visit((Expression) entity);
-    }
-
-    public void visit(Load entity) {
-        visit((IReusablesEntity) entity);
-        visit((StepExpression) entity);
-    }
-
-    public void visit(Save entity) {
-        visit((IReusablesEntity) entity);
-        visit((StepExpression) entity);
-    }
-
     public void visit(Content entity) {
     }
 
@@ -122,8 +105,25 @@ public class ReusablesIdentityDefaultVisitor extends ReusablesIdentityVisitor {
         visit((Content) entity);
     }
 
-    public void visit(Path entity) {
+    public void visit(Expression entity) {
         visit((Content) entity);
+    }
+
+    public void visit(StepExpression entity) {
+        visit((Expression) entity);
+    }
+
+    public void visit(Load entity) {
+        visit((IReusablesEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(Save entity) {
+        visit((IReusablesEntity) entity);
+        visit((StepExpression) entity);
+    }
+
+    public void visit(Path entity) {
         visit((Expression) entity);
     }
 

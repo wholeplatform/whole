@@ -121,18 +121,6 @@ public interface IReusablesBuilder extends IBuilder {
 
     public void _Registry();
 
-    public void Load();
-
-    public void Load_();
-
-    public void _Load();
-
-    public void Save();
-
-    public void Save_();
-
-    public void _Save();
-
     public void Contents();
 
     public void Contents_();
@@ -152,6 +140,18 @@ public interface IReusablesBuilder extends IBuilder {
     public void File_();
 
     public void _File();
+
+    public void Load();
+
+    public void Load_();
+
+    public void _Load();
+
+    public void Save();
+
+    public void Save_();
+
+    public void _Save();
 
     public void PathName();
 

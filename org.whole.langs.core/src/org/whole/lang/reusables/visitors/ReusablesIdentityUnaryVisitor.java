@@ -72,12 +72,6 @@ public class ReusablesIdentityUnaryVisitor<V extends IVisitor>  extends Abstract
     public void visit(Registry entity) {
     }
 
-    public void visit(Load entity) {
-    }
-
-    public void visit(Save entity) {
-    }
-
     public void visit(Contents entity) {
     }
 
@@ -85,6 +79,12 @@ public class ReusablesIdentityUnaryVisitor<V extends IVisitor>  extends Abstract
     }
 
     public void visit(File entity) {
+    }
+
+    public void visit(Load entity) {
+    }
+
+    public void visit(Save entity) {
     }
 
     public void visit(PathName entity) {

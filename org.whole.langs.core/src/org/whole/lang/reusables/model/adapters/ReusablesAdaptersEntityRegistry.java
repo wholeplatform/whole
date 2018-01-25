@@ -43,14 +43,14 @@ public class ReusablesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new URLAdapter());
         put(new ModelAdapter());
         put(new RegistryAdapter());
-        put(new ExpressionAdapter());
-        put(new StepExpressionAdapter());
-        put(new LoadAdapter());
-        put(new SaveAdapter());
         put(new ContentAdapter());
         put(new ContentsAdapter());
         put(new FolderAdapter());
         put(new FileAdapter());
+        put(new ExpressionAdapter());
+        put(new StepExpressionAdapter());
+        put(new LoadAdapter());
+        put(new SaveAdapter());
         put(new PathAdapter());
         put(new PathNameAdapter());
         put(new PathWithExtensionAdapter());

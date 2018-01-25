@@ -168,22 +168,6 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<Registry>(create(ReusablesEntityDescriptorEnum.Registry));
     }
 
-    public Load createLoad() {
-        return create(ReusablesEntityDescriptorEnum.Load);
-    }
-
-    public Load createLoad(Resource resource) {
-        return create(ReusablesEntityDescriptorEnum.Load, resource);
-    }
-
-    public Save createSave() {
-        return create(ReusablesEntityDescriptorEnum.Save);
-    }
-
-    public Save createSave(Resource resource) {
-        return create(ReusablesEntityDescriptorEnum.Save, resource);
-    }
-
     public Contents createContents() {
         return create(ReusablesEntityDescriptorEnum.Contents);
     }
@@ -218,6 +202,22 @@ public class ReusablesEntityFactory extends GenericEntityFactory {
 
     public IEntityBuilder<File> buildFile() {
         return new EntityBuilder<File>(create(ReusablesEntityDescriptorEnum.File));
+    }
+
+    public Load createLoad() {
+        return create(ReusablesEntityDescriptorEnum.Load);
+    }
+
+    public Load createLoad(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Load, resource);
+    }
+
+    public Save createSave() {
+        return create(ReusablesEntityDescriptorEnum.Save);
+    }
+
+    public Save createSave(Resource resource) {
+        return create(ReusablesEntityDescriptorEnum.Save, resource);
     }
 
     public PathName createPathName() {

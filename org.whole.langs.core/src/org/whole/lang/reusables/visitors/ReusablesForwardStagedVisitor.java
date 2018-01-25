@@ -68,14 +68,6 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
         stagedVisit(entity);
     }
 
-    public void visit(Load entity) {
-        stagedVisit(entity);
-    }
-
-    public void visit(Save entity) {
-        stagedVisit(entity);
-    }
-
     public void visit(Contents entity) {
         stagedVisit(entity);
     }
@@ -85,6 +77,14 @@ public class ReusablesForwardStagedVisitor extends ReusablesIdentityVisitor {
     }
 
     public void visit(File entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Load entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(Save entity) {
         stagedVisit(entity);
     }
 

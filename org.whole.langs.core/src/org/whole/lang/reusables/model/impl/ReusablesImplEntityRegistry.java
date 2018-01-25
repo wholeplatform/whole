@@ -41,11 +41,11 @@ public class ReusablesImplEntityRegistry extends AbstractEntityRegistry {
         put(new URLImpl());
         put(new ModelImpl());
         put(new RegistryImpl());
-        put(new LoadImpl());
-        put(new SaveImpl());
         put(new ContentsImpl());
         put(new FolderImpl());
         put(new FileImpl());
+        put(new LoadImpl());
+        put(new SaveImpl());
         put(new PathNameImpl());
         put(new PathWithExtensionImpl());
         put(new PathSegmentsImpl());

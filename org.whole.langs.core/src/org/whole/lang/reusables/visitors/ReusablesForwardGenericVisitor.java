@@ -79,14 +79,6 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
         wGetVisitor1().visit(entity);
     }
 
-    public void visit(Load entity) {
-        wGetVisitor1().visit(entity);
-    }
-
-    public void visit(Save entity) {
-        wGetVisitor1().visit(entity);
-    }
-
     public void visit(Contents entity) {
         wGetVisitor1().visit(entity);
     }
@@ -96,6 +88,14 @@ public class ReusablesForwardGenericVisitor extends AbstractUnaryVisitor<IVisito
     }
 
     public void visit(File entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Load entity) {
+        wGetVisitor1().visit(entity);
+    }
+
+    public void visit(Save entity) {
         wGetVisitor1().visit(entity);
     }
 

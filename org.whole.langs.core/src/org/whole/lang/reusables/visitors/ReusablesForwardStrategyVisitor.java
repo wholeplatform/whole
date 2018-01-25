@@ -82,14 +82,6 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
         wGetStrategy().visit(entity);
     }
 
-    public void visit(Load entity) {
-        wGetStrategy().visit(entity);
-    }
-
-    public void visit(Save entity) {
-        wGetStrategy().visit(entity);
-    }
-
     public void visit(Contents entity) {
         wGetStrategy().visit(entity);
     }
@@ -99,6 +91,14 @@ public class ReusablesForwardStrategyVisitor extends GenericForwardStrategyVisit
     }
 
     public void visit(File entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Load entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(Save entity) {
         wGetStrategy().visit(entity);
     }
 

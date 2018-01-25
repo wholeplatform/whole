@@ -92,16 +92,6 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
         wGetVisitor2().visit(entity);
     }
 
-    public void visit(Load entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
-    public void visit(Save entity) {
-        wGetVisitor1().visit(entity);
-        wGetVisitor2().visit(entity);
-    }
-
     public void visit(Contents entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
@@ -113,6 +103,16 @@ public class ReusablesSequenceVisitor extends AbstractBinaryVisitor<IReusablesVi
     }
 
     public void visit(File entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Load entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
+    public void visit(Save entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);
     }
