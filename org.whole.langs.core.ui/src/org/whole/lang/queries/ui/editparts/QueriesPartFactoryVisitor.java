@@ -88,7 +88,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	}
 	@Override
 	public void visit(ScopeNames entity) {
-		part = new ScopeNamesPart();
+		part = new CommaSeparatedCompositeFlowPart();
 	}
 
 	@Override
@@ -170,6 +170,7 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 		if (EntityUtils.hasParent(entity)) {
 			IEntity parent = entity.wGetParent();
 			if (Matcher.match(QueriesEntityDescriptorEnum.Choose, parent)) {
+//FIXME				part = new IfTreeRowPart();
 				part = new IfRowPart();
 				return;
 			}
@@ -206,6 +207,12 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 			if (Matcher.matchAny(parent,
 					QueriesEntityDescriptorEnum.If,
 					QueriesEntityDescriptorEnum.For)) {
+//FIXME
+//				part = new AbstractCompositePart() {
+//				    protected IFigure createFigure() {
+//				        return new ChooseDecisionTreeFigure().withPipeBrackets();
+//				    }
+//				};
 				part = new AndChooseTablePart();
 				return;
 			} else if (Matcher.matchAny(parent,
@@ -213,13 +220,19 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 					PatternsEntityDescriptorEnum.VariableDeclaration)) {
 				part = new AbstractCompositePart() {
 				    protected IFigure createFigure() {
-				        return new ChooseTableFigure(false);
+//FIXME				        return new ChooseDecisionTreeFigure();
+						return new ChooseTableFigure(false);
 				    }
 				};
 				return;
 			}
 		}
 		part = new ChooseTablePart();
+//		part = new AbstractCompositePart() {
+//		    protected IFigure createFigure() {
+//		        return new ChooseDecisionTreeFigure().withCurlyBrackets();
+//		    }
+//		};
 	}
 
 	@Override
