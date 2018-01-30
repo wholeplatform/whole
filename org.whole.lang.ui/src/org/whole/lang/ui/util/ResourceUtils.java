@@ -42,6 +42,7 @@ public class ResourceUtils {
 		IProject project = file.getProject();
 		bm.wDefValue("project", project);
 		bm.wDefValue("projectName", project.getName());
+		bm.wDefValue("projectLocation", project.getLocation().toString());
 		bm.wDefValue("file", file);
 		String name = file.getName();
 		bm.wDefValue("fileNameWithExtension", name);
