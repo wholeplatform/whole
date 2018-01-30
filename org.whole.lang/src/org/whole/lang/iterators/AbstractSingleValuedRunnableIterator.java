@@ -19,7 +19,9 @@ package org.whole.lang.iterators;
 
 import java.util.NoSuchElementException;
 
+import org.whole.lang.bindings.BindingManagerFactory;
 import org.whole.lang.bindings.IBindingManager;
+import org.whole.lang.bindings.IBindingScope;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.util.EntityUtils;
 
@@ -27,6 +29,7 @@ import org.whole.lang.util.EntityUtils;
  * @author Riccardo Solmi
  */
 public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> extends AbstractRunnableIterator<E> {
+	private IBindingScope lookaheadScope;
 	protected boolean isExecuted;
 	protected E result;
     protected E lastEntity;
@@ -38,10 +41,25 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
 		super(optionalArgsIndexes, argsIterators);
 	}
 
+	public IBindingScope lookaheadScope() {
+		if (lookaheadScope == null)
+			lookaheadScope = BindingManagerFactory.instance.createSimpleScope();
+		return lookaheadScope;
+	}
+	protected void clearLookaheadScope() {
+		if (lookaheadScope != null) {
+			for (String name : lookaheadScope.wLocalNames())
+				getBindings().wUnset(name);
+			lookaheadScope.wClear();
+		}
+	}
+
 	public void reset(IEntity entity) {
         super.reset(entity);
 		isExecuted = false;
 		result = lastEntity = null;
+
+		clearLookaheadScope();
     }
 
 	@SuppressWarnings("unchecked")
@@ -51,9 +69,12 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
 			IBindingManager bm = getBindings();
 			bm.setResult(null);
 
-			run(selfEntity, bm);
+			getBindings().wEnterScope(lookaheadScope(), true);
 
+			run(selfEntity, bm);
 			result = (E) bm.getResult();
+
+			getBindings().wExitScope();
 		}
 		return result;
 	}
@@ -70,6 +91,8 @@ public abstract class AbstractSingleValuedRunnableIterator<E extends IEntity> ex
     	E result = lookahead();
     	if (result == null)
         	throw new NoSuchElementException();
+
+    	getBindings().wAddAll(lookaheadScope());
 
     	this.result = null;
     	return lastEntity = result;

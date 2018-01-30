@@ -52,18 +52,32 @@ public interface IEntityIterator<E extends IEntity> extends Iterator<E>, Iterabl
 	public void toString(StringBuilder sb);
 
 	public default E evaluate(IEntity self, IBindingManager bm) {
+		IEntity oldSelfEntity = bm.wGet("self");
+
 		bm.wDef("self", self);
 		setBindings(bm);
 		reset(self);
 
-		return evaluateRemaining();
+		E result = evaluateRemaining();
+
+		if (oldSelfEntity == null && bm.wGet("self") == self)
+			bm.wUnset("self");
+
+		return result;
 	}
 	public default E evaluateFirst(IEntity self, IBindingManager bm) {
+		IEntity oldSelfEntity = bm.wGet("self");
+    	
 		bm.wDef("self", self);
 		setBindings(bm);
 		reset(self);
 
-		return evaluateNext();
+		E result = evaluateNext();
+
+		if (oldSelfEntity == null && bm.wGet("self") == self)
+			bm.wUnset("self");
+
+		return result;
 	}
 	public default E evaluateNext() {
 		return hasNext() ? next() : null;

@@ -96,8 +96,7 @@ public class SemanticsDynamicCompilerVisitor extends SemanticsIdentityDefaultVis
 //    		functionUri = getLibraryUri(entity)+"#"+functionUri;
 
 		IEntityIterator<IEntity> resultIterator = IteratorFactory.functionApplicationIterator(functionUri).withSourceEntity(entity);
-		
-		//TODO test only
+
 		if (functionUri.endsWith("#stagedVisit"))
 			resultIterator = IteratorFactory.recursiveFunctionApplicationIterator().withSourceEntity(entity);
 

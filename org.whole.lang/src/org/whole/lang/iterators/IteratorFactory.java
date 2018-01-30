@@ -603,8 +603,11 @@ public class IteratorFactory {
 					if (laScope != null) {
 						bm.setResult(BindingManagerFactory.instance.createValue(false));
 						return;
-					} else
-						laScope = argsIterators[0].lookaheadScope().clone();
+					} else {
+						laScope = BindingManagerFactory.instance.createSimpleScope();
+						laScope.wAddAll(argsIterators[0].lookaheadScope());
+						laScope.wAddAll(argsIterators[1].lookaheadScope());
+					}
 				}
 
 				if (laScope == null) {
