@@ -964,9 +964,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="whole:org.whole.lang.javascript:JavaScript#FunctionExpression"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="textFragment"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">

@@ -178,33 +178,36 @@
                             </wxml:Element>
                         </wxml:Document>
                     </commons:StageUpFragment>
-                    <commons:SameStageFragment>
-                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
-                            <commons:Resolver/>
-                            <sql:ColumnExpressions initialCapacity="2">
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="FIRST_NAME"/>
-                                    <commons:Resolver/>
-                                </sql:ColumnExpression>
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <commons:Resolver/>
-                                </sql:ColumnExpression>
-                            </sql:ColumnExpressions>
-                            <sql:FromClauses initialCapacity="1">
-                                <sql:SimpleFromClause value="AUTHOR"/>
-                            </sql:FromClauses>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <sql:OrderByColumnExpressions initialCapacity="1">
-                                <sql:OrderByColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <sql:OrderType value="DESC"/>
-                                </sql:OrderByColumnExpression>
-                            </sql:OrderByColumnExpressions>
-                        </sql:Select>
-                    </commons:SameStageFragment>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <commons:SameStageFragment>
+                            <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                                <commons:Resolver/>
+                                <sql:ColumnExpressions initialCapacity="2">
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="FIRST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                </sql:ColumnExpressions>
+                                <sql:FromClauses initialCapacity="1">
+                                    <sql:SimpleFromClause value="AUTHOR"/>
+                                </sql:FromClauses>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <sql:OrderByColumnExpressions initialCapacity="1">
+                                    <sql:OrderByColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <sql:OrderType value="DESC"/>
+                                    </sql:OrderByColumnExpression>
+                                </sql:OrderByColumnExpressions>
+                            </sql:Select>
+                        </commons:SameStageFragment>
+                    </queries:Filter>
                     <queries:Sequence initialCapacity="2">
                         <queries:Filter>
                             <queries:ChildStep/>
@@ -275,33 +278,36 @@
                             </wxml:Element>
                         </wxml:Document>
                     </commons:StageUpFragment>
-                    <commons:SameStageFragment>
-                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
-                            <commons:Resolver/>
-                            <sql:ColumnExpressions initialCapacity="2">
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="FIRST_NAME"/>
-                                    <commons:Resolver/>
-                                </sql:ColumnExpression>
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <commons:Resolver/>
-                                </sql:ColumnExpression>
-                            </sql:ColumnExpressions>
-                            <sql:FromClauses initialCapacity="1">
-                                <sql:SimpleFromClause value="AUTHOR"/>
-                            </sql:FromClauses>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <sql:OrderByColumnExpressions initialCapacity="1">
-                                <sql:OrderByColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <sql:OrderType value="DESC"/>
-                                </sql:OrderByColumnExpression>
-                            </sql:OrderByColumnExpressions>
-                        </sql:Select>
-                    </commons:SameStageFragment>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <commons:SameStageFragment>
+                            <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                                <commons:Resolver/>
+                                <sql:ColumnExpressions initialCapacity="2">
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="FIRST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                </sql:ColumnExpressions>
+                                <sql:FromClauses initialCapacity="1">
+                                    <sql:SimpleFromClause value="AUTHOR"/>
+                                </sql:FromClauses>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <sql:OrderByColumnExpressions initialCapacity="1">
+                                    <sql:OrderByColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <sql:OrderType value="DESC"/>
+                                    </sql:OrderByColumnExpression>
+                                </sql:OrderByColumnExpressions>
+                            </sql:Select>
+                        </commons:SameStageFragment>
+                    </queries:Filter>
                     <commons:Resolver/>
                     <queries:TemplateNames/>
                 </queries:Select>
@@ -347,33 +353,36 @@
                             </wxml:Element>
                         </wxml:Document>
                     </commons:StageUpFragment>
-                    <commons:SameStageFragment>
-                        <sql:Select xmlns:sql="http://lang.whole.org/SQL">
-                            <commons:Resolver/>
-                            <sql:ColumnExpressions initialCapacity="2">
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="FIRST_NAME"/>
-                                    <sql:Alias value="fname"/>
-                                </sql:ColumnExpression>
-                                <sql:ColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <commons:Resolver/>
-                                </sql:ColumnExpression>
-                            </sql:ColumnExpressions>
-                            <sql:FromClauses initialCapacity="1">
-                                <sql:SimpleFromClause value="AUTHOR"/>
-                            </sql:FromClauses>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <commons:Resolver/>
-                            <sql:OrderByColumnExpressions initialCapacity="1">
-                                <sql:OrderByColumnExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <sql:OrderType value="DESC"/>
-                                </sql:OrderByColumnExpression>
-                            </sql:OrderByColumnExpressions>
-                        </sql:Select>
-                    </commons:SameStageFragment>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <commons:SameStageFragment>
+                            <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                                <commons:Resolver/>
+                                <sql:ColumnExpressions initialCapacity="2">
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="FIRST_NAME"/>
+                                        <sql:Alias value="fname"/>
+                                    </sql:ColumnExpression>
+                                    <sql:ColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <commons:Resolver/>
+                                    </sql:ColumnExpression>
+                                </sql:ColumnExpressions>
+                                <sql:FromClauses initialCapacity="1">
+                                    <sql:SimpleFromClause value="AUTHOR"/>
+                                </sql:FromClauses>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <commons:Resolver/>
+                                <sql:OrderByColumnExpressions initialCapacity="1">
+                                    <sql:OrderByColumnExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <sql:OrderType value="DESC"/>
+                                    </sql:OrderByColumnExpression>
+                                </sql:OrderByColumnExpressions>
+                            </sql:Select>
+                        </commons:SameStageFragment>
+                    </queries:Filter>
                     <commons:Resolver/>
                     <queries:TemplateNames/>
                 </queries:Select>
@@ -424,41 +433,44 @@
                                 </wxml:Element>
                             </wxml:Document>
                         </commons:StageUpFragment>
-                        <commons:SameStageFragment>
-                            <sql:Select xmlns:sql="http://lang.whole.org/SQL">
-                                <commons:Resolver/>
-                                <sql:ColumnExpressions initialCapacity="2">
-                                    <sql:ColumnExpression>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <commons:SameStageFragment>
+                                <sql:Select xmlns:sql="http://lang.whole.org/SQL">
+                                    <commons:Resolver/>
+                                    <sql:ColumnExpressions initialCapacity="2">
+                                        <sql:ColumnExpression>
                                         <sql:ColumnName value="FIRST_NAME"/>
                                         <commons:Resolver/>
-                                    </sql:ColumnExpression>
-                                    <sql:ColumnExpression>
+                                        </sql:ColumnExpression>
+                                        <sql:ColumnExpression>
                                         <sql:ColumnName value="LAST_NAME"/>
                                         <commons:Resolver/>
-                                    </sql:ColumnExpression>
-                                </sql:ColumnExpressions>
-                                <sql:FromClauses initialCapacity="1">
-                                    <sql:SimpleFromClause value="AUTHOR"/>
-                                </sql:FromClauses>
-                                <sql:BooleanBinaryExpression>
-                                    <sql:ColumnName value="LAST_NAME"/>
-                                    <sql:BooleanOperator value="="/>
-                                    <commons:Variable>
+                                        </sql:ColumnExpression>
+                                    </sql:ColumnExpressions>
+                                    <sql:FromClauses initialCapacity="1">
+                                        <sql:SimpleFromClause value="AUTHOR"/>
+                                    </sql:FromClauses>
+                                    <sql:BooleanBinaryExpression>
+                                        <sql:ColumnName value="LAST_NAME"/>
+                                        <sql:BooleanOperator value="="/>
+                                        <commons:Variable>
                                         <commons:VarType value="http://lang.whole.org/SQL#StringValue"/>
                                         <commons:VarName value="lastName"/>
                                         <commons:Quantifier value="!"/>
-                                    </commons:Variable>
-                                </sql:BooleanBinaryExpression>
-                                <commons:Resolver/>
-                                <commons:Resolver/>
-                                <sql:OrderByColumnExpressions initialCapacity="1">
-                                    <sql:OrderByColumnExpression>
+                                        </commons:Variable>
+                                    </sql:BooleanBinaryExpression>
+                                    <commons:Resolver/>
+                                    <commons:Resolver/>
+                                    <sql:OrderByColumnExpressions initialCapacity="1">
+                                        <sql:OrderByColumnExpression>
                                         <sql:ColumnName value="LAST_NAME"/>
                                         <sql:OrderType value="DESC"/>
-                                    </sql:OrderByColumnExpression>
-                                </sql:OrderByColumnExpressions>
-                            </sql:Select>
-                        </commons:SameStageFragment>
+                                        </sql:OrderByColumnExpression>
+                                    </sql:OrderByColumnExpressions>
+                                </sql:Select>
+                            </commons:SameStageFragment>
+                        </queries:Filter>
                         <queries:Sequence initialCapacity="2">
                             <queries:Filter>
                                 <queries:ChildStep/>

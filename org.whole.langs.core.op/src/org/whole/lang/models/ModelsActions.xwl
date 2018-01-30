@@ -43,19 +43,22 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:And initialCapacity="3">
-                            <queries:TypeTest value="http://lang.whole.org/Models#SimpleName"/>
-                            <queries:ExpressionTest>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
-                                </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:Or initialCapacity="2">
-                                <queries:AtFeatureTest value="http://lang.whole.org/Models#name"/>
-                                <queries:AtFeatureTest value="http://lang.whole.org/Models#oppositeName"/>
-                            </queries:Or>
-                        </queries:And>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:And initialCapacity="3">
+                                <queries:TypeTest value="http://lang.whole.org/Models#SimpleName"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Models#Feature"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:Or initialCapacity="2">
+                                    <queries:AtFeatureTest value="http://lang.whole.org/Models#name"/>
+                                    <queries:AtFeatureTest value="http://lang.whole.org/Models#oppositeName"/>
+                                </queries:Or>
+                            </queries:And>
+                        </queries:Filter>
                         <queries:Select>
                             <queries:Filter>
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -130,10 +133,13 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:Or initialCapacity="2">
-                            <queries:AtTypeTest value="http://lang.whole.org/Models#Type"/>
-                            <queries:TypeTest value="http://lang.whole.org/Models#Types"/>
-                        </queries:Or>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:Or initialCapacity="2">
+                                <queries:AtTypeTest value="http://lang.whole.org/Models#Type"/>
+                                <queries:TypeTest value="http://lang.whole.org/Models#Types"/>
+                            </queries:Or>
+                        </queries:Filter>
                         <queries:Sequence initialCapacity="2">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -244,10 +250,13 @@
                                 </actions:SeparatedAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:And initialCapacity="2">
-                            <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
-                            <queries:VariableTest value="actualEntityUri"/>
-                        </queries:And>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:And initialCapacity="2">
+                                <queries:TypeTest value="http://lang.whole.org/Models#EntityType"/>
+                                <queries:VariableTest value="actualEntityUri"/>
+                            </queries:And>
+                        </queries:Filter>
                         <queries:Sequence initialCapacity="4">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -462,17 +471,20 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:Or initialCapacity="2">
-                            <queries:AtTypeTest value="http://lang.whole.org/Models#URI"/>
-                            <queries:TypeTest value="http://lang.whole.org/Models#URI"/>
-                        </queries:Or>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:Or initialCapacity="2">
+                                <queries:AtTypeTest value="http://lang.whole.org/Models#URI"/>
+                                <queries:TypeTest value="http://lang.whole.org/Models#URI"/>
+                            </queries:Or>
+                        </queries:Filter>
                         <queries:Filter>
                             <queries:Scope>
-                                <queries:Names initialCapacity="3">
+                                <queries:FreshNames initialCapacity="3">
                                     <queries:Name value="namespace"/>
                                     <queries:Name value="name"/>
                                     <queries:Name value="version"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Filter>
                                         <queries:VariableRefStep value="packageName"/>

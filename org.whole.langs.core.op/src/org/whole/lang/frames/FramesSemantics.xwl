@@ -16,9 +16,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Frames#Frame"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="frame"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Filter>
                                 <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -50,9 +50,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Frames#ReusePoint"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="reuseFunction"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -159,11 +159,11 @@
                     <semantics:EntityType value="http://lang.whole.org/Frames#ReusePoint"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                            <queries:Names initialCapacity="3">
+                            <queries:FreshNames initialCapacity="3">
                                 <queries:Name value="registry"/>
                                 <queries:Name value="frameModel"/>
                                 <queries:Name value="frameTemplate"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="3">
                                 <queries:Filter>
                                     <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
@@ -244,11 +244,11 @@
                     <semantics:EntityType value="http://lang.whole.org/Frames#IncludePoint"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                            <queries:Names initialCapacity="3">
+                            <queries:FreshNames initialCapacity="3">
                                 <queries:Name value="registry"/>
                                 <queries:Name value="resourceModel"/>
                                 <queries:Name value="resourceTemplate"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="3">
                                 <queries:Filter>
                                     <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">

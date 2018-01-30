@@ -210,9 +210,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Review Compare Entities Side by Side"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="compareModel"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="3">
                         <queries:Do>
                             <queries:Filter>

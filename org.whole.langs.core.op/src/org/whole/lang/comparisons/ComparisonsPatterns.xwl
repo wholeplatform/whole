@@ -221,18 +221,18 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:VariableTest value="_other"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_other"/>
@@ -276,9 +276,9 @@
                                         <queries:Equals>
                                         <queries:Singleton>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherChild"/>
@@ -348,10 +348,10 @@
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -362,10 +362,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -433,10 +433,10 @@
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -447,10 +447,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -502,10 +502,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -516,10 +516,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -571,10 +571,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -585,10 +585,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -656,10 +656,10 @@
                                         </queries:And>
                                         </queries:Or>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -670,10 +670,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -725,10 +725,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfChild"/>
@@ -739,10 +739,10 @@
                                         <queries:VariableTest value="_otherChild"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_selfChild"/>
@@ -827,12 +827,12 @@
                                         </patterns:InsertionPoint>
                                         <queries:Do>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="4">
+                                        <queries:FreshNames initialCapacity="4">
                                         <queries:Name value="selfChild"/>
                                         <queries:Name value="otherChild"/>
                                         <queries:Name value="selfSize"/>
                                         <queries:Name value="otherSize"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <semantics:FunctionApplication>
@@ -858,9 +858,9 @@
                                         <queries:ExpressionTest>
                                         <queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="featureIndex"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfIndex"/>
@@ -880,9 +880,9 @@
                                         <queries:ExpressionTest>
                                         <queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="featureIndex"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="otherIndex"/>
@@ -901,10 +901,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfIndex"/>
                                         <queries:Name value="_otherIndex"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="selfIndex"/>
@@ -915,10 +915,10 @@
                                         <queries:VariableTest value="_otherIndex"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfIndex"/>
                                         <queries:Name value="otherIndex"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="4">
                                         <queries:Filter>
                                         <queries:Addition>
@@ -1090,10 +1090,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Path initialCapacity="2">
                                         <queries:PointwiseProduct initialCapacity="2">
                                         <queries:Filter>
@@ -1109,9 +1109,9 @@
                                         </queries:Path>
                                         </queries:PointwiseProduct>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="_otherChild"/>
@@ -1159,10 +1159,10 @@
                                         </queries:And>
                                         <queries:Block initialCapacity="2">
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="selfIndex"/>
                                         <queries:Name value="otherIndex"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Filter>
                                         <queries:IntLiteral value="0"/>
@@ -1190,10 +1190,10 @@
                                         </queries:Block>
                                         </queries:Scope>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="1">
                                         <queries:Path initialCapacity="2">
                                         <queries:PointwiseProduct initialCapacity="2">
@@ -1210,9 +1210,9 @@
                                         </queries:Path>
                                         </queries:PointwiseProduct>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="_otherChild"/>
@@ -1272,18 +1272,18 @@
                                         </queries:Filter>
                                         </queries:ExpressionTest>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="other"/>
                                         <queries:VariableTest value="_other"/>
                                         </queries:Filter>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_other"/>
@@ -1336,11 +1336,11 @@
                                         </queries:ExpressionTest>
                                         </queries:Or>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="3">
+                                        <queries:FreshNames initialCapacity="3">
                                         <queries:Name value="_self"/>
                                         <queries:Name value="_selfChange"/>
                                         <queries:Name value="otherChange"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="6">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -1485,11 +1485,11 @@
                                         </queries:If>
                                         <queries:Do>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="3">
+                                        <queries:FreshNames initialCapacity="3">
                                         <queries:Name value="_self"/>
                                         <queries:Name value="_selfChange"/>
                                         <queries:Name value="otherChange"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="6">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -1677,10 +1677,10 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Path initialCapacity="2">
                                         <queries:PointwiseProduct initialCapacity="2">
                                         <queries:Filter>
@@ -1696,9 +1696,9 @@
                                         </queries:Path>
                                         </queries:PointwiseProduct>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="_otherChild"/>
@@ -1745,12 +1745,12 @@
                                         </queries:ExpressionTest>
                                         </queries:And>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="4">
+                                        <queries:FreshNames initialCapacity="4">
                                         <queries:Name value="_selfIndex"/>
                                         <queries:Name value="_otherIndex"/>
                                         <queries:Name value="_selfChild"/>
                                         <queries:Name value="_otherChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="1">
                                         <queries:Path initialCapacity="2">
                                         <queries:PointwiseProduct initialCapacity="2">
@@ -1767,9 +1767,9 @@
                                         </queries:Path>
                                         </queries:PointwiseProduct>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="_otherChild"/>
@@ -1804,9 +1804,9 @@
                                         </queries:Filter>
                                         </queries:ExpressionTest>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_self"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -1866,9 +1866,9 @@
                                         </queries:If>
                                         <queries:Do>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_self"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>

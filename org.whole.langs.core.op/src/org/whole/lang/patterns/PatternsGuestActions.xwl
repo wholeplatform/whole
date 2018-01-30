@@ -18,9 +18,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Introduce Patterns in Pattern Language"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="workspace"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="2">
                         <queries:Filter>
                             <actions:ActionCall>
@@ -43,9 +43,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Introduce Scattered Pattern in Pattern Language"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="workspace"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="2">
                         <queries:Filter>
                             <actions:ActionCall>
@@ -71,7 +71,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Introduce Patterns in Pattern Language (results)"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="8">
+                    <queries:FreshNames initialCapacity="8">
                         <queries:Name value="patternLanguageUri"/>
                         <queries:Name value="patternLanguageNamespace"/>
                         <queries:Name value="patternLanguageName"/>
@@ -80,7 +80,7 @@
                         <queries:Name value="patternTemplate"/>
                         <queries:Name value="workspaceArtifacts"/>
                         <queries:Name value="nameGenerator"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="8">
                         <queries:Filter>
                             <queries:VariableRefStep value="packageName"/>
@@ -395,7 +395,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Introduce Scattered Pattern in Pattern Language (results)"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="9">
+                    <queries:FreshNames initialCapacity="9">
                         <queries:Name value="patternLanguageUri"/>
                         <queries:Name value="patternLanguageNamespace"/>
                         <queries:Name value="patternLanguageName"/>
@@ -405,7 +405,7 @@
                         <queries:Name value="workspaceArtifacts"/>
                         <queries:Name value="nameGenerator"/>
                         <queries:Name value="resultPoint"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="8">
                         <queries:Filter>
                             <queries:VariableRefStep value="packageName"/>

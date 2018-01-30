@@ -45,9 +45,9 @@
                                     <actions:Actions initialCapacity="1">
                                         <commons:StageDownFragment>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="customAction"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">

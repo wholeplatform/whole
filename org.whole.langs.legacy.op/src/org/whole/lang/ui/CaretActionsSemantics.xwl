@@ -53,10 +53,10 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="focusEntityURI"/>
                             <queries:Name value="newEntity"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="5">
                             <queries:Path initialCapacity="3">
                                 <queries:VariableRefStep value="focusEntity"/>
@@ -193,12 +193,12 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="focusEntityURI"/>
                             <queries:Name value="parentFocusEntityURI"/>
                             <queries:Name value="newEntity"/>
                             <queries:Name value="newEntityContainer"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="9">
                             <queries:Path initialCapacity="3">
                                 <queries:VariableRefStep value="focusEntity"/>
@@ -380,7 +380,7 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="7">
+                        <queries:FreshNames initialCapacity="7">
                             <queries:Name value="deleteFocusEntity"/>
                             <queries:Name value="canMerge"/>
                             <queries:Name value="focusEntityContainer"/>
@@ -388,7 +388,7 @@
                             <queries:Name value="beforeEntityContainer"/>
                             <queries:Name value="typeURI"/>
                             <queries:Name value="movedEntities"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -827,7 +827,7 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="7">
+                        <queries:FreshNames initialCapacity="7">
                             <queries:Name value="deleteAfterEntity"/>
                             <queries:Name value="canMerge"/>
                             <queries:Name value="focusEntityContainer"/>
@@ -835,7 +835,7 @@
                             <queries:Name value="afterEntityContainer"/>
                             <queries:Name value="typeURI"/>
                             <queries:Name value="movedEntities"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -1276,9 +1276,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="beforeEntity"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Path initialCapacity="2">
                                 <queries:VariableRefStep value="focusEntity"/>
@@ -1472,10 +1472,10 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="aboveEntity"/>
                             <queries:Name value="aboveEntityPart"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Path initialCapacity="3">
                                 <queries:VariableRefStep value="caretBounds"/>
@@ -1571,10 +1571,10 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:AnyType/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="belowEntity"/>
                             <queries:Name value="belowEntityPart"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Path initialCapacity="3">
                                 <queries:VariableRefStep value="caretBounds"/>

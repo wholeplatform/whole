@@ -139,10 +139,10 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Semantics#SemanticFunction"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="semanticFunctionIndex"/>
                             <queries:Name value="clonedModel"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -193,9 +193,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Queries#QueryDeclaration"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="arg"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <semantics:WhereTemplate>
                                 <queries:Block initialCapacity="2">
@@ -241,10 +241,10 @@
                     </semantics:UnionType>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                         <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                            <queries:Names initialCapacity="2">
+                            <queries:FreshNames initialCapacity="2">
                                 <queries:Name value="primarySelectedEntity"/>
                                 <queries:Name value="selectedEntities"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="3">
                                 <queries:Filter>
                                     <queries:SelfStep/>

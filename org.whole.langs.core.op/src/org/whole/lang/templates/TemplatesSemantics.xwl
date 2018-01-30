@@ -15,11 +15,11 @@
                 <queries:If>
                     <queries:TypeTest value="http://lang.whole.org/Templates#TemplateManager"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="templateManagerName"/>
                             <queries:Name value="classDeclarationsPoint"/>
                             <queries:Name value="constructorBlockPoint"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="6">
                             <queries:Filter>
                                 <queries:VariableRefStep value="packageName"/>
@@ -226,10 +226,10 @@
                 <queries:If>
                     <queries:TypeTest value="http://lang.whole.org/Templates#TemplateFactory"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="templateName"/>
                             <queries:Name value="templateMethodName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="5">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -331,6 +331,7 @@
                                         <java:QualifiedType value="org.whole.lang.builders.IBuilderOperation"/>
                                         <java:Varargs value="false"/>
                                         <java:SimpleName value="op"/>
+                                        <commons:Resolver/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
                                         </java:SingleVariableDeclaration>

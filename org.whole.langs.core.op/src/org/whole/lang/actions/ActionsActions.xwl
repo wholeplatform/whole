@@ -102,16 +102,19 @@
                                 </actions:SeparatedAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:And initialCapacity="3">
-                            <queries:TypeTest value="http://lang.whole.org/Actions#Label"/>
-                            <queries:ExpressionTest>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:TypeTest value="http://lang.whole.org/Actions#ActionCall"/>
-                                </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:VariableTest value="actualNameUri"/>
-                        </queries:And>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:And initialCapacity="3">
+                                <queries:TypeTest value="http://lang.whole.org/Actions#Label"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:TypeTest value="http://lang.whole.org/Actions#ActionCall"/>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:VariableTest value="actualNameUri"/>
+                            </queries:And>
+                        </queries:Filter>
                         <queries:Sequence initialCapacity="4">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -377,17 +380,20 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:Or initialCapacity="2">
-                            <queries:AtTypeTest value="http://lang.whole.org/Actions#URI"/>
-                            <queries:TypeTest value="http://lang.whole.org/Actions#URI"/>
-                        </queries:Or>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:Or initialCapacity="2">
+                                <queries:AtTypeTest value="http://lang.whole.org/Actions#URI"/>
+                                <queries:TypeTest value="http://lang.whole.org/Actions#URI"/>
+                            </queries:Or>
+                        </queries:Filter>
                         <queries:Filter>
                             <queries:Scope>
-                                <queries:Names initialCapacity="3">
+                                <queries:FreshNames initialCapacity="3">
                                     <queries:Name value="namespace"/>
                                     <queries:Name value="name"/>
                                     <queries:Name value="version"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Filter>
                                         <queries:VariableRefStep value="packageName"/>

@@ -1069,27 +1069,30 @@
                             </commons:Variable>
                         </java:IfStatement>
                     </commons:StageUpFragment>
-                    <queries:MatchTest>
-                        <commons:StageUpFragment>
-                            <java:IfStatement xmlns:java="http://lang.whole.org/Java">
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Java#Expression"/>
-                                    <commons:VarName value="exp"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Java#Statement"/>
-                                    <commons:VarName value="trueBody"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Java#Statement"/>
-                                    <commons:VarName value="falseBody"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                            </java:IfStatement>
-                        </commons:StageUpFragment>
-                    </queries:MatchTest>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:MatchTest>
+                            <commons:StageUpFragment>
+                                <java:IfStatement xmlns:java="http://lang.whole.org/Java">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Expression"/>
+                                        <commons:VarName value="exp"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                        <commons:VarName value="trueBody"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Java#Statement"/>
+                                        <commons:VarName value="falseBody"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                </java:IfStatement>
+                            </commons:StageUpFragment>
+                        </queries:MatchTest>
+                    </queries:Filter>
                     <commons:Resolver/>
                     <queries:TemplateNames/>
                 </queries:Select>
@@ -1183,28 +1186,31 @@
                             </java:VariableDeclarationFragments>
                         </java:FieldDeclaration>
                     </commons:StageUpFragment>
-                    <queries:MatchTest>
-                        <commons:StageUpFragment>
-                            <models:Feature xmlns:models="http://lang.whole.org/Models">
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
-                                    <commons:VarName value="_"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                    <commons:VarName value="ftype"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Variable>
-                                    <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
-                                    <commons:VarName value="fname"/>
-                                    <commons:Quantifier value="!"/>
-                                </commons:Variable>
-                                <commons:Resolver/>
-                            </models:Feature>
-                        </commons:StageUpFragment>
-                    </queries:MatchTest>
+                    <queries:Filter>
+                        <queries:SelfStep/>
+                        <queries:MatchTest>
+                            <commons:StageUpFragment>
+                                <models:Feature xmlns:models="http://lang.whole.org/Models">
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#FeatureModifiers"/>
+                                        <commons:VarName value="_"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="ftype"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Variable>
+                                        <commons:VarType value="http://lang.whole.org/Models#SimpleName"/>
+                                        <commons:VarName value="fname"/>
+                                        <commons:Quantifier value="!"/>
+                                    </commons:Variable>
+                                    <commons:Resolver/>
+                                </models:Feature>
+                            </commons:StageUpFragment>
+                        </queries:MatchTest>
+                    </queries:Filter>
                     <queries:Filter>
                         <commons:SameStageFragment>
                             <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">

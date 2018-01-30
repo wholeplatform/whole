@@ -58,12 +58,12 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionInvocationExpression"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="function"/>
                             <queries:Name value="paramName"/>
                             <queries:Name value="paramValue"/>
                             <queries:Name value="result"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Sequence initialCapacity="6">
                             <queries:Filter>
                                 <semantics:EnvironmentVariable>
@@ -246,6 +246,7 @@
                                         <java:SimpleName value="args"/>
                                         <java:ExtraDimensions value="0"/>
                                         <commons:Resolver/>
+                                        <commons:Resolver/>
                                         </java:SingleVariableDeclaration>
                                         </java:Parameters>
                                         <commons:Resolver/>
@@ -408,6 +409,7 @@
                                 <commons:Resolver/>
                                 <commons:Resolver/>
                             </semantics:FunctionApplication>
+                            <commons:Resolver/>
                             <commons:Resolver/>
                             <commons:Resolver/>
                         </java:SingleVariableDeclaration>
@@ -802,9 +804,9 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.examples.whole.org/Imp#FunctionInvocationExpression"/>
                     <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="className"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <java:MethodInvocation xmlns:java="http://lang.whole.org/Java">

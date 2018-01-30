@@ -12,13 +12,13 @@
         <actions:SimpleAction>
             <actions:Label value="Interpreter"/>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="5">
+                <queries:FreshNames initialCapacity="5">
                     <queries:Name value="derivedModels"/>
                     <queries:Name value="patternLanguageModel"/>
                     <queries:Name value="patternLanguageSemantics"/>
                     <queries:Name value="patternLanguageActions"/>
                     <queries:Name value="patternLanguageGuestActions"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Choose initialCapacity="2">
                     <queries:If>
                         <queries:Or initialCapacity="2">
@@ -130,11 +130,11 @@
             <actions:GuardedAction>
                 <actions:Label value="Extract Patterns"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="3">
+                    <queries:FreshNames initialCapacity="3">
                         <queries:Name value="patterns"/>
                         <queries:Name value="patternName"/>
                         <queries:Name value="patternTemplate"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="5">
                         <queries:Path initialCapacity="3">
                             <queries:VariableRefStep value="selectedEntities"/>
@@ -271,7 +271,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Extract Scattered Pattern"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="8">
+                    <queries:FreshNames initialCapacity="8">
                         <queries:Name value="patterns"/>
                         <queries:Name value="patternName"/>
                         <queries:Name value="resultPoint"/>
@@ -280,7 +280,7 @@
                         <queries:Name value="patternPath"/>
                         <queries:Name value="path"/>
                         <queries:Name value="placement"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="4">
                         <queries:Path initialCapacity="3">
                             <queries:VariableRefStep value="selectedEntities"/>
@@ -490,11 +490,11 @@
             <actions:GuardedAction>
                 <actions:Label value="Introduce Slots"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="3">
+                    <queries:FreshNames initialCapacity="3">
                         <queries:Name value="type"/>
                         <queries:Name value="name"/>
                         <queries:Name value="parentEntity"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:CartesianUpdate>
                         <queries:Path initialCapacity="3">
                             <queries:VariableRefStep value="selectedEntities"/>
@@ -584,11 +584,11 @@
             <actions:GuardedAction>
                 <actions:Label value="Merge Slots"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="3">
+                    <queries:FreshNames initialCapacity="3">
                         <queries:Name value="mergeSlot"/>
                         <queries:Name value="mergeName"/>
                         <queries:Name value="mergeType"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="2">
                         <queries:Path initialCapacity="2">
                             <queries:VariableRefStep value="selectedEntities"/>
@@ -676,10 +676,10 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Library"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="2">
+                    <queries:FreshNames initialCapacity="2">
                         <queries:Name value="derivedModels"/>
                         <queries:Name value="patternLanguageSemantics"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Select>
                         <queries:Filter>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -713,13 +713,13 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Pattern Language"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="5">
+                    <queries:FreshNames initialCapacity="5">
                         <queries:Name value="derivedModels"/>
                         <queries:Name value="patternLanguageModel"/>
                         <queries:Name value="patternLanguageSemantics"/>
                         <queries:Name value="patternLanguageActions"/>
                         <queries:Name value="patternLanguageGuestActions"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Select>
                         <queries:Filter>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -789,9 +789,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Specific Notation"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="joinpoints#modelPoint"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Select>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
@@ -807,9 +807,9 @@
                         </commons:StageUpFragment>
                         <queries:Path initialCapacity="2">
                             <queries:Scope>
-                                <queries:Names initialCapacity="1">
+                                <queries:FreshNames initialCapacity="1">
                                     <queries:Name value="patternLanguageModel"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Select>
                                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
@@ -854,9 +854,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Translate to Artifacts"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="artifactsPoint"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Select>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
@@ -920,24 +920,27 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:And initialCapacity="3">
-                            <queries:KindTest value="RESOLVER"/>
-                            <queries:ExpressionTest>
-                                <queries:Filter>
-                                    <queries:ParentStep/>
-                                    <queries:Or initialCapacity="4">
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:And initialCapacity="3">
+                                <queries:KindTest value="RESOLVER"/>
+                                <queries:ExpressionTest>
+                                    <queries:Filter>
+                                        <queries:ParentStep/>
+                                        <queries:Or initialCapacity="4">
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariablePoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionPoint"/>
                                         <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#DerivationPoint"/>
-                                    </queries:Or>
-                                </queries:Filter>
-                            </queries:ExpressionTest>
-                            <queries:Or initialCapacity="2">
-                                <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#type"/>
-                                <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
-                            </queries:Or>
-                        </queries:And>
+                                        </queries:Or>
+                                    </queries:Filter>
+                                </queries:ExpressionTest>
+                                <queries:Or initialCapacity="2">
+                                    <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#type"/>
+                                    <queries:AtFeatureTest value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
+                                </queries:Or>
+                            </queries:And>
+                        </queries:Filter>
                         <queries:Select>
                             <queries:Filter>
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -1028,10 +1031,13 @@
                                 </actions:GroupAction>
                             </actions:Actions>
                         </commons:StageUpFragment>
-                        <queries:Or initialCapacity="2">
-                            <queries:AtTypeTest value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
-                            <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
-                        </queries:Or>
+                        <queries:Filter>
+                            <queries:SelfStep/>
+                            <queries:Or initialCapacity="2">
+                                <queries:AtTypeTest value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
+                                <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#URI"/>
+                            </queries:Or>
+                        </queries:Filter>
                         <queries:Filter>
                             <queries:Addition>
                                 <queries:StringLiteral value="whole:"/>

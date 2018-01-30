@@ -30,10 +30,10 @@
                                     </queries:Filter>
                                 </queries:ExpressionTest>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="2">
+                                    <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="revision"/>
                                         <queries:Name value="other"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="3">
                                         <queries:ParentStep/>
@@ -64,10 +64,10 @@
                             <queries:Do>
                                 <queries:Sequence initialCapacity="2">
                                     <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="revision"/>
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="3">
                                         <queries:ParentStep/>
@@ -95,10 +95,10 @@
                                         </queries:Block>
                                     </queries:Scope>
                                     <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="revision"/>
                                         <queries:Name value="other"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="3">
                                         <queries:Path initialCapacity="3">
                                         <queries:ParentStep/>
@@ -141,10 +141,10 @@
                                 </queries:Filter>
                             </queries:ExpressionTest>
                             <queries:Scope>
-                                <queries:Names initialCapacity="2">
+                                <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
                                     <queries:Name value="other"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#leftRevisions"/>
@@ -179,10 +179,10 @@
                                 </queries:Filter>
                             </queries:ExpressionTest>
                             <queries:Scope>
-                                <queries:Names initialCapacity="2">
+                                <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
                                     <queries:Name value="other"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="whole:org.whole.lang.changes:ChangesModel#rightRevisions"/>
@@ -230,10 +230,10 @@
                         </queries:And>
                     </queries:And>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="revision"/>
                             <queries:Name value="other"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
@@ -277,10 +277,10 @@
                         </queries:And>
                     </queries:And>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="revision"/>
                             <queries:Name value="other"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
@@ -350,10 +350,10 @@
                                 </queries:Filter>
                             </queries:ExpressionTest>
                             <queries:Scope>
-                                <queries:Names initialCapacity="2">
+                                <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
                                     <queries:Name value="other"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#adaptedRevision"/>
@@ -380,10 +380,10 @@
                                 </queries:Filter>
                             </queries:ExpressionTest>
                             <queries:Scope>
-                                <queries:Names initialCapacity="2">
+                                <queries:FreshNames initialCapacity="2">
                                     <queries:Name value="revision"/>
                                     <queries:Name value="other"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="3">
                                     <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="whole:org.whole.lang.reusables:ReusablesModel#variantRevision"/>
@@ -472,10 +472,10 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Delete"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="_leftSide"/>
                             <queries:Name value="_rightSide"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <queries:Tuple initialCapacity="2">
                                 <queries:Filter>
@@ -523,10 +523,10 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Insert"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="_leftSide"/>
                             <queries:Name value="_rightSide"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <queries:Tuple initialCapacity="2">
                                 <queries:Filter>
@@ -574,10 +574,10 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.changes:ChangesModel#Replace"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="_leftSide"/>
                             <queries:Name value="_rightSide"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <queries:Tuple initialCapacity="2">
                                 <queries:Filter>
@@ -627,14 +627,14 @@
                 </queries:If>
                 <queries:Do>
                     <queries:Scope>
-                        <queries:Names initialCapacity="6">
+                        <queries:FreshNames initialCapacity="6">
                             <queries:Name value="_prototype"/>
                             <queries:Name value="_prototypeChild"/>
                             <queries:Name value="_original"/>
                             <queries:Name value="_originalChild"/>
                             <queries:Name value="_revised"/>
                             <queries:Name value="_revisedChild"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <queries:Tuple initialCapacity="2">
                                 <queries:Filter>
@@ -823,11 +823,11 @@
                 </queries:If>
                 <queries:Do>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="_prototype"/>
                             <queries:Name value="_prototypeChild"/>
                             <queries:Name value="_cloneChild"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Path initialCapacity="3">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -967,11 +967,11 @@
                 </queries:If>
                 <queries:Do>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="_prototype"/>
                             <queries:Name value="_prototypeChild"/>
                             <queries:Name value="_cloneChild"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Path initialCapacity="3">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -1111,11 +1111,11 @@
                 </queries:If>
                 <queries:Do>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="_prototype"/>
                             <queries:Name value="_prototypeChild"/>
                             <queries:Name value="_cloneChild"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Path initialCapacity="3">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -1229,10 +1229,10 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <patterns:Name value="revisionSummary"/>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="2">
+                <queries:FreshNames initialCapacity="2">
                     <queries:Name value="additions"/>
                     <queries:Name value="deletions"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="4">
                     <queries:Filter>
                         <queries:IntLiteral value="0"/>

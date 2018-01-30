@@ -7,9 +7,9 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="newEntity"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="2">
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="2">
@@ -71,9 +71,9 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="newEntity"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="4">
                         <queries:Filter>
                             <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
@@ -175,9 +175,9 @@
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="newEntity"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:Block initialCapacity="2">
                         <queries:PointwiseUpdate>
                             <queries:Path initialCapacity="3">

@@ -25,9 +25,9 @@
             <actions:GuardedAction>
                 <actions:Label value="Wrap with Adapt"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:Names initialCapacity="1">
+                    <queries:FreshNames initialCapacity="1">
                         <queries:Name value="adaptable"/>
-                    </queries:Names>
+                    </queries:FreshNames>
                     <queries:For>
                         <queries:Path initialCapacity="2">
                             <queries:VariableRefStep value="selectedEntities"/>
