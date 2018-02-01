@@ -28,18 +28,23 @@ import org.whole.lang.util.BehaviorUtils;
  */
 public class ArtifactsGeneratorOperation extends AbstractOperation {
 	public static final String ID = "ArtifactsGenerator";
+	public static final String ARTIFACTS_URI = "http://lang.whole.org/Artifacts";
 
 	public static void generate(IEntity program, IBindingManager args) {
-		ArtifactsGeneratorOperation gen = new ArtifactsGeneratorOperation(args);
+		ArtifactsGeneratorOperation gen = new ArtifactsGeneratorOperation(args,
+				program.wGetLanguageKit().getURI().equals(ARTIFACTS_URI));
 		gen.stagedVisit(program);
 		gen.stagedVisit(gen.getResult());
 	}
 
-	protected ArtifactsGeneratorOperation(IBindingManager args) {
+	protected boolean replaceVars;
+
+	protected ArtifactsGeneratorOperation(IBindingManager args, boolean replaceVars) {
 		super(ID, args, null);
+		this.replaceVars = replaceVars;
 
 		if (!args.wIsSet("workspace")) {
-			IEntity ws = ReflectionFactory.getLanguageKit("http://lang.whole.org/Artifacts", false, null).getTemplateManager().create("workspace template");
+			IEntity ws = ReflectionFactory.getLanguageKit(ARTIFACTS_URI, false, null).getTemplateManager().create("workspace template");
 			ws = BehaviorUtils.evaluate(ws, 1, args);
 			args.wDef("workspace", ws);
 		}
@@ -55,8 +60,10 @@ public class ArtifactsGeneratorOperation extends AbstractOperation {
 			bm.wGet("projectsPoint").wRemove(bm.wGet("projectArtifactsPoint").wGetParent());
 
 		IEntity workspace = bm.wGet("workspace");
-		Matcher.substitute(workspace, bm, false);
-		Matcher.removeVars(workspace, false);
+		if (replaceVars) {
+			Matcher.substitute(workspace, bm, false);
+			Matcher.removeVars(workspace, false);
+		}
 		return workspace;
 	}
 
