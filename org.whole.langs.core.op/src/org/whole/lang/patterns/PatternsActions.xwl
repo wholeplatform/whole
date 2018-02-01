@@ -11,20 +11,14 @@
         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         <actions:SimpleAction>
             <actions:Label value="Interpreter"/>
-            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:FreshNames initialCapacity="5">
-                    <queries:Name value="derivedModels"/>
-                    <queries:Name value="patternLanguageModel"/>
-                    <queries:Name value="patternLanguageSemantics"/>
-                    <queries:Name value="patternLanguageActions"/>
-                    <queries:Name value="patternLanguageGuestActions"/>
-                </queries:FreshNames>
-                <queries:Choose initialCapacity="2">
-                    <queries:If>
-                        <queries:Or initialCapacity="2">
-                            <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
-                            <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
-                        </queries:Or>
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
+                <queries:If>
+                    <queries:Or initialCapacity="2">
+                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
+                        <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
+                    </queries:Or>
+                    <queries:Scope>
+                        <queries:ScopeNames initialCapacity="0"/>
                         <queries:Block initialCapacity="2">
                             <queries:Select>
                                 <queries:Filter>
@@ -94,34 +88,65 @@
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </queries:Call>
                         </queries:Block>
-                    </queries:If>
-                    <queries:Do>
-                        <queries:Path initialCapacity="2">
+                    </queries:Scope>
+                </queries:If>
+                <queries:Do>
+                    <queries:Path initialCapacity="2">
+                        <queries:Scope>
+                            <queries:ScopeNames initialCapacity="0"/>
                             <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
                                 <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toSemantics"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </semantics:FunctionApplication>
-                            <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                <semantics:Name value="#stagedVisit"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            </semantics:FunctionApplication>
-                        </queries:Path>
-                    </queries:Do>
-                </queries:Choose>
-            </queries:Scope>
+                        </queries:Scope>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="#stagedVisit"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
+                    </queries:Path>
+                </queries:Do>
+            </queries:Choose>
         </actions:SimpleAction>
         <actions:SimpleAction>
             <actions:Label value="Artifacts Generator"/>
-            <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toArtifacts"/>
-                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-            </semantics:FunctionApplication>
+            <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
+                <queries:ScopeNames initialCapacity="1">
+                    <queries:Name value="packageArtifactsPoint"/>
+                </queries:ScopeNames>
+                <queries:Block initialCapacity="3">
+                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                        <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toArtifacts"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    </semantics:FunctionApplication>
+                    <queries:Path initialCapacity="3">
+                        <queries:VariableRefStep value="packageArtifactsPoint"/>
+                        <queries:Filter>
+                            <queries:DescendantStep/>
+                            <queries:Prune>
+                                <queries:TypeTest value="http://lang.whole.org/Artifacts#FileArtifact"/>
+                            </queries:Prune>
+                        </queries:Filter>
+                        <queries:PointwiseUpdate>
+                            <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                            <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                <queries:Scope>
+                                    <queries:ScopeNames initialCapacity="0"/>
+                                    <commons:StageDownFragment>
+                                        <queries:FeatureStep value="http://lang.whole.org/Artifacts#content"/>
+                                    </commons:StageDownFragment>
+                                </queries:Scope>
+                            </commons:StageUpFragment>
+                        </queries:PointwiseUpdate>
+                    </queries:Path>
+                    <queries:VoidLiteral/>
+                </queries:Block>
+            </queries:Scope>
         </actions:SimpleAction>
     </actions:ToolbarActions>
     <actions:ContextMenuActions>
@@ -676,10 +701,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Library"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:FreshNames initialCapacity="2">
-                        <queries:Name value="derivedModels"/>
-                        <queries:Name value="patternLanguageSemantics"/>
-                    </queries:FreshNames>
+                    <queries:ScopeNames initialCapacity="0"/>
                     <queries:Select>
                         <queries:Filter>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -713,13 +735,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Pattern Language"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:FreshNames initialCapacity="5">
-                        <queries:Name value="derivedModels"/>
-                        <queries:Name value="patternLanguageModel"/>
-                        <queries:Name value="patternLanguageSemantics"/>
-                        <queries:Name value="patternLanguageActions"/>
-                        <queries:Name value="patternLanguageGuestActions"/>
-                    </queries:FreshNames>
+                    <queries:ScopeNames initialCapacity="0"/>
                     <queries:Select>
                         <queries:Filter>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -789,9 +805,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Derive Specific Notation"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:FreshNames initialCapacity="1">
-                        <queries:Name value="joinpoints#modelPoint"/>
-                    </queries:FreshNames>
+                    <queries:ScopeNames initialCapacity="0"/>
                     <queries:Select>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
@@ -806,13 +820,9 @@
                             </misc:Misc>
                         </commons:StageUpFragment>
                         <queries:Path initialCapacity="2">
-                            <queries:Scope>
-                                <queries:FreshNames initialCapacity="1">
-                                    <queries:Name value="patternLanguageModel"/>
-                                </queries:FreshNames>
-                                <queries:Select>
-                                    <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                                        <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
+                            <queries:Select>
+                                <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
+                                    <misc:Misc xmlns:misc="http://lang.whole.org/Misc" initialCapacity="1">
                                         <commons:StageDownFragment>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
@@ -821,18 +831,17 @@
                                         <queries:VariableTest value="patternLanguageModel"/>
                                         </queries:Filter>
                                         </commons:StageDownFragment>
-                                        </misc:Misc>
-                                    </commons:StageUpFragment>
-                                    <queries:SelfStep/>
-                                    <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                        <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toModels"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                    </semantics:FunctionApplication>
-                                    <queries:TemplateNames/>
-                                </queries:Select>
-                            </queries:Scope>
+                                    </misc:Misc>
+                                </commons:StageUpFragment>
+                                <queries:SelfStep/>
+                                <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                                    <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toModels"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </semantics:FunctionApplication>
+                                <queries:TemplateNames/>
+                            </queries:Select>
                             <queries:Filter>
                                 <queries:ChildStep/>
                                 <queries:IndexTest>
@@ -854,9 +863,7 @@
             <actions:GuardedAction>
                 <actions:Label value="Translate to Artifacts"/>
                 <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                    <queries:FreshNames initialCapacity="1">
-                        <queries:Name value="artifactsPoint"/>
-                    </queries:FreshNames>
+                    <queries:ScopeNames initialCapacity="0"/>
                     <queries:Select>
                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                             <artifacts:Workspace xmlns:artifacts="http://lang.whole.org/Artifacts">
