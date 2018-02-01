@@ -35,9 +35,9 @@ import org.whole.lang.ui.util.IResourceBindingsContributor;
  */
 public class E4ResourceBindingsContributor implements IResourceBindingsContributor {
 	public void addResourceBindings(final IBindingManager bm) {
-		if (bm.wIsSet("debug#breakpointsEnabled") && bm.wIsSet("eclipseContext")) {
+		if (bm.wIsSet("debug#breakpointsEnabled") && bm.wIsSet("eclipse#eclipseContext")) {
 			try {
-				EPartService partService = ((IEclipseContext) bm.wGetValue("eclipseContext")).get(EPartService.class);
+				EPartService partService = ((IEclipseContext) bm.wGetValue("eclipse#eclipseContext")).get(EPartService.class);
 				final MPart debugPart = partService.findPart(IE4UIConstants.DEBUG_PART_ID);
 				if (debugPart == null)
 					return;

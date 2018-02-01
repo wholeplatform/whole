@@ -737,7 +737,7 @@
                                         <workflows:StringLiteral value="org.whole.lang.ui.actions.MergeResourcesAction"/>
                                         <workflows:StringLiteral value="MergeResourcesAction(org.eclipse.e4.core.contexts.IEclipseContext)"/>
                                         <workflows:Expressions initialCapacity="1">
-                                        <workflows:Variable value="eclipseContext"/>
+                                        <workflows:Variable value="eclipse#eclipseContext"/>
                                         </workflows:Expressions>
                                         </workflows:CreateJavaClassInstance>
                                         <queries:VariableTest value="customAction"/>

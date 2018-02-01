@@ -70,7 +70,7 @@ public class ModelInput implements IModelInput {
 	}
 	public static IPersistenceProvider createPersistenceProvider(IEclipseContext context, String location) {
 		final IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipseContext", context);
+		bm.wDefValue("eclipse#eclipseContext", context);
 		try {
 			File file = new File(new URI(location));
 			return new FilePersistenceProvider(file, bm);

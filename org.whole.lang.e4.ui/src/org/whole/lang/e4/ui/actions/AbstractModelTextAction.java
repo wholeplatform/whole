@@ -64,7 +64,7 @@ public abstract class AbstractModelTextAction extends AbstractE4Action {
 				!(ModelObserver.getObserver(bm.wGet("focusEntity"), viewer.getEditPartRegistry()) instanceof ITextualEntityPart))
 			return false;
 
-		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
 		ISynchronizableRunnable runnable = new FunctionRunnable(context, bm, getText(), getEnablementUri());
 		IEntity result = runnable.syncExec(3000).getResult();
 		return result != null && result.wBooleanValue();

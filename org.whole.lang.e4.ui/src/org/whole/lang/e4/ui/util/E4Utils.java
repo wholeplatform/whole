@@ -181,13 +181,13 @@ public class E4Utils {
 
 	public static IBindingManager createSelectionBindings(SelectionChangedEvent event, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipseContext", context);
+		bm.wDefValue("eclipse#eclipseContext", context);
 		defineSelectionBindings(bm, event);
 		return bm;
 	}
 	public static IBindingManager createSelectionBindings(List<IEntityPart> selectedEntityParts, IEntityPartViewer viewer, IEclipseContext context) {
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
-		bm.wDefValue("eclipseContext", context);
+		bm.wDefValue("eclipse#eclipseContext", context);
 		defineSelectionBindings(bm, selectedEntityParts, viewer);
 		return bm;
 	}
@@ -412,7 +412,7 @@ public class E4Utils {
 			return;
 		if (bindings.wIsSet("debug#debugModeEnabled") && !bindings.wBooleanValue("debug#debugModeEnabled")) {
 			if (kind.isError())
-				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+				E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipse#eclipseContext"),
 						"Domain behavior error", "Error while executing domain behavior", throwable);
 			
 			return;
@@ -421,13 +421,13 @@ public class E4Utils {
 			return;
 
 		if (bindings.wIsSet("viewer") && ((IEntityPartViewer) bindings.wGetValue("viewer")).getControl().getDisplay().getThread() == Thread.currentThread()) {
-			E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipseContext"),
+			E4Utils.reportError((IEclipseContext) bindings.wGetValue("eclipse#eclipseContext"),
 						"Domain behavior error", "Attempted suspension in UI thread", throwable);
 
 			return;
 		}
 
-		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		final IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
 		context.get(UISynchronize.class).syncExec(new Runnable() {
 			public void run() {
 				try {
@@ -471,12 +471,12 @@ public class E4Utils {
 	}
 
 	public static <R extends Runnable> R syncExec(IBindingManager bindings, R runnable) {
-		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
 		context.get(UISynchronize.class).syncExec(runnable);
 		return runnable;
 	}
 	public static <R extends Runnable> R asyncExec(IBindingManager bindings, R runnable) {
-		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipseContext");
+		IEclipseContext context = (IEclipseContext) bindings.wGetValue("eclipse#eclipseContext");
 		context.get(UISynchronize.class).asyncExec(runnable);
 		return runnable;
 	}

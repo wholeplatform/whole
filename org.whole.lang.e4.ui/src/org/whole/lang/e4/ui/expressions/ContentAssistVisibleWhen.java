@@ -41,7 +41,7 @@ public class ContentAssistVisibleWhen extends AbstractSelectionConstrainedVisibl
 		if (!HandlersBehavior.isValidFocusEntityPart(bm))
 			return false;
 
-		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+		IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
 		ContentAssistRunnable runnable = new ContentAssistRunnable(context, bm);
 		IEntity result = runnable.syncExec(3000).getResult();
 		IEntity[] values = (IEntity[]) result.wGetValue();

@@ -30,7 +30,7 @@ public class TestsUIInterpreterVisitor extends TestsLearningInterpreterVisitor {
 	protected void reportError(String name, RuntimeException e) {
 		super.reportError(name, e);
 		IBindingManager debugEnv = getBindings();
-		IEclipseContext context = (IEclipseContext) debugEnv.wGetValue("eclipseContext");
+		IEclipseContext context = (IEclipseContext) debugEnv.wGetValue("eclipse#eclipseContext");
 		if ((debugEnv.wIsSet("debug#reportModeEnabled") && !debugEnv.wBooleanValue("debug#reportModeEnabled")) ||
 				(debugEnv.wIsSet("debug#debugModeEnabled") && !debugEnv.wBooleanValue("debug#debugModeEnabled")) ||
 				(debugEnv.wIsSet("debug#breakpointsEnabled") && !debugEnv.wBooleanValue("debug#breakpointsEnabled")))

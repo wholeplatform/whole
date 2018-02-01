@@ -252,7 +252,7 @@ public class HandlersBehavior {
 
 		RunnableWithResult<IImportAsModelDialog> dialogRunnable = RunnableWithResult.create(() -> {
 			Shell shell = viewer.getControl().getShell();
-			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
 			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
 					.createImplicitElementImportAsModelDialog(
 							shell, "Paste As", EntityUtils.isComposite(focusEntity));
@@ -269,7 +269,7 @@ public class HandlersBehavior {
 			try {
 				return ClipboardUtils.parseClipboardContents(persistenceKit, bm);
 			} catch (Exception e) {
-				IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipseContext");
+				IEclipseContext context = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
 				E4Utils.reportError(context, "Write Model errors", "Parse failed using the selected persistence.", e);
 				return CommonsEntityFactory.instance.createResolver();
 			}
@@ -380,7 +380,7 @@ public class HandlersBehavior {
 		
 		RunnableWithResult<IImportAsModelDialog> runnable = RunnableWithResult.create(() -> {
 			Shell shell = viewer.getControl().getShell();
-			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipseContext");
+			IEclipseContext eclipseContext = (IEclipseContext) bm.wGetValue("eclipse#eclipseContext");
 			IImportAsModelDialog dialog = eclipseContext.get(IImportAsModelDialogFactory.class)
 					.createImportAsModelDialog(shell, "Import model", EntityUtils.isComposite(focusEntity));
 			dialog.show();

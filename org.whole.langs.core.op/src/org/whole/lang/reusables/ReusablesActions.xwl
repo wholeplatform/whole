@@ -57,7 +57,7 @@
                                         <workflows:StringLiteral value="org.whole.lang.ui.actions.SimpleReplaceWithResourceAction"/>
                                         <workflows:StringLiteral value="SimpleReplaceWithResourceAction(org.eclipse.e4.core.contexts.IEclipseContext, org.whole.lang.reflect.EntityDescriptor, java.lang.String, java.lang.String, java.lang.String)"/>
                                         <workflows:Expressions initialCapacity="5">
-                                        <workflows:Variable value="eclipseContext"/>
+                                        <workflows:Variable value="eclipse#eclipseContext"/>
                                         <queries:Path initialCapacity="2">
                                         <commons:StageUpFragment>
                                         <queries:TypeTest value="whole:org.whole.lang.reusables:ReusablesModel#PathName"/>

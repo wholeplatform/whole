@@ -69,7 +69,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 							ReflectionFactory.getDefaultPersistenceKit();
 
 			customAction = new ReplaceWithResourceAndPersistenceAction(
-					(IEclipseContext) getBindings().wGetValue("eclipseContext"),
+					(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(), persistenceKit,
 					"Select resource...") {
@@ -98,7 +98,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 			};
 		} else if (WorkflowsUtils.isResourceInArtifactsActivity(entity)) {
 			customAction = new ReplaceWithResourceAction(
-					(IEclipseContext) getBindings().wGetValue("eclipseContext"),
+					(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
 					WorkflowsEntityDescriptorEnum.StringLiteral,
 					entity.wStringValue(),
 					"Select resource...") {
@@ -138,7 +138,7 @@ public class WorkflowsIDEContentAssistVisitor extends WorkflowsUIContentAssistVi
 			return false;
 
 		ReplaceWithClassNameAction action = new ReplaceWithClassNameAction(
-				(IEclipseContext) getBindings().wGetValue("eclipseContext"),
+				(IEclipseContext) getBindings().wGetValue("eclipse#eclipseContext"),
 				WorkflowsEntityDescriptorEnum.StringLiteral, entity.wStringValue(),
 				"Select class...");
 		
