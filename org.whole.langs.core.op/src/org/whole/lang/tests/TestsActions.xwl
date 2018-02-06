@@ -1178,13 +1178,11 @@
                                 </commons:StageDownFragment>
                             </artifacts:PackageArtifact>
                         </commons:StageUpFragment>
-                        <queries:Sequence initialCapacity="1">
-                            <queries:PointwiseInsert>
-                                <queries:Placement value="INTO"/>
-                                <queries:VariableRefStep value="packagesPoint"/>
-                                <queries:SelfStep/>
-                            </queries:PointwiseInsert>
-                        </queries:Sequence>
+                        <queries:PointwiseInsert>
+                            <queries:Placement value="INTO"/>
+                            <queries:VariableRefStep value="packagesPoint"/>
+                            <queries:SelfStep/>
+                        </queries:PointwiseInsert>
                     </queries:Path>
                     <queries:VariableRefStep value="normalizedSuite"/>
                     <queries:Sequence initialCapacity="7">
@@ -1344,13 +1342,11 @@
                                         </commons:StageUpFragment>
                                     </artifacts:FileArtifact>
                                 </commons:StageUpFragment>
-                                <queries:Sequence initialCapacity="1">
-                                    <queries:PointwiseInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:VariableRefStep value="suiteArtifactsPoint"/>
-                                        <queries:SelfStep/>
-                                    </queries:PointwiseInsert>
-                                </queries:Sequence>
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:VariableRefStep value="suiteArtifactsPoint"/>
+                                    <queries:SelfStep/>
+                                </queries:PointwiseInsert>
                             </queries:Path>
                             <queries:SelfStep/>
                             <queries:For>
@@ -1733,13 +1729,11 @@
                                         </commons:StageUpFragment>
                                         </artifacts:FileArtifact>
                                         </commons:StageUpFragment>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
                                         <queries:VariableRefStep value="suiteArtifactsPoint"/>
                                         <queries:SelfStep/>
                                         </queries:PointwiseInsert>
-                                        </queries:Sequence>
                                     </queries:Path>
                                     <queries:SelfStep/>
                                     <queries:Sequence initialCapacity="5">

@@ -324,14 +324,12 @@
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                     <semantics:EntityType value="http://lang.whole.org/Frames#Advices"/>
                     <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
-                        <queries:Sequence xmlns:queries="http://lang.whole.org/Queries" initialCapacity="1">
-                            <semantics:FunctionApplication>
-                                <commons:Resolver/>
-                                <queries:ChildStep/>
-                                <commons:Resolver/>
-                                <commons:Resolver/>
-                            </semantics:FunctionApplication>
-                        </queries:Sequence>
+                        <semantics:FunctionApplication>
+                            <commons:Resolver/>
+                            <queries:ChildStep xmlns:queries="http://lang.whole.org/Queries"/>
+                            <commons:Resolver/>
+                            <commons:Resolver/>
+                        </semantics:FunctionApplication>
                     </commons:StageUpFragment>
                 </semantics:ExecutionRule>
                 <semantics:ExecutionRule>

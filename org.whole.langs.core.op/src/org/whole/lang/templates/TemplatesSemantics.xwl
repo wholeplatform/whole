@@ -202,13 +202,11 @@
                                         </commons:StageUpFragment>
                                     </artifacts:FileArtifact>
                                 </commons:StageUpFragment>
-                                <queries:Sequence initialCapacity="1">
-                                    <queries:PointwiseInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:VariableRefStep value="templatesArtifactsPoint"/>
-                                        <queries:SelfStep/>
-                                    </queries:PointwiseInsert>
-                                </queries:Sequence>
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:VariableRefStep value="templatesArtifactsPoint"/>
+                                    <queries:SelfStep/>
+                                </queries:PointwiseInsert>
                             </queries:Path>
                             <semantics:FunctionApplication>
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -274,13 +272,11 @@
                                         </java:MethodInvocation>
                                     </java:ExpressionStatement>
                                 </commons:StageUpFragment>
-                                <queries:Sequence initialCapacity="1">
-                                    <queries:PointwiseInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:VariableRefStep value="constructorBlockPoint"/>
-                                        <queries:SelfStep/>
-                                    </queries:PointwiseInsert>
-                                </queries:Sequence>
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:VariableRefStep value="constructorBlockPoint"/>
+                                    <queries:SelfStep/>
+                                </queries:PointwiseInsert>
                             </queries:Path>
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -356,13 +352,11 @@
                                         </java:Block>
                                     </java:MethodDeclaration>
                                 </commons:StageUpFragment>
-                                <queries:Sequence initialCapacity="1">
-                                    <queries:PointwiseInsert>
-                                        <queries:Placement value="INTO"/>
-                                        <queries:VariableRefStep value="classDeclarationsPoint"/>
-                                        <queries:SelfStep/>
-                                    </queries:PointwiseInsert>
-                                </queries:Sequence>
+                                <queries:PointwiseInsert>
+                                    <queries:Placement value="INTO"/>
+                                    <queries:VariableRefStep value="classDeclarationsPoint"/>
+                                    <queries:SelfStep/>
+                                </queries:PointwiseInsert>
                             </queries:Path>
                             <queries:VoidLiteral/>
                         </queries:Block>

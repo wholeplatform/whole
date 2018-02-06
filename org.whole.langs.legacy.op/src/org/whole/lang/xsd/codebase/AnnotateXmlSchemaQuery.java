@@ -482,7 +482,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0.FeatureStep("http://www.w3.org/2001/XMLSchema#content");
         b0.Filter_();
         b0.ChildStep();
-        b0.SubtypeTest("http://lang.whole.org/Commons#Fragment");//WAS KindTest("FRAGMENT")
+        b0.SubtypeTest("http://lang.whole.org/Commons#Fragment");
         b0._Filter();
         b0.Filter_();
         b0.FeatureStep("http://lang.whole.org/Commons#rootEntity");
@@ -1218,6 +1218,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0._Filter();
         b0._If();
         b0._Sequence();
+        b0.TemplateNames();
         b0._Select();
         b0._Expressions();
         b0._Call();
@@ -1356,6 +1357,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0.VariableTest("modifiers");
         b0._Filter();
         b0._Sequence();
+        b0.TemplateNames();
         b0._Select();
         b0._CartesianUpdate();
         b0._Block();
@@ -1618,6 +1620,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0._Filter();
         b0._Path();
         b0._Sequence();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b1.StageUpFragment_();
@@ -1646,6 +1649,7 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0._Call();
         b0.VariableTest("dataType");
         b0._Filter();
+        b0.TemplateNames();
         b0._Select();
         b0._Choose();
         b0._PointwiseUpdate();
@@ -2476,7 +2480,6 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0._Path();
         b0.Path_(2);
         b0.FeatureStep("components");
-        b0.Sequence_(1);
         b0.Path_(3);
         b0.Sequence_(2);
         b0.Filter_();
@@ -2710,7 +2713,6 @@ public class AnnotateXmlSchemaQuery extends AbstractTemplateFactory<org.whole.la
         b0._If();
         b0._Sequence();
         b0._Path();
-        b0._Sequence();
         b0._Path();
         b0.Path_(3);
         b0.FeatureStep("components");

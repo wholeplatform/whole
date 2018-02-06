@@ -178,7 +178,6 @@ public class XmlActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b3.Content_(1);
         b1.StageDownFragment_();
         b2.Path_(2);
-        b2.Sequence_(1);
         b2.Select_();
         b1.StageUpFragment_();
         b3.Content_(4);
@@ -248,7 +247,6 @@ public class XmlActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2._Filter();
         b2.TemplateNames();
         b2._Select();
-        b2._Sequence();
         b2.ChildStep();
         b2._Path();
         b1._StageDownFragment();

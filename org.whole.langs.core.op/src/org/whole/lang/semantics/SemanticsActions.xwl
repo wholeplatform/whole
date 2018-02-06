@@ -752,11 +752,9 @@
                                         <queries:TypeTest value="http://lang.whole.org/Commons#StageDownFragment"/>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Path initialCapacity="2">
-                                        <queries:Sequence initialCapacity="1">
                                         <commons:StageDownFragment>
                                         <queries:FeatureStep value="http://lang.whole.org/Commons#rootEntity"/>
                                         </commons:StageDownFragment>
-                                        </queries:Sequence>
                                         <queries:ChildStep/>
                                         </queries:Path>
                                         </commons:StageUpFragment>

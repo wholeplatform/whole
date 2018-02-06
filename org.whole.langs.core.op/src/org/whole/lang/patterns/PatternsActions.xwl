@@ -233,9 +233,8 @@
                                         <queries:VariableTest value="patternTemplate"/>
                                     </queries:Filter>
                                 </queries:Path>
-                                <queries:Sequence initialCapacity="1">
-                                    <queries:Filter>
-                                        <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                                <queries:Filter>
+                                    <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="nextFreshName"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <workflows:Variable value="nameGenerator"/>
@@ -255,10 +254,9 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
                                         </workflows:Expressions>
-                                        </workflows:InvokeJavaInstanceMethod>
-                                        <queries:VariableTest value="patternName"/>
-                                    </queries:Filter>
-                                </queries:Sequence>
+                                    </workflows:InvokeJavaInstanceMethod>
+                                    <queries:VariableTest value="patternName"/>
+                                </queries:Filter>
                                 <queries:TemplateNames/>
                             </queries:Select>
                         </queries:CartesianInsert>
@@ -719,14 +717,12 @@
                             <queries:VariableTest value="derivedModels"/>
                         </queries:Filter>
                         <queries:SelfStep/>
-                        <queries:Sequence initialCapacity="1">
-                            <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
-                                <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toSemantics"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                            </semantics:FunctionApplication>
-                        </queries:Sequence>
+                        <semantics:FunctionApplication xmlns:semantics="http://lang.whole.org/Semantics">
+                            <semantics:Name value="whole:org.whole.lang.patterns:PatternsSemantics#toSemantics"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                        </semantics:FunctionApplication>
                         <queries:TemplateNames/>
                     </queries:Select>
                 </queries:Scope>

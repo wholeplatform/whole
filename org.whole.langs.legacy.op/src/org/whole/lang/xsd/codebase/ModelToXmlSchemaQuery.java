@@ -664,6 +664,7 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0._Filter();
         b0._Path();
         b0._Choose();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Filter_();
@@ -703,7 +704,6 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0.ChildStep();
         b0.VariableTest("value");
         b0._Filter();
-        b0.Sequence_(1);
         b0.Do_();
         b0.Filter_();
         b1.StageUpFragment_();
@@ -723,9 +723,9 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0.VariableTest("enumValue");
         b0._Filter();
         b0._Do();
-        b0._Sequence();
         b0._Path();
         b0._Sequence();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Filter_();
@@ -877,6 +877,7 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0._Choose();
         b0.VariableTest("particle");
         b0._Filter();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Filter_();
@@ -1043,6 +1044,7 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0.VariableTest("particle");
         b0._Filter();
         b0._For();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Filter_();
@@ -1128,6 +1130,7 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0._Choose();
         b0.VariableTest("builtInType");
         b0._Filter();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Filter_();
@@ -1199,8 +1202,10 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0.VariableTest("enum");
         b0._Filter();
         b0._For();
+        b0.TemplateNames();
         b0._Select();
         b0._Choose();
+        b0.TemplateNames();
         b0._Select();
         b0.Select_();
         b0.Tuple_(1);
@@ -1282,8 +1287,10 @@ public class ModelToXmlSchemaQuery extends AbstractTemplateFactory<org.whole.lan
         b0.VariableTest("particle");
         b0._Filter();
         b0._For();
+        b0.TemplateNames();
         b0._Select();
         b0._Sequence();
+        b0.TemplateNames();
         b0._Select();
         b0._Block();
     }

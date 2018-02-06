@@ -99,22 +99,20 @@
                         <queries:ChildStep/>
                         <queries:TypeTest value="DataEntity"/>
                     </queries:Filter>
-                    <queries:Sequence initialCapacity="1">
-                        <queries:PointwiseUpdate>
-                            <queries:Sequence initialCapacity="2">
-                                <queries:FeatureStep value="name"/>
-                                <queries:FeatureStep value="dataType"/>
-                            </queries:Sequence>
-                            <queries:Sequence initialCapacity="2">
-                                <commons:StageUpFragment>
-                                    <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MyDataEntityName"/>
-                                </commons:StageUpFragment>
-                                <commons:StageUpFragment>
-                                    <models:DataType xmlns:models="http://lang.whole.org/Models" value="MyDataType"/>
-                                </commons:StageUpFragment>
-                            </queries:Sequence>
-                        </queries:PointwiseUpdate>
-                    </queries:Sequence>
+                    <queries:PointwiseUpdate>
+                        <queries:Sequence initialCapacity="2">
+                            <queries:FeatureStep value="name"/>
+                            <queries:FeatureStep value="dataType"/>
+                        </queries:Sequence>
+                        <queries:Sequence initialCapacity="2">
+                            <commons:StageUpFragment>
+                                <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="MyDataEntityName"/>
+                            </commons:StageUpFragment>
+                            <commons:StageUpFragment>
+                                <models:DataType xmlns:models="http://lang.whole.org/Models" value="MyDataType"/>
+                            </commons:StageUpFragment>
+                        </queries:Sequence>
+                    </queries:PointwiseUpdate>
                 </queries:Path>
             </commons:StageUpFragment>
         </templates:TemplateFactory>

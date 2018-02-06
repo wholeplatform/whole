@@ -50,12 +50,10 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2.SelfStep();
         b2._Block();
         b2._QueryDeclaration();
-        b2.Sequence_(1);
         b2.Call_();
         b2.Name("removeRedundantIndexQualifiers");
         b1.Resolver();
         b2._Call();
-        b2._Sequence();
         b2._Block();
         b0._SimpleAction();
         b1.Resolver();
@@ -825,7 +823,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2._And();
         b2._Filter();
         b2._Path();
-        b2.Sequence_(1);
         b2.Path_(2);
         b2.VariableRefStep("datatypesMap");
         b2.Filter_();
@@ -838,7 +835,6 @@ public class RDBActions extends AbstractTemplateFactory<org.whole.lang.actions.m
         b2.VariableTest("dataType");
         b2._Filter();
         b2._Path();
-        b2._Sequence();
         b2.TemplateNames();
         b2._Select();
         b2._Sequence();

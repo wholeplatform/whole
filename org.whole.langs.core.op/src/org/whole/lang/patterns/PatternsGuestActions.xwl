@@ -356,7 +356,6 @@
                                         <queries:VariableTest value="patternTemplate"/>
                                         </queries:Filter>
                                         </queries:Path>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:Filter>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="nextFreshName"/>
@@ -381,7 +380,6 @@
                                         </workflows:InvokeJavaInstanceMethod>
                                         <queries:VariableTest value="patternName"/>
                                         </queries:Filter>
-                                        </queries:Sequence>
                                         <queries:TemplateNames/>
                                     </queries:Select>
                                 </queries:CartesianInsert>

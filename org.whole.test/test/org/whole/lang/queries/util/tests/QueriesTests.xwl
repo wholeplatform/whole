@@ -60,6 +60,8 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -110,6 +112,8 @@
                             </tests:AllOf>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -162,8 +166,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -460,6 +468,8 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
                 <tests:Test>
                     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -836,8 +846,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -853,8 +867,7 @@
                         <tests:AssertThat>
                             <queries:For xmlns:queries="http://lang.whole.org/Queries">
                                 <queries:Path initialCapacity="2">
-                                    <queries:Sequence initialCapacity="1">
-                                        <queries:Do>
+                                    <queries:Do>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <models:Feature>
@@ -871,8 +884,7 @@
                                         </models:Feature>
                                         </models:Features>
                                         </commons:StageUpFragment>
-                                        </queries:Do>
-                                    </queries:Sequence>
+                                    </queries:Do>
                                     <queries:ChildStep/>
                                 </queries:Path>
                                 <queries:Block initialCapacity="2">
@@ -907,8 +919,7 @@
                         <tests:AssertThat>
                             <queries:For xmlns:queries="http://lang.whole.org/Queries">
                                 <queries:Path initialCapacity="2">
-                                    <queries:Sequence initialCapacity="1">
-                                        <queries:Do>
+                                    <queries:Do>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <models:Features xmlns:models="http://lang.whole.org/Models" initialCapacity="2">
                                         <models:Feature>
@@ -925,8 +936,7 @@
                                         </models:Feature>
                                         </models:Features>
                                         </commons:StageUpFragment>
-                                        </queries:Do>
-                                    </queries:Sequence>
+                                    </queries:Do>
                                     <queries:ChildStep/>
                                 </queries:Path>
                                 <queries:Block initialCapacity="3">
@@ -1036,8 +1046,12 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
         <tests:TestCase>
             <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -1085,7 +1099,6 @@
                                         <java:Types initialCapacity="0"/>
                                         <commons:StageDownFragment>
                                         <queries:Path initialCapacity="2">
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:QueryDeclaration>
                                         <queries:Name value="fnameQuery"/>
                                         <queries:Names initialCapacity="0"/>
@@ -1094,8 +1107,6 @@
                                         <queries:SelfStep/>
                                         </queries:PointwiseUpdate>
                                         </queries:QueryDeclaration>
-                                        </queries:Sequence>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:Do>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
@@ -1104,7 +1115,6 @@
                                         <queries:VariableTest value="fnameJP"/>
                                         </queries:Filter>
                                         </queries:Do>
-                                        </queries:Sequence>
                                         </queries:Path>
                                         </commons:StageDownFragment>
                                         <commons:StageDownFragment>
@@ -1199,7 +1209,6 @@
                                         </queries:Call>
                                         </queries:Path>
                                         <queries:Path initialCapacity="2">
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:Do>
                                         <queries:Sequence initialCapacity="2">
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -1210,7 +1219,6 @@
                                         </commons:StageUpFragment>
                                         </queries:Sequence>
                                         </queries:Do>
-                                        </queries:Sequence>
                                         <queries:Call>
                                         <queries:Name value="into"/>
                                         <queries:Expressions initialCapacity="1">
@@ -1402,8 +1410,14 @@
                             </tests:Matches>
                         </tests:AssertThat>
                     </tests:TestStatements>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 </tests:Test>
             </tests:Tests>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+            <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
         </tests:TestCase>
     </tests:TestCases>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
 </tests:TestSuite>

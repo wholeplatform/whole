@@ -692,7 +692,6 @@
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:PointwiseProduct>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:PointwiseUpdate>
                                         <queries:Sequence initialCapacity="2">
                                         <queries:VariableRefStep value="_originalChild"/>
@@ -708,7 +707,6 @@
                                         <queries:ChildStep/>
                                         </queries:Path>
                                         </queries:PointwiseUpdate>
-                                        </queries:Sequence>
                                     </queries:Path>
                                 </queries:If>
                                 <queries:If>
@@ -718,7 +716,6 @@
                                         <queries:ChildStep/>
                                         <queries:VariableTest value="_prototypeChild"/>
                                         </queries:Filter>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:PointwiseInsert>
                                         <queries:Placement value="INTO"/>
                                         <queries:Sequence initialCapacity="2">
@@ -735,7 +732,6 @@
                                         <queries:ChildStep/>
                                         </queries:Path>
                                         </queries:PointwiseInsert>
-                                        </queries:Sequence>
                                     </queries:Path>
                                 </queries:If>
                             </queries:Choose>
@@ -861,7 +857,6 @@
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:PointwiseProduct>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_cloneChild"/>
@@ -880,7 +875,6 @@
                                         </semantics:FunctionApplication>
                                         </queries:Path>
                                         </queries:CartesianUpdate>
-                                        </queries:Sequence>
                                         </queries:Path>
                                     </queries:If>
                                     <queries:If>
@@ -1005,7 +999,6 @@
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:PointwiseProduct>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_cloneChild"/>
@@ -1024,7 +1017,6 @@
                                         </semantics:FunctionApplication>
                                         </queries:Path>
                                         </queries:CartesianUpdate>
-                                        </queries:Sequence>
                                         </queries:Path>
                                     </queries:If>
                                     <queries:If>
@@ -1149,7 +1141,6 @@
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:PointwiseProduct>
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:CartesianUpdate>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="_cloneChild"/>
@@ -1168,7 +1159,6 @@
                                         </semantics:FunctionApplication>
                                         </queries:Path>
                                         </queries:CartesianUpdate>
-                                        </queries:Sequence>
                                         </queries:Path>
                                     </queries:If>
                                     <queries:If>

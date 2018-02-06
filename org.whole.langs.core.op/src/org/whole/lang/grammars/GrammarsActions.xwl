@@ -651,7 +651,6 @@
                                         </queries:ExpressionTest>
                                     </queries:And>
                                     <queries:Path initialCapacity="2">
-                                        <queries:Sequence initialCapacity="1">
                                         <queries:CartesianUpdate>
                                         <queries:SelfStep/>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -675,7 +674,6 @@
                                         </grammars:As>
                                         </commons:StageUpFragment>
                                         </queries:CartesianUpdate>
-                                        </queries:Sequence>
                                         <queries:Sequence initialCapacity="2">
                                         <queries:FeatureStep value="rule"/>
                                         <queries:SelfStep/>
