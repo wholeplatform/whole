@@ -213,6 +213,12 @@ public class QueriesIdentityVisitor extends AbstractVisitor implements IQueriesV
     public void visit(KindTest entity) {
     }
 
+    public void visit(CompositeKindTest entity) {
+    }
+
+    public void visit(DataKindTest entity) {
+    }
+
     public void visit(StageTest entity) {
     }
 

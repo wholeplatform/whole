@@ -520,6 +520,22 @@ public class QueriesEntityFactory extends GenericEntityFactory {
         return create(QueriesEntityDescriptorEnum.KindTest, value);
     }
 
+    public CompositeKindTest createCompositeKindTest() {
+        return create(QueriesEntityDescriptorEnum.CompositeKindTest);
+    }
+
+    public CompositeKindTest createCompositeKindTest(CompositeKindTestEnum.Value value) {
+        return create(QueriesEntityDescriptorEnum.CompositeKindTest, value);
+    }
+
+    public DataKindTest createDataKindTest() {
+        return create(QueriesEntityDescriptorEnum.DataKindTest);
+    }
+
+    public DataKindTest createDataKindTest(DataKindTestEnum.Value value) {
+        return create(QueriesEntityDescriptorEnum.DataKindTest, value);
+    }
+
     public StageTest createStageTest() {
         return create(QueriesEntityDescriptorEnum.StageTest);
     }

@@ -43,6 +43,8 @@ import org.whole.lang.util.ResourceUtils;
 public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 	public static final String URI = "whole:org.whole.lang:ReflectLibrary";
 	public static final String KIND_ED = "http://lang.whole.org/Queries#KindTest";
+	public static final String COMPOSITE_KIND_ED = "http://lang.whole.org/Queries#CompositeKindTest";
+	public static final String DATA_KIND_ED = "http://lang.whole.org/Queries#DataKindTest";
 
 	//ILanguageKit, EntityDescriptor, FeatureDescriptor, IEntity APIs
 	public void deploy(ReflectionFactory platform) {
@@ -72,8 +74,8 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		putFunctionCode("entityIsRelationship", entityIsRelationshipIterator());
 		putFunctionCode("entityIsToManyRelationship", entityIsToManyRelationshipIterator());
 		putFunctionCode("entityKind", entityKindIterator());
-//		putFunctionCode("entityCompositeKind", entityCompositeKindIterator());
-//		putFunctionCode("entityDataKind", entityDataKindIterator());
+		putFunctionCode("entityCompositeKind", entityCompositeKindIterator());
+		putFunctionCode("entityDataKind", entityDataKindIterator());
 		putFunctionCode("entitySize", entitySizeIterator());
 		putFunctionCode("entityChildSize", entityChildSizeIterator());
 		putFunctionCode("entityAdjacentSize", entityAdjacentSizeIterator());
@@ -102,6 +104,8 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 		//self = IEntity
 		putFunctionCode("instanceLanguage", instanceLanguageIterator());
 		putFunctionCode("instanceKind", instanceKindIterator());
+		putFunctionCode("instanceCompositeKind", instanceCompositeKindIterator());
+		putFunctionCode("instanceDataKind", instanceDataKindIterator());
 		putFunctionCode("instanceType", instanceTypeIterator());
 		putFunctionCode("instanceAtType", instanceAtTypeIterator());
 		putFunctionCode("instanceAtFeature", instanceAtFeatureIterator());
@@ -321,6 +325,24 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(KIND_ED, false, null);
 				return GenericEntityFactory.instance.create(
 						kindEd, kindEd.getDataEnumType().valueOf(ed.getEntityKind().toString()));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> entityCompositeKindIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntitySingleValuedPropertyRunnable() {
+			protected IEntity getProperty(EntityDescriptor<?> ed) {
+				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(COMPOSITE_KIND_ED, false, null);
+				return GenericEntityFactory.instance.create(
+						kindEd, kindEd.getDataEnumType().valueOf(ed.getCompositeKind().toString()));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> entityDataKindIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new EntitySingleValuedPropertyRunnable() {
+			protected IEntity getProperty(EntityDescriptor<?> ed) {
+				EntityDescriptor<?> kindEd = CommonsDataTypePersistenceParser.getEntityDescriptor(DATA_KIND_ED, false, null);
+				return GenericEntityFactory.instance.create(
+						kindEd, kindEd.getDataEnumType().valueOf(ed.getDataKind().toString()));
 			}
 		});
 	}
@@ -620,6 +642,24 @@ public class ReflectLibraryDeployer extends AbstractFunctionLibraryDeployer {
 				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(KIND_ED, false, null);
 				bm.setResult(GenericEntityFactory.instance.create(
 						ed, ed.getDataEnumType().valueOf(selfEntity.wGetEntityKind().toString())));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> instanceCompositeKindIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(COMPOSITE_KIND_ED, false, null);
+				bm.setResult(GenericEntityFactory.instance.create(
+						ed, ed.getDataEnumType().valueOf(selfEntity.wGetEntityDescriptor().getCompositeKind().toString())));
+			}
+		});
+	}
+	public static IEntityIterator<IEntity> instanceDataKindIterator() {
+		return IteratorFactory.singleValuedRunnableIterator(new IRunnable() {
+			public void run(IEntity selfEntity, IBindingManager bm, IEntity... arguments) {
+				EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(DATA_KIND_ED, false, null);
+				bm.setResult(GenericEntityFactory.instance.create(
+						ed, ed.getDataEnumType().valueOf(selfEntity.wGetEntityDescriptor().getDataKind().toString())));
 			}
 		});
 	}

@@ -19,6 +19,8 @@ package org.whole.lang.queries.builders;
 
 import org.whole.lang.builders.IBuilder;
 import org.whole.lang.queries.model.KindTestEnum;
+import org.whole.lang.queries.model.CompositeKindTestEnum;
+import org.whole.lang.queries.model.DataKindTestEnum;
 import org.whole.lang.queries.model.StageTestEnum;
 import org.whole.lang.visitors.IVisitor;
 import java.util.Date;
@@ -445,6 +447,18 @@ public interface IQueriesBuilder extends IBuilder {
     public void KindTest(KindTestEnum.Value value);
 
     public void KindTest(String value);
+
+    public void CompositeKindTest();
+
+    public void CompositeKindTest(CompositeKindTestEnum.Value value);
+
+    public void CompositeKindTest(String value);
+
+    public void DataKindTest();
+
+    public void DataKindTest(DataKindTestEnum.Value value);
+
+    public void DataKindTest(String value);
 
     public void StageTest();
 

@@ -274,6 +274,14 @@ public class QueriesFailureVisitor extends QueriesIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(CompositeKindTest entity) {
+        throw new VisitException();
+    }
+
+    public void visit(DataKindTest entity) {
+        throw new VisitException();
+    }
+
     public void visit(StageTest entity) {
         throw new VisitException();
     }

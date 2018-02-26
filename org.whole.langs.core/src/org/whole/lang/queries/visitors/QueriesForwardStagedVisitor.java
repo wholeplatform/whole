@@ -268,6 +268,14 @@ public class QueriesForwardStagedVisitor extends QueriesIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(CompositeKindTest entity) {
+        stagedVisit(entity);
+    }
+
+    public void visit(DataKindTest entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(StageTest entity) {
         stagedVisit(entity);
     }

@@ -7,7 +7,7 @@
             <models:EntityType value="http://lang.whole.org/Math#Expression"/>
         </models:TypeAliasOf>
     </models:TypeRelations>
-    <models:ModelDeclarations initialCapacity="155">
+    <models:ModelDeclarations initialCapacity="157">
         <models:SimpleEntity>
             <models:EntityModifiers initialCapacity="1">
                 <models:EntityModifier value="abstract"/>
@@ -902,6 +902,42 @@
                 <models:EnumValue value="IMPL"/>
                 <models:EnumValue value="VARIABLE"/>
                 <models:EnumValue value="FRAGMENT"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="CompositeKindTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="5">
+                <models:EnumValue value="LIST"/>
+                <models:EnumValue value="UNIQUE_LIST"/>
+                <models:EnumValue value="SET"/>
+                <models:EnumValue value="BAG"/>
+                <models:EnumValue value="NOT_A_COMPOSITE"/>
+            </models:EnumValues>
+        </models:EnumEntity>
+        <models:EnumEntity>
+            <models:EntityModifiers initialCapacity="0"/>
+            <models:SimpleName value="DataKindTest"/>
+            <models:Types initialCapacity="1">
+                <models:SimpleName value="Predicate"/>
+            </models:Types>
+            <models:EnumValues initialCapacity="13">
+                <models:EnumValue value="BOOLEAN"/>
+                <models:EnumValue value="INT"/>
+                <models:EnumValue value="LONG"/>
+                <models:EnumValue value="FLOAT"/>
+                <models:EnumValue value="DOUBLE"/>
+                <models:EnumValue value="CHAR"/>
+                <models:EnumValue value="BYTE"/>
+                <models:EnumValue value="SHORT"/>
+                <models:EnumValue value="DATE"/>
+                <models:EnumValue value="ENUM_VALUE"/>
+                <models:EnumValue value="OBJECT"/>
+                <models:EnumValue value="STRING"/>
+                <models:EnumValue value="NOT_A_DATA"/>
             </models:EnumValues>
         </models:EnumEntity>
         <models:EnumEntity>

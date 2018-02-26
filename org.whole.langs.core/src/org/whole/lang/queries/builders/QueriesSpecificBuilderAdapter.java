@@ -23,6 +23,8 @@ import org.whole.lang.contexts.IEntityContext;
 import org.whole.lang.queries.reflect.QueriesFeatureDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.model.KindTestEnum;
+import org.whole.lang.queries.model.CompositeKindTestEnum;
+import org.whole.lang.queries.model.DataKindTestEnum;
 import org.whole.lang.queries.model.StageTestEnum;
 import org.whole.lang.visitors.IVisitor;
 import java.util.Date;
@@ -870,6 +872,30 @@ public class QueriesSpecificBuilderAdapter extends GenericBuilderContext impleme
 
     public void KindTest(String value) {
         wEntity(QueriesEntityDescriptorEnum.KindTest, value);
+    }
+
+    public void CompositeKindTest() {
+        wEntity(QueriesEntityDescriptorEnum.CompositeKindTest);
+    }
+
+    public void CompositeKindTest(CompositeKindTestEnum.Value value) {
+        wEntity(QueriesEntityDescriptorEnum.CompositeKindTest, value);
+    }
+
+    public void CompositeKindTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.CompositeKindTest, value);
+    }
+
+    public void DataKindTest() {
+        wEntity(QueriesEntityDescriptorEnum.DataKindTest);
+    }
+
+    public void DataKindTest(DataKindTestEnum.Value value) {
+        wEntity(QueriesEntityDescriptorEnum.DataKindTest, value);
+    }
+
+    public void DataKindTest(String value) {
+        wEntity(QueriesEntityDescriptorEnum.DataKindTest, value);
     }
 
     public void StageTest() {

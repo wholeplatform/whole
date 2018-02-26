@@ -1176,6 +1176,12 @@ public class QueriesGenericBuilderAdapter extends GenericIdentityBuilder {
             case QueriesEntityDescriptorEnum.KindTest_ord :
             specificBuilder.KindTest((Value) value);
             break;
+            case QueriesEntityDescriptorEnum.CompositeKindTest_ord :
+            specificBuilder.CompositeKindTest((org.whole.lang.queries.model.CompositeKindTestEnum.Value) value);
+            break;
+            case QueriesEntityDescriptorEnum.DataKindTest_ord :
+            specificBuilder.DataKindTest((org.whole.lang.queries.model.DataKindTestEnum.Value) value);
+            break;
             case QueriesEntityDescriptorEnum.StageTest_ord :
             specificBuilder.StageTest((org.whole.lang.queries.model.StageTestEnum.Value) value);
             break;

@@ -435,6 +435,14 @@ public class QueriesPartFactoryVisitor extends QueriesIdentityDefaultVisitor imp
 	public void visit(KindTest entity) {
 		part = new ContentLightDataEntityPart();
 	}
+	@Override
+	public void visit(CompositeKindTest entity) {
+		part = new ContentLightDataEntityPart();
+	}
+	@Override
+	public void visit(DataKindTest entity) {
+		part = new ContentLightDataEntityPart();
+	}
 
 	@Override
 	public void visit(StageTest entity) {

@@ -26,6 +26,8 @@ import org.whole.lang.comparators.ObjectIdentityComparator;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
 import org.whole.lang.operations.ICloneContext;
+import org.whole.lang.reflect.CompositeKinds;
+import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.FeatureDescriptor;
@@ -493,6 +495,32 @@ public class IteratorFactory {
 
 			public void toString(StringBuilder sb) {
 				sb.append("hasKind(");
+				sb.append(kind);
+				sb.append(")");
+			}
+		};
+	}
+	public static IEntityIterator<IEntity> hasCompositeKindIterator(CompositeKinds kind) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>() {
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+				bm.setResult(BindingManagerFactory.instance.createValue(kind.equals(selfEntity.wGetEntityDescriptor().getCompositeKind())));
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("hasCompositeKind(");
+				sb.append(kind);
+				sb.append(")");
+			}
+		};
+	}
+	public static IEntityIterator<IEntity> hasDataKindIterator(DataKinds kind) {
+		return new AbstractSingleValuedRunnableIterator<IEntity>() {
+			protected void run(IEntity selfEntity, IBindingManager bm) {
+				bm.setResult(BindingManagerFactory.instance.createValue(kind.equals(selfEntity.wGetEntityDescriptor().getDataKind())));
+			}
+
+			public void toString(StringBuilder sb) {
+				sb.append("hasDataKind(");
 				sb.append(kind);
 				sb.append(")");
 			}

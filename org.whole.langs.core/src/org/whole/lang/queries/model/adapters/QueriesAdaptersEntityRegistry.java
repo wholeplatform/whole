@@ -103,6 +103,8 @@ public class QueriesAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new ExtendedSupertypeVariableTestAdapter());
         put(new IndexVariableTestAdapter());
         put(new KindTestAdapter());
+        put(new CompositeKindTestAdapter());
+        put(new DataKindTestAdapter());
         put(new StageTestAdapter());
         put(new LanguageTestAdapter());
         put(new TypeTestAdapter());

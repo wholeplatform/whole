@@ -212,6 +212,12 @@ public abstract class QueriesIdentitySwitchVisitor extends AbstractVisitor imple
             case QueriesEntityDescriptorEnum.KindTest_ord :
             visit((KindTest) entity);
             break;
+            case QueriesEntityDescriptorEnum.CompositeKindTest_ord :
+            visit((CompositeKindTest) entity);
+            break;
+            case QueriesEntityDescriptorEnum.DataKindTest_ord :
+            visit((DataKindTest) entity);
+            break;
             case QueriesEntityDescriptorEnum.StageTest_ord :
             visit((StageTest) entity);
             break;

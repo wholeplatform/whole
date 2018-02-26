@@ -4,7 +4,7 @@
     <semantics:Namespace value="org.whole.lang"/>
     <semantics:Name value="Reflect"/>
     <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-    <semantics:SemanticFunctions initialCapacity="73">
+    <semantics:SemanticFunctions initialCapacity="77">
         <semantics:SemanticFunction>
             <semantics:Name value="languages"/>
             <semantics:FunctionType>
@@ -347,6 +347,40 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
                     <workflows:StringLiteral value="entityKindIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityCompositeKind"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#CompositeKindTest"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityCompositeKindIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityCompositeKindIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="entityDataKind"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#DataKindTest"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="entityDataKindIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="entityDataKindIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>
@@ -763,6 +797,40 @@
                     <commons:Resolver/>
                     <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
                     <workflows:StringLiteral value="instanceKindIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="instanceCompositeKind"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#CompositeKindTest"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="instanceCompositeKindIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="instanceCompositeKindIterator()"/>
+                    <commons:Resolver/>
+                </workflows:InvokeJavaClassMethod>
+            </commons:StageDownFragment>
+        </semantics:SemanticFunction>
+        <semantics:SemanticFunction>
+            <semantics:Name value="instanceDataKind"/>
+            <semantics:FunctionType>
+                <semantics:AnyType/>
+                <semantics:EntityType value="http://lang.whole.org/Queries#DataKindTest"/>
+            </semantics:FunctionType>
+            <commons:StageDownFragment xmlns:commons="http://lang.whole.org/Commons">
+                <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
+                    <workflows:Text value="instanceDataKindIterator"/>
+                    <commons:Resolver/>
+                    <commons:Resolver/>
+                    <workflows:StringLiteral value="org.whole.lang.ReflectLibraryDeployer"/>
+                    <workflows:StringLiteral value="instanceDataKindIterator()"/>
                     <commons:Resolver/>
                 </workflows:InvokeJavaClassMethod>
             </commons:StageDownFragment>

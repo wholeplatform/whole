@@ -91,6 +91,8 @@ public class QueriesImplEntityRegistry extends AbstractEntityRegistry {
         put(new ExtendedSupertypeVariableTestImpl());
         put(new IndexVariableTestImpl());
         put(new KindTestImpl());
+        put(new CompositeKindTestImpl());
+        put(new DataKindTestImpl());
         put(new StageTestImpl());
         put(new LanguageTestImpl());
         put(new TypeTestImpl());

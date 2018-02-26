@@ -282,6 +282,14 @@ public class QueriesForwardStrategyVisitor extends GenericForwardStrategyVisitor
         wGetStrategy().visit(entity);
     }
 
+    public void visit(CompositeKindTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
+    public void visit(DataKindTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(StageTest entity) {
         wGetStrategy().visit(entity);
     }

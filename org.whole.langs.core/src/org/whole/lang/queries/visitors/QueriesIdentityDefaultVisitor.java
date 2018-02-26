@@ -386,6 +386,16 @@ public class QueriesIdentityDefaultVisitor extends QueriesIdentityVisitor {
         visit((Predicate) entity);
     }
 
+    public void visit(CompositeKindTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
+    public void visit(DataKindTest entity) {
+        visit((IQueriesEntity) entity);
+        visit((Predicate) entity);
+    }
+
     public void visit(StageTest entity) {
         visit((IQueriesEntity) entity);
         visit((Predicate) entity);

@@ -58,6 +58,8 @@ import org.whole.lang.queries.model.KindTestEnum.Value;
 import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.queries.reflect.QueriesLanguageKit;
 import org.whole.lang.queries.util.MathUtils;
+import org.whole.lang.reflect.CompositeKinds;
+import org.whole.lang.reflect.DataKinds;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.EntityKinds;
 import org.whole.lang.reflect.ILanguageKit;
@@ -883,6 +885,16 @@ public class QueriesDynamicCompilerVisitor extends QueriesIdentityDefaultVisitor
 			EntityKinds ekind = EntityKinds.valueOf(kind.getName());
 			setResultIterator(IteratorFactory.hasKindIterator(ekind).withSourceEntity(entity));
 		}
+	}
+	@Override
+	public void visit(CompositeKindTest entity) {
+		CompositeKindTestEnum.Value kind = entity.getValue();
+		setResultIterator(IteratorFactory.hasCompositeKindIterator(CompositeKinds.valueOf(kind.getName())));
+	}
+	@Override
+	public void visit(DataKindTest entity) {
+		DataKindTestEnum.Value kind = entity.getValue();
+		setResultIterator(IteratorFactory.hasDataKindIterator(DataKinds.valueOf(kind.getName())));
 	}
 
 	@Override

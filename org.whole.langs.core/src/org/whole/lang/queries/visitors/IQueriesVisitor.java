@@ -148,6 +148,10 @@ public interface IQueriesVisitor extends IVisitor {
 
     public void visit(KindTest entity);
 
+    public void visit(CompositeKindTest entity);
+
+    public void visit(DataKindTest entity);
+
     public void visit(StageTest entity);
 
     public void visit(LanguageTest entity);
