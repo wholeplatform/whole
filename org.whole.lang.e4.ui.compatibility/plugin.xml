@@ -20,6 +20,13 @@
 		        file-extensions="h,m,c">
 		</content-type>
 		<content-type
+			priority="high"
+		        name="Swift Source File (Whole)"
+		        id="org.whole.ui.contenttype.contentTypes.swiftWhole"
+		        base-type="org.eclipse.core.runtime.text"
+		        file-extensions="swift">
+		</content-type>
+		<content-type
 		        id="org.whole.ui.contenttype.contentTypes.mediawikiSource"
 		        name="Mediawiki Source File (Whole)" 
 			    base-type="org.eclipse.core.runtime.text"
@@ -244,6 +251,15 @@
             class="org.whole.lang.e4.ui.compatibility.EditorPart"
             id="org.whole.lang.objectivec.ObjectiveCEditor">
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.objectivecWhole"/>
+      </editor>
+      <editor
+            name="Swift Syntax Editor (Whole)"
+            default="false"
+            extensions="swift"
+            icon="icons/editors/swiftsyntax.gif"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.swiftsyntax.SwiftSyntaxEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.swiftWhole"/>
       </editor>
       <editor
             name="MediaWiki Editor (Whole)"
