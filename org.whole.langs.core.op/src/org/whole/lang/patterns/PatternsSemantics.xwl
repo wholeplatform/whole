@@ -2549,7 +2549,7 @@
                                         </queries:Addition>
                                         </semantics:TypeCast>
                                     </commons:StageDownFragment>
-                                    <queries:Block initialCapacity="2">
+                                    <queries:Choose initialCapacity="2">
                                         <semantics:FunctionApplication>
                                         <commons:StageDownFragment>
                                         <commons:StageUpFragment>
@@ -2561,7 +2561,7 @@
                                         <commons:Resolver/>
                                         </semantics:FunctionApplication>
                                         <queries:VoidLiteral/>
-                                    </queries:Block>
+                                    </queries:Choose>
                                 </queries:If>
                             </commons:StageUpFragment>
                             <semantics:FunctionApplication>
