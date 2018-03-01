@@ -15,12 +15,12 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="modelName"/>
                             <queries:Name value="semanticsName"/>
                             <queries:Name value="actionsName"/>
                             <queries:Name value="guestActionsName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="5">
                             <queries:Filter>
                                 <queries:VariableRefStep value="packageArtifactsPoint"/>
@@ -88,12 +88,12 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="modelName"/>
                             <queries:Name value="semanticsName"/>
                             <queries:Name value="actionsName"/>
                             <queries:Name value="guestActionsName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="13">
                             <queries:Filter>
                                 <queries:VariableRefStep value="packageArtifactsPoint"/>
@@ -333,7 +333,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="7">
+                        <queries:FreshNames initialCapacity="7">
                             <queries:Name value="actionsUri"/>
                             <queries:Name value="actionsNamespace"/>
                             <queries:Name value="actionsName"/>
@@ -341,13 +341,13 @@
                             <queries:Name value="functionUri"/>
                             <queries:Name value="functionUri2"/>
                             <queries:Name value="modelUri"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="10">
                             <queries:Filter>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="suffix"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Do>
                                         <queries:Filter>
@@ -677,7 +677,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="13">
+                        <queries:FreshNames initialCapacity="13">
                             <queries:Name value="outerTemplateStage"/>
                             <queries:Name value="templateStage"/>
                             <queries:Name value="executableStage"/>
@@ -691,7 +691,7 @@
                             <queries:Name value="semanticFunctionsPoint"/>
                             <queries:Name value="functionBodyPoint"/>
                             <queries:Name value="inPatternLanguage"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="12">
                             <queries:Filter>
                                 <queries:BooleanLiteral value="false"/>
@@ -707,9 +707,9 @@
                             </queries:Filter>
                             <queries:Filter>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="suffix"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Do>
                                         <queries:Filter>
@@ -815,7 +815,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="13">
+                        <queries:FreshNames initialCapacity="13">
                             <queries:Name value="outerTemplateStage"/>
                             <queries:Name value="templateStage"/>
                             <queries:Name value="executableStage"/>
@@ -829,7 +829,7 @@
                             <queries:Name value="functionBodyPoint"/>
                             <queries:Name value="inPatternLanguage"/>
                             <queries:Name value="semanticFunctionsPoint"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="16">
                             <queries:Filter>
                                 <queries:BooleanLiteral value="false"/>
@@ -845,9 +845,9 @@
                             </queries:Filter>
                             <queries:Filter>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="suffix"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Do>
                                         <queries:Filter>
@@ -945,9 +945,9 @@
                                         <semantics:AnyType/>
                                         </semantics:FunctionType>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_nameGenerator"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <workflows:CreateJavaClassInstance xmlns:workflows="http://lang.whole.org/Workflows">
@@ -1001,11 +1001,11 @@
                                         </queries:Path>
                                         <queries:Do>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="3">
+                                        <queries:FreshNames initialCapacity="3">
                                         <queries:Name value="_prototype"/>
                                         <queries:Name value="_prototypeChild"/>
                                         <queries:Name value="_cloneChild"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Path initialCapacity="3">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -1116,9 +1116,9 @@
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </semantics:FunctionApplication>
                             <queries:Scope>
-                                <queries:Names initialCapacity="1">
+                                <queries:FreshNames initialCapacity="1">
                                     <queries:Name value="inPatternLanguage"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="2">
                                     <queries:Filter>
                                         <queries:BooleanLiteral value="false"/>
@@ -1191,12 +1191,12 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="4">
+                            <queries:FreshNames initialCapacity="4">
                                 <queries:Name value="scopeBody"/>
                                 <queries:Name value="outerScopeNamesPoint"/>
                                 <queries:Name value="outerBindingPoint"/>
                                 <queries:Name value="scopeNamesPoint"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:QueryDeclaration>
                                     <queries:Name value="scopeBody"/>
@@ -1314,10 +1314,10 @@
                                         <queries:Block initialCapacity="2">
                                         <commons:StageDownFragment>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="2">
+                                        <queries:FreshNames initialCapacity="2">
                                         <queries:Name value="pointcut"/>
                                         <queries:Name value="pointcutName"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:For>
                                         <queries:Path initialCapacity="2">
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#context"/>
@@ -1711,9 +1711,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#OuterDefinitionStep"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="outerDefinitionName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <queries:Addition>
@@ -1900,9 +1900,9 @@
                                         </commons:StageDownFragment>
                                         <commons:StageDownFragment>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="expression"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <semantics:FunctionApplication>
@@ -1956,9 +1956,9 @@
                                         </commons:StageDownFragment>
                                         <commons:StageDownFragment>
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="expression"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <semantics:FunctionApplication>
@@ -2181,9 +2181,9 @@
                                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                             </queries:Some>
                             <queries:Scope>
-                                <queries:Names initialCapacity="1">
+                                <queries:FreshNames initialCapacity="1">
                                     <queries:Name value="expression"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Block initialCapacity="2">
                                     <queries:Filter>
                                         <semantics:FunctionApplication>
@@ -2220,9 +2220,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariableDeclaration"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="expression"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Path initialCapacity="2">
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
@@ -2310,10 +2310,10 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariantSelector"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="2">
+                        <queries:FreshNames initialCapacity="2">
                             <queries:Name value="variabilityName"/>
                             <queries:Name value="expression"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <queries:Addition>
@@ -2362,11 +2362,11 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#ResultPoint"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="resultType"/>
                             <queries:Name value="_scatteredPattern"/>
                             <queries:Name value="_weaver"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#resultType"/>
@@ -2549,7 +2549,8 @@
                                         </queries:Addition>
                                         </semantics:TypeCast>
                                     </commons:StageDownFragment>
-                                    <semantics:FunctionApplication>
+                                    <queries:Block initialCapacity="2">
+                                        <semantics:FunctionApplication>
                                         <commons:StageDownFragment>
                                         <commons:StageUpFragment>
                                         <commons:Resolver/>
@@ -2558,7 +2559,9 @@
                                         <queries:ChildStep/>
                                         <commons:Resolver/>
                                         <commons:Resolver/>
-                                    </semantics:FunctionApplication>
+                                        </semantics:FunctionApplication>
+                                        <queries:VoidLiteral/>
+                                    </queries:Block>
                                 </queries:If>
                             </commons:StageUpFragment>
                             <semantics:FunctionApplication>
@@ -2580,9 +2583,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Enumeration"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="enumValuesExpression"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="3">
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
@@ -2751,11 +2754,11 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="resultType"/>
                             <queries:Name value="featureStep"/>
                             <queries:Name value="adapter"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="6">
                             <queries:Filter>
                                 <semantics:TypeCast>
@@ -2903,7 +2906,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternApplication"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="7">
+                        <queries:FreshNames initialCapacity="7">
                             <queries:Name value="createPattern"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="patternArguments"/>
@@ -2911,12 +2914,12 @@
                             <queries:Name value="defaultArgument"/>
                             <queries:Name value="argumentName"/>
                             <queries:Name value="argumentExpression"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Scope>
-                                <queries:Names initialCapacity="1">
+                                <queries:FreshNames initialCapacity="1">
                                     <queries:Name value="templateStage"/>
-                                </queries:Names>
+                                </queries:FreshNames>
                                 <queries:Select>
                                     <queries:Filter>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -2954,7 +2957,9 @@
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="createPattern"/>
                                     </queries:Filter>
-                                    <queries:And initialCapacity="2">
+                                    <queries:Filter>
+                                        <queries:SelfStep/>
+                                        <queries:And initialCapacity="2">
                                         <queries:Some>
                                         <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
@@ -2969,7 +2974,8 @@
                                         </queries:Filter>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </queries:Some>
-                                    </queries:And>
+                                        </queries:And>
+                                    </queries:Filter>
                                     <queries:Sequence initialCapacity="3">
                                         <queries:Filter>
                                         <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -3134,9 +3140,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -3183,12 +3189,12 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="4">
+                            <queries:FreshNames initialCapacity="4">
                                 <queries:Name value="templateStage"/>
                                 <queries:Name value="functionName"/>
                                 <queries:Name value="selfExpression"/>
                                 <queries:Name value="functionExpression"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="5">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -3354,14 +3360,14 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternInstance"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="6">
+                        <queries:FreshNames initialCapacity="6">
                             <queries:Name value="patternName"/>
                             <queries:Name value="patternArguments"/>
                             <queries:Name value="patternArgument"/>
                             <queries:Name value="defaultArgument"/>
                             <queries:Name value="argumentName"/>
                             <queries:Name value="argumentExpression"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Select>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <workflows:CreateEntity xmlns:workflows="http://lang.whole.org/Workflows">
@@ -3396,22 +3402,25 @@
                                     </workflows:Assignments>
                                 </workflows:CreateEntity>
                             </commons:StageUpFragment>
-                            <queries:And initialCapacity="2">
-                                <queries:Some>
-                                    <queries:Filter>
+                            <queries:Filter>
+                                <queries:SelfStep/>
+                                <queries:And initialCapacity="2">
+                                    <queries:Some>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#name"/>
                                         <queries:VariableTest value="patternName"/>
-                                    </queries:Filter>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </queries:Some>
-                                <queries:Some>
-                                    <queries:Filter>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                    <queries:Some>
+                                        <queries:Filter>
                                         <queries:FeatureStep value="whole:org.whole.lang.patterns:PatternsModel#arguments"/>
                                         <queries:VariableTest value="patternArguments"/>
-                                    </queries:Filter>
-                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                                </queries:Some>
-                            </queries:And>
+                                        </queries:Filter>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                    </queries:Some>
+                                </queries:And>
+                            </queries:Filter>
                             <queries:Sequence initialCapacity="2">
                                 <queries:Select>
                                     <queries:Filter>
@@ -3551,9 +3560,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#FunctionStep"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="functionName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -3647,9 +3656,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#GoalStep"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="goalName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -3746,9 +3755,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PointcutStep"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="pointcutName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:SelfStep/>
@@ -3866,9 +3875,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -3908,9 +3917,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -3945,10 +3954,10 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="2">
+                            <queries:FreshNames initialCapacity="2">
                                 <queries:Name value="templateStage"/>
                                 <queries:Name value="childTemplate"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4016,9 +4025,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4050,9 +4059,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#VariantSelectionPoint"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="variabilityName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Filter>
                                 <queries:Addition>
@@ -4077,9 +4086,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4108,9 +4117,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4153,9 +4162,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4184,9 +4193,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4248,9 +4257,9 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="1">
+                            <queries:FreshNames initialCapacity="1">
                                 <queries:Name value="templateStage"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="2">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4287,10 +4296,10 @@
                     <semantics:FunctionApplication>
                         <semantics:Name value="wrapAtExecutableStage"/>
                         <queries:Scope>
-                            <queries:Names initialCapacity="2">
+                            <queries:FreshNames initialCapacity="2">
                                 <queries:Name value="templateStage"/>
                                 <queries:Name value="derivationExpression"/>
-                            </queries:Names>
+                            </queries:FreshNames>
                             <queries:Block initialCapacity="4">
                                 <queries:Filter>
                                     <math:Integer xmlns:math="http://lang.whole.org/Math" value="0"/>
@@ -4343,9 +4352,9 @@
                                         </queries:Some>
                                         <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                         <queries:Scope>
-                                        <queries:Names initialCapacity="1">
+                                        <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="derivationExpression"/>
-                                        </queries:Names>
+                                        </queries:FreshNames>
                                         <queries:Block initialCapacity="2">
                                         <queries:Do>
                                         <queries:Filter>
@@ -4421,9 +4430,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_joinpointAdapter"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Path initialCapacity="2">
                                         <queries:Sequence initialCapacity="1">
                                         <commons:StageDownFragment>
@@ -4458,9 +4467,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_resultJoinPoint"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4490,9 +4499,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_resultJoinPoint"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4523,9 +4532,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_resultJoinPoint"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4580,9 +4589,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_resultJoinPoint"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4637,9 +4646,9 @@
                             </queries:Equals>
                             <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="_resultJoinPoint"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4666,11 +4675,11 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SlotsDefined"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="3">
+                        <queries:FreshNames initialCapacity="3">
                             <queries:Name value="slotTest"/>
                             <queries:Name value="slotFeature"/>
                             <queries:Name value="slotsDefinedTest"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="2">
                             <queries:Select>
                                 <queries:Filter>
@@ -4837,9 +4846,9 @@
                 </queries:If>
                 <queries:Do>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="_clone"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Choose initialCapacity="2">
                                 <queries:If>
@@ -4865,11 +4874,11 @@
                             </queries:Choose>
                             <queries:Filter>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="3">
+                                    <queries:FreshNames initialCapacity="3">
                                         <queries:Name value="_prototype"/>
                                         <queries:Name value="_prototypeChild"/>
                                         <queries:Name value="_cloneChild"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Path initialCapacity="3">
                                         <queries:Filter>
                                         <queries:SelfStep/>
@@ -4988,7 +4997,7 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternLanguage"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="8">
+                        <queries:FreshNames initialCapacity="8">
                             <queries:Name value="modelUri"/>
                             <queries:Name value="modelNamespace"/>
                             <queries:Name value="modelName"/>
@@ -4997,13 +5006,13 @@
                             <queries:Name value="modelDeclarartionsPoint"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="entityName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="8">
                             <queries:Filter>
                                 <queries:Scope>
-                                    <queries:Names initialCapacity="1">
+                                    <queries:FreshNames initialCapacity="1">
                                         <queries:Name value="suffix"/>
-                                    </queries:Names>
+                                    </queries:FreshNames>
                                     <queries:Block initialCapacity="2">
                                         <queries:Do>
                                         <queries:Filter>
@@ -5179,12 +5188,12 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Pattern"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="featuresPoint"/>
                             <queries:Name value="contextType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="supertypeName"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="5">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -5296,9 +5305,9 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Slot"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="1">
+                        <queries:FreshNames initialCapacity="1">
                             <queries:Name value="contextType"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Path initialCapacity="2">
                                 <commons:StageUpFragment xmlns:commons="http://lang.whole.org/Commons">
@@ -5483,13 +5492,13 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Repetition"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="5">
+                        <queries:FreshNames initialCapacity="5">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="elementName"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="contextType"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="7">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -5647,12 +5656,12 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Choice"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="4">
+                        <queries:FreshNames initialCapacity="4">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="contextType"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="6">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -5796,13 +5805,13 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Enumeration"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="5">
+                        <queries:FreshNames initialCapacity="5">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="enumValue"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="contextType"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -5915,13 +5924,13 @@
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Data"/>
                     <queries:Scope>
-                        <queries:Names initialCapacity="5">
+                        <queries:FreshNames initialCapacity="5">
                             <queries:Name value="elementType"/>
                             <queries:Name value="patternName"/>
                             <queries:Name value="dataType"/>
                             <queries:Name value="supertypeName"/>
                             <queries:Name value="contextType"/>
-                        </queries:Names>
+                        </queries:FreshNames>
                         <queries:Block initialCapacity="4">
                             <queries:Filter>
                                 <semantics:FunctionApplication>
@@ -6122,9 +6131,9 @@
                 <semantics:LegacyType value="STRING"/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="1">
+                <queries:FreshNames initialCapacity="1">
                     <queries:Name value="suffix"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:Do>
                         <queries:Filter>
@@ -6287,9 +6296,9 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="1">
+                <queries:FreshNames initialCapacity="1">
                     <queries:Name value="typeTest"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:Filter>
                         <queries:FeatureStep value="http://lang.whole.org/Queries#predicate"/>
@@ -6320,11 +6329,11 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="3">
+                <queries:FreshNames initialCapacity="3">
                     <queries:Name value="foreignType"/>
                     <queries:Name value="types"/>
                     <queries:Name value="type"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="4">
                     <queries:Filter>
                         <queries:FeatureStep value="http://lang.whole.org/Models#foreignType"/>
@@ -6447,9 +6456,9 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="1">
+                <queries:FreshNames initialCapacity="1">
                     <queries:Name value="entityName"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:Filter>
                         <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
@@ -6480,9 +6489,9 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="1">
+                <queries:FreshNames initialCapacity="1">
                     <queries:Name value="featureName"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:Filter>
                         <queries:FeatureStep value="http://lang.whole.org/Models#name"/>
@@ -6513,9 +6522,9 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="1">
+                <queries:FreshNames initialCapacity="1">
                     <queries:Name value="outerTemplateStage"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:Filter>
                         <queries:BooleanLiteral value="false"/>
@@ -6612,14 +6621,14 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="6">
+                <queries:FreshNames initialCapacity="6">
                     <queries:Name value="outerTemplateStage"/>
                     <queries:Name value="templateStage"/>
                     <queries:Name value="executableStage"/>
                     <queries:Name value="wrappedTemplate"/>
                     <queries:Name value="wrapWithStageUpFragment"/>
                     <queries:Name value="repeat"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="9">
                     <queries:QueryDeclaration>
                         <queries:Name value="wrapWithStageUpFragment"/>
@@ -6859,10 +6868,10 @@
                 <semantics:AnyType/>
             </semantics:FunctionType>
             <queries:Scope xmlns:queries="http://lang.whole.org/Queries">
-                <queries:Names initialCapacity="2">
+                <queries:FreshNames initialCapacity="2">
                     <queries:Name value="buildJoinPointPath"/>
                     <queries:Name value="parentStep"/>
-                </queries:Names>
+                </queries:FreshNames>
                 <queries:Block initialCapacity="2">
                     <queries:QueryDeclaration>
                         <queries:Name value="buildJoinPointPath"/>
