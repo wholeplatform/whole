@@ -162,7 +162,7 @@ public class SemanticsUtils {
 
 		EntityDescriptor<?> ed = CommonsDataTypePersistenceParser.getEntityDescriptor(edUri, false, null);
 		if (ed == null)
-			throw new IllegalArgumentException("The migration target entity is not available: "+targetUri);
+			throw new IllegalArgumentException("The migration target entity is not available: "+edUri);
 
 		return createShallowMigrateEntity(selfEntity, ed);
 	}
