@@ -15,6 +15,10 @@ public class TextIdentityDefaultVisitor extends TextIdentityVisitor {
 	public void visit(Document entity) {
 		visit((ITextEntity) entity);
 		visit((IRow) entity);
+		visit((IText) entity);
+	}
+
+	public void visit(IText entity) {
 	}
 
 	public void visit(Indent entity) {
@@ -31,9 +35,6 @@ public class TextIdentityDefaultVisitor extends TextIdentityVisitor {
 		visit((ITextEntity) entity);
 		visit((IRow) entity);
 		visit((IText) entity);
-	}
-
-	public void visit(IText entity) {
 	}
 
 	public void visit(Row entity) {

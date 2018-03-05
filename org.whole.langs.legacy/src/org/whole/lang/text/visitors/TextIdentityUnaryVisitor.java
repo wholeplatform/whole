@@ -8,8 +8,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class TextIdentityUnaryVisitor<V extends IVisitor> extends
-		AbstractUnaryVisitor<V> implements ITextVisitor {
+public class TextIdentityUnaryVisitor<V extends IVisitor> extends AbstractUnaryVisitor<V> implements ITextVisitor {
 	public TextIdentityUnaryVisitor() {
 		super(null);
 	}

@@ -7,8 +7,7 @@ import org.whole.lang.text.model.*;
 /** 
  * @generator Whole
  */
-public class TextTraverseAllSwitchVisitor extends
-		TextIdentityUnaryVisitor<IVisitor> {
+public class TextTraverseAllSwitchVisitor extends TextIdentityUnaryVisitor<IVisitor> {
 	public TextTraverseAllSwitchVisitor(IVisitor visitor1) {
 		super(visitor1);
 	}

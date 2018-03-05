@@ -18,6 +18,7 @@
 package org.whole.lang.text.visitors;
 
 import org.whole.lang.matchers.Matcher;
+import org.whole.lang.model.IEntity;
 import org.whole.lang.model.adapters.IEntityAdapter;
 import org.whole.lang.operations.IPrettyPrintWriter;
 import org.whole.lang.operations.PrettyPrinterOperation;
@@ -40,19 +41,19 @@ public class TextPrettyPrinterVisitor extends TextTraverseAllVisitor {
 	protected boolean newSeparator, nestedDocument, nestedRow;
 
 	public TextPrettyPrinterVisitor(PrettyPrinterOperation operation) {
-    	out = operation.getPrettyPrintWriter();
+		out = operation.getPrettyPrintWriter();
 	}
 
 	protected void printSeparator() {
 		out.printRaw(textSeparator);
 	}
 	protected void println() {
-	    if (!out.isInlined()) {
-	    	if (rowSeparator == null)
-	    		out.println();
-	    	else
-	    		out.printRaw(rowSeparator);
-	    }
+		if (!out.isInlined()) {
+			if (rowSeparator == null)
+				out.println();
+			else
+				out.printRaw(rowSeparator);
+		}
 	}
 
 	public boolean visitAdapter(IEntityAdapter entity) {
@@ -75,18 +76,39 @@ public class TextPrettyPrinterVisitor extends TextTraverseAllVisitor {
 
 	protected int rowIndex;
 	public void visit(Document entity) {
-		if (!nestedDocument)
+		boolean nestedInRow = false;
+
+		if (nestedDocument) {
+			IEntity parent = entity.wGetParent();
+			nestedInRow = Matcher.match(TextEntityDescriptorEnum.Row, parent);
+		} else
 			rowIndex = 0;
-		
+
 		boolean oldNestedDocument = nestedDocument;
 		nestedDocument = true;
+		
+		int start = nestedInRow ? 1 : 0;
+		int size = entity.wSize();
 
-		for (int i=0, size=entity.size(); i < size; i++) {
+		if (nestedInRow && size > 0)
+			entity.get(0).accept(this);
+
+		boolean oldInlined = out.isInlined();
+		boolean oldNestedRow = nestedRow;
+		if (nestedInRow) {
+			nestedRow = false;
+			out.setInlined(false);
+		}
+
+		for (int i=start; i < size; i++) {
 			IRow row = entity.get(i);
 			row.accept(this);
 			if (Matcher.match(TextEntityDescriptorEnum.Row, row))
 				rowIndex++;
 		}
+
+		nestedRow = oldNestedRow;
+		out.setInlined(oldInlined);
 
 		nestedDocument = oldNestedDocument;
 	}

@@ -50,7 +50,7 @@ public class LegacyMetaModelsDeployer extends AbstractLanguageExtensionDeployer 
 		platform.setMetaModelTemplate(MEDIAWIKI_URI, "MediaWiki model", "org/whole/lang/mediawiki/MediaWikiModel.xwl");
 		platform.setMetaModelTemplate(PropertiesLanguageKit.URI, "org.whole.lang.models.codebase.PropertiesModel");
 		platform.setMetaModelTemplate(ScriptsLanguageKit.URI, "org.whole.lang.models.codebase.ScriptsModel");
-		platform.setMetaModelTemplate(TextLanguageKit.URI, "org.whole.lang.models.codebase.TextModel");
+		platform.setMetaModelTemplate(TextLanguageKit.URI, "Text model", "org/whole/lang/text/TextModel.xwl");
 		platform.setMetaModelTemplate(XmlLanguageKit.URI, "org.whole.lang.models.codebase.XmlModel");
 		platform.setMetaModelTemplate(XsdLanguageKit.URI, "org.whole.lang.models.codebase.XsdModel");
 	}

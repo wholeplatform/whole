@@ -8,8 +8,7 @@ import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public abstract class TextIdentitySwitchVisitor extends AbstractVisitor
-		implements ITextVisitor {
+public abstract class TextIdentitySwitchVisitor extends AbstractVisitor implements ITextVisitor {
 	public void visit(IEntity entity) {
 		switch (entity.wGetEntityOrd()) {
 		case TextEntityDescriptorEnum.Document_ord:

@@ -18,7 +18,7 @@ public class TextAdaptersEntityRegistry extends AbstractEntityRegistry {
 		put(new TextSeparatorAdapter());
 		put(new RowAdapter());
 		put(new TextAdapter());
-		put(new ITextAdapter());
 		put(new IRowAdapter());
+		put(new ITextAdapter());
 	}
 }

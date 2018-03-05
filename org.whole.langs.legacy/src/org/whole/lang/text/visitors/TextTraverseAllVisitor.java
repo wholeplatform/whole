@@ -8,8 +8,7 @@ import org.whole.lang.visitors.IVisitor;
 /** 
  * @generator Whole
  */
-public class TextTraverseAllVisitor extends
-		TextIdentityUnaryVisitor<ITextVisitor> {
+public class TextTraverseAllVisitor extends TextIdentityUnaryVisitor<ITextVisitor> {
 	public TextTraverseAllVisitor() {
 		wSetVisitor1(this);
 	}

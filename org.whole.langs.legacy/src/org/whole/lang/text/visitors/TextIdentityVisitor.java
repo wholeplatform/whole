@@ -7,8 +7,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class TextIdentityVisitor extends AbstractVisitor implements
-		ITextVisitor {
+public class TextIdentityVisitor extends AbstractVisitor implements ITextVisitor {
 	public void visit(IEntity entity) {
 		((ITextEntity) entity).accept(this);
 	}

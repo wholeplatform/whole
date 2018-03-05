@@ -1,8 +1,9 @@
 package org.whole.lang.text.model.impl;
 
 import org.whole.lang.model.AbstractDataEntity;
-import org.whole.lang.text.model.*;
+import org.whole.lang.text.model.Text;
 import org.whole.lang.text.visitors.ITextVisitor;
+import org.whole.lang.exceptions.IWholeRuntimeException;
 import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 
@@ -25,7 +26,7 @@ public class TextImpl extends AbstractDataEntity implements Text {
 		try {
 			visitor.visit(this);
 		} catch (Exception e) {
-			throw org.whole.lang.exceptions.IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
+			throw IWholeRuntimeException.asWholeException(e, this, visitor.getBindings());
 		}
 	}
 

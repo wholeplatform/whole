@@ -8,14 +8,12 @@ import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class TextSpecificBuilderAdapter extends GenericBuilderContext implements
-		ITextBuilder {
+public class TextSpecificBuilderAdapter extends GenericBuilderContext implements ITextBuilder {
 	public TextSpecificBuilderAdapter(IBuilder strategy) {
 		super(strategy);
 	}
 
-	public TextSpecificBuilderAdapter(IBuilder strategy,
-			IEntityContext entityContext) {
+	public TextSpecificBuilderAdapter(IBuilder strategy, IEntityContext entityContext) {
 		super(strategy, entityContext);
 	}
 

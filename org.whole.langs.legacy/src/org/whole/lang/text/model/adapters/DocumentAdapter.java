@@ -10,8 +10,7 @@ import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class DocumentAdapter extends AbstractListEntityAdapter<IRow> implements
-		Document {
+public class DocumentAdapter extends AbstractListEntityAdapter<IRow> implements Document {
 	private static final long serialVersionUID = 1;
 
 	public DocumentAdapter(IEntity implementor) {

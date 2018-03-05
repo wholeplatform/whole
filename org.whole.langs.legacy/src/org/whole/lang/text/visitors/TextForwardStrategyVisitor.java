@@ -7,8 +7,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class TextForwardStrategyVisitor extends
-		GenericForwardStrategyVisitor<ITextVisitor> implements ITextVisitor {
+public class TextForwardStrategyVisitor extends GenericForwardStrategyVisitor<ITextVisitor> implements ITextVisitor {
 	public TextForwardStrategyVisitor() {
 		this(new TextIdentityVisitor());
 	}

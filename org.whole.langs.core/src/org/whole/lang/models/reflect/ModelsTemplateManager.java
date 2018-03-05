@@ -45,7 +45,6 @@ import org.whole.lang.models.codebase.TemplatesModel;
 import org.whole.lang.models.codebase.TestEntities;
 import org.whole.lang.models.codebase.TestEvents;
 import org.whole.lang.models.codebase.TestORM;
-import org.whole.lang.models.codebase.TextModel;
 import org.whole.lang.models.codebase.TopicMapsModel;
 import org.whole.lang.models.codebase.TopicsModel;
 import org.whole.lang.models.codebase.TransformersModel;
@@ -138,7 +137,6 @@ public class ModelsTemplateManager extends AbstractTemplateManager {
 		put("Xsd model", new XsdModel());
 		put("Xsd Mapping model", new XsdMappingModel());
 		put("Properties model", new PropertiesModel());
-		put("Text model", new TextModel());
 		put("Grammars model", new GrammarsModel());
 		put("Grammar Based Notation model", new GrammarBasedModel());
 		put("Data model", new DataModel());

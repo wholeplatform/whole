@@ -10,8 +10,7 @@ import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
 /** 
  * @generator Whole
  */
-public class RowSeparatorAdapter extends AbstractEntityAdapter implements
-		RowSeparator {
+public class RowSeparatorAdapter extends AbstractEntityAdapter implements RowSeparator {
 	private static final long serialVersionUID = 1;
 
 	public RowSeparatorAdapter(IEntity implementor) {

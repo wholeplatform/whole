@@ -9,8 +9,7 @@ import org.whole.lang.model.IEntity;
 /** 
  * @generator Whole
  */
-public class TextSequenceVisitor extends AbstractBinaryVisitor<ITextVisitor>
-		implements ITextVisitor {
+public class TextSequenceVisitor extends AbstractBinaryVisitor<ITextVisitor> implements ITextVisitor {
 	public TextSequenceVisitor(IVisitor visitor1, IVisitor visitor2) {
 		super(visitor1, visitor2);
 	}

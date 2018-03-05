@@ -15,8 +15,7 @@ public class TextGenericBuilderAdapter extends GenericIdentityBuilder {
 		this.specificBuilder = specificBuilder;
 	}
 
-	public TextGenericBuilderAdapter(ITextBuilder specificBuilder,
-			IEntityContext entityContext) {
+	public TextGenericBuilderAdapter(ITextBuilder specificBuilder, IEntityContext entityContext) {
 		this(specificBuilder);
 		wSetEntityContext(entityContext);
 	}
