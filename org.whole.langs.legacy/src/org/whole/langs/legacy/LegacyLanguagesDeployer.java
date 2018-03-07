@@ -53,6 +53,7 @@ public class LegacyLanguagesDeployer extends AbstractSuiteDeployer {
 			JSONLanguageDeployer.class,
 			JSONPersistenceDeployer.class,
 			SwiftSyntaxPersistenceDeployer.class,
+			SwiftASTPersistenceDeployer.class,
 			DefaultPersistenceDeployer.class
 		);
 	}

@@ -262,6 +262,15 @@
             <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.swiftWhole"/>
       </editor>
       <editor
+            name="Swift AST Editor (Whole)"
+            default="true"
+            extensions="swift"
+            icon="icons/editors/swiftast.gif"
+            class="org.whole.lang.e4.ui.compatibility.EditorPart"
+            id="org.whole.lang.swiftast.SwiftASTEditor">
+            <contentTypeBinding contentTypeId="org.whole.ui.contenttype.contentTypes.swiftWhole"/>
+      </editor>
+      <editor
             name="MediaWiki Editor (Whole)"
             default="false"
             extensions="mediawiki"
