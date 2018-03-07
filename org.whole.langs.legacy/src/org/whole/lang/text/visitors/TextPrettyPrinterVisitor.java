@@ -30,6 +30,7 @@ import org.whole.lang.text.model.RowSeparator;
 import org.whole.lang.text.model.Text;
 import org.whole.lang.text.model.TextSeparator;
 import org.whole.lang.text.reflect.TextEntityDescriptorEnum;
+import org.whole.lang.util.EntityUtils;
 
 /**
  * @author Riccardo Solmi
@@ -79,7 +80,11 @@ public class TextPrettyPrinterVisitor extends TextTraverseAllVisitor {
 		boolean nestedInRow = false;
 
 		if (nestedDocument) {
-			IEntity parent = entity.wGetParent();
+			IEntity parent = entity;
+			do {
+				parent = parent.wGetParent();
+			} while (!EntityUtils.isNull(parent) &&
+					Matcher.match(TextEntityDescriptorEnum.Document, parent));
 			nestedInRow = Matcher.match(TextEntityDescriptorEnum.Row, parent);
 		} else
 			rowIndex = 0;
@@ -90,8 +95,11 @@ public class TextPrettyPrinterVisitor extends TextTraverseAllVisitor {
 		int start = nestedInRow ? 1 : 0;
 		int size = entity.wSize();
 
-		if (nestedInRow && size > 0)
-			entity.get(0).accept(this);
+		if (nestedInRow && size > 0) {
+			IRow row = entity.get(0);
+			row.accept(this);
+			rowIndex++;
+		}
 
 		boolean oldInlined = out.isInlined();
 		boolean oldNestedRow = nestedRow;
