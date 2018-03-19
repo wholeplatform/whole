@@ -222,6 +222,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(SlotDeclaration entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(VariantSelector entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

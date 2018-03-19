@@ -326,6 +326,12 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void _VariableDeclaration();
 
+    public void SlotDeclaration();
+
+    public void SlotDeclaration_();
+
+    public void _SlotDeclaration();
+
     public void VariantSelector();
 
     public void VariantSelector_();

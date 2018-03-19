@@ -141,6 +141,9 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     public void visit(VariableDeclaration entity) {
     }
 
+    public void visit(SlotDeclaration entity) {
+    }
+
     public void visit(VariantSelector entity) {
     }
 

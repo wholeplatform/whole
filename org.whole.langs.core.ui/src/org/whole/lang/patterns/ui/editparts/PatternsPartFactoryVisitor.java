@@ -64,6 +64,7 @@ import org.whole.lang.patterns.model.ScopePoint;
 import org.whole.lang.patterns.model.SelectionPoint;
 import org.whole.lang.patterns.model.SequencePoint;
 import org.whole.lang.patterns.model.Slot;
+import org.whole.lang.patterns.model.SlotDeclaration;
 import org.whole.lang.patterns.model.SlotStep;
 import org.whole.lang.patterns.model.SlotsDefined;
 import org.whole.lang.patterns.model.TemplatePoint;
@@ -283,6 +284,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(VariableDeclaration entity) {
         part = new VariableDeclarationPart();
+    }
+
+    @Override
+    public void visit(SlotDeclaration entity) {
+        part = new SlotDeclarationPart();
     }
 
     @Override

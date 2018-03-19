@@ -468,6 +468,18 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return new EntityBuilder<VariableDeclaration>(create(PatternsEntityDescriptorEnum.VariableDeclaration));
     }
 
+    public SlotDeclaration createSlotDeclaration() {
+        return create(PatternsEntityDescriptorEnum.SlotDeclaration);
+    }
+
+    public SlotDeclaration createSlotDeclaration(Name name, Type type, BooleanValue optional) {
+        return create(PatternsEntityDescriptorEnum.SlotDeclaration, name, type, optional);
+    }
+
+    public IEntityBuilder<SlotDeclaration> buildSlotDeclaration() {
+        return new EntityBuilder<SlotDeclaration>(create(PatternsEntityDescriptorEnum.SlotDeclaration));
+    }
+
     public VariantSelector createVariantSelector() {
         return create(PatternsEntityDescriptorEnum.VariantSelector);
     }

@@ -150,6 +150,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(VariableDeclaration entity) {
     }
 
+    public void visit(SlotDeclaration entity) {
+    }
+
     public void visit(VariantSelector entity) {
     }
 

@@ -233,6 +233,12 @@ public class PatternsTraverseAllVisitor extends PatternsIdentityUnaryVisitor<IPa
         entity.getResultType().accept(wGetVisitor1());
     }
 
+    public void visit(SlotDeclaration entity) {
+        entity.getName().accept(wGetVisitor1());
+        entity.getType().accept(wGetVisitor1());
+        entity.getOptional().accept(wGetVisitor1());
+    }
+
     public void visit(VariantSelector entity) {
         entity.getVariability().accept(wGetVisitor1());
         entity.getVariant().accept(wGetVisitor1());

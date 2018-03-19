@@ -172,6 +172,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(SlotDeclaration entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(VariantSelector entity) {
         stagedVisit(entity);
     }

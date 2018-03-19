@@ -225,6 +225,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Declaration) entity);
     }
 
+    public void visit(SlotDeclaration entity) {
+        visit((IPatternsEntity) entity);
+        visit((Declaration) entity);
+    }
+
     public void visit(VariantSelector entity) {
         visit((IPatternsEntity) entity);
         visit((Declaration) entity);

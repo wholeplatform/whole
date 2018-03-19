@@ -636,6 +636,18 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         _wEntity(PatternsEntityDescriptorEnum.VariableDeclaration);
     }
 
+    public void SlotDeclaration() {
+        wEntity(PatternsEntityDescriptorEnum.SlotDeclaration);
+    }
+
+    public void SlotDeclaration_() {
+        wEntity_(PatternsEntityDescriptorEnum.SlotDeclaration);
+    }
+
+    public void _SlotDeclaration() {
+        _wEntity(PatternsEntityDescriptorEnum.SlotDeclaration);
+    }
+
     public void VariantSelector() {
         wEntity(PatternsEntityDescriptorEnum.VariantSelector);
     }

@@ -70,6 +70,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PointcutDeclarationAdapter());
         put(new JoinPointDeclarationAdapter());
         put(new VariableDeclarationAdapter());
+        put(new SlotDeclarationAdapter());
         put(new VariantSelectorAdapter());
         put(new TypesAdapter());
         put(new ResultTypesAdapter());

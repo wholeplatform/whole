@@ -255,6 +255,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration();
             break;
+            case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
+            specificBuilder.SlotDeclaration();
+            break;
             case PatternsEntityDescriptorEnum.VariantSelector_ord :
             specificBuilder.VariantSelector();
             break;
@@ -392,6 +395,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder.VariableDeclaration_();
             break;
+            case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
+            specificBuilder.SlotDeclaration_();
+            break;
             case PatternsEntityDescriptorEnum.VariantSelector_ord :
             specificBuilder.VariantSelector_();
             break;
@@ -528,6 +534,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             break;
             case PatternsEntityDescriptorEnum.VariableDeclaration_ord :
             specificBuilder._VariableDeclaration();
+            break;
+            case PatternsEntityDescriptorEnum.SlotDeclaration_ord :
+            specificBuilder._SlotDeclaration();
             break;
             case PatternsEntityDescriptorEnum.VariantSelector_ord :
             specificBuilder._VariantSelector();
