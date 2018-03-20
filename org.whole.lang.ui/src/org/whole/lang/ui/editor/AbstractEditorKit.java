@@ -50,7 +50,16 @@ public abstract class AbstractEditorKit implements IGEFEditorKit, Serializable {
 		return getName().equals(other.getName()) && getId().equals(other.getId());
 	}
 
-    public int getDefaultLevel() {
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + getName().hashCode();
+		result = prime * result + getId().hashCode();
+		return result;
+	}
+
+	public int getDefaultLevel() {
     	return 0;
     }
 

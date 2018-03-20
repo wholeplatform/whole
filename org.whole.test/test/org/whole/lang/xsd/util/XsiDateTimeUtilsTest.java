@@ -108,6 +108,6 @@ public class XsiDateTimeUtilsTest {
 		
 		Calendar calendar = Calendar.getInstance(getTimeZone(jodaTime.getZone()), Locale.getDefault());
 		calendar.setTime(jodaTime.toDate());
-		Assert.assertEquals(calendar, DateTimeUtils.toGregorianCalendar(jodaTime));
+		Assert.assertEquals(0, calendar.compareTo(DateTimeUtils.toGregorianCalendar(jodaTime)));
 	}
 }
