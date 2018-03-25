@@ -451,7 +451,7 @@ public class PojoUtils {
 			return getPrimitiveTypeClass((PrimitiveType) type);
 		case ReferenceType_ord:
 			try {
-				return Class.forName(((ReferenceType) type).getValue());
+				return Class.forName(((ReferenceType) type).getValue(), true, ReflectionFactory.getPlatformClassLoader());
 			} catch (ClassNotFoundException e) {
 				throw new IllegalArgumentException("Cannot find class for reference type", e);
 			}
@@ -470,7 +470,7 @@ public class PojoUtils {
 		ReferenceType referenceType = enumDeclaration.getName();
 		String toEnumName = referenceType.wStringValue();
 		try {
-			Class<?> toEnum = Class.forName(toEnumName);
+			Class<?> toEnum = Class.forName(toEnumName, true, ReflectionFactory.getPlatformClassLoader());
 			Method valueOfMethod = toEnum.getMethod("valueOf", new Class[] { String.class });
 			return valueOfMethod.invoke(null, value);
 		} catch (Exception e) {
@@ -528,7 +528,7 @@ public class PojoUtils {
 
 	public static Object createInstanceUsingConstructor(IEntity fromEntity, PojoDeclaration pojoDeclaration, Library library) throws Exception {
 		ReferenceType referenceType = pojoDeclaration.getName();
-		Class<?> clazz = Class.forName(referenceType.getValue());
+		Class<?> clazz = Class.forName(referenceType.getValue(), true, ReflectionFactory.getPlatformClassLoader());
 		Constructor constructor = findConstructor(pojoDeclaration);
 
 		int params = constructor.getParameters().wSize();
