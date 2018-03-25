@@ -98,6 +98,12 @@ public class CompositeFigure extends EntityFigure {
 		super.remove(figure);
 	}
 
+	public void fillFixedSizeChildrenSeparators(Graphics g) {
+		if (isHorizontal())
+			fillFixedSizeColumnSeparators(g);
+		else
+			fillFixedSizeRowSeparators(g);
+	}
 	public void drawFixedSizeChildrenSeparators(Graphics g) {
 		if (isHorizontal())
 			drawFixedSizeColumnSeparators(g);
@@ -109,6 +115,36 @@ public class CompositeFigure extends EntityFigure {
 			drawVariableSizeColumnSeparators(g);
 		else
 			drawVariableSizeRowSeparators(g);
+	}
+	@SuppressWarnings("unchecked")
+	public void fillFixedSizeRowSeparators(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int x = bounds.x;
+		int w = bounds.right();
+		int h = getLayoutManager().getSpacing();
+		for (int i=0; i<children.size()-1; i++) {
+			Rectangle boundsBefore = children.get(i).getBounds();
+			int y = boundsBefore.bottom();
+			g.fillRectangle(x, y, w, h);
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public void fillFixedSizeColumnSeparators(Graphics g) {
+		List<IFigure> children = getChildren();
+		if (children.isEmpty())
+			return;
+
+		int y = bounds.y;
+		int h = bounds.height;
+		int w = getLayoutManager().getSpacing();
+		for (int i=0; i<children.size()-1; i++) {
+			Rectangle boundsBefore = children.get(i).getBounds();
+			int x = boundsBefore.right();
+			g.fillRectangle(x, y, w, h);
+		}
 	}
 	@SuppressWarnings("unchecked")
 	public void drawFixedSizeRowSeparators(Graphics g) {
