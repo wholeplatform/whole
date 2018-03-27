@@ -52,6 +52,7 @@ import org.whole.lang.patterns.model.PatternApplication;
 import org.whole.lang.patterns.model.PatternInstance;
 import org.whole.lang.patterns.model.PatternJoinPointStep;
 import org.whole.lang.patterns.model.PatternLanguage;
+import org.whole.lang.patterns.model.PatternSubtypeTest;
 import org.whole.lang.patterns.model.PatternTypeTest;
 import org.whole.lang.patterns.model.Patterns;
 import org.whole.lang.patterns.model.Placement;
@@ -453,6 +454,11 @@ public class PatternsPartFactoryVisitor extends PatternsIdentityDefaultVisitor i
     @Override
     public void visit(PatternTypeTest entity) {
     	part = new PatternTypeTestPart();
+    }
+
+    @Override
+    public void visit(PatternSubtypeTest entity) {
+    	part = new PatternSubtypeTestPart();
     }
 
     @Override

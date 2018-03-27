@@ -1437,7 +1437,7 @@
                                         <commons:StageDownFragment>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
-                                        <queries:Names initialCapacity="0"/>
+                                        <queries:FreshNames initialCapacity="0"/>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="outerScopeNamesPoint"/>
                                         </queries:Filter>
@@ -1455,7 +1455,7 @@
                                         <commons:StageDownFragment>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
-                                        <queries:Names initialCapacity="0"/>
+                                        <queries:FreshNames initialCapacity="0"/>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="scopeNamesPoint"/>
                                         </queries:Filter>
@@ -1557,7 +1557,7 @@
                                         <commons:StageDownFragment>
                                         <queries:Filter>
                                         <commons:StageUpFragment>
-                                        <queries:Names initialCapacity="0"/>
+                                        <queries:FreshNames initialCapacity="0"/>
                                         </commons:StageUpFragment>
                                         <queries:VariableTest value="scopeNamesPoint"/>
                                         </queries:Filter>
