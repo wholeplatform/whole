@@ -92,6 +92,7 @@ public class PatternsAdaptersEntityRegistry extends AbstractEntityRegistry {
         put(new PredicateAdapter());
         put(new SlotsDefinedAdapter());
         put(new PatternTypeTestAdapter());
+        put(new PatternSubtypeTestAdapter());
         put(new PlacementAdapter());
         put(new URIAdapter());
         put(new NamespaceAdapter());

@@ -191,6 +191,9 @@ public abstract class PatternsIdentitySwitchVisitor extends AbstractVisitor impl
             case PatternsEntityDescriptorEnum.PatternTypeTest_ord :
             visit((PatternTypeTest) entity);
             break;
+            case PatternsEntityDescriptorEnum.PatternSubtypeTest_ord :
+            visit((PatternSubtypeTest) entity);
+            break;
             case PatternsEntityDescriptorEnum.Placement_ord :
             visit((Placement) entity);
             break;

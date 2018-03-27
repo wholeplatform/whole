@@ -307,6 +307,11 @@ public class PatternsSequenceVisitor extends AbstractBinaryVisitor<IPatternsVisi
         wGetVisitor2().visit(entity);
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        wGetVisitor1().visit(entity);
+        wGetVisitor2().visit(entity);
+    }
+
     public void visit(Placement entity) {
         wGetVisitor1().visit(entity);
         wGetVisitor2().visit(entity);

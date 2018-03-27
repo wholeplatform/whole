@@ -84,6 +84,7 @@ public class PatternsImplEntityRegistry extends AbstractEntityRegistry {
         put(new InsertImpl());
         put(new SlotsDefinedImpl());
         put(new PatternTypeTestImpl());
+        put(new PatternSubtypeTestImpl());
         put(new PlacementImpl());
         put(new URIImpl());
         put(new NamespaceImpl());

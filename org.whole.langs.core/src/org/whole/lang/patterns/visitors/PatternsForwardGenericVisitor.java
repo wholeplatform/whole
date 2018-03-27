@@ -251,6 +251,10 @@ public class PatternsForwardGenericVisitor extends AbstractUnaryVisitor<IVisitor
         wGetVisitor1().visit(entity);
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        wGetVisitor1().visit(entity);
+    }
+
     public void visit(Placement entity) {
         wGetVisitor1().visit(entity);
     }

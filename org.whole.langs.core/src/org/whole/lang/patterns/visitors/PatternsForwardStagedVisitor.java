@@ -240,6 +240,10 @@ public class PatternsForwardStagedVisitor extends PatternsIdentityVisitor {
         stagedVisit(entity);
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        stagedVisit(entity);
+    }
+
     public void visit(Placement entity) {
         stagedVisit(entity);
     }

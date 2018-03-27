@@ -324,6 +324,11 @@ public class PatternsIdentityDefaultVisitor extends PatternsIdentityVisitor {
         visit((Predicate) entity);
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        visit((IPatternsEntity) entity);
+        visit((Predicate) entity);
+    }
+
     public void visit(Placement entity) {
         visit((IPatternsEntity) entity);
     }

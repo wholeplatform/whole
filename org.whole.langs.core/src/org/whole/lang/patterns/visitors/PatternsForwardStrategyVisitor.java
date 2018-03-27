@@ -254,6 +254,10 @@ public class PatternsForwardStrategyVisitor extends GenericForwardStrategyVisito
         wGetStrategy().visit(entity);
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        wGetStrategy().visit(entity);
+    }
+
     public void visit(Placement entity) {
         wGetStrategy().visit(entity);
     }

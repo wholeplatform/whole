@@ -657,7 +657,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="46">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="47">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -4677,6 +4677,19 @@
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternTypeTest"/>
                     <semantics:TypeCast>
                         <semantics:EntityType value="http://lang.whole.org/Queries#TypeTest"/>
+                        <queries:Addition>
+                            <queries:VariableRefStep value="modelUri"/>
+                            <queries:Addition>
+                                <queries:StringLiteral value="#"/>
+                                <queries:VariableRefStep value="self"/>
+                            </queries:Addition>
+                        </queries:Addition>
+                    </semantics:TypeCast>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#PatternSubtypeTest"/>
+                    <semantics:TypeCast>
+                        <semantics:EntityType value="http://lang.whole.org/Queries#SubtypeTest"/>
                         <queries:Addition>
                             <queries:VariableRefStep value="modelUri"/>
                             <queries:Addition>

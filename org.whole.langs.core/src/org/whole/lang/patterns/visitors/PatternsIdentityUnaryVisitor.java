@@ -201,6 +201,9 @@ public class PatternsIdentityUnaryVisitor<V extends IVisitor>  extends AbstractU
     public void visit(PatternTypeTest entity) {
     }
 
+    public void visit(PatternSubtypeTest entity) {
+    }
+
     public void visit(Placement entity) {
     }
 

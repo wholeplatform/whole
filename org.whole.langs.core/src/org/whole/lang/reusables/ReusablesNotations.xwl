@@ -13,7 +13,7 @@
                 <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Adapt"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFViewsPatternsModel">
+                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
                     <gefviewspatterns:RowLayout>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -64,7 +64,7 @@
                 <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Reuse"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFViewsPatternsModel">
+                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
                     <gefviewspatterns:RowLayout>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -137,7 +137,7 @@
                 <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Synch"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFViewsPatternsModel">
+                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
                     <gefviewspatterns:RowLayout>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -217,7 +217,7 @@
                 <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="Include"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFViewsPatternsModel">
+                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
                     <gefviewspatterns:RowLayout>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -258,7 +258,7 @@
                 <models:SimpleName xmlns:models="http://lang.whole.org/Models" value="ReferenceStep"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                 <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
-                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFViewsPatternsModel">
+                <gefviewspatterns:Layout xmlns:gefviewspatterns="whole:org.whole.lang.gef:GEFNotationsPatternsModel:2">
                     <gefviewspatterns:RowLayout>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>

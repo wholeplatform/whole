@@ -17,6 +17,8 @@
  */
 package org.whole.lang.xsd.templates;
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.InputStream;
@@ -88,6 +90,8 @@ public class XsiModelTemplateTest {
 	@Category({KnownFailingTests.class, SlowTests.class})
 	@Test
 	public void testXsiModelTemplate() throws Exception {
+		fail();
+
 		IBindingManager bm = BindingManagerFactory.instance.createBindingManager();
 		bm.wDefValue("folderLocation", new File("test/org/whole/lang/xsd/templates").getAbsolutePath());
 		bm.wDefValue("packageName", "");

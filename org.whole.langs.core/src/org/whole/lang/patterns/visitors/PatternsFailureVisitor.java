@@ -246,6 +246,10 @@ public class PatternsFailureVisitor extends PatternsIdentityVisitor {
         throw new VisitException();
     }
 
+    public void visit(PatternSubtypeTest entity) {
+        throw new VisitException();
+    }
+
     public void visit(Placement entity) {
         throw new VisitException();
     }

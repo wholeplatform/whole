@@ -626,6 +626,9 @@ public class PatternsGenericBuilderAdapter extends GenericIdentityBuilder {
             case PatternsEntityDescriptorEnum.PatternTypeTest_ord :
             specificBuilder.PatternTypeTest(value);
             break;
+            case PatternsEntityDescriptorEnum.PatternSubtypeTest_ord :
+            specificBuilder.PatternSubtypeTest(value);
+            break;
             case PatternsEntityDescriptorEnum.URI_ord :
             specificBuilder.URI(value);
             break;

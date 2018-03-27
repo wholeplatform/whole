@@ -816,6 +816,14 @@ public class PatternsSpecificBuilderAdapter extends GenericBuilderContext implem
         wEntity(PatternsEntityDescriptorEnum.PatternTypeTest, value);
     }
 
+    public void PatternSubtypeTest() {
+        wEntity(PatternsEntityDescriptorEnum.PatternSubtypeTest);
+    }
+
+    public void PatternSubtypeTest(String value) {
+        wEntity(PatternsEntityDescriptorEnum.PatternSubtypeTest, value);
+    }
+
     public void Placement() {
         wEntity(PatternsEntityDescriptorEnum.Placement);
     }

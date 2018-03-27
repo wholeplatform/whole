@@ -416,6 +416,10 @@ public interface IPatternsBuilder extends IBuilder {
 
     public void PatternTypeTest(String value);
 
+    public void PatternSubtypeTest();
+
+    public void PatternSubtypeTest(String value);
+
     public void Placement();
 
     public void Placement(PlacementEnum.Value value);

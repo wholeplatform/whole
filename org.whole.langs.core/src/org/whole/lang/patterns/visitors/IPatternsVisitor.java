@@ -134,6 +134,8 @@ public interface IPatternsVisitor extends IVisitor {
 
     public void visit(PatternTypeTest entity);
 
+    public void visit(PatternSubtypeTest entity);
+
     public void visit(Placement entity);
 
     public void visit(URI entity);

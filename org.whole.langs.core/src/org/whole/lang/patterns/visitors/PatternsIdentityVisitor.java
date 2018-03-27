@@ -192,6 +192,9 @@ public class PatternsIdentityVisitor extends AbstractVisitor implements IPattern
     public void visit(PatternTypeTest entity) {
     }
 
+    public void visit(PatternSubtypeTest entity) {
+    }
+
     public void visit(Placement entity) {
     }
 

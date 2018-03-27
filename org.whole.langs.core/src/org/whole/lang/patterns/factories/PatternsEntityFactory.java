@@ -620,6 +620,14 @@ public class PatternsEntityFactory extends GenericEntityFactory {
         return create(PatternsEntityDescriptorEnum.PatternTypeTest, value);
     }
 
+    public PatternSubtypeTest createPatternSubtypeTest() {
+        return create(PatternsEntityDescriptorEnum.PatternSubtypeTest);
+    }
+
+    public PatternSubtypeTest createPatternSubtypeTest(String value) {
+        return create(PatternsEntityDescriptorEnum.PatternSubtypeTest, value);
+    }
+
     public Placement createPlacement() {
         return create(PatternsEntityDescriptorEnum.Placement);
     }
