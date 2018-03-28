@@ -19,6 +19,7 @@ package org.whole.lang.ui.figures;
 
 import java.util.List;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutAnimator;
@@ -58,6 +59,11 @@ public class CompositeFigure extends EntityFigure {
 		return isHorizontal ? 
 				new RowLayout().withMarginLeft(4).withMarginRight(4).withSpacing(5) : 
 				new ColumnLayout().withMarginTop(5).withMarginBottom(5).withSpacing(5);
+	}
+
+	public CompositeFigure withBorder(Border border) {
+		setBorder(border);
+		return this;
 	}
 
 	@Override

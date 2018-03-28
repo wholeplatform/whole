@@ -17,6 +17,7 @@
  */
 package org.whole.lang.ui.figures;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -51,6 +52,11 @@ public class EntityLabel extends Label implements IEntityFigure, ITextFigure {
 	}
 	public EntityLabel(Image i) {
 		super(i);
+	}
+
+	public EntityLabel withBorder(Border border) {
+		setBorder(border);
+		return this;
 	}
 
 
