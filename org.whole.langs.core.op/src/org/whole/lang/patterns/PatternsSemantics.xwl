@@ -657,7 +657,7 @@
                 <semantics:AnyType/>
                 <semantics:AnyType/>
             </semantics:FunctionType>
-            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="47">
+            <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="48">
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#Library"/>
                     <queries:Scope>
@@ -1780,6 +1780,10 @@
                             </commons:StageUpFragment>
                         </queries:Do>
                     </queries:Choose>
+                </queries:If>
+                <queries:If>
+                    <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#SlotDeclaration"/>
+                    <queries:VoidLiteral/>
                 </queries:If>
                 <queries:If>
                     <queries:TypeTest value="whole:org.whole.lang.patterns:PatternsModel#GoalDeclaration"/>
