@@ -81,7 +81,7 @@ Require-Bundle: org.whole.lang,
  org.beanshell.bsh;visibility:=reexport,
  org.objectweb.asm;bundle-version="3.1.0";visibility:=reexport,
  net.sourceforge.jodatime;visibility:=reexport,
- com.fasterxml.jackson;visibility:=reexport
+ com.fasterxml.jackson.core.jackson-core;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: org.whole.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
