@@ -113,13 +113,13 @@
     <feature id="org.h2">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="com.fasterxml.jackson">
+    <feature id="com.fasterxml.jackson.core.jackson-core">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="javax.ws.rs.api">
+    <feature id="javax.ws.rs">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="jersey.container.servlet">
+    <feature id="org.glassfish.jersey.containers.servlet">
         <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.jgit">
@@ -134,31 +134,64 @@
     <feature id="nu.validator.htmlparser">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="javax.websocket.api">
+    <feature id="javax.websocket">
         <category name="whole-enabling-features"/>
     </feature>
     <feature id="org.eclipse.jetty.servlet">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.eclipse.jetty.websocket.server.impl">
+    <feature id="org.eclipse.jetty.websocket.server">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.eclipse.jetty.websocket.client.impl">
+    <feature id="org.eclipse.jetty.websocket.client">
         <category name="whole-enabling-features"/>
     </feature>
     <feature id="com.github.jai.imageio.core">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.eclipse.scout.rt.batik.dependency">
+    <feature id="org.apache.batik.bridge">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.eclipse.scout.rt.batik.dependency.source">
+    <feature id="org.apache.batik.css">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="org.antlr.antlr4">
+    <feature id="org.apache.batik.dom">
         <category name="whole-enabling-features"/>
     </feature>
-    <feature id="net.java.dev.jna">
+    <feature id="org.apache.batik.dom.svg">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.ext.awt">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.extension">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.parser">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.svggen">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.swing">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.transcoder">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.util">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.util.gui">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.batik.xml">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.antlr.runtime">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="com.sun.jna">
         <category name="whole-enabling-features"/>
     </feature>
     <feature id="ca.weblite.java-objc-bridge">

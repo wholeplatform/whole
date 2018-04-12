@@ -53,7 +53,7 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("org.whole.langs.db.op");
 
 		// enabling features
-		bundles.add("com.fasterxml.jackson");
+		bundles.add("com.fasterxml.jackson.core.jackson-core");
 		bundles.add("net.sourceforge.jodatime");
 		bundles.add("nu.validator.htmlparser");
 		bundles.add("org.beanshell.bsh");
@@ -61,8 +61,8 @@ public class PlatformLibraryClasspathContainer implements IClasspathContainer {
 		bundles.add("org.h2");
 		bundles.add("org.mozilla.rhino");
 		bundles.add("org.objectweb.asm");
-		bundles.add("org.antlr.antlr4");
-		bundles.add("net.java.dev.jna");
+		bundles.add("org.antlr.runtime");
+		bundles.add("com.sun.jna");
 		bundles.add("ca.weblite.java-objc-bridge");
 		bundles.add("com.github.jai.imageio.core");
 

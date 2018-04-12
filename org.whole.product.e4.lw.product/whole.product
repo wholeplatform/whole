@@ -30,7 +30,7 @@
       <feature id="org.eclipse.gef.lightweight" installMode="root"/>
       <feature id="org.eclipse.gef.source" installMode="root"/>
       <feature id="org.eclipse.draw2d.source" installMode="root"/>
-      <feature id="com.fasterxml.jackson" installMode="root"/>
+      <feature id="com.fasterxml.jackson.core.jackson-core" installMode="root"/>
       <feature id="net.sourceforge.jodatime" installMode="root"/>
       <feature id="nu.validator.htmlparser" installMode="root"/>
       <feature id="org.beanshell.bsh" installMode="root"/>

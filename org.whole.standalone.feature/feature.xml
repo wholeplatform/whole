@@ -28,7 +28,7 @@
          version="0.0.0"/>
 
    <includes
-         id="com.fasterxml.jackson"
+         id="com.fasterxml.jackson.core.jackson-core"
          version="0.0.0"/>
 
    <includes
