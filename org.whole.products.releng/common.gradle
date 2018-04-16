@@ -143,12 +143,16 @@ project.gradle.buildFinished { buildResult ->
 	}
 }
 
-task info << {
-	println("relengDir: ${relengDir}")
-	println("Version: ${fullVersion}")
-	println("Has uncommitted changes: ${hasUncommittedChanges}")
+task info {
+	doLast {
+		println("relengDir: ${relengDir}")
+		println("Version: ${fullVersion}")
+		println("Has uncommitted changes: ${hasUncommittedChanges}")
+	}
 }
 
-task init_build << {
-	ant.mkdir(dir: buildArtifactsDir)
+task init_build {
+	doLast {
+		ant.mkdir(dir: buildArtifactsDir)
+	}
 }

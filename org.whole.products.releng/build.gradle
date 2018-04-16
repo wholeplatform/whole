@@ -1,78 +1,94 @@
 apply from: "common.gradle"
 def efRelengDir = "${reposDir}/whole-java-libs/org.whole.product.ef.releng"
 
-task set_build_version(description: "Set the build version") << {
-	ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: fullVersion, summary: true) {
-		include(name: "*/META-INF/MANIFEST.MF")
-		include(name: "*/feature.xml")
-		include(name: "*/category.xml")
-		include(name: "*/*.product")
-	}
-	
-	ant.replace(dir: repoDir, token: versionNumOld+"-SNAPSHOT", value: fullVersion, summary: true) {
-		include(name: "*/pom-e4-lw.xml")
-		include(name: "*/pom-lw.xml")
-		include(name: "*/pom-ldk.xml")
+task set_build_version(description: "Set the build version") {
+	doLast  {
+		ant.replace(dir: repoDir, token: versionNumOld+".qualifier", value: fullVersion, summary: true) {
+			include(name: "*/META-INF/MANIFEST.MF")
+			include(name: "*/feature.xml")
+			include(name: "*/category.xml")
+			include(name: "*/*.product")
+		}
+		
+		ant.replace(dir: repoDir, token: versionNumOld+"-SNAPSHOT", value: fullVersion, summary: true) {
+			include(name: "*/pom-e4-lw.xml")
+			include(name: "*/pom-lw.xml")
+			include(name: "*/pom-ldk.xml")
+		}
+		}
+}
+
+task set_meta_version(description: "Set the meta version") {
+	doLast  {
+		ant.replace(dir: repoDir, token: fullVersion, value: versionNum+".qualifier", summary: true) {
+			include(name: "*/META-INF/MANIFEST.MF")
+			include(name: "*/feature.xml")
+			include(name: "*/category.xml")
+			include(name: "*/*.product")
+		}
+		
+		ant.replace(dir: repoDir, token: fullVersion, value: versionNum+"-SNAPSHOT", summary: true) {
+			include(name: "*/pom-e4-lw.xml")
+			include(name: "*/pom-lw.xml")
+			include(name: "*/pom-ldk.xml")
+		}
 	}
 }
 
-task set_meta_version(description: "Set the meta version") << {
-	ant.replace(dir: repoDir, token: fullVersion, value: versionNum+".qualifier", summary: true) {
-		include(name: "*/META-INF/MANIFEST.MF")
-		include(name: "*/feature.xml")
-		include(name: "*/category.xml")
-		include(name: "*/*.product")
-	}
-	
-	ant.replace(dir: repoDir, token: fullVersion, value: versionNum+"-SNAPSHOT", summary: true) {
-		include(name: "*/pom-e4-lw.xml")
-		include(name: "*/pom-lw.xml")
-		include(name: "*/pom-ldk.xml")
+task zip_whole_sources(dependsOn: init_build) {
+	doLast  {
+		ant.zip(destfile: "${buildArtifactsDir}/whole-${fullVersion}.zip") {
+			zipfileset(prefix: "whole", dir: "${repoDir}", excludes: sourceExcludes, defaultexcludes: "no")
+		}
 	}
 }
 
-task zip_whole_sources(dependsOn: init_build) << {
-	ant.zip(destfile: "${buildArtifactsDir}/whole-${fullVersion}.zip") {
-		zipfileset(prefix: "whole", dir: "${repoDir}", excludes: sourceExcludes, defaultexcludes: "no")
-	}
-}
-
-task zip_examples_sources(dependsOn: init_build) << {
-	ant.zip(destfile: "${buildArtifactsDir}/whole-examples-${fullVersion}.zip") {
-		zipfileset(prefix: "whole-examples", dir: "${reposDir}/whole-examples", excludes: sourceExcludes, defaultexcludes: "no")
+task zip_examples_sources(dependsOn: init_build) {
+	doLast  {
+		ant.zip(destfile: "${buildArtifactsDir}/whole-examples-${fullVersion}.zip") {
+			zipfileset(prefix: "whole-examples", dir: "${reposDir}/whole-examples", excludes: sourceExcludes, defaultexcludes: "no")
+		}
 	}
 }
 zip_examples_sources.onlyIf { new File("${reposDir}/whole-examples").exists() }
 
 
-task clean_e4_lw << {
-	launchMaven(relengDir, "pom-e4-lw.xml", "clean")
-	ant.delete(dir: "${relengDir}/workspace")
+task clean_e4_lw {
+	doLast  {
+		launchMaven(relengDir, "pom-e4-lw.xml", "clean")
+		ant.delete(dir: "${relengDir}/workspace")
+	}
 }
 
-task package_e4_lw  << {
-	launchMaven(relengDir, "pom-e4-lw.xml", "package")
+task package_e4_lw  {
+	doLast  {
+		launchMaven(relengDir, "pom-e4-lw.xml", "package")
+	}
 }
 package_e4_lw.onlyIf { !failure }
 
-task build_e4_lw(dependsOn: [init_build, package_e4_lw]) << {
-	ant.move(toDir: buildArtifactsDir) {
-		fileset(dir: "${repoDir}/org.whole.product.e4.lw.repository/target", includes: "whole-*.zip")
-		fileset(dir: "${repoDir}/org.whole.product.e4.lw.product/target/products", includes: "whole-*")
-		firstmatchmapper {
-			globmapper(from: "whole*.gtk.x86_64.tar.gz",to: "whole-e4-lw*.tar.gz")
-			globmapper(from: "whole*macosx.cocoa.x86_64.tar.gz", to: "whole-e4-lw*osx.tar.gz")
-			globmapper(from: "whole*32.win32.x86_64.zip", to: "whole-e4-lw*dows.zip")
-			globmapper(from: "whole-*.zip", to: "whole-e4-*.zip")
+task build_e4_lw(dependsOn: [init_build, package_e4_lw]) {
+	doLast  {
+		ant.move(toDir: buildArtifactsDir) {
+			fileset(dir: "${repoDir}/org.whole.product.e4.lw.repository/target", includes: "whole-*.zip")
+			fileset(dir: "${repoDir}/org.whole.product.e4.lw.product/target/products", includes: "whole-*")
+			firstmatchmapper {
+				globmapper(from: "whole*.gtk.x86_64.tar.gz",to: "whole-e4-lw*.tar.gz")
+				globmapper(from: "whole*macosx.cocoa.x86_64.tar.gz", to: "whole-e4-lw*osx.tar.gz")
+				globmapper(from: "whole*32.win32.x86_64.zip", to: "whole-e4-lw*dows.zip")
+				globmapper(from: "whole-*.zip", to: "whole-e4-*.zip")
+			}
 		}
 	}
 } 
 build_e4_lw.onlyIf { !failure } 
 build_e4_lw.finalizedBy clean_e4_lw
 
-task clean_lw << {
-	launchMaven(relengDir, "pom-lw.xml", "clean")
-	ant.delete(dir: "${relengDir}/workspace")
+task clean_lw {
+	doLast  {
+		launchMaven(relengDir, "pom-lw.xml", "clean")
+		ant.delete(dir: "${relengDir}/workspace")
+	}
 }
 
 task build_ef(type: GradleBuild) {
@@ -81,35 +97,43 @@ task build_ef(type: GradleBuild) {
 }
 build_ef.onlyIf { !new File("${efRelengDir}/whole-ef-updates").exists() }
 
-task package_lw(dependsOn: [build_ef, set_build_version]) << {
-	launchMaven(relengDir, "pom-lw.xml", "package")
+task package_lw(dependsOn: [build_ef, set_build_version]) {
+	doLast  {
+		launchMaven(relengDir, "pom-lw.xml", "package")
+	}
 }
 package_lw.onlyIf { !failure && (!existsBuildArtifactsDir || hasUncommittedChanges) }
 package_lw.finalizedBy set_meta_version
 
-task build_lw(dependsOn: [init_build, package_lw]) << {
-	ant.move(toDir: buildArtifactsDir, failonerror:false) {
-		fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
-		fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
-		firstmatchmapper {
-			globmapper(from:"whole*.gtk.x86_64.tar.gz"          , to:"whole-lw*.tar.gz")
-			globmapper(from:"whole*macosx.cocoa.x86_64.tar.gz"  , to:"whole-lw*osx.tar.gz")
-			globmapper(from:"whole*32.win32.x86_64.zip"         , to:"whole-lw*dows.zip")
-			identitymapper()
+task build_lw(dependsOn: [init_build, package_lw]) {
+	doLast  {
+		ant.move(toDir: buildArtifactsDir, failonerror:false) {
+			fileset(dir: "${repoDir}/org.whole.product.lw.repository/target", includes: "whole-*.zip")
+			fileset(dir: "${repoDir}/org.whole.product.lw.product/target/products", includes: "whole-*")
+			firstmatchmapper {
+				globmapper(from:"whole*.gtk.x86_64.tar.gz"          , to:"whole-lw*.tar.gz")
+				globmapper(from:"whole*macosx.cocoa.x86_64.tar.gz"  , to:"whole-lw*osx.tar.gz")
+				globmapper(from:"whole*32.win32.x86_64.zip"         , to:"whole-lw*dows.zip")
+				identitymapper()
+			}
 		}
+		ant.delete(dir: "${relengDir}/whole-updates")
+		ant.unzip(src: "${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest: "${relengDir}/whole-updates")
 	}
-	ant.delete(dir: "${relengDir}/whole-updates")
-	ant.unzip(src: "${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest: "${relengDir}/whole-updates")
 }
 build_lw.onlyIf { !failure }
 build_lw.finalizedBy clean_lw
 
-task clean_ldk << {
-	launchMaven(relengDir, "pom-ldk.xml", "clean")
+task clean_ldk {
+	doLast  {
+		launchMaven(relengDir, "pom-ldk.xml", "clean")
+	}
 }
 
-task package_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", "install")
+task package_ldk(dependsOn: set_build_version) {
+	doLast  {
+		launchMaven(relengDir, "pom-ldk.xml", "install")
+	}
 }
 package_ldk.onlyIf { !failure }
 package_ldk.finalizedBy set_meta_version
@@ -123,76 +147,83 @@ task clean_updates_ef(type: GradleBuild) {
 	tasks = ["clean_updates"]
 }
 
-task clean_updates(dependsOn: clean_updates_ef, description: "Clean updates repository") << {
-	ant.delete(dir: "${relengDir}/whole-updates")
+task clean_updates(dependsOn: clean_updates_ef, description: "Clean updates repository") {
+	doLast  {
+		ant.delete(dir: "${relengDir}/whole-updates")
+	}
 }
 
-task clean(dependsOn: [clean_e4_lw, clean_lw, clean_ldk], description:"Clean") << {
-	ant.delete(dir: "${relengDir}/builds")
-	ant.delete(dir: "${relengDir}/whole-updates")
+task clean(dependsOn: [clean_e4_lw, clean_lw, clean_ldk], description:"Clean") {
+	doLast  {
+		ant.delete(dir: "${relengDir}/builds")
+		ant.delete(dir: "${relengDir}/whole-updates")
+	}
 }
 
 task build(dependsOn: [zip_whole_sources, zip_examples_sources, build_lw, build_ldk], description: "Generates all distribution archives")
 
-task release_lw(description: "Release the Whole Language Workbench") << {
-	def frsDir = "/home/frs/project/whole"
-	def apiKey = "$System.env.sourceforgeApiKey"
-
-	ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
-		patternset(includes:"whole/org.whole.products.releng/readme.txt")
-		flattenmapper()
+task release_lw(description: "Release the Whole Language Workbench") {
+	doLast  {
+		def frsDir = "/home/frs/project/whole"
+		def apiKey = "$System.env.sourceforgeApiKey"
+	
+		ant.unzip(src:"${buildArtifactsDir}/whole-${fullVersion}.zip", dest:"${buildArtifactsDir}") {
+			patternset(includes:"whole/org.whole.products.releng/readme.txt")
+			flattenmapper()
+		}
+	
+		exec {
+			executable = "rsync"
+			args = ["-ave", "ssh", "${buildArtifactsDir}/readme.txt", "riccardo_solmi@frs.sourceforge.net:${frsDir}"]
+		}
+	
+		ant.delete(file:"${buildArtifactsDir}/readme.txt")
+		ant.delete(file:"${buildArtifactsDir}/.DS_Store", quiet:"true" )
+	
+		exec {
+			executable = "rsync"
+			args = ["-ave", "ssh", "${buildArtifactsDir}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"]
+		}
+	
+		ant.unzip(src:"${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest:"${buildArtifactsDir}/${fullVersion}" )
+	
+		exec {
+			executable = "rsync"
+			args = ["-ave", "ssh", "${buildArtifactsDir}/${fullVersion}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"]
+		}
+	
+		ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
+	
+		exec {
+			executable = "curl"
+			args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=windows", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-windows.zip"]
+		}
+		exec {
+			executable = "curl"
+			args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=mac", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-osx.tar.gz"]
+		}
+		exec {
+			executable = "curl"
+			args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=linux&default=others", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-linux.tar.gz"]
+		}
+	
+		ant.echo(message: "Options Indexes\nRedirect 302 /updates http://sourceforge.net/projects/whole/files/updates/${fullVersion}\n", file: "${buildArtifactsDir}/.htaccess")
+	
+		exec {
+			executable = "rsync"
+			args = ["-ave", "ssh", "${buildArtifactsDir}/.htaccess", "riccardo_solmi@web.sourceforge.net:/home/project-web/whole/htdocs"]
+		}
+	
+		ant.delete(dir:"${buildArtifactsDir}/.htaccess")
 	}
-
-	exec {
-		executable = "rsync"
-		args = ["-ave", "ssh", "${buildArtifactsDir}/readme.txt", "riccardo_solmi@frs.sourceforge.net:${frsDir}"]
-	}
-
-	ant.delete(file:"${buildArtifactsDir}/readme.txt")
-	ant.delete(file:"${buildArtifactsDir}/.DS_Store", quiet:"true" )
-
-	exec {
-		executable = "rsync"
-		args = ["-ave", "ssh", "${buildArtifactsDir}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/builds"]
-	}
-
-	ant.unzip(src:"${buildArtifactsDir}/whole-updatesite-${fullVersion}.zip", dest:"${buildArtifactsDir}/${fullVersion}" )
-
-	exec {
-		executable = "rsync"
-		args = ["-ave", "ssh", "${buildArtifactsDir}/${fullVersion}", "riccardo_solmi@frs.sourceforge.net:${frsDir}/updates"]
-	}
-
-	ant.delete(dir:"${buildArtifactsDir}/${fullVersion}")
-
-	exec {
-		executable = "curl"
-		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=windows", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-windows.zip"]
-	}
-	exec {
-		executable = "curl"
-		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=mac", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-osx.tar.gz"]
-	}
-	exec {
-		executable = "curl"
-		args = ["-H", "Accept: application/json", "-X", "PUT", "-d", "default=linux&default=others", "-d", "api_key=${apiKey}", "https://sourceforge.net/projects/whole/files/builds/${fullVersion}/whole-lw-${fullVersion}-linux.tar.gz"]
-	}
-
-	ant.echo(message: "Options Indexes\nRedirect 302 /updates http://sourceforge.net/projects/whole/files/updates/${fullVersion}\n", file: "${buildArtifactsDir}/.htaccess")
-
-	exec {
-		executable = "rsync"
-		args = ["-ave", "ssh", "${buildArtifactsDir}/.htaccess", "riccardo_solmi@web.sourceforge.net:/home/project-web/whole/htdocs"]
-	}
-
-	ant.delete(dir:"${buildArtifactsDir}/.htaccess")
-
 }
 release_lw.onlyIf { existsBuildArtifactsDir }
 
 
-task deploy_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", "deploy")
+task deploy_ldk(dependsOn: set_build_version) {
+	doLast  {
+		launchMaven(relengDir, "pom-ldk.xml", "deploy")
+	}
 }
 deploy_ldk.finalizedBy set_meta_version
 
@@ -200,8 +231,10 @@ task release_ldk(dependsOn: deploy_ldk, description: "Release the Whole Language
 release_ldk.onlyIf { !failure }
 release_ldk.finalizedBy clean_ldk
 
-task install_ldk(dependsOn: set_build_version) << {
-	launchMaven(relengDir, "pom-ldk.xml", "install")
+task install_ldk(dependsOn: set_build_version) {
+	doLast  {
+		launchMaven(relengDir, "pom-ldk.xml", "install")
+	}
 }
 install_ldk.finalizedBy set_meta_version
 
@@ -212,24 +245,28 @@ release_ldk_local.finalizedBy clean_ldk
 task release(dependsOn: [release_lw, release_ldk], description: "Releases all the Whole Platform products")
 
 
-task integration_test(dependsOn: [build_ef], description: "Test the Whole Language Workbench") << {
-	launchMaven(relengDir, "pom-lw.xml", "integration-test")
+task integration_test(dependsOn: [build_ef], description: "Test the Whole Language Workbench") {
+	doLast  {
+		launchMaven(relengDir, "pom-lw.xml", "integration-test")
+	}
 }
 
-task copy_update_site << {
-	if (!new File(buildArtifactsDir).exists()) 
-		throw new RuntimeException("Missing build folder")
-
-	def productDir = hasProperty("productDir") ? getProperty("productDir") : null;	
-		
-	if (productDir == null || !new File(getProperty("productDir")).exists)
-		throw new RuntimeException("Missing product folder")
-
-	ant.copy(toDir:"${product.dir}") {
-		fileset(dir: "${buildArtifactsDir}", includes: "whole-updatesite*.zip")
-		firstmatchmapper {
-			globmapper(from: "whole-updatesite*",to: "whole-lw-updatesite*")
-			identitymapper()
+task copy_update_site {
+	doLast  {
+		if (!new File(buildArtifactsDir).exists()) 
+			throw new RuntimeException("Missing build folder")
+	
+		def productDir = hasProperty("productDir") ? getProperty("productDir") : null;	
+			
+		if (productDir == null || !new File(getProperty("productDir")).exists)
+			throw new RuntimeException("Missing product folder")
+	
+		ant.copy(toDir:"${product.dir}") {
+			fileset(dir: "${buildArtifactsDir}", includes: "whole-updatesite*.zip")
+			firstmatchmapper {
+				globmapper(from: "whole-updatesite*",to: "whole-lw-updatesite*")
+				identitymapper()
+			}
 		}
 	}
 }
