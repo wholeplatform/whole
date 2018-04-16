@@ -10,7 +10,7 @@
       </deployer>
    </extension>
    <extension
-         id="org.whole.lang.ui.image.ImagesGenerator"
+         id="org.whole.test.ImagesGenerator"
          point="org.eclipse.core.runtime.applications">
       <application
             cardinality="singleton-global"
