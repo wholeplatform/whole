@@ -197,4 +197,13 @@
     <feature id="ca.weblite.java-objc-bridge">
         <category name="whole-enabling-features"/>
     </feature>
+    <feature id="org.apache.aries.spifly.dynamic.bundle">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.objectweb.asm.all">
+        <category name="whole-enabling-features"/>
+    </feature>
+    <feature id="org.apache.aries.util">
+        <category name="whole-enabling-features"/>
+    </feature>
 </site>

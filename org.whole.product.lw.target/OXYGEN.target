@@ -56,6 +56,9 @@
             <unit id="org.eclipse.zest.source.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.zest.sdk.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.gef.all.feature.group" version="0.0.0"/>
+            <unit id="org.apache.aries.spifly.dynamic.bundle.feature.group" version="0.0.0"/>
+            <unit id="org.objectweb.asm.all.feature.group" version="0.0.0"/>
+            <unit id="org.apache.aries.util.feature.group" version="0.0.0"/>
         </location>
     </locations>
 </target>
