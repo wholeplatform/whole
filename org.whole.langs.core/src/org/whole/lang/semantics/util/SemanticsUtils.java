@@ -31,6 +31,8 @@ import org.whole.lang.iterators.IEntityIterator;
 import org.whole.lang.iterators.IteratorFactory;
 import org.whole.lang.matchers.Matcher;
 import org.whole.lang.model.IEntity;
+import org.whole.lang.queries.factories.QueriesEntityFactory;
+import org.whole.lang.queries.reflect.QueriesEntityDescriptorEnum;
 import org.whole.lang.reflect.EntityDescriptor;
 import org.whole.lang.reflect.FeatureDescriptor;
 import org.whole.lang.reflect.ILanguageKit;
@@ -211,8 +213,8 @@ public class SemanticsUtils {
 					.getResult();
 		}
 
-		return CommonsEntityFactory.instance.createStageUpFragment(
-				GenericEntityFactory.instance.create(ed, values).wGetAdapter(CommonsEntityDescriptorEnum.Any));
+		return QueriesEntityFactory.instance.createMatchTest(CommonsEntityFactory.instance.createStageUpFragment(
+				GenericEntityFactory.instance.create(ed, values).wGetAdapter(CommonsEntityDescriptorEnum.Any)).wGetAdapter(QueriesEntityDescriptorEnum.Expression));
 	}
 
 	public static IEntity createTypedVariable(LocalIdentifier variable, FreshNameGenerator nameGenerator) {

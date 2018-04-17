@@ -26,7 +26,7 @@ import org.whole.lang.ui.figures.TableFigure;
 public class SequencePointFigure extends TableFigure {
 	public SequencePointFigure() {
 		super(2);
-		getLayoutManager().withMargin(5, 0, 5, 0);
+		getLayoutManager().withColumnSpacing(12).withMargin(5, 0, 5, 0);
 		setBorder(CompositePlaceHolderBorder.OPTIONAL_VERTICAL);
 	}
 }

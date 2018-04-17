@@ -17,22 +17,22 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:VariableRefStep value="focusEntity"/>
                                     <queries:And initialCapacity="2">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="COMPOSITE"/>
                                         </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                     </queries:And>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
                         <queries:Do>
@@ -147,32 +147,31 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Filter>
                                     <queries:VariableRefStep value="focusEntity"/>
                                     <queries:And initialCapacity="2">
                                         <queries:KindTest value="DATA"/>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:And initialCapacity="2">
                                         <queries:KindTest value="COMPOSITE"/>
-                                        <queries:ExpressionTest>
-                                        <queries:Path initialCapacity="1">
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:KindTest value="COMPOSITE"/>
                                         </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:And>
                                         </queries:Filter>
-                                        </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                     </queries:And>
                                 </queries:Filter>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
                         <queries:Do>
@@ -331,34 +330,32 @@
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
                             <queries:And initialCapacity="3">
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPosition"/>
-                                        <queries:IntLiteral value="0"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPositionStart"/>
-                                        <queries:VariableRefStep value="caretPositionEnd"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPosition"/>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:Equals>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPositionStart"/>
+                                    <queries:VariableRefStep value="caretPositionEnd"/>
+                                </queries:Equals>
+                                <queries:Some>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:Filter>
                                         <queries:PrecedingStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:DescendantStep/>
                                         <queries:VariableTest value="focusEntity"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                     </queries:Path>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:And>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
@@ -393,7 +390,7 @@
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
                                     <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="3">
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:Filter>
@@ -418,12 +415,8 @@
                                         <queries:Every>
                                         <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:Sequence initialCapacity="2">
-                                        <queries:SelfStep/>
-                                        <queries:FollowingSiblingStep/>
-                                        </queries:Sequence>
+                                        <queries:FollowingSiblingOrSelfStep/>
                                         </queries:Path>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="EntityUtils.isAddable(composite, entity)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -435,12 +428,12 @@
                                         <workflows:Variable value="self"/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:Every>
                                         </queries:And>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                     </queries:If>
                                     <queries:Do>
@@ -452,11 +445,7 @@
                             <queries:Choose initialCapacity="2">
                                 <queries:If>
                                     <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="canMerge"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                     </queries:Not>
                                     <queries:Block initialCapacity="2">
                                         <queries:Delete>
@@ -466,12 +455,13 @@
                                         <queries:Filter>
                                         <queries:PrecedingStep/>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:DescendantStep/>
                                         <queries:VariableTest value="focusEntity"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Not>
                                         </queries:Filter>
                                         <queries:IndexTest>
@@ -492,12 +482,13 @@
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:VariableTest value="focusEntityContainer"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         <queries:Filter>
                                         <queries:Filter>
@@ -514,18 +505,18 @@
                                         </queries:Filter>
                                         <queries:VariableTest value="beforeEntity"/>
                                         </queries:Filter>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:VariableTest value="beforeEntityContainer"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         </queries:Path>
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <queries:Singleton>
                                         <queries:Path initialCapacity="2">
@@ -548,7 +539,7 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
@@ -558,12 +549,12 @@
                                         </semantics:FunctionApplication>
                                         <queries:VariableTest value="typeURI"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:Singleton>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         <queries:CartesianUpdate>
                                         <queries:VariableRefStep value="beforeEntity"/>
                                         <queries:Block initialCapacity="3">
@@ -601,19 +592,18 @@
                                         <queries:Do>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="beforeEntity"/>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Sequence initialCapacity="2">
                                         <queries:PointwiseUpdate>
                                         <queries:VariableRefStep value="caretPosition"/>
@@ -645,7 +635,6 @@
                                         </queries:Filter>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="focusEntityContainer.wEquals(beforeEntityContainer)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -657,7 +646,6 @@
                                         <workflows:Variable value="beforeEntityContainer"/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaInstanceMethod>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:Sequence initialCapacity="4">
                                         <queries:Path initialCapacity="2">
@@ -667,11 +655,7 @@
                                         <queries:Expressions initialCapacity="2">
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteFocusEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:SelfStep/>
                                         </queries:If>
@@ -688,11 +672,7 @@
                                         <queries:FollowingSiblingStep/>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteFocusEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:SelfStep/>
                                         </queries:If>
@@ -724,11 +704,7 @@
                                         </queries:Some>
                                         </queries:Not>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteFocusEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         <queries:Not>
                                         <queries:Some>
                                         <queries:Path initialCapacity="2">
@@ -757,11 +733,7 @@
                                         </queries:Sequence>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteFocusEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         <queries:Delete>
                                         <queries:VariableRefStep value="focusEntity"/>
                                         </queries:Delete>
@@ -788,24 +760,21 @@
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
                             <queries:And initialCapacity="3">
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPosition"/>
-                                        <queries:VariableRefStep value="caretPositions"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPositionStart"/>
-                                        <queries:VariableRefStep value="caretPositionEnd"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPosition"/>
+                                    <queries:VariableRefStep value="caretPositions"/>
+                                </queries:Equals>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPositionStart"/>
+                                    <queries:VariableRefStep value="caretPositionEnd"/>
+                                </queries:Equals>
+                                <queries:Some>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:FollowingStep/>
                                     </queries:Path>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:And>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
@@ -840,11 +809,11 @@
                             <queries:Filter>
                                 <queries:Choose initialCapacity="2">
                                     <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:And initialCapacity="2">
@@ -852,7 +821,8 @@
                                         <queries:VariableTest value="focusEntityContainer"/>
                                         </queries:And>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         <queries:Filter>
                                         <queries:Filter>
@@ -867,13 +837,7 @@
                                         </queries:IndexTest>
                                         </queries:Filter>
                                         <queries:Every>
-                                        <queries:Path initialCapacity="1">
-                                        <queries:Sequence initialCapacity="2">
-                                        <queries:SelfStep/>
-                                        <queries:FollowingSiblingStep/>
-                                        </queries:Sequence>
-                                        </queries:Path>
-                                        <queries:ExpressionTest>
+                                        <queries:FollowingSiblingOrSelfStep/>
                                         <workflows:InvokeJavaClassMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="EntityUtils.isAddable(composite, entity)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -885,11 +849,11 @@
                                         <workflows:Variable value="self"/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaClassMethod>
-                                        </queries:ExpressionTest>
                                         </queries:Every>
                                         </queries:Filter>
                                         </queries:Path>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:BooleanLiteral value="true"/>
                                     </queries:If>
                                     <queries:Do>
@@ -901,11 +865,7 @@
                             <queries:Choose initialCapacity="2">
                                 <queries:If>
                                     <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="canMerge"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                     </queries:Not>
                                     <queries:Block initialCapacity="2">
                                         <queries:Delete>
@@ -931,12 +891,13 @@
                                         <queries:Path initialCapacity="2">
                                         <queries:Filter>
                                         <queries:VariableRefStep value="focusEntity"/>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:VariableTest value="focusEntityContainer"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         <queries:Filter>
                                         <queries:Filter>
@@ -953,18 +914,18 @@
                                         </queries:Filter>
                                         <queries:VariableTest value="afterEntity"/>
                                         </queries:Filter>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:ParentStep/>
                                         <queries:VariableTest value="afterEntityContainer"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         </queries:Path>
                                         <queries:Filter>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
                                         <queries:Equals>
                                         <queries:Singleton>
                                         <queries:Path initialCapacity="2">
@@ -987,7 +948,7 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:ReflectLibrary#entityURI"/>
@@ -997,12 +958,12 @@
                                         </semantics:FunctionApplication>
                                         <queries:VariableTest value="typeURI"/>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         </queries:Filter>
                                         </queries:Path>
                                         </queries:Singleton>
                                         </queries:Equals>
-                                        </queries:ExpressionTest>
                                         <queries:CartesianUpdate>
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:Block initialCapacity="2">
@@ -1028,19 +989,18 @@
                                         <queries:Do>
                                         <queries:Choose initialCapacity="2">
                                         <queries:If>
-                                        <queries:ExpressionTest>
+                                        <queries:Some>
                                         <queries:Filter>
                                         <queries:VariableRefStep value="afterEntity"/>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:Filter>
-                                        </queries:ExpressionTest>
+                                        <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                        </queries:Some>
                                         <queries:Sequence initialCapacity="2">
                                         <queries:PointwiseUpdate>
                                         <queries:VariableRefStep value="caretPosition"/>
@@ -1064,7 +1024,6 @@
                                         </queries:Filter>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
                                         <workflows:InvokeJavaInstanceMethod xmlns:workflows="http://lang.whole.org/Workflows">
                                         <workflows:Text value="afterEntityContainer.wEquals(focusEntityContainer)"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
@@ -1076,7 +1035,6 @@
                                         <workflows:Variable value="focusEntityContainer"/>
                                         </workflows:Expressions>
                                         </workflows:InvokeJavaInstanceMethod>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:Sequence initialCapacity="4">
                                         <queries:Path initialCapacity="2">
@@ -1086,11 +1044,7 @@
                                         <queries:Expressions initialCapacity="2">
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteAfterEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:SelfStep/>
                                         </queries:If>
@@ -1107,11 +1061,7 @@
                                         <queries:FollowingSiblingStep/>
                                         <queries:If>
                                         <queries:Not>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteAfterEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         </queries:Not>
                                         <queries:SelfStep/>
                                         </queries:If>
@@ -1143,11 +1093,7 @@
                                         </queries:Some>
                                         </queries:Not>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteAfterEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         <queries:Not>
                                         <queries:Some>
                                         <queries:Path initialCapacity="2">
@@ -1176,11 +1122,7 @@
                                         </queries:Sequence>
                                         </queries:If>
                                         <queries:If>
-                                        <queries:ExpressionTest>
-                                        <queries:Singleton>
                                         <queries:VariableRefStep value="deleteAfterEntity"/>
-                                        </queries:Singleton>
-                                        </queries:ExpressionTest>
                                         <queries:Delete>
                                         <queries:VariableRefStep value="afterEntity"/>
                                         </queries:Delete>
@@ -1207,19 +1149,15 @@
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
                             <queries:And initialCapacity="3">
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPosition"/>
-                                        <queries:IntLiteral value="0"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPositionStart"/>
-                                        <queries:VariableRefStep value="caretPositionEnd"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPosition"/>
+                                    <queries:IntLiteral value="0"/>
+                                </queries:Equals>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPositionStart"/>
+                                    <queries:VariableRefStep value="caretPositionEnd"/>
+                                </queries:Equals>
+                                <queries:Some>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:Filter>
@@ -1235,26 +1173,23 @@
                                         </queries:IndexTest>
                                         </queries:Filter>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureIsShowing"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:And>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
@@ -1328,19 +1263,15 @@
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
                             <queries:And initialCapacity="3">
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPosition"/>
-                                        <queries:VariableRefStep value="caretPositions"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
-                                    <queries:Equals>
-                                        <queries:VariableRefStep value="caretPositionStart"/>
-                                        <queries:VariableRefStep value="caretPositionEnd"/>
-                                    </queries:Equals>
-                                </queries:ExpressionTest>
-                                <queries:ExpressionTest>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPosition"/>
+                                    <queries:VariableRefStep value="caretPositions"/>
+                                </queries:Equals>
+                                <queries:Equals>
+                                    <queries:VariableRefStep value="caretPositionStart"/>
+                                    <queries:VariableRefStep value="caretPositionEnd"/>
+                                </queries:Equals>
+                                <queries:Some>
                                     <queries:Path initialCapacity="2">
                                         <queries:VariableRefStep value="focusEntity"/>
                                         <queries:Filter>
@@ -1356,26 +1287,23 @@
                                         </queries:IndexTest>
                                         </queries:Filter>
                                         <queries:And initialCapacity="2">
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityFigureIsShowing"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                         </queries:And>
                                         </queries:Filter>
                                     </queries:Path>
-                                </queries:ExpressionTest>
+                                    <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                                </queries:Some>
                             </queries:And>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
@@ -1431,7 +1359,7 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Path initialCapacity="2">
                                     <queries:VariableRefStep value="caretBounds"/>
                                     <queries:Filter>
@@ -1441,17 +1369,16 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                     </queries:Filter>
                                 </queries:Path>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
                         <queries:Do>
@@ -1530,7 +1457,7 @@
                     <semantics:AnyType/>
                     <queries:Choose xmlns:queries="http://lang.whole.org/Queries" initialCapacity="2">
                         <queries:If>
-                            <queries:ExpressionTest>
+                            <queries:Some>
                                 <queries:Path initialCapacity="2">
                                     <queries:VariableRefStep value="caretBounds"/>
                                     <queries:Filter>
@@ -1540,17 +1467,16 @@
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        <queries:ExpressionTest>
                                         <semantics:FunctionApplication>
                                         <semantics:Name value="whole:org.whole.lang:NotationsLibrary#entityPartIsTextual"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
                                         </semantics:FunctionApplication>
-                                        </queries:ExpressionTest>
                                     </queries:Filter>
                                 </queries:Path>
-                            </queries:ExpressionTest>
+                                <commons:Resolver xmlns:commons="http://lang.whole.org/Commons"/>
+                            </queries:Some>
                             <queries:BooleanLiteral value="true"/>
                         </queries:If>
                         <queries:Do>
